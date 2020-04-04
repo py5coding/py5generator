@@ -15,6 +15,7 @@ _papplet = PythonPApplet()
 
 pappletSkipMethods = {
     'print', 'exec', 'draw', 'setup', 'exit',
+    'runSketch',
     'handleDrawPt1', 'handleDrawPt2', 'handleDrawPt3',
     'handleSettingsPt1', 'handleSettingsPt2',
 }

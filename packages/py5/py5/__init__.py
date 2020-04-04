@@ -178,12 +178,12 @@ WINDOWS = 1
 X = 0
 Y = 1
 Z = 2
-platform = 3
-useNativeSelect = True
-javaVersion = 1.8
-platformNames = ['other', 'windows', 'macosx', 'linux']
 javaPlatform = 8
 javaVersionName = '1.8.0_74'
+javaVersion = 1.8
+platformNames = ['other', 'windows', 'macosx', 'linux']
+platform = 3
+useNativeSelect = True
 
 
 # *** PY5 GENERATED FUNCTIONS ***
@@ -1231,10 +1231,6 @@ def round(*args):
     return PythonPApplet.round(*args)
 
 
-def run_sketch(*args):
-    return _papplet.runSketch(*args)
-
-
 def saturation(*args):
     return _papplet.saturation(*args)
 
@@ -1693,7 +1689,7 @@ def _handle_draw(setup, draw):
 
 def run_sketch(settings, setup, draw, frameLimit=1000):
     _handle_settings(settings)
-    PythonPApplet.setupSketch(['py5 sketch'], _papplet)
+    PythonPApplet.setupSketch([''], _papplet)
 
     while frameLimit > 0:
         _handle_draw(setup, draw)

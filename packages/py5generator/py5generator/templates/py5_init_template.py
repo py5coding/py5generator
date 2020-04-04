@@ -49,7 +49,7 @@ def _handle_draw(setup, draw):
 
 def run_sketch(settings, setup, draw, frameLimit=1000):
     _handle_settings(settings)
-    PythonPApplet.setupSketch(['py5 sketch'], _papplet)
+    PythonPApplet.setupSketch([''], _papplet)
 
     while frameLimit > 0:
         _handle_draw(setup, draw)
