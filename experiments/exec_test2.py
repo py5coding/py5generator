@@ -12,6 +12,7 @@ def settings():
 
 def setup():
     background(255)
+    rect_mode(CENTER)
 
 
 def draw():

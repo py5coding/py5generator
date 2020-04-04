@@ -178,11 +178,11 @@ WINDOWS = 1
 X = 0
 Y = 1
 Z = 2
-platformNames = ['other', 'windows', 'macosx', 'linux']
-javaVersion = 1.8
 platform = 3
-javaPlatform = 8
 useNativeSelect = True
+javaVersion = 1.8
+platformNames = ['other', 'windows', 'macosx', 'linux']
+javaPlatform = 8
 javaVersionName = '1.8.0_74'
 
 
@@ -203,7 +203,7 @@ def ambient(*args):
     return _papplet.ambient(*args)
 
 
-def ambientLight(*args):
+def ambient_light(*args):
     return _papplet.ambientLight(*args)
 
 
@@ -211,7 +211,7 @@ def append(*args):
     return _papplet.append(*args)
 
 
-def applyMatrix(*args):
+def apply_matrix(*args):
     return _papplet.applyMatrix(*args)
 
 
@@ -219,7 +219,7 @@ def arc(*args):
     return _papplet.arc(*args)
 
 
-def arrayCopy(*args):
+def array_copy(*args):
     return _papplet.arrayCopy(*args)
 
 
@@ -243,15 +243,15 @@ def attrib(*args):
     return _papplet.attrib(*args)
 
 
-def attribColor(*args):
+def attrib_color(*args):
     return _papplet.attribColor(*args)
 
 
-def attribNormal(*args):
+def attrib_normal(*args):
     return _papplet.attribNormal(*args)
 
 
-def attribPosition(*args):
+def attrib_position(*args):
     return _papplet.attribPosition(*args)
 
 
@@ -259,27 +259,27 @@ def background(*args):
     return _papplet.background(*args)
 
 
-def beginCamera(*args):
+def begin_camera(*args):
     return _papplet.beginCamera(*args)
 
 
-def beginContour(*args):
+def begin_contour(*args):
     return _papplet.beginContour(*args)
 
 
-def beginPGL(*args):
+def begin_pgl(*args):
     return _papplet.beginPGL(*args)
 
 
-def beginRaw(*args):
+def begin_raw(*args):
     return _papplet.beginRaw(*args)
 
 
-def beginRecord(*args):
+def begin_record(*args):
     return _papplet.beginRecord(*args)
 
 
-def beginShape(*args):
+def begin_shape(*args):
     return _papplet.beginShape(*args)
 
 
@@ -287,19 +287,19 @@ def bezier(*args):
     return _papplet.bezier(*args)
 
 
-def bezierDetail(*args):
+def bezier_detail(*args):
     return _papplet.bezierDetail(*args)
 
 
-def bezierPoint(*args):
+def bezier_point(*args):
     return _papplet.bezierPoint(*args)
 
 
-def bezierTangent(*args):
+def bezier_tangent(*args):
     return _papplet.bezierTangent(*args)
 
 
-def bezierVertex(*args):
+def bezier_vertex(*args):
     return _papplet.bezierVertex(*args)
 
 
@@ -311,11 +311,11 @@ def blend(*args):
     return _papplet.blend(*args)
 
 
-def blendColor(*args):
+def blend_color(*args):
     return PythonPApplet.blendColor(*args)
 
 
-def blendMode(*args):
+def blend_mode(*args):
     return _papplet.blendMode(*args)
 
 
@@ -331,7 +331,7 @@ def brightness(*args):
     return _papplet.brightness(*args)
 
 
-def calcSketchPath(*args):
+def calc_sketch_path(*args):
     return PythonPApplet.calcSketchPath(*args)
 
 
@@ -343,11 +343,11 @@ def ceil(*args):
     return PythonPApplet.ceil(*args)
 
 
-def checkExtension(*args):
+def check_extension(*args):
     return PythonPApplet.checkExtension(*args)
 
 
-def checkLookAndFeel(*args):
+def check_look_and_feel(*args):
     return PythonPApplet.checkLookAndFeel(*args)
 
 
@@ -371,7 +371,7 @@ def color(*args):
     return _papplet.color(*args)
 
 
-def colorMode(*args):
+def color_mode(*args):
     return _papplet.colorMode(*args)
 
 
@@ -391,51 +391,51 @@ def cos(*args):
     return PythonPApplet.cos(*args)
 
 
-def createFont(*args):
+def create_font(*args):
     return _papplet.createFont(*args)
 
 
-def createGraphics(*args):
+def create_graphics(*args):
     return _papplet.createGraphics(*args)
 
 
-def createImage(*args):
+def create_image(*args):
     return _papplet.createImage(*args)
 
 
-def createInput(*args):
+def create_input(*args):
     return _papplet.createInput(*args)
 
 
-def createInputRaw(*args):
+def create_input_raw(*args):
     return _papplet.createInputRaw(*args)
 
 
-def createOutput(*args):
+def create_output(*args):
     return _papplet.createOutput(*args)
 
 
-def createPath(*args):
+def create_path(*args):
     return _papplet.createPath(*args)
 
 
-def createPrimaryGraphics(*args):
+def create_primary_graphics(*args):
     return _papplet.createPrimaryGraphics(*args)
 
 
-def createReader(*args):
+def create_reader(*args):
     return _papplet.createReader(*args)
 
 
-def createShape(*args):
+def create_shape(*args):
     return _papplet.createShape(*args)
 
 
-def createTempFile(*args):
+def create_temp_file(*args):
     return PythonPApplet.createTempFile(*args)
 
 
-def createWriter(*args):
+def create_writer(*args):
     return _papplet.createWriter(*args)
 
 
@@ -447,31 +447,31 @@ def curve(*args):
     return _papplet.curve(*args)
 
 
-def curveDetail(*args):
+def curve_detail(*args):
     return _papplet.curveDetail(*args)
 
 
-def curvePoint(*args):
+def curve_point(*args):
     return _papplet.curvePoint(*args)
 
 
-def curveTangent(*args):
+def curve_tangent(*args):
     return _papplet.curveTangent(*args)
 
 
-def curveTightness(*args):
+def curve_tightness(*args):
     return _papplet.curveTightness(*args)
 
 
-def curveVertex(*args):
+def curve_vertex(*args):
     return _papplet.curveVertex(*args)
 
 
-def dataFile(*args):
+def data_file(*args):
     return _papplet.dataFile(*args)
 
 
-def dataPath(*args):
+def data_path(*args):
     return _papplet.dataPath(*args)
 
 
@@ -491,15 +491,15 @@ def delay(*args):
     return _papplet.delay(*args)
 
 
-def dequeueEvents(*args):
+def dequeue_events(*args):
     return _papplet.dequeueEvents(*args)
 
 
-def desktopFile(*args):
+def desktop_file(*args):
     return PythonPApplet.desktopFile(*args)
 
 
-def desktopPath(*args):
+def desktop_path(*args):
     return PythonPApplet.desktopPath(*args)
 
 
@@ -507,11 +507,11 @@ def die(*args):
     return _papplet.die(*args)
 
 
-def directionalLight(*args):
+def directional_light(*args):
     return _papplet.directionalLight(*args)
 
 
-def displayDensity(*args):
+def display_density(*args):
     return _papplet.displayDensity(*args)
 
 
@@ -531,7 +531,7 @@ def ellipse(*args):
     return _papplet.ellipse(*args)
 
 
-def ellipseMode(*args):
+def ellipse_mode(*args):
     return _papplet.ellipseMode(*args)
 
 
@@ -539,27 +539,27 @@ def emissive(*args):
     return _papplet.emissive(*args)
 
 
-def endCamera(*args):
+def end_camera(*args):
     return _papplet.endCamera(*args)
 
 
-def endContour(*args):
+def end_contour(*args):
     return _papplet.endContour(*args)
 
 
-def endPGL(*args):
+def end_pgl(*args):
     return _papplet.endPGL(*args)
 
 
-def endRaw(*args):
+def end_raw(*args):
     return _papplet.endRaw(*args)
 
 
-def endRecord(*args):
+def end_record(*args):
     return _papplet.endRecord(*args)
 
 
-def endShape(*args):
+def end_shape(*args):
     return _papplet.endShape(*args)
 
 
@@ -567,11 +567,11 @@ def equals(*args):
     return _papplet.equals(*args)
 
 
-def exitActual(*args):
+def exit_actual(*args):
     return _papplet.exitActual(*args)
 
 
-def exitCalled(*args):
+def exit_called(*args):
     return _papplet.exitCalled(*args)
 
 
@@ -603,19 +603,19 @@ def flush(*args):
     return _papplet.flush(*args)
 
 
-def focusGained(*args):
+def focus_gained(*args):
     return _papplet.focusGained(*args)
 
 
-def focusLost(*args):
+def focus_lost(*args):
     return _papplet.focusLost(*args)
 
 
-def frameMoved(*args):
+def frame_moved(*args):
     return _papplet.frameMoved(*args)
 
 
-def frameResized(*args):
+def frame_resized(*args):
     return _papplet.frameResized(*args)
 
 
@@ -623,7 +623,7 @@ def frustum(*args):
     return _papplet.frustum(*args)
 
 
-def fullScreen(*args):
+def full_screen(*args):
     return _papplet.fullScreen(*args)
 
 
@@ -631,23 +631,23 @@ def get(*args):
     return _papplet.get(*args)
 
 
-def getClass(*args):
+def get_class(*args):
     return _papplet.getClass(*args)
 
 
-def getExtension(*args):
+def get_extension(*args):
     return PythonPApplet.getExtension(*args)
 
 
-def getGraphics(*args):
+def get_graphics(*args):
     return _papplet.getGraphics(*args)
 
 
-def getMatrix(*args):
+def get_matrix(*args):
     return _papplet.getMatrix(*args)
 
 
-def getSurface(*args):
+def get_surface(*args):
     return _papplet.getSurface(*args)
 
 
@@ -655,27 +655,27 @@ def green(*args):
     return _papplet.green(*args)
 
 
-def handleDraw(*args):
+def handle_draw(*args):
     return _papplet.handleDraw(*args)
 
 
-def handleKeyEvent(*args):
+def handle_key_event(*args):
     return _papplet.handleKeyEvent(*args)
 
 
-def handleMethods(*args):
+def handle_methods(*args):
     return _papplet.handleMethods(*args)
 
 
-def handleMouseEvent(*args):
+def handle_mouse_event(*args):
     return _papplet.handleMouseEvent(*args)
 
 
-def handleSettings(*args):
+def handle_settings(*args):
     return _papplet.handleSettings(*args)
 
 
-def hashCode(*args):
+def hash_code(*args):
     return _papplet.hashCode(*args)
 
 
@@ -683,7 +683,7 @@ def hex(*args):
     return _papplet.hex(*args)
 
 
-def hideMenuBar(*args):
+def hide_menu_bar(*args):
     return PythonPApplet.hideMenuBar(*args)
 
 
@@ -703,23 +703,23 @@ def image(*args):
     return _papplet.image(*args)
 
 
-def imageMode(*args):
+def image_mode(*args):
     return _papplet.imageMode(*args)
 
 
-def initSurface(*args):
+def init_surface(*args):
     return _papplet.initSurface(*args)
 
 
-def insertFrame(*args):
+def insert_frame(*args):
     return _papplet.insertFrame(*args)
 
 
-def insideSettings(*args):
+def inside_settings(*args):
     return _papplet.insideSettings(*args)
 
 
-def isLooping(*args):
+def is_looping(*args):
     return _papplet.isLooping(*args)
 
 
@@ -727,11 +727,11 @@ def join(*args):
     return _papplet.join(*args)
 
 
-def keyReleased(*args):
+def key_released(*args):
     return _papplet.keyReleased(*args)
 
 
-def keyTyped(*args):
+def key_typed(*args):
     return _papplet.keyTyped(*args)
 
 
@@ -743,15 +743,15 @@ def lerp(*args):
     return PythonPApplet.lerp(*args)
 
 
-def lerpColor(*args):
+def lerp_color(*args):
     return _papplet.lerpColor(*args)
 
 
-def lightFalloff(*args):
+def light_falloff(*args):
     return _papplet.lightFalloff(*args)
 
 
-def lightSpecular(*args):
+def light_specular(*args):
     return _papplet.lightSpecular(*args)
 
 
@@ -767,67 +767,67 @@ def link(*args):
     return _papplet.link(*args)
 
 
-def listFiles(*args):
+def list_files(*args):
     return _papplet.listFiles(*args)
 
 
-def listFilesImpl(*args):
+def list_files_impl(*args):
     return PythonPApplet.listFilesImpl(*args)
 
 
-def listPaths(*args):
+def list_paths(*args):
     return _papplet.listPaths(*args)
 
 
-def loadBytes(*args):
+def load_bytes(*args):
     return _papplet.loadBytes(*args)
 
 
-def loadFont(*args):
+def load_font(*args):
     return _papplet.loadFont(*args)
 
 
-def loadImage(*args):
+def load_image(*args):
     return _papplet.loadImage(*args)
 
 
-def loadImageIO(*args):
+def load_image_io(*args):
     return _papplet.loadImageIO(*args)
 
 
-def loadImageTGA(*args):
+def load_image_tga(*args):
     return _papplet.loadImageTGA(*args)
 
 
-def loadJSONArray(*args):
+def load_json_array(*args):
     return _papplet.loadJSONArray(*args)
 
 
-def loadJSONObject(*args):
+def load_json_object(*args):
     return _papplet.loadJSONObject(*args)
 
 
-def loadPixels(*args):
+def load_pixels(*args):
     return _papplet.loadPixels(*args)
 
 
-def loadShader(*args):
+def load_shader(*args):
     return _papplet.loadShader(*args)
 
 
-def loadShape(*args):
+def load_shape(*args):
     return _papplet.loadShape(*args)
 
 
-def loadStrings(*args):
+def load_strings(*args):
     return _papplet.loadStrings(*args)
 
 
-def loadTable(*args):
+def load_table(*args):
     return _papplet.loadTable(*args)
 
 
-def loadXML(*args):
+def load_xml(*args):
     return _papplet.loadXML(*args)
 
 
@@ -847,7 +847,7 @@ def main(*args):
     return _papplet.main(*args)
 
 
-def makeGraphics(*args):
+def make_graphics(*args):
     return _papplet.makeGraphics(*args)
 
 
@@ -863,11 +863,11 @@ def match(*args):
     return PythonPApplet.match(*args)
 
 
-def matchAll(*args):
+def match_all(*args):
     return PythonPApplet.matchAll(*args)
 
 
-def matchPattern(*args):
+def match_pattern(*args):
     return PythonPApplet.matchPattern(*args)
 
 
@@ -891,15 +891,15 @@ def minute(*args):
     return PythonPApplet.minute(*args)
 
 
-def modelX(*args):
+def model_x(*args):
     return _papplet.modelX(*args)
 
 
-def modelY(*args):
+def model_y(*args):
     return _papplet.modelY(*args)
 
 
-def modelZ(*args):
+def model_z(*args):
     return _papplet.modelZ(*args)
 
 
@@ -907,31 +907,31 @@ def month(*args):
     return PythonPApplet.month(*args)
 
 
-def mouseClicked(*args):
+def mouse_clicked(*args):
     return _papplet.mouseClicked(*args)
 
 
-def mouseDragged(*args):
+def mouse_dragged(*args):
     return _papplet.mouseDragged(*args)
 
 
-def mouseEntered(*args):
+def mouse_entered(*args):
     return _papplet.mouseEntered(*args)
 
 
-def mouseExited(*args):
+def mouse_exited(*args):
     return _papplet.mouseExited(*args)
 
 
-def mouseMoved(*args):
+def mouse_moved(*args):
     return _papplet.mouseMoved(*args)
 
 
-def mouseReleased(*args):
+def mouse_released(*args):
     return _papplet.mouseReleased(*args)
 
 
-def mouseWheel(*args):
+def mouse_wheel(*args):
     return _papplet.mouseWheel(*args)
 
 
@@ -951,39 +951,39 @@ def nfs(*args):
     return _papplet.nfs(*args)
 
 
-def noClip(*args):
+def no_clip(*args):
     return _papplet.noClip(*args)
 
 
-def noCursor(*args):
+def no_cursor(*args):
     return _papplet.noCursor(*args)
 
 
-def noFill(*args):
+def no_fill(*args):
     return _papplet.noFill(*args)
 
 
-def noLights(*args):
+def no_lights(*args):
     return _papplet.noLights(*args)
 
 
-def noLoop(*args):
+def no_loop(*args):
     return _papplet.noLoop(*args)
 
 
-def noSmooth(*args):
+def no_smooth(*args):
     return _papplet.noSmooth(*args)
 
 
-def noStroke(*args):
+def no_stroke(*args):
     return _papplet.noStroke(*args)
 
 
-def noTexture(*args):
+def no_texture(*args):
     return _papplet.noTexture(*args)
 
 
-def noTint(*args):
+def no_tint(*args):
     return _papplet.noTint(*args)
 
 
@@ -991,11 +991,11 @@ def noise(*args):
     return _papplet.noise(*args)
 
 
-def noiseDetail(*args):
+def noise_detail(*args):
     return _papplet.noiseDetail(*args)
 
 
-def noiseSeed(*args):
+def noise_seed(*args):
     return _papplet.noiseSeed(*args)
 
 
@@ -1015,7 +1015,7 @@ def notify(*args):
     return _papplet.notify(*args)
 
 
-def notifyAll(*args):
+def notify_all(*args):
     return _papplet.notifyAll(*args)
 
 
@@ -1027,35 +1027,35 @@ def ortho(*args):
     return _papplet.ortho(*args)
 
 
-def parseBoolean(*args):
+def parse_boolean(*args):
     return _papplet.parseBoolean(*args)
 
 
-def parseByte(*args):
+def parse_byte(*args):
     return _papplet.parseByte(*args)
 
 
-def parseChar(*args):
+def parse_char(*args):
     return _papplet.parseChar(*args)
 
 
-def parseFloat(*args):
+def parse_float(*args):
     return _papplet.parseFloat(*args)
 
 
-def parseInt(*args):
+def parse_int(*args):
     return _papplet.parseInt(*args)
 
 
-def parseJSONArray(*args):
+def parse_json_array(*args):
     return _papplet.parseJSONArray(*args)
 
 
-def parseJSONObject(*args):
+def parse_json_object(*args):
     return _papplet.parseJSONObject(*args)
 
 
-def parseXML(*args):
+def parse_xml(*args):
     return _papplet.parseXML(*args)
 
 
@@ -1071,7 +1071,7 @@ def point(*args):
     return _papplet.point(*args)
 
 
-def pointLight(*args):
+def point_light(*args):
     return _papplet.pointLight(*args)
 
 
@@ -1079,15 +1079,15 @@ def pop(*args):
     return _papplet.pop(*args)
 
 
-def popMatrix(*args):
+def pop_matrix(*args):
     return _papplet.popMatrix(*args)
 
 
-def popStyle(*args):
+def pop_style(*args):
     return _papplet.popStyle(*args)
 
 
-def postEvent(*args):
+def post_event(*args):
     return _papplet.postEvent(*args)
 
 
@@ -1095,23 +1095,23 @@ def pow(*args):
     return PythonPApplet.pow(*args)
 
 
-def printArray(*args):
+def print_array(*args):
     return PythonPApplet.printArray(*args)
 
 
-def printCamera(*args):
+def print_camera(*args):
     return _papplet.printCamera(*args)
 
 
-def printMatrix(*args):
+def print_matrix(*args):
     return _papplet.printMatrix(*args)
 
 
-def printProjection(*args):
+def print_projection(*args):
     return _papplet.printProjection(*args)
 
 
-def printStackTrace(*args):
+def print_stack_trace(*args):
     return _papplet.printStackTrace(*args)
 
 
@@ -1123,11 +1123,11 @@ def push(*args):
     return _papplet.push(*args)
 
 
-def pushMatrix(*args):
+def push_matrix(*args):
     return _papplet.pushMatrix(*args)
 
 
-def pushStyle(*args):
+def push_style(*args):
     return _papplet.pushStyle(*args)
 
 
@@ -1135,7 +1135,7 @@ def quad(*args):
     return _papplet.quad(*args)
 
 
-def quadraticVertex(*args):
+def quadratic_vertex(*args):
     return _papplet.quadraticVertex(*args)
 
 
@@ -1147,11 +1147,11 @@ def random(*args):
     return _papplet.random(*args)
 
 
-def randomGaussian(*args):
+def random_gaussian(*args):
     return _papplet.randomGaussian(*args)
 
 
-def randomSeed(*args):
+def random_seed(*args):
     return _papplet.randomSeed(*args)
 
 
@@ -1159,7 +1159,7 @@ def rect(*args):
     return _papplet.rect(*args)
 
 
-def rectMode(*args):
+def rect_mode(*args):
     return _papplet.rectMode(*args)
 
 
@@ -1171,19 +1171,19 @@ def redraw(*args):
     return _papplet.redraw(*args)
 
 
-def registerMethod(*args):
+def register_method(*args):
     return _papplet.registerMethod(*args)
 
 
-def registerNatives(*args):
+def register_natives(*args):
     return PythonPApplet.registerNatives(*args)
 
 
-def registerNoArgs(*args):
+def register_no_args(*args):
     return _papplet.registerNoArgs(*args)
 
 
-def registerWithArgs(*args):
+def register_with_args(*args):
     return _papplet.registerWithArgs(*args)
 
 
@@ -1191,15 +1191,15 @@ def render(*args):
     return _papplet.render(*args)
 
 
-def requestImage(*args):
+def request_image(*args):
     return _papplet.requestImage(*args)
 
 
-def resetMatrix(*args):
+def reset_matrix(*args):
     return _papplet.resetMatrix(*args)
 
 
-def resetShader(*args):
+def reset_shader(*args):
     return _papplet.resetShader(*args)
 
 
@@ -1215,15 +1215,15 @@ def rotate(*args):
     return _papplet.rotate(*args)
 
 
-def rotateX(*args):
+def rotate_x(*args):
     return _papplet.rotateX(*args)
 
 
-def rotateY(*args):
+def rotate_y(*args):
     return _papplet.rotateY(*args)
 
 
-def rotateZ(*args):
+def rotate_z(*args):
     return _papplet.rotateZ(*args)
 
 
@@ -1231,7 +1231,7 @@ def round(*args):
     return PythonPApplet.round(*args)
 
 
-def runSketch(*args):
+def run_sketch(*args):
     return _papplet.runSketch(*args)
 
 
@@ -1243,43 +1243,43 @@ def save(*args):
     return _papplet.save(*args)
 
 
-def saveBytes(*args):
+def save_bytes(*args):
     return _papplet.saveBytes(*args)
 
 
-def saveFile(*args):
+def save_file(*args):
     return _papplet.saveFile(*args)
 
 
-def saveFrame(*args):
+def save_frame(*args):
     return _papplet.saveFrame(*args)
 
 
-def saveJSONArray(*args):
+def save_json_array(*args):
     return _papplet.saveJSONArray(*args)
 
 
-def saveJSONObject(*args):
+def save_json_object(*args):
     return _papplet.saveJSONObject(*args)
 
 
-def savePath(*args):
+def save_path(*args):
     return _papplet.savePath(*args)
 
 
-def saveStream(*args):
+def save_stream(*args):
     return _papplet.saveStream(*args)
 
 
-def saveStrings(*args):
+def save_strings(*args):
     return _papplet.saveStrings(*args)
 
 
-def saveTable(*args):
+def save_table(*args):
     return _papplet.saveTable(*args)
 
 
-def saveXML(*args):
+def save_xml(*args):
     return _papplet.saveXML(*args)
 
 
@@ -1287,15 +1287,15 @@ def scale(*args):
     return _papplet.scale(*args)
 
 
-def screenX(*args):
+def screen_x(*args):
     return _papplet.screenX(*args)
 
 
-def screenY(*args):
+def screen_y(*args):
     return _papplet.screenY(*args)
 
 
-def screenZ(*args):
+def screen_z(*args):
     return _papplet.screenZ(*args)
 
 
@@ -1303,23 +1303,23 @@ def second(*args):
     return PythonPApplet.second(*args)
 
 
-def selectCallback(*args):
+def select_callback(*args):
     return PythonPApplet.selectCallback(*args)
 
 
-def selectFolder(*args):
+def select_folder(*args):
     return _papplet.selectFolder(*args)
 
 
-def selectImpl(*args):
+def select_impl(*args):
     return PythonPApplet.selectImpl(*args)
 
 
-def selectInput(*args):
+def select_input(*args):
     return _papplet.selectInput(*args)
 
 
-def selectOutput(*args):
+def select_output(*args):
     return _papplet.selectOutput(*args)
 
 
@@ -1327,11 +1327,11 @@ def set(*args):
     return _papplet.set(*args)
 
 
-def setMatrix(*args):
+def set_matrix(*args):
     return _papplet.setMatrix(*args)
 
 
-def setSize(*args):
+def set_size(*args):
     return _papplet.setSize(*args)
 
 
@@ -1339,7 +1339,7 @@ def settings(*args):
     return _papplet.settings(*args)
 
 
-def setupSketch(*args):
+def setup_sketch(*args):
     return PythonPApplet.setupSketch(*args)
 
 
@@ -1351,15 +1351,15 @@ def shape(*args):
     return _papplet.shape(*args)
 
 
-def shapeMode(*args):
+def shape_mode(*args):
     return _papplet.shapeMode(*args)
 
 
-def shearX(*args):
+def shear_x(*args):
     return _papplet.shearX(*args)
 
 
-def shearY(*args):
+def shear_y(*args):
     return _papplet.shearY(*args)
 
 
@@ -1375,27 +1375,27 @@ def shorten(*args):
     return _papplet.shorten(*args)
 
 
-def showDepthWarning(*args):
+def show_depth_warning(*args):
     return PythonPApplet.showDepthWarning(*args)
 
 
-def showDepthWarningXYZ(*args):
+def show_depth_warning_xyz(*args):
     return PythonPApplet.showDepthWarningXYZ(*args)
 
 
-def showMethodWarning(*args):
+def show_method_warning(*args):
     return PythonPApplet.showMethodWarning(*args)
 
 
-def showMissingWarning(*args):
+def show_missing_warning(*args):
     return PythonPApplet.showMissingWarning(*args)
 
 
-def showSurface(*args):
+def show_surface(*args):
     return _papplet.showSurface(*args)
 
 
-def showVariationWarning(*args):
+def show_variation_warning(*args):
     return PythonPApplet.showVariationWarning(*args)
 
 
@@ -1407,51 +1407,51 @@ def size(*args):
     return _papplet.size(*args)
 
 
-def sketchDisplay(*args):
+def sketch_display(*args):
     return _papplet.sketchDisplay(*args)
 
 
-def sketchFile(*args):
+def sketch_file(*args):
     return _papplet.sketchFile(*args)
 
 
-def sketchFullScreen(*args):
+def sketch_full_screen(*args):
     return _papplet.sketchFullScreen(*args)
 
 
-def sketchHeight(*args):
+def sketch_height(*args):
     return _papplet.sketchHeight(*args)
 
 
-def sketchOutputPath(*args):
+def sketch_output_path(*args):
     return _papplet.sketchOutputPath(*args)
 
 
-def sketchOutputStream(*args):
+def sketch_output_stream(*args):
     return _papplet.sketchOutputStream(*args)
 
 
-def sketchPath(*args):
+def sketch_path(*args):
     return _papplet.sketchPath(*args)
 
 
-def sketchPixelDensity(*args):
+def sketch_pixel_density(*args):
     return _papplet.sketchPixelDensity(*args)
 
 
-def sketchRenderer(*args):
+def sketch_renderer(*args):
     return _papplet.sketchRenderer(*args)
 
 
-def sketchSmooth(*args):
+def sketch_smooth(*args):
     return _papplet.sketchSmooth(*args)
 
 
-def sketchWidth(*args):
+def sketch_width(*args):
     return _papplet.sketchWidth(*args)
 
 
-def sketchWindowColor(*args):
+def sketch_window_color(*args):
     return _papplet.sketchWindowColor(*args)
 
 
@@ -1459,7 +1459,7 @@ def smooth(*args):
     return _papplet.smooth(*args)
 
 
-def smoothWarning(*args):
+def smooth_warning(*args):
     return _papplet.smoothWarning(*args)
 
 
@@ -1475,7 +1475,7 @@ def sphere(*args):
     return _papplet.sphere(*args)
 
 
-def sphereDetail(*args):
+def sphere_detail(*args):
     return _papplet.sphereDetail(*args)
 
 
@@ -1487,11 +1487,11 @@ def split(*args):
     return _papplet.split(*args)
 
 
-def splitTokens(*args):
+def split_tokens(*args):
     return _papplet.splitTokens(*args)
 
 
-def spotLight(*args):
+def spot_light(*args):
     return _papplet.spotLight(*args)
 
 
@@ -1511,7 +1511,7 @@ def start(*args):
     return _papplet.start(*args)
 
 
-def startSurface(*args):
+def start_surface(*args):
     return _papplet.startSurface(*args)
 
 
@@ -1527,15 +1527,15 @@ def stroke(*args):
     return _papplet.stroke(*args)
 
 
-def strokeCap(*args):
+def stroke_cap(*args):
     return _papplet.strokeCap(*args)
 
 
-def strokeJoin(*args):
+def stroke_join(*args):
     return _papplet.strokeJoin(*args)
 
 
-def strokeWeight(*args):
+def stroke_weight(*args):
     return _papplet.strokeWeight(*args)
 
 
@@ -1555,35 +1555,35 @@ def text(*args):
     return _papplet.text(*args)
 
 
-def textAlign(*args):
+def text_align(*args):
     return _papplet.textAlign(*args)
 
 
-def textAscent(*args):
+def text_ascent(*args):
     return _papplet.textAscent(*args)
 
 
-def textDescent(*args):
+def text_descent(*args):
     return _papplet.textDescent(*args)
 
 
-def textFont(*args):
+def text_font(*args):
     return _papplet.textFont(*args)
 
 
-def textLeading(*args):
+def text_leading(*args):
     return _papplet.textLeading(*args)
 
 
-def textMode(*args):
+def text_mode(*args):
     return _papplet.textMode(*args)
 
 
-def textSize(*args):
+def text_size(*args):
     return _papplet.textSize(*args)
 
 
-def textWidth(*args):
+def text_width(*args):
     return _papplet.textWidth(*args)
 
 
@@ -1591,11 +1591,11 @@ def texture(*args):
     return _papplet.texture(*args)
 
 
-def textureMode(*args):
+def texture_mode(*args):
     return _papplet.textureMode(*args)
 
 
-def textureWrap(*args):
+def texture_wrap(*args):
     return _papplet.textureWrap(*args)
 
 
@@ -1607,7 +1607,7 @@ def tint(*args):
     return _papplet.tint(*args)
 
 
-def toString(*args):
+def to_string(*args):
     return _papplet.toString(*args)
 
 
@@ -1631,19 +1631,19 @@ def unhex(*args):
     return PythonPApplet.unhex(*args)
 
 
-def unregisterMethod(*args):
+def unregister_method(*args):
     return _papplet.unregisterMethod(*args)
 
 
-def updatePixels(*args):
+def update_pixels(*args):
     return _papplet.updatePixels(*args)
 
 
-def urlDecode(*args):
+def url_decode(*args):
     return PythonPApplet.urlDecode(*args)
 
 
-def urlEncode(*args):
+def url_encode(*args):
     return PythonPApplet.urlEncode(*args)
 
 

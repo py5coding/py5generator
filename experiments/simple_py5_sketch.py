@@ -7,6 +7,7 @@ def settings():
 
 def setup():
     py5.background(255)
+    py5.rect_mode(py5.CENTER)
 
 
 def draw():

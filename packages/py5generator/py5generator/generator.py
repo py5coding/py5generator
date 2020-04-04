@@ -1,4 +1,5 @@
 import string
+import re
 import pkgutil
 import shlex
 
@@ -33,6 +34,12 @@ pappletStaticVariables = {
 }
 
 
+def snake_case(name):
+    name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+    name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', name)
+    return name.lower()
+
+
 def generate_py5():
     py5_template = pkgutil.get_data('py5generator', 'templates/py5_init_template.py').decode('utf-8')
 
@@ -65,9 +72,9 @@ def generate_py5():
             continue
 
         if isinstance(getattr(_papplet, fname), JavaStaticMethod):
-            py5_functions.append(f"def {fname}(*args):\n    return PythonPApplet.{fname}(*args)\n")
+            py5_functions.append(f"def {snake_case(fname)}(*args):\n    return PythonPApplet.{fname}(*args)\n")
         else:
-            py5_functions.append(f"def {fname}(*args):\n    return _papplet.{fname}(*args)\n")
+            py5_functions.append(f"def {snake_case(fname)}(*args):\n    return _papplet.{fname}(*args)\n")
 
     py5_code = py5_template.format('\n'.join(py5_constants),
                                    '\n\n'.join(py5_functions))
