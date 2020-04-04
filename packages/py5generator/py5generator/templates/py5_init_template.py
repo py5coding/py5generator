@@ -5,12 +5,12 @@ jnius_config.set_classpath('.', '/home/jim/Projects/git/processing/core/library/
 from jnius import autoclass  # noqa
 
 PythonPApplet = autoclass('processing.core.PythonPApplet')
-PConstants = autoclass('processing.core.PConstants')
-
 _papplet = PythonPApplet()
+
 
 # *** PY5 GENERATED CONSTANTS ***
 {0}
+
 
 # *** PY5 GENERATED FUNCTIONS ***
 {1}
