@@ -13,6 +13,9 @@ from jnius import autoclass, detach  # noqa
 PythonPApplet = autoclass('processing.core.PythonPApplet')
 _papplet = PythonPApplet()
 
+_target_frame_rate = 60
+_frame_rate_period = 1 / _target_frame_rate
+
 
 # *** PY5 GENERATED STATIC CONSTANTS ***
 ADD = 2
@@ -187,43 +190,39 @@ Z = 2
 
 
 # *** PY5 GENERATED DYNAMIC VARIABLES ***
-height = None
-width = None
-frame_count = None
 mouse_y = None
+pixels = None
 frame_rate = None
+frame_count = None
 pmouse_y = None
+height = None
 pmouse_x = None
 mouse_x = None
-pixels = None
+width = None
 
 
 def _update_vars():
-    global height
-    height = _papplet.height
-    global width
-    width = _papplet.width
-    global frame_count
-    frame_count = _papplet.frameCount
     global mouse_y
     mouse_y = _papplet.mouseY
+    global pixels
+    pixels = _papplet.pixels
     global frame_rate
     frame_rate = _papplet.frameRate
+    global frame_count
+    frame_count = _papplet.frameCount
     global pmouse_y
     pmouse_y = _papplet.pmouseY
+    global height
+    height = _papplet.height
     global pmouse_x
     pmouse_x = _papplet.pmouseX
     global mouse_x
     mouse_x = _papplet.mouseX
-    global pixels
-    pixels = _papplet.pixels
+    global width
+    width = _papplet.width
 
 
 # *** PY5 GENERATED FUNCTIONS ***
-
-def abs(*args):
-    return _papplet.abs(*args)
-
 
 def acos(*args):
     return PythonPApplet.acos(*args)
@@ -885,10 +884,6 @@ def make_graphics(*args):
     return _papplet.makeGraphics(*args)
 
 
-def map(*args):
-    return PythonPApplet.map(*args)
-
-
 def mask(*args):
     return _papplet.mask(*args)
 
@@ -905,20 +900,12 @@ def match_pattern(*args):
     return PythonPApplet.matchPattern(*args)
 
 
-def max(*args):
-    return _papplet.max(*args)
-
-
 def method(*args):
     return _papplet.method(*args)
 
 
 def millis(*args):
     return _papplet.millis(*args)
-
-
-def min(*args):
-    return _papplet.min(*args)
 
 
 def minute(*args):
@@ -1125,10 +1112,6 @@ def post_event(*args):
     return _papplet.postEvent(*args)
 
 
-def pow(*args):
-    return PythonPApplet.pow(*args)
-
-
 def print_array(*args):
     return PythonPApplet.printArray(*args)
 
@@ -1259,10 +1242,6 @@ def rotate_y(*args):
 
 def rotate_z(*args):
     return _papplet.rotateZ(*args)
-
-
-def round(*args):
-    return PythonPApplet.round(*args)
 
 
 def saturation(*args):
@@ -1689,6 +1668,14 @@ def year(*args):
     return PythonPApplet.year(*args)
 
 
+def set_frame_rate(frame_rate):
+    global _target_frame_rate
+    global _frame_rate_period
+    _target_frame_rate = frame_rate
+    _frame_rate_period = 1 / frame_rate
+    _papplet.surface.setFrameRate(frame_rate)
+
+
 def _handle_settings(settings):
     _papplet.handleSettingsPt1()
     settings()
@@ -1712,8 +1699,10 @@ def run_sketch(settings, setup, draw, frameLimit=1000):
     PythonPApplet.setupSketch([''], _papplet)
 
     while frameLimit > 0:
+        start = time.time()
         _handle_draw(setup, draw)
-        time.sleep(1 / 60)
+
+        time.sleep(max(0, _frame_rate_period - (time.time() - start)))
 
         frameLimit -= 1
 

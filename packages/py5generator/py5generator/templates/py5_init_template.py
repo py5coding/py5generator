@@ -13,6 +13,9 @@ from jnius import autoclass, detach  # noqa
 PythonPApplet = autoclass('processing.core.PythonPApplet')
 _papplet = PythonPApplet()
 
+_target_frame_rate = 60
+_frame_rate_period = 1 / _target_frame_rate
+
 
 # *** PY5 GENERATED STATIC CONSTANTS ***
 {0}
@@ -28,6 +31,15 @@ def _update_vars():
 
 # *** PY5 GENERATED FUNCTIONS ***
 {3}
+
+
+def set_frame_rate(frame_rate):
+    global _target_frame_rate
+    global _frame_rate_period
+    _target_frame_rate = frame_rate
+    _frame_rate_period = 1 / frame_rate
+    # this isn't really necessary
+    _papplet.surface.setFrameRate(frame_rate)
 
 
 def _handle_settings(settings):
@@ -53,8 +65,10 @@ def run_sketch(settings, setup, draw, frameLimit=1000):
     PythonPApplet.setupSketch([''], _papplet)
 
     while frameLimit > 0:
+        start = time.time()
         _handle_draw(setup, draw)
-        time.sleep(1 / 60)
+
+        time.sleep(max(0, _frame_rate_period - (time.time() - start)))
 
         frameLimit -= 1
 

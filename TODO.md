@@ -1,5 +1,4 @@
 support all dynamic variables like frameRate and mouseX, mouseY
-improve animation thread
 
 command line py5 generator util
 command line run_sketch util
@@ -17,7 +16,7 @@ is there anything to be gained from using type hinting?
 
 skip over @Deprecated constants
 skip over all protected constants, variables, and methods
-possible solution:
+possible solution: parse the output of javap
 javap -classpath /home/jim/Projects/git/processing/core/library/core.jar -public processing.core.PApplet
 javap -classpath /home/jim/Projects/git/processing/core/library/core.jar -public processing.core.PConstants
 

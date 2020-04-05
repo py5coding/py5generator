@@ -48,6 +48,7 @@ DYNAMIC_VAR_TEMPLATE = """
 
 PAPPLET_SKIP_METHODS = {
     'print', 'exec', 'draw', 'setup', 'exit',
+    'min', 'max', 'round', 'map', 'abs', 'pow',
     'runSketch',
     'handleDrawPt1', 'handleDrawPt2', 'handleDrawPt3',
     'handleSettingsPt1', 'handleSettingsPt2',
