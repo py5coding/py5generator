@@ -190,36 +190,36 @@ Z = 2
 
 
 # *** PY5 GENERATED DYNAMIC VARIABLES ***
-mouse_y = None
-pixels = None
-frame_rate = None
-frame_count = None
 pmouse_y = None
-height = None
-pmouse_x = None
 mouse_x = None
+mouse_y = None
+pmouse_x = None
+frame_rate = None
 width = None
+frame_count = None
+height = None
+pixels = None
 
 
 def _update_vars():
-    global mouse_y
-    mouse_y = _papplet.mouseY
-    global pixels
-    pixels = _papplet.pixels
-    global frame_rate
-    frame_rate = _papplet.frameRate
-    global frame_count
-    frame_count = _papplet.frameCount
     global pmouse_y
     pmouse_y = _papplet.pmouseY
-    global height
-    height = _papplet.height
-    global pmouse_x
-    pmouse_x = _papplet.pmouseX
     global mouse_x
     mouse_x = _papplet.mouseX
+    global mouse_y
+    mouse_y = _papplet.mouseY
+    global pmouse_x
+    pmouse_x = _papplet.pmouseX
+    global frame_rate
+    frame_rate = _papplet.frameRate
     global width
     width = _papplet.width
+    global frame_count
+    frame_count = _papplet.frameCount
+    global height
+    height = _papplet.height
+    global pixels
+    pixels = _papplet.pixels
 
 
 # *** PY5 GENERATED FUNCTIONS ***
@@ -1668,39 +1668,36 @@ def year(*args):
     return PythonPApplet.year(*args)
 
 
+# *** PY5 USER FUNCTIONS ***
 def set_frame_rate(frame_rate):
     global _target_frame_rate
     global _frame_rate_period
     _target_frame_rate = frame_rate
     _frame_rate_period = 1 / frame_rate
+    # this isn't really necessary
     _papplet.surface.setFrameRate(frame_rate)
 
 
-def _handle_settings(settings):
+def run_sketch(settings, setup, draw, frameLimit=1000):
+    # handle settings
     _papplet.handleSettingsPt1()
     settings()
     _papplet.handleSettingsPt2()
 
-
-def _handle_draw(setup, draw):
-    _update_vars()
-    _papplet.handleDrawPt1()
-    if _papplet.frameCount == 0:
-        setup()
-    _papplet.handleDrawPt2()
-    draw()
-    _papplet.handleDrawPt3()
-
-    _papplet.render()
-
-
-def run_sketch(settings, setup, draw, frameLimit=1000):
-    _handle_settings(settings)
     PythonPApplet.setupSketch([''], _papplet)
 
     while frameLimit > 0:
         start = time.time()
-        _handle_draw(setup, draw)
+
+        # handle draw
+        _update_vars()
+        _papplet.handleDrawPt1()
+        if _papplet.frameCount == 0:
+            setup()
+        _papplet.handleDrawPt2()
+        draw()
+        _papplet.handleDrawPt3()
+        _papplet.render()
 
         time.sleep(max(0, _frame_rate_period - (time.time() - start)))
 

@@ -5,6 +5,7 @@ command line run_sketch util
 
 fork and edit PApplet class instead of duplicating code in the PythonPApplet class
 don't hardcode the classpath in py5generator or py5. or should the jars be part of the project?
+** jars should be a part of the project because otherwise there could be versioning issues.
 ability to set JVM options like heap size
 
 support key and mouse events

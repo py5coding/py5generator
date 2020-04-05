@@ -33,6 +33,7 @@ def _update_vars():
 {3}
 
 
+# *** PY5 USER FUNCTIONS ***
 def set_frame_rate(frame_rate):
     global _target_frame_rate
     global _frame_rate_period
@@ -42,31 +43,26 @@ def set_frame_rate(frame_rate):
     _papplet.surface.setFrameRate(frame_rate)
 
 
-def _handle_settings(settings):
+def run_sketch(settings, setup, draw, frameLimit=1000):
+    # handle settings
     _papplet.handleSettingsPt1()
     settings()
     _papplet.handleSettingsPt2()
 
-
-def _handle_draw(setup, draw):
-    _update_vars()
-    _papplet.handleDrawPt1()
-    if _papplet.frameCount == 0:
-        setup()
-    _papplet.handleDrawPt2()
-    draw()
-    _papplet.handleDrawPt3()
-
-    _papplet.render()
-
-
-def run_sketch(settings, setup, draw, frameLimit=1000):
-    _handle_settings(settings)
     PythonPApplet.setupSketch([''], _papplet)
 
     while frameLimit > 0:
         start = time.time()
-        _handle_draw(setup, draw)
+
+        # handle draw
+        _update_vars()
+        _papplet.handleDrawPt1()
+        if _papplet.frameCount == 0:
+            setup()
+        _papplet.handleDrawPt2()
+        draw()
+        _papplet.handleDrawPt3()
+        _papplet.render()
 
         time.sleep(max(0, _frame_rate_period - (time.time() - start)))
 
