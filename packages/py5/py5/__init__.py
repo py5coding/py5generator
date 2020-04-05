@@ -1,14 +1,20 @@
+"""
+Py5 code, interface to the Java version of Processing using PyJNIus.
+
+This file is created by the py5generator package. Do not edit!
+"""
 import time
 
 import jnius_config
+jnius_config.add_options('-Xrs', '-Xmx4096m')
 jnius_config.set_classpath('.', '/home/jim/Projects/git/processing/core/library/*')
-from jnius import autoclass  # noqa
+from jnius import autoclass, detach  # noqa
 
 PythonPApplet = autoclass('processing.core.PythonPApplet')
 _papplet = PythonPApplet()
 
 
-# *** PY5 GENERATED CONSTANTS ***
+# *** PY5 GENERATED STATIC CONSTANTS ***
 ADD = 2
 ALPHA = 4
 ALT = 18
@@ -178,15 +184,43 @@ WINDOWS = 1
 X = 0
 Y = 1
 Z = 2
-javaPlatform = 8
-javaVersionName = '1.8.0_74'
-javaVersion = 1.8
-platformNames = ['other', 'windows', 'macosx', 'linux']
-platform = 3
-useNativeSelect = True
+
+
+# *** PY5 GENERATED DYNAMIC VARIABLES ***
+height = None
+width = None
+frame_count = None
+mouse_y = None
+frame_rate = None
+pmouse_y = None
+pmouse_x = None
+mouse_x = None
+pixels = None
+
+
+def _update_vars():
+    global height
+    height = _papplet.height
+    global width
+    width = _papplet.width
+    global frame_count
+    frame_count = _papplet.frameCount
+    global mouse_y
+    mouse_y = _papplet.mouseY
+    global frame_rate
+    frame_rate = _papplet.frameRate
+    global pmouse_y
+    pmouse_y = _papplet.pmouseY
+    global pmouse_x
+    pmouse_x = _papplet.pmouseX
+    global mouse_x
+    mouse_x = _papplet.mouseX
+    global pixels
+    pixels = _papplet.pixels
 
 
 # *** PY5 GENERATED FUNCTIONS ***
+
 def abs(*args):
     return _papplet.abs(*args)
 
@@ -1655,24 +1689,10 @@ def year(*args):
     return PythonPApplet.year(*args)
 
 
-frame_rate = 0
-mouse_x = 0
-mouse_y = 0
-
-
 def _handle_settings(settings):
     _papplet.handleSettingsPt1()
     settings()
     _papplet.handleSettingsPt2()
-
-
-def _update_vars():
-    global frame_rate
-    frame_rate = _papplet.frameRate
-    global mouse_x
-    mouse_x = _papplet.mouseX
-    global mouse_y
-    mouse_y = _papplet.mouseY
 
 
 def _handle_draw(setup, draw):
@@ -1696,3 +1716,5 @@ def run_sketch(settings, setup, draw, frameLimit=1000):
         time.sleep(1 / 60)
 
         frameLimit -= 1
+
+    detach()
