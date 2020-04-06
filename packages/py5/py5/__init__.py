@@ -7,10 +7,43 @@ import time
 
 import jnius_config
 jnius_config.add_options('-Xrs', '-Xmx4096m')
-jnius_config.set_classpath('.', '/home/jim/Projects/git/processing/core/library/*')
+jnius_config.set_classpath(
+    '.', '/home/jim/Projects/git/processing/core/library/*')
 from jnius import autoclass, detach  # noqa
+from jnius import JavaField, JavaClass, MetaJavaClass, JavaMethod, JavaStaticMethod, JavaMultipleMethod  # noqa
 
-PythonPApplet = autoclass('processing.core.PythonPApplet')
+
+class PythonPApplet(JavaClass, metaclass=MetaJavaClass):
+    __javaclass__ = 'processing/core/PythonPApplet'
+
+    background = JavaMethod('(I)V')
+    # background = JavaMultipleMethod(['(I)V', '(IF)V', '(F)V', '(FF)V', '(FFF)V', '(FFFF)V'])
+    size = JavaMethod('(IILjava/lang/String;)V')
+    # size = JavaMultipleMethod(['(II)V', '(IILjava/lang/String;)V', '(IILjava/lang/String;Ljava/lang/String;)V'])
+    rectMode = JavaMethod('(I)V')
+    random = JavaMethod('(F)F')
+    # random = JavaMultipleMethod(['(F)F', '(FF)F'])
+    fill = JavaMethod('(FFFF)V')
+    rect = JavaMethod('(FFFF)V')
+
+    frameRate = JavaField('F')
+    frameCount = JavaField('I')
+    mouseX = JavaField('I')
+    mouseY = JavaField('I')
+
+    surface = JavaField('Lprocessing/core/PSurface;')
+    getSurface = JavaMethod('()Lprocessing/core/PSurface;')
+
+    handleSettingsPt1 = JavaMethod('()V')
+    handleSettingsPt2 = JavaMethod('()V')
+    handleDrawPt1 = JavaMethod('()V')
+    handleDrawPt2 = JavaMethod('()V')
+    handleDrawPt3 = JavaMethod('()V')
+    setupSketch = JavaStaticMethod('([Ljava/lang/String;Lprocessing/core/PApplet;)V')
+    render = JavaMethod('()V')
+
+
+# PythonPApplet = autoclass('processing.core.PythonPApplet')
 _papplet = PythonPApplet()
 
 _target_frame_rate = 60
@@ -190,36 +223,21 @@ Z = 2
 
 
 # *** PY5 GENERATED DYNAMIC VARIABLES ***
-pmouse_y = None
 mouse_x = None
 mouse_y = None
-pmouse_x = None
-frame_rate = None
-width = None
 frame_count = None
-height = None
-pixels = None
+frame_rate = None
 
 
 def _update_vars():
-    global pmouse_y
-    pmouse_y = _papplet.pmouseY
     global mouse_x
     mouse_x = _papplet.mouseX
     global mouse_y
     mouse_y = _papplet.mouseY
-    global pmouse_x
-    pmouse_x = _papplet.pmouseX
-    global frame_rate
-    frame_rate = _papplet.frameRate
-    global width
-    width = _papplet.width
     global frame_count
     frame_count = _papplet.frameCount
-    global height
-    height = _papplet.height
-    global pixels
-    pixels = _papplet.pixels
+    global frame_rate
+    frame_rate = _papplet.frameRate
 
 
 # *** PY5 GENERATED FUNCTIONS ***
@@ -1676,6 +1694,7 @@ def set_frame_rate(frame_rate):
     _frame_rate_period = 1 / frame_rate
     # this isn't really necessary
     _papplet.surface.setFrameRate(frame_rate)
+    # _papplet.getSurface().setFrameRate(frame_rate)
 
 
 def run_sketch(settings, setup, draw, frameLimit=1000):

@@ -69,10 +69,12 @@ PAPPLET_STATIC_VARIABLES = {
 }
 
 PAPPLET_DYNAMIC_VARIABLES = {
-    'frameRate', 'frameCount',
-    'width', 'height',
-    'pmouseX', 'pmouseY', 'mouseX', 'mouseY',
-    'pixels'
+    'frameRate',
+    'frameCount',
+    # 'width', 'height',
+    # 'pmouseX', 'pmouseY',
+    'mouseX', 'mouseY',
+    # 'pixels'
 }
 
 

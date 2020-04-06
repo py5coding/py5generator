@@ -14,7 +14,7 @@ def setup():
 def draw():
     print('frameRate', py5.frame_rate)
     py5.fill(py5.random(255), py5.random(255), py5.random(255), 50.0)
-    py5.rect(float(py5.mouse_x), float(py5.mouse_y), 40, 40)
+    py5.rect(py5.mouse_x, py5.mouse_y, 40, 40)
 
 
 py5.run_sketch(settings, setup, draw)
