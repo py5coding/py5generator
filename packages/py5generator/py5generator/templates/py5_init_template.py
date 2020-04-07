@@ -16,13 +16,18 @@ from jnius import JavaField, JavaClass, MetaJavaClass, JavaMethod, JavaStaticMet
 class PythonPApplet(JavaClass, metaclass=MetaJavaClass):
     __javaclass__ = 'processing/core/PythonPApplet'
 
-    background = JavaMethod('(I)V')
-    # background = JavaMultipleMethod(['(I)V', '(IF)V', '(F)V', '(FF)V', '(FFF)V', '(FFFF)V'])
-    size = JavaMethod('(IILjava/lang/String;)V')
-    # size = JavaMultipleMethod(['(II)V', '(IILjava/lang/String;)V', '(IILjava/lang/String;Ljava/lang/String;)V'])
+    background = JavaMultipleMethod([('(I)V', False, False),
+                                     ('(IF)V', False, False),
+                                     ('(F)V', False, False),
+                                     ('(FF)V', False, False),
+                                     ('(FFF)V', False, False),
+                                     ('(FFFF)V', False, False)])
+    size = JavaMultipleMethod([('(II)V', False, False),
+                               ('(IILjava/lang/String;)V', False, False),
+                               ('(IILjava/lang/String;Ljava/lang/String;)V', False, False)])
     rectMode = JavaMethod('(I)V')
-    random = JavaMethod('(F)F')
-    # random = JavaMultipleMethod(['(F)F', '(FF)F'])
+    random = JavaMultipleMethod([('(F)F', False, False),
+                                 ('(FF)F', False, False)])
     fill = JavaMethod('(FFFF)V')
     rect = JavaMethod('(FFFF)V')
 
