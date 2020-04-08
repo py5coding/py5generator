@@ -35,6 +35,8 @@ class PythonPApplet(JavaClass, metaclass=MetaJavaClass):
     frameCount = JavaField('I')
     mouseX = JavaField('I')
     mouseY = JavaField('I')
+    width = JavaField('I')
+    height = JavaField('I')
 
     surface = JavaField('Lprocessing/core/PSurface;')
     getSurface = JavaMethod('()Lprocessing/core/PSurface;')
@@ -48,7 +50,7 @@ class PythonPApplet(JavaClass, metaclass=MetaJavaClass):
     render = JavaMethod('()V')
 
 
-# PythonPApplet = autoclass('processing.core.PythonPApplet')
+# PythonPApplet = autoclass('processing.core.PythonPApplet', public_only=True)
 _papplet = PythonPApplet()
 
 _target_frame_rate = 60

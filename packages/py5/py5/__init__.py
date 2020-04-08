@@ -16,14 +16,12 @@ from jnius import JavaField, JavaClass, MetaJavaClass, JavaMethod, JavaStaticMet
 class PythonPApplet(JavaClass, metaclass=MetaJavaClass):
     __javaclass__ = 'processing/core/PythonPApplet'
 
-    # background = JavaMethod('(I)V')
     background = JavaMultipleMethod([('(I)V', False, False),
                                      ('(IF)V', False, False),
                                      ('(F)V', False, False),
                                      ('(FF)V', False, False),
                                      ('(FFF)V', False, False),
                                      ('(FFFF)V', False, False)])
-    # size = JavaMethod('(IILjava/lang/String;)V')
     size = JavaMultipleMethod([('(II)V', False, False),
                                ('(IILjava/lang/String;)V', False, False),
                                ('(IILjava/lang/String;Ljava/lang/String;)V', False, False)])
@@ -37,6 +35,8 @@ class PythonPApplet(JavaClass, metaclass=MetaJavaClass):
     frameCount = JavaField('I')
     mouseX = JavaField('I')
     mouseY = JavaField('I')
+    width = JavaField('I')
+    height = JavaField('I')
 
     surface = JavaField('Lprocessing/core/PSurface;')
     getSurface = JavaMethod('()Lprocessing/core/PSurface;')
@@ -50,7 +50,7 @@ class PythonPApplet(JavaClass, metaclass=MetaJavaClass):
     render = JavaMethod('()V')
 
 
-# PythonPApplet = autoclass('processing.core.PythonPApplet')
+# PythonPApplet = autoclass('processing.core.PythonPApplet', public_only=True)
 _papplet = PythonPApplet()
 
 _target_frame_rate = 60
@@ -230,21 +230,27 @@ Z = 2
 
 
 # *** PY5 GENERATED DYNAMIC VARIABLES ***
+height = None
 mouse_y = None
-frame_count = None
-frame_rate = None
 mouse_x = None
+frame_rate = None
+frame_count = None
+width = None
 
 
 def _update_vars():
+    global height
+    height = _papplet.height
     global mouse_y
     mouse_y = _papplet.mouseY
-    global frame_count
-    frame_count = _papplet.frameCount
-    global frame_rate
-    frame_rate = _papplet.frameRate
     global mouse_x
     mouse_x = _papplet.mouseX
+    global frame_rate
+    frame_rate = _papplet.frameRate
+    global frame_count
+    frame_count = _papplet.frameCount
+    global width
+    width = _papplet.width
 
 
 # *** PY5 GENERATED FUNCTIONS ***
@@ -389,10 +395,6 @@ def brightness(*args):
     return _papplet.brightness(*args)
 
 
-def calc_sketch_path(*args):
-    return PythonPApplet.calcSketchPath(*args)
-
-
 def camera(*args):
     return _papplet.camera(*args)
 
@@ -405,10 +407,6 @@ def check_extension(*args):
     return PythonPApplet.checkExtension(*args)
 
 
-def check_look_and_feel(*args):
-    return PythonPApplet.checkLookAndFeel(*args)
-
-
 def circle(*args):
     return _papplet.circle(*args)
 
@@ -419,10 +417,6 @@ def clear(*args):
 
 def clip(*args):
     return _papplet.clip(*args)
-
-
-def clone(*args):
-    return _papplet.clone(*args)
 
 
 def color(*args):
@@ -477,20 +471,12 @@ def create_path(*args):
     return _papplet.createPath(*args)
 
 
-def create_primary_graphics(*args):
-    return _papplet.createPrimaryGraphics(*args)
-
-
 def create_reader(*args):
     return _papplet.createReader(*args)
 
 
 def create_shape(*args):
     return _papplet.createShape(*args)
-
-
-def create_temp_file(*args):
-    return PythonPApplet.createTempFile(*args)
 
 
 def create_writer(*args):
@@ -547,10 +533,6 @@ def degrees(*args):
 
 def delay(*args):
     return _papplet.delay(*args)
-
-
-def dequeue_events(*args):
-    return _papplet.dequeueEvents(*args)
 
 
 def desktop_file(*args):
@@ -649,10 +631,6 @@ def filter(*args):
     return _papplet.filter(*args)
 
 
-def finalize(*args):
-    return _papplet.finalize(*args)
-
-
 def floor(*args):
     return PythonPApplet.floor(*args)
 
@@ -717,22 +695,6 @@ def handle_draw(*args):
     return _papplet.handleDraw(*args)
 
 
-def handle_key_event(*args):
-    return _papplet.handleKeyEvent(*args)
-
-
-def handle_methods(*args):
-    return _papplet.handleMethods(*args)
-
-
-def handle_mouse_event(*args):
-    return _papplet.handleMouseEvent(*args)
-
-
-def handle_settings(*args):
-    return _papplet.handleSettings(*args)
-
-
 def hash_code(*args):
     return _papplet.hashCode(*args)
 
@@ -765,16 +727,8 @@ def image_mode(*args):
     return _papplet.imageMode(*args)
 
 
-def init_surface(*args):
-    return _papplet.initSurface(*args)
-
-
 def insert_frame(*args):
     return _papplet.insertFrame(*args)
-
-
-def inside_settings(*args):
-    return _papplet.insideSettings(*args)
 
 
 def is_looping(*args):
@@ -829,10 +783,6 @@ def list_files(*args):
     return _papplet.listFiles(*args)
 
 
-def list_files_impl(*args):
-    return PythonPApplet.listFilesImpl(*args)
-
-
 def list_paths(*args):
     return _papplet.listPaths(*args)
 
@@ -847,14 +797,6 @@ def load_font(*args):
 
 def load_image(*args):
     return _papplet.loadImage(*args)
-
-
-def load_image_io(*args):
-    return _papplet.loadImageIO(*args)
-
-
-def load_image_tga(*args):
-    return _papplet.loadImageTGA(*args)
 
 
 def load_json_array(*args):
@@ -905,10 +847,6 @@ def main(*args):
     return _papplet.main(*args)
 
 
-def make_graphics(*args):
-    return _papplet.makeGraphics(*args)
-
-
 def mask(*args):
     return _papplet.mask(*args)
 
@@ -919,10 +857,6 @@ def match(*args):
 
 def match_all(*args):
     return PythonPApplet.matchAll(*args)
-
-
-def match_pattern(*args):
-    return PythonPApplet.matchPattern(*args)
 
 
 def method(*args):
@@ -1045,10 +979,6 @@ def noise_seed(*args):
     return _papplet.noiseSeed(*args)
 
 
-def noise_fsc(*args):
-    return _papplet.noise_fsc(*args)
-
-
 def norm(*args):
     return PythonPApplet.norm(*args)
 
@@ -1153,10 +1083,6 @@ def print_projection(*args):
     return _papplet.printProjection(*args)
 
 
-def print_stack_trace(*args):
-    return _papplet.printStackTrace(*args)
-
-
 def println(*args):
     return _papplet.println(*args)
 
@@ -1215,18 +1141,6 @@ def redraw(*args):
 
 def register_method(*args):
     return _papplet.registerMethod(*args)
-
-
-def register_natives(*args):
-    return PythonPApplet.registerNatives(*args)
-
-
-def register_no_args(*args):
-    return _papplet.registerNoArgs(*args)
-
-
-def register_with_args(*args):
-    return _papplet.registerWithArgs(*args)
 
 
 def render(*args):
@@ -1337,16 +1251,8 @@ def second(*args):
     return PythonPApplet.second(*args)
 
 
-def select_callback(*args):
-    return PythonPApplet.selectCallback(*args)
-
-
 def select_folder(*args):
     return _papplet.selectFolder(*args)
-
-
-def select_impl(*args):
-    return PythonPApplet.selectImpl(*args)
 
 
 def select_input(*args):
@@ -1425,10 +1331,6 @@ def show_missing_warning(*args):
     return PythonPApplet.showMissingWarning(*args)
 
 
-def show_surface(*args):
-    return _papplet.showSurface(*args)
-
-
 def show_variation_warning(*args):
     return PythonPApplet.showVariationWarning(*args)
 
@@ -1493,10 +1395,6 @@ def smooth(*args):
     return _papplet.smooth(*args)
 
 
-def smooth_warning(*args):
-    return _papplet.smoothWarning(*args)
-
-
 def sort(*args):
     return _papplet.sort(*args)
 
@@ -1543,10 +1441,6 @@ def square(*args):
 
 def start(*args):
     return _papplet.start(*args)
-
-
-def start_surface(*args):
-    return _papplet.startSurface(*args)
 
 
 def stop(*args):

@@ -17,8 +17,8 @@ jnius_config.set_classpath('.', '/home/jim/Projects/git/processing/core/library/
 from jnius import autoclass  # noqa
 from jnius import JavaMethod, JavaMultipleMethod, JavaStaticMethod  # noqa
 
-PythonPApplet = autoclass('processing.core.PythonPApplet')
-PConstants = autoclass('processing.core.PConstants')
+PythonPApplet = autoclass('processing.core.PythonPApplet', public_only=True)
+PConstants = autoclass('processing.core.PConstants', public_only=True)
 
 _papplet = PythonPApplet()
 
@@ -71,7 +71,7 @@ PAPPLET_STATIC_VARIABLES = {
 PAPPLET_DYNAMIC_VARIABLES = {
     'frameRate',
     'frameCount',
-    # 'width', 'height',
+    'width', 'height',
     # 'pmouseX', 'pmouseY',
     'mouseX', 'mouseY',
     # 'pixels'
@@ -138,7 +138,7 @@ def generate_py5():
             continue
 
         if not isinstance(getattr(_papplet, fname), (JavaMethod, JavaStaticMethod, JavaMultipleMethod)):
-            print('skipping', fname, type(getattr(_papplet, fname)))
+            # print('skipping', fname, type(getattr(_papplet, fname)))
             continue
 
         if isinstance(getattr(_papplet, fname), JavaStaticMethod):
