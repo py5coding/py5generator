@@ -10,47 +10,10 @@ jnius_config.add_options('-Xrs', '-Xmx4096m')
 jnius_config.set_classpath(
     '.', '/home/jim/Projects/git/processing/core/library/*')
 from jnius import autoclass, detach  # noqa
-from jnius import JavaField, JavaClass, MetaJavaClass, JavaMethod, JavaStaticMethod, JavaMultipleMethod  # noqa
+from jnius import JavaField, JavaStaticField, JavaClass, MetaJavaClass, JavaMethod, JavaStaticMethod, JavaMultipleMethod  # noqa
 
 
-class PythonPApplet(JavaClass, metaclass=MetaJavaClass):
-    __javaclass__ = 'processing/core/PythonPApplet'
-
-    background = JavaMultipleMethod([('(I)V', False, False),
-                                     ('(IF)V', False, False),
-                                     ('(F)V', False, False),
-                                     ('(FF)V', False, False),
-                                     ('(FFF)V', False, False),
-                                     ('(FFFF)V', False, False)])
-    size = JavaMultipleMethod([('(II)V', False, False),
-                               ('(IILjava/lang/String;)V', False, False),
-                               ('(IILjava/lang/String;Ljava/lang/String;)V', False, False)])
-    rectMode = JavaMethod('(I)V')
-    random = JavaMultipleMethod([('(F)F', False, False),
-                                 ('(FF)F', False, False)])
-    fill = JavaMethod('(FFFF)V')
-    rect = JavaMethod('(FFFF)V')
-
-    frameRate = JavaField('F')
-    frameCount = JavaField('I')
-    mouseX = JavaField('I')
-    mouseY = JavaField('I')
-    width = JavaField('I')
-    height = JavaField('I')
-
-    surface = JavaField('Lprocessing/core/PSurface;')
-    getSurface = JavaMethod('()Lprocessing/core/PSurface;')
-
-    handleSettingsPt1 = JavaMethod('()V')
-    handleSettingsPt2 = JavaMethod('()V')
-    handleDrawPt1 = JavaMethod('()V')
-    handleDrawPt2 = JavaMethod('()V')
-    handleDrawPt3 = JavaMethod('()V')
-    setupSketch = JavaStaticMethod('([Ljava/lang/String;Lprocessing/core/PApplet;)V')
-    render = JavaMethod('()V')
-
-
-# PythonPApplet = autoclass('processing.core.PythonPApplet', public_only=True)
+PythonPApplet = autoclass('processing.core.PythonPApplet', include_protected=False, include_private=False)
 _papplet = PythonPApplet()
 
 _target_frame_rate = 60
@@ -80,8 +43,8 @@ def set_frame_rate(frame_rate):
     _target_frame_rate = frame_rate
     _frame_rate_period = 1 / frame_rate
     # this isn't really necessary
-    _papplet.surface.setFrameRate(frame_rate)
-    # _papplet.getSurface().setFrameRate(frame_rate)
+    # _papplet.surface.setFrameRate(frame_rate)
+    _papplet.getSurface().setFrameRate(frame_rate)
 
 
 def run_sketch(settings, setup, draw, frameLimit=1000):

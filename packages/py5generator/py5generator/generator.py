@@ -1,7 +1,6 @@
 """
 Py5 Generator Code
 """
-import string
 import re
 import pkgutil
 import shlex
@@ -14,13 +13,67 @@ import shlex
 
 import jnius_config
 jnius_config.set_classpath('.', '/home/jim/Projects/git/processing/core/library/*')
-from jnius import autoclass  # noqa
-from jnius import JavaMethod, JavaMultipleMethod, JavaStaticMethod  # noqa
+from jnius import autoclass, find_javaclass, with_metaclass  # noqa
+from jnius import MetaJavaClass, JavaClass, JavaStaticMethod  # noqa
 
-PythonPApplet = autoclass('processing.core.PythonPApplet', public_only=True)
-PConstants = autoclass('processing.core.PConstants', public_only=True)
 
-_papplet = PythonPApplet()
+class Modifier(with_metaclass(MetaJavaClass, JavaClass)):
+    __javaclass__ = 'java/lang/reflect/Modifier'
+
+    isAbstract = JavaStaticMethod('(I)Z')
+    isFinal = JavaStaticMethod('(I)Z')
+    isInterface = JavaStaticMethod('(I)Z')
+    isNative = JavaStaticMethod('(I)Z')
+    isPrivate = JavaStaticMethod('(I)Z')
+    isProtected = JavaStaticMethod('(I)Z')
+    isPublic = JavaStaticMethod('(I)Z')
+    isStatic = JavaStaticMethod('(I)Z')
+    isStrict = JavaStaticMethod('(I)Z')
+    isSynchronized = JavaStaticMethod('(I)Z')
+    isTransient = JavaStaticMethod('(I)Z')
+    isVolatile = JavaStaticMethod('(I)Z')
+
+
+def identify_hierarchy(cls, level, concrete=True):
+    supercls = cls.getSuperclass()
+    if supercls is not None:
+        for sup, lvl in identify_hierarchy(supercls, level + 1, concrete=concrete):
+            yield sup, lvl  # we could use yield from when we drop python2
+    interfaces = cls.getInterfaces()
+    for interface in interfaces or []:
+        for sup, lvl in identify_hierarchy(interface, level + 1, concrete=concrete):
+            yield sup, lvl
+    # all object extends Object, so if this top interface in a hierarchy, yield Object
+    if not concrete and cls.isInterface() and not interfaces:
+        yield find_javaclass('java.lang.Object'), level + 1
+    yield cls, level
+
+
+PythonPApplet = autoclass('processing.core.PythonPApplet')
+c = find_javaclass('processing.core.PythonPApplet')
+class_hierachy = list(identify_hierarchy(c, 0, not c.isInterface()))
+
+methods = set()
+fields = set()
+static_fields = set()
+
+for cls, _ in class_hierachy:
+    for method in cls.getDeclaredMethods():
+        name = method.getName()
+        modifiers = method.getModifiers()
+        if not Modifier.isPublic(modifiers):
+            continue
+        methods.add(name)
+
+    for field in cls.getDeclaredFields():
+        name = field.getName()
+        modifiers = field.getModifiers()
+        if not Modifier.isPublic(modifiers):
+            continue
+        if Modifier.isStatic(modifiers):
+            static_fields.add(name)
+        else:
+            fields.add(name)
 
 
 ###############################################################################
@@ -49,9 +102,12 @@ DYNAMIC_VAR_TEMPLATE = """
 PAPPLET_SKIP_METHODS = {
     'print', 'exec', 'draw', 'setup', 'exit',
     'min', 'max', 'round', 'map', 'abs', 'pow',
+    'frameRate', 'fullScreen', 'keyPressed', 'mousePressed',
+    'pixelDensity', 'smooth',
     'runSketch',
     'handleDrawPt1', 'handleDrawPt2', 'handleDrawPt3',
     'handleSettingsPt1', 'handleSettingsPt2',
+    'render'
 }
 
 PCONSTANT_OVERRIDES = {
@@ -62,19 +118,6 @@ PCONSTANT_OVERRIDES = {
     'DELETE': r'\x7f',
     'BACKSPACE': r'\x08',
     'TAB': r'\t'
-}
-
-PAPPLET_STATIC_VARIABLES = {
-    'javaPlatform', 'javaVersion', 'javaVersionName', 'platform', 'platformNames', 'useNativeSelect'
-}
-
-PAPPLET_DYNAMIC_VARIABLES = {
-    'frameRate',
-    'frameCount',
-    'width', 'height',
-    # 'pmouseX', 'pmouseY',
-    'mouseX', 'mouseY',
-    # 'pixels'
 }
 
 
@@ -100,48 +143,36 @@ def generate_py5():
     # read the output template
     py5_template = pkgutil.get_data('py5generator', 'templates/py5_init_template.py').decode('utf-8')
 
-    # identify and code the static constants
+    # code the static constants
     py5_constants = []
-    for name in filter(lambda x: x[0] in string.ascii_uppercase, dir(PConstants)):
-        # TODO: can I combine this with a ChainDict?
+    for name in sorted(static_fields):
         if name in PCONSTANT_OVERRIDES:
             py5_constants.append(f'{name} = {shlex.quote(PCONSTANT_OVERRIDES[name])}')
         else:
-            val = getattr(PConstants, name)
+            val = getattr(PythonPApplet, name)
             if isinstance(val, str):
                 val = f"'{val}'"
+            if name == 'javaVersion':
+                val = round(val, 1)
             py5_constants.append(f'{name} = {val}')
     py5_constants_code = '\n'.join(py5_constants)
 
-    for name in PAPPLET_STATIC_VARIABLES:
-        val = getattr(PythonPApplet, name)
-        if isinstance(val, str):
-            val = f"'{val}'"
-        elif name == 'javaVersion':  # necessary hack
-            val = round(val, 1)
-        py5_constants.append(f'{name} = {val}')
-
-    # identify and code the dynamic variables
+    # code the dynamic variables
     init_vars = []
     update_vars = []
-    for name in PAPPLET_DYNAMIC_VARIABLES:
+    for name in sorted(fields):
         snake_name = snake_case(name)
         init_vars.append(f'{snake_name} = None')
         update_vars.append(DYNAMIC_VAR_TEMPLATE.format(snake_name, name))
     py5_init_dynamic_var_code = '\n'.join(init_vars)
     py5_update_dynamic_var_code = ''.join(update_vars)[5:]
 
-    # identify and code the class and instance methods
+    # code the class and instance methods
     py5_functions = []
-    for fname in filter(lambda x: x[0] in string.ascii_lowercase, dir(_papplet)):
-        if fname in PAPPLET_SKIP_METHODS or fname in PAPPLET_STATIC_VARIABLES or '$' in fname:
+    for fname in sorted(methods):
+        if fname in PAPPLET_SKIP_METHODS:
             continue
-
-        if not isinstance(getattr(_papplet, fname), (JavaMethod, JavaStaticMethod, JavaMultipleMethod)):
-            # print('skipping', fname, type(getattr(_papplet, fname)))
-            continue
-
-        if isinstance(getattr(_papplet, fname), JavaStaticMethod):
+        if isinstance(getattr(PythonPApplet, fname), JavaStaticMethod):
             py5_functions.append(STATIC_METHOD_TEMPLATE.format(snake_case(fname), fname))
         else:
             py5_functions.append(METHOD_TEMPLATE.format(snake_case(fname), fname))

@@ -10,47 +10,10 @@ jnius_config.add_options('-Xrs', '-Xmx4096m')
 jnius_config.set_classpath(
     '.', '/home/jim/Projects/git/processing/core/library/*')
 from jnius import autoclass, detach  # noqa
-from jnius import JavaField, JavaClass, MetaJavaClass, JavaMethod, JavaStaticMethod, JavaMultipleMethod  # noqa
+from jnius import JavaField, JavaStaticField, JavaClass, MetaJavaClass, JavaMethod, JavaStaticMethod, JavaMultipleMethod  # noqa
 
 
-class PythonPApplet(JavaClass, metaclass=MetaJavaClass):
-    __javaclass__ = 'processing/core/PythonPApplet'
-
-    background = JavaMultipleMethod([('(I)V', False, False),
-                                     ('(IF)V', False, False),
-                                     ('(F)V', False, False),
-                                     ('(FF)V', False, False),
-                                     ('(FFF)V', False, False),
-                                     ('(FFFF)V', False, False)])
-    size = JavaMultipleMethod([('(II)V', False, False),
-                               ('(IILjava/lang/String;)V', False, False),
-                               ('(IILjava/lang/String;Ljava/lang/String;)V', False, False)])
-    rectMode = JavaMethod('(I)V')
-    random = JavaMultipleMethod([('(F)F', False, False),
-                                 ('(FF)F', False, False)])
-    fill = JavaMethod('(FFFF)V')
-    rect = JavaMethod('(FFFF)V')
-
-    frameRate = JavaField('F')
-    frameCount = JavaField('I')
-    mouseX = JavaField('I')
-    mouseY = JavaField('I')
-    width = JavaField('I')
-    height = JavaField('I')
-
-    surface = JavaField('Lprocessing/core/PSurface;')
-    getSurface = JavaMethod('()Lprocessing/core/PSurface;')
-
-    handleSettingsPt1 = JavaMethod('()V')
-    handleSettingsPt2 = JavaMethod('()V')
-    handleDrawPt1 = JavaMethod('()V')
-    handleDrawPt2 = JavaMethod('()V')
-    handleDrawPt3 = JavaMethod('()V')
-    setupSketch = JavaStaticMethod('([Ljava/lang/String;Lprocessing/core/PApplet;)V')
-    render = JavaMethod('()V')
-
-
-# PythonPApplet = autoclass('processing.core.PythonPApplet', public_only=True)
+PythonPApplet = autoclass('processing.core.PythonPApplet', include_protected=False, include_private=False)
 _papplet = PythonPApplet()
 
 _target_frame_rate = 60
@@ -64,6 +27,16 @@ ALT = 18
 AMBIENT = 0
 ARC = 32
 ARGB = 2
+ARGS_DENSITY = '--density'
+ARGS_DISPLAY = '--display'
+ARGS_EDITOR_LOCATION = '--editor-location'
+ARGS_EXTERNAL = '--external'
+ARGS_HIDE_STOP = '--hide-stop'
+ARGS_LOCATION = '--location'
+ARGS_PRESENT = '--present'
+ARGS_SKETCH_FOLDER = '--sketch-path'
+ARGS_STOP_COLOR = '--stop-color'
+ARGS_WINDOW_COLOR = '--window-color'
 ARROW = 0
 BACKSPACE = '\x08'
 BASELINE = 0
@@ -89,6 +62,8 @@ CROSS = 1
 CURVE_VERTEX = 3
 CUSTOM = 0
 DARKEST = 16
+DEFAULT_HEIGHT = 100
+DEFAULT_WIDTH = 100
 DEG_TO_RAD = 0.01745329238474369
 DELETE = '\x7f'
 DIAMETER = 3
@@ -128,6 +103,8 @@ EPSILON = 9.999999747378752e-05
 ERODE = 17
 ESC = '\x1b'
 EXCLUSION = 64
+EXTERNAL_MOVE = '__MOVE__'
+EXTERNAL_STOP = '__STOP__'
 FX2D = 'processing.javafx.PGraphicsFX2D'
 GIF = 3
 GRAY = 12
@@ -227,28 +204,100 @@ WINDOWS = 1
 X = 0
 Y = 1
 Z = 2
+javaPlatform = 8
+javaVersion = 1.8
+javaVersionName = '1.8.0_74'
+platform = 3
+platformNames = None
+useNativeSelect = True
 
 
 # *** PY5 GENERATED DYNAMIC VARIABLES ***
-height = None
-mouse_y = None
-mouse_x = None
-frame_rate = None
+args = None
+display_height = None
+display_width = None
+finished = None
+first_mouse = None
+focused = None
+frame = None
 frame_count = None
+frame_rate = None
+g = None
+height = None
+key = None
+key_code = None
+key_event = None
+key_pressed = None
+mouse_button = None
+mouse_event = None
+mouse_pressed = None
+mouse_x = None
+mouse_y = None
+pixel_density = None
+pixel_height = None
+pixel_width = None
+pixels = None
+pmouse_x = None
+pmouse_y = None
+recorder = None
 width = None
 
 
 def _update_vars():
-    global height
-    height = _papplet.height
-    global mouse_y
-    mouse_y = _papplet.mouseY
-    global mouse_x
-    mouse_x = _papplet.mouseX
-    global frame_rate
-    frame_rate = _papplet.frameRate
+    global args
+    args = _papplet.args
+    global display_height
+    display_height = _papplet.displayHeight
+    global display_width
+    display_width = _papplet.displayWidth
+    global finished
+    finished = _papplet.finished
+    global first_mouse
+    first_mouse = _papplet.firstMouse
+    global focused
+    focused = _papplet.focused
+    global frame
+    frame = _papplet.frame
     global frame_count
     frame_count = _papplet.frameCount
+    global frame_rate
+    frame_rate = _papplet.frameRate
+    global g
+    g = _papplet.g
+    global height
+    height = _papplet.height
+    global key
+    key = _papplet.key
+    global key_code
+    key_code = _papplet.keyCode
+    global key_event
+    key_event = _papplet.keyEvent
+    global key_pressed
+    key_pressed = _papplet.keyPressed
+    global mouse_button
+    mouse_button = _papplet.mouseButton
+    global mouse_event
+    mouse_event = _papplet.mouseEvent
+    global mouse_pressed
+    mouse_pressed = _papplet.mousePressed
+    global mouse_x
+    mouse_x = _papplet.mouseX
+    global mouse_y
+    mouse_y = _papplet.mouseY
+    global pixel_density
+    pixel_density = _papplet.pixelDensity
+    global pixel_height
+    pixel_height = _papplet.pixelHeight
+    global pixel_width
+    pixel_width = _papplet.pixelWidth
+    global pixels
+    pixels = _papplet.pixels
+    global pmouse_x
+    pmouse_x = _papplet.pmouseX
+    global pmouse_y
+    pmouse_y = _papplet.pmouseY
+    global recorder
+    recorder = _papplet.recorder
     global width
     width = _papplet.width
 
@@ -657,10 +706,6 @@ def frame_resized(*args):
 
 def frustum(*args):
     return _papplet.frustum(*args)
-
-
-def full_screen(*args):
-    return _papplet.fullScreen(*args)
 
 
 def get(*args):
@@ -1143,10 +1188,6 @@ def register_method(*args):
     return _papplet.registerMethod(*args)
 
 
-def render(*args):
-    return _papplet.render(*args)
-
-
 def request_image(*args):
     return _papplet.requestImage(*args)
 
@@ -1391,10 +1432,6 @@ def sketch_window_color(*args):
     return _papplet.sketchWindowColor(*args)
 
 
-def smooth(*args):
-    return _papplet.smooth(*args)
-
-
 def sort(*args):
     return _papplet.sort(*args)
 
@@ -1594,8 +1631,8 @@ def set_frame_rate(frame_rate):
     _target_frame_rate = frame_rate
     _frame_rate_period = 1 / frame_rate
     # this isn't really necessary
-    _papplet.surface.setFrameRate(frame_rate)
-    # _papplet.getSurface().setFrameRate(frame_rate)
+    # _papplet.surface.setFrameRate(frame_rate)
+    _papplet.getSurface().setFrameRate(frame_rate)
 
 
 def run_sketch(settings, setup, draw, frameLimit=1000):
