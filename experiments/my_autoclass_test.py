@@ -6,6 +6,21 @@ jnius_config.set_classpath(
 from jnius import autoclass, JavaClass, JavaStaticMethod, MetaJavaClass, find_javaclass, with_metaclass  # noqa
 
 
+def identify_hierarchy(cls, level, concrete=True):
+    supercls = cls.getSuperclass()
+    if supercls is not None:
+        for sup, lvl in identify_hierarchy(supercls, level + 1, concrete=concrete):
+            yield sup, lvl  # we could use yield from when we drop python2
+    interfaces = cls.getInterfaces()
+    for interface in interfaces or []:
+        for sup, lvl in identify_hierarchy(interface, level + 1, concrete=concrete):
+            yield sup, lvl
+    # all object extends Object, so if this top interface in a hierarchy, yield Object
+    if not concrete and cls.isInterface() and not interfaces:
+        yield find_javaclass('java.lang.Object'), level + 1
+    yield cls, level
+
+
 # some stuff copied from jnius/reflect.py
 def get_signature(cls_tp):
     tp = cls_tp.getName()
@@ -46,12 +61,14 @@ class Modifier(with_metaclass(MetaJavaClass, JavaClass)):
 PythonPApplet = autoclass('processing.core.PythonPApplet')
 _papplet = PythonPApplet()
 
-cls = find_javaclass('processing.core.PythonPApplet')
+c = find_javaclass('processing.core.PythonPApplet')
+
+class_hierachy = list(identify_hierarchy(c, 0, not c.isInterface()))
 
 methods = defaultdict(set)
 fields = defaultdict(set)
 
-while cls is not None:
+for cls, level in class_hierachy:
     print(cls.getName())
     print("=" * 20)
     method_list = []
@@ -91,16 +108,10 @@ while cls is not None:
         fields[name].add((name, type_, val, static, public))
         fields_list.append((name, type_, val, static, public))
 
-    # if fields_list:
-    #     print('fields')
-    #     print("-" * 20)
-    #     for f in fields_list:
-    #         print(*f)
-
-    _cls = cls.getSuperclass()
-    if not _cls and cls.isInterface():
-        cls = find_javaclass('java.lang.Object')
-    else:
-        cls = _cls
+    if fields_list:
+        print('fields')
+        print("-" * 20)
+        for f in fields_list:
+            print(*f)
 
     print('\n')
