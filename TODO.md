@@ -21,6 +21,9 @@ build magic functions for screen grabs and making good documentation
 add docstrings to all methods, pulling docs from website
 is there anything to be gained from using type hinting?
 
+rather than require users to install libraries through the PDE, I can download and install
+them directly using the same download mechanism. There is a text file with links to all
+the zip files, which I can open up and pull out the jar files.
 
 skip over @Deprecated constants
 skip over all protected constants, variables, and methods
