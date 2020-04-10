@@ -312,6 +312,10 @@ def _update_vars():
 
 # *** PY5 GENERATED FUNCTIONS ***
 
+def _setup_sketch(*args):
+    return PythonPApplet._setupSketch(*args)
+
+
 def acos(*args):
     return PythonPApplet.acos(*args)
 
@@ -1320,10 +1324,6 @@ def settings(*args):
     return _papplet.settings(*args)
 
 
-def setup_sketch(*args):
-    return PythonPApplet.setupSketch(*args)
-
-
 def shader(*args):
     return _papplet.shader(*args)
 
@@ -1637,7 +1637,7 @@ def run_sketch(settings, setup, draw, frameLimit=1000):
     settings()
     _papplet._handleSettingsPt2()
 
-    PythonPApplet.setupSketch([''], _papplet)
+    PythonPApplet._setupSketch([''], _papplet)
 
     while frameLimit > 0:
         start = time.time()

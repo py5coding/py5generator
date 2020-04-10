@@ -61,7 +61,7 @@ def run_sketch(settings, setup, draw, frameLimit=1000):
     settings()
     _papplet._handleSettingsPt2()
 
-    PythonPApplet.setupSketch([''], _papplet)
+    PythonPApplet._setupSketch([''], _papplet)
 
     while frameLimit > 0:
         start = time.time()

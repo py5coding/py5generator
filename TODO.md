@@ -1,10 +1,11 @@
 support all dynamic variables like frameRate and mouseX, mouseY
+have animation thread be in its own thread that can be stopped
 
 command line py5 generator util
 command line run_sketch util
 
 fork and edit PApplet class instead of duplicating code in the PythonPApplet class
-don't hardcode the classpath in py5generator or py5. or should the jars be part of the project?
+don't hardcode the classpath in py5generator or py5. or should the jars be part of the project? YES!
 ** jars should be a part of the project because otherwise there could be versioning issues.
 ability to set JVM options like heap size
 
