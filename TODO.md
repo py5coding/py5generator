@@ -1,8 +1,12 @@
-support all dynamic variables like frameRate and mouseX, mouseY
+support dynamic variables like frameRate and mouseX, mouseY, skip deprecated, objects that don't change, height, width, etc that don't change
 have animation thread be in its own thread that can be stopped
 
 command line py5 generator util
 command line run_sketch util
+
+run_sketch function from py5 module: needs to have event functions passed in. can I
+write a function to pull them  out of the local() or global() namespaces? can I combine
+it with what I am doing in the exec_test2.py file?
 
 fork and edit PApplet class instead of duplicating code in the PythonPApplet class
 don't hardcode the classpath in py5generator or py5. or should the jars be part of the project? YES!
@@ -11,6 +15,8 @@ ability to set JVM options like heap size
 
 support key and mouse events
 support Processing libraries
+
+build magic functions for screen grabs and making good documentation
 
 add docstrings to all methods, pulling docs from website
 is there anything to be gained from using type hinting?

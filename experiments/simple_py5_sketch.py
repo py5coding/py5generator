@@ -3,6 +3,7 @@ import py5
 
 def settings():
     py5.size(500, 500, py5.JAVA2D)
+    py5.full_screen()
 
 
 def setup():
@@ -12,7 +13,8 @@ def setup():
 
 
 def draw():
-    print('frameRate', py5.frame_rate)
+    if py5.key_pressed:
+        print('frameRate', py5.frame_rate)
     py5.fill(py5.random(255), py5.random(255), py5.random(255), 50.0)
     py5.rect(py5.mouse_x, py5.mouse_y, 40, 40)
 
