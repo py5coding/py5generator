@@ -100,14 +100,15 @@ DYNAMIC_VAR_TEMPLATE = """
 
 
 PAPPLET_SKIP_METHODS = {
-    'print', 'exec', 'draw', 'setup', 'exit',
+    'print', 'exec', 'draw', 'setup', 'exit', 'str', 'set',
     'min', 'max', 'round', 'map', 'abs', 'pow',
+    'runSketch',
     'frameRate', 'fullScreen', 'keyPressed', 'mousePressed',
     'pixelDensity', 'smooth',
-    'runSketch',
-    'handleDrawPt1', 'handleDrawPt2', 'handleDrawPt3',
-    'handleSettingsPt1', 'handleSettingsPt2',
-    'render'
+    'handleDraw',
+    # 'handleDrawPt1', 'handleDrawPt2', 'handleDrawPt3',
+    # 'handleSettingsPt1', 'handleSettingsPt2',
+    # 'render'
 }
 
 PCONSTANT_OVERRIDES = {
@@ -153,7 +154,7 @@ def generate_py5():
             if isinstance(val, str):
                 val = f"'{val}'"
             if name == 'javaVersion':
-                val = round(val, 1)
+                val = round(val, 2)
             py5_constants.append(f'{name} = {val}')
     py5_constants_code = '\n'.join(py5_constants)
 

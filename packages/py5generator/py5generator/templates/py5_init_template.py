@@ -10,11 +10,19 @@ jnius_config.add_options('-Xrs', '-Xmx4096m')
 jnius_config.set_classpath(
     '.', '/home/jim/Projects/git/processing/core/library/*')
 from jnius import autoclass, detach  # noqa
-from jnius import JavaField, JavaStaticField, JavaClass, MetaJavaClass, JavaMethod, JavaStaticMethod, JavaMultipleMethod  # noqa
+from jnius import JavaField, JavaStaticField, JavaMethod, JavaStaticMethod  # noqa
 
 
-PythonPApplet = autoclass('processing.core.PythonPApplet', include_protected=False, include_private=False)
+PythonPApplet = autoclass('processing.core.PythonPApplet',
+                          include_protected=False, include_private=False)
+PythonPApplet._render = JavaMethod('()V')
+PythonPApplet._handleSettingsPt1 = JavaMethod('()V')
+PythonPApplet._handleSettingsPt2 = JavaMethod('()V')
+PythonPApplet._handleDrawPt1 = JavaMethod('()V')
+PythonPApplet._handleDrawPt2 = JavaMethod('()V')
+PythonPApplet._handleDrawPt3 = JavaMethod('()V')
 _papplet = PythonPApplet()
+
 
 _target_frame_rate = 60
 _frame_rate_period = 1 / _target_frame_rate
@@ -49,9 +57,9 @@ def set_frame_rate(frame_rate):
 
 def run_sketch(settings, setup, draw, frameLimit=1000):
     # handle settings
-    _papplet.handleSettingsPt1()
+    _papplet._handleSettingsPt1()
     settings()
-    _papplet.handleSettingsPt2()
+    _papplet._handleSettingsPt2()
 
     PythonPApplet.setupSketch([''], _papplet)
 
@@ -60,13 +68,13 @@ def run_sketch(settings, setup, draw, frameLimit=1000):
 
         # handle draw
         _update_vars()
-        _papplet.handleDrawPt1()
+        _papplet._handleDrawPt1()
         if _papplet.frameCount == 0:
             setup()
-        _papplet.handleDrawPt2()
+        _papplet._handleDrawPt2()
         draw()
-        _papplet.handleDrawPt3()
-        _papplet.render()
+        _papplet._handleDrawPt3()
+        _papplet._render()
 
         time.sleep(max(0, _frame_rate_period - (time.time() - start)))
 
