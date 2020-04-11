@@ -1,15 +1,22 @@
 import py5
+from py5 import autoclass
+
+ColorBlindness = autoclass('colorblind.ColorBlindness')
+colorBlindness = None
 
 
 def settings():
     py5.size(500, 500, py5.JAVA2D)
-    # py5.full_screen()
 
 
 def setup():
     py5.background(255)
     py5.rect_mode(py5.CENTER)
     py5.set_frame_rate(30)
+
+    global colorBlindness
+    colorBlindness = ColorBlindness(py5._papplet)
+    colorBlindness.simulateProtanopia()
 
 
 def draw():

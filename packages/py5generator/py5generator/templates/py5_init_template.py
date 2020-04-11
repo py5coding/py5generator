@@ -8,7 +8,9 @@ import time
 import jnius_config
 jnius_config.add_options('-Xrs', '-Xmx4096m')
 jnius_config.set_classpath(
-    '.', '/home/jim/Projects/git/processing/core/library/*')
+    '.',
+    '/home/jim/Projects/git/processing/core/library/*',
+    '/home/jim/Projects/ITP/pythonprocessing/py5/experiments/libraries/*')
 from jnius import autoclass, detach  # noqa
 from jnius import JavaField, JavaStaticField, JavaMethod, JavaStaticMethod  # noqa
 
@@ -52,7 +54,7 @@ def set_frame_rate(frame_rate):
     _frame_rate_period = 1 / frame_rate
     # this isn't really necessary
     # _papplet.surface.setFrameRate(frame_rate)
-    _papplet.getSurface().setFrameRate(frame_rate)
+    # _papplet.getSurface().setFrameRate(frame_rate)
 
 
 def run_sketch(settings, setup, draw, frameLimit=1000):

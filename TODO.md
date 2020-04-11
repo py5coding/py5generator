@@ -6,7 +6,7 @@ command line run_sketch util
 
 run_sketch function from py5 module: needs to have event functions passed in. can I
 write a function to pull them  out of the local() or global() namespaces? can I combine
-it with what I am doing in the exec_test2.py file?
+it with what I am doing in the exec_test2.py file? I should also be able to create a class and run the class. That will make it easier to pass in the event methods.
 
 fork and edit PApplet class instead of duplicating code in the PythonPApplet class
 don't hardcode the classpath in py5generator or py5. or should the jars be part of the project? YES!
