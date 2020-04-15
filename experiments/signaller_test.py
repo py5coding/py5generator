@@ -16,8 +16,11 @@ def draw():
     time.sleep(1)
 
 
-useSignaller = False
-signallerTest = SignallerTest(useSignaller)
+useSignaller = True
+signallerTest = SignallerTest()
+if useSignaller:
+    signallerTest.useSignaller()
+
 SignallerTest.run(signallerTest)
 
 if useSignaller:
@@ -97,10 +100,12 @@ public class SignallerTest {
 
   private Signaller signaller;
 
-  public SignallerTest(boolean useSignaller) {
-    if (useSignaller) {
-      signaller = new Signaller();
-    }
+  public SignallerTest() {
+
+  }
+
+  public void useSignaller() {
+    signaller = new Signaller();
   }
 
   public Signaller getSignaller() {
