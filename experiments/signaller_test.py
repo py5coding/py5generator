@@ -1,3 +1,4 @@
+import sys
 import time
 import jnius_config
 jnius_config.set_classpath(
@@ -8,26 +9,29 @@ SignallerTest = autoclass('processing.core.SignallerTest')
 
 
 def setup():
-    print("Running Python Setup Method")
+    print("Running Python Setup Method", file=sys.stderr, flush=True)
+    # time.sleep(0.1)
 
 
 def draw():
-    print("Running Python Draw Method")
-    time.sleep(1)
+    print("Running Python Draw Method", file=sys.stderr, flush=True)
+    # time.sleep(0.1)
 
 
 useSignaller = True
 signallerTest = SignallerTest()
 if useSignaller:
     signallerTest.useSignaller()
+    signaller = signallerTest.getSignaller()
 
 SignallerTest.run(signallerTest)
 
 if useSignaller:
-    signaller = signallerTest.getSignaller()
-
     while True:
         task = signaller.getTask()
+        if not task:
+            continue
+        signaller.clearTask()
         if task == "setup":
             setup()
         elif task == "draw":
@@ -38,54 +42,47 @@ if useSignaller:
 
 
 ###############################################################################
-# Signaller.java
+# PythonBlocker.java
 ###############################################################################
 """
 package processing.core;
 
-public class Signaller {
+public class PythonBlocker {
 
   private String task;
 
-  private Object python;
+  private boolean block;
 
-  private Object java;
-
-  public Signaller() {
+  public PythonBlocker() {
     task = "";
-    python = new Object();
-    java = new Object();
+    block = true;
   }
 
   public String getTask() {
     return task;
   }
 
-  public void resumeJava() {
-    synchronized (java) {
-      java.notify();
-    }
-    synchronized (python) {
-      try {
-        python.wait();
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
-    }
+  public void clearTask() {
+    task = "";
   }
 
-  public void resumePython(String task) {
+  public synchronized void resumeJava() {
+    block = false;
+    notifyAll();
+  }
+
+  public synchronized void pythonTask(String task) {
     this.task = task;
-    synchronized (python) {
-      python.notify();
-    }
-    synchronized (java) {
+
+    while (block) {
       try {
-        java.wait();
+        wait();
       } catch (InterruptedException e) {
-        e.printStackTrace();
+        Thread.currentThread().interrupt();
       }
     }
+
+    block = true;
   }
 }
 """
@@ -98,53 +95,48 @@ package processing.core;
 
 public class SignallerTest {
 
-  private Signaller signaller;
+  private PythonBlocker signaller;
 
   public SignallerTest() {
 
   }
 
   public void useSignaller() {
-    signaller = new Signaller();
+    signaller = new PythonBlocker();
   }
 
-  public Signaller getSignaller() {
+  public PythonBlocker getSignaller() {
     return signaller;
   }
 
   public void setup() {
     if (signaller != null) {
-      signaller.resumePython("setup");
+      signaller.pythonTask("setup");
     } else {
-      System.out.println("Running Java Setup Method");
+      System.err.println("Running Java Setup Method");
     }
   }
 
   public void draw() {
     if (signaller != null) {
-      signaller.resumePython("draw");
+      signaller.pythonTask("draw");
     } else {
-      System.out.println("Running Java Draw Method");
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      }
+      System.err.println("Running Java Draw Method");
     }
   }
 
   private void runLoop() {
-    System.out.println("Pre-Setup Phase");
+    System.err.println("Pre-Setup Phase");
     setup();
-    System.out.println("Post-Setup Phase");
+    System.err.println("Post-Setup Phase");
 
     for (int i = 0; i < 20; i++) {
-      System.out.println("Pre-Draw Phase");
+      System.err.println("Pre-Draw Phase");
       draw();
-      System.out.println("Post-Draw Phase");
+      System.err.println("Post-Draw Phase");
     }
     if (signaller != null) {
-      signaller.resumePython("exit");
+      signaller.pythonTask("exit");
     }
   }
 
