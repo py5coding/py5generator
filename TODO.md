@@ -53,19 +53,11 @@ somewhere to call handleDraw or draw myself.
 Why not use semaphors for all the renderers? It would simplify the
 implementation a bit. I would not need to split up the handleSettings and
 handleDraw methods. Those are the only places where settings, setup, or draw are
-called, so I can put the semaphors there.
+called, outside of libraries like Camera3D that also call those methods.
 
-Basically I need to modify handleSettings and handleDraw and have them block
-before calling settings, setup, or draw. I can also use this for the event
-handlers and anything with libraries. Can I just put this in the default
-methods? Yes, because only Py5 will not be able to call the subclassed methods!
-But will this change the behavior for libraries that happen to call them? It
-might break them or cause them to freeze, waiting for a semaphor. I need to
-be able to detect when they are being called incorrectly.
+Inside the default settings, setup, and draw methods in PApplet, I can use a
+signaller to block and resume Python execution. That can then run the Python
+methods. I can do this for the keyboard and mouse event methods also.
 
-Because Camera3D calls the sketch's draw method it will need to be modified to
-use the semaphors also. Any library that calls settings, setup, or draw will
-need to use the semaphors. I should change the default methods in PApplet to
-include a warning when semaphors should be used so that no user is confused.
-
-I need to do a semaphor test to experiment with this implementation.
+Only Py5 will not be able to call the subclassed methods in a sketch! The Java
+Processing sketches will override those methods.
