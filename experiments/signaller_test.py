@@ -32,7 +32,6 @@ if useSignaller:
         if not task:
             time.sleep(0.001)
             continue
-        signaller.clearTask()
         if task == "setup":
             setup()
         elif task == "draw":
@@ -63,11 +62,8 @@ public class PythonBlocker {
     return task;
   }
 
-  public void clearTask() {
-    task = "";
-  }
-
   public synchronized void resumeJava() {
+    task = "";
     block = false;
     notifyAll();
   }
