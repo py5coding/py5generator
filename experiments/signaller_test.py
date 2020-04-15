@@ -28,7 +28,7 @@ SignallerTest.run(signallerTest)
 
 if useSignaller:
     while True:
-        task = signaller.getTask()
+        task = signaller.getPythonTask()
         if not task:
             time.sleep(0.001)
             continue
@@ -38,37 +38,37 @@ if useSignaller:
             draw()
         elif task == "exit":
             break
-        signaller.resumeJava()
+        signaller.continueJava()
 
 
 ###############################################################################
-# PythonBlocker.java
+# PythonTaskBlocker.java
 ###############################################################################
 """
 package processing.core;
 
-public class PythonBlocker {
+public class PythonTaskBlocker {
 
   private String task;
 
   private boolean block;
 
-  public PythonBlocker() {
+  public PythonTaskBlocker() {
     task = "";
     block = true;
   }
 
-  public String getTask() {
+  public String getPythonTask() {
     return task;
   }
 
-  public synchronized void resumeJava() {
+  public synchronized void continueJava() {
     task = "";
     block = false;
     notifyAll();
   }
 
-  public synchronized void pythonTask(String task) {
+  public synchronized void setPythonTask(String task) {
     this.task = task;
 
     while (block) {
@@ -85,38 +85,38 @@ public class PythonBlocker {
 """
 
 ###############################################################################
-# SignallerTest.java
+# PythonTaskBlockerTest.java
 ###############################################################################
 """
 package processing.core;
 
-public class SignallerTest {
+public class PythonTaskBlockerTest {
 
-  private PythonBlocker signaller;
+  private PythonTaskBlocker pythonTaskBlocker;
 
-  public SignallerTest() {
+  public PythonTaskBlockerTest() {
 
   }
 
   public void useSignaller() {
-    signaller = new PythonBlocker();
+    pythonTaskBlocker = new PythonTaskBlocker();
   }
 
-  public PythonBlocker getSignaller() {
-    return signaller;
+  public PythonTaskBlocker getSignaller() {
+    return pythonTaskBlocker;
   }
 
   public void setup() {
-    if (signaller != null) {
-      signaller.pythonTask("setup");
+    if (pythonTaskBlocker != null) {
+      pythonTaskBlocker.setPythonTask("setup");
     } else {
       System.err.println("Running Java Setup Method");
     }
   }
 
   public void draw() {
-    if (signaller != null) {
-      signaller.pythonTask("draw");
+    if (pythonTaskBlocker != null) {
+      pythonTaskBlocker.setPythonTask("draw");
     } else {
       System.err.println("Running Java Draw Method");
     }
@@ -132,12 +132,12 @@ public class SignallerTest {
       draw();
       System.err.println("Post-Draw Phase");
     }
-    if (signaller != null) {
-      signaller.pythonTask("exit");
+    if (pythonTaskBlocker != null) {
+      pythonTaskBlocker.setPythonTask("exit");
     }
   }
 
-  public static void run(SignallerTest obj) {
+  public static void run(PythonTaskBlockerTest obj) {
     new Thread() {
       @Override
       public void run() {
