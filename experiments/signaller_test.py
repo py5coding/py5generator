@@ -30,6 +30,7 @@ if useSignaller:
     while True:
         task = signaller.getTask()
         if not task:
+            time.sleep(0.001)
             continue
         signaller.clearTask()
         if task == "setup":
