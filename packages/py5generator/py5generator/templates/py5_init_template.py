@@ -23,6 +23,7 @@ PythonPApplet._handleSettingsPt2 = JavaMethod('()V')
 PythonPApplet._handleDrawPt1 = JavaMethod('()V')
 PythonPApplet._handleDrawPt2 = JavaMethod('()V')
 PythonPApplet._handleDrawPt3 = JavaMethod('()V')
+PythonPApplet._startSurface = JavaMethod('()V')
 _papplet = PythonPApplet()
 
 
@@ -58,12 +59,14 @@ def set_frame_rate(frame_rate):
 
 
 def run_sketch(settings, setup, draw, frameLimit=1000):
+
+    PythonPApplet._setupSketchPt1([''], _papplet)
     # handle settings
     _papplet._handleSettingsPt1()
     settings()
     _papplet._handleSettingsPt2()
-
-    PythonPApplet._setupSketch([''], _papplet)
+    PythonPApplet._setupSketchPt2(_papplet)
+    _papplet._startSurface()
 
     while frameLimit > 0:
         start = time.time()

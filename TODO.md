@@ -39,3 +39,33 @@ pixels = np.array(py5.pixels, dtype=np.uint32)
 (pixels & 0x000000FF)
 (pixels & 0x0000FF00) >> 8
 (pixels & 0x00FF0000) >> 16
+
+
+
+How to get this working for P2D and P3D in addition to JAVA2D renderers
+=======================================================================
+
+The PSurfaceJOGL class has a DrawListener class that calls sketch.handleDraw.
+That DrawListener gets passed to window.addGLEventListener and that object calls
+a display method. I can't cut that method apart so I need to use a lock
+somewhere to call handleDraw or draw myself.
+
+Why not use semaphors for all the renderers? It would simplify the
+implementation a bit. I would not need to split up the handleSettings and
+handleDraw methods. Those are the only places where settings, setup, or draw are
+called, so I can put the semaphors there.
+
+Basically I need to modify handleSettings and handleDraw and have them block
+before calling settings, setup, or draw. I can also use this for the event
+handlers and anything with libraries. Can I just put this in the default
+methods? Yes, because only Py5 will not be able to call the subclassed methods!
+But will this change the behavior for libraries that happen to call them? It
+might break them or cause them to freeze, waiting for a semaphor. I need to
+be able to detect when they are being called incorrectly.
+
+Because Camera3D calls the sketch's draw method it will need to be modified to
+use the semaphors also. Any library that calls settings, setup, or draw will
+need to use the semaphors. I should change the default methods in PApplet to
+include a warning when semaphors should be used so that no user is confused.
+
+I need to do a semaphor test to experiment with this implementation.
