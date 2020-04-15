@@ -1,8 +1,8 @@
 import py5
 from py5 import autoclass
 
-# ColorBlindness = autoclass('colorblind.ColorBlindness')
-# colorBlindness = None
+ColorBlindness = autoclass('colorblind.ColorBlindness')
+colorBlindness = None
 
 
 def settings():
