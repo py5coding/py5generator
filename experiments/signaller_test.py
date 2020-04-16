@@ -5,7 +5,7 @@ jnius_config.set_classpath(
     '.', '/home/jim/Projects/git/processing/core/library/*')
 from jnius import autoclass  # noqa
 
-SignallerTest = autoclass('processing.core.SignallerTest')
+PythonTaskBlockerTest = autoclass('processing.core.PythonTaskBlockerTest')
 
 
 def setup():
@@ -18,15 +18,15 @@ def draw():
     # time.sleep(0.1)
 
 
-useSignaller = True
-signallerTest = SignallerTest()
-if useSignaller:
-    signallerTest.useSignaller()
-    signaller = signallerTest.getSignaller()
+useBlocker = True
+blockerTest = PythonTaskBlockerTest()
+if useBlocker:
+    blockerTest.activatePythonTaskBlocker()
+    signaller = blockerTest.getPythonTaskBlocker()
 
-SignallerTest.run(signallerTest)
+PythonTaskBlockerTest.run(blockerTest)
 
-if useSignaller:
+if useBlocker:
     while True:
         task = signaller.getPythonTask()
         if not task:
@@ -98,11 +98,11 @@ public class PythonTaskBlockerTest {
 
   }
 
-  public void useSignaller() {
+  public void activatePythonTaskBlocker() {
     pythonTaskBlocker = new PythonTaskBlocker();
   }
 
-  public PythonTaskBlocker getSignaller() {
+  public PythonTaskBlocker getPythonTaskBlocker() {
     return pythonTaskBlocker;
   }
 
