@@ -51,11 +51,8 @@ public class PythonTaskBlocker {
 
   private String task;
 
-  private boolean block;
-
   public PythonTaskBlocker() {
     task = "";
-    block = true;
   }
 
   public String getPythonTask() {
@@ -64,22 +61,17 @@ public class PythonTaskBlocker {
 
   public synchronized void continueJava() {
     task = "";
-    block = false;
     notifyAll();
   }
 
   public synchronized void setPythonTask(String task) {
     this.task = task;
 
-    while (block) {
-      try {
-        wait();
-      } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
-      }
+    try {
+      wait();
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
     }
-
-    block = true;
   }
 }
 """
