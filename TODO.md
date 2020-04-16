@@ -14,7 +14,7 @@ don't hardcode the classpath in py5generator or py5. or should the jars be part 
 ability to set JVM options like heap size
 
 support key and mouse events
-support Processing libraries
+Processing library install process
 
 build magic functions for screen grabs and making good documentation
 
@@ -39,25 +39,3 @@ pixels = np.array(py5.pixels, dtype=np.uint32)
 (pixels & 0x000000FF)
 (pixels & 0x0000FF00) >> 8
 (pixels & 0x00FF0000) >> 16
-
-
-
-How to get this working for P2D and P3D in addition to JAVA2D renderers
-=======================================================================
-
-The PSurfaceJOGL class has a DrawListener class that calls sketch.handleDraw.
-That DrawListener gets passed to window.addGLEventListener and that object calls
-a display method. I can't cut that method apart so I need to use a lock
-somewhere to call handleDraw or draw myself.
-
-Why not use semaphors for all the renderers? It would simplify the
-implementation a bit. I would not need to split up the handleSettings and
-handleDraw methods. Those are the only places where settings, setup, or draw are
-called, outside of libraries like Camera3D that also call those methods.
-
-Inside the default settings, setup, and draw methods in PApplet, I can use a
-signaller to block and resume Python execution. That can then run the Python
-methods. I can do this for the keyboard and mouse event methods also.
-
-Only Py5 will not be able to call the subclassed methods in a sketch! The Java
-Processing sketches will override those methods.
