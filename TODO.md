@@ -6,7 +6,7 @@ clean up generator.py
 
 jars should be a part of the python module, otherwise there could be versioning issues.
 
-ability to set JVM options like heap size
+ability to set JVM options like heap size, add to classpath
 
 command line py5 generator util, need a clean build process that runs ant, copies the jar, runs the generator, and puts the result into the py5 directory.
 
@@ -27,7 +27,7 @@ design sketch execution
 command line run_sketch util
 
 run_sketch function from py5 module: needs to have event functions passed in. can I
-write a function to pull them  out of the local() or global() namespaces? can I combine
+write a function to pull them out of the local() or global() namespaces? can I combine
 it with what I am doing in the exec_test2.py file? I should also be able to create a class and run the class. That will make it easier to pass in the event methods.
 
 libraries
