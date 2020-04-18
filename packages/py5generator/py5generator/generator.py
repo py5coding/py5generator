@@ -87,7 +87,7 @@ def {0}(*args):
 
 STATIC_METHOD_TEMPLATE = """
 def {0}(*args):
-    return PythonPApplet.{1}(*args)"""
+    return PApplet.{1}(*args)"""
 
 DYNAMIC_VAR_TEMPLATE = """
     global {0}
