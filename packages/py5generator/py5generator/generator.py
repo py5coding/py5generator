@@ -12,7 +12,7 @@ import shlex
 
 
 import jnius_config
-jnius_config.set_classpath('.', '/home/jim/Projects/git/processing/core/library/*')
+jnius_config.set_classpath('.', '/home/jim/Projects/ITP/pythonprocessing/py5/jars/2.4/*')
 from jnius import autoclass, find_javaclass, with_metaclass  # noqa
 from jnius import MetaJavaClass, JavaClass, JavaStaticMethod  # noqa
 
@@ -49,8 +49,8 @@ def identify_hierarchy(cls, level, concrete=True):
     yield cls, level
 
 
-PythonPApplet = autoclass('processing.core.PythonPApplet')
-c = find_javaclass('processing.core.PythonPApplet')
+PApplet = autoclass('processing.core.PApplet')
+c = find_javaclass('processing.core.PApplet')
 class_hierachy = list(identify_hierarchy(c, 0, not c.isInterface()))
 
 methods = set()
@@ -100,15 +100,13 @@ DYNAMIC_VAR_TEMPLATE = """
 
 
 PAPPLET_SKIP_METHODS = {
-    'print', 'exec', 'draw', 'setup', 'exit', 'str', 'set',
+    'draw', 'setup', 'settings',
+    'print', 'exec', 'exit', 'str', 'set',
     'min', 'max', 'round', 'map', 'abs', 'pow',
     'runSketch',
     'frameRate', 'fullScreen', 'keyPressed', 'mousePressed',
     'pixelDensity', 'smooth',
-    'handleDraw',
-    # 'handleDrawPt1', 'handleDrawPt2', 'handleDrawPt3',
-    # 'handleSettingsPt1', 'handleSettingsPt2',
-    # 'render'
+    'handleDraw', 'handleSetup'
 }
 
 PCONSTANT_OVERRIDES = {
@@ -150,7 +148,7 @@ def generate_py5():
         if name in PCONSTANT_OVERRIDES:
             py5_constants.append(f'{name} = {shlex.quote(PCONSTANT_OVERRIDES[name])}')
         else:
-            val = getattr(PythonPApplet, name)
+            val = getattr(PApplet, name)
             if isinstance(val, str):
                 val = f"'{val}'"
             if name == 'javaVersion':
@@ -173,7 +171,7 @@ def generate_py5():
     for fname in sorted(methods):
         if fname in PAPPLET_SKIP_METHODS:
             continue
-        if isinstance(getattr(PythonPApplet, fname), JavaStaticMethod):
+        if isinstance(getattr(PApplet, fname), JavaStaticMethod):
             py5_functions.append(STATIC_METHOD_TEMPLATE.format(snake_case(fname), fname))
         else:
             py5_functions.append(METHOD_TEMPLATE.format(snake_case(fname), fname))

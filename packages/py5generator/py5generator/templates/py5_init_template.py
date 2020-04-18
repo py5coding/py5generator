@@ -12,7 +12,6 @@ jnius_config.set_classpath(
     '/home/jim/Projects/ITP/pythonprocessing/py5/jars/2.4/*',
     # '/home/jim/Projects/ITP/pythonprocessing/processing/core/library/*',
     # '/home/jim/Projects/git/processing/core/library/*',
-    # '/home/jim/Projects/ITP/pythonprocessing/py5/experiments/processing_jars/*',
     '/home/jim/Projects/ITP/pythonprocessing/py5/experiments/libraries/*')
 from jnius import autoclass, detach  # noqa
 from jnius import JavaField, JavaStaticField, JavaMethod, JavaStaticMethod  # noqa

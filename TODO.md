@@ -4,10 +4,6 @@ TODOS
 clean up generator.py
 ---------------------
 
-generator.py classpath should be the same as the py5 classpath.
-
-need to get rid of PythonPApplet stuff in there, it is looking in the wrong place
-
 jars should be a part of the python module, otherwise there could be versioning issues.
 
 ability to set JVM options like heap size

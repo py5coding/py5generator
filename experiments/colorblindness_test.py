@@ -26,6 +26,6 @@ def draw():
     py5.rect(py5.mouse_x, py5.mouse_y, 40, 40)
 
 
-py5.run_sketch(settings, setup, draw)
-# callbacks = py5.Py5Callbacks(settings, setup, draw)
-# py5.run_sketch2(callbacks)
+# py5.run_sketch(settings, setup, draw)
+callbacks = py5.Py5Callbacks(settings, setup, draw)
+py5.run_sketch2(callbacks)

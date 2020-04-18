@@ -12,7 +12,6 @@ jnius_config.set_classpath(
     '/home/jim/Projects/ITP/pythonprocessing/py5/jars/2.4/*',
     # '/home/jim/Projects/ITP/pythonprocessing/processing/core/library/*',
     # '/home/jim/Projects/git/processing/core/library/*',
-    # '/home/jim/Projects/ITP/pythonprocessing/py5/experiments/processing_jars/*',
     '/home/jim/Projects/ITP/pythonprocessing/py5/experiments/libraries/*')
 from jnius import autoclass, detach  # noqa
 from jnius import JavaField, JavaStaticField, JavaMethod, JavaStaticMethod  # noqa
@@ -332,14 +331,6 @@ def _update_vars():
 
 
 # *** PY5 GENERATED FUNCTIONS ***
-
-def _setup_sketch_pt1(*args):
-    return PApplet._setupSketchPt1(*args)
-
-
-def _setup_sketch_pt2(*args):
-    return PApplet._setupSketchPt2(*args)
-
 
 def acos(*args):
     return PApplet.acos(*args)
@@ -1341,12 +1332,12 @@ def set_matrix(*args):
     return _papplet.setMatrix(*args)
 
 
+def set_python_callbacks(*args):
+    return _papplet.setPythonCallbacks(*args)
+
+
 def set_size(*args):
     return _papplet.setSize(*args)
-
-
-def settings(*args):
-    return _papplet.settings(*args)
 
 
 def shader(*args):
