@@ -3,35 +3,47 @@ Py5 code, interface to the Java version of Processing using PyJNIus.
 
 This file is created by the py5generator package. Do not edit!
 """
-import time
 import threading
 
 import jnius_config
 jnius_config.add_options('-Xrs', '-Xmx4096m')
 jnius_config.set_classpath(
     '.',
-    '/home/jim/Projects/ITP/pythonprocessing/processing/core/library/*',
+    '/home/jim/Projects/ITP/pythonprocessing/py5/jars/2.4/*',
+    # '/home/jim/Projects/ITP/pythonprocessing/processing/core/library/*',
     # '/home/jim/Projects/git/processing/core/library/*',
     # '/home/jim/Projects/ITP/pythonprocessing/py5/experiments/processing_jars/*',
     '/home/jim/Projects/ITP/pythonprocessing/py5/experiments/libraries/*')
 from jnius import autoclass, detach  # noqa
 from jnius import JavaField, JavaStaticField, JavaMethod, JavaStaticMethod  # noqa
+from jnius import PythonJavaClass, java_method  # noqa
+
+
+class Py5Callbacks(PythonJavaClass):
+    __javainterfaces__ = ['processing/core/PythonCallbacks']
+
+    def __init__(self, settings, setup, draw):
+        self._settings = settings
+        self._setup = setup
+        self._draw = draw
+
+    @java_method('()V')
+    def settings(self):
+        self._settings()
+
+    @java_method('()V')
+    def setup(self):
+        self._setup()
+
+    @java_method('()V')
+    def draw(self):
+        _update_vars()
+        self._draw()
 
 
 PApplet = autoclass('processing.core.PApplet',
                     include_protected=False, include_private=False)
-# PythonPApplet._render = JavaMethod('()V')
-# PythonPApplet._handleSettingsPt1 = JavaMethod('()V')
-# PythonPApplet._handleSettingsPt2 = JavaMethod('()V')
-# PythonPApplet._handleDrawPt1 = JavaMethod('()V')
-# PythonPApplet._handleDrawPt2 = JavaMethod('()V')
-# PythonPApplet._handleDrawPt3 = JavaMethod('()V')
-# PythonPApplet._startSurface = JavaMethod('()V')
-PApplet.activatePythonTaskBlocker = JavaMethod('()V')
-PApplet.getPythonTaskBlocker = JavaMethod('()Lprocessing/core/PythonTaskBlocker;')
 _papplet = PApplet()
-_papplet.activatePythonTaskBlocker()
-_python_task_blocker = _papplet.getPythonTaskBlocker()
 
 _target_frame_rate = 60
 _frame_rate_period = 1 / _target_frame_rate
@@ -221,9 +233,9 @@ WINDOWS = 1
 X = 0
 Y = 1
 Z = 2
-javaPlatform = 8
-javaVersion = 1.8
-javaVersionName = '1.8.0_74'
+javaPlatform = 11
+javaVersion = 2.1
+javaVersionName = '11.0.7'
 platform = 3
 platformNames = None
 useNativeSelect = True
@@ -322,15 +334,15 @@ def _update_vars():
 # *** PY5 GENERATED FUNCTIONS ***
 
 def _setup_sketch_pt1(*args):
-    return PythonPApplet._setupSketchPt1(*args)
+    return PApplet._setupSketchPt1(*args)
 
 
 def _setup_sketch_pt2(*args):
-    return PythonPApplet._setupSketchPt2(*args)
+    return PApplet._setupSketchPt2(*args)
 
 
 def acos(*args):
-    return PythonPApplet.acos(*args)
+    return PApplet.acos(*args)
 
 
 def alpha(*args):
@@ -366,15 +378,15 @@ def arraycopy(*args):
 
 
 def asin(*args):
-    return PythonPApplet.asin(*args)
+    return PApplet.asin(*args)
 
 
 def atan(*args):
-    return PythonPApplet.atan(*args)
+    return PApplet.atan(*args)
 
 
 def atan2(*args):
-    return PythonPApplet.atan2(*args)
+    return PApplet.atan2(*args)
 
 
 def attrib(*args):
@@ -450,7 +462,7 @@ def blend(*args):
 
 
 def blend_color(*args):
-    return PythonPApplet.blendColor(*args)
+    return PApplet.blendColor(*args)
 
 
 def blend_mode(*args):
@@ -474,11 +486,11 @@ def camera(*args):
 
 
 def ceil(*args):
-    return PythonPApplet.ceil(*args)
+    return PApplet.ceil(*args)
 
 
 def check_extension(*args):
-    return PythonPApplet.checkExtension(*args)
+    return PApplet.checkExtension(*args)
 
 
 def circle(*args):
@@ -514,7 +526,7 @@ def copy(*args):
 
 
 def cos(*args):
-    return PythonPApplet.cos(*args)
+    return PApplet.cos(*args)
 
 
 def create_font(*args):
@@ -594,15 +606,15 @@ def data_path(*args):
 
 
 def day(*args):
-    return PythonPApplet.day(*args)
+    return PApplet.day(*args)
 
 
 def debug(*args):
-    return PythonPApplet.debug(*args)
+    return PApplet.debug(*args)
 
 
 def degrees(*args):
-    return PythonPApplet.degrees(*args)
+    return PApplet.degrees(*args)
 
 
 def delay(*args):
@@ -610,11 +622,11 @@ def delay(*args):
 
 
 def desktop_file(*args):
-    return PythonPApplet.desktopFile(*args)
+    return PApplet.desktopFile(*args)
 
 
 def desktop_path(*args):
-    return PythonPApplet.desktopPath(*args)
+    return PApplet.desktopPath(*args)
 
 
 def die(*args):
@@ -690,7 +702,7 @@ def exit_called(*args):
 
 
 def exp(*args):
-    return PythonPApplet.exp(*args)
+    return PApplet.exp(*args)
 
 
 def expand(*args):
@@ -706,7 +718,7 @@ def filter(*args):
 
 
 def floor(*args):
-    return PythonPApplet.floor(*args)
+    return PApplet.floor(*args)
 
 
 def flush(*args):
@@ -742,7 +754,7 @@ def get_class(*args):
 
 
 def get_extension(*args):
-    return PythonPApplet.getExtension(*args)
+    return PApplet.getExtension(*args)
 
 
 def get_graphics(*args):
@@ -770,7 +782,7 @@ def hex(*args):
 
 
 def hide_menu_bar(*args):
-    return PythonPApplet.hideMenuBar(*args)
+    return PApplet.hideMenuBar(*args)
 
 
 def hint(*args):
@@ -778,7 +790,7 @@ def hint(*args):
 
 
 def hour(*args):
-    return PythonPApplet.hour(*args)
+    return PApplet.hour(*args)
 
 
 def hue(*args):
@@ -814,11 +826,11 @@ def key_typed(*args):
 
 
 def launch(*args):
-    return PythonPApplet.launch(*args)
+    return PApplet.launch(*args)
 
 
 def lerp(*args):
-    return PythonPApplet.lerp(*args)
+    return PApplet.lerp(*args)
 
 
 def lerp_color(*args):
@@ -898,7 +910,7 @@ def load_xml(*args):
 
 
 def log(*args):
-    return PythonPApplet.log(*args)
+    return PApplet.log(*args)
 
 
 def loop(*args):
@@ -918,11 +930,11 @@ def mask(*args):
 
 
 def match(*args):
-    return PythonPApplet.match(*args)
+    return PApplet.match(*args)
 
 
 def match_all(*args):
-    return PythonPApplet.matchAll(*args)
+    return PApplet.matchAll(*args)
 
 
 def method(*args):
@@ -934,7 +946,7 @@ def millis(*args):
 
 
 def minute(*args):
-    return PythonPApplet.minute(*args)
+    return PApplet.minute(*args)
 
 
 def model_x(*args):
@@ -950,7 +962,7 @@ def model_z(*args):
 
 
 def month(*args):
-    return PythonPApplet.month(*args)
+    return PApplet.month(*args)
 
 
 def mouse_clicked(*args):
@@ -1046,7 +1058,7 @@ def noise_seed(*args):
 
 
 def norm(*args):
-    return PythonPApplet.norm(*args)
+    return PApplet.norm(*args)
 
 
 def normal(*args):
@@ -1134,7 +1146,7 @@ def post_event(*args):
 
 
 def print_array(*args):
-    return PythonPApplet.printArray(*args)
+    return PApplet.printArray(*args)
 
 
 def print_camera(*args):
@@ -1174,7 +1186,7 @@ def quadratic_vertex(*args):
 
 
 def radians(*args):
-    return PythonPApplet.radians(*args)
+    return PApplet.radians(*args)
 
 
 def random(*args):
@@ -1310,7 +1322,7 @@ def screen_z(*args):
 
 
 def second(*args):
-    return PythonPApplet.second(*args)
+    return PApplet.second(*args)
 
 
 def select_folder(*args):
@@ -1358,7 +1370,7 @@ def shear_y(*args):
 
 
 def shell(*args):
-    return PythonPApplet.shell(*args)
+    return PApplet.shell(*args)
 
 
 def shininess(*args):
@@ -1370,27 +1382,27 @@ def shorten(*args):
 
 
 def show_depth_warning(*args):
-    return PythonPApplet.showDepthWarning(*args)
+    return PApplet.showDepthWarning(*args)
 
 
 def show_depth_warning_xyz(*args):
-    return PythonPApplet.showDepthWarningXYZ(*args)
+    return PApplet.showDepthWarningXYZ(*args)
 
 
 def show_method_warning(*args):
-    return PythonPApplet.showMethodWarning(*args)
+    return PApplet.showMethodWarning(*args)
 
 
 def show_missing_warning(*args):
-    return PythonPApplet.showMissingWarning(*args)
+    return PApplet.showMissingWarning(*args)
 
 
 def show_variation_warning(*args):
-    return PythonPApplet.showVariationWarning(*args)
+    return PApplet.showVariationWarning(*args)
 
 
 def sin(*args):
-    return PythonPApplet.sin(*args)
+    return PApplet.sin(*args)
 
 
 def size(*args):
@@ -1478,11 +1490,11 @@ def spot_light(*args):
 
 
 def sq(*args):
-    return PythonPApplet.sq(*args)
+    return PApplet.sq(*args)
 
 
 def sqrt(*args):
-    return PythonPApplet.sqrt(*args)
+    return PApplet.sqrt(*args)
 
 
 def square(*args):
@@ -1522,7 +1534,7 @@ def subset(*args):
 
 
 def tan(*args):
-    return PythonPApplet.tan(*args)
+    return PApplet.tan(*args)
 
 
 def text(*args):
@@ -1598,11 +1610,11 @@ def trim(*args):
 
 
 def unbinary(*args):
-    return PythonPApplet.unbinary(*args)
+    return PApplet.unbinary(*args)
 
 
 def unhex(*args):
-    return PythonPApplet.unhex(*args)
+    return PApplet.unhex(*args)
 
 
 def unregister_method(*args):
@@ -1614,11 +1626,11 @@ def update_pixels(*args):
 
 
 def url_decode(*args):
-    return PythonPApplet.urlDecode(*args)
+    return PApplet.urlDecode(*args)
 
 
 def url_encode(*args):
-    return PythonPApplet.urlEncode(*args)
+    return PApplet.urlEncode(*args)
 
 
 def vertex(*args):
@@ -1630,7 +1642,7 @@ def wait(*args):
 
 
 def year(*args):
-    return PythonPApplet.year(*args)
+    return PApplet.year(*args)
 
 
 # *** PY5 USER FUNCTIONS ***
@@ -1638,63 +1650,27 @@ def set_frame_rate(frame_rate):
     _papplet.getSurface().setFrameRate(frame_rate)
 
 
-def run_sketch(settings, setup, draw, frameLimit=1000):
+def run_sketch(settings, setup, draw):
 
-    print('calling run sketch')
+    callbacks = Py5Callbacks(settings, setup, draw)
+    _papplet.setPythonCallbacks(callbacks)
 
-    def _papplet_runsketch():
-        PApplet.runSketch([''], _papplet)
+    # def _papplet_runsketch():
+    PApplet.runSketch([''], _papplet)
 
-    jvm_thread = threading.Thread(target=_papplet_runsketch)
-    jvm_thread.start()
-
-    print('starting loop')
-
-    # while True:
-    while frameLimit > 0:
-        task = _python_task_blocker.getPythonTask()
-        if not task:
-            # print('no task')
-            time.sleep(0.001)
-            continue
-        _update_vars()
-        if task == "settings":
-            settings()
-        if task == "setup":
-            setup()
-        elif task == "draw":
-            draw()
-            frameLimit -= 1
-        elif task == "exit":
-            break
-        _python_task_blocker.continueJava()
+    # jvm_thread = threading.Thread(target=_papplet_runsketch)
+    # jvm_thread.start()
 
     detach()
 
 
-    # PythonPApplet._setupSketchPt1([''], _papplet)
-    # # handle settings
-    # _papplet._handleSettingsPt1()
-    # settings()
-    # _papplet._handleSettingsPt2()
-    # PythonPApplet._setupSketchPt2(_papplet)
-    # _papplet._startSurface()
+def run_sketch2(callbacks):
+    _papplet.setPythonCallbacks(callbacks)
 
-    # while frameLimit > 0:
-    #     start = time.time()
+    # def _papplet_runsketch():
+    PApplet.runSketch([''], _papplet)
 
-    #     # handle draw
-    #     _update_vars()
-    #     _papplet._handleDrawPt1()
-    #     if _papplet.frameCount == 0:
-    #         setup()
-    #     _papplet._handleDrawPt2()
-    #     draw()
-    #     _papplet._handleDrawPt3()
-    #     _papplet._render()
+    # jvm_thread = threading.Thread(target=_papplet_runsketch)
+    # jvm_thread.start()
 
-    #     time.sleep(max(0, _frame_rate_period - (time.time() - start)))
-
-    #     frameLimit -= 1
-
-    # detach()
+    detach()

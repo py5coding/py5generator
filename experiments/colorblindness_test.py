@@ -6,7 +6,7 @@ colorBlindness = None
 
 
 def settings():
-    py5.size(500, 500)  # , py5.P2D)
+    py5.size(500, 500, py5.P2D)
 
 
 def setup():
@@ -14,9 +14,9 @@ def setup():
     py5.rect_mode(py5.CENTER)
     py5.set_frame_rate(30)
 
-    global colorBlindness
-    colorBlindness = ColorBlindness(py5._papplet)
-    colorBlindness.simulateProtanopia()
+    # global colorBlindness
+    # colorBlindness = ColorBlindness(py5._papplet)
+    # colorBlindness.simulateProtanopia()
 
 
 def draw():
@@ -27,3 +27,5 @@ def draw():
 
 
 py5.run_sketch(settings, setup, draw)
+# callbacks = py5.Py5Callbacks(settings, setup, draw)
+# py5.run_sketch2(callbacks)

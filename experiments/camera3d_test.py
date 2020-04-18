@@ -4,6 +4,7 @@ from py5 import autoclass
 Camera3D = autoclass('camera3D.Camera3D')
 camera3D = None
 
+
 rotX = 0
 rotY = 0
 rotZ = 0
@@ -16,7 +17,6 @@ def settings():
 
 def setup():
     py5.background(255)
-    py5.rect_mode(py5.CENTER)
     py5.set_frame_rate(30)
 
     global camera3D
@@ -34,14 +34,16 @@ def draw():
         global rotZ
         rotZ += 0.3
 
-    py5.strokeWeight(8)
+    py5.stroke_weight(8)
     py5.stroke(0)
     py5.fill(255, 255, 255)
     py5.translate(py5.width / 2, py5.height / 2, -400)
-    py5.rotateX(py5.radians(rotX))
-    py5.rotateY(py5.radians(rotY))
-    py5.rotateZ(py5.radians(rotZ))
+    py5.rotate_x(py5.radians(rotX))
+    py5.rotate_y(py5.radians(rotY))
+    py5.rotate_z(py5.radians(rotZ))
     py5.box(250)
 
 
-py5.run_sketch(settings, setup, draw)
+# py5.run_sketch(settings, setup, draw)
+callbacks = py5.Py5Callbacks(settings, setup, draw)
+py5.run_sketch2(callbacks)
