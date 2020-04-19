@@ -27,5 +27,5 @@ def draw():
 
 
 # py5.run_sketch(settings, setup, draw)
-callbacks = py5.Py5Callbacks(settings, setup, draw)
-py5.run_sketch2(callbacks)
+py5_methods = py5.Py5Methods(settings, setup, draw)
+py5.run_sketch2(py5_methods)

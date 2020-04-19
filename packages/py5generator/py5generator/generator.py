@@ -12,7 +12,11 @@ import shlex
 
 
 import jnius_config
-jnius_config.set_classpath('.', '/home/jim/Projects/ITP/pythonprocessing/py5/jars/2.4/*')
+jnius_config.set_classpath(
+    '.',
+    '/home/jim/Projects/ITP/pythonprocessing/py5/jars/2.4/*',
+    # '/home/jim/Projects/ITP/pythonprocessing/py5/jars/processing4/*',
+)
 from jnius import autoclass, find_javaclass, with_metaclass  # noqa
 from jnius import MetaJavaClass, JavaClass, JavaStaticMethod  # noqa
 
@@ -177,7 +181,8 @@ def generate_py5():
             py5_functions.append(METHOD_TEMPLATE.format(snake_case(fname), fname))
     py5_functions_code = '\n\n'.join(py5_functions)
 
-    py5_code = py5_template.format(py5_constants_code,
+    py5_code = py5_template.format(jnius_config.get_classpath(),
+                                   py5_constants_code,
                                    py5_init_dynamic_var_code,
                                    py5_update_dynamic_var_code,
                                    py5_functions_code)

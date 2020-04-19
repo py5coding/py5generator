@@ -7,19 +7,18 @@ import threading
 
 import jnius_config
 jnius_config.add_options('-Xrs', '-Xmx4096m')
-jnius_config.set_classpath(
-    '.',
-    '/home/jim/Projects/ITP/pythonprocessing/py5/jars/2.4/*',
-    # '/home/jim/Projects/ITP/pythonprocessing/processing/core/library/*',
-    # '/home/jim/Projects/git/processing/core/library/*',
-    '/home/jim/Projects/ITP/pythonprocessing/py5/experiments/libraries/*')
+current_classpath = jnius_config.get_classpath()
+jnius_config.set_classpath(*['.', '/home/jim/Projects/ITP/pythonprocessing/py5/jars/2.4/*', '/home/jim/Projects/ITP/pythonprocessing/pyjnius/jnius/src'])
+jnius_config.add_classpath('/home/jim/Projects/ITP/pythonprocessing/py5/experiments/libraries/*')
+jnius_config.add_classpath(*[p for p in current_classpath if p not in jnius_config.get_classpath()])
+
 from jnius import autoclass, detach  # noqa
 from jnius import JavaField, JavaStaticField, JavaMethod, JavaStaticMethod  # noqa
 from jnius import PythonJavaClass, java_method  # noqa
 
 
-class Py5Callbacks(PythonJavaClass):
-    __javainterfaces__ = ['processing/core/PythonCallbacks']
+class Py5Methods(PythonJavaClass):
+    __javainterfaces__ = ['processing/core/Py5Methods']
 
     def __init__(self, settings, setup, draw):
         self._settings = settings
@@ -1332,10 +1331,6 @@ def set_matrix(*args):
     return _papplet.setMatrix(*args)
 
 
-def set_python_callbacks(*args):
-    return _papplet.setPythonCallbacks(*args)
-
-
 def set_size(*args):
     return _papplet.setSize(*args)
 
@@ -1624,6 +1619,10 @@ def url_encode(*args):
     return PApplet.urlEncode(*args)
 
 
+def use_py5_methods(*args):
+    return _papplet.usePy5Methods(*args)
+
+
 def vertex(*args):
     return _papplet.vertex(*args)
 
@@ -1643,8 +1642,8 @@ def set_frame_rate(frame_rate):
 
 def run_sketch(settings, setup, draw):
 
-    callbacks = Py5Callbacks(settings, setup, draw)
-    _papplet.setPythonCallbacks(callbacks)
+    py5_methods = Py5Methods(settings, setup, draw)
+    _papplet.usePy5Methods(py5_methods)
 
     # def _papplet_runsketch():
     PApplet.runSketch([''], _papplet)
@@ -1655,8 +1654,8 @@ def run_sketch(settings, setup, draw):
     detach()
 
 
-def run_sketch2(callbacks):
-    _papplet.setPythonCallbacks(callbacks)
+def run_sketch2(py5_methods):
+    _papplet.usePy5Methods(py5_methods)
 
     # def _papplet_runsketch():
     PApplet.runSketch([''], _papplet)
