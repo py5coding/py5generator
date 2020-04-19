@@ -1,6 +1,11 @@
 TODOS
 =====
 
+events
+------
+
+support key and mouse events, complete the Py5Methods interface.
+
 clean up generator.py
 ---------------------
 
@@ -24,16 +29,15 @@ design sketch execution
 
 command line run_sketch util
 
-run_sketch function from py5 module: needs to have event functions passed in. can I
-write a function to pull them out of the local() or global() namespaces? can I combine
-it with what I am doing in the exec_test2.py file? I should also be able to create a class and run the class. That will make it easier to pass in the event methods.
+run_sketch function from py5 module: needs to have event functions passed in. can I write a function to pull them out of the local() or global() namespaces? can I combine it with what I am doing in the exec_test2.py file? I should also be able to create a class and run the class. That will make it easier to pass in the event methods.
+
+the two main execution methods should be inheriting from a class and `from py5 import *`. for the second one there should be command line tool to run the sketch. the third is the current one where someone types `import py5` but does
+not create a class but passes the methods to a run method.
 
 error messages
 --------------
 
-stack traces are a combination of Java and Python. Need to add validation to make
-sure the parameter types are correct. I can add some type checking and helpful
-error messages to better support beginners.
+stack traces are a combination of Java and Python. Need to add validation to make sure the parameter types are correct. I can add some type checking and helpful error messages to better support beginners.
 
 libraries
 ---------
