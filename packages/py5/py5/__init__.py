@@ -22,6 +22,30 @@ class Py5Methods(PythonJavaClass):
         self._settings = settings
         self._setup = setup
         self._draw = draw
+        self._key_pressed = None
+        self._key_typed = None
+        self._key_released = None
+        self._mouse_clicked = None
+        self._mouse_dragged = None
+        self._mouse_moved = None
+        self._mouse_entered = None
+        self._mouse_exited = None
+        self._mouse_pressed = None
+        self._mouse_released = None
+        self._mouse_wheel = None
+
+    def set_events(self, **kwargs):
+        self._key_pressed = kwargs.get('key_pressed')
+        self._key_typed = kwargs.get('key_typed')
+        self._key_released = kwargs.get('key_released')
+        self._mouse_clicked = kwargs.get('mouse_clicked')
+        self._mouse_dragged = kwargs.get('mouse_dragged')
+        self._mouse_moved = kwargs.get('mouse_moved')
+        self._mouse_entered = kwargs.get('mouse_entered')
+        self._mouse_exited = kwargs.get('mouse_exited')
+        self._mouse_pressed = kwargs.get('mouse_pressed')
+        self._mouse_released = kwargs.get('mouse_released')
+        self._mouse_wheel = kwargs.get('mouse_wheel')
 
     @java_method('()V')
     def settings(self):
@@ -37,8 +61,63 @@ class Py5Methods(PythonJavaClass):
         self._draw()
 
     @java_method('()V')
+    def key_pressed(self):
+        if self._key_pressed:
+            self._key_pressed()
+
+    @java_method('()V')
+    def key_typed(self):
+        if self._key_typed:
+            self._key_typed()
+
+    @java_method('()V')
+    def key_released(self):
+        if self._key_released:
+            self._key_released()
+
+    @java_method('()V')
     def exit_actual(self):
         detach()
+
+    @java_method('()V')
+    def mouse_clicked(self):
+        if self._mouse_clicked:
+            self._mouse_clicked()
+
+    @java_method('()V')
+    def mouse_dragged(self):
+        if self._mouse_dragged:
+            self._mouse_dragged()
+
+    @java_method('()V')
+    def mouse_moved(self):
+        if self._mouse_moved:
+            self._mouse_moved()
+
+    @java_method('()V')
+    def mouse_entered(self):
+        if self._mouse_entered:
+            self._mouse_entered()
+
+    @java_method('()V')
+    def mouse_exited(self):
+        if self._mouse_exited:
+            self._mouse_exited()
+
+    @java_method('()V')
+    def mouse_pressed(self):
+        if self._mouse_pressed:
+            self._mouse_pressed()
+
+    @java_method('()V')
+    def mouse_released(self):
+        if self._mouse_released:
+            self._mouse_released()
+
+    @java_method('(Lprocessing/event/MouseEvent;)V')
+    def mouse_wheel(self, event):
+        if self._mouse_wheel:
+            self._mouse_wheel(event)
 
 
 PApplet = autoclass('processing.core.PApplet',

@@ -1,11 +1,6 @@
 TODOS
 =====
 
-events
-------
-
-support key and mouse events, complete the Py5Methods interface.
-
 clean up generator.py
 ---------------------
 
