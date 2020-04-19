@@ -23,6 +23,12 @@ error messages
 
 stack traces are a combination of Java and Python. Need to add validation to make sure the parameter types are correct. I can add some type checking and helpful error messages to better support beginners.
 
+is there anything to be gained from using type hinting? I can get the types from javap:
+
+`javap -classpath /home/jim/Projects/git/processing/core/library/core.jar -public processing.core.PApplet`
+
+I'll need that to validate parameter types.
+
 libraries
 ---------
 
@@ -35,15 +41,9 @@ other
 
 have animation thread be in its own thread that can be stopped
 
-support key and mouse events
-
 build magic functions for screen grabs and making good documentation
 
 add docstrings to all methods, pulling docs from website
-
-is there anything to be gained from using type hinting? I can get the types from javap:
-
-`javap -classpath /home/jim/Projects/git/processing/core/library/core.jar -public processing.core.PApplet`
 
 loadPixels => pixels should be a numpy array, not a list. unsigned ints? something to help with colors? perhaps can make utility functions in addition to the standard py5 stuff, to faciliate working with other numpy libraries.
 
