@@ -8,8 +8,6 @@ jars should be a part of the python module, otherwise there could be versioning 
 
 ability to set JVM options like heap size, add to classpath
 
-command line py5 generator util, need a clean build process that runs ant, copies the jar, runs the generator, and puts the result into the py5 directory.
-
 dynamic variables
 -----------------
 
