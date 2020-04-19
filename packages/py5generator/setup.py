@@ -1,4 +1,4 @@
-from distutils.core import setup
+from setuptools import setup
 
 with open('README.rst') as f:
     readme = f.read()
@@ -11,6 +11,11 @@ setup(
     long_description=readme,
     author='Jim Schmitz',
     author_email='jim@ixora.io',
+    entry_points={
+        'console_scripts': [
+            'generate_py5 = py5generator.tools.generate:main'
+        ],
+    },
     # TODO: fix this
     # install_requires=[
     #     '???'
