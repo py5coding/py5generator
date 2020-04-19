@@ -30,6 +30,13 @@ run_sketch function from py5 module: needs to have event functions passed in. ca
 write a function to pull them out of the local() or global() namespaces? can I combine
 it with what I am doing in the exec_test2.py file? I should also be able to create a class and run the class. That will make it easier to pass in the event methods.
 
+error messages
+--------------
+
+stack traces are a combination of Java and Python. Need to add validation to make
+sure the parameter types are correct. I can add some type checking and helpful
+error messages to better support beginners.
+
 libraries
 ---------
 
