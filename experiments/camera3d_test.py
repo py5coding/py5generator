@@ -1,3 +1,5 @@
+import numpy as np
+
 import py5
 from py5 import autoclass
 
@@ -38,9 +40,9 @@ def draw():
     py5.stroke(0)
     py5.fill(255, 255, 255)
     py5.translate(py5.width / 2, py5.height / 2, -400)
-    py5.rotate_x(py5.radians(rotX))
-    py5.rotate_y(py5.radians(rotY))
-    py5.rotate_z(py5.radians(rotZ))
+    py5.rotate_x(np.radians(rotX))
+    py5.rotate_y(np.radians(rotY))
+    py5.rotate_z(np.radians(rotZ))
     py5.box(250)
 
 

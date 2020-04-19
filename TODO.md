@@ -8,17 +8,6 @@ jars should be a part of the python module, otherwise there could be versioning 
 
 ability to set JVM options like heap size, add to classpath
 
-dynamic variables
------------------
-
-support dynamic variables like frameRate and mouseX, mouseY
-
-skip anything @Deprecated
-
-skip objects that don't change like height, width, etc
-
-skip over all protected constants, variables, and methods
-
 design sketch execution
 -----------------------
 

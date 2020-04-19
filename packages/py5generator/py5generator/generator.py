@@ -53,7 +53,8 @@ def identify_hierarchy(cls, level, concrete=True):
     yield cls, level
 
 
-PApplet = autoclass('processing.core.PApplet')
+PApplet = autoclass('processing.core.PApplet',
+                    include_protected=False, include_private=False)
 c = find_javaclass('processing.core.PApplet')
 class_hierachy = list(identify_hierarchy(c, 0, not c.isInterface()))
 
@@ -104,13 +105,33 @@ DYNAMIC_VAR_TEMPLATE = """
 
 
 PAPPLET_SKIP_METHODS = {
+    # main sketch methods
     'draw', 'setup', 'settings',
-    'print', 'exec', 'exit', 'str', 'set',
-    'min', 'max', 'round', 'map', 'abs', 'pow',
-    'runSketch',
-    'frameRate', 'fullScreen', 'keyPressed', 'mousePressed',
-    'pixelDensity', 'smooth',
-    'handleDraw', 'handleSetup'
+    # key and mouse events
+    'keyPressed', 'keyTyped', 'keyReleased',
+    'mouseClicked', 'mouseDragged', 'mouseMoved', 'mouseEntered',
+    'mouseExited', 'mousePressed', 'mouseReleased', 'mouseWheel',
+    # builtin python functions
+    'print', 'exec', 'exit', 'str', 'set', 'map', 'sort',
+    # user should use Python instead
+    'append', 'arrayCopy', 'arraycopy', 'concat', 'expand', 'reverse', 'shorten',
+    'splice', 'subset', 'binary', 'boolean', 'byte', 'char', 'float', 'hex',
+    'int', 'unbinary', 'unhex', 'join', 'match', 'matchAll', 'nf', 'nfc', 'nfp',
+    'nfs', 'split', 'splitTokens', 'trim', 'debug', 'delay', 'equals',
+    # user should use numpy instead
+    'min', 'max', 'round', 'map', 'abs', 'pow', 'sqrt', 'ceil', 'floor', 'log',
+    'exp', 'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'atan2', 'degrees',
+    'radians', 'sq',
+    # public methods that should be skipped
+    'runSketch', 'main', 'handleDraw', 'handleSettings', 'usePy5Methods',
+    'registerMethod', 'unregisterMethod',
+    'showDepthWarning', 'showDepthWarningXYZ', 'showMethodWarning',
+    'showVariationWarning', 'showMissingWarning',
+    'checkAlpha', 'setSize',
+    'getClass',
+    # methods with the same name as a variable
+    # TODO the methods should be accessible
+    'frameRate', 'fullScreen', 'pixelDensity', 'smooth',
 }
 
 PCONSTANT_OVERRIDES = {
@@ -121,6 +142,10 @@ PCONSTANT_OVERRIDES = {
     'DELETE': r'\x7f',
     'BACKSPACE': r'\x08',
     'TAB': r'\t'
+}
+
+DEPRECATED = {
+    'firstMouse', 'mouseEvent', 'keyEvent', 'MACOSX'
 }
 
 
@@ -149,6 +174,8 @@ def generate_py5():
     # code the static constants
     py5_constants = []
     for name in sorted(static_fields):
+        if name in DEPRECATED:
+            continue
         if name in PCONSTANT_OVERRIDES:
             py5_constants.append(f'{name} = {shlex.quote(PCONSTANT_OVERRIDES[name])}')
         else:
@@ -164,6 +191,8 @@ def generate_py5():
     init_vars = []
     update_vars = []
     for name in sorted(fields):
+        if name in DEPRECATED:
+            continue
         snake_name = snake_case(name)
         init_vars.append(f'{snake_name} = None')
         update_vars.append(DYNAMIC_VAR_TEMPLATE.format(snake_name, name))
@@ -173,7 +202,7 @@ def generate_py5():
     # code the class and instance methods
     py5_functions = []
     for fname in sorted(methods):
-        if fname in PAPPLET_SKIP_METHODS:
+        if fname in DEPRECATED or fname in PAPPLET_SKIP_METHODS:
             continue
         if isinstance(getattr(PApplet, fname), JavaStaticMethod):
             py5_functions.append(STATIC_METHOD_TEMPLATE.format(snake_case(fname), fname))
