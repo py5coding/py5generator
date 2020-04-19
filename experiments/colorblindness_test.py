@@ -14,9 +14,9 @@ def setup():
     py5.rect_mode(py5.CENTER)
     py5.set_frame_rate(30)
 
-    # global colorBlindness
-    # colorBlindness = ColorBlindness(py5._papplet)
-    # colorBlindness.simulateProtanopia()
+    global colorBlindness
+    colorBlindness = ColorBlindness(py5._papplet)
+    colorBlindness.simulateProtanopia()
 
 
 def draw():

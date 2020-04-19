@@ -3,8 +3,6 @@ Py5 code, interface to the Java version of Processing using PyJNIus.
 
 This file is created by the py5generator package. Do not edit!
 """
-import threading
-
 import jnius_config
 jnius_config.add_options('-Xrs', '-Xmx4096m')
 current_classpath = jnius_config.get_classpath()
@@ -37,6 +35,10 @@ class Py5Methods(PythonJavaClass):
     def draw(self):
         _update_vars()
         self._draw()
+
+    @java_method('()V')
+    def exit_actual(self):
+        detach()
 
 
 PApplet = autoclass('processing.core.PApplet',
@@ -73,22 +75,10 @@ def run_sketch(settings, setup, draw):
     py5_methods = Py5Methods(settings, setup, draw)
     _papplet.usePy5Methods(py5_methods)
 
-    # def _papplet_runsketch():
     PApplet.runSketch([''], _papplet)
-
-    # jvm_thread = threading.Thread(target=_papplet_runsketch)
-    # jvm_thread.start()
-
-    detach()
 
 
 def run_sketch2(py5_methods):
     _papplet.usePy5Methods(py5_methods)
 
-    # def _papplet_runsketch():
     PApplet.runSketch([''], _papplet)
-
-    # jvm_thread = threading.Thread(target=_papplet_runsketch)
-    # jvm_thread.start()
-
-    detach()

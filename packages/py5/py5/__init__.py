@@ -3,12 +3,10 @@ Py5 code, interface to the Java version of Processing using PyJNIus.
 
 This file is created by the py5generator package. Do not edit!
 """
-import threading
-
 import jnius_config
 jnius_config.add_options('-Xrs', '-Xmx4096m')
 current_classpath = jnius_config.get_classpath()
-jnius_config.set_classpath(*['.', '/home/jim/Projects/ITP/pythonprocessing/py5/jars/2.4/*', '/home/jim/Projects/ITP/pythonprocessing/pyjnius/jnius/src'])
+jnius_config.set_classpath(*['.', '/home/jim/Projects/ITP/pythonprocessing/py5/jars/processing4/*', '/home/jim/Projects/ITP/pythonprocessing/pyjnius/jnius/src'])
 jnius_config.add_classpath('/home/jim/Projects/ITP/pythonprocessing/py5/experiments/libraries/*')
 jnius_config.add_classpath(*[p for p in current_classpath if p not in jnius_config.get_classpath()])
 
@@ -38,6 +36,10 @@ class Py5Methods(PythonJavaClass):
         _update_vars()
         self._draw()
 
+    @java_method('()V')
+    def exit_actual(self):
+        detach()
+
 
 PApplet = autoclass('processing.core.PApplet',
                     include_protected=False, include_private=False)
@@ -54,10 +56,13 @@ ALT = 18
 AMBIENT = 0
 ARC = 32
 ARGB = 2
+ARGS_BGCOLOR = '--bgcolor'
 ARGS_DENSITY = '--density'
+ARGS_DISABLE_AWT = '--disable-awt'
 ARGS_DISPLAY = '--display'
 ARGS_EDITOR_LOCATION = '--editor-location'
 ARGS_EXTERNAL = '--external'
+ARGS_FULL_SCREEN = '--full-screen'
 ARGS_HIDE_STOP = '--hide-stop'
 ARGS_LOCATION = '--location'
 ARGS_PRESENT = '--present'
@@ -153,6 +158,7 @@ LINES = 5
 LINE_LOOP = 51
 LINE_STRIP = 50
 LINUX = 3
+MACOS = 2
 MACOSX = 2
 MAX_FLOAT = 3.4028234663852886e+38
 MAX_INT = 2147483647
@@ -246,7 +252,6 @@ display_width = None
 finished = None
 first_mouse = None
 focused = None
-frame = None
 frame_count = None
 frame_rate = None
 g = None
@@ -283,8 +288,6 @@ def _update_vars():
     first_mouse = _papplet.firstMouse
     global focused
     focused = _papplet.focused
-    global frame
-    frame = _papplet.frame
     global frame_count
     frame_count = _papplet.frameCount
     global frame_rate
@@ -477,6 +480,10 @@ def camera(*args):
 
 def ceil(*args):
     return PApplet.ceil(*args)
+
+
+def check_alpha(*args):
+    return _papplet.checkAlpha(*args)
 
 
 def check_extension(*args):
@@ -1315,6 +1322,10 @@ def second(*args):
     return PApplet.second(*args)
 
 
+def select_callback(*args):
+    return PApplet.selectCallback(*args)
+
+
 def select_folder(*args):
     return _papplet.selectFolder(*args)
 
@@ -1645,22 +1656,10 @@ def run_sketch(settings, setup, draw):
     py5_methods = Py5Methods(settings, setup, draw)
     _papplet.usePy5Methods(py5_methods)
 
-    # def _papplet_runsketch():
     PApplet.runSketch([''], _papplet)
-
-    # jvm_thread = threading.Thread(target=_papplet_runsketch)
-    # jvm_thread.start()
-
-    detach()
 
 
 def run_sketch2(py5_methods):
     _papplet.usePy5Methods(py5_methods)
 
-    # def _papplet_runsketch():
     PApplet.runSketch([''], _papplet)
-
-    # jvm_thread = threading.Thread(target=_papplet_runsketch)
-    # jvm_thread.start()
-
-    detach()
