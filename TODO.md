@@ -53,3 +53,10 @@ loadPixels => pixels should be a numpy array, not a list. unsigned ints? somethi
     (pixels & 0x0000FF00) >> 8
     (pixels & 0x00FF0000) >> 16
     ```
+
+bugs
+----
+
+fullScreen mode causes crazy errors with the `key` variable
+
+camera3D is slower than it should be

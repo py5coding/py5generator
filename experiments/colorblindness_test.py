@@ -7,6 +7,7 @@ colorBlindness = None
 
 def settings():
     py5.size(500, 500, py5.P2D)
+    # py5.full_screen(py5.P2D)
 
 
 def setup():

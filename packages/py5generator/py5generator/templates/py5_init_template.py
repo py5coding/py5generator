@@ -11,7 +11,7 @@ jnius_config.add_classpath('/home/jim/Projects/ITP/pythonprocessing/py5/experime
 jnius_config.add_classpath(*[p for p in current_classpath if p not in jnius_config.get_classpath()])
 
 from jnius import autoclass, detach  # noqa
-from jnius import JavaField, JavaStaticField, JavaMethod, JavaStaticMethod  # noqa
+from jnius import JavaMultipleMethod, JavaMethod  # noqa
 from jnius import PythonJavaClass, java_method  # noqa
 
 
@@ -122,10 +122,15 @@ class Py5Methods(PythonJavaClass):
 
 PApplet = autoclass('processing.core.PApplet',
                     include_protected=False, include_private=False)
+# TODO: if we prefer methods to fields, this can be removed
+PApplet.smooth = JavaMultipleMethod([('()V', False, False),
+                                     ('(I)V', False, False)])
+PApplet.fullScreen = JavaMultipleMethod([('()V', False, False),
+                                         ('(I)V', False, False),
+                                         ('(Ljava/lang/String;)V', False, False),
+                                         ('(Ljava/lang/String;I)V', False, False)])
+PApplet.pixelDensity = JavaMethod('(I)V')
 _papplet = PApplet()
-
-_target_frame_rate = 60
-_frame_rate_period = 1 / _target_frame_rate
 
 
 # *** PY5 GENERATED STATIC CONSTANTS ***
@@ -147,6 +152,18 @@ def _update_vars():
 # *** PY5 USER FUNCTIONS ***
 def set_frame_rate(frame_rate):
     _papplet.getSurface().setFrameRate(frame_rate)
+
+
+def smooth(*args):
+    return _papplet.smooth(*args)
+
+
+def full_screen(*args):
+    return _papplet.fullScreen(*args)
+
+
+def pixel_density(*args):
+    return _papplet.pixelDensity(*args)
 
 
 def run_sketch(settings, setup, draw):
