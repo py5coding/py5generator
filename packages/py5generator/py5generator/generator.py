@@ -14,8 +14,8 @@ import shlex
 import jnius_config
 jnius_config.set_classpath(
     '.',
-    '/home/jim/Projects/ITP/pythonprocessing/py5/jars/2.4/*',
-    # '/home/jim/Projects/ITP/pythonprocessing/py5/jars/processing4/*',
+    # '/home/jim/Projects/ITP/pythonprocessing/py5/jars/2.4/*',
+    '/home/jim/Projects/ITP/pythonprocessing/py5/jars/processing4/*',
 )
 from jnius import autoclass, find_javaclass, with_metaclass  # noqa
 from jnius import MetaJavaClass, JavaClass, JavaStaticMethod  # noqa
