@@ -1,6 +1,7 @@
 """
 Py5 Generator Code
 """
+import sys
 import re
 import pkgutil
 import shlex
@@ -14,8 +15,8 @@ import shlex
 import jnius_config
 jnius_config.set_classpath(
     '.',
-    # '/home/jim/Projects/ITP/pythonprocessing/py5/jars/2.4/*',
-    '/home/jim/Projects/ITP/pythonprocessing/py5/jars/processing4/*',
+    # '/home/jim/Projects/ITP/pythonprocessing/py5development/jars/2.4/*',
+    '/home/jim/Projects/ITP/pythonprocessing/py5development/jars/processing4/*',
 )
 from jnius import autoclass, find_javaclass, with_metaclass  # noqa
 from jnius import MetaJavaClass, JavaClass, JavaStaticMethod  # noqa
@@ -165,9 +166,19 @@ def snake_case(name):
 ###############################################################################
 
 
-def generate_py5():
+def generate_py5(dest_dir, repo_dir=None, install_dir=None):
     """Generate the Py5 library
     """
+    # first validate the parameters
+    if dest_dir.exists():
+        if not dest_dir.is_dir():
+            print(f'output destination {dest_dir} is not a directory.', file=sys.stderr)
+            return
+    else:
+        dest_dir.mkdir(parents=True)
+
+    print(f'generating py5 library in {dest_dir}')
+
     # read the output template
     py5_template = pkgutil.get_data('py5generator', 'templates/py5_init_template.py').decode('utf-8')
 
@@ -216,5 +227,7 @@ def generate_py5():
                                    py5_update_dynamic_var_code,
                                    py5_functions_code)
 
-    with open('/tmp/__init__.py', 'w') as f:
+    with open(dest_dir / '__init__.py', 'w') as f:
         f.write(py5_code)
+
+    print('done!')

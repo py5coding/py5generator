@@ -7,7 +7,7 @@ import jnius_config
 jnius_config.add_options('-Xrs', '-Xmx4096m')
 current_classpath = jnius_config.get_classpath()
 jnius_config.set_classpath(*{0})
-jnius_config.add_classpath('/home/jim/Projects/ITP/pythonprocessing/py5/experiments/libraries/*')
+jnius_config.add_classpath('/home/jim/Projects/ITP/pythonprocessing/py5development/experiments/libraries/*')
 jnius_config.add_classpath(*[p for p in current_classpath if p not in jnius_config.get_classpath()])
 
 from jnius import autoclass, detach  # noqa
