@@ -62,3 +62,5 @@ need way to get public frameRate, fullScreen, pixelDensity, and smooth vars
 fullScreen mode causes crazy errors with the `key` variable
 
 camera3D is slower than it should be
+
+camera3D and colorblindness need to call the preDraw and postDraw methods with an Interface in the same way PApplet calls the setup and draw methods.
