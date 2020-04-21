@@ -130,9 +130,6 @@ PAPPLET_SKIP_METHODS = {
     'showVariationWarning', 'showMissingWarning',
     'checkAlpha', 'setSize',
     'getClass',
-    # methods with the same name as a variable
-    # TODO the methods should be accessible
-    'frameRate', 'fullScreen', 'pixelDensity', 'smooth',
 }
 
 PCONSTANT_OVERRIDES = {

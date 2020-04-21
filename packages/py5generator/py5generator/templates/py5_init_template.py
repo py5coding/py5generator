@@ -122,14 +122,6 @@ class Py5Methods(PythonJavaClass):
 
 PApplet = autoclass('processing.core.PApplet',
                     include_protected=False, include_private=False)
-# TODO: if we prefer methods to fields, this can be removed
-PApplet.smooth = JavaMultipleMethod([('()V', False, False),
-                                     ('(I)V', False, False)])
-PApplet.fullScreen = JavaMultipleMethod([('()V', False, False),
-                                         ('(I)V', False, False),
-                                         ('(Ljava/lang/String;)V', False, False),
-                                         ('(Ljava/lang/String;I)V', False, False)])
-PApplet.pixelDensity = JavaMethod('(I)V')
 _papplet = PApplet()
 
 
@@ -150,22 +142,6 @@ def _update_vars():
 
 
 # *** PY5 USER FUNCTIONS ***
-def set_frame_rate(frame_rate):
-    _papplet.getSurface().setFrameRate(frame_rate)
-
-
-def smooth(*args):
-    return _papplet.smooth(*args)
-
-
-def full_screen(*args):
-    return _papplet.fullScreen(*args)
-
-
-def pixel_density(*args):
-    return _papplet.pixelDensity(*args)
-
-
 def run_sketch(settings, setup, draw):
 
     py5_methods = Py5Methods(settings, setup, draw)

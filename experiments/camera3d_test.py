@@ -28,7 +28,7 @@ def setup():
 
 
 def draw():
-    print(py5.frame_rate)
+    # print(py5.frame_rate)
     if camera3D.currentActivity() == 'right':
         global rotX
         rotX += 0.5

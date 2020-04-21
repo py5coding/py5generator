@@ -57,6 +57,8 @@ loadPixels => pixels should be a numpy array, not a list. unsigned ints? somethi
 bugs
 ----
 
+need way to get public frameRate, fullScreen, pixelDensity, and smooth vars
+
 fullScreen mode causes crazy errors with the `key` variable
 
 camera3D is slower than it should be
