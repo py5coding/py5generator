@@ -1,5 +1,5 @@
 """
-Py5 Generator Code
+py5 Generator Code
 """
 import sys
 import re
@@ -218,8 +218,7 @@ def generate_py5(dest_dir, repo_dir=None, install_dir=None):
             py5_functions.append(METHOD_TEMPLATE.format(snake_case(fname), fname))
     py5_functions_code = '\n\n'.join(py5_functions)
 
-    py5_code = py5_template.format(jnius_config.get_classpath(),
-                                   py5_constants_code,
+    py5_code = py5_template.format(py5_constants_code,
                                    py5_init_dynamic_var_code,
                                    py5_update_dynamic_var_code,
                                    py5_functions_code)

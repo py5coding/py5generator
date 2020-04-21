@@ -1,14 +1,20 @@
 """
-Py5 code, interface to the Java version of Processing using PyJNIus.
+py5 code, interface to the Java version of Processing using PyJNIus.
 
 This file is created by the py5generator package. Do not edit!
 """
+import sys
+from pathlib import Path
 import jnius_config
+
+
 jnius_config.add_options('-Xrs', '-Xmx4096m')
 current_classpath = jnius_config.get_classpath()
-jnius_config.set_classpath(*{0})
+base_path = Path(getattr(sys, '_MEIPASS', Path(__file__).absolute().parent))
+jnius_config.set_classpath(str(base_path / 'jars' / '*'))
 jnius_config.add_classpath('/home/jim/Projects/ITP/pythonprocessing/py5development/experiments/libraries/*')
 jnius_config.add_classpath(*[p for p in current_classpath if p not in jnius_config.get_classpath()])
+
 
 from jnius import autoclass, detach  # noqa
 from jnius import JavaMultipleMethod, JavaMethod  # noqa
@@ -126,19 +132,19 @@ _papplet = PApplet()
 
 
 # *** PY5 GENERATED STATIC CONSTANTS ***
-{1}
+{0}
 
 
 # *** PY5 GENERATED DYNAMIC VARIABLES ***
-{2}
+{1}
 
 
 def _update_vars():
-    {3}
+    {2}
 
 
 # *** PY5 GENERATED FUNCTIONS ***
-{4}
+{3}
 
 
 # *** PY5 USER FUNCTIONS ***

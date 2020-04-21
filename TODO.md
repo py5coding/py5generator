@@ -4,7 +4,7 @@ TODOS
 clean up generator.py
 ---------------------
 
-jars should be a part of the python module, otherwise there could be versioning issues.
+build process should copy the jars as well as setup all the package files.
 
 ability to set JVM options like heap size, add to classpath
 
