@@ -1,5 +1,14 @@
 """
 py5 Generator Code
+
+One might wonder why I didn't implement this using module __getattr__ and
+__dir__ functions [PEP 562](https://www.python.org/dev/peps/pep-0562/). Doing
+so would simplify the code considerably. I did in fact try that but then found
+that code completion didn't work correctly in Visual Studio Code. The reason
+why it doesn't work is because the Python extension is implemented in
+typescript, and typescript cannot parse a Python module the same way IPython
+can. It seems to use heuristics of some kind. This in itself is interesting
+because you can trick it if you need to.
 """
 import sys
 import re

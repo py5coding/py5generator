@@ -6,7 +6,11 @@ clean up generator.py
 
 split out my code into a seperate jar so py5 can use an unaltered Processing core.jar
 
+The Python Interface and Py5Methods class shouldn't have so many methods. The methods with no parameters can be grouped together into a single method like `call(String method_name)`.
+
 ability to set JVM options like heap size, add to classpath
+
+Can I rename the keys in `Class.__class__.__dict__` to make more Pythonic methods? Would the result still work for static methods and fields also? What if I wrapped the whole thing in another class and used __getattr__ to forward the requests to the parent class? If the first doesn't work the second definitely will.
 
 test with Processing4 integration branch
 https://github.com/sampottinger/processing4
@@ -17,10 +21,14 @@ design sketch execution
 
 command line run_sketch util
 
+is it possible to make a py5 reset function to create a new _papplet? I just need the run_sketch function to create a new PApplet instance. I should also add something to not re-import pyjnius if the jvm is already running.
+
 run_sketch function from py5 module: needs to have event functions passed in. can I write a function to pull them out of the local() or global() namespaces? can I combine it with what I am doing in the exec_test2.py file? I should also be able to create a class and run the class. That will make it easier to pass in the event methods.
 
 the two main execution methods should be inheriting from a class and `from py5 import *`. for the second one there should be command line tool to run the sketch. the third is the current one where someone types `import py5` but does
 not create a class but passes the methods to a run method.
+
+Can I batch commands together and get a performance improvement? It is slower to go back and forth between Python and Java and I already saw that Camera3D has a problem. The py5 methods can have a second "mode" that collects all the commands together and executes them all at once at the end? Should there be a flush command to manually force everything through? Perhaps I can use a context manager for a performance improvement of one part of the code.
 
 error messages
 --------------
@@ -43,7 +51,7 @@ rather than require users to install libraries through the PDE, I can download a
 other
 -----
 
-have animation thread be in its own thread that can be stopped
+have animation thread be in its own thread that can be stopped or paused
 
 build magic functions for screen grabs and making good documentation
 
