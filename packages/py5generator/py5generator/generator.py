@@ -14,75 +14,75 @@ import shutil
 ###############################################################################
 
 
-import jnius_config
-jnius_config.set_classpath(
-    '.',
-    # '/home/jim/Projects/ITP/pythonprocessing/py5development/jars/2.4/*',
-    '/home/jim/Projects/ITP/pythonprocessing/py5development/jars/processing4/*',
-)
-from jnius import autoclass, find_javaclass, with_metaclass  # noqa
-from jnius import MetaJavaClass, JavaClass, JavaStaticMethod  # noqa
+def jnius_setup(classpath):
+    import jnius_config
+    jnius_config.set_classpath(
+        '.',
+        # '/home/jim/Projects/ITP/pythonprocessing/py5development/jars/2.4/*',
+        '/home/jim/Projects/ITP/pythonprocessing/py5development/jars/processing4/*',
+    )
+    from jnius import autoclass, find_javaclass, with_metaclass  # noqa
+    from jnius import MetaJavaClass, JavaClass, JavaStaticMethod  # noqa
 
+    # TODO: do I really need this stuff now that autoclass works better???
+    class Modifier(with_metaclass(MetaJavaClass, JavaClass)):
+        __javaclass__ = 'java/lang/reflect/Modifier'
 
-# TODO: do I really need this stuff now that autoclass works better???
-class Modifier(with_metaclass(MetaJavaClass, JavaClass)):
-    __javaclass__ = 'java/lang/reflect/Modifier'
+        isAbstract = JavaStaticMethod('(I)Z')
+        isFinal = JavaStaticMethod('(I)Z')
+        isInterface = JavaStaticMethod('(I)Z')
+        isNative = JavaStaticMethod('(I)Z')
+        isPrivate = JavaStaticMethod('(I)Z')
+        isProtected = JavaStaticMethod('(I)Z')
+        isPublic = JavaStaticMethod('(I)Z')
+        isStatic = JavaStaticMethod('(I)Z')
+        isStrict = JavaStaticMethod('(I)Z')
+        isSynchronized = JavaStaticMethod('(I)Z')
+        isTransient = JavaStaticMethod('(I)Z')
+        isVolatile = JavaStaticMethod('(I)Z')
 
-    isAbstract = JavaStaticMethod('(I)Z')
-    isFinal = JavaStaticMethod('(I)Z')
-    isInterface = JavaStaticMethod('(I)Z')
-    isNative = JavaStaticMethod('(I)Z')
-    isPrivate = JavaStaticMethod('(I)Z')
-    isProtected = JavaStaticMethod('(I)Z')
-    isPublic = JavaStaticMethod('(I)Z')
-    isStatic = JavaStaticMethod('(I)Z')
-    isStrict = JavaStaticMethod('(I)Z')
-    isSynchronized = JavaStaticMethod('(I)Z')
-    isTransient = JavaStaticMethod('(I)Z')
-    isVolatile = JavaStaticMethod('(I)Z')
+    def identify_hierarchy(cls, level, concrete=True):
+        supercls = cls.getSuperclass()
+        if supercls is not None:
+            for sup, lvl in identify_hierarchy(supercls, level + 1, concrete=concrete):
+                yield sup, lvl  # we could use yield from when we drop python2
+        interfaces = cls.getInterfaces()
+        for interface in interfaces or []:
+            for sup, lvl in identify_hierarchy(interface, level + 1, concrete=concrete):
+                yield sup, lvl
+        # all object extends Object, so if this top interface in a hierarchy, yield Object
+        if not concrete and cls.isInterface() and not interfaces:
+            yield find_javaclass('java.lang.Object'), level + 1
+        yield cls, level
 
+    PApplet = autoclass('processing.core.PApplet',
+                        include_protected=False, include_private=False)
+    c = find_javaclass('processing.core.PApplet')
+    class_hierachy = list(identify_hierarchy(c, 0, not c.isInterface()))
 
-def identify_hierarchy(cls, level, concrete=True):
-    supercls = cls.getSuperclass()
-    if supercls is not None:
-        for sup, lvl in identify_hierarchy(supercls, level + 1, concrete=concrete):
-            yield sup, lvl  # we could use yield from when we drop python2
-    interfaces = cls.getInterfaces()
-    for interface in interfaces or []:
-        for sup, lvl in identify_hierarchy(interface, level + 1, concrete=concrete):
-            yield sup, lvl
-    # all object extends Object, so if this top interface in a hierarchy, yield Object
-    if not concrete and cls.isInterface() and not interfaces:
-        yield find_javaclass('java.lang.Object'), level + 1
-    yield cls, level
+    methods = set()
+    fields = set()
+    static_fields = set()
 
+    for cls, _ in class_hierachy:
+        for method in cls.getDeclaredMethods():
+            name = method.getName()
+            modifiers = method.getModifiers()
+            if not Modifier.isPublic(modifiers):
+                continue
+            methods.add(name)
 
-PApplet = autoclass('processing.core.PApplet',
-                    include_protected=False, include_private=False)
-c = find_javaclass('processing.core.PApplet')
-class_hierachy = list(identify_hierarchy(c, 0, not c.isInterface()))
+        for field in cls.getDeclaredFields():
+            name = field.getName()
+            modifiers = field.getModifiers()
+            if not Modifier.isPublic(modifiers):
+                continue
+            if Modifier.isStatic(modifiers):
+                static_fields.add(name)
+            else:
+                fields.add(name)
 
-methods = set()
-fields = set()
-static_fields = set()
-
-for cls, _ in class_hierachy:
-    for method in cls.getDeclaredMethods():
-        name = method.getName()
-        modifiers = method.getModifiers()
-        if not Modifier.isPublic(modifiers):
-            continue
-        methods.add(name)
-
-    for field in cls.getDeclaredFields():
-        name = field.getName()
-        modifiers = field.getModifiers()
-        if not Modifier.isPublic(modifiers):
-            continue
-        if Modifier.isStatic(modifiers):
-            static_fields.add(name)
-        else:
-            fields.add(name)
+    return PApplet, methods, fields, static_fields
 
 
 ###############################################################################
@@ -167,13 +167,22 @@ def snake_case(name):
 
 
 def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None):
-    """Generate the Py5 library
+    """Generate the py5 library
     """
 
     print(f'generating py5 library...')
+    search_dir = repo_dir or install_dir
+    core_jars = list(search_dir.glob('**/core.jar'))
+    if len(core_jars) != 1:
+        if core_jars:
+            print(f'more than one core.jar found in {search_dir}', file=sys.stderr)
+        else:
+            print(f'core.jar not found in {search_dir}', file=sys.stderr)
+        return
+    core_jar = core_jars[0]
 
-    # read the output template
-    py5_template = pkgutil.get_data('py5generator', 'resources/templates/py5__init__.py').decode('utf-8')
+    PApplet, methods, fields, static_fields = jnius_setup(core_jar)
+    from jnius import MetaJavaClass, JavaClass, JavaStaticMethod  # noqa
 
     # code the static constants
     py5_constants = []
@@ -214,6 +223,8 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
             py5_functions.append(METHOD_TEMPLATE.format(snake_case(fname), fname))
     py5_functions_code = '\n\n'.join(py5_functions)
 
+    # complete the output template
+    py5_template = pkgutil.get_data('py5generator', 'resources/templates/py5__init__.py').decode('utf-8')
     py5_code = py5_template.format(py5_constants_code,
                                    py5_init_dynamic_var_code,
                                    py5_update_dynamic_var_code,
@@ -239,6 +250,8 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     base_path = Path(getattr(sys, '_MEIPASS', Path(__file__).absolute().parent))
     shutil.copytree(base_path / 'resources' / 'py5_module_framework' / '',
                     output_dir)
+    for jar in core_jar.parent.glob('*.jar'):
+        shutil.copy(jar, output_dir / 'py5' / 'jars')
     with open(output_dir / 'py5' / '__init__.py', 'w') as f:
         f.write(py5_code)
 
