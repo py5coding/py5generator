@@ -8,6 +8,10 @@ split out my code into a seperate jar so py5 can use an unaltered Processing cor
 
 ability to set JVM options like heap size, add to classpath
 
+test with Processing4 integration branch
+https://github.com/sampottinger/processing4
+https://www.datadrivenempathy.com/processing
+
 design sketch execution
 -----------------------
 
