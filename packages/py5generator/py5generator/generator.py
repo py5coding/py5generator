@@ -22,6 +22,7 @@ from jnius import autoclass, find_javaclass, with_metaclass  # noqa
 from jnius import MetaJavaClass, JavaClass, JavaStaticMethod  # noqa
 
 
+## TODO: do I really need this stuff now that autoclass works better???
 class Modifier(with_metaclass(MetaJavaClass, JavaClass)):
     __javaclass__ = 'java/lang/reflect/Modifier'
 
@@ -177,7 +178,7 @@ def generate_py5(dest_dir, repo_dir=None, install_dir=None):
     print(f'generating py5 library in {dest_dir}')
 
     # read the output template
-    py5_template = pkgutil.get_data('py5generator', 'templates/py5_init_template.py').decode('utf-8')
+    py5_template = pkgutil.get_data('py5generator', 'templates/py5__init__.py').decode('utf-8')
 
     # code the static constants
     py5_constants = []
