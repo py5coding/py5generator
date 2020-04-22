@@ -4,7 +4,7 @@ TODOS
 clean up generator.py
 ---------------------
 
-build process should copy the jars as well as setup all the package files.
+split out my code into a seperate jar so py5 can use an unaltered Processing core.jar
 
 ability to set JVM options like heap size, add to classpath
 
