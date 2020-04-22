@@ -5,6 +5,8 @@ import sys
 import re
 import pkgutil
 import shlex
+from pathlib import Path
+import shutil
 
 
 ###############################################################################
@@ -22,7 +24,7 @@ from jnius import autoclass, find_javaclass, with_metaclass  # noqa
 from jnius import MetaJavaClass, JavaClass, JavaStaticMethod  # noqa
 
 
-## TODO: do I really need this stuff now that autoclass works better???
+# TODO: do I really need this stuff now that autoclass works better???
 class Modifier(with_metaclass(MetaJavaClass, JavaClass)):
     __javaclass__ = 'java/lang/reflect/Modifier'
 
@@ -164,21 +166,14 @@ def snake_case(name):
 ###############################################################################
 
 
-def generate_py5(dest_dir, repo_dir=None, install_dir=None):
+def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None):
     """Generate the Py5 library
     """
-    # first validate the parameters
-    if dest_dir.exists():
-        if not dest_dir.is_dir():
-            print(f'output destination {dest_dir} is not a directory.', file=sys.stderr)
-            return
-    else:
-        dest_dir.mkdir(parents=True)
 
-    print(f'generating py5 library in {dest_dir}')
+    print(f'generating py5 library...')
 
     # read the output template
-    py5_template = pkgutil.get_data('py5generator', 'templates/py5__init__.py').decode('utf-8')
+    py5_template = pkgutil.get_data('py5generator', 'resources/templates/py5__init__.py').decode('utf-8')
 
     # code the static constants
     py5_constants = []
@@ -224,7 +219,27 @@ def generate_py5(dest_dir, repo_dir=None, install_dir=None):
                                    py5_update_dynamic_var_code,
                                    py5_functions_code)
 
-    with open(dest_dir / '__init__.py', 'w') as f:
+    # build complete py5 module in destination directory
+    # first validate the output directory
+    print(f'writing py5 in {dest_dir}')
+    if dest_dir.exists():
+        if not dest_dir.is_dir():
+            print(f'output destination {dest_dir} is not a directory.', file=sys.stderr)
+            return
+    else:
+        dest_dir.mkdir(parents=True)
+    output_dir = dest_dir / 'py5'
+    if output_dir.exists():
+        if dest_exist_ok:
+            shutil.rmtree(output_dir)
+        else:
+            print(f'output destination {output_dir} already exists.', file=sys.stderr)
+            return
+
+    base_path = Path(getattr(sys, '_MEIPASS', Path(__file__).absolute().parent))
+    shutil.copytree(base_path / 'resources' / 'py5_module_framework' / '',
+                    output_dir)
+    with open(output_dir / 'py5' / '__init__.py', 'w') as f:
         f.write(py5_code)
 
     print('done!')
