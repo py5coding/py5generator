@@ -51,6 +51,10 @@ rather than require users to install libraries through the PDE, I can download a
 other
 -----
 
+integrate debugging
+
+test and document packaging and deployment with pyinstaller
+
 have animation thread be in its own thread that can be stopped or paused
 
 build magic functions for screen grabs and making good documentation
