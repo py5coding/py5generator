@@ -1,5 +1,9 @@
 package processing.core;
 
+import com.jogamp.newt.event.KeyListener;
+import com.jogamp.newt.event.MouseListener;
+import com.jogamp.newt.event.WindowListener;
+
 import processing.event.MouseEvent;
 
 public class Py5Applet extends PApplet {
@@ -84,24 +88,23 @@ public class Py5Applet extends PApplet {
   public void exitActual() {
     py5Methods.run_method("exit_actual");
 
-    // final Object nativeWindow = surface.getNative();
-    // if (nativeWindow instanceof com.jogamp.newt.Window) {
-    // com.jogamp.newt.Window window = (com.jogamp.newt.Window) nativeWindow;
-    // // remove the listeners before destroying window to prevent a core dump
-    // for (WindowListener l : window.getWindowListeners()) {
-    // window.removeWindowListener(l);
-    // }
-    // for (KeyListener l : window.getKeyListeners()) {
-    // window.removeKeyListener(l);
-    // }
-    // for (MouseListener l : window.getMouseListeners()) {
-    // window.removeMouseListener(l);
-    // }
-    // window.destroy();
-    // } else {
-    // surface.setVisible(false);
-    // }
-
+    final Object nativeWindow = surface.getNative();
+    if (nativeWindow instanceof com.jogamp.newt.Window) {
+      com.jogamp.newt.Window window = (com.jogamp.newt.Window) nativeWindow;
+      // remove the listeners before destroying window to prevent a core dump
+      for (WindowListener l : window.getWindowListeners()) {
+        window.removeWindowListener(l);
+      }
+      for (KeyListener l : window.getKeyListeners()) {
+        window.removeKeyListener(l);
+      }
+      for (MouseListener l : window.getMouseListeners()) {
+        window.removeMouseListener(l);
+      }
+      window.destroy();
+    } else {
+      surface.setVisible(false);
+    }
   }
 
   public float getFrameRate() {

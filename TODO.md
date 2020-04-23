@@ -11,8 +11,6 @@ clean up generator.py
 
 ant build.xml file should not hardcode the classpath. Also the .classpath file?
 
-add jogl jars to classpath so I can fix exitActual in Py5Applet.
-
 combine Py5Methods' run_method and mouse_wheel methods.
 
 ability to set JVM options like heap size, add to classpath

@@ -9,11 +9,14 @@
     <property name="build" location="build"/>
     <property name="dist" location="dist"/>
 
-    
     <target name="compile" description="compile the source">
         <mkdir dir="${build}"/>
         <javac includeantruntime="false" srcdir="${src}" destdir="${build}">
-            <classpath location="/home/jim/Projects/ITP/pythonprocessing/sam_processing4/core/library/core.jar"/>
+            <classpath>
+                <fileset dir="/home/jim/Projects/ITP/pythonprocessing/sam_processing4/core/library/">
+                    <include name="**/*.jar"/>
+                </fileset>
+            </classpath>
         </javac>
     </target>
 
