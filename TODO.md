@@ -6,6 +6,8 @@ clean up generator.py
 
 split out my code into a seperate jar so py5 can use an unaltered Processing core.jar
 
+ant build.xml file should not hardcode the classpath
+
 The Python Interface and Py5Methods class shouldn't have so many methods. The methods with no parameters can be grouped together into a single method like `call(String method_name)`.
 
 ability to set JVM options like heap size, add to classpath
