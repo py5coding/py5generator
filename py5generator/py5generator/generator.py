@@ -27,8 +27,7 @@ def jnius_setup(classpath):
     import jnius_config
     jnius_config.set_classpath(
         '.',
-        # '/home/jim/Projects/ITP/pythonprocessing/py5development/jars/2.4/*',
-        '/home/jim/Projects/ITP/pythonprocessing/py5development/jars/processing4/*',
+        '/home/jim/Projects/ITP/pythonprocessing/sam_processing4/core/library/*',
     )
     from jnius import autoclass, find_javaclass, with_metaclass  # noqa
     from jnius import MetaJavaClass, JavaClass, JavaStaticMethod  # noqa
@@ -64,9 +63,9 @@ def jnius_setup(classpath):
             yield find_javaclass('java.lang.Object'), level + 1
         yield cls, level
 
-    PApplet = autoclass('processing.core.PApplet',
-                        include_protected=False, include_private=False)
-    c = find_javaclass('processing.core.PApplet')
+    Py5Applet = autoclass('processing.core.Py5Applet',
+                          include_protected=False, include_private=False)
+    c = find_javaclass('processing.core.Py5Applet')
     class_hierachy = list(identify_hierarchy(c, 0, not c.isInterface()))
 
     methods = set()
@@ -91,7 +90,11 @@ def jnius_setup(classpath):
             else:
                 fields.add(name)
 
-    return PApplet, methods, fields, static_fields
+    # any field names that are also method names must be removed
+    fields -= methods
+    static_fields -= methods
+
+    return Py5Applet, methods, fields, static_fields
 
 
 ###############################################################################
@@ -105,7 +108,7 @@ def {0}(*args):
 
 STATIC_METHOD_TEMPLATE = """
 def {0}(*args):
-    return PApplet.{1}(*args)"""
+    return Py5Applet.{1}(*args)"""
 
 DYNAMIC_VAR_TEMPLATE = """
     global {0}
@@ -119,11 +122,13 @@ DYNAMIC_VAR_TEMPLATE = """
 
 PAPPLET_SKIP_METHODS = {
     # main sketch methods
-    'draw', 'setup', 'settings',
+    'settings', 'setup', 'draw',
     # key and mouse events
     'keyPressed', 'keyTyped', 'keyReleased',
     'mouseClicked', 'mouseDragged', 'mouseMoved', 'mouseEntered',
     'mouseExited', 'mousePressed', 'mouseReleased', 'mouseWheel',
+    # exit method
+    'exitActual',
     # builtin python functions
     'print', 'exec', 'exit', 'str', 'set', 'map', 'sort',
     # user should use Python instead
@@ -190,7 +195,7 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
         return
     core_jar = core_jars[0]
 
-    PApplet, methods, fields, static_fields = jnius_setup(core_jar)
+    Py5Applet, methods, fields, static_fields = jnius_setup(core_jar)
     from jnius import MetaJavaClass, JavaClass, JavaStaticMethod  # noqa
 
     # code the static constants
@@ -201,7 +206,7 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
         if name in PCONSTANT_OVERRIDES:
             py5_constants.append(f'{name} = {shlex.quote(PCONSTANT_OVERRIDES[name])}')
         else:
-            val = getattr(PApplet, name)
+            val = getattr(Py5Applet, name)
             if isinstance(val, str):
                 val = f"'{val}'"
             if name == 'javaVersion':
@@ -226,7 +231,7 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     for fname in sorted(methods):
         if fname in DEPRECATED or fname in PAPPLET_SKIP_METHODS:
             continue
-        if isinstance(getattr(PApplet, fname), JavaStaticMethod):
+        if isinstance(getattr(Py5Applet, fname), JavaStaticMethod):
             py5_functions.append(STATIC_METHOD_TEMPLATE.format(snake_case(fname), fname))
         else:
             py5_functions.append(METHOD_TEMPLATE.format(snake_case(fname), fname))

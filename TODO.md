@@ -1,14 +1,19 @@
 TODOS
 =====
 
+important bugs
+--------------
+
+if there is an error in setup or draw it should halt the sketch. right now it skips the remainder of the function and move on to the next thing.
+
 clean up generator.py
 ---------------------
 
-split out my code into a seperate jar so py5 can use an unaltered Processing core.jar
+ant build.xml file should not hardcode the classpath. Also the .classpath file?
 
-ant build.xml file should not hardcode the classpath
+add jogl jars to classpath so I can fix exitActual in Py5Applet.
 
-The Python Interface and Py5Methods class shouldn't have so many methods. The methods with no parameters can be grouped together into a single method like `call(String method_name)`.
+combine Py5Methods' run_method and mouse_wheel methods.
 
 ability to set JVM options like heap size, add to classpath
 

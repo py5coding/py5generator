@@ -21,8 +21,8 @@ def setup():
 
 
 def draw():
-    # if py5.key_pressed:
-    #     print('frameRate', py5.frame_rate())
+    if py5.is_key_pressed():
+        print('frameRate', py5.get_frame_rate())
     py5.fill(py5.random(255), py5.random(255), py5.random(255), 50.0)
     py5.rect(py5.mouse_x, py5.mouse_y, 40, 40)
 

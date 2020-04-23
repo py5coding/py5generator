@@ -19,7 +19,7 @@ def settings():
 
 def setup():
     py5.background(255)
-    # py5.set_frame_rate(60)
+    py5.frame_rate(60)
 
     global camera3D
     camera3D = Camera3D(py5._papplet)
@@ -28,7 +28,7 @@ def setup():
 
 
 def draw():
-    # print(py5.frame_rate)
+    print(py5.get_frame_rate())
     if camera3D.currentActivity() == 'right':
         global rotX
         rotX += 0.5
