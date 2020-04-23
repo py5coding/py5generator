@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="py5 jar" default="dist">
+
+    <description>
+        compile and build the py5 jar file.
+    </description>
+
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <property name="dist" location="dist"/>
+
+    
+    <target name="compile" description="compile the source">
+        <mkdir dir="${build}"/>
+        <javac includeantruntime="false" srcdir="${src}" destdir="${build}">
+            <classpath location="/home/jim/Projects/ITP/pythonprocessing/processing4/core/library/core.jar"/>
+        </javac>
+    </target>
+
+    <target name="dist" depends="compile" description="make the jar">
+        <mkdir dir="${dist}"/>
+        <jar destfile="${dist}/py5.jar" basedir="${build}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
+
+</project>
