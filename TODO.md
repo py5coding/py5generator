@@ -33,6 +33,8 @@ run_sketch function from py5 module: needs to have event functions passed in. ca
 the two main execution methods should be inheriting from a class and `from py5 import *`. for the second one there should be command line tool to run the sketch. the third is the current one where someone types `import py5` but does
 not create a class but passes the methods to a run method.
 
+is _update_vars slowing this down? can I make it faster with properties?
+
 Can I batch commands together and get a performance improvement? It is slower to go back and forth between Python and Java and I already saw that Camera3D has a problem. The py5 methods can have a second "mode" that collects all the commands together and executes them all at once at the end? Should there be a flush command to manually force everything through? Perhaps I can use a context manager for a performance improvement of one part of the code.
 
 error messages
@@ -78,9 +80,9 @@ loadPixels => pixels should be a numpy array, not a list. unsigned ints? somethi
 bugs
 ----
 
-need way to get public frameRate, fullScreen, pixelDensity, and smooth vars
+is the type of key and keyCode correct? Key is not supposed to be a number
 
-fullScreen mode causes crazy errors with the `key` variable
+fullScreen mode causes crazy errors with the `key` variable in camera3D_test
 
 camera3D is slower than it should be
 
