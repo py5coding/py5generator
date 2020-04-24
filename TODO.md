@@ -4,8 +4,6 @@ TODOS
 clean up generator.py
 ---------------------
 
-ant build.xml file should not hardcode the classpath. Also the .classpath file?
-
 combine Py5Methods' run_method and mouse_wheel methods.
 
 ability to set JVM options like heap size, add to classpath
@@ -72,12 +70,20 @@ loadPixels => pixels should be a numpy array, not a list. unsigned ints? somethi
     (pixels & 0x00FF0000) >> 16
     ```
 
+headless mode that grabs keyboard events from the terminal. this can be done in java and would be useful for sound and text sketches.
+
+can I use terminal graphics to display the output? there are terminal image viewers. some ideas:
+https://docs.python.org/3/library/curses.html
+http://urwid.org/index.html  https://github.com/urwid/urwid
+https://github.com/peterbrittain/asciimatics
+https://pypi.org/project/PySixel/
+
 bugs
 ----
 
 is the type of key and keyCode correct? Key is not supposed to be a number
 
-fullScreen mode causes crazy errors with the `key` variable in camera3D_test
+fullScreen mode causes crazy errors with the `key` variable in camera3D_test?
 
 camera3D is slower than it should be
 
