@@ -1,11 +1,6 @@
 TODOS
 =====
 
-important bugs
---------------
-
-if there is an error in setup or draw it should halt the sketch. right now it skips the remainder of the function and move on to the next thing.
-
 clean up generator.py
 ---------------------
 

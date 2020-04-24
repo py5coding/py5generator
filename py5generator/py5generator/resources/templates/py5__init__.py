@@ -5,9 +5,10 @@ This file is created by the py5generator package. Do not edit!
 """
 import sys
 from pathlib import Path
+import logging
+import traceback
+
 import jnius_config
-
-
 jnius_config.add_options('-Xrs', '-Xmx4096m')
 current_classpath = jnius_config.get_classpath()
 base_path = Path(getattr(sys, '_MEIPASS', Path(__file__).absolute().parent))
@@ -16,10 +17,12 @@ jnius_config.set_classpath(str(base_path / 'jars' / '*'))
 jnius_config.add_classpath('/home/jim/Projects/ITP/pythonprocessing/py5development/experiments/libraries/*')
 jnius_config.add_classpath(*[p for p in current_classpath if p not in jnius_config.get_classpath()])
 
-
 from jnius import autoclass, detach  # noqa
 from jnius import JavaMultipleMethod, JavaMethod  # noqa
 from jnius import PythonJavaClass, java_method  # noqa
+
+
+logger = logging.getLogger(__name__)
 
 
 class Py5Methods(PythonJavaClass):
@@ -34,15 +37,31 @@ class Py5Methods(PythonJavaClass):
     def set_events(self, **kwargs):
         self._functions.update(kwargs)
 
+    def _stop_error(self, msg):
+        exc_type, exc_value, exc_tb = sys.exc_info()
+        tbe = traceback.TracebackException(exc_type, exc_value, exc_tb)
+        tb = list(tbe.format())
+        logger.critical(msg + '\n' + tb[0] + ''.join(tb[2:-1]) + '\n' + tb[-1])
+        _papplet.getSurface().stopThread()
+
     @java_method('(Ljava/lang/String;)V')
-    def run_method(self, methodName):
-        if methodName == 'draw':
-            _update_vars()
-        elif methodName == 'exitActual':
+    def run_method(self, method_name):
+        try:
+            if method_name == 'draw':
+                _update_vars()
+        except Exception as e:
+            msg = 'internal error in _update_vars: ' + str(e)
+            self._stop_error(msg)
+            return
+        if method_name == 'exitActual':
             detach()
 
-        if methodName in self._functions:
-            self._functions[methodName]()
+        try:
+            if method_name in self._functions:
+                self._functions[method_name]()
+        except Exception as e:
+            msg = 'exception running ' + method_name + ': ' + str(e)
+            self._stop_error(msg)
 
     @java_method('(Lprocessing/event/MouseEvent;)V')
     def mouse_wheel(self, event):
