@@ -13,8 +13,8 @@
         <mkdir dir="${build}"/>
         <javac includeantruntime="false" srcdir="${src}" destdir="${build}">
             <classpath>
-                <fileset dir="/home/jim/Projects/ITP/pythonprocessing/sam_processing4/core/library/">
-                    <include name="**/*.jar"/>
+                <fileset dir="${processing_lib_dir}">
+                        <include name="**/*.jar"/>
                 </fileset>
             </classpath>
         </javac>
