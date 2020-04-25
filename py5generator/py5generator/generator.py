@@ -23,11 +23,11 @@ import shutil
 ###############################################################################
 
 
-def jnius_setup(classpath):
+def jnius_setup(core_jar_path):
     import jnius_config
     jnius_config.set_classpath(
-        '.',
-        '/home/jim/Projects/ITP/pythonprocessing/sam_processing4/core/library/*',
+        'py5development/py5jar/dist/py5.jar',
+        str(core_jar_path)
     )
     from jnius import autoclass, find_javaclass, with_metaclass  # noqa
     from jnius import MetaJavaClass, JavaClass, JavaStaticMethod  # noqa
@@ -193,9 +193,9 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
         else:
             print(f'core.jar not found in {search_dir}', file=sys.stderr)
         return
-    core_jar = core_jars[0]
+    core_jar_path = core_jars[0]
 
-    Py5Applet, methods, fields, static_fields = jnius_setup(core_jar)
+    Py5Applet, methods, fields, static_fields = jnius_setup(core_jar_path)
     from jnius import MetaJavaClass, JavaClass, JavaStaticMethod  # noqa
 
     # code the static constants
@@ -264,7 +264,7 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     base_path = Path(getattr(sys, '_MEIPASS', Path(__file__).absolute().parent))
     shutil.copytree(base_path / 'resources' / 'py5_module_framework' / '',
                     output_dir)
-    for jar in core_jar.parent.glob('*.jar'):
+    for jar in core_jar_path.parent.glob('*.jar'):
         shutil.copy(jar, output_dir / 'py5' / 'jars')
     with open(output_dir / 'py5' / '__init__.py', 'w') as f:
         f.write(py5_code)
