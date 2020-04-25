@@ -1,4 +1,4 @@
-package processing.core;
+package py5.core;
 
 import processing.event.MouseEvent;
 

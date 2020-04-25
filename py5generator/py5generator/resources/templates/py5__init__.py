@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 
 class Py5Methods(PythonJavaClass):
-    __javainterfaces__ = ['processing/core/Py5Methods']
+    __javainterfaces__ = ['py5/core/Py5Methods']
 
     def __init__(self, settings, setup, draw):
         self._functions = dict()
@@ -61,7 +61,7 @@ class Py5Methods(PythonJavaClass):
             detach()
 
 
-Py5Applet = autoclass('processing.core.Py5Applet',
+Py5Applet = autoclass('py5.core.Py5Applet',
                       include_protected=False, include_private=False)
 _papplet = Py5Applet()
 

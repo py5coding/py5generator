@@ -1,9 +1,10 @@
-package processing.core;
+package py5.core;
 
 import com.jogamp.newt.event.KeyListener;
 import com.jogamp.newt.event.MouseListener;
 import com.jogamp.newt.event.WindowListener;
 
+import processing.core.PApplet;
 import processing.event.MouseEvent;
 
 public class Py5Applet extends PApplet {

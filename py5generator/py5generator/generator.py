@@ -63,9 +63,9 @@ def jnius_setup(core_jar_path):
             yield find_javaclass('java.lang.Object'), level + 1
         yield cls, level
 
-    Py5Applet = autoclass('processing.core.Py5Applet',
+    Py5Applet = autoclass('py5.core.Py5Applet',
                           include_protected=False, include_private=False)
-    c = find_javaclass('processing.core.Py5Applet')
+    c = find_javaclass('py5.core.Py5Applet')
     class_hierachy = list(identify_hierarchy(c, 0, not c.isInterface()))
 
     methods = set()
@@ -76,6 +76,8 @@ def jnius_setup(core_jar_path):
         for method in cls.getDeclaredMethods():
             name = method.getName()
             modifiers = method.getModifiers()
+            if not Modifier.isPublic(modifiers) and not Modifier.isProtected(modifiers) and not Modifier.isPrivate(modifiers):
+                print('package_private method', name)
             if not Modifier.isPublic(modifiers):
                 continue
             methods.add(name)
@@ -83,6 +85,8 @@ def jnius_setup(core_jar_path):
         for field in cls.getDeclaredFields():
             name = field.getName()
             modifiers = field.getModifiers()
+            if not Modifier.isPublic(modifiers) and not Modifier.isProtected(modifiers) and not Modifier.isPrivate(modifiers):
+                print('package_private field', name)
             if not Modifier.isPublic(modifiers):
                 continue
             if Modifier.isStatic(modifiers):
@@ -266,6 +270,8 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
                     output_dir)
     for jar in core_jar_path.parent.glob('*.jar'):
         shutil.copy(jar, output_dir / 'py5' / 'jars')
+    # TODO: this is wrong
+    shutil.copy('py5development/py5jar/dist/py5.jar', output_dir / 'py5' / 'jars')
     with open(output_dir / 'py5' / '__init__.py', 'w') as f:
         f.write(py5_code)
 
