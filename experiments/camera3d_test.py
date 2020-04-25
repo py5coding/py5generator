@@ -1,9 +1,11 @@
 import numpy as np
 
-import py5
-from py5 import autoclass
+import jnius_config
+jnius_config.add_options('-Xrs', '-Xmx4096m')
+jnius_config.add_classpath('/home/jim/Projects/ITP/pythonprocessing/py5development/experiments/libraries/*')
+import py5  # noqa
 
-Camera3D = autoclass('camera3D.Camera3D')
+Camera3D = py5.autoclass('camera3D.Camera3D')
 camera3D = None
 
 
@@ -47,6 +49,5 @@ def draw():
     py5.box(250)
 
 
-# py5.run_sketch(settings, setup, draw)
 py5_methods = py5.Py5Methods(settings, setup, draw)
-py5.run_sketch2(py5_methods)
+py5.run_sketch(py5_methods)

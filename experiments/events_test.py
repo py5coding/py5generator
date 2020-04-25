@@ -1,8 +1,6 @@
 import py5
-from py5 import autoclass
 
-
-MouseEvent = autoclass('processing.event.MouseEvent')
+MouseEvent = py5.autoclass('processing.event.MouseEvent')
 
 
 def settings():
@@ -73,10 +71,10 @@ py5_methods.set_events(key_pressed=key_pressed,
                        mouse_entered=mouse_entered,
                        mouse_exited=mouse_exited,
                        mouse_clicked=mouse_clicked,
-                    #    mouse_dragged=mouse_dragged,
-                    #    mouse_moved=mouse_moved,
+                       #  mouse_dragged=mouse_dragged,
+                       #  mouse_moved=mouse_moved,
                        mouse_pressed=mouse_pressed,
                        mouse_released=mouse_released,
                        mouse_wheel=mouse_wheel
                        )
-py5.run_sketch2(py5_methods)
+py5.run_sketch(py5_methods)

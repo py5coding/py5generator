@@ -1,7 +1,10 @@
-import py5
-from py5 import autoclass
+import jnius_config
+jnius_config.add_options('-Xrs', '-Xmx4096m')
+jnius_config.add_classpath('/home/jim/Projects/ITP/pythonprocessing/py5development/experiments/libraries/*')
 
-ColorBlindness = autoclass('colorblind.ColorBlindness')
+import py5  # noqa
+
+ColorBlindness = py5.autoclass('colorblind.ColorBlindness')
 colorBlindness = None
 
 
@@ -27,6 +30,5 @@ def draw():
     py5.rect(py5.mouse_x, py5.mouse_y, 40, 40)
 
 
-# py5.run_sketch(settings, setup, draw)
 py5_methods = py5.Py5Methods(settings, setup, draw)
-py5.run_sketch2(py5_methods)
+py5.run_sketch(py5_methods)

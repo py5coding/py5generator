@@ -9,18 +9,14 @@ import logging
 import traceback
 
 import jnius_config
-jnius_config.add_options('-Xrs', '-Xmx4096m')
 current_classpath = jnius_config.get_classpath()
 base_path = Path(getattr(sys, '_MEIPASS', Path(__file__).absolute().parent))
 jnius_config.set_classpath(str(base_path / 'jars' / '*'))
-# TODO: find a better way to add the Processing libraries like Camera3D and Colorblindness
-jnius_config.add_classpath('/home/jim/Projects/ITP/pythonprocessing/py5development/experiments/libraries/*')
 jnius_config.add_classpath(*[p for p in current_classpath if p not in jnius_config.get_classpath()])
 
 from jnius import autoclass, detach  # noqa
 from jnius import JavaMultipleMethod, JavaMethod  # noqa
 from jnius import PythonJavaClass, java_method  # noqa
-
 
 logger = logging.getLogger(__name__)
 
@@ -92,15 +88,7 @@ def _update_vars():
 
 
 # *** PY5 USER FUNCTIONS ***
-def run_sketch(settings, setup, draw):
-
-    py5_methods = Py5Methods(settings, setup, draw)
-    _papplet.usePy5Methods(py5_methods)
-
-    Py5Applet.runSketch([''], _papplet)
-
-
-def run_sketch2(py5_methods):
+def run_sketch(py5_methods):
     _papplet.usePy5Methods(py5_methods)
 
     Py5Applet.runSketch([''], _papplet)
