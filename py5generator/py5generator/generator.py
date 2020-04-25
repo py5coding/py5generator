@@ -76,8 +76,6 @@ def jnius_setup(core_jar_path):
         for method in cls.getDeclaredMethods():
             name = method.getName()
             modifiers = method.getModifiers()
-            if not Modifier.isPublic(modifiers) and not Modifier.isProtected(modifiers) and not Modifier.isPrivate(modifiers):
-                print('package_private method', name)
             if not Modifier.isPublic(modifiers):
                 continue
             methods.add(name)
@@ -85,8 +83,6 @@ def jnius_setup(core_jar_path):
         for field in cls.getDeclaredFields():
             name = field.getName()
             modifiers = field.getModifiers()
-            if not Modifier.isPublic(modifiers) and not Modifier.isProtected(modifiers) and not Modifier.isPrivate(modifiers):
-                print('package_private field', name)
             if not Modifier.isPublic(modifiers):
                 continue
             if Modifier.isStatic(modifiers):
