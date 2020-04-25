@@ -53,8 +53,6 @@ class Py5Methods(PythonJavaClass):
             msg = 'internal error in _update_vars: ' + str(e)
             self._stop_error(msg)
             return
-        if method_name == 'exitActual':
-            detach()
 
         try:
             if method_name in self._functions:
@@ -62,6 +60,9 @@ class Py5Methods(PythonJavaClass):
         except Exception as e:
             msg = 'exception running ' + method_name + ': ' + str(e)
             self._stop_error(msg)
+
+        if method_name == 'exitActual':
+            detach()
 
     @java_method('(Lprocessing/event/MouseEvent;)V')
     def mouse_wheel(self, event):
