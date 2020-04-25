@@ -6,8 +6,6 @@ clean up generator.py
 
 combine Py5Methods' run_method and mouse_wheel methods.
 
-Can I rename the keys in `Class.__class__.__dict__` to make more Pythonic methods? Would the result still work for static methods and fields also? What if I wrapped the whole thing in another class and used __getattr__ to forward the requests to the parent class? If the first doesn't work the second definitely will.
-
 test with Processing4 integration branch
 https://github.com/sampottinger/processing4
 https://www.datadrivenempathy.com/processing
