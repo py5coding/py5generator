@@ -66,7 +66,7 @@ public class Py5Applet extends PApplet {
 
   @Override
   public void mouseWheel(MouseEvent event) {
-    py5Methods.mouse_wheel(event);
+    py5Methods.run_method("mouse_wheel", event);
   }
 
   @Override

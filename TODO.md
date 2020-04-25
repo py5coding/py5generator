@@ -4,8 +4,6 @@ TODOS
 clean up generator.py
 ---------------------
 
-combine Py5Methods' run_method and mouse_wheel methods.
-
 test with Processing4 integration branch
 https://github.com/sampottinger/processing4
 https://www.datadrivenempathy.com/processing

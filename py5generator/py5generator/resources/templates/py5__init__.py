@@ -40,8 +40,8 @@ class Py5Methods(PythonJavaClass):
         logger.critical(msg + '\n' + tb[0] + ''.join(tb[2:-1]) + '\n' + tb[-1])
         _papplet.getSurface().stopThread()
 
-    @java_method('(Ljava/lang/String;)V')
-    def run_method(self, method_name):
+    @java_method('(Ljava/lang/String;[Ljava/lang/Object;)V')
+    def run_method(self, method_name, params):
         try:
             if method_name == 'draw':
                 _update_vars()
@@ -52,18 +52,13 @@ class Py5Methods(PythonJavaClass):
 
         try:
             if method_name in self._functions:
-                self._functions[method_name]()
+                self._functions[method_name](*params)
         except Exception as e:
             msg = 'exception running ' + method_name + ': ' + str(e)
             self._stop_error(msg)
 
         if method_name == 'exitActual':
             detach()
-
-    @java_method('(Lprocessing/event/MouseEvent;)V')
-    def mouse_wheel(self, event):
-        if self._mouse_wheel:
-            self._mouse_wheel(event)
 
 
 Py5Applet = autoclass('processing.core.Py5Applet',
