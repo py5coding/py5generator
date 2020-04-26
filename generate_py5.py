@@ -191,7 +191,7 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     py5_functions_code = '\n\n'.join(py5_functions)
 
     # complete the output template
-    with open('py5generator/py5generator/resources/templates/py5__init__.py', 'r') as f:
+    with open('py5_resources/templates/py5__init__.py', 'r') as f:
         py5_template = f.read()
     py5_code = py5_template.format(py5_constants_code,
                                    py5_init_dynamic_var_code,
@@ -216,7 +216,7 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
             return
 
     base_path = Path(__file__).absolute().parent
-    shutil.copytree(base_path / 'py5generator' / 'py5generator' / 'resources' / 'py5_module_framework' / '',
+    shutil.copytree(base_path / 'py5_resources' / 'py5_module_framework' / '',
                     output_dir)
     for jar in core_jar_path.parent.glob('*.jar'):
         shutil.copy(jar, output_dir / 'py5' / 'jars')
