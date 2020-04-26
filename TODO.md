@@ -1,8 +1,8 @@
 TODOS
 =====
 
-COMMANDS
---------
+INFO
+----
 
 Building py5:
 
@@ -13,14 +13,9 @@ The Processing jars need to exist and be built. If I am using Processing3 I need
 
 (JAVA_HOME="/usr/lib/jvm/jdk1.8.0_74"; ant -f /home/jim/Projects/ITP/pythonprocessing/processing/core/build.xml)
 
-clean up generator.py
----------------------
-
-uninstall py5generator package, remove code, and move py5 resources to root directory
-
-test with Processing4 integration branch
-https://github.com/sampottinger/processing4
-https://www.datadrivenempathy.com/processing
+Processing4 integration branch:
+[repo](https://github.com/sampottinger/processing4)
+[builds](https://www.datadrivenempathy.com/processing)
 
 design sketch execution
 -----------------------
