@@ -129,9 +129,11 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
         return
     core_jar_path = core_jars[0]
 
+    py5_jar_path = Path('py5jar/dist/py5.jar')
+    if not py5_jar_path.exists():
+        raise RuntimeError(f'py5 jar not found at {str(py5_jar_path)}')
     import jnius_config
-    # TODO: add a helpful error message if py5.jar does not exist
-    jnius_config.set_classpath('py5jar/dist/py5.jar', str(core_jar_path))
+    jnius_config.set_classpath(str(py5_jar_path), str(core_jar_path))
     from jnius import autoclass
     from jnius import JavaStaticMethod, JavaMethod, JavaMultipleMethod, JavaStaticField, JavaField
 
@@ -220,7 +222,7 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
                     output_dir)
     for jar in core_jar_path.parent.glob('*.jar'):
         shutil.copy(jar, output_dir / 'py5' / 'jars')
-    shutil.copy('py5jar/dist/py5.jar', output_dir / 'py5' / 'jars')
+    shutil.copy(py5_jar_path, output_dir / 'py5' / 'jars')
     with open(output_dir / 'py5' / '__init__.py', 'w') as f:
         f.write(py5_code)
 
