@@ -11,10 +11,6 @@ setup(
     long_description=readme,
     author='Jim Schmitz',
     author_email='jim@ixora.io',
-    # TODO: fix this
-    # install_requires=[
-    #     '???'
-    # ],
     classifiers=[
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
