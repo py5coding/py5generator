@@ -1,10 +1,20 @@
 TODOS
 =====
 
+COMMANDS
+--------
+
+Building py5:
+
+$ make clean
+$ make processing_dir=../sam_processing4 py5_dir=../py5build
+
+The Processing jars need to exist and be built. If I am using Processing3 I need to compile with java 1.8. I can use it with a command like this:
+
+(JAVA_HOME="/usr/lib/jvm/jdk1.8.0_74"; ant -f /home/jim/Projects/ITP/pythonprocessing/processing/core/build.xml)
+
 clean up generator.py
 ---------------------
-
-remove hardcoded sam_processing4 from Makefile and use a parameter instead, need to use realpath to get absolute path of core.jar
 
 uninstall py5generator package, remove code, and move py5 resources to root directory
 

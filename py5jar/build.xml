@@ -13,7 +13,7 @@
         <mkdir dir="${build}"/>
         <javac includeantruntime="false" srcdir="${src}" destdir="${build}">
             <classpath>
-                <fileset dir="${processing_lib_dir}">
+                <fileset dir="${processing_dir}/core/library/">
                         <include name="**/*.jar"/>
                 </fileset>
             </classpath>

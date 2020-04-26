@@ -1,19 +1,15 @@
+py5jar_file = py5jar/dist/py5.jar
+
 all: generate_py5
 
 generate_py5: py5jar
-	python generate_py5.py ../py5build/ --exist_ok -r ../sam_processing4
+	python generate_py5.py $(py5_dir) --exist_ok -r $(processing_dir)
 
-sam_processing4_jar:
-	ant -f ../sam_processing4/core/build.xml
-
-py5jar: sam_processing4_jar
-	ant -f py5jar/build.xml -Dprocessing_lib_dir=/home/jim/Projects/ITP/pythonprocessing/sam_processing4/core/library/
-
-# processing3_jar:
-# 	(JAVA_HOME="/usr/lib/jvm/jdk1.8.0_74"; ant -f /home/jim/Projects/ITP/pythonprocessing/processing/core/build.xml)
+py5jar: $(py5jar_file)
+$(py5jar_file):
+	ant -f py5jar/build.xml -Dprocessing_dir=$(realpath $(processing_dir))
 
 .PHONY: clean
 clean:
 	ant -f py5jar/build.xml clean
-	ant -f ../sam_processing4/core/build.xml clean
 
