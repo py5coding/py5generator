@@ -140,24 +140,29 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     Py5Applet = autoclass('py5.core.Py5Applet',
                           include_protected=False, include_private=False)
 
-    # TODO: simplify below code by splitting out static methods
     methods = set()
+    static_methods = set()
     fields = set()
     static_fields = set()
 
     for k, v in Py5Applet.__dict__.items():
-        if isinstance(v, (JavaStaticMethod, JavaMethod, JavaMultipleMethod)):
+        if isinstance(v, JavaStaticMethod):
+            static_methods.add(k)
+        elif isinstance(v, (JavaMethod, JavaMultipleMethod)):
             methods.add(k)
         elif isinstance(v, JavaStaticField):
             static_fields.add(k)
         elif isinstance(v, JavaField):
             fields.add(k)
 
+    static_fields -= DEPRECATED
+    fields -= DEPRECATED
+    methods -= (DEPRECATED | PAPPLET_SKIP_METHODS)
+    static_methods -= (DEPRECATED | PAPPLET_SKIP_METHODS)
+
     # code the static constants
     py5_constants = []
     for name in sorted(static_fields):
-        if name in DEPRECATED:
-            continue
         if name in PCONSTANT_OVERRIDES:
             py5_constants.append(f'{name} = {shlex.quote(PCONSTANT_OVERRIDES[name])}')
         else:
@@ -173,8 +178,6 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     init_vars = []
     update_vars = []
     for name in sorted(fields):
-        if name in DEPRECATED:
-            continue
         snake_name = snake_case(name)
         init_vars.append(f'{snake_name} = None')
         update_vars.append(DYNAMIC_VAR_TEMPLATE.format(snake_name, name))
@@ -182,14 +185,10 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     py5_update_dynamic_var_code = ''.join(update_vars)[5:]
 
     # code the class and instance methods
-    py5_functions = []
-    for fname in sorted(methods):
-        if fname in DEPRECATED or fname in PAPPLET_SKIP_METHODS:
-            continue
-        if isinstance(getattr(Py5Applet, fname), JavaStaticMethod):
-            py5_functions.append(STATIC_METHOD_TEMPLATE.format(snake_case(fname), fname))
-        else:
-            py5_functions.append(METHOD_TEMPLATE.format(snake_case(fname), fname))
+    py5_functions = (
+        [METHOD_TEMPLATE.format(snake_case(fname), fname) for fname in sorted(methods)]
+        + [STATIC_METHOD_TEMPLATE.format(snake_case(fname), fname) for fname in sorted(static_methods)]
+    )
     py5_functions_code = '\n\n'.join(py5_functions)
 
     # complete the output template
