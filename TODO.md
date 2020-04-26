@@ -4,9 +4,9 @@ TODOS
 clean up generator.py
 ---------------------
 
-remove hardcoded path to py5.jar from jnius_setup and get rid of the Modifier stuff if it can be done more simply.
+remove hardcoded sam_processing4 from Makefile and use a parameter instead, need to use realpath to get absolute path of core.jar
 
-should generate_py5 really be a command? why not make it into a regular script so the paths to py5.jar and the py5 resources can be simpler.
+uninstall py5generator package, remove code, and move py5 resources to root directory
 
 test with Processing4 integration branch
 https://github.com/sampottinger/processing4

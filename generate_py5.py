@@ -1,123 +1,30 @@
-"""
-py5 Generator Code
-
-One might wonder why I didn't implement this using module __getattr__ and
-__dir__ functions [PEP 562](https://www.python.org/dev/peps/pep-0562/). Doing
-so would simplify the code considerably. I did in fact try that but then found
-that code completion didn't work correctly in Visual Studio Code. The reason
-why it doesn't work is because the Python extension is implemented in
-typescript, and typescript cannot parse a Python module the same way IPython
-can. It seems to use heuristics of some kind. This in itself is interesting
-because you can trick it if you need to.
-"""
 import sys
 import re
-import pkgutil
+import argparse
+import shutil
 import shlex
 from pathlib import Path
-import shutil
 
 
 ###############################################################################
-# PYJNIUS SETUP
+# ARGUMENT PARSING
 ###############################################################################
 
 
-def jnius_setup(core_jar_path):
-    import jnius_config
-    jnius_config.set_classpath(
-        'py5development/py5jar/dist/py5.jar',
-        str(core_jar_path)
-    )
-    from jnius import autoclass, find_javaclass, with_metaclass  # noqa
-    from jnius import MetaJavaClass, JavaClass, JavaStaticMethod  # noqa
-    from jnius import JavaMethod, JavaMultipleMethod, JavaStaticField, JavaField  # noqa
+parser = argparse.ArgumentParser(description="Generate py5 library using processing jars",
+                                 epilog="this is the epilog")
 
-    # # TODO: do I really need this stuff now that autoclass works better???
-    # class Modifier(with_metaclass(MetaJavaClass, JavaClass)):
-    #     __javaclass__ = 'java/lang/reflect/Modifier'
 
-    #     isAbstract = JavaStaticMethod('(I)Z')
-    #     isFinal = JavaStaticMethod('(I)Z')
-    #     isInterface = JavaStaticMethod('(I)Z')
-    #     isNative = JavaStaticMethod('(I)Z')
-    #     isPrivate = JavaStaticMethod('(I)Z')
-    #     isProtected = JavaStaticMethod('(I)Z')
-    #     isPublic = JavaStaticMethod('(I)Z')
-    #     isStatic = JavaStaticMethod('(I)Z')
-    #     isStrict = JavaStaticMethod('(I)Z')
-    #     isSynchronized = JavaStaticMethod('(I)Z')
-    #     isTransient = JavaStaticMethod('(I)Z')
-    #     isVolatile = JavaStaticMethod('(I)Z')
-
-    # def identify_hierarchy(cls, level, concrete=True):
-    #     supercls = cls.getSuperclass()
-    #     if supercls is not None:
-    #         for sup, lvl in identify_hierarchy(supercls, level + 1, concrete=concrete):
-    #             yield sup, lvl  # we could use yield from when we drop python2
-    #     interfaces = cls.getInterfaces()
-    #     for interface in interfaces or []:
-    #         for sup, lvl in identify_hierarchy(interface, level + 1, concrete=concrete):
-    #             yield sup, lvl
-    #     # all object extends Object, so if this top interface in a hierarchy, yield Object
-    #     if not concrete and cls.isInterface() and not interfaces:
-    #         yield find_javaclass('java.lang.Object'), level + 1
-    #     yield cls, level
-
-    Py5Applet = autoclass('py5.core.Py5Applet',
-                          include_protected=False, include_private=False)
-    # c = find_javaclass('py5.core.Py5Applet')
-    # class_hierachy = list(identify_hierarchy(c, 0, not c.isInterface()))
-
-    # methods = set()
-    # fields = set()
-    # static_fields = set()
-
-    # for cls, _ in class_hierachy:
-    #     for method in cls.getDeclaredMethods():
-    #         name = method.getName()
-    #         modifiers = method.getModifiers()
-    #         if not Modifier.isPublic(modifiers):
-    #             continue
-    #         methods.add(name)
-
-    #     for field in cls.getDeclaredFields():
-    #         name = field.getName()
-    #         modifiers = field.getModifiers()
-    #         if not Modifier.isPublic(modifiers):
-    #             continue
-    #         if Modifier.isStatic(modifiers):
-    #             static_fields.add(name)
-    #         else:
-    #             fields.add(name)
-
-    # any field names that are also method names must be removed
-    # fields -= methods
-    # static_fields -= methods
-
-    methods2 = set()
-    fields2 = set()
-    static_fields2 = set()
-
-    for k, v in Py5Applet.__dict__.items():
-        if isinstance(v, (JavaStaticMethod, JavaMethod, JavaMultipleMethod)):
-            methods2.add(k)
-        elif isinstance(v, JavaStaticField):
-            static_fields2.add(k)
-        elif isinstance(v, JavaField):
-            fields2.add(k)
-
-    # assert methods == methods2
-    # assert not (methods - methods2)
-    # assert not (methods2 - methods)
-    # assert fields == fields2
-    # assert not (fields - fields2)
-    # assert not (fields2 - fields)
-    # assert static_fields == static_fields2
-    # assert not (static_fields - static_fields2)
-    # assert not (static_fields2 - static_fields)
-
-    return Py5Applet, methods2, fields2, static_fields2
+parser.add_argument(action='store', dest='py5_destination_dir', default='.',
+                    help='location to write generated py5 library')
+parser.add_argument('-x', '--exist_ok', action='store_true',
+                    dest='dest_exist_ok', default=False,
+                    help='ok to replace py5 directory in py5_destination_dir')
+group = parser.add_mutually_exclusive_group(required=True)
+group.add_argument('-r', '--repo', action='store', dest='processing_repo_dir',
+                   help='location of processing code (github repository)')
+group.add_argument('-p', '--pde', action='store', dest='processing_install_dir',
+                   help='location of installed processing application (PDE)')
 
 
 ###############################################################################
@@ -204,22 +111,45 @@ def snake_case(name):
 
 
 def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None):
-    """Generate the py5 library
+    """Generate an installable py5 library using processing jars
     """
+    dest_dir = Path(dest_dir)
+    repo_dir = repo_dir and Path(repo_dir)
+    install_dir = install_dir and Path(install_dir)
 
     print(f'generating py5 library...')
     search_dir = repo_dir or install_dir
     core_jars = list(search_dir.glob('**/core.jar'))
     if len(core_jars) != 1:
         if core_jars:
-            print(f'more than one core.jar found in {search_dir}', file=sys.stderr)
+            print(
+                f'more than one core.jar found in {search_dir}', file=sys.stderr)
         else:
             print(f'core.jar not found in {search_dir}', file=sys.stderr)
         return
     core_jar_path = core_jars[0]
 
-    Py5Applet, methods, fields, static_fields = jnius_setup(core_jar_path)
-    from jnius import JavaStaticMethod  # noqa
+    import jnius_config
+    # TODO: add a helpful error message if py5.jar does not exist
+    jnius_config.set_classpath('py5jar/dist/py5.jar', str(core_jar_path))
+    from jnius import autoclass
+    from jnius import JavaStaticMethod, JavaMethod, JavaMultipleMethod, JavaStaticField, JavaField
+
+    Py5Applet = autoclass('py5.core.Py5Applet',
+                          include_protected=False, include_private=False)
+
+    # TODO: simplify below code by splitting out static methods
+    methods = set()
+    fields = set()
+    static_fields = set()
+
+    for k, v in Py5Applet.__dict__.items():
+        if isinstance(v, (JavaStaticMethod, JavaMethod, JavaMultipleMethod)):
+            methods.add(k)
+        elif isinstance(v, JavaStaticField):
+            static_fields.add(k)
+        elif isinstance(v, JavaField):
+            fields.add(k)
 
     # code the static constants
     py5_constants = []
@@ -261,7 +191,8 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     py5_functions_code = '\n\n'.join(py5_functions)
 
     # complete the output template
-    py5_template = pkgutil.get_data('py5generator', 'resources/templates/py5__init__.py').decode('utf-8')
+    with open('py5generator/py5generator/resources/templates/py5__init__.py', 'r') as f:
+        py5_template = f.read()
     py5_code = py5_template.format(py5_constants_code,
                                    py5_init_dynamic_var_code,
                                    py5_update_dynamic_var_code,
@@ -284,14 +215,25 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
             print(f'output destination {output_dir} already exists.', file=sys.stderr)
             return
 
-    base_path = Path(getattr(sys, '_MEIPASS', Path(__file__).absolute().parent))
-    shutil.copytree(base_path / 'resources' / 'py5_module_framework' / '',
+    base_path = Path(__file__).absolute().parent
+    shutil.copytree(base_path / 'py5generator' / 'py5generator' / 'resources' / 'py5_module_framework' / '',
                     output_dir)
     for jar in core_jar_path.parent.glob('*.jar'):
         shutil.copy(jar, output_dir / 'py5' / 'jars')
-    # TODO: this is wrong
-    shutil.copy('py5development/py5jar/dist/py5.jar', output_dir / 'py5' / 'jars')
+    shutil.copy('py5jar/dist/py5.jar', output_dir / 'py5' / 'jars')
     with open(output_dir / 'py5' / '__init__.py', 'w') as f:
         f.write(py5_code)
 
     print('done!')
+
+
+def main():
+    args = parser.parse_args()
+    generate_py5(args.py5_destination_dir,
+                 dest_exist_ok=args.dest_exist_ok,
+                 repo_dir=args.processing_repo_dir,
+                 install_dir=args.processing_install_dir)
+
+
+if __name__ == '__main__':
+    main()
