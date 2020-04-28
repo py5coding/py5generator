@@ -3,6 +3,7 @@ import re
 import argparse
 import shutil
 import shlex
+import autopep8
 from pathlib import Path
 
 
@@ -209,6 +210,7 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
                                    str_dynamic_vars,
                                    str_py5_dir,
                                    py5_functions_code)
+    py5_code = autopep8.fix_code(py5_code, options={'aggressive': 2})
 
     # build complete py5 module in destination directory
     # first validate the output directory
