@@ -1,9 +1,11 @@
 import numpy as np
 
 import jnius_config
-jnius_config.add_options('-Xrs', '-Xmx4096m')
-jnius_config.add_classpath('/home/jim/Projects/ITP/pythonprocessing/py5development/experiments/libraries/*')
+if not jnius_config.vm_running:
+    jnius_config.add_options('-Xrs', '-Xmx4096m')
+    jnius_config.add_classpath('/home/jim/Projects/ITP/pythonprocessing/py5development/experiments/libraries/*')
 import py5  # noqa
+
 
 Camera3D = py5.autoclass('camera3D.Camera3D')
 camera3D = None
@@ -24,7 +26,7 @@ def setup():
     py5.frame_rate(60)
 
     global camera3D
-    camera3D = Camera3D(py5._papplet)
+    camera3D = Camera3D(py5.get_py5applet())
     camera3D.setBackgroundColor(py5.color(192))
     camera3D.renderDefaultAnaglyph().setDivergence(1)
 
@@ -50,4 +52,4 @@ def draw():
 
 
 py5_methods = py5.Py5Methods(settings, setup, draw)
-py5.run_sketch(py5_methods)
+py5.run_sketch(py5_methods, block=False)

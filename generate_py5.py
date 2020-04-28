@@ -34,7 +34,7 @@ group.add_argument('-p', '--pde', action='store', dest='processing_install_dir',
 
 METHOD_TEMPLATE = """
 def {0}(*args):
-    return _papplet.{1}(*args)"""
+    return _py5applet.{1}(*args)"""
 
 STATIC_METHOD_TEMPLATE = """
 def {0}(*args):
@@ -42,7 +42,7 @@ def {0}(*args):
 
 DYNAMIC_VAR_TEMPLATE = """
     global {0}
-    {0} = _papplet.{1}"""
+    {0} = _py5applet.{1}"""
 
 
 ###############################################################################

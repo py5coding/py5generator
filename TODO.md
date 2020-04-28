@@ -22,12 +22,9 @@ design sketch execution
 
 command line run_sketch util
 
-is it possible to make a py5 reset function to create a new _papplet? I just need the run_sketch function to create a new PApplet instance. I should also add something to not re-import pyjnius if the jvm is already running.
-
 run_sketch function from py5 module: needs to have event functions passed in. can I write a function to pull them out of the local() or global() namespaces? can I combine it with what I am doing in the exec_test2.py file? I should also be able to create a class and run the class. That will make it easier to pass in the event methods.
 
-the two main execution methods should be inheriting from a class and `from py5 import *`. for the second one there should be command line tool to run the sketch. the third is the current one where someone types `import py5` but does
-not create a class but passes the methods to a run method.
+the two main execution methods should be inheriting from a class and `from py5 import *`. for the second one there should be command line tool to run the sketch. the third is the current one where someone types `import py5` but does not create a class but passes the methods to a run method.
 
 _update_vars slowing this down. I make it faster with on-demand updates
 

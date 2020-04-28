@@ -1,8 +1,9 @@
 import jnius_config
-jnius_config.add_options('-Xrs', '-Xmx4096m')
-jnius_config.add_classpath('/home/jim/Projects/ITP/pythonprocessing/py5development/experiments/libraries/*')
-
+if not jnius_config.vm_running:
+    jnius_config.add_options('-Xrs', '-Xmx4096m')
+    jnius_config.add_classpath('/home/jim/Projects/ITP/pythonprocessing/py5development/experiments/libraries/*')
 import py5  # noqa
+
 
 ColorBlindness = py5.autoclass('colorblind.ColorBlindness')
 colorBlindness = None
@@ -19,7 +20,7 @@ def setup():
     py5.frame_rate(30)
 
     global colorBlindness
-    colorBlindness = ColorBlindness(py5._papplet)
+    colorBlindness = ColorBlindness(py5.get_py5applet())
     colorBlindness.simulateProtanopia()
 
 

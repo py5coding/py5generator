@@ -7,12 +7,16 @@ import sys
 from pathlib import Path
 import logging
 import traceback
+import time
 
 import jnius_config
-current_classpath = jnius_config.get_classpath()
-base_path = Path(getattr(sys, '_MEIPASS', Path(__file__).absolute().parent))
-jnius_config.set_classpath(str(base_path / 'jars' / '*'))
-jnius_config.add_classpath(*[p for p in current_classpath if p not in jnius_config.get_classpath()])
+if not jnius_config.vm_running:
+    current_classpath = jnius_config.get_classpath()
+    base_path = Path(
+        getattr(sys, '_MEIPASS', Path(__file__).absolute().parent))
+    jnius_config.set_classpath(str(base_path / 'jars' / '*'))
+    jnius_config.add_classpath(
+        *[p for p in current_classpath if p not in jnius_config.get_classpath()])
 
 from jnius import autoclass, detach  # noqa
 from jnius import JavaMultipleMethod, JavaMethod  # noqa
@@ -38,7 +42,7 @@ class Py5Methods(PythonJavaClass):
         tbe = traceback.TracebackException(exc_type, exc_value, exc_tb)
         tb = list(tbe.format())
         logger.critical(msg + '\n' + tb[0] + ''.join(tb[2:-1]) + '\n' + tb[-1])
-        _papplet.getSurface().stopThread()
+        _py5applet.getSurface().stopThread()
 
     @java_method('(Ljava/lang/String;[Ljava/lang/Object;)V')
     def run_method(self, method_name, params):
@@ -57,13 +61,14 @@ class Py5Methods(PythonJavaClass):
             msg = 'exception running ' + method_name + ': ' + str(e)
             self._stop_error(msg)
 
-        if method_name == 'exitActual':
-            detach()
+        # if method_name == 'exitActual':
+        #     detach()
 
 
 Py5Applet = autoclass('py5.core.Py5Applet',
                       include_protected=False, include_private=False)
-_papplet = Py5Applet()
+_py5applet = Py5Applet()
+_py5applet_used = False
 
 
 # *** PY5 GENERATED STATIC CONSTANTS ***
@@ -83,7 +88,41 @@ def _update_vars():
 
 
 # *** PY5 USER FUNCTIONS ***
-def run_sketch(py5_methods):
-    _papplet.usePy5Methods(py5_methods)
+def run_sketch(py5_methods, block=True):
+    # setup new py5applet instance
+    global _py5applet_used
+    if _py5applet_used:
+        raise RuntimeError('you can only run one sketch at a time')
 
-    Py5Applet.runSketch([''], _papplet)
+    # configure user implemented methods and run
+    _py5applet_used = True
+    _py5applet.usePy5Methods(py5_methods)
+    Py5Applet.runSketch([''], _py5applet)
+
+    if block:
+        surface = _py5applet.getSurface()
+        while not surface.isStopped():
+            time.sleep(0.25)
+
+
+def get_py5applet():
+    global _py5applet
+    return _py5applet
+
+
+def stop_sketch():
+    # stop the sketch from running
+    if _py5applet and _py5applet_used and not _py5applet.getSurface().isStopped():
+        _py5applet.exit()
+
+
+def _reset_py5():
+    """ attempt to reset the py5 library so a new sketch can be executed.
+
+    Note there are race conditions between this and `stop_sketch`. If you call
+    this immediately after `stop_sketch` you will might experience problems.
+    """
+    global _py5applet
+    global _py5applet_used
+    _py5applet = Py5Applet()
+    _py5applet_used = False
