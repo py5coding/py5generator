@@ -17,8 +17,8 @@ rotZ = 0
 
 
 def settings():
-    py5.size(500, 500, py5.P3D)
-    # py5.full_screen(py5.P3D)
+    # py5.size(500, 500, py5.P3D)
+    py5.full_screen(py5.P3D)
 
 
 def setup():
@@ -32,7 +32,7 @@ def setup():
 
 
 def draw():
-    # print(py5.get_frame_rate())
+    print(py5.get_frame_rate())
     if camera3D.currentActivity() == 'right':
         global rotX
         rotX += 0.5

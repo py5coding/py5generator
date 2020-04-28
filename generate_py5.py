@@ -13,8 +13,6 @@ from pathlib import Path
 
 parser = argparse.ArgumentParser(description="Generate py5 library using processing jars",
                                  epilog="this is the epilog")
-
-
 parser.add_argument(action='store', dest='py5_destination_dir', default='.',
                     help='location to write generated py5 library')
 parser.add_argument('-x', '--exist_ok', action='store_true',
@@ -39,10 +37,6 @@ def {0}(*args):
 STATIC_METHOD_TEMPLATE = """
 def {0}(*args):
     return Py5Applet.{1}(*args)"""
-
-DYNAMIC_VAR_TEMPLATE = """
-    global {0}
-    {0} = _py5applet.{1}"""
 
 
 ###############################################################################
@@ -94,6 +88,11 @@ DEPRECATED = {
 }
 
 
+EXTRA_DIR_NAMES = {
+    'run_sketch', 'get_py5applet', 'stop_sketch', '_reset_py5',
+    'autoclass', 'Py5Methods', 'Py5Applet', '_py5applet', '_py5applet_used'
+}
+
 ###############################################################################
 # UTIL FUNCTIONS
 ###############################################################################
@@ -134,8 +133,7 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
         raise RuntimeError(f'py5 jar not found at {str(py5_jar_path)}')
     import jnius_config
     jnius_config.set_classpath(str(py5_jar_path), str(core_jar_path))
-    from jnius import autoclass
-    from jnius import JavaStaticMethod, JavaMethod, JavaMultipleMethod, JavaStaticField, JavaField
+    from jnius import autoclass, JavaStaticMethod, JavaMethod, JavaMultipleMethod, JavaStaticField, JavaField
 
     Py5Applet = autoclass('py5.core.Py5Applet',
                           include_protected=False, include_private=False)
@@ -161,6 +159,7 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     static_methods -= (DEPRECATED | PAPPLET_SKIP_METHODS)
 
     # code the static constants
+    py5_dir = []
     py5_constants = []
     for name in sorted(static_fields):
         if name in PCONSTANT_OVERRIDES:
@@ -172,31 +171,43 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
             if name == 'javaVersion':
                 val = round(val, 2)
             py5_constants.append(f'{name} = {val}')
+            py5_dir.append(name)
     py5_constants_code = '\n'.join(py5_constants)
 
     # code the dynamic variables
     init_vars = []
-    update_vars = []
+    dynamic_vars = {}
     for name in sorted(fields):
         snake_name = snake_case(name)
-        init_vars.append(f'{snake_name} = None')
-        update_vars.append(DYNAMIC_VAR_TEMPLATE.format(snake_name, name))
+        init_vars.append(f'{snake_name} = None\ndel {snake_name}')
+        dynamic_vars[snake_name] = name
+        py5_dir.append(snake_name)
     py5_init_dynamic_var_code = '\n'.join(init_vars)
-    py5_update_dynamic_var_code = ''.join(update_vars)[5:]
+    str_dynamic_vars = str(dynamic_vars)
 
     # code the class and instance methods
-    py5_functions = (
-        [METHOD_TEMPLATE.format(snake_case(fname), fname) for fname in sorted(methods)]
-        + [STATIC_METHOD_TEMPLATE.format(snake_case(fname), fname) for fname in sorted(static_methods)]
-    )
+    py5_functions = []
+    for fname in sorted(methods):
+        snake_name = snake_case(fname)
+        py5_functions.append(METHOD_TEMPLATE.format(snake_name, fname))
+        py5_dir.append(snake_name)
+    for fname in sorted(static_methods):
+        snake_name = snake_case(fname)
+        py5_functions.append(STATIC_METHOD_TEMPLATE.format(snake_name, fname))
+        py5_dir.append(snake_name)
     py5_functions_code = '\n\n'.join(py5_functions)
+
+    # code the result of the module's __dir__ function
+    py5_dir.extend(EXTRA_DIR_NAMES)
+    str_py5_dir = str(sorted(py5_dir))
 
     # complete the output template
     with open('py5_resources/templates/py5__init__.py', 'r') as f:
         py5_template = f.read()
     py5_code = py5_template.format(py5_constants_code,
                                    py5_init_dynamic_var_code,
-                                   py5_update_dynamic_var_code,
+                                   str_dynamic_vars,
+                                   str_py5_dir,
                                    py5_functions_code)
 
     # build complete py5 module in destination directory

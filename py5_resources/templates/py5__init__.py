@@ -47,22 +47,11 @@ class Py5Methods(PythonJavaClass):
     @java_method('(Ljava/lang/String;[Ljava/lang/Object;)V')
     def run_method(self, method_name, params):
         try:
-            if method_name == 'draw':
-                _update_vars()
-        except Exception as e:
-            msg = 'internal error in _update_vars: ' + str(e)
-            self._stop_error(msg)
-            return
-
-        try:
             if method_name in self._functions:
                 self._functions[method_name](*params)
         except Exception as e:
             msg = 'exception running ' + method_name + ': ' + str(e)
             self._stop_error(msg)
-
-        # if method_name == 'exitActual':
-        #     detach()
 
 
 Py5Applet = autoclass('py5.core.Py5Applet',
@@ -78,13 +67,20 @@ _py5applet_used = False
 # *** PY5 GENERATED DYNAMIC VARIABLES ***
 {1}
 
+_py5applet_dynamic_vars = {2}
 
-def _update_vars():
-    {2}
+
+def __getattr__(name):
+    if name in _py5applet_dynamic_vars:
+        return getattr(_py5applet, name)
+
+
+def __dir__():
+    return {3}
 
 
 # *** PY5 GENERATED FUNCTIONS ***
-{3}
+{4}
 
 
 # *** PY5 USER FUNCTIONS ***
@@ -92,7 +88,7 @@ def run_sketch(py5_methods, block=False):
     # setup new py5applet instance
     global _py5applet_used
     if _py5applet_used:
-        raise RuntimeError('you can only run one sketch at a time')
+        raise RuntimeError('cannot run a second py5 sketch')
 
     # configure user implemented methods and run
     _py5applet_used = True
