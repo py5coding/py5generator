@@ -17,10 +17,7 @@ if not jnius_config.vm_running:
     jnius_config.set_classpath(str(base_path / 'jars' / '*'))
     jnius_config.add_classpath(
         *[p for p in current_classpath if p not in jnius_config.get_classpath()])
-
-from jnius import autoclass, detach  # noqa
-from jnius import JavaMultipleMethod, JavaMethod  # noqa
-from jnius import PythonJavaClass, java_method  # noqa
+from jnius import autoclass, JavaMultipleMethod, JavaMethod, PythonJavaClass, java_method  # noqa
 
 logger = logging.getLogger(__name__)
 
