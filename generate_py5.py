@@ -200,7 +200,7 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
 
     # code the result of the module's __dir__ function
     py5_dir.extend(EXTRA_DIR_NAMES)
-    str_py5_dir = str(sorted(py5_dir))
+    str_py5_dir = str(sorted(py5_dir, key=lambda x: x.lower()))
 
     # complete the output template
     with open('py5_resources/templates/py5__init__.py', 'r') as f:
