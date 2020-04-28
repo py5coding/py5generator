@@ -20,13 +20,15 @@ Processing4 integration branch:
 design sketch execution
 -----------------------
 
+now that I am using __dir__ and __getattr__ for the dynamic variables, why not also do the same thing for the methods?
+
 command line run_sketch util
 
 run_sketch function from py5 module: needs to have event functions passed in. can I write a function to pull them out of the local() or global() namespaces? can I combine it with what I am doing in the exec_test2.py file? I should also be able to create a class and run the class. That will make it easier to pass in the event methods.
 
-the two main execution methods should be inheriting from a class and `from py5 import *`. for the second one there should be command line tool to run the sketch. the third is the current one where someone types `import py5` but does not create a class but passes the methods to a run method.
+the main execution methods should be inheriting from a class, `import py5`, and `from py5 import *`. for the third one there should be command line tool to run the sketch. the second is the current one where someone types `import py5` but does not create a class but passes the methods to a run method.
 
-Can I batch commands together and get a performance improvement? It is slower to go back and forth between Python and Java and I already saw that Camera3D has a problem. The py5 methods can have a second "mode" that collects all the commands together and executes them all at once at the end? Should there be a flush command to manually force everything through? Perhaps I can use a context manager for a performance improvement of one part of the code.
+Can I batch commands together and get a performance improvement? It is slower to go back and forth between Python and Java and I already saw that Camera3D had a problem. The py5 methods can have a second "mode" that collects all the commands together and executes them all at once at the end? Should there be a flush command to manually force everything through? Perhaps I can use a context manager for a performance improvement of one part of the code.
 
 error messages
 --------------
