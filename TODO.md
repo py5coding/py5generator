@@ -20,7 +20,9 @@ Processing4 integration branch:
 design sketch execution
 -----------------------
 
-now that I am using __dir__ and __getattr__ for the dynamic variables, why not also do the same thing for the methods?
+now that I am using __dir__ and __getattr__ for the dynamic variables, why not also do the same thing for the methods? There is a synergy between this and making an inheritable class, because the class can also have __getattr__ and __dir__ methods.
+
+The execution method `from py5 import *` no longer works. can this be done in a different way that would work better in the PDE? For the dynamic variables can I create a dummy variable that causes a doctored local dict to redirect access to the py5applet? this code will always be run with a special shell command.
 
 command line run_sketch util
 
