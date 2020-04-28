@@ -88,7 +88,7 @@ def _update_vars():
 
 
 # *** PY5 USER FUNCTIONS ***
-def run_sketch(py5_methods, block=True):
+def run_sketch(py5_methods, block=False):
     # setup new py5applet instance
     global _py5applet_used
     if _py5applet_used:
@@ -100,6 +100,7 @@ def run_sketch(py5_methods, block=True):
     Py5Applet.runSketch([''], _py5applet)
 
     if block:
+        # wait for the sketch to finish
         surface = _py5applet.getSurface()
         while not surface.isStopped():
             time.sleep(0.25)
@@ -111,7 +112,7 @@ def get_py5applet():
 
 
 def stop_sketch():
-    # stop the sketch from running
+    # stop sketch execution
     if _py5applet and _py5applet_used and not _py5applet.getSurface().isStopped():
         _py5applet.exit()
 
@@ -120,7 +121,7 @@ def _reset_py5():
     """ attempt to reset the py5 library so a new sketch can be executed.
 
     Note there are race conditions between this and `stop_sketch`. If you call
-    this immediately after `stop_sketch` you will might experience problems.
+    this immediately after `stop_sketch` you might experience problems.
     """
     global _py5applet
     global _py5applet_used
