@@ -37,7 +37,7 @@ def {0}(*args):
 
 STATIC_METHOD_TEMPLATE = """
 def {0}(*args):
-    return Py5Applet.{1}(*args)"""
+    return _Py5Applet.{1}(*args)"""
 
 
 ###############################################################################

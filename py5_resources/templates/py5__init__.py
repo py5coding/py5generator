@@ -51,9 +51,9 @@ class Py5Methods(PythonJavaClass):
             self._stop_error(msg)
 
 
-Py5Applet = autoclass('py5.core.Py5Applet',
-                      include_protected=False, include_private=False)
-_py5applet = Py5Applet()
+_Py5Applet = autoclass('py5.core.Py5Applet',
+                       include_protected=False, include_private=False)
+_py5applet = _Py5Applet()
 _py5applet_used = False
 
 
@@ -92,7 +92,7 @@ def run_sketch(py5_methods, block=False):
     # configure user implemented methods and run
     _py5applet_used = True
     _py5applet.usePy5Methods(py5_methods)
-    Py5Applet.runSketch([''], _py5applet)
+    _Py5Applet.runSketch([''], _py5applet)
 
     if block:
         # wait for the sketch to finish
@@ -120,5 +120,5 @@ def _reset_py5():
     """
     global _py5applet
     global _py5applet_used
-    _py5applet = Py5Applet()
+    _py5applet = _Py5Applet()
     _py5applet_used = False
