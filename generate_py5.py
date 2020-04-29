@@ -31,14 +31,6 @@ group.add_argument('-p', '--pde', action='store', dest='processing_install_dir',
 ###############################################################################
 
 
-METHOD_TEMPLATE = """
-def {0}(*args):
-    return _py5applet.{1}(*args)"""
-
-STATIC_METHOD_TEMPLATE = """
-def {0}(*args):
-    return _Py5Applet.{1}(*args)"""
-
 CLASS_PROPERTY_TEMPLATE = """
     @property
     def {0}(self):
@@ -111,7 +103,7 @@ DEPRECATED = {
 
 
 EXTRA_DIR_NAMES = {
-    'run_sketch', 'get_py5applet', '_reset_py5', 'exit_sketch',
+    'run_sketch', 'get_py5applet', 'reset_py5', 'exit_sketch',
     'autoclass', 'Py5Methods', 'Py5Applet', '_py5applet', '_py5applet_used'
 }
 
@@ -180,10 +172,11 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     methods -= (DEPRECATED | PAPPLET_SKIP_METHODS)
     static_methods -= (DEPRECATED | PAPPLET_SKIP_METHODS)
 
-    class_code = []
+    # storage for Py5Applet members and the result of the module's __dir__ function.
+    class_members = []
+    py5_dir = []
 
     # code the static constants
-    py5_dir = []
     py5_constants = []
     for name in sorted(static_fields):
         if name in PCONSTANT_OVERRIDES:
@@ -195,35 +188,26 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
             if name == 'javaVersion':
                 val = round(val, 2)
             py5_constants.append(f'{name} = {val}')
+            class_members.append(CLASS_STATIC_FIELD_TEMPLATE.format(name, val))
             py5_dir.append(name)
-            class_code.append(CLASS_STATIC_FIELD_TEMPLATE.format(name, val))
     py5_constants_code = '\n'.join(py5_constants)
 
     # code the dynamic variables
-    init_vars = []
-    dynamic_vars = {}
     for name in sorted(fields):
         snake_name = snake_case(name)
-        init_vars.append(f'{snake_name} = None\ndel {snake_name}')
-        dynamic_vars[snake_name] = name
+        class_members.append(CLASS_PROPERTY_TEMPLATE.format(snake_name, name))
         py5_dir.append(snake_name)
-        class_code.append(CLASS_PROPERTY_TEMPLATE.format(snake_name, name))
-    py5_init_dynamic_var_code = '\n'.join(init_vars)
-    str_dynamic_vars = str(dynamic_vars)
 
     # code the class and instance methods
-    py5_functions = []
     for fname in sorted(methods):
         snake_name = snake_case(fname)
-        py5_functions.append(METHOD_TEMPLATE.format(snake_name, fname))
+        class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, fname))
         py5_dir.append(snake_name)
-        class_code.append(CLASS_METHOD_TEMPLATE.format(snake_name, fname))
     for fname in sorted(static_methods):
         snake_name = snake_case(fname)
-        py5_functions.append(STATIC_METHOD_TEMPLATE.format(snake_name, fname))
+        class_members.append(CLASS_STATIC_METHOD_TEMPLATE.format(snake_name, fname))
         py5_dir.append(snake_name)
-        class_code.append(CLASS_STATIC_METHOD_TEMPLATE.format(snake_name, fname))
-    py5_functions_code = '\n\n'.join(py5_functions)
+    class_members_code = ''.join(class_members)
 
     # code the result of the module's __dir__ function
     py5_dir.extend(EXTRA_DIR_NAMES)
@@ -233,11 +217,8 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     with open('py5_resources/templates/py5__init__.py', 'r') as f:
         py5_template = f.read()
     py5_code = py5_template.format(py5_constants_code,
-                                   py5_init_dynamic_var_code,
-                                   str_dynamic_vars,
-                                   str_py5_dir,
-                                   py5_functions_code,
-                                   ''.join(class_code))
+                                   class_members_code,
+                                   str_py5_dir)
     py5_code = autopep8.fix_code(py5_code, options={'aggressive': 2})
 
     # build complete py5 module in destination directory
@@ -258,13 +239,12 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
             return
 
     base_path = Path(__file__).absolute().parent
-    shutil.copytree(base_path / 'py5_resources' / 'py5_module_framework' / '',
-                    output_dir)
+    shutil.copytree(base_path / 'py5_resources' / 'py5_module_framework' / '', output_dir)
     for jar in core_jar_path.parent.glob('*.jar'):
         shutil.copy(jar, output_dir / 'py5' / 'jars')
     shutil.copy(py5_jar_path, output_dir / 'py5' / 'jars')
     with open(output_dir / 'py5' / '__init__.py', 'w') as f:
-        f.write(py5_code)
+        f.write(py5_code + '\n')
 
     print('done!')
 

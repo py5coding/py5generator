@@ -21,6 +21,13 @@ from jnius import autoclass, JavaMultipleMethod, JavaMethod, PythonJavaClass, ja
 
 logger = logging.getLogger(__name__)
 
+_Py5Applet = autoclass('py5.core.Py5Applet',
+                       include_protected=False, include_private=False)
+
+
+# *** PY5 GENERATED STATIC CONSTANTS ***
+{0}
+
 
 class Py5Methods(PythonJavaClass):
     __javainterfaces__ = ['py5/core/Py5Methods']
@@ -51,12 +58,6 @@ class Py5Methods(PythonJavaClass):
             self._stop_error(msg)
 
 
-_Py5Applet = autoclass('py5.core.Py5Applet',
-                       include_protected=False, include_private=False)
-_py5applet = _Py5Applet()
-_py5applet_used = False
-
-
 class Py5Applet:
 
     def __init__(self):
@@ -71,8 +72,9 @@ class Py5Applet:
     def draw(self):
         pass
 
-    def run_sketch(self, block=False):
-        py5_methods = Py5Methods(self.settings, self.setup, self.draw)
+    def run_sketch(self, py5_methods=None, block=False):
+        if not py5_methods:
+            py5_methods = Py5Methods(self.settings, self.setup, self.draw)
         self._py5applet.usePy5Methods(py5_methods)
         _Py5Applet.runSketch([''], self._py5applet)
 
@@ -90,65 +92,14 @@ class Py5Applet:
         return self._py5applet
 
 
-{5}
-
-
-# *** PY5 GENERATED STATIC CONSTANTS ***
-{0}
-
-
-# *** PY5 GENERATED DYNAMIC VARIABLES ***
 {1}
 
-_py5applet_dynamic_vars = {2}
+
+_py5applet = Py5Applet()
+_py5applet_used = False
 
 
-def __getattr__(name):
-    if name in _py5applet_dynamic_vars:
-        return getattr(_py5applet, _py5applet_dynamic_vars[name])
-    else:
-        raise AttributeError('py5 has no function or method named ' + name)
-
-
-def __dir__():
-    return {3}
-
-
-# *** PY5 GENERATED FUNCTIONS ***
-{4}
-
-
-# *** PY5 USER FUNCTIONS ***
-def run_sketch(py5_methods, block=False):
-    # setup new py5applet instance
-    global _py5applet_used
-    if _py5applet_used:
-        raise RuntimeError('cannot run a second py5 sketch')
-
-    # configure user implemented methods and run
-    _py5applet_used = True
-    _py5applet.usePy5Methods(py5_methods)
-    _Py5Applet.runSketch([''], _py5applet)
-
-    if block:
-        # wait for the sketch to finish
-        surface = _py5applet.getSurface()
-        while not surface.isStopped():
-            time.sleep(0.25)
-
-
-def get_py5applet():
-    global _py5applet
-    return _py5applet
-
-
-def exit_sketch():
-    # stop sketch execution
-    if _py5applet and _py5applet_used and not _py5applet.getSurface().isStopped():
-        _py5applet.exit()
-
-
-def _reset_py5():
+def reset_py5():
     """ attempt to reset the py5 library so a new sketch can be executed.
 
     Note there are race conditions between this and `stop_sketch`. If you call
@@ -156,5 +107,16 @@ def _reset_py5():
     """
     global _py5applet
     global _py5applet_used
-    _py5applet = _Py5Applet()
+    _py5applet = Py5Applet()
     _py5applet_used = False
+
+
+def __getattr__(name):
+    if hasattr(_py5applet, name):
+        return getattr(_py5applet, name)
+    else:
+        raise AttributeError('py5 has no function or method named ' + name)
+
+
+def __dir__():
+    return {2}

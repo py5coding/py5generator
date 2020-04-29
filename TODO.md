@@ -20,17 +20,15 @@ Processing4 integration branch:
 design sketch execution
 -----------------------
 
-instead of creating and deleting the dynamic variables, why don't I create them, leave them equal to None, and have a separate function that deletes them before the sketch starts? I would need to do that so that the getattr function works.
+Rename Py5Applet Py5Sketch
 
-now that I am using __dir__ and __getattr__ for the dynamic variables, why not also do the same thing for the methods? There is a synergy between this and making an inheritable class, because the class can also have __getattr__ and __dir__ methods.
+Finish Py5Applet, support mouse and keyboard events
 
-The execution method `from py5 import *` won't get updated dynamic variables. can this be done in a different way that would work better in the PDE? For the dynamic variables can I create a dummy variable that causes a doctored local dict to redirect access to the py5applet? this code will always be run with a special shell command.
+what to do about `from py5 import *`??? The execution method `from py5 import *` won't get updated dynamic variables. can this be done in a different way that would work better in the PDE? For the dynamic variables can I create a dummy variable that causes a doctored local dict to redirect access to the py5applet? this code will always be run with a special command line run_sketch utility.
 
-command line run_sketch util
+run_sketch function from py5 module: need a better way to have event functions passed in, as well as the settings, setup, and draw methods. can I write a function to pull them out of the local() or global() namespaces? can I combine it with what I am doing in the exec_test2.py file? I should also be able to create a class and run the class. That will make it easier to pass in the event methods.
 
-run_sketch function from py5 module: needs to have event functions passed in. can I write a function to pull them out of the local() or global() namespaces? can I combine it with what I am doing in the exec_test2.py file? I should also be able to create a class and run the class. That will make it easier to pass in the event methods.
-
-the main execution methods should be inheriting from a class, `import py5`, and `from py5 import *`. for the third one there should be command line tool to run the sketch. the second is the current one where someone types `import py5` but does not create a class but passes the methods to a run method.
+why can't I run two sketches in the same IPython session or script?
 
 Can I batch commands together and get a performance improvement? It is slower to go back and forth between Python and Java and I already saw that Camera3D had a problem. The py5 methods can have a second "mode" that collects all the commands together and executes them all at once at the end? Should there be a flush command to manually force everything through? Perhaps I can use a context manager for a performance improvement of one part of the code.
 
