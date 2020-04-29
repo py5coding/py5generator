@@ -104,20 +104,10 @@ def get_py5applet():
     return _py5applet
 
 
-def stop_sketch():
+def exit_sketch():
     # stop sketch execution
     if _py5applet and _py5applet_used and not _py5applet.getSurface().isStopped():
         _py5applet.exit()
-
-
-def pause_sketch():
-    surface = _py5applet.getSurface()
-    surface.pauseThread()
-
-
-def resume_sketch():
-    surface = _py5applet.getSurface()
-    surface.resumeThread()
 
 
 def _reset_py5():

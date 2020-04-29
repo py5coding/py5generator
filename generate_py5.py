@@ -90,8 +90,7 @@ DEPRECATED = {
 
 
 EXTRA_DIR_NAMES = {
-    'run_sketch', 'get_py5applet', '_reset_py5',
-    'stop_sketch', 'pause_sketch', 'resume_sketch',
+    'run_sketch', 'get_py5applet', '_reset_py5', 'exit_sketch',
     'autoclass', 'Py5Methods', 'Py5Applet', '_py5applet', '_py5applet_used'
 }
 
