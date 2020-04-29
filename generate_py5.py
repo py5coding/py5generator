@@ -39,6 +39,27 @@ STATIC_METHOD_TEMPLATE = """
 def {0}(*args):
     return _Py5Applet.{1}(*args)"""
 
+CLASS_PROPERTY_TEMPLATE = """
+    @property
+    def {0}(self):
+        return self._py5applet.{1}
+"""
+
+CLASS_METHOD_TEMPLATE = """
+    def {0}(self, *args):
+        return self._py5applet.{1}(*args)
+"""
+
+CLASS_STATIC_FIELD_TEMPLATE = """
+    {0} = {1}
+"""
+
+CLASS_STATIC_METHOD_TEMPLATE = """
+    @classmethod
+    def {0}(self, *args):
+        return _Py5Applet.{1}(*args)
+"""
+
 
 ###############################################################################
 # REFERENCE AND LOOKUPS
@@ -159,6 +180,8 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     methods -= (DEPRECATED | PAPPLET_SKIP_METHODS)
     static_methods -= (DEPRECATED | PAPPLET_SKIP_METHODS)
 
+    class_code = []
+
     # code the static constants
     py5_dir = []
     py5_constants = []
@@ -173,6 +196,7 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
                 val = round(val, 2)
             py5_constants.append(f'{name} = {val}')
             py5_dir.append(name)
+            class_code.append(CLASS_STATIC_FIELD_TEMPLATE.format(name, val))
     py5_constants_code = '\n'.join(py5_constants)
 
     # code the dynamic variables
@@ -183,6 +207,7 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
         init_vars.append(f'{snake_name} = None\ndel {snake_name}')
         dynamic_vars[snake_name] = name
         py5_dir.append(snake_name)
+        class_code.append(CLASS_PROPERTY_TEMPLATE.format(snake_name, name))
     py5_init_dynamic_var_code = '\n'.join(init_vars)
     str_dynamic_vars = str(dynamic_vars)
 
@@ -192,10 +217,12 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
         snake_name = snake_case(fname)
         py5_functions.append(METHOD_TEMPLATE.format(snake_name, fname))
         py5_dir.append(snake_name)
+        class_code.append(CLASS_METHOD_TEMPLATE.format(snake_name, fname))
     for fname in sorted(static_methods):
         snake_name = snake_case(fname)
         py5_functions.append(STATIC_METHOD_TEMPLATE.format(snake_name, fname))
         py5_dir.append(snake_name)
+        class_code.append(CLASS_STATIC_METHOD_TEMPLATE.format(snake_name, fname))
     py5_functions_code = '\n\n'.join(py5_functions)
 
     # code the result of the module's __dir__ function
@@ -209,7 +236,8 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
                                    py5_init_dynamic_var_code,
                                    str_dynamic_vars,
                                    str_py5_dir,
-                                   py5_functions_code)
+                                   py5_functions_code,
+                                   ''.join(class_code))
     py5_code = autopep8.fix_code(py5_code, options={'aggressive': 2})
 
     # build complete py5 module in destination directory

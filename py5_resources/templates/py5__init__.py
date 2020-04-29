@@ -57,6 +57,42 @@ _py5applet = _Py5Applet()
 _py5applet_used = False
 
 
+class Py5Applet:
+
+    def __init__(self):
+        self._py5applet = _Py5Applet()
+
+    def settings(self):
+        pass
+
+    def setup(self):
+        pass
+
+    def draw(self):
+        pass
+
+    def run_sketch(self, block=False):
+        py5_methods = Py5Methods(self.settings, self.setup, self.draw)
+        self._py5applet.usePy5Methods(py5_methods)
+        _Py5Applet.runSketch([''], self._py5applet)
+
+        if block:
+            # wait for the sketch to finish
+            surface = self._py5applet.getSurface()
+            while not surface.isStopped():
+                time.sleep(0.25)
+
+    def exit_sketch(self):
+        if self._py5applet.getSurface().isStopped():
+            self._py5applet.exit()
+
+    def get_py5applet(self):
+        return self._py5applet
+
+
+{5}
+
+
 # *** PY5 GENERATED STATIC CONSTANTS ***
 {0}
 
