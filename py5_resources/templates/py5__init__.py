@@ -69,7 +69,7 @@ _py5applet_dynamic_vars = {2}
 
 def __getattr__(name):
     if name in _py5applet_dynamic_vars:
-        return getattr(_py5applet, name)
+        return getattr(_py5applet, _py5applet_dynamic_vars[name])
     else:
         raise AttributeError('py5 has no function or method named ' + name)
 
