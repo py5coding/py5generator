@@ -110,6 +110,16 @@ def stop_sketch():
         _py5applet.exit()
 
 
+def pause_sketch():
+    surface = _py5applet.getSurface()
+    surface.pauseThread()
+
+
+def resume_sketch():
+    surface = _py5applet.getSurface()
+    surface.resumeThread()
+
+
 def _reset_py5():
     """ attempt to reset the py5 library so a new sketch can be executed.
 
