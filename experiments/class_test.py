@@ -11,6 +11,7 @@ class Test(Py5Applet):
         self.background(255)
         self.rect_mode(py5.CENTER)
         self.frame_rate(30)
+        self.foo = 0
 
     def draw(self):
         # if self.is_key_pressed():
@@ -19,8 +20,11 @@ class Test(Py5Applet):
         self.rect(self.mouse_x, self.mouse_y, 40, 40)
 
     def mouse_moved(self):
+        # for i in range(100000):
+        #     self.foo += i * i * 17
+        self.foo = self.random(1)
         print('frameRate', self.get_frame_rate())
 
 
 test = Test()
-test.run_sketch()
+test.run_sketch(block=False)

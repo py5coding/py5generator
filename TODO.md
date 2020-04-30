@@ -20,7 +20,7 @@ Processing4 integration branch:
 design sketch execution
 -----------------------
 
-why does the mouse_moved event in class_test cause so many core dumps but does not cause a problem in events_test?
+py5methods should not call run_method for events the sketch doesn't care about
 
 what to do about `from py5 import *`??? The execution method `from py5 import *` won't get updated dynamic variables. can this be done in a different way that would work better in the PDE? For the dynamic variables can I create a dummy variable that causes a doctored local dict to redirect access to the py5applet? this code will always be run with a special command line run_sketch utility.
 

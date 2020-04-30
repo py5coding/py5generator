@@ -83,7 +83,13 @@ class Py5Applet:
             py5_methods = Py5Methods(self.settings, self.setup, self.draw)
         events = dict([(e, getattr(self, e)) for e in _EVENT_METHODS if hasattr(self, e)])
         py5_methods.set_events(**events)
+
+        # pass the py5_methods object to the py5applet object while also
+        # keeping the py5_methods reference count from hitting zero. otherwise,
+        # it will be garbage collected and lead to segmentation faults!
         self._py5applet.usePy5Methods(py5_methods)
+        self._py5_methods = py5_methods
+
         _Py5Applet.runSketch([''], self._py5applet)
 
         if block:

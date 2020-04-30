@@ -50,7 +50,7 @@ def mouse_dragged():
 
 def mouse_moved():
     # print('mouse moved')
-    print(py5.get_frame_rate())
+    print('frameRate', py5.get_frame_rate())
 
 
 def mouse_pressed():
@@ -78,4 +78,5 @@ py5_methods.set_events(key_pressed=key_pressed,
                        mouse_released=mouse_released,
                        mouse_wheel=mouse_wheel
                        )
-py5.run_sketch(py5_methods)
+
+py5.run_sketch(py5_methods, block=False)
