@@ -20,8 +20,6 @@ Processing4 integration branch:
 design sketch execution
 -----------------------
 
-py5methods should not call run_method for events the sketch doesn't care about
-
 what to do about `from py5 import *`??? The execution method `from py5 import *` won't get updated dynamic variables. can this be done in a different way that would work better in the PDE? For the dynamic variables can I create a dummy variable that causes a doctored local dict to redirect access to the py5applet? this code will always be run with a special command line run_sketch utility.
 
 run_sketch function from py5 module: need a better way to have event functions passed in, as well as the settings, setup, and draw methods. can I write a function to pull them out of the local() or global() namespaces? can I combine it with what I am doing in the exec_test2.py file? I should also be able to create a class and run the class. That will make it easier to pass in the event methods.
@@ -77,7 +75,11 @@ https://pypi.org/project/PySixel/
 bugs
 ----
 
+when I change the java code the Makefile does not remake the jar file. Is it ant or the Makefile?
+
 if the mouse_moved event method is too slow the sketch dies. why?
+
+ability to create sketches with no draw method, call noloop
 
 is the type of key and keyCode correct? Key is not supposed to be a number
 

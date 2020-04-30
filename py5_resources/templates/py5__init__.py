@@ -41,6 +41,10 @@ class Py5Methods(PythonJavaClass):
     def set_events(self, **kwargs):
         self._functions.update(kwargs)
 
+    @java_method('()[Ljava/lang/Object;')
+    def get_event_list(self):
+        return self._functions.keys()
+
     def _stop_error(self, msg):
         exc_type, exc_value, exc_tb = sys.exc_info()
         tbe = traceback.TracebackException(exc_type, exc_value, exc_tb)

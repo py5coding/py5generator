@@ -1,5 +1,8 @@
 package py5.core;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.jogamp.newt.event.KeyListener;
 import com.jogamp.newt.event.MouseListener;
 import com.jogamp.newt.event.WindowListener;
@@ -10,9 +13,13 @@ import processing.event.MouseEvent;
 public class Py5Applet extends PApplet {
 
   protected Py5Methods py5Methods;
+  protected Set<String> py5RegisteredEvents;
 
   public void usePy5Methods(Py5Methods py5Methods) {
     this.py5Methods = py5Methods;
+    this.py5RegisteredEvents = new HashSet<String>();
+    for (Object m : py5Methods.get_event_list())
+      this.py5RegisteredEvents.add(m.toString());
   }
 
   @Override
@@ -27,67 +34,80 @@ public class Py5Applet extends PApplet {
 
   @Override
   public void draw() {
-    py5Methods.run_method("draw");
+    if (py5RegisteredEvents.contains("draw"))
+      py5Methods.run_method("draw");
   }
 
   @Override
   public void mousePressed() {
-    py5Methods.run_method("mouse_pressed");
+    if (py5RegisteredEvents.contains("mouse_pressed"))
+      py5Methods.run_method("mouse_pressed");
   }
 
   @Override
   public void mouseReleased() {
-    py5Methods.run_method("mouse_released");
+    if (py5RegisteredEvents.contains("mouse_released"))
+      py5Methods.run_method("mouse_released");
   }
 
   @Override
   public void mouseClicked() {
-    py5Methods.run_method("mouse_clicked");
+    if (py5RegisteredEvents.contains("mouse_clicked"))
+      py5Methods.run_method("mouse_clicked");
   }
 
   @Override
   public void mouseDragged() {
-    py5Methods.run_method("mouse_dragged");
+    if (py5RegisteredEvents.contains("mouse_dragged"))
+      py5Methods.run_method("mouse_dragged");
   }
 
   @Override
   public void mouseMoved() {
-    py5Methods.run_method("mouse_moved");
+    if (py5RegisteredEvents.contains("mouse_moved"))
+      py5Methods.run_method("mouse_moved");
   }
 
   @Override
   public void mouseEntered() {
-    py5Methods.run_method("mouse_entered");
+    if (py5RegisteredEvents.contains("mouse_entered"))
+      py5Methods.run_method("mouse_entered");
   }
 
   @Override
   public void mouseExited() {
-    py5Methods.run_method("mouse_exited");
+    if (py5RegisteredEvents.contains("mouse_exited"))
+      py5Methods.run_method("mouse_exited");
   }
 
   @Override
   public void mouseWheel(MouseEvent event) {
-    py5Methods.run_method("mouse_wheel", event);
+    if (py5RegisteredEvents.contains("mouse_wheel"))
+      py5Methods.run_method("mouse_wheel", event);
   }
 
   @Override
   public void keyPressed() {
-    py5Methods.run_method("key_pressed");
+    if (py5RegisteredEvents.contains("key_pressed"))
+      py5Methods.run_method("key_pressed");
   }
 
   @Override
   public void keyReleased() {
-    py5Methods.run_method("key_released");
+    if (py5RegisteredEvents.contains("key_released"))
+      py5Methods.run_method("key_released");
   }
 
   @Override
   public void keyTyped() {
-    py5Methods.run_method("key_typed");
+    if (py5RegisteredEvents.contains("key_typed"))
+      py5Methods.run_method("key_typed");
   }
 
   @Override
   public void exitActual() {
-    py5Methods.run_method("exit_actual");
+    if (py5RegisteredEvents.contains("exit_actual"))
+      py5Methods.run_method("exit_actual");
 
     final Object nativeWindow = surface.getNative();
     if (nativeWindow instanceof com.jogamp.newt.Window) {
