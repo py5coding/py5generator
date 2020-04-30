@@ -79,6 +79,8 @@ https://pypi.org/project/PySixel/
 bugs
 ----
 
+if the mouse_moved event method is too slow the sketch dies. why?
+
 is the type of key and keyCode correct? Key is not supposed to be a number
 
 fullScreen mode causes crazy errors with the `key` variable in camera3D_test?
