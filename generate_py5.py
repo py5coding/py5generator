@@ -34,12 +34,12 @@ group.add_argument('-p', '--pde', action='store', dest='processing_install_dir',
 CLASS_PROPERTY_TEMPLATE = """
     @property
     def {0}(self):
-        return self._py5applet.{1}
+        return self._java_py5applet.{1}
 """
 
 CLASS_METHOD_TEMPLATE = """
     def {0}(self, *args):
-        return self._py5applet.{1}(*args)
+        return self._java_py5applet.{1}(*args)
 """
 
 CLASS_STATIC_FIELD_TEMPLATE = """

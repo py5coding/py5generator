@@ -14,7 +14,11 @@ class Test(Py5Applet):
         self.foo = 0
 
     def draw(self):
-        # if self.is_key_pressed():
+        if self.is_key_pressed():
+            if self.key == self.CODED:
+                print(self.key_code)
+            else:
+                print(self.key)
         #     print('frameRate', self.get_frame_rate())
         self.fill(self.random(255), self.random(255), self.random(255), 50.0)
         self.rect(self.mouse_x, self.mouse_y, 40, 40)
