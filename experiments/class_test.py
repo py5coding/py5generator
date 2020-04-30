@@ -13,10 +13,13 @@ class Test(Py5Applet):
         self.frame_rate(30)
 
     def draw(self):
-        if self.is_key_pressed():
-            print('frameRate', self.get_frame_rate())
+        # if self.is_key_pressed():
+        #     print('frameRate', self.get_frame_rate())
         self.fill(self.random(255), self.random(255), self.random(255), 50.0)
         self.rect(self.mouse_x, self.mouse_y, 40, 40)
+
+    def mouse_moved(self):
+        print('frameRate', self.get_frame_rate())
 
 
 test = Test()

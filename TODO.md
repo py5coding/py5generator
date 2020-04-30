@@ -20,9 +20,7 @@ Processing4 integration branch:
 design sketch execution
 -----------------------
 
-Rename Py5Applet Py5Sketch
-
-Finish Py5Applet, support mouse and keyboard events
+why does the mouse_moved event in class_test cause so many core dumps but does not cause a problem in events_test?
 
 what to do about `from py5 import *`??? The execution method `from py5 import *` won't get updated dynamic variables. can this be done in a different way that would work better in the PDE? For the dynamic variables can I create a dummy variable that causes a doctored local dict to redirect access to the py5applet? this code will always be run with a special command line run_sketch utility.
 
@@ -56,8 +54,6 @@ other
 integrate debugging
 
 test and document packaging and deployment with pyinstaller
-
-have animation thread be in its own thread that can be stopped or paused
 
 build magic functions for screen grabs and making good documentation
 

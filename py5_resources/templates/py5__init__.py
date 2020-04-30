@@ -58,6 +58,12 @@ class Py5Methods(PythonJavaClass):
             self._stop_error(msg)
 
 
+_EVENT_METHODS = ['key_pressed', 'key_typed', 'key_released',
+                  'mouse_clicked', 'mouse_dragged', 'mouse_moved', 'mouse_entered',
+                  'mouse_exited', 'mouse_pressed', 'mouse_released', 'mouse_wheel',
+                  'exit_actual']
+
+
 class Py5Applet:
 
     def __init__(self):
@@ -75,6 +81,8 @@ class Py5Applet:
     def run_sketch(self, py5_methods=None, block=False):
         if not py5_methods:
             py5_methods = Py5Methods(self.settings, self.setup, self.draw)
+        events = dict([(e, getattr(self, e)) for e in _EVENT_METHODS if hasattr(self, e)])
+        py5_methods.set_events(**events)
         self._py5applet.usePy5Methods(py5_methods)
         _Py5Applet.runSketch([''], self._py5applet)
 
