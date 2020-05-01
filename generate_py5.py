@@ -39,7 +39,8 @@ CLASS_PROPERTY_TEMPLATE = """
 
 CLASS_METHOD_TEMPLATE = """
     def {0}(self, *args):
-        return self._py5applet.{1}(*args)
+        {1}
+        return self._py5applet.{2}(*args)
 """
 
 CLASS_STATIC_FIELD_TEMPLATE = """
@@ -49,7 +50,8 @@ CLASS_STATIC_FIELD_TEMPLATE = """
 CLASS_STATIC_METHOD_TEMPLATE = """
     @classmethod
     def {0}(self, *args):
-        return _Py5Applet.{1}(*args)
+        {1}
+        return _Py5Applet.{2}(*args)
 """
 
 
@@ -201,11 +203,13 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     # code the class and instance methods
     for fname in sorted(methods):
         snake_name = snake_case(fname)
-        class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, fname))
+        docstring = shlex.quote(f'this is the docstring for {snake_name}')
+        class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, docstring, fname))
         py5_dir.append(snake_name)
     for fname in sorted(static_methods):
         snake_name = snake_case(fname)
-        class_members.append(CLASS_STATIC_METHOD_TEMPLATE.format(snake_name, fname))
+        docstring = shlex.quote(f'this is the docstring for {snake_name}')
+        class_members.append(CLASS_STATIC_METHOD_TEMPLATE.format(snake_name, docstring, fname))
         py5_dir.append(snake_name)
     class_members_code = ''.join(class_members)
 
