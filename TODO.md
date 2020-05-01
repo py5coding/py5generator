@@ -83,8 +83,6 @@ if the mouse_moved event method is too slow the sketch dies. why?
 
 ability to create sketches with no draw method, call noloop
 
-is the type of key and keyCode correct? Key is not supposed to be a number
-
 fullScreen mode causes crazy errors with the `key` variable in camera3D_test?
 
 camera3D is slower than it should be
