@@ -32,8 +32,7 @@ _Py5Applet = autoclass('py5.core.Py5Applet',
 class Py5Methods(PythonJavaClass):
     __javainterfaces__ = ['py5/core/Py5Methods']
 
-    def __init__(self, _java_py5applet, settings, setup, draw):
-        self._java_py5applet = _java_py5applet
+    def __init__(self, settings, setup, draw):
         self._functions = dict()
         self._functions['settings'] = settings
         self._functions['setup'] = setup
@@ -41,6 +40,9 @@ class Py5Methods(PythonJavaClass):
 
     def set_events(self, **kwargs):
         self._functions.update(kwargs)
+
+    def set_py5applet(self, _py5applet):
+        self._py5applet = _py5applet
 
     @java_method('()[Ljava/lang/Object;')
     def get_event_list(self):
@@ -54,7 +56,7 @@ class Py5Methods(PythonJavaClass):
         # this stops the sketch but does not exit, leaving the window visible.
         # if the screen disappeared it would be harder to debug the error
         # call the `exit_sketch()` method to close and exit the window.
-        self._java_py5applet.getSurface().stopThread()
+        self._py5applet.getSurface().stopThread()
 
     @java_method('(Ljava/lang/String;[Ljava/lang/Object;)V')
     def run_method(self, method_name, params):
@@ -72,10 +74,10 @@ _EVENT_METHODS = ['key_pressed', 'key_typed', 'key_released',
                   'exit_actual']
 
 
-class Py5Applet:
+class Sketch:
 
     def __init__(self):
-        self._java_py5applet = _Py5Applet()
+        self._py5applet = _Py5Applet()
 
     def settings(self):
         pass
@@ -88,37 +90,38 @@ class Py5Applet:
 
     def run_sketch(self, py5_methods=None, block=False):
         if not py5_methods:
-            py5_methods = Py5Methods(self._java_py5applet, self.settings, self.setup, self.draw)
+            py5_methods = Py5Methods(self.settings, self.setup, self.draw)
         events = dict([(e, getattr(self, e)) for e in _EVENT_METHODS if hasattr(self, e)])
         py5_methods.set_events(**events)
+        py5_methods.set_py5applet(self._py5applet)
 
         # pass the py5_methods object to the py5applet object while also
         # keeping the py5_methods reference count from hitting zero. otherwise,
         # it will be garbage collected and lead to segmentation faults!
-        self._java_py5applet.usePy5Methods(py5_methods)
+        self._py5applet.usePy5Methods(py5_methods)
         self._py5_methods = py5_methods
 
-        _Py5Applet.runSketch([''], self._java_py5applet)
+        _Py5Applet.runSketch([''], self._py5applet)
 
         if block:
             # wait for the sketch to finish
-            surface = self._java_py5applet.getSurface()
+            surface = self._py5applet.getSurface()
             while not surface.isStopped():
                 time.sleep(0.25)
 
     def exit_sketch(self):
-        if self._java_py5applet.getSurface().isStopped():
-            self._java_py5applet.exit()
+        if self._py5applet.getSurface().isStopped():
+            self._py5applet.exit()
 
     def get_py5applet(self):
-        return self._java_py5applet
+        return self._py5applet
 
 
 {1}
 
 
-_py5applet = Py5Applet()
-_py5applet_used = False
+_py5sketch = Sketch()
+_py5sketch_used = False
 
 
 def reset_py5():
@@ -127,15 +130,15 @@ def reset_py5():
     Note there are race conditions between this and `stop_sketch`. If you call
     this immediately after `stop_sketch` you might experience problems.
     """
-    global _py5applet
-    global _py5applet_used
-    _py5applet = Py5Applet()
-    _py5applet_used = False
+    global _py5sketch
+    global _py5sketch_used
+    _py5sketch = Sketch()
+    _py5sketch_used = False
 
 
 def __getattr__(name):
-    if hasattr(_py5applet, name):
-        return getattr(_py5applet, name)
+    if hasattr(_py5sketch, name):
+        return getattr(_py5sketch, name)
     else:
         raise AttributeError('py5 has no function or method named ' + name)
 

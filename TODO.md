@@ -20,8 +20,6 @@ Processing4 integration branch:
 design sketch execution
 -----------------------
 
-the python code should not have a Py5Applet class which can be confused with the Java Py5Applet class.
-
 what to do about `from py5 import *`??? The execution method `from py5 import *` won't get updated dynamic variables. can this be done in a different way that would work better in the PDE? For the dynamic variables can I create a dummy variable that causes a doctored local dict to redirect access to the py5applet? this code will always be run with a special command line run_sketch utility.
 
 run_sketch function from py5 module: need a better way to have event functions passed in, as well as the settings, setup, and draw methods. can I write a function to pull them out of the local() or global() namespaces? can I combine it with what I am doing in the exec_test2.py file? I should also be able to create a class and run the class. That will make it easier to pass in the event methods.

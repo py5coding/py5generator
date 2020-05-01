@@ -1,8 +1,8 @@
 import py5
-from py5 import Py5Applet
+from py5 import Sketch
 
 
-class Test(Py5Applet):
+class Test(Sketch):
 
     def settings(self):
         self.size(500, 600, py5.P2D)
