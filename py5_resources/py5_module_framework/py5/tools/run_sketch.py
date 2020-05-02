@@ -1,3 +1,4 @@
+import builtins
 import argparse
 from pathlib import Path
 
@@ -17,7 +18,6 @@ from py5 import *
 """
 
 RUN_SKETCH_CODE = """
-py5._skip_attrs = {'settings', 'setup', 'draw'}
 py5_methods = py5.Py5Methods(settings, setup, draw)
 py5_methods.set_events(mouse_entered=mouse_entered,
                        mouse_exited=mouse_exited)
@@ -27,16 +27,16 @@ py5.run_sketch(py5_methods=py5_methods, block=True)
 
 class Py5Namespace(dict):
 
-    def __init__(self, py5):
-        super().__init__()
-        self._py5 = py5
-
     def __getitem__(self, item):
-        # TODO: should these be switched around???
-        if hasattr(self._py5, item):
-            return getattr(self._py5, item)
-        else:
+        try:
             return super().__getitem__(item)
+        except KeyError:
+            if hasattr(py5, item):
+                return getattr(py5, item)
+            elif hasattr(builtins, item):
+                return getattr(builtins, item)
+            else:
+                raise KeyError(f'{item} not found')
 
 
 def run_sketch(sketch_path):
@@ -48,9 +48,7 @@ def run_sketch(sketch_path):
     with open(sketch_path, 'r') as f:
         code = f.read()
 
-    py5_ns = Py5Namespace(py5)
-
-    py5_ns = Py5Namespace(py5)
+    py5_ns = Py5Namespace()
     exec(IMPORTS_CODE, py5_ns)
     exec(code, py5_ns)
     exec(RUN_SKETCH_CODE, py5_ns)
