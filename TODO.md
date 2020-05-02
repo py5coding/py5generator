@@ -20,12 +20,16 @@ Processing4 integration branch:
 design sketch execution
 -----------------------
 
+run_sketch command should be able to set classpath
+
 Can I batch commands together and get a performance improvement? It is slower to go back and forth between Python and Java and I already saw that Camera3D had a problem. The py5 methods can have a second "mode" that collects all the commands together and executes them all at once at the end? Should there be a flush command to manually force everything through? Perhaps I can use a context manager for a performance improvement of one part of the code.
 
 error messages
 --------------
 
 stack traces are a combination of Java and Python. Need to add validation to make sure the parameter types are correct. I can add some type checking and helpful error messages to better support beginners.
+
+better output for JavaException errors
 
 is there anything to be gained from using type hinting? I can get the types from javap:
 
