@@ -135,3 +135,6 @@ def __getattr__(name):
 
 def __dir__():
     return {2}
+
+
+__all__ = {2}
