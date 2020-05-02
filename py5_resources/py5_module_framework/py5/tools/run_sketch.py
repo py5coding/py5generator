@@ -12,12 +12,12 @@ parser.add_argument('-c', '--classpath', action='store', dest='classpath',
                     help='extra directories to add to classpath')
 
 
-IMPORTS_CODE = """
+CODE_FRAMEWORK = """
 import py5
 from py5 import *
-"""
 
-RUN_SKETCH_CODE = """
+{0}
+
 py5.run_sketch(local_dict=locals(), block=True)
 """
 
@@ -46,9 +46,7 @@ def run_sketch(sketch_path):
         code = f.read()
 
     py5_ns = Py5Namespace()
-    exec(IMPORTS_CODE, py5_ns)
-    exec(code, py5_ns)
-    exec(RUN_SKETCH_CODE, py5_ns)
+    exec(CODE_FRAMEWORK.format(code), py5_ns)
 
 
 def main():
