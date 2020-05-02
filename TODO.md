@@ -20,9 +20,11 @@ Processing4 integration branch:
 design sketch execution
 -----------------------
 
-run_sketch command should be able to set classpath
+run_sketch command should be able to set classpath?
 
-Can I batch commands together and get a performance improvement? It is slower to go back and forth between Python and Java and I already saw that Camera3D had a problem. The py5 methods can have a second "mode" that collects all the commands together and executes them all at once at the end? Should there be a flush command to manually force everything through? Perhaps I can use a context manager for a performance improvement of one part of the code.
+look in ~/.processing/preferences.txt to get library path and put installed libraries on the classpath by default
+
+Can I batch commands together and get a performance improvement? It is slower to go back and forth between Python and Java. The py5 methods can have a second "mode" that collects all the commands together and executes them all at once at the end? Should there be a flush command to manually force everything through? Perhaps I can use a context manager for a performance improvement of one part of the code.
 
 error messages
 --------------
@@ -80,9 +82,5 @@ when I change the java code the Makefile does not remake the jar file. Is it ant
 if the mouse_moved event method is too slow the sketch dies. why?
 
 ability to create sketches with no draw method, call noloop
-
-fullScreen mode causes crazy errors with the `key` variable in camera3D_test?
-
-camera3D is slower than it should be
 
 camera3D and colorblindness need to call the preDraw and postDraw methods with an Interface in the same way PApplet calls the setup and draw methods.
