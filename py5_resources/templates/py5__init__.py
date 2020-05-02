@@ -74,9 +74,6 @@ _EVENT_METHODS = ['key_pressed', 'key_typed', 'key_released',
                   'exit_actual']
 
 
-_DYNAMIC_VARIABLES = {1}
-
-
 class Sketch:
 
     def __init__(self):
@@ -120,7 +117,7 @@ class Sketch:
         return self._py5applet
 
 
-{2}
+{1}
 
 
 _py5sketch = Sketch()
@@ -147,4 +144,4 @@ def __getattr__(name):
 
 
 def __dir__():
-    return {3}
+    return {2}
