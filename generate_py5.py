@@ -195,10 +195,13 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     py5_constants_code = '\n'.join(py5_constants)
 
     # code the dynamic variables
+    dynamic_variables = set()
     for name in sorted(fields):
         snake_name = snake_case(name)
         class_members.append(CLASS_PROPERTY_TEMPLATE.format(snake_name, name))
+        dynamic_variables.add(snake_name)
         py5_dir.append(snake_name)
+    str_dynamic_variables = str(dynamic_variables)
 
     # code the class and instance methods
     for fname in sorted(methods):
@@ -221,6 +224,7 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     with open('py5_resources/templates/py5__init__.py', 'r') as f:
         py5_template = f.read()
     py5_code = py5_template.format(py5_constants_code,
+                                   str_dynamic_variables,
                                    class_members_code,
                                    str_py5_dir)
     py5_code = autopep8.fix_code(py5_code, options={'aggressive': 2})
