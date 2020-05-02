@@ -139,8 +139,11 @@ def reset_py5():
     _py5sketch_used = False
 
 
+_skip_attrs = set()
+
+
 def __getattr__(name):
-    if hasattr(_py5sketch, name):
+    if name not in _skip_attrs and hasattr(_py5sketch, name):
         return getattr(_py5sketch, name)
     else:
         raise AttributeError('py5 has no function or method named ' + name)
