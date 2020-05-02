@@ -1,9 +1,12 @@
 py5jar_file = py5jar/dist/py5.jar
 
-all: generate_py5
+all: install_py5
 
 generate_py5: py5jar
 	python generate_py5.py $(py5_dir) --exist_ok -r $(processing_dir)
+
+install_py5: generate_py5
+	cd $(py5_dir)/py5/ && python setup.py build && pip install -e .
 
 py5jar: $(py5jar_file)
 $(py5jar_file):
@@ -12,4 +15,3 @@ $(py5jar_file):
 .PHONY: clean
 clean:
 	ant -f py5jar/build.xml clean
-
