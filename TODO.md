@@ -20,7 +20,7 @@ Processing4 integration branch:
 design sketch execution
 -----------------------
 
-run_sketch command should be able to set classpath?
+run_sketch command should be able to set classpath? how about it looks for the processing preference file and finds the libraries, and/or looks for a jars file? I can also use an environment variable.
 
 look in ~/.processing/preferences.txt to get library path and put installed libraries on the classpath by default
 
