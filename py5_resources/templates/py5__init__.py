@@ -94,8 +94,8 @@ class Sketch:
     def run_sketch(self, py5_methods=None, block=False):
         if not py5_methods:
             py5_methods = Py5Methods(self.settings, self.setup, self.draw)
-        events = dict([(e, getattr(self, e)) for e in _EVENT_METHODS if hasattr(self, e)])
-        py5_methods.set_events(**events)
+            events = dict([(e, getattr(self, e)) for e in _EVENT_METHODS if hasattr(self, e)])
+            py5_methods.set_events(**events)
         py5_methods.set_py5applet(self._py5applet)
 
         # pass the py5_methods object to the py5applet object while also
