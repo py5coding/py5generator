@@ -1,3 +1,6 @@
+# flake8: noqa
+
+
 def settings():
     size(500, 500, JAVA2D)
 
