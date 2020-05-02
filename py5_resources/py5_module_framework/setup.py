@@ -11,6 +11,11 @@ setup(
     long_description=readme,
     author='Jim Schmitz',
     author_email='jim@ixora.io',
+    entry_points={
+        'console_scripts': [
+            'py5_sketch = py5.tools.run_sketch:main'
+        ],
+    },
     classifiers=[
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',

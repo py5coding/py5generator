@@ -20,8 +20,6 @@ Processing4 integration branch:
 design sketch execution
 -----------------------
 
-build a special command line run_sketch utility for when users run a sketch in `from py5 import *` mode (the PDE mode)
-
 run_sketch function from py5 module: need a better way to have event functions passed in, as well as the settings, setup, and draw methods. can I write a function to pull them out of the local() or global() namespaces? can I combine it with what I am doing in the exec_test2.py file? I should also be able to create a class and run the class. That will make it easier to pass in the event methods.
 
 Can I batch commands together and get a performance improvement? It is slower to go back and forth between Python and Java and I already saw that Camera3D had a problem. The py5 methods can have a second "mode" that collects all the commands together and executes them all at once at the end? Should there be a flush command to manually force everything through? Perhaps I can use a context manager for a performance improvement of one part of the code.
