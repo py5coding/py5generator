@@ -20,7 +20,7 @@ public class Py5Applet extends PApplet {
   public void usePy5Methods(Py5Methods py5Methods) {
     this.py5Methods = py5Methods;
     this.py5RegisteredEvents = new HashSet<String>();
-    for (Object m : py5Methods.get_event_list())
+    for (Object m : py5Methods.get_function_list())
       this.py5RegisteredEvents.add(m.toString());
   }
 

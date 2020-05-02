@@ -48,9 +48,9 @@ def mouse_dragged():
     print('mouse dragged')
 
 
-def mouse_moved():
-    # print('mouse moved')
-    print('frameRate', py5.get_frame_rate())
+# def mouse_moved():
+#     # print('mouse moved')
+#     print('frameRate', py5.get_frame_rate())
 
 
 def mouse_pressed():
@@ -65,18 +65,4 @@ def mouse_wheel(event):
     print(f'mouse wheel {event.getCount()}')
 
 
-py5_methods = py5.Py5Methods(settings, setup, draw)
-py5_methods.set_events(key_pressed=key_pressed,
-                       key_typed=key_typed,
-                       key_released=key_released,
-                       mouse_entered=mouse_entered,
-                       mouse_exited=mouse_exited,
-                       mouse_clicked=mouse_clicked,
-                       #  mouse_dragged=mouse_dragged,
-                       #  mouse_moved=mouse_moved,
-                       mouse_pressed=mouse_pressed,
-                       mouse_released=mouse_released,
-                       mouse_wheel=mouse_wheel
-                       )
-
-py5.run_sketch(py5_methods, block=False)
+py5.run_sketch(local_dict=locals(), block=False)

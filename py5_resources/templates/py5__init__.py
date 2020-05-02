@@ -32,20 +32,17 @@ _Py5Applet = autoclass('py5.core.Py5Applet',
 class Py5Methods(PythonJavaClass):
     __javainterfaces__ = ['py5/core/Py5Methods']
 
-    def __init__(self, settings, setup, draw):
+    def __init__(self):
         self._functions = dict()
-        self._functions['settings'] = settings
-        self._functions['setup'] = setup
-        self._functions['draw'] = draw
 
-    def set_events(self, **kwargs):
+    def set_functions(self, **kwargs):
         self._functions.update(kwargs)
 
     def set_py5applet(self, _py5applet):
         self._py5applet = _py5applet
 
     @java_method('()[Ljava/lang/Object;')
-    def get_event_list(self):
+    def get_function_list(self):
         return self._functions.keys()
 
     def _stop_error(self, msg):
@@ -68,10 +65,10 @@ class Py5Methods(PythonJavaClass):
             self._stop_error(msg)
 
 
-_EVENT_METHODS = ['key_pressed', 'key_typed', 'key_released',
-                  'mouse_clicked', 'mouse_dragged', 'mouse_moved', 'mouse_entered',
-                  'mouse_exited', 'mouse_pressed', 'mouse_released', 'mouse_wheel',
-                  'exit_actual']
+_METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',
+            'key_released', 'mouse_clicked', 'mouse_dragged', 'mouse_moved',
+            'mouse_entered', 'mouse_exited', 'mouse_pressed', 'mouse_released',
+            'mouse_wheel', 'exit_actual']
 
 
 class Sketch:
@@ -79,20 +76,13 @@ class Sketch:
     def __init__(self):
         self._py5applet = _Py5Applet()
 
-    def settings(self):
-        pass
-
-    def setup(self):
-        pass
-
-    def draw(self):
-        pass
-
-    def run_sketch(self, py5_methods=None, block=False):
-        if not py5_methods:
-            py5_methods = Py5Methods(self.settings, self.setup, self.draw)
-            events = dict([(e, getattr(self, e)) for e in _EVENT_METHODS if hasattr(self, e)])
-            py5_methods.set_events(**events)
+    def run_sketch(self, local_dict=None, block=False):
+        py5_methods = Py5Methods()
+        if local_dict:
+            methods = dict([(e, local_dict[e]) for e in _METHODS if e in local_dict])
+        else:
+            methods = dict([(e, getattr(self, e)) for e in _METHODS if hasattr(self, e)])
+        py5_methods.set_functions(**methods)
         py5_methods.set_py5applet(self._py5applet)
 
         # pass the py5_methods object to the py5applet object while also

@@ -4,7 +4,7 @@ import processing.event.MouseEvent;
 
 public interface Py5Methods {
 
-  public Object[] get_event_list();
+  public Object[] get_function_list();
 
   public void run_method(String method_name, Object... params);
 

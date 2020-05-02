@@ -18,10 +18,7 @@ from py5 import *
 """
 
 RUN_SKETCH_CODE = """
-py5_methods = py5.Py5Methods(settings, setup, draw)
-py5_methods.set_events(mouse_entered=mouse_entered,
-                       mouse_exited=mouse_exited)
-py5.run_sketch(py5_methods=py5_methods, block=True)
+py5.run_sketch(local_dict=locals(), block=True)
 """
 
 

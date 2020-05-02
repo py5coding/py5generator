@@ -51,5 +51,4 @@ def draw():
     py5.box(250)
 
 
-py5_methods = py5.Py5Methods(settings, setup, draw)
-py5.run_sketch(py5_methods=py5_methods, block=False)
+py5.run_sketch(local_dict=locals(), block=False)

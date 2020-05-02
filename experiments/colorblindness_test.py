@@ -31,5 +31,4 @@ def draw():
     py5.rect(py5.mouse_x, py5.mouse_y, 40, 40)
 
 
-py5_methods = py5.Py5Methods(settings, setup, draw)
-py5.run_sketch(py5_methods=py5_methods)
+py5.run_sketch(local_dict=locals())
