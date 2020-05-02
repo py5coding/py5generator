@@ -195,9 +195,11 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     py5_constants_code = '\n'.join(py5_constants)
 
     # code the dynamic variables
+    py5_dynamic_vars = []
     for name in sorted(fields):
         snake_name = snake_case(name)
         class_members.append(CLASS_PROPERTY_TEMPLATE.format(snake_name, name))
+        py5_dynamic_vars.append(snake_name)
         py5_dir.append(snake_name)
 
     # code the class and instance methods
@@ -213,16 +215,19 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
         py5_dir.append(snake_name)
     class_members_code = ''.join(class_members)
 
-    # code the result of the module's __dir__ function
+    # code the result of the module's __dir__ function and __all__ variable
     py5_dir.extend(EXTRA_DIR_NAMES)
     str_py5_dir = str(sorted(py5_dir, key=lambda x: x.lower()))
+    # don't want import * to import the dynamic variables because they cannot be updated
+    str_py5_all = str(sorted([x for x in py5_dir if x not in py5_dynamic_vars], key=lambda x: x.lower()))
 
     # complete the output template
     with open('py5_resources/templates/py5__init__.py', 'r') as f:
         py5_template = f.read()
     py5_code = py5_template.format(py5_constants_code,
                                    class_members_code,
-                                   str_py5_dir)
+                                   str_py5_dir,
+                                   str_py5_all)
     py5_code = autopep8.fix_code(py5_code, options={'aggressive': 2})
 
     # build complete py5 module in destination directory
