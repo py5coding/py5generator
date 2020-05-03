@@ -229,7 +229,8 @@ def generate_py5(repo_dir=None, install_dir=None):
     print(f'writing py5 in {dest_dir}')
     if dest_dir.exists():
         shutil.rmtree(dest_dir)
-    shutil.copytree(Path('py5_resources', 'py5_module_framework'), dest_dir)
+    shutil.copytree(Path('py5_resources', 'py5_module_framework'),
+                    dest_dir, copy_function=shutil.copy)
     for jar in core_jar_path.parent.glob('*.jar'):
         shutil.copy(jar, dest_dir / 'py5' / 'jars')
     shutil.copy(py5_jar_path, dest_dir / 'py5' / 'jars')
