@@ -14,11 +14,6 @@ from pathlib import Path
 
 parser = argparse.ArgumentParser(description="Generate py5 library using processing jars",
                                  epilog="this is the epilog")
-parser.add_argument(action='store', dest='py5_destination_dir', default='.',
-                    help='location to write generated py5 library')
-parser.add_argument('-x', '--exist_ok', action='store_true',
-                    dest='dest_exist_ok', default=False,
-                    help='ok to replace py5 directory in py5_destination_dir')
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument('-r', '--repo', action='store', dest='processing_repo_dir',
                    help='location of processing code (github repository)')
@@ -125,10 +120,9 @@ def snake_case(name):
 ###############################################################################
 
 
-def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None):
+def generate_py5(repo_dir=None, install_dir=None):
     """Generate an installable py5 library using processing jars
     """
-    dest_dir = Path(dest_dir)
     repo_dir = repo_dir and Path(repo_dir)
     install_dir = install_dir and Path(install_dir)
 
@@ -231,28 +225,15 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
     py5_code = autopep8.fix_code(py5_code, options={'aggressive': 2})
 
     # build complete py5 module in destination directory
-    # first validate the output directory
+    dest_dir = Path('build')
     print(f'writing py5 in {dest_dir}')
     if dest_dir.exists():
-        if not dest_dir.is_dir():
-            print(f'output destination {dest_dir} is not a directory.', file=sys.stderr)
-            return
-    else:
-        dest_dir.mkdir(parents=True)
-    output_dir = dest_dir / 'py5'
-    if output_dir.exists():
-        if dest_exist_ok:
-            shutil.rmtree(output_dir)
-        else:
-            print(f'output destination {output_dir} already exists.', file=sys.stderr)
-            return
-
-    base_path = Path(__file__).absolute().parent
-    shutil.copytree(base_path / 'py5_resources' / 'py5_module_framework' / '', output_dir)
+        shutil.rmtree(dest_dir)
+    shutil.copytree(Path('py5_resources', 'py5_module_framework'), dest_dir)
     for jar in core_jar_path.parent.glob('*.jar'):
-        shutil.copy(jar, output_dir / 'py5' / 'jars')
-    shutil.copy(py5_jar_path, output_dir / 'py5' / 'jars')
-    with open(output_dir / 'py5' / '__init__.py', 'w') as f:
+        shutil.copy(jar, dest_dir / 'py5' / 'jars')
+    shutil.copy(py5_jar_path, dest_dir / 'py5' / 'jars')
+    with open(dest_dir / 'py5' / '__init__.py', 'w') as f:
         f.write(py5_code + '\n')
 
     print('done!')
@@ -260,9 +241,7 @@ def generate_py5(dest_dir, dest_exist_ok=False, repo_dir=None, install_dir=None)
 
 def main():
     args = parser.parse_args()
-    generate_py5(args.py5_destination_dir,
-                 dest_exist_ok=args.dest_exist_ok,
-                 repo_dir=args.processing_repo_dir,
+    generate_py5(repo_dir=args.processing_repo_dir,
                  install_dir=args.processing_install_dir)
 
 

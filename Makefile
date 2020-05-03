@@ -1,13 +1,13 @@
 py5_jar_file = py5jar/dist/py5.jar
 py5_java_src = $(shell find py5jar/src/ -name "*.java")
 
-all: install_py5
+all: install_p5
 
 generate_py5: py5jar
-	python generate_py5.py $(py5_dir) --exist_ok -r $(processing_dir)
+	python generate_py5.py -r $(processing_dir)
 
-install_py5: generate_py5
-	cd $(py5_dir)/py5/ && python setup.py build && pip install -e .
+install_p5: generate_py5
+	cd build/ && python setup.py build && pip install -e .
 
 py5jar: $(py5_jar_file)
 $(py5_jar_file): $(py5_java_src)
@@ -15,4 +15,5 @@ $(py5_jar_file): $(py5_java_src)
 
 .PHONY: clean
 clean:
+	rm -Rf build/
 	ant -f py5jar/build.xml clean
