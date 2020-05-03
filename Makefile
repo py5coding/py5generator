@@ -3,7 +3,7 @@ py5_java_src = $(shell find py5jar/src/ -name "*.java")
 py5_py_src = $(shell find py5_resources/ -name "*.py")
 py5_build_dir = build/py5
 
-all: install_p5
+all: generate_py5
 
 py5jar: $(py5_jar_file)
 $(py5_jar_file): $(py5_java_src)
@@ -13,7 +13,7 @@ generate_py5: $(py5_build_dir)
 $(py5_build_dir): $(py5_jar_file) $(py5_py_src)
 	python generate_py5.py -r $(processing_dir)
  
-install_p5: generate_py5
+install_py5: generate_py5
 	cd build/ && python setup.py build && pip install -e .
 
 .PHONY: clean
