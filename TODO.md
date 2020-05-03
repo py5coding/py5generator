@@ -77,8 +77,6 @@ https://pypi.org/project/PySixel/
 bugs
 ----
 
-when I change the java code the Makefile does not remake the jar file. Is it ant or the Makefile?
-
 if the mouse_moved event method is too slow the sketch dies. why?
 
 ability to create sketches with no draw method, call noloop
