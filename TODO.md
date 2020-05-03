@@ -17,45 +17,45 @@ Processing4 integration branch:
 [repo](https://github.com/sampottinger/processing4)
 [builds](https://www.datadrivenempathy.com/processing)
 
-design sketch execution
------------------------
-
-run_sketch command should be able to set classpath? how about it looks for the processing preference file and finds the libraries, and/or looks for a jars file? I can also use an environment variable.
-
-look in ~/.processing/preferences.txt to get library path and put installed libraries on the classpath by default
-
-Can I batch commands together and get a performance improvement? It is slower to go back and forth between Python and Java. The py5 methods can have a second "mode" that collects all the commands together and executes them all at once at the end? Should there be a flush command to manually force everything through? Perhaps I can use a context manager for a performance improvement of one part of the code.
-
 error messages
 --------------
 
-stack traces are a combination of Java and Python. Need to add validation to make sure the parameter types are correct. I can add some type checking and helpful error messages to better support beginners.
+Stack traces are a combination of Java and Python, which will be scary for beginners. Can I optionally hide the Java part? Can I improve the JavaException errors?
 
-better output for JavaException errors
-
-is there anything to be gained from using type hinting? I can get the types from javap:
+Need to add validation to make sure the parameter types are correct. I can add some type checking and helpful error messages to better support beginners. I can get the types from javap:
 
 `javap -classpath /home/jim/Projects/git/processing/core/library/core.jar -public processing.core.PApplet`
 
-I'll need that to validate parameter types.
+is there anything to be gained from using type hinting?
+
+performance
+-----------
+
+Can I batch commands together and get a performance improvement? It is slower to go back and forth between Python and Java. The py5 methods can have a second "mode" that collects all the commands together and executes them all at once at the end? Should there be a flush command to manually force everything through? Perhaps I can use a context manager for a performance improvement of one part of the code.
 
 libraries
 ---------
+
+how do I handle library jars and the classpath? should the run_sketch command be able to set classpath? should it look for a jars subdirectory?
+
+Is there anything to gain by looking at ~/.processing/preferences.txt? I can get the library path
 
 Processing library install process
 
 rather than require users to install libraries through the PDE, I can download and install them directly using the same download mechanism. There is a text file with links to all the zip files, which I can open up and pull out the jar files.
 
+camera3D and colorblindness need to call the preDraw and postDraw methods with an Interface in the same way PApplet calls the setup and draw methods.
+
 other
 -----
 
-integrate debugging
+add docstrings to all methods, pulling docs from website
+
+can the python debugger work with this?
 
 test and document packaging and deployment with pyinstaller
 
 build magic functions for screen grabs and making good documentation
-
-add docstrings to all methods, pulling docs from website
 
 loadPixels => pixels should be a numpy array, not a list. unsigned ints? something to help with colors? perhaps can make utility functions in addition to the standard py5 stuff, to faciliate working with other numpy libraries.
 
@@ -66,17 +66,5 @@ loadPixels => pixels should be a numpy array, not a list. unsigned ints? somethi
     (pixels & 0x00FF0000) >> 16
     ```
 
-headless mode that grabs keyboard events from the terminal. this can be done in java and would be useful for sound and text sketches.
-
-can I use terminal graphics to display the output? there are terminal image viewers. some ideas:
-https://docs.python.org/3/library/curses.html
-http://urwid.org/index.html  https://github.com/urwid/urwid
-https://github.com/peterbrittain/asciimatics
-https://pypi.org/project/PySixel/
-
 bugs
 ----
-
-if the mouse_moved event method is too slow the sketch dies. why?
-
-camera3D and colorblindness need to call the preDraw and postDraw methods with an Interface in the same way PApplet calls the setup and draw methods.
