@@ -79,6 +79,4 @@ bugs
 
 if the mouse_moved event method is too slow the sketch dies. why?
 
-ability to create sketches with no draw method, call noloop
-
 camera3D and colorblindness need to call the preDraw and postDraw methods with an Interface in the same way PApplet calls the setup and draw methods.

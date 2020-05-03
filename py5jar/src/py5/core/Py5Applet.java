@@ -38,6 +38,8 @@ public class Py5Applet extends PApplet {
   public void draw() {
     if (py5RegisteredEvents.contains("draw"))
       py5Methods.run_method("draw");
+    else
+      noLoop();
   }
 
   @Override
