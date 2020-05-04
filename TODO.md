@@ -17,6 +17,13 @@ Processing4 integration branch:
 [repo](https://github.com/sampottinger/processing4)
 [builds](https://www.datadrivenempathy.com/processing)
 
+deployment
+----------
+
+add __version__
+
+get pypi package process working
+
 error messages
 --------------
 
