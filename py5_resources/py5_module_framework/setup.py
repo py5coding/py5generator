@@ -16,6 +16,9 @@ setup(
     name='py5',
     version=VERSION,
     packages=['py5'],
+    package_data={
+        "py5": ["jars/*.jar"]
+    },
     description='CPython wrapper for the Java Processing library',
     long_description=readme,
     author='Jim Schmitz',

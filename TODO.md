@@ -20,8 +20,6 @@ Processing4 integration branch:
 packaging and deployment
 ------------------------
 
-installation doesn't work at all if not installed with `pip install -e .`
-
 what happened to code completion? it worked before.
 
 get pypi package process working
