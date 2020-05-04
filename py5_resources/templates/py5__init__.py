@@ -19,6 +19,9 @@ if not jnius_config.vm_running:
         *[p for p in current_classpath if p not in jnius_config.get_classpath()])
 from jnius import autoclass, PythonJavaClass, java_method  # noqa
 
+
+__version__ = '0.1'
+
 logger = logging.getLogger(__name__)
 
 _Py5Applet = autoclass('py5.core.Py5Applet',

@@ -17,10 +17,12 @@ Processing4 integration branch:
 [repo](https://github.com/sampottinger/processing4)
 [builds](https://www.datadrivenempathy.com/processing)
 
-deployment
-----------
+packaging and deployment
+------------------------
 
-add __version__
+installation doesn't work at all if not installed with `pip install -e .`
+
+what happened to code completion? it worked before.
 
 get pypi package process working
 
