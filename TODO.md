@@ -43,11 +43,9 @@ Can I batch commands together and get a performance improvement? It is slower to
 libraries
 ---------
 
-how do I handle library jars and the classpath? should the run_sketch command be able to set classpath? should it look for a jars subdirectory?
+the run_sketch command should be in a separate package (py5_tools) so it can properly set the classpath with jnius_config and then import py5. it should have params for libraries and search for the appropriate jars by getting information out of ~/.processing/preferences.txt
 
-Is there anything to gain by looking at ~/.processing/preferences.txt? I can get the library path
-
-Processing library install process
+Processing library install process with py5_tools
 
 rather than require users to install libraries through the PDE, I can download and install them directly using the same download mechanism. There is a text file with links to all the zip files, which I can open up and pull out the jar files.
 

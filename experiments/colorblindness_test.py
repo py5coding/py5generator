@@ -1,7 +1,10 @@
-import jnius_config
-if not jnius_config.vm_running:
-    jnius_config.add_options('-Xrs', '-Xmx4096m')
-    jnius_config.add_classpath('/home/jim/Projects/ITP/pythonprocessing/py5development/experiments/libraries/*')
+import os
+from pathlib import Path
+os.chdir(Path(__file__).parent)
+
+# import jnius_config
+# if not jnius_config.vm_running:
+#     jnius_config.add_options('-Xrs', '-Xmx4096m')
 import py5  # noqa
 
 

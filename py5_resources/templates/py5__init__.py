@@ -14,7 +14,13 @@ if not jnius_config.vm_running:
     current_classpath = jnius_config.get_classpath()
     base_path = Path(
         getattr(sys, '_MEIPASS', Path(__file__).absolute().parent))
+    # add py5 jars to the classpath first
     jnius_config.set_classpath(str(base_path / 'jars' / '*'))
+    # if the user has a jars subdirectory, add that next
+    jars_subdirectory = Path('jars')
+    if jars_subdirectory.exists():
+        jnius_config.add_classpath(str(Path('jars', '*')))
+    # put the original classpath at the end
     jnius_config.add_classpath(*[p for p in current_classpath
                                  if p not in jnius_config.get_classpath()])
 from jnius import autoclass, PythonJavaClass, java_method  # noqa
