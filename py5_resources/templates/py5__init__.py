@@ -15,8 +15,8 @@ if not jnius_config.vm_running:
     base_path = Path(
         getattr(sys, '_MEIPASS', Path(__file__).absolute().parent))
     jnius_config.set_classpath(str(base_path / 'jars' / '*'))
-    jnius_config.add_classpath(
-        *[p for p in current_classpath if p not in jnius_config.get_classpath()])
+    jnius_config.add_classpath(*[p for p in current_classpath
+                                 if p not in jnius_config.get_classpath()])
 from jnius import autoclass, PythonJavaClass, java_method  # noqa
 
 
