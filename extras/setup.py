@@ -5,7 +5,7 @@ with open('README.md') as f:
     readme = f.read()
 
 
-with open(Path('py5', '__init__.py')) as f:
+with open(Path('py5_tools', '__init__.py')) as f:
     for line in f.readlines():
         if line.startswith('__version__'):
             break
@@ -13,16 +13,18 @@ with open(Path('py5', '__init__.py')) as f:
 
 
 setup(
-    name='py5',
+    name='py5_tools',
     version=VERSION,
-    packages=['py5'],
-    package_data={
-        "py5": ["jars/*.jar"]
-    },
-    description='CPython wrapper for the Java Processing library',
+    packages=['py5_tools'],
+    description='Auxiliary tools for the py5 library',
     long_description=readme,
     author='Jim Schmitz',
     author_email='jim@ixora.io',
+    entry_points={
+        'console_scripts': [
+            'run_sketch = py5_tools.tools.run_sketch:main'
+        ],
+    },
     classifiers=[
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
