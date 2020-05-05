@@ -1,10 +1,11 @@
 import os
 from pathlib import Path
+import py5_tools
+
 os.chdir(Path(__file__).parent)
 
-# import jnius_config
-# if not jnius_config.vm_running:
-#     jnius_config.add_options('-Xrs', '-Xmx4096m')
+
+py5_tools.add_options('-Xrs', '-Xmx4096m')
 import py5  # noqa
 
 
