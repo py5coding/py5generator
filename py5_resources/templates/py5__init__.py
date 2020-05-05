@@ -16,7 +16,7 @@ if not jnius_config.vm_running:
         getattr(sys, '_MEIPASS', Path(__file__).absolute().parent))
     # add py5 jars to the classpath first
     jnius_config.set_classpath(str(base_path / 'jars' / '*'))
-    # if the user has a jars subdirectory, add that next
+    # if the cwd has a jars subdirectory, add that next
     jars_subdirectory = Path('jars')
     if jars_subdirectory.exists():
         jnius_config.add_classpath(str(Path('jars', '*')))
