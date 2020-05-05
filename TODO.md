@@ -43,11 +43,11 @@ Can I batch commands together and get a performance improvement? It is slower to
 libraries
 ---------
 
-the run_sketch command should be in a separate package (py5_tools) so it can properly set the classpath with jnius_config and then import py5. it should have params for libraries and search for the appropriate jars by getting information out of ~/.processing/preferences.txt
+the py5_tools run_sketch command should have params for libraries and search for the appropriate jars by getting information out of ~/.processing/preferences.txt
 
 Processing library install process with py5_tools
 
-rather than require users to install libraries through the PDE, I can download and install them directly using the same download mechanism. There is a text file with links to all the zip files, which I can open up and pull out the jar files.
+rather than require users to install libraries through the PDE, I can download and install them directly using the same download mechanism. There is a [text file](http://download.processing.org/contribs) with links to all the zip files, which I can open up and pull out the jar files.
 
 camera3D and colorblindness need to call the preDraw and postDraw methods with an Interface in the same way PApplet calls the setup and draw methods.
 
