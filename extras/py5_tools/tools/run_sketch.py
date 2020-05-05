@@ -1,4 +1,3 @@
-import os
 import builtins
 import argparse
 from pathlib import Path
@@ -53,8 +52,9 @@ def run_sketch(sketch_path, classpath=None):
     if classpath:
         jnius_config.add_classpath(classpath)
 
-    if (sketch_path.parent / 'jars').exists():
-        jnius_config.add_classpath(str(sketch_path.parent / 'jars' / '*'))
+    sketch_parent_jars = sketch_path.parent / 'jars'
+    if sketch_parent_jars.exists():
+        jnius_config.add_classpath(str(sketch_parent_jars / '*'))
 
     import py5
     py5_ns = Py5Namespace(py5)
