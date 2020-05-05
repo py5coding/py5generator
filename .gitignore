@@ -1,8 +1,9 @@
-.ipynb_checkpoints/
+*.nogit
+.vscode
+*.pyc
 *.egg-info
 __pycache__/
-*.pyc
+.ipynb_checkpoints/
 dist/
 build/
-.vscode
 archive/
