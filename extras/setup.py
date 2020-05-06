@@ -22,7 +22,8 @@ setup(
     author_email='jim@ixora.io',
     entry_points={
         'console_scripts': [
-            'run_sketch = py5_tools.tools.run_sketch:main'
+            'run_sketch = py5_tools.tools.run_sketch:main',
+            'py5cmd = py5_tools.tools.py5cmd:main',
         ],
     },
     classifiers=[
