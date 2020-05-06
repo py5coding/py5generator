@@ -19,7 +19,8 @@ if not jnius_config.vm_running:
     # if the cwd has a jars subdirectory, add that next
     jars_subdirectory = Path('jars')
     if jars_subdirectory.exists():
-        jnius_config.add_classpath(str(Path('jars', '*')))
+        for jarfile in jars_subdirectory.glob("**/*.jar"):
+            jnius_config.add_classpath(str(jarfile))
     # put the original classpath at the end
     jnius_config.add_classpath(*[p for p in current_classpath
                                  if p not in jnius_config.get_classpath()])
