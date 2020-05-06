@@ -4,7 +4,7 @@ from pathlib import Path
 import jnius_config
 
 
-CODE_FRAMEWORK = """
+_CODE_FRAMEWORK = """
 import py5
 from py5 import *
 
@@ -51,4 +51,4 @@ def run_sketch(sketch_path, classpath=None):
 
     import py5
     py5_ns = Py5Namespace(py5)
-    exec(CODE_FRAMEWORK.format(code), py5_ns)
+    exec(_CODE_FRAMEWORK.format(code), py5_ns)
