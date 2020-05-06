@@ -1,3 +1,4 @@
+*.nogit
 .*.nogit
 .vscode
 *.pyc
