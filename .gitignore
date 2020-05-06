@@ -1,4 +1,4 @@
-*.nogit
+.*.nogit
 .vscode
 *.pyc
 *.egg-info
