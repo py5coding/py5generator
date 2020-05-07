@@ -9,21 +9,21 @@ import logging
 import traceback
 import time
 
-import jnius_config
-if not jnius_config.vm_running:
-    current_classpath = jnius_config.get_classpath()
+import py5_tools
+
+
+if not py5_tools.py5_started:
+    current_classpath = py5_tools.get_classpath()
     base_path = Path(
         getattr(sys, '_MEIPASS', Path(__file__).absolute().parent))
     # add py5 jars to the classpath first
-    jnius_config.set_classpath(str(base_path / 'jars' / '*'))
+    py5_tools.set_classpath(str(base_path / 'jars' / '*'))
     # if the cwd has a jars subdirectory, add that next
-    jars_subdirectory = Path('jars')
-    if jars_subdirectory.exists():
-        for jarfile in jars_subdirectory.glob("**/*.jar"):
-            jnius_config.add_classpath(str(jarfile))
-    # put the original classpath at the end
-    jnius_config.add_classpath(*[p for p in current_classpath
-                                 if p not in jnius_config.get_classpath()])
+    py5_tools.add_jars(Path('jars'))
+    # put the original classpath at the end while avoiding duplicates
+    py5_tools.add_classpath(*[p for p in current_classpath
+                              if p not in py5_tools.get_classpath()])
+    py5_tools.py5_started = True
 from jnius import autoclass, PythonJavaClass, java_method  # noqa
 
 

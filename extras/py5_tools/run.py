@@ -1,8 +1,7 @@
 import builtins
 from pathlib import Path
 
-import jnius_config
-
+import py5_tools
 
 _CODE_FRAMEWORK = """
 import py5
@@ -42,12 +41,8 @@ def run_sketch(sketch_path, classpath=None):
         code = f.read()
 
     if classpath:
-        jnius_config.add_classpath(classpath)
-
-    sketch_parent_jars = sketch_path.parent / 'jars'
-    if sketch_parent_jars.exists():
-        for jarfile in sketch_parent_jars.glob("**/*.jar"):
-            jnius_config.add_classpath(str(jarfile))
+        py5_tools.add_classpath(classpath)
+    py5_tools.add_jars(sketch_path.parent / 'jars')
 
     import py5
     py5_ns = Py5Namespace(py5)
