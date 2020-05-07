@@ -22,6 +22,8 @@ packaging and deployment
 
 what happened to code completion? it worked before.
 
+do I really need py5_tools in a separate package? I can learn from jnius_config
+
 get pypi package process working
 
 error messages
