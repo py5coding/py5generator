@@ -42,7 +42,8 @@ class ProcessingLibraryInfo:
         df['paragraph'] = df['paragraph'].apply(lambda x: x[0] if x else '').astype('string')
 
         self._data = df
-        self.categories = reduce(lambda x, y: x | set(y), df['categories'], set())
+        self.categories = sorted(reduce(lambda x, y: x | set(y), df['categories'], set()))
+        self.names = sorted(df['name'])
 
     def get_library_info(self, category=None, library_name=None, library_id=None):
         info = self._data

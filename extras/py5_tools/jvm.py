@@ -8,8 +8,7 @@ py5_started = False
 
 def check_jvm_running():
     if jnius_config.vm_running:
-        raise RuntimeError("the jvm is already running, started at "
-                           + jnius_config.vm_started_at)
+        raise RuntimeError("the jvm is already running")
 
 
 def get_options():
