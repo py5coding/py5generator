@@ -2,6 +2,7 @@ import re
 import io
 import zipfile
 import requests
+from functools import reduce
 from pathlib import Path
 
 import pandas as pd
@@ -15,7 +16,7 @@ PARAGRAPH_REGEX = re.compile('^paragraph=(.*?)^[a-z]*?=', re.DOTALL | re.MULTILI
 class ProcessingLibraryInfo:
 
     def __init__(self):
-        self._data = self._load_data()
+        self._load_data()
 
     def _load_data(self):
         response = requests.get(PROCESSING_LIBRARY_URL)
@@ -40,25 +41,30 @@ class ProcessingLibraryInfo:
         df['paragraph'] = [PARAGRAPH_REGEX.findall(b) for b in blocks]
         df['paragraph'] = df['paragraph'].apply(lambda x: x[0] if x else '').astype('string')
 
-        return df
+        self._data = df
+        self.categories = reduce(lambda x, y: x | set(y), df['categories'], set())
 
-    def get_library_info(self, library_name=None, library_id=None):
+    def get_library_info(self, category=None, library_name=None, library_id=None):
+        info = self._data
+        # TODO: also make sure minRevision < version < maxRevision
+        if category:
+            info = info[info['categories'].apply(lambda x: category in x)]
         if library_name:
-            info = self._data[self._data['name'] == library_name]
-        elif library_id:
-            info = self._data[self._data['id'] == library_id]
-        else:
-            raise RuntimeError(f'no library {library_name} specified')
+            info = info[info['name'] == library_name]
+        if library_id:
+            info = info[info['id'] == library_id]
 
-        if len(info) == 0:
-            raise RuntimeError(f'library {library_name} not found')
-        if len(info) > 1:
-            raise RuntimeError(f'more than one library with name {library_name}???')
-
-        return info.T.to_dict()[info.index[0]]
+        return info
 
     def download_zip(self, dest, library_name=None, library_id=None):
         info = self.get_library_info(library_name=library_name, library_id=library_id)
+
+        if len(info) == 0:
+            raise RuntimeError(f'library not found')
+        if len(info) > 1:
+            raise RuntimeError(f'more than one library')
+
+        info = info.T.to_dict()[info.index[0]]
         download_url = info['download']
 
         response = requests.get(download_url)

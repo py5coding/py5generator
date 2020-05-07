@@ -9,6 +9,13 @@ parser = argparse.ArgumentParser(description="py5 command tool",
                                  epilog="this is the epilog")
 
 
+LIBRARY_TEMPLATE = """[{id}] Name: {name}
+Author: {authors}
+{sentence}
+{categories}
+{paragraph}"""
+
+
 class Py5Cmd(cmd.Cmd):
 
     def __init__(self):
@@ -17,6 +24,21 @@ class Py5Cmd(cmd.Cmd):
 
     prompt = 'py5: '
     intro = "Welcome to the py5 command tool."
+
+    def _print_library_info(self, info):
+        info = info.T.to_dict()[info.index[0]]
+
+        return LIBRARY_TEMPLATE.format(**info)
+
+    def do_list_categories(self, line):
+        for c in self._libraries.categories:
+            print(c)
+
+    def do_show_category(self, line):
+        category_libraries = self._libraries.get_library_info(category=line).sort_values('id')
+
+        for _, info in category_libraries.iterrows():
+            print(LIBRARY_TEMPLATE.format(**info).strip())
 
     def do_run_sketch(self, line):
         if line:
