@@ -35,6 +35,11 @@ Need to add validation to make sure the parameter types are correct. I can add s
 
 is there anything to be gained from using type hinting?
 
+execution
+---------
+
+if I run a sketch in a separate process, can I get around the issue with not being able to reload jnius?
+
 performance
 -----------
 
@@ -42,12 +47,6 @@ Can I batch commands together and get a performance improvement? It is slower to
 
 libraries
 ---------
-
-the py5_tools run_sketch command should have params for libraries and search for the appropriate jars by getting information out of ~/.processing/preferences.txt
-
-Processing library install process with py5_tools
-
-rather than require users to install libraries through the PDE, I can download and install them directly using the same download mechanism. There is a [text file](http://download.processing.org/contribs) with links to all the zip files, which I can open up and pull out the jar files.
 
 camera3D and colorblindness need to call the preDraw and postDraw methods with an Interface in the same way PApplet calls the setup and draw methods.
 
