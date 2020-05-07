@@ -1,5 +1,6 @@
 import cmd
 import argparse
+import glob
 from pathlib import Path
 
 import py5_tools
@@ -38,7 +39,15 @@ class Py5Cmd(cmd.Cmd):
         category_libraries = self._libraries.get_library_info(category=line).sort_values('id')
 
         for _, info in category_libraries.iterrows():
-            print(LIBRARY_TEMPLATE.format(**info).strip())
+            print(LIBRARY_TEMPLATE.format(**info).strip() + '\n')
+
+    def complete_show_category(self, text, line, begidx, endidx):
+        if not text:
+            completions = self._libraries.categories
+        else:
+            completions = [c for c in self._libraries.categories if c.startswith(text)]
+
+        return completions
 
     def do_run_sketch(self, line):
         if line:
@@ -47,11 +56,26 @@ class Py5Cmd(cmd.Cmd):
             except Exception as e:
                 print(e)
 
+    def complete_run_sketch(self, text, line, begidx, endidx):
+        path = line[10:].strip()
+        completions = []
+        for p in glob.glob(path + '*'):
+            completions.append(p[(len(path) - len(text)):] + ('/' if Path(p).is_dir() else ''))
+        return completions
+
     def do_get_library(self, line):
         try:
             self._libraries.download_zip('jars', library_name=line)
         except Exception as e:
             print(e)
+
+    def complete_get_library(self, text, line, begidx, endidx):
+        if not text:
+            completions = self._libraries.names
+        else:
+            completions = [n for n in self._libraries.names if n.startswith(text)]
+
+        return completions
 
     def do_EOF(self, line):
         return True
