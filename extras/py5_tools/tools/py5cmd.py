@@ -52,7 +52,7 @@ class Py5Cmd(cmd.Cmd):
     def do_run_sketch(self, line):
         if line:
             try:
-                py5_tools.run.run_sketch(line)
+                py5_tools.run.run_sketch(line, new_process=True)
             except Exception as e:
                 print(e)
 

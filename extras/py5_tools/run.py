@@ -1,4 +1,5 @@
 import builtins
+from multiprocessing import Process
 from pathlib import Path
 
 import py5_tools
@@ -31,19 +32,27 @@ class Py5Namespace(dict):
                 raise KeyError(f'{item} not found')
 
 
-def run_sketch(sketch_path, classpath=None):
+def run_sketch(sketch_path, classpath=None, new_process=False):
     sketch_path = Path(sketch_path)
     if not sketch_path.exists():
         print(f'file {sketch_path} not found')
         return
 
-    with open(sketch_path, 'r') as f:
-        code = f.read()
+    def _run_sketch(sketch_path, classpath):
+        with open(sketch_path, 'r') as f:
+            code = f.read()
 
-    if classpath:
-        py5_tools.add_classpath(classpath)
-    py5_tools.add_jars(sketch_path.parent / 'jars')
+        if classpath:
+            py5_tools.add_classpath(classpath)
+        py5_tools.add_jars(sketch_path.parent / 'jars')
 
-    import py5
-    py5_ns = Py5Namespace(py5)
-    exec(_CODE_FRAMEWORK.format(code), py5_ns)
+        import py5
+        py5_ns = Py5Namespace(py5)
+        exec(_CODE_FRAMEWORK.format(code), py5_ns)
+
+    if new_process:
+        p = Process(target=_run_sketch, args=(sketch_path, classpath))
+        p.start()
+        return p
+    else:
+        _run_sketch(sketch_path, classpath)

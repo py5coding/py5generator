@@ -37,11 +37,6 @@ Need to add validation to make sure the parameter types are correct. I can add s
 
 is there anything to be gained from using type hinting?
 
-execution
----------
-
-if I run a sketch in a separate process, can I get around the issue with not being able to reload jnius?
-
 performance
 -----------
 
