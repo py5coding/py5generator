@@ -22,6 +22,7 @@ class Py5Cmd(cmd.Cmd):
     def __init__(self):
         super().__init__()
         self._libraries = py5_tools.ProcessingLibraryInfo()
+        self._running_sketches = []
 
     prompt = 'py5: '
     intro = "Welcome to the py5 command tool."
@@ -52,7 +53,8 @@ class Py5Cmd(cmd.Cmd):
     def do_run_sketch(self, line):
         if line:
             try:
-                py5_tools.run.run_sketch(line, new_process=True)
+                p = py5_tools.run.run_sketch(line, new_process=True)
+                self._running_sketches.append(p)
             except Exception as e:
                 print(e)
 
@@ -77,7 +79,14 @@ class Py5Cmd(cmd.Cmd):
 
         return completions
 
+    def emptyline(self):
+        return None
+
     def do_EOF(self, line):
+        for p in self._running_sketches:
+            p.terminate()
+            p.join()
+
         return True
 
 
