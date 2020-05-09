@@ -127,8 +127,10 @@ _py5sketch_used = False
 def reset_py5():
     """ attempt to reset the py5 library so a new sketch can be executed.
 
-    Note there are race conditions between this and `stop_sketch`. If you call
-    this immediately after `stop_sketch` you might experience problems.
+    There are race conditions between this and `stop_sketch`. If you call this
+    immediately after `stop_sketch` you might experience problems. This function
+    is here as a convenience to people who need it and are willing to cope with
+    the race condition issue.
     """
     global _py5sketch
     global _py5sketch_used
