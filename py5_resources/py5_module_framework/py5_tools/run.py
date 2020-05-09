@@ -2,7 +2,7 @@ import builtins
 from multiprocessing import Process
 from pathlib import Path
 
-import py5_tools
+from . import jvm
 
 _CODE_FRAMEWORK = """
 import py5
@@ -43,8 +43,8 @@ def run_sketch(sketch_path, classpath=None, new_process=False):
             code = f.read()
 
         if classpath:
-            py5_tools.add_classpath(classpath)
-        py5_tools.add_jars(sketch_path.parent / 'jars')
+            jvm.add_classpath(classpath)
+        jvm.add_jars(sketch_path.parent / 'jars')
 
         import py5
         py5_ns = Py5Namespace(py5)
@@ -56,3 +56,6 @@ def run_sketch(sketch_path, classpath=None, new_process=False):
         return p
     else:
         _run_sketch(sketch_path, classpath)
+
+
+__all__ = ['run_sketch']

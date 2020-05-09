@@ -79,3 +79,6 @@ class ProcessingLibraryInfo:
                 if len(path.parts) > 2 and path.parts[1] == 'library' and path.suffix == '.jar':
                     jars.append(name)
             zf.extractall(dest, jars)
+
+
+__all__ = ['ProcessingLibraryInfo']
