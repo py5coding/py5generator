@@ -20,8 +20,6 @@ Processing4 integration branch:
 packaging and deployment
 ------------------------
 
-what happened to code completion? it worked before.
-
 get pypi package process working
 
 error messages

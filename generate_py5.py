@@ -44,11 +44,27 @@ CLASS_STATIC_FIELD_TEMPLATE = """
 
 CLASS_STATIC_METHOD_TEMPLATE = """
     @classmethod
-    def {0}(self, *args):
+    def {0}(cls, *args):
         {1}
         return _Py5Applet.{2}(*args)
 """
 
+MODULE_PROPERTY_TEMPLATE = """
+{0} = None
+del {0}
+"""
+
+MODULE_FUNCTION_TEMPLATE = """
+def {0}(*args):
+    {1}
+    return _py5sketch.{0}(*args)
+"""
+
+MODULE_STATIC_FUNCTION_TEMPLATE = """
+def {0}(*args):
+    {1}
+    return Sketch.{0}(*args)
+"""
 
 ###############################################################################
 # REFERENCE AND LOOKUPS
@@ -170,29 +186,29 @@ def generate_py5(repo_dir=None, install_dir=None):
 
     # storage for Py5Applet members and the result of the module's __dir__ function.
     class_members = []
+    module_members = []
     py5_dir = []
 
     # code the static constants
-    py5_constants = []
     for name in sorted(static_fields):
         if name in PCONSTANT_OVERRIDES:
-            py5_constants.append(f'{name} = {shlex.quote(PCONSTANT_OVERRIDES[name])}')
+            module_members.append(f'{name} = {shlex.quote(PCONSTANT_OVERRIDES[name])}\n')
         else:
             val = getattr(Py5Applet, name)
             if isinstance(val, str):
                 val = f"'{val}'"
             if name == 'javaVersion':
                 val = round(val, 2)
-            py5_constants.append(f'{name} = {val}')
+            module_members.append(f'{name} = {val}\n')
             class_members.append(CLASS_STATIC_FIELD_TEMPLATE.format(name, val))
             py5_dir.append(name)
-    py5_constants_code = '\n'.join(py5_constants)
 
     # code the dynamic variables
     py5_dynamic_vars = []
     for name in sorted(fields):
         snake_name = snake_case(name)
         class_members.append(CLASS_PROPERTY_TEMPLATE.format(snake_name, name))
+        module_members.append(MODULE_PROPERTY_TEMPLATE.format(snake_name))
         py5_dynamic_vars.append(snake_name)
         py5_dir.append(snake_name)
 
@@ -201,13 +217,17 @@ def generate_py5(repo_dir=None, install_dir=None):
         snake_name = snake_case(fname)
         docstring = shlex.quote(f'this is the docstring for {snake_name}')
         class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, docstring, fname))
+        module_members.append(MODULE_FUNCTION_TEMPLATE.format(snake_name, docstring))
         py5_dir.append(snake_name)
     for fname in sorted(static_methods):
         snake_name = snake_case(fname)
         docstring = shlex.quote(f'this is the docstring for {snake_name}')
         class_members.append(CLASS_STATIC_METHOD_TEMPLATE.format(snake_name, docstring, fname))
+        module_members.append(MODULE_STATIC_FUNCTION_TEMPLATE.format(snake_name, docstring))
         py5_dir.append(snake_name)
+
     class_members_code = ''.join(class_members)
+    module_members_code = ''.join(module_members)
 
     # code the result of the module's __dir__ function and __all__ variable
     py5_dir.extend(EXTRA_DIR_NAMES)
@@ -218,8 +238,8 @@ def generate_py5(repo_dir=None, install_dir=None):
     # complete the output template
     with open('py5_resources/templates/py5__init__.py', 'r') as f:
         py5_template = f.read()
-    py5_code = py5_template.format(py5_constants_code,
-                                   class_members_code,
+    py5_code = py5_template.format(class_members_code,
+                                   module_members_code,
                                    str_py5_dir,
                                    str_py5_all)
     py5_code = autopep8.fix_code(py5_code, options={'aggressive': 2})

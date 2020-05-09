@@ -35,10 +35,6 @@ _Py5Applet = autoclass('py5.core.Py5Applet',
                        include_protected=False, include_private=False)
 
 
-# *** PY5 GENERATED STATIC CONSTANTS ***
-{0}
-
-
 class Py5Methods(PythonJavaClass):
     __javainterfaces__ = ['py5/core/Py5Methods']
 
@@ -117,11 +113,14 @@ class Sketch:
         return self._py5applet
 
 
-{1}
+{0}
 
 
 _py5sketch = Sketch()
 _py5sketch_used = False
+
+
+{1}
 
 
 def reset_py5():
