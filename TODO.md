@@ -40,19 +40,11 @@ docstrings
 
 add docstrings to all methods, pulling docs from wherever the website documentation comes from.
 
-It seems to have been generated with JavaDocs and this code:
+It seems to have been generated with [JavaDocs and some Python code](https://github.com/processing/processing-docs/tree/master/java_generate).
 
-https://github.com/processing/processing-docs/tree/master/java_generate
+The repo also contains the [xml files](https://github.com/processing/processing-docs/tree/master/content/api_en) referenced in the `PApplet.java` comments. Most have not been updated in a while. Do I want to use this at all? Do these xml files precede the comments in the *.java files or are they the output of `GenerateDescriptions.py`?
 
-These are the xml files referenced in the `PApplet.java` comments. Most have not been updated in a while. Do I want to use this at all? Do these xml files precede the comments in the *.java files or are they the output of `GenerateDescriptions.py`?
-
-https://github.com/processing/processing-docs/tree/master/content/api_en
-
-It would be great if I could feed these through a translator to make this multi-linqual. Then perhaps I could do something like this:
-
-`import py5.es as py5`
-
-And all the docstrings would be in Spanish.
+It would be great if I could feed these through a translator to make this multi-linqual. Then perhaps I could do something like `import py5.es as py5` to make all the docstrings in Spanish.
 
 If I did this, how would I keep everything in sync? I will certainly add new functions, especially in the short term. Those new functions will be in Python so their docstrings will come from another source.
 
@@ -68,7 +60,6 @@ camera3D and colorblindness need to call the preDraw and postDraw methods with a
 
 other
 -----
-
 
 can the python debugger work with this?
 
