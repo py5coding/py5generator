@@ -54,6 +54,8 @@ Can I batch commands together and get a performance improvement? It is slower to
 libraries
 ---------
 
+need to add [Processing's non-core jars](https://processing.org/reference/libraries/) for other libraries like PDF, SVG, Video, Sound.
+
 camera3D and colorblindness need to call the preDraw and postDraw methods with an Interface in the same way PApplet calls the setup and draw methods.
 
 other
