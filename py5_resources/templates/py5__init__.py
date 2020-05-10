@@ -8,6 +8,7 @@ from pathlib import Path
 import logging
 import traceback
 import time
+from typing import Dict, Any, Callable
 
 import py5_tools
 
@@ -82,12 +83,12 @@ class Sketch:
     def __init__(self):
         self._py5applet = _Py5Applet()
 
-    def run_sketch(self, local_dict=None, block=False):
+    def run_sketch(self, block: bool = True) -> None:
+        methods = dict([(e, getattr(self, e)) for e in _METHODS if hasattr(self, e)])
+        self._run_sketch(methods, block)
+
+    def _run_sketch(self, methods: Dict[str, Callable], block: bool) -> None:
         py5_methods = Py5Methods()
-        if local_dict:
-            methods = dict([(e, local_dict[e]) for e in _METHODS if e in local_dict])
-        else:
-            methods = dict([(e, getattr(self, e)) for e in _METHODS if hasattr(self, e)])
         py5_methods.set_functions(**methods)
         py5_methods.set_py5applet(self._py5applet)
 
@@ -105,11 +106,13 @@ class Sketch:
             while not surface.isStopped():
                 time.sleep(0.25)
 
-    def exit_sketch(self):
+    def exit_sketch(self) -> None:
+        """Exit the sketch
+        """
         if self._py5applet.getSurface().isStopped():
             self._py5applet.exit()
 
-    def get_py5applet(self):
+    def get_py5applet(self) -> _Py5Applet:
         return self._py5applet
 
 
@@ -119,11 +122,35 @@ class Sketch:
 _py5sketch = Sketch()
 _py5sketch_used = False
 
-
 {1}
 
 
-def reset_py5():
+def run_sketch(local_dict: Dict[str, Any], block: bool = True) -> None:
+    """run the py5 sketch
+
+    The local_dict needs to a be a dictionary that contains the settings, setup,
+    and draw functions.
+
+    Most likely you want to call it like this:
+    ```
+        py5.run_sketch(locals())
+    ```
+    """
+    methods = dict([(e, local_dict[e]) for e in _METHODS if e in local_dict])
+    _py5sketch._run_sketch(methods, block)
+
+
+def exit_sketch() -> None:
+    """Exit the sketch
+    """
+    _py5sketch.exit_sketch()
+
+
+def get_py5applet() -> _Py5Applet:
+    return _py5sketch.get_py5applet()
+
+
+def reset_py5() -> None:
     """ attempt to reset the py5 library so a new sketch can be executed.
 
     There are race conditions between this and `stop_sketch`. If you call this

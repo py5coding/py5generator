@@ -31,7 +31,7 @@ Need to add validation to make sure the parameter types are correct. I can add s
 
 `javap -classpath /home/jim/Projects/git/processing/core/library/core.jar -public processing.core.PApplet`
 
-is there anything to be gained from using type hinting?
+use type hinting for Processing functions
 
 docstrings
 ----------

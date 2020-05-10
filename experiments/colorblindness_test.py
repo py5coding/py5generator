@@ -5,7 +5,8 @@ import py5_tools
 os.chdir(Path(__file__).parent)
 
 
-py5_tools.add_options('-Xrs', '-Xmx4096m')
+if not py5_tools.py5_started:
+    py5_tools.add_options('-Xrs', '-Xmx4096m')
 import py5  # noqa
 
 
