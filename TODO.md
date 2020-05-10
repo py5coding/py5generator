@@ -31,7 +31,9 @@ Need to add validation to make sure the parameter types are correct. I can add s
 
 `javap -classpath /home/jim/Projects/git/processing/core/library/core.jar -public processing.core.PApplet`
 
-use type hinting for Processing functions
+Or I can use Java reflection to get the information.
+
+use [type hinting](https://docs.python.org/3/library/typing.html) for Processing functions. I can use `@overload` for overloaded functions. [PEP-0484](https://www.python.org/dev/peps/pep-0484/) explains in more detail.
 
 docstrings
 ----------
