@@ -90,7 +90,7 @@ PAPPLET_SKIP_METHODS = {
     # user should use numpy instead
     'min', 'max', 'round', 'map', 'abs', 'pow', 'sqrt', 'ceil', 'floor', 'log',
     'exp', 'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'atan2', 'degrees',
-    'radians', 'sq',
+    'radians', 'sq', 'lerp', 'constrain',
     # public methods that should be skipped
     'runSketch', 'main', 'handleDraw', 'handleSettings', 'usePy5Methods',
     'registerMethod', 'unregisterMethod',

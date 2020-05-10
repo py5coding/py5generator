@@ -35,6 +35,8 @@ Or I can use Java reflection to get the information.
 
 use [type hinting](https://docs.python.org/3/library/typing.html) for Processing functions. I can use `@overload` for overloaded functions. [PEP-0484](https://www.python.org/dev/peps/pep-0484/) explains in more detail.
 
+Can I use *.pyi files (stub files) to help VSCode with code completion? According to [stackoverflow](https://stackoverflow.com/questions/53578365/does-vscode-support-python-pyi-files-for-intellisense), it should. Can that replace the need for what I did to get the code completion to work? How well does this work if Jedi is turned on?
+
 docstrings
 ----------
 

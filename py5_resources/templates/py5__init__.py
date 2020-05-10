@@ -12,6 +12,7 @@ from typing import Dict, Any, Callable
 
 import py5_tools
 
+from .py5math import *  # noqa
 
 if not py5_tools.py5_started:
     current_classpath = py5_tools.get_classpath()
