@@ -121,7 +121,8 @@ EXTRA_DIR_NAMES = {
 
 EXTRA_MODULE_STATIC_FUNCTIONS = {
     'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'atan2', 'degrees', 'radians',
-    'constrain', 'lerp', 'sq'
+    'constrain', 'lerp', 'sq',
+    'pixels_to_numpy', 'numpy_to_pixels'
 }
 
 EXTRA_MODULE_FUNCTIONS = {

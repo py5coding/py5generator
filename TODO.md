@@ -71,14 +71,5 @@ test and document packaging and deployment with pyinstaller
 
 build magic functions for screen grabs and making good documentation
 
-loadPixels => pixels should be a numpy array, not a list. unsigned ints? something to help with colors? perhaps can make utility functions in addition to the standard py5 stuff, to faciliate working with other numpy libraries.
-
-    ```
-    pixels = np.array(py5.pixels, dtype=np.uint32)
-    (pixels & 0x000000FF)
-    (pixels & 0x0000FF00) >> 8
-    (pixels & 0x00FF0000) >> 16
-    ```
-
 bugs
 ----

@@ -8,7 +8,7 @@ from pathlib import Path
 import logging
 import traceback
 import time
-from typing import Dict, Any, Callable
+from typing import Any, Callable, Dict, List
 
 import numpy as np
 
@@ -164,6 +164,39 @@ class Sketch:
     @classmethod
     def sq(cls, n: float) -> float:
         return n * n
+
+    @classmethod
+    def pixels_to_numpy(cls, pixels: List[int], colors: str = 'RGBA') -> np.ndarray:
+        np_pixels = np.array(pixels, dtype=np.uint32)
+        out = np.empty(shape=(np_pixels.size, len(colors)), dtype=np.uint8)
+
+        for i, c in enumerate(list(colors.upper())):
+            if c == 'A':
+                out[:, i] = (np_pixels & 0xFF000000) >> 24
+            elif c == 'R':
+                out[:, i] = (np_pixels & 0x00FF0000) >> 16
+            elif c == 'G':
+                out[:, i] = (np_pixels & 0x0000FF00) >> 8
+            elif c == 'B':
+                out[:, i] = (np_pixels & 0x000000FF)
+
+        return out
+
+    @classmethod
+    def numpy_to_pixels(cls, pixel_array: np.ndarray, colors: str = 'RGBA') -> List[int]:
+        assert len(colors) == pixel_array.shape[-1]
+        pixel_array = pixel_array.astype(np.int32).reshape(
+            pixel_array.size // len(colors), len(colors))
+
+        blue_index = colors.find('B')
+        pixel_array[:, blue_index] |= pixel_array[:, colors.find('R')] << 16
+        pixel_array[:, blue_index] |= pixel_array[:, colors.find('G')] << 8
+        if 'A' in colors:
+            pixel_array[:, blue_index] |= pixel_array[:, colors.find('A')] << 24
+        else:
+            pixel_array[:, blue_index] |= 0xFF000000
+
+        return pixel_array[:, blue_index].tolist()
 
 
 {0}
