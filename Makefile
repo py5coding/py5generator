@@ -1,7 +1,7 @@
 py5_jar_file = py5jar/dist/py5.jar
 py5_java_src = $(shell find py5jar/src/ -name "*.java")
 py5_build_dir = build/py5
-py5_py_src = $(shell find py5_resources/ -name "*.py")
+py5_py_src = $(shell find py5_resources/ -name "*.py*")
 py5_generator = generate_py5.py
 py5_installed = .install_py5.nogit
 all_installed = .install_all.nogit

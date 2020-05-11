@@ -18,7 +18,7 @@ setup(
     packages=['py5'],
     py_modules=['py5_tools', 'setup'],
     package_data={
-        "py5": ["jars/*.jar"]
+        "py5": ['jars/*.jar', 'py.typed']
     },
     description='CPython wrapper for the Java Processing library',
     long_description=readme,
