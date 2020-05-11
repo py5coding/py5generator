@@ -10,9 +10,10 @@ import traceback
 import time
 from typing import Dict, Any, Callable
 
+import numpy as np
+
 import py5_tools
 
-from .py5math import *  # noqa
 
 if not py5_tools.py5_started:
     current_classpath = py5_tools.get_classpath()
@@ -115,6 +116,54 @@ class Sketch:
 
     def get_py5applet(self) -> _Py5Applet:
         return self._py5applet
+
+    @classmethod
+    def sin(cls, angle: float) -> float:
+        return np.sin(angle)
+
+    @classmethod
+    def cos(cls, angle: float) -> float:
+        return np.cos(angle)
+
+    @classmethod
+    def tan(cls, angle: float) -> float:
+        return np.tan(angle)
+
+    @classmethod
+    def asin(cls, value: float) -> float:
+        return np.arcsin(value)
+
+    @classmethod
+    def acos(cls, value: float) -> float:
+        return np.arccos(value)
+
+    @classmethod
+    def atan(cls, value: float) -> float:
+        return np.arctan(value)
+
+    @classmethod
+    def atan2(cls, y: float, x: float) -> float:
+        return np.arctan2(y, x)
+
+    @classmethod
+    def degrees(cls, radians: float) -> float:
+        return np.degrees(radians)
+
+    @classmethod
+    def radians(cls, degrees: float) -> float:
+        return np.radians(degrees)
+
+    @classmethod
+    def constrain(cls, amt: float, low: float, high: float):
+        return np.where(amt < low, low, np.where(amt > high, high, amt))
+
+    @classmethod
+    def lerp(cls, start: float, stop: float, amt: float):
+        return amt * (stop - start) + start
+
+    @classmethod
+    def sq(cls, n: float) -> float:
+        return n * n
 
 
 {0}

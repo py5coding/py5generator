@@ -114,10 +114,17 @@ DEPRECATED = {
     'firstMouse', 'mouseEvent', 'keyEvent', 'MACOSX'
 }
 
-
 EXTRA_DIR_NAMES = {
     'run_sketch', 'get_py5applet', 'reset_py5', 'exit_sketch',
     'autoclass', 'Py5Methods', '_Py5Applet', '_py5sketch', '_py5sketch_used'
+}
+
+EXTRA_MODULE_STATIC_FUNCTIONS = {
+    'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'atan2', 'degrees', 'radians',
+    'constrain', 'lerp', 'sq'
+}
+
+EXTRA_MODULE_FUNCTIONS = {
 }
 
 ###############################################################################
@@ -225,6 +232,16 @@ def generate_py5(repo_dir=None, install_dir=None):
         class_members.append(CLASS_STATIC_METHOD_TEMPLATE.format(snake_name, docstring, fname))
         module_members.append(MODULE_STATIC_FUNCTION_TEMPLATE.format(snake_name, docstring))
         py5_dir.append(snake_name)
+
+    # add the extra Sketch methods to the module
+    for fname in EXTRA_MODULE_STATIC_FUNCTIONS:
+        docstring = shlex.quote(f'this is the docstring for {fname}')
+        module_members.append(MODULE_STATIC_FUNCTION_TEMPLATE.format(fname, docstring))
+        py5_dir.append(fname)
+    for fname in EXTRA_MODULE_FUNCTIONS:
+        docstring = shlex.quote(f'this is the docstring for {fname}')
+        module_members.append(MODULE_FUNCTION_TEMPLATE.format(fname, docstring))
+        py5_dir.append(fname)
 
     class_members_code = ''.join(class_members)
     module_members_code = ''.join(module_members)
