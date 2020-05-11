@@ -33,9 +33,9 @@ CLASS_PROPERTY_TEMPLATE = """
 """
 
 CLASS_METHOD_TEMPLATE = """
-    def {0}(self, *args):
+    def {0}(self, *args, **kwargs):
         {1}
-        return self._py5applet.{2}(*args)
+        return self._py5applet.{2}(*args, **kwargs)
 """
 
 CLASS_STATIC_FIELD_TEMPLATE = """
@@ -44,9 +44,9 @@ CLASS_STATIC_FIELD_TEMPLATE = """
 
 CLASS_STATIC_METHOD_TEMPLATE = """
     @classmethod
-    def {0}(cls, *args):
+    def {0}(cls, *args, **kwargs):
         {1}
-        return _Py5Applet.{2}(*args)
+        return _Py5Applet.{2}(*args, **kwargs)
 """
 
 MODULE_PROPERTY_TEMPLATE = """
@@ -55,15 +55,15 @@ del {0}
 """
 
 MODULE_FUNCTION_TEMPLATE = """
-def {0}(*args):
+def {0}(*args, **kwargs):
     {1}
-    return _py5sketch.{0}(*args)
+    return _py5sketch.{0}(*args, **kwargs)
 """
 
 MODULE_STATIC_FUNCTION_TEMPLATE = """
-def {0}(*args):
+def {0}(*args, **kwargs):
     {1}
-    return Sketch.{0}(*args)
+    return Sketch.{0}(*args, **kwargs)
 """
 
 ###############################################################################
