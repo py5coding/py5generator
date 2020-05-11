@@ -185,6 +185,7 @@ class Sketch:
     @classmethod
     def numpy_to_pixels(cls, pixel_array: np.ndarray, colors: str = 'RGBA') -> List[int]:
         assert len(colors) == pixel_array.shape[-1]
+        colors = colors.upper()
         pixel_array = pixel_array.astype(np.int32).reshape(
             pixel_array.size // len(colors), len(colors))
 
