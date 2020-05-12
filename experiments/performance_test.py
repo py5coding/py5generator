@@ -21,4 +21,4 @@ def draw():
     print(py5.get_frame_rate())
 
 
-py5.run_sketch(locals(), block=True)
+py5.run_sketch(block=True)

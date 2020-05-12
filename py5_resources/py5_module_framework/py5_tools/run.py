@@ -10,7 +10,7 @@ from py5 import *
 
 {0}
 
-py5.run_sketch(local_dict=locals(), block=True)
+py5.run_sketch(block=True)
 """
 
 

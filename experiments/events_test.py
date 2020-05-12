@@ -65,4 +65,4 @@ def mouse_wheel(event):
     print(f'mouse wheel {event.getCount()}')
 
 
-py5.run_sketch(local_dict=locals(), block=False)
+py5.run_sketch(block=False)
