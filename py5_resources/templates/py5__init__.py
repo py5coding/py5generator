@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 import logging
 import traceback
+import inspect
 import time
 from typing import Any, Callable, Dict, List
 
@@ -209,18 +210,27 @@ _py5sketch_used = False
 {1}
 
 
-def run_sketch(local_dict: Dict[str, Any], block: bool = True) -> None:
+def run_sketch(function_dict: Dict[str, Any] = None, block: bool = True) -> None:
     """run the py5 sketch
 
-    The local_dict needs to a be a dictionary that contains the settings, setup,
-    and draw functions.
+    The function_dict needs to a be a dictionary that contains the settings,
+    setup, and draw functions.
 
     Most likely you want to call it like this:
     ```
-        py5.run_sketch(locals())
+        py5.run_sketch(function_dict=locals())
     ```
     """
-    methods = dict([(e, local_dict[e]) for e in _METHODS if e in local_dict])
+    if not function_dict:
+        function_dict = inspect.stack()[1].frame.f_locals
+    methods = dict([(e, function_dict[e]) for e in _METHODS if e in function_dict])
+
+    if not set(methods.keys()) & set(['settings', 'setup', 'draw']):
+        print(("Unable to find settings, setup, or draw functions. "
+               "Your sketch will be a small boring gray square. "
+               "If this isn't what you intended, try this instead:\n"
+               "py5.run_sketch(function_dict=locals())"))
+
     _py5sketch._run_sketch(methods, block)
 
 

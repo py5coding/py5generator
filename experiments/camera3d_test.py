@@ -50,4 +50,4 @@ def draw():
     py5.box(250)
 
 
-py5.run_sketch(local_dict=locals(), block=False)
+py5.run_sketch()

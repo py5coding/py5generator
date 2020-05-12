@@ -45,4 +45,4 @@ def draw():
         print(len(pixels))
 
 
-py5.run_sketch(local_dict=locals())
+py5.run_sketch()
