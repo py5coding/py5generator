@@ -25,44 +25,50 @@ group.add_argument('-p', '--pde', action='store', dest='processing_install_dir',
 # TEMPLATES
 ###############################################################################
 
+DOCSTRING = re.compile(r'(@@@ DOCSTRING (\w+) @@@)')
 
 CLASS_PROPERTY_TEMPLATE = """
     @property
     def {0}(self):
+        \"\"\" @@@ DOCSTRING {0} @@@ \"\"\"
         return self._py5applet.{1}
 """
 
 CLASS_METHOD_TEMPLATE = """
     def {0}(self, *args, **kwargs):
-        {1}
-        return self._py5applet.{2}(*args, **kwargs)
+        \"\"\" @@@ DOCSTRING {0} @@@ \"\"\"
+        return self._py5applet.{1}(*args, **kwargs)
 """
 
 CLASS_STATIC_FIELD_TEMPLATE = """
-    {0} = {1}
+    {0} = {1}  # @@@ DOCSTRING {0} @@@
 """
 
 CLASS_STATIC_METHOD_TEMPLATE = """
     @classmethod
     def {0}(cls, *args, **kwargs):
-        {1}
-        return _Py5Applet.{2}(*args, **kwargs)
+        \"\"\" @@@ DOCSTRING {0} @@@ \"\"\"
+        return _Py5Applet.{1}(*args, **kwargs)
+"""
+
+MODULE_STATIC_FIELD_TEMPLATE = """
+{0} = {1}  # @@@ DOCSTRING {0} @@@
 """
 
 MODULE_PROPERTY_TEMPLATE = """
-{0} = None
+{0} = None  # @@@ DOCSTRING {0} @@@
 del {0}
 """
 
 MODULE_FUNCTION_TEMPLATE = """
 def {0}(*args, **kwargs):
-    {1}
+    \"\"\" @@@ DOCSTRING {0} @@@ \"\"\"
     return _py5sketch.{0}(*args, **kwargs)
 """
 
 MODULE_STATIC_FUNCTION_TEMPLATE = """
 def {0}(*args, **kwargs):
-    {1}
+    \"\"\" @@@ DOCSTRING {0} @@@ \"\"\"
     return Sketch.{0}(*args, **kwargs)
 """
 
@@ -207,7 +213,7 @@ def generate_py5(repo_dir=None, install_dir=None):
                 val = f"'{val}'"
             if name == 'javaVersion':
                 val = round(val, 2)
-            module_members.append(f'{name} = {val}\n')
+            module_members.append(MODULE_STATIC_FIELD_TEMPLATE.format(name, val))
             class_members.append(CLASS_STATIC_FIELD_TEMPLATE.format(name, val))
             py5_dir.append(name)
 
@@ -223,25 +229,21 @@ def generate_py5(repo_dir=None, install_dir=None):
     # code the class and instance methods
     for fname in sorted(methods):
         snake_name = snake_case(fname)
-        docstring = shlex.quote(f'this is the docstring for {snake_name}')
-        class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, docstring, fname))
-        module_members.append(MODULE_FUNCTION_TEMPLATE.format(snake_name, docstring))
+        class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, fname))
+        module_members.append(MODULE_FUNCTION_TEMPLATE.format(snake_name))
         py5_dir.append(snake_name)
     for fname in sorted(static_methods):
         snake_name = snake_case(fname)
-        docstring = shlex.quote(f'this is the docstring for {snake_name}')
-        class_members.append(CLASS_STATIC_METHOD_TEMPLATE.format(snake_name, docstring, fname))
-        module_members.append(MODULE_STATIC_FUNCTION_TEMPLATE.format(snake_name, docstring))
+        class_members.append(CLASS_STATIC_METHOD_TEMPLATE.format(snake_name, fname))
+        module_members.append(MODULE_STATIC_FUNCTION_TEMPLATE.format(snake_name))
         py5_dir.append(snake_name)
 
     # add the extra Sketch methods to the module
     for fname in EXTRA_MODULE_STATIC_FUNCTIONS:
-        docstring = shlex.quote(f'this is the docstring for {fname}')
-        module_members.append(MODULE_STATIC_FUNCTION_TEMPLATE.format(fname, docstring))
+        module_members.append(MODULE_STATIC_FUNCTION_TEMPLATE.format(fname))
         py5_dir.append(fname)
     for fname in EXTRA_MODULE_FUNCTIONS:
-        docstring = shlex.quote(f'this is the docstring for {fname}')
-        module_members.append(MODULE_FUNCTION_TEMPLATE.format(fname, docstring))
+        module_members.append(MODULE_FUNCTION_TEMPLATE.format(fname))
         py5_dir.append(fname)
 
     class_members_code = ''.join(class_members)
@@ -260,6 +262,17 @@ def generate_py5(repo_dir=None, install_dir=None):
                                    module_members_code,
                                    str_py5_dir,
                                    str_py5_all)
+
+    lines = py5_code.split('\n')
+    new_lines = []
+    for line in lines:
+        match = DOCSTRING.findall(line)
+        if match:
+            fname = match[0][1]
+            line = DOCSTRING.sub(f"this is the docstring for {fname}", line)
+        new_lines.append(line)
+    py5_code = '\n'.join(new_lines)
+
     py5_code = autopep8.fix_code(py5_code, options={'aggressive': 2})
 
     # build complete py5 module in destination directory
