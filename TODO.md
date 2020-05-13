@@ -67,6 +67,11 @@ need to add [Processing's non-core jars](https://processing.org/reference/librar
 
 camera3D and colorblindness need to call the preDraw and postDraw methods with an Interface in the same way PApplet calls the setup and draw methods.
 
+Ability to make Python library extensions. Might as well make them installable Python packages. Deployment can be through pypi, just like any other Python package. Here are some ideas:
+
+* py5-AR - build an AR framework that tracks the Processing camera to a surface.
+* py5-slides - presentation framework, read a markdown file and show one slide after another. Support complex animations on each slide.
+
 other
 -----
 
