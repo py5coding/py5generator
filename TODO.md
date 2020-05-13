@@ -22,6 +22,11 @@ packaging and deployment
 
 get pypi package process working
 
+properly include stub files and show that they work. Here are some packages that use them:
+
+* [pyrsistent](https://github.com/tobgu/pyrsistent)
+* [attrs](https://github.com/python-attrs/attrs)
+
 error messages
 --------------
 
