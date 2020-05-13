@@ -2,6 +2,7 @@ import sys
 import re
 import argparse
 import shutil
+from string import Template
 import shlex
 import autopep8
 from pathlib import Path
@@ -22,53 +23,99 @@ group.add_argument('-p', '--pde', action='store', dest='processing_install_dir',
 
 
 ###############################################################################
+# DOCSTRINGS
+###############################################################################
+
+
+DOCSTRING = re.compile(r'(@@@ DOCSTRING (\w+) @@@)')
+DOCSTRING_FILE_HEADER = re.compile(r"^# \w+$", re.UNICODE | re.MULTILINE)
+
+
+class DocstringDict:
+
+    def __init__(self, language, docstrings):
+        super().__init__()
+        self._language = language
+        self._docstrings = docstrings
+
+    def __getitem__(self, fname):
+        try:
+            return self._docstrings[fname]
+        except KeyError:
+            return f'missing {self._language} language docstring for {fname}'
+
+
+class DocstringLibrary:
+
+    def __init__(self):
+        self._load_docstrings()
+
+    def _load_docstrings(self):
+        docstring_dir = Path('py5_resources', 'docstrings')
+        self._docstings = {}
+        for md_file in docstring_dir.glob('*.md'):
+            with open(md_file, 'r') as f:
+                md_contents = f.read()
+            parsed_md = {k[1:].strip(): v.strip()
+                         for k, v in zip(DOCSTRING_FILE_HEADER.findall(md_contents),
+                                         DOCSTRING_FILE_HEADER.split(md_contents)[1:])}
+            self._docstings[md_file.stem] = parsed_md
+
+    @property
+    def languages(self):
+        return list(self._docstings.keys())
+
+    def docstring_dict(self, language):
+        return DocstringDict(language, self._docstings[language])
+
+
+###############################################################################
 # TEMPLATES
 ###############################################################################
 
-DOCSTRING = re.compile(r'(@@@ DOCSTRING (\w+) @@@)')
 
 CLASS_PROPERTY_TEMPLATE = """
     @property
     def {0}(self):
-        \"\"\" @@@ DOCSTRING {0} @@@ \"\"\"
+        \"\"\" ${0} \"\"\"
         return self._py5applet.{1}
 """
 
 CLASS_METHOD_TEMPLATE = """
     def {0}(self, *args, **kwargs):
-        \"\"\" @@@ DOCSTRING {0} @@@ \"\"\"
+        \"\"\" ${0} \"\"\"
         return self._py5applet.{1}(*args, **kwargs)
 """
 
 CLASS_STATIC_FIELD_TEMPLATE = """
-    {0} = {1}  # @@@ DOCSTRING {0} @@@
+    {0} = {1}  # ${0}
 """
 
 CLASS_STATIC_METHOD_TEMPLATE = """
     @classmethod
     def {0}(cls, *args, **kwargs):
-        \"\"\" @@@ DOCSTRING {0} @@@ \"\"\"
+        \"\"\" ${0} \"\"\"
         return _Py5Applet.{1}(*args, **kwargs)
 """
 
 MODULE_STATIC_FIELD_TEMPLATE = """
-{0} = {1}  # @@@ DOCSTRING {0} @@@
+{0} = {1}  # ${0}
 """
 
 MODULE_PROPERTY_TEMPLATE = """
-{0} = None  # @@@ DOCSTRING {0} @@@
+{0} = None  # ${0}
 del {0}
 """
 
 MODULE_FUNCTION_TEMPLATE = """
 def {0}(*args, **kwargs):
-    \"\"\" @@@ DOCSTRING {0} @@@ \"\"\"
+    \"\"\" ${0} \"\"\"
     return _py5sketch.{0}(*args, **kwargs)
 """
 
 MODULE_STATIC_FUNCTION_TEMPLATE = """
 def {0}(*args, **kwargs):
-    \"\"\" @@@ DOCSTRING {0} @@@ \"\"\"
+    \"\"\" ${0} \"\"\"
     return Sketch.{0}(*args, **kwargs)
 """
 
@@ -168,13 +215,14 @@ def generate_py5(repo_dir=None, install_dir=None):
         return
     core_jar_path = core_jars[0]
 
-    py5_jar_path = Path('py5jar/dist/py5.jar')
+    py5_jar_path = Path('py5jar', 'dist', 'py5.jar')
     if not py5_jar_path.exists():
         raise RuntimeError(f'py5 jar not found at {str(py5_jar_path)}')
     import jnius_config
     jnius_config.set_classpath(str(py5_jar_path), str(core_jar_path))
     from jnius import autoclass, JavaStaticMethod, JavaMethod, JavaMultipleMethod, JavaStaticField, JavaField
 
+    print('examining Java classes')
     Py5Applet = autoclass('py5.core.Py5Applet',
                           include_protected=False, include_private=False)
 
@@ -204,6 +252,7 @@ def generate_py5(repo_dir=None, install_dir=None):
     py5_dir = []
 
     # code the static constants
+    print('coding static constants')
     for name in sorted(static_fields):
         if name in PCONSTANT_OVERRIDES:
             module_members.append(f'{name} = {shlex.quote(PCONSTANT_OVERRIDES[name])}\n')
@@ -218,6 +267,7 @@ def generate_py5(repo_dir=None, install_dir=None):
             py5_dir.append(name)
 
     # code the dynamic variables
+    print('coding dynamic variables')
     py5_dynamic_vars = []
     for name in sorted(fields):
         snake_name = snake_case(name)
@@ -227,6 +277,7 @@ def generate_py5(repo_dir=None, install_dir=None):
         py5_dir.append(snake_name)
 
     # code the class and instance methods
+    print('coding class methods')
     for fname in sorted(methods):
         snake_name = snake_case(fname)
         class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, fname))
@@ -239,6 +290,7 @@ def generate_py5(repo_dir=None, install_dir=None):
         py5_dir.append(snake_name)
 
     # add the extra Sketch methods to the module
+    print('coding extra module functions')
     for fname in EXTRA_MODULE_STATIC_FUNCTIONS:
         module_members.append(MODULE_STATIC_FUNCTION_TEMPLATE.format(fname))
         py5_dir.append(fname)
@@ -256,28 +308,15 @@ def generate_py5(repo_dir=None, install_dir=None):
     str_py5_all = str(sorted([x for x in py5_dir if x not in py5_dynamic_vars], key=lambda x: x.lower()))
 
     # complete the output template
-    with open('py5_resources/templates/py5__init__.py', 'r') as f:
+    print('arranging code')
+    with open(Path('py5_resources', 'templates', 'py5__init__.py'), 'r') as f:
         py5_template = f.read()
-    py5_code = py5_template.format(class_members_code,
-                                   module_members_code,
-                                   str_py5_dir,
-                                   str_py5_all)
-
-    lines = py5_code.split('\n')
-    new_lines = []
-    for line in lines:
-        match = DOCSTRING.findall(line)
-        if match:
-            fname = match[0][1]
-            line = DOCSTRING.sub(f"this is the docstring for {fname}", line)
-        new_lines.append(line)
-    py5_code = '\n'.join(new_lines)
-
-    py5_code = autopep8.fix_code(py5_code, options={'aggressive': 2})
+    py5_docstring_template = Template(py5_template.format(
+        class_members_code, module_members_code, str_py5_dir, str_py5_all))
 
     # build complete py5 module in destination directory
     dest_dir = Path('build')
-    print(f'writing py5 in {dest_dir}')
+    print(f'building py5 in {dest_dir}')
     if dest_dir.exists():
         shutil.rmtree(dest_dir)
     shutil.copytree(Path('py5_resources', 'py5_module_framework'),
@@ -285,8 +324,21 @@ def generate_py5(repo_dir=None, install_dir=None):
     for jar in core_jar_path.parent.glob('*.jar'):
         shutil.copy(jar, dest_dir / 'py5' / 'jars')
     shutil.copy(py5_jar_path, dest_dir / 'py5' / 'jars')
-    with open(dest_dir / 'py5' / '__init__.py', 'w') as f:
-        f.write(py5_code + '\n')
+
+    # add the docstrings and write out the different languages
+    docstring_library = DocstringLibrary()
+    for language in docstring_library.languages:
+        print(f'adding docstrings for language {language}')
+        py5_code_w_docs = py5_docstring_template.substitute(docstring_library.docstring_dict(language))
+        print(f'format code for {language}')
+        py5_code_w_docs = autopep8.fix_code(py5_code_w_docs, options={'aggressive': 2})
+
+        print(f'writing {language} file')
+        with open(dest_dir / 'py5' / f'{language}.py', 'w') as f:
+            f.write(py5_code_w_docs + '\n')
+        if language == 'en':
+            with open(dest_dir / 'py5' / '__init__.py', 'w') as f:
+                f.write(py5_code_w_docs + '\n')
 
     print('done!')
 
