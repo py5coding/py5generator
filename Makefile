@@ -4,7 +4,6 @@ py5_build_dir = build/py5
 py5_py_src = $(shell find py5_resources/ -name "*.py*")
 py5_generator = generate_py5.py
 py5_installed = .install_py5.nogit
-all_installed = .install_all.nogit
 
 all: install_py5
 
@@ -25,5 +24,4 @@ $(py5_installed): $(py5_build_dir)
 clean:
 	rm -Rf build/
 	rm $(py5_installed)
-	rm $(all_installed)
 	ant -f py5jar/build.xml clean
