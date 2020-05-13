@@ -2,6 +2,7 @@ import sys
 import re
 import argparse
 import shutil
+import textwrap
 from string import Template
 import shlex
 import autopep8
@@ -33,16 +34,22 @@ DOCSTRING_FILE_HEADER = re.compile(r"^# \w+$", re.UNICODE | re.MULTILINE)
 
 class DocstringDict:
 
+    INDENTING = {'class': 8, 'module': 4}
+
     def __init__(self, language, docstrings):
         super().__init__()
         self._language = language
         self._docstrings = docstrings
 
-    def __getitem__(self, fname):
+    def __getitem__(self, item):
         try:
-            return self._docstrings[fname]
+            kind, name = item.split('_', 1)
+            doc = textwrap.indent(
+                self._docstrings[name],
+                prefix=(' ' * DocstringDict.INDENTING.get(kind, 0))).strip()
+            return doc
         except KeyError:
-            return f'missing {self._language} language docstring for {fname}'
+            return f'missing {self._language} language docstring for {name}'
 
 
 class DocstringLibrary:
@@ -77,45 +84,45 @@ class DocstringLibrary:
 CLASS_PROPERTY_TEMPLATE = """
     @property
     def {0}(self):
-        \"\"\" ${0} \"\"\"
+        \"\"\"$class_{0}\"\"\"
         return self._py5applet.{1}
 """
 
 CLASS_METHOD_TEMPLATE = """
     def {0}(self, *args, **kwargs):
-        \"\"\" ${0} \"\"\"
+        \"\"\"$class_{0}\"\"\"
         return self._py5applet.{1}(*args, **kwargs)
 """
 
 CLASS_STATIC_FIELD_TEMPLATE = """
-    {0} = {1}  # ${0}
+    {0} = {1}  # $field_{0}
 """
 
 CLASS_STATIC_METHOD_TEMPLATE = """
     @classmethod
     def {0}(cls, *args, **kwargs):
-        \"\"\" ${0} \"\"\"
+        \"\"\"$class_{0}\"\"\"
         return _Py5Applet.{1}(*args, **kwargs)
 """
 
 MODULE_STATIC_FIELD_TEMPLATE = """
-{0} = {1}  # ${0}
+{0} = {1}  # $field_{0}
 """
 
 MODULE_PROPERTY_TEMPLATE = """
-{0} = None  # ${0}
+{0} = None  # $field_{0}
 del {0}
 """
 
 MODULE_FUNCTION_TEMPLATE = """
 def {0}(*args, **kwargs):
-    \"\"\" ${0} \"\"\"
+    \"\"\"$module_{0}\"\"\"
     return _py5sketch.{0}(*args, **kwargs)
 """
 
 MODULE_STATIC_FUNCTION_TEMPLATE = """
 def {0}(*args, **kwargs):
-    \"\"\" ${0} \"\"\"
+    \"\"\"$module_{0}\"\"\"
     return Sketch.{0}(*args, **kwargs)
 """
 
