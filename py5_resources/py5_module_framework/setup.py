@@ -15,8 +15,8 @@ with open(Path('py5', '__init__.py')) as f:
 setup(
     name='py5',
     version=VERSION,
-    packages=['py5'],
-    py_modules=['py5_tools', 'setup'],
+    packages=['py5', 'py5_tools'],
+    py_modules=['setup'],
     package_data={
         "py5": ['jars/*.jar', '*.pyi', 'py.typed']
     },
