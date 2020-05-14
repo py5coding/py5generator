@@ -27,6 +27,11 @@ properly include stub files and show that they work. Here are some packages that
 * [pyrsistent](https://github.com/tobgu/pyrsistent)
 * [attrs](https://github.com/python-attrs/attrs)
 
+Windows problems
+
+* tab complete in py5cmd doesn't work, possible problem with readline
+* window doesn't close after hitting ESC
+
 error messages
 --------------
 
