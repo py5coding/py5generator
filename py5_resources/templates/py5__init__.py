@@ -55,14 +55,17 @@ class Py5Methods(PythonJavaClass):
     def get_function_list(self):
         return self._functions.keys()
 
-    def _stop_error(self, msg):
-        exc_type, exc_value, exc_tb = sys.exc_info()
-        tbe = traceback.TracebackException(exc_type, exc_value, exc_tb)
-        tb = list(tbe.format())
-        logger.critical(msg + '\n' + tb[0] + ''.join(tb[2:-1]) + '\n' + tb[-1])
+    def _stop_error(self, msg, include_tb=True):
+        if include_tb:
+            exc_type, exc_value, exc_tb = sys.exc_info()
+            tbe = traceback.TracebackException(exc_type, exc_value, exc_tb)
+            tb = list(tbe.format())
+            msg += '\n' + tb[0] + ''.join(tb[2:-1]) + '\n' + tb[-1]
+        logger.critical(msg)
         # this stops the sketch but does not exit, leaving the window visible.
         # if the screen disappeared it would be harder to debug the error
         # call the `exit_sketch()` method to close and exit the window.
+        # self._py5applet.stop()
         self._py5applet.getSurface().stopThread()
 
     @java_method('(Ljava/lang/String;[Ljava/lang/Object;)V')
@@ -70,9 +73,29 @@ class Py5Methods(PythonJavaClass):
         try:
             if method_name in self._functions:
                 self._functions[method_name](*params)
+        except Py5Exception as py5e:
+            msg = 'exception in ' + method_name + ': ' + str(py5e)
+            self._stop_error(msg, include_tb=False)
         except Exception as e:
             msg = 'exception running ' + method_name + ': ' + str(e)
             self._stop_error(msg)
+
+
+class Py5Exception(Exception):
+
+    def __init__(self, exception_classname, msg, method, args, kwargs):
+        super().__init__()
+        self.exception_classname = exception_classname
+        self.msg = msg
+        self.method = method
+        self.args = args
+        self.kwargs = kwargs
+
+    def __str__(self):
+        return self.exception_classname + ' thrown while calling ' + self.method + ': ' + self.msg
+
+    def __repr__(self):
+        return str(self)
 
 
 _METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',

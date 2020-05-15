@@ -81,6 +81,10 @@ class DocstringLibrary:
 ###############################################################################
 
 
+CLASS_STATIC_FIELD_TEMPLATE = """
+    {0} = {1}  # $field_{0}
+"""
+
 CLASS_PROPERTY_TEMPLATE = """
     @property
     def {0}(self):
@@ -91,18 +95,20 @@ CLASS_PROPERTY_TEMPLATE = """
 CLASS_METHOD_TEMPLATE = """
     def {0}(self, *args, **kwargs):
         \"\"\"$class_{0}\"\"\"
-        return self._py5applet.{1}(*args, **kwargs)
-"""
-
-CLASS_STATIC_FIELD_TEMPLATE = """
-    {0} = {1}  # $field_{0}
+        try:
+            return self._py5applet.{1}(*args, **kwargs)
+        except Exception as e:
+            raise Py5Exception(e.__class__.__name__, str(e), '{0}', args, kwargs)
 """
 
 CLASS_STATIC_METHOD_TEMPLATE = """
     @classmethod
     def {0}(cls, *args, **kwargs):
         \"\"\"$class_{0}\"\"\"
-        return _Py5Applet.{1}(*args, **kwargs)
+        try:
+            return _Py5Applet.{1}(*args, **kwargs)
+        except Exception as e:
+            raise Py5Exception(e.__class__.__name__, str(e), '{0}', args, kwargs)
 """
 
 MODULE_STATIC_FIELD_TEMPLATE = """
@@ -338,7 +344,7 @@ def generate_py5(repo_dir=None, install_dir=None):
 
     # add the docstrings and write out the different languages
     docstring_library = DocstringLibrary()
-    for language in docstring_library.languages:
+    for language in ['en']:  # docstring_library.languages:
         print(f'adding docstrings for language {language}')
         py5_code_w_docs = py5_docstring_template.substitute(docstring_library.docstring_dict(language))
         print(f'format code for {language}')

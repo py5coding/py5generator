@@ -38,11 +38,16 @@ def draw():
     py5.rect(py5.mouse_x, py5.mouse_y, 40, 40)
 
     if py5.frame_count == 100:
-        global pixels
-        py5.load_pixels()
-        pixels.extend(py5.pixels[:])
-        print('copied pixels')
-        print(len(pixels))
+        print('calling exit_sketch')
+        # py5.exit_sketch()
+        py5.fill('garbage input', 4, 5, 32)
+
+    # if py5.frame_count == 100:
+    #     global pixels
+    #     py5.load_pixels()
+    #     pixels.extend(py5.pixels[:])
+    #     print('copied pixels')
+    #     print(len(pixels))
 
 
 py5.run_sketch()
