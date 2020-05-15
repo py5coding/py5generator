@@ -44,6 +44,8 @@ Need to add validation to make sure the parameter types are correct. I can add s
 
 Or I can use Java reflection to get the information.
 
+I need the same error handling on those numpy wrapper functions I made. A good approach might be to move them from the Sketch class to a new `Extras` class, then parameterize the method templates so they can call something `Extras` instead of `_Py5Applet`.
+
 use [type hinting](https://docs.python.org/3/library/typing.html) for Processing functions. I can use `@overload` for overloaded functions. [PEP-0484](https://www.python.org/dev/peps/pep-0484/) explains in more detail.
 
 Can I use *.pyi files (stub files) to help VSCode with code completion? According to [stackoverflow](https://stackoverflow.com/questions/53578365/does-vscode-support-python-pyi-files-for-intellisense), it should. Can that replace the need for what I did to get the code completion to work? How well does this work if Jedi is turned on?
@@ -65,6 +67,11 @@ performance
 -----------
 
 Can I batch commands together and get a performance improvement? It is slower to go back and forth between Python and Java. The py5 methods can have a second "mode" that collects all the commands together and executes them all at once at the end? Should there be a flush command to manually force everything through? Perhaps I can use a context manager for a performance improvement of one part of the code.
+
+PDE mode
+--------
+
+[Build a PDE mode](https://github.com/processing/processing/wiki/Mode-Overview)
 
 libraries
 ---------
