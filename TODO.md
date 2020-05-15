@@ -90,3 +90,7 @@ build magic functions for screen grabs and making good documentation
 
 bugs
 ----
+
+what is exit_called?
+
+when an error is thrown I can call run_sketch again to continue the sketch. neat trick, but it opens a new window, which perhaps it should not do.
