@@ -12,7 +12,7 @@ parser.add_argument('-c', '--classpath', action='store', dest='classpath',
 
 def main():
     args = parser.parse_args()
-    run.run_sketch(args.sketch_path, args.classpath)
+    run.run_sketch(args.sketch_path, classpath=args.classpath)
 
 
 if __name__ == '__main__':
