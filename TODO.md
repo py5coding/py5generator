@@ -76,7 +76,8 @@ camera3D and colorblindness need to call the preDraw and postDraw methods with a
 Ability to make Python library extensions. Might as well make them installable Python packages. Deployment can be through pypi, just like any other Python package. Here are some ideas:
 
 * py5-AR - build an AR framework that tracks the Processing camera to a surface.
-* py5-slides - presentation framework, read a markdown file and show one slide after another. Support complex animations on each slide.
+* py5-slides - presentation framework, read a markdown file and show one slide after another. Support complex animations on each slide, including embedded sketches.
+* py5-vj - can I do live coding for a VJ event? I can get inputs from a music stream for the beats, notes, etc. It is possible to replace the `draw()` method at will.
 
 other
 -----
