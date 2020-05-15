@@ -112,7 +112,7 @@ class Sketch:
     def exit_sketch(self) -> None:
         """Exit the sketch
         """
-        if self._py5applet.getSurface().isStopped():
+        if not self._py5applet.getSurface().isStopped():
             self._py5applet.exit()
 
     def get_py5applet(self) -> _Py5Applet:
