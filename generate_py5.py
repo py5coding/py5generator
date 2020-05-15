@@ -192,6 +192,7 @@ EXTRA_MODULE_STATIC_FUNCTIONS = {
 }
 
 EXTRA_MODULE_FUNCTIONS = {
+    'exit_sketch', 'get_py5applet', 'hot_reload_draw'
 }
 
 ###############################################################################

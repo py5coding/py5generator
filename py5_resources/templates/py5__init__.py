@@ -141,6 +141,9 @@ class Sketch:
     def get_py5applet(self) -> _Py5Applet:
         return self._py5applet
 
+    def hot_reload_draw(self, draw):
+        self._py5_methods.set_functions(**dict(draw=draw))
+
     @classmethod
     def sin(cls, angle: float) -> float:
         return np.sin(angle)
@@ -255,16 +258,6 @@ def run_sketch(function_dict: Dict[str, Any] = None, block: bool = True) -> None
                "py5.run_sketch(function_dict=locals())"))
 
     _py5sketch._run_sketch(methods, block)
-
-
-def exit_sketch() -> None:
-    """Exit the sketch
-    """
-    _py5sketch.exit_sketch()
-
-
-def get_py5applet() -> _Py5Applet:
-    return _py5sketch.get_py5applet()
 
 
 def reset_py5() -> None:

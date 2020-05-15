@@ -23,13 +23,13 @@ class Test(Sketch):
         self.fill(self.random(255), self.random(255), self.random(255), 50.0)
         self.rect(self.mouse_x, self.mouse_y, 40, 40)
 
-    def mouse_entered(self):
-        start_frame_count = self.frame_count
-        for i in range(5000000):
-            self.foo += i * i * 17
-        end_frame_count = self.frame_count
-        print('frameCount diff = ', (end_frame_count - start_frame_count))
-        print('frameRate', self.get_frame_rate())
+    # def mouse_entered(self):
+    #     start_frame_count = self.frame_count
+    #     for i in range(5000000):
+    #         self.foo += i * i * 17
+    #     end_frame_count = self.frame_count
+    #     print('frameCount diff = ', (end_frame_count - start_frame_count))
+    #     print('frameRate', self.get_frame_rate())
 
 
 test = Test()
