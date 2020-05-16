@@ -38,6 +38,10 @@ error messages
 
 Stack traces are a combination of Java and Python, which will be scary for beginners. Can I optionally hide the Java part? Can I improve the JavaException errors?
 
+I should consider using `sys.excepthook` to catch all exceptions and print better methods. IPython does this in `IPython/core/interactiveshell.py` with a `CrashHandler`? I should also learn from the [cgitb](https://pymotw.com/3/cgitb/index.html) module. Also, the [traceback](https://docs.python.org/3.7/library/traceback.html) module and the [sys](https://pymotw.com/3/sys/exceptions.html) module.
+
+Can I protect against segmentation faults with s[ys.unraisablehook](https://docs.python.org/3/library/sys.html#sys.unraisablehook)?
+
 Need to add validation to make sure the parameter types are correct. I can add some type checking and helpful error messages to better support beginners. I can get the types from javap:
 
 `javap -classpath /home/jim/Projects/git/processing/core/library/core.jar -public processing.core.PApplet`
@@ -97,7 +101,5 @@ build magic functions for screen grabs and making good documentation
 
 bugs
 ----
-
-what is exit_called?
 
 when an error is thrown I can call run_sketch again to continue the sketch. neat trick, but it opens a new window, which perhaps it should not do.

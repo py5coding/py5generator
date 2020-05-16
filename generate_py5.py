@@ -98,7 +98,8 @@ CLASS_METHOD_TEMPLATE = """
         try:
             return self._py5applet.{1}(*args, **kwargs)
         except Exception as e:
-            raise Py5Exception(e.__class__.__name__, str(e), '{0}', args, kwargs)
+            stack = inspect.stack()[2:-1][::-1]
+            raise Py5Exception(e.__class__.__name__, str(e), '{0}', stack, args, kwargs)
 """
 
 CLASS_STATIC_METHOD_TEMPLATE = """
@@ -108,7 +109,8 @@ CLASS_STATIC_METHOD_TEMPLATE = """
         try:
             return _Py5Applet.{1}(*args, **kwargs)
         except Exception as e:
-            raise Py5Exception(e.__class__.__name__, str(e), '{0}', args, kwargs)
+            stack = inspect.stack()[2:-1][::-1]
+            raise Py5Exception(e.__class__.__name__, str(e), '{0}', stack, args, kwargs)
 """
 
 MODULE_STATIC_FIELD_TEMPLATE = """

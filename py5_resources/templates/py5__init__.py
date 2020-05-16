@@ -55,12 +55,7 @@ class Py5Methods(PythonJavaClass):
     def get_function_list(self):
         return self._functions.keys()
 
-    def _stop_error(self, msg, include_tb=True):
-        if include_tb:
-            exc_type, exc_value, exc_tb = sys.exc_info()
-            tbe = traceback.TracebackException(exc_type, exc_value, exc_tb)
-            tb = list(tbe.format())
-            msg += '\n' + tb[0] + ''.join(tb[2:-1]) + '\n' + tb[-1]
+    def _stop_error(self, msg):
         logger.critical(msg)
         # this stops the sketch but does not exit, leaving the window visible.
         # if the screen disappeared it would be harder to debug the error
@@ -74,22 +69,37 @@ class Py5Methods(PythonJavaClass):
             if method_name in self._functions:
                 self._functions[method_name](*params)
         except Py5Exception as py5e:
-            msg = 'exception in ' + method_name + ': ' + str(py5e)
-            self._stop_error(msg, include_tb=False)
+            msg = (py5e.format_stack_trace() + '\n\nexception in '
+                   + method_name + ': ' + str(py5e))
+            self._stop_error(msg)
         except Exception as e:
             msg = 'exception running ' + method_name + ': ' + str(e)
+            exc_type, exc_value, exc_tb = sys.exc_info()
+            tbe = traceback.TracebackException(exc_type, exc_value, exc_tb)
+            tb = list(tbe.format())
+            msg += '\n' + tb[0] + ''.join(tb[2:-1]) + '\n' + tb[-1]
             self._stop_error(msg)
 
 
 class Py5Exception(Exception):
 
-    def __init__(self, exception_classname, msg, method, args, kwargs):
+    def __init__(self, exception_classname, msg, method, stack, args, kwargs):
         super().__init__()
         self.exception_classname = exception_classname
         self.msg = msg
         self.method = method
+        self.stack = stack
         self.args = args
         self.kwargs = kwargs
+
+    def format_stack_trace(self):
+        out = '\n' + ('-' * 75) + '\n' + self.exception_classname + '\n'
+        for s in self.stack:
+            out += s.filename + ' in ' + s.function + '\n'
+            out += (' ' * 6) + str(s.lineno) + (' ' * 5) + s.code_context[s.index]
+        return out
+
+        return out
 
     def __str__(self):
         return self.exception_classname + ' thrown while calling ' + self.method + ': ' + self.msg

@@ -37,7 +37,8 @@ def draw():
     py5.fill(py5.random(255), py5.random(255), py5.random(255), 50.0)
     py5.rect(py5.mouse_x, py5.mouse_y, 40, 40)
 
-    # if py5.frame_count == 100:
+    if py5.frame_count == 100:
+        cause_error()
     #     print('calling exit_sketch')
     #     # py5.exit_sketch()
     #     py5.fill('garbage input', 4, 5, 32)
@@ -48,6 +49,10 @@ def draw():
     #     pixels.extend(py5.pixels[:])
     #     print('copied pixels')
     #     print(len(pixels))
+
+
+def cause_error():
+    py5.fill('garbage input', 4, 5, 32)
 
 
 py5.run_sketch(block=False)
