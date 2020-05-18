@@ -38,7 +38,11 @@ error messages
 
 Stack traces are a combination of Java and Python, which will be scary for beginners. Can I optionally hide the Java part? Can I improve the JavaException errors?
 
-I should consider using `sys.excepthook` to catch all exceptions and print better methods. IPython does this in `IPython/core/interactiveshell.py` with a `CrashHandler`? I should also learn from the [cgitb](https://pymotw.com/3/cgitb/index.html) module. Also, the [traceback](https://docs.python.org/3.7/library/traceback.html) module and the [sys](https://pymotw.com/3/sys/exceptions.html) module.
+Optionally show full scary stack trace.
+
+I should consider using `sys.excepthook` to catch all exceptions and print better methods. IPython does this in `IPython/core/interactiveshell.py` with a [`CrashHandler`](https://github.com/ipython/ipython/blob/master/IPython/core/crashhandler.py)? I should also learn from the [cgitb](https://pymotw.com/3/cgitb/index.html) module. Also, the [traceback](https://docs.python.org/3.7/library/traceback.html) module and the [sys](https://pymotw.com/3/sys/exceptions.html) module.
+
+I need to manually set `sys.last_type`, `sys.last_value`, `sys.last_traceback`
 
 Can I protect against segmentation faults with s[ys.unraisablehook](https://docs.python.org/3/library/sys.html#sys.unraisablehook)?
 
