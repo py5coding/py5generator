@@ -36,13 +36,11 @@ Windows problems
 error messages
 --------------
 
-Stack traces are a combination of Java and Python, which will be scary for beginners. Can I optionally hide the Java part? Can I improve the JavaException errors?
+Stack traces are a combination of Java and Python, which will be scary for beginners. Instead of `JavaException` errors I should have custom `Py5Exception`s with more helpful messages. Based on the exception type I can display helpful information for what to do.
 
-Optionally show full scary stack trace.
+I can use [ultratb](https://github.com/ipython/ipython/blob/master/IPython/core/ultratb.py) or [stackprinter](https://github.com/cknd/stackprinter) for exceptions. Also, the [traceback](https://docs.python.org/3.7/library/traceback.html) module and the [sys](https://pymotw.com/3/sys/exceptions.html) module are helpful.
 
-I should consider using `sys.excepthook` to catch all exceptions and print better methods. IPython does this in `IPython/core/interactiveshell.py` with a [`CrashHandler`](https://github.com/ipython/ipython/blob/master/IPython/core/crashhandler.py)? I should also learn from the [cgitb](https://pymotw.com/3/cgitb/index.html) module. Also, the [traceback](https://docs.python.org/3.7/library/traceback.html) module and the [sys](https://pymotw.com/3/sys/exceptions.html) module.
-
-I need to manually set `sys.last_type`, `sys.last_value`, `sys.last_traceback`
+The stacktraces don't always show the code, such as when I use the `run_sketch` command. I need to understand `linecache` and insert the code to the cache.
 
 Can I protect against segmentation faults with s[ys.unraisablehook](https://docs.python.org/3/library/sys.html#sys.unraisablehook)?
 
@@ -96,8 +94,6 @@ Ability to make Python library extensions. Might as well make them installable P
 
 other
 -----
-
-can the python debugger work with this?
 
 test and document packaging and deployment with pyinstaller
 

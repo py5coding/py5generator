@@ -8,6 +8,7 @@ from pathlib import Path
 import logging
 import traceback
 import inspect
+import stackprinter
 import time
 from typing import Any, Callable, Dict, List
 
@@ -35,6 +36,21 @@ __version__ = '0.1'
 
 logger = logging.getLogger(__name__)
 
+_prune_tracebacks = True
+
+try:
+    from IPython.core import ultratb
+    _tbhandler = ultratb.VerboseTB(color_scheme='NoColor', tb_offset=1)
+except Exception:
+    def _tbhandler(exc_type, exc_value, exc_tb):
+        tbe = traceback.TracebackException(exc_type, exc_value, exc_tb)
+        # method_name = 'draw'
+        # msg = 'exception running ' + method_name + ': ' + str(exc_value)
+        tb = list(tbe.format())
+        msg = '\n' + tb[0] + ''.join(tb[2:-1]) + '\n' + tb[-1]
+        print(msg)
+
+
 _Py5Applet = autoclass('py5.core.Py5Applet',
                        include_protected=False, include_private=False)
 
@@ -55,30 +71,28 @@ class Py5Methods(PythonJavaClass):
     def get_function_list(self):
         return self._functions.keys()
 
-    def _stop_error(self, msg):
-        logger.critical(msg)
-        # this stops the sketch but does not exit, leaving the window visible.
-        # if the screen disappeared it would be harder to debug the error
-        # call the `exit_sketch()` method to close and exit the window.
-        # self._py5applet.stop()
-        self._py5applet.getSurface().stopThread()
-
     @java_method('(Ljava/lang/String;[Ljava/lang/Object;)V')
     def run_method(self, method_name, params):
         try:
             if method_name in self._functions:
                 self._functions[method_name](*params)
-        except Py5Exception as py5e:
-            msg = (py5e.format_stack_trace() + '\n\nexception in '
-                   + method_name + ': ' + str(py5e))
-            self._stop_error(msg)
-        except Exception as e:
-            msg = 'exception running ' + method_name + ': ' + str(e)
+        except Exception:
             exc_type, exc_value, exc_tb = sys.exc_info()
-            tbe = traceback.TracebackException(exc_type, exc_value, exc_tb)
-            tb = list(tbe.format())
-            msg += '\n' + tb[0] + ''.join(tb[2:-1]) + '\n' + tb[-1]
-            self._stop_error(msg)
+
+            if _prune_tracebacks:
+                prev_tb = exc_tb
+                start_tb = exc_tb.tb_next
+                tb = start_tb
+                while hasattr(tb, 'tb_next') and hasattr(tb, 'tb_frame') and tb.tb_frame.f_code.co_filename != __file__:
+                    prev_tb = tb
+                    tb = tb.tb_next
+                prev_tb.tb_next = None
+
+            stackprinter.show(thing=(exc_type, exc_value, exc_tb.tb_next), show_vals='line')
+            # _tbhandler(exc_type, exc_value, exc_tb)
+
+            sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
+            self._py5applet.getSurface().stopThread()
 
 
 class Py5Exception(Exception):
@@ -296,3 +310,16 @@ def __dir__():
 
 
 __all__ = {3}
+
+
+class Py5ExceptHook:
+
+    def __init__(self, except_hook):
+        self._except_hook = except_hook
+
+    def __call__(self, type_, value, traceback):
+        print('****** Exception thrown:' + type_ + ' ********')
+        self._except_hook(type_, value, traceback)
+
+
+sys.excepthook = Py5ExceptHook(sys.excepthook)

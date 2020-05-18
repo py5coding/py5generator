@@ -38,7 +38,9 @@ def draw():
     py5.rect(py5.mouse_x, py5.mouse_y, 40, 40)
 
     if py5.frame_count == 100:
-        cause_error()
+        # print(10 / 0)
+        cause_error('garbage')
+
     #     print('calling exit_sketch')
     #     # py5.exit_sketch()
     #     py5.fill('garbage input', 4, 5, 32)
@@ -51,8 +53,9 @@ def draw():
     #     print(len(pixels))
 
 
-def cause_error():
-    py5.fill('garbage input', 4, 5, 32)
+def cause_error(junk):
+    # print(10 / 0)
+    py5.fill(junk, 4, 5, 32)
 
 
-py5.run_sketch(block=False)
+py5.run_sketch(block=True)
