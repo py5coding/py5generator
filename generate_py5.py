@@ -95,30 +95,22 @@ CLASS_PROPERTY_TEMPLATE = """
 CLASS_METHOD_TEMPLATE = """
     def {0}(self, *args, **kwargs):
         \"\"\"$class_{0}\"\"\"
-        # try:
-        #     exception = None
-        return self._py5applet.{1}(*args, **kwargs)
-        # except Exception as e:
-        #     exception = e
-
-        # if exception:
-        #     stack = inspect.stack()[2:-1][::-1]
-        #     raise Py5Exception(exception.__class__.__name__, str(exception), '{0}', stack, args, kwargs)
+        try:
+            return self._py5applet.{1}(*args, **kwargs)
+        except Exception as e:
+            stack = inspect.stack()[2:-1][::-1]
+            raise Py5Exception(e.__class__.__name__, str(e), '{0}', stack, args, kwargs)
 """
 
 CLASS_STATIC_METHOD_TEMPLATE = """
     @classmethod
     def {0}(cls, *args, **kwargs):
         \"\"\"$class_{0}\"\"\"
-        # try:
-        #     exception = None
-        return _Py5Applet.{1}(*args, **kwargs)
-        # except Exception as e:
-        #     exception = e
-
-        # if exception:
-        #     stack = inspect.stack()[2:-1][::-1]
-        #     raise Py5Exception(e.__class__.__name__, str(exception), '{0}', stack, args, kwargs)
+        try:
+            return _Py5Applet.{1}(*args, **kwargs)
+        except Exception as e:
+            stack = inspect.stack()[2:-1][::-1]
+            raise Py5Exception(e.__class__.__name__, str(e), '{0}', stack, args, kwargs)
 """
 
 MODULE_STATIC_FIELD_TEMPLATE = """

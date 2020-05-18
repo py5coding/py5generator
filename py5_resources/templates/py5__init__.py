@@ -88,6 +88,7 @@ class Py5Methods(PythonJavaClass):
                     tb = tb.tb_next
                 prev_tb.tb_next = None
 
+            exc_value.__suppress_context__ = True
             stackprinter.show(thing=(exc_type, exc_value, exc_tb.tb_next), show_vals='line')
             # _tbhandler(exc_type, exc_value, exc_tb)
 
