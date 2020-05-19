@@ -1,8 +1,4 @@
-import os
-from pathlib import Path
 import py5_tools
-
-os.chdir(Path(__file__).parent)
 
 
 if not py5_tools.py5_started:
@@ -10,25 +6,17 @@ if not py5_tools.py5_started:
 import py5  # noqa
 
 
-ColorBlindness = py5.autoclass('colorblind.ColorBlindness')
-colorBlindness = None
-
 pixels = []
 
 
 def settings():
     py5.size(500, 500, py5.P2D)
-    # py5.full_screen(py5.P2D)
 
 
 def setup():
     py5.background(255)
     py5.rect_mode(py5.CENTER)
     py5.frame_rate(30)
-
-    global colorBlindness
-    colorBlindness = ColorBlindness(py5.get_py5applet())
-    colorBlindness.simulateProtanopia()
 
 
 def draw():
