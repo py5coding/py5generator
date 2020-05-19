@@ -42,8 +42,6 @@ I can use [ultratb](https://github.com/ipython/ipython/blob/master/IPython/core/
 
 The stacktraces don't always show the code, such as when I use the `run_sketch` command. I need to understand `linecache` and insert the code to the cache.
 
-Can I protect against segmentation faults with s[ys.unraisablehook](https://docs.python.org/3/library/sys.html#sys.unraisablehook)?
-
 Need to add validation to make sure the parameter types are correct. I can add some type checking and helpful error messages to better support beginners. I can get the types from javap:
 
 `javap -classpath /home/jim/Projects/git/processing/core/library/core.jar -public processing.core.PApplet`
