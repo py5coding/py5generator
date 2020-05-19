@@ -54,8 +54,11 @@ def draw():
 
 
 def cause_error(junk):
-    # print(10 / 0)
+    # try:
     py5.fill(junk, 4, 5, 32)
+    # except Exception:
+    #     print(10 / 0)
+        # x = y + 10
 
 
 py5.run_sketch(block=True)

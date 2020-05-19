@@ -29,7 +29,7 @@ if not py5_tools.py5_started:
     py5_tools.add_classpath(*[p for p in current_classpath
                               if p not in py5_tools.get_classpath()])
     py5_tools.py5_started = True
-from jnius import autoclass, PythonJavaClass, java_method  # noqa
+from jnius import autoclass, PythonJavaClass, java_method, JavaException  # noqa
 
 
 __version__ = '0.1'
@@ -40,7 +40,7 @@ _prune_tracebacks = True
 
 try:
     from IPython.core import ultratb
-    _tbhandler = ultratb.VerboseTB(color_scheme='NoColor', tb_offset=1)
+    _tbhandler = ultratb.VerboseTB(color_scheme='NoColor', tb_offset=1, suppressed_paths=[r".*?lib/python.*?/site-packages/numpy", r".*?lib/python.*?/site-packages/py5/"])
 except Exception:
     def _tbhandler(exc_type, exc_value, exc_tb):
         tbe = traceback.TracebackException(exc_type, exc_value, exc_tb)
@@ -80,16 +80,35 @@ class Py5Methods(PythonJavaClass):
             exc_type, exc_value, exc_tb = sys.exc_info()
 
             if _prune_tracebacks:
-                prev_tb = exc_tb
-                start_tb = exc_tb.tb_next
-                tb = start_tb
-                while hasattr(tb, 'tb_next') and hasattr(tb, 'tb_frame') and tb.tb_frame.f_code.co_filename != __file__:
-                    prev_tb = tb
-                    tb = tb.tb_next
-                prev_tb.tb_next = None
+                def _prune_traceback(exc_tb):
+                    # remove py5 traceback frames at the top and bottom of the stack
+                    prev_tb = exc_tb
+                    start_tb = exc_tb.tb_next
+                    tb = start_tb
+                    while hasattr(tb, 'tb_next') and hasattr(tb, 'tb_frame') and tb.tb_frame.f_code.co_filename != __file__:
+                        prev_tb = tb
+                        tb = tb.tb_next
+                    prev_tb.tb_next = None
+                    return exc_tb
 
-            exc_value.__suppress_context__ = True
-            stackprinter.show(thing=(exc_type, exc_value, exc_tb.tb_next), show_vals='line')
+                exc_tb = _prune_traceback(exc_tb)
+                prev_exc = exc_value
+                next_exc = exc_value.__context__
+                while next_exc:
+                    while isinstance(prev_exc, Py5Exception) and isinstance(next_exc, JavaException):
+                        prev_exc.__context__ = next_exc.__context__
+                        next_exc = next_exc.__context__
+                    if not next_exc:
+                        break
+                    next_exc.__traceback__ = _prune_traceback(next_exc.__traceback__)
+                    prev_exc = next_exc
+                    next_exc = next_exc.__context__
+
+            stackprinter.show(thing=(exc_type, exc_value, exc_tb.tb_next),
+                              show_vals='line',
+                              suppressed_paths=[r"lib/python.*?/site-packages/numpy/",
+                                                r"lib/python.*?/site-packages/py5/",
+                                                r"lib/python.*?/site-packages/jnius/"])
             # _tbhandler(exc_type, exc_value, exc_tb)
 
             sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
@@ -311,16 +330,3 @@ def __dir__():
 
 
 __all__ = {3}
-
-
-class Py5ExceptHook:
-
-    def __init__(self, except_hook):
-        self._except_hook = except_hook
-
-    def __call__(self, type_, value, traceback):
-        print('****** Exception thrown:' + type_ + ' ********')
-        self._except_hook(type_, value, traceback)
-
-
-sys.excepthook = Py5ExceptHook(sys.excepthook)
