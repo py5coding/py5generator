@@ -36,11 +36,9 @@ Windows problems
 error messages
 --------------
 
-Stack traces are a combination of Java and Python, which will be scary for beginners. Instead of `JavaException` errors I should have custom `Py5Exception`s with more helpful messages. Based on the exception type I can display helpful information for what to do.
+Add helpful messages for when the function parameter types are not correct or other `JavaException` / `Py5Exception` problems. For any exception, add a helpful explanation for what that error is and how to proceed with the debugging.
 
-I can use [ultratb](https://github.com/ipython/ipython/blob/master/IPython/core/ultratb.py) or [stackprinter](https://github.com/cknd/stackprinter) for exceptions. Also, the [traceback](https://docs.python.org/3.7/library/traceback.html) module and the [sys](https://pymotw.com/3/sys/exceptions.html) module are helpful.
-
-Need to add validation to make sure the parameter types are correct. I can add some type checking and helpful error messages to better support beginners. I can get the types from javap:
+Each function can get its parameter types from here:
 
 `javap -classpath /home/jim/Projects/git/processing/core/library/core.jar -public processing.core.PApplet`
 
@@ -73,12 +71,14 @@ Can I batch commands together and get a performance improvement? It is slower to
 PDE mode
 --------
 
-[Build a PDE mode](https://github.com/processing/processing/wiki/Mode-Overview)
+[Build a PDE mode](https://github.com/processing/processing/wiki/Mode-Overview)?
 
 libraries
 ---------
 
 need to add [Processing's non-core jars](https://processing.org/reference/libraries/) for other libraries like PDF, SVG, Video, Sound.
+
+Should all Java Processing libraries be wrapped in a Python package? Should I bundle multiple libraries together?
 
 camera3D and colorblindness need to call the preDraw and postDraw methods with an Interface in the same way PApplet calls the setup and draw methods.
 
