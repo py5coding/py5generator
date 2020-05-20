@@ -7,7 +7,7 @@ INFO
 Building py5:
 
 $ make clean
-$ make processing_dir=../sam_processing4 py5_dir=../py5build
+$ make processing_dir=../sam_processing4
 
 The Processing jars need to exist and be built. If I am using Processing3 I need to compile with java 1.8. I can use it with a command like this:
 
