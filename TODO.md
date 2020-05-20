@@ -40,8 +40,6 @@ Stack traces are a combination of Java and Python, which will be scary for begin
 
 I can use [ultratb](https://github.com/ipython/ipython/blob/master/IPython/core/ultratb.py) or [stackprinter](https://github.com/cknd/stackprinter) for exceptions. Also, the [traceback](https://docs.python.org/3.7/library/traceback.html) module and the [sys](https://pymotw.com/3/sys/exceptions.html) module are helpful.
 
-The stacktraces don't show the code when I use the `run_sketch` command. I need to understand `linecache` and insert the code to the cache.
-
 Need to add validation to make sure the parameter types are correct. I can add some type checking and helpful error messages to better support beginners. I can get the types from javap:
 
 `javap -classpath /home/jim/Projects/git/processing/core/library/core.jar -public processing.core.PApplet`

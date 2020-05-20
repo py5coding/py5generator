@@ -1,4 +1,5 @@
 # flake8: noqa
+import test_import as ti
 
 
 def settings():
@@ -16,8 +17,8 @@ def draw():
     fill(random(255), random(255), random(255), 50.0)
     rect(mouse_x, mouse_y, 40, 40)
 
-    if frame_count == 100:
-        cause_error()
+    if frame_count == 300:
+        cause_error(ti.test_function(10, 30))
 
 
 def mouse_entered():
@@ -28,5 +29,5 @@ def mouse_exited():
     print('mouse exited')
 
 
-def cause_error():
-    print(10 / 0)
+def cause_error(x):
+    print(x / 0)

@@ -1,14 +1,18 @@
+import sys
+import os
 import builtins
 from multiprocessing import Process
 from pathlib import Path
 
 from . import jvm
 
+
 _CODE_FRAMEWORK = """
 import py5
 from py5 import *
 
-{0}
+with open('{0}', 'r') as f:
+    eval(compile(f.read(), '{0}', 'exec'))
 
 py5.run_sketch(block=True)
 """
@@ -39,16 +43,14 @@ def run_sketch(sketch_path, classpath=None, new_process=False):
         return
 
     def _run_sketch(sketch_path, classpath):
-        with open(sketch_path, 'r') as f:
-            code = f.read()
-
         if classpath:
             jvm.add_classpath(classpath)
         jvm.add_jars(sketch_path.parent / 'jars')
 
         import py5
+        sys.path.extend([str(sketch_path.absolute().parent), os.getcwd()])
         py5_ns = Py5Namespace(py5)
-        exec(_CODE_FRAMEWORK.format(code), py5_ns)
+        exec(_CODE_FRAMEWORK.format(sketch_path), py5_ns)
 
     if new_process:
         p = Process(target=_run_sketch, args=(sketch_path, classpath))
