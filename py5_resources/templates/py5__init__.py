@@ -6,7 +6,6 @@ This file is created by the py5generator package. Do not edit!
 import sys
 from pathlib import Path
 import logging
-import traceback
 import inspect
 import stackprinter
 import time
@@ -37,19 +36,6 @@ __version__ = '0.1'
 logger = logging.getLogger(__name__)
 
 _prune_tracebacks = True
-
-try:
-    from IPython.core import ultratb
-    _tbhandler = ultratb.VerboseTB(color_scheme='NoColor', tb_offset=1, suppressed_paths=[r".*?lib/python.*?/site-packages/numpy", r".*?lib/python.*?/site-packages/py5/"])
-except Exception:
-    def _tbhandler(exc_type, exc_value, exc_tb):
-        tbe = traceback.TracebackException(exc_type, exc_value, exc_tb)
-        # method_name = 'draw'
-        # msg = 'exception running ' + method_name + ': ' + str(exc_value)
-        tb = list(tbe.format())
-        msg = '\n' + tb[0] + ''.join(tb[2:-1]) + '\n' + tb[-1]
-        print(msg)
-
 
 _Py5Applet = autoclass('py5.core.Py5Applet',
                        include_protected=False, include_private=False)
@@ -109,7 +95,6 @@ class Py5Methods(PythonJavaClass):
                               suppressed_paths=[r"lib/python.*?/site-packages/numpy/",
                                                 r"lib/python.*?/site-packages/py5/",
                                                 r"lib/python.*?/site-packages/jnius/"])
-            # _tbhandler(exc_type, exc_value, exc_tb)
 
             sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
             self._py5applet.getSurface().stopThread()
