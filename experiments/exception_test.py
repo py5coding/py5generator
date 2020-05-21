@@ -49,6 +49,4 @@ def cause_error(junk):
         # x = y + 10
 
 
-print('this is file', __file__)
-
 py5.run_sketch(block=True)

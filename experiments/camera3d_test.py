@@ -1,9 +1,5 @@
-import os
-from pathlib import Path
-os.chdir(Path(__file__).parent)
-
-import numpy as np  # noqa
-import py5  # noqa
+import numpy as np
+import py5
 
 
 Camera3D = py5.autoclass('camera3D.Camera3D')
