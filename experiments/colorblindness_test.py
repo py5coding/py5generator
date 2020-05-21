@@ -54,7 +54,7 @@ def cause_error(junk):
     py5.fill(junk, 4, 5, 32)
     # except Exception:
     #     print(10 / 0)
-        # x = y + 10
+    #     x = y + 10
 
 
 py5.run_sketch(block=True)
