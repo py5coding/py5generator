@@ -1,8 +1,4 @@
-import os
-from pathlib import Path
 import py5_tools
-
-os.chdir(Path(__file__).parent)
 
 
 if not py5_tools.py5_started:
@@ -60,7 +56,5 @@ def cause_error(junk):
     #     print(10 / 0)
         # x = y + 10
 
-
-print('this is file', __file__)
 
 py5.run_sketch(block=True)
