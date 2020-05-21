@@ -103,23 +103,13 @@ class Py5Methods(PythonJavaClass):
 
 class Py5Exception(Exception):
 
-    def __init__(self, exception_classname, msg, method, stack, args, kwargs):
+    def __init__(self, exception_classname, msg, method, args, kwargs):
         super().__init__()
         self.exception_classname = exception_classname
         self.msg = msg
         self.method = method
-        self.stack = stack
         self.args = args
         self.kwargs = kwargs
-
-    def format_stack_trace(self):
-        out = '\n' + ('-' * 75) + '\n' + self.exception_classname + '\n'
-        for s in self.stack:
-            out += s.filename + ' in ' + s.function + '\n'
-            out += (' ' * 6) + str(s.lineno) + (' ' * 5) + s.code_context[s.index]
-        return out
-
-        return out
 
     def __str__(self):
         return self.exception_classname + ' thrown while calling ' + self.method + ': ' + self.msg
