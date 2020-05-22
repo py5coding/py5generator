@@ -82,8 +82,7 @@ class DocstringLibrary:
 
 
 CLASS_STATIC_FIELD_TEMPLATE = """
-    {0} = {1}  # $field_{0}
-"""
+    {0} = {1}"""
 
 CLASS_PROPERTY_TEMPLATE = """
     @property
@@ -112,13 +111,14 @@ CLASS_STATIC_METHOD_TEMPLATE = """
 """
 
 MODULE_STATIC_FIELD_TEMPLATE = """
-{0} = {1}  # $field_{0}
-"""
+{0} = {1}"""
 
 MODULE_PROPERTY_TEMPLATE = """
-{0} = None  # $field_{0}
-del {0}
-"""
+{0} = None"""
+
+MODULE_PROPERTY_PRE_RUN_TEMPLATE = """
+    global {0}
+    del {0}"""
 
 MODULE_FUNCTION_TEMPLATE = """
 def {0}(*args, **kwargs):
@@ -264,13 +264,14 @@ def generate_py5(repo_dir=None, install_dir=None):
     # storage for Py5Applet members and the result of the module's __dir__ function.
     class_members = []
     module_members = []
+    run_sketch_pre_run_steps = []
     py5_dir = []
 
     # code the static constants
     print('coding static constants')
     for name in sorted(static_fields):
         if name in PCONSTANT_OVERRIDES:
-            module_members.append(f'{name} = {shlex.quote(PCONSTANT_OVERRIDES[name])}\n')
+            module_members.append(f'\n{name} = {shlex.quote(PCONSTANT_OVERRIDES[name])}')
         else:
             val = getattr(Py5Applet, name)
             if isinstance(val, str):
@@ -288,6 +289,7 @@ def generate_py5(repo_dir=None, install_dir=None):
         snake_name = snake_case(name)
         class_members.append(CLASS_PROPERTY_TEMPLATE.format(snake_name, name))
         module_members.append(MODULE_PROPERTY_TEMPLATE.format(snake_name))
+        run_sketch_pre_run_steps.append(MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(snake_name))
         py5_dynamic_vars.append(snake_name)
         py5_dir.append(snake_name)
 
@@ -315,6 +317,7 @@ def generate_py5(repo_dir=None, install_dir=None):
 
     class_members_code = ''.join(class_members)
     module_members_code = ''.join(module_members)
+    run_sketch_pre_run_code = ''.join(run_sketch_pre_run_steps)
 
     # code the result of the module's __dir__ function and __all__ variable
     py5_dir.extend(EXTRA_DIR_NAMES)
@@ -327,7 +330,8 @@ def generate_py5(repo_dir=None, install_dir=None):
     with open(Path('py5_resources', 'templates', 'py5__init__.py'), 'r') as f:
         py5_template = f.read()
     py5_docstring_template = Template(py5_template.format(
-        class_members_code, module_members_code, str_py5_dir, str_py5_all))
+        class_members_code, module_members_code, run_sketch_pre_run_code,
+        str_py5_dir, str_py5_all))
 
     # build complete py5 module in destination directory
     dest_dir = Path('build')

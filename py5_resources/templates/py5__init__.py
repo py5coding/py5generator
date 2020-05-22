@@ -4,6 +4,7 @@ py5 code, interface to the Java version of Processing using PyJNIus.
 
 This file is created by the py5generator package. Do not edit!
 """
+from typing import overload, NewType
 import sys
 from pathlib import Path
 import logging
@@ -47,6 +48,7 @@ _prune_tracebacks = True
 
 _Py5Applet = autoclass('py5.core.Py5Applet',
                        include_protected=False, include_private=False)
+Py5Applet = NewType('Py5Applet', _Py5Applet)
 
 
 class Py5Methods(PythonJavaClass):
@@ -166,7 +168,7 @@ class Sketch:
         if not self._py5applet.getSurface().isStopped():
             self._py5applet.exit()
 
-    def get_py5applet(self) -> _Py5Applet:
+    def get_py5applet(self) -> Py5Applet:
         return self._py5applet
 
     def hot_reload_draw(self, draw):
@@ -264,6 +266,32 @@ _py5sketch_used = False
 {1}
 
 
+@overload
+def test1(x: float) -> float:
+    """docstring 1"""
+    pass
+
+
+@overload
+def test1(x: float, y: float) -> float:
+    """docstring 2"""
+    pass
+
+
+@overload
+def test1(x: float, y: float, z: float) -> float:
+    """docstring 3"""
+    pass
+
+
+def test1(*args) -> float:
+    """real docstring"""
+    return sum(args)
+
+
+test_variable: float = 42  # something
+
+
 def run_sketch(function_dict: Dict[str, Any] = None, block: bool = True) -> None:
     """run the py5 sketch
 
@@ -275,6 +303,11 @@ def run_sketch(function_dict: Dict[str, Any] = None, block: bool = True) -> None
         py5.run_sketch(function_dict=locals())
     ```
     """
+    # Before running the sketch, delete the module fields that need to be kept
+    # uptodate. This will allow the module `__getattr__` function return the
+    # proper values.
+    {2}
+
     if not function_dict:
         function_dict = inspect.stack()[1].frame.f_locals
     methods = dict([(e, function_dict[e]) for e in _METHODS if e in function_dict])
@@ -310,7 +343,7 @@ def __getattr__(name):
 
 
 def __dir__():
-    return {2}
+    return {3}
 
 
-__all__ = {3}
+__all__ = {4}
