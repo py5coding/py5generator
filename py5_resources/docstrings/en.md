@@ -3,6 +3,9 @@
 
 the background function sets the background
 
+Params
+----
+
 pass a 'color'
 
 this function is awesome.
