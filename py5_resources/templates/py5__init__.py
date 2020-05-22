@@ -36,7 +36,14 @@ __version__ = '0.1'
 
 logger = logging.getLogger(__name__)
 
+
+# *** stacktrace configuration ***
+# set stackprinter color style. Default is plaintext. Other choices are darkbg,
+# darkbg2, darkbg3, lightbg, lightbg2, lightbg3.
+_stackprinter_style = 'plaintext'
+# prune tracebacks to only show only show stack levels in the user's py5 code.
 _prune_tracebacks = True
+
 
 _Py5Applet = autoclass('py5.core.Py5Applet',
                        include_protected=False, include_private=False)
@@ -93,6 +100,7 @@ class Py5Methods(PythonJavaClass):
 
             stackprinter.show(thing=(exc_type, exc_value, exc_tb.tb_next),
                               show_vals='line',
+                              style=_stackprinter_style,
                               suppressed_paths=[r"lib/python.*?/site-packages/numpy/",
                                                 r"lib/python.*?/site-packages/py5/",
                                                 r"lib/python.*?/site-packages/jnius/"])
