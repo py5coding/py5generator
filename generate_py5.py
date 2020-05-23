@@ -7,6 +7,7 @@ from string import Template
 import shlex
 import autopep8
 from pathlib import Path
+from functools import lru_cache
 
 
 ###############################################################################
@@ -91,6 +92,13 @@ CLASS_PROPERTY_TEMPLATE = """
         return self._py5applet.{1}
 """
 
+CLASS_METHOD_TYPEHINT_TEMPLATE = """
+    @overload
+    def {0}(self{1}) -> {2}:
+        \"\"\"$class_{0}\"\"\"
+        pass
+"""
+
 CLASS_METHOD_TEMPLATE = """
     def {0}(self, *args, **kwargs):
         \"\"\"$class_{0}\"\"\"
@@ -98,6 +106,13 @@ CLASS_METHOD_TEMPLATE = """
             return self._py5applet.{1}(*args, **kwargs)
         except Exception as e:
             raise Py5Exception(e.__class__.__name__, str(e), '{0}', args, kwargs)
+"""
+
+CLASS_STATIC_METHOD_TYPEHINT_TEMPLATE = """
+    @overload
+    def {0}(cls{1}) -> {2}:
+        \"\"\"$class_{0}\"\"\"
+        pass
 """
 
 CLASS_STATIC_METHOD_TEMPLATE = """
@@ -147,7 +162,7 @@ PAPPLET_SKIP_METHODS = {
     # exit method
     'exitActual',
     # builtin python functions
-    'print', 'exec', 'exit', 'str', 'set', 'map', 'sort',
+    'print', 'println', 'exec', 'exit', 'str', 'set', 'map', 'sort',
     # user should use Python instead
     'append', 'arrayCopy', 'arraycopy', 'concat', 'expand', 'reverse', 'shorten',
     'splice', 'subset', 'binary', 'boolean', 'byte', 'char', 'float', 'hex',
@@ -162,8 +177,12 @@ PAPPLET_SKIP_METHODS = {
     'registerMethod', 'unregisterMethod',
     'showDepthWarning', 'showDepthWarningXYZ', 'showMethodWarning',
     'showVariationWarning', 'showMissingWarning',
-    'checkAlpha', 'setSize',
+    'checkAlpha', 'setSize', 'die',
     'getClass',
+}
+
+PAPPLET_SKIP_PARAM_TYPES = {
+    'processing/core/PMatrix3D', 'processing/core/PMatrix2D', 'processing/core/PMatrix'
 }
 
 PCONSTANT_OVERRIDES = {
@@ -207,6 +226,32 @@ def snake_case(name):
     return name.lower()
 
 
+@lru_cache(128)
+def convert_type(jtype: str) -> str:
+    if jtype == 'void':
+        return None
+    if jtype.startswith('boolean'):
+        return jtype.replace('boolean', 'bool')
+    if jtype == 'java/lang/String[]':
+        return 'List[str]'
+    if jtype.startswith('java/lang/String'):
+        return jtype.replace('java/lang/String', 'str')
+    if jtype.startswith('java/lang/Object'):
+        return jtype.replace('java/lang/Object', 'Any')
+    else:
+        tokens = jtype.split('/')
+        if len(tokens) > 1:
+            print('***', jtype, '***')
+        return tokens[-1]
+
+
+def param_annotation(varname: str, jtype: str) -> str:
+    if jtype.endswith('...'):
+        jtype = jtype[:-3]
+        varname = '*' + varname
+
+    return f'{varname}: {convert_type(jtype)}'
+
 ###############################################################################
 # MAIN
 ###############################################################################
@@ -247,19 +292,14 @@ def generate_py5(repo_dir=None, install_dir=None):
     static_fields = set()
 
     for k, v in Py5Applet.__dict__.items():
-        if isinstance(v, JavaStaticMethod):
-            static_methods.add(k)
-        elif isinstance(v, (JavaMethod, JavaMultipleMethod)):
-            methods.add(k)
-        elif isinstance(v, JavaStaticField):
+        if isinstance(v, JavaStaticMethod) and k not in (DEPRECATED | PAPPLET_SKIP_METHODS):
+            static_methods.add((k, v))
+        elif isinstance(v, (JavaMethod, JavaMultipleMethod)) and k not in (DEPRECATED | PAPPLET_SKIP_METHODS):
+            methods.add((k, v))
+        elif isinstance(v, JavaStaticField) and k not in DEPRECATED:
             static_fields.add(k)
-        elif isinstance(v, JavaField):
+        elif isinstance(v, JavaField) and k not in DEPRECATED:
             fields.add(k)
-
-    static_fields -= DEPRECATED
-    fields -= DEPRECATED
-    methods -= (DEPRECATED | PAPPLET_SKIP_METHODS)
-    static_methods -= (DEPRECATED | PAPPLET_SKIP_METHODS)
 
     # storage for Py5Applet members and the result of the module's __dir__ function.
     class_members = []
@@ -294,14 +334,33 @@ def generate_py5(repo_dir=None, install_dir=None):
         py5_dir.append(snake_name)
 
     # code the class and instance methods
+    counter = 0
     print('coding class methods')
-    for fname in sorted(methods):
+    for fname, method in sorted(methods, key=lambda x: x[0]):
         snake_name = snake_case(fname)
+        if counter < 50:
+            for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
+                if PAPPLET_SKIP_PARAM_TYPES.intersection(params):
+                    continue
+                paramstr = ', '.join([param_annotation(f'arg{i}', p) for i, p in enumerate(params)])
+                paramstr = (', ' + paramstr) if paramstr else paramstr
+                print('typehints for ', snake_name)
+                class_members.append(CLASS_METHOD_TYPEHINT_TEMPLATE.format(snake_name, paramstr, convert_type(rettype)))
+                counter += 1
         class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, fname))
         module_members.append(MODULE_FUNCTION_TEMPLATE.format(snake_name))
         py5_dir.append(snake_name)
-    for fname in sorted(static_methods):
+    for fname, method in sorted(static_methods, key=lambda x: x[0]):
         snake_name = snake_case(fname)
+        if counter < 50:
+            for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
+                if PAPPLET_SKIP_PARAM_TYPES.intersection(params):
+                    continue
+                paramstr = ', '.join([param_annotation(f'arg{i}', p) for i, p in enumerate(params)])
+                paramstr = (', ' + paramstr) if paramstr else paramstr
+                print('typehints for ', snake_name)
+                class_members.append(CLASS_STATIC_METHOD_TYPEHINT_TEMPLATE.format(snake_name, paramstr, convert_type(rettype)))
+                counter += 1
         class_members.append(CLASS_STATIC_METHOD_TEMPLATE.format(snake_name, fname))
         module_members.append(MODULE_STATIC_FUNCTION_TEMPLATE.format(snake_name))
         py5_dir.append(snake_name)

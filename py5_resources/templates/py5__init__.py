@@ -4,14 +4,13 @@ py5 code, interface to the Java version of Processing using PyJNIus.
 
 This file is created by the py5generator package. Do not edit!
 """
-from typing import overload, NewType
 import sys
 from pathlib import Path
 import logging
 import inspect
 import stackprinter
 import time
-from typing import Any, Callable, Dict, List
+from typing import overload, NewType, Any, Callable, Dict, List
 
 import numpy as np
 
@@ -49,6 +48,15 @@ _prune_tracebacks = True
 _Py5Applet = autoclass('py5.core.Py5Applet',
                        include_protected=False, include_private=False)
 Py5Applet = NewType('Py5Applet', _Py5Applet)
+_PImage = autoclass('processing.core.PImage',
+                    include_protected=False, include_private=False)
+PImage = NewType('PImage', _PImage)
+_PGraphics = autoclass('processing.core.PGraphics',
+                       include_protected=False, include_private=False)
+PGraphics = NewType('PGraphics', _PGraphics)
+_PGL = autoclass('processing.opengl.PGL',
+                 include_protected=False, include_private=False)
+PGL = NewType('PGL', _PGL)
 
 
 class Py5Methods(PythonJavaClass):
