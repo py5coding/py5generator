@@ -162,27 +162,42 @@ PAPPLET_SKIP_METHODS = {
     # exit method
     'exitActual',
     # builtin python functions
-    'print', 'println', 'exec', 'exit', 'str', 'set', 'map', 'sort',
+    'print', 'exec', 'exit', 'str', 'set', 'map', 'sort',
     # user should use Python instead
     'append', 'arrayCopy', 'arraycopy', 'concat', 'expand', 'reverse', 'shorten',
     'splice', 'subset', 'binary', 'boolean', 'byte', 'char', 'float', 'hex',
     'int', 'unbinary', 'unhex', 'join', 'match', 'matchAll', 'nf', 'nfc', 'nfp',
-    'nfs', 'split', 'splitTokens', 'trim', 'debug', 'delay', 'equals',
+    'nfs', 'split', 'splitTokens', 'trim', 'debug', 'delay', 'equals', 'println',
+    'printArray',
     # user should use numpy instead
     'min', 'max', 'round', 'map', 'abs', 'pow', 'sqrt', 'ceil', 'floor', 'log',
     'exp', 'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'atan2', 'degrees',
-    'radians', 'sq', 'lerp', 'constrain',
+    'radians', 'sq', 'lerp', 'constrain', 'norm',
     # public methods that should be skipped
     'runSketch', 'main', 'handleDraw', 'handleSettings', 'usePy5Methods',
     'registerMethod', 'unregisterMethod',
     'showDepthWarning', 'showDepthWarningXYZ', 'showMethodWarning',
     'showVariationWarning', 'showMissingWarning',
     'checkAlpha', 'setSize', 'die',
+    # files methods that should be done in Python
+    'createInput', 'createInputRaw', 'createOutput', 'createPath', 'createReader',
+    'createWriter', 'dataFile', 'dataPath', 'link', 'listFiles', 'listPaths',
+    'loadJSONArray', 'loadJSONObject', 'parseJSONArray', 'parseJSONObject',
+    'saveJSONArray', 'saveJSONObject',
+    'loadBytes', 'saveBytes', 'loadXML', 'parseXML', 'saveXML', 'launch',
+    'loadStrings', 'saveStrings', 'loadTable', 'saveTable', 'saveStream',
+    'saveFile', 'savePath', 'checkExtension', 'getExtension', 'desktopFile',
+    'desktopPath', 'shell', 'urlDecode', 'urlEncode', 'sketchFile', 'sketchOutputStream',
+    # parsing methods that should be done in Python
+    'parseBoolean', 'parseByte', 'parseChar', 'parseInt', 'parseFloat',
+    # internal methods
+    'postEvent', 'style', 'hideMenuBar', 'saveViaImageIO',
     'getClass',
 }
 
 PAPPLET_SKIP_PARAM_TYPES = {
-    'processing/core/PMatrix3D', 'processing/core/PMatrix2D', 'processing/core/PMatrix'
+    'processing/core/PMatrix3D', 'processing/core/PMatrix2D',
+    'processing/core/PMatrix', 'java/io/File'
 }
 
 PCONSTANT_OVERRIDES = {
@@ -229,20 +244,28 @@ def snake_case(name):
 @lru_cache(128)
 def convert_type(jtype: str) -> str:
     if jtype == 'void':
-        return None
-    if jtype.startswith('boolean'):
-        return jtype.replace('boolean', 'bool')
-    if jtype == 'java/lang/String[]':
-        return 'List[str]'
-    if jtype.startswith('java/lang/String'):
-        return jtype.replace('java/lang/String', 'str')
-    if jtype.startswith('java/lang/Object'):
-        return jtype.replace('java/lang/Object', 'Any')
+        return 'None'
+
+    isarray = jtype.endswith('[]')
+    jtype = jtype[:-2] if isarray else jtype
+
+    if jtype == 'boolean':
+        out = 'bool'
+    elif jtype == 'char':
+        out = 'chr'
+    elif jtype == 'long':
+        out = 'int'
+    elif jtype == 'java/lang/String':
+        out = 'str'
+    elif jtype == 'java/lang/Object':
+        out = 'Any'
     else:
         tokens = jtype.split('/')
         if len(tokens) > 1:
             print('***', jtype, '***')
-        return tokens[-1]
+        out = tokens[-1]
+
+    return f'List[{out}]' if isarray else out
 
 
 def param_annotation(varname: str, jtype: str) -> str:
@@ -334,33 +357,26 @@ def generate_py5(repo_dir=None, install_dir=None):
         py5_dir.append(snake_name)
 
     # code the class and instance methods
-    counter = 0
     print('coding class methods')
     for fname, method in sorted(methods, key=lambda x: x[0]):
         snake_name = snake_case(fname)
-        if counter < 50:
-            for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
-                if PAPPLET_SKIP_PARAM_TYPES.intersection(params):
-                    continue
-                paramstr = ', '.join([param_annotation(f'arg{i}', p) for i, p in enumerate(params)])
-                paramstr = (', ' + paramstr) if paramstr else paramstr
-                print('typehints for ', snake_name)
-                class_members.append(CLASS_METHOD_TYPEHINT_TEMPLATE.format(snake_name, paramstr, convert_type(rettype)))
-                counter += 1
+        for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
+            if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
+                continue
+            paramstr = ', '.join([param_annotation(f'arg{i}', p) for i, p in enumerate(params)])
+            paramstr = (', ' + paramstr) if paramstr else paramstr
+            class_members.append(CLASS_METHOD_TYPEHINT_TEMPLATE.format(snake_name, paramstr, convert_type(rettype)))
         class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, fname))
         module_members.append(MODULE_FUNCTION_TEMPLATE.format(snake_name))
         py5_dir.append(snake_name)
     for fname, method in sorted(static_methods, key=lambda x: x[0]):
         snake_name = snake_case(fname)
-        if counter < 50:
-            for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
-                if PAPPLET_SKIP_PARAM_TYPES.intersection(params):
-                    continue
-                paramstr = ', '.join([param_annotation(f'arg{i}', p) for i, p in enumerate(params)])
-                paramstr = (', ' + paramstr) if paramstr else paramstr
-                print('typehints for ', snake_name)
-                class_members.append(CLASS_STATIC_METHOD_TYPEHINT_TEMPLATE.format(snake_name, paramstr, convert_type(rettype)))
-                counter += 1
+        for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
+            if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
+                continue
+            paramstr = ', '.join([param_annotation(f'arg{i}', p) for i, p in enumerate(params)])
+            paramstr = (', ' + paramstr) if paramstr else paramstr
+            class_members.append(CLASS_STATIC_METHOD_TYPEHINT_TEMPLATE.format(snake_name, paramstr, convert_type(rettype)))
         class_members.append(CLASS_STATIC_METHOD_TEMPLATE.format(snake_name, fname))
         module_members.append(MODULE_STATIC_FUNCTION_TEMPLATE.format(snake_name))
         py5_dir.append(snake_name)

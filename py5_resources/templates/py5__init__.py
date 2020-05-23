@@ -57,19 +57,29 @@ PGraphics = NewType('PGraphics', _PGraphics)
 _PGL = autoclass('processing.opengl.PGL',
                  include_protected=False, include_private=False)
 PGL = NewType('PGL', _PGL)
+_PShader = autoclass('processing.opengl.PShader',
+                     include_protected=False, include_private=False)
+PShader = NewType('PShader', _PShader)
+_PFont = autoclass('processing.core.PFont',
+                   include_protected=False, include_private=False)
+PFont = NewType('PFont', _PFont)
+_PShape = autoclass('processing.core.PShape',
+                    include_protected=False, include_private=False)
+PShape = NewType('PShape', _PShape)
+_PSurface = autoclass('processing.core.PSurface',
+                      include_protected=False, include_private=False)
+PSurface = NewType('PSurface', _PSurface)
 
 
 class Py5Methods(PythonJavaClass):
     __javainterfaces__ = ['py5/core/Py5Methods']
 
-    def __init__(self):
+    def __init__(self, sketch):
+        self._sketch = sketch
         self._functions = dict()
 
     def set_functions(self, **kwargs):
         self._functions.update(kwargs)
-
-    def set_py5applet(self, _py5applet):
-        self._py5applet = _py5applet
 
     @java_method('()[Ljava/lang/Object;')
     def get_function_list(self):
@@ -116,7 +126,7 @@ class Py5Methods(PythonJavaClass):
                                                 r"lib/python.*?/site-packages/jnius/"])
 
             sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
-            self._py5applet.getSurface().stopThread()
+            self._sketch.get_surface().stopThread()
 
 
 class Py5Exception(Exception):
@@ -152,9 +162,8 @@ class Sketch:
         self._run_sketch(methods, block)
 
     def _run_sketch(self, methods: Dict[str, Callable], block: bool) -> None:
-        py5_methods = Py5Methods()
+        py5_methods = Py5Methods(self)
         py5_methods.set_functions(**methods)
-        py5_methods.set_py5applet(self._py5applet)
 
         # pass the py5_methods object to the py5applet object while also
         # keeping the py5_methods reference count from hitting zero. otherwise,
@@ -166,14 +175,14 @@ class Sketch:
 
         if block:
             # wait for the sketch to finish
-            surface = self._py5applet.getSurface()
+            surface = self.get_surface()
             while not surface.isStopped():
                 time.sleep(0.25)
 
     def exit_sketch(self) -> None:
         """Exit the sketch
         """
-        if not self._py5applet.getSurface().isStopped():
+        if not self.get_surface().isStopped():
             self._py5applet.exit()
 
     def get_py5applet(self) -> Py5Applet:
@@ -219,8 +228,12 @@ class Sketch:
         return np.radians(degrees)
 
     @classmethod
-    def constrain(cls, amt: float, low: float, high: float):
+    def constrain(cls, amt: float, low: float, high: float) -> float:
         return np.where(amt < low, low, np.where(amt > high, high, amt))
+
+    @classmethod
+    def norm(cls, value: float, start: float, stop: float) -> float:
+        return (value - start) / (stop - start)
 
     @classmethod
     def lerp(cls, start: float, stop: float, amt: float):
