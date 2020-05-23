@@ -22,11 +22,6 @@ packaging and deployment
 
 get pypi package process working
 
-properly include stub files and show that they work. Here are some packages that use them:
-
-* [pyrsistent](https://github.com/tobgu/pyrsistent)
-* [attrs](https://github.com/python-attrs/attrs)
-
 Windows problems
 
 * tab complete in py5cmd doesn't work, possible problem with readline
@@ -38,17 +33,38 @@ error messages
 
 Add helpful messages for when the function parameter types are not correct or other `JavaException` / `Py5Exception` problems. For any exception, add a helpful explanation for what that error is and how to proceed with the debugging.
 
-Each function can get its parameter types from here:
+I can get each function's parameter types with the `signatures()` method.
 
 `javap -classpath /home/jim/Projects/git/processing/core/library/core.jar -public processing.core.PApplet`
 
-Or I can use Java reflection to get the information.
+type hinting
+------------
+
+Use [type hinting](https://docs.python.org/3/library/typing.html) for Processing functions. Refer to [PEP-0484](https://www.python.org/dev/peps/pep-0484/) for more info.
+
+Should I use stub files? Here are some packages that use them:
+
+* [pyrsistent](https://github.com/tobgu/pyrsistent)
+* [attrs](https://github.com/python-attrs/attrs)
+
+Methods that have only one signature should use a different function template that adds the type hints to the real function.
+
+The class property methods should have type hints.
+
+The module functions and dynamic variables should have type hints. For the dynamic variables I will need to create an instance to get the types.
+
+The `NewType` types I added should be replaced with something that gives the methods for those classes.
+
+library functions
+-----------------
 
 I need the same error handling on those numpy wrapper functions I made. A good approach might be to move them from the Sketch class to a new `Extras` class, then parameterize the method templates so they can call something `Extras` instead of `_Py5Applet`.
 
-use [type hinting](https://docs.python.org/3/library/typing.html) for Processing functions. I can use `@overload` for overloaded functions. [PEP-0484](https://www.python.org/dev/peps/pep-0484/) explains in more detail.
+The PMatrix methods should be skipped and replaced with numpy backed functions.
 
-Can I use *.pyi files (stub files) to help VSCode with code completion? According to [stackoverflow](https://stackoverflow.com/questions/53578365/does-vscode-support-python-pyi-files-for-intellisense), it should. Can that replace the need for what I did to get the code completion to work? How well does this work if Jedi is turned on?
+The JSON and XML functions should be replaced with Python library tools.
+
+Review skipped functions to see what should be re-implemented.
 
 docstrings
 ----------
@@ -62,6 +78,8 @@ The repo also contains the [xml files](https://github.com/processing/processing-
 It would be great if I could feed these through a translator to make this multi-linqual. Then perhaps I could do something like `import py5.es as py5` to make all the docstrings in Spanish.
 
 If I did this, how would I keep everything in sync? I will certainly add new functions, especially in the short term. Those new functions will be in Python so their docstrings will come from another source.
+
+For Py5 documentation I should use Sphinx to generate my own docfiles after everything has been compiled together.
 
 performance
 -----------
