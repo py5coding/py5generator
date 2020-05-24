@@ -11,7 +11,6 @@ class Test(Sketch):
         self.background(255)
         self.rect_mode(py5.CENTER)
         self.frame_rate(30)
-        self.foo = 0
 
     def draw(self):
         if self.is_key_pressed():

@@ -86,10 +86,10 @@ CLASS_STATIC_FIELD_TEMPLATE = """
     {0} = {1}"""
 
 CLASS_PROPERTY_TEMPLATE = """
-    @property
-    def {0}(self):
+    def _get_{0}(self) -> {1}:
         \"\"\"$class_{0}\"\"\"
-        return self._py5applet.{1}
+        return self._py5applet.{2}
+    {0}: {1} = property(fget=_get_{0})
 """
 
 CLASS_METHOD_TYPEHINT_TEMPLATE = """
@@ -129,7 +129,7 @@ MODULE_STATIC_FIELD_TEMPLATE = """
 {0} = {1}"""
 
 MODULE_PROPERTY_TEMPLATE = """
-{0} = None"""
+{0}: {1} = None"""
 
 MODULE_PROPERTY_PRE_RUN_TEMPLATE = """
     global {0}
@@ -315,6 +315,7 @@ def generate_py5(repo_dir=None, install_dir=None):
     print('examining Java classes')
     Py5Applet = autoclass('py5.core.Py5Applet',
                           include_protected=False, include_private=False)
+    py5applet = Py5Applet()
 
     methods = set()
     static_methods = set()
@@ -357,8 +358,11 @@ def generate_py5(repo_dir=None, install_dir=None):
     py5_dynamic_vars = []
     for name in sorted(fields):
         snake_name = snake_case(name)
-        class_members.append(CLASS_PROPERTY_TEMPLATE.format(snake_name, name))
-        module_members.append(MODULE_PROPERTY_TEMPLATE.format(snake_name))
+        var_type = (
+            {'args': 'List[str]', 'g': 'PGraphics', 'recorder': 'PGraphics', 'pixels': 'List[int]'}
+        ).get(name, type(getattr(py5applet, name)).__name__)
+        class_members.append(CLASS_PROPERTY_TEMPLATE.format(snake_name, var_type, name))
+        module_members.append(MODULE_PROPERTY_TEMPLATE.format(snake_name, var_type))
         run_sketch_pre_run_steps.append(MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(snake_name))
         py5_dynamic_vars.append(snake_name)
         py5_dir.append(snake_name)
