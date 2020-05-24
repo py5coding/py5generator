@@ -16,6 +16,11 @@ import numpy as np
 
 import py5_tools
 
+class_members_code = None  # DELETE
+module_members_code = None  # DELETE
+run_sketch_pre_run_code = None  # DELETE
+str_py5_dir = None  # DELETE
+str_py5_all = None  # DELETE
 
 if not py5_tools.py5_started:
     current_classpath = py5_tools.get_classpath()
@@ -278,13 +283,13 @@ class Sketch:
         return pixel_array[:, blue_index].tolist()
 
 
-{0}
+{class_members_code}
 
 
 _py5sketch = Sketch()
 _py5sketch_used = False
 
-{1}
+{module_members_code}
 
 
 @overload
@@ -327,7 +332,7 @@ def run_sketch(function_dict: Dict[str, Any] = None, block: bool = True) -> None
     # Before running the sketch, delete the module fields that need to be kept
     # uptodate. This will allow the module `__getattr__` function return the
     # proper values.
-    {2}
+    {run_sketch_pre_run_code}
 
     if not function_dict:
         function_dict = inspect.stack()[1].frame.f_locals
@@ -364,7 +369,7 @@ def __getattr__(name):
 
 
 def __dir__():
-    return {3}
+    return {str_py5_dir}
 
 
-__all__ = {4}
+__all__ = {str_py5_all}

@@ -421,9 +421,14 @@ def generate_py5(repo_dir=None, install_dir=None):
     print('arranging code')
     with open(Path('py5_resources', 'templates', 'py5__init__.py'), 'r') as f:
         py5_template = f.read()
-    py5_docstring_template = Template(py5_template.format(
-        class_members_code, module_members_code, run_sketch_pre_run_code,
-        str_py5_dir, str_py5_all))
+        py5_docstring_template = Template(
+            re.sub(r'^.*DELETE$', '',
+                   py5_template.format(class_members_code=class_members_code,
+                                       module_members_code=module_members_code,
+                                       run_sketch_pre_run_code=run_sketch_pre_run_code,
+                                       str_py5_dir=str_py5_dir,
+                                       str_py5_all=str_py5_all),
+                   flags=re.MULTILINE | re.UNICODE))
 
     # build complete py5 module in destination directory
     dest_dir = Path('build')
