@@ -47,10 +47,6 @@ Should I use stub files? Here are some packages that use them:
 * [pyrsistent](https://github.com/tobgu/pyrsistent)
 * [attrs](https://github.com/python-attrs/attrs)
 
-Methods that have only one signature should use a different function template that adds the type hints to the real function.
-
-The class property methods and module dynamic variables should have type hints. I will need to create an instance to get the types.
-
 The `NewType` types I added should be replaced with something that gives the methods for those classes.
 
 library functions
@@ -63,6 +59,8 @@ The PMatrix methods should be skipped and replaced with numpy backed functions.
 The JSON and XML functions should be replaced with Python library tools.
 
 Review skipped functions to see what should be re-implemented.
+
+There are undocumented functions like frameResized with no apparent purpose.
 
 docstrings
 ----------
