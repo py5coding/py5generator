@@ -94,33 +94,17 @@ CLASS_PROPERTY_TEMPLATE = """
 
 CLASS_METHOD_TYPEHINT_TEMPLATE = """
     @overload
-    def {0}(self{1}) -> {2}:
+    def {0}({1}) -> {2}:
         \"\"\"$class_{0}\"\"\"
         pass
 """
 
 CLASS_METHOD_TEMPLATE = """
-    def {0}(self, *args, **kwargs):
+    {4}
+    def {0}({1}, *args, **kwargs):
         \"\"\"$class_{0}\"\"\"
         try:
-            return self._py5applet.{1}(*args, **kwargs)
-        except Exception as e:
-            raise Py5Exception(e.__class__.__name__, str(e), '{0}', args, kwargs)
-"""
-
-CLASS_STATIC_METHOD_TYPEHINT_TEMPLATE = """
-    @overload
-    def {0}(cls{1}) -> {2}:
-        \"\"\"$class_{0}\"\"\"
-        pass
-"""
-
-CLASS_STATIC_METHOD_TEMPLATE = """
-    @classmethod
-    def {0}(cls, *args, **kwargs):
-        \"\"\"$class_{0}\"\"\"
-        try:
-            return _Py5Applet.{1}(*args, **kwargs)
+            return {2}.{3}(*args, **kwargs)
         except Exception as e:
             raise Py5Exception(e.__class__.__name__, str(e), '{0}', args, kwargs)
 """
@@ -135,12 +119,6 @@ MODULE_PROPERTY_PRE_RUN_TEMPLATE = """
     global {0}
     del {0}"""
 
-MODULE_FUNCTION_TEMPLATE = """
-def {0}(*args, **kwargs):
-    \"\"\"$module_{0}\"\"\"
-    return _py5sketch.{0}(*args, **kwargs)
-"""
-
 MODULE_FUNCTION_TYPEHINT_TEMPLATE = """
 @overload
 def {0}({1}) -> {2}:
@@ -148,10 +126,10 @@ def {0}({1}) -> {2}:
     pass
 """
 
-MODULE_STATIC_FUNCTION_TEMPLATE = """
+MODULE_FUNCTION_TEMPLATE = """
 def {0}(*args, **kwargs):
     \"\"\"$module_{0}\"\"\"
-    return Sketch.{0}(*args, **kwargs)
+    return {1}.{0}(*args, **kwargs)
 """
 
 ###############################################################################
@@ -368,47 +346,39 @@ def generate_py5(repo_dir=None, install_dir=None):
         py5_dir.append(snake_name)
 
     # code the class and instance methods
+    def code_methods(methods, static):
+        for fname, method in sorted(methods, key=lambda x: x[0]):
+            snake_name = snake_case(fname)
+            if static:
+                first_param, classobj, moduleobj, decorator = 'cls', '_Py5Applet', 'Sketch', '@classmethod'
+            else:
+                first_param, classobj, moduleobj, decorator = 'self', 'self._py5applet', '_py5sketch', ''
+            # first, construct the typehint code
+            for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
+                if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
+                    continue
+                paramstrs = [first_param] + [param_annotation(f'arg{i}', p) for i, p in enumerate(params)]
+                rettypestr = convert_type(rettype)
+                class_members.append(CLASS_METHOD_TYPEHINT_TEMPLATE.format(
+                    snake_name, ', '.join(paramstrs), rettypestr))
+                module_members.append(MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(
+                    snake_name, ', '.join(paramstrs[1:]), rettypestr))
+            # now construct the real methods
+            class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, first_param, classobj, fname, decorator))
+            module_members.append(MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj))
+            py5_dir.append(snake_name)
+
     print('coding class methods')
-    for fname, method in sorted(methods, key=lambda x: x[0]):
-        snake_name = snake_case(fname)
-        # first, construct the typehint code
-        for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
-            if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
-                continue
-            paramstr = ', '.join([param_annotation(f'arg{i}', p) for i, p in enumerate(params)])
-            rettypestr = convert_type(rettype)
-            class_members.append(CLASS_METHOD_TYPEHINT_TEMPLATE.format(
-                snake_name, ((', ' + paramstr) if paramstr else paramstr), rettypestr))
-            module_members.append(MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(
-                snake_name, paramstr, rettypestr))
-        # now construct the real methods
-        class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, fname))
-        module_members.append(MODULE_FUNCTION_TEMPLATE.format(snake_name))
-        py5_dir.append(snake_name)
-    for fname, method in sorted(static_methods, key=lambda x: x[0]):
-        snake_name = snake_case(fname)
-        # first, construct the typehint code
-        for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
-            if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
-                continue
-            paramstr = ', '.join([param_annotation(f'arg{i}', p) for i, p in enumerate(params)])
-            rettypestr = convert_type(rettype)
-            class_members.append(CLASS_STATIC_METHOD_TYPEHINT_TEMPLATE.format(
-                snake_name, ((', ' + paramstr) if paramstr else paramstr), rettypestr))
-            module_members.append(MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(
-                snake_name, paramstr, rettypestr))
-        # now construct the real functions
-        class_members.append(CLASS_STATIC_METHOD_TEMPLATE.format(snake_name, fname))
-        module_members.append(MODULE_STATIC_FUNCTION_TEMPLATE.format(snake_name))
-        py5_dir.append(snake_name)
+    code_methods(methods, False)
+    code_methods(static_methods, True)
 
     # add the extra Sketch methods to the module
     print('coding extra module functions')
-    for fname in EXTRA_MODULE_STATIC_FUNCTIONS:
-        module_members.append(MODULE_STATIC_FUNCTION_TEMPLATE.format(fname))
-        py5_dir.append(fname)
     for fname in EXTRA_MODULE_FUNCTIONS:
-        module_members.append(MODULE_FUNCTION_TEMPLATE.format(fname))
+        module_members.append(MODULE_FUNCTION_TEMPLATE.format(fname, '_py5sketch'))
+        py5_dir.append(fname)
+    for fname in EXTRA_MODULE_STATIC_FUNCTIONS:
+        module_members.append(MODULE_FUNCTION_TEMPLATE.format(fname, 'Sketch'))
         py5_dir.append(fname)
 
     class_members_code = ''.join(class_members)
