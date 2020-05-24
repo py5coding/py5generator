@@ -49,9 +49,7 @@ Should I use stub files? Here are some packages that use them:
 
 Methods that have only one signature should use a different function template that adds the type hints to the real function.
 
-The class property methods should have type hints.
-
-The module functions and dynamic variables should have type hints. For the dynamic variables I will need to create an instance to get the types.
+The class property methods and module dynamic variables should have type hints. I will need to create an instance to get the types.
 
 The `NewType` types I added should be replaced with something that gives the methods for those classes.
 
