@@ -292,32 +292,6 @@ _py5sketch_used = False
 {module_members_code}
 
 
-@overload
-def test1(x: float) -> float:
-    """docstring 1"""
-    pass
-
-
-@overload
-def test1(x: float, y: float) -> float:
-    """docstring 2"""
-    pass
-
-
-@overload
-def test1(x: float, y: float, z: float) -> float:
-    """docstring 3"""
-    pass
-
-
-def test1(*args) -> float:
-    """real docstring"""
-    return sum(args)
-
-
-test_variable: float = 42  # something
-
-
 def run_sketch(function_dict: Dict[str, Any] = None, block: bool = True) -> None:
     """run the py5 sketch
 
