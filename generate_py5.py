@@ -174,7 +174,7 @@ PAPPLET_SKIP_METHODS = {
     # user should use numpy instead
     'min', 'max', 'round', 'map', 'abs', 'pow', 'sqrt', 'ceil', 'floor', 'log',
     'exp', 'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'atan2', 'degrees',
-    'radians', 'sq', 'lerp', 'constrain', 'norm',
+    'radians', 'sq', 'lerp', 'constrain', 'norm', 'mag', 'dist',
     # public methods that should be skipped
     'runSketch', 'main', 'handleDraw', 'handleSettings', 'usePy5Methods',
     'registerMethod', 'unregisterMethod',
@@ -224,7 +224,7 @@ EXTRA_DIR_NAMES = {
 
 EXTRA_MODULE_STATIC_FUNCTIONS = {
     'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'atan2', 'degrees', 'radians',
-    'constrain', 'lerp', 'sq',
+    'constrain', 'lerp', 'sq', 'mag', 'dist',
     'pixels_to_numpy', 'numpy_to_pixels'
 }
 

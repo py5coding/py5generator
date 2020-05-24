@@ -237,12 +237,23 @@ class Sketch:
         return np.where(amt < low, low, np.where(amt > high, high, amt))
 
     @classmethod
-    def norm(cls, value: float, start: float, stop: float) -> float:
-        return (value - start) / (stop - start)
+    def dist(cls, *args) -> float:
+        p1 = args[:(len(args) // 2)]
+        p2 = args[(len(args) // 2):]
+        assert len(p1) == len(p2)
+        return sum([(a - b)**2 for a, b in zip(p1, p2)])**0.5
 
     @classmethod
     def lerp(cls, start: float, stop: float, amt: float):
         return amt * (stop - start) + start
+
+    @classmethod
+    def mag(cls, *args) -> float:
+        return sum([x * x for x in args])**0.5
+
+    @classmethod
+    def norm(cls, value: float, start: float, stop: float) -> float:
+        return (value - start) / (stop - start)
 
     @classmethod
     def sq(cls, n: float) -> float:
