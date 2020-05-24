@@ -109,6 +109,16 @@ CLASS_METHOD_TEMPLATE = """
             raise Py5Exception(e.__class__.__name__, str(e), '{0}', args, kwargs)
 """
 
+CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS = """
+    {4}
+    def {0}({1}) -> {5}:
+        \"\"\"$class_{0}\"\"\"
+        try:
+            return {2}.{3}({6})
+        except Exception as e:
+            raise Py5Exception(e.__class__.__name__, str(e), '{0}', args, kwargs)
+"""
+
 MODULE_STATIC_FIELD_TEMPLATE = """
 {0} = {1}"""
 
@@ -131,6 +141,13 @@ def {0}(*args, **kwargs):
     \"\"\"$module_{0}\"\"\"
     return {1}.{0}(*args, **kwargs)
 """
+
+MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS = """
+def {0}({1}) -> {3}:
+    \"\"\"$module_{0}\"\"\"
+    return {2}.{0}({4})
+"""
+
 
 ###############################################################################
 # REFERENCE AND LOOKUPS
@@ -354,18 +371,29 @@ def generate_py5(repo_dir=None, install_dir=None):
             else:
                 first_param, classobj, moduleobj, decorator = 'self', 'self._py5applet', '_py5sketch', ''
             # first, construct the typehint code
-            for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
+            if len(method.signatures()) == 1:
+                params, rettype = method.signatures()[0]
                 if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
                     continue
                 paramstrs = [first_param] + [param_annotation(f'arg{i}', p) for i, p in enumerate(params)]
                 rettypestr = convert_type(rettype)
-                class_members.append(CLASS_METHOD_TYPEHINT_TEMPLATE.format(
-                    snake_name, ', '.join(paramstrs), rettypestr))
-                module_members.append(MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(
-                    snake_name, ', '.join(paramstrs[1:]), rettypestr))
-            # now construct the real methods
-            class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, first_param, classobj, fname, decorator))
-            module_members.append(MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj))
+                class_members.append(CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
+                    snake_name, ', '.join(paramstrs), classobj, fname, decorator, rettypestr, ', '.join([p.split(':')[0] for p in paramstrs[1:]])))
+                module_members.append(MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
+                    snake_name, ', '.join(paramstrs[1:]), moduleobj, rettypestr, ', '.join([p.split(':')[0] for p in paramstrs[1:]])))
+            else:
+                for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
+                    if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
+                        continue
+                    paramstrs = [first_param] + [param_annotation(f'arg{i}', p) for i, p in enumerate(params)]
+                    rettypestr = convert_type(rettype)
+                    class_members.append(CLASS_METHOD_TYPEHINT_TEMPLATE.format(
+                        snake_name, ', '.join(paramstrs), rettypestr))
+                    module_members.append(MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(
+                        snake_name, ', '.join(paramstrs[1:]), rettypestr))
+                # now construct the real methods
+                class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, first_param, classobj, fname, decorator))
+                module_members.append(MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj))
             py5_dir.append(snake_name)
 
     print('coding class methods')
