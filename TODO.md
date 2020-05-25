@@ -24,9 +24,8 @@ get pypi package process working
 
 Windows problems
 
-* tab complete in py5cmd doesn't work, possible problem with readline
-* window doesn't close after hitting ESC
-* Windows multiprocessing doesn't work, can't spawn new process in py5cmd
+* tab complete in py5cmd doesn't work on windows, I will need to implement with prompt_toolkit instead
+* when using an opengl renderer, window doesn't close after hitting ESC unless the thread stopped because of an error
 
 error messages
 --------------
