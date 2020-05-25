@@ -47,6 +47,8 @@ Should I use stub files? Here are some packages that use them:
 * [pyrsistent](https://github.com/tobgu/pyrsistent)
 * [attrs](https://github.com/python-attrs/attrs)
 
+The parameter names should be something more relevant than arg0, arg1, arg2, etc.
+
 The `NewType` types I added should be replaced with something that gives the methods for those classes.
 
 library functions
