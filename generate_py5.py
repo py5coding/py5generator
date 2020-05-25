@@ -263,8 +263,6 @@ def convert_type(jtype: str) -> str:
         out = 'Any'
     else:
         tokens = jtype.split('/')
-        if len(tokens) > 1:
-            print('***', jtype, '***')
         out = tokens[-1]
 
     return f'List[{out}]' if isarray else out
