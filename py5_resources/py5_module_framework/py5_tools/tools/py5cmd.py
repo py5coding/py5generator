@@ -53,7 +53,7 @@ class Py5Cmd(cmd.Cmd):
     def do_run_sketch(self, line):
         if line:
             try:
-                p = py5_tools.run.run_sketch(line, new_process=True)
+                p = py5_tools.run.run_sketch(line, new_process=False)
                 self._running_sketches.append(p)
             except Exception as e:
                 print(e)
@@ -81,6 +81,9 @@ class Py5Cmd(cmd.Cmd):
 
     def emptyline(self):
         return None
+
+    def do_exit(self, line):
+        return True
 
     def do_EOF(self, line):
         for p in self._running_sketches:
