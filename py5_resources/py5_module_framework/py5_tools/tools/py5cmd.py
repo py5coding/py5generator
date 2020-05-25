@@ -1,5 +1,6 @@
 import cmd
 import argparse
+import platform
 import glob
 from pathlib import Path
 
@@ -53,7 +54,8 @@ class Py5Cmd(cmd.Cmd):
     def do_run_sketch(self, line):
         if line:
             try:
-                p = py5_tools.run.run_sketch(line, new_process=False)
+                new_process = platform.system() != 'Windows'
+                p = py5_tools.run.run_sketch(line, new_process=new_process)
                 self._running_sketches.append(p)
             except Exception as e:
                 print(e)
