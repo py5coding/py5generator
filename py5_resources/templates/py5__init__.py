@@ -317,7 +317,11 @@ def run_sketch(function_dict: Dict[str, Any] = None, block: bool = True) -> None
     # Before running the sketch, delete the module fields that need to be kept
     # uptodate. This will allow the module `__getattr__` function return the
     # proper values.
-    {run_sketch_pre_run_code}
+    try:
+        {run_sketch_pre_run_code}
+    except NameError:
+        # these variables might have already been removed
+        pass
 
     if not function_dict:
         function_dict = inspect.stack()[1].frame.f_locals

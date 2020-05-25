@@ -126,8 +126,8 @@ MODULE_PROPERTY_TEMPLATE = """
 {0}: {1} = None"""
 
 MODULE_PROPERTY_PRE_RUN_TEMPLATE = """
-    global {0}
-    del {0}"""
+        global {0}
+        del {0}"""
 
 MODULE_FUNCTION_TYPEHINT_TEMPLATE = """
 @overload
