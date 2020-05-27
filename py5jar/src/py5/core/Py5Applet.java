@@ -140,4 +140,8 @@ public class Py5Applet extends PApplet {
     return keyPressed;
   }
 
+  public void setNewPixels(int [] newPixels) {
+    System.arraycopy(newPixels, 0, pixels, 0, pixels.length);
+    updatePixels();
+  }
 }
