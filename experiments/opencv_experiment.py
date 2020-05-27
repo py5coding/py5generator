@@ -1,3 +1,4 @@
+import time
 import cv2
 import numpy as np
 
@@ -5,27 +6,37 @@ import numpy as np
 # or can be a video file, e.g. '~/Video.avi'
 cap = cv2.VideoCapture(0)
 
-while(True):
-    # Capture frame-by-frame
-    ret, frame = cap.read()
+framerate = 0
+mask = None
+alpha = 0.6
 
-    mask = (frame.ptp(axis=2) < 20) & (frame[:, :, 0] > 70)
+try:
+    while(True):
+        timestamp = time.time()
 
-    frame2 = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    frame2[:, :, 0] = 120  # (frame2[:, :, 0] + 180) % 255
-    # frame2[:, :, 1] = 4 * frame2[:, :, 1]
-    # frame2[:, :, 2] = frame2[:, :, 2] // 2
-    frame3 = cv2.cvtColor(frame2, cv2.COLOR_HSV2BGR)
-    frame3[mask] = [0, 0, 0]
+        ret, frame = cap.read()
 
-    # Our operations on the frame come here
-    # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        if mask is None:
+            mask = np.ones(frame.shape[:2])
 
-    # Display the resulting frame
-    cv2.imshow('frame', frame3)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+        # mask = (frame.ptp(axis=2) < 20) & (frame[:, :, 0] > 70)
 
-# When everything done, release the capture
-cap.release()
-cv2.destroyAllWindows()
+        frame2 = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+        mask_update = ((frame2[:, :, 0] > 50) & (frame2[:, :, 0] < 120) & (frame2[:, :, 1] > 100))
+        # mask = (frame2[:, :, 0] > 170) & (frame2[:, :, 0] < 190)  #  & (frame2[:, :, 1] > 80)
+
+        mask = (1 - alpha) * mask + alpha * mask_update
+
+        frame[mask > 0.5] = [0, 0, 0]
+        # frame *= mask
+
+        cv2.imshow('frame', frame)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+        framerate = 0.9 * framerate + 0.1 / (time.time() - timestamp)
+        # print(framerate)
+finally:
+    cap.release()
+    cv2.destroyAllWindows()
