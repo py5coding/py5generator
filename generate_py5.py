@@ -230,7 +230,8 @@ EXTRA_MODULE_STATIC_FUNCTIONS = {
 }
 
 EXTRA_MODULE_FUNCTIONS = {
-    'exit_sketch', 'get_py5applet', 'hot_reload_draw'
+    'exit_sketch', 'get_py5applet', 'hot_reload_draw',
+    'profile_functions', 'profile_draw', 'print_line_profiler_stats'
 }
 
 ###############################################################################
