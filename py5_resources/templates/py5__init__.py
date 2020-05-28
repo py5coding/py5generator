@@ -175,17 +175,18 @@ class Sketch:
         self._py5applet = _Py5Applet()
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
-        self._py5_methods = Py5Methods(self)
         self._methods_to_profile = []
+        self._py5_methods = None
 
     def run_sketch(self, block: bool = True) -> None:
         methods = dict([(e, getattr(self, e)) for e in _METHODS if hasattr(self, e)])
         self._run_sketch(methods, block)
 
     def _run_sketch(self, methods: Dict[str, Callable], block: bool) -> None:
+        self._py5_methods = Py5Methods(self)
         self._py5_methods.set_functions(**methods)
-        self._py5applet.usePy5Methods(self._py5_methods)
         self._py5_methods.profile_functions(self._methods_to_profile)
+        self._py5applet.usePy5Methods(self._py5_methods)
 
         _Py5Applet.runSketch([''], self._py5applet)
 
@@ -208,10 +209,16 @@ class Sketch:
         self._py5_methods.set_functions(**dict(draw=draw))
 
     def profile_functions(self, function_names):
-        self._methods_to_profile.extend(function_names)
+        if self._py5_methods is None:
+            self._methods_to_profile.extend(function_names)
+        else:
+            self._py5_methods.profile_functions(function_names)
 
     def profile_draw(self):
-        self._methods_to_profile.extend(['draw'])
+        if self._py5_methods is None:
+            self._methods_to_profile.extend(['draw'])
+        else:
+            self._py5_methods.profile_functions(['draw'])
 
     def print_line_profiler_stats(self):
         self._py5_methods.dump_stats()
