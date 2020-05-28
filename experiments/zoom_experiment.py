@@ -77,4 +77,5 @@ class ZoomTest(Sketch):
 
 
 zoom_test = ZoomTest()
+# zoom_test.profile_draw()
 zoom_test.run_sketch(block=False)

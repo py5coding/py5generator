@@ -11,6 +11,7 @@ import inspect
 import stackprinter
 import time
 import json
+import line_profiler
 from typing import overload, NewType, Any, Callable, Union, Dict, List
 
 import numpy as np
@@ -83,9 +84,19 @@ class Py5Methods(PythonJavaClass):
     def __init__(self, sketch):
         self._sketch = sketch
         self._functions = dict()
+        self._profiler = line_profiler.LineProfiler()
 
     def set_functions(self, **kwargs):
         self._functions.update(kwargs)
+
+    def profile_functions(self, function_names):
+        for fname in function_names:
+            func = self._functions[fname]
+            self._profiler.add_function(func)
+            self._functions[fname] = self._profiler.wrap_function(func)
+
+    def dump_stats(self):
+        self._profiler.print_stats()
 
     @java_method('()[Ljava/lang/Object;')
     def get_function_list(self):
@@ -162,20 +173,19 @@ class Sketch:
 
     def __init__(self):
         self._py5applet = _Py5Applet()
+        # must always keep the py5_methods reference count from hitting zero.
+        # otherwise, it will be garbage collected and lead to segmentation faults!
+        self._py5_methods = Py5Methods(self)
+        self._methods_to_profile = []
 
     def run_sketch(self, block: bool = True) -> None:
         methods = dict([(e, getattr(self, e)) for e in _METHODS if hasattr(self, e)])
         self._run_sketch(methods, block)
 
     def _run_sketch(self, methods: Dict[str, Callable], block: bool) -> None:
-        py5_methods = Py5Methods(self)
-        py5_methods.set_functions(**methods)
-
-        # pass the py5_methods object to the py5applet object while also
-        # keeping the py5_methods reference count from hitting zero. otherwise,
-        # it will be garbage collected and lead to segmentation faults!
-        self._py5applet.usePy5Methods(py5_methods)
-        self._py5_methods = py5_methods
+        self._py5_methods.set_functions(**methods)
+        self._py5applet.usePy5Methods(self._py5_methods)
+        self._py5_methods.profile_functions(self._methods_to_profile)
 
         _Py5Applet.runSketch([''], self._py5applet)
 
@@ -196,6 +206,15 @@ class Sketch:
 
     def hot_reload_draw(self, draw):
         self._py5_methods.set_functions(**dict(draw=draw))
+
+    def profile_functions(self, function_names):
+        self._methods_to_profile.extend(function_names)
+
+    def profile_draw(self):
+        self._methods_to_profile.extend(['draw'])
+
+    def print_line_profiler_stats(self):
+        self._py5_methods.dump_stats()
 
     @classmethod
     def sin(cls, angle: float) -> float:
