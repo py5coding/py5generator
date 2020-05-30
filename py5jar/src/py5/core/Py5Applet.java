@@ -1,7 +1,12 @@
 package py5.core;
 
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+import java.nio.file.Files;
 import java.util.HashSet;
 import java.util.Set;
+import java.io.File;
+import java.io.IOException;
 
 import com.jogamp.newt.event.KeyListener;
 import com.jogamp.newt.event.MouseListener;
@@ -140,8 +145,23 @@ public class Py5Applet extends PApplet {
     return keyPressed;
   }
 
-  public void setNewPixels(int [] newPixels) {
-    System.arraycopy(newPixels, 0, pixels, 0, pixels.length);
+  public byte[] getPixels() {
+    loadPixels();
+    ByteBuffer byteBuffer = ByteBuffer.allocate(4 * pixels.length);
+    IntBuffer intBuffer = byteBuffer.asIntBuffer();
+    intBuffer.put(pixels);
+
+    return byteBuffer.array();
+  }
+
+  public void setPixels(byte[] newPixels) {
+    ByteBuffer byteBuffer = ByteBuffer.allocate(newPixels.length);
+    byte[] byteArray = byteBuffer.array();
+    System.arraycopy(newPixels, 0, byteArray, 0, newPixels.length);
+    IntBuffer intBuffer = byteBuffer.asIntBuffer();
+    
+    intBuffer.get(pixels);
     updatePixels();
   }
+  
 }

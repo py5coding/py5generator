@@ -286,6 +286,15 @@ class Sketch:
     def sq(cls, n: float) -> float:
         return n * n
 
+    def get_pixels(self):
+        self._pixels_bytearray = self._py5applet.getPixels()
+        pixels = np.frombuffer(self._pixels_bytearray.tostring(), dtype=np.uint8)
+        return pixels.reshape(self.height, self.width, 4).copy()
+
+    def set_pixels(self, new_pixels):
+        self._pixels_bytearray[:] = new_pixels.flatten().tobytes()
+        self._py5applet.setPixels(self._pixels_bytearray)
+
     @classmethod
     def pixels_to_numpy(cls, pixels: List[int], colors: str = 'RGBA') -> np.ndarray:
         np_pixels = np.array(pixels, dtype=np.uint32)

@@ -6,6 +6,7 @@ ffmpeg -f x11grab -r 15 -s 640x480 -i :0.0+1920,25 -vcodec rawvideo -pix_fmt yuv
 https://trac.ffmpeg.org/wiki/Capture/Desktop
 https://www.ffmpeg.org/ffmpeg-devices.html
 """
+import array
 
 import cv2
 import numpy as np
@@ -15,6 +16,9 @@ from py5 import Sketch
 
 
 alpha = 0.6
+
+ByteBuffer = py5.autoclass('java.nio.ByteBuffer')
+IntBuffer = py5.autoclass('java.nio.IntBuffer')
 
 
 class ZoomTest(Sketch):
@@ -32,6 +36,7 @@ class ZoomTest(Sketch):
         self.rotX = 0
         self.rotY = 0
         self.rotZ = 0
+        self.pixel_count = self.width * self.height
 
     def dumb_test(self):
         out = 0
@@ -64,13 +69,12 @@ class ZoomTest(Sketch):
 
         self.mask = (1 - alpha) * self.mask + alpha * mask_update
 
-        self.load_pixels()
-        sketch_pixels = self.pixels_to_numpy(self.pixels, colors='BGR').reshape(self.height, self.width, 3)
-        sketch_pixels[self.mask < 0.5] = frame[self.mask < 0.5]
+        sketch_pixels = self.get_pixels()
+        flat_mask = self.mask.flat < 0.5
+        sketch_pixels.reshape(self.pixel_count, 4)[flat_mask, 1:] = frame.reshape(self.pixel_count, 3)[flat_mask]
+        self.set_pixels(sketch_pixels)
 
-        self.set_new_pixels(self.numpy_to_pixels(sketch_pixels, colors='BGR'))
-
-        # print(self.get_frame_rate())
+        print(self.get_frame_rate())
 
     def exit_actual(self):
         self.cap.release()
