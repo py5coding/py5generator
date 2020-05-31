@@ -293,6 +293,7 @@ class Sketch:
 
     def set_pixels(self, new_pixels):
         self._pixels_bytearray[:] = new_pixels.flatten().tobytes()
+        self._pixels_bytearray._JNIUS_PASS_BY_VALUE = True
         self._py5applet.setPixels(self._pixels_bytearray)
 
     @classmethod

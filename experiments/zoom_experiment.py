@@ -74,12 +74,13 @@ class ZoomTest(Sketch):
         sketch_pixels.reshape(self.pixel_count, 4)[flat_mask, 1:] = frame.reshape(self.pixel_count, 3)[flat_mask]
         self.set_pixels(sketch_pixels)
 
-        print(self.get_frame_rate())
+        # print(self.get_frame_rate())
 
     def exit_actual(self):
         self.cap.release()
 
 
+py5._prune_tracebacks = False
 zoom_test = ZoomTest()
 # zoom_test.profile_draw()
 zoom_test.run_sketch(block=False)

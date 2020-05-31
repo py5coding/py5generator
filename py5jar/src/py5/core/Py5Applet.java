@@ -163,5 +163,14 @@ public class Py5Applet extends PApplet {
     intBuffer.get(pixels);
     updatePixels();
   }
+
+  public int[] intTest1() {
+    return new int[10];
+  }
+
+  public void intTest2(int[] test) {
+    assert test.length == 10;
+    test[0] = 42;
+  }
   
 }
