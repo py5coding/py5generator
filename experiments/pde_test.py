@@ -2,6 +2,9 @@
 import test_import as ti
 
 
+started = False
+
+
 def settings():
     size(500, 500, JAVA2D)
 
@@ -14,14 +17,18 @@ def setup():
 def draw():
     if is_key_pressed():
         print('frameRate', get_frame_rate())
-    fill(random(255), random(255), random(255), 50.0)
-    rect(mouse_x, mouse_y, 40, 40)
+    if started:
+        fill(random(255), random(255), random(255), 50.0)
+        rect(mouse_x, mouse_y, 40, 40)
 
     if frame_count == 300:
+        save_frame('/tmp/frame_###.png')
         cause_error(ti.test_function(10, 30))
 
 
 def mouse_entered():
+    global started
+    started = True
     print('mouse entered')
 
 

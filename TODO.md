@@ -114,3 +114,5 @@ bugs
 ----
 
 when an error is thrown I can call run_sketch again to continue the sketch. neat trick, but it opens a new window, which perhaps it should not do.
+
+when using the run_sketch command, the save_frame function saves files in the installed library directory when using relative paths. does it do this when run as a program also? the function doesn't work at all when using an opengl renderer.
