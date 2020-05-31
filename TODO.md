@@ -101,7 +101,9 @@ Ability to make Python library extensions. Might as well make them installable P
 
 * py5-AR - build an AR framework that tracks the Processing camera to a surface.
 * py5-slides - presentation framework, read a markdown file and show one slide after another. Support complex animations on each slide, including embedded sketches.
-* py5-vj - can I do live coding for a VJ event? I can get inputs from a music stream for the beats, notes, etc. It is possible to replace the `draw()` method at will with `hot_reload_draw()`.
+* py5-vj - can I do live coding for a VJ event? I can get inputs from a music stream for the beats, notes, etc. It is possible to replace the `draw()` method at will with `hot_reload_draw()`. Perhaps I can use the ControlP5 textarea object for editing the code.
+* py5-audio - use librosa to animate audio or music.
+* py5-cloud - can I use cloud computing to build a renderfarm for rendering a lot of frames? they don't have to be done sequentially if I code it correctly. also, it would be interesting to build a generative work that can be streamed over twitch from the cloud.
 
 other
 -----
