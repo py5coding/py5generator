@@ -287,14 +287,14 @@ class Sketch:
         return n * n
 
     def get_pixels(self):
-        self._pixels_bytearray = self._py5applet.getPixels()
+        self._pixels_bytearray = self._py5applet.loadAndGetPixels()
         pixels = np.frombuffer(self._pixels_bytearray.tostring(), dtype=np.uint8)
         return pixels.reshape(self.height, self.width, 4).copy()
 
     def set_pixels(self, new_pixels):
         self._pixels_bytearray[:] = new_pixels.flatten().tobytes()
         self._pixels_bytearray._JNIUS_PASS_BY_VALUE = True
-        self._py5applet.setPixels(self._pixels_bytearray)
+        self._py5applet.setAndUpdatePixels(self._pixels_bytearray)
 
     @classmethod
     def pixels_to_numpy(cls, pixels: List[int], colors: str = 'RGBA') -> np.ndarray:

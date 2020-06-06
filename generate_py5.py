@@ -195,7 +195,7 @@ PAPPLET_SKIP_METHODS = {
     # internal methods
     'postEvent', 'style', 'hideMenuBar', 'saveViaImageIO',
     'getClass',
-    'setPixels', 'getPixels'
+    'setAndUpdatePixels', 'loadAndGetPixels'
 }
 
 PAPPLET_SKIP_PARAM_TYPES = {

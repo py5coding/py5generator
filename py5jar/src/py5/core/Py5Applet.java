@@ -145,7 +145,7 @@ public class Py5Applet extends PApplet {
     return keyPressed;
   }
 
-  public byte[] getPixels() {
+  public byte[] loadAndGetPixels() {
     loadPixels();
     ByteBuffer byteBuffer = ByteBuffer.allocate(4 * pixels.length);
     IntBuffer intBuffer = byteBuffer.asIntBuffer();
@@ -154,7 +154,7 @@ public class Py5Applet extends PApplet {
     return byteBuffer.array();
   }
 
-  public void setPixels(byte[] newPixels) {
+  public void setAndUpdatePixels(byte[] newPixels) {
     ByteBuffer byteBuffer = ByteBuffer.allocate(newPixels.length);
     byte[] byteArray = byteBuffer.array();
     System.arraycopy(newPixels, 0, byteArray, 0, newPixels.length);
