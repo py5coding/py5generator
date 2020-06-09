@@ -287,11 +287,11 @@ class Sketch:
     def sq(cls, n: float) -> float:
         return n * n
 
-    def get_pixels(self):
+    def get_pixels(self) -> np.ndarray:
         pixels = np.frombuffer(self._py5applet.loadAndGetPixels().tostring(), dtype=np.uint8)
         return pixels.reshape(self.height, self.width, 4).copy()
 
-    def set_pixels(self, new_pixels):
+    def set_pixels(self, new_pixels: np.ndarray):
         self._py5applet.setAndUpdatePixels(new_pixels.flatten().tobytes())
 
     @classmethod
