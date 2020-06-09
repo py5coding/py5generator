@@ -173,9 +173,10 @@ class Sketch:
 
     def __init__(self):
         self._py5applet = _Py5Applet()
+        self._py5applet.setAndUpdatePixels.pass_by_reference(False)
+        self._methods_to_profile = []
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
-        self._methods_to_profile = []
         self._py5_methods = None
 
     def run_sketch(self, block: bool = True) -> None:
@@ -287,14 +288,11 @@ class Sketch:
         return n * n
 
     def get_pixels(self):
-        self._pixels_bytearray = self._py5applet.loadAndGetPixels()
-        pixels = np.frombuffer(self._pixels_bytearray.tostring(), dtype=np.uint8)
+        pixels = np.frombuffer(self._py5applet.loadAndGetPixels().tostring(), dtype=np.uint8)
         return pixels.reshape(self.height, self.width, 4).copy()
 
     def set_pixels(self, new_pixels):
-        self._pixels_bytearray[:] = new_pixels.flatten().tobytes()
-        self._pixels_bytearray._JNIUS_PASS_BY_VALUE = True
-        self._py5applet.setAndUpdatePixels(self._pixels_bytearray)
+        self._py5applet.setAndUpdatePixels(new_pixels.flatten().tobytes())
 
     @classmethod
     def pixels_to_numpy(cls, pixels: List[int], colors: str = 'RGBA') -> np.ndarray:
