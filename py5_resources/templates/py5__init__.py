@@ -173,7 +173,6 @@ class Sketch:
 
     def __init__(self):
         self._py5applet = _Py5Applet()
-        self._py5applet.setAndUpdatePixels.pass_by_reference(False)
         self._methods_to_profile = []
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
@@ -292,7 +291,7 @@ class Sketch:
         return pixels.reshape(self.height, self.width, 4).copy()
 
     def set_pixels(self, new_pixels: np.ndarray):
-        self._py5applet.setAndUpdatePixels(new_pixels.flatten().tobytes())
+        self._py5applet.setAndUpdatePixels(new_pixels.flatten().tobytes(), pass_by_reference=False)
 
     @classmethod
     def load_json(cls, filename: Union[str, Path], **kwargs: Dict[str, Any]) -> Any:
