@@ -6,8 +6,6 @@ ffmpeg -f x11grab -r 15 -s 640x480 -i :0.0+1920,25 -vcodec rawvideo -pix_fmt yuv
 https://trac.ffmpeg.org/wiki/Capture/Desktop
 https://www.ffmpeg.org/ffmpeg-devices.html
 """
-import array
-
 import cv2
 import numpy as np
 
@@ -16,9 +14,6 @@ from py5 import Sketch
 
 
 alpha = 0.6
-
-ByteBuffer = py5.autoclass('java.nio.ByteBuffer')
-IntBuffer = py5.autoclass('java.nio.IntBuffer')
 
 
 class ZoomTest(Sketch):
@@ -64,14 +59,14 @@ class ZoomTest(Sketch):
 
         frame2 = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         mask_update = ((frame2[:, :, 0] > 50) & (frame2[:, :, 0] < 120) & (frame2[:, :, 1] > 100))
-        mask_update[:, :50] = True
-        mask_update[:, -50:] = True
+        mask_update[:, :75] = True
+        mask_update[:, -75:] = True
 
         self.mask = (1 - alpha) * self.mask + alpha * mask_update
 
         sketch_pixels = self.get_pixels()
         flat_mask = self.mask.flat < 0.5
-        sketch_pixels.reshape(self.pixel_count, 4)[flat_mask, 1:] = frame.reshape(self.pixel_count, 3)[flat_mask]
+        sketch_pixels.reshape(self.pixel_count, 4)[flat_mask, 1:] = frame[:, :, ::-1].reshape(self.pixel_count, 3)[flat_mask]
         self.set_pixels(sketch_pixels)
 
         # print(self.get_frame_rate())
