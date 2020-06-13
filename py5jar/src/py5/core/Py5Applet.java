@@ -163,26 +163,4 @@ public class Py5Applet extends PApplet {
     intBuffer.get(pixels);
     updatePixels();
   }
-
-  public byte[] byteTest1() {
-    return new byte[500 * 500];
-  }
-
-  public void byteTest2(byte[] test) {
-    test[0] = 63;
-  }
-  
-  public void byteTest3(ByteBuffer testBuffer) {
-    byte[] test = testBuffer.array();
-    test[0] = 63;
-  }
-
-  public void byteTest4(byte[] test) {
-    System.out.println(test.length);
-    for (int i=0; i < test.length; i++) {
-      if (test[i] != 50 + (i % 5)) {
-        throw new RuntimeException("error");
-      }
-    }
-  }
 }
