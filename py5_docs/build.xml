@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="py5 doclets" default="dist">
+
+    <description>
+        compile and build the py5 doclet jar file.
+    </description>
+
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <property name="dist" location="dist"/>
+
+    <target name="compile" description="compile the source">
+        <mkdir dir="${build}"/>
+        <javac includeantruntime="false" source="11" target="11" srcdir="${src}" destdir="${build}">
+        </javac>
+    </target>
+
+    <target name="dist" depends="compile" description="make the jar">
+        <mkdir dir="${dist}"/>
+        <jar destfile="${dist}/py5doclet.jar" basedir="${build}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
+
+</project>
