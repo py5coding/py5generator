@@ -70,6 +70,8 @@ add docstrings to all methods, pulling docs from wherever the website documentat
 
 It seems to have been generated with [JavaDocs and some Python code](https://github.com/processing/processing-docs/tree/master/java_generate). The repo contains the [xml files](https://github.com/processing/processing-docs/tree/master/content/api_en) referenced in the `PApplet.java` comments. The `GenerateDescriptions.py` inserts those xml descriptions into the Java source. The `processingrefBuild.sh` script just calls `javadoc` using a custom doclet to use particular templates and other customizations. I should adapt the custom doclet for my needs.
 
+javadoc -public "processing.core" --source-path "src/" -classpath "library/core.jar"  -d /tmp/
+
 It would be great if I could feed these through a translator to make this multi-linqual. Then perhaps I could do something like `import py5.es as py5` to make all the docstrings in Spanish.
 
 If I did this, how would I keep everything in sync? I will certainly add new functions, especially in the short term. Those new functions will be in Python so their docstrings will come from another source.
