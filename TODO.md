@@ -76,6 +76,8 @@ Basic javadoc command:
 Custom javadoc doclet command:
 `javadoc -doclet Py5Doclet -docletpath /home/jim/Projects/ITP/pythonprocessing/py5development/py5_docs/dist/py5doclet.jar --source-path "src/" -classpath "library/core.jar" --show-members public  "processing.core"`
 
+[Doclet documentation](https://docs.oracle.com/javase/9/docs/api/jdk/javadoc/doclet/package-summary.html)
+
 It would be great if I could feed these through a translator to make this multi-linqual. Then perhaps I could do something like `import py5.es as py5` to make all the docstrings in Spanish.
 
 If I did this, how would I keep everything in sync? I will certainly add new functions, especially in the short term. Those new functions will be in Python so their docstrings will come from another source.
