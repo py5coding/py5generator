@@ -1,6 +1,3 @@
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -143,46 +140,13 @@ public class Py5Doclet implements Doclet {
     }
 
     @Override
-    public Set<? extends Option> getSupportedOptions() {
-        Option[] options = { new Option() {
-            private final List<String> someOption = Arrays.asList("-overviewfile", "--overview-file", "-o");
-
-            @Override
-            public int getArgumentCount() {
-                return 1;
-            }
-
-            @Override
-            public String getDescription() {
-                return "an option with aliases";
-            }
-
-            @Override
-            public Option.Kind getKind() {
-                return Option.Kind.STANDARD;
-            }
-
-            @Override
-            public List<String> getNames() {
-                return someOption;
-            }
-
-            @Override
-            public String getParameters() {
-                return "file";
-            }
-
-            @Override
-            public boolean process(String opt, List<String> arguments) {
-                return true;
-            }
-        } };
-        return new HashSet<Option>(Arrays.asList(options));
-    }
-
-    @Override
     public SourceVersion getSupportedSourceVersion() {
         // support the latest release
         return SourceVersion.latest();
+    }
+
+    @Override
+    public Set<? extends Option> getSupportedOptions() {
+        return null;
     }
 }
