@@ -7,7 +7,9 @@ import java.util.Set;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.ElementFilter;
 
 import jdk.javadoc.doclet.Doclet;
@@ -40,6 +42,15 @@ public class Py5Doclet implements Doclet {
         if (docCommentTree != null) {
             System.out.println("******************************************");
             System.out.println("(" + kind + ") " + partOf + "." + name);
+
+            if (kind == ElementKind.METHOD) {
+                System.out.println("{{parameters}}");
+                ExecutableElement ee = (ExecutableElement) e;
+                for (VariableElement pe : ee.getParameters()) {
+                    System.out.println(pe.asType().toString() + " " + pe.toString());
+                }
+                System.out.println("returns: " + ee.getReturnType());
+            }
 
             System.out.println("{{Entire body}}");
             for (DocTree tree : docCommentTree.getFullBody()) {
