@@ -9,7 +9,6 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.ElementFilter;
-// import javax.tools.Diagnostic.Kind;
 
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
@@ -17,9 +16,11 @@ import jdk.javadoc.doclet.Reporter;
 
 import com.sun.source.util.DocTrees;
 import com.sun.source.doctree.DocTree;
-// import com.sun.source.doctree.DocTree.Kind;
 import com.sun.source.doctree.ParamTree;
 import com.sun.source.doctree.SeeTree;
+import com.sun.source.doctree.ReturnTree;
+import com.sun.source.doctree.DeprecatedTree;
+import com.sun.source.doctree.ThrowsTree;
 import com.sun.source.doctree.UnknownBlockTagTree;
 import com.sun.source.doctree.DocCommentTree;
 
@@ -28,25 +29,46 @@ public class Py5Doclet implements Doclet {
 
     @Override
     public void init(Locale locale, Reporter reporter) {
-        // reporter.print(Kind.NOTE, "Doclet using locale: " + locale);
         this.reporter = reporter;
     }
 
-    public void printElement(DocTrees trees, Element e) {
+    public void printElement(DocTrees trees, String partOf, Element e) {
         ElementKind kind = e.getKind();
         String name = e.getSimpleName().toString();
 
         DocCommentTree docCommentTree = trees.getDocCommentTree(e);
         if (docCommentTree != null) {
             System.out.println("******************************************");
-            System.out.println(name + "(" + kind + ")");
+            System.out.println("(" + kind + ") " + partOf + "." + name);
 
-            System.out.println("Entire body:");
+            System.out.println("{{Entire body}}");
             for (DocTree tree : docCommentTree.getFullBody()) {
-                System.out.print(tree.toString().trim().replace("<br/>", "\n"));
+                String s = tree.toString();
+                s = s.replaceAll("\\( begin auto-generated from .*?\\)", "");
+                s = s.replaceAll("\\( end auto-generated \\)", "");
+                s = s.trim();
+                s = s.replace("\n", "");
+                s = s.replace("<br/>", "\n");
+                s = s.replace("<BR>", "\n");
+                s = s.replace("<nobr>", "");
+                s = s.replace("</nobr>", "");
+                s = s.replace("<NOBR>", "");
+                s = s.replace("</NOBR>", "");
+                s = s.replace("<b>", " `");
+                s = s.replace("</b>", "` ");
+                s = s.replace("<PRE>", "\n\n```\n");
+                s = s.replace("</PRE>", "\n```\n\n");
+                s = s.replace("<TT>", "\n\n```\n");
+                s = s.replace("</TT>", "\n```\n\n");
+                s = s.replace("<h3>", "\n\n");
+                s = s.replace("</h3>", "\n--------\n\n");
+                s = s.replace("<P>", "\n\n");
+                s = s.replace("<p>", "\n\n");
+                s = s.replace("<p/>", "\n\n");
+                System.out.print(s);
             }
 
-            System.out.println("\nBlock tags:");
+            System.out.println("\n{{Block tags}}");
             for (DocTree tree : docCommentTree.getBlockTags()) {
                 switch (tree.getKind()) {
                     case PARAM:
@@ -54,18 +76,34 @@ public class Py5Doclet implements Doclet {
                         String pname = param.getName().toString();
                         String desc = param.getDescription().toString();
                         String istype = param.isTypeParameter() ? " (type)" : "";
-                        System.out.println(pname + istype + ": " + desc);
+                        System.out.println("Param: " + pname + istype + ": " + desc);
                         break;
                     case SEE:
                         SeeTree see = (SeeTree) tree;
                         String reference = see.getReference().toString();
                         System.out.println("See Also: " + reference);
                         break;
+                    case RETURN:
+                        ReturnTree ret = (ReturnTree) tree;
+                        String retDesc = ret.getDescription().toString();
+                        System.out.println("Returns: " + retDesc);
+                        break;
+                    case THROWS:
+                        ThrowsTree throwsTree = (ThrowsTree) tree;
+                        String throwDesc = throwsTree.getDescription().toString();
+                        String eName = throwsTree.getExceptionName().toString();
+                        System.out.println("Throws: " + eName + " " + throwDesc);
+                        break;
+                    case DEPRECATED:
+                        DeprecatedTree dep = (DeprecatedTree) tree;
+                        String reason = dep.getBody().toString();
+                        System.out.println("Deprecated: " + reason);
+                        break;
                     case UNKNOWN_BLOCK_TAG:
                         UnknownBlockTagTree unknown = (UnknownBlockTagTree) tree;
                         String tagname = unknown.getTagName().toString();
                         String content = unknown.getContent().toString();
-                        System.out.println(tagname + " " + content);
+                        System.out.println("Unknown: " + tagname + " " + content);
                         break;
                     default:
                         System.out.println("???? DEFAULT ????");
@@ -82,7 +120,7 @@ public class Py5Doclet implements Doclet {
         for (TypeElement t : ElementFilter.typesIn(docEnv.getIncludedElements())) {
             System.out.println(t.getKind() + ":" + t);
             for (Element e : t.getEnclosedElements()) {
-                printElement(docTrees, e);
+                printElement(docTrees, t.toString(), e);
             }
         }
         return true;
