@@ -1,5 +1,8 @@
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
@@ -25,10 +28,26 @@ import com.sun.source.doctree.DocCommentTree;
 
 public class Py5Doclet implements Doclet {
     Reporter reporter;
+    Pattern link;
+
+    public Py5Doclet() {
+        link = Pattern.compile("<a href=\"([^\"]*)\">([^<]*)</a>", Pattern.CASE_INSENSITIVE);
+    }
 
     @Override
     public void init(Locale locale, Reporter reporter) {
         this.reporter = reporter;
+    }
+
+    private String fixLinks(String text) {
+        while (true) {
+            Matcher m = link.matcher(text);
+            if (m.find()) {
+                text = text.replace(m.group(0), String.format(" [%s](%s) ", m.group(2), m.group(1)));
+            } else {
+                return text;
+            }
+        }
     }
 
     public void printElement(DocTrees trees, String partOf, Element e) {
@@ -50,6 +69,7 @@ public class Py5Doclet implements Doclet {
             }
 
             System.out.println("{{Entire body}}");
+            StringBuilder sb = new StringBuilder();
             for (DocTree tree : docCommentTree.getFullBody()) {
                 String s = tree.toString();
                 s = s.replaceAll("\\( begin auto-generated from .*?\\)", "");
@@ -73,8 +93,9 @@ public class Py5Doclet implements Doclet {
                 s = s.replace("<P>", "\n\n");
                 s = s.replace("<p>", "\n\n");
                 s = s.replace("<p/>", "\n\n");
-                System.out.print(s);
+                sb.append(s);
             }
+            System.out.print(fixLinks(sb.toString()));
 
             System.out.println("\n{{Block tags}}");
             for (DocTree tree : docCommentTree.getBlockTags()) {
@@ -147,6 +168,6 @@ public class Py5Doclet implements Doclet {
 
     @Override
     public Set<? extends Option> getSupportedOptions() {
-        return null;
+        return new HashSet<Option>();
     }
 }
