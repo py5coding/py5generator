@@ -17,12 +17,10 @@ from functools import lru_cache
 
 parser = argparse.ArgumentParser(description="Generate py5 library using processing jars",
                                  epilog="this is the epilog")
-group = parser.add_mutually_exclusive_group(required=True)
-group.add_argument('-r', '--repo', action='store', dest='processing_repo_dir',
-                   help='location of processing code (github repository)')
-group.add_argument('-p', '--pde', action='store', dest='processing_install_dir',
-                   help='location of installed processing application (PDE)')
-
+parser.add_argument('-r', '--repo', action='store', dest='processing_repo_dir',
+                    help='location of processing code (github repository)')
+parser.add_argument('-p', '--param', action='store', dest='method_parameter_names_data_file',
+                    help='location of method parameter names data file created by Py5Doclet')
 
 ###############################################################################
 # DOCSTRINGS
@@ -288,20 +286,18 @@ def param_annotation(varname: str, jtype: str) -> str:
 ###############################################################################
 
 
-def generate_py5(repo_dir=None, install_dir=None):
+def generate_py5(repo_dir, method_parameter_names_data_file):
     """Generate an installable py5 library using processing jars
     """
-    repo_dir = repo_dir and Path(repo_dir)
-    install_dir = install_dir and Path(install_dir)
+    repo_dir = Path(repo_dir)
 
     print(f'generating py5 library...')
-    search_dir = repo_dir or install_dir
-    core_jars = list(search_dir.glob('**/core.jar'))
+    core_jars = list(repo_dir.glob('**/core.jar'))
     if len(core_jars) != 1:
         if core_jars:
-            print(f'more than one core.jar found in {search_dir}', file=sys.stderr)
+            print(f'more than one core.jar found in {repo_dir}', file=sys.stderr)
         else:
-            print(f'core.jar not found in {search_dir}', file=sys.stderr)
+            print(f'core.jar not found in {repo_dir}', file=sys.stderr)
         return
     core_jar_path = core_jars[0]
 
@@ -313,7 +309,7 @@ def generate_py5(repo_dir=None, install_dir=None):
     from jnius import autoclass, JavaStaticMethod, JavaMethod, JavaMultipleMethod, JavaStaticField, JavaField
 
     method_parameter_names_data = dict()
-    with open('/tmp/params.psv', 'r') as f:
+    with open(method_parameter_names_data_file, 'r') as f:
         for line in f.readlines():
             c, f, types, params, rettype = line.split('|')
             if c not in method_parameter_names_data: method_parameter_names_data[c] = dict()
@@ -496,7 +492,7 @@ def generate_py5(repo_dir=None, install_dir=None):
 def main():
     args = parser.parse_args()
     generate_py5(repo_dir=args.processing_repo_dir,
-                 install_dir=args.processing_install_dir)
+                 method_parameter_names_data_file=args.method_parameter_names_data_file)
 
 
 if __name__ == '__main__':
