@@ -390,9 +390,8 @@ def generate_py5(repo_dir=None, install_dir=None):
                 if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
                     continue
                 try:
-                    parameter_names, _ = (
-                        method_parameter_names_data['PApplet'][fname][','.join([p.split('/')[-1].replace('...', '[]') for p in params])]
-                    )
+                    parameter_name_key = ','.join([p.split('/')[-1].replace('...', '[]') for p in params])
+                    parameter_names, _ = method_parameter_names_data['PApplet'][fname][parameter_name_key]
                     parameter_names = [snake_case(p) for p in parameter_names.split(',')]
                     paramstrs = [first_param] + [param_annotation(pn, p) for pn, p in zip(parameter_names, params)]
                 except Exception:
@@ -408,9 +407,8 @@ def generate_py5(repo_dir=None, install_dir=None):
                     if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
                         continue
                     try:
-                        parameter_names, _ = (
-                            method_parameter_names_data['PApplet'][fname][','.join([p.split('/')[-1].replace('...', '[]') for p in params])]
-                        )
+                        parameter_name_key = ','.join([p.split('/')[-1].replace('...', '[]') for p in params])
+                        parameter_names, _ = method_parameter_names_data['PApplet'][fname][parameter_name_key]
                         parameter_names = [snake_case(p) for p in parameter_names.split(',')]
                         paramstrs = [first_param] + [param_annotation(pn, p) for pn, p in zip(parameter_names, params)]
                     except Exception:
