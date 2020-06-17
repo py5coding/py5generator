@@ -71,7 +71,7 @@ add docstrings to all methods, pulling docs from wherever the website documentat
 It seems to have been generated with [JavaDocs and some Python code](https://github.com/processing/processing-docs/tree/master/java_generate). The repo contains the [xml files](https://github.com/processing/processing-docs/tree/master/content/api_en) referenced in the `PApplet.java` comments. The `GenerateDescriptions.py` inserts those xml descriptions into the Java source. The `processingrefBuild.sh` script just calls `javadoc` using a custom doclet to use particular templates and other customizations.
 
 Custom javadoc doclet command:
-`javadoc -doclet Py5Doclet -docletpath /home/jim/Projects/ITP/pythonprocessing/py5development/py5_docs/dist/py5doclet.jar --source-path "src/" -classpath "library/core.jar" --show-members public  "processing.core"`
+`javadoc -doclet Py5Doclet -docletpath /home/jim/Projects/ITP/pythonprocessing/py5development/py5_docs/dist/py5doclet.jar --source-path "src/" -classpath "library/core.jar" --show-members public --param-file /tmp/params.psv "processing.core"`
 
 [Doclet documentation](https://docs.oracle.com/javase/9/docs/api/jdk/javadoc/doclet/package-summary.html)
 

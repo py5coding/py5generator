@@ -1,8 +1,15 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
@@ -27,11 +34,14 @@ import com.sun.source.doctree.UnknownBlockTagTree;
 import com.sun.source.doctree.DocCommentTree;
 
 public class Py5Doclet implements Doclet {
-    Reporter reporter;
-    Pattern link;
+    protected Reporter reporter;
+    private final Pattern LINK_REGEX;
+    private final Pattern DOT_REGEX;
+    private PrintWriter paramPrinter;
 
     public Py5Doclet() {
-        link = Pattern.compile("<a href=\"([^\"]*)\">([^<]*)</a>", Pattern.CASE_INSENSITIVE);
+        LINK_REGEX = Pattern.compile("<a href=\"([^\"]*)\">([^<]*)</a>", Pattern.CASE_INSENSITIVE);
+        DOT_REGEX = Pattern.compile("\\.");
     }
 
     @Override
@@ -41,7 +51,7 @@ public class Py5Doclet implements Doclet {
 
     private String fixLinks(String text) {
         while (true) {
-            Matcher m = link.matcher(text);
+            Matcher m = LINK_REGEX.matcher(text);
             if (m.find()) {
                 text = text.replace(m.group(0), String.format(" [%s](%s) ", m.group(2), m.group(1)));
             } else {
@@ -50,7 +60,16 @@ public class Py5Doclet implements Doclet {
         }
     }
 
-    public void printElement(DocTrees trees, String partOf, Element e) {
+    private String removePackage(String str) {
+        String[] tokens = DOT_REGEX.split(str);
+        return tokens[tokens.length - 1];
+    }
+
+    private String listToString(List<String> list) {
+        return list.stream().map(this::removePackage).collect(Collectors.joining(","));
+    }
+
+    public void processElement(DocTrees trees, String partOf, Element e) {
         ElementKind kind = e.getKind();
         String name = e.getSimpleName().toString();
 
@@ -61,11 +80,17 @@ public class Py5Doclet implements Doclet {
 
             if (kind == ElementKind.METHOD) {
                 System.out.println("{{parameters}}");
+                List<String> paramTypes = new ArrayList<String>();
+                List<String> paramNames = new ArrayList<String>();
                 ExecutableElement ee = (ExecutableElement) e;
                 for (VariableElement pe : ee.getParameters()) {
-                    System.out.println(pe.asType().toString() + " " + pe.toString());
+                    paramTypes.add(pe.asType().toString());
+                    paramNames.add(pe.toString());
                 }
-                System.out.println("returns: " + ee.getReturnType());
+                if (paramPrinter != null) {
+                    paramPrinter.printf("%s|%s|%s|%s|%s\n", removePackage(partOf), name, listToString(paramTypes),
+                            listToString(paramNames), removePackage(ee.getReturnType().toString()));
+                }
             }
 
             System.out.println("{{Entire body}}");
@@ -145,13 +170,24 @@ public class Py5Doclet implements Doclet {
 
     @Override
     public boolean run(DocletEnvironment docEnv) {
+        try {
+            paramPrinter = new PrintWriter(new File(paramFile));
+        } catch (FileNotFoundException e) {
+            System.err.println(String.format("Param file %s cannot be found", paramFile));
+        }
+
         DocTrees docTrees = docEnv.getDocTrees();
         for (TypeElement t : ElementFilter.typesIn(docEnv.getIncludedElements())) {
             System.out.println(t.getKind() + ":" + t);
             for (Element e : t.getEnclosedElements()) {
-                printElement(docTrees, t.toString(), e);
+                processElement(docTrees, t.toString(), e);
             }
         }
+
+        if (paramPrinter != null) {
+            paramPrinter.close();
+        }
+
         return true;
     }
 
@@ -166,8 +202,44 @@ public class Py5Doclet implements Doclet {
         return SourceVersion.latest();
     }
 
+    private String paramFile;
+
     @Override
     public Set<? extends Option> getSupportedOptions() {
-        return new HashSet<Option>();
+        Option[] options = { new Option() {
+            private final List<String> methodParamOption = Arrays.asList("-paramfile", "--param-file", "-p");
+
+            @Override
+            public int getArgumentCount() {
+                return 1;
+            }
+
+            @Override
+            public String getDescription() {
+                return "output file for method parameter names";
+            }
+
+            @Override
+            public Option.Kind getKind() {
+                return Option.Kind.STANDARD;
+            }
+
+            @Override
+            public List<String> getNames() {
+                return methodParamOption;
+            }
+
+            @Override
+            public String getParameters() {
+                return "file";
+            }
+
+            @Override
+            public boolean process(String opt, List<String> arguments) {
+                paramFile = arguments.get(0);
+                return true;
+            }
+        } };
+        return new HashSet<>(Arrays.asList(options));
     }
 }
