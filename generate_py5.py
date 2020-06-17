@@ -299,8 +299,7 @@ def generate_py5(repo_dir=None, install_dir=None):
     core_jars = list(search_dir.glob('**/core.jar'))
     if len(core_jars) != 1:
         if core_jars:
-            print(
-                f'more than one core.jar found in {search_dir}', file=sys.stderr)
+            print(f'more than one core.jar found in {search_dir}', file=sys.stderr)
         else:
             print(f'core.jar not found in {search_dir}', file=sys.stderr)
         return
@@ -391,11 +390,13 @@ def generate_py5(repo_dir=None, install_dir=None):
                 if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
                     continue
                 try:
-                    parameter_names, _ = method_parameter_names_data['PApplet'][fname][','.join([p.split('/')[-1] for p in params])]
+                    parameter_names, _ = (
+                        method_parameter_names_data['PApplet'][fname][','.join([p.split('/')[-1].replace('...', '[]') for p in params])]
+                    )
                     parameter_names = [snake_case(p) for p in parameter_names.split(',')]
                     paramstrs = [first_param] + [param_annotation(pn, p) for pn, p in zip(parameter_names, params)]
                 except Exception:
-                    print('* problem finding parameter names for', fname, params)
+                    print('missing parameter names for', fname, params)
                     paramstrs = [first_param] + [param_annotation(f'arg{i}', p) for i, p in enumerate(params)]
                 rettypestr = convert_type(rettype)
                 class_members.append(CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
@@ -407,11 +408,13 @@ def generate_py5(repo_dir=None, install_dir=None):
                     if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
                         continue
                     try:
-                        parameter_names, _ = method_parameter_names_data['PApplet'][fname][','.join([p.split('/')[-1] for p in params])]
+                        parameter_names, _ = (
+                            method_parameter_names_data['PApplet'][fname][','.join([p.split('/')[-1].replace('...', '[]') for p in params])]
+                        )
                         parameter_names = [snake_case(p) for p in parameter_names.split(',')]
                         paramstrs = [first_param] + [param_annotation(pn, p) for pn, p in zip(parameter_names, params)]
                     except Exception:
-                        print('** problem finding parameter names for', fname, params)
+                        print('missing parameter names for', fname, params)
                         paramstrs = [first_param] + [param_annotation(f'arg{i}', p) for i, p in enumerate(params)]
                     rettypestr = convert_type(rettype)
                     class_members.append(CLASS_METHOD_TYPEHINT_TEMPLATE.format(
