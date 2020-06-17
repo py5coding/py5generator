@@ -73,25 +73,25 @@ public class Py5Doclet implements Doclet {
         ElementKind kind = e.getKind();
         String name = e.getSimpleName().toString();
 
+        if (kind == ElementKind.METHOD) {
+            System.out.println("{{parameters}}");
+            List<String> paramTypes = new ArrayList<String>();
+            List<String> paramNames = new ArrayList<String>();
+            ExecutableElement ee = (ExecutableElement) e;
+            for (VariableElement pe : ee.getParameters()) {
+                paramTypes.add(pe.asType().toString());
+                paramNames.add(pe.toString());
+            }
+            if (paramPrinter != null) {
+                paramPrinter.printf("%s|%s|%s|%s|%s\n", removePackage(partOf), name, listToString(paramTypes),
+                        listToString(paramNames), removePackage(ee.getReturnType().toString()));
+            }
+        }
+
         DocCommentTree docCommentTree = trees.getDocCommentTree(e);
         if (docCommentTree != null) {
             System.out.println("******************************************");
             System.out.println("(" + kind + ") " + partOf + "." + name);
-
-            if (kind == ElementKind.METHOD) {
-                System.out.println("{{parameters}}");
-                List<String> paramTypes = new ArrayList<String>();
-                List<String> paramNames = new ArrayList<String>();
-                ExecutableElement ee = (ExecutableElement) e;
-                for (VariableElement pe : ee.getParameters()) {
-                    paramTypes.add(pe.asType().toString());
-                    paramNames.add(pe.toString());
-                }
-                if (paramPrinter != null) {
-                    paramPrinter.printf("%s|%s|%s|%s|%s\n", removePackage(partOf), name, listToString(paramTypes),
-                            listToString(paramNames), removePackage(ee.getReturnType().toString()));
-                }
-            }
 
             System.out.println("{{Entire body}}");
             StringBuilder sb = new StringBuilder();
