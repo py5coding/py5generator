@@ -181,6 +181,12 @@ PAPPLET_SKIP_METHODS = {
     'showDepthWarning', 'showDepthWarningXYZ', 'showMethodWarning',
     'showVariationWarning', 'showMissingWarning',
     'checkAlpha', 'setSize', 'die',
+    # methods that are missing documentation that are not a part of the framework
+    'attrib', 'attribColor', 'attribNormal', 'attribPosition', 'beginPGL', 'endPGL',
+    'exitCalled', 'flush', 'focusGained', 'focusLost', 'frameMoved', 'frameResized',
+    'isKeyPressed', 'isLooping', 'orientation', 'sketchDisplay', 'sketchFullScreen',
+    'sketchHeight', 'sketchOutputPath' 'sketchPath', 'sketchPixelDensity', 'sketchRenderer',
+    'sketchSmooth', 'sketchSmooth', 'sketchWidth', 'sketchWindowColor', 'blendColor',
     # files methods that should be done in Python
     'createInput', 'createInputRaw', 'createOutput', 'createPath', 'createReader',
     'createWriter', 'dataFile', 'dataPath', 'link', 'listFiles', 'listPaths',
@@ -194,7 +200,7 @@ PAPPLET_SKIP_METHODS = {
     'parseBoolean', 'parseByte', 'parseChar', 'parseInt', 'parseFloat',
     # internal methods
     'postEvent', 'style', 'hideMenuBar', 'saveViaImageIO',
-    'getClass',
+    'getClass', 'hashCode', 'wait', 'notify', 'notifyAll', 'toString',
     'setAndUpdatePixels', 'loadAndGetPixels'
 }
 
@@ -307,6 +313,15 @@ def generate_py5(repo_dir=None, install_dir=None):
     jnius_config.set_classpath(str(py5_jar_path), str(core_jar_path))
     from jnius import autoclass, JavaStaticMethod, JavaMethod, JavaMultipleMethod, JavaStaticField, JavaField
 
+    method_parameter_names_data = dict()
+    with open('/tmp/params.psv', 'r') as f:
+        for line in f.readlines():
+            c, f, types, params, rettype = line.split('|')
+            if c not in method_parameter_names_data: method_parameter_names_data[c] = dict()
+            if f not in method_parameter_names_data[c]: method_parameter_names_data[c][f] = dict()
+            if types in method_parameter_names_data[c][f]: raise RuntimeError('assumption violated')
+            method_parameter_names_data[c][f][types] = (params, rettype)
+
     print('examining Java classes')
     Py5Applet = autoclass('py5.core.Py5Applet',
                           include_protected=False, include_private=False)
@@ -375,7 +390,13 @@ def generate_py5(repo_dir=None, install_dir=None):
                 params, rettype = method.signatures()[0]
                 if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
                     continue
-                paramstrs = [first_param] + [param_annotation(f'arg{i}', p) for i, p in enumerate(params)]
+                try:
+                    parameter_names, _ = method_parameter_names_data['PApplet'][fname][','.join([p.split('/')[-1] for p in params])]
+                    parameter_names = [snake_case(p) for p in parameter_names.split(',')]
+                    paramstrs = [first_param] + [param_annotation(pn, p) for pn, p in zip(parameter_names, params)]
+                except Exception:
+                    print('* problem finding parameter names for', fname, params)
+                    paramstrs = [first_param] + [param_annotation(f'arg{i}', p) for i, p in enumerate(params)]
                 rettypestr = convert_type(rettype)
                 class_members.append(CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
                     snake_name, ', '.join(paramstrs), classobj, fname, decorator, rettypestr, ', '.join([p.split(':')[0] for p in paramstrs[1:]])))
@@ -385,7 +406,13 @@ def generate_py5(repo_dir=None, install_dir=None):
                 for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
                     if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
                         continue
-                    paramstrs = [first_param] + [param_annotation(f'arg{i}', p) for i, p in enumerate(params)]
+                    try:
+                        parameter_names, _ = method_parameter_names_data['PApplet'][fname][','.join([p.split('/')[-1] for p in params])]
+                        parameter_names = [snake_case(p) for p in parameter_names.split(',')]
+                        paramstrs = [first_param] + [param_annotation(pn, p) for pn, p in zip(parameter_names, params)]
+                    except Exception:
+                        print('** problem finding parameter names for', fname, params)
+                        paramstrs = [first_param] + [param_annotation(f'arg{i}', p) for i, p in enumerate(params)]
                     rettypestr = convert_type(rettype)
                     class_members.append(CLASS_METHOD_TYPEHINT_TEMPLATE.format(
                         snake_name, ', '.join(paramstrs), rettypestr))
