@@ -1,3 +1,5 @@
+package py5.javadocs;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -39,10 +41,18 @@ public class Py5Doclet implements Doclet {
     private final Pattern LINK_REGEX;
     private final Pattern DOT_REGEX;
     private PrintWriter paramPrinter;
+    private PrintWriter javadocPrinter;
+    private Py5DocletOption paramFileOption;
+    private Py5DocletOption javadocFileOption;
 
     public Py5Doclet() {
         LINK_REGEX = Pattern.compile("<a href=\"([^\"]*)\">([^<]*)</a>", Pattern.CASE_INSENSITIVE);
         DOT_REGEX = Pattern.compile("\\.");
+
+        paramFileOption = new Py5DocletOption("output file for method parameter names",
+                new String[] { "-paramfile", "--param-file" });
+        javadocFileOption = new Py5DocletOption("output file for javadoc comments and block tags",
+                new String[] { "-javadocfile", "--javadoc-file" });
     }
 
     @Override
@@ -74,7 +84,7 @@ public class Py5Doclet implements Doclet {
         ElementKind kind = e.getKind();
         String name = e.getSimpleName().toString();
 
-        if (kind == ElementKind.METHOD) {
+        if (paramPrinter != null && kind == ElementKind.METHOD) {
             List<String> paramTypes = new ArrayList<String>();
             List<String> paramNames = new ArrayList<String>();
             ExecutableElement ee = (ExecutableElement) e;
@@ -82,18 +92,14 @@ public class Py5Doclet implements Doclet {
                 paramTypes.add(pe.asType().toString());
                 paramNames.add(pe.toString());
             }
-            if (paramPrinter != null) {
-                paramPrinter.printf("%s|%s|%s|%s|%s\n", removePackage(partOf), name, listToString(paramTypes),
-                        listToString(paramNames), removePackage(ee.getReturnType().toString()));
-            }
+            paramPrinter.printf("%s|%s|%s|%s|%s\n", removePackage(partOf), name, listToString(paramTypes),
+                    listToString(paramNames), removePackage(ee.getReturnType().toString()));
         }
 
         DocCommentTree docCommentTree = trees.getDocCommentTree(e);
-        if (docCommentTree != null) {
-            System.out.println("******************************************");
-            System.out.println("(" + kind + ") " + partOf + "." + name);
+        if (javadocPrinter != null && docCommentTree != null) {
+            javadocPrinter.printf("\n@@@@@@@@@@@@@@@@@@@@@@@@\n# %s.%s[%s]\n", partOf, name, kind);
 
-            System.out.println("{{Entire body}}");
             StringBuilder sb = new StringBuilder();
             for (DocTree tree : docCommentTree.getFullBody()) {
                 String s = tree.toString();
@@ -120,9 +126,9 @@ public class Py5Doclet implements Doclet {
                 s = s.replace("<p/>", "\n\n");
                 sb.append(s);
             }
-            System.out.print(fixLinks(sb.toString()));
-
-            System.out.println("\n{{Block tags}}");
+            javadocPrinter.println(sb.toString());
+            
+            javadocPrinter.println("\n## block tags");
             for (DocTree tree : docCommentTree.getBlockTags()) {
                 switch (tree.getKind()) {
                     case PARAM:
@@ -130,56 +136,65 @@ public class Py5Doclet implements Doclet {
                         String pname = param.getName().toString();
                         String desc = param.getDescription().toString();
                         String istype = param.isTypeParameter() ? " (type)" : "";
-                        System.out.println("Param: " + pname + istype + ": " + desc);
+                        javadocPrinter.format("Param: %s%s: %s\n", pname, istype, desc);
                         break;
                     case SEE:
                         SeeTree see = (SeeTree) tree;
                         String reference = see.getReference().toString();
-                        System.out.println("See Also: " + reference);
+                        javadocPrinter.println("See Also: " + reference);
                         break;
                     case RETURN:
                         ReturnTree ret = (ReturnTree) tree;
                         String retDesc = ret.getDescription().toString();
-                        System.out.println("Returns: " + retDesc);
+                        javadocPrinter.println("Returns: " + retDesc);
                         break;
                     case THROWS:
                         ThrowsTree throwsTree = (ThrowsTree) tree;
                         String throwDesc = throwsTree.getDescription().toString();
                         String eName = throwsTree.getExceptionName().toString();
-                        System.out.println("Throws: " + eName + " " + throwDesc);
+                        javadocPrinter.format("Throws: %s %s\n", eName, throwDesc);
                         break;
                     case DEPRECATED:
                         DeprecatedTree dep = (DeprecatedTree) tree;
                         String reason = dep.getBody().toString();
-                        System.out.println("Deprecated: " + reason);
+                        javadocPrinter.println("Deprecated: " + reason);
                         break;
                     case UNKNOWN_BLOCK_TAG:
                         UnknownBlockTagTree unknown = (UnknownBlockTagTree) tree;
                         String tagname = unknown.getTagName().toString();
                         String content = unknown.getContent().toString();
-                        System.out.println("Unknown: " + tagname + " " + content);
+                        javadocPrinter.format("Unknown: %s %s\n", tagname, content);
                         break;
                     default:
-                        System.out.println("???? DEFAULT ????");
-                        System.out.println(tree.getKind());
-                        System.out.println(tree.toString());
+                        javadocPrinter.format("%s %s\n", tree.getKind(), tree.toString());
                 }
             }
         }
     }
 
+    private PrintWriter openPrintWriter(Py5DocletOption docletOption) {
+        PrintWriter printWriter = null;
+        try {
+            if (docletOption.filename != null) {
+                printWriter = new PrintWriter(new File(docletOption.filename));
+                reporter.print(Diagnostic.Kind.NOTE,
+                        String.format("Writing %s to %s ", docletOption.getDescription(), docletOption.filename));
+            }
+        } catch (FileNotFoundException e) {
+            reporter.print(Diagnostic.Kind.ERROR,
+                    String.format("Param file %s cannot be written to", docletOption.filename));
+        }
+        return printWriter;
+    }
+
     @Override
     public boolean run(DocletEnvironment docEnv) {
-        try {
-            paramPrinter = new PrintWriter(new File(paramFile));
-            reporter.print(Diagnostic.Kind.NOTE, "Writing method parameter names to  %s " + paramFile);
-        } catch (FileNotFoundException e) {
-            reporter.print(Diagnostic.Kind.ERROR, String.format("Param file %s cannot be written to", paramFile));
-        }
+        paramPrinter = openPrintWriter(paramFileOption);
+        javadocPrinter = openPrintWriter(javadocFileOption);
 
         DocTrees docTrees = docEnv.getDocTrees();
         for (TypeElement t : ElementFilter.typesIn(docEnv.getIncludedElements())) {
-            System.out.println(t.getKind() + ":" + t);
+            // System.out.println(t.getKind() + ":" + t);
             for (Element e : t.getEnclosedElements()) {
                 processElement(docTrees, t.toString(), e);
             }
@@ -187,6 +202,9 @@ public class Py5Doclet implements Doclet {
 
         if (paramPrinter != null) {
             paramPrinter.close();
+        }
+        if (javadocPrinter != null) {
+            javadocPrinter.close();
         }
 
         return true;
@@ -199,48 +217,11 @@ public class Py5Doclet implements Doclet {
 
     @Override
     public SourceVersion getSupportedSourceVersion() {
-        // support the latest release
         return SourceVersion.latest();
     }
 
-    private String paramFile;
-
     @Override
     public Set<? extends Option> getSupportedOptions() {
-        Option[] options = { new Option() {
-            private final List<String> methodParamOption = Arrays.asList("-paramfile", "--param-file", "-p");
-
-            @Override
-            public int getArgumentCount() {
-                return 1;
-            }
-
-            @Override
-            public String getDescription() {
-                return "output file for method parameter names";
-            }
-
-            @Override
-            public Option.Kind getKind() {
-                return Option.Kind.STANDARD;
-            }
-
-            @Override
-            public List<String> getNames() {
-                return methodParamOption;
-            }
-
-            @Override
-            public String getParameters() {
-                return "file";
-            }
-
-            @Override
-            public boolean process(String opt, List<String> arguments) {
-                paramFile = arguments.get(0);
-                return true;
-            }
-        } };
-        return new HashSet<>(Arrays.asList(options));
+        return new HashSet<Option>(Arrays.asList(new Option[] { paramFileOption, javadocFileOption }));
     }
 }

@@ -32,12 +32,13 @@ $(py5_doclet_jar_file) : $(py5_doclet_java_src)
 
 create_docfiles: $(py5_method_param_names_file)
 $(py5_method_param_names_file): $(py5_doclet_jar_file)
-	javadoc -doclet Py5Doclet \
+	javadoc -doclet py5.javadocs.Py5Doclet \
 		-docletpath py5_docs/dist/py5doclet.jar \
 		--source-path $(processing_dir)/core/src/ \
 		-classpath $(processing_dir)/core/library/core.jar \
 		--show-members public \
 		--param-file $(py5_method_param_names_file) \
+		--javadoc-file /tmp/javadoc.txt \
 		"processing.core"
 
 .PHONY: clean
