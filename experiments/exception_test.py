@@ -43,6 +43,7 @@ def draw():
 
 def cause_error(junk):
     # try:
+    # py5.bezier_detail(junk)
     py5.fill(junk, 4, 5, 32)
     # except Exception:
     #     print(10 / 0)

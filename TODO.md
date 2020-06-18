@@ -48,6 +48,8 @@ Should I use stub files? Here are some packages that use them:
 
 The `NewType` types I added should be replaced with something that gives the methods for those classes.
 
+Should the type hints make it clear that these are [position only parameters](https://www.python.org/dev/peps/pep-0570/)? This would require Python 3.8.
+
 library functions
 -----------------
 

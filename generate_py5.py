@@ -99,12 +99,12 @@ CLASS_METHOD_TYPEHINT_TEMPLATE = """
 
 CLASS_METHOD_TEMPLATE = """
     {4}
-    def {0}({1}, *args, **kwargs):
+    def {0}({1}, *args):
         \"\"\"$class_{0}\"\"\"
         try:
-            return {2}.{3}(*args, **kwargs)
+            return {2}.{3}(*args)
         except Exception as e:
-            raise Py5Exception(e.__class__.__name__, str(e), '{0}', args, kwargs)
+            raise Py5Exception(e.__class__.__name__, str(e), '{0}', args)
 """
 
 CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS = """
@@ -114,7 +114,7 @@ CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS = """
         try:
             return {2}.{3}({6})
         except Exception as e:
-            raise Py5Exception(e.__class__.__name__, str(e), '{0}', args, kwargs)
+            raise Py5Exception(e.__class__.__name__, str(e), '{0}', [{6}])
 """
 
 MODULE_STATIC_FIELD_TEMPLATE = """
@@ -135,9 +135,9 @@ def {0}({1}) -> {2}:
 """
 
 MODULE_FUNCTION_TEMPLATE = """
-def {0}(*args, **kwargs):
+def {0}(*args):
     \"\"\"$module_{0}\"\"\"
-    return {1}.{0}(*args, **kwargs)
+    return {1}.{0}(*args)
 """
 
 MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS = """
@@ -182,7 +182,7 @@ PAPPLET_SKIP_METHODS = {
     # methods that are missing documentation that are not a part of the framework
     'attrib', 'attribColor', 'attribNormal', 'attribPosition', 'beginPGL', 'endPGL',
     'exitCalled', 'flush', 'focusGained', 'focusLost', 'frameMoved', 'frameResized',
-    'isKeyPressed', 'isLooping', 'orientation', 'sketchDisplay', 'sketchFullScreen',
+    'isLooping', 'orientation', 'sketchDisplay', 'sketchFullScreen',
     'sketchHeight', 'sketchOutputPath' 'sketchPath', 'sketchPixelDensity', 'sketchRenderer',
     'sketchSmooth', 'sketchSmooth', 'sketchWidth', 'sketchWindowColor', 'blendColor',
     # files methods that should be done in Python

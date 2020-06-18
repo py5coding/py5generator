@@ -148,13 +148,12 @@ class Py5Methods(PythonJavaClass):
 
 class Py5Exception(Exception):
 
-    def __init__(self, exception_classname, msg, method, args, kwargs):
+    def __init__(self, exception_classname, msg, method, args):
         super().__init__()
         self.exception_classname = exception_classname
         self.msg = msg
         self.method = method
         self.args = args
-        self.kwargs = kwargs
 
     def __str__(self):
         return self.exception_classname + ' thrown while calling ' + self.method + ': ' + self.msg
