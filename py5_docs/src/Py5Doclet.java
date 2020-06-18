@@ -18,6 +18,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.ElementFilter;
+import javax.tools.Diagnostic;
 
 import jdk.javadoc.doclet.Doclet;
 import jdk.javadoc.doclet.DocletEnvironment;
@@ -74,7 +75,6 @@ public class Py5Doclet implements Doclet {
         String name = e.getSimpleName().toString();
 
         if (kind == ElementKind.METHOD) {
-            System.out.println("{{parameters}}");
             List<String> paramTypes = new ArrayList<String>();
             List<String> paramNames = new ArrayList<String>();
             ExecutableElement ee = (ExecutableElement) e;
@@ -172,8 +172,9 @@ public class Py5Doclet implements Doclet {
     public boolean run(DocletEnvironment docEnv) {
         try {
             paramPrinter = new PrintWriter(new File(paramFile));
+            reporter.print(Diagnostic.Kind.NOTE, "Writing method parameter names to  %s " + paramFile);
         } catch (FileNotFoundException e) {
-            System.err.println(String.format("Param file %s cannot be found", paramFile));
+            reporter.print(Diagnostic.Kind.ERROR, String.format("Param file %s cannot be written to", paramFile));
         }
 
         DocTrees docTrees = docEnv.getDocTrees();
