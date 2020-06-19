@@ -169,13 +169,12 @@ public class Py5Applet extends PApplet {
     PImage image = new PImage(width, height);
     image.parent = this; // make save() work
 
-    // this is inefficient, can I use wrap instead?
-    ByteBuffer byteBuffer = ByteBuffer.allocate(pixels.length);
-    byte[] byteArray = byteBuffer.array();
-    System.arraycopy(pixels, 0, byteArray, 0, pixels.length);
-    IntBuffer intBuffer = byteBuffer.asIntBuffer();
+    ByteBuffer.wrap(pixels).asIntBuffer().get(image.pixels);
 
-    intBuffer.get(image.pixels);
+    // total hack to get the colors right
+    for (int i = 0; i < image.pixels.length; ++i) {
+      image.pixels[i] = image.pixels[i] >>> 8;
+    }
 
     return image;
   }
