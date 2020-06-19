@@ -162,7 +162,7 @@ public class Py5Applet extends PApplet {
     updatePixels();
   }
 
-  public PImage convertByteArrayToPImage(byte[] pixels, int width, int height) {
+  public PImage convertBytesToPImage(byte[] pixels, int width, int height) {
     if (pixels.length != 4 * width * height) {
       throw new RuntimeException("byte size incorrect");
     }

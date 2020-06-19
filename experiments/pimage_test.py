@@ -18,7 +18,7 @@ def draw():
 
     img = Image.open('/mnt/readynas_data/DataBackup/ffhq_dataset/00000.png').resize((500, 500)).convert("RGBA")
 
-    pimg = py5.get_py5applet().convertByteArrayToPImage(img.tobytes(), img.width, img.height, pass_by_reference=False)
+    pimg = py5.get_py5applet().convertBytesToPImage(img.tobytes(), img.width, img.height, pass_by_reference=False)
     py5.image(pimg, py5.width / 2, py5.height / 2)
     py5.no_loop()
 
