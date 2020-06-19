@@ -2,11 +2,8 @@ package py5.core;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-import java.nio.file.Files;
 import java.util.HashSet;
 import java.util.Set;
-import java.io.File;
-import java.io.IOException;
 
 import com.jogamp.newt.event.KeyListener;
 import com.jogamp.newt.event.MouseListener;
