@@ -7,6 +7,7 @@ py5_build_dir = build/py5
 py5_doclet_java_src = $(shell find py5_docs/src/ -name "*.java")
 py5_doclet_jar_file = py5_docs/dist/py5doclet.jar
 py5_method_param_names_file = py5_docs/docfiles/method_parameter_names.psv
+py5_javadoc_file = py5_docs/docfiles/javadocs.xml
 
 py5_generator = generate_py5.py
 py5_installed = .install_py5.nogit
@@ -30,15 +31,15 @@ docletjar: $(py5_doclet_jar_file)
 $(py5_doclet_jar_file) : $(py5_doclet_java_src)
 	ant -f py5_docs/build.xml
 
-create_docfiles: $(py5_method_param_names_file)
-$(py5_method_param_names_file): $(py5_doclet_jar_file)
+create_docfiles: $(py5_method_param_names_file) $(py5_javadoc_file)
+$(py5_method_param_names_file) $(py5_javadoc_file): $(py5_doclet_jar_file)
 	javadoc -doclet py5.javadocs.Py5Doclet \
 		-docletpath py5_docs/dist/py5doclet.jar \
 		--source-path $(processing_dir)/core/src/ \
 		-classpath $(processing_dir)/core/library/core.jar \
 		--show-members public \
 		--param-file $(py5_method_param_names_file) \
-		--javadoc-file /tmp/javadoc.xml \
+		--javadoc-file $(py5_javadoc_file) \
 		"processing.core"
 
 .PHONY: clean

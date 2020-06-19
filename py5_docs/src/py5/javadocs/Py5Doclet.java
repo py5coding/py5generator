@@ -133,7 +133,7 @@ public class Py5Doclet implements Doclet {
         DocCommentTree docCommentTree = trees.getDocCommentTree(e);
         if (javadocPrinter != null && docCommentTree != null) {
 
-            javadocPrinter.printf("<commenttree package=\"%s\" name=\"%s\" kind=\"%s\">\n", partOf, name, kind);
+            javadocPrinter.printf("<commenttree class=\"%s\" name=\"%s\" kind=\"%s\">\n", partOf, name, kind);
 
             javadocPrinter.println("<body>");
             StringBuilder sb = new StringBuilder();
