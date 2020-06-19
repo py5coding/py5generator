@@ -38,7 +38,7 @@ $(py5_method_param_names_file): $(py5_doclet_jar_file)
 		-classpath $(processing_dir)/core/library/core.jar \
 		--show-members public \
 		--param-file $(py5_method_param_names_file) \
-		--javadoc-file /tmp/javadoc.txt \
+		--javadoc-file /tmp/javadoc.xml \
 		"processing.core"
 
 .PHONY: clean

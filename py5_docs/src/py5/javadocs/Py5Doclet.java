@@ -80,9 +80,43 @@ public class Py5Doclet implements Doclet {
         return list.stream().map(this::removePackage).collect(Collectors.joining(","));
     }
 
+    private String cleanupText(String s) {
+        s = s.trim();
+        s = s.replace("\n", "");
+        s = s.replace("<br/>", "\n");
+        s = s.replace("<BR>", "\n");
+        s = s.replace("<nobr>", "");
+        s = s.replace("</nobr>", "");
+        s = s.replace("<NOBR>", "");
+        s = s.replace("</NOBR>", "");
+        s = s.replace("<b>", " `");
+        s = s.replace("</b>", "` ");
+        s = s.replace("<UL>", "\n");
+        s = s.replace("<LI>", "\n* ");
+        s = s.replace("</UL>", "\n");
+        s = s.replace("<PRE>", "\n\n```\n");
+        s = s.replace("</PRE>", "\n```\n\n");
+        s = s.replace("<TT>", "\n\n```\n");
+        s = s.replace("</TT>", "\n```\n\n");
+        s = s.replace("<h3>", "\n\n");
+        s = s.replace("</h3>", "\n--------\n\n");
+        s = s.replace("<P>", "\n\n");
+        s = s.replace("</P>", "\n\n");
+        s = s.replace("<p>", "\n\n");
+        s = s.replace("<p/>", "\n\n");
+        s = s.replace("</T>", "\n\n");
+
+        s = s.replace(">", "&gt;");
+        s = s.replace("<", "&lt;");
+        s = s.replace("&rarr;", "");
+        s = s.replace("&deg;", "°");
+
+        return s;
+    }
+
     public void processElement(DocTrees trees, String partOf, Element e) {
         ElementKind kind = e.getKind();
-        String name = e.getSimpleName().toString();
+        String name = e.getSimpleName().toString().replace("<", "").replace(">", "");
 
         if (paramPrinter != null && kind == ElementKind.METHOD) {
             List<String> paramTypes = new ArrayList<String>();
@@ -98,77 +132,30 @@ public class Py5Doclet implements Doclet {
 
         DocCommentTree docCommentTree = trees.getDocCommentTree(e);
         if (javadocPrinter != null && docCommentTree != null) {
-            javadocPrinter.printf("\n@@@@@@@@@@@@@@@@@@@@@@@@\n# %s.%s[%s]\n", partOf, name, kind);
 
+            javadocPrinter.printf("<commenttree package=\"%s\" name=\"%s\" kind=\"%s\">\n", partOf, name, kind);
+
+            javadocPrinter.println("<body>");
             StringBuilder sb = new StringBuilder();
+            javadocPrinter.printf("<first>%s</first>\n", cleanupText(docCommentTree.getFirstSentence().toString()));
+            javadocPrinter.println("<full>");
             for (DocTree tree : docCommentTree.getFullBody()) {
                 String s = tree.toString();
                 s = s.replaceAll("\\( begin auto-generated from .*?\\)", "");
                 s = s.replaceAll("\\( end auto-generated \\)", "");
-                s = s.trim();
-                s = s.replace("\n", "");
-                s = s.replace("<br/>", "\n");
-                s = s.replace("<BR>", "\n");
-                s = s.replace("<nobr>", "");
-                s = s.replace("</nobr>", "");
-                s = s.replace("<NOBR>", "");
-                s = s.replace("</NOBR>", "");
-                s = s.replace("<b>", " `");
-                s = s.replace("</b>", "` ");
-                s = s.replace("<PRE>", "\n\n```\n");
-                s = s.replace("</PRE>", "\n```\n\n");
-                s = s.replace("<TT>", "\n\n```\n");
-                s = s.replace("</TT>", "\n```\n\n");
-                s = s.replace("<h3>", "\n\n");
-                s = s.replace("</h3>", "\n--------\n\n");
-                s = s.replace("<P>", "\n\n");
-                s = s.replace("<p>", "\n\n");
-                s = s.replace("<p/>", "\n\n");
+                s = cleanupText(s);
                 sb.append(s);
             }
-            javadocPrinter.println(sb.toString());
-            
-            javadocPrinter.println("\n## block tags");
+            javadocPrinter.println(fixLinks(sb.toString()));
+            javadocPrinter.println("</full>");
+            javadocPrinter.println("</body>");
+
+            javadocPrinter.println("<blocktags>");
             for (DocTree tree : docCommentTree.getBlockTags()) {
-                switch (tree.getKind()) {
-                    case PARAM:
-                        ParamTree param = (ParamTree) tree;
-                        String pname = param.getName().toString();
-                        String desc = param.getDescription().toString();
-                        String istype = param.isTypeParameter() ? " (type)" : "";
-                        javadocPrinter.format("Param: %s%s: %s\n", pname, istype, desc);
-                        break;
-                    case SEE:
-                        SeeTree see = (SeeTree) tree;
-                        String reference = see.getReference().toString();
-                        javadocPrinter.println("See Also: " + reference);
-                        break;
-                    case RETURN:
-                        ReturnTree ret = (ReturnTree) tree;
-                        String retDesc = ret.getDescription().toString();
-                        javadocPrinter.println("Returns: " + retDesc);
-                        break;
-                    case THROWS:
-                        ThrowsTree throwsTree = (ThrowsTree) tree;
-                        String throwDesc = throwsTree.getDescription().toString();
-                        String eName = throwsTree.getExceptionName().toString();
-                        javadocPrinter.format("Throws: %s %s\n", eName, throwDesc);
-                        break;
-                    case DEPRECATED:
-                        DeprecatedTree dep = (DeprecatedTree) tree;
-                        String reason = dep.getBody().toString();
-                        javadocPrinter.println("Deprecated: " + reason);
-                        break;
-                    case UNKNOWN_BLOCK_TAG:
-                        UnknownBlockTagTree unknown = (UnknownBlockTagTree) tree;
-                        String tagname = unknown.getTagName().toString();
-                        String content = unknown.getContent().toString();
-                        javadocPrinter.format("Unknown: %s %s\n", tagname, content);
-                        break;
-                    default:
-                        javadocPrinter.format("%s %s\n", tree.getKind(), tree.toString());
-                }
+                javadocPrinter.printf("<blocktag>%s</blocktag>\n", cleanupText(tree.toString()));
             }
+            javadocPrinter.println("</blocktags>");
+            javadocPrinter.println("</commenttree>");
         }
     }
 
@@ -192,9 +179,13 @@ public class Py5Doclet implements Doclet {
         paramPrinter = openPrintWriter(paramFileOption);
         javadocPrinter = openPrintWriter(javadocFileOption);
 
+        if (javadocPrinter != null) {
+            javadocPrinter.println("<?xml version=\"1.0\" standalone=\"yes\" ?>");
+            javadocPrinter.println("<commenttrees>");
+        }
+
         DocTrees docTrees = docEnv.getDocTrees();
         for (TypeElement t : ElementFilter.typesIn(docEnv.getIncludedElements())) {
-            // System.out.println(t.getKind() + ":" + t);
             for (Element e : t.getEnclosedElements()) {
                 processElement(docTrees, t.toString(), e);
             }
@@ -204,6 +195,7 @@ public class Py5Doclet implements Doclet {
             paramPrinter.close();
         }
         if (javadocPrinter != null) {
+            javadocPrinter.println("</commenttrees>");
             javadocPrinter.close();
         }
 
