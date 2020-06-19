@@ -10,6 +10,7 @@ import com.jogamp.newt.event.MouseListener;
 import com.jogamp.newt.event.WindowListener;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.event.MouseEvent;
 
 public class Py5Applet extends PApplet {
@@ -156,8 +157,27 @@ public class Py5Applet extends PApplet {
     byte[] byteArray = byteBuffer.array();
     System.arraycopy(newPixels, 0, byteArray, 0, newPixels.length);
     IntBuffer intBuffer = byteBuffer.asIntBuffer();
-    
+
     intBuffer.get(pixels);
     updatePixels();
   }
+
+  public PImage convertByteArrayToPImage(byte[] pixels, int width, int height) {
+    if (pixels.length != 4 * width * height) {
+      throw new RuntimeException("byte size incorrect");
+    }
+    PImage image = new PImage(width, height);
+    image.parent = this; // make save() work
+
+    // this is inefficient, can I use wrap instead?
+    ByteBuffer byteBuffer = ByteBuffer.allocate(pixels.length);
+    byte[] byteArray = byteBuffer.array();
+    System.arraycopy(pixels, 0, byteArray, 0, pixels.length);
+    IntBuffer intBuffer = byteBuffer.asIntBuffer();
+
+    intBuffer.get(image.pixels);
+
+    return image;
+  }
+
 }
