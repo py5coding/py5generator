@@ -214,10 +214,7 @@ class Sketch:
             self._py5_methods.profile_functions(function_names)
 
     def profile_draw(self):
-        if self._py5_methods is None:
-            self._methods_to_profile.extend(['draw'])
-        else:
-            self._py5_methods.profile_functions(['draw'])
+        self.profile_functions(['draw'])
 
     def print_line_profiler_stats(self):
         self._py5_methods.dump_stats()
@@ -319,12 +316,17 @@ _py5sketch_used = False
 def run_sketch(function_dict: Dict[str, Any] = None, block: bool = True) -> None:
     """run the py5 sketch
 
-    The function_dict needs to a be a dictionary that contains the settings,
-    setup, and draw functions.
+    The optional function_dict parameter needs to a be a dictionary that
+    contains the settings, setup, and draw functions.
 
-    Most likely you want to call it like this:
+    You can call it like this:
     ```
         py5.run_sketch(function_dict=locals())
+    ```
+
+    But most likely you can just do this:
+    ```
+        py5.run_sketch()
     ```
     """
     # Before running the sketch, delete the module fields that need to be kept
@@ -367,7 +369,7 @@ def __getattr__(name):
     if hasattr(_py5sketch, name):
         return getattr(_py5sketch, name)
     else:
-        raise AttributeError('py5 has no function or method named ' + name)
+        raise AttributeError('py5 has no function or field named ' + name)
 
 
 def __dir__():

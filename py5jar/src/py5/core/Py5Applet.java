@@ -166,15 +166,11 @@ public class Py5Applet extends PApplet {
     if (pixels.length != 4 * width * height) {
       throw new RuntimeException("byte size incorrect");
     }
+
     PImage image = new PImage(width, height);
     image.parent = this; // make save() work
 
     ByteBuffer.wrap(pixels).asIntBuffer().get(image.pixels);
-
-    // total hack to get the colors right
-    for (int i = 0; i < image.pixels.length; ++i) {
-      image.pixels[i] = image.pixels[i] >>> 8;
-    }
 
     return image;
   }
