@@ -76,6 +76,14 @@ It would be great if I could feed these through a translator to make this multi-
 
 For Py5 documentation I should use Sphinx to generate my own docfiles after everything has been compiled together.
 
+implicit conversions
+--------------------
+
+Py5 can implicitly convert popular image or shape formats into PImage or PShape objects so the user doesn't have to use these directly. This will help the library integrate with the Python ecosystem.
+
+[matplotlib backends](https://matplotlib.org/tutorials/introductory/usage.html#backends)
+[agg backend](https://matplotlib.org/gallery/user_interfaces/canvasagg.html)
+
 performance
 -----------
 
