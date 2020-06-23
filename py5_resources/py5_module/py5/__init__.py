@@ -13,7 +13,7 @@ import stackprinter
 import time
 import json
 import line_profiler
-from typing import overload, NewType, Any, Callable, Union, Dict, List
+from typing import overload, NewType, Any, Callable, Union, Dict, List  # noqa
 
 import numpy as np
 
