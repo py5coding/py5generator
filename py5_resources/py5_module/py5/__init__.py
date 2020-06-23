@@ -2,8 +2,6 @@
 # *** FORMAT PARAMS ***
 """
 py5 code, interface to the Java version of Processing using PyJNIus.
-
-This file is created by the py5generator package. Do not edit!
 """
 import sys
 from pathlib import Path
