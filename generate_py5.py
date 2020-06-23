@@ -497,6 +497,8 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
             shutil.copy(jar, dest_dir / 'py5' / 'jars')
         shutil.copy(py5_jar_path, dest_dir / 'py5' / 'jars')
 
+    dest_dir.touch()
+
     print('done!')
 
 
