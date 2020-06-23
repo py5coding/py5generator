@@ -4,6 +4,9 @@ import pandas as pd
 import matplotlib.style as mplstyle
 import matplotlib
 from matplotlib.backends.backend_agg import FigureCanvasAgg
+from matplotlib.backends.backend_svg import FigureCanvasSVG
+from matplotlib.backends.backend_cairo import FigureCanvasCairo
+from cairo import SVGSurface, SVG_VERSION_1_1
 matplotlib.use('svg')
 mplstyle.use('fast')
 # mplstyle.use(['ggplot', 'fast'])
@@ -19,6 +22,7 @@ def settings():
 
 def draw():
     py5.image_mode(py5.CENTER)
+    py5.shape_mode(py5.CENTER)
     py5.background(0)
 
     def convert_pillow_image_to_pimage(img):
@@ -39,8 +43,14 @@ def draw():
 
         return py5.get_py5applet().convertBytesToPImage(arr.tobytes(), width, height, pass_by_reference=False)
 
-    img = Image.open('../py5projects/drawingtutor/data/jpg/01003.jpg').resize((500, 500))
-    py5.image(convert_pillow_image_to_pimage(img), py5.width / 2, py5.height / 2)
+    def convert_figure_to_shape(figure):
+        canvas = FigureCanvasCairo(figure)
+        canvas.draw()
+        canvas.print_svg('/tmp/test.svg')
+        return py5.get_py5applet().loadShape('/tmp/test.svg')
+
+    # img = Image.open('../py5projects/drawingtutor/data/jpg/01003.jpg').resize((500, 500))
+    # py5.image(convert_pillow_image_to_pimage(img), py5.width / 2, py5.height / 2)
 
     # figure = pd._testing.makeTimeDataFrame().plot().figure
     # py5.image(convert_figure_to_pimage(figure), py5.width / 2, py5.height / 2)
@@ -51,6 +61,9 @@ def draw():
     # img[100:400, :, 2] = 100
     # img[300:, :, 3] = 150
     # py5.image(convert_numpy_to_pimage(img), py5.width / 2, py5.height / 2)
+
+    figure = pd._testing.makeTimeDataFrame().plot().figure
+    py5.shape(convert_figure_to_shape(figure), py5.width / 2, py5.height / 2)
 
     py5.no_loop()
 
