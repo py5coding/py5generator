@@ -202,7 +202,7 @@ PAPPLET_SKIP_METHODS = {
     'setAndUpdatePixels', 'loadAndGetPixels', 'convertBytesToPImage',
     # methods that need to be implemented by me
     'image', 'loadImage', 'requestImage',
-    'shape', 'loadShape', ''
+    'shape', 'loadShape',
 }
 
 PAPPLET_SKIP_PARAM_TYPES = {
