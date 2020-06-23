@@ -301,7 +301,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         return
     core_jar_path = core_jars[0]
 
-    py5_jar_path = Path('py5jar', 'dist', 'py5.jar')
+    py5_jar_path = Path('py5_jar', 'dist', 'py5.jar')
     if not py5_jar_path.exists():
         raise RuntimeError(f'py5 jar not found at {str(py5_jar_path)}')
     import jnius_config

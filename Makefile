@@ -1,5 +1,5 @@
-py5_java_src = $(shell find py5jar/src/ -name "*.java")
-py5_jar_file = py5jar/dist/py5.jar
+py5_java_src = $(shell find py5_jar/src/ -name "*.java")
+py5_jar_file = py5_jar/dist/py5.jar
 
 py5_py_src = $(shell find py5_resources/ -name "*.py*")
 py5_build_dir = build/py5
@@ -14,9 +14,9 @@ py5_installed = .install_py5.nogit
 
 all: install_py5
 
-py5jar: $(py5_jar_file)
+py5_jar: $(py5_jar_file)
 $(py5_jar_file): $(py5_java_src)
-	ant -f py5jar/build.xml -Dprocessing_dir=$(realpath $(processing_dir))
+	ant -f py5_jar/build.xml -Dprocessing_dir=$(realpath $(processing_dir))
 
 generate_py5: $(py5_build_dir)
 $(py5_build_dir): $(py5_jar_file) $(py5_py_src) $(py5_generator) $(py5_method_param_names_file)
@@ -46,5 +46,5 @@ $(py5_method_param_names_file) $(py5_javadoc_file): $(py5_doclet_jar_file)
 clean:
 	rm -Rf build/
 	rm $(py5_installed)
-	ant -f py5jar/build.xml clean
+	ant -f py5_jar/build.xml clean
 	ant -f py5_docs/build.xml clean
