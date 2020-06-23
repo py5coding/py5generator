@@ -87,6 +87,7 @@ class Sketch:
 
     # *** PImage replacement methods ***
 
+    # TODO: add type hint functions
     def image(self, *args, cache: bool = False) -> None:
         """image function"""
         if cache and id(args[0]) in self._pimage_cache:
@@ -100,6 +101,7 @@ class Sketch:
 
     # *** PImage replacement methods ***
 
+    # TODO: add type hint functions
     def shape(self, *args, cache: bool = False) -> None:
         """shape function"""
         if cache and id(args[0]) in self._pshape_cache:

@@ -25,6 +25,7 @@ class Converter:
         return self.py5applet.convertBytesToPImage(arr.tobytes(), width, height, pass_by_reference=False)
 
     def _convert_cairo_to_pshape(self, canvas):
+        # TODO: use a temorary file
         canvas.print_svg('/tmp/test.svg')
         return self.py5applet.loadShape('/tmp/test.svg')
 
@@ -72,6 +73,7 @@ def convert_figure_to_shape(figure):
     return canvas
 
 
+# TODO: what about a regular SVG Surface? Do this for PImage and PShape
 Converter.register_pimage_conversion(Figure, convert_figure_to_pimage)
 Converter.register_pimage_conversion(Image.Image, convert_pillow_image_to_pimage)
 
