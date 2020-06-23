@@ -12,6 +12,7 @@ from jnius import autoclass  # noqa
 from .methods import Py5Methods, Py5Exception  # noqa
 from .java_types import _Py5Applet, Py5Applet  # noqa
 from .java_types import *  # noqa
+from .conversions import Converter  # noqa
 
 class_members_code = None  # DELETE
 
@@ -25,6 +26,9 @@ class Sketch:
 
     def __init__(self):
         self._py5applet = _Py5Applet()
+        self._converter = Converter(self._py5applet)
+        self._pimage_cache = dict()
+        self._pshape_cache = dict()
         self._methods_to_profile = []
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
@@ -71,6 +75,43 @@ class Sketch:
 
     def print_line_profiler_stats(self):
         self._py5_methods.dump_stats()
+
+    # *** Pixel methods ***
+
+    def get_pixels(self) -> np.ndarray:
+        pixels = np.frombuffer(self._py5applet.loadAndGetPixels().tostring(), dtype=np.uint8)
+        return pixels.reshape(self.height, self.width, 4).copy()
+
+    def set_pixels(self, new_pixels: np.ndarray):
+        self._py5applet.setAndUpdatePixels(new_pixels.flatten().tobytes(), pass_by_reference=False)
+
+    # *** PImage replacement methods ***
+
+    def image(self, *args, cache: bool = False) -> None:
+        """image function"""
+        if cache and id(args[0]) in self._pimage_cache:
+            img = self._pimage_cache[id(args[0])]
+        else:
+            img = self._converter.to_pimage(args[0])
+            if cache:
+                self._pimage_cache[id(args[0])] = img
+
+        self._py5applet.image(img, *args[1:])
+
+    # *** PImage replacement methods ***
+
+    def shape(self, *args, cache: bool = False) -> None:
+        """shape function"""
+        if cache and id(args[0]) in self._pshape_cache:
+            shape = self._pshape_cache[id(args[0])]
+        else:
+            shape = self._converter.to_pshape(args[0])
+            if cache:
+                self._pshape_cache[id(args[0])] = shape
+
+        self._py5applet.shape(shape, *args[1:])
+
+    # *** Math (numpy) methods ***
 
     @classmethod
     def sin(cls, angle: float) -> float:
@@ -135,12 +176,7 @@ class Sketch:
     def sq(cls, n: float) -> float:
         return n * n
 
-    def get_pixels(self) -> np.ndarray:
-        pixels = np.frombuffer(self._py5applet.loadAndGetPixels().tostring(), dtype=np.uint8)
-        return pixels.reshape(self.height, self.width, 4).copy()
-
-    def set_pixels(self, new_pixels: np.ndarray):
-        self._py5applet.setAndUpdatePixels(new_pixels.flatten().tobytes(), pass_by_reference=False)
+    # *** JSON methods ***
 
     @classmethod
     def load_json(cls, filename: Union[str, Path], **kwargs: Dict[str, Any]) -> Any:

@@ -199,7 +199,10 @@ PAPPLET_SKIP_METHODS = {
     # internal methods
     'postEvent', 'style', 'hideMenuBar', 'saveViaImageIO',
     'getClass', 'hashCode', 'wait', 'notify', 'notifyAll', 'toString',
-    'setAndUpdatePixels', 'loadAndGetPixels', 'convertBytesToPImage'
+    'setAndUpdatePixels', 'loadAndGetPixels', 'convertBytesToPImage',
+    # methods that need to be implemented by me
+    'image', 'loadImage', 'requestImage',
+    'shape', 'loadShape', ''
 }
 
 PAPPLET_SKIP_PARAM_TYPES = {

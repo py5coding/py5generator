@@ -11,7 +11,7 @@ from jnius import PythonJavaClass, java_method, JavaException
 # darkbg2, darkbg3, lightbg, lightbg2, lightbg3.
 _stackprinter_style = 'plaintext'
 # prune tracebacks to only show only show stack levels in the user's py5 code.
-_prune_tracebacks = True
+_prune_tracebacks = False
 
 
 class Py5Exception(Exception):
