@@ -17,6 +17,16 @@ Processing4 integration branch:
 [repo](https://github.com/sampottinger/processing4)
 [builds](https://www.datadrivenempathy.com/processing)
 
+management
+----------
+
+Move all of these todos to Notion. Use one of their templates for easy management. Should I share this with the public?
+
+project structure
+-----------------
+
+Instead of having a separate template directory for py__init__.py I should have it in with the other stuff and for each .py file, pass it through string formatting and comment template functions to add stuff. This will let me break up py__init__.py into multiple files. I need to add more custom stuff to it and it is getting unweildy.
+
 packaging and deployment
 ------------------------
 
@@ -80,6 +90,10 @@ implicit conversions
 --------------------
 
 Py5 can implicitly convert popular image or shape formats into PImage or PShape objects so the user doesn't have to use these directly. This will help the library integrate with the Python ecosystem.
+
+I should also make Py5Image and Py5Shape classes that will really be backed by Cairo and Pillow but provide more accessible functionality, along with multi-lingual comments.
+
+The custom image and shape functions will need a cache to store the images and shapes after they have been converted into PImage or PShape objects.
 
 [matplotlib backends](https://matplotlib.org/tutorials/introductory/usage.html#backends)
 [agg backend](https://matplotlib.org/gallery/user_interfaces/canvasagg.html)
