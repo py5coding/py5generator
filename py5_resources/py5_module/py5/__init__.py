@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# *** FORMAT PARAMS ***
 """
 py5 code, interface to the Java version of Processing using PyJNIus.
 

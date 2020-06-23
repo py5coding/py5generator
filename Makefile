@@ -45,6 +45,6 @@ $(py5_method_param_names_file) $(py5_javadoc_file): $(py5_doclet_jar_file)
 .PHONY: clean
 clean:
 	rm -Rf build/
-	rm $(py5_installed)
+	rm -f $(py5_installed)
 	ant -f py5_jar/build.xml clean
 	ant -f py5_docs/build.xml clean

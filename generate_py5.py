@@ -281,6 +281,31 @@ def param_annotation(varname: str, jtype: str) -> str:
 
     return f'{varname}: {convert_type(jtype)}'
 
+
+class CodeCopier:
+
+    def __init__(self, format_params, docstring_dict):
+        self.format_params = format_params
+        self.docstring_dict = docstring_dict
+
+    def __call__(self, src, dest, *, follow_symlinks=True):
+        print(f'copying {src} to {dest}')
+        with open(src, 'r') as f:
+            content = f.read()
+
+        if content.find('*** FORMAT PARAMS ***') > 0:
+            content = re.sub(r'^.*DELETE$', '',
+                             content.format(**self.format_params),
+                             flags=re.MULTILINE | re.UNICODE)
+        content = Template(content).substitute(self.docstring_dict)
+        content = autopep8.fix_code(content, options={'aggressive': 2})
+
+        with open(dest, 'w') as f:
+            f.write(content)
+
+        return dest
+
+
 ###############################################################################
 # MAIN
 ###############################################################################
@@ -443,48 +468,31 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     # don't want import * to import the dynamic variables because they cannot be updated
     str_py5_all = str(sorted([x for x in py5_dir if x not in py5_dynamic_vars], key=lambda x: x.lower()))
 
-    # complete the output template
-    print('arranging code')
-    with open(Path('py5_resources', 'templates', 'py5__init__.py'), 'r') as f:
-        py5_template = f.read()
-        py5_docstring_template = Template(
-            re.sub(r'^.*DELETE$', '',
-                   py5_template.format(class_members_code=class_members_code,
-                                       module_members_code=module_members_code,
-                                       run_sketch_pre_run_code=run_sketch_pre_run_code,
-                                       str_py5_dir=str_py5_dir,
-                                       str_py5_all=str_py5_all),
-                   flags=re.MULTILINE | re.UNICODE))
-
+    format_params = dict(class_members_code=class_members_code,
+                         module_members_code=module_members_code,
+                         run_sketch_pre_run_code=run_sketch_pre_run_code,
+                         str_py5_dir=str_py5_dir,
+                         str_py5_all=str_py5_all)
+    docstring_library = DocstringLibrary()
     # build complete py5 module in destination directory
     dest_dir = Path('build')
     print(f'building py5 in {dest_dir}')
     if dest_dir.exists():
         shutil.rmtree(dest_dir)
-    try:
-        shutil.copytree(Path('py5_resources', 'py5_module_framework'),
-                        dest_dir, copy_function=shutil.copy)
-    except Exception:
-        # ignore WSL error
-        pass
-    for jar in core_jar_path.parent.glob('*.jar'):
-        shutil.copy(jar, dest_dir / 'py5' / 'jars')
-    shutil.copy(py5_jar_path, dest_dir / 'py5' / 'jars')
-
-    # add the docstrings and write out the different languages
-    docstring_library = DocstringLibrary()
     for language in ['en']:  # docstring_library.languages:
-        print(f'adding docstrings for language {language}')
-        py5_code_w_docs = py5_docstring_template.substitute(docstring_library.docstring_dict(language))
-        print(f'format code for {language}')
-        py5_code_w_docs = autopep8.fix_code(py5_code_w_docs, options={'aggressive': 2})
-
-        print(f'writing {language} file')
-        with open(dest_dir / 'py5' / f'{language}.py', 'w') as f:
-            f.write(py5_code_w_docs + '\n')
-        if language == 'en':
-            with open(dest_dir / 'py5' / '__init__.py', 'w') as f:
-                f.write(py5_code_w_docs + '\n')
+        docstrings = docstring_library.docstring_dict(language)
+        copier = CodeCopier(format_params, docstrings)
+        if dest_dir.exists():
+            shutil.rmtree(dest_dir)
+        try:
+            shutil.copytree(Path('py5_resources', 'py5_module'),
+                            dest_dir, copy_function=copier)
+        except Exception:
+            # ignore WSL error TODO: upate this with correct exception type
+            pass
+        for jar in core_jar_path.parent.glob('*.jar'):
+            shutil.copy(jar, dest_dir / 'py5' / 'jars')
+        shutil.copy(py5_jar_path, dest_dir / 'py5' / 'jars')
 
     print('done!')
 
