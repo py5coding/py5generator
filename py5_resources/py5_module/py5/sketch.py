@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 # *** FORMAT PARAMS ***
 import time
+import io
 import json
 from pathlib import Path
 from typing import overload, NewType, Any, Callable, Union, Dict, List  # noqa
 
 import numpy as np
+
+from PIL import Image
+import cairosvg
 
 from jnius import autoclass  # noqa
 
@@ -99,19 +103,28 @@ class Sketch:
 
         self._py5applet.image(img, *args[1:])
 
-    # *** PImage replacement methods ***
-
-    # TODO: add type hint functions
-    def shape(self, *args, cache: bool = False) -> None:
-        """$class_shape"""
-        if cache and id(args[0]) in self._pshape_cache:
-            shape = self._pshape_cache[id(args[0])]
+    def load_image(self, filename) -> Image.Image:
+        """$class_load_image"""
+        filename = Path(filename)
+        if filename.suffix.lower() == '.svg':
+            with open(filename, 'r') as f:
+                return Image.open(io.BytesIO(cairosvg.svg2png(file_obj=f)))
         else:
-            shape = self._converter.to_pshape(args[0])
-            if cache:
-                self._pshape_cache[id(args[0])] = shape
+            return Image.open(filename)
 
-        self._py5applet.shape(shape, *args[1:])
+    # # *** PShape replacement methods ***
+
+    # # TODO: add type hint functions
+    # def shape(self, *args, cache: bool = False) -> None:
+    #     """$class_shape"""
+    #     if cache and id(args[0]) in self._pshape_cache:
+    #         shape = self._pshape_cache[id(args[0])]
+    #     else:
+    #         shape = self._converter.to_pshape(args[0])
+    #         if cache:
+    #             self._pshape_cache[id(args[0])] = shape
+
+    #     self._py5applet.shape(shape, *args[1:])
 
     # *** Math (numpy) methods ***
 
