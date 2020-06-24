@@ -232,13 +232,15 @@ EXTRA_DIR_NAMES = {
 
 EXTRA_MODULE_STATIC_FUNCTIONS = {
     'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'atan2', 'degrees', 'radians',
-    'constrain', 'lerp', 'sq', 'mag', 'dist', 'norm',
+    'constrain', 'dist', 'lerp', 'mag', 'norm', 'sq',
     'load_json', 'save_json', 'parse_json'
 }
 
 EXTRA_MODULE_FUNCTIONS = {
     'exit_sketch', 'get_py5applet', 'hot_reload_draw',
-    'profile_functions', 'profile_draw', 'print_line_profiler_stats'
+    'profile_functions', 'profile_draw', 'print_line_profiler_stats',
+    'get_pixels', 'set_pixels',
+    'image', 'shape'
 }
 
 ###############################################################################

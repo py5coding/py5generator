@@ -89,7 +89,7 @@ class Sketch:
 
     # TODO: add type hint functions
     def image(self, *args, cache: bool = False) -> None:
-        """image function"""
+        """$class_image"""
         if cache and id(args[0]) in self._pimage_cache:
             img = self._pimage_cache[id(args[0])]
         else:
@@ -103,7 +103,7 @@ class Sketch:
 
     # TODO: add type hint functions
     def shape(self, *args, cache: bool = False) -> None:
-        """shape function"""
+        """$class_shape"""
         if cache and id(args[0]) in self._pshape_cache:
             shape = self._pshape_cache[id(args[0])]
         else:
