@@ -57,17 +57,3 @@ def draw():
 
 
 py5.run_sketch(block=True)
-
-# https://cairocffi.readthedocs.io/en/stable/api.html#surfaces
-# https://github.com/matplotlib/matplotlib/blob/master/lib/matplotlib/backends/backend_cairo.py
-
-# https://github.com/Kozea/CairoSVG/blob/master/cairosvg/surface.py
-# https://cairosvg.org/documentation/
-
-
-
-# with open('/tmp/example.svg', 'r') as f:
-#     tree = cairosvg.parser.Tree(file_obj=f)
-#     surface1 = cairosvg.surface.SVGSurface(tree, None, 72)
-#     surface2 = cairosvg.surface.PNGSurface(tree, None, 72)
-
