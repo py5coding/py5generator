@@ -201,7 +201,7 @@ PAPPLET_SKIP_METHODS = {
     'getClass', 'hashCode', 'wait', 'notify', 'notifyAll', 'toString',
     'setAndUpdatePixels', 'loadAndGetPixels', 'convertBytesToPImage',
     # methods that need to be implemented by me
-    'image', 'loadImage', 'requestImage',
+    'image', 'createImage', 'loadImage', 'requestImage', 'texture',
     'shape', 'loadShape'
 }
 
@@ -240,7 +240,7 @@ EXTRA_MODULE_FUNCTIONS = {
     'exit_sketch', 'get_py5applet', 'hot_reload_draw',
     'profile_functions', 'profile_draw', 'print_line_profiler_stats',
     'get_pixels', 'set_pixels',
-    'image', 'load_image'
+    'image', 'create_image', 'load_image', 'texture'
 }
 
 ###############################################################################
