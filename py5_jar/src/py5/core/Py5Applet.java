@@ -167,7 +167,7 @@ public class Py5Applet extends PApplet {
       throw new RuntimeException("byte size incorrect");
     }
 
-    PImage image = new PImage(width, height);
+    PImage image = new PImage(width, height, ARGB);
     image.parent = this; // make save() work
 
     ByteBuffer.wrap(pixels).asIntBuffer().get(image.pixels);
