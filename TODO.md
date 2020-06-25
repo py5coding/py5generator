@@ -125,7 +125,9 @@ build magic functions for screen grabs and making good documentation
 bugs
 ----
 
-type hinting doesn't work for the EXTRA_MODULE_FUNCTIONS if the type hints are added to the class.
+converter.py should not require the user to have matplotlib and two versions of cairo installed. I can `try` the necessary imports and only register the conversion functions if they work. Also, these converter classes are silly.
+
+type hinting doesn't work for the EXTRA_MODULE_FUNCTIONS if the type hints are added to the class. also, the functions parameter names and types don't make it through, so the functions that need to use the "cache" keyword argument don't work at all. How about I use Python's multiple inheritance to put the custom functions in other classes, and then I can parse those files to get the function signature lines and add them as functions to the module. Then I don't need the EXTRA_MODULE_FUNCTIONS stuff at all.
 
 in module mode, the draw function cannot call other functions.
 
