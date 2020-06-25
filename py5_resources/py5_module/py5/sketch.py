@@ -16,7 +16,7 @@ from jnius import autoclass  # noqa
 from .methods import Py5Methods, Py5Exception  # noqa
 from .java_types import _Py5Applet, Py5Applet  # noqa
 from .java_types import *  # noqa
-from .conversions import Converter  # noqa
+from .converter import Converter  # noqa
 
 class_members_code = None  # DELETE
 
