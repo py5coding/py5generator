@@ -125,6 +125,8 @@ build magic functions for screen grabs and making good documentation
 bugs
 ----
 
+type hinting doesn't work for the EXTRA_MODULE_FUNCTIONS if the type hints are added to the class.
+
 in module mode, the draw function cannot call other functions.
 
 when an error is thrown I can call run_sketch again to continue the sketch. neat trick, but it opens a new window, which perhaps it should not do.
