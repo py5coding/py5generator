@@ -1,42 +1,34 @@
 import numpy as np
 import pandas as pd
 
+import matplotlib.pyplot as plt
 import matplotlib.style as mplstyle
 import matplotlib
 import cairo
 import py5
 
+matplotlib.use('agg')
 mplstyle.use(['ggplot', 'fast'])
-matplotlib.use('svg')
-mplstyle.use('fast')
 
 
-def settings():
-    py5.size(712, 512)
+class TestPImage(py5.Sketch):
 
+    def settings(self):
+        self.size(712, 512)
 
-def draw():
-    py5.image_mode(py5.CENTER)
-    py5.shape_mode(py5.CENTER)
-    py5.background(128)
+    def setup(self):
+        self.img1 = py5.create_image("RGB", 200, 5, "red")
+        self.img2 = self.load_image('/mnt/readynas_data/DataBackup/ffhq_dataset/jpg/01003.jpg').resize((500, 500))
+        self.figure = pd._testing.makeTimeDataFrame().plot().figure
 
-    # img = py5.load_image('/tmp/example.svg')
-    # img = py5.load_image('/mnt/readynas_data/DataBackup/ffhq_dataset/jpg/01003.jpg').resize((500, 500))
-    # py5.image(img, py5.width / 2, py5.height / 2)
+        self.img3 = np.zeros((500, 500, 4), dtype=np.uint8)
+        self.img3[:, :, 0] = 255
+        self.img3[:200, :, 1] = 200
+        self.img3[100:400, :, 2] = 100
+        self.img3[300:, :, 3] = 150
 
-    # figure = pd._testing.makeTimeDataFrame().plot().figure
-    # py5.image(figure, py5.width / 2, py5.height / 2)
-
-    # img = np.zeros((500, 500, 4), dtype=np.uint8)
-    # img[:, :, 0] = 255
-    # img[:200, :, 1] = 200
-    # img[100:400, :, 2] = 100
-    # img[300:, :, 3] = 150
-    # py5.image((img, 'ARGB'), py5.width / 2, py5.height / 2)
-
-    with cairo.RecordingSurface(cairo.Content.COLOR_ALPHA, cairo.Rectangle(0, 0, 200, 200)) as surface:
-    # with cairo.SVGSurface(None, 200, 200) as surface:
-        context = cairo.Context(surface)
+        self.surface = cairo.RecordingSurface(cairo.Content.COLOR_ALPHA, cairo.Rectangle(0, 0, 200, 200))
+        context = cairo.Context(self.surface)
         x, y, x1, y1 = 0.1, 0.5, 0.4, 0.9
         x2, y2, x3, y3 = 0.6, 0.1, 0.9, 0.5
         context.scale(200, 200)
@@ -51,9 +43,23 @@ def draw():
         context.move_to(x2, y2)
         context.line_to(x3, y3)
         context.stroke()
-        py5.image(surface, py5.width / 2, py5.height / 2)
 
-    py5.no_loop()
+    def draw(self):
+        self.image_mode(py5.CENTER)
+        self.shape_mode(py5.CENTER)
+        self.background(128)
+
+        caching = False
+
+        self.image(self.img1, self.width / 2, self.height / 2, cache=caching)
+        self.image(self.img2, self.width / 2, self.height / 2, cache=caching)
+        self.image(self.figure, self.width / 2, self.height / 2, cache=caching)
+        plt.close(self.figure)
+        self.image((self.img3, 'ARGB'), self.width / 2, self.height / 2, cache=caching)
+        self.image(self.surface, self.width / 2, self.height / 2, cache=caching)
+
+        # py5.no_loop()
 
 
-py5.run_sketch(block=True)
+test = TestPImage()
+test.run_sketch(block=False)
