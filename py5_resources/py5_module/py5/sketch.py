@@ -112,20 +112,6 @@ class Sketch:
         else:
             return Image.open(filename)
 
-    # # *** PShape replacement methods ***
-
-    # # TODO: add type hint functions
-    # def shape(self, *args, cache: bool = False) -> None:
-    #     """$class_shape"""
-    #     if cache and id(args[0]) in self._pshape_cache:
-    #         shape = self._pshape_cache[id(args[0])]
-    #     else:
-    #         shape = self._converter.to_pshape(args[0])
-    #         if cache:
-    #             self._pshape_cache[id(args[0])] = shape
-
-    #     self._py5applet.shape(shape, *args[1:])
-
     # *** Math (numpy) methods ***
 
     @classmethod
