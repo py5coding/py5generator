@@ -2,7 +2,6 @@
 # *** FORMAT PARAMS ***
 import time
 import io
-import json
 from pathlib import Path
 from typing import overload, NewType, Any, Callable, Union, Dict, List  # noqa
 
@@ -18,6 +17,9 @@ from .java_types import _Py5Applet, Py5Applet  # noqa
 from .java_types import *  # noqa
 from .converter import Converter  # noqa
 
+from .mixins import MathMixin, DataMixin
+
+
 class_members_code = None  # DELETE
 
 _METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',
@@ -26,9 +28,10 @@ _METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',
             'mouse_wheel', 'exit_actual']
 
 
-class Sketch:
+class Sketch(MathMixin, DataMixin):
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self._py5applet = _Py5Applet()
         self._converter = Converter(self._py5applet)
         self._pimage_cache = dict()
@@ -142,87 +145,6 @@ class Sketch:
             self._pimage_cache[image_id] = pimage
 
         self._py5applet.texture(pimage)
-
-    # *** Math (numpy) methods ***
-
-    @classmethod
-    def sin(cls, angle: float) -> float:
-        return np.sin(angle)
-
-    @classmethod
-    def cos(cls, angle: float) -> float:
-        return np.cos(angle)
-
-    @classmethod
-    def tan(cls, angle: float) -> float:
-        return np.tan(angle)
-
-    @classmethod
-    def asin(cls, value: float) -> float:
-        return np.arcsin(value)
-
-    @classmethod
-    def acos(cls, value: float) -> float:
-        return np.arccos(value)
-
-    @classmethod
-    def atan(cls, value: float) -> float:
-        return np.arctan(value)
-
-    @classmethod
-    def atan2(cls, y: float, x: float) -> float:
-        return np.arctan2(y, x)
-
-    @classmethod
-    def degrees(cls, radians: float) -> float:
-        return np.degrees(radians)
-
-    @classmethod
-    def radians(cls, degrees: float) -> float:
-        return np.radians(degrees)
-
-    @classmethod
-    def constrain(cls, amt: float, low: float, high: float) -> float:
-        return np.where(amt < low, low, np.where(amt > high, high, amt))
-
-    @classmethod
-    def dist(cls, *args) -> float:
-        p1 = args[:(len(args) // 2)]
-        p2 = args[(len(args) // 2):]
-        assert len(p1) == len(p2)
-        return sum([(a - b)**2 for a, b in zip(p1, p2)])**0.5
-
-    @classmethod
-    def lerp(cls, start: float, stop: float, amt: float):
-        return amt * (stop - start) + start
-
-    @classmethod
-    def mag(cls, *args) -> float:
-        return sum([x * x for x in args])**0.5
-
-    @classmethod
-    def norm(cls, value: float, start: float, stop: float) -> float:
-        return (value - start) / (stop - start)
-
-    @classmethod
-    def sq(cls, n: float) -> float:
-        return n * n
-
-    # *** JSON methods ***
-
-    @classmethod
-    def load_json(cls, filename: Union[str, Path], **kwargs: Dict[str, Any]) -> Any:
-        with open(filename, 'r') as f:
-            return json.load(f, **kwargs)
-
-    @classmethod
-    def save_json(cls, json_data: Any, filename: Union[str, Path], **kwargs: Dict[str, Any]):
-        with open(filename, 'w') as f:
-            json.dump(json_data, f, **kwargs)
-
-    @classmethod
-    def parse_json(cls, serialized_json: Any, **kwargs: Dict[str, Any]) -> Any:
-        return json.loads(serialized_json, **kwargs)
 
 
 {class_members_code}
