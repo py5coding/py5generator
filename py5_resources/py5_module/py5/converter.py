@@ -12,11 +12,6 @@ class Converter:
     def __init__(self, py5applet):
         self._py5applet = py5applet
 
-    def _convert_cairo_to_pshape(self, canvas):
-        with tempfile.NamedTemporaryFile(suffix='.svg') as temp:
-            canvas.print_svg(temp.name)
-            return self._py5applet.loadShape(temp.name)
-
     def to_pimage(self, obj):
         for precondition, convert_function in Converter.pimage_functions:
             if precondition(obj):
