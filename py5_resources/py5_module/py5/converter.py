@@ -3,9 +3,6 @@ import tempfile
 import numpy as np
 from PIL import Image
 import cairocffi
-import cairo
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_agg import FigureCanvasAgg
 
 
 class Converter:
@@ -75,19 +72,6 @@ def ndarray_str_tuple_adjustment(obj):
 Converter.register_pimage_conversion(ndarray_str_tuple_precondition, ndarray_str_tuple_adjustment)
 
 
-def figure_to_ndarray_precondition(obj):
-    return isinstance(obj, Figure)
-
-
-def figure_to_ndarray_converter(figure):
-    canvas = FigureCanvasAgg(figure)
-    canvas.draw()
-    return ndarray_str_tuple_adjustment((np.asarray(canvas.buffer_rgba()), 'RGBA'))
-
-
-Converter.register_pimage_conversion(figure_to_ndarray_precondition, figure_to_ndarray_converter)
-
-
 def pillow_image_to_ndarray_precondition(obj):
     return isinstance(obj, Image.Image)
 
@@ -101,10 +85,6 @@ def pillow_image_to_ndarray_converter(img):
 Converter.register_pimage_conversion(pillow_image_to_ndarray_precondition, pillow_image_to_ndarray_converter)
 
 
-def cairo_surface_to_tempfile_precondition(obj):
-    return isinstance(obj, cairo.Surface)
-
-
 def cairocffi_surface_to_tempfile_precondition(obj):
     return isinstance(obj, cairocffi.Surface)
 
@@ -115,5 +95,38 @@ def cairo_surface_to_tempfile_converter(surface):
     return temp_png
 
 
-Converter.register_pimage_conversion(cairo_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
 Converter.register_pimage_conversion(cairocffi_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
+
+
+###############################################################################
+# Py5 requires Pillow, numpy, and cairocffi to be installed (cairocffi is
+# required by cairosvg). The below libraries may or may not be installed. If
+# they are, this registers their associated conversion functions.
+###############################################################################
+
+
+try:
+    import cairo
+
+    def cairo_surface_to_tempfile_precondition(obj):
+        return isinstance(obj, cairo.Surface)
+
+    Converter.register_pimage_conversion(cairo_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
+except ModuleNotFoundError:
+    pass
+
+try:
+    from matplotlib.figure import Figure
+    from matplotlib.backends.backend_agg import FigureCanvasAgg
+
+    def figure_to_ndarray_precondition(obj):
+        return isinstance(obj, Figure)
+
+    def figure_to_ndarray_converter(figure):
+        canvas = FigureCanvasAgg(figure)
+        canvas.draw()
+        return ndarray_str_tuple_adjustment((np.asarray(canvas.buffer_rgba()), 'RGBA'))
+
+    Converter.register_pimage_conversion(figure_to_ndarray_precondition, figure_to_ndarray_converter)
+except ModuleNotFoundError:
+    pass
