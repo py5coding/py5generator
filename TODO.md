@@ -127,7 +127,7 @@ bugs
 
 instead of writing to a temporary file and having loadImage read it, I can write to a io.BytesIO object, pass the bytes, and have Java load from the byte stream.
 
-type hinting doesn't work for the EXTRA_MODULE_FUNCTIONS if the type hints are added to the class. also, the functions parameter names and types don't make it through, so the functions that need to use the "cache" keyword argument don't work at all. How about I use Python's multiple inheritance to put the custom functions in other classes, and then I can parse those files to get the function signature lines and add them as functions to the module. Then I don't need the EXTRA_MODULE_FUNCTIONS stuff at all.
+type hinting doesn't work for the EXTRA_MODULE_FUNCTIONS if the type hints are added to the class. also, the functions parameter names and types don't make it through, so the functions that need to use the "cache" keyword argument don't work at all. I can parse the mixin class files to get the function signature lines and add them as functions to the module. Then I don't need the EXTRA_MODULE_FUNCTIONS stuff at all.
 
 I should use a csv file to record which functions are included or skipped. I can also add notes about if they will be added later.
 
