@@ -21,9 +21,9 @@ class Converter:
             return self._py5applet.loadShape(temp.name)
 
     def to_pimage(self, obj):
-        for converter in Converter.pimage_functions:
-            if converter.precondition(obj):
-                obj = converter.convert(obj)
+        for precondition, convert_function in Converter.pimage_functions:
+            if precondition(obj):
+                obj = convert_function(obj)
                 break
         else:
             raise RuntimeError(f'Py5 Converter does not know how to convert {str(obj)}')
@@ -39,77 +39,81 @@ class Converter:
         raise RuntimeError(f'Error in Py5 Converter for {str(obj)}')
 
     @classmethod
-    def register_pimage_conversion(cls, converter_class):
-        cls.pimage_functions.append(converter_class)
+    def register_pimage_conversion(cls, precondition, convert_function):
+        cls.pimage_functions.append((precondition, convert_function))
 
 
-class NDArrayStrTuple:
-
-    @classmethod
-    def precondition(cls, obj):
-        return (isinstance(obj, tuple)
-                and len(obj) == 2
-                and isinstance(obj[0], np.ndarray)
-                and obj[0].dtype == np.uint8
-                and obj[0].ndim == 3
-                and isinstance(obj[1], str)
-                and obj[1].upper() in ['RGBA', 'ARGB', 'RGB']
-                and obj[0].shape[2] == len(obj[1]))
-
-    @classmethod
-    def convert(cls, obj):
-        arr, bands = obj
-        bands = bands.upper()
-        if bands == 'RGBA':
-            a, b = np.split(arr, axis=2, indices_or_sections=np.array([3]))
-            arr = np.block([b, a])
-        elif bands == 'RGB':
-            height, width, _ = arr.shape
-            arr = np.block([np.full((height, width, 1), 255, dtype=np.uint8), arr])
-
-        return arr
+###############################################################################
+# BUILT-IN CONVERSTION FUNCTIONS
+###############################################################################
 
 
-class FigureToNDArray:
-
-    @classmethod
-    def precondition(cls, obj):
-        return isinstance(obj, Figure)
-
-    @classmethod
-    def convert(cls, figure):
-        canvas = FigureCanvasAgg(figure)
-        canvas.draw()
-        return NDArrayStrTuple.convert((np.asarray(canvas.buffer_rgba()), 'RGBA'))
+def ndarray_str_tuple_precondition(obj):
+    return (isinstance(obj, tuple)
+            and len(obj) == 2
+            and isinstance(obj[0], np.ndarray)
+            and obj[0].dtype == np.uint8
+            and obj[0].ndim == 3
+            and isinstance(obj[1], str)
+            and obj[1].upper() in ['RGBA', 'ARGB', 'RGB']
+            and obj[0].shape[2] == len(obj[1]))
 
 
-class PillowImageToNDArray:
+def ndarray_str_tuple_adjustment(obj):
+    arr, bands = obj
+    bands = bands.upper()
+    if bands == 'RGBA':
+        a, b = np.split(arr, axis=2, indices_or_sections=np.array([3]))
+        arr = np.block([b, a])
+    elif bands == 'RGB':
+        height, width, _ = arr.shape
+        arr = np.block([np.full((height, width, 1), 255, dtype=np.uint8), arr])
 
-    @classmethod
-    def precondition(cls, obj):
-        return isinstance(obj, Image.Image)
-
-    @classmethod
-    def convert(cls, img):
-        if img.mode not in ['RGB', 'RGBA']:
-            img = img.convert(mode='RGB')
-        return NDArrayStrTuple.convert((np.asarray(img), img.mode))
-
-
-class CairoSurfaceToTempfile:
-
-    @classmethod
-    def precondition(cls, obj):
-        return isinstance(obj, (cairocffi.Surface, cairo.Surface))
-
-    @classmethod
-    def convert(cls, surface):
-        temp_png = tempfile.NamedTemporaryFile(suffix='.png')
-        surface.write_to_png(temp_png.name)
-        return temp_png
+    return arr
 
 
-Converter.register_pimage_conversion(NDArrayStrTuple)
-Converter.register_pimage_conversion(FigureToNDArray)
-Converter.register_pimage_conversion(PillowImageToNDArray)
-Converter.register_pimage_conversion(CairoSurfaceToTempfile)
+Converter.register_pimage_conversion(ndarray_str_tuple_precondition, ndarray_str_tuple_adjustment)
+
+
+def figure_to_ndarray_precondition(obj):
+    return isinstance(obj, Figure)
+
+
+def figure_to_ndarray_converter(figure):
+    canvas = FigureCanvasAgg(figure)
+    canvas.draw()
+    return ndarray_str_tuple_adjustment((np.asarray(canvas.buffer_rgba()), 'RGBA'))
+
+
+Converter.register_pimage_conversion(figure_to_ndarray_precondition, figure_to_ndarray_converter)
+
+
+def pillow_image_to_ndarray_precondition(obj):
+    return isinstance(obj, Image.Image)
+
+
+def pillow_image_to_ndarray_converter(img):
+    if img.mode not in ['RGB', 'RGBA']:
+        img = img.convert(mode='RGB')
+    return ndarray_str_tuple_adjustment((np.asarray(img), img.mode))
+
+
+Converter.register_pimage_conversion(pillow_image_to_ndarray_precondition, pillow_image_to_ndarray_converter)
+
+
+def cairo_surface_to_tempfile_precondition(obj):
+    return isinstance(obj, cairo.Surface)
+
+
+def cairocffi_surface_to_tempfile_precondition(obj):
+    return isinstance(obj, cairocffi.Surface)
+
+
+def cairo_surface_to_tempfile_converter(surface):
+    temp_png = tempfile.NamedTemporaryFile(suffix='.png')
+    surface.write_to_png(temp_png.name)
+    return temp_png
+
+
+Converter.register_pimage_conversion(cairo_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
+Converter.register_pimage_conversion(cairocffi_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
