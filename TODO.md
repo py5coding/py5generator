@@ -127,6 +127,16 @@ bugs
 
 type hinting doesn't work for the EXTRA_MODULE_FUNCTIONS if the type hints are added to the class. also, the functions parameter names and types don't make it through, so the functions that need to use the "cache" keyword argument don't work at all. I can parse the mixin class files to get the function signature lines and add them as functions to the module. Then I don't need the EXTRA_MODULE_FUNCTIONS stuff at all.
 
+for each code block, I can check if there is an @overload or @classmthod decorator on the first line. I can also use the below regex to get the function names and parameters. I can use this to create the module functions.
+
+```
+    with open('py5_resources/py5_module/py5/mixins/math.py') as f: 
+        code = f.read()
+
+    code.split('\n\n')
+    function_regex = re.compile(r"(def (.*?)\((.*)\)\s*->\s*(.*):)$", re.MULTILINE)
+```
+
 I should use a csv file to record which functions are included or skipped. I can also add notes about if they will be added later.
 
 in module mode, the draw function cannot call other functions.
