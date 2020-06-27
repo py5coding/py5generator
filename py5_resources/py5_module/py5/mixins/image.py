@@ -16,6 +16,9 @@ class ImageMixin:
         self._converter = Converter(self._py5applet)
         self._weak_image_refs = []
 
+    def flush_image_cache(self) -> None:
+        self._weak_image_refs = []
+
     @overload
     def image(self, img: Any, a: float, b: float, cache: bool) -> None:
         """$class_image"""
