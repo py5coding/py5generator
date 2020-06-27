@@ -22,7 +22,7 @@ class Converter:
 
         if isinstance(obj, np.ndarray):
             height, width, _ = obj.shape
-            return self._py5applet.convertBytesToPImage(obj.tobytes(), width, height, pass_by_reference=False)
+            return self._py5applet.convertBytesToPImage(obj.tobytes(order='C'), width, height, pass_by_reference=False)
         if isinstance(obj, tempfile._TemporaryFileWrapper):
             pimage = self._py5applet.loadImage(obj.name)
             obj.close()
@@ -55,8 +55,7 @@ def ndarray_str_tuple_adjustment(obj):
     arr, bands = obj
     bands = bands.upper()
     if bands == 'RGBA':
-        a, b = np.split(arr, axis=2, indices_or_sections=np.array([3]))
-        arr = np.block([b, a])
+        arr = np.roll(arr, 1, axis=2)
     elif bands == 'RGB':
         height, width, _ = arr.shape
         arr = np.block([np.full((height, width, 1), 255, dtype=np.uint8), arr])
