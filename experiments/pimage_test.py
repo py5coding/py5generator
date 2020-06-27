@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.style as mplstyle
 import matplotlib
-import cairo
+import cairocffi
 import py5
 
 matplotlib.use('agg')
@@ -22,13 +22,13 @@ class TestPImage(py5.Sketch):
         self.figure = pd._testing.makeTimeDataFrame().plot().figure
 
         self.img3 = np.zeros((500, 500, 4), dtype=np.uint8)
-        self.img3[:, :, 0] = 255
-        self.img3[:200, :, 1] = 200
-        self.img3[100:400, :, 2] = 100
-        self.img3[300:, :, 3] = 150
+        self.img3[:200, :, 0] = 200  # R
+        self.img3[100:400, :, 1] = 100  # G
+        self.img3[300:, :, 2] = 150  # B
+        self.img3[:, :, 3] = 255  # A
 
-        self.surface = cairo.RecordingSurface(cairo.Content.COLOR_ALPHA, cairo.Rectangle(0, 0, 200, 200))
-        context = cairo.Context(self.surface)
+        self.surface = cairocffi.RecordingSurface(cairocffi.CONTENT_COLOR_ALPHA, (0, 0, 200, 200))
+        context = cairocffi.Context(self.surface)
         x, y, x1, y1 = 0.1, 0.5, 0.4, 0.9
         x2, y2, x3, y3 = 0.6, 0.1, 0.9, 0.5
         context.scale(200, 200)
@@ -55,7 +55,7 @@ class TestPImage(py5.Sketch):
         self.image(self.img2, self.width / 2, self.height / 2, cache=caching)
         self.image(self.figure, self.width / 2, self.height / 2, cache=caching)
         plt.close(self.figure)
-        self.image((self.img3, 'ARGB'), self.width / 2, self.height / 2, cache=caching)
+        self.image((self.img3, 'RGBA'), self.width / 2, self.height / 2, cache=caching)
         self.image(self.surface, self.width / 2, self.height / 2, cache=caching)
 
         # py5.no_loop()
