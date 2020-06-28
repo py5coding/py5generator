@@ -26,12 +26,12 @@ class ImageMixin:
         self._weak_image_refs = []
 
     @overload
-    def image(self, img: Any, a: float, b: float, cache: bool) -> None:
+    def image(self, img: Any, a: float, b: float, cache: bool = False) -> None:
         """$class_image"""
         pass
 
     @overload
-    def image(self, img: Any, a: float, b: float, c: float, d: float, cache: bool) -> None:
+    def image(self, img: Any, a: float, b: float, c: float, d: float, cache: bool = False) -> None:
         """$class_image"""
         pass
 
