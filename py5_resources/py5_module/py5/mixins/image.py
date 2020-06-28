@@ -10,11 +10,17 @@ from ..converter import Converter
 
 
 class ImageMixin:
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._py5applet = kwargs['py5applet']
         self._converter = Converter(self._py5applet)
         self._weak_image_refs = []
+
+    # TODO: what about alpha mask images?
+    # TODO: are there other PImage functions I should be paying attention to?
+
+    # *** BEGIN METHODS ***
 
     def flush_image_cache(self) -> None:
         self._weak_image_refs = []
@@ -33,10 +39,6 @@ class ImageMixin:
         """$class_image"""
         pimage = self._check_cache_or_convert(args[0], cache)
         self._py5applet.image(pimage, *args[1:])
-
-    # TODO: what about alpha mask images?
-    # TODO: are there other PImage functions I should be paying attention to?
-    # TODO: does caching actually work?
 
     def create_image(self, mode: str, width: int, height: int, color: Any) -> Image.Image:
         """$class_create_image"""

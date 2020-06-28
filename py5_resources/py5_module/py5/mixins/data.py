@@ -4,8 +4,11 @@ from typing import Any, Union, Dict
 
 
 class DataMixin:
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    # *** BEGIN METHODS ***
 
     @classmethod
     def load_json(cls, filename: Union[str, Path], **kwargs: Dict[str, Any]) -> Any:

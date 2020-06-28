@@ -2,8 +2,11 @@ import numpy as np
 
 
 class MathMixin:
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    # *** BEGIN METHODS ***
 
     @classmethod
     def sin(cls, angle: float) -> float:
