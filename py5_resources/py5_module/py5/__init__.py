@@ -9,6 +9,10 @@ import logging
 import inspect
 from typing import overload, Any, Callable, Union, Dict, List  # noqa
 
+import json  # noqa
+import numpy as np  # noqa
+from PIL import Image  # noqa
+
 import py5_tools
 
 if not py5_tools.py5_started:

@@ -79,6 +79,8 @@ class DocstringLibrary:
 # TEMPLATES
 ###############################################################################
 
+METHOD_REGEX = re.compile(r'(@\w+)?\s*def (.*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):$', re.MULTILINE | re.DOTALL)
+TYPEHINT_COMMA_REGEX = re.compile(r'(\[[\w\s,]+\])')
 
 CLASS_STATIC_FIELD_TEMPLATE = """
     {0} = {1}"""
@@ -230,18 +232,6 @@ EXTRA_DIR_NAMES = {
     '_prune_tracebacks'
 }
 
-EXTRA_MODULE_STATIC_FUNCTIONS = {
-    'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'atan2', 'degrees', 'radians',
-    'constrain', 'dist', 'lerp', 'mag', 'norm', 'sq',
-    'load_json', 'save_json', 'parse_json'
-}
-
-EXTRA_MODULE_FUNCTIONS = {
-    'exit_sketch', 'get_py5applet', 'hot_reload_draw',
-    'profile_functions', 'profile_draw', 'print_line_profiler_stats',
-    'get_pixels', 'set_pixels',
-    'image', 'create_image', 'load_image', 'texture'
-}
 
 ###############################################################################
 # UTIL FUNCTIONS
@@ -454,14 +444,42 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     code_methods(methods, False)
     code_methods(static_methods, True)
 
-    # add the extra Sketch methods to the module
-    print('coding extra module functions')
-    for fname in EXTRA_MODULE_FUNCTIONS:
-        module_members.append(MODULE_FUNCTION_TEMPLATE.format(fname, '_py5sketch'))
-        py5_dir.append(fname)
-    for fname in EXTRA_MODULE_STATIC_FUNCTIONS:
-        module_members.append(MODULE_FUNCTION_TEMPLATE.format(fname, 'Sketch'))
-        py5_dir.append(fname)
+    # add the methods in the mixin classes as functions in the __init__.py module
+    mixin_dir = Path('py5_resources', 'py5_module', 'py5', 'mixins')
+    for filename in mixin_dir.glob('*.py'):
+        if filename.stem == '__init__':
+            continue
+
+        module_members.append(f'\n{"#" * 78}\n# module functions from {filename.name}\n{"#" * 78}\n')
+
+        with open(filename) as f:
+            code = f.read()
+            code = code.split('*** BEGIN METHODS ***')[1].strip()
+
+        for decorator, fname, arg0, args, rettypestr in METHOD_REGEX.findall(code):
+            if fname.startswith('_'):
+                continue
+            elif decorator == '@overload':
+                module_members.append(MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(
+                    fname, args, rettypestr))
+            else:
+                if arg0 == 'cls':
+                    moduleobj = 'Sketch'
+                else:
+                    moduleobj = '_py5sketch'
+
+                paramlist = []
+                for arg in TYPEHINT_COMMA_REGEX.sub('', args).split(','):
+                    paramname = arg.split(':')[0].strip()
+                    if '=' in arg:
+                        paramlist.append(f'{paramname}={paramname}')
+                    else:
+                        paramlist.append(paramname)
+
+                params = ', '.join(paramlist)
+                module_members.append(MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
+                    fname, args, moduleobj, rettypestr, params))
+                py5_dir.append(fname)
 
     class_members_code = ''.join(class_members)
     module_members_code = ''.join(module_members)
