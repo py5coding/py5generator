@@ -16,7 +16,7 @@ class DataMixin:
             return json.load(f, **kwargs)
 
     @classmethod
-    def save_json(cls, json_data: Any, filename: Union[str, Path], **kwargs: Dict[str, Any]):
+    def save_json(cls, json_data: Any, filename: Union[str, Path], **kwargs: Dict[str, Any]) -> None:
         with open(filename, 'w') as f:
             json.dump(json_data, f, **kwargs)
 

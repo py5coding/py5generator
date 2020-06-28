@@ -56,7 +56,7 @@ class MathMixin:
         return sum([(a - b)**2 for a, b in zip(p1, p2)])**0.5
 
     @classmethod
-    def lerp(cls, start: float, stop: float, amt: float):
+    def lerp(cls, start: float, stop: float, amt: float) -> float:
         return amt * (stop - start) + start
 
     @classmethod
