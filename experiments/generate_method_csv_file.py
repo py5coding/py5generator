@@ -3,7 +3,7 @@ import re
 from pathlib import Path
 
 import xmltodict
-from pandas import DataFrame, Series
+from pandas import DataFrame
 
 
 ###############################################################################
@@ -18,7 +18,7 @@ METHOD_REGEX = re.compile(r'(@\w+)?\s*def (.*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s
 
 
 skip_user_methods = {
-    'settings', 'setup', 'draw'
+    'settings', 'setup', 'draw',
     'keyPressed', 'keyTyped', 'keyReleased',
     'mouseClicked', 'mouseDragged', 'mouseMoved', 'mouseEntered',
     'mouseExited', 'mousePressed', 'mouseReleased', 'mouseWheel',
@@ -35,6 +35,7 @@ skip_user_should_use_python_instead = {
     'int', 'unbinary', 'unhex', 'join', 'match', 'matchAll', 'nf', 'nfc', 'nfp',
     'nfs', 'split', 'splitTokens', 'trim', 'debug', 'delay', 'equals', 'println',
     'printArray',
+    'parseBoolean', 'parseByte', 'parseChar', 'parseInt', 'parseFloat',
 }
 
 skip_user_should_use_numpy_instead = {
@@ -70,10 +71,6 @@ skip_methods_that_should_be_done_in_python = {
     'desktopPath', 'shell', 'urlDecode', 'urlEncode', 'sketchFile', 'sketchOutputStream',
 }
 
-skip_parsing_methods_that_should_be_done_in_python = {
-    'parseBoolean', 'parseByte', 'parseChar', 'parseInt', 'parseFloat',
-}
-
 skip_internal_methods = {
     'postEvent', 'style', 'hideMenuBar', 'saveViaImageIO',
     'getClass', 'hashCode', 'wait', 'notify', 'notifyAll', 'toString',
@@ -92,7 +89,6 @@ PAPPLET_SKIP_METHODS = (skip_user_methods
                         | skip_public_methods_that_should_be_skipped
                         | skip_methods_that_are_not_part_of_the_framework
                         | skip_methods_that_should_be_done_in_python
-                        | skip_parsing_methods_that_should_be_done_in_python
                         | skip_internal_methods
                         | skip_methods_implemented_by_me)
 
@@ -138,9 +134,7 @@ def skip_reason(fname):
     if fname in skip_methods_that_are_not_part_of_the_framework:
         return 'methods that are not part of the framework'
     if fname in skip_methods_that_should_be_done_in_python:
-        return 'methods that should be implemented by me in Python'
-    if fname in skip_parsing_methods_that_should_be_done_in_python:
-        return 'parsing methods that should be implemented by me in Python'
+        return 'methods that should be implemented in Python'
     if fname in skip_internal_methods:
         return 'internal methods'
     if fname in skip_methods_implemented_by_me:
@@ -206,6 +200,7 @@ def generate_py5(repo_dir):
     df.set_index('py5_name', inplace=True, drop=True)
 
     # add the methods in the mixin classes as functions in the __init__.py module
+    print('examining mixin classes')
     mixin_dir = Path('py5_resources', 'py5_module', 'py5', 'mixins')
     for filename in mixin_dir.glob('*.py'):
         if filename.stem == '__init__':
@@ -224,6 +219,7 @@ def generate_py5(repo_dir):
                 df.loc[fname, :] = ('', type_, True, f'from mixin file {filename.name}')
 
     # add the webrefs from the xml file
+    print('add webrefs from javadocs.xml')
     filename = 'py5_docs/docfiles/javadocs.xml'
     with open(filename, 'r') as f:
         root = xmltodict.parse(f.read())
@@ -238,11 +234,11 @@ def generate_py5(repo_dir):
                 tokens = webref[0].strip().split(':')
                 cat = tokens[0]
                 subcat = '' if len(tokens) == 1 else tokens[1]
-                print(webref)
                 webrefs.loc[processing_name] = cat, subcat
 
+    print('writing output')
     df = df.join(webrefs, on='processing_name')
-
+    df = df['processing_name type category subcategory included reason'.split()]
     df.to_csv('/tmp/datafile.csv')
 
     print('done!')
