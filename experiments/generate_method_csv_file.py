@@ -2,7 +2,8 @@ import sys
 import re
 from pathlib import Path
 
-from pandas import DataFrame
+import xmltodict
+from pandas import DataFrame, Series
 
 
 ###############################################################################
@@ -188,6 +189,8 @@ def generate_py5(repo_dir):
     df = DataFrame(columns=['processing_name', 'py5_name', 'type', 'included', 'reason'])
 
     for i, (processing_name, v) in enumerate(Py5Applet.__dict__.items()):
+        if processing_name.startswith('_'):
+            continue
         type_ = class_types.get(type(v), 'unknown')
         py5_name = processing_name if type_ == 'static field' else snake_case(processing_name)
         included = True
@@ -219,6 +222,26 @@ def generate_py5(repo_dir):
             else:
                 type_ = 'static method' if decorator == '@classmethod' else 'method'
                 df.loc[fname, :] = ('', type_, True, f'from mixin file {filename.name}')
+
+    # add the webrefs from the xml file
+    filename = 'py5_docs/docfiles/javadocs.xml'
+    with open(filename, 'r') as f:
+        root = xmltodict.parse(f.read())
+    webrefs = DataFrame(columns=['category', 'subcategory'])
+    for commenttree in root['commenttrees']['commenttree']:
+        processing_name = commenttree['@name']
+        blocktags = commenttree['blocktags']
+        if blocktags:
+            tags = blocktags['blocktag']
+            webref = list(map(lambda x: x[8:], filter(lambda x: x.startswith('@webref'), tags)))
+            if webref and webref[0].strip():
+                tokens = webref[0].strip().split(':')
+                cat = tokens[0]
+                subcat = '' if len(tokens) == 1 else tokens[1]
+                print(webref)
+                webrefs.loc[processing_name] = cat, subcat
+
+    df = df.join(webrefs, on='processing_name')
 
     df.to_csv('/tmp/datafile.csv')
 
