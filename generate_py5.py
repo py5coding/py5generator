@@ -9,6 +9,8 @@ import autopep8
 from pathlib import Path
 from functools import lru_cache
 
+import pandas as pd
+
 
 ###############################################################################
 # ARGUMENT PARSING
@@ -156,59 +158,6 @@ def {0}({1}) -> {3}:
 ###############################################################################
 
 
-PAPPLET_SKIP_METHODS = {
-    # main sketch methods
-    'settings', 'setup', 'draw',
-    # key and mouse events
-    'keyPressed', 'keyTyped', 'keyReleased',
-    'mouseClicked', 'mouseDragged', 'mouseMoved', 'mouseEntered',
-    'mouseExited', 'mousePressed', 'mouseReleased', 'mouseWheel',
-    # exit method
-    'exitActual',
-    # builtin python functions
-    'print', 'exec', 'exit', 'str', 'set', 'map', 'sort',
-    # user should use Python instead
-    'append', 'arrayCopy', 'arraycopy', 'concat', 'expand', 'reverse', 'shorten',
-    'splice', 'subset', 'binary', 'boolean', 'byte', 'char', 'float', 'hex',
-    'int', 'unbinary', 'unhex', 'join', 'match', 'matchAll', 'nf', 'nfc', 'nfp',
-    'nfs', 'split', 'splitTokens', 'trim', 'debug', 'delay', 'equals', 'println',
-    'printArray',
-    # user should use numpy instead
-    'min', 'max', 'round', 'map', 'abs', 'pow', 'sqrt', 'ceil', 'floor', 'log',
-    'exp', 'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'atan2', 'degrees',
-    'radians', 'sq', 'lerp', 'constrain', 'norm', 'mag', 'dist',
-    # public methods that should be skipped
-    'runSketch', 'main', 'handleDraw', 'handleSettings', 'usePy5Methods',
-    'registerMethod', 'unregisterMethod',
-    'showDepthWarning', 'showDepthWarningXYZ', 'showMethodWarning',
-    'showVariationWarning', 'showMissingWarning',
-    'checkAlpha', 'setSize', 'die',
-    # methods that are missing documentation that are not a part of the framework
-    'attrib', 'attribColor', 'attribNormal', 'attribPosition', 'beginPGL', 'endPGL',
-    'exitCalled', 'flush', 'focusGained', 'focusLost', 'frameMoved', 'frameResized',
-    'isLooping', 'orientation', 'sketchDisplay', 'sketchFullScreen',
-    'sketchHeight', 'sketchOutputPath' 'sketchPath', 'sketchPixelDensity', 'sketchRenderer',
-    'sketchSmooth', 'sketchSmooth', 'sketchWidth', 'sketchWindowColor', 'blendColor',
-    # files methods that should be done in Python
-    'createInput', 'createInputRaw', 'createOutput', 'createPath', 'createReader',
-    'createWriter', 'dataFile', 'dataPath', 'link', 'listFiles', 'listPaths',
-    'loadJSONArray', 'loadJSONObject', 'parseJSONArray', 'parseJSONObject',
-    'saveJSONArray', 'saveJSONObject',
-    'loadBytes', 'saveBytes', 'loadXML', 'parseXML', 'saveXML', 'launch',
-    'loadStrings', 'saveStrings', 'loadTable', 'saveTable', 'saveStream',
-    'saveFile', 'savePath', 'checkExtension', 'getExtension', 'desktopFile',
-    'desktopPath', 'shell', 'urlDecode', 'urlEncode', 'sketchFile', 'sketchOutputStream',
-    # parsing methods that should be done in Python
-    'parseBoolean', 'parseByte', 'parseChar', 'parseInt', 'parseFloat',
-    # internal methods
-    'postEvent', 'style', 'hideMenuBar', 'saveViaImageIO',
-    'getClass', 'hashCode', 'wait', 'notify', 'notifyAll', 'toString',
-    'setAndUpdatePixels', 'loadAndGetPixels', 'convertBytesToPImage',
-    # methods that need to be implemented by me
-    'image', 'createImage', 'loadImage', 'requestImage', 'texture',
-    'shape', 'loadShape'
-}
-
 PAPPLET_SKIP_PARAM_TYPES = {
     'processing/core/PMatrix3D', 'processing/core/PMatrix2D',
     'processing/core/PMatrix', 'java/io/File'
@@ -222,10 +171,6 @@ PCONSTANT_OVERRIDES = {
     'DELETE': r'\x7f',
     'BACKSPACE': r'\x08',
     'TAB': r'\t'
-}
-
-DEPRECATED = {
-    'firstMouse', 'mouseEvent', 'keyEvent', 'MACOSX'
 }
 
 EXTRA_DIR_NAMES = {
@@ -344,19 +289,27 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
                           include_protected=False, include_private=False)
     py5applet = Py5Applet()
 
+    print('loading datafile to identify included methods and fields')
+    py5applet_data = pd.read_csv(Path('py5_resources', 'data', 'py5applet.csv')).fillna('')
+    included_py5applet_data = py5applet_data.query("included==True and processing_name != ''")
+    included_methods = set(included_py5applet_data.query("type=='method'")['processing_name'])
+    included_static_methods = set(included_py5applet_data.query("type=='static method'")['processing_name'])
+    included_fields = set(included_py5applet_data.query("type=='dynamic variable'")['processing_name'])
+    included_static_fields = set(included_py5applet_data.query("type=='static field'")['processing_name'])
+
     methods = set()
     static_methods = set()
     fields = set()
     static_fields = set()
 
     for k, v in Py5Applet.__dict__.items():
-        if isinstance(v, JavaStaticMethod) and k not in (DEPRECATED | PAPPLET_SKIP_METHODS):
+        if isinstance(v, JavaStaticMethod) and k in included_static_methods:
             static_methods.add((k, v))
-        elif isinstance(v, (JavaMethod, JavaMultipleMethod)) and k not in (DEPRECATED | PAPPLET_SKIP_METHODS):
+        elif isinstance(v, (JavaMethod, JavaMultipleMethod)) and k in included_methods:
             methods.add((k, v))
-        elif isinstance(v, JavaStaticField) and k not in DEPRECATED:
+        elif isinstance(v, JavaStaticField) and k in included_static_fields:
             static_fields.add(k)
-        elif isinstance(v, JavaField) and k not in DEPRECATED:
+        elif isinstance(v, JavaField) and k in included_fields:
             fields.add(k)
 
     # storage for Py5Applet members and the result of the module's __dir__ function.

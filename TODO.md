@@ -125,8 +125,6 @@ build magic functions for screen grabs and making good documentation
 bugs
 ----
 
-I should use a csv file to record which functions are included or skipped. I can also add notes about if they will be added later.
-
 in module mode, the draw function cannot call other functions.
 
 when an error is thrown I can call run_sketch again to continue the sketch. neat trick, but it opens a new window, which perhaps it should not do.
