@@ -22,6 +22,7 @@ parser.add_argument('-r', '--repo', action='store', dest='processing_repo_dir',
 parser.add_argument('-p', '--param', action='store', dest='method_parameter_names_data_file',
                     help='location of method parameter names data file created by Py5Doclet')
 
+
 ###############################################################################
 # DOCSTRINGS
 ###############################################################################
@@ -78,6 +79,7 @@ class DocstringLibrary:
 ###############################################################################
 # TEMPLATES
 ###############################################################################
+
 
 METHOD_REGEX = re.compile(r'(@\w+)?\s*def (.*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):$', re.MULTILINE | re.DOTALL)
 TYPEHINT_COMMA_REGEX = re.compile(r'(\[[\w\s,]+\])')
@@ -449,25 +451,18 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     for filename in mixin_dir.glob('*.py'):
         if filename.stem == '__init__':
             continue
-
-        module_members.append(f'\n{"#" * 78}\n# module functions from {filename.name}\n{"#" * 78}\n')
-
         with open(filename) as f:
             code = f.read()
             code = code.split('*** BEGIN METHODS ***')[1].strip()
 
+        module_members.append(f'\n{"#" * 78}\n# module functions from {filename.name}\n{"#" * 78}\n')
         for decorator, fname, arg0, args, rettypestr in METHOD_REGEX.findall(code):
             if fname.startswith('_'):
                 continue
             elif decorator == '@overload':
-                module_members.append(MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(
-                    fname, args, rettypestr))
+                module_members.append(MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(fname, args, rettypestr))
             else:
-                if arg0 == 'cls':
-                    moduleobj = 'Sketch'
-                else:
-                    moduleobj = '_py5sketch'
-
+                moduleobj = 'Sketch' if arg0 == 'cls' else '_py5sketch'
                 paramlist = []
                 for arg in TYPEHINT_COMMA_REGEX.sub('', args).split(','):
                     paramname = arg.split(':')[0].strip()
