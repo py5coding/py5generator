@@ -5,7 +5,7 @@ from typing import overload, NewType, Any, Callable, Union, Dict, List  # noqa
 
 import numpy as np
 
-from .methods import Py5Methods
+from .methods import Py5Methods, Py5Exception  # noqa
 from .java_types import _Py5Applet, Py5Applet
 from .java_types import *  # noqa
 
