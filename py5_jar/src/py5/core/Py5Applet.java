@@ -143,6 +143,10 @@ public class Py5Applet extends PApplet {
     return keyPressed;
   }
 
+  public void exitSketch() {
+    exit();
+  }
+
   public byte[] loadAndGetPixels() {
     loadPixels();
     ByteBuffer byteBuffer = ByteBuffer.allocate(4 * pixels.length);
