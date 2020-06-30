@@ -370,7 +370,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         elif isinstance(v, JavaField) and k in included_fields:
             fields.add(k)
         if k not in all_fields_and_methods and not k.startswith('_'):
-            logger.info(f'detected previously unknown {type(v).__name__} {k}')
+            logger.warning(f'detected previously unknown {type(v).__name__} {k}')
 
     # storage for Py5Applet members and the result of the module's __dir__ function.
     class_members = []
