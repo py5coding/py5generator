@@ -349,7 +349,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     logger.info('loading datafile to identify included methods and fields')
     py5applet_data = pd.read_csv(Path('py5_resources', 'data', 'py5applet.csv')).fillna('')
     all_fields_and_methods = set(py5applet_data['processing_name'])
-    included_py5applet_data = py5applet_data.query("included==True and processing_name != ''")
+    included_py5applet_data = py5applet_data.query("included_from_processing==True and processing_name != ''")
     included_methods = set(included_py5applet_data.query("type=='method'")['processing_name'])
     included_static_methods = set(included_py5applet_data.query("type=='static method'")['processing_name'])
     included_fields = set(included_py5applet_data.query("type=='dynamic variable'")['processing_name'])
