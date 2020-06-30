@@ -1,6 +1,6 @@
-import sys
 import re
 import argparse
+import logging
 import shutil
 import textwrap
 from string import Template
@@ -11,6 +11,10 @@ from functools import lru_cache
 
 import pandas as pd
 
+
+logging.basicConfig(format="%(asctime)s | %(levelname)s | %(message)s", level=logging.INFO)
+
+logger = logging.getLogger(__name__)
 
 ###############################################################################
 # ARGUMENT PARSING
@@ -231,7 +235,7 @@ class CodeCopier:
         self.docstring_dict = docstring_dict
 
     def __call__(self, src, dest, *, follow_symlinks=True):
-        print(f'copying {src} to {dest}')
+        logging.info(f'copying {src} to {dest}')
         with open(src, 'r') as f:
             content = f.read()
 
@@ -258,19 +262,22 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     """
     repo_dir = Path(repo_dir)
 
-    print(f'generating py5 library...')
+    logging.info('generating py5 library...')
     core_jars = list(repo_dir.glob('**/core.jar'))
     if len(core_jars) != 1:
         if core_jars:
-            print(f'more than one core.jar found in {repo_dir}', file=sys.stderr)
+            msg = f'more than one core.jar found in {repo_dir}'
         else:
-            print(f'core.jar not found in {repo_dir}', file=sys.stderr)
-        return
+            msg = f'core.jar not found in {repo_dir}'
+        logger.critical(msg)
+        raise RuntimeError(msg)
     core_jar_path = core_jars[0]
 
     py5_jar_path = Path('py5_jar', 'dist', 'py5.jar')
     if not py5_jar_path.exists():
-        raise RuntimeError(f'py5 jar not found at {str(py5_jar_path)}')
+        msg = f'py5 jar not found at {str(py5_jar_path)}'
+        logger.critical(msg)
+        raise RuntimeError(msg)
     import jnius_config
     jnius_config.set_classpath(str(py5_jar_path), str(core_jar_path))
     from jnius import autoclass, JavaStaticMethod, JavaMethod, JavaMultipleMethod, JavaStaticField, JavaField
@@ -284,12 +291,12 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
             if types in method_parameter_names_data[c][f]: raise RuntimeError('assumption violated')
             method_parameter_names_data[c][f][types] = (params, rettype)
 
-    print('examining Java classes')
+    logger.info('examining Java classes')
     Py5Applet = autoclass('py5.core.Py5Applet',
                           include_protected=False, include_private=False)
     py5applet = Py5Applet()
 
-    print('loading datafile to identify included methods and fields')
+    logger.info('loading datafile to identify included methods and fields')
     py5applet_data = pd.read_csv(Path('py5_resources', 'data', 'py5applet.csv')).fillna('')
     all_fields_and_methods = set(py5applet_data['processing_name'])
     included_py5applet_data = py5applet_data.query("included==True and processing_name != ''")
@@ -313,7 +320,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         elif isinstance(v, JavaField) and k in included_fields:
             fields.add(k)
         if k not in all_fields_and_methods and not k.startswith('_'):
-            print(f'detected previously unknown {type(v).__name__} {k}')
+            logger.info(f'detected previously unknown {type(v).__name__} {k}')
 
     # storage for Py5Applet members and the result of the module's __dir__ function.
     class_members = []
@@ -322,7 +329,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     py5_dir = []
 
     # code the static constants
-    print('coding static constants')
+    logger.info('coding static constants')
     for name in sorted(static_fields):
         if name in PCONSTANT_OVERRIDES:
             module_members.append(f'\n{name} = {shlex.quote(PCONSTANT_OVERRIDES[name])}')
@@ -337,7 +344,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
             py5_dir.append(name)
 
     # code the dynamic variables
-    print('coding dynamic variables')
+    logger.info('coding dynamic variables')
     py5_dynamic_vars = []
     for name in sorted(fields):
         snake_name = snake_case(name)
@@ -369,7 +376,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
                     parameter_names = [snake_case(p) for p in parameter_names.split(',')]
                     paramstrs = [first_param] + [param_annotation(pn, p) for pn, p in zip(parameter_names, params)]
                 except Exception:
-                    print('missing parameter names for', fname, params)
+                    logger.warning(f'missing parameter names for {fname} {params}')
                     paramstrs = [first_param] + [param_annotation(f'arg{i}', p) for i, p in enumerate(params)]
                 rettypestr = convert_type(rettype)
                 class_members.append(CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
@@ -386,7 +393,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
                         parameter_names = [snake_case(p) for p in parameter_names.split(',')]
                         paramstrs = [first_param] + [param_annotation(pn, p) for pn, p in zip(parameter_names, params)]
                     except Exception:
-                        print('missing parameter names for', fname, params)
+                        logger.warning(f'missing parameter names for {fname} {params}')
                         paramstrs = [first_param] + [param_annotation(f'arg{i}', p) for i, p in enumerate(params)]
                     rettypestr = convert_type(rettype)
                     class_members.append(CLASS_METHOD_TYPEHINT_TEMPLATE.format(
@@ -398,7 +405,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
                 module_members.append(MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj))
             py5_dir.append(snake_name)
 
-    print('coding class methods')
+    logger.info('coding class methods')
     code_methods(methods, False)
     code_methods(static_methods, True)
 
@@ -450,7 +457,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     docstring_library = DocstringLibrary()
     # build complete py5 module in destination directory
     dest_dir = Path('build')
-    print(f'building py5 in {dest_dir}')
+    logger.info(f'building py5 in {dest_dir}')
     if dest_dir.exists():
         shutil.rmtree(dest_dir)
     for language in ['en']:  # docstring_library.languages:
@@ -470,7 +477,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
 
     dest_dir.touch()
 
-    print('done!')
+    logger.info('done!')
 
 
 def main():
