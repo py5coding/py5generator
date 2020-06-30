@@ -291,6 +291,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
 
     print('loading datafile to identify included methods and fields')
     py5applet_data = pd.read_csv(Path('py5_resources', 'data', 'py5applet.csv')).fillna('')
+    all_fields_and_methods = set(py5applet_data['processing_name'])
     included_py5applet_data = py5applet_data.query("included==True and processing_name != ''")
     included_methods = set(included_py5applet_data.query("type=='method'")['processing_name'])
     included_static_methods = set(included_py5applet_data.query("type=='static method'")['processing_name'])
@@ -311,6 +312,8 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
             static_fields.add(k)
         elif isinstance(v, JavaField) and k in included_fields:
             fields.add(k)
+        if k not in all_fields_and_methods and not k.startswith('_'):
+            print(f'detected previously unknown {type(v).__name__} {k}')
 
     # storage for Py5Applet members and the result of the module's __dir__ function.
     class_members = []
