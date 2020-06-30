@@ -50,6 +50,9 @@ skip_public_methods_that_should_be_skipped = {
     'showDepthWarning', 'showDepthWarningXYZ', 'showMethodWarning',
     'showVariationWarning', 'showMissingWarning',
     'checkAlpha', 'setSize', 'die',
+    'postEvent', 'style', 'hideMenuBar', 'saveViaImageIO',
+    'getClass', 'hashCode', 'wait', 'notify', 'notifyAll', 'toString',
+    'setAndUpdatePixels', 'loadAndGetPixels', 'convertBytesToPImage',
 }
 
 skip_methods_that_are_not_part_of_the_framework = {
@@ -71,11 +74,6 @@ skip_methods_that_should_be_done_in_python = {
     'desktopPath', 'shell', 'urlDecode', 'urlEncode', 'sketchFile', 'sketchOutputStream',
 }
 
-skip_internal_methods = {
-    'postEvent', 'style', 'hideMenuBar', 'saveViaImageIO',
-    'getClass', 'hashCode', 'wait', 'notify', 'notifyAll', 'toString',
-    'setAndUpdatePixels', 'loadAndGetPixels', 'convertBytesToPImage',
-}
 
 skip_methods_implemented_by_me = {
     'image', 'createImage', 'loadImage', 'requestImage', 'texture',
@@ -89,7 +87,6 @@ PAPPLET_SKIP_METHODS = (skip_user_methods
                         | skip_public_methods_that_should_be_skipped
                         | skip_methods_that_are_not_part_of_the_framework
                         | skip_methods_that_should_be_done_in_python
-                        | skip_internal_methods
                         | skip_methods_implemented_by_me)
 
 
@@ -122,23 +119,21 @@ def snake_case(name):
 
 def skip_reason(fname):
     if fname in skip_user_methods:
-        return 'user method'
+        return 'method implemented by user'
     if fname in skip_builtin_python_functions:
-        return 'builtin python function'
+        return 'conflict with builtin python function'
     if fname in skip_user_should_use_python_instead:
         return 'user should use python instead'
     if fname in skip_user_should_use_numpy_instead:
         return 'user should use numpy instead'
     if fname in skip_public_methods_that_should_be_skipped:
-        return 'public methods that should be skipped'
+        return "public methods that shouldn't be available to users"
     if fname in skip_methods_that_are_not_part_of_the_framework:
-        return 'methods that are not part of the framework'
+        return 'methods that are not part of the processing framework'
     if fname in skip_methods_that_should_be_done_in_python:
-        return 'methods that should be implemented in Python'
-    if fname in skip_internal_methods:
-        return 'internal methods'
+        return 'methods that should be re-implemented by me in Python'
     if fname in skip_methods_implemented_by_me:
-        return 'methods that should be implemented by me in Python'
+        return 'methods that are already re-implemented by me in Python'
 
 
 ###############################################################################
@@ -216,7 +211,7 @@ def generate_py5(repo_dir):
                 continue
             else:
                 type_ = 'static method' if decorator == '@classmethod' else 'method'
-                df.loc[fname, :] = ('', type_, True, f'from mixin file {filename.name}')
+                df.loc[fname, :] = ('', type_, True, f'implemented in mixin file {filename.name}')
 
     # add the webrefs from the xml file
     print('add webrefs from javadocs.xml')
