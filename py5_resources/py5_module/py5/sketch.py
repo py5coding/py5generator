@@ -17,7 +17,7 @@ class_members_code = None  # DELETE
 _METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',
             'key_released', 'mouse_clicked', 'mouse_dragged', 'mouse_moved',
             'mouse_entered', 'mouse_exited', 'mouse_pressed', 'mouse_released',
-            'mouse_wheel', 'exit_actual']
+            'mouse_wheel', 'exiting']
 
 
 class SketchBase:

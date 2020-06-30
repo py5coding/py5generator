@@ -113,8 +113,8 @@ public class Py5Applet extends PApplet {
 
   @Override
   public void exitActual() {
-    if (py5RegisteredEvents.contains("exit_actual"))
-      py5Methods.run_method("exit_actual");
+    if (py5RegisteredEvents.contains("exiting"))
+      py5Methods.run_method("exiting");
 
     final Object nativeWindow = surface.getNative();
     if (nativeWindow instanceof com.jogamp.newt.Window) {
@@ -141,10 +141,6 @@ public class Py5Applet extends PApplet {
 
   public boolean isKeyPressed() {
     return keyPressed;
-  }
-
-  public void exitSketch() {
-    exit();
   }
 
   public byte[] loadAndGetPixels() {

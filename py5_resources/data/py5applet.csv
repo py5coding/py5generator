@@ -304,7 +304,7 @@ mouse_exited,mouseExited,method,input,mouse,FALSE,FALSE,method implemented by us
 mouse_wheel,mouseWheel,method,input,mouse,FALSE,FALSE,method implemented by user
 key_released,keyReleased,method,input,keyboard,FALSE,FALSE,method implemented by user
 key_typed,keyTyped,method,input,keyboard,FALSE,FALSE,method implemented by user
-exit_actual,exitActual,method,structure,,FALSE,FALSE,"method implemented by user, called when sketch is exiting"
+exit_actual,exitActual,method,structure,,FALSE,FALSE,replaced with exiting()
 no_loop,noLoop,method,structure,,TRUE,TRUE,
 load_pixels,loadPixels,method,image,pixels,TRUE,TRUE,
 update_pixels,updatePixels,method,image,pixels,TRUE,TRUE,
@@ -578,3 +578,11 @@ load_json,,static method,,,FALSE,TRUE,implemented in mixin file data.py
 save_json,,static method,,,FALSE,TRUE,implemented in mixin file data.py
 parse_json,,static method,,,FALSE,TRUE,implemented in mixin file data.py
 flush_image_cache,,method,,,FALSE,TRUE,implemented in mixin file image.py
+exit_sketch,,method,,,FALSE,TRUE,"implemented in sketch.py, exits the sketch"
+hot_reload_draw,,method,,,FALSE,TRUE,"implemented in sketch.py, replaces draw method"
+profile_functions,,method,,,FALSE,TRUE,"implemented in sketch.py, use line profiler"
+profile_draw,,method,,,FALSE,TRUE,"implemented in sketch.py, use line profiler on draw method"
+print_line_profiler_stats,,method,,,FALSE,TRUE,"implemented in sketch.py, print line profiler stats"
+get_pixels,,method,,,FALSE,TRUE,"implemented in sketch.py, get sketch pixels as numpy array"
+set_pixels,,method,,,FALSE,TRUE,"implemented in sketch.py, set sketch pixels using numpy array"
+exiting,,method,,,FALSE,FALSE,method implemented by user

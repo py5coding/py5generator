@@ -22,6 +22,9 @@ class Test(Sketch):
         self.fill(self.random(255), self.random(255), self.random(255), 50.0)
         self.rect(self.mouse_x, self.mouse_y, 40, 40)
 
+    def exiting(self):
+        print('exiting the sketch')
+
     # def mouse_entered(self):
     #     start_frame_count = self.frame_count
     #     for i in range(5000000):
