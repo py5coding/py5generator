@@ -57,4 +57,6 @@ def cause_error(junk):
     #     x = y + 10
 
 
+py5.set_stackprinter_style('darkbg3')
+# py5.prune_tracebacks(False)
 py5.run_sketch(block=True)

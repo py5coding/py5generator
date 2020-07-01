@@ -104,6 +104,16 @@ def reset_py5() -> None:
     _py5sketch_used = False
 
 
+def prune_tracebacks(prune: bool):
+    from . import methods
+    methods._prune_tracebacks = prune
+
+
+def set_stackprinter_style(style: str):
+    from . import methods
+    methods._stackprinter_style = style
+
+
 def __getattr__(name):
     if hasattr(_py5sketch, name):
         return getattr(_py5sketch, name)
