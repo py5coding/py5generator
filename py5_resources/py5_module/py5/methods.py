@@ -1,4 +1,5 @@
 import sys
+from pathlib import Path
 import line_profiler
 
 import stackprinter
@@ -11,7 +12,8 @@ from jnius import PythonJavaClass, java_method, JavaException
 # darkbg2, darkbg3, lightbg, lightbg2, lightbg3.
 _stackprinter_style = 'plaintext'
 # prune tracebacks to only show only show stack levels in the user's py5 code.
-_prune_tracebacks = False
+_prune_tracebacks = True
+_module_install_dir = str(Path(__file__).parent)
 
 
 class Py5Exception(Exception):
@@ -68,7 +70,7 @@ class Py5Methods(PythonJavaClass):
                     prev_tb = exc_tb
                     start_tb = exc_tb.tb_next
                     tb = start_tb
-                    while hasattr(tb, 'tb_next') and hasattr(tb, 'tb_frame') and tb.tb_frame.f_code.co_filename != __file__:
+                    while hasattr(tb, 'tb_next') and hasattr(tb, 'tb_frame') and not tb.tb_frame.f_code.co_filename.startswith(_module_install_dir):
                         prev_tb = tb
                         tb = tb.tb_next
                     prev_tb.tb_next = None
