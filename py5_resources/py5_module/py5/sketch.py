@@ -56,7 +56,7 @@ class Sketch(MathMixin, DataMixin, ImageMixin, SketchBase):
         if not py5_options: py5_options = []
         if not sketch_args: sketch_args = []
         if not any([a.startswith('--sketch-path') for a in py5_options]):
-            py5_options.append('--sketch-path' + os.getcwd())
+            py5_options.append('--sketch-path=' + os.getcwd())
         args = py5_options + [''] + sketch_args
 
         _Py5Applet.runSketch(args, self._py5applet)
