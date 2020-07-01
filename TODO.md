@@ -125,6 +125,8 @@ build magic functions for screen grabs and making good documentation
 bugs
 ----
 
-in module mode, the draw function cannot call other functions.
+in methods.py, this is no longer correct since I split apart the files:
+
+`tb.tb_frame.f_code.co_filename != __file__`
 
 when an error is thrown I can call run_sketch again to continue the sketch. neat trick, but it opens a new window, which perhaps it should not do.
