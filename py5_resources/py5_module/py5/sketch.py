@@ -5,6 +5,7 @@ import os
 from typing import overload, NewType, Any, Callable, Union, Dict, List  # noqa
 
 import numpy as np
+from PIL import Image
 
 from .methods import Py5Methods, Py5Exception  # noqa
 from .java_types import _Py5Applet, Py5Applet
@@ -96,6 +97,12 @@ class Sketch(MathMixin, DataMixin, ImageMixin, SketchBase):
 
     def set_pixels(self, new_pixels: np.ndarray):
         self._py5applet.setAndUpdatePixels(new_pixels.flatten().tobytes(), pass_by_reference=False)
+
+    def save_frame(self, filename, format=None, **params):
+        # these are the same function calls Processing uses before saving a frame to a file
+        filename = self._py5applet.savePath(self._py5applet.insertFrame(filename))
+        arr = np.roll(self.get_pixels(), -1, axis=2)
+        Image.fromarray(arr, mode='RGBA').save(filename, format=format, **params)
 
 
 {class_members_code}

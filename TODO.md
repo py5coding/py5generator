@@ -128,5 +128,3 @@ bugs
 in module mode, the draw function cannot call other functions.
 
 when an error is thrown I can call run_sketch again to continue the sketch. neat trick, but it opens a new window, which perhaps it should not do.
-
-the save_function doesn't work when using an opengl renderer.

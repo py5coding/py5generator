@@ -347,7 +347,7 @@ launch,launch,static method,input,files,FALSE,FALSE,methods that should be re-im
 shell,shell,static method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
 die,die,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 dispose,dispose,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-save_frame,saveFrame,method,output,image,TRUE,TRUE,
+save_frame,saveFrame,method,output,image,FALSE,TRUE,"implemented in sketch.py, uses Pillow to save the frame"
 insert_frame,insertFrame,method,,,FALSE,FALSE,
 no_cursor,noCursor,method,environment,,TRUE,TRUE,
 print_array,printArray,static method,output,text_area,FALSE,FALSE,user should use python instead

@@ -5,12 +5,14 @@ from py5 import Sketch
 class Test(Sketch):
 
     def settings(self):
-        self.size(500, 600)  # , py5.P2D)
+        self.size(500, 600, py5.P2D)
 
     def setup(self):
         self.background(255)
         self.rect_mode(py5.CENTER)
         self.frame_rate(30)
+        self.hint(self.ENABLE_ASYNC_SAVEFRAME)
+        # self.hint(self.DISABLE_ASYNC_SAVEFRAME)
 
     def draw(self):
         if self.is_key_pressed():
@@ -26,7 +28,8 @@ class Test(Sketch):
         print('exiting the sketch')
 
     def key_pressed(self):
-        self.save_frame('frame_####.png')
+        self.save_frame('frame_####.png', format='png')
+        # self.get_py5applet().mySaveFrame('frame_####.jpeg')
 
     # def mouse_entered(self):
     #     start_frame_count = self.frame_count
@@ -38,7 +41,7 @@ class Test(Sketch):
 
 
 # py5_options = []
-py5_options = ['--display=1', '--window-color=#882222', '--present']
-# py5_options = ['--location=10,10', '--display=1']
+# py5_options = ['--display=1', '--window-color=#882222', '--present']
+py5_options = ['--location=400,300', '--display=1']
 test = Test()
 test.run_sketch(block=False, py5_options=py5_options)
