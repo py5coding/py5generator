@@ -28,7 +28,7 @@ class Test(Sketch):
         print('exiting the sketch')
 
     def key_pressed(self):
-        self.save_frame('frame_####.png', format='png')
+        self.save_frame('/tmp/frame_####.png', format='png')
         # self.get_py5applet().mySaveFrame('frame_####.jpeg')
 
     # def mouse_entered(self):
