@@ -285,7 +285,8 @@ class CodeCopier:
         self.docstring_dict = docstring_dict
 
     def __call__(self, src, dest, *, follow_symlinks=True):
-        logging.info(f'copying {src} to {dest}')
+        logger.info(f'copying {src} to {dest}')
+
         with open(src, 'r') as f:
             content = f.read()
 
@@ -312,7 +313,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     """
     repo_dir = Path(repo_dir)
 
-    logging.info('generating py5 library...')
+    logger.info('generating py5 library...')
     core_jars = list(repo_dir.glob('**/core.jar'))
     if len(core_jars) != 1:
         if core_jars:
@@ -465,12 +466,8 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         copier = CodeCopier(format_params, docstrings)
         if dest_dir.exists():
             shutil.rmtree(dest_dir)
-        try:
-            shutil.copytree(Path('py5_resources', 'py5_module'),
-                            dest_dir, copy_function=copier)
-        except Exception:
-            # ignore WSL error TODO: upate this with correct exception type
-            pass
+        # TODO: does this work in WSL? if so, wrap in try-catch block for only that exception type
+        shutil.copytree(Path('py5_resources', 'py5_module'), dest_dir, copy_function=copier)
         for jar in core_jar_path.parent.glob('*.jar'):
             shutil.copy(jar, dest_dir / 'py5' / 'jars')
         shutil.copy(py5_jar_path, dest_dir / 'py5' / 'jars')
