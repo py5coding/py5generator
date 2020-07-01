@@ -2,6 +2,7 @@
 # *** FORMAT PARAMS ***
 import time
 import os
+from pathlib import Path
 from typing import overload, NewType, Any, Callable, Union, Dict, List  # noqa
 
 import numpy as np
@@ -98,9 +99,9 @@ class Sketch(MathMixin, DataMixin, ImageMixin, SketchBase):
     def set_pixels(self, new_pixels: np.ndarray):
         self._py5applet.setAndUpdatePixels(new_pixels.flatten().tobytes(), pass_by_reference=False)
 
-    def save_frame(self, filename, format=None, **params):
+    def save_frame(self, filename: Union[str, Path], format: str = None, **params):
         # these are the same function calls Processing uses before saving a frame to a file
-        filename = self._py5applet.savePath(self._py5applet.insertFrame(filename))
+        filename = self._py5applet.savePath(self._py5applet.insertFrame(str(filename)))
         arr = np.roll(self.get_pixels(), -1, axis=2)
         Image.fromarray(arr, mode='RGBA').save(filename, format=format, **params)
 
