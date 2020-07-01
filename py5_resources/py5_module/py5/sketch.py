@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # *** FORMAT PARAMS ***
 import time
+import os
 from typing import overload, NewType, Any, Callable, Union, Dict, List  # noqa
 
 import numpy as np
@@ -38,17 +39,27 @@ class Sketch(MathMixin, DataMixin, ImageMixin, SketchBase):
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_methods = None
 
-    def run_sketch(self, block: bool = True) -> None:
+    def run_sketch(self, block: bool = True, py5_options: List = None, sketch_args: List = None) -> None:
         methods = dict([(e, getattr(self, e)) for e in _METHODS if hasattr(self, e)])
-        self._run_sketch(methods, block)
+        self._run_sketch(methods, block, py5_options, sketch_args)
 
-    def _run_sketch(self, methods: Dict[str, Callable], block: bool) -> None:
+    def _run_sketch(self,
+                    methods: Dict[str, Callable],
+                    block: bool,
+                    py5_options: List = None,
+                    sketch_args: List = None) -> None:
         self._py5_methods = Py5Methods(self)
         self._py5_methods.set_functions(**methods)
         self._py5_methods.profile_functions(self._methods_to_profile)
         self._py5applet.usePy5Methods(self._py5_methods)
 
-        _Py5Applet.runSketch([''], self._py5applet)
+        if not py5_options: py5_options = []
+        if not sketch_args: sketch_args = []
+        if not any([a.startswith('--sketch-path') for a in py5_options]):
+            py5_options.append('--sketch-path' + os.getcwd())
+        args = py5_options + [''] + sketch_args
+
+        _Py5Applet.runSketch(args, self._py5applet)
 
         if block:
             # wait for the sketch to finish

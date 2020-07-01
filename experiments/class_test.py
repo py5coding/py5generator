@@ -5,7 +5,7 @@ from py5 import Sketch
 class Test(Sketch):
 
     def settings(self):
-        self.size(500, 600, py5.P2D)
+        self.size(500, 600)  # , py5.P2D)
 
     def setup(self):
         self.background(255)
@@ -25,6 +25,9 @@ class Test(Sketch):
     def exiting(self):
         print('exiting the sketch')
 
+    def key_pressed(self):
+        self.save_frame('frame_####.png')
+
     # def mouse_entered(self):
     #     start_frame_count = self.frame_count
     #     for i in range(5000000):
@@ -34,5 +37,8 @@ class Test(Sketch):
     #     print('frameRate', self.get_frame_rate())
 
 
+# py5_options = []
+py5_options = ['--display=1', '--window-color=#882222', '--present']
+# py5_options = ['--location=10,10', '--display=1']
 test = Test()
-test.run_sketch(block=False)
+test.run_sketch(block=False, py5_options=py5_options)

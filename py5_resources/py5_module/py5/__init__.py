@@ -49,7 +49,10 @@ _py5sketch_used = False
 {module_members_code}
 
 
-def run_sketch(function_dict: Dict[str, Any] = None, block: bool = True) -> None:
+def run_sketch(function_dict: Dict[str, Any] = None,
+               block: bool = True,
+               py5_options: List = None,
+               sketch_args: List = None) -> None:
     """run the py5 sketch
 
     The optional function_dict parameter needs to a be a dictionary that
@@ -84,7 +87,7 @@ def run_sketch(function_dict: Dict[str, Any] = None, block: bool = True) -> None
                "If this isn't what you intended, try this instead:\n"
                "py5.run_sketch(function_dict=locals())"))
 
-    _py5sketch._run_sketch(methods, block)
+    _py5sketch._run_sketch(methods, block, py5_options, sketch_args)
 
 
 def reset_py5() -> None:
