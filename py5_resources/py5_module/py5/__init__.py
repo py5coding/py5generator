@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 import logging
 import inspect
-from typing import overload, Any, Callable, Union, Dict, List  # noqa
+from typing import overload, Any, Callable, Union, Dict, List, Tuple  # noqa
 
 import json  # noqa
 import numpy as np  # noqa

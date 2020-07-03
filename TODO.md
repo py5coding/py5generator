@@ -125,4 +125,6 @@ build magic functions for screen grabs and making good documentation
 bugs
 ----
 
+if an exception is thrown in setup, the sketch should stop. also the other non-draw methods
+
 when an error is thrown I can call run_sketch again to continue the sketch. neat trick, but it opens a new window, which perhaps it should not do.

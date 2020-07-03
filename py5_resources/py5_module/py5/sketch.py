@@ -12,7 +12,7 @@ from .methods import Py5Methods, Py5Exception  # noqa
 from .java_types import _Py5Applet, Py5Applet
 from .java_types import *  # noqa
 
-from .mixins import MathMixin, DataMixin, ImageMixin
+from .mixins import MathMixin, DataMixin, ImageMixin, ThreadsMixin
 
 
 class_members_code = None  # DELETE
@@ -32,7 +32,7 @@ class SketchBase:
         return self._py5applet
 
 
-class Sketch(MathMixin, DataMixin, ImageMixin, SketchBase):
+class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, SketchBase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(py5applet=_Py5Applet())
