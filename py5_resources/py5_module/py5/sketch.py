@@ -42,6 +42,7 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, SketchBase):
         self._py5_methods = None
 
     def run_sketch(self, block: bool = True, py5_options: List = None, sketch_args: List = None) -> None:
+        """$class_run_sketch"""
         methods = dict([(e, getattr(self, e)) for e in _METHODS if hasattr(self, e)])
         self._run_sketch(methods, block, py5_options, sketch_args)
 
@@ -70,36 +71,42 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, SketchBase):
                 time.sleep(0.25)
 
     def exit_sketch(self) -> None:
-        """Exit the sketch
-        """
+        """$class_exit_sketch"""
         if not self.get_surface().isStopped():
             self._py5applet.exit()
 
     def hot_reload_draw(self, draw):
+        """$class_hot_reload_draw"""
         self._py5_methods.set_functions(**dict(draw=draw))
 
     def profile_functions(self, function_names):
+        """$class_profile_functions"""
         if self._py5_methods is None:
             self._methods_to_profile.extend(function_names)
         else:
             self._py5_methods.profile_functions(function_names)
 
     def profile_draw(self):
+        """$class_profile_draw"""
         self.profile_functions(['draw'])
 
     def print_line_profiler_stats(self):
+        """$class_print_line_profiler_stats"""
         self._py5_methods.dump_stats()
 
     # *** Pixel methods ***
 
     def get_pixels(self) -> np.ndarray:
+        """$class_get_pixels"""
         pixels = np.frombuffer(self._py5applet.loadAndGetPixels().tostring(), dtype=np.uint8)
         return pixels.reshape(self.height, self.width, 4).copy()
 
     def set_pixels(self, new_pixels: np.ndarray):
+        """$class_set_pixels"""
         self._py5applet.setAndUpdatePixels(new_pixels.flatten().tobytes(), pass_by_reference=False)
 
     def save_frame(self, filename: Union[str, Path], format: str = None, **params):
+        """$class_save_frame"""
         # these are the same function calls Processing uses before saving a frame to a file
         filename = self._py5applet.savePath(self._py5applet.insertFrame(str(filename)))
         arr = np.roll(self.get_pixels(), -1, axis=2)
