@@ -586,7 +586,9 @@ print_line_profiler_stats,,method,,,FALSE,TRUE,"implemented in sketch.py, print 
 get_pixels,,method,,,FALSE,TRUE,"implemented in sketch.py, get sketch pixels as numpy array"
 set_pixels,,method,,,FALSE,TRUE,"implemented in sketch.py, set sketch pixels using numpy array"
 exiting,,method,,,FALSE,FALSE,method implemented by user
-launch_thread,,method,,,FALSE,FALSE,implemented in mixin file threads.py
-launch_repeating_thread,,method,,,FALSE,FALSE,implemented in mixin file threads.py
-has_repeating_thread,,method,,,FALSE,FALSE,implemented in mixin file threads.py
-stop_repeating_thread,,method,,,FALSE,FALSE,implemented in mixin file threads.py
+launch_thread,,method,,,FALSE,TRUE,implemented in mixin file threads.py
+launch_repeating_thread,,method,,,FALSE,TRUE,implemented in mixin file threads.py
+has_repeating_thread,,method,,,FALSE,TRUE,implemented in mixin file threads.py
+stop_repeating_thread,,method,,,FALSE,TRUE,implemented in mixin file threads.py
+stop_all_repeating_threads,,method,,,FALSE,TRUE,implemented in mixin file threads.py
+list_repeating_threads,,method,,,FALSE,TRUE,implemented in mixin file threads.py

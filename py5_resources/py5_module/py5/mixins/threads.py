@@ -66,6 +66,9 @@ class ThreadsMixin:
         t.start()
 
     def _launch_repeater(self, name, repeater):
+        if self.has_repeating_thread(name):
+            self.stop_repeating_thread(name, wait=True)
+
         t = threading.Thread(target=repeater, name=name)
         t.start()
         self._repeating_threads[name] = (t, repeater)
@@ -94,3 +97,12 @@ class ThreadsMixin:
             if wait:
                 t.join()
             del self._repeating_threads[name]
+
+    def stop_all_repeating_threads(self, wait: bool = False) -> None:
+        """$class_stop_all_repeating_threads"""
+        for name in self.list_repeating_threads():
+            self.stop_repeating_thread(name, wait=wait)
+
+    def list_repeating_threads(self) -> None:
+        """$class_list_repeating_threads"""
+        return list(self._repeating_threads.keys())
