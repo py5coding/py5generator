@@ -106,3 +106,7 @@ class ThreadsMixin:
     def list_repeating_threads(self) -> None:
         """$class_list_repeating_threads"""
         return list(self._repeating_threads.keys())
+
+    def _shutdown(self):
+        self.stop_all_repeating_threads(wait=True)
+        super()._shutdown()

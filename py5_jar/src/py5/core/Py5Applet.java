@@ -116,6 +116,8 @@ public class Py5Applet extends PApplet {
     if (py5RegisteredEvents.contains("exiting"))
       py5Methods.run_method("exiting");
 
+    py5Methods.shutdown();
+
     final Object nativeWindow = surface.getNative();
     if (nativeWindow instanceof com.jogamp.newt.Window) {
       com.jogamp.newt.Window window = (com.jogamp.newt.Window) nativeWindow;

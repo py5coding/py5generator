@@ -31,6 +31,9 @@ class SketchBase:
     def get_py5applet(self) -> Py5Applet:
         return self._py5applet
 
+    def _shutdown(self):
+        self._shutdown_complete = True
+
 
 class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, SketchBase):
 
@@ -70,10 +73,20 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, SketchBase):
             while not surface.isStopped():
                 time.sleep(0.25)
 
+            # wait no more than 1 second for any shutdown tasks to complete
+            time_waited = 0
+            while not hasattr(self, '_shutdown_complete') and time_waited < 1.0:
+                pause = 0.01
+                time_waited += pause
+                time.sleep(pause)
+
     def exit_sketch(self) -> None:
         """$class_exit_sketch"""
         if not self.get_surface().isStopped():
             self._py5applet.exit()
+
+    def _shutdown(self):
+        super()._shutdown()
 
     def hot_reload_draw(self, draw):
         """$class_hot_reload_draw"""

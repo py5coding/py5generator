@@ -98,3 +98,7 @@ class Py5Methods(PythonJavaClass):
 
             sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
             self._sketch.get_surface().stopThread()
+
+    @java_method('()V')
+    def shutdown(self):
+        self._sketch._shutdown()
