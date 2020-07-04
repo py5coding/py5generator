@@ -1,3 +1,4 @@
+import time
 import threading
 from collections.abc import Iterable
 from typing import Callable, Dict, Tuple
@@ -11,9 +12,30 @@ class Repeater:
         self.kwargs = kwargs
         self.repeat = True
 
+    def stop(self):
+        self.repeat = False
+
     def __call__(self):
         while self.repeat:
             self.f(*self.args, **self.kwargs)
+
+
+class TimeDelayRepeater(Repeater):
+
+    def __init__(self, f, delay, args, kwargs):
+        super().__init__(f, args, kwargs)
+        self.delay = delay
+        self.e = threading.Event()
+
+    def stop(self):
+        super().stop()
+        self.e.set()
+
+    def __call__(self):
+        while self.repeat:
+            start_time = time.time()
+            self.f(*self.args, **self.kwargs)
+            self.e.wait(start_time + self.delay - time.time())
 
 
 class ThreadsMixin:
@@ -37,23 +59,28 @@ class ThreadsMixin:
 
         return args, kwargs
 
-    def launch_thread(self, f: Callable, args: Tuple = None, kwargs: Dict = None, name: str = None) -> None:
+    def launch_thread(self, f: Callable, name: str, args: Tuple = None, kwargs: Dict = None) -> None:
         """$class_launch_thread"""
         args, kwargs = self._check_param_types(args, kwargs)
         t = threading.Thread(target=f, args=args, kwargs=kwargs, name=name)
         t.start()
 
-    def launch_repeating_thread(self, f: Callable, args: Tuple = None, kwargs: Dict = None, name: str = None) -> None:
-        """$class_launch_repeating_thread"""
-        args, kwargs = self._check_param_types(args, kwargs)
-
-        repeater = Repeater(f, args, kwargs)
-
+    def _launch_repeater(self, name, repeater):
         t = threading.Thread(target=repeater, name=name)
         t.start()
+        self._repeating_threads[name] = (t, repeater)
 
-        if name:
-            self._repeating_threads[name] = (t, repeater)
+    def launch_repeating_thread(self, f: Callable, name: str,
+                                args: Tuple = None, kwargs: Dict = None) -> None:
+        """$class_launch_repeating_thread"""
+        args, kwargs = self._check_param_types(args, kwargs)
+        self._launch_repeater(name, Repeater(f, args, kwargs))
+
+    def launch_repeating_time_thread(self, f: Callable, name: str, time_delay: float,
+                                     args: Tuple = None, kwargs: Dict = None) -> None:
+        """$class_launch_repeating_time_thread"""
+        args, kwargs = self._check_param_types(args, kwargs)
+        self._launch_repeater(name, TimeDelayRepeater(f, time_delay, args, kwargs))
 
     def has_repeating_thread(self, name: str) -> None:
         """$class_has_repeating_thread"""
@@ -63,7 +90,7 @@ class ThreadsMixin:
         """$class_stop_repeating_thread"""
         if name in self._repeating_threads:
             t, repeater = self._repeating_threads[name]
-            repeater.repeat = False
+            repeater.stop()
             if wait:
                 t.join()
             del self._repeating_threads[name]
