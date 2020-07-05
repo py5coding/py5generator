@@ -364,7 +364,7 @@ noise,noise,method,math,random,TRUE,TRUE,
 noise_detail,noiseDetail,method,math,random,TRUE,TRUE,
 noise_seed,noiseSeed,method,math,random,TRUE,TRUE,
 load_image,loadImage,method,image,loading_displaying,FALSE,TRUE,implemented in mixin file image.py
-request_image,requestImage,method,image,loading_displaying,FALSE,FALSE,methods that are already re-implemented by me in Python
+request_image,requestImage,method,image,loading_displaying,FALSE,TRUE,implemented in mixin file image.py
 load_xml,loadXML,method,input,files,FALSE,FALSE,methods that should be re-implemented by me in Python
 parse_xml,parseXML,method,input,files,FALSE,FALSE,methods that should be re-implemented by me in Python
 save_xml,saveXML,method,output,files,FALSE,FALSE,methods that should be re-implemented by me in Python
@@ -587,8 +587,9 @@ get_pixels,,method,,,FALSE,TRUE,"implemented in sketch.py, get sketch pixels as 
 set_pixels,,method,,,FALSE,TRUE,"implemented in sketch.py, set sketch pixels using numpy array"
 exiting,,method,,,FALSE,FALSE,method implemented by user
 launch_thread,,method,,,FALSE,TRUE,implemented in mixin file threads.py
+launch_promise_thread,,method,,,FALSE,TRUE,implemented in mixin file threads.py
 launch_repeating_thread,,method,,,FALSE,TRUE,implemented in mixin file threads.py
-has_repeating_thread,,method,,,FALSE,TRUE,implemented in mixin file threads.py
-stop_repeating_thread,,method,,,FALSE,TRUE,implemented in mixin file threads.py
-stop_all_repeating_threads,,method,,,FALSE,TRUE,implemented in mixin file threads.py
-list_repeating_threads,,method,,,FALSE,TRUE,implemented in mixin file threads.py
+has_thread,,method,,,FALSE,TRUE,implemented in mixin file threads.py
+stop_thread,,method,,,FALSE,TRUE,implemented in mixin file threads.py
+stop_all_threads,,method,,,FALSE,TRUE,implemented in mixin file threads.py
+list_threads,,method,,,FALSE,TRUE,implemented in mixin file threads.py

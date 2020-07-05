@@ -7,6 +7,7 @@ from PIL import Image
 import cairosvg
 
 from ..converter import Converter
+from .threads import Py5Promise
 
 
 class ImageMixin:
@@ -52,6 +53,10 @@ class ImageMixin:
                 return Image.open(io.BytesIO(cairosvg.svg2png(file_obj=f)))
         else:
             return Image.open(filename)
+
+    def request_image(self, filename: Union[str, Path]) -> Py5Promise:
+        """$class_request_image"""
+        return self.launch_promise_thread(self.load_image, args=(filename,))
 
     def texture(self, image: Any, cache: bool = False) -> None:
         """$class_texture"""
