@@ -7,10 +7,10 @@ from PIL import Image
 import cairosvg
 
 from ..converter import Converter
-from .threads import Py5Promise
+from .threads import Py5Promise, ThreadsMixin
 
 
-class ImageMixin:
+class ImageMixin(ThreadsMixin):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
