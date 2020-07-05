@@ -13,6 +13,7 @@ from .java_types import _Py5Applet, Py5Applet
 from .java_types import *  # noqa
 
 from .mixins import MathMixin, DataMixin, ImageMixin, ThreadsMixin
+from .mixins.threads import Py5Promise  # noqa
 
 
 class_members_code = None  # DELETE

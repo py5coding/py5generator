@@ -2,9 +2,28 @@ import sys
 import time
 import threading
 from collections.abc import Iterable
-from typing import Callable, Dict, Tuple
+from typing import Callable, Dict, Tuple, Any
 
 from .. import methods
+
+
+class Py5Promise:
+
+    def __init__(self):
+        self._result = None
+        self._is_ready = False
+
+    @property
+    def is_ready(self) -> bool:
+        return self._is_ready
+
+    @property
+    def result(self) -> Any:
+        return self._result
+
+    def _set_result(self, result):
+        self._result = result
+        self._is_ready = True
 
 
 class Py5Thread:
@@ -26,7 +45,24 @@ class Py5Thread:
             self.sketch._terminate_sketch()
 
 
-class Py5Repeater(Py5Thread):
+class Py5PromiseThread(Py5Thread):
+
+    def __init__(self, sketch, f, promise, args, kwargs):
+        super().__init__(sketch, f, args, kwargs)
+        self.promise = promise
+
+    def stop(self):
+        super().stop()
+
+    def __call__(self):
+        try:
+            self.promise._set_result(self.f(*self.args, **self.kwargs))
+        except Exception:
+            methods.handle_exception(*sys.exc_info())
+            self.sketch._terminate_sketch()
+
+
+class Py5RepeatingThread(Py5Thread):
 
     def __init__(self, sketch, f, delay, args, kwargs):
         super().__init__(sketch, f, args, kwargs)
@@ -71,7 +107,7 @@ class ThreadsMixin:
         return args, kwargs
 
     def _launch_py5thread(self, name, py5thread):
-        if isinstance(py5thread, Py5Repeater) and self.has_thread(name):
+        if isinstance(py5thread, Py5RepeatingThread) and self.has_thread(name):
             self.stop_thread(name, wait=True)
 
         t = threading.Thread(target=py5thread, name=name)
@@ -86,11 +122,19 @@ class ThreadsMixin:
         args, kwargs = self._check_param_types(args, kwargs)
         return self._launch_py5thread(name, Py5Thread(self, f, args, kwargs))
 
+    def launch_promise_thread(self, f: Callable, name: str = None,
+                              args: Tuple = None, kwargs: Dict = None) -> Py5Promise:
+        """$class_launch_promise_thread"""
+        args, kwargs = self._check_param_types(args, kwargs)
+        promise = Py5Promise()
+        self._launch_py5thread(name, Py5PromiseThread(self, f, promise, args, kwargs))
+        return promise
+
     def launch_repeating_thread(self, f: Callable, name: str = None, time_delay: float = 0,
                                 args: Tuple = None, kwargs: Dict = None) -> str:
         """$class_launch_repeating_thread"""
         args, kwargs = self._check_param_types(args, kwargs)
-        return self._launch_py5thread(name, Py5Repeater(self, f, time_delay, args, kwargs))
+        return self._launch_py5thread(name, Py5RepeatingThread(self, f, time_delay, args, kwargs))
 
     def _remove_dead_threads(self):
         thread_names = list(self._py5threads.keys())
