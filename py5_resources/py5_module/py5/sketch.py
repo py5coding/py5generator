@@ -88,6 +88,10 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, SketchBase):
     def _shutdown(self):
         super()._shutdown()
 
+    def _terminate_sketch(self):
+        self.get_surface().stopThread()
+        self._shutdown()
+
     def hot_reload_draw(self, draw):
         """$class_hot_reload_draw"""
         self._py5_methods.set_functions(**dict(draw=draw))

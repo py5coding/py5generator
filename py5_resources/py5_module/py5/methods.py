@@ -16,6 +16,42 @@ _prune_tracebacks = True
 _module_install_dir = str(Path(__file__).parent)
 
 
+def handle_exception(exc_type, exc_value, exc_tb):
+    if _prune_tracebacks:
+        def _prune_traceback(exc_tb):
+            # remove py5 traceback frames at the top and bottom of the stack
+            prev_tb = exc_tb
+            start_tb = exc_tb.tb_next
+            tb = start_tb
+            while hasattr(tb, 'tb_next') and hasattr(tb, 'tb_frame') and not tb.tb_frame.f_code.co_filename.startswith(_module_install_dir):
+                prev_tb = tb
+                tb = tb.tb_next
+            prev_tb.tb_next = None
+            return exc_tb
+
+        exc_tb = _prune_traceback(exc_tb)
+        prev_exc = exc_value
+        next_exc = exc_value.__context__
+        while next_exc:
+            while isinstance(prev_exc, Py5Exception) and isinstance(next_exc, JavaException):
+                prev_exc.__context__ = next_exc.__context__
+                next_exc = next_exc.__context__
+            if not next_exc:
+                break
+            next_exc.__traceback__ = _prune_traceback(next_exc.__traceback__)
+            prev_exc = next_exc
+            next_exc = next_exc.__context__
+
+    stackprinter.show(thing=(exc_type, exc_value, exc_tb.tb_next),
+                      show_vals='line',
+                      style=_stackprinter_style,
+                      suppressed_paths=[r"lib/python.*?/site-packages/numpy/",
+                                        r"lib/python.*?/site-packages/py5/",
+                                        r"lib/python.*?/site-packages/jnius/"])
+
+    sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
+
+
 class Py5Exception(Exception):
 
     def __init__(self, exception_classname, msg, method, args):
@@ -62,43 +98,10 @@ class Py5Methods(PythonJavaClass):
             if method_name in self._functions:
                 self._functions[method_name](*params)
         except Exception:
-            exc_type, exc_value, exc_tb = sys.exc_info()
-
-            if _prune_tracebacks:
-                def _prune_traceback(exc_tb):
-                    # remove py5 traceback frames at the top and bottom of the stack
-                    prev_tb = exc_tb
-                    start_tb = exc_tb.tb_next
-                    tb = start_tb
-                    while hasattr(tb, 'tb_next') and hasattr(tb, 'tb_frame') and not tb.tb_frame.f_code.co_filename.startswith(_module_install_dir):
-                        prev_tb = tb
-                        tb = tb.tb_next
-                    prev_tb.tb_next = None
-                    return exc_tb
-
-                exc_tb = _prune_traceback(exc_tb)
-                prev_exc = exc_value
-                next_exc = exc_value.__context__
-                while next_exc:
-                    while isinstance(prev_exc, Py5Exception) and isinstance(next_exc, JavaException):
-                        prev_exc.__context__ = next_exc.__context__
-                        next_exc = next_exc.__context__
-                    if not next_exc:
-                        break
-                    next_exc.__traceback__ = _prune_traceback(next_exc.__traceback__)
-                    prev_exc = next_exc
-                    next_exc = next_exc.__context__
-
-            stackprinter.show(thing=(exc_type, exc_value, exc_tb.tb_next),
-                              show_vals='line',
-                              style=_stackprinter_style,
-                              suppressed_paths=[r"lib/python.*?/site-packages/numpy/",
-                                                r"lib/python.*?/site-packages/py5/",
-                                                r"lib/python.*?/site-packages/jnius/"])
-
-            sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
-            self._sketch.get_surface().stopThread()
+            handle_exception(*sys.exc_info())
+            self._sketch._terminate_sketch()
 
     @java_method('()V')
     def shutdown(self):
+        print('shutdown called')
         self._sketch._shutdown()
