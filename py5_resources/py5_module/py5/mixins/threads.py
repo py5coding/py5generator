@@ -35,7 +35,7 @@ class TimeDelayRepeater(Repeater):
         while self.repeat:
             start_time = time.time()
             self.f(*self.args, **self.kwargs)
-            self.e.wait(start_time + self.delay - time.time())
+            self.e.wait(max(0, start_time + self.delay - time.time()))
 
 
 class ThreadsMixin:
