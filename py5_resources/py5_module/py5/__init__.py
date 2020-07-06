@@ -32,7 +32,7 @@ if not py5_tools.py5_started:
 from .methods import Py5Methods, Py5Exception  # noqa
 from .java_types import *  # noqa
 from .sketch import Sketch, _METHODS, Py5Promise, Py5Font  # noqa
-
+from .create_font_tool import create_font_file  # noqa
 
 __version__ = '0.1'
 
