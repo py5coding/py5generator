@@ -499,9 +499,9 @@ shear_x,shearX,method,transform,,TRUE,TRUE,
 shear_y,shearY,method,transform,,TRUE,TRUE,
 reset_matrix,resetMatrix,method,transform,,TRUE,TRUE,
 apply_matrix,applyMatrix,method,transform,,TRUE,TRUE,this and all of the matrix functions need to be re-implemented using numpy
-get_matrix,getMatrix,method,transform,,TRUE,TRUE,this and all of the matrix functions need to be re-implemented using numpy
-set_matrix,setMatrix,method,transform,,TRUE,TRUE,this and all of the matrix functions need to be re-implemented using numpy
-print_matrix,printMatrix,method,transform,,TRUE,TRUE,this and all of the matrix functions need to be re-implemented using numpy
+get_matrix,getMatrix,method,transform,,FALSE,FALSE,this and all of the matrix functions need to be re-implemented using numpy
+set_matrix,setMatrix,method,transform,,FALSE,FALSE,this and all of the matrix functions need to be re-implemented using numpy
+print_matrix,printMatrix,method,transform,,TRUE,TRUE,
 begin_camera,beginCamera,method,lights_camera,camera,TRUE,TRUE,
 end_camera,endCamera,method,lights_camera,camera,TRUE,TRUE,
 camera,camera,method,lights_camera,camera,TRUE,TRUE,

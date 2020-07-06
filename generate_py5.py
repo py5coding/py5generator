@@ -265,13 +265,17 @@ def code_methods(methods, static,
                 ', '.join([p.split(':')[0] for p in paramstrs[1:]])))
         else:
             # loop through the method signatures and create the typehint methods
+            skipped_all = True
             for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
                 if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
                     continue
+                skipped_all = False
                 paramstrs, rettypestr = make_param_rettype_strs(method_parameter_names_data, fname, first_param, params, rettype)
                 # create the class and module typehints
                 class_members.append(CLASS_METHOD_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs), rettypestr))
                 module_members.append(MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs[1:]), rettypestr))
+            if skipped_all:
+                continue
             # now construct the real methods
             class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, first_param, classobj, fname, decorator))
             module_members.append(MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj))
