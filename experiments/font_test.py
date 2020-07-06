@@ -4,6 +4,9 @@ from py5 import Sketch
 
 class Test(Sketch):
 
+    # def __init__(self):
+    #     super().__init__()
+
     def settings(self):
         self.size(600, 500, py5.P2D)
 

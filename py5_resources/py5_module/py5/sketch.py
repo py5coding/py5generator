@@ -48,6 +48,12 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, FontMixin, SketchBa
 
     def run_sketch(self, block: bool = True, py5_options: List = None, sketch_args: List = None) -> None:
         """$class_run_sketch"""
+        if not hasattr(self, '_py5applet'):
+            raise RuntimeError(
+                ('py5 internal problem: did you create a class with an `__init__()` '
+                 'method without a call to `super().__init__()`?')
+            )
+
         methods = dict([(e, getattr(self, e)) for e in _METHODS if hasattr(self, e)])
         self._run_sketch(methods, block, py5_options, sketch_args)
 
