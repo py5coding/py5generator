@@ -18,9 +18,6 @@ PGL = NewType('PGL', _PGL)
 _PShader = autoclass('processing.opengl.PShader',
                      include_protected=False, include_private=False)
 PShader = NewType('PShader', _PShader)
-_PFont = autoclass('processing.core.PFont',
-                   include_protected=False, include_private=False)
-PFont = NewType('PFont', _PFont)
 _PShape = autoclass('processing.core.PShape',
                     include_protected=False, include_private=False)
 PShape = NewType('PShape', _PShape)

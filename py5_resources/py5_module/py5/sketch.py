@@ -12,8 +12,9 @@ from .methods import Py5Methods, Py5Exception  # noqa
 from .java_types import _Py5Applet, Py5Applet
 from .java_types import *  # noqa
 
-from .mixins import MathMixin, DataMixin, ImageMixin, ThreadsMixin
+from .mixins import MathMixin, DataMixin, ImageMixin, ThreadsMixin, FontMixin
 from .mixins.threads import Py5Promise  # noqa
+from .mixins.font import Py5Font  # noqa
 
 
 class_members_code = None  # DELETE
@@ -36,7 +37,7 @@ class SketchBase:
         self._shutdown_complete = True
 
 
-class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, SketchBase):
+class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, FontMixin, SketchBase):
 
     def __init__(self, *args, **kwargs):
         super().__init__(py5applet=_Py5Applet())

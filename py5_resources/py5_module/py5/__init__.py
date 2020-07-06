@@ -31,7 +31,7 @@ if not py5_tools.py5_started:
 # importing these finalize the JVM classpath
 from .methods import Py5Methods, Py5Exception  # noqa
 from .java_types import *  # noqa
-from .sketch import Sketch, _METHODS, Py5Promise  # noqa
+from .sketch import Sketch, _METHODS, Py5Promise, Py5Font  # noqa
 
 
 __version__ = '0.1'

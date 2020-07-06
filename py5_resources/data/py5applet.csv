@@ -376,8 +376,8 @@ load_json_array,loadJSONArray,method,input,files,FALSE,FALSE,"use load_json, sav
 save_json_array,saveJSONArray,method,output,files,FALSE,FALSE,"use load_json, save_json, parse_json"
 load_table,loadTable,method,input,files,FALSE,FALSE,methods that should be re-implemented by me in Python
 save_table,saveTable,method,output,files,FALSE,FALSE,methods that should be re-implemented by me in Python
-load_font,loadFont,method,typography,loading_displaying,TRUE,TRUE,
-create_font,createFont,method,typography,loading_displaying,TRUE,TRUE,
+load_font,loadFont,method,typography,loading_displaying,FALSE,TRUE,calls Processing but modified by me in mixin file font.py
+create_font,createFont,method,typography,loading_displaying,FALSE,TRUE,calls Processing but modified by me in mixin file font.py
 select_input,selectInput,method,input,files,TRUE,TRUE,
 select_output,selectOutput,method,output,files,TRUE,TRUE,
 select_folder,selectFolder,method,input,files,TRUE,TRUE,
@@ -484,7 +484,7 @@ shape,shape,method,shape,loading_displaying,TRUE,TRUE,
 text_align,textAlign,method,typography,attributes,TRUE,TRUE,
 text_ascent,textAscent,method,typography,metrics,TRUE,TRUE,
 text_descent,textDescent,method,typography,metrics,TRUE,TRUE,
-text_font,textFont,method,typography,loading_displaying,TRUE,TRUE,
+text_font,textFont,method,typography,loading_displaying,FALSE,TRUE,calls Processing but modified by me in mixin file font.py
 text_leading,textLeading,method,typography,attributes,TRUE,TRUE,
 text_mode,textMode,method,typography,attributes,TRUE,TRUE,
 text_size,textSize,method,typography,attributes,TRUE,TRUE,
