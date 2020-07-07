@@ -1,3 +1,5 @@
+import numpy as np
+
 from py5 import Sketch
 
 
@@ -36,5 +38,40 @@ class Test2(Sketch):
         self.apply_filter(self.BLUR, 6)
 
 
-test = Test2()
+class Test3(Sketch):
+
+    def settings(self):
+        self.size(640, 360, self.P2D)
+
+    def setup(self):
+        self.point_shader = self.load_shader("spritefrag.glsl", "spritevert.glsl")
+        self.point_shader.set("weight", 100)
+        self.cloud1 = self.load_image("data/cloud1.png")
+        self.cloud2 = self.load_image("data/cloud2.png")
+        self.cloud3 = self.load_image("data/cloud3.png")
+        self.cloud4 = (np.random.randint(0, 255, size=(300, 40, 4), dtype=np.uint8), "ARGB")
+        self.point_shader.set_image("sprite", self.cloud4)
+
+        self.stroke_weight(10)
+        self.stroke_cap(self.SQUARE)
+        self.stroke(255, 70)
+
+        self.background(0)
+
+    def draw(self):
+        self.shader(self.point_shader, self.POINTS)
+        # TODO: is_mouse_pressed
+        if self.is_key_pressed():
+            self.point(self.mouse_x, self.mouse_y)
+
+    def key_pressed(self):
+        if self.key == '1':
+            self.point_shader.set_image("sprite", self.cloud1)
+        elif self.key == '2':
+            self.point_shader.set_image("sprite", self.cloud2)
+        elif self.key == '3':
+            self.point_shader.set_image("sprite", self.cloud3)
+
+
+test = Test3()
 test.run_sketch(block=True)
