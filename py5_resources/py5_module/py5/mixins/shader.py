@@ -30,7 +30,7 @@ class Py5Shader:
     def set_image(self, name, tex):
         """$class_py5shader_set"""
         try:
-            # TODO this can use a cache
+            # TODO this should use a cache
             return self._pshader.set(name, self._converter.to_pimage(tex))
         except Exception as e:
             raise Py5Exception(
@@ -60,7 +60,7 @@ class ShaderMixin:
     def load_shader(self, *args) -> Py5Shader:
         """$class_load_shader"""
         try:
-            return Py5Shader(self._py5applet.loadShader(*args))
+            return Py5Shader(self._py5applet.loadShader(*args), self._py5applet)
         except Exception as e:
             raise Py5Exception(
                 e.__class__.__name__,
@@ -94,6 +94,11 @@ class ShaderMixin:
 
     @overload
     def apply_filter(self, kind: int) -> None:
+        """$class_apply_filter"""
+        pass
+
+    @overload
+    def apply_filter(self, kind: int, param: float) -> None:
         """$class_apply_filter"""
         pass
 
