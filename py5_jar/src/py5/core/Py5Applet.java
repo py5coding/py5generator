@@ -145,6 +145,10 @@ public class Py5Applet extends PApplet {
     return keyPressed;
   }
 
+  public boolean isMousePressed() {
+    return mousePressed;
+  }
+
   public byte[] loadAndGetPixels() {
     loadPixels();
     ByteBuffer byteBuffer = ByteBuffer.allocate(4 * pixels.length);

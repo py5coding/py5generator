@@ -60,8 +60,7 @@ class Test3(Sketch):
 
     def draw(self):
         self.shader(self.point_shader, self.POINTS)
-        # TODO: is_mouse_pressed
-        if self.is_key_pressed():
+        if self.is_mouse_pressed():
             self.point(self.mouse_x, self.mouse_y)
 
     def key_pressed(self):
