@@ -4,7 +4,7 @@ import py5
 from py5 import Sketch
 
 
-class Test(Sketch):
+class Test1(Sketch):
 
     def settings(self):
         self.size(640, 360, self.P3D)
