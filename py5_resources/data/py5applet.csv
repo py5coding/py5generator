@@ -253,7 +253,7 @@ join,join,method,data,string_functions,FALSE,FALSE,user should use python instea
 trim,trim,method,data,string_functions,FALSE,FALSE,user should use python instead
 size,size,method,environment,,TRUE,TRUE,
 fill,fill,method,color,setting,TRUE,TRUE,
-filter,filter,method,image,pixels,TRUE,TRUE,
+filter,filter,method,image,pixels,FALSE,FALSE,filter method has name conflict with python builtin function; replaced with apply_filter method implemented in the mixin file shader.py
 second,second,static method,input,time_date,TRUE,TRUE,
 match,match,static method,data,string_functions,FALSE,FALSE,user should use python instead
 set,set,method,image,pixels,FALSE,FALSE,conflict with builtin python function
@@ -448,8 +448,8 @@ end_contour,endContour,method,shape,vertex,TRUE,TRUE,
 end_shape,endShape,method,shape,vertex,TRUE,TRUE,
 load_shape,loadShape,method,shape,,TRUE,TRUE,
 create_shape,createShape,method,shape,,TRUE,TRUE,
-load_shader,loadShader,method,rendering,shaders,TRUE,TRUE,
-shader,shader,method,rendering,shaders,TRUE,TRUE,
+load_shader,loadShader,method,rendering,shaders,FALSE,TRUE,implemented in mixin file shader.py
+shader,shader,method,rendering,shaders,FALSE,TRUE,implemented in mixin file shader.py
 reset_shader,resetShader,method,rendering,shaders,TRUE,TRUE,
 clip,clip,method,rendering,,TRUE,TRUE,
 no_clip,noClip,method,rendering,,TRUE,TRUE,
@@ -593,3 +593,4 @@ has_thread,,method,,,FALSE,TRUE,implemented in mixin file threads.py
 stop_thread,,method,,,FALSE,TRUE,implemented in mixin file threads.py
 stop_all_threads,,method,,,FALSE,TRUE,implemented in mixin file threads.py
 list_threads,,method,,,FALSE,TRUE,implemented in mixin file threads.py
+apply_filter,,method,,,FALSE,TRUE,implemented in mixin file shader.py; replaces Processing function filter
