@@ -10,7 +10,7 @@ from ..converter import Converter
 from .threads import Py5Promise, ThreadsMixin
 
 
-class ImageMixin(ThreadsMixin):
+class PImageCache:
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -18,13 +18,52 @@ class ImageMixin(ThreadsMixin):
         self._converter = Converter(self._py5applet)
         self._weak_image_refs = []
 
+    def flush_image_cache(self) -> None:
+        self._weak_image_refs = []
+
+    def _check_cache_or_convert(self, image, cache):
+        pimage = None
+        cache_hit = False
+
+        if cache:
+            pimage = self._check_cache(image)
+            if pimage is not None:
+                cache_hit = True
+
+        if pimage is None:
+            pimage = self._converter.to_pimage(image)
+
+        if cache and not cache_hit:
+            self._store_cache(image, pimage)
+
+        return pimage
+
+    def _check_cache(self, image):
+        if isinstance(image, tuple):
+            image = image[0]
+        for ref, pimage in reversed(self._weak_image_refs):
+            if ref() is None:
+                self._weak_image_refs.remove((ref, pimage))
+            if image is ref():
+                return pimage
+        return None
+
+    def _store_cache(self, image, pimage):
+        if isinstance(image, tuple):
+            image = image[0]
+        self._weak_image_refs.append((weakref.ref(image), pimage))
+
+
+class ImageMixin(PImageCache, ThreadsMixin):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._py5applet = kwargs['py5applet']
+
     # TODO: what about alpha mask images?
     # TODO: are there other PImage functions I should be paying attention to?
 
     # *** BEGIN METHODS ***
-
-    def flush_image_cache(self) -> None:
-        self._weak_image_refs = []
 
     @overload
     def image(self, img: Any, a: float, b: float, cache: bool = False) -> None:
@@ -62,35 +101,3 @@ class ImageMixin(ThreadsMixin):
         """$class_texture"""
         pimage = self._check_cache_or_convert(image, cache)
         self._py5applet.texture(pimage)
-
-    def _check_cache_or_convert(self, image, cache):
-        pimage = None
-        cache_hit = False
-
-        if cache:
-            pimage = self._check_cache(image)
-            if pimage is not None:
-                cache_hit = True
-
-        if pimage is None:
-            pimage = self._converter.to_pimage(image)
-
-        if cache and not cache_hit:
-            self._store_cache(image, pimage)
-
-        return pimage
-
-    def _check_cache(self, image):
-        if isinstance(image, tuple):
-            image = image[0]
-        for ref, pimage in reversed(self._weak_image_refs):
-            if ref() is None:
-                self._weak_image_refs.remove((ref, pimage))
-            if image is ref():
-                return pimage
-        return None
-
-    def _store_cache(self, image, pimage):
-        if isinstance(image, tuple):
-            image = image[0]
-        self._weak_image_refs.append((weakref.ref(image), pimage))
