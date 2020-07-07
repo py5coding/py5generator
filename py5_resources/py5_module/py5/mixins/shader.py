@@ -1,15 +1,10 @@
 from typing import overload
 
-from jnius import autoclass
-
 from ..methods import Py5Exception
 from .image import PImageCache
 
 
 class Py5Shader(PImageCache):
-
-    _PShader = autoclass('processing.opengl.PShader',
-                         include_protected=False, include_private=False)
 
     def __init__(self, pshader, py5applet):
         super().__init__(py5applet)
