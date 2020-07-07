@@ -3,18 +3,17 @@ from typing import overload
 from jnius import autoclass
 
 from ..methods import Py5Exception
-from ..converter import Converter
+from .image import PImageCache
 
 
-class Py5Shader:
+class Py5Shader(PImageCache):
 
     _PShader = autoclass('processing.opengl.PShader',
                          include_protected=False, include_private=False)
 
     def __init__(self, pshader, py5applet):
+        super().__init__(py5applet)
         self._pshader = pshader
-        self._py5applet = py5applet
-        self._converter = Converter(self._py5applet)
 
     def set(self, *args):
         """$class_py5shader_set"""
@@ -27,11 +26,11 @@ class Py5Shader:
                 'set',
                 args)
 
-    def set_image(self, name, tex):
-        """$class_py5shader_set"""
+    def set_image(self, name, tex, cache: bool = False):
+        """$class_py5shader_set_image"""
         try:
-            # TODO this should use a cache
-            return self._pshader.set(name, self._converter.to_pimage(tex))
+            tex_pimage = self._check_cache_or_convert(tex, cache)
+            return self._pshader.set(name, tex_pimage)
         except Exception as e:
             raise Py5Exception(
                 e.__class__.__name__,

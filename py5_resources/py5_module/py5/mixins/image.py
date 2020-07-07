@@ -12,10 +12,8 @@ from .threads import Py5Promise, ThreadsMixin
 
 class PImageCache:
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._py5applet = kwargs['py5applet']
-        self._converter = Converter(self._py5applet)
+    def __init__(self, py5applet):
+        self._converter = Converter(py5applet)
         self._weak_image_refs = []
 
     def flush_image_cache(self) -> None:
@@ -54,10 +52,11 @@ class PImageCache:
         self._weak_image_refs.append((weakref.ref(image), pimage))
 
 
-class ImageMixin(PImageCache, ThreadsMixin):
+class ImageMixin(ThreadsMixin, PImageCache):
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        ThreadsMixin.__init__(self, *args, **kwargs)
+        PImageCache.__init__(self, kwargs['py5applet'])
         self._py5applet = kwargs['py5applet']
 
     # TODO: what about alpha mask images?
