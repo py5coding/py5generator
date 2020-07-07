@@ -12,9 +12,6 @@ PImage = NewType('PImage', _PImage)
 _PGraphics = autoclass('processing.core.PGraphics',
                        include_protected=False, include_private=False)
 PGraphics = NewType('PGraphics', _PGraphics)
-_PShader = autoclass('processing.opengl.PShader',
-                     include_protected=False, include_private=False)
-PShader = NewType('PShader', _PShader)
 _PShape = autoclass('processing.core.PShape',
                     include_protected=False, include_private=False)
 PShape = NewType('PShape', _PShape)
