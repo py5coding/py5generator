@@ -1,4 +1,4 @@
-from typing import overload
+from typing import overload, Any
 
 from ..methods import Py5Exception
 from .image import PImageCache
@@ -9,6 +9,8 @@ class Py5Shader(PImageCache):
     def __init__(self, pshader, py5applet):
         super().__init__(py5applet)
         self._pshader = pshader
+
+    # TODO: need all the typehints
 
     def set(self, *args):
         """$class_py5shader_set"""
@@ -21,7 +23,7 @@ class Py5Shader(PImageCache):
                 'set',
                 args)
 
-    def set_image(self, name, tex, cache: bool = False):
+    def set_image(self, name: str, tex: Any, cache: bool = False):
         """$class_py5shader_set_image"""
         try:
             tex_pimage = self._check_cache_or_convert(tex, cache)
