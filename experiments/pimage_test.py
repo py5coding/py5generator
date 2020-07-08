@@ -58,7 +58,7 @@ class TestPImage(py5.Sketch):
         self.image((self.img3, 'RGBA'), self.width / 2, self.height / 2, cache=caching)
         self.image(self.surface, self.width / 2, self.height / 2, cache=caching)
 
-        # py5.no_loop()
+        # self.no_loop()
 
 
 test = TestPImage()
