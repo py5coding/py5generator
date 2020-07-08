@@ -39,6 +39,8 @@ class Converter:
 # BUILT-IN CONVERSTION FUNCTIONS
 ###############################################################################
 
+# TODO: When I code Py5Graphics I need to create a converter, which will just access
+# the underlying PGraphics object (because it is already an instance of PImage)
 
 def ndarray_str_tuple_precondition(obj):
     return (isinstance(obj, tuple)
