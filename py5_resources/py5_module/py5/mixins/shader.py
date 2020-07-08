@@ -1,4 +1,5 @@
 from typing import overload, Any
+import functools
 
 from ..methods import Py5Exception
 from .image import PImageCache
@@ -36,6 +37,24 @@ class Py5Shader(PImageCache):
                 (name, tex))
 
 
+def _return_py5shader(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        return Py5Shader(f(self_, *args), self_._py5applet)
+
+    return decorated
+
+
+def _py5shader_param(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        if isinstance(args[0], Py5Shader):
+            args = (args[0]._pshader, *args[1:])
+        return f(self_, *args)
+
+    return decorated
+
+
 class ShaderMixin:
 
     def __init__(self, *args, **kwargs):
@@ -53,10 +72,11 @@ class ShaderMixin:
         """$class_load_shader"""
         pass
 
+    @_return_py5shader
     def load_shader(self, *args) -> Py5Shader:
         """$class_load_shader"""
         try:
-            return Py5Shader(self._py5applet.loadShader(*args), self._py5applet)
+            return self._py5applet.loadShader(*args)
         except Exception as e:
             raise Py5Exception(
                 e.__class__.__name__,
@@ -74,11 +94,10 @@ class ShaderMixin:
         """$class_shader"""
         pass
 
+    @_py5shader_param
     def shader(self, *args) -> None:
         """$class_shader"""
         try:
-            if isinstance(args[0], Py5Shader):
-                args = (args[0]._pshader, *args[1:])
             return self._py5applet.shader(*args)
         except Exception as e:
             raise Py5Exception(e.__class__.__name__, str(e), 'shader', args)
@@ -98,11 +117,10 @@ class ShaderMixin:
         """$class_apply_filter"""
         pass
 
+    @_py5shader_param
     def apply_filter(self, *args) -> None:
         """$class_apply_filter"""
         try:
-            if isinstance(args[0], Py5Shader):
-                args = (args[0]._pshader, *args[1:])
             return self._py5applet.filter(*args)
         except Exception as e:
             raise Py5Exception(e.__class__.__name__, str(e), 'apply_filter', args)

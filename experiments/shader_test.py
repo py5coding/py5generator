@@ -74,5 +74,5 @@ class Test3(Sketch):
 
 
 py5.prune_tracebacks(False)
-test = Test3()
+test = Test1()
 test.run_sketch(block=True)
