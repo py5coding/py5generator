@@ -26,7 +26,7 @@ _METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',
             'mouse_wheel', 'exiting']
 
 
-class SketchBase:
+class Py5Base:
 
     def __init__(self, py5applet):
         self._py5applet = py5applet
@@ -38,7 +38,7 @@ class SketchBase:
         self._shutdown_complete = True
 
 
-class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, FontMixin, ShaderMixin, SketchBase):
+class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, FontMixin, ShaderMixin, Py5Base):
 
     def __init__(self, *args, **kwargs):
         super().__init__(py5applet=_Py5Applet())
