@@ -49,7 +49,7 @@ class TestPImage(py5.Sketch):
         self.shape_mode(py5.CENTER)
         self.background(128)
 
-        caching = False
+        caching = True
 
         self.image(self.img1, self.width / 2, self.height / 2, cache=caching)
         self.image(self.img2, self.width / 2, self.height / 2, cache=caching)
