@@ -2,14 +2,30 @@ from typing import overload, Any
 import functools
 
 from ..methods import Py5Exception
-from .image import PImageCache
+from .image import PImageCache, _check_pimage_cache_or_convert
 
 
-class Py5Shader(PImageCache):
+class Py5Shader:
 
     def __init__(self, pshader, py5applet):
-        super().__init__(py5applet)
         self._pshader = pshader
+        self._cache = PImageCache(py5applet)
+
+    def flush_image_cache(self) -> None:
+        """$class_py5shader_flush_image_cache"""
+        self._cache.flush_image_cache()
+
+    @_check_pimage_cache_or_convert(1)
+    def set_image(self, name: str, tex: Any, cache: bool = False):
+        """$class_py5shader_set_image"""
+        try:
+            return self._pshader.set(name, tex)
+        except Exception as e:
+            raise Py5Exception(
+                e.__class__.__name__,
+                str(e),
+                'set_image',
+                (name, tex))
 
     # TODO: need all the typehints
 
@@ -23,18 +39,6 @@ class Py5Shader(PImageCache):
                 str(e),
                 'set',
                 args)
-
-    def set_image(self, name: str, tex: Any, cache: bool = False):
-        """$class_py5shader_set_image"""
-        try:
-            tex_pimage = self._check_cache_or_convert(tex, cache)
-            return self._pshader.set(name, tex_pimage)
-        except Exception as e:
-            raise Py5Exception(
-                e.__class__.__name__,
-                str(e),
-                'set_image',
-                (name, tex))
 
 
 def _return_py5shader(f):

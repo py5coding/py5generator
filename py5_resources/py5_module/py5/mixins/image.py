@@ -1,6 +1,7 @@
 import io
 from pathlib import Path
 import weakref
+import functools
 from typing import overload, NewType, Any, Callable, Union, Dict, List  # noqa
 
 from PIL import Image
@@ -19,7 +20,22 @@ class PImageCache:
     def flush_image_cache(self) -> None:
         self._weak_image_refs = []
 
-    def _check_cache_or_convert(self, image, cache):
+    def _check_cache(self, image):
+        if isinstance(image, tuple):
+            image = image[0]
+        for ref, pimage in reversed(self._weak_image_refs):
+            if ref() is None:
+                self._weak_image_refs.remove((ref, pimage))
+            if image is ref():
+                return pimage
+        return None
+
+    def _store_cache(self, image, pimage):
+        if isinstance(image, tuple):
+            image = image[0]
+        self._weak_image_refs.append((weakref.ref(image), pimage))
+
+    def check_cache_or_convert(self, image, cache):
         pimage = None
         cache_hit = False
 
@@ -36,48 +52,38 @@ class PImageCache:
 
         return pimage
 
-    def _check_cache(self, image):
-        if isinstance(image, tuple):
-            image = image[0]
-        for ref, pimage in reversed(self._weak_image_refs):
-            if ref() is None:
-                self._weak_image_refs.remove((ref, pimage))
-            if image is ref():
-                return pimage
-        return None
 
-    def _store_cache(self, image, pimage):
-        if isinstance(image, tuple):
-            image = image[0]
-        self._weak_image_refs.append((weakref.ref(image), pimage))
+def _check_pimage_cache_or_convert(argnum):
+    def decorator(f):
+        @functools.wraps(f)
+        def decorated(self_, *args, cache=False):
+            try:
+                args = (*args[:argnum],
+                        self_._cache.check_cache_or_convert(args[argnum], cache),
+                        *args[(argnum + 1):])
+            except Exception:
+                # if args[0] is not already a PImage the function call will fail
+                pass
+            return f(self_, *args)
+        return decorated
+    return decorator
 
 
-class ImageMixin(ThreadsMixin, PImageCache):
+class ImageMixin(ThreadsMixin):
 
     def __init__(self, *args, **kwargs):
-        ThreadsMixin.__init__(self, *args, **kwargs)
-        PImageCache.__init__(self, kwargs['py5applet'])
+        super().__init__(*args, **kwargs)
         self._py5applet = kwargs['py5applet']
+        self._cache = PImageCache(self._py5applet)
+
+    def flush_image_cache(self) -> None:
+        """$class_flush_image_cache"""
+        self._cache.flush_image_cache()
 
     # TODO: what about alpha mask images?
     # TODO: are there other PImage functions I should be paying attention to?
 
     # *** BEGIN METHODS ***
-
-    @overload
-    def image(self, img: Any, a: float, b: float, cache: bool = False) -> None:
-        """$class_image"""
-        pass
-
-    @overload
-    def image(self, img: Any, a: float, b: float, c: float, d: float, cache: bool = False) -> None:
-        """$class_image"""
-        pass
-
-    def image(self, *args, cache: bool = False) -> None:
-        """$class_image"""
-        pimage = self._check_cache_or_convert(args[0], cache)
-        self._py5applet.image(pimage, *args[1:])
 
     def create_image(self, mode: str, width: int, height: int, color: Any) -> Image.Image:
         """$class_create_image"""
@@ -96,7 +102,22 @@ class ImageMixin(ThreadsMixin, PImageCache):
         """$class_request_image"""
         return self.launch_promise_thread(self.load_image, args=(filename,))
 
+    @overload
+    def image(self, img: Any, a: float, b: float, cache: bool = False) -> None:
+        """$class_image"""
+        pass
+
+    @overload
+    def image(self, img: Any, a: float, b: float, c: float, d: float, cache: bool = False) -> None:
+        """$class_image"""
+        pass
+
+    @_check_pimage_cache_or_convert(0)
+    def image(self, *args, cache: bool = False) -> None:
+        """$class_image"""
+        self._py5applet.image(*args)
+
+    @_check_pimage_cache_or_convert(0)
     def texture(self, image: Any, cache: bool = False) -> None:
         """$class_texture"""
-        pimage = self._check_cache_or_convert(image, cache)
-        self._py5applet.texture(pimage)
+        self._py5applet.texture(image)
