@@ -1,4 +1,5 @@
 from typing import overload, List
+import functools
 
 from jnius import autoclass
 
@@ -16,6 +17,24 @@ class Py5Font:
     @classmethod
     def list(cls):
         return cls._PFont.list()
+
+
+def _return_py5font(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        return Py5Font(f(self_, *args))
+
+    return decorated
+
+
+def _py5font_param(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        if isinstance(args[0], Py5Font):
+            args = (args[0]._pfont, *args[1:])
+        return f(self_, *args)
+
+    return decorated
 
 
 class FontMixin:
@@ -40,10 +59,11 @@ class FontMixin:
         """$class_create_font"""
         pass
 
+    @_return_py5font
     def create_font(self, *args) -> Py5Font:
         """$class_create_font"""
         try:
-            return Py5Font(self._py5applet.createFont(*args))
+            return self._py5applet.createFont(*args)
         except Exception as e:
             raise Py5Exception(
                 e.__class__.__name__,
@@ -51,10 +71,11 @@ class FontMixin:
                 'create_font',
                 args)
 
+    @_return_py5font
     def load_font(self, filename: str) -> Py5Font:
         """$class_load_font"""
         try:
-            return Py5Font(self._py5applet.loadFont(filename))
+            return self._py5applet.loadFont(filename)
         except Exception as e:
             raise Py5Exception(
                 e.__class__.__name__,
@@ -72,11 +93,10 @@ class FontMixin:
         """$class_text_font"""
         pass
 
+    @_py5font_param
     def text_font(self, *args) -> None:
         """$class_text_font"""
         try:
-            if isinstance(args[0], Py5Font):
-                args = (args[0]._pfont, *args[1:])
             return self._py5applet.textFont(*args)
         except Exception as e:
             raise Py5Exception(e.__class__.__name__, str(e), 'text_font', args)
