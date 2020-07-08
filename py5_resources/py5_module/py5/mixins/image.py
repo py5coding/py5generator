@@ -58,9 +58,13 @@ def _check_pimage_cache_or_convert(argnum):
         @functools.wraps(f)
         def decorated(self_, *args, cache=False):
             try:
-                args = (*args[:argnum],
-                        self_._cache.check_cache_or_convert(args[argnum], cache),
-                        *args[(argnum + 1):])
+                pimage_cache = getattr(self_, '_pimage_cache', None)
+                if pimage_cache:
+                    args = (*args[:argnum],
+                            pimage_cache.check_cache_or_convert(args[argnum], cache),
+                            *args[(argnum + 1):])
+                else:
+                    print('pimage cache not set???')
             except Exception:
                 # if args[0] is not already a PImage the function call will fail
                 pass
@@ -74,11 +78,11 @@ class ImageMixin(ThreadsMixin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._py5applet = kwargs['py5applet']
-        self._cache = PImageCache(self._py5applet)
+        self._pimage_cache = PImageCache(self._py5applet)
 
     def flush_image_cache(self) -> None:
         """$class_flush_image_cache"""
-        self._cache.flush_image_cache()
+        self._pimage_cache.flush_image_cache()
 
     # TODO: what about alpha mask images?
     # TODO: are there other PImage functions I should be paying attention to?

@@ -2,18 +2,14 @@ from typing import overload, Any
 import functools
 
 from ..methods import Py5Exception
-from .image import PImageCache, _check_pimage_cache_or_convert
+from .image import _check_pimage_cache_or_convert
 
 
 class Py5Shader:
 
-    def __init__(self, pshader, py5applet):
+    def __init__(self, pshader, pimage_cache):
         self._pshader = pshader
-        self._cache = PImageCache(py5applet)
-
-    def flush_image_cache(self) -> None:
-        """$class_py5shader_flush_image_cache"""
-        self._cache.flush_image_cache()
+        self._pimage_cache = pimage_cache
 
     @_check_pimage_cache_or_convert(1)
     def set_image(self, name: str, tex: Any, cache: bool = False):
@@ -44,8 +40,7 @@ class Py5Shader:
 def _return_py5shader(f):
     @functools.wraps(f)
     def decorated(self_, *args):
-        return Py5Shader(f(self_, *args), self_._py5applet)
-
+        return Py5Shader(f(self_, *args), getattr(self_, '_pimage_cache', None))
     return decorated
 
 
