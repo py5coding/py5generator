@@ -109,7 +109,7 @@ CLASS_METHOD_TYPEHINT_TEMPLATE = """
 
 CLASS_METHOD_TEMPLATE = """
     {4}
-    def {0}({1}, *args):
+    def {0}({1}, {5}):
         \"\"\"$class_{0}\"\"\"
         try:
             return {2}.{3}(*args)
@@ -145,9 +145,9 @@ def {0}({1}) -> {2}:
 """
 
 MODULE_FUNCTION_TEMPLATE = """
-def {0}(*args):
+def {0}({2}):
     \"\"\"$module_{0}\"\"\"
-    return {1}.{0}(*args)
+    return {1}.{0}({3})
 """
 
 MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS = """
@@ -190,22 +190,25 @@ JTYPE_CONVERSIONS = {
     'java/lang/String': 'str',
     'java/lang/Object': 'Any',
     'processing/opengl/PShader': 'Py5Shader',
-    'processing/core/PFont': 'Py5Font'
+    'processing/core/PFont': 'Py5Font',
+    'processing/core/PImage': 'Any'
 }
 
 
 ###############################################################################
-# UTIL FUNCTIONS
+# UTIL CLASSES
 ###############################################################################
 
 
-class CodeBuilder:
+class MethodBuilder:
 
-    def __init__(self, method_parameter_names_data, py5_names, py5_decorators,
+    def __init__(self, method_parameter_names_data,
+                 py5_names, py5_decorators, py5_special_kwargs,
                  class_members, module_members, py5_dir):
         self.method_parameter_names_data = method_parameter_names_data
         self.py5_names = py5_names
         self.py5_decorators = py5_decorators
+        self.py5_special_kwargs = py5_special_kwargs
         self.class_members = class_members
         self.module_members = module_members
         self.py5_dir = py5_dir
@@ -249,23 +252,28 @@ class CodeBuilder:
     def code_methods(self, methods, static):
         for fname, method in sorted(methods, key=lambda x: x[0]):
             snake_name = self.py5_names[fname]
+            kwargs = self.py5_special_kwargs[fname]
             if static:
                 first_param, classobj, moduleobj, decorator = 'cls', '_Py5Applet', 'Sketch', '@classmethod'
             else:
-                first_param, classobj, moduleobj, decorator = 'self', 'self._py5applet', '_py5sketch', self.py5_decorators[snake_name]
+                first_param, classobj, moduleobj, decorator = 'self', 'self._py5applet', '_py5sketch', self.py5_decorators[fname]
             # if there is only one method signature, create the real method with typehints
             if len(method.signatures()) == 1:
                 params, rettype = method.signatures()[0]
                 if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
                     continue
                 paramstrs, rettypestr = self.make_param_rettype_strs(fname, first_param, params, rettype)
+                class_arguments = ', '.join([p.split(':')[0] for p in paramstrs[1:]])
+                module_arguments = class_arguments
+                if kwargs:
+                    paramstrs.append(kwargs)
+                    kw_param = kwargs.split(':')[0]
+                    module_arguments += f', {kw_param}={kw_param}'
                 # create the class and module code
                 self.class_members.append(CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
-                    snake_name, ', '.join(paramstrs), classobj, fname, decorator, rettypestr,
-                    ', '.join([p.split(':')[0] for p in paramstrs[1:]])))
+                    snake_name, ', '.join(paramstrs), classobj, fname, decorator, rettypestr, class_arguments))
                 self.module_members.append(MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
-                    snake_name, ', '.join(paramstrs[1:]), moduleobj, rettypestr,
-                    ', '.join([p.split(':')[0] for p in paramstrs[1:]])))
+                    snake_name, ', '.join(paramstrs[1:]), moduleobj, rettypestr, module_arguments))
             else:
                 # loop through the method signatures and create the typehint methods
                 skipped_all = True
@@ -274,14 +282,22 @@ class CodeBuilder:
                         continue
                     skipped_all = False
                     paramstrs, rettypestr = self.make_param_rettype_strs(fname, first_param, params, rettype)
+                    if kwargs:
+                        paramstrs.append(kwargs)
                     # create the class and module typehints
                     self.class_members.append(CLASS_METHOD_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs), rettypestr))
                     self.module_members.append(MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs[1:]), rettypestr))
                 if skipped_all:
                     continue
                 # now construct the real methods
-                self.class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, first_param, classobj, fname, decorator))
-                self.module_members.append(MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj))
+                arguments = '*args'
+                module_arguments = '*args'
+                if kwargs:
+                    arguments += f', {kwargs}'
+                    kw_param = kwargs.split(':')[0]
+                    module_arguments += f', {kw_param}={kw_param}'
+                self.class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, first_param, classobj, fname, decorator, arguments))
+                self.module_members.append(MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj, arguments, module_arguments))
             self.py5_dir.append(snake_name)
 
 
@@ -357,7 +373,8 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     logger.info('loading datafile to identify included methods and fields')
     py5applet_data = pd.read_csv(Path('py5_resources', 'data', 'py5applet.csv')).fillna('')
     py5_names = py5applet_data.set_index('processing_name')['py5_name']
-    py5_decorators = py5applet_data.set_index('py5_name')['decorator']
+    py5_decorators = py5applet_data.set_index('processing_name')['decorator']
+    py5_special_kwargs = py5applet_data.set_index('processing_name')['special_kwargs']
 
     all_fields_and_methods = set(py5applet_data['processing_name'])
     included_py5applet_data = py5applet_data.query("implementation_from_processing==True and processing_name != ''")
@@ -417,8 +434,9 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         py5_dir.append(snake_name)
 
     logger.info('coding class methods')
-    code_builder = CodeBuilder(method_parameter_names_data, py5_names, py5_decorators,
-                               class_members, module_members, py5_dir)
+    code_builder = MethodBuilder(method_parameter_names_data,
+                                 py5_names, py5_decorators, py5_special_kwargs,
+                                 class_members, module_members, py5_dir)
     code_builder.code_methods(methods, False)
     code_builder.code_methods(static_methods, True)
 

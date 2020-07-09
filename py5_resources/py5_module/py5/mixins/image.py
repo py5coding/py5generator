@@ -105,23 +105,3 @@ class ImageMixin(ThreadsMixin):
     def request_image(self, filename: Union[str, Path]) -> Py5Promise:
         """$class_request_image"""
         return self.launch_promise_thread(self.load_image, args=(filename,))
-
-    @overload
-    def image(self, img: Any, a: float, b: float, cache: bool = False) -> None:
-        """$class_image"""
-        pass
-
-    @overload
-    def image(self, img: Any, a: float, b: float, c: float, d: float, cache: bool = False) -> None:
-        """$class_image"""
-        pass
-
-    @_check_pimage_cache_or_convert(0)
-    def image(self, *args, cache: bool = False) -> None:
-        """$class_image"""
-        self._py5applet.image(*args)
-
-    @_check_pimage_cache_or_convert(0)
-    def texture(self, image: Any, cache: bool = False) -> None:
-        """$class_texture"""
-        self._py5applet.texture(image)

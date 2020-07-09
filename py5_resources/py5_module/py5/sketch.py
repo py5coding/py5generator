@@ -14,6 +14,7 @@ from .java_types import *  # noqa
 
 from .mixins import MathMixin, DataMixin, ImageMixin, ThreadsMixin
 from .mixins.threads import Py5Promise  # noqa
+from .mixins.image import _check_pimage_cache_or_convert  # noqa
 from .shader import Py5Shader, _return_py5shader, _py5shader_param  # noqa
 from .font import Py5Font, _return_py5font, _py5font_param  # noqa
 
