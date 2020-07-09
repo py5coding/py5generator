@@ -15,7 +15,7 @@ from .java_types import *  # noqa
 from .mixins import MathMixin, DataMixin, ImageMixin, ThreadsMixin, FontMixin, ShaderMixin
 from .mixins.threads import Py5Promise  # noqa
 from .mixins.font import Py5Font  # noqa
-from .mixins.shader import Py5Shader  # noqa
+from .mixins.shader import Py5Shader, _return_py5shader, _py5shader_param  # noqa
 
 
 class_members_code = None  # DELETE

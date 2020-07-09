@@ -62,46 +62,6 @@ class ShaderMixin:
     # *** BEGIN METHODS ***
 
     @overload
-    def load_shader(self, fragFilename: str) -> Py5Shader:
-        """$class_load_shader"""
-        pass
-
-    @overload
-    def load_shader(self, fragFilename: str, vertFilename: str) -> Py5Shader:
-        """$class_load_shader"""
-        pass
-
-    @_return_py5shader
-    def load_shader(self, *args) -> Py5Shader:
-        """$class_load_shader"""
-        try:
-            return self._py5applet.loadShader(*args)
-        except Exception as e:
-            raise Py5Exception(
-                e.__class__.__name__,
-                str(e),
-                'load_shader',
-                args)
-
-    @overload
-    def shader(self, shader: Py5Shader) -> None:
-        """$class_shader"""
-        pass
-
-    @overload
-    def shader(self, shader: Py5Shader, kind: int) -> None:
-        """$class_shader"""
-        pass
-
-    @_py5shader_param
-    def shader(self, *args) -> None:
-        """$class_shader"""
-        try:
-            return self._py5applet.shader(*args)
-        except Exception as e:
-            raise Py5Exception(e.__class__.__name__, str(e), 'shader', args)
-
-    @overload
     def apply_filter(self, shader: Py5Shader) -> None:
         """$class_apply_filter"""
         pass
