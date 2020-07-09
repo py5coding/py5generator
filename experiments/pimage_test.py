@@ -62,4 +62,4 @@ class TestPImage(py5.Sketch):
 
 
 test = TestPImage()
-test.run_sketch(block=False)
+test.run_sketch(block=True)
