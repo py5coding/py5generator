@@ -253,7 +253,7 @@ join,join,,method,data,string_functions,FALSE,FALSE,user should use python inste
 trim,trim,,method,data,string_functions,FALSE,FALSE,user should use python instead
 size,size,,method,environment,,TRUE,TRUE,
 fill,fill,,method,color,setting,TRUE,TRUE,
-filter,filter,,method,image,pixels,FALSE,FALSE,filter method has name conflict with python builtin function; replaced with apply_filter method implemented in the mixin file shader.py
+apply_filter,filter,@_py5shader_param,method,image,pixels,TRUE,TRUE,filter method has name conflict with python builtin function; replaced with apply_filter method
 second,second,,static method,input,time_date,TRUE,TRUE,
 match,match,,static method,data,string_functions,FALSE,FALSE,user should use python instead
 set,set,,method,image,pixels,FALSE,FALSE,conflict with builtin python function
@@ -335,7 +335,7 @@ register_method,registerMethod,,method,,,FALSE,FALSE,public methods that shouldn
 unregister_method,unregisterMethod,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 create_graphics,createGraphics,,method,rendering,,TRUE,TRUE,this needs to be reimplemented but I haven't decided what to do with it yet
 create_image,createImage,,method,image,,FALSE,TRUE,implemented in mixin file image.py
-image,image,,method,image,loading_displaying,FALSE,TRUE,implemented in mixin file image.py
+image,image,_check_pimage_cache_or_convert,method,image,loading_displaying,FALSE,TRUE,
 handle_draw,handleDraw,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 alpha,alpha,,method,color,creating_reading,TRUE,TRUE,
 is_looping,isLooping,,method,,,FALSE,FALSE,methods that are not part of the processing framework
@@ -440,7 +440,7 @@ attrib_color,attribColor,,method,,,FALSE,FALSE,methods that are not part of the 
 attrib,attrib,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 texture_mode,textureMode,,method,image,textures,TRUE,TRUE,
 texture_wrap,textureWrap,,method,image,textures,TRUE,TRUE,
-texture,texture,,method,image,textures,FALSE,TRUE,implemented in mixin file image.py
+texture,texture,_check_pimage_cache_or_convert,method,image,textures,FALSE,TRUE,
 no_texture,noTexture,,method,,,TRUE,TRUE,
 vertex,vertex,,method,shape,vertex,TRUE,TRUE,
 begin_contour,beginContour,,method,shape,vertex,TRUE,TRUE,
@@ -594,4 +594,3 @@ has_thread,,,method,,,FALSE,TRUE,implemented in mixin file threads.py
 stop_thread,,,method,,,FALSE,TRUE,implemented in mixin file threads.py
 stop_all_threads,,,method,,,FALSE,TRUE,implemented in mixin file threads.py
 list_threads,,,method,,,FALSE,TRUE,implemented in mixin file threads.py
-apply_filter,,@_py5shader_param,method,,,FALSE,TRUE,replaces Processing function filter

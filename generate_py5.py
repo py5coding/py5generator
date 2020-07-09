@@ -247,9 +247,9 @@ def make_param_rettype_strs(method_parameter_names_data, fname, first_param, par
 
 
 def code_methods(methods, static,
-                 method_parameter_names_data, py5_decorators, class_members, module_members, py5_dir):
+                 method_parameter_names_data, py5_names, py5_decorators, class_members, module_members, py5_dir):
     for fname, method in sorted(methods, key=lambda x: x[0]):
-        snake_name = snake_case(fname)
+        snake_name = py5_names[fname]
         if static:
             first_param, classobj, moduleobj, decorator = 'cls', '_Py5Applet', 'Sketch', '@classmethod'
         else:
@@ -357,7 +357,9 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
 
     logger.info('loading datafile to identify included methods and fields')
     py5applet_data = pd.read_csv(Path('py5_resources', 'data', 'py5applet.csv')).fillna('')
+    py5_names = py5applet_data.set_index('processing_name')['py5_name']
     py5_decorators = py5applet_data.set_index('py5_name')['decorator']
+
     all_fields_and_methods = set(py5applet_data['processing_name'])
     included_py5applet_data = py5applet_data.query("implementation_from_processing==True and processing_name != ''")
     included_methods = set(included_py5applet_data.query("type=='method'")['processing_name'])
@@ -416,8 +418,8 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         py5_dir.append(snake_name)
 
     logger.info('coding class methods')
-    code_methods(methods, False, method_parameter_names_data, py5_decorators, class_members, module_members, py5_dir)
-    code_methods(static_methods, True, method_parameter_names_data, py5_decorators, class_members, module_members, py5_dir)
+    code_methods(methods, False, method_parameter_names_data, py5_names, py5_decorators, class_members, module_members, py5_dir)
+    code_methods(static_methods, True, method_parameter_names_data, py5_names, py5_decorators, class_members, module_members, py5_dir)
 
     # add the methods in the mixin classes as functions in the __init__.py module
     mixin_dir = Path('py5_resources', 'py5_module', 'py5', 'mixins')

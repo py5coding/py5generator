@@ -1,8 +1,8 @@
-from typing import overload, Any
+from typing import Any
 import functools
 
-from ..methods import Py5Exception
-from .image import _check_pimage_cache_or_convert
+from .methods import Py5Exception
+from .mixins.image import _check_pimage_cache_or_convert
 
 
 class Py5Shader:
@@ -52,34 +52,3 @@ def _py5shader_param(f):
         return f(self_, *args)
 
     return decorated
-
-
-class ShaderMixin:
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-    # *** BEGIN METHODS ***
-
-    @overload
-    def apply_filter(self, shader: Py5Shader) -> None:
-        """$class_apply_filter"""
-        pass
-
-    @overload
-    def apply_filter(self, kind: int) -> None:
-        """$class_apply_filter"""
-        pass
-
-    @overload
-    def apply_filter(self, kind: int, param: float) -> None:
-        """$class_apply_filter"""
-        pass
-
-    @_py5shader_param
-    def apply_filter(self, *args) -> None:
-        """$class_apply_filter"""
-        try:
-            return self._py5applet.filter(*args)
-        except Exception as e:
-            raise Py5Exception(e.__class__.__name__, str(e), 'apply_filter', args)

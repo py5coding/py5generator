@@ -12,9 +12,9 @@ from .methods import Py5Methods, Py5Exception  # noqa
 from .java_types import _Py5Applet, Py5Applet
 from .java_types import *  # noqa
 
-from .mixins import MathMixin, DataMixin, ImageMixin, ThreadsMixin, ShaderMixin
+from .mixins import MathMixin, DataMixin, ImageMixin, ThreadsMixin
 from .mixins.threads import Py5Promise  # noqa
-from .mixins.shader import Py5Shader, _return_py5shader, _py5shader_param  # noqa
+from .shader import Py5Shader, _return_py5shader, _py5shader_param  # noqa
 from .font import Py5Font, _return_py5font, _py5font_param  # noqa
 
 
@@ -38,7 +38,7 @@ class Py5Base:
         self._shutdown_complete = True
 
 
-class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, ShaderMixin, Py5Base):
+class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
 
     def __init__(self, *args, **kwargs):
         super().__init__(py5applet=_Py5Applet())
