@@ -183,107 +183,106 @@ EXTRA_DIR_NAMES = {
     'prune_tracebacks', 'set_stackprinter_style', 'create_font_file'
 }
 
+JTYPE_CONVERSIONS = {
+    'boolean': 'bool',
+    'char': 'chr',
+    'long': 'int',
+    'java/lang/String': 'str',
+    'java/lang/Object': 'Any',
+    'processing/opengl/PShader': 'Py5Shader',
+    'processing/core/PFont': 'Py5Font'
+}
+
 
 ###############################################################################
 # UTIL FUNCTIONS
 ###############################################################################
 
 
-def snake_case(name):
-    name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
-    name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', name)
-    return name.lower()
+class CodeBuilder:
 
+    def __init__(self, method_parameter_names_data, py5_names, py5_decorators,
+                 class_members, module_members, py5_dir):
+        self.method_parameter_names_data = method_parameter_names_data
+        self.py5_names = py5_names
+        self.py5_decorators = py5_decorators
+        self.class_members = class_members
+        self.module_members = module_members
+        self.py5_dir = py5_dir
 
-@lru_cache(128)
-def convert_type(jtype: str) -> str:
-    if jtype == 'void':
-        return 'None'
+    def snake_case(self, name):
+        name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+        name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', name)
+        return name.lower()
 
-    isarray = jtype.endswith('[]')
-    jtype = jtype[:-2] if isarray else jtype
+    @lru_cache(128)
+    def convert_type(self, jtype: str) -> str:
+        if jtype == 'void':
+            return 'None'
 
-    if jtype == 'boolean':
-        out = 'bool'
-    elif jtype == 'char':
-        out = 'chr'
-    elif jtype == 'long':
-        out = 'int'
-    elif jtype == 'java/lang/String':
-        out = 'str'
-    elif jtype == 'java/lang/Object':
-        out = 'Any'
-    elif jtype == 'processing/opengl/PShader':
-        out = 'Py5Shader'
-    elif jtype == 'processing/core/PFont':
-        out = 'Py5Font'
-    else:
-        tokens = jtype.split('/')
-        out = tokens[-1]
+        isarray = jtype.endswith('[]')
+        jtype = jtype[:-2] if isarray else jtype
+        out = JTYPE_CONVERSIONS.get(jtype, jtype.split('/')[-1])
 
-    return f'List[{out}]' if isarray else out
+        return f'List[{out}]' if isarray else out
 
+    def param_annotation(self, varname: str, jtype: str) -> str:
+        if jtype.endswith('...'):
+            jtype = jtype[:-3]
+            varname = '*' + varname
 
-def param_annotation(varname: str, jtype: str) -> str:
-    if jtype.endswith('...'):
-        jtype = jtype[:-3]
-        varname = '*' + varname
+        return f'{varname}: {self.convert_type(jtype)}'
 
-    return f'{varname}: {convert_type(jtype)}'
+    def make_param_rettype_strs(self, fname, first_param, params, rettype):
+        try:
+            parameter_name_key = ','.join([p.split('/')[-1].replace('...', '[]') for p in params])
+            parameter_names, _ = self.method_parameter_names_data['PApplet'][fname][parameter_name_key]
+            parameter_names = [self.snake_case(p) for p in parameter_names.split(',')]
+            paramstrs = [first_param] + [self.param_annotation(pn, p) for pn, p in zip(parameter_names, params)]
+        except Exception:
+            logger.warning(f'missing parameter names for {fname} {params}')
+            paramstrs = [first_param] + [self.param_annotation(f'arg{i}', p) for i, p in enumerate(params)]
+        rettypestr = self.convert_type(rettype)
 
+        return paramstrs, rettypestr
 
-def make_param_rettype_strs(method_parameter_names_data, fname, first_param, params, rettype):
-    try:
-        parameter_name_key = ','.join([p.split('/')[-1].replace('...', '[]') for p in params])
-        parameter_names, _ = method_parameter_names_data['PApplet'][fname][parameter_name_key]
-        parameter_names = [snake_case(p) for p in parameter_names.split(',')]
-        paramstrs = [first_param] + [param_annotation(pn, p) for pn, p in zip(parameter_names, params)]
-    except Exception:
-        logger.warning(f'missing parameter names for {fname} {params}')
-        paramstrs = [first_param] + [param_annotation(f'arg{i}', p) for i, p in enumerate(params)]
-    rettypestr = convert_type(rettype)
-
-    return paramstrs, rettypestr
-
-
-def code_methods(methods, static,
-                 method_parameter_names_data, py5_names, py5_decorators, class_members, module_members, py5_dir):
-    for fname, method in sorted(methods, key=lambda x: x[0]):
-        snake_name = py5_names[fname]
-        if static:
-            first_param, classobj, moduleobj, decorator = 'cls', '_Py5Applet', 'Sketch', '@classmethod'
-        else:
-            first_param, classobj, moduleobj, decorator = 'self', 'self._py5applet', '_py5sketch', py5_decorators[snake_name]
-        # if there is only one method signature, create the real method with typehints
-        if len(method.signatures()) == 1:
-            params, rettype = method.signatures()[0]
-            if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
-                continue
-            paramstrs, rettypestr = make_param_rettype_strs(method_parameter_names_data, fname, first_param, params, rettype)
-            # create the class and module code
-            class_members.append(CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
-                snake_name, ', '.join(paramstrs), classobj, fname, decorator, rettypestr,
-                ', '.join([p.split(':')[0] for p in paramstrs[1:]])))
-            module_members.append(MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
-                snake_name, ', '.join(paramstrs[1:]), moduleobj, rettypestr,
-                ', '.join([p.split(':')[0] for p in paramstrs[1:]])))
-        else:
-            # loop through the method signatures and create the typehint methods
-            skipped_all = True
-            for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
+    def code_methods(self, methods, static):
+        for fname, method in sorted(methods, key=lambda x: x[0]):
+            snake_name = self.py5_names[fname]
+            if static:
+                first_param, classobj, moduleobj, decorator = 'cls', '_Py5Applet', 'Sketch', '@classmethod'
+            else:
+                first_param, classobj, moduleobj, decorator = 'self', 'self._py5applet', '_py5sketch', self.py5_decorators[snake_name]
+            # if there is only one method signature, create the real method with typehints
+            if len(method.signatures()) == 1:
+                params, rettype = method.signatures()[0]
                 if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
                     continue
-                skipped_all = False
-                paramstrs, rettypestr = make_param_rettype_strs(method_parameter_names_data, fname, first_param, params, rettype)
-                # create the class and module typehints
-                class_members.append(CLASS_METHOD_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs), rettypestr))
-                module_members.append(MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs[1:]), rettypestr))
-            if skipped_all:
-                continue
-            # now construct the real methods
-            class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, first_param, classobj, fname, decorator))
-            module_members.append(MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj))
-        py5_dir.append(snake_name)
+                paramstrs, rettypestr = self.make_param_rettype_strs(fname, first_param, params, rettype)
+                # create the class and module code
+                self.class_members.append(CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
+                    snake_name, ', '.join(paramstrs), classobj, fname, decorator, rettypestr,
+                    ', '.join([p.split(':')[0] for p in paramstrs[1:]])))
+                self.module_members.append(MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
+                    snake_name, ', '.join(paramstrs[1:]), moduleobj, rettypestr,
+                    ', '.join([p.split(':')[0] for p in paramstrs[1:]])))
+            else:
+                # loop through the method signatures and create the typehint methods
+                skipped_all = True
+                for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
+                    if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
+                        continue
+                    skipped_all = False
+                    paramstrs, rettypestr = self.make_param_rettype_strs(fname, first_param, params, rettype)
+                    # create the class and module typehints
+                    self.class_members.append(CLASS_METHOD_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs), rettypestr))
+                    self.module_members.append(MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs[1:]), rettypestr))
+                if skipped_all:
+                    continue
+                # now construct the real methods
+                self.class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, first_param, classobj, fname, decorator))
+                self.module_members.append(MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj))
+            self.py5_dir.append(snake_name)
 
 
 class CodeCopier:
@@ -418,8 +417,10 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         py5_dir.append(snake_name)
 
     logger.info('coding class methods')
-    code_methods(methods, False, method_parameter_names_data, py5_names, py5_decorators, class_members, module_members, py5_dir)
-    code_methods(static_methods, True, method_parameter_names_data, py5_names, py5_decorators, class_members, module_members, py5_dir)
+    code_builder = CodeBuilder(method_parameter_names_data, py5_names, py5_decorators,
+                               class_members, module_members, py5_dir)
+    code_builder.code_methods(methods, False)
+    code_builder.code_methods(static_methods, True)
 
     # add the methods in the mixin classes as functions in the __init__.py module
     mixin_dir = Path('py5_resources', 'py5_module', 'py5', 'mixins')
