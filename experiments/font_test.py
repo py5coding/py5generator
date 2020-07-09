@@ -25,4 +25,4 @@ class Test(Sketch):
 
 
 test = Test()
-test.run_sketch(block=False)
+test.run_sketch(block=True)
