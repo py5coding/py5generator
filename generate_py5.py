@@ -407,7 +407,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     logger.info('coding dynamic variables')
     py5_dynamic_vars = []
     for name in sorted(fields):
-        snake_name = snake_case(name)
+        snake_name = py5_names[name]
         var_type = (
             {'args': 'List[str]', 'g': 'PGraphics', 'recorder': 'PGraphics', 'pixels': 'List[int]'}
         ).get(name, type(getattr(py5applet, name)).__name__)
