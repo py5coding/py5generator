@@ -215,6 +215,8 @@ def convert_type(jtype: str) -> str:
         out = 'Any'
     elif jtype == 'processing/opengl/PShader':
         out = 'Py5Shader'
+    elif jtype == 'processing/core/PFont':
+        out = 'Py5Font'
     else:
         tokens = jtype.split('/')
         out = tokens[-1]
