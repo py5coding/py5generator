@@ -11,20 +11,9 @@ class Py5Shader:
         self._pshader = pshader
         self._pimage_cache = pimage_cache
 
-    @_check_pimage_cache_or_convert(1)
-    def set_image(self, name: str, tex: Any, cache: bool = False):
-        """$class_py5shader_set_image"""
-        try:
-            return self._pshader.set(name, tex)
-        except Exception as e:
-            raise Py5Exception(
-                e.__class__.__name__,
-                str(e),
-                'set_image',
-                (name, tex))
-
     # TODO: need all the typehints
 
+    @_check_pimage_cache_or_convert(1)
     def set(self, *args):
         """$class_py5shader_set"""
         try:
