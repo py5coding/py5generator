@@ -14,14 +14,14 @@ mplstyle.use(['ggplot', 'fast'])
 class TestPImage(py5.Sketch):
 
     def settings(self):
-        self.size(712, 512)
+        self.size(700, 700)
 
     def setup(self):
         self.img1 = py5.create_image("RGB", 200, 5, "red")
         self.img2 = self.load_image('/mnt/readynas_data/DataBackup/ffhq_dataset/jpg/01003.jpg').resize((500, 500))
         self.figure = pd._testing.makeTimeDataFrame().plot().figure
 
-        self.img3 = np.zeros((500, 500, 4), dtype=np.uint8)
+        self.img3 = np.zeros((700, 700, 4), dtype=np.uint8)
         self.img3[:200, :, 0] = 200  # R
         self.img3[100:400, :, 1] = 100  # G
         self.img3[300:, :, 2] = 150  # B
@@ -47,7 +47,7 @@ class TestPImage(py5.Sketch):
     def draw(self):
         self.image_mode(py5.CENTER)
         self.shape_mode(py5.CENTER)
-        self.background(128)
+        self.background((self.img3, 'RGBA'), cache=True)
 
         caching = True
 
@@ -55,7 +55,7 @@ class TestPImage(py5.Sketch):
         self.image(self.img2, self.width / 2, self.height / 2, cache=caching)
         self.image(self.figure, self.width / 2, self.height / 2, cache=caching)
         plt.close(self.figure)
-        self.image((self.img3, 'RGBA'), self.width / 2, self.height / 2, cache=caching)
+        # self.image((self.img3, 'RGBA'), self.width / 2, self.height / 2, cache=caching)
         self.image(self.surface, self.width / 2, self.height / 2, cache=caching)
 
         # self.no_loop()

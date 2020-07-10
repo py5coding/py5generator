@@ -167,6 +167,10 @@ PAPPLET_SKIP_PARAM_TYPES = {
     'processing/core/PMatrix', 'java/io/File'
 }
 
+PAPPLET_SKIP_RETURN_TYPES = PAPPLET_SKIP_PARAM_TYPES | {
+    'processing/core/PImage'
+}
+
 PCONSTANT_OVERRIDES = {
     'WHITESPACE': r' \t\n\r\x0c\xa0',
     'ESC': r'\x1b',
@@ -191,7 +195,7 @@ JTYPE_CONVERSIONS = {
     'java/lang/Object': 'Any',
     'processing/opengl/PShader': 'Py5Shader',
     'processing/core/PFont': 'Py5Font',
-    'processing/core/PImage': 'Any'
+    'processing/core/PImage': 'Py5Image'
 }
 
 
@@ -253,6 +257,8 @@ class MethodBuilder:
         for fname, method in sorted(methods, key=lambda x: x[0]):
             snake_name = self.py5_names[fname]
             kwargs = self.py5_special_kwargs[fname]
+            if kwargs:
+                kwargs_precondition, kwargs = kwargs.split('|')
             if static:
                 first_param, classobj, moduleobj, decorator = 'cls', '_Py5Applet', 'Sketch', '@classmethod'
             else:
@@ -260,12 +266,12 @@ class MethodBuilder:
             # if there is only one method signature, create the real method with typehints
             if len(method.signatures()) == 1:
                 params, rettype = method.signatures()[0]
-                if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
+                if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_RETURN_TYPES:
                     continue
                 paramstrs, rettypestr = self.make_param_rettype_strs(fname, first_param, params, rettype)
                 class_arguments = ', '.join([p.split(':')[0] for p in paramstrs[1:]])
                 module_arguments = class_arguments
-                if kwargs:
+                if kwargs and any([kwargs_precondition in p for p in paramstrs]):
                     paramstrs.append(kwargs)
                     kw_param = kwargs.split(':')[0]
                     module_arguments += f', {kw_param}={kw_param}'
@@ -278,11 +284,11 @@ class MethodBuilder:
                 # loop through the method signatures and create the typehint methods
                 skipped_all = True
                 for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
-                    if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_PARAM_TYPES:
+                    if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_RETURN_TYPES:
                         continue
                     skipped_all = False
                     paramstrs, rettypestr = self.make_param_rettype_strs(fname, first_param, params, rettype)
-                    if kwargs:
+                    if kwargs and any([kwargs_precondition in p for p in paramstrs]):
                         paramstrs.append(kwargs)
                     # create the class and module typehints
                     self.class_members.append(CLASS_METHOD_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs), rettypestr))

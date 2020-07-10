@@ -17,7 +17,7 @@ figure = None
 
 
 def settings():
-    py5.size(712, 512)
+    py5.size(500, 500)
 
 
 def setup():
@@ -39,15 +39,19 @@ def setup():
 def draw():
     py5.image_mode(py5.CENTER)
     py5.shape_mode(py5.CENTER)
-    py5.background(128)
+    py5.background((img3, 'RGBA'))
 
     caching = True
 
     py5.image(img1, py5.width / 2, py5.height / 2, cache=caching)
-    py5.image(img2, py5.width / 2, py5.height / 2, cache=caching)
-    py5.image(figure, py5.width / 2, py5.height / 2, cache=caching)
-    plt.close(figure)
-    py5.image((img3, 'RGBA'), py5.width / 2, py5.height / 2, cache=caching)
+    # py5.image(img2, py5.width / 2, py5.height / 2, cache=caching)
+    # py5.image(figure, py5.width / 2, py5.height / 2, cache=caching)
+    # plt.close(figure)
+    # py5.image((img3, 'RGBA'), py5.width / 2, py5.height / 2, cache=caching)
+
+    # py5.blend((img3, 'RGBA'), 0, 0, 500, 500, 0, 0, 100, 100, py5.OVERLAY)
+    py5.copy(0, 0, 500, 500, 0, 0, 100, 100)
+    # py5.copy(figure, 0, 0, 200, 200, 450, 250, 100, 100)
 
 
 py5.run_sketch(block=True)
