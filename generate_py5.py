@@ -2,14 +2,14 @@ import re
 import argparse
 import logging
 import shutil
-import textwrap
-from string import Template
 import shlex
-import autopep8
 from pathlib import Path
-from functools import lru_cache
 
 import pandas as pd
+
+from generator.codebuilder import MethodBuilder, MODULE_FUNCTION_TYPEHINT_TEMPLATE, MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS
+from generator.docstrings import DocstringLibrary
+from generator.util import CodeCopier
 
 
 logging.basicConfig(format="%(asctime)s | %(levelname)s | %(message)s", level=logging.INFO)
@@ -30,59 +30,6 @@ parser.add_argument('-p', '--param', action='store', dest='method_parameter_name
 
 
 ###############################################################################
-# DOCSTRINGS
-###############################################################################
-
-
-DOCSTRING = re.compile(r'(@@@ DOCSTRING (\w+) @@@)')
-DOCSTRING_FILE_HEADER = re.compile(r"^# \w+$", re.UNICODE | re.MULTILINE)
-
-
-class DocstringDict:
-
-    INDENTING = {'class': 8, 'module': 4}
-
-    def __init__(self, language, docstrings):
-        super().__init__()
-        self._language = language
-        self._docstrings = docstrings
-
-    def __getitem__(self, item):
-        try:
-            kind, name = item.split('_', 1)
-            doc = textwrap.indent(
-                self._docstrings[name],
-                prefix=(' ' * DocstringDict.INDENTING.get(kind, 0))).strip()
-            return doc
-        except KeyError:
-            return f'missing {self._language} language docstring for {name}'
-
-
-class DocstringLibrary:
-
-    def __init__(self):
-        self._load_docstrings()
-
-    def _load_docstrings(self):
-        docstring_dir = Path('py5_resources', 'docstrings')
-        self._docstings = {}
-        for md_file in docstring_dir.glob('*.md'):
-            with open(md_file, 'r') as f:
-                md_contents = f.read()
-            parsed_md = {k[1:].strip(): v.strip()
-                         for k, v in zip(DOCSTRING_FILE_HEADER.findall(md_contents),
-                                         DOCSTRING_FILE_HEADER.split(md_contents)[1:])}
-            self._docstings[md_file.stem] = parsed_md
-
-    @property
-    def languages(self):
-        return list(self._docstings.keys())
-
-    def docstring_dict(self, language):
-        return DocstringDict(language, self._docstings[language])
-
-
-###############################################################################
 # TEMPLATES
 ###############################################################################
 
@@ -100,33 +47,6 @@ CLASS_PROPERTY_TEMPLATE = """
     {0}: {1} = property(fget=_get_{0})
 """
 
-CLASS_METHOD_TYPEHINT_TEMPLATE = """
-    @overload
-    def {0}({1}) -> {2}:
-        \"\"\"$class_{0}\"\"\"
-        pass
-"""
-
-CLASS_METHOD_TEMPLATE = """
-    {4}
-    def {0}({1}, {5}):
-        \"\"\"$class_{0}\"\"\"
-        try:
-            return {2}.{3}(*args)
-        except Exception as e:
-            raise Py5Exception(e.__class__.__name__, str(e), '{0}', args)
-"""
-
-CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS = """
-    {4}
-    def {0}({1}) -> {5}:
-        \"\"\"$class_{0}\"\"\"
-        try:
-            return {2}.{3}({6})
-        except Exception as e:
-            raise Py5Exception(e.__class__.__name__, str(e), '{0}', [{6}])
-"""
-
 MODULE_STATIC_FIELD_TEMPLATE = """
 {0} = {1}"""
 
@@ -137,39 +57,11 @@ MODULE_PROPERTY_PRE_RUN_TEMPLATE = """
         global {0}
         del {0}"""
 
-MODULE_FUNCTION_TYPEHINT_TEMPLATE = """
-@overload
-def {0}({1}) -> {2}:
-    \"\"\"$module_{0}\"\"\"
-    pass
-"""
-
-MODULE_FUNCTION_TEMPLATE = """
-def {0}({2}):
-    \"\"\"$module_{0}\"\"\"
-    return {1}.{0}({3})
-"""
-
-MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS = """
-def {0}({1}) -> {3}:
-    \"\"\"$module_{0}\"\"\"
-    return {2}.{0}({4})
-"""
-
 
 ###############################################################################
 # REFERENCE AND LOOKUPS
 ###############################################################################
 
-
-PAPPLET_SKIP_PARAM_TYPES = {
-    'processing/core/PMatrix3D', 'processing/core/PMatrix2D',
-    'processing/core/PMatrix', 'java/io/File'
-}
-
-PAPPLET_SKIP_RETURN_TYPES = PAPPLET_SKIP_PARAM_TYPES | {
-    'processing/core/PImage'
-}
 
 PCONSTANT_OVERRIDES = {
     'WHITESPACE': r' \t\n\r\x0c\xa0',
@@ -186,150 +78,6 @@ EXTRA_DIR_NAMES = {
     'autoclass', 'Py5Methods', '_Py5Applet', '_py5sketch', '_py5sketch_used',
     'prune_tracebacks', 'set_stackprinter_style', 'create_font_file'
 }
-
-JTYPE_CONVERSIONS = {
-    'boolean': 'bool',
-    'char': 'chr',
-    'long': 'int',
-    'java/lang/String': 'str',
-    'java/lang/Object': 'Any',
-    'processing/opengl/PShader': 'Py5Shader',
-    'processing/core/PFont': 'Py5Font',
-    'processing/core/PImage': 'Py5Image'
-}
-
-
-###############################################################################
-# UTIL CLASSES
-###############################################################################
-
-
-class MethodBuilder:
-
-    def __init__(self, method_parameter_names_data,
-                 py5_names, py5_decorators, py5_special_kwargs,
-                 class_members, module_members, py5_dir):
-        self.method_parameter_names_data = method_parameter_names_data
-        self.py5_names = py5_names
-        self.py5_decorators = py5_decorators
-        self.py5_special_kwargs = py5_special_kwargs
-        self.class_members = class_members
-        self.module_members = module_members
-        self.py5_dir = py5_dir
-
-    def snake_case(self, name):
-        name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
-        name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', name)
-        return name.lower()
-
-    @lru_cache(128)
-    def convert_type(self, jtype: str) -> str:
-        if jtype == 'void':
-            return 'None'
-
-        isarray = jtype.endswith('[]')
-        jtype = jtype[:-2] if isarray else jtype
-        out = JTYPE_CONVERSIONS.get(jtype, jtype.split('/')[-1])
-
-        return f'List[{out}]' if isarray else out
-
-    def param_annotation(self, varname: str, jtype: str) -> str:
-        if jtype.endswith('...'):
-            jtype = jtype[:-3]
-            varname = '*' + varname
-
-        return f'{varname}: {self.convert_type(jtype)}'
-
-    def make_param_rettype_strs(self, fname, first_param, params, rettype):
-        try:
-            parameter_name_key = ','.join([p.split('/')[-1].replace('...', '[]') for p in params])
-            parameter_names, _ = self.method_parameter_names_data['PApplet'][fname][parameter_name_key]
-            parameter_names = [self.snake_case(p) for p in parameter_names.split(',')]
-            paramstrs = [first_param] + [self.param_annotation(pn, p) for pn, p in zip(parameter_names, params)]
-        except Exception:
-            logger.warning(f'missing parameter names for {fname} {params}')
-            paramstrs = [first_param] + [self.param_annotation(f'arg{i}', p) for i, p in enumerate(params)]
-        rettypestr = self.convert_type(rettype)
-
-        return paramstrs, rettypestr
-
-    def code_methods(self, methods, static):
-        for fname, method in sorted(methods, key=lambda x: x[0]):
-            snake_name = self.py5_names[fname]
-            kwargs = self.py5_special_kwargs[fname]
-            if kwargs:
-                kwargs_precondition, kwargs = kwargs.split('|')
-            if static:
-                first_param, classobj, moduleobj, decorator = 'cls', '_Py5Applet', 'Sketch', '@classmethod'
-            else:
-                first_param, classobj, moduleobj, decorator = 'self', 'self._py5applet', '_py5sketch', self.py5_decorators[fname]
-            # if there is only one method signature, create the real method with typehints
-            if len(method.signatures()) == 1:
-                params, rettype = method.signatures()[0]
-                if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_RETURN_TYPES:
-                    continue
-                paramstrs, rettypestr = self.make_param_rettype_strs(fname, first_param, params, rettype)
-                class_arguments = ', '.join([p.split(':')[0] for p in paramstrs[1:]])
-                module_arguments = class_arguments
-                if kwargs and any([kwargs_precondition in p for p in paramstrs]):
-                    paramstrs.append(kwargs)
-                    kw_param = kwargs.split(':')[0]
-                    module_arguments += f', {kw_param}={kw_param}'
-                # create the class and module code
-                self.class_members.append(CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
-                    snake_name, ', '.join(paramstrs), classobj, fname, decorator, rettypestr, class_arguments))
-                self.module_members.append(MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
-                    snake_name, ', '.join(paramstrs[1:]), moduleobj, rettypestr, module_arguments))
-            else:
-                # loop through the method signatures and create the typehint methods
-                skipped_all = True
-                for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
-                    if PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in PAPPLET_SKIP_RETURN_TYPES:
-                        continue
-                    skipped_all = False
-                    paramstrs, rettypestr = self.make_param_rettype_strs(fname, first_param, params, rettype)
-                    if kwargs and any([kwargs_precondition in p for p in paramstrs]):
-                        paramstrs.append(kwargs)
-                    # create the class and module typehints
-                    self.class_members.append(CLASS_METHOD_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs), rettypestr))
-                    self.module_members.append(MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs[1:]), rettypestr))
-                if skipped_all:
-                    continue
-                # now construct the real methods
-                arguments = '*args'
-                module_arguments = '*args'
-                if kwargs:
-                    arguments += f', {kwargs}'
-                    kw_param = kwargs.split(':')[0]
-                    module_arguments += f', {kw_param}={kw_param}'
-                self.class_members.append(CLASS_METHOD_TEMPLATE.format(snake_name, first_param, classobj, fname, decorator, arguments))
-                self.module_members.append(MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj, arguments, module_arguments))
-            self.py5_dir.append(snake_name)
-
-
-class CodeCopier:
-
-    def __init__(self, format_params, docstring_dict):
-        self.format_params = format_params
-        self.docstring_dict = docstring_dict
-
-    def __call__(self, src, dest, *, follow_symlinks=True):
-        logger.info(f'copying {src} to {dest}')
-
-        with open(src, 'r') as f:
-            content = f.read()
-
-        if content.find('*** FORMAT PARAMS ***') > 0:
-            content = re.sub(r'^.*DELETE$', '',
-                             content.format(**self.format_params),
-                             flags=re.MULTILINE | re.UNICODE)
-        content = Template(content).substitute(self.docstring_dict)
-        content = autopep8.fix_code(content, options={'aggressive': 2})
-
-        with open(dest, 'w') as f:
-            f.write(content)
-
-        return dest
 
 
 ###############################################################################
