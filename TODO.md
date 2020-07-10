@@ -46,11 +46,6 @@ type hinting
 
 Use [type hinting](https://docs.python.org/3/library/typing.html) for Processing functions. Refer to [PEP-0484](https://www.python.org/dev/peps/pep-0484/) for more info.
 
-Should I use stub files? Here are some packages that use them:
-
-* [pyrsistent](https://github.com/tobgu/pyrsistent)
-* [attrs](https://github.com/python-attrs/attrs)
-
 The `NewType` types I added should be replaced with something that gives the methods for those classes.
 
 Should the type hints make it clear that these are [position only parameters](https://www.python.org/dev/peps/pep-0570/)? This would require Python 3.8.
@@ -58,15 +53,11 @@ Should the type hints make it clear that these are [position only parameters](ht
 library functions
 -----------------
 
-I need the same error handling on those numpy wrapper functions I made. A good approach might be to move them from the Sketch class to a new `Extras` class, then parameterize the method templates so they can call something `Extras` instead of `_Py5Applet`.
+I need the same error handling on all of the classes in the mixin module, including the math and data ones.
 
 The PMatrix methods should be skipped and replaced with numpy backed functions.
 
 The JSON and XML functions should be replaced with Python library tools.
-
-Review skipped functions to see what should be re-implemented.
-
-There are undocumented functions like frameResized with no apparent purpose.
 
 docstrings
 ----------
@@ -80,18 +71,6 @@ It seems to have been generated with [JavaDocs and some Python code](https://git
 It would be great if I could feed these through a translator to make this multi-linqual. Then perhaps I could do something like `import py5.es as py5` to make all the docstrings in Spanish. If I did this, how would I keep everything in sync? I will certainly add new functions, especially in the short term. Those new functions will be in Python so their docstrings will be written by me.
 
 For Py5 documentation I should use Sphinx to generate my own docfiles after everything has been compiled together.
-
-Py5Image and Py5Shape
----------------------
-
-I should also Py5Image and Py5Shape classes that will really be backed by Cairo and Pillow but provide more accessible functionality, along with multi-lingual comments.
-
-The custom image and shape functions will need a cache to store the images and shapes after they have been converted into PImage or PShape objects.
-
-performance
------------
-
-Can I batch commands together and get a performance improvement? It is slower to go back and forth between Python and Java. The py5 methods can have a second "mode" that collects all the commands together and executes them all at once at the end? Should there be a flush command to manually force everything through? Perhaps I can use a context manager for a performance improvement of one part of the code.
 
 PDE mode
 --------
