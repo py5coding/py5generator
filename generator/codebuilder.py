@@ -1,5 +1,6 @@
 import re
 import logging
+import shlex
 from functools import lru_cache
 
 from . import reference as ref
@@ -57,6 +58,20 @@ class MethodBuilder:
         rettypestr = self.convert_type(rettype)
 
         return paramstrs, rettypestr
+
+    def code_static_constants(self, static_fields, Py5Applet):
+        for name in sorted(static_fields):
+            if name in ref.PCONSTANT_OVERRIDES:
+                self.module_members.append(f'\n{name} = {shlex.quote(ref.PCONSTANT_OVERRIDES[name])}')
+            else:
+                val = getattr(Py5Applet, name)
+                if isinstance(val, str):
+                    val = f"'{val}'"
+                if name == 'javaVersion':
+                    val = round(val, 2)
+                self.module_members.append(templ.MODULE_STATIC_FIELD_TEMPLATE.format(name, val))
+                self.class_members.append(templ.CLASS_STATIC_FIELD_TEMPLATE.format(name, val))
+            self.py5_dir.append(name)
 
     def code_methods(self, methods, static):
         for fname, method in sorted(methods, key=lambda x: x[0]):

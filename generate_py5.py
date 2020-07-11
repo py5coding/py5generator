@@ -118,19 +118,12 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     run_sketch_pre_run_steps = []
     py5_dir = []
 
+    code_builder = MethodBuilder(method_parameter_names_data,
+                                 py5_names, py5_decorators, py5_special_kwargs,
+                                 class_members, module_members, py5_dir)
+
     logger.info('coding static constants')
-    for name in sorted(static_fields):
-        if name in ref.PCONSTANT_OVERRIDES:
-            module_members.append(f'\n{name} = {shlex.quote(ref.PCONSTANT_OVERRIDES[name])}')
-        else:
-            val = getattr(Py5Applet, name)
-            if isinstance(val, str):
-                val = f"'{val}'"
-            if name == 'javaVersion':
-                val = round(val, 2)
-            module_members.append(templ.MODULE_STATIC_FIELD_TEMPLATE.format(name, val))
-            class_members.append(templ.CLASS_STATIC_FIELD_TEMPLATE.format(name, val))
-            py5_dir.append(name)
+    code_builder.code_static_constants(static_fields, Py5Applet)
 
     logger.info('coding dynamic variables')
     py5_dynamic_vars = []
@@ -146,9 +139,6 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         py5_dir.append(snake_name)
 
     logger.info('coding class methods')
-    code_builder = MethodBuilder(method_parameter_names_data,
-                                 py5_names, py5_decorators, py5_special_kwargs,
-                                 class_members, module_members, py5_dir)
     code_builder.code_methods(methods, False)
     code_builder.code_methods(static_methods, True)
 
