@@ -36,6 +36,8 @@ class CodeBuilder:
         self.class_members = []
         self.module_members = []
         self.py5_dir = []
+        self.py5_dynamic_vars = []
+        self.run_sketch_pre_run_steps = []
 
     def snake_case(self, name):
         name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
@@ -88,8 +90,6 @@ class CodeBuilder:
             self.py5_dir.append(name)
 
     def code_dynamic_variables(self, fields, py5applet):
-        py5_dynamic_vars = []
-        run_sketch_pre_run_steps = []
         for name in sorted(fields):
             snake_name = self.py5_names[name]
             var_type = (
@@ -97,10 +97,9 @@ class CodeBuilder:
             ).get(name, type(getattr(py5applet, name)).__name__)
             self.class_members.append(templ.CLASS_PROPERTY_TEMPLATE.format(snake_name, var_type, name))
             self.module_members.append(templ.MODULE_PROPERTY_TEMPLATE.format(snake_name, var_type))
-            run_sketch_pre_run_steps.append(templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(snake_name))
-            py5_dynamic_vars.append(snake_name)
+            self.run_sketch_pre_run_steps.append(templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(snake_name))
+            self.py5_dynamic_vars.append(snake_name)
             self.py5_dir.append(snake_name)
-        return py5_dynamic_vars, run_sketch_pre_run_steps
 
     def code_methods(self, methods, static):
         for fname, method in sorted(methods, key=lambda x: x[0]):

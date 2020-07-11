@@ -107,8 +107,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     code_builder.code_static_constants(static_fields, Py5Applet)
 
     logger.info('coding dynamic variables')
-    py5_dynamic_vars, run_sketch_pre_run_steps = code_builder.code_dynamic_variables(
-        fields, py5applet)
+    code_builder.code_dynamic_variables(fields, py5applet)
 
     logger.info('coding class methods')
     code_builder.code_methods(methods, False)
@@ -123,13 +122,13 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
 
     class_members_code = ''.join(code_builder.class_members)
     module_members_code = ''.join(code_builder.module_members)
-    run_sketch_pre_run_code = ''.join(run_sketch_pre_run_steps)
+    run_sketch_pre_run_code = ''.join(code_builder.run_sketch_pre_run_steps)
 
     # code the result of the module's __dir__ function and __all__ variable
     code_builder.py5_dir.extend(ref.EXTRA_DIR_NAMES)
     str_py5_dir = str(sorted(code_builder.py5_dir, key=lambda x: x.lower()))
     # don't want import * to import the dynamic variables because they cannot be updated
-    str_py5_all = str(sorted([x for x in code_builder.py5_dir if x not in py5_dynamic_vars], key=lambda x: x.lower()))
+    str_py5_all = str(sorted([x for x in code_builder.py5_dir if x not in code_builder.py5_dynamic_vars], key=lambda x: x.lower()))
 
     format_params = dict(class_members_code=class_members_code,
                          module_members_code=module_members_code,
