@@ -1,15 +1,12 @@
-import re
 import argparse
 import logging
 import shutil
-import shlex
 from pathlib import Path
 
 import pandas as pd
 
-from generator import MethodBuilder, DocstringLibrary, CodeCopier
+from generator import CodeBuilder, DocstringLibrary, CodeCopier
 from generator import reference as ref
-from generator import templates as templ
 
 
 logging.basicConfig(format="%(asctime)s | %(levelname)s | %(message)s", level=logging.INFO)
@@ -27,15 +24,6 @@ parser.add_argument('-r', '--repo', action='store', dest='processing_repo_dir',
                     help='location of processing code (github repository)')
 parser.add_argument('-p', '--param', action='store', dest='method_parameter_names_data_file',
                     help='location of method parameter names data file created by Py5Doclet')
-
-
-###############################################################################
-# REGEX
-###############################################################################
-
-
-METHOD_REGEX = re.compile(r'(@\w+)?\s*def (.*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):$', re.MULTILINE | re.DOTALL)
-TYPEHINT_COMMA_REGEX = re.compile(r'(\[[\w\s,]+\])')
 
 
 ###############################################################################
@@ -112,31 +100,15 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         if k not in all_fields_and_methods and not k.startswith('_'):
             logger.warning(f'detected previously unknown {type(v).__name__} {k}')
 
-    # storage for Py5Applet members and the result of the module's __dir__ function.
-    class_members = []
-    module_members = []
-    run_sketch_pre_run_steps = []
-    py5_dir = []
-
-    code_builder = MethodBuilder(method_parameter_names_data,
-                                 py5_names, py5_decorators, py5_special_kwargs,
-                                 class_members, module_members, py5_dir)
+    code_builder = CodeBuilder(method_parameter_names_data,
+                               py5_names, py5_decorators, py5_special_kwargs)
 
     logger.info('coding static constants')
     code_builder.code_static_constants(static_fields, Py5Applet)
 
     logger.info('coding dynamic variables')
-    py5_dynamic_vars = []
-    for name in sorted(fields):
-        snake_name = py5_names[name]
-        var_type = (
-            {'args': 'List[str]', 'g': 'PGraphics', 'recorder': 'PGraphics', 'pixels': 'List[int]'}
-        ).get(name, type(getattr(py5applet, name)).__name__)
-        class_members.append(templ.CLASS_PROPERTY_TEMPLATE.format(snake_name, var_type, name))
-        module_members.append(templ.MODULE_PROPERTY_TEMPLATE.format(snake_name, var_type))
-        run_sketch_pre_run_steps.append(templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(snake_name))
-        py5_dynamic_vars.append(snake_name)
-        py5_dir.append(snake_name)
+    py5_dynamic_vars, run_sketch_pre_run_steps = code_builder.code_dynamic_variables(
+        fields, py5applet)
 
     logger.info('coding class methods')
     code_builder.code_methods(methods, False)
@@ -147,40 +119,17 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     for filename in mixin_dir.glob('*.py'):
         if filename.stem == '__init__':
             continue
-        with open(filename) as f:
-            code = f.read()
-            code = code.split('*** BEGIN METHODS ***')[1].strip()
+        code_builder.code_mixin(filename)
 
-        module_members.append(f'\n{"#" * 78}\n# module functions from {filename.name}\n{"#" * 78}\n')
-        for decorator, fname, arg0, args, rettypestr in METHOD_REGEX.findall(code):
-            if fname.startswith('_'):
-                continue
-            elif decorator == '@overload':
-                module_members.append(templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(fname, args, rettypestr))
-            else:
-                moduleobj = 'Sketch' if arg0 == 'cls' else '_py5sketch'
-                paramlist = []
-                for arg in TYPEHINT_COMMA_REGEX.sub('', args).split(','):
-                    paramname = arg.split(':')[0].strip()
-                    if '=' in arg:
-                        paramlist.append(f'{paramname}={paramname}')
-                    else:
-                        paramlist.append(paramname)
-
-                params = ', '.join(paramlist)
-                module_members.append(templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
-                    fname, args, moduleobj, rettypestr, params))
-                py5_dir.append(fname)
-
-    class_members_code = ''.join(class_members)
-    module_members_code = ''.join(module_members)
+    class_members_code = ''.join(code_builder.class_members)
+    module_members_code = ''.join(code_builder.module_members)
     run_sketch_pre_run_code = ''.join(run_sketch_pre_run_steps)
 
     # code the result of the module's __dir__ function and __all__ variable
-    py5_dir.extend(ref.EXTRA_DIR_NAMES)
-    str_py5_dir = str(sorted(py5_dir, key=lambda x: x.lower()))
+    code_builder.py5_dir.extend(ref.EXTRA_DIR_NAMES)
+    str_py5_dir = str(sorted(code_builder.py5_dir, key=lambda x: x.lower()))
     # don't want import * to import the dynamic variables because they cannot be updated
-    str_py5_all = str(sorted([x for x in py5_dir if x not in py5_dynamic_vars], key=lambda x: x.lower()))
+    str_py5_all = str(sorted([x for x in code_builder.py5_dir if x not in py5_dynamic_vars], key=lambda x: x.lower()))
 
     format_params = dict(class_members_code=class_members_code,
                          module_members_code=module_members_code,

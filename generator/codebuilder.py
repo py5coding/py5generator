@@ -10,18 +10,32 @@ from . import templates as templ
 logger = logging.getLogger(__name__)
 
 
-class MethodBuilder:
+###############################################################################
+# REGEX
+###############################################################################
+
+
+METHOD_REGEX = re.compile(r'(@\w+)?\s*def (.*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):$', re.MULTILINE | re.DOTALL)
+TYPEHINT_COMMA_REGEX = re.compile(r'(\[[\w\s,]+\])')
+
+
+###############################################################################
+# CODE BUILDER CLASS
+###############################################################################
+
+
+class CodeBuilder:
 
     def __init__(self, method_parameter_names_data,
-                 py5_names, py5_decorators, py5_special_kwargs,
-                 class_members, module_members, py5_dir):
+                 py5_names, py5_decorators, py5_special_kwargs):
         self.method_parameter_names_data = method_parameter_names_data
         self.py5_names = py5_names
         self.py5_decorators = py5_decorators
         self.py5_special_kwargs = py5_special_kwargs
-        self.class_members = class_members
-        self.module_members = module_members
-        self.py5_dir = py5_dir
+
+        self.class_members = []
+        self.module_members = []
+        self.py5_dir = []
 
     def snake_case(self, name):
         name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
@@ -72,6 +86,21 @@ class MethodBuilder:
                 self.module_members.append(templ.MODULE_STATIC_FIELD_TEMPLATE.format(name, val))
                 self.class_members.append(templ.CLASS_STATIC_FIELD_TEMPLATE.format(name, val))
             self.py5_dir.append(name)
+
+    def code_dynamic_variables(self, fields, py5applet):
+        py5_dynamic_vars = []
+        run_sketch_pre_run_steps = []
+        for name in sorted(fields):
+            snake_name = self.py5_names[name]
+            var_type = (
+                {'args': 'List[str]', 'g': 'PGraphics', 'recorder': 'PGraphics', 'pixels': 'List[int]'}
+            ).get(name, type(getattr(py5applet, name)).__name__)
+            self.class_members.append(templ.CLASS_PROPERTY_TEMPLATE.format(snake_name, var_type, name))
+            self.module_members.append(templ.MODULE_PROPERTY_TEMPLATE.format(snake_name, var_type))
+            run_sketch_pre_run_steps.append(templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(snake_name))
+            py5_dynamic_vars.append(snake_name)
+            self.py5_dir.append(snake_name)
+        return py5_dynamic_vars, run_sketch_pre_run_steps
 
     def code_methods(self, methods, static):
         for fname, method in sorted(methods, key=lambda x: x[0]):
@@ -125,3 +154,29 @@ class MethodBuilder:
                 self.class_members.append(templ.CLASS_METHOD_TEMPLATE.format(snake_name, first_param, classobj, fname, decorator, arguments))
                 self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj, arguments, module_arguments))
             self.py5_dir.append(snake_name)
+
+    def code_mixin(self, filename):
+        with open(filename) as f:
+            code = f.read()
+            code = code.split('*** BEGIN METHODS ***')[1].strip()
+
+        self.module_members.append(f'\n{"#" * 78}\n# module functions from {filename.name}\n{"#" * 78}\n')
+        for decorator, fname, arg0, args, rettypestr in METHOD_REGEX.findall(code):
+            if fname.startswith('_'):
+                continue
+            elif decorator == '@overload':
+                self.module_members.append(templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(fname, args, rettypestr))
+            else:
+                moduleobj = 'Sketch' if arg0 == 'cls' else '_py5sketch'
+                paramlist = []
+                for arg in TYPEHINT_COMMA_REGEX.sub('', args).split(','):
+                    paramname = arg.split(':')[0].strip()
+                    if '=' in arg:
+                        paramlist.append(f'{paramname}={paramname}')
+                    else:
+                        paramlist.append(paramname)
+
+                params = ', '.join(paramlist)
+                self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
+                    fname, args, moduleobj, rettypestr, params))
+                self.py5_dir.append(fname)
