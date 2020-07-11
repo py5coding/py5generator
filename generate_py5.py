@@ -7,9 +7,9 @@ from pathlib import Path
 
 import pandas as pd
 
-from generator.codebuilder import MethodBuilder, MODULE_FUNCTION_TYPEHINT_TEMPLATE, MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS
-from generator.docstrings import DocstringLibrary
-from generator.util import CodeCopier
+from generator import MethodBuilder, DocstringLibrary, CodeCopier
+from generator import reference as ref
+from generator import templates as templ
 
 
 logging.basicConfig(format="%(asctime)s | %(levelname)s | %(message)s", level=logging.INFO)
@@ -30,54 +30,12 @@ parser.add_argument('-p', '--param', action='store', dest='method_parameter_name
 
 
 ###############################################################################
-# TEMPLATES
+# REGEX
 ###############################################################################
 
 
 METHOD_REGEX = re.compile(r'(@\w+)?\s*def (.*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):$', re.MULTILINE | re.DOTALL)
 TYPEHINT_COMMA_REGEX = re.compile(r'(\[[\w\s,]+\])')
-
-CLASS_STATIC_FIELD_TEMPLATE = """
-    {0} = {1}"""
-
-CLASS_PROPERTY_TEMPLATE = """
-    def _get_{0}(self) -> {1}:
-        \"\"\"$class_{0}\"\"\"
-        return self._py5applet.{2}
-    {0}: {1} = property(fget=_get_{0})
-"""
-
-MODULE_STATIC_FIELD_TEMPLATE = """
-{0} = {1}"""
-
-MODULE_PROPERTY_TEMPLATE = """
-{0}: {1} = None"""
-
-MODULE_PROPERTY_PRE_RUN_TEMPLATE = """
-        global {0}
-        del {0}"""
-
-
-###############################################################################
-# REFERENCE AND LOOKUPS
-###############################################################################
-
-
-PCONSTANT_OVERRIDES = {
-    'WHITESPACE': r' \t\n\r\x0c\xa0',
-    'ESC': r'\x1b',
-    'RETURN': r'\r',
-    'ENTER': r'\n',
-    'DELETE': r'\x7f',
-    'BACKSPACE': r'\x08',
-    'TAB': r'\t'
-}
-
-EXTRA_DIR_NAMES = {
-    'run_sketch', 'get_py5applet', 'reset_py5', 'exit_sketch',
-    'autoclass', 'Py5Methods', '_Py5Applet', '_py5sketch', '_py5sketch_used',
-    'prune_tracebacks', 'set_stackprinter_style', 'create_font_file'
-}
 
 
 ###############################################################################
@@ -162,16 +120,16 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
 
     logger.info('coding static constants')
     for name in sorted(static_fields):
-        if name in PCONSTANT_OVERRIDES:
-            module_members.append(f'\n{name} = {shlex.quote(PCONSTANT_OVERRIDES[name])}')
+        if name in ref.PCONSTANT_OVERRIDES:
+            module_members.append(f'\n{name} = {shlex.quote(ref.PCONSTANT_OVERRIDES[name])}')
         else:
             val = getattr(Py5Applet, name)
             if isinstance(val, str):
                 val = f"'{val}'"
             if name == 'javaVersion':
                 val = round(val, 2)
-            module_members.append(MODULE_STATIC_FIELD_TEMPLATE.format(name, val))
-            class_members.append(CLASS_STATIC_FIELD_TEMPLATE.format(name, val))
+            module_members.append(templ.MODULE_STATIC_FIELD_TEMPLATE.format(name, val))
+            class_members.append(templ.CLASS_STATIC_FIELD_TEMPLATE.format(name, val))
             py5_dir.append(name)
 
     logger.info('coding dynamic variables')
@@ -181,9 +139,9 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         var_type = (
             {'args': 'List[str]', 'g': 'PGraphics', 'recorder': 'PGraphics', 'pixels': 'List[int]'}
         ).get(name, type(getattr(py5applet, name)).__name__)
-        class_members.append(CLASS_PROPERTY_TEMPLATE.format(snake_name, var_type, name))
-        module_members.append(MODULE_PROPERTY_TEMPLATE.format(snake_name, var_type))
-        run_sketch_pre_run_steps.append(MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(snake_name))
+        class_members.append(templ.CLASS_PROPERTY_TEMPLATE.format(snake_name, var_type, name))
+        module_members.append(templ.MODULE_PROPERTY_TEMPLATE.format(snake_name, var_type))
+        run_sketch_pre_run_steps.append(templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(snake_name))
         py5_dynamic_vars.append(snake_name)
         py5_dir.append(snake_name)
 
@@ -208,7 +166,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
             if fname.startswith('_'):
                 continue
             elif decorator == '@overload':
-                module_members.append(MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(fname, args, rettypestr))
+                module_members.append(templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(fname, args, rettypestr))
             else:
                 moduleobj = 'Sketch' if arg0 == 'cls' else '_py5sketch'
                 paramlist = []
@@ -220,7 +178,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
                         paramlist.append(paramname)
 
                 params = ', '.join(paramlist)
-                module_members.append(MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
+                module_members.append(templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
                     fname, args, moduleobj, rettypestr, params))
                 py5_dir.append(fname)
 
@@ -229,7 +187,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     run_sketch_pre_run_code = ''.join(run_sketch_pre_run_steps)
 
     # code the result of the module's __dir__ function and __all__ variable
-    py5_dir.extend(EXTRA_DIR_NAMES)
+    py5_dir.extend(ref.EXTRA_DIR_NAMES)
     str_py5_dir = str(sorted(py5_dir, key=lambda x: x.lower()))
     # don't want import * to import the dynamic variables because they cannot be updated
     str_py5_all = str(sorted([x for x in py5_dir if x not in py5_dynamic_vars], key=lambda x: x.lower()))
