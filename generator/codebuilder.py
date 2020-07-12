@@ -26,12 +26,11 @@ TYPEHINT_COMMA_REGEX = re.compile(r'(\[[\w\s,]+\])')
 
 class CodeBuilder:
 
-    def __init__(self, method_parameter_names_data,
-                 py5_names, py5_decorators, py5_special_kwargs):
+    def __init__(self, method_parameter_names_data, class_data):
         self.method_parameter_names_data = method_parameter_names_data
-        self.py5_names = py5_names
-        self.py5_decorators = py5_decorators
-        self.py5_special_kwargs = py5_special_kwargs
+        self.py5_names = class_data['py5_name']
+        self.py5_decorators = class_data['decorator']
+        self.py5_special_kwargs = class_data['special_kwargs']
 
         self.class_members = []
         self.module_members = []

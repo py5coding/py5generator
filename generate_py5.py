@@ -72,30 +72,22 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     py5applet = Py5Applet()
 
     logger.info('loading datafile to identify included methods and fields')
-    py5applet_data = pd.read_csv(Path('py5_resources', 'data', 'py5applet.csv')).fillna('')
-    py5_names = py5applet_data.set_index('processing_name')['py5_name']
-    py5_decorators = py5applet_data.set_index('processing_name')['decorator']
-    py5_special_kwargs = py5applet_data.set_index('processing_name')['special_kwargs']
+    py5applet_data = pd.read_csv(Path('py5_resources', 'data', 'py5applet.csv')).fillna('').set_index('processing_name')
 
-    all_fields_and_methods = set(py5applet_data['processing_name'])
-    included_py5applet_data = py5applet_data.query("implementation_from_processing==True and processing_name != ''")
-    included_methods = set(included_py5applet_data.query("type=='method'")['processing_name'])
-    included_static_methods = set(included_py5applet_data.query("type=='static method'")['processing_name'])
-    included_fields = set(included_py5applet_data.query("type=='dynamic variable'")['processing_name'])
-    included_static_fields = set(included_py5applet_data.query("type=='static field'")['processing_name'])
+    all_fields_and_methods = set(py5applet_data.index)
+    included_fields_namd_methods = set(py5applet_data.query("implementation_from_processing==True").index)
 
-    code_builder = CodeBuilder(class_method_parameter_names_data['PApplet'],
-                               py5_names, py5_decorators, py5_special_kwargs)
+    code_builder = CodeBuilder(class_method_parameter_names_data['PApplet'], py5applet_data)
 
     ordering = {JavaStaticField: 0, JavaField: 1}
     for k, v in sorted(Py5Applet.__dict__.items(), key=lambda x: (ordering.get(type(x[1]), 2), x[0])):
-        if isinstance(v, JavaStaticMethod) and k in included_static_methods:
+        if isinstance(v, JavaStaticMethod) and k in included_fields_namd_methods:
             code_builder.code_method(k, v, True)
-        elif isinstance(v, (JavaMethod, JavaMultipleMethod)) and k in included_methods:
+        elif isinstance(v, (JavaMethod, JavaMultipleMethod)) and k in included_fields_namd_methods:
             code_builder.code_method(k, v, False)
-        elif isinstance(v, JavaStaticField) and k in included_static_fields:
+        elif isinstance(v, JavaStaticField) and k in included_fields_namd_methods:
             code_builder.code_static_constant(k, getattr(Py5Applet, k))
-        elif isinstance(v, JavaField) and k in included_fields:
+        elif isinstance(v, JavaField) and k in included_fields_namd_methods:
             code_builder.code_dynamic_variable(k, type(getattr(py5applet, k)).__name__)
         if k not in all_fields_and_methods and not k.startswith('_'):
             logger.warning(f'detected previously unknown {type(v).__name__} {k}')
@@ -108,7 +100,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         code_builder.code_mixin(filename)
 
     run_sketch_pre_run_steps = [
-        templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(n) for n in code_builder.dynamic_variable_names
+        templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(n) for n in sorted(code_builder.dynamic_variable_names)
     ]
 
     class_members_code = ''.join(code_builder.class_members)
