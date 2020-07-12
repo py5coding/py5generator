@@ -55,8 +55,9 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         raise RuntimeError(msg)
     import jnius_config
     jnius_config.set_classpath(str(py5_jar_path), str(core_jar_path))
-    from jnius import autoclass, JavaStaticMethod, JavaMethod, JavaMultipleMethod, JavaStaticField, JavaField
+    from jnius import autoclass
 
+    logger.info('loading datafile for method parameter names')
     class_method_parameter_names_data = dict()
     with open(method_parameter_names_data_file, 'r') as f:
         for line in f.readlines():
@@ -66,53 +67,36 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
             if types in class_method_parameter_names_data[c][f]: raise RuntimeError('assumption violated')
             class_method_parameter_names_data[c][f][types] = (params, rettype)
 
-    logger.info('examining Java classes')
-    Py5Applet = autoclass('py5.core.Py5Applet',
-                          include_protected=False, include_private=False)
+    logger.info('creating Py5Applet code')
+    Py5Applet = autoclass('py5.core.Py5Applet', include_protected=False, include_private=False)
     py5applet = Py5Applet()
-
-    logger.info('loading datafile to identify included methods and fields')
     py5applet_data = pd.read_csv(Path('py5_resources', 'data', 'py5applet.csv')).fillna('').set_index('processing_name')
 
-    all_fields_and_methods = set(py5applet_data.index)
-    included_fields_namd_methods = set(py5applet_data.query("implementation_from_processing==True").index)
-
-    code_builder = CodeBuilder(class_method_parameter_names_data['PApplet'], py5applet_data)
-
-    ordering = {JavaStaticField: 0, JavaField: 1}
-    for k, v in sorted(Py5Applet.__dict__.items(), key=lambda x: (ordering.get(type(x[1]), 2), x[0])):
-        if isinstance(v, JavaStaticMethod) and k in included_fields_namd_methods:
-            code_builder.code_method(k, v, True)
-        elif isinstance(v, (JavaMethod, JavaMultipleMethod)) and k in included_fields_namd_methods:
-            code_builder.code_method(k, v, False)
-        elif isinstance(v, JavaStaticField) and k in included_fields_namd_methods:
-            code_builder.code_static_constant(k, getattr(Py5Applet, k))
-        elif isinstance(v, JavaField) and k in included_fields_namd_methods:
-            code_builder.code_dynamic_variable(k, type(getattr(py5applet, k)).__name__)
-        if k not in all_fields_and_methods and not k.startswith('_'):
-            logger.warning(f'detected previously unknown {type(v).__name__} {k}')
+    py5applet_builder = CodeBuilder(class_method_parameter_names_data['PApplet'], py5applet_data)
+    py5applet_builder.run_builder(Py5Applet, py5applet)
 
     # add the methods in the mixin classes as functions in the __init__.py module
     mixin_dir = Path('py5_resources', 'py5_module', 'py5', 'mixins')
     for filename in mixin_dir.glob('*.py'):
         if filename.stem == '__init__':
             continue
-        code_builder.code_mixin(filename)
+        py5applet_builder.code_mixin(filename)
 
+    # code the extra pre-run steps so the dynamic variables work right
     run_sketch_pre_run_steps = [
-        templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(n) for n in sorted(code_builder.dynamic_variable_names)
+        templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(n) for n in sorted(py5applet_builder.dynamic_variable_names)
     ]
 
-    class_members_code = ''.join(code_builder.class_members)
-    module_members_code = ''.join(code_builder.module_members)
+    class_members_code = ''.join(py5applet_builder.class_members)
+    module_members_code = ''.join(py5applet_builder.module_members)
     run_sketch_pre_run_code = ''.join(run_sketch_pre_run_steps)
 
     # code the result of the module's __dir__ function and __all__ variable
-    py5_dir_names = code_builder.all_names | ref.EXTRA_DIR_NAMES
+    py5_dir_names = py5applet_builder.all_names | ref.EXTRA_DIR_NAMES
     # code_builder.py5_dir.extend(ref.EXTRA_DIR_NAMES)
     str_py5_dir = str(sorted(py5_dir_names, key=lambda x: x.lower()))
     # don't want import * to import the dynamic variables because they cannot be updated
-    str_py5_all = str(sorted([x for x in py5_dir_names if x not in code_builder.dynamic_variable_names], key=lambda x: x.lower()))
+    str_py5_all = str(sorted([x for x in py5_dir_names if x not in py5applet_builder.dynamic_variable_names], key=lambda x: x.lower()))
 
     format_params = dict(class_members_code=class_members_code,
                          module_members_code=module_members_code,
