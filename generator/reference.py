@@ -2,12 +2,12 @@
 Reference and Lookups
 """
 
-PAPPLET_SKIP_PARAM_TYPES = {
+PY5_SKIP_PARAM_TYPES = {
     'processing/core/PMatrix3D', 'processing/core/PMatrix2D',
     'processing/core/PMatrix', 'java/io/File'
 }
 
-PAPPLET_SKIP_RETURN_TYPES = PAPPLET_SKIP_PARAM_TYPES | {
+PY5_SKIP_RETURN_TYPES = PY5_SKIP_PARAM_TYPES | {
     'processing/core/PImage'
 }
 

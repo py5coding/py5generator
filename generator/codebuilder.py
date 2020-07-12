@@ -110,7 +110,7 @@ class CodeBuilder:
         # if there is only one method signature, create the real method with typehints
         if len(method.signatures()) == 1:
             params, rettype = method.signatures()[0]
-            if ref.PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in ref.PAPPLET_SKIP_RETURN_TYPES:
+            if ref.PY5_SKIP_PARAM_TYPES.intersection(params) or rettype in ref.PY5_SKIP_RETURN_TYPES:
                 return
             paramstrs, rettypestr = self.make_param_rettype_strs(fname, first_param, params, rettype)
             class_arguments = ', '.join([p.split(':')[0] for p in paramstrs[1:]])
@@ -128,7 +128,7 @@ class CodeBuilder:
             # loop through the method signatures and create the typehint methods
             skipped_all = True
             for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
-                if ref.PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in ref.PAPPLET_SKIP_RETURN_TYPES:
+                if ref.PY5_SKIP_PARAM_TYPES.intersection(params) or rettype in ref.PY5_SKIP_RETURN_TYPES:
                     continue
                 skipped_all = False
                 paramstrs, rettypestr = self.make_param_rettype_strs(fname, first_param, params, rettype)
