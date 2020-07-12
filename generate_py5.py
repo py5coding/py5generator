@@ -83,27 +83,21 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     included_fields = set(included_py5applet_data.query("type=='dynamic variable'")['processing_name'])
     included_static_fields = set(included_py5applet_data.query("type=='static field'")['processing_name'])
 
-    methods = set()
-    static_methods = set()
-
     code_builder = CodeBuilder(method_parameter_names_data,
                                py5_names, py5_decorators, py5_special_kwargs)
 
-    for k, v in sorted(Py5Applet.__dict__.items(), key=lambda x: x[0]):
+    ordering = {JavaStaticField: 0, JavaField: 1}
+    for k, v in sorted(Py5Applet.__dict__.items(), key=lambda x: (ordering.get(type(x[1]), 2), x[0])):
         if isinstance(v, JavaStaticMethod) and k in included_static_methods:
-            static_methods.add((k, v))
+            code_builder.code_method(k, v, True)
         elif isinstance(v, (JavaMethod, JavaMultipleMethod)) and k in included_methods:
-            methods.add((k, v))
+            code_builder.code_method(k, v, False)
         elif isinstance(v, JavaStaticField) and k in included_static_fields:
             code_builder.code_static_constant(k, getattr(Py5Applet, k))
         elif isinstance(v, JavaField) and k in included_fields:
             code_builder.code_dynamic_variable(k, type(getattr(py5applet, k)).__name__)
         if k not in all_fields_and_methods and not k.startswith('_'):
             logger.warning(f'detected previously unknown {type(v).__name__} {k}')
-
-    logger.info('coding class methods')
-    code_builder.code_methods(methods, False)
-    code_builder.code_methods(static_methods, True)
 
     # add the methods in the mixin classes as functions in the __init__.py module
     mixin_dir = Path('py5_resources', 'py5_module', 'py5', 'mixins')

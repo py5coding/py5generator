@@ -98,58 +98,57 @@ class CodeBuilder:
         self.py5_dynamic_vars.append(snake_name)
         self.py5_dir.append(snake_name)
 
-    def code_methods(self, methods, static):
-        for fname, method in sorted(methods, key=lambda x: x[0]):
-            snake_name = self.py5_names[fname]
-            kwargs = self.py5_special_kwargs[fname]
-            if kwargs:
-                kwargs_precondition, kwargs = kwargs.split('|')
-            if static:
-                first_param, classobj, moduleobj, decorator = 'cls', '_Py5Applet', 'Sketch', '@classmethod'
-            else:
-                first_param, classobj, moduleobj, decorator = 'self', 'self._py5applet', '_py5sketch', self.py5_decorators[fname]
-            # if there is only one method signature, create the real method with typehints
-            if len(method.signatures()) == 1:
-                params, rettype = method.signatures()[0]
+    def code_method(self, fname, method, static):
+        snake_name = self.py5_names[fname]
+        kwargs = self.py5_special_kwargs[fname]
+        if kwargs:
+            kwargs_precondition, kwargs = kwargs.split('|')
+        if static:
+            first_param, classobj, moduleobj, decorator = 'cls', '_Py5Applet', 'Sketch', '@classmethod'
+        else:
+            first_param, classobj, moduleobj, decorator = 'self', 'self._py5applet', '_py5sketch', self.py5_decorators[fname]
+        # if there is only one method signature, create the real method with typehints
+        if len(method.signatures()) == 1:
+            params, rettype = method.signatures()[0]
+            if ref.PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in ref.PAPPLET_SKIP_RETURN_TYPES:
+                return
+            paramstrs, rettypestr = self.make_param_rettype_strs(fname, first_param, params, rettype)
+            class_arguments = ', '.join([p.split(':')[0] for p in paramstrs[1:]])
+            module_arguments = class_arguments
+            if kwargs and any([kwargs_precondition in p for p in paramstrs]):
+                paramstrs.append(kwargs)
+                kw_param = kwargs.split(':')[0]
+                module_arguments += f', {kw_param}={kw_param}'
+            # create the class and module code
+            self.class_members.append(templ.CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
+                snake_name, ', '.join(paramstrs), classobj, fname, decorator, rettypestr, class_arguments))
+            self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
+                snake_name, ', '.join(paramstrs[1:]), moduleobj, rettypestr, module_arguments))
+        else:
+            # loop through the method signatures and create the typehint methods
+            skipped_all = True
+            for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
                 if ref.PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in ref.PAPPLET_SKIP_RETURN_TYPES:
                     continue
+                skipped_all = False
                 paramstrs, rettypestr = self.make_param_rettype_strs(fname, first_param, params, rettype)
-                class_arguments = ', '.join([p.split(':')[0] for p in paramstrs[1:]])
-                module_arguments = class_arguments
                 if kwargs and any([kwargs_precondition in p for p in paramstrs]):
                     paramstrs.append(kwargs)
-                    kw_param = kwargs.split(':')[0]
-                    module_arguments += f', {kw_param}={kw_param}'
-                # create the class and module code
-                self.class_members.append(templ.CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
-                    snake_name, ', '.join(paramstrs), classobj, fname, decorator, rettypestr, class_arguments))
-                self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
-                    snake_name, ', '.join(paramstrs[1:]), moduleobj, rettypestr, module_arguments))
-            else:
-                # loop through the method signatures and create the typehint methods
-                skipped_all = True
-                for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
-                    if ref.PAPPLET_SKIP_PARAM_TYPES.intersection(params) or rettype in ref.PAPPLET_SKIP_RETURN_TYPES:
-                        continue
-                    skipped_all = False
-                    paramstrs, rettypestr = self.make_param_rettype_strs(fname, first_param, params, rettype)
-                    if kwargs and any([kwargs_precondition in p for p in paramstrs]):
-                        paramstrs.append(kwargs)
-                    # create the class and module typehints
-                    self.class_members.append(templ.CLASS_METHOD_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs), rettypestr))
-                    self.module_members.append(templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs[1:]), rettypestr))
-                if skipped_all:
-                    continue
-                # now construct the real methods
-                arguments = '*args'
-                module_arguments = '*args'
-                if kwargs:
-                    arguments += f', {kwargs}'
-                    kw_param = kwargs.split(':')[0]
-                    module_arguments += f', {kw_param}={kw_param}'
-                self.class_members.append(templ.CLASS_METHOD_TEMPLATE.format(snake_name, first_param, classobj, fname, decorator, arguments))
-                self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj, arguments, module_arguments))
-            self.py5_dir.append(snake_name)
+                # create the class and module typehints
+                self.class_members.append(templ.CLASS_METHOD_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs), rettypestr))
+                self.module_members.append(templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs[1:]), rettypestr))
+            if skipped_all:
+                return
+            # now construct the real methods
+            arguments = '*args'
+            module_arguments = '*args'
+            if kwargs:
+                arguments += f', {kwargs}'
+                kw_param = kwargs.split(':')[0]
+                module_arguments += f', {kw_param}={kw_param}'
+            self.class_members.append(templ.CLASS_METHOD_TEMPLATE.format(snake_name, first_param, classobj, fname, decorator, arguments))
+            self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj, arguments, module_arguments))
+        self.py5_dir.append(snake_name)
 
     def code_mixin(self, filename):
         with open(filename) as f:
