@@ -75,31 +75,28 @@ class CodeBuilder:
 
         return paramstrs, rettypestr
 
-    def code_static_constants(self, static_fields, Py5Applet):
-        for name in sorted(static_fields):
-            if name in ref.PCONSTANT_OVERRIDES:
-                self.module_members.append(f'\n{name} = {shlex.quote(ref.PCONSTANT_OVERRIDES[name])}')
-            else:
-                val = getattr(Py5Applet, name)
-                if isinstance(val, str):
-                    val = f"'{val}'"
-                if name == 'javaVersion':
-                    val = round(val, 2)
-                self.module_members.append(templ.MODULE_STATIC_FIELD_TEMPLATE.format(name, val))
-                self.class_members.append(templ.CLASS_STATIC_FIELD_TEMPLATE.format(name, val))
-            self.py5_dir.append(name)
+    def code_static_constant(self, name, val):
+        if name in ref.PCONSTANT_OVERRIDES:
+            self.module_members.append(f'\n{name} = {shlex.quote(ref.PCONSTANT_OVERRIDES[name])}')
+        else:
+            if isinstance(val, str):
+                val = f"'{val}'"
+            if name == 'javaVersion':
+                val = round(val, 2)
+            self.module_members.append(templ.MODULE_STATIC_FIELD_TEMPLATE.format(name, val))
+            self.class_members.append(templ.CLASS_STATIC_FIELD_TEMPLATE.format(name, val))
+        self.py5_dir.append(name)
 
-    def code_dynamic_variables(self, fields, py5applet):
-        for name in sorted(fields):
-            snake_name = self.py5_names[name]
-            var_type = (
-                {'args': 'List[str]', 'g': 'PGraphics', 'recorder': 'PGraphics', 'pixels': 'List[int]'}
-            ).get(name, type(getattr(py5applet, name)).__name__)
-            self.class_members.append(templ.CLASS_PROPERTY_TEMPLATE.format(snake_name, var_type, name))
-            self.module_members.append(templ.MODULE_PROPERTY_TEMPLATE.format(snake_name, var_type))
-            self.run_sketch_pre_run_steps.append(templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(snake_name))
-            self.py5_dynamic_vars.append(snake_name)
-            self.py5_dir.append(snake_name)
+    def code_dynamic_variable(self, name, type_name):
+        snake_name = self.py5_names[name]
+        var_type = (
+            {'args': 'List[str]', 'g': 'PGraphics', 'recorder': 'PGraphics', 'pixels': 'List[int]'}
+        ).get(name, type_name)
+        self.class_members.append(templ.CLASS_PROPERTY_TEMPLATE.format(snake_name, var_type, name))
+        self.module_members.append(templ.MODULE_PROPERTY_TEMPLATE.format(snake_name, var_type))
+        self.run_sketch_pre_run_steps.append(templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(snake_name))
+        self.py5_dynamic_vars.append(snake_name)
+        self.py5_dir.append(snake_name)
 
     def code_methods(self, methods, static):
         for fname, method in sorted(methods, key=lambda x: x[0]):
