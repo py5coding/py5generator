@@ -65,7 +65,7 @@ class CodeBuilder:
     def make_param_rettype_strs(self, fname, first_param, params, rettype):
         try:
             parameter_name_key = ','.join([p.split('/')[-1].replace('...', '[]') for p in params])
-            parameter_names, _ = self.method_parameter_names_data['PApplet'][fname][parameter_name_key]
+            parameter_names, _ = self.method_parameter_names_data[fname][parameter_name_key]
             parameter_names = [self.snake_case(p) for p in parameter_names.split(',')]
             paramstrs = [first_param] + [self.param_annotation(pn, p) for pn, p in zip(parameter_names, params)]
         except Exception:

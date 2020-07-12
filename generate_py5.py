@@ -56,14 +56,14 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     jnius_config.set_classpath(str(py5_jar_path), str(core_jar_path))
     from jnius import autoclass, JavaStaticMethod, JavaMethod, JavaMultipleMethod, JavaStaticField, JavaField
 
-    method_parameter_names_data = dict()
+    class_method_parameter_names_data = dict()
     with open(method_parameter_names_data_file, 'r') as f:
         for line in f.readlines():
             c, f, types, params, rettype = line.split('|')
-            if c not in method_parameter_names_data: method_parameter_names_data[c] = dict()
-            if f not in method_parameter_names_data[c]: method_parameter_names_data[c][f] = dict()
-            if types in method_parameter_names_data[c][f]: raise RuntimeError('assumption violated')
-            method_parameter_names_data[c][f][types] = (params, rettype)
+            if c not in class_method_parameter_names_data: class_method_parameter_names_data[c] = dict()
+            if f not in class_method_parameter_names_data[c]: class_method_parameter_names_data[c][f] = dict()
+            if types in class_method_parameter_names_data[c][f]: raise RuntimeError('assumption violated')
+            class_method_parameter_names_data[c][f][types] = (params, rettype)
 
     logger.info('examining Java classes')
     Py5Applet = autoclass('py5.core.Py5Applet',
@@ -83,7 +83,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     included_fields = set(included_py5applet_data.query("type=='dynamic variable'")['processing_name'])
     included_static_fields = set(included_py5applet_data.query("type=='static field'")['processing_name'])
 
-    code_builder = CodeBuilder(method_parameter_names_data,
+    code_builder = CodeBuilder(class_method_parameter_names_data['PApplet'],
                                py5_names, py5_decorators, py5_special_kwargs)
 
     ordering = {JavaStaticField: 0, JavaField: 1}
