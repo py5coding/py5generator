@@ -26,7 +26,7 @@ MODULE_PROPERTY_TEMPLATE = """
 CLASS_PROPERTY_TEMPLATE = """
     def _get_{0}(self) -> {1}:
         \"\"\"$class_{0}\"\"\"
-        return self._py5applet.{2}
+        return self._instance.{2}
     {0}: {1} = property(fget=_get_{0})
 """
 

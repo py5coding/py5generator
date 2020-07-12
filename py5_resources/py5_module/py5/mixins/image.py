@@ -79,15 +79,14 @@ class ImageMixin(ThreadsMixin):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._py5applet = kwargs['py5applet']
-        self._pimage_cache = PImageCache(self._py5applet)
+        self._instance = kwargs['instance']
+        self._pimage_cache = PImageCache(self._instance)
 
     def flush_image_cache(self) -> None:
         """$class_flush_image_cache"""
         self._pimage_cache.flush_image_cache()
 
     # TODO: what about alpha mask images?
-    # TODO: are there other PImage functions I should be paying attention to?
 
     # *** BEGIN METHODS ***
 

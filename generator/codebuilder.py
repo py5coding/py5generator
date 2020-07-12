@@ -191,18 +191,18 @@ class CodeBuilder:
                     fname, args, moduleobj, rettypestr, params))
                 self.mixin_names.add(fname)
 
-    def run_builder(self, clsobj, instance):
+    def run_builder(self, cls_, instance):
                     # all_known_fields_and_methods, included_fields_and_methods):
         from jnius import JavaStaticMethod, JavaMethod, JavaMultipleMethod, JavaStaticField, JavaField
 
         ordering = {JavaStaticField: 0, JavaField: 1}
-        for k, v in sorted(clsobj.__dict__.items(), key=lambda x: (ordering.get(type(x[1]), 2), x[0])):
+        for k, v in sorted(cls_.__dict__.items(), key=lambda x: (ordering.get(type(x[1]), 2), x[0])):
             if isinstance(v, JavaStaticMethod) and k in self.included_fields_and_methods:
                 self.code_method(k, v, True)
             elif isinstance(v, (JavaMethod, JavaMultipleMethod)) and k in self.included_fields_and_methods:
                 self.code_method(k, v, False)
             elif isinstance(v, JavaStaticField) and k in self.included_fields_and_methods:
-                self.code_static_constant(k, getattr(clsobj, k))
+                self.code_static_constant(k, getattr(cls_, k))
             elif isinstance(v, JavaField) and k in self.included_fields_and_methods:
                 self.code_dynamic_variable(k, type(getattr(instance, k)).__name__)
             if k not in self.all_known_fields_and_methods and not k.startswith('_'):

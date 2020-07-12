@@ -29,11 +29,8 @@ _METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',
 
 class Py5Base:
 
-    def __init__(self, py5applet):
-        self._py5applet = py5applet
-
-    def get_py5applet(self) -> Py5Applet:
-        return self._py5applet
+    def __init__(self, instance):
+        self._instance = instance
 
     def _shutdown(self):
         self._shutdown_complete = True
@@ -42,15 +39,19 @@ class Py5Base:
 class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
 
     def __init__(self, *args, **kwargs):
-        super().__init__(py5applet=_Py5Applet())
+        self._py5applet = _Py5Applet()
+        super().__init__(instance=self._py5applet)
         self._methods_to_profile = []
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_methods = None
 
+    def get_py5applet(self) -> Py5Applet:
+        return self._py5applet
+
     def run_sketch(self, block: bool = True, py5_options: List = None, sketch_args: List = None) -> None:
         """$class_run_sketch"""
-        if not hasattr(self, '_py5applet'):
+        if not hasattr(self, '_instance'):
             raise RuntimeError(
                 ('py5 internal problem: did you create a class with an `__init__()` '
                  'method without a call to `super().__init__()`?')
@@ -123,19 +124,20 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
 
     # *** Pixel methods ***
 
+    # TODO: these need to move to a mixin file
     def get_pixels(self) -> np.ndarray:
         """$class_get_pixels"""
-        pixels = np.frombuffer(self._py5applet.loadAndGetPixels().tostring(), dtype=np.uint8)
+        pixels = np.frombuffer(self._instance.loadAndGetPixels().tostring(), dtype=np.uint8)
         return pixels.reshape(self.height, self.width, 4).copy()
 
     def set_pixels(self, new_pixels: np.ndarray):
         """$class_set_pixels"""
-        self._py5applet.setAndUpdatePixels(new_pixels.flatten().tobytes(), pass_by_reference=False)
+        self._instance.setAndUpdatePixels(new_pixels.flatten().tobytes(), pass_by_reference=False)
 
     def save_frame(self, filename: Union[str, Path], format: str = None, **params):
         """$class_save_frame"""
         # these are the same function calls Processing uses before saving a frame to a file
-        filename = self._py5applet.savePath(self._py5applet.insertFrame(str(filename)))
+        filename = self._instance.savePath(self._instance.insertFrame(str(filename)))
         arr = np.roll(self.get_pixels(), -1, axis=2)
         Image.fromarray(arr, mode='RGBA').save(filename, format=format, **params)
 

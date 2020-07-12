@@ -68,9 +68,9 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
             class_method_parameter_names_data[c][f][types] = (params, rettype)
 
     logger.info('creating Py5Applet code')
+    py5applet_data = pd.read_csv(Path('py5_resources', 'data', 'py5applet.csv')).fillna('').set_index('processing_name')
     Py5Applet = autoclass('py5.core.Py5Applet', include_protected=False, include_private=False)
     py5applet = Py5Applet()
-    py5applet_data = pd.read_csv(Path('py5_resources', 'data', 'py5applet.csv')).fillna('').set_index('processing_name')
 
     py5applet_builder = CodeBuilder(class_method_parameter_names_data['PApplet'], py5applet_data)
     py5applet_builder.run_builder(Py5Applet, py5applet)
