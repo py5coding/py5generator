@@ -57,11 +57,13 @@ def _param_annotation(varname: str, jtype: str) -> str:
 
 class CodeBuilder:
 
-    def __init__(self, method_parameter_names_data, class_data):
+    def __init__(self, method_parameter_names_data, class_data, class_name, instance_name):
         self.method_parameter_names_data = method_parameter_names_data
         self.py5_names = class_data['py5_name']
         self.py5_decorators = class_data['decorator']
         self.py5_special_kwargs = class_data['special_kwargs']
+        self.class_name = class_name
+        self.instance_name = instance_name
 
         self.all_known_fields_and_methods = set(class_data.index)
         self.included_fields_and_methods = set(class_data.query("implementation_from_processing==True").index)
@@ -119,9 +121,9 @@ class CodeBuilder:
         if kwargs:
             kwargs_precondition, kwargs = kwargs.split('|')
         if static:
-            first_param, classobj, moduleobj, decorator = 'cls', '_Py5Applet', 'Sketch', '@classmethod'
+            first_param, classobj, moduleobj, decorator = 'cls', 'self._cls', self.class_name, '@classmethod'
         else:
-            first_param, classobj, moduleobj, decorator = 'self', 'self._py5applet', '_py5sketch', self.py5_decorators[fname]
+            first_param, classobj, moduleobj, decorator = 'self', 'self._instance', self.instance_name, self.py5_decorators[fname]
         # if there is only one method signature, create the real method with typehints
         if len(method.signatures()) == 1:
             params, rettype = method.signatures()[0]
@@ -177,7 +179,7 @@ class CodeBuilder:
             elif decorator == '@overload':
                 self.module_members.append(templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(fname, args, rettypestr))
             else:
-                moduleobj = 'Sketch' if arg0 == 'cls' else '_py5sketch'
+                moduleobj = self.class_name if arg0 == 'cls' else self.instance_name
                 paramlist = []
                 for arg in TYPEHINT_COMMA_REGEX.sub('', args).split(','):
                     paramname = arg.split(':')[0].strip()
@@ -192,7 +194,6 @@ class CodeBuilder:
                 self.mixin_names.add(fname)
 
     def run_builder(self, cls_, instance):
-                    # all_known_fields_and_methods, included_fields_and_methods):
         from jnius import JavaStaticMethod, JavaMethod, JavaMultipleMethod, JavaStaticField, JavaField
 
         ordering = {JavaStaticField: 0, JavaField: 1}

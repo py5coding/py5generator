@@ -29,7 +29,8 @@ _METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',
 
 class Py5Base:
 
-    def __init__(self, instance):
+    def __init__(self, cls_, instance):
+        self._cls = cls_
         self._instance = instance
 
     def _shutdown(self):
@@ -40,7 +41,7 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
 
     def __init__(self, *args, **kwargs):
         self._py5applet = _Py5Applet()
-        super().__init__(instance=self._py5applet)
+        super().__init__(cls_=_Py5Applet, instance=self._py5applet)
         self._methods_to_profile = []
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
