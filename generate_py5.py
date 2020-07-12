@@ -7,6 +7,7 @@ import pandas as pd
 
 from generator import CodeBuilder, DocstringLibrary, CodeCopier
 from generator import reference as ref
+from generator import templates as templ
 
 
 logging.basicConfig(format="%(asctime)s | %(levelname)s | %(message)s", level=logging.INFO)
@@ -106,15 +107,20 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
             continue
         code_builder.code_mixin(filename)
 
+    run_sketch_pre_run_steps = [
+        templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(n) for n in code_builder.dynamic_variable_names
+    ]
+
     class_members_code = ''.join(code_builder.class_members)
     module_members_code = ''.join(code_builder.module_members)
-    run_sketch_pre_run_code = ''.join(code_builder.run_sketch_pre_run_steps)
+    run_sketch_pre_run_code = ''.join(run_sketch_pre_run_steps)
 
     # code the result of the module's __dir__ function and __all__ variable
-    code_builder.py5_dir.extend(ref.EXTRA_DIR_NAMES)
-    str_py5_dir = str(sorted(code_builder.py5_dir, key=lambda x: x.lower()))
+    py5_dir_names = code_builder.all_names | ref.EXTRA_DIR_NAMES
+    # code_builder.py5_dir.extend(ref.EXTRA_DIR_NAMES)
+    str_py5_dir = str(sorted(py5_dir_names, key=lambda x: x.lower()))
     # don't want import * to import the dynamic variables because they cannot be updated
-    str_py5_all = str(sorted([x for x in code_builder.py5_dir if x not in code_builder.py5_dynamic_vars], key=lambda x: x.lower()))
+    str_py5_all = str(sorted([x for x in py5_dir_names if x not in code_builder.dynamic_variable_names], key=lambda x: x.lower()))
 
     format_params = dict(class_members_code=class_members_code,
                          module_members_code=module_members_code,

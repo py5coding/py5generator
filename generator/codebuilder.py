@@ -35,9 +35,11 @@ class CodeBuilder:
 
         self.class_members = []
         self.module_members = []
-        self.py5_dir = []
-        self.py5_dynamic_vars = []
-        self.run_sketch_pre_run_steps = []
+
+        self.static_constant_names = set()
+        self.dynamic_variable_names = set()
+        self.method_names = set()
+        self.mixin_names = set()
 
     def snake_case(self, name):
         name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
@@ -85,7 +87,7 @@ class CodeBuilder:
                 val = round(val, 2)
             self.module_members.append(templ.MODULE_STATIC_FIELD_TEMPLATE.format(name, val))
             self.class_members.append(templ.CLASS_STATIC_FIELD_TEMPLATE.format(name, val))
-        self.py5_dir.append(name)
+        self.static_constant_names.add(name)
 
     def code_dynamic_variable(self, name, type_name):
         snake_name = self.py5_names[name]
@@ -94,9 +96,7 @@ class CodeBuilder:
         ).get(name, type_name)
         self.class_members.append(templ.CLASS_PROPERTY_TEMPLATE.format(snake_name, var_type, name))
         self.module_members.append(templ.MODULE_PROPERTY_TEMPLATE.format(snake_name, var_type))
-        self.run_sketch_pre_run_steps.append(templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(snake_name))
-        self.py5_dynamic_vars.append(snake_name)
-        self.py5_dir.append(snake_name)
+        self.dynamic_variable_names.add(snake_name)
 
     def code_method(self, fname, method, static):
         snake_name = self.py5_names[fname]
@@ -148,7 +148,7 @@ class CodeBuilder:
                 module_arguments += f', {kw_param}={kw_param}'
             self.class_members.append(templ.CLASS_METHOD_TEMPLATE.format(snake_name, first_param, classobj, fname, decorator, arguments))
             self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj, arguments, module_arguments))
-        self.py5_dir.append(snake_name)
+        self.method_names.add(snake_name)
 
     def code_mixin(self, filename):
         with open(filename) as f:
@@ -174,4 +174,9 @@ class CodeBuilder:
                 params = ', '.join(paramlist)
                 self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
                     fname, args, moduleobj, rettypestr, params))
-                self.py5_dir.append(fname)
+                self.mixin_names.add(fname)
+
+    @property
+    def all_names(self):
+        return (self.static_constant_names | self.dynamic_variable_names
+                | self.method_names | self.mixin_names)
