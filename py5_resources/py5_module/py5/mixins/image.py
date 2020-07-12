@@ -79,8 +79,10 @@ class ImageMixin(ThreadsMixin):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._instance = kwargs['instance']
-        self._pimage_cache = PImageCache(self._instance)
+        self._pimage_cache = None
+
+    def set_pimage_cache(self, pimage_cache):
+        self._pimage_cache = pimage_cache
 
     def flush_image_cache(self) -> None:
         """$class_flush_image_cache"""

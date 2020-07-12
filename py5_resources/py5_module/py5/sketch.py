@@ -14,7 +14,7 @@ from .java_types import *  # noqa
 
 from .mixins import MathMixin, DataMixin, ImageMixin, ThreadsMixin
 from .mixins.threads import Py5Promise  # noqa
-from .mixins.image import _check_pimage_cache_or_convert  # noqa
+from .mixins.image import PImageCache, _check_pimage_cache_or_convert  # noqa
 from .shader import Py5Shader, _return_py5shader, _py5shader_param  # noqa
 from .font import Py5Font, _return_py5font, _py5font_param  # noqa
 
@@ -42,6 +42,7 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
     def __init__(self, *args, **kwargs):
         self._py5applet = _Py5Applet()
         super().__init__(cls_=_Py5Applet, instance=self._py5applet)
+        self.set_pimage_cache(PImageCache(self._py5applet))
         self._methods_to_profile = []
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
@@ -125,7 +126,6 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
 
     # *** Pixel methods ***
 
-    # TODO: these need to move to a mixin file
     def get_pixels(self) -> np.ndarray:
         """$class_get_pixels"""
         pixels = np.frombuffer(self._instance.loadAndGetPixels().tostring(), dtype=np.uint8)

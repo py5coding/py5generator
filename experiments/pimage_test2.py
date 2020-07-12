@@ -26,8 +26,8 @@ def setup():
     global img3
     global figure
     img1 = py5.create_image("RGB", 200, 5, "red")
-    img2 = py5.load_image('/mnt/readynas_data/DataBackup/ffhq_dataset/jpg/01003.jpg').resize((500, 500))
-    figure = pd._testing.makeTimeDataFrame().plot().figure
+    # img2 = py5.load_image('/mnt/readynas_data/DataBackup/ffhq_dataset/jpg/01003.jpg').resize((500, 500))
+    # figure = pd._testing.makeTimeDataFrame().plot().figure
 
     img3 = np.zeros((500, 500, 4), dtype=np.uint8)
     img3[:200, :, 0] = 200  # R
@@ -39,9 +39,9 @@ def setup():
 def draw():
     py5.image_mode(py5.CENTER)
     py5.shape_mode(py5.CENTER)
-    py5.background((img3, 'RGBA'))
-
     caching = True
+
+    py5.background((img3, 'RGBA'), cache=caching)
 
     py5.image(img1, py5.width / 2, py5.height / 2, cache=caching)
     # py5.image(img2, py5.width / 2, py5.height / 2, cache=caching)
