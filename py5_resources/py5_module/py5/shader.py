@@ -1,8 +1,24 @@
-from typing import Any
 import functools
 
 from .methods import Py5Exception
 from .mixins.image import _check_pimage_cache_or_convert
+
+
+def _return_py5shader(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        return Py5Shader(f(self_, *args), getattr(self_, '_pimage_cache', None))
+    return decorated
+
+
+def _py5shader_param(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        if isinstance(args[0], Py5Shader):
+            args = (args[0]._pshader, *args[1:])
+        return f(self_, *args)
+
+    return decorated
 
 
 class Py5Shader:
@@ -24,20 +40,3 @@ class Py5Shader:
                 str(e),
                 'set',
                 args)
-
-
-def _return_py5shader(f):
-    @functools.wraps(f)
-    def decorated(self_, *args):
-        return Py5Shader(f(self_, *args), getattr(self_, '_pimage_cache', None))
-    return decorated
-
-
-def _py5shader_param(f):
-    @functools.wraps(f)
-    def decorated(self_, *args):
-        if isinstance(args[0], Py5Shader):
-            args = (args[0]._pshader, *args[1:])
-        return f(self_, *args)
-
-    return decorated
