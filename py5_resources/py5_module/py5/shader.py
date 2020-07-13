@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+# *** FORMAT PARAMS ***
 import functools
 
 from .methods import Py5Exception
@@ -15,7 +17,7 @@ def _py5shader_param(f):
     @functools.wraps(f)
     def decorated(self_, *args):
         if isinstance(args[0], Py5Shader):
-            args = (args[0]._pshader, *args[1:])
+            args = (args[0]._instance, *args[1:])
         return f(self_, *args)
 
     return decorated
@@ -24,7 +26,7 @@ def _py5shader_param(f):
 class Py5Shader:
 
     def __init__(self, pshader, pimage_cache):
-        self._pshader = pshader
+        self._instance = pshader
         self._pimage_cache = pimage_cache
 
     # TODO: need all the typehints
@@ -33,7 +35,7 @@ class Py5Shader:
     def set(self, *args):
         """$class_py5shader_set"""
         try:
-            return self._pshader.set(*args)
+            return self._instance.set(*args)
         except Exception as e:
             raise Py5Exception(
                 e.__class__.__name__,
