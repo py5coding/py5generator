@@ -37,11 +37,11 @@ $(py5_method_param_names_file) $(py5_javadoc_file): $(py5_doclet_jar_file)
 	javadoc -doclet py5.javadocs.Py5Doclet \
 		-docletpath py5_docs/dist/py5doclet.jar \
 		--source-path $(processing_dir)/core/src/ \
-		-classpath $(processing_dir)/core/library/core.jar \
+		-classpath "$(processing_dir)/core/library/*" \
 		--show-members public \
 		--param-file $(py5_method_param_names_file) \
 		--javadoc-file $(py5_javadoc_file) \
-		"processing.core"
+		"processing.core" "processing.opengl"
 
 .PHONY: clean
 clean:

@@ -16519,4 +16519,2491 @@ As of release 0149, this function ignores `imageMode()` .
 <blocktag>@see PImage#blendColor(int,int,int)</blocktag>
 </blocktags>
 </commenttree>
+<commenttree class="processing.opengl.Texture" name="Parameters" kind="CLASS">
+<body>
+<first>This class stores the parameters for a texture: target, internal format, minimization filter and magnification filter.</first>
+<full>
+This class stores the parameters for a texture: target, internal format, minimization filter and magnification filter.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="BufferData" kind="CLASS">
+<body>
+<first>This class stores a buffer copied from the buffer source.</first>
+<full>
+This class stores a buffer copied from the buffer source.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="TEX2D" kind="FIELD">
+<body>
+<first>Texture with normalized UV.</first>
+<full>
+Texture with normalized UV.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="TEXRECT" kind="FIELD">
+<body>
+<first>Texture with un-normalized UV.</first>
+<full>
+Texture with un-normalized UV.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="POINT" kind="FIELD">
+<body>
+<first>Point sampling: both magnification and minification filtering are set to nearest</first>
+<full>
+Point sampling: both magnification and minification filtering are set to nearest
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="LINEAR" kind="FIELD">
+<body>
+<first>Linear sampling: magnification filtering is nearest, minification set to linear</first>
+<full>
+Linear sampling: magnification filtering is nearest, minification set to linear
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="BILINEAR" kind="FIELD">
+<body>
+<first>Bilinear sampling: both magnification filtering is set to linear and minification either to linear-mipmap-nearest (linear interpolation is used within a mipmap, but not between different mipmaps).</first>
+<full>
+Bilinear sampling: both magnification filtering is set to linear and minification either to linear-mipmap-nearest (linear interpolation is used within a mipmap, but not between different mipmaps).
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="TRILINEAR" kind="FIELD">
+<body>
+<first>Trilinear sampling: magnification filtering set to linear, minification to linear-mipmap-linear, which offers the best mipmap quality since linear interpolation to compute the value in each of two maps and then interpolates linearly between these two values.</first>
+<full>
+Trilinear sampling: magnification filtering set to linear, minification to linear-mipmap-linear, which offers the best mipmap quality since linear interpolation to compute the value in each of two maps and then interpolates linearly between these two values.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="modified" kind="FIELD">
+<body>
+<first>Modified portion of the texture</first>
+<full>
+Modified portion of the texture
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="init" kind="CONSTRUCTOR">
+<body>
+<first>Creates an instance of PTexture with size width x height.</first>
+<full>
+Creates an instance of PTexture with size width x height. The texture is initialized (empty) to that size.
+</full>
+</body>
+<blocktags>
+<blocktag>@param width int</blocktag>
+<blocktag>@param height int</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="init" kind="CONSTRUCTOR">
+<body>
+<first>Creates an instance of PTexture with size width x height and with the specified parameters.</first>
+<full>
+Creates an instance of PTexture with size width x height and with the specified parameters. The texture is initialized (empty) to that size.
+</full>
+</body>
+<blocktags>
+<blocktag>@param width int</blocktag>
+<blocktag>@param height int</blocktag>
+<blocktag>@param params Parameters</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="init" kind="METHOD">
+<body>
+<first>Sets the size of the image and texture to width x height.</first>
+<full>
+Sets the size of the image and texture to width x height. If the texture is already initialized, it first destroys the current OpenGL texture object and then creates a new one with the specified size.
+</full>
+</body>
+<blocktags>
+<blocktag>@param width int</blocktag>
+<blocktag>@param height int</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="init" kind="METHOD">
+<body>
+<first>Sets the size of the image and texture to width x height, and the parameters of the texture to params.</first>
+<full>
+Sets the size of the image and texture to width x height, and the parameters of the texture to params. If the texture is already initialized, it first destroys the current OpenGL texture object and then creates a new one with the specified size.
+</full>
+</body>
+<blocktags>
+<blocktag>@param width int</blocktag>
+<blocktag>@param height int</blocktag>
+<blocktag>@param params GLTextureParameters</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="init" kind="METHOD">
+<body>
+<first>Initializes the texture using GL parameters</first>
+<full>
+Initializes the texture using GL parameters
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="available" kind="METHOD">
+<body>
+<first>Returns true if the texture has been initialized.</first>
+<full>
+Returns true if the texture has been initialized.
+</full>
+</body>
+<blocktags>
+<blocktag>@return boolean</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="get" kind="METHOD">
+<body>
+<first>Copy texture to pixels.</first>
+<full>
+Copy texture to pixels. Involves video memory to main memory transfer (slow).
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="usingMipmaps" kind="METHOD">
+<body>
+<first>Returns true or false whether or not the texture is using mipmaps.</first>
+<full>
+Returns true or false whether or not the texture is using mipmaps.
+</full>
+</body>
+<blocktags>
+<blocktag>@return boolean</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="usingRepeat" kind="METHOD">
+<body>
+<first>Returns true or false whether or not the texture is using repeat wrap mode along either U or V directions.</first>
+<full>
+Returns true or false whether or not the texture is using repeat wrap mode along either U or V directions.
+</full>
+</body>
+<blocktags>
+<blocktag>@return boolean</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="maxTexcoordU" kind="METHOD">
+<body>
+<first>Returns the maximum possible value for the texture coordinate U (horizontal).</first>
+<full>
+Returns the maximum possible value for the texture coordinate U (horizontal).
+</full>
+</body>
+<blocktags>
+<blocktag>@return float</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="maxTexcoordV" kind="METHOD">
+<body>
+<first>Returns the maximum possible value for the texture coordinate V (vertical).</first>
+<full>
+Returns the maximum possible value for the texture coordinate V (vertical).
+</full>
+</body>
+<blocktags>
+<blocktag>@return float</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="invertedX" kind="METHOD">
+<body>
+<first>Returns true if the texture is inverted along the horizontal direction.</first>
+<full>
+Returns true if the texture is inverted along the horizontal direction.
+</full>
+</body>
+<blocktags>
+<blocktag>@return boolean;</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="invertedX" kind="METHOD">
+<body>
+<first>Sets the texture as inverted or not along the horizontal direction.</first>
+<full>
+Sets the texture as inverted or not along the horizontal direction.
+</full>
+</body>
+<blocktags>
+<blocktag>@param v boolean;</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="invertedY" kind="METHOD">
+<body>
+<first>Returns true if the texture is inverted along the vertical direction.</first>
+<full>
+Returns true if the texture is inverted along the vertical direction.
+</full>
+</body>
+<blocktags>
+<blocktag>@return boolean;</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="invertedY" kind="METHOD">
+<body>
+<first>Sets the texture as inverted or not along the vertical direction.</first>
+<full>
+Sets the texture as inverted or not along the vertical direction.
+</full>
+</body>
+<blocktags>
+<blocktag>@param v boolean;</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="flipArrayOnX" kind="METHOD">
+<body>
+<first>Flips intArray along the X axis.</first>
+<full>
+Flips intArray along the X axis.
+</full>
+</body>
+<blocktags>
+<blocktag>@param intArray int[]</blocktag>
+<blocktag>@param mult int</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="flipArrayOnY" kind="METHOD">
+<body>
+<first>Flips intArray along the Y axis.</first>
+<full>
+Flips intArray along the Y axis.
+</full>
+</body>
+<blocktags>
+<blocktag>@param intArray int[]</blocktag>
+<blocktag>@param mult int</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="convertToRGBA" kind="METHOD">
+<body>
+<first>Reorders a pixel array in the given format into the order required by OpenGL (RGBA) and stores it into rgbaPixels.</first>
+<full>
+Reorders a pixel array in the given format into the order required by OpenGL (RGBA) and stores it into rgbaPixels. The width and height parameters are used in the YUV420 to RBGBA conversion.
+</full>
+</body>
+<blocktags>
+<blocktag>@param pixels int[]</blocktag>
+<blocktag>@param format int</blocktag>
+<blocktag>@param w int</blocktag>
+<blocktag>@param h int</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="convertToARGB" kind="METHOD">
+<body>
+<first>Reorders an OpenGL pixel array (RGBA) into ARGB.</first>
+<full>
+Reorders an OpenGL pixel array (RGBA) into ARGB. The array must be of size width * height.
+</full>
+</body>
+<blocktags>
+<blocktag>@param pixels int[]</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="allocate" kind="METHOD">
+<body>
+<first>Allocates the opengl texture object.</first>
+<full>
+Allocates the opengl texture object.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="dispose" kind="METHOD">
+<body>
+<first>Marks the texture object for deletion.</first>
+<full>
+Marks the texture object for deletion.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture" name="setParameters" kind="METHOD">
+<body>
+<first>Sets texture target and internal format according to the target and type specified.</first>
+<full>
+Sets texture target and internal format according to the target and type specified.
+</full>
+</body>
+<blocktags>
+<blocktag>@param target int</blocktag>
+<blocktag>@param params GLTextureParameters</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture.Parameters" name="target" kind="FIELD">
+<body>
+<first>Texture target.</first>
+<full>
+Texture target.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture.Parameters" name="format" kind="FIELD">
+<body>
+<first>Texture internal format.</first>
+<full>
+Texture internal format.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture.Parameters" name="sampling" kind="FIELD">
+<body>
+<first>Texture filtering (POINT, LINEAR, BILINEAR or TRILINEAR).</first>
+<full>
+Texture filtering (POINT, LINEAR, BILINEAR or TRILINEAR).
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture.Parameters" name="mipmaps" kind="FIELD">
+<body>
+<first>Use mipmaps or not.</first>
+<full>
+Use mipmaps or not.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture.Parameters" name="wrapU" kind="FIELD">
+<body>
+<first>Wrapping mode along U.</first>
+<full>
+Wrapping mode along U.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture.Parameters" name="wrapV" kind="FIELD">
+<body>
+<first>Wrapping mode along V.</first>
+<full>
+Wrapping mode along V.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.Texture.Parameters" name="init" kind="CONSTRUCTOR">
+<body>
+<first>Sets all the parameters to default values.</first>
+<full>
+Sets all the parameters to default values.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PSurfaceJOGL" name="profile" kind="FIELD">
+<body>
+<first>Selected GL profile</first>
+<full>
+Selected GL profile
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShapeOpenGL" name="init" kind="CONSTRUCTOR">
+<body>
+<first>Create a shape from the PRIMITIVE family, using this kind and these params</first>
+<full>
+Create a shape from the PRIMITIVE family, using this kind and these params
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShapeOpenGL" name="getVertexCode" kind="METHOD">
+<body>
+<first>One of VERTEX, BEZIER_VERTEX, CURVE_VERTEX, or BREAK.</first>
+<full>
+One of VERTEX, BEZIER_VERTEX, CURVE_VERTEX, or BREAK.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="init" kind="CONSTRUCTOR">
+<body>
+<first>Creates a shader program using the specified vertex and fragment shaders.</first>
+<full>
+Creates a shader program using the specified vertex and fragment shaders.
+</full>
+</body>
+<blocktags>
+<blocktag>@param parent the parent program</blocktag>
+<blocktag>@param vertFilename name of the vertex shader</blocktag>
+<blocktag>@param fragFilename name of the fragment shader</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="init" kind="CONSTRUCTOR">
+<body>
+<first></first>
+<full>
+
+</full>
+</body>
+<blocktags>
+<blocktag>@param vertURL network location of the vertex shader</blocktag>
+<blocktag>@param fragURL network location of the fragment shader</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="bind" kind="METHOD">
+<body>
+<first>Initializes (if needed) and binds the shader program.</first>
+<full>
+Initializes (if needed) and binds the shader program.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="unbind" kind="METHOD">
+<body>
+<first>Unbinds the shader program.</first>
+<full>
+Unbinds the shader program.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="bound" kind="METHOD">
+<body>
+<first>Returns true if the shader is bound, false otherwise.</first>
+<full>
+Returns true if the shader is bound, false otherwise.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="set" kind="METHOD">
+<body>
+<first></first>
+<full>
+
+</full>
+</body>
+<blocktags>
+<blocktag>@webref rendering:shaders</blocktag>
+<blocktag>@brief Sets a variable within the shader</blocktag>
+<blocktag>@param name the name of the uniform variable to modify</blocktag>
+<blocktag>@param x first component of the variable to modify</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="set" kind="METHOD">
+<body>
+<first></first>
+<full>
+
+</full>
+</body>
+<blocktags>
+<blocktag>@param y second component of the variable to modify. The variable has to be declared with an array/vector type in the shader (i.e.: int[2], vec2)</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="set" kind="METHOD">
+<body>
+<first></first>
+<full>
+
+</full>
+</body>
+<blocktags>
+<blocktag>@param z third component of the variable to modify. The variable has to be declared with an array/vector type in the shader (i.e.: int[3], vec3)</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="set" kind="METHOD">
+<body>
+<first></first>
+<full>
+
+</full>
+</body>
+<blocktags>
+<blocktag>@param w fourth component of the variable to modify. The variable has to be declared with an array/vector type in the shader (i.e.: int[4], vec4)</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="set" kind="METHOD">
+<body>
+<first></first>
+<full>
+
+</full>
+</body>
+<blocktags>
+<blocktag>@param vec modifies all the components of an array/vector uniform variable. PVector can only be used if the type of the variable is vec3.</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="set" kind="METHOD">
+<body>
+<first></first>
+<full>
+
+</full>
+</body>
+<blocktags>
+<blocktag>@param ncoords number of coordinates per element, max 4</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="set" kind="METHOD">
+<body>
+<first></first>
+<full>
+
+</full>
+</body>
+<blocktags>
+<blocktag>@param mat matrix of values</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="set" kind="METHOD">
+<body>
+<first></first>
+<full>
+
+</full>
+</body>
+<blocktags>
+<blocktag>@param use3x3 enforces the matrix is 3 x 3</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="set" kind="METHOD">
+<body>
+<first></first>
+<full>
+
+</full>
+</body>
+<blocktags>
+<blocktag>@param tex sets the sampler uniform variable to read from this image texture</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="setup" kind="METHOD">
+<body>
+<first>Extra initialization method that can be used by subclasses, called after compiling and attaching the vertex and fragment shaders, and before linking the shader program.</first>
+<full>
+Extra initialization method that can be used by subclasses, called after compiling and attaching the vertex and fragment shaders, and before linking the shader program.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="getAttributeLoc" kind="METHOD">
+<body>
+<first>Returns the ID location of the attribute parameter given its name.</first>
+<full>
+Returns the ID location of the attribute parameter given its name.
+</full>
+</body>
+<blocktags>
+<blocktag>@param name String</blocktag>
+<blocktag>@return int</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="getUniformLoc" kind="METHOD">
+<body>
+<first>Returns the ID location of the uniform parameter given its name.</first>
+<full>
+Returns the ID location of the uniform parameter given its name.
+</full>
+</body>
+<blocktags>
+<blocktag>@param name String</blocktag>
+<blocktag>@return int</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="compileVertexShader" kind="METHOD">
+<body>
+<first></first>
+<full>
+
+</full>
+</body>
+<blocktags>
+<blocktag>@param shaderSource a string containing the shader's code</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PShader" name="compileFragmentShader" kind="METHOD">
+<body>
+<first></first>
+<full>
+
+</full>
+</body>
+<blocktags>
+<blocktag>@param shaderSource a string containing the shader's code</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PJOGL" name="gl" kind="FIELD">
+<body>
+<first>Basic GL functionality, common to all profiles</first>
+<full>
+Basic GL functionality, common to all profiles
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PJOGL" name="glu" kind="FIELD">
+<body>
+<first>GLU interface</first>
+<full>
+GLU interface
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PJOGL" name="context" kind="FIELD">
+<body>
+<first>The rendering context (holds rendering state info)</first>
+<full>
+The rendering context (holds rendering state info)
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PJOGL" name="DRAW_TIMEOUT_MILLIS" kind="FIELD">
+<body>
+<first>Time that the Processing's animation thread will wait for JOGL's rendering thread to be done with a single frame.</first>
+<full>
+Time that the Processing's animation thread will wait for JOGL's rendering thread to be done with a single frame.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PJOGL" name="capabilities" kind="FIELD">
+<body>
+<first>The capabilities of the OpenGL rendering surface</first>
+<full>
+The capabilities of the OpenGL rendering surface
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PJOGL" name="drawable" kind="FIELD">
+<body>
+<first>The rendering surface</first>
+<full>
+The rendering surface
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PJOGL" name="gl2" kind="FIELD">
+<body>
+<first>GLES2 functionality (shaders, etc)</first>
+<full>
+GLES2 functionality (shaders, etc)
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PJOGL" name="gl3" kind="FIELD">
+<body>
+<first>GL3 interface</first>
+<full>
+GL3 interface
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PJOGL" name="gl2x" kind="FIELD">
+<body>
+<first>GL2 desktop functionality (blit framebuffer, map buffer range, multisampled renderbuffers)</first>
+<full>
+GL2 desktop functionality (blit framebuffer, map buffer range, multisampled renderbuffers)
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PJOGL" name="gl3es3" kind="FIELD">
+<body>
+<first>GL3ES3 interface</first>
+<full>
+GL3ES3 interface
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PJOGL" name="drawException" kind="FIELD">
+<body>
+<first>Stores exceptions that ocurred during drawing</first>
+<full>
+Stores exceptions that ocurred during drawing
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PJOGL" name="getFontMetrics" kind="METHOD">
+<body>
+<first>Convenience method to get a legit FontMetrics object.</first>
+<full>
+Convenience method to get a legit FontMetrics object. Where possible, override this any renderer subclass so that you're not using what's returned by getDefaultToolkit() to get your metrics.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PJOGL" name="getFontRenderContext" kind="METHOD">
+<body>
+<first>Convenience method to jump through some Java2D hoops and get an FRC.</first>
+<full>
+Convenience method to jump through some Java2D hoops and get an FRC.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="pgl" kind="FIELD">
+<body>
+<first>Interface between Processing and OpenGL</first>
+<full>
+Interface between Processing and OpenGL
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="currentPG" kind="FIELD">
+<body>
+<first>The renderer currently in use.</first>
+<full>
+The renderer currently in use.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="fontMap" kind="FIELD">
+<body>
+<first>Font cache for texture objects.</first>
+<full>
+Font cache for texture objects.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="initialized" kind="FIELD">
+<body>
+<first>Whether the PGraphics object is ready to render or not.</first>
+<full>
+Whether the PGraphics object is ready to render or not.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="FLUSH_CONTINUOUSLY" kind="FIELD">
+<body>
+<first>Flush modes: continuously (geometry is flushed after each call to endShape) when-full (geometry is accumulated until a maximum size is reached.</first>
+<full>
+Flush modes: continuously (geometry is flushed after each call to endShape) when-full (geometry is accumulated until a maximum size is reached.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="IMMEDIATE" kind="FIELD">
+<body>
+<first>Type of geometry: immediate is that generated with beginShape/vertex/ endShape, retained is the result of creating a PShapeOpenGL object with createShape.</first>
+<full>
+Type of geometry: immediate is that generated with beginShape/vertex/ endShape, retained is the result of creating a PShapeOpenGL object with createShape.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="flushMode" kind="FIELD">
+<body>
+<first>Current flush mode.</first>
+<full>
+Current flush mode.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="npotTexSupported" kind="FIELD">
+<body>
+<first>Extensions used by Processing</first>
+<full>
+Extensions used by Processing
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="maxTextureSize" kind="FIELD">
+<body>
+<first>Some hardware limits</first>
+<full>
+Some hardware limits
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="OPENGL_VENDOR" kind="FIELD">
+<body>
+<first>OpenGL information strings</first>
+<full>
+OpenGL information strings
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="cameraFOV" kind="FIELD">
+<body>
+<first>Camera field of view.</first>
+<full>
+Camera field of view.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="cameraX" kind="FIELD">
+<body>
+<first>Default position of the camera.</first>
+<full>
+Default position of the camera.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="cameraY" kind="FIELD">
+<body>
+<first>Default position of the camera.</first>
+<full>
+Default position of the camera.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="cameraZ" kind="FIELD">
+<body>
+<first>Default position of the camera.</first>
+<full>
+Default position of the camera.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="cameraNear" kind="FIELD">
+<body>
+<first>Distance of the near and far planes.</first>
+<full>
+Distance of the near and far planes.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="cameraFar" kind="FIELD">
+<body>
+<first>Distance of the near and far planes.</first>
+<full>
+Distance of the near and far planes.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="cameraAspect" kind="FIELD">
+<body>
+<first>Aspect ratio of camera's view.</first>
+<full>
+Aspect ratio of camera's view.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="defCameraFOV" kind="FIELD">
+<body>
+<first>Default camera properties.</first>
+<full>
+Default camera properties.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="eyeDist" kind="FIELD">
+<body>
+<first>Distance between camera eye and center.</first>
+<full>
+Distance between camera eye and center.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="manipulatingCamera" kind="FIELD">
+<body>
+<first>Flag to indicate that we are inside beginCamera/endCamera block.</first>
+<full>
+Flag to indicate that we are inside beginCamera/endCamera block.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="sized" kind="FIELD">
+<body>
+<first>Marks when changes to the size have occurred, so that the camera will be reset in beginDraw().</first>
+<full>
+Marks when changes to the size have occurred, so that the camera will be reset in beginDraw().
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="modelviewStack" kind="FIELD">
+<body>
+<first>Modelview matrix stack</first>
+<full>
+Modelview matrix stack
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="modelviewInvStack" kind="FIELD">
+<body>
+<first>Inverse modelview matrix stack</first>
+<full>
+Inverse modelview matrix stack
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="cameraStack" kind="FIELD">
+<body>
+<first>Camera matrix stack</first>
+<full>
+Camera matrix stack
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="cameraInvStack" kind="FIELD">
+<body>
+<first>Inverse camera matrix stack</first>
+<full>
+Inverse camera matrix stack
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="projectionStack" kind="FIELD">
+<body>
+<first>Projection matrix stack</first>
+<full>
+Projection matrix stack
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="lightType" kind="FIELD">
+<body>
+<first>Light types</first>
+<full>
+Light types
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="lightPosition" kind="FIELD">
+<body>
+<first>Light positions</first>
+<full>
+Light positions
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="lightNormal" kind="FIELD">
+<body>
+<first>Light direction (normalized vector)</first>
+<full>
+Light direction (normalized vector)
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="lightAmbient" kind="FIELD">
+<body>
+<first>Ambient colors for lights.</first>
+<full>
+Ambient colors for lights.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="lightDiffuse" kind="FIELD">
+<body>
+<first>Diffuse colors for lights.</first>
+<full>
+Diffuse colors for lights.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="lightSpecular" kind="FIELD">
+<body>
+<first>Specular colors for lights.</first>
+<full>
+Specular colors for lights. Internally these are stored as numbers between 0 and 1.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="lightFalloffCoefficients" kind="FIELD">
+<body>
+<first>Light falloff</first>
+<full>
+Light falloff
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="lightSpotParameters" kind="FIELD">
+<body>
+<first>Light spot parameters: Cosine of light spot angle and concentration</first>
+<full>
+Light spot parameters: Cosine of light spot angle and concentration
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="currentLightSpecular" kind="FIELD">
+<body>
+<first>Current specular color for lighting</first>
+<full>
+Current specular color for lighting
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="currentLightFalloffConstant" kind="FIELD">
+<body>
+<first>Current light falloff</first>
+<full>
+Current light falloff
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="clipRect" kind="FIELD">
+<body>
+<first>Clipping rectangle.</first>
+<full>
+Clipping rectangle.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="textTex" kind="FIELD">
+<body>
+<first>Font texture of currently selected font.</first>
+<full>
+Font texture of currently selected font.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="texture" kind="FIELD">
+<body>
+<first>Texture containing the current frame</first>
+<full>
+Texture containing the current frame
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="ptexture" kind="FIELD">
+<body>
+<first>Texture containing the previous frame</first>
+<full>
+Texture containing the previous frame
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="pixelBuffer" kind="FIELD">
+<body>
+<first>IntBuffer wrapping the pixels array.</first>
+<full>
+IntBuffer wrapping the pixels array.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="nativePixels" kind="FIELD">
+<body>
+<first>Array to store pixels in OpenGL format.</first>
+<full>
+Array to store pixels in OpenGL format.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="nativePixelBuffer" kind="FIELD">
+<body>
+<first>IntBuffer wrapping the native pixels array.</first>
+<full>
+IntBuffer wrapping the native pixels array.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="filterTexture" kind="FIELD">
+<body>
+<first>texture used to apply a filter on the screen image.</first>
+<full>
+texture used to apply a filter on the screen image.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="filterImage" kind="FIELD">
+<body>
+<first>PImage that wraps filterTexture.</first>
+<full>
+PImage that wraps filterTexture.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="drawing" kind="FIELD">
+<body>
+<first>True if we are inside a beginDraw()/endDraw() block.</first>
+<full>
+True if we are inside a beginDraw()/endDraw() block.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="smoothDisabled" kind="FIELD">
+<body>
+<first>Used to detect continuous use of the smooth/noSmooth functions</first>
+<full>
+Used to detect continuous use of the smooth/noSmooth functions
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="lastBlendMode" kind="FIELD">
+<body>
+<first>Used to avoid flushing the geometry when blendMode() is called with the same blend mode as the last</first>
+<full>
+Used to avoid flushing the geometry when blendMode() is called with the same blend mode as the last
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="OP_NONE" kind="FIELD">
+<body>
+<first>Type of pixels operation.</first>
+<full>
+Type of pixels operation.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="viewport" kind="FIELD">
+<body>
+<first>Viewport dimensions.</first>
+<full>
+Viewport dimensions.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="MIN_POINT_ACCURACY" kind="FIELD">
+<body>
+<first>Used in round point and ellipse tessellation.</first>
+<full>
+Used in round point and ellipse tessellation. The number of subdivisions per round point or ellipse is calculated with the following formula: n = min(M, max(N, (TWO_PI * size / F))) where size is a measure of the dimensions of the circle when projected on screen coordinates. F just sets the minimum number of subdivisions, while a smaller F would allow to have more detailed circles. N = MIN_POINT_ACCURACY M = MAX_POINT_ACCURACY F = POINT_ACCURACY_FACTOR
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="QUAD_POINT_SIGNS" kind="FIELD">
+<body>
+<first>Used in quad point tessellation.</first>
+<full>
+Used in quad point tessellation.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="intBuffer" kind="FIELD">
+<body>
+<first>To get data from OpenGL.</first>
+<full>
+To get data from OpenGL.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="textLineImpl" kind="METHOD">
+<body>
+<first>Implementation of actual drawing for a line of text.</first>
+<full>
+Implementation of actual drawing for a line of text.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="textCharShapeImpl" kind="METHOD">
+<body>
+<first>Ported from the implementation of textCharShapeImpl() in 1.5.1 ,&lt;EM&gt;,No attempt has been made to optimize this code,&lt;/EM&gt;,</first>
+<full>
+Ported from the implementation of textCharShapeImpl() in 1.5.1&lt;EM&gt;No attempt has been made to optimize this code&lt;/EM&gt;
+
+TODO: Implement a FontShape class where each glyph is tessellated and stored inside a larger PShapeOpenGL object (which needs to be expanded as new glyphs are added and exceed the initial capacity in a similar way as the textures in FontTexture work). When a string of text is to be rendered in shape mode, then the correct sequences of vertex indices are computed (akin to the texcoords in the texture case) and used to draw only those parts of the PShape object that are required for the text.
+
+Some issues of the original implementation probably remain, so they are reproduced below:
+
+Also a problem where some fonts seem to be a bit slight, as if the control points aren't being mapped quite correctly. Probably doing something dumb that the control points don't map to P5's control points. Perhaps it's returning b-spline data from the TrueType font? Though it seems like that would make a lot of garbage rather than just a little flattening.
+
+There also seems to be a bug that is causing a line (but not a filled triangle) back to the origin on some letters (i.e. a capital L when tested with Akzidenz Grotesk Light). But this won't be visible with the stroke shut off, so tabling that bug for now.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="rotate" kind="METHOD">
+<body>
+<first>Two dimensional rotation.</first>
+<full>
+Two dimensional rotation. Same as rotateZ (this is identical to a 3D rotation along the z-axis) but included for clarity -- it'd be weird for people drawing 2D graphics to be using rotateZ. And they might kick our a-- for the confusion.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="rotate" kind="METHOD">
+<body>
+<first>Rotate around an arbitrary vector, similar to glRotate(), except that it takes radians (instead of degrees).</first>
+<full>
+Rotate around an arbitrary vector, similar to glRotate(), except that it takes radians (instead of degrees).
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="scale" kind="METHOD">
+<body>
+<first>Same as scale(s, s, s).</first>
+<full>
+Same as scale(s, s, s).
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="scale" kind="METHOD">
+<body>
+<first>Same as scale(sx, sy, 1).</first>
+<full>
+Same as scale(sx, sy, 1).
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="scale" kind="METHOD">
+<body>
+<first>Scale in three dimensions.</first>
+<full>
+Scale in three dimensions.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="scaleImpl" kind="METHOD">
+<body>
+<first>Scale in three dimensions.</first>
+<full>
+Scale in three dimensions.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="applyMatrix" kind="METHOD">
+<body>
+<first>Apply a 4x4 transformation matrix to the modelview stack.</first>
+<full>
+Apply a 4x4 transformation matrix to the modelview stack.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="setMatrix" kind="METHOD">
+<body>
+<first>Set the current transformation to the contents of the specified source.</first>
+<full>
+Set the current transformation to the contents of the specified source.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="printMatrix" kind="METHOD">
+<body>
+<first>Print the current model (or "transformation") matrix.</first>
+<full>
+Print the current model (or "transformation") matrix.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="beginCamera" kind="METHOD">
+<body>
+<first>Set matrix mode to the camera matrix (instead of the current transformation matrix).</first>
+<full>
+Set matrix mode to the camera matrix (instead of the current transformation matrix). This means applyMatrix, resetMatrix, etc. will affect the camera.
+
+Note that the camera matrix is *not* the perspective matrix, it contains the values of the modelview matrix immediatly after the latter was initialized with ortho() or camera(), or the modelview matrix as result of the operations applied between beginCamera()/endCamera().
+
+beginCamera() specifies that all coordinate transforms until endCamera() should be pre-applied in inverse to the camera transform matrix. Note that this is only challenging when a user specifies an arbitrary matrix with applyMatrix(). Then that matrix will need to be inverted, which may not be possible. But take heart, if a user is applying a non-invertible matrix to the camera transform, then he is clearly up to no good, and we can wash our hands of those bad intentions.
+
+begin/endCamera clauses do not automatically reset the camera transform matrix. That's because we set up a nice default camera transform in setup(), and we expect it to hold through draw(). So we don't reset the camera transform matrix at the top of draw(). That means that an innocuous-looking clause like
+
+```
+beginCamera(); translate(0, 0, 10); endCamera();
+```
+
+at the top of draw(), will result in a runaway camera that shoots infinitely out of the screen over time. In order to prevent this, it is necessary to call some function that does a hard reset of the camera transform matrix inside of begin/endCamera. Two options are
+
+```
+camera(); // sets up the nice default camera transform resetMatrix(); // sets up the identity camera transform
+```
+
+So to rotate a camera a constant amount, you might try
+
+```
+beginCamera(); camera(); rotateY(PI / 8); endCamera();
+```
+
+
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="endCamera" kind="METHOD">
+<body>
+<first>Record the current settings into the camera matrix, and set the matrix mode back to the current transformation matrix.</first>
+<full>
+Record the current settings into the camera matrix, and set the matrix mode back to the current transformation matrix.
+
+Note that this will destroy any settings to scale(), translate(), or whatever, because the final camera matrix will be copied (not multiplied) into the modelview.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="camera" kind="METHOD">
+<body>
+<first>Set camera to the default settings.</first>
+<full>
+Set camera to the default settings.
+
+Processing camera behavior:
+
+Camera behavior can be split into two separate components, camera transformation, and projection. The transformation corresponds to the physical location, orientation, and scale of the camera. In a physical camera metaphor, this is what can manipulated by handling the camera body (with the exception of scale, which doesn't really have a physcial analog). The projection corresponds to what can be changed by manipulating the lens.
+
+We maintain separate matrices to represent the camera transform and projection. An important distinction between the two is that the camera transform should be invertible, where the projection matrix should not, since it serves to map three dimensions to two. It is possible to bake the two matrices into a single one just by multiplying them together, but it isn't a good idea, since lighting, z-ordering, and z-buffering all demand a true camera z coordinate after modelview and camera transforms have been applied but before projection. If the camera transform and projection are combined there is no way to recover a good camera-space z-coordinate from a model coordinate.
+
+Fortunately, there are no functions that manipulate both camera transformation and projection.
+
+camera() sets the camera position, orientation, and center of the scene. It replaces the camera transform with a new one.
+
+The transformation functions are the same ones used to manipulate the modelview matrix (scale, translate, rotate, etc.). But they are bracketed with beginCamera(), endCamera() to indicate that they should apply (in inverse), to the camera transformation matrix.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="camera" kind="METHOD">
+<body>
+<first>More flexible method for dealing with camera().</first>
+<full>
+More flexible method for dealing with camera().
+
+The actual call is like gluLookat. Here's the real skinny on what does what:
+
+```
+camera(); or camera(ex, ey, ez, cx, cy, cz, ux, uy, uz);
+```
+
+do not need to be called from with beginCamera();/endCamera(); That's because they always apply to the camera transformation, and they always totally replace it. That means that any coordinate transforms done before camera(); in draw() will be wiped out. It also means that camera() always operates in untransformed world coordinates. Therefore it is always redundant to call resetMatrix(); before camera(); This isn't technically true of gluLookat, but it's pretty much how it's used.
+
+Now, beginCamera(); and endCamera(); are useful if you want to move the camera around using transforms like translate(), etc. They will wipe out any coordinate system transforms that occur before them in draw(), but they will not automatically wipe out the camera transform. This means that they should be at the top of draw(). It also means that the following:
+
+```
+beginCamera(); rotateY(PI / 8); endCamera();
+```
+
+will result in a camera that spins without stopping. If you want to just rotate a small constant amount, try this:
+
+```
+beginCamera(); camera(); // sets up the default view rotateY(PI / 8); endCamera();
+```
+
+That will rotate a little off of the default view. Note that this is entirely equivalent to
+
+```
+camera(); // sets up the default view beginCamera(); rotateY(PI / 8); endCamera();
+```
+
+because camera() doesn't care whether or not it's inside a begin/end clause. Basically it's safe to use camera() or camera(ex, ey, ez, cx, cy, cz, ux, uy, uz) as naked calls because they do all the matrix resetting automatically.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="printCamera" kind="METHOD">
+<body>
+<first>Print the current camera matrix.</first>
+<full>
+Print the current camera matrix.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="ortho" kind="METHOD">
+<body>
+<first>Calls ortho() with the proper parameters for Processing's standard orthographic projection.</first>
+<full>
+Calls ortho() with the proper parameters for Processing's standard orthographic projection.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="ortho" kind="METHOD">
+<body>
+<first>Calls ortho() with the specified size of the viewing volume along the X and Z directions.</first>
+<full>
+Calls ortho() with the specified size of the viewing volume along the X and Z directions.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="ortho" kind="METHOD">
+<body>
+<first>Sets an orthographic projection.</first>
+<full>
+Sets an orthographic projection.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="perspective" kind="METHOD">
+<body>
+<first>Calls perspective() with Processing's standard coordinate projection.</first>
+<full>
+Calls perspective() with Processing's standard coordinate projection.
+
+Projection functions:
+
+* frustrum()
+* ortho()
+* perspective()
+Each of these three functions completely replaces the projection matrix with a new one. They can be called inside setup(), and their effects will be felt inside draw(). At the top of draw(), the projection matrix is not reset. Therefore the last projection function to be called always dominates. On resize, the default projection is always established, which has perspective.
+
+This behavior is pretty much familiar from OpenGL, except where functions replace matrices, rather than multiplying against the previous.
+
+
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="perspective" kind="METHOD">
+<body>
+<first>Similar to gluPerspective().</first>
+<full>
+Similar to gluPerspective(). Implementation based on Mesa's glu.c
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="frustum" kind="METHOD">
+<body>
+<first>Same as glFrustum(), except that it wipes out (rather than multiplies against) the current perspective matrix.</first>
+<full>
+Same as glFrustum(), except that it wipes out (rather than multiplies against) the current perspective matrix.
+
+Implementation based on the explanation in the OpenGL blue book.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="printProjection" kind="METHOD">
+<body>
+<first>Print the current projection matrix.</first>
+<full>
+Print the current projection matrix.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="lights" kind="METHOD">
+<body>
+<first>Sets up an ambient and directional light using OpenGL.</first>
+<full>
+Sets up an ambient and directional light using OpenGL. API taken from PGraphics3D.
+
+```
+The Lighting Skinny: The way lighting works is complicated enough that it's worth producing a document to describe it. Lighting calculations proceed pretty much exactly as described in the OpenGL red book. Light-affecting material properties:   AMBIENT COLOR   - multiplies by light's ambient component   - for believability this should match diffuse color   DIFFUSE COLOR   - multiplies by light's diffuse component   SPECULAR COLOR   - multiplies by light's specular component   - usually less colored than diffuse/ambient   SHININESS   - the concentration of specular effect   - this should be set pretty high (20-50) to see really     noticeable specularity   EMISSIVE COLOR   - constant additive color effect Light types:   AMBIENT   - one color   - no specular color   - no direction   - may have falloff (constant, linear, and quadratic)   - may have position (which matters in non-constant falloff case)   - multiplies by a material's ambient reflection   DIRECTIONAL   - has diffuse color   - has specular color   - has direction   - no position   - no falloff   - multiplies by a material's diffuse and specular reflections   POINT   - has diffuse color   - has specular color   - has position   - no direction   - may have falloff (constant, linear, and quadratic)   - multiplies by a material's diffuse and specular reflections   SPOT   - has diffuse color   - has specular color   - has position   - has direction   - has cone angle (set to half the total cone angle)   - has concentration value   - may have falloff (constant, linear, and quadratic)   - multiplies by a material's diffuse and specular reflections Normal modes: All of the primitives (rect, box, sphere, etc.) have their normals set nicely. During beginShape/endShape normals can be set by the user.   AUTO-NORMAL   - if no normal is set during the shape, we are in auto-normal mode   - auto-normal calculates one normal per triangle (face-normal mode)   SHAPE-NORMAL   - if one normal is set during the shape, it will be used for     all vertices   VERTEX-NORMAL   - if multiple normals are set, each normal applies to     subsequent vertices   - (except for the first one, which applies to previous     and subsequent vertices) Efficiency consequences:   There is a major efficiency consequence of position-dependent   lighting calculations per vertex. (See below for determining   whether lighting is vertex position-dependent.) If there is no   position dependency then the only factors that affect the lighting   contribution per vertex are its colors and its normal.   There is a major efficiency win if   1) lighting is not position dependent   2) we are in AUTO-NORMAL or SHAPE-NORMAL mode   because then we can calculate one lighting contribution per shape   (SHAPE-NORMAL) or per triangle (AUTO-NORMAL) and simply multiply it   into the vertex colors. The converse is our worst-case performance when   1) lighting is position dependent   2) we are in AUTO-NORMAL mode   because then we must calculate lighting per-face * per-vertex.   Each vertex has a different lighting contribution per face in   which it appears. Yuck. Determining vertex position dependency:   If any of the following factors are TRUE then lighting is   vertex position dependent:   1) Any lights uses non-constant falloff   2) There are any point or spot lights   3) There is a light with specular color AND there is a      material with specular color So worth noting is that default lighting (a no-falloff ambient and a directional without specularity) is not position-dependent. We should capitalize. Simon Greenwold, April 2005
+```
+
+
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="noLights" kind="METHOD">
+<body>
+<first>Disables lighting.</first>
+<full>
+Disables lighting.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="ambientLight" kind="METHOD">
+<body>
+<first>Add an ambient light based on the current color mode.</first>
+<full>
+Add an ambient light based on the current color mode.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="ambientLight" kind="METHOD">
+<body>
+<first>Add an ambient light based on the current color mode.</first>
+<full>
+Add an ambient light based on the current color mode. This version includes an (x, y, z) position for situations where the falloff distance is used.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="lightFalloff" kind="METHOD">
+<body>
+<first>Set the light falloff rates for the last light that was created.</first>
+<full>
+Set the light falloff rates for the last light that was created. Default is lightFalloff(1, 0, 0).
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="lightSpecular" kind="METHOD">
+<body>
+<first>Set the specular color of the last light created.</first>
+<full>
+Set the specular color of the last light created.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="report" kind="METHOD">
+<body>
+<first>Report on anything from glError().</first>
+<full>
+Report on anything from glError(). Don't use this inside glBegin/glEnd otherwise it'll throw an GL_INVALID_OPERATION error.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="filter" kind="METHOD">
+<body>
+<first>This is really inefficient and not a good idea in OpenGL.</first>
+<full>
+This is really inefficient and not a good idea in OpenGL. Use get() and set() with a smaller image area, or call the filter on an image instead, and then draw that.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="filter" kind="METHOD">
+<body>
+<first>This is really inefficient and not a good idea in OpenGL.</first>
+<full>
+This is really inefficient and not a good idea in OpenGL. Use get() and set() with a smaller image area, or call the filter on an image instead, and then draw that.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="blendModeImpl" kind="METHOD">
+<body>
+<first>Allows to set custom blend modes for the entire scene, using openGL.</first>
+<full>
+Allows to set custom blend modes for the entire scene, using openGL. Reference article about blending modes: http://www.pegtop.net/delphi/articles/blendmodes/ DIFFERENCE, HARD_LIGHT, SOFT_LIGHT, OVERLAY, DODGE, BURN modes cannot be implemented in fixed-function pipeline because they require conditional blending and non-linear blending equations.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="getTexture" kind="METHOD">
+<body>
+<first>Not an approved function, this will change or be removed in the future.</first>
+<full>
+Not an approved function, this will change or be removed in the future. This utility method returns the texture associated to the renderer's. drawing surface, making sure is updated to reflect the current contents off the screen (or offscreen drawing surface).
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="getTexture" kind="METHOD">
+<body>
+<first>Not an approved function either, don't use it.</first>
+<full>
+Not an approved function either, don't use it.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="getTexture" kind="METHOD">
+<body>
+<first>Not an approved function, this will change or be removed in the future.</first>
+<full>
+Not an approved function, this will change or be removed in the future. This utility method returns the texture associated to the image. creating and/or updating it if needed.
+</full>
+</body>
+<blocktags>
+<blocktag>@param img the image to have a texture metadata associated to it</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="getFrameBuffer" kind="METHOD">
+<body>
+<first>Not an approved function, test its use in libraries to grab the FB objects for offscreen PGraphics.</first>
+<full>
+Not an approved function, test its use in libraries to grab the FB objects for offscreen PGraphics.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL" name="addTexture" kind="METHOD">
+<body>
+<first>This utility method creates a texture for the provided image, and adds it to the metadata cache of the image.</first>
+<full>
+This utility method creates a texture for the provided image, and adds it to the metadata cache of the image.
+</full>
+</body>
+<blocktags>
+<blocktag>@param img the image to have a texture metadata associated to it</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGraphicsOpenGL.Tessellator.TessellatorCallback" name="combine" kind="METHOD">
+<body>
+<first>Implementation of the GLU_TESS_COMBINE callback.</first>
+<full>
+Implementation of the GLU_TESS_COMBINE callback.
+</full>
+</body>
+<blocktags>
+<blocktag>@param coords is the 3-vector of the new vertex</blocktag>
+<blocktag>@param data is the vertex data to be combined, up to four elements. This is useful when mixing colors together or any other user data that was passed in to gluTessVertex.</blocktag>
+<blocktag>@param weight is an array of weights, one for each element of "data" that should be linearly combined for new values.</blocktag>
+<blocktag>@param outData is the set of new values of "data" after being put back together based on the weights. it's passed back as a single element Object[] array because that's the closest that Java gets to a pointer.</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="GraphicsNotInitializedException" kind="CLASS">
+<body>
+<first>Exception for when attempting an operation requiring the graphics renderer, context, etc to have been initialized before that initialization.</first>
+<full>
+Exception for when attempting an operation requiring the graphics renderer, context, etc to have been initialized before that initialization.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="graphics" kind="FIELD">
+<body>
+<first>The PGraphics and PApplet objects using this interface</first>
+<full>
+The PGraphics and PApplet objects using this interface
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="glThread" kind="FIELD">
+<body>
+<first>OpenGL thread</first>
+<full>
+OpenGL thread
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="glContext" kind="FIELD">
+<body>
+<first>ID of the GL context associated to the surface</first>
+<full>
+ID of the GL context associated to the surface
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="primaryPGL" kind="FIELD">
+<body>
+<first>true if this is the GL interface for a primary surface PGraphics</first>
+<full>
+true if this is the GL interface for a primary surface PGraphics
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="USE_DIRECT_BUFFERS" kind="FIELD">
+<body>
+<first>Switches between the use of regular and direct buffers.</first>
+<full>
+Switches between the use of regular and direct buffers.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="MIPMAPS_ENABLED" kind="FIELD">
+<body>
+<first>Enables/disables mipmap use.</first>
+<full>
+Enables/disables mipmap use.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="DEFAULT_IN_VERTICES" kind="FIELD">
+<body>
+<first>Initial sizes for arrays of input and tessellated data.</first>
+<full>
+Initial sizes for arrays of input and tessellated data.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="MAX_LIGHTS" kind="FIELD">
+<body>
+<first>Maximum lights by default is 8, the minimum defined by OpenGL.</first>
+<full>
+Maximum lights by default is 8, the minimum defined by OpenGL.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="MAX_VERTEX_INDEX" kind="FIELD">
+<body>
+<first>Maximum index value of a tessellated vertex.</first>
+<full>
+Maximum index value of a tessellated vertex. GLES restricts the vertex indices to be of type unsigned short. Since Java only supports signed shorts as primitive type we have 2^15 = 32768 as the maximum number of vertices that can be referred to within a single VBO.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="FLUSH_VERTEX_COUNT" kind="FIELD">
+<body>
+<first>Count of tessellated fill, line or point vertices that will trigger a flush in the immediate mode.</first>
+<full>
+Count of tessellated fill, line or point vertices that will trigger a flush in the immediate mode. It doesn't necessarily be equal to MAX_VERTEX_INDEX1, since the number of vertices can be effectively much large since the renderer uses offsets to refer to vertices beyond the MAX_VERTEX_INDEX limit.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="MIN_FONT_TEX_SIZE" kind="FIELD">
+<body>
+<first>Minimum/maximum dimensions of a texture used to hold font data.</first>
+<full>
+Minimum/maximum dimensions of a texture used to hold font data.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="MIN_CAPS_JOINS_WEIGHT" kind="FIELD">
+<body>
+<first>Minimum stroke weight needed to apply the full path stroking algorithm that properly generates caps and joins.</first>
+<full>
+Minimum stroke weight needed to apply the full path stroking algorithm that properly generates caps and joins.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="MAX_CAPS_JOINS_LENGTH" kind="FIELD">
+<body>
+<first>Maximum length of linear paths to be stroked with the full algorithm that generates accurate caps and joins.</first>
+<full>
+Maximum length of linear paths to be stroked with the full algorithm that generates accurate caps and joins.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="MIN_ARRAYCOPY_SIZE" kind="FIELD">
+<body>
+<first>Minimum array size to use arrayCopy method().</first>
+<full>
+Minimum array size to use arrayCopy method().
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="STROKE_DISPLACEMENT" kind="FIELD">
+<body>
+<first>Factor used to displace the stroke vertices towards the camera in order to make sure the lines are always on top of the fill geometry</first>
+<full>
+Factor used to displace the stroke vertices towards the camera in order to make sure the lines are always on top of the fill geometry
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="usingFrontTex" kind="FIELD">
+<body>
+<first>Flags used to handle the creation of a separate front texture</first>
+<full>
+Flags used to handle the creation of a separate front texture
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="fboAllowed" kind="FIELD">
+<body>
+<first>Defines if FBO Layer is allowed in the given environment.</first>
+<full>
+Defines if FBO Layer is allowed in the given environment. Using FBO can cause a fatal error during runtime for Intel HD Graphics 3000 chipsets (commonly used on older MacBooks)&lt;a href="https://github.com/processing/processing/issues/4104"&gt;#4104&lt;/a&gt;
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="texturingTargets" kind="FIELD">
+<body>
+<first>Which texturing targets are enabled</first>
+<full>
+Which texturing targets are enabled
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="maxTexUnits" kind="FIELD">
+<body>
+<first>Used to keep track of which textures are bound to each target</first>
+<full>
+Used to keep track of which textures are bound to each target
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="geomCount" kind="FIELD">
+<body>
+<first>Used to register amount of geometry rendered in each frame.</first>
+<full>
+Used to register amount of geometry rendered in each frame.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="clearColor" kind="FIELD">
+<body>
+<first>Used to register calls to background.</first>
+<full>
+Used to register calls to background.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="SIZEOF_SHORT" kind="FIELD">
+<body>
+<first>Size of different types in bytes</first>
+<full>
+Size of different types in bytes
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="FLOAT_EPS" kind="FIELD">
+<body>
+<first>Machine Epsilon for float precision.</first>
+<full>
+Machine Epsilon for float precision.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="BIG_ENDIAN" kind="FIELD">
+<body>
+<first>Set to true if the host system is big endian (PowerPC, MIPS, SPARC), false if little endian (x86 Intel for Mac or PC).</first>
+<full>
+Set to true if the host system is big endian (PowerPC, MIPS, SPARC), false if little endian (x86 Intel for Mac or PC).
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="drawTexture" kind="METHOD">
+<body>
+<first>Not an approved function, this will change or be removed in the future.</first>
+<full>
+Not an approved function, this will change or be removed in the future.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="drawTexture" kind="METHOD">
+<body>
+<first>Not an approved function, this will change or be removed in the future.</first>
+<full>
+Not an approved function, this will change or be removed in the future.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="nativeToJavaARGB" kind="METHOD">
+<body>
+<first>Converts input native OpenGL value (RGBA on big endian, ABGR on little endian) to Java ARGB.</first>
+<full>
+Converts input native OpenGL value (RGBA on big endian, ABGR on little endian) to Java ARGB.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="nativeToJavaARGB" kind="METHOD">
+<body>
+<first>Converts input array of native OpenGL values (RGBA on big endian, ABGR on little endian) representing an image of width x height resolution to Java ARGB.</first>
+<full>
+Converts input array of native OpenGL values (RGBA on big endian, ABGR on little endian) representing an image of width x height resolution to Java ARGB. It also rearranges the elements in the array so that the image is flipped vertically.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="nativeToJavaRGB" kind="METHOD">
+<body>
+<first>Converts input native OpenGL value (RGBA on big endian, ABGR on little endian) to Java RGB, so that the alpha component of the result is set to opaque (255).</first>
+<full>
+Converts input native OpenGL value (RGBA on big endian, ABGR on little endian) to Java RGB, so that the alpha component of the result is set to opaque (255).
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="nativeToJavaRGB" kind="METHOD">
+<body>
+<first>Converts input array of native OpenGL values (RGBA on big endian, ABGR on little endian) representing an image of width x height resolution to Java RGB, so that the alpha component of all pixels is set to opaque (255).</first>
+<full>
+Converts input array of native OpenGL values (RGBA on big endian, ABGR on little endian) representing an image of width x height resolution to Java RGB, so that the alpha component of all pixels is set to opaque (255). It also rearranges the elements in the array so that the image is flipped vertically.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="javaToNativeARGB" kind="METHOD">
+<body>
+<first>Converts input Java ARGB value to native OpenGL format (RGBA on big endian, BGRA on little endian).</first>
+<full>
+Converts input Java ARGB value to native OpenGL format (RGBA on big endian, BGRA on little endian).
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="javaToNativeARGB" kind="METHOD">
+<body>
+<first>Converts input array of Java ARGB values representing an image of width x height resolution to native OpenGL format (RGBA on big endian, BGRA on little endian).</first>
+<full>
+Converts input array of Java ARGB values representing an image of width x height resolution to native OpenGL format (RGBA on big endian, BGRA on little endian). It also rearranges the elements in the array so that the image is flipped vertically.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="javaToNativeRGB" kind="METHOD">
+<body>
+<first>Converts input Java ARGB value to native OpenGL format (RGBA on big endian, BGRA on little endian), setting alpha component to opaque (255).</first>
+<full>
+Converts input Java ARGB value to native OpenGL format (RGBA on big endian, BGRA on little endian), setting alpha component to opaque (255).
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="javaToNativeRGB" kind="METHOD">
+<body>
+<first>Converts input array of Java ARGB values representing an image of width x height resolution to native OpenGL format (RGBA on big endian, BGRA on little endian), while setting alpha component of all pixels to opaque (255).</first>
+<full>
+Converts input array of Java ARGB values representing an image of width x height resolution to native OpenGL format (RGBA on big endian, BGRA on little endian), while setting alpha component of all pixels to opaque (255). It also rearranges the elements in the array so that the image is flipped vertically.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="getIsFboAllowed" kind="METHOD">
+<body>
+<first>Determine if the renderer / hardware supports frame buffer objects (FBOs).</first>
+<full>
+Determine if the renderer / hardware supports frame buffer objects (FBOs).
+</full>
+</body>
+<blocktags>
+<blocktag>@return True if confirmed that FBOs are supported by the renderer on the current hardware. Will    be false if the support status has not been confirmed yet (for example, because the graphics    context has not been itiliazed) or if it is confirmed that the renderer / hardware    combination do not support FBOs.</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL" name="getString" kind="METHOD">
+<body>
+<first>Get a configuration or status string from the underlying renderer.</first>
+<full>
+Get a configuration or status string from the underlying renderer.
+</full>
+</body>
+<blocktags>
+<blocktag>@param name The name or ID of the attribute to request.</blocktag>
+<blocktag>@return The requested value as a string.</blocktag>
+<blocktag>@throws GraphicsNotInitializedException Thrown if an attribute is requested that is not    available until graphics initialization before that initialization compeltes. For example,    if requesting a GL string before GL context is available.</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.PGL.GraphicsNotInitializedException" name="init" kind="CONSTRUCTOR">
+<body>
+<first>Create a new exception indicating that an action could not be fulfilled because the rendering context or equivalent is not ready.</first>
+<full>
+Create a new exception indicating that an action could not be fulfilled because the rendering context or equivalent is not ready.
+</full>
+</body>
+<blocktags>
+<blocktag>@param msg Further details about the issue.</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LineStroker" name="init" kind="CONSTRUCTOR">
+<body>
+<first>Empty constructor.</first>
+<full>
+Empty constructor.&lt;code&gt;setOutput&lt;/code&gt;and&lt;code&gt;setParameters&lt;/code&gt;must be called prior to calling any other methods.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LineStroker" name="init" kind="CONSTRUCTOR">
+<body>
+<first>Constructs a ,&lt;code&gt;,LineStroker,&lt;/code&gt;,.</first>
+<full>
+Constructs a&lt;code&gt;LineStroker&lt;/code&gt;.
+</full>
+</body>
+<blocktags>
+<blocktag>@param output an output &lt;code&gt;LineStroker&lt;/code&gt;.</blocktag>
+<blocktag>@param lineWidth the desired line width in pixels, in S15.16 format.</blocktag>
+<blocktag>@param capStyle the desired end cap style, one of &lt;code&gt;CAP_BUTT&lt;/code&gt;,          &lt;code&gt;CAP_ROUND&lt;/code&gt; or &lt;code&gt;CAP_SQUARE&lt;/code&gt;.</blocktag>
+<blocktag>@param joinStyle the desired line join style, one of &lt;code&gt;JOIN_MITER&lt;/code&gt;,          &lt;code&gt;JOIN_ROUND&lt;/code&gt; or &lt;code&gt;JOIN_BEVEL&lt;/code&gt;.</blocktag>
+<blocktag>@param miterLimit the desired miter limit, in S15.16 format.</blocktag>
+<blocktag>@param transform a &lt;code&gt;Transform4&lt;/code&gt; object indicating the transform that has          been previously applied to all incoming coordinates. This is          required in order to produce consistently shaped end caps and          joins.</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LineStroker" name="setOutput" kind="METHOD">
+<body>
+<first>Sets the output ,&lt;code&gt;,LineStroker,&lt;/code&gt;, of this ,&lt;code&gt;,LineStroker,&lt;/code&gt;,.</first>
+<full>
+Sets the output&lt;code&gt;LineStroker&lt;/code&gt;of this&lt;code&gt;LineStroker&lt;/code&gt;.
+</full>
+</body>
+<blocktags>
+<blocktag>@param output an output &lt;code&gt;LineStroker&lt;/code&gt;.</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LineStroker" name="setParameters" kind="METHOD">
+<body>
+<first>Sets the parameters of this ,&lt;code&gt;,LineStroker,&lt;/code&gt;,.</first>
+<full>
+Sets the parameters of this&lt;code&gt;LineStroker&lt;/code&gt;.
+</full>
+</body>
+<blocktags>
+<blocktag>@param lineWidth the desired line width in pixels, in S15.16 format.</blocktag>
+<blocktag>@param capStyle the desired end cap style, one of &lt;code&gt;CAP_BUTT&lt;/code&gt;,          &lt;code&gt;CAP_ROUND&lt;/code&gt; or &lt;code&gt;CAP_SQUARE&lt;/code&gt;.</blocktag>
+<blocktag>@param joinStyle the desired line join style, one of &lt;code&gt;JOIN_MITER&lt;/code&gt;,          &lt;code&gt;JOIN_ROUND&lt;/code&gt; or &lt;code&gt;JOIN_BEVEL&lt;/code&gt;.</blocktag>
+<blocktag>@param miterLimit the desired miter limit, in S15.16 format.</blocktag>
+<blocktag>@param transform a &lt;code&gt;Transform4&lt;/code&gt; object indicating the transform that has          been previously applied to all incoming coordinates. This is          required in order to produce consistently shaped end caps and          joins.</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="WIND_EVEN_ODD" kind="FIELD">
+<body>
+<first>The winding rule constant for specifying an even-odd rule for determining the interior of a path.</first>
+<full>
+The winding rule constant for specifying an even-odd rule for determining the interior of a path. The even-odd rule specifies that a point lies inside the path if a ray drawn in any direction from that point to infinity is crossed by path segments an odd number of times.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="WIND_NON_ZERO" kind="FIELD">
+<body>
+<first>The winding rule constant for specifying a non-zero rule for determining the interior of a path.</first>
+<full>
+The winding rule constant for specifying a non-zero rule for determining the interior of a path. The non-zero rule specifies that a point lies inside the path if a ray drawn in any direction from that point to infinity is crossed by path segments a different number of times in the counter-clockwise direction than the clockwise direction.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="SEG_MOVETO" kind="FIELD">
+<body>
+<first>Starts segment at a given position.</first>
+<full>
+Starts segment at a given position.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="SEG_LINETO" kind="FIELD">
+<body>
+<first>Extends segment by adding a line to a given position.</first>
+<full>
+Extends segment by adding a line to a given position.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="SEG_CLOSE" kind="FIELD">
+<body>
+<first>Closes segment at current position.</first>
+<full>
+Closes segment at current position.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="JOIN_MITER" kind="FIELD">
+<body>
+<first>Joins path segments by extending their outside edges until they meet.</first>
+<full>
+Joins path segments by extending their outside edges until they meet.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="JOIN_ROUND" kind="FIELD">
+<body>
+<first>Joins path segments by rounding off the corner at a radius of half the line width.</first>
+<full>
+Joins path segments by rounding off the corner at a radius of half the line width.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="JOIN_BEVEL" kind="FIELD">
+<body>
+<first>Joins path segments by connecting the outer corners of their wide outlines with a straight segment.</first>
+<full>
+Joins path segments by connecting the outer corners of their wide outlines with a straight segment.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="CAP_BUTT" kind="FIELD">
+<body>
+<first>Ends unclosed subpaths and dash segments with no added decoration.</first>
+<full>
+Ends unclosed subpaths and dash segments with no added decoration.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="CAP_ROUND" kind="FIELD">
+<body>
+<first>Ends unclosed subpaths and dash segments with a round decoration that has a radius equal to half of the width of the pen.</first>
+<full>
+Ends unclosed subpaths and dash segments with a round decoration that has a radius equal to half of the width of the pen.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="CAP_SQUARE" kind="FIELD">
+<body>
+<first>Ends unclosed subpaths and dash segments with a square projection that extends beyond the end of the segment to a distance equal to half of the line width.</first>
+<full>
+Ends unclosed subpaths and dash segments with a square projection that extends beyond the end of the segment to a distance equal to half of the line width.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="init" kind="CONSTRUCTOR">
+<body>
+<first>Constructs a new empty single precision ,{@code LinePath}, object with a default winding rule of ,{@link #WIND_NON_ZERO},.</first>
+<full>
+Constructs a new empty single precision{@code LinePath}object with a default winding rule of{@link #WIND_NON_ZERO}.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="init" kind="CONSTRUCTOR">
+<body>
+<first>Constructs a new empty single precision ,{@code LinePath}, object with the specified winding rule to control operations that require the interior of the path to be defined.</first>
+<full>
+Constructs a new empty single precision{@code LinePath}object with the specified winding rule to control operations that require the interior of the path to be defined.
+</full>
+</body>
+<blocktags>
+<blocktag>@param rule the winding rule</blocktag>
+<blocktag>@see #WIND_EVEN_ODD</blocktag>
+<blocktag>@see #WIND_NON_ZERO</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="init" kind="CONSTRUCTOR">
+<body>
+<first>Constructs a new ,{@code LinePath}, object from the given specified initial values.</first>
+<full>
+Constructs a new{@code LinePath}object from the given specified initial values. This method is only intended for internal use and should not be made public if the other constructors for this class are ever exposed.
+</full>
+</body>
+<blocktags>
+<blocktag>@param rule the winding rule</blocktag>
+<blocktag>@param initialCapacity the size to make the initial array to store the path segment types</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="moveTo" kind="METHOD">
+<body>
+<first>Adds a point to the path by moving to the specified coordinates specified in float precision.</first>
+<full>
+Adds a point to the path by moving to the specified coordinates specified in float precision.
+
+This method provides a single precision variant of the double precision{@code moveTo()}method on the base{@code LinePath}class.
+</full>
+</body>
+<blocktags>
+<blocktag>@param x the specified X coordinate</blocktag>
+<blocktag>@param y the specified Y coordinate</blocktag>
+<blocktag>@see LinePath#moveTo</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="lineTo" kind="METHOD">
+<body>
+<first>Adds a point to the path by drawing a straight line from the current coordinates to the new specified coordinates specified in float precision.</first>
+<full>
+Adds a point to the path by drawing a straight line from the current coordinates to the new specified coordinates specified in float precision.
+
+This method provides a single precision variant of the double precision{@code lineTo()}method on the base{@code LinePath}class.
+</full>
+</body>
+<blocktags>
+<blocktag>@param x the specified X coordinate</blocktag>
+<blocktag>@param y the specified Y coordinate</blocktag>
+<blocktag>@see LinePath#lineTo</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="getPathIterator" kind="METHOD">
+<body>
+<first>The iterator for this class is not multi-threaded safe, which means that the ,{@code LinePath}, class does not guarantee that modifications to the geometry of this ,{@code LinePath}, object do not affect any iterations of that geometry that are already in process.</first>
+<full>
+The iterator for this class is not multi-threaded safe, which means that the{@code LinePath}class does not guarantee that modifications to the geometry of this{@code LinePath}object do not affect any iterations of that geometry that are already in process.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="closePath" kind="METHOD">
+<body>
+<first>Closes the current subpath by drawing a straight line back to the coordinates of the last ,{@code moveTo},.</first>
+<full>
+Closes the current subpath by drawing a straight line back to the coordinates of the last{@code moveTo}. If the path is already closed then this method has no effect.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="getWindingRule" kind="METHOD">
+<body>
+<first>Returns the fill style winding rule.</first>
+<full>
+Returns the fill style winding rule.
+</full>
+</body>
+<blocktags>
+<blocktag>@return an integer representing the current winding rule.</blocktag>
+<blocktag>@see #WIND_EVEN_ODD</blocktag>
+<blocktag>@see #WIND_NON_ZERO</blocktag>
+<blocktag>@see #setWindingRule</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="setWindingRule" kind="METHOD">
+<body>
+<first>Sets the winding rule for this path to the specified value.</first>
+<full>
+Sets the winding rule for this path to the specified value.
+</full>
+</body>
+<blocktags>
+<blocktag>@param rule an integer representing the specified winding rule</blocktag>
+<blocktag>@exception IllegalArgumentException if {@code rule} is not either {@link #WIND_EVEN_ODD} or              {@link #WIND_NON_ZERO}</blocktag>
+<blocktag>@see #getWindingRule</blocktag>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="reset" kind="METHOD">
+<body>
+<first>Resets the path to empty.</first>
+<full>
+Resets the path to empty. The append position is set back to the beginning of the path and all coordinates and point types are forgotten.
+</full>
+</body>
+<blocktags>
+</blocktags>
+</commenttree>
+<commenttree class="processing.opengl.LinePath" name="createStrokedPath" kind="METHOD">
+<body>
+<first>Constructs a solid ,&lt;code&gt;,LinePath,&lt;/code&gt;, with the specified attributes.</first>
+<full>
+Constructs a solid&lt;code&gt;LinePath&lt;/code&gt;with the specified attributes.
+</full>
+</body>
+<blocktags>
+<blocktag>@param src the original path to be stroked</blocktag>
+<blocktag>@param weight the weight of the stroked path</blocktag>
+<blocktag>@param caps the decoration of the ends of the segments in the path</blocktag>
+<blocktag>@param join the decoration applied where path segments meet</blocktag>
+<blocktag>@param miterlimit</blocktag>
+<blocktag>@param transform</blocktag>
+</blocktags>
+</commenttree>
 </commenttrees>
