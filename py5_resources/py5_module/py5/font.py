@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+# *** FORMAT PARAMS ***
 import functools
 
 from jnius import autoclass
