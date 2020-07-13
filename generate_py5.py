@@ -38,6 +38,8 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     repo_dir = Path(repo_dir)
 
     logger.info('generating py5 library...')
+
+    logger.info('building classpath')
     core_jars = list(repo_dir.glob('**/core.jar'))
     if len(core_jars) != 1:
         if core_jars:
@@ -53,6 +55,8 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         msg = f'py5 jar not found at {str(py5_jar_path)}'
         logger.critical(msg)
         raise RuntimeError(msg)
+
+    logger.info('start jnius')
     import jnius_config
     jnius_config.set_classpath(str(py5_jar_path), str(core_jar_path))
     from jnius import autoclass
@@ -87,6 +91,15 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(n) for n in sorted(py5applet_builder.dynamic_variable_names)
     ]
 
+    # logger.info('creating Py5Shader code')
+    # pshader_data = pd.read_csv(Path('py5_resources', 'data', 'pshader.csv')).fillna('').set_index('processing_name')
+    # PShader = autoclass('processing.opengl.PShader', include_protected=False, include_private=False)
+    # pshader = PShader()
+
+    # py5applet_builder = CodeBuilder(class_method_parameter_names_data['PShader'], pshader_data, 'Py5Shader', '_py5shader')
+    # py5applet_builder.run_builder(PShader, pshader)
+
+    logger.info('joining code fragments')
     sketch_class_members_code = ''.join(py5applet_builder.class_members)
     sketch_module_members_code = ''.join(py5applet_builder.module_members)
     run_sketch_pre_run_code = ''.join(run_sketch_pre_run_steps)
@@ -95,7 +108,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     py5_dir_names = py5applet_builder.all_names | ref.EXTRA_DIR_NAMES
     py5_dir_str = str(sorted(py5_dir_names, key=lambda x: x.lower()))
     # don't want import * to import the dynamic variables because they cannot be updated
-    py5_all_str = str(sorted([x for x in py5_dir_names if x not in py5applet_builder.dynamic_variable_names], key=lambda x: x.lower()))
+    py5_all_str = str(sorted(py5_dir_names - py5applet_builder.dynamic_variable_names, key=lambda x: x.lower()))
 
     format_params = dict(sketch_class_members_code=sketch_class_members_code,
                          sketch_module_members_code=sketch_module_members_code,
@@ -121,7 +134,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
 
     dest_dir.touch()
 
-    logger.info('done!')
+    logger.info('py5 build complete!')
 
 
 def main():
