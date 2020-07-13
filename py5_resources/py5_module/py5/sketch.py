@@ -19,7 +19,7 @@ from .shader import Py5Shader, _return_py5shader, _py5shader_param  # noqa
 from .font import Py5Font, _return_py5font, _py5font_param  # noqa
 
 
-class_members_code = None  # DELETE
+sketch_class_members_code = None  # DELETE
 
 _METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',
             'key_released', 'mouse_clicked', 'mouse_dragged', 'mouse_moved',
@@ -143,4 +143,4 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
         Image.fromarray(arr, mode='RGBA').save(filename, format=format, **params)
 
 
-{class_members_code}
+{sketch_class_members_code}

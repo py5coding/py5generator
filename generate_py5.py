@@ -87,22 +87,22 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(n) for n in sorted(py5applet_builder.dynamic_variable_names)
     ]
 
-    class_members_code = ''.join(py5applet_builder.class_members)
-    module_members_code = ''.join(py5applet_builder.module_members)
+    sketch_class_members_code = ''.join(py5applet_builder.class_members)
+    sketch_module_members_code = ''.join(py5applet_builder.module_members)
     run_sketch_pre_run_code = ''.join(run_sketch_pre_run_steps)
 
     # code the result of the module's __dir__ function and __all__ variable
     py5_dir_names = py5applet_builder.all_names | ref.EXTRA_DIR_NAMES
     # code_builder.py5_dir.extend(ref.EXTRA_DIR_NAMES)
-    str_py5_dir = str(sorted(py5_dir_names, key=lambda x: x.lower()))
+    py5_dir_str = str(sorted(py5_dir_names, key=lambda x: x.lower()))
     # don't want import * to import the dynamic variables because they cannot be updated
-    str_py5_all = str(sorted([x for x in py5_dir_names if x not in py5applet_builder.dynamic_variable_names], key=lambda x: x.lower()))
+    py5_all_str = str(sorted([x for x in py5_dir_names if x not in py5applet_builder.dynamic_variable_names], key=lambda x: x.lower()))
 
-    format_params = dict(class_members_code=class_members_code,
-                         module_members_code=module_members_code,
+    format_params = dict(sketch_class_members_code=sketch_class_members_code,
+                         sketch_module_members_code=sketch_module_members_code,
                          run_sketch_pre_run_code=run_sketch_pre_run_code,
-                         str_py5_dir=str_py5_dir,
-                         str_py5_all=str_py5_all)
+                         py5_dir_str=py5_dir_str,
+                         py5_all_str=py5_all_str)
     docstring_library = DocstringLibrary()
     # build complete py5 module in destination directory
     dest_dir = Path('build')

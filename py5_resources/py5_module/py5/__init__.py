@@ -38,15 +38,15 @@ __version__ = '0.1'
 
 logger = logging.getLogger(__name__)
 
-module_members_code = None  # DELETE
+sketch_module_members_code = None  # DELETE
 run_sketch_pre_run_code = None  # DELETE
-str_py5_dir = None  # DELETE
-str_py5_all = None  # DELETE
+py5_dir_str = None  # DELETE
+py5_all_str = None  # DELETE
 
 _py5sketch = Sketch()
 _py5sketch_used = False
 
-{module_members_code}
+{sketch_module_members_code}
 
 
 def run_sketch(function_dict: Dict[str, Any] = None,
@@ -122,7 +122,7 @@ def __getattr__(name):
 
 
 def __dir__():
-    return {str_py5_dir}
+    return {py5_dir_str}
 
 
-__all__ = {str_py5_all}
+__all__ = {py5_all_str}
