@@ -144,7 +144,7 @@ class CodeBuilder:
         else:
             # loop through the method signatures and create the typehint methods
             skipped_all = True
-            for params, rettype in sorted(method.signatures(), key=lambda x: len(x[0])):
+            for params, rettype in sorted(method.signatures(), key=lambda x: str(x[0])):
                 if ref.PY5_SKIP_PARAM_TYPES.intersection(params) or rettype in ref.PY5_SKIP_RETURN_TYPES:
                     continue
                 skipped_all = False

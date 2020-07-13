@@ -106,9 +106,9 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
 
     # code the result of the module's __dir__ function and __all__ variable
     py5_dir_names = py5applet_builder.all_names | ref.EXTRA_DIR_NAMES
-    py5_dir_str = str(sorted(py5_dir_names, key=lambda x: x.lower()))
+    py5_dir_str = str(sorted(py5_dir_names, key=lambda x: (x.lower(), x)))
     # don't want import * to import the dynamic variables because they cannot be updated
-    py5_all_str = str(sorted(py5_dir_names - py5applet_builder.dynamic_variable_names, key=lambda x: x.lower()))
+    py5_all_str = str(sorted(py5_dir_names - py5applet_builder.dynamic_variable_names, key=lambda x: (x.lower(), x)))
 
     format_params = dict(sketch_class_members_code=sketch_class_members_code,
                          sketch_module_members_code=sketch_module_members_code,
