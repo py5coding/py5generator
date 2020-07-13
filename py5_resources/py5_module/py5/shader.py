@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 # *** FORMAT PARAMS ***
 import functools
+from typing import overload, List  # noqa
 
-from .methods import Py5Exception
-from .mixins.image import _check_pimage_cache_or_convert
+from .methods import Py5Exception  # noqa
+from .mixins.image import _check_pimage_cache_or_convert  # noqa
+from .java_types import Py5Image  # noqa
+
+
+py5shader_class_members_code = None  # DELETE
 
 
 def _return_py5shader(f):
@@ -29,16 +34,5 @@ class Py5Shader:
         self._instance = pshader
         self._pimage_cache = pimage_cache
 
-    # TODO: need all the typehints
 
-    @_check_pimage_cache_or_convert(1)
-    def set(self, *args):
-        """$class_py5shader_set"""
-        try:
-            return self._instance.set(*args)
-        except Exception as e:
-            raise Py5Exception(
-                e.__class__.__name__,
-                str(e),
-                'set',
-                args)
+{py5shader_class_members_code}

@@ -4,7 +4,7 @@ Reference and Lookups
 
 PY5_SKIP_PARAM_TYPES = {
     'processing/core/PMatrix3D', 'processing/core/PMatrix2D',
-    'processing/core/PMatrix', 'java/io/File'
+    'processing/core/PMatrix', 'java/io/File', 'processing/core/PVector'
 }
 
 PY5_SKIP_RETURN_TYPES = PY5_SKIP_PARAM_TYPES | {
