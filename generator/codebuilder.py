@@ -73,7 +73,7 @@ class CodeBuilder:
         self.static_constant_names = set()
         self.dynamic_variable_names = set()
         self.method_names = set()
-        self.mixin_names = set()
+        self.extra_names = set()
 
         self.class_members = []
         self.module_members = []
@@ -86,7 +86,7 @@ class CodeBuilder:
     @property
     def all_names(self):
         return (self.static_constant_names | self.dynamic_variable_names
-                | self.method_names | self.mixin_names)
+                | self.method_names | self.extra_names)
 
     def _make_param_rettype_strs(self, fname, first_param, params, rettype):
         try:
@@ -186,7 +186,7 @@ class CodeBuilder:
                 self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj, arguments, module_arguments))
         self.method_names.add(snake_name)
 
-    def code_mixin(self, filename):
+    def code_extra(self, filename):
         with open(filename) as f:
             code = f.read()
             code = code.split('*** BEGIN METHODS ***')[1].strip()
@@ -213,7 +213,7 @@ class CodeBuilder:
                 params = ', '.join(paramlist)
                 self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
                     fname, args, moduleobj, rettypestr, params))
-                self.mixin_names.add(fname)
+                self.extra_names.add(fname)
 
     def run_builder(self, cls_, instance):
         from jnius import JavaStaticMethod, JavaMethod, JavaMultipleMethod, JavaStaticField, JavaField

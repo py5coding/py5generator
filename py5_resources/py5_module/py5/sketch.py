@@ -107,22 +107,24 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
         self.get_surface().stopThread()
         self._shutdown()
 
-    def hot_reload_draw(self, draw):
+    # *** BEGIN METHODS ***
+
+    def hot_reload_draw(self, draw: Callable) -> None:
         """$class_hot_reload_draw"""
         self._py5_methods.set_functions(**dict(draw=draw))
 
-    def profile_functions(self, function_names):
+    def profile_functions(self, function_names: List[str]) -> None:
         """$class_profile_functions"""
         if self._py5_methods is None:
             self._methods_to_profile.extend(function_names)
         else:
             self._py5_methods.profile_functions(function_names)
 
-    def profile_draw(self):
+    def profile_draw(self) -> None:
         """$class_profile_draw"""
         self.profile_functions(['draw'])
 
-    def print_line_profiler_stats(self):
+    def print_line_profiler_stats(self) -> None:
         """$class_print_line_profiler_stats"""
         self._py5_methods.dump_stats()
 
@@ -133,11 +135,11 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
         pixels = np.frombuffer(self._instance.loadAndGetPixels().tostring(), dtype=np.uint8)
         return pixels.reshape(self.height, self.width, 4).copy()
 
-    def set_pixels(self, new_pixels: np.ndarray):
+    def set_pixels(self, new_pixels: np.ndarray) -> None:
         """$class_set_pixels"""
         self._instance.setAndUpdatePixels(new_pixels.flatten().tobytes(), pass_by_reference=False)
 
-    def save_frame(self, filename: Union[str, Path], format: str = None, **params):
+    def save_frame(self, filename: Union[str, Path], format: str = None, **params) -> None:
         """$class_save_frame"""
         # these are the same function calls Processing uses before saving a frame to a file
         filename = self._instance.savePath(self._instance.insertFrame(str(filename)))

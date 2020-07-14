@@ -87,7 +87,8 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     for filename in mixin_dir.glob('*.py'):
         if filename.stem == '__init__':
             continue
-        py5applet_builder.code_mixin(filename)
+        py5applet_builder.code_extra(filename)
+    py5applet_builder.code_extra(Path('py5_resources', 'py5_module', 'py5', 'sketch.py'))
 
     # code the extra pre-run steps so the dynamic variables work right
     run_sketch_pre_run_steps = [
