@@ -32,8 +32,6 @@ def make_dataframe(cls_):
         if processing_name.startswith('_'):
             continue
         type_ = class_types.get(type(v), 'unknown')
-        if type_ == 'unknown':
-            print(type(v))
         py5_name = processing_name if type_ == 'static field' else snake_case(processing_name)
         df.loc[i, :] = (processing_name, py5_name, type_)
 
@@ -53,3 +51,6 @@ make_dataframe(PGraphics).to_csv('/tmp/pgraphics.csv')
 
 PSurface = autoclass('processing.core.PSurface', include_protected=False, include_private=False)
 make_dataframe(PSurface).to_csv('/tmp/psurface.csv')
+
+PFont = autoclass('processing.core.PFont', include_protected=False, include_private=False)
+make_dataframe(PFont).to_csv('/tmp/pfont.csv')
