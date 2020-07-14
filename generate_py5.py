@@ -66,7 +66,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     with open(method_parameter_names_data_file, 'r') as f:
         for line in f.readlines():
             c, f, types, params, rettype = line.split('|')
-            if c not in ['PApplet', 'PShader']:
+            if c not in ['PApplet', 'PShader', 'PShape']:
                 continue
             if c not in class_method_parameter_names_data: class_method_parameter_names_data[c] = dict()
             if f not in class_method_parameter_names_data[c]: class_method_parameter_names_data[c][f] = dict()
@@ -101,10 +101,19 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     py5shader_builder = CodeBuilder(class_method_parameter_names_data['PShader'], pshader_data, 'Py5Shader', '_py5shader')
     py5shader_builder.run_builder(PShader, pshader)
 
+    logger.info('creating Py5Shape code')
+    pshape_data = pd.read_csv(Path('py5_resources', 'data', 'pshape.csv')).fillna('').set_index('processing_name')
+    PShape = autoclass('processing.core.PShape', include_protected=False, include_private=False)
+    pshape = PShape()
+
+    py5shape_builder = CodeBuilder(class_method_parameter_names_data['PShape'], pshape_data, 'Py5Shape', '_py5shape')
+    py5shape_builder.run_builder(PShape, pshape)
+
     logger.info('joining code fragments')
     sketch_class_members_code = ''.join(py5applet_builder.class_members)
     sketch_module_members_code = ''.join(py5applet_builder.module_members)
     py5shader_class_members_code = ''.join(py5shader_builder.class_members)
+    py5shape_class_members_code = ''.join(py5shape_builder.class_members)
     run_sketch_pre_run_code = ''.join(run_sketch_pre_run_steps)
 
     # code the result of the module's __dir__ function and __all__ variable
@@ -116,6 +125,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     format_params = dict(sketch_class_members_code=sketch_class_members_code,
                          sketch_module_members_code=sketch_module_members_code,
                          py5shader_class_members_code=py5shader_class_members_code,
+                         py5shape_class_members_code=py5shape_class_members_code,
                          run_sketch_pre_run_code=run_sketch_pre_run_code,
                          py5_dir_str=py5_dir_str,
                          py5_all_str=py5_all_str)

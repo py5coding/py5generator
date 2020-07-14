@@ -17,6 +17,7 @@ from .mixins.threads import Py5Promise  # noqa
 from .mixins.image import PImageCache, _check_pimage_cache_or_convert  # noqa
 from .shader import Py5Shader, _return_py5shader, _py5shader_param  # noqa
 from .font import Py5Font, _return_py5font, _py5font_param  # noqa
+from .shape import Py5Shape, _return_py5shape, _py5shape_param  # noqa
 
 
 sketch_class_members_code = None  # DELETE

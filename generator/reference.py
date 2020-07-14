@@ -19,7 +19,8 @@ JTYPE_CONVERSIONS = {
     'java/lang/Object': 'Any',
     'processing/opengl/PShader': 'Py5Shader',
     'processing/core/PFont': 'Py5Font',
-    'processing/core/PImage': 'Py5Image'
+    'processing/core/PImage': 'Py5Image',
+    'processing/core/PShape': 'Py5Shape',
 }
 
 PCONSTANT_OVERRIDES = {

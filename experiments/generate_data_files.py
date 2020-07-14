@@ -32,6 +32,8 @@ def make_dataframe(cls_):
         if processing_name.startswith('_'):
             continue
         type_ = class_types.get(type(v), 'unknown')
+        if type_ == 'unknown':
+            print(type(v))
         py5_name = processing_name if type_ == 'static field' else snake_case(processing_name)
         df.loc[i, :] = (processing_name, py5_name, type_)
 
