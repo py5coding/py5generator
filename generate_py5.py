@@ -73,7 +73,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
             if types in class_method_parameter_names_data[c][f]: raise RuntimeError(f'assumption violated [{c}] [{f}] [{types}]')
             class_method_parameter_names_data[c][f][types] = (params, rettype)
 
-    logger.info('creating Py5Applet code')
+    logger.info('creating Sketch code')
     py5applet_data = pd.read_csv(Path('py5_resources', 'data', 'py5applet.csv')).fillna('').set_index('processing_name')
     Py5Applet = autoclass('py5.core.Py5Applet', include_protected=False, include_private=False)
     py5applet = Py5Applet()
@@ -94,21 +94,20 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(n) for n in sorted(py5applet_builder.dynamic_variable_names)
     ]
 
-    logger.info('creating Py5Shader code')
-    pshader_data = pd.read_csv(Path('py5_resources', 'data', 'pshader.csv')).fillna('').set_index('processing_name')
-    PShader = autoclass('processing.opengl.PShader', include_protected=False, include_private=False)
-    pshader = PShader()
+    def run_code_builder(name, clsname):
+        logger.info(f'creating {name} code')
+        class_name = clsname.split('.')[-1]
+        data = pd.read_csv(Path('py5_resources', 'data', f'{class_name.lower()}.csv')).fillna('').set_index('processing_name')
+        Class = autoclass(clsname, include_protected=False, include_private=False)
+        instance = Class()
 
-    py5shader_builder = CodeBuilder(class_method_parameter_names_data['PShader'], pshader_data)
-    py5shader_builder.run_builder(PShader, pshader)
+        builder = CodeBuilder(class_method_parameter_names_data[class_name], data)
+        builder.run_builder(Class, instance)
 
-    logger.info('creating Py5Shape code')
-    pshape_data = pd.read_csv(Path('py5_resources', 'data', 'pshape.csv')).fillna('').set_index('processing_name')
-    PShape = autoclass('processing.core.PShape', include_protected=False, include_private=False)
-    pshape = PShape()
+        return builder
 
-    py5shape_builder = CodeBuilder(class_method_parameter_names_data['PShape'], pshape_data)
-    py5shape_builder.run_builder(PShape, pshape)
+    py5shader_builder = run_code_builder('Py5Shader', 'processing.opengl.PShader')
+    py5shape_builder = run_code_builder('Py5Shape', 'processing.core.PShape')
 
     logger.info('joining code fragments')
     sketch_class_members_code = ''.join(py5applet_builder.class_members)
