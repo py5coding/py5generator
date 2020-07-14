@@ -110,6 +110,4 @@ if an exception is thrown in setup, the sketch should stop and handle the error 
 
 when an error is thrown I can call run_sketch again to continue the sketch. neat trick, but it opens a new window, which perhaps it should not do.
 
-is the `platformName` variable always supposed to be 3, or is that the number for Linux?
-
-class methods like hot_reload_draw, profile_draw, get_pixels, etc, need to be available in the py5 __init__ module. I can't just add them to the extra_dirs reference variable. That variable needs to be cleaned up a bit.
+class methods like hot_reload_draw, profile_draw, get_pixels, etc, need to be available in the py5 __init__ module. I can't just add them to the extra_dirs reference variable. That variable needs to be cleaned up a bit. Sketch, Py5Font, etc need to be added to extra_dirs.

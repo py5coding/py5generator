@@ -15,7 +15,7 @@ WINDOWS,WINDOWS,,,static field,constants,,TRUE,TRUE,
 MACOS,MACOS,,,static field,constants,,TRUE,TRUE,
 LINUX,LINUX,,,static field,constants,,TRUE,TRUE,
 MACOSX,MACOSX,,,static field,constants,,FALSE,FALSE,deprecated
-platformNames,platformNames,,,static field,constants,,TRUE,TRUE,
+platformNames,platformNames,,,static field,constants,,FALSE,FALSE,
 EPSILON,EPSILON,,,static field,constants,,TRUE,TRUE,
 MAX_FLOAT,MAX_FLOAT,,,static field,constants,,TRUE,TRUE,
 MIN_FLOAT,MIN_FLOAT,,,static field,constants,,TRUE,TRUE,
@@ -173,7 +173,7 @@ HINT_COUNT,HINT_COUNT,,,static field,constants,,TRUE,TRUE,
 javaVersionName,javaVersionName,,,static field,constants,,TRUE,TRUE,
 javaPlatform,javaPlatform,,,static field,constants,,TRUE,TRUE,
 javaVersion,javaVersion,,,static field,constants,,TRUE,TRUE,
-platform,platform,,,static field,constants,,TRUE,TRUE,
+platform,platform,,,static field,constants,,FALSE,FALSE,"use ""import sys; sys.platform"" instead"
 useNativeSelect,useNativeSelect,,,static field,constants,,TRUE,TRUE,
 g,g,,,dynamic variable,,,TRUE,TRUE,internal pgraphics object
 display_width,displayWidth,,,dynamic variable,,,TRUE,TRUE,
