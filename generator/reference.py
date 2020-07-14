@@ -35,6 +35,6 @@ PCONSTANT_OVERRIDES = {
 
 EXTRA_DIR_NAMES = {
     'run_sketch', 'get_py5applet', 'reset_py5', 'exit_sketch',
-    'autoclass', 'Py5Exception', 'Sketch',
+    'autoclass', 'Py5Exception', 'Sketch', 'Py5Font', 'Py5Shader', 'Py5Shape',
     'prune_tracebacks', 'set_stackprinter_style', 'create_font_file'
 }
