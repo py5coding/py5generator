@@ -30,8 +30,7 @@ _METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',
 
 class Py5Base:
 
-    def __init__(self, cls_, instance):
-        self._cls = cls_
+    def __init__(self, instance):
         self._instance = instance
 
     def _shutdown(self):
@@ -40,9 +39,11 @@ class Py5Base:
 
 class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
 
+    _cls = _Py5Applet
+
     def __init__(self, *args, **kwargs):
         self._py5applet = _Py5Applet()
-        super().__init__(cls_=_Py5Applet, instance=self._py5applet)
+        super().__init__(instance=self._py5applet)
         self.set_pimage_cache(PImageCache(self._py5applet))
         self._methods_to_profile = []
         # must always keep the py5_methods reference count from hitting zero.

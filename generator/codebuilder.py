@@ -134,7 +134,7 @@ class CodeBuilder:
         if kwargs:
             kwargs_precondition, kwargs = kwargs.split('|')
         if static:
-            first_param, classobj, moduleobj, decorator = 'cls', 'self._cls', self._class_name, '@classmethod'
+            first_param, classobj, moduleobj, decorator = 'cls', 'cls._cls', self._class_name, '@classmethod'
         else:
             first_param, classobj, moduleobj, decorator = 'self', 'self._instance', self._instance_name, self._py5_decorators[fname]
         # if there is only one method signature, create the real method with typehints

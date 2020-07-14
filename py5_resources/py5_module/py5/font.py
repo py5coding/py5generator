@@ -25,12 +25,11 @@ def _py5font_param(f):
 
 class Py5Font:
 
-    _PFont = autoclass('processing.core.PFont',
-                       include_protected=False, include_private=False)
+    _cls = autoclass('processing.core.PFont', include_protected=False, include_private=False)
 
     def __init__(self, pfont):
         self._instance = pfont
 
     @classmethod
     def list(cls):
-        return cls._PFont.list()
+        return cls._cls.list()
