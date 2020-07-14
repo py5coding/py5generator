@@ -101,6 +101,8 @@ test and document packaging and deployment with pyinstaller
 
 build magic functions for screen grabs and making good documentation
 
+build `points` method because the `point` method is not useful.
+
 bugs
 ----
 
