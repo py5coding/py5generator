@@ -57,16 +57,18 @@ def _param_annotation(varname: str, jtype: str) -> str:
 
 class CodeBuilder:
 
-    def __init__(self, method_parameter_names_data, class_data, class_name, instance_name):
-        self.method_parameter_names_data = method_parameter_names_data
-        self.py5_names = class_data['py5_name']
-        self.py5_decorators = class_data['decorator']
-        self.py5_special_kwargs = class_data['special_kwargs']
-        self.class_name = class_name
-        self.instance_name = instance_name
+    def __init__(self, method_parameter_names_data, class_data):
+        self._method_parameter_names_data = method_parameter_names_data
+        self._py5_names = class_data['py5_name']
+        self._py5_decorators = class_data['decorator']
+        self._py5_special_kwargs = class_data['special_kwargs']
 
-        self.all_known_fields_and_methods = set(class_data.index)
-        self.included_fields_and_methods = set(class_data.query("implementation_from_processing==True").index)
+        self._code_module = False
+        self._class_name = None
+        self._instance_name = None
+
+        self._all_known_fields_and_methods = set(class_data.index)
+        self._included_fields_and_methods = set(class_data.query("implementation_from_processing==True").index)
 
         self.static_constant_names = set()
         self.dynamic_variable_names = set()
@@ -76,6 +78,11 @@ class CodeBuilder:
         self.class_members = []
         self.module_members = []
 
+    def code_module_members(self, class_name, instance_name):
+        self._code_module = True
+        self._class_name = class_name
+        self._instance_name = instance_name
+
     @property
     def all_names(self):
         return (self.static_constant_names | self.dynamic_variable_names
@@ -84,7 +91,7 @@ class CodeBuilder:
     def _make_param_rettype_strs(self, fname, first_param, params, rettype):
         try:
             parameter_name_key = ','.join([p.split('/')[-1].replace('...', '[]') for p in params])
-            parameter_names, _ = self.method_parameter_names_data[fname][parameter_name_key]
+            parameter_names, _ = self._method_parameter_names_data[fname][parameter_name_key]
             parameter_names = [snake_case(p) for p in parameter_names.split(',')]
             paramstrs = [first_param] + [_param_annotation(pn, p) for pn, p in zip(parameter_names, params)]
         except Exception:
@@ -96,34 +103,40 @@ class CodeBuilder:
 
     def code_static_constant(self, name, val):
         if name in ref.PCONSTANT_OVERRIDES:
-            self.module_members.append(f'\n{name} = {shlex.quote(ref.PCONSTANT_OVERRIDES[name])}')
+            val = shlex.quote(ref.PCONSTANT_OVERRIDES[name])
         else:
             if isinstance(val, str):
                 val = f"'{val}'"
             if name == 'javaVersion':
                 val = round(val, 2)
+
+        self.class_members.append(templ.CLASS_STATIC_FIELD_TEMPLATE.format(name, val))
+        if self._code_module:
             self.module_members.append(templ.MODULE_STATIC_FIELD_TEMPLATE.format(name, val))
-            self.class_members.append(templ.CLASS_STATIC_FIELD_TEMPLATE.format(name, val))
+
         self.static_constant_names.add(name)
 
     def code_dynamic_variable(self, name, type_name):
-        snake_name = self.py5_names[name]
+        snake_name = self._py5_names[name]
         var_type = (
             {'args': 'List[str]', 'g': 'PGraphics', 'recorder': 'PGraphics', 'pixels': 'List[int]'}
         ).get(name, type_name)
+
         self.class_members.append(templ.CLASS_PROPERTY_TEMPLATE.format(snake_name, var_type, name))
-        self.module_members.append(templ.MODULE_PROPERTY_TEMPLATE.format(snake_name, var_type))
+        if self._code_module:
+            self.module_members.append(templ.MODULE_PROPERTY_TEMPLATE.format(snake_name, var_type))
+
         self.dynamic_variable_names.add(snake_name)
 
     def code_method(self, fname, method, static):
-        snake_name = self.py5_names[fname]
-        kwargs = self.py5_special_kwargs[fname]
+        snake_name = self._py5_names[fname]
+        kwargs = self._py5_special_kwargs[fname]
         if kwargs:
             kwargs_precondition, kwargs = kwargs.split('|')
         if static:
-            first_param, classobj, moduleobj, decorator = 'cls', 'self._cls', self.class_name, '@classmethod'
+            first_param, classobj, moduleobj, decorator = 'cls', 'self._cls', self._class_name, '@classmethod'
         else:
-            first_param, classobj, moduleobj, decorator = 'self', 'self._instance', self.instance_name, self.py5_decorators[fname]
+            first_param, classobj, moduleobj, decorator = 'self', 'self._instance', self._instance_name, self._py5_decorators[fname]
         # if there is only one method signature, create the real method with typehints
         if len(method.signatures()) == 1:
             params, rettype = method.signatures()[0]
@@ -136,11 +149,13 @@ class CodeBuilder:
                 paramstrs.append(kwargs)
                 kw_param = kwargs.split(':')[0]
                 module_arguments += f', {kw_param}={kw_param}'
+
             # create the class and module code
             self.class_members.append(templ.CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
                 snake_name, ', '.join(paramstrs), classobj, fname, decorator, rettypestr, class_arguments))
-            self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
-                snake_name, ', '.join(paramstrs[1:]), moduleobj, rettypestr, module_arguments))
+            if self._code_module:
+                self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
+                    snake_name, ', '.join(paramstrs[1:]), moduleobj, rettypestr, module_arguments))
         else:
             # loop through the method signatures and create the typehint methods
             skipped_all = True
@@ -151,9 +166,11 @@ class CodeBuilder:
                 paramstrs, rettypestr = self._make_param_rettype_strs(fname, first_param, params, rettype)
                 if kwargs and any([kwargs_precondition in p for p in paramstrs]):
                     paramstrs.append(kwargs)
+
                 # create the class and module typehints
                 self.class_members.append(templ.CLASS_METHOD_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs), rettypestr))
-                self.module_members.append(templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs[1:]), rettypestr))
+                if self._code_module:
+                    self.module_members.append(templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs[1:]), rettypestr))
             if skipped_all:
                 return
             # now construct the real methods
@@ -163,14 +180,19 @@ class CodeBuilder:
                 arguments += f', {kwargs}'
                 kw_param = kwargs.split(':')[0]
                 module_arguments += f', {kw_param}={kw_param}'
+
             self.class_members.append(templ.CLASS_METHOD_TEMPLATE.format(snake_name, first_param, classobj, fname, decorator, arguments))
-            self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj, arguments, module_arguments))
+            if self._code_module:
+                self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj, arguments, module_arguments))
         self.method_names.add(snake_name)
 
     def code_mixin(self, filename):
         with open(filename) as f:
             code = f.read()
             code = code.split('*** BEGIN METHODS ***')[1].strip()
+
+        if not self._code_module:
+            return
 
         self.module_members.append(f'\n{"#" * 78}\n# module functions from {filename.name}\n{"#" * 78}\n')
         for decorator, fname, arg0, args, rettypestr in METHOD_REGEX.findall(code):
@@ -179,7 +201,7 @@ class CodeBuilder:
             elif decorator == '@overload':
                 self.module_members.append(templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(fname, args, rettypestr))
             else:
-                moduleobj = self.class_name if arg0 == 'cls' else self.instance_name
+                moduleobj = self._class_name if arg0 == 'cls' else self._instance_name
                 paramlist = []
                 for arg in TYPEHINT_COMMA_REGEX.sub('', args).split(','):
                     paramname = arg.split(':')[0].strip()
@@ -198,13 +220,13 @@ class CodeBuilder:
 
         ordering = {JavaStaticField: 0, JavaField: 1}
         for k, v in sorted(cls_.__dict__.items(), key=lambda x: (ordering.get(type(x[1]), 2), x[0])):
-            if isinstance(v, JavaStaticMethod) and k in self.included_fields_and_methods:
+            if isinstance(v, JavaStaticMethod) and k in self._included_fields_and_methods:
                 self.code_method(k, v, True)
-            elif isinstance(v, (JavaMethod, JavaMultipleMethod)) and k in self.included_fields_and_methods:
+            elif isinstance(v, (JavaMethod, JavaMultipleMethod)) and k in self._included_fields_and_methods:
                 self.code_method(k, v, False)
-            elif isinstance(v, JavaStaticField) and k in self.included_fields_and_methods:
+            elif isinstance(v, JavaStaticField) and k in self._included_fields_and_methods:
                 self.code_static_constant(k, getattr(cls_, k))
-            elif isinstance(v, JavaField) and k in self.included_fields_and_methods:
+            elif isinstance(v, JavaField) and k in self._included_fields_and_methods:
                 self.code_dynamic_variable(k, type(getattr(instance, k)).__name__)
-            if k not in self.all_known_fields_and_methods and not k.startswith('_'):
+            if k not in self._all_known_fields_and_methods and not k.startswith('_'):
                 logger.warning(f'detected previously unknown {type(v).__name__} {k}')

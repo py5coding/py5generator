@@ -78,7 +78,8 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     Py5Applet = autoclass('py5.core.Py5Applet', include_protected=False, include_private=False)
     py5applet = Py5Applet()
 
-    py5applet_builder = CodeBuilder(class_method_parameter_names_data['PApplet'], py5applet_data, 'Sketch', '_py5sketch')
+    py5applet_builder = CodeBuilder(class_method_parameter_names_data['PApplet'], py5applet_data)
+    py5applet_builder.code_module_members('Sketch', '_py5sketch')
     py5applet_builder.run_builder(Py5Applet, py5applet)
 
     # add the methods in the mixin classes as functions in the __init__.py module
@@ -98,7 +99,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     PShader = autoclass('processing.opengl.PShader', include_protected=False, include_private=False)
     pshader = PShader()
 
-    py5shader_builder = CodeBuilder(class_method_parameter_names_data['PShader'], pshader_data, 'Py5Shader', '_py5shader')
+    py5shader_builder = CodeBuilder(class_method_parameter_names_data['PShader'], pshader_data)
     py5shader_builder.run_builder(PShader, pshader)
 
     logger.info('creating Py5Shape code')
@@ -106,7 +107,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     PShape = autoclass('processing.core.PShape', include_protected=False, include_private=False)
     pshape = PShape()
 
-    py5shape_builder = CodeBuilder(class_method_parameter_names_data['PShape'], pshape_data, 'Py5Shape', '_py5shape')
+    py5shape_builder = CodeBuilder(class_method_parameter_names_data['PShape'], pshape_data)
     py5shape_builder.run_builder(PShape, pshape)
 
     logger.info('joining code fragments')
