@@ -551,7 +551,6 @@ show_depth_warning_xyz,showDepthWarningXYZ,,,static method,,,FALSE,FALSE,public 
 show_method_warning,showMethodWarning,,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
 show_variation_warning,showVariationWarning,,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
 show_missing_warning,showMissingWarning,,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
-save_via_image_io,saveViaImageIO,,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
 check_alpha,checkAlpha,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 blend,blend,@_check_pimage_cache_or_convert(0),Py5Image|cache: bool = False,method,image,pixels,TRUE,TRUE,
 cursor,cursor,@_check_pimage_cache_or_convert(0),Py5Image|cache: bool = False,method,environment,,TRUE,TRUE,

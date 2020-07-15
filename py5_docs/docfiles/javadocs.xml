@@ -2986,20 +2986,6 @@ To create a new image, use the `createImage()` function (do not use `new PImage(
 <blocktag>@param format Either RGB, ARGB, ALPHA (grayscale alpha channel)</blocktag>
 </blocktags>
 </commenttree>
-<commenttree class="processing.core.PImage" name="saveViaImageIO" kind="METHOD">
-<body>
-<first>Save a PImage to a path using ImageIO.</first>
-<full>
-Save a PImage to a path using ImageIO.
-</full>
-</body>
-<blocktags>
-<blocktag>@param image The image to be saved.</blocktag>
-<blocktag>@param path The path to which it should be saved.</blocktag>
-<blocktag>@return True if successful and false otherwise.</blocktag>
-<blocktag>@throws IOException</blocktag>
-</blocktags>
-</commenttree>
 <commenttree class="processing.core.PImage" name="init" kind="METHOD">
 <body>
 <first>Do not remove, see notes in the other variant.</first>
@@ -16232,20 +16218,6 @@ Display a warning that the specified method is not implemented, meaning that it 
 <blocktags>
 </blocktags>
 </commenttree>
-<commenttree class="processing.core.PApplet" name="saveViaImageIO" kind="METHOD">
-<body>
-<first>Save a PImage to a path using ImageIO.</first>
-<full>
-Save a PImage to a path using ImageIO.
-</full>
-</body>
-<blocktags>
-<blocktag>@param image The image to be saved.</blocktag>
-<blocktag>@param path The path to which it should be saved.</blocktag>
-<blocktag>@return True if successful and false otherwise.</blocktag>
-<blocktag>@throws IOException</blocktag>
-</blocktags>
-</commenttree>
 <commenttree class="processing.core.PApplet" name="checkAlpha" kind="METHOD">
 <body>
 <first>Check the alpha on an image, using a really primitive loop.</first>
@@ -18495,7 +18467,7 @@ Flags used to handle the creation of a separate front texture
 <body>
 <first>Defines if FBO Layer is allowed in the given environment.</first>
 <full>
-Defines if FBO Layer is allowed in the given environment. Using FBO can cause a fatal error during runtime for Intel HD Graphics 3000 chipsets (commonly used on older MacBooks)&lt;a href="https://github.com/processing/processing/issues/4104"&gt;#4104&lt;/a&gt;
+Defines if FBO Layer is allowed in the given environment. Using FBO can cause a fatal error during runtime for Intel HD Graphics 3000 chipsets (commonly used on older MacBooks)&lt;a href="https://github.com/processing/processing/issues/4104"&gt;#4104&lt;/a&gt;. Changed to private because needs to be accessed via isFboAllowed().&lt;a href="https://github.com/processing/processing4/pull/76"&gt;#76&lt;/a&gt;and&lt;a href="https://github.com/processing/processing4/issues/50"&gt;#50&lt;/a&gt;
 </full>
 </body>
 <blocktags>
@@ -18669,17 +18641,6 @@ Converts input array of Java ARGB values representing an image of width x height
 </full>
 </body>
 <blocktags>
-</blocktags>
-</commenttree>
-<commenttree class="processing.opengl.PGL" name="getIsFboAllowed" kind="METHOD">
-<body>
-<first>Determine if the renderer / hardware supports frame buffer objects (FBOs).</first>
-<full>
-Determine if the renderer / hardware supports frame buffer objects (FBOs).
-</full>
-</body>
-<blocktags>
-<blocktag>@return True if confirmed that FBOs are supported by the renderer on the current hardware. Will    be false if the support status has not been confirmed yet (for example, because the graphics    context has not been itiliazed) or if it is confirmed that the renderer / hardware    combination do not support FBOs.</blocktag>
 </blocktags>
 </commenttree>
 <commenttree class="processing.opengl.PGL" name="getString" kind="METHOD">

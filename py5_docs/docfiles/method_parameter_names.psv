@@ -517,9 +517,6 @@ PMatrix|mult|float[],float[]|source,target|float[]
 PMatrix|transpose|||void
 PMatrix|invert|||boolean
 PMatrix|determinant|||float
-PImage|saveViaImageIO|PImage,String|image,path|boolean
-PImage|imageioWriter|String|extension|ImageWriter
-PImage|imageioDPI|ImageWriter,ImageWriteParam,double|writer,param,dpi|IIOMetadata
 PImage|init|int,int,int|width,height,format|void
 PImage|init|int,int,int,int|width,height,format,factor|void
 PImage|checkAlpha|||void
@@ -1673,7 +1670,6 @@ PApplet|showDepthWarningXYZ|String|method|void
 PApplet|showMethodWarning|String|method|void
 PApplet|showVariationWarning|String|str|void
 PApplet|showMissingWarning|String|method|void
-PApplet|saveViaImageIO|PImage,String|image,path|boolean
 PApplet|checkAlpha|||void
 PApplet|get|int,int|x,y|int
 PApplet|get|int,int,int,int|x,y,w,h|PImage
@@ -2155,6 +2151,7 @@ PJOGL|setFrameRate|float|fps|void
 PJOGL|initSurface|int|antialias|void
 PJOGL|reinitSurface|||void
 PJOGL|registerListeners|||void
+PJOGL|screenshot|||PImage
 PJOGL|setIcon|String[]|icons|void
 PJOGL|setCaps|GLCapabilities|caps|void
 PJOGL|getCaps|||GLCapabilitiesImmutable
@@ -2379,6 +2376,7 @@ PGraphicsOpenGL|updatePixelSize|||void
 PGraphicsOpenGL|createPGL|PGraphicsOpenGL|pg|PGL
 PGraphicsOpenGL|createSurface|||PSurface
 PGraphicsOpenGL|saveImpl|String|filename|boolean
+PGraphicsOpenGL|onRender|||void
 PGraphicsOpenGL|setCache|PImage,Object|image,storage|void
 PGraphicsOpenGL|getCache|PImage|image|Object
 PGraphicsOpenGL|removeCache|PImage|image|void
@@ -3142,6 +3140,7 @@ PGraphics2D|pointLight|float,float,float,float,float,float|red,green,blue,x,y,z|
 PGraphics2D|spotLight|float,float,float,float,float,float,float,float,float,float,float|red,green,blue,x,y,z,nx,ny,nz,angle,concentration|void
 PGraphics2D|lightFalloff|float,float,float|constant,linear,quadratic|void
 PGraphics2D|lightSpecular|float,float,float|v1,v2,v3|void
+PGL|initGraphics|||void
 PGL|dispose|||void
 PGL|setPrimary|boolean|primary|void
 PGL|smoothToSamples|int|smooth|int
@@ -3150,6 +3149,7 @@ PGL|setFrameRate|float|fps|void
 PGL|initSurface|int|antialias|void
 PGL|reinitSurface|||void
 PGL|registerListeners|||void
+PGL|screenshot|||PImage
 PGL|getReadFramebuffer|||int
 PGL|getDrawFramebuffer|||int
 PGL|getDefaultDrawBuffer|||int
@@ -3260,7 +3260,7 @@ PGL|hasReadBuffer|||boolean
 PGL|hasDrawBuffer|||boolean
 PGL|maxSamples|||int
 PGL|getMaxTexUnits|||int
-PGL|getIsFboAllowed|||boolean
+PGL|isFboAllowed|||boolean
 PGL|allocateDirectByteBuffer|int|size|ByteBuffer
 PGL|allocateByteBuffer|int|size|ByteBuffer
 PGL|allocateByteBuffer|byte[]|arr|ByteBuffer
@@ -3480,6 +3480,7 @@ Tessellator|beginContour|||void
 Tessellator|endContour|||void
 Tessellator|addVertex|double[]|v|void
 Tessellator|addVertex|double[],int,Object|v,n,data|void
+RenderCallback|onRender|||void
 LineStroker|setOutput|LineStroker|output|void
 LineStroker|setParameters|int,int,int,int,PMatrix2D|lineWidth,capStyle,joinStyle,miterLimit,transform|void
 LineStroker|computeOffset|int,int,int,int,int[]|x0,y0,x1,y1,m|void
