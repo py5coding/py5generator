@@ -22,7 +22,7 @@ class CreateFontTool(Sketch):
         self.fill(0)
 
         self.text_font(font)
-        characters = self.characters or ''.join(font._instance.CHARSET)
+        characters = self.characters or ''.join(font.CHARSET)
         self.text(characters, self.width / 2, self.height / 2)
 
         os = self.get_py5applet().createOutput(str(self.filename))
@@ -30,7 +30,7 @@ class CreateFontTool(Sketch):
         os.close()
 
         self.fill(255)
-        msg = str(font._instance.getGlyphCount()) + ' glyphs written to ' + self.filename
+        msg = str(font.get_glyph_count()) + ' glyphs written to ' + self.filename
         self.translate(self.width / 2, self.height / 2)
         self.scale(0.95 * self.width / self.text_width(msg))
         self.text(msg, 0, 0)
