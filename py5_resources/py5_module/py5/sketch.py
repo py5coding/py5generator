@@ -3,7 +3,7 @@
 import time
 import os
 from pathlib import Path
-from typing import overload, NewType, Any, Callable, Union, Dict, List  # noqa
+from typing import overload, Any, Callable, Union, Dict, List  # noqa
 
 import numpy as np
 from PIL import Image
