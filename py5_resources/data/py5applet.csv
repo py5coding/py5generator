@@ -313,7 +313,7 @@ redraw,redraw,,,method,structure,,TRUE,TRUE,
 exit_called,exitCalled,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 smooth,smooth,,,method,environment,,TRUE,TRUE,
 full_screen,fullScreen,,,method,environment,,TRUE,TRUE,
-get_surface,getSurface,,,method,,,TRUE,TRUE,
+get_surface,getSurface,@_return_py5surface,,method,,,TRUE,TRUE,
 surface,surface,,,unknown,,,FALSE,FALSE,use get_surface
 sketch_width,sketchWidth,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 sketch_height,sketchHeight,,,method,,,FALSE,FALSE,methods that are not part of the processing framework

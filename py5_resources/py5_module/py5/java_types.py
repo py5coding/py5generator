@@ -9,8 +9,5 @@ Py5Applet = NewType('Py5Applet', _Py5Applet)
 _PGraphics = autoclass('processing.core.PGraphics',
                        include_protected=False, include_private=False)
 PGraphics = NewType('PGraphics', _PGraphics)
-_PSurface = autoclass('processing.core.PSurface',
-                      include_protected=False, include_private=False)
-PSurface = NewType('PSurface', _PSurface)
 
 Py5Image = NewType('Py5Image', None)

@@ -66,7 +66,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     with open(method_parameter_names_data_file, 'r') as f:
         for line in f.readlines():
             c, f, types, params, rettype = line.split('|')
-            if c not in ['PApplet', 'PShader', 'PShape', 'PFont']:
+            if c not in ['PApplet', 'PShader', 'PShape', 'PFont', 'PSurface']:
                 continue
             if c not in class_method_parameter_names_data: class_method_parameter_names_data[c] = dict()
             if f not in class_method_parameter_names_data[c]: class_method_parameter_names_data[c][f] = dict()
@@ -95,9 +95,9 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(n) for n in sorted(py5applet_builder.dynamic_variable_names)
     ]
 
-    def run_code_builder(name, clsname):
+    def run_code_builder(name, clsname, class_name=None):
         logger.info(f'creating {name} code')
-        class_name = clsname.split('.')[-1]
+        class_name = class_name or clsname.split('.')[-1]
         data = pd.read_csv(Path('py5_resources', 'data', f'{class_name.lower()}.csv')).fillna('').set_index('processing_name')
         Class = autoclass(clsname, include_protected=False, include_private=False)
         instance = Class()
@@ -110,6 +110,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     py5shader_builder = run_code_builder('Py5Shader', 'processing.opengl.PShader')
     py5shape_builder = run_code_builder('Py5Shape', 'processing.core.PShape')
     py5font_builder = run_code_builder('Py5Font', 'processing.core.PFont')
+    py5surface_builder = run_code_builder('Py5Surface', 'py5.core.Py5SurfaceDummy', class_name='PSurface')
 
     logger.info('joining code fragments')
     sketch_class_members_code = ''.join(py5applet_builder.class_members)
@@ -117,6 +118,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     py5shader_class_members_code = ''.join(py5shader_builder.class_members)
     py5shape_class_members_code = ''.join(py5shape_builder.class_members)
     py5font_class_members_code = ''.join(py5font_builder.class_members)
+    py5surface_class_members_code = ''.join(py5surface_builder.class_members)
     run_sketch_pre_run_code = ''.join(run_sketch_pre_run_steps)
 
     # code the result of the module's __dir__ function and __all__ variable
@@ -130,6 +132,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
                          py5shader_class_members_code=py5shader_class_members_code,
                          py5shape_class_members_code=py5shape_class_members_code,
                          py5font_class_members_code=py5font_class_members_code,
+                         py5surface_class_members_code=py5surface_class_members_code,
                          run_sketch_pre_run_code=run_sketch_pre_run_code,
                          py5_dir_str=py5_dir_str,
                          py5_all_str=py5_all_str)

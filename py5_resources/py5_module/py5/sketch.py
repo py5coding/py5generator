@@ -18,6 +18,7 @@ from .mixins.image import PImageCache, _check_pimage_cache_or_convert  # noqa
 from .shader import Py5Shader, _return_py5shader, _py5shader_param  # noqa
 from .font import Py5Font, _return_py5font, _py5font_param  # noqa
 from .shape import Py5Shape, _return_py5shape, _py5shape_param  # noqa
+from .surface import Py5Surface, _return_py5surface  # noqa
 
 
 sketch_class_members_code = None  # DELETE
@@ -85,7 +86,7 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
         if block:
             # wait for the sketch to finish
             surface = self.get_surface()
-            while not surface.isStopped():
+            while not surface.is_stopped():
                 time.sleep(0.25)
 
             # wait no more than 1 second for any shutdown tasks to complete
@@ -97,14 +98,14 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
 
     def exit_sketch(self) -> None:
         """$class_exit_sketch"""
-        if not self.get_surface().isStopped():
+        if not self.get_surface().is_stopped():
             self._py5applet.exit()
 
     def _shutdown(self):
         super()._shutdown()
 
     def _terminate_sketch(self):
-        self.get_surface().stopThread()
+        self.get_surface().stop_thread()
         self._shutdown()
 
     # *** BEGIN METHODS ***
