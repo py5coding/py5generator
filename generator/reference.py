@@ -22,6 +22,7 @@ JTYPE_CONVERSIONS = {
     'processing/core/PImage': 'Py5Image',
     'processing/core/PShape': 'Py5Shape',
     'processing/core/PSurface': 'Py5Surface',
+    'processing/core/PGraphics': 'Py5Graphics',
 }
 
 PCONSTANT_OVERRIDES = {

@@ -118,9 +118,7 @@ class CodeBuilder:
 
     def code_dynamic_variable(self, name, type_name):
         snake_name = self._py5_names[name]
-        var_type = (
-            {'args': 'List[str]', 'g': 'PGraphics', 'recorder': 'PGraphics', 'pixels': 'List[int]'}
-        ).get(name, type_name)
+        var_type = {'args': 'List[str]', 'pixels': 'List[int]'}.get(name, type_name)
 
         self.class_members.append(templ.CLASS_PROPERTY_TEMPLATE.format(snake_name, var_type, name))
         if self._code_module:

@@ -4,6 +4,8 @@ import numpy as np
 from PIL import Image
 import cairocffi
 
+from .java_types import _PImage
+
 
 class Converter:
 
@@ -20,6 +22,8 @@ class Converter:
         else:
             raise RuntimeError(f'Py5 Converter does not know how to convert {str(obj)}')
 
+        if isinstance(obj, _PImage):
+            return obj
         if isinstance(obj, np.ndarray):
             height, width, _ = obj.shape
             return self._py5applet.convertBytesToPImage(obj.tobytes(order='C'), width, height, pass_by_reference=False)
@@ -39,8 +43,6 @@ class Converter:
 # BUILT-IN CONVERSTION FUNCTIONS
 ###############################################################################
 
-# TODO: When I code Py5Graphics I need to create a converter, which will just access
-# the underlying PGraphics object (because it is already an instance of PImage)
 
 def ndarray_str_tuple_precondition(obj):
     return (isinstance(obj, tuple)

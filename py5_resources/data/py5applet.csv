@@ -175,10 +175,10 @@ javaPlatform,javaPlatform,,,static field,constants,,TRUE,TRUE,
 javaVersion,javaVersion,,,static field,constants,,TRUE,TRUE,
 platform,platform,,,static field,constants,,FALSE,FALSE,"use ""import sys; sys.platform"" instead"
 useNativeSelect,useNativeSelect,,,static field,constants,,TRUE,TRUE,
-g,g,,,dynamic variable,,,TRUE,TRUE,internal pgraphics object
+g,g,,,dynamic variable,,,FALSE,FALSE,"internal pgraphics object, use get_graphics to access"
 display_width,displayWidth,,,dynamic variable,,,TRUE,TRUE,
 display_height,displayHeight,,,dynamic variable,,,TRUE,TRUE,
-recorder,recorder,,,dynamic variable,,,TRUE,TRUE,should this be excluded?
+recorder,recorder,,,dynamic variable,,,FALSE,FALSE,
 args,args,,,dynamic variable,,,TRUE,TRUE,
 DEFAULT_WIDTH,DEFAULT_WIDTH,,,static field,,,TRUE,TRUE,
 DEFAULT_HEIGHT,DEFAULT_HEIGHT,,,static field,,,TRUE,TRUE,
@@ -327,13 +327,13 @@ sketch_window_color,sketchWindowColor,,,method,,,FALSE,FALSE,methods that are no
 sketch_pixel_density,sketchPixelDensity,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 display_density,displayDensity,,,method,environment,,TRUE,TRUE,
 no_smooth,noSmooth,,,method,,,TRUE,TRUE,
-get_graphics,getGraphics,,,method,,,TRUE,TRUE,
+get_graphics,getGraphics,@_return_py5graphics,,method,,,TRUE,TRUE,
 graphics,graphics,,,unknown,,,TRUE,TRUE,
 orientation,orientation,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 pause,pause,,,method,,,TRUE,TRUE,
 register_method,registerMethod,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 unregister_method,unregisterMethod,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-create_graphics,createGraphics,,,method,rendering,,TRUE,TRUE,this needs to be reimplemented but I haven't decided what to do with it yet
+create_graphics,createGraphics,@_return_py5graphics,,method,rendering,,TRUE,TRUE,this needs to be reimplemented but I haven't decided what to do with it yet
 create_image,createImage,,,method,image,,FALSE,TRUE,implemented in mixin file image.py
 image,image,@_check_pimage_cache_or_convert(0),Py5Image|cache: bool = False,method,image,loading_displaying,TRUE,TRUE,
 handle_draw,handleDraw,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
@@ -425,9 +425,9 @@ frame_moved,frameMoved,,,method,,,FALSE,FALSE,methods that are not part of the p
 frame_resized,frameResized,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 run_sketch,runSketch,,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
 hide_menu_bar,hideMenuBar,,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
-begin_record,beginRecord,,,method,output,files,TRUE,TRUE,
+begin_record,beginRecord,@_return_py5graphics,,method,output,files,TRUE,TRUE,
 end_record,endRecord,,,method,output,files,TRUE,TRUE,
-begin_raw,beginRaw,,,method,output,files,TRUE,TRUE,
+begin_raw,beginRaw,@_return_py5graphics,,method,output,files,TRUE,TRUE,
 end_raw,endRaw,,,method,output,files,TRUE,TRUE,
 begin_pgl,beginPGL,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 end_pgl,endPGL,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
@@ -461,7 +461,7 @@ point,point,,,method,shape,2d_primitives,TRUE,TRUE,
 triangle,triangle,,,method,shape,2d_primitives,TRUE,TRUE,
 quad,quad,,,method,shape,2d_primitives,TRUE,TRUE,
 rect_mode,rectMode,,,method,shape,attributes,TRUE,TRUE,
-rect,rect,,,method,shape,2d_primitives,TRUE,TRUE,
+长方形,rect,,,method,shape,2d_primitives,TRUE,TRUE,
 square,square,,,method,shape,2d_primitives,TRUE,TRUE,
 ellipse_mode,ellipseMode,,,method,shape,attributes,TRUE,TRUE,
 ellipse,ellipse,,,method,shape,2d_primitives,TRUE,TRUE,
