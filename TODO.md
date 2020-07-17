@@ -41,12 +41,15 @@ I can get each function's parameter types with the `signatures()` method.
 
 `javap -classpath /home/jim/Projects/git/processing/core/library/core.jar -public processing.core.PApplet`
 
+imports
+-------
+
+cleanup or remove the java_types file and organize the other imports so there are no circular references.
+
 type hinting
 ------------
 
 Use [type hinting](https://docs.python.org/3/library/typing.html) for Processing functions. Refer to [PEP-0484](https://www.python.org/dev/peps/pep-0484/) for more info.
-
-The `NewType` types I added should be replaced with something that gives the methods for those classes.
 
 Should the type hints make it clear that these are [position only parameters](https://www.python.org/dev/peps/pep-0570/)? This would require Python 3.8.
 
