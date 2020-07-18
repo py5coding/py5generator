@@ -33,7 +33,9 @@ def get_classpath():
 
 def add_classpath(classpath):
     check_jvm_running()
-    jpype.addClassPath(classpath)
+    if not isinstance(classpath, Path):
+        classpath = Path(classpath)
+    jpype.addClassPath(classpath.absolute())
 
 
 def add_jars(path):
