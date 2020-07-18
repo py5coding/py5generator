@@ -97,6 +97,19 @@ Ability to make Python library extensions. Might as well make them installable P
 * py5-audio - use librosa to animate audio or music.
 * py5-cloud - can I use cloud computing to build a renderfarm for rendering a lot of frames? they don't have to be done sequentially if I code it correctly. also, it would be interesting to build a generative work that can be streamed over twitch from the cloud.
 
+jpype tasks
+-----------
+
+redo error handling. it throws a type error if there is a type mismatch.
+
+use implicit conversions to replace my param decorators. For the numpy-tuple things I should use a named tuple instead to specify the 3rd channel order. Or make a class that does validation?
+
+the code for getting and updating pixels needs to change because jpype can pass numpy arrays.
+
+save_frame needs to be repaired.
+
+there should be a py5image class that is a wrapper for pimage. some functions return pimage. or should I convert those to PIL.Image instead? I should at least make a conversion functions available.
+
 other
 -----
 
