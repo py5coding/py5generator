@@ -18,15 +18,14 @@ class Test(Sketch):
         self.pg = self.create_graphics(200, 200, py5.P2D)
         self.pg.begin_draw()
         self.pg.fill(self.random(255), self.random(255), self.random(255), 50.0)
-        self.pg.长方形(30, 40, 40, 40)
-        self.pg.长方形(130, 140, 40, 40)
+        self.pg.rect(30, 40, 40, 40)
+        self.pg.rect(130, 140, 40, 40)
         self.pg.end_draw()
 
     def draw(self):
         self.image(self.pg, 200, 200, cache=True)
         self.fill(self.random(255), self.random(255), self.random(255), 50.0)
-        # self.rect(self.mouse_x, self.mouse_y, 40, 40)
-        self.长方形(self.mouse_x, self.mouse_y, 40, 40)
+        self.rect(self.mouse_x, self.mouse_y, 40, 40)
 
     def exiting(self):
         print('exiting the sketch')

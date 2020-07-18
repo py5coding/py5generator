@@ -230,7 +230,7 @@ text,text,,,method,typography,loading_displaying,TRUE,TRUE,
 println,println,,,method,output,text_area,FALSE,FALSE,user should use python instead
 main,main,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 exit,exit,,,method,,,FALSE,FALSE,conflict with builtin python function
-get,get,@_check_pimage_cache_or_convert(0),Py5Image|cache: bool = False,method,image,pixels,TRUE,TRUE,
+get,get,,,method,image,pixels,TRUE,TRUE,
 method,method,,,method,,,FALSE,FALSE,
 append,append,,,method,data,array_functions,FALSE,FALSE,user should use python instead
 abs,abs,,,method,math,calculation,FALSE,FALSE,user should use numpy instead
@@ -461,7 +461,7 @@ point,point,,,method,shape,2d_primitives,TRUE,TRUE,
 triangle,triangle,,,method,shape,2d_primitives,TRUE,TRUE,
 quad,quad,,,method,shape,2d_primitives,TRUE,TRUE,
 rect_mode,rectMode,,,method,shape,attributes,TRUE,TRUE,
-长方形,rect,,,method,shape,2d_primitives,TRUE,TRUE,
+rect,rect,,,method,shape,2d_primitives,TRUE,TRUE,
 square,square,,,method,shape,2d_primitives,TRUE,TRUE,
 ellipse_mode,ellipseMode,,,method,shape,attributes,TRUE,TRUE,
 ellipse,ellipse,,,method,shape,2d_primitives,TRUE,TRUE,

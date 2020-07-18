@@ -44,7 +44,7 @@ I can get each function's parameter types with the `signatures()` method.
 imports
 -------
 
-cleanup or remove the java_types file and organize the other imports so there are no circular references.
+cleanup or remove the java_types file and organize the other imports so there is no risk of circular references.
 
 type hinting
 ------------

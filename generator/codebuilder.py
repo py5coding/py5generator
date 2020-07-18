@@ -159,6 +159,7 @@ class CodeBuilder:
             skipped_all = True
             for params, rettype in sorted(method.signatures(), key=lambda x: str(x[0])):
                 if ref.PY5_SKIP_PARAM_TYPES.intersection(params) or rettype in ref.PY5_SKIP_RETURN_TYPES:
+                    logger.warning(f'skipping typehint for {fname} {str(params)} {rettype}')
                     continue
                 skipped_all = False
                 paramstrs, rettypestr = self._make_param_rettype_strs(fname, first_param, params, rettype)
