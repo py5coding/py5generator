@@ -15,18 +15,13 @@ from PIL import Image  # noqa
 
 import py5_tools
 
-if not py5_tools.py5_started:
-    current_classpath = py5_tools.get_classpath()
-    base_path = Path(
-        getattr(sys, '_MEIPASS', Path(__file__).absolute().parent))
+if not py5_tools.is_jvm_running():
+    base_path = Path(getattr(sys, '_MEIPASS', Path(__file__).absolute().parent))
     # add py5 jars to the classpath first
-    py5_tools.set_classpath(str(base_path / 'jars' / '*'))
+    py5_tools.add_jars(str(base_path / 'jars'))
     # if the cwd has a jars subdirectory, add that next
     py5_tools.add_jars(Path('jars'))
-    # put the original classpath at the end while avoiding duplicates
-    py5_tools.add_classpath(*[p for p in current_classpath
-                              if p not in py5_tools.get_classpath()])
-    py5_tools.py5_started = True
+    py5_tools.start_jvm()
 
 # importing these finalize the JVM classpath
 from .methods import Py5Methods, Py5Exception  # noqa

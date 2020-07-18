@@ -1,12 +1,10 @@
 from typing import NewType
 
-from jnius import autoclass
+from jpype import JClass
 
 
-_Py5Applet = autoclass('py5.core.Py5Applet',
-                       include_protected=False, include_private=False)
+_Py5Applet = JClass('py5.core.Py5Applet')
 Py5Applet = NewType('Py5Applet', _Py5Applet)
 
-_PImage = autoclass('processing.core.PImage',
-                    include_protected=False, include_private=False)
-Py5Image = NewType('Py5Image', None)
+_PImage = JClass('processing.core.PImage')
+Py5Image = NewType('Py5Image', _PImage)

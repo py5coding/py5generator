@@ -1,12 +1,12 @@
 import py5_tools
 
 
-if not py5_tools.py5_started:
-    py5_tools.add_options('-Xrs', '-Xmx4096m')
+if not py5_tools.is_jvm_running():
+    py5_tools.add_options('-Xmx4096m')
 import py5  # noqa
 
 
-ColorBlindness = py5.autoclass('colorblind.ColorBlindness')
+ColorBlindness = py5.JClass('colorblind.ColorBlindness')
 colorBlindness = None
 
 pixels = []

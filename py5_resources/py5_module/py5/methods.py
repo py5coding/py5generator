@@ -4,7 +4,7 @@ import line_profiler
 
 import stackprinter
 
-from jnius import PythonJavaClass, java_method, JavaException
+from jpype import JImplements, JException, JOverride, JString
 
 
 # *** stacktrace configuration ***
@@ -33,7 +33,7 @@ def handle_exception(exc_type, exc_value, exc_tb):
         prev_exc = exc_value
         next_exc = exc_value.__context__
         while next_exc:
-            while isinstance(prev_exc, Py5Exception) and isinstance(next_exc, JavaException):
+            while isinstance(prev_exc, Py5Exception) and isinstance(next_exc, JException):
                 prev_exc.__context__ = next_exc.__context__
                 next_exc = next_exc.__context__
             if not next_exc:
@@ -68,8 +68,8 @@ class Py5Exception(Exception):
         return str(self)
 
 
-class Py5Methods(PythonJavaClass):
-    __javainterfaces__ = ['py5/core/Py5Methods']
+@JImplements('py5.core.Py5Methods')
+class Py5Methods:
 
     def __init__(self, sketch):
         self._sketch = sketch
@@ -88,11 +88,11 @@ class Py5Methods(PythonJavaClass):
     def dump_stats(self):
         self._profiler.print_stats()
 
-    @java_method('()[Ljava/lang/Object;')
+    @JOverride
     def get_function_list(self):
-        return self._functions.keys()
+        return [JString(s) for s in self._functions.keys()]
 
-    @java_method('(Ljava/lang/String;[Ljava/lang/Object;)V')
+    @JOverride
     def run_method(self, method_name, params):
         try:
             if method_name in self._functions:
@@ -101,7 +101,7 @@ class Py5Methods(PythonJavaClass):
             handle_exception(*sys.exc_info())
             self._sketch._terminate_sketch()
 
-    @java_method('()V')
+    @JOverride
     def shutdown(self):
         print('shutdown called')
         self._sketch._shutdown()

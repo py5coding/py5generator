@@ -1,42 +1,39 @@
 from pathlib import Path
 
-import jnius_config
+import jpype
 
 
-py5_started = False
+_options = []
+_classpath = []
+
+
+def is_jvm_running():
+    return jpype.isJVMStarted()
 
 
 def check_jvm_running():
-    if jnius_config.vm_running:
+    if jpype.isJVMStarted():
         raise RuntimeError("the jvm is already running")
-
-
-def get_options():
-    return jnius_config.get_options()
 
 
 def set_options(*options):
     check_jvm_running()
-    jnius_config.set_options(*options)
+    global _options
+    _options = list(options)
 
 
 def add_options(*options):
     check_jvm_running()
-    jnius_config.add_options(*options)
+    _options.extend(options)
 
 
 def get_classpath():
-    return jnius_config.get_classpath()
+    return jpype.getClassPath()
 
 
-def set_classpath(*classpath):
+def add_classpath(classpath):
     check_jvm_running()
-    jnius_config.set_classpath(*classpath)
-
-
-def add_classpath(*classpath):
-    check_jvm_running()
-    jnius_config.add_classpath(*classpath)
+    jpype.addClassPath(classpath)
 
 
 def add_jars(path):
@@ -45,10 +42,17 @@ def add_jars(path):
         path = Path(path)
     if path.exists():
         for jarfile in path.glob("**/*.[Jj][Aa][Rr]"):
-            jnius_config.add_classpath(str(jarfile))
+            jpype.addClassPath(jarfile.absolute())
 
 
-__all__ = ['py5_started', 'check_jvm_running',
-           'get_options', 'set_options', 'add_options',
-           'get_classpath', 'set_classpath', 'add_classpath',
-           'add_jars']
+def start_jvm():
+    for c in _classpath:
+        print(f'adding {c}')
+        jpype.addClassPath(c)
+    jpype.startJVM(*_options, convertStrings=False)
+
+
+__all__ = ['is_jvm_running', 'check_jvm_running',
+           'set_options', 'add_options',
+           'get_classpath', 'add_classpath',
+           'add_jars', 'start_jvm']
