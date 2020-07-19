@@ -587,8 +587,6 @@ hot_reload_draw,,,,method,,,FALSE,TRUE,"implemented in sketch.py, replaces draw 
 profile_functions,,,,method,,,FALSE,TRUE,"implemented in sketch.py, use line profiler"
 profile_draw,,,,method,,,FALSE,TRUE,"implemented in sketch.py, use line profiler on draw method"
 print_line_profiler_stats,,,,method,,,FALSE,TRUE,"implemented in sketch.py, print line profiler stats"
-get_pixels,,,,method,,,FALSE,TRUE,"implemented in sketch.py, get sketch pixels as numpy array"
-set_pixels,,,,method,,,FALSE,TRUE,"implemented in sketch.py, set sketch pixels using numpy array"
 exiting,,,,method,,,FALSE,FALSE,method implemented by user
 launch_thread,,,,method,,,FALSE,TRUE,implemented in mixin file threads.py
 launch_promise_thread,,,,method,,,FALSE,TRUE,implemented in mixin file threads.py
