@@ -33,7 +33,7 @@ def handle_exception(exc_type, exc_value, exc_tb):
         prev_exc = exc_value
         next_exc = exc_value.__context__
         while next_exc:
-            while isinstance(prev_exc, Py5Exception) and isinstance(next_exc, JException):
+            while isinstance(prev_exc, Py5Exception) and isinstance(next_exc, (TypeError, JException)):
                 prev_exc.__context__ = next_exc.__context__
                 next_exc = next_exc.__context__
             if not next_exc:
