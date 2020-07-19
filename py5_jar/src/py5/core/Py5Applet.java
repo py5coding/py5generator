@@ -1,7 +1,6 @@
 package py5.core;
 
 import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,6 +16,7 @@ public class Py5Applet extends PApplet {
 
   protected Py5Methods py5Methods;
   protected Set<String> py5RegisteredEvents;
+  protected ByteBuffer pixelBuffer;
 
   public static final char CODED = PApplet.CODED;
 
@@ -25,6 +25,10 @@ public class Py5Applet extends PApplet {
     this.py5RegisteredEvents = new HashSet<String>();
     for (String f : py5Methods.get_function_list())
       this.py5RegisteredEvents.add(f);
+  }
+
+  public void setPixelBuffer(ByteBuffer pixelBuffer) {
+    this.pixelBuffer = pixelBuffer;
   }
 
   @Override
@@ -149,22 +153,13 @@ public class Py5Applet extends PApplet {
     return mousePressed;
   }
 
-  public byte[] loadAndGetPixels() {
+  public void loadAndPutPixels() {
     loadPixels();
-    ByteBuffer byteBuffer = ByteBuffer.allocate(4 * pixels.length);
-    IntBuffer intBuffer = byteBuffer.asIntBuffer();
-    intBuffer.put(pixels);
-
-    return byteBuffer.array();
+    pixelBuffer.asIntBuffer().put(pixels);
   }
 
-  public void setAndUpdatePixels(byte[] newPixels) {
-    ByteBuffer byteBuffer = ByteBuffer.allocate(newPixels.length);
-    byte[] byteArray = byteBuffer.array();
-    System.arraycopy(newPixels, 0, byteArray, 0, newPixels.length);
-    IntBuffer intBuffer = byteBuffer.asIntBuffer();
-
-    intBuffer.get(pixels);
+  public void getAndUpdatePixels() {
+    pixelBuffer.asIntBuffer().get(pixels);
     updatePixels();
   }
 

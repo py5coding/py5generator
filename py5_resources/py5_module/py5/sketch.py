@@ -7,6 +7,7 @@ from typing import overload, Any, Callable, Union, Dict, List  # noqa
 
 import numpy as np
 from PIL import Image
+import jpype
 
 from .methods import Py5Methods, Py5Exception  # noqa
 from .java_types import _Py5Applet, Py5Applet
@@ -51,6 +52,7 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_methods = None
+        self._pixel_array = None
 
     def get_py5applet(self) -> Py5Applet:
         return self._py5applet
@@ -132,20 +134,32 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
 
     # *** Pixel methods ***
 
-    def get_pixels(self) -> np.ndarray:
-        """$class_get_pixels"""
-        pixels = np.frombuffer(self._instance.loadAndGetPixels(), dtype=np.uint8)
-        return pixels.reshape(self.height, self.width, 4).copy()
+    def _init_pixel_array(self):
+        py_bb = bytearray(self.width * self.height * 4)
+        java_bb = jpype.nio.convertToDirectBuffer(py_bb)
+        self._instance.setPixelBuffer(java_bb)
+        self._pixel_array = np.asarray(py_bb, dtype=np.uint8).reshape(self.height, self.width, 4)
 
-    def set_pixels(self, new_pixels: np.ndarray) -> None:
-        """$class_set_pixels"""
-        self._instance.setAndUpdatePixels(new_pixels.flatten().tobytes(), pass_by_reference=False)
+    def load_pixel_array(self) -> None:
+        if self._pixel_array is None:
+            self._init_pixel_array()
+        self._instance.loadAndPutPixels()
+
+    def update_pixel_array(self) -> None:
+        if self._pixel_array is None:
+            self._init_pixel_array()
+        self._instance.getAndUpdatePixels()
+
+    @property
+    def pixel_array(self) -> np.ndarray:
+        return self._pixel_array
 
     def save_frame(self, filename: Union[str, Path], format: str = None, **params) -> None:
         """$class_save_frame"""
         # these are the same function calls Processing uses before saving a frame to a file
         filename = self._instance.savePath(self._instance.insertFrame(str(filename)))
-        arr = np.roll(self.get_pixels(), -1, axis=2)
+        self.load_pixel_array()
+        arr = np.roll(self.pixel_array, -1, axis=2)
         Image.fromarray(arr, mode='RGBA').save(str(filename), format=format, **params)
 
 
