@@ -102,6 +102,8 @@ jpype tasks
 
 use implicit conversions to replace my param decorators. For the numpy-tuple things I should use a named tuple instead to specify the 3rd channel order. Or make a class that does validation?
 
+don't forget that jpype supports memoryview, which I should use for sending and converting numpy arrays to pimage.
+
 there should be a py5image class that is a wrapper for pimage. some functions return pimage. I can use what I learned about direct buffers to create numpy arrays that are linked to pimage objects.
 
 the code for getting and updating pixels in py5graphics and py5image needs to be similar the Sketch class pixel_array.
