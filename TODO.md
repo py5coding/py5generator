@@ -100,8 +100,6 @@ Ability to make Python library extensions. Might as well make them installable P
 jpype tasks
 -----------
 
-redo error handling. it throws a type error if there is a type mismatch.
-
 use implicit conversions to replace my param decorators. For the numpy-tuple things I should use a named tuple instead to specify the 3rd channel order. Or make a class that does validation?
 
 the code for getting and updating pixels needs to change because jpype can pass numpy arrays.
@@ -111,6 +109,8 @@ save_frame needs to be repaired.
 there should be a py5image class that is a wrapper for pimage. some functions return pimage. or should I convert those to PIL.Image instead? I should at least make a conversion functions available.
 
 clean up import hierarchy and do something better with the java_types.py file.
+
+redo reflection stuff in generate_py5 and code builder.
 
 other
 -----

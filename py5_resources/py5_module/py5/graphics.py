@@ -55,4 +55,7 @@ class Py5Graphics:
         self._pimage_cache = pimage_cache
 
 
+# TODO: this needs the get and set pixel methods
+
+
 {py5graphics_class_members_code}

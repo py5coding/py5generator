@@ -134,7 +134,7 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
 
     def get_pixels(self) -> np.ndarray:
         """$class_get_pixels"""
-        pixels = np.frombuffer(self._instance.loadAndGetPixels().tostring(), dtype=np.uint8)
+        pixels = np.frombuffer(self._instance.loadAndGetPixels(), dtype=np.uint8)
         return pixels.reshape(self.height, self.width, 4).copy()
 
     def set_pixels(self, new_pixels: np.ndarray) -> None:
@@ -146,7 +146,7 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
         # these are the same function calls Processing uses before saving a frame to a file
         filename = self._instance.savePath(self._instance.insertFrame(str(filename)))
         arr = np.roll(self.get_pixels(), -1, axis=2)
-        Image.fromarray(arr, mode='RGBA').save(filename, format=format, **params)
+        Image.fromarray(arr, mode='RGBA').save(str(filename), format=format, **params)
 
 
 {sketch_class_members_code}
