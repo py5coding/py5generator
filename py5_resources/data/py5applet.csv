@@ -268,8 +268,8 @@ delay,delay,,,method,environment,,FALSE,FALSE,user should use python instead
 print,print,,,method,output,text_area,FALSE,FALSE,conflict with builtin python function
 save,save,,,method,output,image,TRUE,TRUE,
 flush,flush,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-copy,copy,@_check_pimage_cache_or_convert(0),Py5Image|cache: bool = False,method,image,pixels,TRUE,TRUE,
-mask,mask,@_check_pimage_cache_or_convert(0),Py5Image|cache: bool = False,method,pimage,method,TRUE,TRUE,
+copy,copy,@_py5image_param(0),,method,image,pixels,TRUE,TRUE,
+mask,mask,@_py5image_param(0),,method,pimage,method,TRUE,TRUE,
 nf,nf,,,method,data,string_functions,FALSE,FALSE,user should use python instead
 expand,expand,,,method,data,array_functions,FALSE,FALSE,user should use python instead
 box,box,,,method,shape,3d_primitives,TRUE,TRUE,
@@ -335,7 +335,7 @@ register_method,registerMethod,,,method,,,FALSE,FALSE,public methods that should
 unregister_method,unregisterMethod,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 create_graphics,createGraphics,@_return_py5graphics,,method,rendering,,TRUE,TRUE,this needs to be reimplemented but I haven't decided what to do with it yet
 create_image,createImage,,,method,image,,FALSE,TRUE,implemented in mixin file image.py
-image,image,@_check_pimage_cache_or_convert(0),Py5Image|cache: bool = False,method,image,loading_displaying,TRUE,TRUE,
+image,image,@_py5image_param(0),,method,image,loading_displaying,TRUE,TRUE,
 handle_draw,handleDraw,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 alpha,alpha,,,method,color,creating_reading,TRUE,TRUE,
 is_looping,isLooping,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
@@ -440,7 +440,7 @@ attrib_color,attribColor,,,method,,,FALSE,FALSE,methods that are not part of the
 attrib,attrib,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 texture_mode,textureMode,,,method,image,textures,TRUE,TRUE,
 texture_wrap,textureWrap,,,method,image,textures,TRUE,TRUE,
-texture,texture,@_check_pimage_cache_or_convert(0),Py5Image|cache: bool = False,method,image,textures,TRUE,TRUE,
+texture,texture,@_py5image_param(0),,method,image,textures,TRUE,TRUE,
 no_texture,noTexture,,,method,,,TRUE,TRUE,
 vertex,vertex,,,method,shape,vertex,TRUE,TRUE,
 begin_contour,beginContour,,,method,shape,vertex,TRUE,TRUE,
@@ -539,7 +539,7 @@ point_light,pointLight,,,method,lights_camera,lights,TRUE,TRUE,
 spot_light,spotLight,,,method,lights_camera,lights,TRUE,TRUE,
 light_falloff,lightFalloff,,,method,lights_camera,lights,TRUE,TRUE,
 light_specular,lightSpecular,,,method,lights_camera,lights,TRUE,TRUE,
-background,background,@_check_pimage_cache_or_convert(0),Py5Image|cache: bool = False,method,color,setting,TRUE,TRUE,
+background,background,@_py5image_param(0),,method,color,setting,TRUE,TRUE,
 color_mode,colorMode,,,method,color,setting,TRUE,TRUE,
 green,green,,,method,color,creating_reading,TRUE,TRUE,
 blue,blue,,,method,color,creating_reading,TRUE,TRUE,
@@ -552,8 +552,8 @@ show_method_warning,showMethodWarning,,,static method,,,FALSE,FALSE,public metho
 show_variation_warning,showVariationWarning,,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
 show_missing_warning,showMissingWarning,,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
 check_alpha,checkAlpha,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-blend,blend,@_check_pimage_cache_or_convert(0),Py5Image|cache: bool = False,method,image,pixels,TRUE,TRUE,
-cursor,cursor,@_check_pimage_cache_or_convert(0),Py5Image|cache: bool = False,method,environment,,TRUE,TRUE,
+blend,blend,@_py5image_param(0),,method,image,pixels,TRUE,TRUE,
+cursor,cursor,@_py5image_param(0),,method,environment,,TRUE,TRUE,
 get_extension,getExtension,,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
 list_files,listFiles,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 normal,normal,,,method,lights_camera,lights,TRUE,TRUE,

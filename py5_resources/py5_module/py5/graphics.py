@@ -6,12 +6,11 @@ import functools
 from typing import overload, List  # noqa
 
 from .methods import Py5Exception  # noqa
-from .mixins.image import _check_pimage_cache_or_convert  # noqa
 from .shader import _return_py5shader, _py5shader_param  # noqa
 from .font import _py5font_param  # noqa
 from .shape import _return_py5shape, _py5shape_param  # noqa
 
-from .java_types import Py5Image  # noqa
+from .image import Py5Image, _return_py5image, _py5image_param  # noqa
 from .converter import Converter
 
 

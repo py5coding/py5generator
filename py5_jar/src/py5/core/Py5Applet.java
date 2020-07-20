@@ -163,17 +163,4 @@ public class Py5Applet extends PApplet {
     updatePixels();
   }
 
-  public PImage convertBytesToPImage(byte[] pixels, int width, int height) {
-    if (pixels.length != 4 * width * height) {
-      throw new RuntimeException("byte size incorrect");
-    }
-
-    PImage image = new PImage(width, height, ARGB);
-    image.parent = this; // make save() work
-
-    ByteBuffer.wrap(pixels).asIntBuffer().get(image.pixels);
-
-    return image;
-  }
-
 }

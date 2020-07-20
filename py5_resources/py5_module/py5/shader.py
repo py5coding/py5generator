@@ -4,8 +4,7 @@ import functools
 from typing import overload, List  # noqa
 
 from .methods import Py5Exception  # noqa
-from .mixins.image import _check_pimage_cache_or_convert  # noqa
-from .java_types import Py5Image  # noqa
+from .image import Py5Image, _return_py5image, _py5image_param  # noqa
 
 
 py5shader_class_members_code = None  # DELETE

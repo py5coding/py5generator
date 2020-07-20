@@ -3,6 +3,7 @@
 import time
 import os
 from pathlib import Path
+import tempfile
 from typing import overload, Any, Callable, Union, Dict, List  # noqa
 
 import numpy as np
@@ -10,17 +11,17 @@ from PIL import Image
 import jpype
 
 from .methods import Py5Methods, Py5Exception  # noqa
-from .java_types import _Py5Applet, Py5Applet
-from .java_types import *  # noqa
+from .java_types import _Py5Applet, Py5Applet, _Py5Image
 
-from .mixins import MathMixin, DataMixin, ImageMixin, ThreadsMixin
+from .mixins import MathMixin, DataMixin, ThreadsMixin
 from .mixins.threads import Py5Promise  # noqa
-from .mixins.image import PImageCache, _check_pimage_cache_or_convert  # noqa
 from .shader import Py5Shader, _return_py5shader, _py5shader_param  # noqa
 from .font import Py5Font, _return_py5font, _py5font_param  # noqa
 from .shape import Py5Shape, _return_py5shape, _py5shape_param  # noqa
 from .surface import Py5Surface, _return_py5surface  # noqa
 from .graphics import Py5Graphics, _return_py5graphics, _py5graphics_param  # noqa
+from .image import Py5Image, _return_py5image, _py5image_param  # noqa
+from .converter import Converter
 
 
 sketch_class_members_code = None  # DELETE
@@ -40,14 +41,13 @@ class Py5Base:
         self._shutdown_complete = True
 
 
-class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
+class Sketch(MathMixin, DataMixin, ThreadsMixin, Py5Base):
 
     _cls = _Py5Applet
 
     def __init__(self, *args, **kwargs):
         self._py5applet = _Py5Applet()
         super().__init__(instance=self._py5applet)
-        self.set_pimage_cache(PImageCache(self._py5applet))
         self._methods_to_profile = []
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
@@ -161,6 +161,65 @@ class Sketch(MathMixin, DataMixin, ImageMixin, ThreadsMixin, Py5Base):
         self.load_pixel_array()
         arr = np.roll(self.pixel_array, -1, axis=2)
         Image.fromarray(arr, mode='RGBA').save(str(filename), format=format, **params)
+
+    # *** Py5Image methods ***
+
+    def create_image(self, width: int, height: int, mode: str) -> Py5Image:
+        """$class_create_image"""
+        pimage = _Py5Image()
+        pimage.init(width, height, mode)
+        pimage.parent = self._instance
+
+        return Py5Image(pimage)
+
+    def create_image_from_numpy(self, array: np.ndarray, bands: str = 'ARGB') -> Py5Image:
+        """$class_create_image_from_numpy"""
+        height, width, _ = array.shape
+
+        pimg = _Py5Image()
+        pimg.init(width, height, self.ARGB)
+        pimg.parent = self._instance
+
+        py5_img = Py5Image(pimg)
+        py5_img.load_np_pixels()
+
+        # TODO: what about single channel alpha masks?
+        if bands == 'ARGB':
+            py5_img.np_pixels[:] = array
+        elif bands == 'RGB':
+            py5_img.np_pixels[:, :, 0] = 255
+            py5_img.np_pixels[:, :, 1:] = array
+        elif bands == 'RGBA':
+            py5_img.np_pixels[:, :, 0] = array[:, :, 3]
+            py5_img.np_pixels[:, :, 1:] = array[:, :, :3]
+        else:
+            raise RuntimeError(f'what does ' + str(bands) + ' mean?')
+
+        py5_img.update_np_pixels()
+
+        return py5_img
+
+    def convert_image(self, obj: Any) -> Py5Image:
+        """$class_convert_image"""
+        result = Converter._convert(obj)
+        if isinstance(result, (Path, str)):
+            return self.load_image(result)
+        elif isinstance(result, tempfile._TemporaryFileWrapper):
+            return self.load_image(result.name)
+        elif isinstance(result, np.ndarray):
+            # TODO: the converter should not reshuffle the bands, it should
+            # be done with create_image_from_numpy
+            return self.create_image_from_numpy(result, bands='ARGB')
+
+    def load_image(self, filename: Union[str, Path]) -> Py5Image:
+        """$class_load_image"""
+        # TODO: if this is an image Processing cannot load, use PIL instead.
+        # TODO: also handle svg files
+        return Py5Image(self._instance.loadImage(str(filename)))
+
+    def request_image(self, filename: Union[str, Path]) -> Py5Promise:
+        """$class_request_image"""
+        return self.launch_promise_thread(self.load_image, args=(filename,))
 
 
 {sketch_class_members_code}

@@ -4,17 +4,13 @@ import numpy as np
 from PIL import Image
 import cairocffi
 
-from .java_types import _PImage
-
 
 class Converter:
 
     pimage_functions = []
 
-    def __init__(self, py5applet):
-        self._py5applet = py5applet
-
-    def to_pimage(self, obj):
+    @classmethod
+    def _convert(cls, obj):
         for precondition, convert_function in Converter.pimage_functions:
             if precondition(obj):
                 obj = convert_function(obj)
@@ -22,17 +18,7 @@ class Converter:
         else:
             raise RuntimeError(f'Py5 Converter does not know how to convert {str(obj)}')
 
-        if isinstance(obj, _PImage):
-            return obj
-        if isinstance(obj, np.ndarray):
-            height, width, _ = obj.shape
-            return self._py5applet.convertBytesToPImage(obj.tobytes(order='C'), width, height, pass_by_reference=False)
-        if isinstance(obj, tempfile._TemporaryFileWrapper):
-            pimage = self._py5applet.loadImage(obj.name)
-            obj.close()
-            return pimage
-
-        raise RuntimeError(f'Error in Py5 Converter for {str(obj)}')
+        return obj
 
     @classmethod
     def register_pimage_conversion(cls, precondition, convert_function):
