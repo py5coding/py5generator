@@ -26,7 +26,7 @@ def _py5image_param(argnum):
     def decorator(f):
         @functools.wraps(f)
         def decorated(self_, *args):
-            # TODO: this is an ugly hack
+            # TODO: this is an ugly hack but will be removed when I use the jpype conversion functionality
             if isinstance(args[argnum], Py5Image) or hasattr(args[argnum], '_instance'):
                 args = (*args[:argnum],
                         args[argnum]._instance,

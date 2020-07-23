@@ -104,7 +104,7 @@ use implicit conversions to replace my param decorators. For the numpy-tuple thi
 
 don't forget that jpype supports memoryview, which I should use for sending and converting numpy arrays to pimage.
 
-the code for getting and updating pixels in py5graphics and py5image needs to be similar the Sketch class pixel_array.
+Fix all TODOs, such as np_pixels needs to be a property and the hacks with the conversion functions.
 
 clean up import hierarchy and do something better with the java_types.py file.
 
