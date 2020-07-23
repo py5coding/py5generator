@@ -1,30 +1,26 @@
 package py5.core;
 
 import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
 
 import processing.core.PGraphics;
 
 public class Py5Graphics extends PGraphics {
 
+  protected ByteBuffer pixelBuffer;
+
   public static final char CODED = PGraphics.CODED;
 
-  public byte[] loadAndGetPixels() {
-    loadPixels();
-    ByteBuffer byteBuffer = ByteBuffer.allocate(4 * pixels.length);
-    IntBuffer intBuffer = byteBuffer.asIntBuffer();
-    intBuffer.put(pixels);
-
-    return byteBuffer.array();
+  public void setPixelBuffer(ByteBuffer pixelBuffer) {
+    this.pixelBuffer = pixelBuffer;
   }
 
-  public void setAndUpdatePixels(byte[] newPixels) {
-    ByteBuffer byteBuffer = ByteBuffer.allocate(newPixels.length);
-    byte[] byteArray = byteBuffer.array();
-    System.arraycopy(newPixels, 0, byteArray, 0, newPixels.length);
-    IntBuffer intBuffer = byteBuffer.asIntBuffer();
+  public void loadAndPutPixels() {
+    loadPixels();
+    pixelBuffer.asIntBuffer().put(pixels);
+  }
 
-    intBuffer.get(pixels);
+  public void getAndUpdatePixels() {
+    pixelBuffer.asIntBuffer().get(pixels);
     updatePixels();
   }
 

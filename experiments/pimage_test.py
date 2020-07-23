@@ -5,19 +5,19 @@ import matplotlib.pyplot as plt
 import matplotlib.style as mplstyle
 import matplotlib
 import cairocffi
-import py5
+from py5 import Sketch
 
 matplotlib.use('agg')
 mplstyle.use(['ggplot', 'fast'])
 
 
-class TestPImage(py5.Sketch):
+class TestPImage(Sketch):
 
     def settings(self):
         self.size(700, 700)
 
     def setup(self):
-        self.img1 = py5.create_image(200, 5, self.ARGB)
+        self.img1 = self.create_image(200, 5, self.ARGB)
         self.img1.load_np_pixels()
         self.img1.np_pixels[:, :, :2] = 255
         self.img1.update_np_pixels()
@@ -53,8 +53,8 @@ class TestPImage(py5.Sketch):
         self.surface = self.convert_image(surface)
 
     def draw(self):
-        self.image_mode(py5.CENTER)
-        self.shape_mode(py5.CENTER)
+        self.image_mode(self.CENTER)
+        self.shape_mode(self.CENTER)
         self.background(self.img3)
 
         self.image(self.img1, self.width / 2, self.height / 2)

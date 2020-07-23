@@ -290,7 +290,7 @@ clone,clone,method,,,FALSE,FALSE,
 apply_filter,filter,method,@_py5shader_param,,TRUE,TRUE,filter method has name conflict with python builtin function; replaced with apply_filter method
 set,set,method,,,FALSE,FALSE,conflict with builtin python function
 init,init,method,,,FALSE,FALSE,
-save,save,method,,,TRUE,TRUE,
+save,save,method,,,FALSE,TRUE,implemented in pixels.py mixin
 copy,copy,method,@_py5image_param(0),,TRUE,TRUE,
 mask,mask,method,@_py5image_param(0),,TRUE,TRUE,
 resize,resize,method,,,FALSE,FALSE,
@@ -457,5 +457,9 @@ ellipse,ellipse,method,,,TRUE,TRUE,
 arc,arc,method,,,TRUE,TRUE,
 sphere,sphere,method,,,TRUE,TRUE,
 show_exception,showException,static method,,,FALSE,FALSE,
-load_and_get_pixels,loadAndGetPixels,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-set_and_update_pixels,setAndUpdatePixels,method,,,FALSE,FALSE,public methods that shouldn't be available to users
+load_and_put_pixels,loadAndPutPixels,method,,,FALSE,FALSE,public methods that shouldn't be available to users
+get_and_update_pixels,getAndUpdatePixels,method,,,FALSE,FALSE,public methods that shouldn't be available to users
+load_np_pixels,,method,,,FALSE,TRUE,like loadPixels but for np_pixels; implemented in pixels.py mixin
+update_np_pixels,,method,,,FALSE,TRUE,like updatePixels but for np_pixels; implemented in the pixels.py mixin
+set_np_pixels,,method,,,FALSE,TRUE,replaces data in the np_pixels array; implemented in the pixels.py mixin
+np_pixels,,dynamic variable,,,FALSE,TRUE,numpy array containing pixel data

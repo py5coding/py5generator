@@ -3,11 +3,10 @@
 from __future__ import annotations
 
 import functools
-from typing import overload, List  # noqa
+from typing import overload, List, Union  # noqa
 
-import numpy as np
-import jpype
-
+from .base import Py5Base
+from .mixins import PixelMixin
 from .methods import Py5Exception  # noqa
 
 
@@ -27,7 +26,8 @@ def _py5image_param(argnum):
     def decorator(f):
         @functools.wraps(f)
         def decorated(self_, *args):
-            if isinstance(args[argnum], Py5Image):
+            # TODO: this is an ugly hack
+            if isinstance(args[argnum], Py5Image) or hasattr(args[argnum], '_instance'):
                 args = (*args[:argnum],
                         args[argnum]._instance,
                         *args[(argnum + 1):])
@@ -36,53 +36,13 @@ def _py5image_param(argnum):
     return decorator
 
 
-class Py5Image:
+class Py5Image(PixelMixin, Py5Base):
 
     def __init__(self, pimage):
         self._instance = pimage
-        self._np_pixels = None
+        super().__init__(instance=pimage)
 
-    def _replace_instance(self, new_instance):
-        self._instance = new_instance
-        if hasattr(self, '_java_bb'):
-            self._instance.setPixelBuffer(self._java_bb)
-
-    def _init_np_pixels(self):
-        self._py_bb = bytearray(self.width * self.height * 4)
-        self._java_bb = jpype.nio.convertToDirectBuffer(self._py_bb)
-        self._instance.setPixelBuffer(self._java_bb)
-        self._np_pixels = np.asarray(self._py_bb, dtype=np.uint8).reshape(self.height, self.width, 4)
-
-    def load_np_pixels(self) -> None:
-        if self._np_pixels is None:
-            self._init_np_pixels()
-        self._instance.loadAndPutPixels()
-
-    def update_np_pixels(self) -> None:
-        if self._np_pixels is None:
-            self._init_np_pixels()
-        self._instance.getAndUpdatePixels()
-
-    @property
-    def np_pixels(self) -> np.ndarray:
-        return self._np_pixels
-
-    def set_np_pixels(self, array, bands='ARGB'):
-        # TODO: simple validation
-        assert bands in 'ARGB RGB RGBA'.split()
-        assert array.shape[:2] == self.height, self.width
-        assert array.shape[2] == len(bands)
-
-        self.load_pixel_array()
-        if bands == 'ARGB':
-            self.pixel_array[:] = array
-        elif bands == 'RGB':
-            self.pixel_array[:, :, 0] = 255
-            self.pixel_array[:, :, 1:] = array
-        elif bands == 'RGBA':
-            self.pixel_array[:, :, 0] = array[:, :, 3]
-            self.pixel_array[:, :, 1:] = array[:, :, :3]
-        self.update_pixel_array()
+# TODO: these needs to be generated like the methods for other classes
 
     @property
     def width(self) -> int:

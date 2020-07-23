@@ -5,7 +5,7 @@ from py5 import Sketch
 class Test(Sketch):
 
     def settings(self):
-        self.size(500, 600, py5.P2D)
+        self.size(500, 600, self.P2D)
 
     def setup(self):
         self.background(255)
@@ -15,7 +15,7 @@ class Test(Sketch):
         self.hint(self.ENABLE_ASYNC_SAVEFRAME)
         # self.hint(self.DISABLE_ASYNC_SAVEFRAME)
 
-        self.pg = self.create_graphics(200, 200, py5.P2D)
+        self.pg = self.create_graphics(200, 200, self.P2D)
         self.pg.begin_draw()
         self.pg.fill(self.random(255), self.random(255), self.random(255), 50.0)
         self.pg.rect(30, 40, 40, 40)
@@ -23,7 +23,7 @@ class Test(Sketch):
         self.pg.end_draw()
 
     def draw(self):
-        self.image(self.pg, 200, 200, cache=True)
+        self.image(self.pg, 200, 200)
         self.fill(self.random(255), self.random(255), self.random(255), 50.0)
         self.rect(self.mouse_x, self.mouse_y, 40, 40)
 

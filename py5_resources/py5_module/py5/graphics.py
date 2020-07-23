@@ -5,6 +5,8 @@ from __future__ import annotations
 import functools
 from typing import overload, List  # noqa
 
+from .base import Py5Base
+from .mixins import PixelMixin
 from .methods import Py5Exception  # noqa
 from .shader import _return_py5shader, _py5shader_param  # noqa
 from .font import _py5font_param  # noqa
@@ -33,7 +35,7 @@ def _return_py5graphics(f):
     def decorated(self_, *args):
         ret = f(self_, *args)
         if ret is not None:
-            return Py5Graphics(ret, getattr(self_, '_pimage_cache', None))
+            return Py5Graphics(ret)
     return decorated
 
 
@@ -47,14 +49,11 @@ def _py5graphics_param(f):
     return decorated
 
 
-class Py5Graphics:
+class Py5Graphics(PixelMixin, Py5Base):
 
-    def __init__(self, pgraphics, pimage_cache):
+    def __init__(self, pgraphics):
         self._instance = pgraphics
-        self._pimage_cache = pimage_cache
-
-
-# TODO: this needs the get and set pixel methods
+        super().__init__(instance=pgraphics)
 
 
 {py5graphics_class_members_code}

@@ -9,7 +9,6 @@ import com.jogamp.newt.event.MouseListener;
 import com.jogamp.newt.event.WindowListener;
 
 import processing.core.PApplet;
-import processing.core.PImage;
 import processing.event.MouseEvent;
 
 public class Py5Applet extends PApplet {

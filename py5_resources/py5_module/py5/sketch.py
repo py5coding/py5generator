@@ -7,13 +7,12 @@ import tempfile
 from typing import overload, Any, Callable, Union, Dict, List  # noqa
 
 import numpy as np
-from PIL import Image
-import jpype
 
 from .methods import Py5Methods, Py5Exception  # noqa
 from .java_types import _Py5Applet, Py5Applet, _Py5Image
 
-from .mixins import MathMixin, DataMixin, ThreadsMixin
+from .base import Py5Base
+from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin
 from .mixins.threads import Py5Promise  # noqa
 from .shader import Py5Shader, _return_py5shader, _py5shader_param  # noqa
 from .font import Py5Font, _return_py5font, _py5font_param  # noqa
@@ -32,16 +31,7 @@ _METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',
             'mouse_wheel', 'exiting']
 
 
-class Py5Base:
-
-    def __init__(self, instance):
-        self._instance = instance
-
-    def _shutdown(self):
-        self._shutdown_complete = True
-
-
-class Sketch(MathMixin, DataMixin, ThreadsMixin, Py5Base):
+class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     _cls = _Py5Applet
 
@@ -52,7 +42,6 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, Py5Base):
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_methods = None
-        self._pixel_array = None
 
     def get_py5applet(self) -> Py5Applet:
         return self._py5applet
@@ -132,35 +121,9 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, Py5Base):
         """$class_print_line_profiler_stats"""
         self._py5_methods.dump_stats()
 
-    # *** Pixel methods ***
-
-    def _init_pixel_array(self):
-        py_bb = bytearray(self.width * self.height * 4)
-        java_bb = jpype.nio.convertToDirectBuffer(py_bb)
-        self._instance.setPixelBuffer(java_bb)
-        self._pixel_array = np.asarray(py_bb, dtype=np.uint8).reshape(self.height, self.width, 4)
-
-    def load_pixel_array(self) -> None:
-        if self._pixel_array is None:
-            self._init_pixel_array()
-        self._instance.loadAndPutPixels()
-
-    def update_pixel_array(self) -> None:
-        if self._pixel_array is None:
-            self._init_pixel_array()
-        self._instance.getAndUpdatePixels()
-
-    @property
-    def pixel_array(self) -> np.ndarray:
-        return self._pixel_array
-
     def save_frame(self, filename: Union[str, Path], format: str = None, **params) -> None:
         """$class_save_frame"""
-        # these are the same function calls Processing uses before saving a frame to a file
-        filename = self._instance.savePath(self._instance.insertFrame(str(filename)))
-        self.load_pixel_array()
-        arr = np.roll(self.pixel_array, -1, axis=2)
-        Image.fromarray(arr, mode='RGBA').save(str(filename), format=format, **params)
+        self.save(self._instance.insertFrame(str(filename)), format, **params)
 
     # *** Py5Image methods ***
 
