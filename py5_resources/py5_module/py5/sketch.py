@@ -172,15 +172,18 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, Py5Base):
 
         return Py5Image(pimage)
 
-    def create_image_from_numpy(self, array: np.ndarray, bands: str = 'ARGB') -> Py5Image:
+    def create_image_from_numpy(self, array: np.ndarray, bands: str = 'ARGB', dst: Py5Image = None) -> Py5Image:
         """$class_create_image_from_numpy"""
         height, width, _ = array.shape
 
-        pimg = _Py5Image()
-        pimg.init(width, height, self.ARGB)
-        pimg.parent = self._instance
+        if dst:
+            py5_img = dst
+        else:
+            pimg = _Py5Image()
+            pimg.init(width, height, self.ARGB)
+            pimg.parent = self._instance
+            py5_img = Py5Image(pimg)
 
-        py5_img = Py5Image(pimg)
         py5_img.load_np_pixels()
 
         # TODO: what about single channel alpha masks?
@@ -199,23 +202,28 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, Py5Base):
 
         return py5_img
 
-    def convert_image(self, obj: Any) -> Py5Image:
+    def convert_image(self, obj: Any, dst: Py5Image = None) -> Py5Image:
         """$class_convert_image"""
         result = Converter._convert(obj)
         if isinstance(result, (Path, str)):
-            return self.load_image(result)
+            return self.load_image(result, dst=dst)
         elif isinstance(result, tempfile._TemporaryFileWrapper):
-            return self.load_image(result.name)
+            return self.load_image(result.name, dst=dst)
         elif isinstance(result, np.ndarray):
             # TODO: the converter should not reshuffle the bands, it should
             # be done with create_image_from_numpy
-            return self.create_image_from_numpy(result, bands='ARGB')
+            return self.create_image_from_numpy(result, bands='ARGB', dst=dst)
 
-    def load_image(self, filename: Union[str, Path]) -> Py5Image:
+    def load_image(self, filename: Union[str, Path], dst: Py5Image = None) -> Py5Image:
         """$class_load_image"""
         # TODO: if this is an image Processing cannot load, use PIL instead.
         # TODO: also handle svg files
-        return Py5Image(self._instance.loadImage(str(filename)))
+        pimg = self._instance.loadImage(str(filename))
+        if dst:
+            dst._replace_instance(pimg)
+            return dst
+        else:
+            return Py5Image(pimg)
 
     def request_image(self, filename: Union[str, Path]) -> Py5Promise:
         """$class_request_image"""

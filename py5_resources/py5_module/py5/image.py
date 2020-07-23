@@ -42,11 +42,16 @@ class Py5Image:
         self._instance = pimage
         self._np_pixels = None
 
+    def _replace_instance(self, new_instance):
+        self._instance = new_instance
+        if hasattr(self, '_java_bb'):
+            self._instance.setPixelBuffer(self._java_bb)
+
     def _init_np_pixels(self):
-        py_bb = bytearray(self.width * self.height * 4)
-        java_bb = jpype.nio.convertToDirectBuffer(py_bb)
-        self._instance.setPixelBuffer(java_bb)
-        self._np_pixels = np.asarray(py_bb, dtype=np.uint8).reshape(self.height, self.width, 4)
+        self._py_bb = bytearray(self.width * self.height * 4)
+        self._java_bb = jpype.nio.convertToDirectBuffer(self._py_bb)
+        self._instance.setPixelBuffer(self._java_bb)
+        self._np_pixels = np.asarray(self._py_bb, dtype=np.uint8).reshape(self.height, self.width, 4)
 
     def load_np_pixels(self) -> None:
         if self._np_pixels is None:
