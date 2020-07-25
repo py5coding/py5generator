@@ -25,17 +25,6 @@ def _return_py5shape(f):
     return decorated
 
 
-def _py5shape_param(argnum):
-    def decorator(f):
-        @functools.wraps(f)
-        def decorated(self_, *args):
-            if len(args) > argnum and isinstance(args[argnum], Py5Shape):
-                args = (*args[:argnum], args[argnum]._instance, *args[(argnum + 1):])
-            return f(self_, *args)
-        return decorated
-    return decorator
-
-
 class Py5Shape:
 
     def __init__(self, pshape):
