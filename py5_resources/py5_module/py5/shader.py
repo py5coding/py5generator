@@ -3,6 +3,7 @@
 import functools
 from typing import overload, List  # noqa
 
+from .base import Py5Base
 from .methods import Py5Exception  # noqa
 from .image import Py5Image, _return_py5image, _py5image_param  # noqa
 
@@ -13,7 +14,7 @@ py5shader_class_members_code = None  # DELETE
 def _return_py5shader(f):
     @functools.wraps(f)
     def decorated(self_, *args):
-        return Py5Shader(f(self_, *args), getattr(self_, '_pimage_cache', None))
+        return Py5Shader(f(self_, *args))
     return decorated
 
 
@@ -27,11 +28,11 @@ def _py5shader_param(f):
     return decorated
 
 
-class Py5Shader:
+class Py5Shader(Py5Base):
 
-    def __init__(self, pshader, pimage_cache):
+    def __init__(self, pshader):
         self._instance = pshader
-        self._pimage_cache = pimage_cache
+        super().__init__(instance=pshader)
 
 
 {py5shader_class_members_code}
