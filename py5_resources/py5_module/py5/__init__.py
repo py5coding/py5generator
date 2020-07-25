@@ -35,6 +35,8 @@ __version__ = '0.1'
 
 logger = logging.getLogger(__name__)
 
+java_conversion.init_jpype_converters()
+
 sketch_module_members_code = None  # DELETE
 run_sketch_pre_run_code = None  # DELETE
 py5_dir_str = None  # DELETE

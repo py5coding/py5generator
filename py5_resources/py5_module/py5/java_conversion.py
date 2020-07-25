@@ -3,31 +3,18 @@ from jpype import _jcustomizer
 from .sketch import Sketch, Py5Graphics, Py5Image, Py5Font, Py5Shape, Py5Shader
 
 
-@_jcustomizer.JConversion("processing.core.PImage", instanceof=Py5Image)
-def _py5image_convert(jcls, obj):
-    return obj._instance
+def init_jpype_converters():
+    data = [
+        ("processing.core.PImage", Py5Image),
+        ("processing.core.PImage", Py5Graphics),
+        ("processing.core.PFont", Py5Font),
+        ("processing.core.PShape", Py5Shape),
+        ("processing.opengl.PShader", Py5Shader),
+        ("processing.core.PApplet", Sketch),
+    ]
 
+    def convert(jcls, obj):
+        return obj._instance
 
-@_jcustomizer.JConversion("processing.core.PImage", instanceof=Py5Graphics)
-def _py5graphics_convert(jcls, obj):
-    return obj._instance
-
-
-@_jcustomizer.JConversion("processing.core.PFont", instanceof=Py5Font)
-def _py5font_convert(jcls, obj):
-    return obj._instance
-
-
-@_jcustomizer.JConversion("processing.core.PShape", instanceof=Py5Shape)
-def _py5shape_convert(jcls, obj):
-    return obj._instance
-
-
-@_jcustomizer.JConversion("processing.opengl.PShader", instanceof=Py5Shader)
-def _py5shader_convert(jcls, obj):
-    return obj._instance
-
-
-@_jcustomizer.JConversion("processing.core.PApplet", instanceof=Sketch)
-def _py5ssketch_convert(jcls, obj):
-    return obj._py5applet
+    for javaname, cls_ in data:
+        _jcustomizer.JConversion(javaname, cls_)(convert)
