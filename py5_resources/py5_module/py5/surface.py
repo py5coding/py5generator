@@ -4,7 +4,7 @@ import functools
 from typing import overload, Any  # noqa
 
 from .methods import Py5Exception  # noqa
-from .image import Py5Image, _return_py5image  # noqa
+from .image import Py5Image  # noqa
 
 
 py5surface_class_members_code = None  # DELETE

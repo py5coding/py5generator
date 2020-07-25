@@ -25,7 +25,7 @@ if not py5_tools.is_jvm_running():
 
 # importing these finalize the JVM classpath
 from .methods import Py5Exception  # noqa
-from .sketch import Sketch, _METHODS, Py5Promise, Py5Font, Py5Shader, Py5Shape, Py5Surface, Py5Graphics, Py5Image  # noqa
+from .sketch import Sketch, _METHODS, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Shape, Py5Font, Py5Promise  # noqa
 from .create_font_tool import create_font_file  # noqa
 from . import java_conversion  # noqa
 from jpype import JClass  # noqa
