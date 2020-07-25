@@ -100,11 +100,7 @@ Ability to make Python library extensions. Might as well make them installable P
 jpype tasks
 -----------
 
-use implicit conversions to replace my param decorators. For the numpy-tuple things I should use a named tuple instead to specify the 3rd channel order. Or make a class that does validation?
-
-don't forget that jpype supports memoryview, which I should use for sending and converting numpy arrays to pimage.
-
-Fix all TODOs, such as np_pixels needs to be a property and the hacks with the conversion functions.
+Fix all TODOs, such as np_pixels needs to be a property.
 
 clean up import hierarchy and do something better with the java_types.py file.
 
