@@ -11,7 +11,7 @@ from .methods import Py5Exception  # noqa
 from .font import Py5Font  # noqa
 from .shader import Py5Shader, _return_py5shader  # noqa
 from .shape import Py5Shape, _return_py5shape  # noqa
-from .image import Py5Image  # noqa
+from .image import Py5Image, _return_py5image  # noqa
 from .converter import Converter
 
 

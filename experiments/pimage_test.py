@@ -62,6 +62,9 @@ class TestPImage(Sketch):
         self.image(self.figure, self.width / 2, self.height / 2)
         self.image(self.surface, self.width / 2, self.height / 2)
 
+        copy = self.get(10, 20, 400, 500)
+        self.image(copy, self.width / 2, self.height / 2)
+
         self.no_loop()
 
 

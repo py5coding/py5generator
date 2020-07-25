@@ -285,13 +285,13 @@ hash_code,hashCode,,,method,FALSE,FALSE,public methods that shouldn't be availab
 get_class,getClass,,,method,FALSE,FALSE,public methods that shouldn't be available to users
 notify,notify,,,method,FALSE,FALSE,public methods that shouldn't be available to users
 notify_all,notifyAll,,,method,FALSE,FALSE,public methods that shouldn't be available to users
-get,get,,,method,TRUE,TRUE,
+get,get,@_return_py5image,,method,TRUE,TRUE,
 clone,clone,,,method,FALSE,FALSE,
 apply_filter,filter,,,method,TRUE,TRUE,filter method has name conflict with python builtin function; replaced with apply_filter method
 set,set,,,method,FALSE,FALSE,conflict with builtin python function
 init,init,,,method,FALSE,FALSE,
 save,save,,,method,FALSE,TRUE,implemented in pixels.py mixin
-copy,copy,,,method,TRUE,TRUE,
+copy,copy,@_return_py5image,,method,TRUE,TRUE,
 mask,mask,,,method,TRUE,TRUE,
 resize,resize,,,method,FALSE,FALSE,
 get_native,getNative,,,method,FALSE,FALSE,

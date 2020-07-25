@@ -7,9 +7,7 @@ PY5_SKIP_PARAM_TYPES = {
     'processing/core/PMatrix', 'java/io/File', 'processing/core/PVector',
 }
 
-PY5_SKIP_RETURN_TYPES = PY5_SKIP_PARAM_TYPES | {
-    'processing/core/PImage'
-}
+PY5_SKIP_RETURN_TYPES = PY5_SKIP_PARAM_TYPES | set()
 
 JTYPE_CONVERSIONS = {
     'boolean': 'bool',

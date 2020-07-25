@@ -230,7 +230,7 @@ text,text,,,method,typography,loading_displaying,TRUE,TRUE,
 println,println,,,method,output,text_area,FALSE,FALSE,user should use python instead
 main,main,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 exit,exit,,,method,,,FALSE,FALSE,conflict with builtin python function
-get,get,,,method,image,pixels,TRUE,TRUE,
+get,get,@_return_py5image,,method,image,pixels,TRUE,TRUE,
 method,method,,,method,,,FALSE,FALSE,
 append,append,,,method,data,array_functions,FALSE,FALSE,user should use python instead
 abs,abs,,,method,math,calculation,FALSE,FALSE,user should use numpy instead
@@ -268,7 +268,7 @@ delay,delay,,,method,environment,,FALSE,FALSE,user should use python instead
 print,print,,,method,output,text_area,FALSE,FALSE,conflict with builtin python function
 save,save,,,method,output,image,FALSE,TRUE,implemented in pixels.py mixin
 flush,flush,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-copy,copy,,,method,image,pixels,TRUE,TRUE,
+copy,copy,@_return_py5image,,method,image,pixels,TRUE,TRUE,
 mask,mask,,,method,pimage,method,TRUE,TRUE,
 nf,nf,,,method,data,string_functions,FALSE,FALSE,user should use python instead
 expand,expand,,,method,data,array_functions,FALSE,FALSE,user should use python instead
