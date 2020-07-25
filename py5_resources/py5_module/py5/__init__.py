@@ -12,6 +12,7 @@ from typing import overload, Any, Callable, Union, Dict, List, Tuple  # noqa
 import json  # noqa
 import numpy as np  # noqa
 from PIL import Image  # noqa
+from jpype import JClass  # noqa
 
 import py5_tools
 
@@ -23,12 +24,11 @@ if not py5_tools.is_jvm_running():
     py5_tools.add_jars(Path('jars'))
     py5_tools.start_jvm()
 
-# importing these finalize the JVM classpath
 from .methods import Py5Exception  # noqa
 from .sketch import Sketch, _METHODS, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Shape, Py5Font, Py5Promise  # noqa
 from .create_font_tool import create_font_file  # noqa
+from .image_conversion import register_image_conversion  # noqa
 from . import java_conversion  # noqa
-from jpype import JClass  # noqa
 
 
 __version__ = '0.1'

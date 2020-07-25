@@ -5,24 +5,22 @@ from PIL import Image
 import cairocffi
 
 
-class Converter:
+pimage_functions = []
 
-    pimage_functions = []
 
-    @classmethod
-    def _convert(cls, obj):
-        for precondition, convert_function in Converter.pimage_functions:
-            if precondition(obj):
-                obj = convert_function(obj)
-                break
-        else:
-            raise RuntimeError(f'Py5 Converter does not know how to convert {str(obj)}')
+def _convert(obj):
+    for precondition, convert_function in pimage_functions:
+        if precondition(obj):
+            obj = convert_function(obj)
+            break
+    else:
+        raise RuntimeError(f'Py5 Converter does not know how to convert {str(obj)}')
 
-        return obj
+    return obj
 
-    @classmethod
-    def register_pimage_conversion(cls, precondition, convert_function):
-        cls.pimage_functions.append((precondition, convert_function))
+
+def register_image_conversion(precondition, convert_function):
+    pimage_functions.append((precondition, convert_function))
 
 
 ###############################################################################
@@ -53,7 +51,7 @@ def ndarray_str_tuple_adjustment(obj):
     return arr
 
 
-Converter.register_pimage_conversion(ndarray_str_tuple_precondition, ndarray_str_tuple_adjustment)
+register_image_conversion(ndarray_str_tuple_precondition, ndarray_str_tuple_adjustment)
 
 
 def pillow_image_to_ndarray_precondition(obj):
@@ -66,7 +64,7 @@ def pillow_image_to_ndarray_converter(img):
     return ndarray_str_tuple_adjustment((np.asarray(img), img.mode))
 
 
-Converter.register_pimage_conversion(pillow_image_to_ndarray_precondition, pillow_image_to_ndarray_converter)
+register_image_conversion(pillow_image_to_ndarray_precondition, pillow_image_to_ndarray_converter)
 
 
 def cairocffi_surface_to_tempfile_precondition(obj):
@@ -79,7 +77,7 @@ def cairo_surface_to_tempfile_converter(surface):
     return temp_png
 
 
-Converter.register_pimage_conversion(cairocffi_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
+register_image_conversion(cairocffi_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
 
 
 ###############################################################################
@@ -95,7 +93,7 @@ try:
     def cairo_surface_to_tempfile_precondition(obj):
         return isinstance(obj, cairo.Surface)
 
-    Converter.register_pimage_conversion(cairo_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
+    register_image_conversion(cairo_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
 except ModuleNotFoundError:
     pass
 
@@ -111,6 +109,6 @@ try:
         canvas.draw()
         return ndarray_str_tuple_adjustment((np.asarray(canvas.buffer_rgba()), 'RGBA'))
 
-    Converter.register_pimage_conversion(figure_to_ndarray_precondition, figure_to_ndarray_converter)
+    register_image_conversion(figure_to_ndarray_precondition, figure_to_ndarray_converter)
 except ModuleNotFoundError:
     pass

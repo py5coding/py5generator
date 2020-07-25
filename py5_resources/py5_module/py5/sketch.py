@@ -20,7 +20,7 @@ from .surface import Py5Surface, _return_py5surface  # noqa
 from .shader import Py5Shader, _return_py5shader  # noqa
 from .font import Py5Font, _return_py5font  # noqa
 from .graphics import Py5Graphics, _return_py5graphics  # noqa
-from .converter import Converter
+from . import image_conversion
 
 
 sketch_class_members_code = None  # DELETE
@@ -169,7 +169,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     def convert_image(self, obj: Any, dst: Py5Image = None) -> Py5Image:
         """$class_convert_image"""
-        result = Converter._convert(obj)
+        result = image_conversion._convert(obj)
         if isinstance(result, (Path, str)):
             return self.load_image(result, dst=dst)
         elif isinstance(result, tempfile._TemporaryFileWrapper):

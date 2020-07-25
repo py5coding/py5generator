@@ -12,7 +12,7 @@ from .font import Py5Font  # noqa
 from .shader import Py5Shader, _return_py5shader  # noqa
 from .shape import Py5Shape, _return_py5shape  # noqa
 from .image import Py5Image, _return_py5image  # noqa
-from .converter import Converter
+from . import image_conversion
 
 
 py5graphics_class_members_code = None  # DELETE
@@ -26,7 +26,7 @@ def py5graphics_converter(py5graphics):
     return py5graphics._instance
 
 
-Converter.register_pimage_conversion(py5graphics_precondition, py5graphics_converter)
+image_conversion.register_image_conversion(py5graphics_precondition, py5graphics_converter)
 
 
 def _return_py5graphics(f):
