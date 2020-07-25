@@ -23,7 +23,7 @@ def setup():
     py5.frame_rate(30)
 
     global colorBlindness
-    colorBlindness = ColorBlindness(py5.get_py5applet())
+    colorBlindness = ColorBlindness(py5.get_current_sketch())
     colorBlindness.simulateProtanopia()
 
 

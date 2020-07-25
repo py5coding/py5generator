@@ -9,7 +9,7 @@ from typing import overload, Any, Callable, Union, Dict, List  # noqa
 import numpy as np
 
 from .methods import Py5Methods, Py5Exception  # noqa
-from .java_types import _Py5Applet, Py5Applet, _Py5Image
+from .java_types import _Py5Applet, _Py5Image
 
 from .base import Py5Base
 from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin
@@ -42,9 +42,6 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_methods = None
-
-    def get_py5applet(self) -> Py5Applet:
-        return self._py5applet
 
     def run_sketch(self, block: bool = True, py5_options: List = None, sketch_args: List = None) -> None:
         """$class_run_sketch"""

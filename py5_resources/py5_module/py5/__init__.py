@@ -24,11 +24,12 @@ if not py5_tools.is_jvm_running():
     py5_tools.start_jvm()
 
 # importing these finalize the JVM classpath
-from .methods import Py5Methods, Py5Exception  # noqa
-from .java_types import *  # noqa
+from .methods import Py5Exception  # noqa
 from .sketch import Sketch, _METHODS, Py5Promise, Py5Font, Py5Shader, Py5Shape, Py5Surface, Py5Graphics, Py5Image  # noqa
 from .create_font_tool import create_font_file  # noqa
 from . import java_conversion  # noqa
+from jpype import JClass  # noqa
+
 
 __version__ = '0.1'
 
@@ -84,6 +85,10 @@ def run_sketch(function_dict: Dict[str, Any] = None,
                "py5.run_sketch(function_dict=locals())"))
 
     _py5sketch._run_sketch(methods, block, py5_options, sketch_args)
+
+
+def get_current_sketch() -> Sketch:
+    return _py5sketch
 
 
 def reset_py5() -> None:
