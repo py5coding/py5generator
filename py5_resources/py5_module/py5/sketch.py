@@ -7,9 +7,9 @@ import tempfile
 from typing import overload, Any, Callable, Union, Dict, List  # noqa
 
 import numpy as np
+import jpype
 
 from .methods import Py5Methods, Py5Exception  # noqa
-from .java_types import _Py5Applet, _Py5Image
 
 from .base import Py5Base
 from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin
@@ -29,6 +29,10 @@ _METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',
             'key_released', 'mouse_clicked', 'mouse_dragged', 'mouse_moved',
             'mouse_entered', 'mouse_exited', 'mouse_pressed', 'mouse_released',
             'mouse_wheel', 'exiting']
+
+
+_Py5Applet = jpype.JClass('py5.core.Py5Applet')
+_Py5Image = jpype.JClass('py5.core.Py5Image')
 
 
 class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):

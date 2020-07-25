@@ -3,8 +3,9 @@
 import functools
 from typing import overload, List  # noqa
 
+import jpype
+
 from .methods import Py5Exception  # noqa
-from .java_types import _PFont
 from .shape import Py5Shape, _return_py5shape  # noqa
 
 
@@ -21,7 +22,7 @@ def _return_py5font(f):
 
 class Py5Font:
 
-    _cls = _PFont
+    _cls = jpype.JClass('processing.core.PFont')
     CHARSET = _cls.CHARSET
 
     def __init__(self, pfont):

@@ -102,8 +102,6 @@ jpype tasks
 
 Fix all TODOs, such as np_pixels needs to be a property.
 
-clean up import hierarchy and do something better with the java_types.py file.
-
 redo reflection stuff in generate_py5 and code builder.
 
 other
