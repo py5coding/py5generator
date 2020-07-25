@@ -1,4 +1,12 @@
 # flake8: noqa
+"""
+This code demos py5 as it would look to a user running from the PDE a PDE "mode".
+
+It can also be run from the command line, like so:
+
+$ run_sketch test_pde_mode.py
+"""
+
 
 def settings():
     size(500, 500, P2D)
