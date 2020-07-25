@@ -2,7 +2,7 @@ import numpy as np
 import py5
 
 
-Camera3D = py5.autoclass('camera3D.Camera3D')
+Camera3D = py5.JClass('camera3D.Camera3D')
 camera3D = None
 
 
@@ -21,7 +21,7 @@ def setup():
     py5.frame_rate(60)
 
     global camera3D
-    camera3D = Camera3D(py5.get_py5applet())
+    camera3D = Camera3D(py5.get_current_sketch())
     camera3D.setBackgroundColor(py5.color(192))
     camera3D.renderDefaultAnaglyph().setDivergence(1)
 
@@ -46,4 +46,4 @@ def draw():
     py5.box(250)
 
 
-py5.run_sketch()
+py5.run_sketch(block=False)
