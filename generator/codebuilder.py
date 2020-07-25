@@ -199,6 +199,9 @@ class CodeBuilder:
                 continue
             elif decorator == '@overload':
                 self.module_members.append(templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(fname, args, rettypestr))
+            elif decorator == '@property':
+                self.module_members.append(templ.MODULE_PROPERTY_TEMPLATE.format(fname, rettypestr))
+                self.dynamic_variable_names.add(fname)
             else:
                 moduleobj = self._class_name if arg0 == 'cls' else self._instance_name
                 paramlist = []

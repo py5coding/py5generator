@@ -100,7 +100,7 @@ Ability to make Python library extensions. Might as well make them installable P
 jpype tasks
 -----------
 
-Fix all TODOs, such as np_pixels needs to be a property.
+Fix all TODOs
 
 redo reflection stuff in generate_py5 and code builder.
 

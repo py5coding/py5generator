@@ -37,7 +37,6 @@ class PixelMixin:
             self._init_np_pixels()
         self._instance.getAndUpdatePixels()
 
-    # TODO: this needs to be a property when code_extra adds it to __init__.py
     @property
     def np_pixels(self) -> np.ndarray:
         return self._np_pixels
