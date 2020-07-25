@@ -29,10 +29,10 @@ class Test(Sketch):
 
     def key_pressed(self):
         self.save_frame('/tmp/frame_####.png', format='png')
-        self.load_pixel_array()
-        self.pixel_array[:20, :, :2] = 255
-        self.pixel_array[:20, :, 2:] = 0
-        self.update_pixel_array()
+        self.load_np_pixels()
+        self.np_pixels[:20, :, :2] = 255
+        self.np_pixels[:20, :, 2:] = 0
+        self.update_np_pixels()
         # self.get_py5applet().mySaveFrame('frame_####.jpeg')
 
     # def mouse_entered(self):
