@@ -9,7 +9,6 @@ from .base import Py5Base
 from .mixins import PixelMixin
 from .methods import Py5Exception  # noqa
 from .shader import _return_py5shader, _py5shader_param  # noqa
-from .font import _py5font_param  # noqa
 from .shape import _return_py5shape, _py5shape_param  # noqa
 
 from .image import Py5Image, _return_py5image  # noqa
@@ -36,16 +35,6 @@ def _return_py5graphics(f):
         ret = f(self_, *args)
         if ret is not None:
             return Py5Graphics(ret)
-    return decorated
-
-
-def _py5graphics_param(f):
-    @functools.wraps(f)
-    def decorated(self_, *args):
-        if isinstance(args[0], Py5Graphics):
-            args = (args[0]._instance, *args[1:])
-        return f(self_, *args)
-
     return decorated
 
 
