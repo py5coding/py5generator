@@ -253,7 +253,7 @@ join,join,,,method,data,string_functions,FALSE,FALSE,user should use python inst
 trim,trim,,,method,data,string_functions,FALSE,FALSE,user should use python instead
 size,size,,,method,environment,,TRUE,TRUE,
 fill,fill,,,method,color,setting,TRUE,TRUE,
-apply_filter,filter,@_py5shader_param,,method,image,pixels,TRUE,TRUE,filter method has name conflict with python builtin function; replaced with apply_filter method
+apply_filter,filter,,,method,image,pixels,TRUE,TRUE,filter method has name conflict with python builtin function; replaced with apply_filter method
 second,second,,,static method,input,time_date,TRUE,TRUE,
 match,match,,,static method,data,string_functions,FALSE,FALSE,user should use python instead
 set,set,,,method,image,pixels,FALSE,FALSE,conflict with builtin python function
@@ -449,7 +449,7 @@ end_shape,endShape,,,method,shape,vertex,TRUE,TRUE,
 load_shape,loadShape,@_return_py5shape,,method,shape,,TRUE,TRUE,
 create_shape,createShape,@_return_py5shape,,method,shape,,TRUE,TRUE,
 load_shader,loadShader,@_return_py5shader,,method,rendering,shaders,TRUE,TRUE,
-shader,shader,@_py5shader_param,,method,rendering,shaders,TRUE,TRUE,
+shader,shader,,,method,rendering,shaders,TRUE,TRUE,
 reset_shader,resetShader,,,method,rendering,shaders,TRUE,TRUE,
 clip,clip,,,method,rendering,,TRUE,TRUE,
 no_clip,noClip,,,method,rendering,,TRUE,TRUE,

@@ -18,16 +18,6 @@ def _return_py5shader(f):
     return decorated
 
 
-def _py5shader_param(f):
-    @functools.wraps(f)
-    def decorated(self_, *args):
-        if isinstance(args[0], Py5Shader):
-            args = (args[0]._instance, *args[1:])
-        return f(self_, *args)
-
-    return decorated
-
-
 class Py5Shader(Py5Base):
 
     def __init__(self, pshader):

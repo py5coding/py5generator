@@ -8,7 +8,7 @@ from typing import overload, List  # noqa
 from .base import Py5Base
 from .mixins import PixelMixin
 from .methods import Py5Exception  # noqa
-from .shader import _return_py5shader, _py5shader_param  # noqa
+from .shader import _return_py5shader  # noqa
 from .shape import _return_py5shape  # noqa
 
 from .image import Py5Image, _return_py5image  # noqa

@@ -14,7 +14,7 @@ from .java_types import _Py5Applet, Py5Applet, _Py5Image
 from .base import Py5Base
 from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin
 from .mixins.threads import Py5Promise  # noqa
-from .shader import Py5Shader, _return_py5shader, _py5shader_param  # noqa
+from .shader import Py5Shader, _return_py5shader  # noqa
 from .font import Py5Font, _return_py5font  # noqa
 from .shape import Py5Shape, _return_py5shape  # noqa
 from .surface import Py5Surface, _return_py5surface  # noqa

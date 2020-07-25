@@ -1,6 +1,6 @@
 from jpype import _jcustomizer
 
-from .sketch import Py5Graphics, Py5Image, Py5Font, Py5Shape
+from .sketch import Py5Graphics, Py5Image, Py5Font, Py5Shape, Py5Shader
 
 
 @_jcustomizer.JConversion("processing.core.PImage", instanceof=Py5Image)
@@ -20,4 +20,9 @@ def _py5font_convert(jcls, obj):
 
 @_jcustomizer.JConversion("processing.core.PShape", instanceof=Py5Shape)
 def _py5shape_convert(jcls, obj):
+    return obj._instance
+
+
+@_jcustomizer.JConversion("processing.opengl.PShader", instanceof=Py5Shader)
+def _py5shader_convert(jcls, obj):
     return obj._instance
