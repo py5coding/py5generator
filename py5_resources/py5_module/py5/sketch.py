@@ -85,11 +85,6 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
                 time_waited += pause
                 time.sleep(pause)
 
-    def exit_sketch(self) -> None:
-        """$class_exit_sketch"""
-        if not self.get_surface().is_stopped():
-            self._py5applet.exit()
-
     def _shutdown(self):
         super()._shutdown()
 
@@ -98,6 +93,11 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         self._shutdown()
 
     # *** BEGIN METHODS ***
+
+    def exit_sketch(self) -> None:
+        """$class_exit_sketch"""
+        if not self.get_surface().is_stopped():
+            self._py5applet.exit()
 
     def hot_reload_draw(self, draw: Callable) -> None:
         """$class_hot_reload_draw"""
