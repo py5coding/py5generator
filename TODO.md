@@ -9,9 +9,7 @@ Building py5:
 $ make clean
 $ make processing_dir=../sam_processing4
 
-The Processing jars need to exist and be built. If I am using Processing3 I need to compile with java 1.8. I can use it with a command like this:
-
-(JAVA_HOME="/usr/lib/jvm/jdk1.8.0_74"; ant -f /home/jim/Projects/ITP/pythonprocessing/processing/core/build.xml)
+The Processing jars need to exist and be built.
 
 Processing4 integration branch:
 [repo](https://github.com/sampottinger/processing4)
@@ -40,11 +38,6 @@ Add helpful messages for when the function parameter types are not correct or ot
 I can get each function's parameter types with the `signatures()` method.
 
 `javap -classpath /home/jim/Projects/git/processing/core/library/core.jar -public processing.core.PApplet`
-
-imports
--------
-
-cleanup or remove the java_types file and organize the other imports so there is no risk of circular references.
 
 type hinting
 ------------
@@ -84,8 +77,6 @@ libraries
 ---------
 
 need to add [Processing's non-core jars](https://processing.org/reference/libraries/) for other libraries like PDF, SVG, Video, Sound.
-
-Should all Java Processing libraries be wrapped in a Python package? Should I bundle multiple libraries together?
 
 camera3D and colorblindness need to call the preDraw and postDraw methods with an Interface in the same way PApplet calls the setup and draw methods.
 
