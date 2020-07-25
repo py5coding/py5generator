@@ -5,7 +5,7 @@ from __future__ import annotations
 import functools
 from typing import overload, List, Union  # noqa
 
-from .base import Py5Base
+from .base import Py5Base, _py5base_param  # noqa
 from .mixins import PixelMixin
 from .methods import Py5Exception  # noqa
 
@@ -42,12 +42,5 @@ class Py5Image(PixelMixin, Py5Base):
         self._instance = pimage
         super().__init__(instance=pimage)
 
-# TODO: these needs to be generated like the methods for other classes
 
-    @property
-    def width(self) -> int:
-        return self._instance.width
-
-    @property
-    def height(self) -> int:
-        return self._instance.height
+{py5image_class_members_code}

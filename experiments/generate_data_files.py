@@ -49,6 +49,9 @@ make_dataframe(PShader).to_csv('/tmp/pshader.csv')
 PGraphics = autoclass('processing.core.PGraphics', include_protected=False, include_private=False)
 make_dataframe(PGraphics).to_csv('/tmp/pgraphics.csv')
 
+PImage = autoclass('processing.core.PImage', include_protected=False, include_private=False)
+make_dataframe(PImage).to_csv('/tmp/pimage.csv')
+
 PSurface = autoclass('processing.core.PSurface', include_protected=False, include_private=False)
 make_dataframe(PSurface).to_csv('/tmp/psurface.csv')
 

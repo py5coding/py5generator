@@ -106,8 +106,6 @@ don't forget that jpype supports memoryview, which I should use for sending and 
 
 Fix all TODOs, such as np_pixels needs to be a property and the hacks with the conversion functions.
 
-Py5Image needs generated functions
-
 clean up import hierarchy and do something better with the java_types.py file.
 
 redo reflection stuff in generate_py5 and code builder.
