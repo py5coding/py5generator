@@ -140,6 +140,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         height, width, _ = array.shape
 
         if dst:
+            # TODO: validation to make sure the size is the same
             py5_img = dst
         else:
             pimg = _Py5Image()
@@ -183,6 +184,9 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         # TODO: also handle svg files
         pimg = self._instance.loadImage(str(filename))
         if dst:
+            if pimg.width != dst.width or pimg.height != dst.height:
+                # TODO: improve this
+                raise RuntimeError("height and width need to be the same")
             dst._replace_instance(pimg)
             return dst
         else:
