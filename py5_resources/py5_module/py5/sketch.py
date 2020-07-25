@@ -19,7 +19,7 @@ from .font import Py5Font, _return_py5font, _py5font_param  # noqa
 from .shape import Py5Shape, _return_py5shape, _py5shape_param  # noqa
 from .surface import Py5Surface, _return_py5surface  # noqa
 from .graphics import Py5Graphics, _return_py5graphics, _py5graphics_param  # noqa
-from .image import Py5Image, _return_py5image, _py5image_param  # noqa
+from .image import Py5Image, _return_py5image  # noqa
 from .converter import Converter
 
 

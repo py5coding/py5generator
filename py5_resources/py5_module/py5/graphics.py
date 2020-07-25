@@ -12,7 +12,7 @@ from .shader import _return_py5shader, _py5shader_param  # noqa
 from .font import _py5font_param  # noqa
 from .shape import _return_py5shape, _py5shape_param  # noqa
 
-from .image import Py5Image, _return_py5image, _py5image_param  # noqa
+from .image import Py5Image, _return_py5image  # noqa
 from .converter import Converter
 
 
