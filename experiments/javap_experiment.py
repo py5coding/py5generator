@@ -10,12 +10,12 @@ EXTENDS_REGEX = re.compile(r'.*?extends ([\w\.,]+)')
 IMPLEMENTS_REGEX = re.compile(r'.*?implements ([\w\.,]+)')
 
 
-def process_block(block):
+def process_block(block, is_interface):
     data = {}
     signature = block.split('\n', maxsplit=1)[0].strip()
 
     m = FUNCTION_REGEX.match(signature)
-    if m:
+    if m and not is_interface:
         # this is a method
         static, rettype, fname, paramtypes = m.groups()
 
@@ -25,9 +25,6 @@ def process_block(block):
             paramnames = [t[3] for t in [v.split() for v in var_table] if t[0] == '0']
             if not static:
                 paramnames = paramnames[1:]
-
-        # if fname == 'usePy5Methods':
-        #     print(block)
 
         data['type'] = 'method'
         data['fname'] = fname
@@ -69,6 +66,8 @@ def process_class(classname, data):
         print(f'{classname} code is missing debug information')
     class_signature, content = lines[:-2].split('\n', maxsplit=1)
 
+    is_interface = 'interface' in class_signature
+
     m = IMPLEMENTS_REGEX.match(class_signature)
     if m:
         for interface in m.group(1).split(','):
@@ -79,14 +78,14 @@ def process_class(classname, data):
 
     blocks = content.split('\n\n')
     print('processing', classname)
-    data.extend([process_block(b) for b in blocks if b])
+    data.extend([process_block(b, is_interface) for b in blocks if b])
 
 
-classname = "py5.core.Py5Applet"
+# classname = "py5.core.Py5Applet"
 # classname = "processing.core.PApplet"
-# classname = "processing.core.PGraphics"
-# classname = "processing.core.PImage"
-# classname = "java.lang.Cloneable"
+classname = "py5.core.Py5SurfaceDummy"
+# classname = "py5.core.Py5Graphics"
+# classname = "py5.core.Py5Image"
 
 data = []
 process_class(classname, data)
