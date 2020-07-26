@@ -19,12 +19,12 @@ public class Py5SurfaceDummy implements PSurface {
   }
 
   @Override
-  public void initFrame(PApplet arg0) {
+  public void initFrame(PApplet sketch) {
 
   }
 
   @Override
-  public void initOffscreen(PApplet arg0) {
+  public void initOffscreen(PApplet sketch) {
 
   }
 
@@ -34,12 +34,12 @@ public class Py5SurfaceDummy implements PSurface {
   }
 
   @Override
-  public PImage loadImage(String arg0, Object... arg1) {
+  public PImage loadImage(String path, Object... args) {
     return null;
   }
 
   @Override
-  public boolean openLink(String arg0) {
+  public boolean openLink(String url) {
     return false;
   }
 
@@ -49,12 +49,12 @@ public class Py5SurfaceDummy implements PSurface {
   }
 
   @Override
-  public void placePresent(int arg0) {
+  public void placePresent(int stopColor) {
 
   }
 
   @Override
-  public void placeWindow(int[] arg0, int[] arg1) {
+  public void placeWindow(int[] location, int[] editorLocation) {
 
   }
 
@@ -64,67 +64,67 @@ public class Py5SurfaceDummy implements PSurface {
   }
 
   @Override
-  public void selectFolder(String arg0, String arg1, File arg2, Object arg3) {
+  public void selectFolder(String prompt, String callback, File file, Object callbackObject) {
 
   }
 
   @Override
-  public void selectInput(String arg0, String arg1, File arg2, Object arg3) {
+  public void selectInput(String prompt, String callback, File file, Object callbackObject) {
 
   }
 
   @Override
-  public void selectOutput(String arg0, String arg1, File arg2, Object arg3) {
+  public void selectOutput(String prompt, String callback, File file, Object callbackObject) {
 
   }
 
   @Override
-  public void setAlwaysOnTop(boolean arg0) {
+  public void setAlwaysOnTop(boolean always) {
 
   }
 
   @Override
-  public void setCursor(int arg0) {
+  public void setCursor(int kind) {
 
   }
 
   @Override
-  public void setCursor(PImage arg0, int arg1, int arg2) {
+  public void setCursor(PImage image, int hotspotX, int hotspotY) {
 
   }
 
   @Override
-  public void setFrameRate(float arg0) {
+  public void setFrameRate(float fps) {
 
   }
 
   @Override
-  public void setIcon(PImage arg0) {
+  public void setIcon(PImage icon) {
 
   }
 
   @Override
-  public void setLocation(int arg0, int arg1) {
+  public void setLocation(int x, int y) {
 
   }
 
   @Override
-  public void setResizable(boolean arg0) {
+  public void setResizable(boolean resizable) {
 
   }
 
   @Override
-  public void setSize(int arg0, int arg1) {
+  public void setSize(int width, int height) {
 
   }
 
   @Override
-  public void setTitle(String arg0) {
+  public void setTitle(String title) {
 
   }
 
   @Override
-  public void setVisible(boolean arg0) {
+  public void setVisible(boolean visible) {
 
   }
 
@@ -147,5 +147,5 @@ public class Py5SurfaceDummy implements PSurface {
   public boolean stopThread() {
     return false;
   }
-  
+
 }
