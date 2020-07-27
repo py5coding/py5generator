@@ -89,6 +89,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
 
         return builder
 
+    # TODO: clean up the names of those files so this is easier.
     py5shader_builder = run_code_builder('Py5Shader', 'processing.opengl.PShader')
     py5shape_builder = run_code_builder('Py5Shape', 'processing.core.PShape')
     py5font_builder = run_code_builder('Py5Font', 'processing.core.PFont')
