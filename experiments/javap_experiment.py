@@ -44,8 +44,6 @@ def process_block(block, is_interface):
         data['field_type'] = tokens[-2]
         data['static'] = 'static' in signature
 
-    # data['signature'] = signature
-
     return data
 
 
@@ -81,25 +79,31 @@ def process_class(classname, data):
     data.extend([process_block(b, is_interface) for b in blocks if b])
 
 
-# classname = "py5.core.Py5Applet"
+def get_class_information(classname):
+    data = []
+    process_class(classname, data)
+
+    static_field_data = {}
+    field_data = {}
+    method_data = defaultdict(dict)
+
+    for d in data:
+        if d['type'] == 'field':
+            if d['static']:
+                static_field_data[d['field_name']] = d['field_type']
+            else:
+                field_data[d['field_name']] = d['field_type']
+        elif d['type'] == 'method':
+            method_data[d['fname']][','.join(d['paramtypes'])] = dict(
+                static=d['static'], rettype=d['rettype'], paramnames=d['paramnames'])
+
+    return static_field_data, field_data, method_data
+
+
+classname = "py5.core.Py5Applet"
 # classname = "processing.core.PApplet"
-classname = "py5.core.Py5SurfaceDummy"
+# classname = "py5.core.Py5SurfaceDummy"
 # classname = "py5.core.Py5Graphics"
 # classname = "py5.core.Py5Image"
 
-data = []
-process_class(classname, data)
-
-static_field_data = {}
-field_data = {}
-method_data = defaultdict(dict)
-
-for d in data:
-    if d['type'] == 'field':
-        if d['static']:
-            static_field_data[d['field_name']] = d['field_type']
-        else:
-            field_data[d['field_name']] = d['field_type']
-    elif d['type'] == 'method':
-        method_data[d['fname']][','.join(d['paramtypes'])] = dict(
-            static=d['static'], rettype=d['rettype'], paramnames=d['paramnames'])
+static_field_data, field_data, method_data = get_class_information(classname)
