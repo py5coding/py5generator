@@ -8,6 +8,7 @@ from typing import overload, Any, Callable, Union, Dict, List  # noqa
 
 import numpy as np
 import jpype
+from jpype.types import JArray, JString, JFloat, JInt, JChar  # noqa
 
 from .methods import Py5Methods, Py5Exception  # noqa
 

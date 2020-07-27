@@ -8,6 +8,7 @@ import pandas as pd
 from generator import CodeBuilder, DocstringLibrary, CodeCopier
 from generator import reference as ref
 from generator import templates as templ
+from generator import javap
 
 
 logging.basicConfig(format="%(asctime)s | %(levelname)s | %(message)s", level=logging.INFO)
@@ -56,32 +57,14 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         logger.critical(msg)
         raise RuntimeError(msg)
 
-    logger.info('start jnius')
-    import jnius_config
-    jnius_config.set_classpath(str(py5_jar_path), str(core_jar_path))
-    from jnius import autoclass
-
-    logger.info('loading datafile for method parameter names')
-    class_method_parameter_names_data = dict()
-    with open(method_parameter_names_data_file, 'r') as f:
-        for line in f.readlines():
-            c, f, types, params, rettype = line.split('|')
-            if c not in ['PApplet', 'PShader', 'PShape', 'PFont',
-                         'PSurface', 'PGraphics', 'PImage']:
-                continue
-            if c not in class_method_parameter_names_data: class_method_parameter_names_data[c] = dict()
-            if f not in class_method_parameter_names_data[c]: class_method_parameter_names_data[c][f] = dict()
-            if types in class_method_parameter_names_data[c][f]: raise RuntimeError(f'assumption violated [{c}] [{f}] [{types}]')
-            class_method_parameter_names_data[c][f][types] = (params, rettype)
+    javap.classpath = f'{py5_jar_path}:{core_jar_path}'
 
     logger.info('creating Sketch code')
     py5applet_data = pd.read_csv(Path('py5_resources', 'data', 'py5applet.csv')).fillna('').set_index('processing_name')
-    Py5Applet = autoclass('py5.core.Py5Applet', include_protected=False, include_private=False)
-    py5applet = Py5Applet()
 
-    py5applet_builder = CodeBuilder(class_method_parameter_names_data['PApplet'], py5applet_data)
+    py5applet_builder = CodeBuilder('py5.core.Py5Applet', py5applet_data)
     py5applet_builder.code_module_members('Sketch', '_py5sketch')
-    py5applet_builder.run_builder(Py5Applet, py5applet)
+    py5applet_builder.run_builder()
 
     # add the methods in the mixin classes as functions in the __init__.py module
     mixin_dir = Path('py5_resources', 'py5_module', 'py5', 'mixins')
@@ -100,11 +83,9 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         logger.info(f'creating {name} code')
         class_name = class_name or clsname.split('.')[-1]
         data = pd.read_csv(Path('py5_resources', 'data', f'{class_name.lower()}.csv')).fillna('').set_index('processing_name')
-        Class = autoclass(clsname, include_protected=False, include_private=False)
-        instance = Class()
 
-        builder = CodeBuilder(class_method_parameter_names_data[class_name], data)
-        builder.run_builder(Class, instance)
+        builder = CodeBuilder(clsname, data)
+        builder.run_builder()
 
         return builder
 

@@ -1,10 +1,10 @@
 import re
 import logging
-import shlex
 from functools import lru_cache
 
 from . import reference as ref
 from . import templates as templ
+from . import javap
 
 
 logger = logging.getLogger(__name__)
@@ -34,12 +34,14 @@ def snake_case(name):
 def _convert_type(jtype: str) -> str:
     if jtype == 'void':
         return 'None'
-
-    isarray = jtype.endswith('[]')
-    jtype = jtype[:-2] if isarray else jtype
-    out = ref.JTYPE_CONVERSIONS.get(jtype, jtype.split('/')[-1])
-
-    return f'List[{out}]' if isarray else out
+    elif jtype in ref.TYPE_OVERRIDES:
+        return ref.TYPE_OVERRIDES[jtype]
+    elif jtype.endswith('[][]'):
+        return f'JArray(JArray({ref.JPYPE_CONVERSIONS[jtype[:-4]]}))'
+    elif jtype.endswith('[]'):
+        return f'JArray({ref.JPYPE_CONVERSIONS[jtype[:-2]]})'
+    else:
+        return ref.JTYPE_CONVERSIONS[jtype]
 
 
 def _param_annotation(varname: str, jtype: str) -> str:
@@ -57,8 +59,8 @@ def _param_annotation(varname: str, jtype: str) -> str:
 
 class CodeBuilder:
 
-    def __init__(self, method_parameter_names_data, class_data):
-        self._method_parameter_names_data = method_parameter_names_data
+    def __init__(self, clsname, class_data):
+        self._constant_field_data, self._field_data, self._method_data = javap.get_class_information(clsname)
         self._py5_names = class_data['py5_name']
         self._py5_decorators = class_data['decorator']
         self._py5_special_kwargs = class_data['special_kwargs']
@@ -88,47 +90,36 @@ class CodeBuilder:
         return (self.static_constant_names | self.dynamic_variable_names
                 | self.method_names | self.extra_names)
 
-    def _make_param_rettype_strs(self, fname, first_param, params, rettype):
-        try:
-            parameter_name_key = ','.join([p.split('/')[-1].replace('...', '[]') for p in params])
-            parameter_names, _ = self._method_parameter_names_data[fname][parameter_name_key]
-            parameter_names = [snake_case(p) for p in parameter_names.split(',')]
-            paramstrs = [first_param] + [_param_annotation(pn, p) for pn, p in zip(parameter_names, params)]
-        except Exception:
-            logger.warning(f'missing parameter names for {fname} {params}')
-            paramstrs = [first_param] + [_param_annotation(f'arg{i}', p) for i, p in enumerate(params)]
+    def _make_param_rettype_strs(self, fname, first_param, params, paramnames, rettype):
+        parameter_names = [snake_case(p) for p in paramnames]
+        paramstrs = [first_param] + [_param_annotation(pn, p) for pn, p in zip(parameter_names, params)]
         rettypestr = _convert_type(rettype)
 
         return paramstrs, rettypestr
 
-    def code_static_constant(self, name, val):
-        if name in ref.PCONSTANT_OVERRIDES:
-            val = shlex.quote(ref.PCONSTANT_OVERRIDES[name])
-        else:
-            if isinstance(val, str):
-                val = f"'{val}'"
-            if name == 'javaVersion':
-                val = round(val, 2)
+    def code_constant(self, name, val):
+        py5_name = self._py5_names[name]
 
-        self.class_members.append(templ.CLASS_STATIC_FIELD_TEMPLATE.format(name, val))
+        self.class_members.append(templ.CLASS_STATIC_FIELD_TEMPLATE.format(py5_name, val))
         if self._code_module:
-            self.module_members.append(templ.MODULE_STATIC_FIELD_TEMPLATE.format(name, val))
+            self.module_members.append(templ.MODULE_STATIC_FIELD_TEMPLATE.format(py5_name, val))
 
         self.static_constant_names.add(name)
 
     def code_dynamic_variable(self, name, type_name):
-        snake_name = self._py5_names[name]
-        var_type = {'args': 'List[str]', 'pixels': 'List[int]'}.get(name, type_name)
+        py5_name = self._py5_names[name]
+        var_type = _convert_type(type_name)
 
-        self.class_members.append(templ.CLASS_PROPERTY_TEMPLATE.format(snake_name, var_type, name))
+        self.class_members.append(templ.CLASS_PROPERTY_TEMPLATE.format(py5_name, var_type, name))
         if self._code_module:
-            self.module_members.append(templ.MODULE_PROPERTY_TEMPLATE.format(snake_name, var_type))
+            self.module_members.append(templ.MODULE_PROPERTY_TEMPLATE.format(py5_name, var_type))
 
-        self.dynamic_variable_names.add(snake_name)
+        self.dynamic_variable_names.add(py5_name)
 
-    def code_method(self, fname, method, static):
-        snake_name = self._py5_names[fname]
+    def code_method(self, fname, method_data):
+        py5_name = self._py5_names[fname]
         kwargs = self._py5_special_kwargs[fname]
+        static = all([x['static'] for x in method_data.values()])
         if kwargs:
             kwargs_precondition, kwargs = kwargs.split('|')
         if static:
@@ -136,11 +127,15 @@ class CodeBuilder:
         else:
             first_param, classobj, moduleobj, decorator = 'self', 'self._instance', self._instance_name, self._py5_decorators[fname]
         # if there is only one method signature, create the real method with typehints
-        if len(method.signatures()) == 1:
-            params, rettype = method.signatures()[0]
+        if len(method_data) == 1:
+            sigstr, sigdata = list(method_data.items())[0]
+            params = sigstr.split(',')
+            rettype = sigdata['rettype']
+            paramnames = sigdata['paramnames']
             if ref.PY5_SKIP_PARAM_TYPES.intersection(params) or rettype in ref.PY5_SKIP_RETURN_TYPES:
+                logger.warning(f'skipping method for {fname} {str(params)} {rettype}')
                 return
-            paramstrs, rettypestr = self._make_param_rettype_strs(fname, first_param, params, rettype)
+            paramstrs, rettypestr = self._make_param_rettype_strs(fname, first_param, params, paramnames, rettype)
             class_arguments = ', '.join([p.split(':')[0] for p in paramstrs[1:]])
             module_arguments = class_arguments
             if kwargs and any([kwargs_precondition in p for p in paramstrs]):
@@ -150,26 +145,29 @@ class CodeBuilder:
 
             # create the class and module code
             self.class_members.append(templ.CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
-                snake_name, ', '.join(paramstrs), classobj, fname, decorator, rettypestr, class_arguments))
+                py5_name, ', '.join(paramstrs), classobj, fname, decorator, rettypestr, class_arguments))
             if self._code_module:
                 self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
-                    snake_name, ', '.join(paramstrs[1:]), moduleobj, rettypestr, module_arguments))
+                    py5_name, ', '.join(paramstrs[1:]), moduleobj, rettypestr, module_arguments))
         else:
             # loop through the method signatures and create the typehint methods
             skipped_all = True
-            for params, rettype in sorted(method.signatures(), key=lambda x: str(x[0])):
+            for sigstr, sigdata in sorted(method_data.items()):
+                params = sigstr.split(',')
+                rettype = sigdata['rettype']
+                paramnames = sigdata['paramnames']
                 if ref.PY5_SKIP_PARAM_TYPES.intersection(params) or rettype in ref.PY5_SKIP_RETURN_TYPES:
                     logger.warning(f'skipping typehint for {fname} {str(params)} {rettype}')
                     continue
                 skipped_all = False
-                paramstrs, rettypestr = self._make_param_rettype_strs(fname, first_param, params, rettype)
+                paramstrs, rettypestr = self._make_param_rettype_strs(fname, first_param, params, paramnames, rettype)
                 if kwargs and any([kwargs_precondition in p for p in paramstrs]):
                     paramstrs.append(kwargs)
 
                 # create the class and module typehints
-                self.class_members.append(templ.CLASS_METHOD_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs), rettypestr))
+                self.class_members.append(templ.CLASS_METHOD_TYPEHINT_TEMPLATE.format(py5_name, ', '.join(paramstrs), rettypestr))
                 if self._code_module:
-                    self.module_members.append(templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(snake_name, ', '.join(paramstrs[1:]), rettypestr))
+                    self.module_members.append(templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(py5_name, ', '.join(paramstrs[1:]), rettypestr))
             if skipped_all:
                 return
             # now construct the real methods
@@ -180,10 +178,10 @@ class CodeBuilder:
                 kw_param = kwargs.split(':')[0]
                 module_arguments += f', {kw_param}={kw_param}'
 
-            self.class_members.append(templ.CLASS_METHOD_TEMPLATE.format(snake_name, first_param, classobj, fname, decorator, arguments))
+            self.class_members.append(templ.CLASS_METHOD_TEMPLATE.format(py5_name, first_param, classobj, fname, decorator, arguments))
             if self._code_module:
-                self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE.format(snake_name, moduleobj, arguments, module_arguments))
-        self.method_names.add(snake_name)
+                self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE.format(py5_name, moduleobj, arguments, module_arguments))
+        self.method_names.add(py5_name)
 
     def code_extra(self, filename):
         with open(filename) as f:
@@ -217,18 +215,22 @@ class CodeBuilder:
                     fname, args, moduleobj, rettypestr, params))
                 self.extra_names.add(fname)
 
-    def run_builder(self, cls_, instance):
-        from jnius import JavaStaticMethod, JavaMethod, JavaMultipleMethod, JavaStaticField, JavaField
+    def run_builder(self):
 
-        ordering = {JavaStaticField: 0, JavaField: 1}
-        for k, v in sorted(cls_.__dict__.items(), key=lambda x: (ordering.get(type(x[1]), 2), x[0])):
-            if isinstance(v, JavaStaticMethod) and k in self._included_fields_and_methods:
-                self.code_method(k, v, True)
-            elif isinstance(v, (JavaMethod, JavaMultipleMethod)) and k in self._included_fields_and_methods:
-                self.code_method(k, v, False)
-            elif isinstance(v, JavaStaticField) and k in self._included_fields_and_methods:
-                self.code_static_constant(k, getattr(cls_, k))
-            elif isinstance(v, JavaField) and k in self._included_fields_and_methods:
-                self.code_dynamic_variable(k, type(getattr(instance, k)).__name__)
-            if k not in self._all_known_fields_and_methods and not k.startswith('_'):
-                logger.warning(f'detected previously unknown {type(v).__name__} {k}')
+        for field_name, field_value in sorted(self._constant_field_data.items()):
+            if field_name in self._included_fields_and_methods:
+                self.code_constant(field_name, field_value)
+            elif field_name not in self._all_known_fields_and_methods and not field_name.startswith('_'):
+                logger.warning(f'detected previously unknown constant field {field_name}')
+
+        for field_name, field_type in sorted(self._field_data.items()):
+            if field_name in self._included_fields_and_methods:
+                self.code_dynamic_variable(field_name, field_type)
+            elif field_name not in self._all_known_fields_and_methods and not field_name.startswith('_'):
+                logger.warning(f'detected previously unknown dynamic field {field_name}')
+
+        for method_name, method_data in sorted(self._method_data.items()):
+            if method_name in self._included_fields_and_methods:
+                self.code_method(method_name, method_data)
+            elif method_name not in self._all_known_fields_and_methods and not method_name.startswith('_'):
+                logger.warning(f'detected previously unknown method {method_name}')

@@ -6,6 +6,7 @@ from typing import overload, List  # noqa
 from .base import Py5Base
 from .methods import Py5Exception  # noqa
 from .image import Py5Image  # noqa
+from jpype.types import JArray, JBoolean, JInt, JFloat  # noqa
 
 
 py5shader_class_members_code = None  # DELETE

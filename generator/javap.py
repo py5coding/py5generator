@@ -38,17 +38,27 @@ def process_block(block, is_interface):
         data['type'] = 'constructor'
     else:
         # this is a field
-        tokens = signature[:-1].split()
         data['type'] = 'field'
+        if '=' in signature:
+            tokens = signature.split('=')
+            data['constant'] = True
+            data['field_value'] = tokens[1][:-1].strip()
+            signature = tokens[0].strip()
+        else:
+            data['constant'] = False
+            signature = signature[:-1]  # remove ;
+        tokens = signature.split()
         data['field_name'] = tokens[-1]
         data['field_type'] = tokens[-2]
-        data['static'] = 'static' in signature
+
+        if data['field_type'] == 'float' and data.get('field_value', 'X')[-1] == 'f':
+            data['field_value'] = data['field_value'][:-1]
 
     return data
 
 
 def process_class(classname, data):
-    command = f'javap -classpath {classpath} -public -l {classname}'
+    command = f'javap -classpath {classpath} -constants -public -l {classname}'
     result = subprocess.run(command.split(), capture_output=True)
 
     if result.returncode > 0:
@@ -80,18 +90,26 @@ def get_class_information(classname):
     data = []
     process_class(classname, data)
 
-    static_field_data = {}
+    constant_field_data = {}
     field_data = {}
     method_data = defaultdict(dict)
 
     for d in data:
         if d['type'] == 'field':
-            if d['static']:
-                static_field_data[d['field_name']] = d['field_type']
+            if d['constant']:
+                constant_field_data[d['field_name']] = d['field_value']
             else:
                 field_data[d['field_name']] = d['field_type']
         elif d['type'] == 'method':
             method_data[d['fname']][','.join(d['paramtypes'])] = dict(
                 static=d['static'], rettype=d['rettype'], paramnames=d['paramnames'])
 
-    return static_field_data, field_data, method_data
+    # cannot have a method and field with the same name
+    for key in list(field_data.keys()):
+        if key in method_data:
+            del field_data[key]
+    for key in list(constant_field_data.keys()):
+        if key in method_data:
+            del constant_field_data[key]
+
+    return constant_field_data, field_data, method_data

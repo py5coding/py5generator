@@ -13,6 +13,7 @@ import json  # noqa
 import numpy as np  # noqa
 from PIL import Image  # noqa
 from jpype import JClass  # noqa
+from jpype.types import JArray, JString, JFloat, JInt, JChar  # noqa
 
 import py5_tools
 

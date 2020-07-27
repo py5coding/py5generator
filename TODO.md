@@ -93,8 +93,6 @@ jpype tasks
 
 Fix all TODOs
 
-redo reflection stuff in generate_py5 and code builder.
-
 other
 -----
 
@@ -114,3 +112,5 @@ when an error is thrown I can call run_sketch again to continue the sketch. neat
 exiting a sketch leaves a weird X11 error message.
 
 when I run shader_test.py and call Py5Shader's set function I get an ambiguous overload error for params str, int. need to add a decorator to cast ints and booleans to JInt or JBoolean.
+
+test java_version, java_platform, and java_version_name

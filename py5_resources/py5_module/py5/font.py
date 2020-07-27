@@ -4,6 +4,7 @@ import functools
 from typing import overload, List  # noqa
 
 import jpype
+from jpype.types import JArray, JString  # noqa
 
 from .methods import Py5Exception  # noqa
 from .shape import Py5Shape, _return_py5shape  # noqa
