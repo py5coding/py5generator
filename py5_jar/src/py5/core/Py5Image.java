@@ -12,10 +12,6 @@ public class Py5Image extends PImage {
     this.pixelBuffer = pixelBuffer;
   }
 
-  public void setPixels(byte[] bytes) {
-    ByteBuffer.wrap(bytes).asIntBuffer().get(pixels);
-  }
-
   public void loadAndPutPixels() {
     loadPixels();
     pixelBuffer.asIntBuffer().put(pixels);
