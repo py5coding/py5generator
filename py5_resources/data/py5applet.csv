@@ -334,7 +334,7 @@ pause,pause,,,method,,,TRUE,TRUE,
 register_method,registerMethod,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 unregister_method,unregisterMethod,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 create_graphics,createGraphics,@_return_py5graphics,,method,rendering,,TRUE,TRUE,this needs to be reimplemented but I haven't decided what to do with it yet
-create_image,createImage,,,method,image,,FALSE,TRUE,implemented in mixin file image.py
+create_image,createImage,@_return_py5image,,method,image,,TRUE,TRUE,
 image,image,,,method,image,loading_displaying,TRUE,TRUE,
 handle_draw,handleDraw,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 alpha,alpha,,,method,color,creating_reading,TRUE,TRUE,

@@ -107,7 +107,7 @@ build `points` method because the `point` method is not useful.
 bugs
 ----
 
-`np_pixels` doesn't work for Py5Graphics object because the created object is always a PGraphics object, never a Py5Graphics object. Do I need to add my DirectBuffer code to PGraphics or PImage source?
+`np_pixels` doesn't work correctly for Py5Graphics object for OpenGL renderers. Is it a bug in Processing?
 
 if an exception is thrown in setup, the sketch should stop and handle the error properly. also the other non-draw methods.
 

@@ -33,7 +33,6 @@ _METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',
 
 
 _Py5Applet = jpype.JClass('py5.core.Py5Applet')
-_Py5Image = jpype.JClass('py5.core.Py5Image')
 
 
 class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
@@ -129,14 +128,6 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     # *** Py5Image methods ***
 
-    def create_image(self, width: int, height: int, mode: str) -> Py5Image:
-        """$class_create_image"""
-        pimage = _Py5Image()
-        pimage.init(width, height, mode)
-        pimage.parent = self._instance
-
-        return Py5Image(pimage)
-
     def create_image_from_numpy(self, array: np.ndarray, bands: str = 'ARGB', dst: Py5Image = None) -> Py5Image:
         """$class_create_image_from_numpy"""
         height, width, _ = array.shape
@@ -146,10 +137,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
                 raise RuntimeError("array size does not match size of dst Py5Image")
             py5_img = dst
         else:
-            pimg = _Py5Image()
-            pimg.init(width, height, self.ARGB)
-            pimg.parent = self._instance
-            py5_img = Py5Image(pimg)
+            py5_img = self.create_image(width, height, self.ARGB)
 
         py5_img.load_np_pixels()
 

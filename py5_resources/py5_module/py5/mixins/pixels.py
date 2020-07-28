@@ -15,14 +15,11 @@ class PixelMixin:
 
     def _replace_instance(self, new_instance):
         self._instance = new_instance
-        if hasattr(self, '_java_bb'):
-            self._instance.setPixelBuffer(self._java_bb)
         super()._replace_instance(new_instance)
 
     def _init_np_pixels(self):
         self._py_bb = bytearray(self.pixel_width * self.pixel_height * 4)
         self._java_bb = jpype.nio.convertToDirectBuffer(self._py_bb)
-        self._instance.setPixelBuffer(self._java_bb)
         self._np_pixels = np.asarray(self._py_bb, dtype=np.uint8).reshape(self.pixel_height, self.pixel_width, 4)
 
     # *** BEGIN METHODS ***
@@ -30,12 +27,14 @@ class PixelMixin:
     def load_np_pixels(self) -> None:
         if self._np_pixels is None:
             self._init_np_pixels()
-        self._instance.loadAndPutPixels()
+        self._instance.loadPixels()
+        self._java_bb.asIntBuffer().put(self._instance.pixels)
 
     def update_np_pixels(self) -> None:
         if self._np_pixels is None:
             self._init_np_pixels()
-        self._instance.getAndUpdatePixels()
+        self._java_bb.asIntBuffer().get(self._instance.pixels)
+        self._instance.updatePixels()
 
     @property
     def np_pixels(self) -> np.ndarray:

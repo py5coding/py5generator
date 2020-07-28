@@ -1,6 +1,5 @@
 package py5.core;
 
-import java.nio.ByteBuffer;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,8 +14,9 @@ public class Py5Applet extends PApplet {
 
   protected Py5Methods py5Methods;
   protected Set<String> py5RegisteredEvents;
-  protected ByteBuffer pixelBuffer;
 
+  
+  // TODO: do I still need this?
   public static final char CODED = PApplet.CODED;
 
   public void usePy5Methods(Py5Methods py5Methods) {
@@ -24,10 +24,6 @@ public class Py5Applet extends PApplet {
     this.py5RegisteredEvents = new HashSet<String>();
     for (String f : py5Methods.get_function_list())
       this.py5RegisteredEvents.add(f);
-  }
-
-  public void setPixelBuffer(ByteBuffer pixelBuffer) {
-    this.pixelBuffer = pixelBuffer;
   }
 
   @Override
@@ -160,16 +156,6 @@ public class Py5Applet extends PApplet {
 
   public boolean isMousePressed() {
     return mousePressed;
-  }
-
-  public void loadAndPutPixels() {
-    loadPixels();
-    pixelBuffer.asIntBuffer().put(pixels);
-  }
-
-  public void getAndUpdatePixels() {
-    pixelBuffer.asIntBuffer().get(pixels);
-    updatePixels();
   }
 
 }
