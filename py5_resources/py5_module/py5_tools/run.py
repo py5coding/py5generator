@@ -9,7 +9,6 @@ from . import jvm
 
 _CODE_FRAMEWORK = """
 import py5
-from py5 import *
 
 with open('{0}', 'r') as f:
     eval(compile(f.read(), '{0}', 'exec'))
@@ -23,6 +22,30 @@ class Py5Namespace(dict):
     def __init__(self, py5):
         super().__init__()
         self._py5 = py5
+        self._warned = {'__doc__'}
+
+    def _kind(self, thing):
+        if isinstance(thing, type):
+            return 'class'
+        elif callable(thing):
+            return 'function'
+        else:
+            return 'variable'
+
+    def _issue_warning(self, key, what, exiting_thing, new_thing):
+        existing_kind = self._kind(exiting_thing)
+        new_kind = self._kind(new_thing)
+        same = 'another' if existing_kind == new_kind else 'a'
+        print(f'your sketch code has replaced {what} {key} {existing_kind} with {same} {new_kind}, which may cause problems.')
+        self._warned.add(key)
+
+    def __setitem__(self, key, value):
+        if hasattr(self._py5, key) and key not in self._warned:
+            self._issue_warning(key, 'py5', getattr(self._py5, key), value)
+        if hasattr(builtins, key) and key not in self._warned:
+            self._issue_warning(key, 'builtin', getattr(builtins, key), value)
+
+        return super().__setitem__(key, value)
 
     def __getitem__(self, item):
         try:
