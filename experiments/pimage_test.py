@@ -52,6 +52,8 @@ class TestPImage(Sketch):
         context.stroke()
         self.surface = self.convert_image(surface)
 
+        self.img4 = self.load_image('data/uk.svg')
+
     def draw(self):
         self.image_mode(self.CENTER)
         self.shape_mode(self.CENTER)
@@ -61,6 +63,7 @@ class TestPImage(Sketch):
         self.image(self.img2, self.width / 2, self.height / 2, 500, 500)
         self.image(self.figure, self.width / 2, self.height / 2)
         self.image(self.surface, self.width / 2, self.height / 2)
+        self.image(self.img4, self.width / 2, self.height / 2)
 
         copy = self.get(10, 20, 400, 500)
         self.image(copy, self.width / 2, self.height / 2)

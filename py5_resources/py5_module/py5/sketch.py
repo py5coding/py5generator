@@ -3,15 +3,17 @@
 import time
 import os
 from pathlib import Path
+import io
 import tempfile
 from typing import overload, Any, Callable, Union, Dict, List  # noqa
 
 import numpy as np
 import jpype
 from jpype.types import JArray, JString, JFloat, JInt, JChar  # noqa
+from PIL import Image
+import cairosvg
 
 from .methods import Py5Methods, Py5Exception  # noqa
-
 from .base import Py5Base
 from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin
 from .mixins.threads import Py5Promise  # noqa
@@ -171,16 +173,19 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     def load_image(self, filename: Union[str, Path], dst: Py5Image = None) -> Py5Image:
         """$class_load_image"""
-        # TODO: if this is an image Processing cannot load, use PIL instead.
-        # TODO: also handle svg files
-        pimg = self._instance.loadImage(str(filename))
-        if dst:
-            if pimg.pixel_width != dst.pixel_width or pimg.pixel_height != dst.pixel_height:
-                raise RuntimeError("size of loaded image does not match size of dst Py5Image")
-            dst._replace_instance(pimg)
-            return dst
+        filename = Path(filename)
+        if filename.suffix.lower() == '.svg':
+            with open(filename, 'r') as f:
+                return self.convert_image(Image.open(io.BytesIO(cairosvg.svg2png(file_obj=f))), dst=dst)
         else:
-            return Py5Image(pimg)
+            pimg = self._instance.loadImage(str(filename))
+            if dst:
+                if pimg.pixel_width != dst.pixel_width or pimg.pixel_height != dst.pixel_height:
+                    raise RuntimeError("size of loaded image does not match size of dst Py5Image")
+                dst._replace_instance(pimg)
+                return dst
+            else:
+                return Py5Image(pimg)
 
     def request_image(self, filename: Union[str, Path]) -> Py5Promise:
         """$class_request_image"""
