@@ -20,10 +20,10 @@ class PixelMixin:
         super()._replace_instance(new_instance)
 
     def _init_np_pixels(self):
-        self._py_bb = bytearray(self.width * self.height * 4)
+        self._py_bb = bytearray(self.pixel_width * self.pixel_height * 4)
         self._java_bb = jpype.nio.convertToDirectBuffer(self._py_bb)
         self._instance.setPixelBuffer(self._java_bb)
-        self._np_pixels = np.asarray(self._py_bb, dtype=np.uint8).reshape(self.height, self.width, 4)
+        self._np_pixels = np.asarray(self._py_bb, dtype=np.uint8).reshape(self.pixel_height, self.pixel_width, 4)
 
     # *** BEGIN METHODS ***
 
@@ -44,7 +44,7 @@ class PixelMixin:
     def set_np_pixels(self, array: np.ndarray, bands: str = 'ARGB') -> None:
         # TODO: what about single channel images
         assert bands in 'ARGB RGB RGBA'.split(), "bands parameter must be one of 'ARGB', 'RGB', or 'RGBA'"
-        assert array.shape[:2] == (self.height, self.width), "set_np_pixels only supports numpy arrays with the same height and width of py5 object"
+        assert array.shape[:2] == (self.pixel_height, self.pixel_width), "set_np_pixels only supports numpy arrays with the same height and width of py5 object"
         assert array.shape[2] == len(bands), "the length of the array's third dimension must equal the length of the bands parameter"
         assert array.dtype == np.uint8, "numpy array dtype must be np.uint8 (unsigned 8 bit integer)"
 
