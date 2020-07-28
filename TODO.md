@@ -107,10 +107,12 @@ build `points` method because the `point` method is not useful.
 bugs
 ----
 
+`np_pixels` doesn't work for Py5Graphics object because the created object is always a PGraphics object, never a Py5Graphics object. Do I need to add my DirectBuffer code to PGraphics or PImage source?
+
 if an exception is thrown in setup, the sketch should stop and handle the error properly. also the other non-draw methods.
 
 when an error is thrown I can call run_sketch again to continue the sketch. neat trick, but it opens a new window, which perhaps it should not do.
 
-exiting a sketch leaves a weird X11 error message.
+exiting a sketch leaves an odd X11 error message.
 
 when I run shader_test.py and call Py5Shader's set function I get an ambiguous overload error for params str, int. need to add a decorator to cast ints and booleans to JInt or JBoolean.
