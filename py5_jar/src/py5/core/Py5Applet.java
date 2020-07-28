@@ -122,6 +122,12 @@ public class Py5Applet extends PApplet {
     py5Methods.shutdown();
 
     final Object nativeWindow = surface.getNative();
+    if (nativeWindow instanceof com.jogamp.newt.opengl.GLWindow) {
+      com.jogamp.newt.opengl.GLWindow window = (com.jogamp.newt.opengl.GLWindow) nativeWindow;
+      for (int i = 0; i < window.getGLEventListenerCount(); i++) {
+        window.disposeGLEventListener(window.getGLEventListener(i), true);
+      }
+    }
     if (nativeWindow instanceof com.jogamp.newt.Window) {
       com.jogamp.newt.Window window = (com.jogamp.newt.Window) nativeWindow;
       // remove the listeners before destroying window to prevent a core dump
@@ -135,7 +141,11 @@ public class Py5Applet extends PApplet {
         window.removeMouseListener(l);
       }
       window.destroy();
+    } else if (nativeWindow instanceof processing.awt.PSurfaceAWT.SmoothCanvas) {
+      processing.awt.PSurfaceAWT.SmoothCanvas window = (processing.awt.PSurfaceAWT.SmoothCanvas) nativeWindow;
+      window.getFrame().dispose();
     } else {
+      System.out.println("Making window invisible but not actually destroying it.");
       surface.setVisible(false);
     }
   }
