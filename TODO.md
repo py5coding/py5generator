@@ -23,10 +23,11 @@ Move all of these todos and notes to Notion. Use one of their templates for easy
 packaging and deployment
 ------------------------
 
-conda create -n py5test python=3.8 ipython
-conda activate py5test
-conda install -c conda-forge openjdk
-pip install py5
+`conda create -n py5test python=3.8 ipython`
+`conda activate py5test`
+`conda install -c conda-forge openjdk`
+`conda install -c anaconda cairo`
+`pip install py5`
 
 Windows problems
 
