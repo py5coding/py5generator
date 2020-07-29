@@ -32,7 +32,7 @@ from .image_conversion import register_image_conversion  # noqa
 from . import java_conversion  # noqa
 
 
-__version__ = '0.2a1'
+__version__ = '0.2a2'
 
 logger = logging.getLogger(__name__)
 

@@ -1,7 +1,7 @@
 from pathlib import Path
 from setuptools import setup
 
-with open('README.md') as f:
+with open('README.rst') as f:
     README = f.read()
 
 
@@ -13,13 +13,14 @@ with open(Path('py5', '__init__.py')) as f:
 
 
 INSTALL_REQUIRES = [
-    'line_profiler>=2.1.2',
-    'matplotlib>=3.2',
-    'numpy>=1.18',
-    'requests>=2.24',
     'cairocffi>=1.1',
     'cairosvg>=2.4',
     'jpype1>=1.0.1',
+    'line_profiler>=2.1.2',
+    'matplotlib>=3.2',
+    'numpy>=1.18',
+    'pandas>=1.0',
+    'requests>=2.24',
     'stackprinter>=0.2.4',
 ]
 
