@@ -1,4 +1,5 @@
-# py5
+py5
+---
 
 A Python module that makes Processing_ available to the CPython interpreter using JPype_.
 
