@@ -16,11 +16,9 @@ class Test(Sketch):
     def settings(self):
         self.size(500, 500, self.P2D)
 
-
     def setup(self):
         self.background(255)
         self.rect_mode(self.CENTER)
-
 
     def draw(self):
         if self.is_key_pressed():
@@ -32,10 +30,8 @@ class Test(Sketch):
         if self.frame_count == 300:
             self.save_frame('/tmp/frame_###.png')
 
-
     def mouse_entered(self):
         print('mouse entered')
-
 
     def mouse_exited(self):
         print('mouse exited')
