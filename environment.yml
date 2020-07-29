@@ -1,0 +1,20 @@
+name: py5
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - autopep8=1.5.3
+  - ipython=7.16.1
+  - line_profiler=2.1.2
+  - matplotlib=3.2.2
+  - numpy=1.18.5
+  - requests=2.24.0
+  - pandas=1.0.5
+  - pip=20.1.1
+  - python=3.8.3
+  - openjdk=11.0.1
+  - pip:
+    - cairocffi==1.1.0
+    - cairosvg==2.4.2
+    - jpype1==1.0.1
+    - stackprinter==0.2.4

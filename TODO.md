@@ -25,6 +25,10 @@ packaging and deployment
 
 get pypi package process working
 
+I can install openjdk using anaconda:
+
+`conda install -c conda-forge openjdk`
+
 Windows problems
 
 * tab complete in py5cmd doesn't work on windows, I will need to implement with prompt_toolkit instead
@@ -34,8 +38,6 @@ error messages
 --------------
 
 Add helpful messages for when the function parameter types are not correct or other `JavaException` / `Py5Exception` problems. For any exception, add a helpful explanation for what that error is and how to proceed with the debugging.
-
-I can get each function's parameter types with the `signatures()` method.
 
 `javap -classpath /home/jim/Projects/git/processing/core/library/core.jar -public processing.core.PApplet`
 
