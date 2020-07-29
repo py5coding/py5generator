@@ -2,7 +2,7 @@ from pathlib import Path
 from setuptools import setup
 
 with open('README.md') as f:
-    readme = f.read()
+    README = f.read()
 
 
 with open(Path('py5', '__init__.py')) as f:
@@ -12,6 +12,17 @@ with open(Path('py5', '__init__.py')) as f:
     VERSION = line.split("'")[-2]
 
 
+INSTALL_REQUIRES = [
+    'line_profiler>=2.1.2',
+    'matplotlib>=3.2',
+    'numpy>=1.18',
+    'requests>=2.24',
+    'cairocffi>=1.1',
+    'cairosvg>=2.4',
+    'jpype1>=1.0.1',
+    'stackprinter>=0.2.4',
+]
+
 setup(
     name='py5',
     version=VERSION,
@@ -20,8 +31,10 @@ setup(
     package_data={
         "py5": ['jars/*.jar', '*.pyi', 'py.typed']
     },
-    description='CPython wrapper for the Java Processing library',
-    long_description=readme,
+    python_requires='>3.8',
+    install_requires=INSTALL_REQUIRES,
+    description='Processing for CPython',
+    long_description=README,
     author='Jim Schmitz',
     author_email='jim@ixora.io',
     entry_points={
@@ -32,7 +45,8 @@ setup(
     },
     classifiers=[
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
-        'Programming Language :: Python :: 3',
+        'Development Status :: 3 - Alpha',
+        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+        'Programming Language :: Python :: 3.8',
     ],
 )

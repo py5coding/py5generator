@@ -8,11 +8,13 @@ dependencies:
   - line_profiler=2.1.2
   - matplotlib=3.2.2
   - numpy=1.18.5
-  - requests=2.24.0
+  - openjdk=11.0.1
   - pandas=1.0.5
   - pip=20.1.1
   - python=3.8.3
-  - openjdk=11.0.1
+  - requests=2.24.0
+  - twine=2.0.0
+  - wheel=0.34.2
   - pip:
     - cairocffi==1.1.0
     - cairosvg==2.4.2

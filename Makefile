@@ -28,6 +28,12 @@ $(py5_installed): $(py5_build_dir)
 	cd build/ && python setup.py build && pip install .
 	touch $(py5_installed)
 
+sdist:
+	cd build/ && python setup.py sdist
+
+wheel:
+	cd build/ && python setup.py bdist_wheel
+
 docletjar: $(py5_doclet_jar_file)
 $(py5_doclet_jar_file) : $(py5_doclet_java_src)
 	ant -f py5_docs/build.xml

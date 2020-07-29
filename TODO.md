@@ -23,11 +23,10 @@ Move all of these todos and notes to Notion. Use one of their templates for easy
 packaging and deployment
 ------------------------
 
-get pypi package process working
-
-I can install openjdk using anaconda:
-
-`conda install -c conda-forge openjdk`
+conda create -n py5test python=3.8 ipython
+conda activate py5test
+conda install -c conda-forge openjdk
+pip install py5
 
 Windows problems
 
