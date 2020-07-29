@@ -138,6 +138,11 @@ class CodeBuilder:
             paramstrs, rettypestr = self._make_param_rettype_strs(fname, first_param, params, paramnames, rettype)
             class_arguments = ', '.join([p.split(':')[0] for p in paramstrs[1:]])
             module_arguments = class_arguments
+            if len(paramstrs) > 1:
+                if paramstrs[-1][0] == '*':
+                    paramstrs.insert(-1, '/')
+                else:
+                    paramstrs.append('/')
             if kwargs and any([kwargs_precondition in p for p in paramstrs]):
                 paramstrs.append(kwargs)
                 kw_param = kwargs.split(':')[0]
@@ -161,6 +166,11 @@ class CodeBuilder:
                     continue
                 skipped_all = False
                 paramstrs, rettypestr = self._make_param_rettype_strs(fname, first_param, params, paramnames, rettype)
+                if len(paramstrs) > 1:
+                    if paramstrs[-1][0] == '*':
+                        paramstrs.insert(-1, '/')
+                    else:
+                        paramstrs.append('/')
                 if kwargs and any([kwargs_precondition in p for p in paramstrs]):
                     paramstrs.append(kwargs)
 
