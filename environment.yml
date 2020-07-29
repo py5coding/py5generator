@@ -4,6 +4,7 @@ channels:
   - defaults
 dependencies:
   - autopep8=1.5.3
+  - flake8=3.8.3
   - ipython=7.16.1
   - line_profiler=2.1.2
   - matplotlib=3.2.2
@@ -13,6 +14,7 @@ dependencies:
   - pip=20.1.1
   - python=3.8.3
   - requests=2.24.0
+  - sphinx=3.1.2
   - twine=2.0.0
   - wheel=0.34.2
   - pip:
