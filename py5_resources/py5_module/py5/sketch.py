@@ -153,7 +153,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             py5_img.np_pixels[:, :, 0] = array[:, :, 3]
             py5_img.np_pixels[:, :, 1:] = array[:, :, :3]
         else:
-            raise RuntimeError(f'what does ' + str(bands) + ' mean?')
+            raise RuntimeError('what does ' + str(bands) + ' mean?')
 
         py5_img.update_np_pixels()
 
@@ -173,19 +173,14 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     def load_image(self, filename: Union[str, Path], dst: Py5Image = None) -> Py5Image:
         """$class_load_image"""
-        filename = Path(filename)
-        if filename.suffix.lower() == '.svg':
-            with open(filename, 'r') as f:
-                return self.convert_image(Image.open(io.BytesIO(cairosvg.svg2png(file_obj=f))), dst=dst)
+        pimg = self._instance.loadImage(str(filename))
+        if dst:
+            if pimg.pixel_width != dst.pixel_width or pimg.pixel_height != dst.pixel_height:
+                raise RuntimeError("size of loaded image does not match size of dst Py5Image")
+            dst._replace_instance(pimg)
+            return dst
         else:
-            pimg = self._instance.loadImage(str(filename))
-            if dst:
-                if pimg.pixel_width != dst.pixel_width or pimg.pixel_height != dst.pixel_height:
-                    raise RuntimeError("size of loaded image does not match size of dst Py5Image")
-                dst._replace_instance(pimg)
-                return dst
-            else:
-                return Py5Image(pimg)
+            return Py5Image(pimg)
 
     def request_image(self, filename: Union[str, Path]) -> Py5Promise:
         """$class_request_image"""

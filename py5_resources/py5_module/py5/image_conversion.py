@@ -1,8 +1,9 @@
+import io
+from pathlib import Path
 import tempfile
 
 import numpy as np
 from PIL import Image
-import cairocffi
 
 
 pimage_functions = []
@@ -14,7 +15,7 @@ def _convert(obj):
             obj = convert_function(obj)
             break
     else:
-        raise RuntimeError(f'Py5 Converter does not know how to convert {str(obj)}')
+        raise RuntimeError(f'Py5 Converter is not able to convert {str(obj)}')
 
     return obj
 
@@ -67,28 +68,52 @@ def pillow_image_to_ndarray_converter(img):
 register_image_conversion(pillow_image_to_ndarray_precondition, pillow_image_to_ndarray_converter)
 
 
-def cairocffi_surface_to_tempfile_precondition(obj):
-    return isinstance(obj, cairocffi.Surface)
-
-
-def cairo_surface_to_tempfile_converter(surface):
-    temp_png = tempfile.NamedTemporaryFile(suffix='.png')
-    surface.write_to_png(temp_png.name)
-    return temp_png
-
-
-register_image_conversion(cairocffi_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
-
-
 ###############################################################################
-# Py5 requires Pillow, numpy, and cairocffi to be installed (cairocffi is
-# required by cairosvg). The below libraries may or may not be installed. If
-# they are, this registers their associated conversion functions.
+# Py5 requires Pillow and numpy to be installed. The below libraries may or may
+# not be installed. If they are, this registers their associated conversion
+# functions.
 ###############################################################################
 
 
 try:
-    import cairo
+    import cairosvg  # noqa
+    import cairocffi  # noqa
+
+    def svg_file_to_ndarray_precondition(obj):
+        if isinstance(obj, (str, Path)):
+            return Path(obj).suffix.lower() == '.svg'
+        else:
+            return False
+
+    def svg_file_to_ndarray_converter(filename):
+        filename = Path(filename)
+        with open(filename, 'r') as f:
+            img = Image.open(io.BytesIO(cairosvg.svg2png(file_obj=f)))
+            return pillow_image_to_ndarray_converter(img)
+
+    register_image_conversion(svg_file_to_ndarray_precondition, svg_file_to_ndarray_converter)
+except ModuleNotFoundError:
+    pass
+
+
+try:
+    import cairocffi  # noqa
+
+    def cairocffi_surface_to_tempfile_precondition(obj):
+        return isinstance(obj, cairocffi.Surface)
+
+    def cairo_surface_to_tempfile_converter(surface):
+        temp_png = tempfile.NamedTemporaryFile(suffix='.png')
+        surface.write_to_png(temp_png.name)
+        return temp_png
+
+    register_image_conversion(cairocffi_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
+except ModuleNotFoundError:
+    pass
+
+
+try:
+    import cairo  # noqa
 
     def cairo_surface_to_tempfile_precondition(obj):
         return isinstance(obj, cairo.Surface)
@@ -97,9 +122,10 @@ try:
 except ModuleNotFoundError:
     pass
 
+
 try:
-    from matplotlib.figure import Figure
-    from matplotlib.backends.backend_agg import FigureCanvasAgg
+    from matplotlib.figure import Figure  # noqa
+    from matplotlib.backends.backend_agg import FigureCanvasAgg  # noqa
 
     def figure_to_ndarray_precondition(obj):
         return isinstance(obj, Figure)

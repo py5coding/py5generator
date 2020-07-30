@@ -52,7 +52,7 @@ class TestPImage(Sketch):
         context.stroke()
         self.surface = self.convert_image(surface)
 
-        self.img4 = self.load_image('data/uk.svg')
+        self.img4 = self.convert_image('data/uk.svg')
 
     def draw(self):
         self.image_mode(self.CENTER)
