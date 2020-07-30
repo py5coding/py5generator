@@ -3,15 +3,11 @@
 import time
 import os
 from pathlib import Path
-import io
 import tempfile
 from typing import overload, Any, Callable, Union, Dict, List  # noqa
 
-import numpy as np
 import jpype
 from jpype.types import JArray, JString, JFloat, JInt, JChar  # noqa
-from PIL import Image
-import cairosvg
 
 from .methods import Py5Methods, Py5Exception  # noqa
 from .base import Py5Base
@@ -24,6 +20,7 @@ from .shader import Py5Shader, _return_py5shader  # noqa
 from .font import Py5Font, _return_py5font  # noqa
 from .graphics import Py5Graphics, _return_py5graphics  # noqa
 from . import image_conversion
+from .image_conversion import NumpyImageArray
 
 
 sketch_class_members_code = None  # DELETE
@@ -130,9 +127,9 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     # *** Py5Image methods ***
 
-    def create_image_from_numpy(self, array: np.ndarray, bands: str = 'ARGB', dst: Py5Image = None) -> Py5Image:
+    def create_image_from_numpy(self, numpy_image: NumpyImageArray, dst: Py5Image = None) -> Py5Image:
         """$class_create_image_from_numpy"""
-        height, width, _ = array.shape
+        height, width, _ = numpy_image.array.shape
 
         if dst:
             if height != dst.pixel_width or width != dst.pixel_height:
@@ -144,16 +141,16 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         py5_img.load_np_pixels()
 
         # TODO: what about single channel alpha masks?
-        if bands == 'ARGB':
-            py5_img.np_pixels[:] = array
-        elif bands == 'RGB':
+        if numpy_image.bands == 'ARGB':
+            py5_img.np_pixels[:] = numpy_image.array
+        elif numpy_image.bands == 'RGB':
             py5_img.np_pixels[:, :, 0] = 255
-            py5_img.np_pixels[:, :, 1:] = array
-        elif bands == 'RGBA':
-            py5_img.np_pixels[:, :, 0] = array[:, :, 3]
-            py5_img.np_pixels[:, :, 1:] = array[:, :, :3]
+            py5_img.np_pixels[:, :, 1:] = numpy_image.array
+        elif numpy_image.bands == 'RGBA':
+            py5_img.np_pixels[:, :, 0] = numpy_image.array[:, :, 3]
+            py5_img.np_pixels[:, :, 1:] = numpy_image.array[:, :, :3]
         else:
-            raise RuntimeError('what does ' + str(bands) + ' mean?')
+            raise RuntimeError('what does ' + str(numpy_image.bands) + ' mean?')
 
         py5_img.update_np_pixels()
 
@@ -166,10 +163,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             return self.load_image(result, dst=dst)
         elif isinstance(result, tempfile._TemporaryFileWrapper):
             return self.load_image(result.name, dst=dst)
-        elif isinstance(result, np.ndarray):
-            # TODO: the converter should not reshuffle the bands, it should
-            # be done with create_image_from_numpy
-            return self.create_image_from_numpy(result, bands='ARGB', dst=dst)
+        elif isinstance(result, NumpyImageArray):
+            return self.create_image_from_numpy(result, dst=dst)
 
     def load_image(self, filename: Union[str, Path], dst: Py5Image = None) -> Py5Image:
         """$class_load_image"""

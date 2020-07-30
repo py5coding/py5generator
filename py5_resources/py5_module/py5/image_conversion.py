@@ -1,6 +1,7 @@
 import io
 from pathlib import Path
 import tempfile
+from dataclasses import dataclass
 
 import numpy as np
 from PIL import Image
@@ -29,30 +30,24 @@ def register_image_conversion(precondition, convert_function):
 ###############################################################################
 
 
-def ndarray_str_tuple_precondition(obj):
-    return (isinstance(obj, tuple)
-            and len(obj) == 2
-            and isinstance(obj[0], np.ndarray)
-            and obj[0].dtype == np.uint8
-            and obj[0].ndim == 3
-            and isinstance(obj[1], str)
-            and obj[1].upper() in ['RGBA', 'ARGB', 'RGB']
-            and obj[0].shape[2] == len(obj[1]))
+@dataclass
+class NumpyImageArray:
+    array: np.ndarray
+    bands: str = 'ARGB'
 
-
-def ndarray_str_tuple_adjustment(obj):
-    arr, bands = obj
-    bands = bands.upper()
-    if bands == 'RGBA':
-        arr = np.roll(arr, 1, axis=2)
-    elif bands == 'RGB':
-        height, width, _ = arr.shape
-        arr = np.block([np.full((height, width, 1), 255, dtype=np.uint8), arr])
-
-    return arr
-
-
-register_image_conversion(ndarray_str_tuple_precondition, ndarray_str_tuple_adjustment)
+    def __post_init__(self):
+        if not isinstance(self.array, np.ndarray):
+            raise RuntimeError("array parameter must be a numpy array")
+        if not self.array.dtype == np.uint8:
+            raise RuntimeError("array parameter must have uint8 dtype")
+        if self.array.ndim != 3:
+            raise RuntimeError("array parameter must have 3 dimensions")
+        if not isinstance(self.bands, str):
+            raise RuntimeError("bands parameter must be a string")
+        if self.bands not in ['RGBA', 'ARGB', 'RGB']:
+            raise RuntimeError("bands parameter must be one of 'RGBA', 'ARGB', or 'RGB'")
+        if self.array.shape[2] != len(self.bands):
+            raise RuntimeError("third dimension of array parameter equal the length of the bands parameter")
 
 
 def pillow_image_to_ndarray_precondition(obj):
@@ -62,7 +57,7 @@ def pillow_image_to_ndarray_precondition(obj):
 def pillow_image_to_ndarray_converter(img):
     if img.mode not in ['RGB', 'RGBA']:
         img = img.convert(mode='RGB')
-    return ndarray_str_tuple_adjustment((np.asarray(img), img.mode))
+    return NumpyImageArray(np.asarray(img), img.mode)
 
 
 register_image_conversion(pillow_image_to_ndarray_precondition, pillow_image_to_ndarray_converter)
@@ -133,7 +128,7 @@ try:
     def figure_to_ndarray_converter(figure):
         canvas = FigureCanvasAgg(figure)
         canvas.draw()
-        return ndarray_str_tuple_adjustment((np.asarray(canvas.buffer_rgba()), 'RGBA'))
+        return NumpyImageArray(np.asarray(canvas.buffer_rgba()), 'RGBA')
 
     register_image_conversion(figure_to_ndarray_precondition, figure_to_ndarray_converter)
 except ModuleNotFoundError:

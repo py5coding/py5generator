@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.style as mplstyle
 import matplotlib
 import cairocffi
-from py5 import Sketch
+from py5 import Sketch, NumpyImageArray
 
 matplotlib.use('agg')
 mplstyle.use(['ggplot', 'fast'])
@@ -32,7 +32,7 @@ class TestPImage(Sketch):
         array[140:560, :, 1] = 100  # G
         array[420:, :, 2] = 150  # B
         array[:, :, 3] = 255  # A
-        self.img3 = self.create_image_from_numpy(array, bands='RGBA')
+        self.img3 = self.create_image_from_numpy(NumpyImageArray(array, bands='RGBA'))
 
         surface = cairocffi.RecordingSurface(cairocffi.CONTENT_COLOR_ALPHA, (0, 0, 200, 200))
         context = cairocffi.Context(surface)

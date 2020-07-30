@@ -28,7 +28,7 @@ if not py5_tools.is_jvm_running():
 from .methods import Py5Exception  # noqa
 from .sketch import Sketch, _METHODS, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Shape, Py5Font, Py5Promise  # noqa
 from .create_font_tool import create_font_file  # noqa
-from .image_conversion import register_image_conversion  # noqa
+from .image_conversion import register_image_conversion, NumpyImageArray  # noqa
 from . import java_conversion  # noqa
 
 
