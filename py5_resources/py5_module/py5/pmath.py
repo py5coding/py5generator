@@ -1,0 +1,92 @@
+import functools
+
+import numpy as np
+from jpype import _jcustomizer, JClass
+
+
+_PMatrix2D = JClass('processing.core.PMatrix2D')
+_PMatrix3D = JClass('processing.core.PMatrix3D')
+
+
+def _numpy_to_pmatrix2d(array):
+    return _PMatrix2D(*array.flatten().tolist())
+
+
+def _numpy_to_pmatrix3d(array):
+    return _PMatrix3D(*array.flatten().tolist())
+
+
+def _numpy_to_pmatrix(jcls, array):
+    if array.shape == (2, 3):
+        return _numpy_to_pmatrix2d(array)
+    elif array.shape == (4, 4):
+        return _numpy_to_pmatrix3d(array)
+    else:
+        raise RuntimeError('numpy array is the wrong size to convert to a pmatrix')
+
+
+_jcustomizer.JConversion('processing.core.PMatrix', np.ndarray)(_numpy_to_pmatrix)
+
+
+def _pmatrix2d_to_numpy(pmatrix2d):
+    return np.array([[pmatrix2d.m00, pmatrix2d.m01, pmatrix2d.m02],
+                     [pmatrix2d.m10, pmatrix2d.m11, pmatrix2d.m12]])
+
+
+def _pmatrix3d_to_numpy(pmatrix3d):
+    return np.array([[pmatrix3d.m00, pmatrix3d.m01, pmatrix3d.m02, pmatrix3d.m03],
+                     [pmatrix3d.m10, pmatrix3d.m11, pmatrix3d.m12, pmatrix3d.m13],
+                     [pmatrix3d.m20, pmatrix3d.m21, pmatrix3d.m22, pmatrix3d.m23],
+                     [pmatrix3d.m30, pmatrix3d.m31, pmatrix3d.m32, pmatrix3d.m33]])
+
+
+def _pmatrix_to_numpy(pmatrix):
+    if isinstance(pmatrix, _PMatrix2D):
+        return _pmatrix2d_to_numpy(pmatrix)
+    elif isinstance(pmatrix, _PMatrix3D):
+        return _pmatrix3d_to_numpy(pmatrix)
+    else:
+        raise RuntimeError(f'do not know how to convert object of type {type(pmatrix).__name__}')
+
+
+# TODO: I need a special decorator for the shader's set method
+
+def _get_matrix_wrapper(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        ret = f(self_)
+        if not args:
+            return ret
+        if len(args) == 1:
+            target = args[0]
+            if (isinstance(target, np.ndarray) and target.shape == (2, 3)
+                    and isinstance(ret, _PMatrix2D)):
+                target[0, 0] = ret.m00
+                target[0, 1] = ret.m01
+                target[0, 2] = ret.m02
+                target[1, 0] = ret.m10
+                target[1, 1] = ret.m11
+                target[1, 2] = ret.m12
+                return target
+            elif (isinstance(target, np.ndarray) and target.shape == (4, 4)
+                    and isinstance(ret, _PMatrix3D)):
+                target[0, 0] = ret.m00
+                target[0, 1] = ret.m01
+                target[0, 2] = ret.m02
+                target[0, 3] = ret.m03
+                target[1, 0] = ret.m10
+                target[1, 1] = ret.m11
+                target[1, 2] = ret.m12
+                target[1, 3] = ret.m13
+                target[2, 0] = ret.m20
+                target[2, 1] = ret.m21
+                target[2, 2] = ret.m22
+                target[2, 3] = ret.m23
+                target[3, 0] = ret.m30
+                target[3, 1] = ret.m31
+                target[3, 2] = ret.m32
+                target[3, 3] = ret.m33
+                return target
+            raise RuntimeError("target must be a numpy array that matches the size of processing's matrix")
+        raise RuntimeError('unexpected arguments passed to set_matrix function')
+    return decorated

@@ -9,6 +9,8 @@ from typing import overload, Any, Callable, Union, Dict, List  # noqa
 import jpype
 from jpype.types import JArray, JString, JFloat, JInt, JChar  # noqa
 
+import numpy as np  # noqa
+
 from .methods import Py5Methods, Py5Exception  # noqa
 from .base import Py5Base
 from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin
@@ -19,6 +21,7 @@ from .surface import Py5Surface, _return_py5surface  # noqa
 from .shader import Py5Shader, _return_py5shader  # noqa
 from .font import Py5Font, _return_py5font  # noqa
 from .graphics import Py5Graphics, _return_py5graphics  # noqa
+from .pmath import _get_matrix_wrapper  # noqa
 from . import image_conversion
 from .image_conversion import NumpyImageArray
 

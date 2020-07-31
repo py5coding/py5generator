@@ -3,6 +3,8 @@
 import functools
 from typing import overload, List  # noqa
 
+import numpy as np  # noqa
+
 from .base import Py5Base
 from .methods import Py5Exception  # noqa
 from .image import Py5Image  # noqa

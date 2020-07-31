@@ -5,6 +5,8 @@ from __future__ import annotations
 import functools
 from typing import overload, List  # noqa
 
+import numpy as np  # noqa
+
 from .base import Py5Base
 from .mixins import PixelMixin
 from .methods import Py5Exception  # noqa
@@ -12,6 +14,7 @@ from .font import Py5Font  # noqa
 from .shader import Py5Shader, _return_py5shader  # noqa
 from .shape import Py5Shape, _return_py5shape  # noqa
 from .image import Py5Image, _return_py5image  # noqa
+from .pmath import _get_matrix_wrapper  # noqa
 from . import image_conversion
 
 

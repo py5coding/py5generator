@@ -3,8 +3,7 @@ Reference and Lookups
 """
 
 PY5_SKIP_PARAM_TYPES = {
-    'processing.core.PMatrix3D', 'processing.core.PMatrix2D',
-    'processing.core.PMatrix', 'java.io.File', 'processing.core.PVector',
+    'java.io.File', 'processing.core.PVector',
 }
 
 PY5_SKIP_RETURN_TYPES = PY5_SKIP_PARAM_TYPES | set()
@@ -36,6 +35,10 @@ JTYPE_CONVERSIONS = {
     'processing.core.PShape': 'Py5Shape',
     'processing.core.PSurface': 'Py5Surface',
     'processing.core.PGraphics': 'Py5Graphics',
+    # TODO: this causes duplicates in the typehints, code builder needs to skip dups
+    'processing.core.PMatrix': 'np.ndarray',
+    'processing.core.PMatrix2D': 'np.ndarray',
+    'processing.core.PMatrix3D': 'np.ndarray',
 }
 
 EXTRA_DIR_NAMES = {
