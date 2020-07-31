@@ -15,8 +15,7 @@ public class Py5Applet extends PApplet {
   protected Py5Methods py5Methods;
   protected Set<String> py5RegisteredEvents;
 
-  
-  // TODO: do I still need this?
+
   public static final char CODED = PApplet.CODED;
 
   public void usePy5Methods(Py5Methods py5Methods) {
