@@ -89,13 +89,12 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
 
         return builder
 
-    # TODO: clean up the names of those files so this is easier.
     py5shader_builder = run_code_builder('Py5Shader', 'processing.opengl.PShader')
     py5shape_builder = run_code_builder('Py5Shape', 'processing.core.PShape')
     py5font_builder = run_code_builder('Py5Font', 'processing.core.PFont')
     py5surface_builder = run_code_builder('Py5Surface', 'py5.core.Py5SurfaceDummy', class_name='PSurface')
     py5graphics_builder = run_code_builder('Py5Graphics', 'py5.core.Py5Graphics', class_name='PGraphics')
-    py5image_builder = run_code_builder('Py5Image', 'py5.core.Py5Image', class_name='PImage')
+    py5image_builder = run_code_builder('Py5Image', 'processing.core.PImage')
 
     logger.info('joining code fragments')
     sketch_class_members_code = ''.join(py5applet_builder.class_members)
