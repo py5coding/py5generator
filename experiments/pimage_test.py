@@ -53,6 +53,7 @@ class TestPImage(Sketch):
         self.surface = self.convert_image(surface)
 
         self.img4 = self.convert_image('data/uk.svg')
+        self.img5 = self.load_image('data/escher_straight.jpg')
 
     def draw(self):
         self.image_mode(self.CENTER)

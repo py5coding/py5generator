@@ -41,14 +41,11 @@ class PixelMixin:
         return self._np_pixels
 
     def set_np_pixels(self, array: np.ndarray, bands: str = 'ARGB') -> None:
-        # TODO: what about single channel images
-        assert bands in 'ARGB RGB RGBA'.split(), "bands parameter must be one of 'ARGB', 'RGB', or 'RGBA'"
-        assert array.shape[:2] == (self.pixel_height, self.pixel_width), "set_np_pixels only supports numpy arrays with the same height and width of py5 object"
-        assert array.shape[2] == len(bands), "the length of the array's third dimension must equal the length of the bands parameter"
-        assert array.dtype == np.uint8, "numpy array dtype must be np.uint8 (unsigned 8 bit integer)"
-
         self.load_np_pixels()
-        if bands == 'ARGB':
+        if bands == 'L':
+            self._np_pixels[:, :, 0] = 255
+            self._np_pixels[:, :, 1:] = array[:, :, None] if array.ndim == 2 else array
+        elif bands == 'ARGB':
             self._np_pixels[:] = array
         elif bands == 'RGB':
             self._np_pixels[:, :, 0] = 255

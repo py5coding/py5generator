@@ -40,14 +40,18 @@ class NumpyImageArray:
             raise RuntimeError("array parameter must be a numpy array")
         if not self.array.dtype == np.uint8:
             raise RuntimeError("array parameter must have uint8 dtype")
-        if self.array.ndim != 3:
-            raise RuntimeError("array parameter must have 3 dimensions")
         if not isinstance(self.bands, str):
             raise RuntimeError("bands parameter must be a string")
-        if self.bands not in ['RGBA', 'ARGB', 'RGB']:
-            raise RuntimeError("bands parameter must be one of 'RGBA', 'ARGB', or 'RGB'")
-        if self.array.shape[2] != len(self.bands):
-            raise RuntimeError("third dimension of array parameter equal the length of the bands parameter")
+        if self.bands in ['RGBA', 'ARGB', 'RGB']:
+            if self.array.ndim != 3:
+                raise RuntimeError(f"array parameter must have 3 dimensions for '{self.bands}' image arrays")
+            if self.array.shape[2] != len(self.bands):
+                raise RuntimeError("third dimension of array parameter equal the length of the bands parameter")
+        elif self.bands == 'L':
+            if not (self.array.ndim == 2 or (self.array.ndim == 3 and self.array.shape[2] == 1)):
+                raise RuntimeError("for 'L' image arrays, array must have 2 dimensions or a 3rd dimension of size 1")
+        else:
+            raise RuntimeError("bands parameter must be one of 'RGBA', 'ARGB', 'RGB', or 'L'")
 
 
 def pillow_image_to_ndarray_precondition(obj):

@@ -129,30 +129,16 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     def create_image_from_numpy(self, numpy_image: NumpyImageArray, dst: Py5Image = None) -> Py5Image:
         """$class_create_image_from_numpy"""
-        height, width, _ = numpy_image.array.shape
+        height, width = numpy_image.array.shape[:2]
 
         if dst:
-            if height != dst.pixel_width or width != dst.pixel_height:
+            if width != dst.pixel_width or height != dst.pixel_height:
                 raise RuntimeError("array size does not match size of dst Py5Image")
             py5_img = dst
         else:
             py5_img = self.create_image(width, height, self.ARGB)
 
-        py5_img.load_np_pixels()
-
-        # TODO: what about single channel alpha masks?
-        if numpy_image.bands == 'ARGB':
-            py5_img.np_pixels[:] = numpy_image.array
-        elif numpy_image.bands == 'RGB':
-            py5_img.np_pixels[:, :, 0] = 255
-            py5_img.np_pixels[:, :, 1:] = numpy_image.array
-        elif numpy_image.bands == 'RGBA':
-            py5_img.np_pixels[:, :, 0] = numpy_image.array[:, :, 3]
-            py5_img.np_pixels[:, :, 1:] = numpy_image.array[:, :, :3]
-        else:
-            raise RuntimeError('what does ' + str(numpy_image.bands) + ' mean?')
-
-        py5_img.update_np_pixels()
+        py5_img.set_np_pixels(numpy_image.array, numpy_image.bands)
 
         return py5_img
 
