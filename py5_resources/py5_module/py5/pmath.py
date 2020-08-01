@@ -4,8 +4,16 @@ import numpy as np
 from jpype import _jcustomizer, JClass
 
 
+_PVector = JClass('processing.core.PVector')
 _PMatrix2D = JClass('processing.core.PMatrix2D')
 _PMatrix3D = JClass('processing.core.PMatrix3D')
+
+
+def _numpy_to_pvector(array):
+    if array.shape in [(2,), (3,)]:
+        return _PMatrix2D(*array.tolist())
+    else:
+        raise RuntimeError('numpy array is the wrong size to convert to a pvector')
 
 
 def _numpy_to_pmatrix2d(array):
@@ -25,7 +33,12 @@ def _numpy_to_pmatrix(jcls, array):
         raise RuntimeError('numpy array is the wrong size to convert to a pmatrix')
 
 
+_jcustomizer.JConversion('processing.core.PVector', np.ndarray)(_numpy_to_pvector)
 _jcustomizer.JConversion('processing.core.PMatrix', np.ndarray)(_numpy_to_pmatrix)
+
+
+def _pvector_to_numpy(pvector):
+    return np.array([pvector.x, pvector.y, pvector.z])
 
 
 def _pmatrix2d_to_numpy(pmatrix2d):
@@ -56,7 +69,7 @@ def _get_matrix_wrapper(f):
     def decorated(self_, *args):
         ret = f(self_)
         if not args:
-            return ret
+            return ret  # TODO: doesn't this return PMatrix objects???
         if len(args) == 1:
             target = args[0]
             if (isinstance(target, np.ndarray) and target.shape == (2, 3)
@@ -89,4 +102,24 @@ def _get_matrix_wrapper(f):
                 return target
             raise RuntimeError("target must be a numpy array that matches the size of processing's matrix")
         raise RuntimeError('unexpected arguments passed to set_matrix function')
+    return decorated
+
+
+def _get_pvector_wrapper(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        ret = f(self_, args[0])
+        if len(args) == 1:
+            return _pvector_to_numpy(ret)
+        if len(args) == 2:
+            target = args[1]
+            if (isinstance(target, np.ndarray) and target.shape in [(2,), (3,)]
+                    and isinstance(ret, _PVector)):
+                target[0] = ret.x
+                target[1] = ret.y
+                if target.shape == (3,):
+                    target[2] = ret.z
+                return target
+            raise RuntimeError("target must be a numpy array that matches the size of processing's pvector")
+        raise RuntimeError('unexpected arguments passed to function')
     return decorated

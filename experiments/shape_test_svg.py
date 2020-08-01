@@ -1,3 +1,5 @@
+import numpy as np
+
 import py5
 
 
@@ -43,10 +45,15 @@ def draw():
     for i, child in enumerate(uk_children):
         total = child.get_vertex_count()
 
+        v = np.zeros(2, dtype=np.float32)
         for j in range(total):
-            x, y = child.get_vertex_x(j), child.get_vertex_y(j)
+            # v = child.get_vertex(j)
+            child.get_vertex(j, v)
+            # print(v)
+            # x, y = child.get_vertex_x(j), child.get_vertex_y(j)
             py5.stroke((frame_count + (i + 1) * j) % 255)
-            py5.point(x, y)
+            # py5.point(x, y)
+            py5.point(v[0], v[1])
 
 
 py5.run_sketch(block=False)

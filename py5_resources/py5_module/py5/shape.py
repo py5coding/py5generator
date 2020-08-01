@@ -6,6 +6,7 @@ import functools
 from typing import overload, List  # noqa
 
 from .methods import Py5Exception  # noqa
+from .pmath import _get_pvector_wrapper  # noqa
 
 
 py5shape_class_members_code = None  # DELETE
