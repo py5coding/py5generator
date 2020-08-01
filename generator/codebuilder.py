@@ -157,6 +157,7 @@ class CodeBuilder:
         else:
             # loop through the method signatures and create the typehint methods
             skipped_all = True
+            created_sigs = set()
             for sigstr, sigdata in sorted(method_data.items()):
                 params = sigstr.split(',')
                 rettype = sigdata['rettype']
@@ -174,10 +175,15 @@ class CodeBuilder:
                 if kwargs and any([kwargs_precondition in p for p in paramstrs]):
                     paramstrs.append(kwargs)
 
+                joined_paramstrs = ', '.join(paramstrs)
+                # has an identical signature already been added?
+                if (joined_paramstrs, rettypestr) in created_sigs:
+                    continue
                 # create the class and module typehints
-                self.class_members.append(templ.CLASS_METHOD_TYPEHINT_TEMPLATE.format(py5_name, ', '.join(paramstrs), rettypestr))
+                self.class_members.append(templ.CLASS_METHOD_TYPEHINT_TEMPLATE.format(py5_name, joined_paramstrs, rettypestr))
                 if self._code_module:
                     self.module_members.append(templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(py5_name, ', '.join(paramstrs[1:]), rettypestr))
+                created_sigs.add((joined_paramstrs, rettypestr))
             if skipped_all:
                 return
             # now construct the real methods

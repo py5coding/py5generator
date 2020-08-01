@@ -35,7 +35,6 @@ JTYPE_CONVERSIONS = {
     'processing.core.PShape': 'Py5Shape',
     'processing.core.PSurface': 'Py5Surface',
     'processing.core.PGraphics': 'Py5Graphics',
-    # TODO: this causes duplicates in the typehints, code builder needs to skip dups
     'processing.core.PMatrix': 'np.ndarray',
     'processing.core.PMatrix2D': 'np.ndarray',
     'processing.core.PMatrix3D': 'np.ndarray',
