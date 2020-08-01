@@ -69,7 +69,7 @@ def _get_matrix_wrapper(f):
     def decorated(self_, *args):
         ret = f(self_)
         if not args:
-            return ret  # TODO: doesn't this return PMatrix objects???
+            return _numpy_to_pmatrix(ret)
         if len(args) == 1:
             target = args[0]
             if (isinstance(target, np.ndarray) and target.shape == (2, 3)

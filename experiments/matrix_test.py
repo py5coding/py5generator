@@ -48,6 +48,7 @@ class Test(Sketch):
         if self.key == 'q':
             self.rot_matrix = self.get_matrix()
             # self.get_matrix(self.rot_matrix)
+            print(type(self.rot_matrix))
         if self.key == ' ':
             self.apply_rotations = not self.apply_rotations
 
