@@ -135,8 +135,11 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         copier = CodeCopier(format_params, docstrings)
         if dest_dir.exists():
             shutil.rmtree(dest_dir)
-        # TODO: does this work in WSL? if so, wrap in try-catch block for only that exception type
-        shutil.copytree(Path('py5_resources', 'py5_module'), dest_dir, copy_function=copier)
+        try:
+            shutil.copytree(Path('py5_resources', 'py5_module'), dest_dir, copy_function=copier)
+        except shutil.Error:
+            # for some reason on WSL this exception will be thrown but the files all get copied.
+            logger.error('errors thrown in shutil.copytree, continuing and hoping for the best', exc_info=True)
         for jar in core_jar_path.parent.glob('*.jar'):
             shutil.copy(jar, dest_dir / 'py5' / 'jars')
         shutil.copy(py5_jar_path, dest_dir / 'py5' / 'jars')
