@@ -21,5 +21,5 @@ dependencies:
     - cairocffi==1.1.0
     - cairosvg==2.4.2
     - jpype1==1.0.1
-    - rstcheck=3.3.1
+    - rstcheck==3.3.1
     - stackprinter==0.2.4
