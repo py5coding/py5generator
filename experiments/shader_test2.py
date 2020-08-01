@@ -1,3 +1,5 @@
+import numpy as np
+
 import py5
 
 tile_texture = None
@@ -21,6 +23,7 @@ def load_tile_shader():
     tile_shader = py5.load_shader("scroller.glsl")
     tile_shader.set("resolution", py5.width, py5.height)
     tile_shader.set("tileImage", tile_texture)
+    tile_shader.set("test", np.array([-50, 20, 0.]))
 
 
 def draw():

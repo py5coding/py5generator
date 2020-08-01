@@ -3,7 +3,7 @@ Reference and Lookups
 """
 
 PY5_SKIP_PARAM_TYPES = {
-    'java.io.File',
+    'java.io.File',  # TODO: with JPype I don't think I need to skip this anymore
 }
 
 PY5_SKIP_RETURN_TYPES = PY5_SKIP_PARAM_TYPES | set()

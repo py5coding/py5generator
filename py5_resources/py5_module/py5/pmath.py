@@ -11,7 +11,7 @@ _PMatrix3D = JClass('processing.core.PMatrix3D')
 
 def _numpy_to_pvector(array):
     if array.shape in [(2,), (3,)]:
-        return _PMatrix2D(*array.tolist())
+        return _PVector(*array.tolist())
     else:
         raise RuntimeError('numpy array is the wrong size to convert to a pvector')
 
@@ -61,8 +61,6 @@ def _pmatrix_to_numpy(pmatrix):
     else:
         raise RuntimeError(f'do not know how to convert object of type {type(pmatrix).__name__}')
 
-
-# TODO: I need a special decorator for the shader's set method
 
 def _get_matrix_wrapper(f):
     @functools.wraps(f)
