@@ -2,9 +2,7 @@
 Reference and Lookups
 """
 
-PY5_SKIP_PARAM_TYPES = {
-    'java.io.File',  # TODO: with JPype I don't think I need to skip this anymore
-}
+PY5_SKIP_PARAM_TYPES = set()
 
 PY5_SKIP_RETURN_TYPES = PY5_SKIP_PARAM_TYPES | set()
 
@@ -27,8 +25,9 @@ JTYPE_CONVERSIONS = {
     'int': 'int',
     'float': 'float',
     'long': 'int',
-    'java.lang.String': 'str',
     'java.lang.Object': 'Any',
+    'java.lang.String': 'str',
+    'java.io.File': 'Path',  # currently no methods use this
     'processing.opengl.PShader': 'Py5Shader',
     'processing.core.PFont': 'Py5Font',
     'processing.core.PImage': 'Py5Image',

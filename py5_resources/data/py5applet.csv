@@ -378,9 +378,9 @@ load_table,loadTable,,,method,input,files,FALSE,FALSE,methods that should be re-
 save_table,saveTable,,,method,output,files,FALSE,FALSE,methods that should be re-implemented by me in Python
 load_font,loadFont,@_return_py5font,,method,typography,loading_displaying,TRUE,TRUE,
 create_font,createFont,@_return_py5font,,method,typography,loading_displaying,TRUE,TRUE,
-select_input,selectInput,,,method,input,files,TRUE,TRUE,
-select_output,selectOutput,,,method,output,files,TRUE,TRUE,
-select_folder,selectFolder,,,method,input,files,TRUE,TRUE,
+select_input,selectInput,,,method,input,files,FALSE,FALSE,this should be available to users but the callback makes it complicated and I will do it later
+select_output,selectOutput,,,method,output,files,FALSE,FALSE,this should be available to users but the callback makes it complicated and I will do it later
+select_folder,selectFolder,,,method,input,files,FALSE,FALSE,this should be available to users but the callback makes it complicated and I will do it later
 select_callback,selectCallback,,,static method,,,FALSE,FALSE,
 list_paths,listPaths,,,method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
 check_extension,checkExtension,,,static method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
