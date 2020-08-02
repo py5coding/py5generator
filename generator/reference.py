@@ -2,9 +2,11 @@
 Reference and Lookups
 """
 
-PY5_SKIP_PARAM_TYPES = set()
+PY5_SKIP_PARAM_TYPES = {
+    'processing.core.PMatrix'
+}
 
-PY5_SKIP_RETURN_TYPES = PY5_SKIP_PARAM_TYPES | set()
+PY5_SKIP_RETURN_TYPES = set()
 
 TYPE_OVERRIDES = {
     'processing.core.PShape[]': 'List[Py5Shape]',
@@ -34,10 +36,10 @@ JTYPE_CONVERSIONS = {
     'processing.core.PShape': 'Py5Shape',
     'processing.core.PSurface': 'Py5Surface',
     'processing.core.PGraphics': 'Py5Graphics',
-    'processing.core.PVector': 'np.ndarray',
-    'processing.core.PMatrix': 'np.ndarray',
-    'processing.core.PMatrix2D': 'np.ndarray',
-    'processing.core.PMatrix3D': 'np.ndarray',
+    'processing.core.PVector': 'NDArray[(Any,), Float]',
+    'processing.core.PMatrix': 'NDArray[(Any, Any), Float]',
+    'processing.core.PMatrix2D': 'NDArray[(2, 3), Float]',
+    'processing.core.PMatrix3D': 'NDArray[(4, 4), Float]',
 }
 
 EXTRA_DIR_NAMES = {

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # *** FORMAT PARAMS ***
 import functools
-from typing import overload, List  # noqa
+from typing import overload, List, Any  # noqa
+from nptyping import NDArray, Float  # noqa
 
 import numpy as np  # noqa
 

@@ -8,6 +8,7 @@ from pathlib import Path
 import logging
 import inspect
 from typing import overload, Any, Callable, Union, Dict, List, Tuple  # noqa
+from nptyping import NDArray, Float  # noqa
 
 import json  # noqa
 import numpy as np  # noqa

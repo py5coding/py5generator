@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import functools
 from typing import overload, List  # noqa
+from nptyping import NDArray, Float  # noqa
 
 import numpy as np  # noqa
 

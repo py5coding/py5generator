@@ -18,6 +18,7 @@ INSTALL_REQUIRES = [
     'jpype1>=1.0.1',
     'line_profiler>=2.1.2',
     'matplotlib>=3.2',
+    'nptyping>=1.3',
     'numpy>=1.18',
     'pandas>=1.0',
     'requests>=2.24',

@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 import tempfile
 from typing import overload, Any, Callable, Union, Dict, List  # noqa
+from nptyping import NDArray, Float  # noqa
 
 import jpype
 from jpype.types import JArray, JString, JFloat, JInt, JChar  # noqa
