@@ -37,7 +37,7 @@ def _convert_type(jtype: str) -> str:
     elif jtype in ref.TYPE_OVERRIDES:
         return ref.TYPE_OVERRIDES[jtype]
     elif jtype.endswith('[][]'):
-        return f'JArray(JArray({ref.JPYPE_CONVERSIONS[jtype[:-4]]}))'
+        return f'JArray({ref.JPYPE_CONVERSIONS[jtype[:-4]]}, 2)'
     elif jtype.endswith('[]'):
         return f'JArray({ref.JPYPE_CONVERSIONS[jtype[:-2]]})'
     else:

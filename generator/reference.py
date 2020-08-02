@@ -9,7 +9,8 @@ PY5_SKIP_PARAM_TYPES = {
 PY5_SKIP_RETURN_TYPES = set()
 
 TYPE_OVERRIDES = {
-    'processing.core.PShape[]': 'List[Py5Shape]',
+    'processing.core.PShape[]': 'List[Py5Shape]',  # this is correct, see _return_list_py5shapes
+    'char[]': 'List[chr]',
 }
 
 

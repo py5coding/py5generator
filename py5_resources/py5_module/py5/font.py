@@ -4,7 +4,6 @@ import functools
 from typing import overload, List  # noqa
 
 import jpype
-from jpype.types import JArray, JString  # noqa
 
 from .methods import Py5Exception  # noqa
 from .shape import Py5Shape, _return_py5shape  # noqa
@@ -28,6 +27,14 @@ class Py5Font:
 
     def __init__(self, pfont):
         self._instance = pfont
+
+    @classmethod
+    def list(cls) -> List[str]:
+        """$class_list"""
+        try:
+            return [str(x) for x in cls._cls.list()]
+        except Exception as e:
+            raise Py5Exception(e.__class__.__name__, str(e), 'list', [])
 
 
 {py5font_class_members_code}
