@@ -76,13 +76,17 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             py5_options.append('--sketch-path=' + os.getcwd())
         args = py5_options + [''] + sketch_args
 
-        _Py5Applet.runSketch(args, self._py5applet)
+        try:
+            _Py5Applet.runSketch(args, self._py5applet)
+        except Exception as e:
+            print('exception thrown by Py5Applet.runSketch:', e)
 
         if block:
             # wait for the sketch to finish
             surface = self.get_surface()
-            while not surface.is_stopped():
-                time.sleep(0.25)
+            if surface._instance is not None:
+                while not surface.is_stopped():
+                    time.sleep(0.25)
 
             # wait no more than 1 second for any shutdown tasks to complete
             time_waited = 0
@@ -95,7 +99,9 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         super()._shutdown()
 
     def _terminate_sketch(self):
-        self.get_surface().stop_thread()
+        surface = self.get_surface()
+        if surface._instance is not None:
+            surface.stop_thread()
         self._shutdown()
 
     # *** BEGIN METHODS ***

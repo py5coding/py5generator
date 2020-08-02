@@ -97,9 +97,11 @@ class Py5Methods:
         try:
             if method_name in self._functions:
                 self._functions[method_name](*params)
+                return True
         except Exception:
             handle_exception(*sys.exc_info())
             self._sketch._terminate_sketch()
+            return False
 
     @JOverride
     def shutdown(self):
