@@ -18,4 +18,4 @@ def setup():
     py5.exit_sketch()
 
 
-py5.run_sketch(block=False)
+py5.run_sketch(block=True)
