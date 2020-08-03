@@ -3,24 +3,26 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - autopep8=1.5.3
+  - autopep8=1.5.4
   - flake8=3.8.3
-  - ipython=7.16.1
-  - line_profiler=2.1.2
-  - matplotlib=3.2.2
-  - nptyping=1.3.0
-  - numpy=1.18.5
+  - ipython=7.17.0
+  - jupyter=1.0.0
+  - line_profiler=3.0.2
+  - matplotlib=3.3.0
+  - notebook=6.1.0
+  - numpy=1.19.1
   - openjdk=11.0.1
-  - pandas=1.0.5
-  - pip=20.1.1
-  - python=3.8.3
+  - pandas=1.1.0
+  - pip=20.2
+  - python=3.8.5
   - requests=2.24.0
   - sphinx=3.1.2
-  - twine=2.0.0
+  - twine=3.2.0
   - wheel=0.34.2
   - pip:
     - cairocffi==1.1.0
     - cairosvg==2.4.2
     - jpype1==1.0.1
+    - nptyping==1.3.0
     - rstcheck==3.3.1
     - stackprinter==0.2.4
