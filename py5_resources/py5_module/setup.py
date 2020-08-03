@@ -31,7 +31,7 @@ setup(
     packages=['py5', 'py5.mixins', 'py5_tools', 'py5_tools.tools'],
     py_modules=['setup'],
     package_data={
-        "py5": ['jars/*.jar', '*.pyi', 'py.typed']
+        "py5": ['jars/*.jar', 'jars/*/*.jar', '*.pyi', 'py.typed']
     },
     python_requires='>3.8',
     install_requires=INSTALL_REQUIRES,

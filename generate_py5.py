@@ -41,15 +41,22 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     logger.info('generating py5 library...')
 
     logger.info('building classpath')
-    core_jars = list(repo_dir.glob('**/core.jar'))
-    if len(core_jars) != 1:
-        if core_jars:
-            msg = f'more than one core.jar found in {repo_dir}'
+
+    def find_jar(jar_name):
+        jars = list(repo_dir.glob(f'**/{jar_name}.jar'))
+        if len(jars) == 1:
+            return jars[0]
         else:
-            msg = f'core.jar not found in {repo_dir}'
-        logger.critical(msg)
-        raise RuntimeError(msg)
-    core_jar_path = core_jars[0]
+            if jars:
+                msg = f'more than one {jar_name}.jar found in {repo_dir}'
+            else:
+                msg = f'{jar_name}.jar not found in {repo_dir}'
+            logger.critical(msg)
+            raise RuntimeError(msg)
+
+    core_jar_path = find_jar('core')
+    svg_jar_path = find_jar('svg')
+    pdf_jar_path = find_jar('pdf')
 
     py5_jar_path = Path('py5_jar', 'dist', 'py5.jar')
     if not py5_jar_path.exists():
@@ -140,8 +147,15 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         except shutil.Error:
             # for some reason on WSL this exception will be thrown but the files all get copied.
             logger.error('errors thrown in shutil.copytree, continuing and hoping for the best', exc_info=True)
-        for jar in core_jar_path.parent.glob('*.jar'):
-            shutil.copy(jar, dest_dir / 'py5' / 'jars')
+
+        def copy_jars(jar_dir, dest):
+            dest.mkdir(parents=True, exist_ok=True)
+            for jar in jar_dir.glob('*.jar'):
+                shutil.copy(jar, dest)
+
+        copy_jars(core_jar_path.parent, dest_dir / 'py5' / 'jars')
+        copy_jars(svg_jar_path.parent, dest_dir / 'py5' / 'jars' / 'svg')
+        copy_jars(pdf_jar_path.parent, dest_dir / 'py5' / 'jars' / 'pdf')
         shutil.copy(py5_jar_path, dest_dir / 'py5' / 'jars')
 
     dest_dir.touch()
