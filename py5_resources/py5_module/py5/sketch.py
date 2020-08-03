@@ -109,6 +109,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     def exit_sketch(self) -> None:
         """$class_exit_sketch"""
+        # TODO: why do I need this if statement? and if I remove it, I am then basically just
+        # renaming exit to exit_sketch and don't need this at all.
         if not self.get_surface().is_stopped():
             self._py5applet.exit()
 

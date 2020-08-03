@@ -172,6 +172,8 @@ public class Py5Applet extends PApplet {
 
     py5Methods.shutdown();
 
+    // TODO: why do I need all of this? I know `dispose()` by itself isn't good enough.
+    // it gets called by the exit() function before exitActual()
     final Object nativeWindow = surface.getNative();
     if (nativeWindow instanceof com.jogamp.newt.opengl.GLWindow) {
       com.jogamp.newt.opengl.GLWindow window = (com.jogamp.newt.opengl.GLWindow) nativeWindow;
@@ -196,6 +198,7 @@ public class Py5Applet extends PApplet {
       processing.awt.PSurfaceAWT.SmoothCanvas window = (processing.awt.PSurfaceAWT.SmoothCanvas) nativeWindow;
       window.getFrame().dispose();
     } else {
+      // TODO: remove this statement
       System.out.println("Making window invisible but not actually destroying it.");
       surface.setVisible(false);
     }
