@@ -20,11 +20,22 @@ class Py5Magics(Magics):
     def py5drawsvg(self, line, cell):
         """Create an SVG image with py5 and embed result in the notebook.
 
+        For users who are familiar with Processing and py5 programming, you can
+        pretend the code in this cell will be executed in a sketch with no
+        `draw()` function and your code in the `setup()` function.
+
+        The below example will create a red square on a gray background:
+
+        %%py5drawsvg 500 250
+        background(128)
+        fill(255, 0, 0)
+        rect(80, 100, 50, 50)
+
         Code used in this cell can reference functions and variables defined in
         other cells. This will create a name conflict if your functions and
         variables overlap with py5's. The name conflict may cause an error. If
-        such a conflict is detected, py5 will issue you a helpful warning to
-        alert you to the potential problem. You can surpress warnings with the
+        such a conflict is detected, py5 will issue a helpful warning to alert
+        you to the potential problem. You can suppress warnings with the
         --no_warnings flag.
         """
         args = parse_argstring(self.py5drawsvg, line)
