@@ -27,7 +27,7 @@ with open('{0}', 'r') as f:
 py5.run_sketch(block=True)
 """
 
-
+# TODO: this is the same as in run.py
 class Py5Namespace(dict):
 
     def __init__(self, py5, user_ns=None):
@@ -35,6 +35,7 @@ class Py5Namespace(dict):
         self._py5 = py5
         self._warned = {'__doc__'}
         if user_ns:
+            # TODO: this should warn the user if something in the user_ns conflicts with py5 functions
             self.update(user_ns)
 
     def _kind(self, thing):
