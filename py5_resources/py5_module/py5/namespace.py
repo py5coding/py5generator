@@ -1,30 +1,6 @@
-import tempfile
-import textwrap
 import builtins
 
 
-_CODE_TEMPLATE = """
-def settings():
-    size({0}, {1}, SVG, "{2}")
-
-
-def setup():
-{3}
-
-    exit_sketch()
-"""
-
-
-_CODE_FRAMEWORK = """
-import py5
-
-with open('{0}', 'r') as f:
-    eval(compile(f.read(), '{0}', 'exec'))
-
-py5.run_sketch(block=True)
-"""
-
-# TODO: this is the same as in run.py
 class Py5Namespace(dict):
 
     def __init__(self, py5, user_ns=None, suppress_warnings=False):
@@ -73,30 +49,3 @@ class Py5Namespace(dict):
                 return self._user_ns[item]
             else:
                 raise KeyError(f'{item} not found')
-
-
-def draw_svg(code, width, height, user_ns=None, suppress_warnings=False):
-    temp_py = tempfile.NamedTemporaryFile(suffix='.py')
-    temp_svg = tempfile.NamedTemporaryFile(suffix='.svg')
-
-    with open(temp_py.name, 'w') as f:
-        code = _CODE_TEMPLATE.format(width, height, temp_svg.name,
-                                     textwrap.indent(code, ' ' * 4))
-        f.write(code)
-
-    import py5
-    if py5._py5sketch_used:
-        py5.reset_py5()
-    py5_ns = Py5Namespace(py5, user_ns=user_ns, suppress_warnings=suppress_warnings)
-    exec(_CODE_FRAMEWORK.format(temp_py.name), py5_ns)
-
-    temp_py.close()
-
-    with open(temp_svg.name, 'r') as f:
-        svg_code = f.read()
-
-    temp_svg.close()
-    return svg_code
-
-
-__all__ = ['draw_svg']
