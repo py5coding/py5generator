@@ -66,11 +66,14 @@ def run_sketch(sketch_path, classpath=None, new_process=False):
         return
 
     def _run_sketch(sketch_path, classpath):
-        if classpath:
-            jvm.add_classpath(classpath)
-        jvm.add_jars(sketch_path.parent / 'jars')
+        if not jvm.is_jvm_running():
+            if classpath:
+                jvm.add_classpath(classpath)
+            jvm.add_jars(sketch_path.parent / 'jars')
 
         import py5
+        if py5._py5sketch_used:
+            py5.reset_py5()
         sys.path.extend([str(sketch_path.absolute().parent), os.getcwd()])
         py5_ns = Py5Namespace(py5)
         exec(_CODE_FRAMEWORK.format(sketch_path), py5_ns)
