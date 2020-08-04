@@ -82,6 +82,8 @@ def draw_svg(code, width, height, user_ns=None):
         f.write(code)
 
     import py5
+    if py5._py5sketch_used:
+        py5.reset_py5()
     py5_ns = Py5Namespace(py5, user_ns=user_ns)
     exec(_CODE_FRAMEWORK.format(temp_py.name), py5_ns)
 
