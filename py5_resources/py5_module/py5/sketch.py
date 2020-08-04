@@ -46,6 +46,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         self._py5applet = _Py5Applet()
         super().__init__(instance=self._py5applet)
         self._methods_to_profile = []
+        self._post_hooks_to_add = []
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_methods = None
@@ -69,6 +70,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         self._py5_methods = Py5Methods(self)
         self._py5_methods.set_functions(**methods)
         self._py5_methods.profile_functions(self._methods_to_profile)
+        self._py5_methods.add_post_hooks(self._post_hooks_to_add)
         self._py5applet.usePy5Methods(self._py5_methods)
 
         if not py5_options: py5_options = []
@@ -104,6 +106,18 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         if surface._instance is not None:
             surface.stop_thread()
         self._shutdown()
+
+    def _add_post_hook(self, method_name, function):
+        if self._py5_methods is None:
+            self._post_hooks_to_add.append((method_name, function))
+        else:
+            self._py5_methods.add_post_hook(method_name, function)
+
+    def _remove_post_hook(self, method_name):
+        if self._py5_methods is None:
+            self._post_hooks_to_add = [x for x in self._post_hooks_to_add if x[0] != method_name]
+        else:
+            self._py5_methods.remove_post_hook(method_name)
 
     # *** BEGIN METHODS ***
 

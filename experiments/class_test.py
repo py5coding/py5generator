@@ -44,8 +44,16 @@ class Test(Sketch):
     #     print('frameRate', self.get_frame_rate())
 
 
+def _save_frame(sketch):
+    if sketch.frame_count % 100 == 0:
+        sketch.save_frame('/tmp/frame_####.png')
+
+
 # py5_options = []
 # py5_options = ['--display=1', '--window-color=#882222', '--present']
 py5_options = ['--location=400,300', '--display=1']
 test = Test()
+
+# test._add_post_hook('draw', _save_frame)
+# test._remove_post_hook('draw')
 test.run_sketch(block=False, py5_options=py5_options)
