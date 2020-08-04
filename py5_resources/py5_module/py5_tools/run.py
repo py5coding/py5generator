@@ -30,16 +30,6 @@ def setup():
 """
 
 
-_SVG_FRAMEWORK = """
-import py5
-
-with open('{0}', 'r') as f:
-    eval(compile(f.read(), '{0}', 'exec'))
-
-py5.run_sketch(block=True)
-"""
-
-
 def run_sketch(sketch_path, classpath=None, new_process=False):
     sketch_path = Path(sketch_path)
     if not sketch_path.exists():
@@ -74,7 +64,7 @@ def draw_svg(code, width, height, user_ns=None, suppress_warnings=False):
 
     with open(temp_py.name, 'w') as f:
         code = _SVG_CODE_TEMPLATE.format(width, height, temp_svg.name,
-                                     textwrap.indent(code, ' ' * 4))
+                                         textwrap.indent(code, ' ' * 4))
         f.write(code)
 
     import py5
@@ -82,7 +72,7 @@ def draw_svg(code, width, height, user_ns=None, suppress_warnings=False):
         py5.reset_py5()
     from py5.namespace import Py5Namespace
     py5_ns = Py5Namespace(py5, user_ns=user_ns, suppress_warnings=suppress_warnings)
-    exec(_SVG_FRAMEWORK.format(temp_py.name), py5_ns)
+    exec(_CODE_FRAMEWORK.format(temp_py.name), py5_ns)
 
     temp_py.close()
 
