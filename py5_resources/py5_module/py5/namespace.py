@@ -26,10 +26,11 @@ class Py5Namespace(dict):
         self._warned.add(key)
 
     def __setitem__(self, key, value):
-        if hasattr(self._py5, key) and key not in self._warned:
-            self._issue_warning(key, 'py5', getattr(self._py5, key), value)
-        if hasattr(builtins, key) and key not in self._warned:
-            self._issue_warning(key, 'builtin', getattr(builtins, key), value)
+        if not self._suppress_warnings:
+            if hasattr(self._py5, key) and key not in self._warned:
+                self._issue_warning(key, 'py5', getattr(self._py5, key), value)
+            if hasattr(builtins, key) and key not in self._warned:
+                self._issue_warning(key, 'builtin', getattr(builtins, key), value)
 
         return super().__setitem__(key, value)
 
