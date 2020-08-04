@@ -1,4 +1,3 @@
-# TODO: IPython might not be installed
 from IPython.display import display, SVG
 from IPython.core.magic import Magics, magics_class, cell_magic
 from IPython.core.magic_arguments import magic_arguments, argument, parse_argstring

@@ -31,7 +31,11 @@ from .sketch import Sketch, _METHODS, Py5Surface, Py5Graphics, Py5Image, Py5Shad
 from .create_font_tool import create_font_file  # noqa
 from .image_conversion import register_image_conversion, NumpyImageArray  # noqa
 from . import java_conversion  # noqa
-from .magics import load_ipython_extension  # noqa
+try:
+    from .magics import load_ipython_extension  # noqa
+except ModuleNotFoundError:
+    # IPython must not be installed
+    pass
 
 
 __version__ = '0.2a2'
