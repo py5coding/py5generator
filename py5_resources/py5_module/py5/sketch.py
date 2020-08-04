@@ -160,7 +160,9 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         if isinstance(result, (Path, str)):
             return self.load_image(result, dst=dst)
         elif isinstance(result, tempfile._TemporaryFileWrapper):
-            return self.load_image(result.name, dst=dst)
+            ret = self.load_image(result.name, dst=dst)
+            result.close()
+            return ret
         elif isinstance(result, NumpyImageArray):
             return self.create_image_from_numpy(result, dst=dst)
 
