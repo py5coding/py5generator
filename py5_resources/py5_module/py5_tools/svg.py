@@ -1,9 +1,6 @@
-import sys
-import os
 import tempfile
 import textwrap
 import builtins
-from pathlib import Path
 
 
 _CODE_TEMPLATE = """
@@ -30,13 +27,12 @@ py5.run_sketch(block=True)
 # TODO: this is the same as in run.py
 class Py5Namespace(dict):
 
-    def __init__(self, py5, user_ns=None):
+    def __init__(self, py5, user_ns=None, suppress_warnings=False):
         super().__init__()
         self._py5 = py5
         self._warned = {'__doc__'}
-        if user_ns:
-            # TODO: this should warn the user if something in the user_ns conflicts with py5 functions
-            self.update(user_ns)
+        self._user_ns = user_ns if user_ns else {}
+        self._suppress_warnings = suppress_warnings
 
     def _kind(self, thing):
         if isinstance(thing, type):
@@ -65,15 +61,21 @@ class Py5Namespace(dict):
         try:
             return super().__getitem__(item)
         except KeyError:
-            if hasattr(self._py5, item):
+            if (not self._suppress_warnings and item not in self._warned
+                    and item in self._user_ns and item in dir(self._py5)):
+                print(f'WARNING: py5 name conflict detected with "{item}"')
+                self._warned.add(item)
+            if item in dir(self._py5):
                 return getattr(self._py5, item)
             elif hasattr(builtins, item):
                 return getattr(builtins, item)
+            elif item in self._user_ns:
+                return self._user_ns[item]
             else:
                 raise KeyError(f'{item} not found')
 
 
-def draw_svg(code, width, height, user_ns=None):
+def draw_svg(code, width, height, user_ns=None, suppress_warnings=False):
     temp_py = tempfile.NamedTemporaryFile(suffix='.py')
     temp_svg = tempfile.NamedTemporaryFile(suffix='.svg')
 
@@ -85,7 +87,7 @@ def draw_svg(code, width, height, user_ns=None):
     import py5
     if py5._py5sketch_used:
         py5.reset_py5()
-    py5_ns = Py5Namespace(py5, user_ns=user_ns)
+    py5_ns = Py5Namespace(py5, user_ns=user_ns, suppress_warnings=suppress_warnings)
     exec(_CODE_FRAMEWORK.format(temp_py.name), py5_ns)
 
     temp_py.close()
