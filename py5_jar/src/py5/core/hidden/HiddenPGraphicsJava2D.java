@@ -7,7 +7,7 @@ public class HiddenPGraphicsJava2D extends PGraphicsJava2D {
 
   @Override
   public PSurface createSurface() {
-    return surface = new HiddenSurface(this);
+    return surface = new HiddenSurfaceNone(this);
   }
 
   @Override
