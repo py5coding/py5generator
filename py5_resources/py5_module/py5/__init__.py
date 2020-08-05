@@ -32,7 +32,7 @@ from .create_font_tool import create_font_file  # noqa
 from .image_conversion import register_image_conversion, NumpyImageArray  # noqa
 from . import java_conversion  # noqa
 try:
-    from .magics import load_ipython_extension  # noqa
+    from py5_tools.magics import load_ipython_extension  # noqa
 except ModuleNotFoundError:
     # IPython must not be installed
     pass

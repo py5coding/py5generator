@@ -1,8 +1,13 @@
+import time
+import tempfile
+
 from IPython.display import display, SVG, Image
-from IPython.core.magic import Magics, magics_class, cell_magic
+from IPython.core.magic import Magics, magics_class, cell_magic, line_magic
 from IPython.core.magic_arguments import magic_arguments, argument, parse_argstring
 
-import py5_tools
+import PIL
+
+from .run import run_single_frame_sketch
 
 
 _unspecified = object()
@@ -43,7 +48,7 @@ class Py5Magics(Magics):
         --no_warnings flag.
         """
         args = parse_argstring(self.py5drawsvg, line)
-        svg = py5_tools.run_single_frame_sketch(
+        svg = run_single_frame_sketch(
             'SVG', cell, args.width, args.height, user_ns=self.shell.user_ns,
             suppress_warnings=args.suppress_warnings)
         if svg:
@@ -78,11 +83,38 @@ class Py5Magics(Magics):
         --no_warnings flag.
         """
         args = parse_argstring(self.py5draw, line)
-        png = py5_tools.run_single_frame_sketch(
+        png = run_single_frame_sketch(
             'HIDDEN', cell, args.width, args.height, user_ns=self.shell.user_ns,
             suppress_warnings=args.suppress_warnings)
         if png:
             display(Image(png))
+
+    @line_magic
+    def py5screenshot(self, line):
+        import py5
+        sketch = py5._py5sketch
+
+        class Hook:
+
+            def __init__(self, filename):
+                self.filename = filename
+                self.is_ready = False
+
+            def __call__(self, sketch):
+                sketch.save_frame(self.filename)
+                self.is_ready = True
+
+        with tempfile.NamedTemporaryFile(suffix='.png') as png_file:
+            hook = Hook(png_file.name)
+            sketch._add_post_hook('draw', hook)
+
+            while not hook.is_ready:
+                time.sleep(0.01)
+
+            sketch._remove_post_hook('draw')
+            img = PIL.Image.open(png_file.name)
+
+            return img
 
 
 def load_ipython_extension(ipython):
