@@ -464,3 +464,4 @@ load_np_pixels,,,,method,FALSE,TRUE,like loadPixels but for np_pixels; implement
 update_np_pixels,,,,method,FALSE,TRUE,like updatePixels but for np_pixels; implemented in the pixels.py mixin
 set_np_pixels,,,,method,FALSE,TRUE,replaces data in the np_pixels array; implemented in the pixels.py mixin
 np_pixels,,,,dynamic variable,FALSE,TRUE,numpy array containing pixel data
+HIDDEN,HIDDEN,,,static field,TRUE,TRUE,hidden version of default renderer

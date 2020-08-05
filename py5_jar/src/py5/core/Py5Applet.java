@@ -17,6 +17,8 @@ public class Py5Applet extends PApplet {
 
   public static final char CODED = PApplet.CODED;
 
+  public static final String HIDDEN = "py5.core.hidden.HiddenPGraphicsJava2D";
+
   public void usePy5Methods(Py5Methods py5Methods) {
     this.py5Methods = py5Methods;
     this.py5RegisteredEvents = new HashSet<String>();
@@ -172,7 +174,8 @@ public class Py5Applet extends PApplet {
 
     py5Methods.shutdown();
 
-    // TODO: why do I need all of this? I know `dispose()` by itself isn't good enough.
+    // TODO: why do I need all of this? I know `dispose()` by itself isn't good
+    // enough.
     // it gets called by the exit() function before exitActual()
     final Object nativeWindow = surface.getNative();
     if (nativeWindow instanceof com.jogamp.newt.opengl.GLWindow) {
