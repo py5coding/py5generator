@@ -30,6 +30,19 @@ def setup():
 """
 
 
+_HIDDEN_CODE_TEMPLATE = """
+def settings():
+    size({0}, {1}, HIDDEN)
+
+
+def setup():
+{3}
+
+    save_frame("{2}")
+    exit_sketch()
+"""
+
+
 def run_sketch(sketch_path, classpath=None, new_process=False):
     sketch_path = Path(sketch_path)
     if not sketch_path.exists():
@@ -58,29 +71,40 @@ def run_sketch(sketch_path, classpath=None, new_process=False):
         _run_sketch(sketch_path, classpath)
 
 
-def draw_svg(code, width, height, user_ns=None, suppress_warnings=False):
+def run_single_frame_sketch(renderer, code, width, height, user_ns=None, suppress_warnings=False):
+
+    if renderer == 'SVG':
+        template = _SVG_CODE_TEMPLATE
+        suffix = '.svg'
+        read_mode = 'r'
+    elif renderer == 'HIDDEN':
+        template = _HIDDEN_CODE_TEMPLATE
+        suffix = '.png'
+        read_mode = 'rb'
+
     temp_py = tempfile.NamedTemporaryFile(suffix='.py')
-    temp_svg = tempfile.NamedTemporaryFile(suffix='.svg')
+    temp_out = tempfile.NamedTemporaryFile(suffix=suffix)
 
     with open(temp_py.name, 'w') as f:
-        code = _SVG_CODE_TEMPLATE.format(width, height, temp_svg.name,
-                                         textwrap.indent(code, ' ' * 4))
+        code = template.format(width, height, temp_out.name,
+                               textwrap.indent(code, ' ' * 4))
         f.write(code)
 
     import py5
     if py5._py5sketch_used:
         py5.reset_py5()
     from py5.namespace import Py5Namespace
-    py5_ns = Py5Namespace(py5, user_ns=user_ns, suppress_warnings=suppress_warnings)
+    py5_ns = Py5Namespace(py5, user_ns=user_ns,
+                          suppress_warnings=suppress_warnings)
     exec(_CODE_FRAMEWORK.format(temp_py.name), py5_ns)
 
     temp_py.close()
 
-    with open(temp_svg.name, 'r') as f:
-        svg_code = f.read()
+    with open(temp_out.name, read_mode) as f:
+        result = f.read()
 
-    temp_svg.close()
-    return svg_code
+    temp_out.close()
+    return result
 
 
-__all__ = ['run_sketch', 'draw_svg']
+__all__ = ['run_sketch', 'run_single_frame_sketch']
