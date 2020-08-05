@@ -18,9 +18,11 @@ class PixelMixin:
         super()._replace_instance(new_instance)
 
     def _init_np_pixels(self):
-        self._py_bb = bytearray(self.pixel_width * self.pixel_height * 4)
+        width = self.pixel_width
+        height = self.pixel_height
+        self._py_bb = bytearray(width * height * 4)
         self._java_bb = jpype.nio.convertToDirectBuffer(self._py_bb)
-        self._np_pixels = np.asarray(self._py_bb, dtype=np.uint8).reshape(self.pixel_height, self.pixel_width, 4)
+        self._np_pixels = np.asarray(self._py_bb, dtype=np.uint8).reshape(height, width, 4)
 
     # *** BEGIN METHODS ***
 
