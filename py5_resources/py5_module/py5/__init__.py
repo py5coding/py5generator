@@ -37,6 +37,12 @@ except ModuleNotFoundError:
     # IPython must not be installed
     pass
 
+# # TODO: should I set the blocking default to False when run from IPython?
+# try:
+#     print(get_ipython().__class__.__name__)
+# except:
+#     print('not ipython')
+
 
 __version__ = '0.2a2'
 

@@ -16,6 +16,8 @@ _unspecified = object()
 @magics_class
 class Py5Magics(Magics):
 
+    # TODO: change default to not block when running a sketch.
+
     @magic_arguments()
     @argument('width', type=int, help='width of SVG drawing')
     @argument('height', type=int, help='height of SVG drawing')
@@ -90,7 +92,26 @@ class Py5Magics(Magics):
             display(Image(png))
 
     @line_magic
+    @magic_arguments()
+    @argument('-d', type=int, dest='delay', default=0, help='delay in seconds')
     def py5screenshot(self, line):
+        """Take a screenshot of the current running sketch.
+
+        Use the -d argument to wait before taking the screenshot.
+
+        The returned image is a PIL.Image object. It can be assigned to a
+        variable or embedded in the notebook.
+
+        Below is an example demonstrating how to take a screenshot after a two
+        second delay and assign it to the `img` variable. The image is then
+        saved to a file. When run from a notebook, the image is embedded in the
+        output.
+
+        img = %py5screenshot -d 2
+        img.save('image.png')
+        img
+        """
+        args = parse_argstring(self.py5screenshot, line)
         import py5
         sketch = py5._py5sketch
 
@@ -103,6 +124,10 @@ class Py5Magics(Magics):
             def __call__(self, sketch):
                 sketch.save_frame(self.filename)
                 self.is_ready = True
+
+        time.sleep(args.delay)
+
+        # TODO: what if the sketch is not even running?
 
         with tempfile.NamedTemporaryFile(suffix='.png') as png_file:
             hook = Hook(png_file.name)
