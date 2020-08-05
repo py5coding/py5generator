@@ -98,6 +98,8 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns=None, suppres
                           suppress_warnings=suppress_warnings)
     exec(_CODE_FRAMEWORK.format(temp_py.name), py5_ns)
 
+    py5.reset_py5()
+
     temp_py.close()
 
     with open(temp_out.name, read_mode) as f:
