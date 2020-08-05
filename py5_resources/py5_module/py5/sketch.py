@@ -149,6 +149,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     def save_frame(self, filename: Union[str, Path], format: str = None, **params) -> None:
         """$class_save_frame"""
+        # TODO: why do I need this? is the the same as the automatically written one?
         self.save(self._instance.insertFrame(str(filename)), format, **params)
 
     # *** Py5Image methods ***
