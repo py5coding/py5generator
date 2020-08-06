@@ -56,7 +56,7 @@ def run_sketch(sketch_path, classpath=None, new_process=False):
             jvm.add_jars(sketch_path.parent / 'jars')
 
         import py5
-        if py5._py5sketch_used:
+        if not py5.get_current_sketch().is_ready:
             py5.reset_py5()
         sys.path.extend([str(sketch_path.absolute().parent), os.getcwd()])
         from py5.namespace import Py5Namespace
@@ -91,7 +91,7 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns=None, suppres
         f.write(code)
 
     import py5
-    if py5._py5sketch_used:
+    if not py5.get_current_sketch().is_ready:
         py5.reset_py5()
     from py5.namespace import Py5Namespace
     py5_ns = Py5Namespace(py5, user_ns=user_ns,

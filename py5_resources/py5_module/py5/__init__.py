@@ -56,7 +56,6 @@ py5_dir_str = None  # DELETE
 py5_all_str = None  # DELETE
 
 _py5sketch = Sketch()
-_py5sketch_used = False
 
 {sketch_module_members_code}
 
@@ -99,8 +98,6 @@ def run_sketch(function_dict: Dict[str, Any] = None,
                "If this isn't what you intended, try this instead:\n"
                "py5.run_sketch(function_dict=locals())"))
 
-    global _py5sketch_used
-    _py5sketch_used = True
     _py5sketch._run_sketch(methods, block, py5_options, sketch_args)
 
 
@@ -111,15 +108,13 @@ def get_current_sketch() -> Sketch:
 def reset_py5() -> None:
     """ attempt to reset the py5 library so a new sketch can be executed.
 
-    There are race conditions between this and `stop_sketch`. If you call this
-    immediately after `stop_sketch` you might experience problems. This function
+    There are race conditions between this and `exit_sketch`. If you call this
+    immediately after `exit_sketch` you might experience problems. This function
     is here as a convenience to people who need it and are willing to cope with
     the race condition issue.
     """
     global _py5sketch
-    global _py5sketch_used
     _py5sketch = Sketch()
-    _py5sketch_used = False
 
 
 def prune_tracebacks(prune: bool):

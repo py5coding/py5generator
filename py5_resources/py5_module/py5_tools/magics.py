@@ -44,7 +44,7 @@ class Py5Magics(Magics):
 
         Code used in this cell can reference functions and variables defined in
         other cells. This will create a name conflict if your functions and
-        variables overlap with py5's. The name conflict may cause an error. If
+        variables overlap with py5's. A name conflict may cause an error. If
         such a conflict is detected, py5 will issue a helpful warning to alert
         you to the potential problem. You can suppress warnings with the
         --no_warnings flag.
@@ -79,7 +79,7 @@ class Py5Magics(Magics):
 
         Code used in this cell can reference functions and variables defined in
         other cells. This will create a name conflict if your functions and
-        variables overlap with py5's. The name conflict may cause an error. If
+        variables overlap with py5's. A name conflict may cause an error. If
         such a conflict is detected, py5 will issue a helpful warning to alert
         you to the potential problem. You can suppress warnings with the
         --no_warnings flag.
@@ -113,7 +113,11 @@ class Py5Magics(Magics):
         """
         args = parse_argstring(self.py5screenshot, line)
         import py5
-        sketch = py5._py5sketch
+        sketch = py5.get_current_sketch()
+
+        if not sketch.is_running:
+            print('The current sketch is not running.')
+            return
 
         class Hook:
 
@@ -126,8 +130,6 @@ class Py5Magics(Magics):
                 self.is_ready = True
 
         time.sleep(args.delay)
-
-        # TODO: what if the sketch is not even running?
 
         with tempfile.NamedTemporaryFile(suffix='.png') as png_file:
             hook = Hook(png_file.name)
