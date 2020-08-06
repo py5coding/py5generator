@@ -56,4 +56,4 @@ test = Test()
 
 # test._add_post_hook('draw', _save_frame)
 # test._remove_post_hook('draw')
-test.run_sketch(block=False, py5_options=py5_options)
+test.run_sketch(py5_options=py5_options)

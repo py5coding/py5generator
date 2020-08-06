@@ -27,4 +27,4 @@ def draw():
     ry += 0.02
 
 
-py5.run_sketch(block=True)
+py5.run_sketch()

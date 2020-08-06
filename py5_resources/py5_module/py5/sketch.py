@@ -37,6 +37,12 @@ _METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',
 
 _Py5Applet = jpype.JClass('py5.core.Py5Applet')
 
+try:
+    get_ipython().__class__.__name__  # noqa
+    _in_ipython_session = True
+except NameError:
+    _in_ipython_session = False
+
 
 class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
@@ -77,7 +83,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             return False
         return surface.is_stopped()
 
-    def run_sketch(self, block: bool = True, py5_options: List = None, sketch_args: List = None) -> None:
+    def run_sketch(self, block: bool = not _in_ipython_session,
+                   py5_options: List = None, sketch_args: List = None) -> None:
         """$class_run_sketch"""
         if not hasattr(self, '_instance'):
             raise RuntimeError(

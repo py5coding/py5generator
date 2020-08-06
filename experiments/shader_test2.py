@@ -32,4 +32,4 @@ def draw():
     py5.rect(0, 0, py5.width, py5.height)
 
 
-py5.run_sketch(block=True)
+py5.run_sketch()

@@ -27,7 +27,7 @@ if not py5_tools.is_jvm_running():
     py5_tools.start_jvm()
 
 from .methods import Py5Exception  # noqa
-from .sketch import Sketch, _METHODS, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Shape, Py5Font, Py5Promise  # noqa
+from .sketch import Sketch, _METHODS, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Shape, Py5Font, Py5Promise, _in_ipython_session  # noqa
 from .create_font_tool import create_font_file  # noqa
 from .image_conversion import register_image_conversion, NumpyImageArray  # noqa
 from . import java_conversion  # noqa
@@ -36,12 +36,6 @@ try:
 except ModuleNotFoundError:
     # IPython must not be installed
     pass
-
-# # TODO: should I set the blocking default to False when run from IPython?
-# try:
-#     print(get_ipython().__class__.__name__)
-# except:
-#     print('not ipython')
 
 
 __version__ = '0.2a2'
@@ -61,7 +55,7 @@ _py5sketch = Sketch()
 
 
 def run_sketch(function_dict: Dict[str, Any] = None,
-               block: bool = True,
+               block: bool = not _in_ipython_session,
                py5_options: List = None,
                sketch_args: List = None) -> None:
     """run the py5 sketch

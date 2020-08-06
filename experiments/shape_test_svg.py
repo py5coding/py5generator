@@ -56,4 +56,4 @@ def draw():
             py5.point(v[0], v[1])
 
 
-py5.run_sketch(block=False)
+py5.run_sketch()

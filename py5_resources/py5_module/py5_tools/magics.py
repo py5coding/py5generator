@@ -16,8 +16,6 @@ _unspecified = object()
 @magics_class
 class Py5Magics(Magics):
 
-    # TODO: change default to not block when running a sketch.
-
     @magic_arguments()
     @argument('width', type=int, help='width of SVG drawing')
     @argument('height', type=int, help='height of SVG drawing')
