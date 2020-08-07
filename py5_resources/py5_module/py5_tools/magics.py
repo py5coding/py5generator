@@ -152,11 +152,82 @@ class Py5Magics(Magics):
             sketch._add_post_hook('draw', 'py5screenshot_hook', hook)
 
             while not hook.is_ready:
-                time.sleep(0.01)
+                time.sleep(0.02)
 
             img = PIL.Image.open(png_file.name)
 
             return img
+
+    @line_magic
+    @magic_arguments()
+    @argument('dirname', type=str, help='directory to save the frames')
+    @argument('--filename', type=str, dest='filename', default='frame_####.png',
+              help='filename to save frames to')
+    @argument('-d', type=int, dest='delay', default=0,
+              help='start delay in seconds')
+    @argument('--limit', type=int, dest='limit', default=0,
+              help='limit the number of frames to save (default 0 means no limit)')
+    def py5screencapture(self, line):
+        """Save the current running sketch's frames to a directory.
+
+        Use the -d argument to wait before starting.
+
+        If a limit is given, this line magic will wait to return a list of the
+        filenames. Otherwise, it will return right away.
+        """
+        args = parse_argstring(self.py5screencapture, line)
+        import py5
+        sketch = py5.get_current_sketch()
+
+        if not sketch.is_running:
+            print('The current sketch is not running.')
+            return
+
+        class Hook:
+
+            def __init__(self, dirname, filename, limit):
+                self.dirname = dirname
+                self.filename = filename
+                self.limit = limit
+                self.filenames = []
+                self.exception = None
+                self.is_ready = False
+                print(f'writing frames to {str(dirname)}...')
+
+            def _end_hook(self, sketch):
+                sketch._remove_post_hook('draw', 'py5screencapture_hook')
+                self.is_ready = True
+
+            def __call__(self, sketch):
+                try:
+                    filename = sketch._instance.insertFrame(str(self.dirname / self.filename))
+                    sketch.save_frame(filename)
+                    self.filenames.append(filename)
+                    if len(self.filenames) == self.limit:
+                        self._end_hook(sketch)
+                except Exception as e:
+                    self.exception = e
+                    self._end_hook(sketch)
+
+        time.sleep(args.delay)
+
+        dirname = Path(args.dirname)
+        if not dirname.exists():
+            dirname.mkdir(parents=True)
+
+        hook = Hook(dirname, args.filename, args.limit)
+        sketch._add_post_hook('draw', 'py5screencapture_hook', hook)
+
+        if args.limit:
+            while not hook.is_ready:
+                time.sleep(0.02)
+                clear_output(wait=True)
+                print(f'{len(hook.filenames)} / {args.limit}')
+
+            if hook.exception:
+                print('error running py5screencapture:', hook.exception)
+            else:
+                return hook.filenames
 
 
 def load_ipython_extension(ipython):
