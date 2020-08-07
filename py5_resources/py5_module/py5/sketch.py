@@ -181,10 +181,26 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         """$class_print_line_profiler_stats"""
         self._py5_methods.dump_stats()
 
+    def _insert_frame(self, what, num=None):
+        """Utility function to insert a number into a filename.
+
+        This is just like PApplet's insertFrame method except it allows you to
+        override the frameCount with something else.
+        """
+        if num is None:
+            num = self._instance.frameCount
+        first = what.find('#')
+        last = len(what) - what[::-1].find('#')
+        if first != -1 and last - first > 1:
+            count = last - first
+            numstr = str(num)
+            numprefix = '0' * (count - len(numstr))
+            what = what[:first] + numprefix + numstr + what[last:]
+        return what
+
     def save_frame(self, filename: Union[str, Path], format: str = None, **params) -> None:
         """$class_save_frame"""
-        # TODO: why do I need this? is the the same as the automatically written one?
-        self.save(self._instance.insertFrame(str(filename)), format, **params)
+        self.save(self._insert_frame(str(filename)), format, **params)
 
     # *** Py5Image methods ***
 
