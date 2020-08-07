@@ -1,4 +1,6 @@
 import time
+import io
+from pathlib import Path
 import tempfile
 
 from IPython.display import display, SVG, Image
@@ -16,9 +18,16 @@ _unspecified = object()
 @magics_class
 class Py5Magics(Magics):
 
+    def _filename_check(self, filename):
+        filename = Path(filename)
+        if not filename.parent.exists():
+            filename.parent.mkdir(parents=True)
+        return filename
+
     @magic_arguments()
     @argument('width', type=int, help='width of SVG drawing')
     @argument('height', type=int, help='height of SVG drawing')
+    @argument('--filename', type=str, dest='filename', help='save SVG image to file')
     @argument('--no-warnings', dest='suppress_warnings', action='store_true',
               help="suppress name conflict warnings")
     @cell_magic
@@ -52,11 +61,16 @@ class Py5Magics(Magics):
             'SVG', cell, args.width, args.height, user_ns=self.shell.user_ns,
             suppress_warnings=args.suppress_warnings)
         if svg:
+            if args.filename:
+                filename = self._filename_check(args.filename)
+                with open(filename, 'w') as f:
+                    f.write(svg)
             display(SVG(svg))
 
     @magic_arguments()
     @argument('width', type=int, help='width of PNG drawing')
     @argument('height', type=int, help='height of PNG drawing')
+    @argument('--filename', dest='filename', help='save image to file')
     @argument('--no-warnings', dest='suppress_warnings', action='store_true',
               help="suppress name conflict warnings")
     @cell_magic
@@ -87,6 +101,9 @@ class Py5Magics(Magics):
             'HIDDEN', cell, args.width, args.height, user_ns=self.shell.user_ns,
             suppress_warnings=args.suppress_warnings)
         if png:
+            if args.filename:
+                filename = self._filename_check(args.filename)
+                PIL.Image.open(io.BytesIO(png)).convert(mode='RGB').save(filename)
             display(Image(png))
 
     @line_magic
