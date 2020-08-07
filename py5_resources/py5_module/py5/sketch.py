@@ -140,17 +140,17 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             surface.stop_thread()
         self._shutdown()
 
-    def _add_post_hook(self, method_name, function):
+    def _add_post_hook(self, method_name, hook_name, function):
         if self._py5_methods is None:
-            self._post_hooks_to_add.append((method_name, function))
+            self._post_hooks_to_add.append((method_name, hook_name, function))
         else:
-            self._py5_methods.add_post_hook(method_name, function)
+            self._py5_methods.add_post_hook(method_name, hook_name, function)
 
-    def _remove_post_hook(self, method_name):
+    def _remove_post_hook(self, method_name, hook_name):
         if self._py5_methods is None:
-            self._post_hooks_to_add = [x for x in self._post_hooks_to_add if x[0] != method_name]
+            self._post_hooks_to_add = [x for x in self._post_hooks_to_add if x[0] != method_name and x[1] != hook_name]
         else:
-            self._py5_methods.remove_post_hook(method_name)
+            self._py5_methods.remove_post_hook(method_name, hook_name)
 
     # *** BEGIN METHODS ***
 

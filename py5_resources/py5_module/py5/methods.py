@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+from collections import defaultdict
 import line_profiler
 
 import stackprinter
@@ -74,7 +75,7 @@ class Py5Methods:
     def __init__(self, sketch):
         self._sketch = sketch
         self._functions = dict()
-        self._post_hooks = dict()
+        self._post_hooks = defaultdict(dict)
         self._profiler = line_profiler.LineProfiler()
 
     def set_functions(self, **kwargs):
@@ -89,16 +90,16 @@ class Py5Methods:
     def dump_stats(self):
         self._profiler.print_stats()
 
-    def add_post_hook(self, method_name, function):
-        self._post_hooks[method_name] = function
+    def add_post_hook(self, method_name, hook_name, function):
+        self._post_hooks[method_name][hook_name] = function
 
     def add_post_hooks(self, method_hooks):
-        for method_name, function in method_hooks:
-            self.add_post_hook(method_name, function)
+        for method_name, hook_name, function in method_hooks:
+            self.add_post_hook(method_name, hook_name, function)
 
-    def remove_post_hook(self, method_name):
-        if method_name in self._post_hooks:
-            del self._post_hooks[method_name]
+    def remove_post_hook(self, method_name, hook_name):
+        if hook_name in self._post_hooks[method_name]:
+            self._post_hooks[method_name].pop(hook_name)
 
     @JOverride
     def get_function_list(self):
@@ -110,7 +111,8 @@ class Py5Methods:
             if method_name in self._functions:
                 self._functions[method_name](*params)
                 if method_name in self._post_hooks:
-                    self._post_hooks[method_name](self._sketch)
+                    for hook in list(self._post_hooks[method_name].values()):
+                        hook(self._sketch)
                 return True
         except Exception:
             handle_exception(*sys.exc_info())

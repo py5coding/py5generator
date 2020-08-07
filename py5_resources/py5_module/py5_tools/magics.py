@@ -3,7 +3,7 @@ import io
 from pathlib import Path
 import tempfile
 
-from IPython.display import display, SVG, Image
+from IPython.display import display, clear_output, SVG, Image
 from IPython.core.magic import Magics, magics_class, cell_magic, line_magic
 from IPython.core.magic_arguments import magic_arguments, argument, parse_argstring
 
@@ -142,18 +142,18 @@ class Py5Magics(Magics):
 
             def __call__(self, sketch):
                 sketch.save_frame(self.filename)
+                sketch._remove_post_hook('draw', 'py5screenshot_hook')
                 self.is_ready = True
 
         time.sleep(args.delay)
 
         with tempfile.NamedTemporaryFile(suffix='.png') as png_file:
             hook = Hook(png_file.name)
-            sketch._add_post_hook('draw', hook)
+            sketch._add_post_hook('draw', 'py5screenshot_hook', hook)
 
             while not hook.is_ready:
                 time.sleep(0.01)
 
-            sketch._remove_post_hook('draw')
             img = PIL.Image.open(png_file.name)
 
             return img
