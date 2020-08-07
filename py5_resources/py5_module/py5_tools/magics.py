@@ -230,7 +230,7 @@ class Py5Magics(Magics):
                 time.sleep(0.02)
                 clear_output(wait=True)
                 # TODO: show progress bar instead
-                print(f'{len(hook.filenames)} / {args.limit}')
+                print(f'{len(hook.filenames)}/{args.limit}')
 
             if hook.exception:
                 print('error running py5screencapture:', hook.exception)
