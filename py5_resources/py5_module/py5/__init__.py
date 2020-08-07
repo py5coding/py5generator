@@ -89,7 +89,7 @@ def run_sketch(function_dict: Dict[str, Any] = None,
     if not set(methods.keys()) & set(['settings', 'setup', 'draw']):
         print(("Unable to find settings, setup, or draw functions. "
                "Your sketch will be a small boring gray square. "
-               "If this isn't what you intended, try this instead:\n"
+               "If that isn't what you intended, try this instead:\n"
                "py5.run_sketch(function_dict=locals())"))
 
     _py5sketch._run_sketch(methods, block, py5_options, sketch_args)
@@ -100,12 +100,7 @@ def get_current_sketch() -> Sketch:
 
 
 def reset_py5() -> None:
-    """ attempt to reset the py5 library so a new sketch can be executed.
-
-    There are race conditions between this and `exit_sketch`. If you call this
-    immediately after `exit_sketch` you might experience problems. This function
-    is here as a convenience to people who need it and are willing to cope with
-    the race condition issue.
+    """reset the py5 library so a new sketch can be executed.
     """
     global _py5sketch
     _py5sketch = Sketch()
