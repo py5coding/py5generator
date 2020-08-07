@@ -165,6 +165,8 @@ class Py5Magics(Magics):
               help='filename to save frames to')
     @argument('-d', type=int, dest='delay', default=0,
               help='start delay in seconds')
+    @argument('-s', dest='start', type=int,
+              help='frame starting number instead of sketch frame_count')
     @argument('--limit', type=int, dest='limit', default=0,
               help='limit the number of frames to save (default 0 means no limit)')
     def py5screencapture(self, line):
@@ -185,10 +187,12 @@ class Py5Magics(Magics):
 
         class Hook:
 
-            def __init__(self, dirname, filename, limit):
+            def __init__(self, dirname, filename, limit, start):
                 self.dirname = dirname
                 self.filename = filename
                 self.limit = limit
+                self.start = start
+                self.num_offset = None
                 self.filenames = []
                 self.exception = None
                 self.is_ready = False
@@ -200,7 +204,10 @@ class Py5Magics(Magics):
 
             def __call__(self, sketch):
                 try:
-                    filename = sketch._instance.insertFrame(str(self.dirname / self.filename))
+                    if self.num_offset is None:
+                        self.num_offset = 0 if self.start is None else sketch.frame_count - self.start
+                    num = sketch.frame_count - self.num_offset
+                    filename = sketch._insert_frame(str(self.dirname / self.filename), num=num)
                     sketch.save_frame(filename)
                     self.filenames.append(filename)
                     if len(self.filenames) == self.limit:
@@ -215,13 +222,14 @@ class Py5Magics(Magics):
         if not dirname.exists():
             dirname.mkdir(parents=True)
 
-        hook = Hook(dirname, args.filename, args.limit)
+        hook = Hook(dirname, args.filename, args.limit, args.start)
         sketch._add_post_hook('draw', 'py5screencapture_hook', hook)
 
         if args.limit:
             while not hook.is_ready:
                 time.sleep(0.02)
                 clear_output(wait=True)
+                # TODO: show progress bar instead
                 print(f'{len(hook.filenames)} / {args.limit}')
 
             if hook.exception:
