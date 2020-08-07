@@ -115,6 +115,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         try:
             _Py5Applet.runSketch(args, self._py5applet)
         except Exception as e:
+            # TODO: I need to send this to a logger instead of printing
             print('exception thrown by Py5Applet.runSketch:', e)
 
         if block:

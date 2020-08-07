@@ -99,6 +99,9 @@ def get_current_sketch() -> Sketch:
     return _py5sketch
 
 
+# TODO: error message through Jupyter might not be correct when reset needs to be called
+# TODO: run sketch should do the reset for me
+
 def reset_py5() -> None:
     """reset the py5 library so a new sketch can be executed.
     """

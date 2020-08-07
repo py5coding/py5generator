@@ -43,6 +43,8 @@ def handle_exception(exc_type, exc_value, exc_tb):
             prev_exc = next_exc
             next_exc = next_exc.__context__
 
+    # TODO: can I have this go to a logger instead? Need errors to be visible
+    # when this is run from a Jupyter notebook
     stackprinter.show(thing=(exc_type, exc_value, exc_tb.tb_next),
                       show_vals='line',
                       style=_stackprinter_style,
