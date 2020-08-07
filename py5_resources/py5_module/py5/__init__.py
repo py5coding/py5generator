@@ -92,6 +92,10 @@ def run_sketch(function_dict: Dict[str, Any] = None,
                "If that isn't what you intended, try this instead:\n"
                "py5.run_sketch(function_dict=locals())"))
 
+    global _py5sketch
+    if not _py5sketch.is_ready:
+        _py5sketch = Sketch()
+
     _py5sketch._run_sketch(methods, block, py5_options, sketch_args)
 
 
