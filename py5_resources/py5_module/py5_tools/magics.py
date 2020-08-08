@@ -12,7 +12,6 @@ import PIL
 from .run import run_single_frame_sketch
 
 # TODO: all hooks must exit when sketch exits
-# TODO: clean up names, start delay and delay is confusing
 
 
 class BaseHook:
@@ -189,11 +188,11 @@ class Py5Magics(Magics):
 
     @line_magic
     @magic_arguments()
-    @argument('-d', type=int, dest='delay', default=0, help='delay in seconds')
+    @argument('-w', type=int, dest='wait', default=0, help='wait time in seconds before taking screenshot')
     def py5screenshot(self, line):
         """Take a screenshot of the current running sketch.
 
-        Use the -d argument to wait before taking the screenshot.
+        Use the -w argument to wait before taking the screenshot.
 
         The returned image is a `PIL.Image` object. It can be assigned to a
         variable or embedded in the notebook.
@@ -204,7 +203,7 @@ class Py5Magics(Magics):
         output.
 
         ```
-            img = %py5screenshot -d 2
+            img = %py5screenshot -w 2
             img.save('image.png')
             img
         ```
@@ -217,7 +216,7 @@ class Py5Magics(Magics):
             print('The current sketch is not running.')
             return
 
-        time.sleep(args.delay)
+        time.sleep(args.wait)
 
         with tempfile.NamedTemporaryFile(suffix='.png') as png_file:
             hook = ScreenshotHook(png_file.name)
@@ -235,8 +234,8 @@ class Py5Magics(Magics):
     @argument('dirname', type=str, help='directory to save the frames')
     @argument('--filename', type=str, dest='filename', default='frame_####.png',
               help='filename to save frames to')
-    @argument('-d', type=int, dest='start_delay', default=0,
-              help='recording start delay in seconds')
+    @argument('-w', type=int, dest='wait', default=0,
+              help='wait time in seconds before starting sketch frame capture')
     @argument('-s', dest='start', type=int,
               help='frame starting number instead of sketch frame_count')
     @argument('--limit', type=int, dest='limit', default=0,
@@ -244,14 +243,14 @@ class Py5Magics(Magics):
     def py5screencapture(self, line):
         """Save the current running sketch's frames to a directory.
 
-        Use the -d argument to wait before starting.
+        Use the -w argument to wait before starting.
 
         The below example will save the next 50 frames to the `/tmp/frames`
         directory after a 3 second delay. The filenames will be saved with the
         default name 'frame_####.png' with numbering that starts at 0.
 
         ```
-            %py5screencapture /tmp/frames -d 3 -s 0 --limit 50
+            %py5screencapture /tmp/frames -w 3 -s 0 --limit 50
         ```
 
         If a limit is given, this line magic will wait to return a list of the
@@ -271,7 +270,7 @@ class Py5Magics(Magics):
             dirname.mkdir(parents=True)
         print(f'writing frames to {str(args.dirname)}...')
 
-        time.sleep(args.start_delay)
+        time.sleep(args.wait)
 
         hook = SaveFramesHook(dirname, args.filename, args.start, args.limit)
         sketch._add_post_hook('draw', hook.hook_name, hook)
@@ -293,23 +292,23 @@ class Py5Magics(Magics):
     @argument('count', type=int, help='number of Sketch snapshots to create')
     @argument('delay', type=int, help='time in milliseconds between Sketch snapshots')
     @argument('duration', type=int, help='time in milliseconds between frames in the GIF')
-    @argument('-d', type=int, dest='start_delay', default=0,
-              help='recording start delay in seconds')
+    @argument('-w', type=int, dest='wait', default=0,
+              help='wait time in seconds before starting sketch frame capture')
     @argument('-l', dest='loop', type=int, default=0,
               help='number of times for the GIF to loop (default of 0 loops indefinitely')
     @argument('--optimize', action='store_true', help='optimize GIF palette')
     def py5animatedgif(self, line):
         """Save the current running sketch's frames to a directory.
 
-        Use the -d argument to wait before starting.
+        Use the -w argument to wait before starting.
 
         The below example will create a 10 frame animated GIF saved to
         '/tmp/animated.gif'. The frames will be recorded 1000 milliseconds
-        apart after a 3 second delay. The animated GIF will display the frames
+        apart after waiting 3 seconds. The animated GIF will display the frames
         with a 500 millisecond delay between each one and will loop indefinitely.
 
         ```
-            %py5screencapture /tmp/animated.gif 10 1000 500 -d 3
+            %py5screencapture /tmp/animated.gif 10 1000 500 -w 3
         ```
         """
         args = parse_argstring(self.py5animatedgif, line)
@@ -321,7 +320,7 @@ class Py5Magics(Magics):
             return
 
         filename = Path(args.filename)
-        time.sleep(args.start_delay)
+        time.sleep(args.wait)
 
         hook = GrabFramesHook(args.delay, args.count)
         sketch._add_post_hook('draw', hook.hook_name, hook)
