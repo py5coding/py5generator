@@ -45,6 +45,8 @@ def handle_exception(exc_type, exc_value, exc_tb):
 
     # TODO: can I have this go to a logger instead? Need errors to be visible
     # when this is run from a Jupyter notebook
+    # I can use stackprinter.format intead and print it myself, or send it to
+    # the python debugger.
     stackprinter.show(thing=(exc_type, exc_value, exc_tb.tb_next),
                       show_vals='line',
                       style=_stackprinter_style,

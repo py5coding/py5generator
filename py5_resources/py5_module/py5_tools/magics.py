@@ -11,6 +11,9 @@ import PIL
 
 from .run import run_single_frame_sketch
 
+# TODO: all hooks must exit when sketch exits
+# TODO: clean up names, start delay and delay is confusing
+
 
 class BaseHook:
 
