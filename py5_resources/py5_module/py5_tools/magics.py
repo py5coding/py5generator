@@ -228,9 +228,8 @@ class Py5Magics(Magics):
         if args.limit:
             while not hook.is_ready:
                 time.sleep(0.02)
-                clear_output(wait=True)
-                # TODO: show progress bar instead
-                print(f'{len(hook.filenames)}/{args.limit}')
+                print(f'saving frame {len(hook.filenames)}/{args.limit}', end='\r')
+            print('')
 
             if hook.exception:
                 print('error running py5screencapture:', hook.exception)
