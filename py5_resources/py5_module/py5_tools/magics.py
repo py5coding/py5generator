@@ -163,11 +163,7 @@ class Py5Magics(Magics):
 
         class Hook:
 
-            def __init__(self, dirname, filename, limit, start):
-                self.dirname = dirname
-                self.filename = filename
-                self.limit = limit
-                self.start = start
+            def __init__(self):
                 self.num_offset = None
                 self.filenames = []
                 self.exception = None
@@ -180,19 +176,19 @@ class Py5Magics(Magics):
             def __call__(self, sketch):
                 try:
                     if self.num_offset is None:
-                        self.num_offset = 0 if self.start is None else sketch.frame_count - self.start
+                        self.num_offset = 0 if start is None else sketch.frame_count - start
                     num = sketch.frame_count - self.num_offset
-                    filename = sketch._insert_frame(
-                        str(self.dirname / self.filename), num=num)
-                    sketch.save_frame(filename)
-                    self.filenames.append(filename)
-                    if len(self.filenames) == self.limit:
+                    frame_filename = sketch._insert_frame(
+                        str(dirname / filename), num=num)
+                    sketch.save_frame(frame_filename)
+                    self.filenames.append(frame_filename)
+                    if len(self.filenames) == limit:
                         self._end_hook(sketch)
                 except Exception as e:
                     self.exception = e
                     self._end_hook(sketch)
 
-        hook = Hook(dirname, filename, limit, start)
+        hook = Hook()
         sketch._add_post_hook('draw', 'py5magic_save_images_hook', hook)
 
         if limit:
