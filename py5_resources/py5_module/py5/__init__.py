@@ -93,7 +93,10 @@ def run_sketch(function_dict: Dict[str, Any] = None,
                "py5.run_sketch(function_dict=locals())"))
 
     global _py5sketch
-    if not _py5sketch.is_ready:
+    if _py5sketch.is_running:
+        print('Sketch is already running. To run a new sketch, exit the running sketch first.')
+        return
+    if _py5sketch.is_dead:
         _py5sketch = Sketch()
 
     _py5sketch._run_sketch(methods, block, py5_options, sketch_args)
