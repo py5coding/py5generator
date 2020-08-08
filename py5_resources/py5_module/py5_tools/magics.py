@@ -103,7 +103,8 @@ class Py5Magics(Magics):
         if png:
             if args.filename:
                 filename = self._filename_check(args.filename)
-                PIL.Image.open(io.BytesIO(png)).convert(mode='RGB').save(filename)
+                PIL.Image.open(io.BytesIO(png)).convert(
+                    mode='RGB').save(filename)
             display(Image(png))
 
     @line_magic
@@ -158,6 +159,53 @@ class Py5Magics(Magics):
 
             return img
 
+    def _save_images_to_dir(self, sketch, dirname, filename, limit, start):
+
+        class Hook:
+
+            def __init__(self, dirname, filename, limit, start):
+                self.dirname = dirname
+                self.filename = filename
+                self.limit = limit
+                self.start = start
+                self.num_offset = None
+                self.filenames = []
+                self.exception = None
+                self.is_ready = False
+
+            def _end_hook(self, sketch):
+                sketch._remove_post_hook('draw', 'py5magic_save_images_hook')
+                self.is_ready = True
+
+            def __call__(self, sketch):
+                try:
+                    if self.num_offset is None:
+                        self.num_offset = 0 if self.start is None else sketch.frame_count - self.start
+                    num = sketch.frame_count - self.num_offset
+                    filename = sketch._insert_frame(
+                        str(self.dirname / self.filename), num=num)
+                    sketch.save_frame(filename)
+                    self.filenames.append(filename)
+                    if len(self.filenames) == self.limit:
+                        self._end_hook(sketch)
+                except Exception as e:
+                    self.exception = e
+                    self._end_hook(sketch)
+
+        hook = Hook(dirname, filename, limit, start)
+        sketch._add_post_hook('draw', 'py5magic_save_images_hook', hook)
+
+        if limit:
+            while not hook.is_ready:
+                time.sleep(0.02)
+                print(f'saving frame {len(hook.filenames)}/{limit}', end='\r')
+            print('')
+
+            if hook.exception:
+                print('error running magic:', hook.exception)
+            else:
+                return hook.filenames
+
     @line_magic
     @magic_arguments()
     @argument('dirname', type=str, help='directory to save the frames')
@@ -185,56 +233,15 @@ class Py5Magics(Magics):
             print('The current sketch is not running.')
             return
 
-        class Hook:
-
-            def __init__(self, dirname, filename, limit, start):
-                self.dirname = dirname
-                self.filename = filename
-                self.limit = limit
-                self.start = start
-                self.num_offset = None
-                self.filenames = []
-                self.exception = None
-                self.is_ready = False
-                print(f'writing frames to {str(dirname)}...')
-
-            def _end_hook(self, sketch):
-                sketch._remove_post_hook('draw', 'py5screencapture_hook')
-                self.is_ready = True
-
-            def __call__(self, sketch):
-                try:
-                    if self.num_offset is None:
-                        self.num_offset = 0 if self.start is None else sketch.frame_count - self.start
-                    num = sketch.frame_count - self.num_offset
-                    filename = sketch._insert_frame(str(self.dirname / self.filename), num=num)
-                    sketch.save_frame(filename)
-                    self.filenames.append(filename)
-                    if len(self.filenames) == self.limit:
-                        self._end_hook(sketch)
-                except Exception as e:
-                    self.exception = e
-                    self._end_hook(sketch)
-
-        time.sleep(args.delay)
-
         dirname = Path(args.dirname)
         if not dirname.exists():
             dirname.mkdir(parents=True)
+        print(f'writing frames to {str(args.dirname)}...')
 
-        hook = Hook(dirname, args.filename, args.limit, args.start)
-        sketch._add_post_hook('draw', 'py5screencapture_hook', hook)
+        time.sleep(args.delay)
 
-        if args.limit:
-            while not hook.is_ready:
-                time.sleep(0.02)
-                print(f'saving frame {len(hook.filenames)}/{args.limit}', end='\r')
-            print('')
-
-            if hook.exception:
-                print('error running py5screencapture:', hook.exception)
-            else:
-                return hook.filenames
+        return self._save_images_to_dir(sketch, dirname, args.filename,
+                                        args.limit, args.start)
 
 
 def load_ipython_extension(ipython):
