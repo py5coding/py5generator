@@ -12,7 +12,80 @@ import PIL
 from .run import run_single_frame_sketch
 
 
-_unspecified = object()
+class BaseHook:
+
+    def __init__(self, hook_name):
+        self.hook_name = hook_name
+        self.is_ready = False
+        self.exception = None
+
+    def _end_hook(self, sketch):
+        sketch._remove_post_hook('draw', self.hook_name)
+        self.is_ready = True
+
+    def _sketch_terminated(self):
+        raise RuntimeError('Sketch has exited')
+
+
+class ScreenshotHook(BaseHook):
+
+    def __init__(self, filename):
+        super().__init__('py5screenshot_hook')
+        self.filename = filename
+
+    def __call__(self, sketch):
+        sketch.save_frame(self.filename)
+        self._end_hook(sketch)
+
+
+class SaveFramesHook(BaseHook):
+
+    def __init__(self, dirname, filename, start, limit):
+        super().__init__('py5save_frames_hook')
+        self.dirname = dirname
+        self.filename = filename
+        self.start = start
+        self.limit = limit
+        self.num_offset = None
+        self.filenames = []
+
+    def __call__(self, sketch):
+        try:
+            if self.num_offset is None:
+                self.num_offset = 0 if self.start is None else sketch.frame_count - self.start
+            num = sketch.frame_count - self.num_offset
+            frame_filename = sketch._insert_frame(
+                str(self.dirname / self.filename), num=num)
+            sketch.save_frame(frame_filename)
+            self.filenames.append(frame_filename)
+            if len(self.filenames) == self.limit:
+                self._end_hook(sketch)
+        except Exception as e:
+            self.exception = e
+            self._end_hook(sketch)
+
+
+class GrabFramesHook(BaseHook):
+
+    def __init__(self, delay, count):
+        super().__init__('py5grab_frames_hook')
+        self.delay = delay
+        self.count = count
+        self.frames = []
+        self.last_frame_time = 0
+
+    def __call__(self, sketch):
+        try:
+            if time.time() - self.last_frame_time < self.delay / 1000:
+                return
+            sketch.load_np_pixels()
+            self.frames.append(sketch.np_pixels[:, :, 1:].copy())
+            self.last_frame_time = time.time()
+            if len(self.frames) == self.count:
+                self._end_hook(sketch)
+        except Exception as e:
+            self.exception = e
+            self._end_hook(sketch)
 
 
 @magics_class
@@ -141,22 +214,11 @@ class Py5Magics(Magics):
             print('The current sketch is not running.')
             return
 
-        class Hook:
-
-            def __init__(self, filename):
-                self.filename = filename
-                self.is_ready = False
-
-            def __call__(self, sketch):
-                sketch.save_frame(self.filename)
-                sketch._remove_post_hook('draw', 'py5screenshot_hook')
-                self.is_ready = True
-
         time.sleep(args.delay)
 
         with tempfile.NamedTemporaryFile(suffix='.png') as png_file:
-            hook = Hook(png_file.name)
-            sketch._add_post_hook('draw', 'py5screenshot_hook', hook)
+            hook = ScreenshotHook(png_file.name)
+            sketch._add_post_hook('draw', hook.hook_name, hook)
 
             while not hook.is_ready:
                 time.sleep(0.02)
@@ -208,35 +270,8 @@ class Py5Magics(Magics):
 
         time.sleep(args.start_delay)
 
-        class Hook:
-
-            def __init__(self):
-                self.num_offset = None
-                self.filenames = []
-                self.exception = None
-                self.is_ready = False
-
-            def _end_hook(self, sketch):
-                sketch._remove_post_hook('draw', 'py5screencapture_hook')
-                self.is_ready = True
-
-            def __call__(self, sketch):
-                try:
-                    if self.num_offset is None:
-                        self.num_offset = 0 if args.start is None else sketch.frame_count - args.start
-                    num = sketch.frame_count - self.num_offset
-                    frame_filename = sketch._insert_frame(
-                        str(dirname / args.filename), num=num)
-                    sketch.save_frame(frame_filename)
-                    self.filenames.append(frame_filename)
-                    if len(self.filenames) == args.limit:
-                        self._end_hook(sketch)
-                except Exception as e:
-                    self.exception = e
-                    self._end_hook(sketch)
-
-        hook = Hook()
-        sketch._add_post_hook('draw', 'py5screencapture_hook', hook)
+        hook = SaveFramesHook(dirname, args.filename, args.start, args.limit)
+        sketch._add_post_hook('draw', hook.hook_name, hook)
 
         if args.limit:
             while not hook.is_ready:
@@ -285,33 +320,8 @@ class Py5Magics(Magics):
         filename = Path(args.filename)
         time.sleep(args.start_delay)
 
-        class Hook:
-
-            def __init__(self):
-                self.frames = []
-                self.is_ready = False
-                self.last_frame_time = 0
-                self.exception = None
-
-            def _end_hook(self, sketch):
-                sketch._remove_post_hook('draw', 'py5animatedgif_hook')
-                self.is_ready = True
-
-            def __call__(self, sketch):
-                try:
-                    if time.time() - self.last_frame_time < args.delay / 1000:
-                        return
-                    sketch.load_np_pixels()
-                    self.frames.append(sketch.np_pixels[:, :, 1:].copy())
-                    self.last_frame_time = time.time()
-                    if len(self.frames) == args.count:
-                        self._end_hook(sketch)
-                except Exception as e:
-                    self.exception = e
-                    self._end_hook(sketch)
-
-        hook = Hook()
-        sketch._add_post_hook('draw', 'py5animatedgif_hook', hook)
+        hook = GrabFramesHook(args.delay, args.count)
+        sketch._add_post_hook('draw', hook.hook_name, hook)
 
         while not hook.is_ready:
             time.sleep(0.05)
