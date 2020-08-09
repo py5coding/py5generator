@@ -81,6 +81,7 @@ class Py5Methods:
         self._functions = dict()
         self._post_hooks = defaultdict(dict)
         self._profiler = line_profiler.LineProfiler()
+        self._is_terminated = False
 
     def set_functions(self, **kwargs):
         self._functions.update(kwargs)
@@ -94,16 +95,25 @@ class Py5Methods:
     def dump_stats(self):
         self._profiler.print_stats()
 
-    def add_post_hook(self, method_name, hook_name, function):
-        self._post_hooks[method_name][hook_name] = function
+    def add_post_hook(self, method_name, hook_name, hook):
+        if self._is_terminated:
+            hook.sketch_terminated()
+        else:
+            self._post_hooks[method_name][hook_name] = hook
 
     def add_post_hooks(self, method_hooks):
-        for method_name, hook_name, function in method_hooks:
-            self.add_post_hook(method_name, hook_name, function)
+        for method_name, hook_name, hook in method_hooks:
+            self.add_post_hook(method_name, hook_name, hook)
 
     def remove_post_hook(self, method_name, hook_name):
         if hook_name in self._post_hooks[method_name]:
             self._post_hooks[method_name].pop(hook_name)
+
+    def terminate_hooks(self):
+        for method_name, hooks in self._post_hooks.items():
+            for hook_name, hook in list(hooks.items()):
+                hook.sketch_terminated()
+                self.remove_post_hook(method_name, hook_name)
 
     @JOverride
     def get_function_list(self):
@@ -127,3 +137,8 @@ class Py5Methods:
     def shutdown(self):
         print('shutdown called')
         self._sketch._shutdown()
+        self._is_terminated = True
+        try:
+            self.terminate_hooks()
+        except Exception as e:
+            print('exception while terminating hooks', e)

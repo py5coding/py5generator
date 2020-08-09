@@ -11,7 +11,11 @@ import PIL
 
 from .run import run_single_frame_sketch
 
-# TODO: all hooks must exit when sketch exits
+
+def wait(wait_time, sketch):
+    end_time = time.time() + wait_time
+    while time.time() < end_time and sketch.is_running:
+        time.sleep(0.2)
 
 
 class BaseHook:
@@ -20,13 +24,19 @@ class BaseHook:
         self.hook_name = hook_name
         self.is_ready = False
         self.exception = None
+        self.is_terminated = False
 
-    def _end_hook(self, sketch):
+    def hook_finished(self, sketch):
         sketch._remove_post_hook('draw', self.hook_name)
         self.is_ready = True
 
-    def _sketch_terminated(self):
-        raise RuntimeError('Sketch has exited')
+    def hook_error(self, sketch, e):
+        self.exception = e
+        sketch._remove_post_hook('draw', self.hook_name)
+        self.is_terminated = True
+
+    def sketch_terminated(self):
+        self.is_terminated = True
 
 
 class ScreenshotHook(BaseHook):
@@ -36,8 +46,11 @@ class ScreenshotHook(BaseHook):
         self.filename = filename
 
     def __call__(self, sketch):
-        sketch.save_frame(self.filename)
-        self._end_hook(sketch)
+        try:
+            sketch.save_frame(self.filename)
+            self.hook_finished(sketch)
+        except Exception as e:
+            self.hook_error(sketch, e)
 
 
 class SaveFramesHook(BaseHook):
@@ -61,10 +74,9 @@ class SaveFramesHook(BaseHook):
             sketch.save_frame(frame_filename)
             self.filenames.append(frame_filename)
             if len(self.filenames) == self.limit:
-                self._end_hook(sketch)
+                self.hook_finished(sketch)
         except Exception as e:
-            self.exception = e
-            self._end_hook(sketch)
+            self.hook_error(sketch, e)
 
 
 class GrabFramesHook(BaseHook):
@@ -84,10 +96,10 @@ class GrabFramesHook(BaseHook):
             self.frames.append(sketch.np_pixels[:, :, 1:].copy())
             self.last_frame_time = time.time()
             if len(self.frames) == self.count:
-                self._end_hook(sketch)
+                self.hook_finished(sketch)
         except Exception as e:
-            self.exception = e
-            self._end_hook(sketch)
+            self.hook_error(sketch, e)
+
 
 
 @magics_class
@@ -216,18 +228,19 @@ class Py5Magics(Magics):
             print('The current sketch is not running.')
             return
 
-        time.sleep(args.wait)
+        wait(args.wait, sketch)
 
         with tempfile.NamedTemporaryFile(suffix='.png') as png_file:
             hook = ScreenshotHook(png_file.name)
             sketch._add_post_hook('draw', hook.hook_name, hook)
 
-            while not hook.is_ready:
-                time.sleep(0.02)
+            while not hook.is_ready and not hook.is_terminated:
+                time.sleep(0.005)
 
-            img = PIL.Image.open(png_file.name)
-
-            return img
+            if hook.is_ready:
+                return PIL.Image.open(png_file.name)
+            elif hook.is_terminated and hook.exception:
+                print('error running magic:', hook.exception)
 
     @line_magic
     @magic_arguments()
@@ -255,7 +268,8 @@ class Py5Magics(Magics):
 
         If a limit is given, this line magic will wait to return a list of the
         filenames. Otherwise, it will return right away as the frames are saved
-        in the background.
+        in the background. It will keep doing so as long as the sketch continues
+        to run.
         """
         args = parse_argstring(self.py5screencapture, line)
         import py5
@@ -270,21 +284,22 @@ class Py5Magics(Magics):
             dirname.mkdir(parents=True)
         print(f'writing frames to {str(args.dirname)}...')
 
-        time.sleep(args.wait)
+        wait(args.wait, sketch)
 
         hook = SaveFramesHook(dirname, args.filename, args.start, args.limit)
         sketch._add_post_hook('draw', hook.hook_name, hook)
 
         if args.limit:
-            while not hook.is_ready:
+            while not hook.is_ready and not hook.is_terminated:
                 time.sleep(0.02)
                 print(f'saving frame {len(hook.filenames)}/{args.limit}', end='\r')
             print('')
 
-            if hook.exception:
-                print('error running magic:', hook.exception)
-            else:
+            if hook.is_ready:
                 return hook.filenames
+
+        if hook.is_terminated and hook.exception:
+            print('error running magic:', hook.exception)
 
     @line_magic
     @magic_arguments()
@@ -320,19 +335,18 @@ class Py5Magics(Magics):
             return
 
         filename = Path(args.filename)
-        time.sleep(args.wait)
+
+        wait(args.wait, sketch)
 
         hook = GrabFramesHook(args.delay, args.count)
         sketch._add_post_hook('draw', hook.hook_name, hook)
 
-        while not hook.is_ready:
+        while not hook.is_ready and not hook.is_terminated:
             time.sleep(0.05)
             print(f'collecting frame {len(hook.frames)}/{args.count}', end='\r')
         print('')
 
-        if hook.exception:
-            print('error running magic:', hook.exception)
-        else:
+        if hook.is_ready:
             if not filename.parent.exists():
                 filename.parent.mkdir(parents=True)
 
@@ -342,6 +356,9 @@ class Py5Magics(Magics):
                       loop=args.loop, optimize=args.optimize, append_images=imgs)
 
             return str(filename)
+
+        elif hook.is_terminated and hook.exception:
+            print('error running magic:', hook.exception)
 
 
 def load_ipython_extension(ipython):
