@@ -1,9 +1,4 @@
-import py5_tools
-
-
-if not py5_tools.py5_started:
-    py5_tools.add_options('-Xrs', '-Xmx4096m')
-import py5  # noqa
+import py5
 
 
 pixels = []
@@ -50,4 +45,4 @@ def cause_error(junk):
     #     x = y + 10
 
 
-py5.run_sketch(block=True)
+py5.run_sketch()
