@@ -2,6 +2,7 @@
 # *** FORMAT PARAMS ***
 import time
 import os
+import logging
 from pathlib import Path
 import tempfile
 from typing import overload, Any, Callable, Union, Dict, List  # noqa
@@ -38,9 +39,12 @@ _METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',
 _Py5Applet = jpype.JClass('py5.core.Py5Applet')
 
 try:
-    get_ipython().__class__.__name__  # noqa
+    _ipython_shell = get_ipython()
+    logger = _ipython_shell.log
     _in_ipython_session = True
 except NameError:
+    _ipython_shell = None
+    logger = logging.getLogger(__name__)
     _in_ipython_session = False
 
 
@@ -114,9 +118,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
         try:
             _Py5Applet.runSketch(args, self._py5applet)
-        except Exception as e:
-            # TODO: I need to send this to a logger instead of printing
-            print('exception thrown by Py5Applet.runSketch:', e)
+        except Exception:
+            logger.exception('exception thrown by Py5Applet.runSketch')
 
         if block:
             # wait for the sketch to finish

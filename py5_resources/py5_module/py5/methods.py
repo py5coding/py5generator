@@ -1,4 +1,5 @@
 import sys
+import logging
 from pathlib import Path
 from collections import defaultdict
 import line_profiler
@@ -6,6 +7,13 @@ import line_profiler
 import stackprinter
 
 from jpype import JImplements, JException, JOverride, JString
+
+try:
+    _ipython_shell = get_ipython()
+    logger = _ipython_shell.log
+except NameError:
+    _ipython_shell = None
+    logger = logging.getLogger(__name__)
 
 
 # *** stacktrace configuration ***
@@ -43,16 +51,14 @@ def handle_exception(exc_type, exc_value, exc_tb):
             prev_exc = next_exc
             next_exc = next_exc.__context__
 
-    # TODO: can I have this go to a logger instead? Need errors to be visible
-    # when this is run from a Jupyter notebook
-    # I can use stackprinter.format intead and print it myself, or send it to
-    # the python debugger.
-    stackprinter.show(thing=(exc_type, exc_value, exc_tb.tb_next),
-                      show_vals='line',
-                      style=_stackprinter_style,
-                      suppressed_paths=[r"lib/python.*?/site-packages/numpy/",
-                                        r"lib/python.*?/site-packages/py5/",
-                                        r"lib/python.*?/site-packages/jnius/"])
+    errmsg = stackprinter.format(
+        thing=(exc_type, exc_value, exc_tb.tb_next),
+        show_vals='line',
+        style=_stackprinter_style,
+        suppressed_paths=[r"lib/python.*?/site-packages/numpy/",
+                          r"lib/python.*?/site-packages/py5/",
+                          r"lib/python.*?/site-packages/jnius/"])
+    logger.critical(errmsg)
 
     sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
 
@@ -135,10 +141,10 @@ class Py5Methods:
 
     @JOverride
     def shutdown(self):
-        print('shutdown called')
-        self._sketch._shutdown()
-        self._is_terminated = True
+        logger.critical('shutdown initiated')
         try:
+            self._sketch._shutdown()
+            self._is_terminated = True
             self.terminate_hooks()
-        except Exception as e:
-            print('exception while terminating hooks', e)
+        except Exception:
+            logger.exception('exception in sketch shutdown sequence')
