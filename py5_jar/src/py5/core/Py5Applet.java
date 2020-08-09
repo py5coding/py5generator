@@ -28,17 +28,21 @@ public class Py5Applet extends PApplet {
 
   @Override
   public void settings() {
-    boolean success = py5Methods.run_method("settings");
-    if (!success) {
-      throw new RuntimeException("py5 method failure in settings");
+    if (py5RegisteredEvents.contains("settings")) {
+      boolean success = py5Methods.run_method("settings");
+      if (!success) {
+        throw new RuntimeException("py5 method failure in settings");
+      }
     }
   }
 
   @Override
   public void setup() {
-    boolean success = py5Methods.run_method("setup");
-    if (!success) {
-      throw new RuntimeException("py5 method failure in setup");
+    if (py5RegisteredEvents.contains("setup")) {
+      boolean success = py5Methods.run_method("setup");
+      if (!success) {
+        throw new RuntimeException("py5 method failure in setup");
+      }
     }
   }
 
