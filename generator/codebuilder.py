@@ -149,8 +149,9 @@ class CodeBuilder:
                 module_arguments += f', {kw_param}={kw_param}'
 
             # create the class and module code
+            signature_options = [', '.join([s for s in paramstrs[1:] if s != '/'])]
             self.class_members.append(templ.CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
-                py5_name, ', '.join(paramstrs), classobj, fname, decorator, rettypestr, class_arguments))
+                py5_name, ', '.join(paramstrs), classobj, fname, decorator, rettypestr, class_arguments, signature_options))
             if self._code_module:
                 self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
                     py5_name, ', '.join(paramstrs[1:]), moduleobj, rettypestr, module_arguments))
@@ -158,6 +159,7 @@ class CodeBuilder:
             # loop through the method signatures and create the typehint methods
             skipped_all = True
             created_sigs = set()
+            signature_options = []
             for sigstr, sigdata in sorted(method_data.items()):
                 params = sigstr.split(',')
                 rettype = sigdata['rettype']
@@ -180,6 +182,7 @@ class CodeBuilder:
                 if (joined_paramstrs, rettypestr) in created_sigs:
                     continue
                 # create the class and module typehints
+                signature_options.append(', '.join([s for s in paramstrs[1:] if s != '/']))
                 self.class_members.append(templ.CLASS_METHOD_TYPEHINT_TEMPLATE.format(py5_name, joined_paramstrs, rettypestr))
                 if self._code_module:
                     self.module_members.append(templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(py5_name, ', '.join(paramstrs[1:]), rettypestr))
@@ -194,7 +197,7 @@ class CodeBuilder:
                 kw_param = kwargs.split(':')[0]
                 module_arguments += f', {kw_param}={kw_param}'
 
-            self.class_members.append(templ.CLASS_METHOD_TEMPLATE.format(py5_name, first_param, classobj, fname, decorator, arguments))
+            self.class_members.append(templ.CLASS_METHOD_TEMPLATE.format(py5_name, first_param, classobj, fname, decorator, arguments, signature_options))
             if self._code_module:
                 self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE.format(py5_name, moduleobj, arguments, module_arguments))
         self.method_names.add(py5_name)

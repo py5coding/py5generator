@@ -53,7 +53,7 @@ CLASS_METHOD_TEMPLATE = """
         try:
             return {2}.{3}(*args)
         except Exception as e:
-            raise Py5Exception(e.__class__.__name__, str(e), '{0}', args)
+            raise Py5Exception(e, '{0}', args, {6})
 """
 
 CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS = """
@@ -63,7 +63,7 @@ CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS = """
         try:
             return {2}.{3}({6})
         except Exception as e:
-            raise Py5Exception(e.__class__.__name__, str(e), '{0}', [{6}])
+            raise Py5Exception(e, '{0}', [{6}], {7})
 """
 
 ###############################################################################

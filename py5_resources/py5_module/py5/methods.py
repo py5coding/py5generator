@@ -4,9 +4,12 @@ from pathlib import Path
 from collections import defaultdict
 import line_profiler
 
+from jpype import JImplements, JException, JOverride, JString, JClass
+
 import stackprinter
 
-from jpype import JImplements, JException, JOverride, JString
+
+_JavaNullPointerException = JClass('java.lang.NullPointerException')
 
 logger = logging.getLogger(__name__)
 
@@ -51,8 +54,7 @@ def handle_exception(exc_type, exc_value, exc_tb):
         show_vals='line',
         style=_stackprinter_style,
         suppressed_paths=[r"lib/python.*?/site-packages/numpy/",
-                          r"lib/python.*?/site-packages/py5/",
-                          r"lib/python.*?/site-packages/jnius/"])
+                          r"lib/python.*?/site-packages/py5/"])
     logger.critical(errmsg)
 
     sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
@@ -60,15 +62,26 @@ def handle_exception(exc_type, exc_value, exc_tb):
 
 class Py5Exception(Exception):
 
-    def __init__(self, exception_classname, msg, method, args):
+    def __init__(self, exception, method, args, signature_options):
         super().__init__()
-        self.exception_classname = exception_classname
-        self.msg = msg
+        self.e = exception
         self.method = method
         self.args = args
+        self.signature_options = signature_options
 
     def __str__(self):
-        return self.exception_classname + ' thrown while calling ' + self.method + ': ' + self.msg
+        if isinstance(self.e, _JavaNullPointerException):
+            return 'Java NullPointerException thrown. Is this a running sketch?'
+        elif isinstance(self.e, TypeError):
+            msg = "\nTypeError: The variables your code passed don't match what this method can handle."
+            arg_types = ', '.join([x.__class__.__name__ for x in self.args])
+            msg += f"\nThe method received these types: {arg_types}"
+            msg += "\nThese are the options it can handle:"
+            for sig in self.signature_options:
+                msg += f"\n    {sig}" if sig else "\n    (no parameters)"
+            return msg
+        else:
+            return self.e.__class__.__name__ + ' thrown while calling ' + self.method + ': ' + str(self.e)
 
     def __repr__(self):
         return str(self)
