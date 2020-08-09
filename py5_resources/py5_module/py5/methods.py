@@ -132,8 +132,6 @@ class Py5Methods:
         except Exception:
             handle_exception(*sys.exc_info())
             self._sketch._terminate_sketch()
-            # TODO: why return True? I need to do so for it to stop if there is an error in settings or setup
-            # need to change that so I don't throw an exception, I can get an ugly Java exception
             return False
 
     @JOverride
@@ -143,5 +141,6 @@ class Py5Methods:
             self._sketch._shutdown()
             self._is_terminated = True
             self.terminate_hooks()
+            logger.critical('shutdown complete')
         except Exception:
             logger.exception('exception in sketch shutdown sequence')

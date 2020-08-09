@@ -14,6 +14,7 @@ public class Py5Applet extends PApplet {
 
   protected Py5Methods py5Methods;
   protected Set<String> py5RegisteredEvents;
+  protected boolean success = false;
 
   public static final char CODED = PApplet.CODED;
 
@@ -24,35 +25,27 @@ public class Py5Applet extends PApplet {
     this.py5RegisteredEvents = new HashSet<String>();
     for (String f : py5Methods.get_function_list())
       this.py5RegisteredEvents.add(f);
+    this.success = true;
   }
 
   @Override
   public void settings() {
-    if (py5RegisteredEvents.contains("settings")) {
-      boolean success = py5Methods.run_method("settings");
-      if (!success) {
-        throw new RuntimeException("py5 method failure in settings");
-      }
+    if (success && py5RegisteredEvents.contains("settings")) {
+      success = py5Methods.run_method("settings");
     }
   }
 
   @Override
   public void setup() {
-    if (py5RegisteredEvents.contains("setup")) {
-      boolean success = py5Methods.run_method("setup");
-      if (!success) {
-        throw new RuntimeException("py5 method failure in setup");
-      }
+    if (success && py5RegisteredEvents.contains("setup")) {
+      success = py5Methods.run_method("setup");
     }
   }
 
   @Override
   public void draw() {
-    if (py5RegisteredEvents.contains("draw")) {
-      boolean success = py5Methods.run_method("draw");
-      if (!success) {
-        throw new RuntimeException("py5 method failure in draw");
-      }
+    if (success && py5RegisteredEvents.contains("draw")) {
+      success = py5Methods.run_method("draw");
     } else {
       noLoop();
     }
@@ -60,116 +53,84 @@ public class Py5Applet extends PApplet {
 
   @Override
   public void mousePressed() {
-    if (py5RegisteredEvents.contains("mouse_pressed")) {
-      boolean success = py5Methods.run_method("mouse_pressed");
-      if (!success) {
-        throw new RuntimeException("py5 method failure in mouse_pressed");
-      }
+    if (success && py5RegisteredEvents.contains("mouse_pressed")) {
+      success = py5Methods.run_method("mouse_pressed");
     }
   }
 
   @Override
   public void mouseReleased() {
-    if (py5RegisteredEvents.contains("mouse_released")) {
-      boolean success = py5Methods.run_method("mouse_released");
-      if (!success) {
-        throw new RuntimeException("py5 method failure in mouse_released");
-      }
+    if (success && py5RegisteredEvents.contains("mouse_released")) {
+      success = py5Methods.run_method("mouse_released");
     }
   }
 
   @Override
   public void mouseClicked() {
-    if (py5RegisteredEvents.contains("mouse_clicked")) {
-      boolean success = py5Methods.run_method("mouse_clicked");
-      if (!success) {
-        throw new RuntimeException("py5 method failure in mouse_clicked");
-      }
+    if (success && py5RegisteredEvents.contains("mouse_clicked")) {
+      success = py5Methods.run_method("mouse_clicked");
     }
   }
 
   @Override
   public void mouseDragged() {
-    if (py5RegisteredEvents.contains("mouse_dragged")) {
-      boolean success = py5Methods.run_method("mouse_dragged");
-      if (!success) {
-        throw new RuntimeException("py5 method failure in mouse_dragged");
-      }
+    if (success && py5RegisteredEvents.contains("mouse_dragged")) {
+      success = py5Methods.run_method("mouse_dragged");
     }
   }
 
   @Override
   public void mouseMoved() {
-    if (py5RegisteredEvents.contains("mouse_moved")) {
-      boolean success = py5Methods.run_method("mouse_moved");
-      if (!success) {
-        throw new RuntimeException("py5 method failure in mouse_moved");
-      }
+    if (success && py5RegisteredEvents.contains("mouse_moved")) {
+      success = py5Methods.run_method("mouse_moved");
     }
   }
 
   @Override
   public void mouseEntered() {
-    if (py5RegisteredEvents.contains("mouse_entered")) {
-      boolean success = py5Methods.run_method("mouse_entered");
-      if (!success) {
-        throw new RuntimeException("py5 method failure in mouse_entered");
-      }
+    if (success && py5RegisteredEvents.contains("mouse_entered")) {
+      success = py5Methods.run_method("mouse_entered");
     }
   }
 
   @Override
   public void mouseExited() {
-    if (py5RegisteredEvents.contains("mouse_exited")) {
-      boolean success = py5Methods.run_method("mouse_exited");
-      if (!success) {
-        throw new RuntimeException("py5 method failure in mouse_exited");
-      }
+    if (success && py5RegisteredEvents.contains("mouse_exited")) {
+      success = py5Methods.run_method("mouse_exited");
     }
   }
 
   @Override
   public void mouseWheel(MouseEvent event) {
-    if (py5RegisteredEvents.contains("mouse_wheel")) {
-      boolean success = py5Methods.run_method("mouse_wheel", event);
-      if (!success) {
-        throw new RuntimeException("py5 method failure in mouse_wheel");
-      }
+    if (success && py5RegisteredEvents.contains("mouse_wheel")) {
+      success = py5Methods.run_method("mouse_wheel", event);
     }
   }
 
   @Override
   public void keyPressed() {
-    if (py5RegisteredEvents.contains("key_pressed")) {
-      boolean success = py5Methods.run_method("key_pressed");
-      if (!success) {
-        throw new RuntimeException("py5 method failure in key_pressed");
-      }
+    if (success && py5RegisteredEvents.contains("key_pressed")) {
+      success = py5Methods.run_method("key_pressed");
     }
   }
 
   @Override
   public void keyReleased() {
-    if (py5RegisteredEvents.contains("key_released")) {
-      boolean success = py5Methods.run_method("key_released");
-      if (!success) {
-        throw new RuntimeException("py5 method failure in key_released");
-      }
+    if (success && py5RegisteredEvents.contains("key_released")) {
+      success = py5Methods.run_method("key_released");
     }
   }
 
   @Override
   public void keyTyped() {
-    if (py5RegisteredEvents.contains("key_typed")) {
-      boolean success = py5Methods.run_method("key_typed");
-      if (!success) {
-        throw new RuntimeException("py5 method failure in key_typed");
-      }
+    if (success && py5RegisteredEvents.contains("key_typed")) {
+      success = py5Methods.run_method("key_typed");
     }
   }
 
   @Override
   public void exitActual() {
+    // call exiting even if success == false. user might need to do shutdown activities
     if (py5RegisteredEvents.contains("exiting")) {
       py5Methods.run_method("exiting");
       // if the exiting method was not successful we still need to run the below
@@ -178,9 +139,6 @@ public class Py5Applet extends PApplet {
 
     py5Methods.shutdown();
 
-    // TODO: why do I need all of this? I know `dispose()` by itself isn't good
-    // enough.
-    // it gets called by the exit() function before exitActual()
     final Object nativeWindow = surface.getNative();
     if (nativeWindow instanceof com.jogamp.newt.opengl.GLWindow) {
       com.jogamp.newt.opengl.GLWindow window = (com.jogamp.newt.opengl.GLWindow) nativeWindow;
@@ -205,8 +163,6 @@ public class Py5Applet extends PApplet {
       processing.awt.PSurfaceAWT.SmoothCanvas window = (processing.awt.PSurfaceAWT.SmoothCanvas) nativeWindow;
       window.getFrame().dispose();
     } else {
-      // TODO: remove this statement
-      System.out.println("Making window invisible but not actually destroying it.");
       surface.setVisible(false);
     }
   }

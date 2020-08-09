@@ -42,6 +42,7 @@ try:
     _in_ipython_session = True
 except NameError:
     _in_ipython_session = False
+
 logger = logging.getLogger(__name__)
 
 
