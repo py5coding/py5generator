@@ -29,7 +29,6 @@ def _py5shader_set_wrapper(f):
         args = list(args)
         if isinstance(args[0], np.ndarray):
             array = args[0]
-            print(array, array.shape)
             if array.shape in [(2,), (3,)]:
                 args[0] = _numpy_to_pvector(array)
             elif array.shape == (2, 3):
