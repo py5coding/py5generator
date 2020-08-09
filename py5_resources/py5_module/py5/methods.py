@@ -8,12 +8,7 @@ import stackprinter
 
 from jpype import JImplements, JException, JOverride, JString
 
-try:
-    _ipython_shell = get_ipython()
-    logger = _ipython_shell.log
-except NameError:
-    _ipython_shell = None
-    logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 
 # *** stacktrace configuration ***
@@ -133,10 +128,12 @@ class Py5Methods:
                 if method_name in self._post_hooks:
                     for hook in list(self._post_hooks[method_name].values()):
                         hook(self._sketch)
-                return True
+            return True
         except Exception:
             handle_exception(*sys.exc_info())
             self._sketch._terminate_sketch()
+            # TODO: why return True? I need to do so for it to stop if there is an error in settings or setup
+            # need to change that so I don't throw an exception, I can get an ugly Java exception
             return False
 
     @JOverride

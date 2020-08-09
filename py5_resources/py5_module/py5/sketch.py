@@ -39,13 +39,10 @@ _METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',
 _Py5Applet = jpype.JClass('py5.core.Py5Applet')
 
 try:
-    _ipython_shell = get_ipython()
-    logger = _ipython_shell.log
     _in_ipython_session = True
 except NameError:
-    _ipython_shell = None
-    logger = logging.getLogger(__name__)
     _in_ipython_session = False
+logger = logging.getLogger(__name__)
 
 
 class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
