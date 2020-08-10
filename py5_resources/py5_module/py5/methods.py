@@ -24,6 +24,37 @@ _module_install_dir = str(Path(__file__).parent)
 
 
 def handle_exception(exc_type, exc_value, exc_tb):
+    py5info = []
+    if _prune_tracebacks:
+        prev_tb = exc_tb
+        trim_tb = None
+        tb = exc_tb.tb_next
+        while hasattr(tb, 'tb_next') and hasattr(tb, 'tb_frame'):
+            f_code = tb.tb_frame.f_code
+            if f_code.co_filename.startswith(_module_install_dir):
+                py5info.append((f_code.co_filename[(len(_module_install_dir) + 1):], f_code.co_name))
+                if trim_tb is None:
+                    trim_tb = prev_tb
+            prev_tb = tb
+            tb = tb.tb_next
+        # TODO: maybe only do this when pruning tracebacks?
+        trim_tb.tb_next = None
+
+    errmsg = stackprinter.format(
+        thing=(exc_type, exc_value, exc_tb.tb_next),
+        show_vals='line',
+        style=_stackprinter_style,
+        suppressed_paths=[r"lib/python.*?/site-packages/numpy/",
+                          r"lib/python.*?/site-packages/py5/"])
+    # TODO: trim default message and replace with something better
+    # logger.critical(errmsg[:(-len(str(exc_value)))])
+    logger.critical(errmsg)
+    print(py5info)
+
+    sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
+
+
+def handle_exception2(exc_type, exc_value, exc_tb):
     if _prune_tracebacks:
         def _prune_traceback(exc_tb):
             # remove py5 traceback frames at the top and bottom of the stack
