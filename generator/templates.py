@@ -24,10 +24,10 @@ MODULE_PROPERTY_TEMPLATE = """
 {0}: {1} = None"""
 
 CLASS_PROPERTY_TEMPLATE = """
-    def _get_{0}(self) -> {1}:
-        \"\"\"$class_{0}\"\"\"
-        return self._instance.{2}
-    {0}: {1} = property(fget=_get_{0})
+    def _get_{1}(self) -> {2}:
+        \"\"\"$class_{0}_{1}\"\"\"
+        return self._instance.{3}
+    {1}: {2} = property(fget=_get_{1})
 """
 
 MODULE_PROPERTY_PRE_RUN_TEMPLATE = """
@@ -41,31 +41,31 @@ MODULE_PROPERTY_PRE_RUN_TEMPLATE = """
 
 CLASS_METHOD_TYPEHINT_TEMPLATE = """
     @overload
-    def {0}({1}) -> {2}:
-        \"\"\"$class_{0}\"\"\"
+    def {1}({2}) -> {3}:
+        \"\"\"$class_{0}_{1}\"\"\"
         pass
 """
 
 # TODO: remove these commented out lines
 CLASS_METHOD_TEMPLATE = """
-    {4}
-    def {0}({1}, {5}):
-        \"\"\"$class_{0}\"\"\"
+    {5}
+    def {1}({2}, {6}):
+        \"\"\"$class_{0}_{1}\"\"\"
         # try:
-        return {2}.{3}(*args)
+        return {3}.{4}(*args)
         # except Exception as e:
-        #     raise Py5Exception(e, '{0}', args, {6})
+        #     raise Py5Exception(e, '{1}', args, {7})
 """
 
 # TODO: remove these commented out lines
 CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS = """
-    {4}
-    def {0}({1}) -> {5}:
-        \"\"\"$class_{0}\"\"\"
+    {5}
+    def {1}({2}) -> {6}:
+        \"\"\"$class_{0}_{1}\"\"\"
         # try:
-        return {2}.{3}({6})
+        return {3}.{4}({7})
         # except Exception as e:
-        #     raise Py5Exception(e, '{0}', [{6}], {7})
+        #     raise Py5Exception(e, '{1}', [{7}], {8})
 """
 
 ###############################################################################
@@ -75,19 +75,19 @@ CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS = """
 
 MODULE_FUNCTION_TYPEHINT_TEMPLATE = """
 @overload
-def {0}({1}) -> {2}:
-    \"\"\"$module_{0}\"\"\"
+def {1}({2}) -> {3}:
+    \"\"\"$module_{0}_{1}\"\"\"
     pass
 """
 
 MODULE_FUNCTION_TEMPLATE = """
-def {0}({2}):
-    \"\"\"$module_{0}\"\"\"
-    return {1}.{0}({3})
+def {1}({3}):
+    \"\"\"$module_{0}_{1}\"\"\"
+    return {2}.{1}({4})
 """
 
 MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS = """
-def {0}({1}) -> {3}:
-    \"\"\"$module_{0}\"\"\"
-    return {2}.{0}({4})
+def {1}({2}) -> {4}:
+    \"\"\"$module_{0}_{1}\"\"\"
+    return {3}.{1}({5})
 """

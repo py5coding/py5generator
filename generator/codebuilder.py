@@ -59,14 +59,14 @@ def _param_annotation(varname: str, jtype: str) -> str:
 
 class CodeBuilder:
 
-    def __init__(self, clsname, class_data):
+    def __init__(self, clsname, class_name, class_data):
         self._constant_field_data, self._field_data, self._method_data = javap.get_class_information(clsname)
+        self._class_name = class_name
         self._py5_names = class_data['py5_name']
         self._py5_decorators = class_data['decorator']
         self._py5_special_kwargs = class_data['special_kwargs']
 
         self._code_module = False
-        self._class_name = None
         self._instance_name = None
 
         self._all_known_fields_and_methods = set(class_data.index)
@@ -80,9 +80,8 @@ class CodeBuilder:
         self.class_members = []
         self.module_members = []
 
-    def code_module_members(self, class_name, instance_name):
+    def code_module_members(self, instance_name):
         self._code_module = True
-        self._class_name = class_name
         self._instance_name = instance_name
 
     @property
@@ -110,7 +109,9 @@ class CodeBuilder:
         py5_name = self._py5_names[name]
         var_type = _convert_type(type_name)
 
-        self.class_members.append(templ.CLASS_PROPERTY_TEMPLATE.format(py5_name, var_type, name))
+        self.class_members.append(
+            templ.CLASS_PROPERTY_TEMPLATE.format(self._class_name, py5_name, var_type, name)
+        )
         if self._code_module:
             self.module_members.append(templ.MODULE_PROPERTY_TEMPLATE.format(py5_name, var_type))
 
@@ -150,11 +151,19 @@ class CodeBuilder:
 
             # create the class and module code
             signature_options = [', '.join([s for s in paramstrs[1:] if s != '/'])]
-            self.class_members.append(templ.CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
-                py5_name, ', '.join(paramstrs), classobj, fname, decorator, rettypestr, class_arguments, signature_options))
+            self.class_members.append(
+                templ.CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
+                    self._class_name, py5_name, ', '.join(paramstrs), classobj,
+                    fname, decorator, rettypestr, class_arguments, signature_options
+                )
+            )
             if self._code_module:
-                self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
-                    py5_name, ', '.join(paramstrs[1:]), moduleobj, rettypestr, module_arguments))
+                self.module_members.append(
+                    templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
+                        self._class_name, py5_name, ', '.join(paramstrs[1:]),
+                        moduleobj, rettypestr, module_arguments
+                    )
+                )
         else:
             # loop through the method signatures and create the typehint methods
             skipped_all = True
@@ -183,9 +192,17 @@ class CodeBuilder:
                     continue
                 # create the class and module typehints
                 signature_options.append(', '.join([s for s in paramstrs[1:] if s != '/']))
-                self.class_members.append(templ.CLASS_METHOD_TYPEHINT_TEMPLATE.format(py5_name, joined_paramstrs, rettypestr))
+                self.class_members.append(
+                    templ.CLASS_METHOD_TYPEHINT_TEMPLATE.format(
+                        self._class_name, py5_name, joined_paramstrs, rettypestr
+                    )
+                )
                 if self._code_module:
-                    self.module_members.append(templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(py5_name, ', '.join(paramstrs[1:]), rettypestr))
+                    self.module_members.append(
+                        templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(
+                            self._class_name, py5_name, ', '.join(paramstrs[1:]), rettypestr
+                        )
+                    )
                 created_sigs.add((joined_paramstrs, rettypestr))
             if skipped_all:
                 return
@@ -197,9 +214,18 @@ class CodeBuilder:
                 kw_param = kwargs.split(':')[0]
                 module_arguments += f', {kw_param}={kw_param}'
 
-            self.class_members.append(templ.CLASS_METHOD_TEMPLATE.format(py5_name, first_param, classobj, fname, decorator, arguments, signature_options))
+            self.class_members.append(
+                templ.CLASS_METHOD_TEMPLATE.format(
+                    self._class_name, py5_name, first_param, classobj, fname,
+                    decorator, arguments, signature_options
+                )
+            )
             if self._code_module:
-                self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE.format(py5_name, moduleobj, arguments, module_arguments))
+                self.module_members.append(
+                    templ.MODULE_FUNCTION_TEMPLATE.format(
+                        self._class_name, py5_name, moduleobj, arguments, module_arguments
+                    )
+                )
         self.method_names.add(py5_name)
 
     def code_extra(self, filename):
@@ -215,9 +241,13 @@ class CodeBuilder:
             if fname.startswith('_'):
                 continue
             elif decorator == '@overload':
-                self.module_members.append(templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(fname, args, rettypestr))
+                self.module_members.append(
+                    templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(self._class_name, fname, args, rettypestr)
+                )
             elif decorator == '@property':
-                self.module_members.append(templ.MODULE_PROPERTY_TEMPLATE.format(fname, rettypestr))
+                self.module_members.append(
+                    templ.MODULE_PROPERTY_TEMPLATE.format(fname, rettypestr)
+                )
                 self.dynamic_variable_names.add(fname)
             else:
                 moduleobj = self._class_name if arg0 == 'cls' else self._instance_name
@@ -230,8 +260,11 @@ class CodeBuilder:
                         paramlist.append(paramname)
 
                 params = ', '.join(paramlist)
-                self.module_members.append(templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
-                    fname, args, moduleobj, rettypestr, params))
+                self.module_members.append(
+                    templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
+                        self._class_name, fname, args, moduleobj, rettypestr, params
+                    )
+                )
                 self.extra_names.add(fname)
 
     def run_builder(self):

@@ -69,8 +69,8 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
     logger.info('creating Sketch code')
     py5applet_data = pd.read_csv(Path('py5_resources', 'data', 'py5applet.csv')).fillna('').set_index('processing_name')
 
-    py5applet_builder = CodeBuilder('py5.core.Py5Applet', py5applet_data)
-    py5applet_builder.code_module_members('Sketch', '_py5sketch')
+    py5applet_builder = CodeBuilder('py5.core.Py5Applet', 'Sketch', py5applet_data)
+    py5applet_builder.code_module_members('_py5sketch')
     py5applet_builder.run_builder()
 
     # add the methods in the mixin classes as functions in the __init__.py module
@@ -91,7 +91,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
         class_name = class_name or clsname.split('.')[-1]
         data = pd.read_csv(Path('py5_resources', 'data', f'{class_name.lower()}.csv')).fillna('').set_index('processing_name')
 
-        builder = CodeBuilder(clsname, data)
+        builder = CodeBuilder(clsname, name, data)
         builder.run_builder()
 
         return builder
