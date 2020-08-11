@@ -24,8 +24,6 @@ parser = argparse.ArgumentParser(description="Generate py5 library using process
                                  epilog="this is the epilog")
 parser.add_argument('-r', '--repo', action='store', dest='processing_repo_dir',
                     help='location of processing code (github repository)')
-parser.add_argument('-p', '--param', action='store', dest='method_parameter_names_data_file',
-                    help='location of method parameter names data file created by Py5Doclet')
 
 
 ###############################################################################
@@ -33,7 +31,7 @@ parser.add_argument('-p', '--param', action='store', dest='method_parameter_name
 ###############################################################################
 
 
-def generate_py5(repo_dir, method_parameter_names_data_file):
+def generate_py5(repo_dir):
     """Generate an installable py5 library using processing jars
     """
     repo_dir = Path(repo_dir)
@@ -165,8 +163,7 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
 
 def main():
     args = parser.parse_args()
-    generate_py5(repo_dir=args.processing_repo_dir,
-                 method_parameter_names_data_file=args.method_parameter_names_data_file)
+    generate_py5(repo_dir=args.processing_repo_dir)
 
 
 if __name__ == '__main__':
