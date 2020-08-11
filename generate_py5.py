@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from generator import CodeBuilder, DocstringLibrary, CodeCopier
+from generator import CodeBuilder, DocstringDict, CodeCopier
 from generator import reference as ref
 from generator import templates as templ
 from generator import javap
@@ -131,32 +131,31 @@ def generate_py5(repo_dir, method_parameter_names_data_file):
                          run_sketch_pre_run_code=run_sketch_pre_run_code,
                          py5_dir_str=py5_dir_str,
                          py5_all_str=py5_all_str)
-    docstring_library = DocstringLibrary()
+
     # build complete py5 module in destination directory
     dest_dir = Path('build')
     logger.info(f'building py5 in {dest_dir}')
     if dest_dir.exists():
         shutil.rmtree(dest_dir)
-    for language in ['en']:  # docstring_library.languages:
-        docstrings = docstring_library.docstring_dict(language)
-        copier = CodeCopier(format_params, docstrings)
-        if dest_dir.exists():
-            shutil.rmtree(dest_dir)
-        try:
-            shutil.copytree(Path('py5_resources', 'py5_module'), dest_dir, copy_function=copier)
-        except shutil.Error:
-            # for some reason on WSL this exception will be thrown but the files all get copied.
-            logger.error('errors thrown in shutil.copytree, continuing and hoping for the best', exc_info=True)
+    docstrings = DocstringDict(Path('py5_resources', 'docstrings', 'en.md'))
+    copier = CodeCopier(format_params, docstrings)
+    if dest_dir.exists():
+        shutil.rmtree(dest_dir)
+    try:
+        shutil.copytree(Path('py5_resources', 'py5_module'), dest_dir, copy_function=copier)
+    except shutil.Error:
+        # for some reason on WSL this exception will be thrown but the files all get copied.
+        logger.error('errors thrown in shutil.copytree, continuing and hoping for the best', exc_info=True)
 
-        def copy_jars(jar_dir, dest):
-            dest.mkdir(parents=True, exist_ok=True)
-            for jar in jar_dir.glob('*.jar'):
-                shutil.copy(jar, dest)
+    def copy_jars(jar_dir, dest):
+        dest.mkdir(parents=True, exist_ok=True)
+        for jar in jar_dir.glob('*.jar'):
+            shutil.copy(jar, dest)
 
-        copy_jars(core_jar_path.parent, dest_dir / 'py5' / 'jars')
-        copy_jars(svg_jar_path.parent, dest_dir / 'py5' / 'jars' / 'svg')
-        copy_jars(pdf_jar_path.parent, dest_dir / 'py5' / 'jars' / 'pdf')
-        shutil.copy(py5_jar_path, dest_dir / 'py5' / 'jars')
+    copy_jars(core_jar_path.parent, dest_dir / 'py5' / 'jars')
+    copy_jars(svg_jar_path.parent, dest_dir / 'py5' / 'jars' / 'svg')
+    copy_jars(pdf_jar_path.parent, dest_dir / 'py5' / 'jars' / 'pdf')
+    shutil.copy(py5_jar_path, dest_dir / 'py5' / 'jars')
 
     dest_dir.touch()
 
