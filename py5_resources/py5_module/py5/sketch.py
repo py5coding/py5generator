@@ -61,14 +61,14 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     @property
     def is_ready(self) -> bool:
-        """$class_is_ready"""
+        """$class_Sketch_is_ready|"""
         surface = self.get_surface()
         # if there is no surface yet, the sketch can be run.
         return surface._instance is None
 
     @property
     def is_running(self) -> bool:
-        """$class_is_running"""
+        """$class_Sketch_is_running|"""
         surface = self.get_surface()
         if surface._instance is None:
             # Sketch has not been run yet
@@ -78,7 +78,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     @property
     def is_dead(self) -> bool:
-        """$class_is_dead"""
+        """$class_Sketch_is_dead|"""
         surface = self.get_surface()
         if surface._instance is None:
             # Sketch has not been run yet
@@ -87,7 +87,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     def run_sketch(self, block: bool = not _in_ipython_session,
                    py5_options: List = None, sketch_args: List = None) -> None:
-        """$class_run_sketch"""
+        """$class_Sketch_run_sketch|"""
         if not hasattr(self, '_instance'):
             raise RuntimeError(
                 ('py5 internal problem: did you create a class with an `__init__()` '
@@ -157,29 +157,29 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
     # *** BEGIN METHODS ***
 
     def exit_sketch(self) -> None:
-        """$class_exit_sketch"""
+        """$class_Sketch_exit_sketch|"""
         # TODO: why do I need this if statement? and if I remove it, I am then basically just
         # renaming exit to exit_sketch and don't need this at all.
         if not self.get_surface().is_stopped():
             self._py5applet.exit()
 
     def hot_reload_draw(self, draw: Callable) -> None:
-        """$class_hot_reload_draw"""
+        """$class_Sketch_hot_reload_draw|"""
         self._py5_methods.set_functions(**dict(draw=draw))
 
     def profile_functions(self, function_names: List[str]) -> None:
-        """$class_profile_functions"""
+        """$class_Sketch_profile_functions|"""
         if self._py5_methods is None:
             self._methods_to_profile.extend(function_names)
         else:
             self._py5_methods.profile_functions(function_names)
 
     def profile_draw(self) -> None:
-        """$class_profile_draw"""
+        """$class_Sketch_profile_draw|"""
         self.profile_functions(['draw'])
 
     def print_line_profiler_stats(self) -> None:
-        """$class_print_line_profiler_stats"""
+        """$class_Sketch_print_line_profiler_stats|"""
         self._py5_methods.dump_stats()
 
     def _insert_frame(self, what, num=None):
@@ -200,13 +200,13 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         return what
 
     def save_frame(self, filename: Union[str, Path], format: str = None, **params) -> None:
-        """$class_save_frame"""
+        """$class_Sketch_save_frame|"""
         self.save(self._insert_frame(str(filename)), format, **params)
 
     # *** Py5Image methods ***
 
     def create_image_from_numpy(self, numpy_image: NumpyImageArray, dst: Py5Image = None) -> Py5Image:
-        """$class_create_image_from_numpy"""
+        """$class_Sketch_create_image_from_numpy|"""
         height, width = numpy_image.array.shape[:2]
 
         if dst:
@@ -221,7 +221,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         return py5_img
 
     def convert_image(self, obj: Any, dst: Py5Image = None) -> Py5Image:
-        """$class_convert_image"""
+        """$class_Sketch_convert_image|"""
         result = image_conversion._convert(obj)
         if isinstance(result, (Path, str)):
             return self.load_image(result, dst=dst)
@@ -233,7 +233,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             return self.create_image_from_numpy(result, dst=dst)
 
     def load_image(self, filename: Union[str, Path], dst: Py5Image = None) -> Py5Image:
-        """$class_load_image"""
+        """$class_Sketch_load_image|"""
         pimg = self._instance.loadImage(str(filename))
         if dst:
             if pimg.pixel_width != dst.pixel_width or pimg.pixel_height != dst.pixel_height:
@@ -244,7 +244,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             return Py5Image(pimg)
 
     def request_image(self, filename: Union[str, Path]) -> Py5Promise:
-        """$class_request_image"""
+        """$class_Sketch_request_image|"""
         return self.launch_promise_thread(self.load_image, args=(filename,))
 
 

@@ -58,7 +58,7 @@ class PixelMixin:
         self.update_np_pixels()
 
     def save(self, filename: Union[str, Path], format: str = None, **params) -> None:
-        """$class_save"""
+        """missing docstring"""
         filename = self._instance.savePath(str(filename))
         self.load_np_pixels()
         arr = np.roll(self.np_pixels, -1, axis=2)

@@ -11,7 +11,7 @@ DOC_TEMPLATE = """
 Parameters
 ----------
 
-$params_{0}_{1}
+PARAMTEXT
 
 Notes
 -----
@@ -61,6 +61,7 @@ class FunctionDocData:
     def _text_cleanup(self, text):
         for c in CODE_REGEX.findall(text):
             text = text.replace(c, snake_case(c))
+        text = re.sub(r';\s*', '\n', text)
         for pname, py5name in PY5_CLASS_LOOKUP.items():
             text = text.replace(pname, py5name)
         return text

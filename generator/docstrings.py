@@ -18,9 +18,12 @@ class DocstringDict:
 
     def __getitem__(self, item):
         try:
-            kind, name = item.split('_', 1)
+            dockey, params = item.split('|')
+            kind, name = dockey.split('_', 1)
+            # TODO: replace var description with real description from json file I make in create_docs.py
+            paramtext = '\n\n'.join([f'{p}\n    var description' for p in params.replace(':', ': ').split('+')]) if params else ''
             doc = textwrap.indent(
-                self._docstrings[name],
+                self._docstrings[name].replace('PARAMTEXT', paramtext),
                 prefix=(' ' * DocstringDict.INDENTING.get(kind, 0))).strip()
             return doc
         except KeyError:

@@ -6,7 +6,7 @@ Create a new glyph, and add the character to the current font.
 Parameters
 ----------
 
-$params_Py5Font_add_glyph
+PARAMTEXT
 
 Notes
 -----
@@ -21,7 +21,7 @@ Returns the ascent of this font from the baseline.
 Parameters
 ----------
 
-$params_Py5Font_ascent
+PARAMTEXT
 
 Notes
 -----
@@ -36,7 +36,7 @@ A more efficient array lookup for straight ASCII characters.
 Parameters
 ----------
 
-$params_Py5Font_ascii
+PARAMTEXT
 
 Notes
 -----
@@ -51,7 +51,7 @@ The default Processing character set.
 Parameters
 ----------
 
-$params_Py5Font_charset
+PARAMTEXT
 
 Notes
 -----
@@ -72,7 +72,7 @@ Default density set to 1 for backwards compatibility with loadFont().
 Parameters
 ----------
 
-$params_Py5Font_density
+PARAMTEXT
 
 Notes
 -----
@@ -87,7 +87,7 @@ Returns how far this font descends from the baseline.
 Parameters
 ----------
 
-$params_Py5Font_descent
+PARAMTEXT
 
 Notes
 -----
@@ -102,7 +102,7 @@ Starting with Java 1.5, Apple broke the ability to specify most fonts.
 Parameters
 ----------
 
-$params_Py5Font_find_font
+PARAMTEXT
 
 Notes
 -----
@@ -117,7 +117,7 @@ Attempt to find the native version of this font.
 Parameters
 ----------
 
-$params_Py5Font_find_native
+PARAMTEXT
 
 Notes
 -----
@@ -132,7 +132,7 @@ Native Java version of the font.
 Parameters
 ----------
 
-$params_Py5Font_font
+PARAMTEXT
 
 Notes
 -----
@@ -147,7 +147,7 @@ True if already tried to find the native AWT version of this font.
 Parameters
 ----------
 
-$params_Py5Font_font_searched
+PARAMTEXT
 
 Notes
 -----
@@ -162,7 +162,7 @@ Array of the native system fonts.
 Parameters
 ----------
 
-$params_Py5Font_fonts
+PARAMTEXT
 
 Notes
 -----
@@ -177,7 +177,7 @@ Returns the size that will be used when textFont(font) is called.
 Parameters
 ----------
 
-$params_Py5Font_get_default_size
+PARAMTEXT
 
 Notes
 -----
@@ -192,7 +192,7 @@ Use the getNative() method instead, which allows library interfaces to be writte
 Parameters
 ----------
 
-$params_Py5Font_get_font
+PARAMTEXT
 
 Notes
 -----
@@ -207,7 +207,7 @@ Return the native java.awt.Font associated with this Py5Font (if any).
 Parameters
 ----------
 
-$params_Py5Font_get_native
+PARAMTEXT
 
 Notes
 -----
@@ -222,7 +222,7 @@ Return size of this font.
 Parameters
 ----------
 
-$params_Py5Font_get_size
+PARAMTEXT
 
 Notes
 -----
@@ -237,7 +237,7 @@ A single character, and its visage.
 Parameters
 ----------
 
-$params_Py5Font_glyph
+PARAMTEXT
 
 Notes
 -----
@@ -252,7 +252,7 @@ Number of character glyphs in this font.
 Parameters
 ----------
 
-$params_Py5Font_glyph_count
+PARAMTEXT
 
 Notes
 -----
@@ -267,7 +267,7 @@ Actual glyph data.
 Parameters
 ----------
 
-$params_Py5Font_glyphs
+PARAMTEXT
 
 Notes
 -----
@@ -282,7 +282,7 @@ Get index for the character.
 Parameters
 ----------
 
-$params_Py5Font_index
+PARAMTEXT
 
 Notes
 -----
@@ -297,7 +297,7 @@ Adds an additional parameter that indicates the font came from a file, not a bui
 Parameters
 ----------
 
-$params_Py5Font_init
+PARAMTEXT
 
 Notes
 -----
@@ -312,7 +312,7 @@ Currently un-implemented for .vlw fonts, but honored for layout in case subclass
 Parameters
 ----------
 
-$params_Py5Font_kern
+PARAMTEXT
 
 Notes
 -----
@@ -327,7 +327,7 @@ True if this font is set to load dynamically.
 Parameters
 ----------
 
-$params_Py5Font_lazy
+PARAMTEXT
 
 Notes
 -----
@@ -342,7 +342,7 @@ Gets a list of the fonts installed on the system.
 Parameters
 ----------
 
-$params_Py5Font_list
+PARAMTEXT
 
 Notes
 -----
@@ -357,7 +357,7 @@ Make an internal list of all installed fonts.
 Parameters
 ----------
 
-$params_Py5Font_load_fonts
+PARAMTEXT
 
 Notes
 -----
@@ -372,7 +372,7 @@ Name of the font as seen by Java when it was created.
 Parameters
 ----------
 
-$params_Py5Font_name
+PARAMTEXT
 
 Notes
 -----
@@ -387,7 +387,7 @@ Postscript name of the font that this bitmap was created from.
 Parameters
 ----------
 
-$params_Py5Font_psname
+PARAMTEXT
 
 Notes
 -----
@@ -402,7 +402,7 @@ Write this Py5Font to an OutputStream.
 Parameters
 ----------
 
-$params_Py5Font_save
+PARAMTEXT
 
 Notes
 -----
@@ -421,7 +421,7 @@ Set the native complement of this font.
 Parameters
 ----------
 
-$params_Py5Font_set_native
+PARAMTEXT
 
 Notes
 -----
@@ -436,7 +436,7 @@ The original size of the font when it was first created
 Parameters
 ----------
 
-$params_Py5Font_size
+PARAMTEXT
 
 Notes
 -----
@@ -451,7 +451,7 @@ true if smoothing was enabled for this font, used for native impl
 Parameters
 ----------
 
-$params_Py5Font_smooth
+PARAMTEXT
 
 Notes
 -----
@@ -466,7 +466,7 @@ True if this font was loaded from an InputStream, rather than by name from the O
 Parameters
 ----------
 
-$params_Py5Font_stream
+PARAMTEXT
 
 Notes
 -----
@@ -481,7 +481,7 @@ True if this font should return 'null' for getFont(), so that the native font wi
 Parameters
 ----------
 
-$params_Py5Font_subsetting
+PARAMTEXT
 
 Notes
 -----
@@ -496,7 +496,7 @@ The name of the font that Java uses when a font isn't found.
 Parameters
 ----------
 
-$params_Py5Font_system_font_name
+PARAMTEXT
 
 Notes
 -----
@@ -511,7 +511,7 @@ Width of this character for a font of size 1.
 Parameters
 ----------
 
-$params_Py5Font_width
+PARAMTEXT
 
 Notes
 -----
@@ -526,7 +526,7 @@ Extracts the alpha value from a color.
 Parameters
 ----------
 
-$params_Py5Graphics_alpha
+PARAMTEXT
 
 Notes
 -----
@@ -557,7 +557,7 @@ Sets the ambient reflectance for shapes drawn to the screen.
 Parameters
 ----------
 
-$params_Py5Graphics_ambient
+PARAMTEXT
 
 Notes
 -----
@@ -582,7 +582,7 @@ Adds an ambient light.
 Parameters
 ----------
 
-$params_Py5Graphics_ambient_light
+PARAMTEXT
 
 Notes
 -----
@@ -609,7 +609,7 @@ Multiplies the current matrix by the one specified through the parameters.
 Parameters
 ----------
 
-$params_Py5Graphics_apply_matrix
+PARAMTEXT
 
 Notes
 -----
@@ -636,7 +636,7 @@ Draws an arc in the display window.
 Parameters
 ----------
 
-$params_Py5Graphics_arc
+PARAMTEXT
 
 Notes
 -----
@@ -663,7 +663,7 @@ Start and stop are in radians, converted by the parent function.
 Parameters
 ----------
 
-$params_Py5Graphics_arc_impl
+PARAMTEXT
 
 Notes
 -----
@@ -678,7 +678,7 @@ If there is running async save task for this file, blocks until it completes.
 Parameters
 ----------
 
-$params_Py5Graphics_await_async_save_completion
+PARAMTEXT
 
 Notes
 -----
@@ -693,7 +693,7 @@ The , `,background(),` , function sets the color used for the background of the 
 Parameters
 ----------
 
-$params_Py5Graphics_background
+PARAMTEXT
 
 Notes
 -----
@@ -735,7 +735,7 @@ Last background color that was set, zero if an image
 Parameters
 ----------
 
-$params_Py5Graphics_background_color
+PARAMTEXT
 
 Notes
 -----
@@ -750,7 +750,7 @@ Actual implementation of clearing the background, now that the internal variable
 Parameters
 ----------
 
-$params_Py5Graphics_background_impl
+PARAMTEXT
 
 Notes
 -----
@@ -765,7 +765,7 @@ The , `,begin_camera(),` , and , `,end_camera(),` , functions enable advanced cu
 Parameters
 ----------
 
-$params_Py5Graphics_begin_camera
+PARAMTEXT
 
 Notes
 -----
@@ -800,7 +800,7 @@ Py5Graphics.scale(float, float, float) : Increases or decreases the size of a sh
 Parameters
 ----------
 
-$params_Py5Graphics_begin_contour
+PARAMTEXT
 
 Notes
 -----
@@ -815,7 +815,7 @@ Sets the default properties for a Py5Graphics object.
 Parameters
 ----------
 
-$params_Py5Graphics_begin_draw
+PARAMTEXT
 
 Notes
 -----
@@ -835,7 +835,7 @@ Record individual lines and triangles by echoing them to another renderer.
 Parameters
 ----------
 
-$params_Py5Graphics_begin_raw
+PARAMTEXT
 
 Notes
 -----
@@ -850,7 +850,7 @@ Using the , `,begin_shape(),` , and , `,end_shape(),` , functions allow creating
 Parameters
 ----------
 
-$params_Py5Graphics_begin_shape
+PARAMTEXT
 
 Notes
 -----
@@ -881,7 +881,7 @@ Draws a Bezier curve on the screen.
 Parameters
 ----------
 
-$params_Py5Graphics_bezier
+PARAMTEXT
 
 Notes
 -----
@@ -896,19 +896,23 @@ Draw a cubic bezier curve. The first and last points are the on-curve points. Th
 Identical to typing:
 
 ```
-begin_shape(); vertex(x1, y1); bezier_vertex(x2, y2, x3, y3, x4, y4); end_shape();
+begin_shape()
+vertex(x1, y1)
+bezier_vertex(x2, y2, x3, y3, x4, y4)
+end_shape()
 ```
 
 In Postscript-speak, this would be:
 
 ```
-moveto(x1, y1); curveto(x2, y2, x3, y3, x4, y4);
+moveto(x1, y1)
+curveto(x2, y2, x3, y3, x4, y4)
 ```
 
 If you were to try and continue that curve like so:
 
 ```
-curveto(x5, y5, x6, y6, x7, y7);
+curveto(x5, y5, x6, y6, x7, y7)
 ```
 
 This would be done in processing by adding these statements:
@@ -920,7 +924,7 @@ bezier_vertex(x5, y5, x6, y6, x7, y7)
 To draw a quadratic (instead of cubic) curve, use the control point twice by doubling it:
 
 ```
-bezier(x1, y1, cx, cy, cx, cy, x2, y2);
+bezier(x1, y1, cx, cy, cx, cy, x2, y2)
 ```
 
 
@@ -939,7 +943,7 @@ Sets the resolution at which Beziers display.
 Parameters
 ----------
 
-$params_Py5Graphics_bezier_detail
+PARAMTEXT
 
 Notes
 -----
@@ -964,7 +968,7 @@ Evaluates the Bezier at point t for points a, b, c, d.
 Parameters
 ----------
 
-$params_Py5Graphics_bezier_point
+PARAMTEXT
 
 Notes
 -----
@@ -977,7 +981,20 @@ Advanced
 For instance, to convert the following example:
 
 ```
-stroke(255, 102, 0); line(85, 20, 10, 10); line(90, 90, 15, 80); stroke(0, 0, 0); bezier(85, 20, 10, 10, 90, 90, 15, 80); // draw it in gray, using 10 steps instead of the default 20 // this is a slower way to do it, but useful if you need // to do things with the coordinates at each step stroke(128); begin_shape(line_strip); for (int i = 0; i<= 10; i++) {   float t = i / 10.0f;   float x = bezier_point(85, 10, 90, 15, t);   float y = bezier_point(20, 10, 90, 80, t);   vertex(x, y); } end_shape();
+stroke(255, 102, 0)
+line(85, 20, 10, 10)
+line(90, 90, 15, 80)
+stroke(0, 0, 0)
+bezier(85, 20, 10, 10, 90, 90, 15, 80)
+// draw it in gray, using 10 steps instead of the default 20 // this is a slower way to do it, but useful if you need // to do things with the coordinates at each step stroke(128)
+begin_shape(line_strip)
+for (int i = 0
+i<= 10
+i++) {   float t = i / 10.0f
+float x = bezier_point(85, 10, 90, 15, t)
+float y = bezier_point(20, 10, 90, 80, t)
+vertex(x, y)
+} end_shape()
 ```
 
 
@@ -998,7 +1015,7 @@ Calculates the tangent of a point on a Bezier curve.
 Parameters
 ----------
 
-$params_Py5Graphics_bezier_tangent
+PARAMTEXT
 
 Notes
 -----
@@ -1028,7 +1045,7 @@ Specifies vertex coordinates for Bezier curves.
 Parameters
 ----------
 
-$params_Py5Graphics_bezier_vertex
+PARAMTEXT
 
 Notes
 -----
@@ -1055,7 +1072,7 @@ This is a new reference entry for Processing 2.0.
 Parameters
 ----------
 
-$params_Py5Graphics_blend_mode
+PARAMTEXT
 
 Notes
 -----
@@ -1070,7 +1087,7 @@ Extracts the blue value from a color, scaled to match current , `,color_mode(),`
 Parameters
 ----------
 
-$params_Py5Graphics_blue
+PARAMTEXT
 
 Notes
 -----
@@ -1078,8 +1095,9 @@ Notes
 Extracts the blue value from a color, scaled to match current `color_mode()` . This value is always returned as a  float so be careful not to assign it to an int value.
 
 The `blue()` function is easy to use and undestand, but is slower than another technique. To achieve the same results when working in `color_mode(rgb, 255)` , but with greater speed, use a bit mask to remove the other color components. For example, the following two lines of code are equivalent:
-<pre>float r1 = blue(myColor);
-float r2 = myColor&0xFF;</pre>
+<pre>float r1 = blue(myColor)
+float r2 = myColor&0xFF
+</pre>
 
 
 See Also
@@ -1105,7 +1123,7 @@ A box is an extruded rectangle.
 Parameters
 ----------
 
-$params_Py5Graphics_box
+PARAMTEXT
 
 Notes
 -----
@@ -1126,7 +1144,7 @@ Extracts the brightness value from a color.
 Parameters
 ----------
 
-$params_Py5Graphics_brightness
+PARAMTEXT
 
 Notes
 -----
@@ -1157,7 +1175,7 @@ The last RGB value converted to HSB
 Parameters
 ----------
 
-$params_Py5Graphics_cache_hsb_key
+PARAMTEXT
 
 Notes
 -----
@@ -1172,7 +1190,7 @@ Result of the last conversion to HSB
 Parameters
 ----------
 
-$params_Py5Graphics_cache_hsb_value
+PARAMTEXT
 
 Notes
 -----
@@ -1187,7 +1205,7 @@ Storage for renderer-specific image data.
 Parameters
 ----------
 
-$params_Py5Graphics_cache_map
+PARAMTEXT
 
 Notes
 -----
@@ -1202,7 +1220,7 @@ Sets the position of the camera through setting the eye position, the center of 
 Parameters
 ----------
 
-$params_Py5Graphics_camera
+PARAMTEXT
 
 Notes
 -----
@@ -1227,7 +1245,7 @@ Draws a circle to the screen.
 Parameters
 ----------
 
-$params_Py5Graphics_circle
+PARAMTEXT
 
 Notes
 -----
@@ -1250,7 +1268,7 @@ Sketch.ellipse_mode(int) : The origin of the ellipse is modified by the , `,elli
 Parameters
 ----------
 
-$params_Py5Graphics_clear
+PARAMTEXT
 
 Notes
 -----
@@ -1265,7 +1283,7 @@ Limits the rendering to the boundaries of a rectangle defined by the parameters.
 Parameters
 ----------
 
-$params_Py5Graphics_clip
+PARAMTEXT
 
 Notes
 -----
@@ -1280,7 +1298,7 @@ Limits the rendering to the boundaries of a rectangle defined by the parameters.
 Parameters
 ----------
 
-$params_Py5Graphics_color
+PARAMTEXT
 
 Notes
 -----
@@ -1295,7 +1313,7 @@ Set the fill to either a grayscale value or an ARGB int.
 Parameters
 ----------
 
-$params_Py5Graphics_color_calc
+PARAMTEXT
 
 Notes
 -----
@@ -1307,7 +1325,13 @@ The problem with this code is that it has to detect between these two situations
 This auto-detect would break in the following situation:
 
 ```
-size(256, 256); for (int i = 0; i<256; i++) {   color c = color(0, 0, 0, i);   stroke(c);   line(i, 0, i, 256); }
+size(256, 256)
+for (int i = 0
+i<256
+i++) {   color c = color(0, 0, 0, i)
+stroke(c)
+line(i, 0, i, 256)
+}
 ```
 
 ...on the first time through the loop, where (i == 0), since the color itself is zero (black) then it would appear indistinguishable from code that reads "fill(0)". The solution is to use the four parameter versions of stroke or fill to more directly specify the desired result.
@@ -1320,7 +1344,7 @@ Unpacks AARRGGBB color for direct use with colorCalc.
 Parameters
 ----------
 
-$params_Py5Graphics_color_calc_argb
+PARAMTEXT
 
 Notes
 -----
@@ -1341,7 +1365,7 @@ Changes the way Processing interprets color data.
 Parameters
 ----------
 
-$params_Py5Graphics_color_mode
+PARAMTEXT
 
 Notes
 -----
@@ -1366,7 +1390,7 @@ Max value for alpha set by colorMode
 Parameters
 ----------
 
-$params_Py5Graphics_color_mode_a
+PARAMTEXT
 
 Notes
 -----
@@ -1381,7 +1405,7 @@ True if colorMode(RGB, 255).
 Parameters
 ----------
 
-$params_Py5Graphics_color_mode_default
+PARAMTEXT
 
 Notes
 -----
@@ -1396,7 +1420,7 @@ True if colors are not in the range 0..1
 Parameters
 ----------
 
-$params_Py5Graphics_color_mode_scale
+PARAMTEXT
 
 Notes
 -----
@@ -1411,7 +1435,7 @@ Max value for red (or hue) set by colorMode
 Parameters
 ----------
 
-$params_Py5Graphics_color_mode_x
+PARAMTEXT
 
 Notes
 -----
@@ -1426,7 +1450,7 @@ Max value for green (or saturation) set by colorMode
 Parameters
 ----------
 
-$params_Py5Graphics_color_mode_y
+PARAMTEXT
 
 Notes
 -----
@@ -1441,7 +1465,7 @@ Max value for blue (or value) set by colorMode
 Parameters
 ----------
 
-$params_Py5Graphics_color_mode_z
+PARAMTEXT
 
 Notes
 -----
@@ -1456,7 +1480,7 @@ Used by Py5Graphics to remove the requirement for loading a font.
 Parameters
 ----------
 
-$params_Py5Graphics_create_default_font
+PARAMTEXT
 
 Notes
 -----
@@ -1471,7 +1495,7 @@ Used by Py5Graphics to remove the requirement for loading a font.
 Parameters
 ----------
 
-$params_Py5Graphics_create_shape
+PARAMTEXT
 
 Notes
 -----
@@ -1494,7 +1518,7 @@ Override this method to return an appropriate shape for your renderer
 Parameters
 ----------
 
-$params_Py5Graphics_create_shape_family
+PARAMTEXT
 
 Notes
 -----
@@ -1509,7 +1533,7 @@ Override this to have a custom shape object used by your renderer.
 Parameters
 ----------
 
-$params_Py5Graphics_create_shape_primitive
+PARAMTEXT
 
 Notes
 -----
@@ -1524,7 +1548,7 @@ Draws a curved line on the screen.
 Parameters
 ----------
 
-$params_Py5Graphics_curve
+PARAMTEXT
 
 Notes
 -----
@@ -1539,7 +1563,12 @@ As of revision 0070, this function no longer doubles the first and last points. 
 Identical to typing out:
 
 ```
-begin_shape(); curve_vertex(x1, y1); curve_vertex(x2, y2); curve_vertex(x3, y3); curve_vertex(x4, y4); end_shape();
+begin_shape()
+curve_vertex(x1, y1)
+curve_vertex(x2, y2)
+curve_vertex(x3, y3)
+curve_vertex(x4, y4)
+end_shape()
 ```
 
 
@@ -1560,7 +1589,7 @@ Sets the resolution at which curves display.
 Parameters
 ----------
 
-$params_Py5Graphics_curve_detail
+PARAMTEXT
 
 Notes
 -----
@@ -1585,7 +1614,7 @@ Set the number of segments to use when drawing a Catmull-Rom curve, and setting 
 Parameters
 ----------
 
-$params_Py5Graphics_curve_init
+PARAMTEXT
 
 Notes
 -----
@@ -1602,7 +1631,7 @@ Evalutes the curve at point t for points a, b, c, d.
 Parameters
 ----------
 
-$params_Py5Graphics_curve_point
+PARAMTEXT
 
 Notes
 -----
@@ -1627,7 +1656,7 @@ Calculates the tangent of a point on a curve.
 Parameters
 ----------
 
-$params_Py5Graphics_curve_tangent
+PARAMTEXT
 
 Notes
 -----
@@ -1659,7 +1688,7 @@ Modifies the quality of forms created with , `,curve(),` , and , `,curve_vertex(
 Parameters
 ----------
 
-$params_Py5Graphics_curve_tightness
+PARAMTEXT
 
 Notes
 -----
@@ -1682,7 +1711,7 @@ Specifies vertex coordinates for curves.
 Parameters
 ----------
 
-$params_Py5Graphics_curve_vertex
+PARAMTEXT
 
 Notes
 -----
@@ -1713,7 +1742,7 @@ Perform initialization specific to curveVertex(), and handle standard error mode
 Parameters
 ----------
 
-$params_Py5Graphics_curve_vertex_check
+PARAMTEXT
 
 Notes
 -----
@@ -1728,7 +1757,7 @@ Handle emitting a specific segment of Catmull-Rom curve.
 Parameters
 ----------
 
-$params_Py5Graphics_curve_vertex_segment
+PARAMTEXT
 
 Notes
 -----
@@ -1743,7 +1772,7 @@ First try to create a default font, but if that's not possible, throw an excepti
 Parameters
 ----------
 
-$params_Py5Graphics_default_font_or_death
+PARAMTEXT
 
 Notes
 -----
@@ -1758,7 +1787,7 @@ Set engine's default values.
 Parameters
 ----------
 
-$params_Py5Graphics_default_settings
+PARAMTEXT
 
 Notes
 -----
@@ -1773,7 +1802,7 @@ Adds a directional light.
 Parameters
 ----------
 
-$params_Py5Graphics_directional_light
+PARAMTEXT
 
 Notes
 -----
@@ -1800,7 +1829,7 @@ Return true if this renderer should be drawn to the screen.
 Parameters
 ----------
 
-$params_Py5Graphics_displayable
+PARAMTEXT
 
 Notes
 -----
@@ -1817,7 +1846,7 @@ Handle any takedown for this graphics context.
 Parameters
 ----------
 
-$params_Py5Graphics_dispose
+PARAMTEXT
 
 Notes
 -----
@@ -1834,7 +1863,7 @@ Sets whether the upcoming vertex is part of an edge.
 Parameters
 ----------
 
-$params_Py5Graphics_edge
+PARAMTEXT
 
 Notes
 -----
@@ -1849,7 +1878,7 @@ Draws an ellipse (oval) in the display window.
 Parameters
 ----------
 
-$params_Py5Graphics_ellipse
+PARAMTEXT
 
 Notes
 -----
@@ -1872,7 +1901,7 @@ The origin of the ellipse is modified by the , `,ellipse_mode(),` , function.
 Parameters
 ----------
 
-$params_Py5Graphics_ellipse_mode
+PARAMTEXT
 
 Notes
 -----
@@ -1895,7 +1924,7 @@ Sets the emissive color of the material used for drawing shapes drawn to the scr
 Parameters
 ----------
 
-$params_Py5Graphics_emissive
+PARAMTEXT
 
 Notes
 -----
@@ -1920,7 +1949,7 @@ The , `,begin_camera(),` , and , `,end_camera(),` , functions enable advanced cu
 Parameters
 ----------
 
-$params_Py5Graphics_end_camera
+PARAMTEXT
 
 Notes
 -----
@@ -1943,7 +1972,7 @@ Py5Graphics.camera(float, float, float, float, float, float, float, float, float
 Parameters
 ----------
 
-$params_Py5Graphics_end_contour
+PARAMTEXT
 
 Notes
 -----
@@ -1958,7 +1987,7 @@ Finalizes the rendering of a Py5Graphics object so that it can be shown on scree
 Parameters
 ----------
 
-$params_Py5Graphics_end_draw
+PARAMTEXT
 
 Notes
 -----
@@ -1980,7 +2009,7 @@ The , `,end_shape(),` , function is the companion to , `,begin_shape(),` , and m
 Parameters
 ----------
 
-$params_Py5Graphics_end_shape
+PARAMTEXT
 
 Notes
 -----
@@ -2001,14 +2030,15 @@ true if fill() is enabled, (read-only)
 Parameters
 ----------
 
-$params_Py5Graphics_fill
+PARAMTEXT
 
 Notes
 -----
 
 Sets the color used to fill shapes. For example, if you run `fill(204, 102, 0)` , all subsequent shapes will be filled with orange. This color is either specified in terms of the RGB or HSB color depending on the current `color_mode()` (the default color space is RGB, with each value in the range from 0 to 255).
 
-When using hexadecimal notation to specify a color, use "#" or "0x" before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six digits to specify a color (the way colors are specified in HTML and CSS). When using the hexadecimal notation starting with "0x", the hexadecimal value must be specified with eight characters; the first two characters define the alpha component and the remainder the red, green, and blue components.
+When using hexadecimal notation to specify a color, use "#" or "0x" before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six digits to specify a color (the way colors are specified in HTML and CSS). When using the hexadecimal notation starting with "0x", the hexadecimal value must be specified with eight characters
+the first two characters define the alpha component and the remainder the red, green, and blue components.
 
 The value for the parameter "gray" must be less than or equal to the current maximum value as specified by `color_mode()` . The default maximum value is 255.
 
@@ -2038,7 +2068,7 @@ fill that was last set (read-only)
 Parameters
 ----------
 
-$params_Py5Graphics_fill_color
+PARAMTEXT
 
 Notes
 -----
@@ -2053,7 +2083,7 @@ fill that was last set (read-only)
 Parameters
 ----------
 
-$params_Py5Graphics_filter
+PARAMTEXT
 
 Notes
 -----
@@ -2068,7 +2098,7 @@ Sets a perspective matrix defined through the parameters.
 Parameters
 ----------
 
-$params_Py5Graphics_frustum
+PARAMTEXT
 
 Notes
 -----
@@ -2095,7 +2125,7 @@ Get cache storage data for the specified renderer.
 Parameters
 ----------
 
-$params_Py5Graphics_get_cache
+PARAMTEXT
 
 Notes
 -----
@@ -2110,7 +2140,7 @@ Copy the current transformation matrix into the specified target.
 Parameters
 ----------
 
-$params_Py5Graphics_get_matrix
+PARAMTEXT
 
 Notes
 -----
@@ -2125,7 +2155,7 @@ Extracts the green value from a color, scaled to match current , `,color_mode(),
 Parameters
 ----------
 
-$params_Py5Graphics_green
+PARAMTEXT
 
 Notes
 -----
@@ -2133,8 +2163,9 @@ Notes
 Extracts the green value from a color, scaled to match current `color_mode()` . This value is always returned as a  float so be careful not to assign it to an int value.
 
 The `green()` function is easy to use and undestand, but is slower than another technique. To achieve the same results when working in `color_mode(rgb, 255)` , but with greater speed, use the>>(right shift) operator with a bit mask. For example, the following two lines of code are equivalent:
-<pre>float r1 = green(myColor);
-float r2 = myColor>>8&0xFF;</pre>
+<pre>float r1 = green(myColor)
+float r2 = myColor>>8&0xFF
+</pre>
 
 
 See Also
@@ -2160,7 +2191,7 @@ Sets the actual size.
 Parameters
 ----------
 
-$params_Py5Graphics_handle_text_size
+PARAMTEXT
 
 Notes
 -----
@@ -2175,7 +2206,7 @@ Set various hints and hacks for the renderer.
 Parameters
 ----------
 
-$params_Py5Graphics_hint
+PARAMTEXT
 
 Notes
 -----
@@ -2196,7 +2227,8 @@ hint(DISABLE_OPENGL_ERROR_REPORT) - Speeds up the P3D renderer setting by not ch
 
 hint(ENABLE_BUFFER_READING) - Depth and stencil buffers in P2D/P3D will be downsampled to make PGL#readPixels work with multisampling. Enabling this introduces some overhead, so if you experience bad performance, disable multisampling with noSmooth() instead. This hint is not intended to be enabled and disabled repeatedely, so call this once in setup() or after creating your Py5Graphics2D/3D. You can restore the default with hint(DISABLE_BUFFER_READING) if you don't plan to read depth from this Py5Graphics anymore.
 
-hint(ENABLE_KEY_REPEAT) - Auto-repeating key events are discarded by default (works only in P2D/P3D); use this hint to get all the key events (including auto-repeated). Call hint(DISABLE_KEY_REPEAT) to get events only when the key goes physically up or down.
+hint(ENABLE_KEY_REPEAT) - Auto-repeating key events are discarded by default (works only in P2D/P3D)
+use this hint to get all the key events (including auto-repeated). Call hint(DISABLE_KEY_REPEAT) to get events only when the key goes physically up or down.
 
 hint(DISABLE_ASYNC_SAVEFRAME) - P2D/P3D only - save() and saveFrame() will not use separate threads for saving and will block until the image is written to the drive. This was the default behavior in 3.0b7 and before. To enable, call hint(ENABLE_ASYNC_SAVEFRAME).
 
@@ -2218,7 +2250,7 @@ Array of hint[] items.
 Parameters
 ----------
 
-$params_Py5Graphics_hints
+PARAMTEXT
 
 Notes
 -----
@@ -2237,7 +2269,7 @@ Extracts the hue value from a color.
 Parameters
 ----------
 
-$params_Py5Graphics_hue
+PARAMTEXT
 
 Notes
 -----
@@ -2268,7 +2300,7 @@ Java AWT Image object associated with this renderer.
 Parameters
 ----------
 
-$params_Py5Graphics_image
+PARAMTEXT
 
 Notes
 -----
@@ -2306,7 +2338,7 @@ Expects x1, y1, x2, y2 coordinates where (x2 ,>,= x1) and (y2 ,>,= y1).
 Parameters
 ----------
 
-$params_Py5Graphics_image_impl
+PARAMTEXT
 
 Notes
 -----
@@ -2323,7 +2355,7 @@ Modifies the location from which images draw.
 Parameters
 ----------
 
-$params_Py5Graphics_image_mode
+PARAMTEXT
 
 Notes
 -----
@@ -2350,7 +2382,7 @@ Return true if this renderer supports 2D drawing.
 Parameters
 ----------
 
-$params_Py5Graphics_is2_d
+PARAMTEXT
 
 Notes
 -----
@@ -2365,7 +2397,7 @@ Return true if this renderer supports 3D drawing.
 Parameters
 ----------
 
-$params_Py5Graphics_is3_d
+PARAMTEXT
 
 Notes
 -----
@@ -2380,7 +2412,7 @@ Return true if this renderer does rendering through OpenGL.
 Parameters
 ----------
 
-$params_Py5Graphics_is_gl
+PARAMTEXT
 
 Notes
 -----
@@ -2395,7 +2427,7 @@ Calculates a color or colors between two color at a specific increment.
 Parameters
 ----------
 
-$params_Py5Graphics_lerp_color
+PARAMTEXT
 
 Notes
 -----
@@ -2420,7 +2452,7 @@ Sets the falloff rates for point lights, spot lights, and ambient lights.
 Parameters
 ----------
 
-$params_Py5Graphics_light_falloff
+PARAMTEXT
 
 Notes
 -----
@@ -2454,7 +2486,7 @@ Sets the specular color for lights.
 Parameters
 ----------
 
-$params_Py5Graphics_light_specular
+PARAMTEXT
 
 Notes
 -----
@@ -2483,7 +2515,7 @@ Sets the default ambient light, directional light, falloff, and specular values.
 Parameters
 ----------
 
-$params_Py5Graphics_lights
+PARAMTEXT
 
 Notes
 -----
@@ -2512,7 +2544,7 @@ Draws a line (a direct path between two points) to the screen.
 Parameters
 ----------
 
-$params_Py5Graphics_line
+PARAMTEXT
 
 Notes
 -----
@@ -2539,7 +2571,7 @@ This is a new reference entry for Processing 2.0.
 Parameters
 ----------
 
-$params_Py5Graphics_load_shader
+PARAMTEXT
 
 Notes
 -----
@@ -2554,7 +2586,7 @@ This is a new reference entry for Processing 2.0. It will be updated shortly.
 Parameters
 ----------
 
-$params_Py5Graphics_load_shape
+PARAMTEXT
 
 Notes
 -----
@@ -2575,7 +2607,7 @@ Current model-view matrix transformation of the form m[row][column], which is a 
 Parameters
 ----------
 
-$params_Py5Graphics_matrix_stack_depth
+PARAMTEXT
 
 Notes
 -----
@@ -2590,7 +2622,7 @@ Returns the three-dimensional X, Y, Z position in model space.
 Parameters
 ----------
 
-$params_Py5Graphics_model_x
+PARAMTEXT
 
 Notes
 -----
@@ -2615,7 +2647,7 @@ Returns the three-dimensional X, Y, Z position in model space.
 Parameters
 ----------
 
-$params_Py5Graphics_model_y
+PARAMTEXT
 
 Notes
 -----
@@ -2640,7 +2672,7 @@ Returns the three-dimensional X, Y, Z position in model space.
 Parameters
 ----------
 
-$params_Py5Graphics_model_z
+PARAMTEXT
 
 Notes
 -----
@@ -2665,7 +2697,7 @@ Disables the clipping previously started by the , `,clip(),` , function.
 Parameters
 ----------
 
-$params_Py5Graphics_no_clip
+PARAMTEXT
 
 Notes
 -----
@@ -2680,7 +2712,7 @@ Disables filling geometry.
 Parameters
 ----------
 
-$params_Py5Graphics_no_fill
+PARAMTEXT
 
 Notes
 -----
@@ -2705,7 +2737,7 @@ Disable all lighting.
 Parameters
 ----------
 
-$params_Py5Graphics_no_lights
+PARAMTEXT
 
 Notes
 -----
@@ -2726,7 +2758,7 @@ Disables drawing the stroke (outline).
 Parameters
 ----------
 
-$params_Py5Graphics_no_stroke
+PARAMTEXT
 
 Notes
 -----
@@ -2751,7 +2783,7 @@ Removes texture image for current shape.
 Parameters
 ----------
 
-$params_Py5Graphics_no_texture
+PARAMTEXT
 
 Notes
 -----
@@ -2766,7 +2798,7 @@ Removes the current fill value for displaying images and reverts to displaying i
 Parameters
 ----------
 
-$params_Py5Graphics_no_tint
+PARAMTEXT
 
 Notes
 -----
@@ -2789,7 +2821,7 @@ Sets the current normal vector.
 Parameters
 ----------
 
-$params_Py5Graphics_normal
+PARAMTEXT
 
 Notes
 -----
@@ -2814,7 +2846,7 @@ Current normal vector.
 Parameters
 ----------
 
-$params_Py5Graphics_normal_x
+PARAMTEXT
 
 Notes
 -----
@@ -2829,7 +2861,7 @@ Current normal vector.
 Parameters
 ----------
 
-$params_Py5Graphics_normal_y
+PARAMTEXT
 
 Notes
 -----
@@ -2844,7 +2876,7 @@ Current normal vector.
 Parameters
 ----------
 
-$params_Py5Graphics_normal_z
+PARAMTEXT
 
 Notes
 -----
@@ -2859,7 +2891,7 @@ Sets an orthographic projection and defines a parallel clipping volume.
 Parameters
 ----------
 
-$params_Py5Graphics_ortho
+PARAMTEXT
 
 Notes
 -----
@@ -2874,7 +2906,7 @@ path to the file being saved for this renderer (if any)
 Parameters
 ----------
 
-$params_Py5Graphics_path
+PARAMTEXT
 
 Notes
 -----
@@ -2889,12 +2921,13 @@ Sets a perspective projection applying foreshortening, making distant objects ap
 Parameters
 ----------
 
-$params_Py5Graphics_perspective
+PARAMTEXT
 
 Notes
 -----
 
-Sets a perspective projection applying foreshortening, making distant objects appear smaller than closer ones. The parameters define a viewing volume with the shape of truncated pyramid. Objects near to the front of the volume appear their actual size, while farther objects appear smaller. This projection simulates the perspective of the world more accurately than orthographic projection. The version of perspective without parameters sets the default perspective and the version with four parameters allows the programmer to set the area precisely. The default values are: perspective(PI/3.0, width/height, cameraZ/10.0, cameraZ*10.0) where cameraZ is ((height/2.0) / tan(PI*60.0/360.0));
+Sets a perspective projection applying foreshortening, making distant objects appear smaller than closer ones. The parameters define a viewing volume with the shape of truncated pyramid. Objects near to the front of the volume appear their actual size, while farther objects appear smaller. This projection simulates the perspective of the world more accurately than orthographic projection. The version of perspective without parameters sets the default perspective and the version with four parameters allows the programmer to set the area precisely. The default values are: perspective(PI/3.0, width/height, cameraZ/10.0, cameraZ*10.0) where cameraZ is ((height/2.0) / tan(PI*60.0/360.0))
+
 
 
 # Py5Graphics_point
@@ -2904,7 +2937,7 @@ Draws a point, a coordinate in space at the dimension of one pixel.
 Parameters
 ----------
 
-$params_Py5Graphics_point
+PARAMTEXT
 
 Notes
 -----
@@ -2925,7 +2958,7 @@ Adds a point light.
 Parameters
 ----------
 
-$params_Py5Graphics_point_light
+PARAMTEXT
 
 Notes
 -----
@@ -2952,7 +2985,7 @@ The , `,pop(),` , function restores the previous drawing style settings and tran
 Parameters
 ----------
 
-$params_Py5Graphics_pop
+PARAMTEXT
 
 Notes
 -----
@@ -2978,7 +3011,7 @@ Pops the current transformation matrix off the matrix stack.
 Parameters
 ----------
 
-$params_Py5Graphics_pop_matrix
+PARAMTEXT
 
 Notes
 -----
@@ -2994,17 +3027,19 @@ Py5Graphics.push_matrix() : Pushes the current transformation matrix onto the ma
 
 # Py5Graphics_pop_style
 
-The , `,push_style(),` , function saves the current style settings and , `,pop_style(),` , restores the prior settings; these functions are always used together.
+The , `,push_style(),` , function saves the current style settings and , `,pop_style(),` , restores the prior settings
+these functions are always used together.
 
 Parameters
 ----------
 
-$params_Py5Graphics_pop_style
+PARAMTEXT
 
 Notes
 -----
 
-The `push_style()` function saves the current style settings and `pop_style()` restores the prior settings; these functions are always used together. They allow you to change the style settings and later return to what you had. When a new style is started with `push_style()` , it builds on the current style information. The `push_style()` and `pop_style()` functions can be embedded to provide more control (see the second example above for a demonstration.)
+The `push_style()` function saves the current style settings and `pop_style()` restores the prior settings
+these functions are always used together. They allow you to change the style settings and later return to what you had. When a new style is started with `push_style()` , it builds on the current style information. The `push_style()` and `pop_style()` functions can be embedded to provide more control (see the second example above for a demonstration.)
 
 
 See Also
@@ -3020,7 +3055,7 @@ True if this is the main graphics context for a sketch.
 Parameters
 ----------
 
-$params_Py5Graphics_primary_graphics
+PARAMTEXT
 
 Notes
 -----
@@ -3035,7 +3070,7 @@ Prints the current camera matrix to the Console (the text window at the bottom o
 Parameters
 ----------
 
-$params_Py5Graphics_print_camera
+PARAMTEXT
 
 Notes
 -----
@@ -3056,7 +3091,7 @@ Prints the current matrix to the Console (the text window at the bottom of Proce
 Parameters
 ----------
 
-$params_Py5Graphics_print_matrix
+PARAMTEXT
 
 Notes
 -----
@@ -3083,7 +3118,7 @@ Prints the current projection matrix to the Console (the text window at the bott
 Parameters
 ----------
 
-$params_Py5Graphics_print_projection
+PARAMTEXT
 
 Notes
 -----
@@ -3104,7 +3139,7 @@ The , `,push(),` , function saves the current drawing style settings and transfo
 Parameters
 ----------
 
-$params_Py5Graphics_push
+PARAMTEXT
 
 Notes
 -----
@@ -3129,7 +3164,7 @@ Pushes the current transformation matrix onto the matrix stack.
 Parameters
 ----------
 
-$params_Py5Graphics_push_matrix
+PARAMTEXT
 
 Notes
 -----
@@ -3162,7 +3197,7 @@ The , `,push_style(),` , function saves the current style settings and , `,pop_s
 Parameters
 ----------
 
-$params_Py5Graphics_push_style
+PARAMTEXT
 
 Notes
 -----
@@ -3175,7 +3210,8 @@ The style information controlled by the following functions are included in the 
 See Also
 --------
 
-Py5Graphics.pop_style() : The , `,push_style(),` , function saves the current style settings and , `,pop_style(),` , restores the prior settings; these functions are always used together.
+Py5Graphics.pop_style() : The , `,push_style(),` , function saves the current style settings and , `,pop_style(),` , restores the prior settings
+these functions are always used together.
 
 
 # Py5Graphics_quad
@@ -3185,7 +3221,7 @@ A quad is a quadrilateral, a four sided polygon.
 Parameters
 ----------
 
-$params_Py5Graphics_quad
+PARAMTEXT
 
 Notes
 -----
@@ -3200,7 +3236,7 @@ A quad is a quadrilateral, a four sided polygon. It is similar to a rectangle, b
 Parameters
 ----------
 
-$params_Py5Graphics_quadratic_vertex
+PARAMTEXT
 
 Notes
 -----
@@ -3227,7 +3263,7 @@ Re-apply current settings.
 Parameters
 ----------
 
-$params_Py5Graphics_reapply_settings
+PARAMTEXT
 
 Notes
 -----
@@ -3242,7 +3278,7 @@ Draws a rectangle to the screen.
 Parameters
 ----------
 
-$params_Py5Graphics_rect
+PARAMTEXT
 
 Notes
 -----
@@ -3265,7 +3301,7 @@ Modifies the location from which rectangles draw.
 Parameters
 ----------
 
-$params_Py5Graphics_rect_mode
+PARAMTEXT
 
 Notes
 -----
@@ -3286,7 +3322,7 @@ Extracts the red value from a color, scaled to match current , `,color_mode(),` 
 Parameters
 ----------
 
-$params_Py5Graphics_red
+PARAMTEXT
 
 Notes
 -----
@@ -3294,8 +3330,9 @@ Notes
 Extracts the red value from a color, scaled to match current `color_mode()` . This value is always returned as a  float so be careful not to assign it to an int value.
 
 The red() function is easy to use and undestand, but is slower than another technique. To achieve the same results when working in `color_mode(rgb, 255)` , but with greater speed, use the>>(right shift) operator with a bit mask. For example, the following two lines of code are equivalent:
-<pre>float r1 = red(myColor);
-float r2 = myColor>>16&0xFF;</pre>
+<pre>float r1 = red(myColor)
+float r2 = myColor>>16&0xFF
+</pre>
 
 
 See Also
@@ -3321,7 +3358,7 @@ Remove information associated with this renderer from the cache, if any.
 Parameters
 ----------
 
-$params_Py5Graphics_remove_cache
+PARAMTEXT
 
 Notes
 -----
@@ -3336,7 +3373,7 @@ Replaces the current matrix with the identity matrix.
 Parameters
 ----------
 
-$params_Py5Graphics_reset_matrix
+PARAMTEXT
 
 Notes
 -----
@@ -3363,7 +3400,7 @@ This is a new reference entry for Processing 2.0.
 Parameters
 ----------
 
-$params_Py5Graphics_reset_shader
+PARAMTEXT
 
 Notes
 -----
@@ -3378,7 +3415,7 @@ Rotates a shape the amount specified by the , `,angle,` , parameter.
 Parameters
 ----------
 
-$params_Py5Graphics_rotate
+PARAMTEXT
 
 Notes
 -----
@@ -3415,7 +3452,7 @@ Rotates a shape around the x-axis the amount specified by the , `,angle,` , para
 Parameters
 ----------
 
-$params_Py5Graphics_rotate_x
+PARAMTEXT
 
 Notes
 -----
@@ -3448,7 +3485,7 @@ Rotates a shape around the y-axis the amount specified by the , `,angle,` , para
 Parameters
 ----------
 
-$params_Py5Graphics_rotate_y
+PARAMTEXT
 
 Notes
 -----
@@ -3481,7 +3518,7 @@ Rotates a shape around the z-axis the amount specified by the , `,angle,` , para
 Parameters
 ----------
 
-$params_Py5Graphics_rotate_z
+PARAMTEXT
 
 Notes
 -----
@@ -3514,7 +3551,7 @@ Extracts the saturation value from a color.
 Parameters
 ----------
 
-$params_Py5Graphics_saturation
+PARAMTEXT
 
 Notes
 -----
@@ -3545,7 +3582,7 @@ Increases or decreases the size of a shape by expanding and contracting vertices
 Parameters
 ----------
 
-$params_Py5Graphics_scale
+PARAMTEXT
 
 Notes
 -----
@@ -3578,7 +3615,7 @@ Takes a three-dimensional X, Y, Z position and returns the X value for where it 
 Parameters
 ----------
 
-$params_Py5Graphics_screen_x
+PARAMTEXT
 
 Notes
 -----
@@ -3601,7 +3638,7 @@ Takes a three-dimensional X, Y, Z position and returns the Y value for where it 
 Parameters
 ----------
 
-$params_Py5Graphics_screen_y
+PARAMTEXT
 
 Notes
 -----
@@ -3624,7 +3661,7 @@ Takes a three-dimensional X, Y, Z position and returns the Z value for where it 
 Parameters
 ----------
 
-$params_Py5Graphics_screen_z
+PARAMTEXT
 
 Notes
 -----
@@ -3647,7 +3684,7 @@ Store data of some kind for the renderer that requires extra metadata of some ki
 Parameters
 ----------
 
-$params_Py5Graphics_set_cache
+PARAMTEXT
 
 Notes
 -----
@@ -3662,7 +3699,7 @@ Set the current transformation to the contents of the specified source.
 Parameters
 ----------
 
-$params_Py5Graphics_set_matrix
+PARAMTEXT
 
 Notes
 -----
@@ -3677,7 +3714,7 @@ Set (or unset) this as the main drawing surface.
 Parameters
 ----------
 
-$params_Py5Graphics_set_primary
+PARAMTEXT
 
 Notes
 -----
@@ -3692,7 +3729,7 @@ The final step in setting up a renderer, set its size of this renderer.
 Parameters
 ----------
 
-$params_Py5Graphics_set_size
+PARAMTEXT
 
 Notes
 -----
@@ -3707,7 +3744,7 @@ This is a new reference entry for Processing 2.0.
 Parameters
 ----------
 
-$params_Py5Graphics_shader
+PARAMTEXT
 
 Notes
 -----
@@ -3722,7 +3759,7 @@ Type of shape passed to beginShape(), zero if no shape is currently being drawn.
 Parameters
 ----------
 
-$params_Py5Graphics_shape
+PARAMTEXT
 
 Notes
 -----
@@ -3747,7 +3784,7 @@ Modifies the location from which shapes draw.
 Parameters
 ----------
 
-$params_Py5Graphics_shape_mode
+PARAMTEXT
 
 Notes
 -----
@@ -3770,7 +3807,7 @@ Shears a shape around the x-axis the amount specified by the , `,angle,` , param
 Parameters
 ----------
 
-$params_Py5Graphics_shear_x
+PARAMTEXT
 
 Notes
 -----
@@ -3803,7 +3840,7 @@ Shears a shape around the y-axis the amount specified by the , `,angle,` , param
 Parameters
 ----------
 
-$params_Py5Graphics_shear_y
+PARAMTEXT
 
 Notes
 -----
@@ -3836,7 +3873,7 @@ Sets the amount of gloss in the surface of shapes.
 Parameters
 ----------
 
-$params_Py5Graphics_shininess
+PARAMTEXT
 
 Notes
 -----
@@ -3861,7 +3898,7 @@ Display a warning that the specified method is only available with 3D.
 Parameters
 ----------
 
-$params_Py5Graphics_show_depth_warning
+PARAMTEXT
 
 Notes
 -----
@@ -3876,7 +3913,7 @@ Display a warning that the specified method that takes x, y, z parameters can on
 Parameters
 ----------
 
-$params_Py5Graphics_show_depth_warning_xyz
+PARAMTEXT
 
 Notes
 -----
@@ -3891,7 +3928,7 @@ Show an renderer-related exception that halts the program.
 Parameters
 ----------
 
-$params_Py5Graphics_show_exception
+PARAMTEXT
 
 Notes
 -----
@@ -3906,7 +3943,7 @@ Display a warning that the specified method is simply unavailable.
 Parameters
 ----------
 
-$params_Py5Graphics_show_method_warning
+PARAMTEXT
 
 Notes
 -----
@@ -3921,7 +3958,7 @@ Display a warning that the specified method is not implemented, meaning that it 
 Parameters
 ----------
 
-$params_Py5Graphics_show_missing_warning
+PARAMTEXT
 
 Notes
 -----
@@ -3936,7 +3973,7 @@ Error that a particular variation of a method is unavailable (even though other 
 Parameters
 ----------
 
-$params_Py5Graphics_show_variation_warning
+PARAMTEXT
 
 Notes
 -----
@@ -3951,7 +3988,7 @@ Show a renderer error, and keep track of it so that it's only shown once.
 Parameters
 ----------
 
-$params_Py5Graphics_show_warning
+PARAMTEXT
 
 Notes
 -----
@@ -3966,7 +4003,7 @@ Sets the specular color of the materials used for shapes drawn to the screen, wh
 Parameters
 ----------
 
-$params_Py5Graphics_specular
+PARAMTEXT
 
 Notes
 -----
@@ -3993,7 +4030,7 @@ A sphere is a hollow ball made from tessellated triangles.
 Parameters
 ----------
 
-$params_Py5Graphics_sphere
+PARAMTEXT
 
 Notes
 -----
@@ -4029,7 +4066,7 @@ Controls the detail used to render a sphere by adjusting the number of vertices 
 Parameters
 ----------
 
-$params_Py5Graphics_sphere_detail
+PARAMTEXT
 
 Notes
 -----
@@ -4055,7 +4092,7 @@ Setup forward-differencing matrix to be used for speedy curve rendering.
 Parameters
 ----------
 
-$params_Py5Graphics_spline_forward
+PARAMTEXT
 
 Notes
 -----
@@ -4070,7 +4107,7 @@ Adds a spot light.
 Parameters
 ----------
 
-$params_Py5Graphics_spot_light
+PARAMTEXT
 
 Notes
 -----
@@ -4097,7 +4134,7 @@ Draws a square to the screen.
 Parameters
 ----------
 
-$params_Py5Graphics_square
+PARAMTEXT
 
 Notes
 -----
@@ -4120,7 +4157,7 @@ stroke argb values
 Parameters
 ----------
 
-$params_Py5Graphics_sr
+PARAMTEXT
 
 Notes
 -----
@@ -4135,14 +4172,15 @@ Sets the color used to draw lines and borders around shapes.
 Parameters
 ----------
 
-$params_Py5Graphics_stroke
+PARAMTEXT
 
 Notes
 -----
 
 Sets the color used to draw lines and borders around shapes. This color is either specified in terms of the RGB or HSB color depending on the current `color_mode()` (the default color space is RGB, with each value in the range from 0 to 255).
 
-When using hexadecimal notation to specify a color, use "#" or "0x" before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six digits to specify a color (the way colors are specified in HTML and CSS). When using the hexadecimal notation starting with "0x", the hexadecimal value must be specified with eight characters; the first two characters define the alpha component and the remainder the red, green, and blue components.
+When using hexadecimal notation to specify a color, use "#" or "0x" before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six digits to specify a color (the way colors are specified in HTML and CSS). When using the hexadecimal notation starting with "0x", the hexadecimal value must be specified with eight characters
+the first two characters define the alpha component and the remainder the red, green, and blue components.
 
 The value for the parameter "gray" must be less than or equal to the current maximum value as specified by `color_mode()` . The default maximum value is 255.
 
@@ -4176,7 +4214,7 @@ Sets the style for rendering line endings.
 Parameters
 ----------
 
-$params_Py5Graphics_stroke_cap
+PARAMTEXT
 
 Notes
 -----
@@ -4205,7 +4243,7 @@ stroke that was last set (read-only)
 Parameters
 ----------
 
-$params_Py5Graphics_stroke_color
+PARAMTEXT
 
 Notes
 -----
@@ -4220,7 +4258,7 @@ Sets the style of the joints which connect line segments.
 Parameters
 ----------
 
-$params_Py5Graphics_stroke_join
+PARAMTEXT
 
 Notes
 -----
@@ -4247,7 +4285,7 @@ Sets the width of the stroke used for lines, points, and the border around shape
 Parameters
 ----------
 
-$params_Py5Graphics_stroke_weight
+PARAMTEXT
 
 Notes
 -----
@@ -4274,7 +4312,7 @@ Surface object that we're talking to
 Parameters
 ----------
 
-$params_Py5Graphics_surface
+PARAMTEXT
 
 Notes
 -----
@@ -4289,7 +4327,7 @@ stroke weight
 Parameters
 ----------
 
-$params_Py5Graphics_sw
+PARAMTEXT
 
 Notes
 -----
@@ -4304,7 +4342,7 @@ This does a basic number formatting, to avoid the generally ugly appearance of p
 Parameters
 ----------
 
-$params_Py5Graphics_text
+PARAMTEXT
 
 Notes
 -----
@@ -4345,7 +4383,7 @@ Sets the current alignment for drawing text.
 Parameters
 ----------
 
-$params_Py5Graphics_text_align
+PARAMTEXT
 
 Notes
 -----
@@ -4380,7 +4418,7 @@ The current vertical text alignment (read-only)
 Parameters
 ----------
 
-$params_Py5Graphics_text_align_y
+PARAMTEXT
 
 Notes
 -----
@@ -4395,7 +4433,7 @@ Returns ascent of the current font at its current size.
 Parameters
 ----------
 
-$params_Py5Graphics_text_ascent
+PARAMTEXT
 
 Notes
 -----
@@ -4416,7 +4454,7 @@ Internal buffer used by the text() functions because the String object is slow
 Parameters
 ----------
 
-$params_Py5Graphics_text_buffer
+PARAMTEXT
 
 Notes
 -----
@@ -4431,7 +4469,7 @@ Returns descent of the current font at its current size.
 Parameters
 ----------
 
-$params_Py5Graphics_text_descent
+PARAMTEXT
 
 Notes
 -----
@@ -4452,7 +4490,7 @@ Sets the current font that will be drawn with the , `,text(),` , function.
 Parameters
 ----------
 
-$params_Py5Graphics_text_font
+PARAMTEXT
 
 Notes
 -----
@@ -4483,7 +4521,7 @@ Called from textFont.
 Parameters
 ----------
 
-$params_Py5Graphics_text_font_impl
+PARAMTEXT
 
 Notes
 -----
@@ -4498,7 +4536,7 @@ Sets the spacing between lines of text in units of pixels.
 Parameters
 ----------
 
-$params_Py5Graphics_text_leading
+PARAMTEXT
 
 Notes
 -----
@@ -4527,7 +4565,7 @@ Handles placement of a text line, then calls textLineImpl to actually render at 
 Parameters
 ----------
 
-$params_Py5Graphics_text_line_align_impl
+PARAMTEXT
 
 Notes
 -----
@@ -4542,7 +4580,7 @@ Implementation of actual drawing for a line of text.
 Parameters
 ----------
 
-$params_Py5Graphics_text_line_impl
+PARAMTEXT
 
 Notes
 -----
@@ -4557,7 +4595,7 @@ Sets the way text draws to the screen.
 Parameters
 ----------
 
-$params_Py5Graphics_text_mode
+PARAMTEXT
 
 Notes
 -----
@@ -4592,7 +4630,7 @@ Emit a sentence of text, defined as a chunk of text without any newlines.
 Parameters
 ----------
 
-$params_Py5Graphics_text_sentence
+PARAMTEXT
 
 Notes
 -----
@@ -4607,7 +4645,7 @@ The current text size (read-only)
 Parameters
 ----------
 
-$params_Py5Graphics_text_size
+PARAMTEXT
 
 Notes
 -----
@@ -4634,7 +4672,7 @@ Called from textSize() after validating size.
 Parameters
 ----------
 
-$params_Py5Graphics_text_size_impl
+PARAMTEXT
 
 Notes
 -----
@@ -4649,7 +4687,7 @@ Calculates and returns the width of any character or text string.
 Parameters
 ----------
 
-$params_Py5Graphics_text_width
+PARAMTEXT
 
 Notes
 -----
@@ -4678,7 +4716,7 @@ Implementation of returning the text width of the chars [start, stop) in the buf
 Parameters
 ----------
 
-$params_Py5Graphics_text_width_impl
+PARAMTEXT
 
 Notes
 -----
@@ -4693,7 +4731,7 @@ Sets a texture to be applied to vertex points.
 Parameters
 ----------
 
-$params_Py5Graphics_texture
+PARAMTEXT
 
 Notes
 -----
@@ -4724,7 +4762,7 @@ Current image being used as a texture
 Parameters
 ----------
 
-$params_Py5Graphics_texture_image
+PARAMTEXT
 
 Notes
 -----
@@ -4739,7 +4777,7 @@ Sets whether texture coordinates passed to vertex() calls will be based on coord
 Parameters
 ----------
 
-$params_Py5Graphics_texture_mode
+PARAMTEXT
 
 Notes
 -----
@@ -4762,7 +4800,7 @@ Current horizontal coordinate for texture, will always be between 0 and 1, even 
 Parameters
 ----------
 
-$params_Py5Graphics_texture_u
+PARAMTEXT
 
 Notes
 -----
@@ -4777,7 +4815,7 @@ Current vertical coordinate for texture, see above.
 Parameters
 ----------
 
-$params_Py5Graphics_texture_v
+PARAMTEXT
 
 Notes
 -----
@@ -4792,7 +4830,7 @@ Description to come...
 Parameters
 ----------
 
-$params_Py5Graphics_texture_wrap
+PARAMTEXT
 
 Notes
 -----
@@ -4815,7 +4853,7 @@ Sets the fill value for displaying images.
 Parameters
 ----------
 
-$params_Py5Graphics_tint
+PARAMTEXT
 
 Notes
 -----
@@ -4824,7 +4862,8 @@ Sets the fill value for displaying images. Images can be tinted to specified col
 
 To make an image transparent, but not change it's color, use white as the tint color and specify an alpha value. For instance, tint(255, 128) will make an image 50% transparent (unless `color_mode()` has been used).
 
-When using hexadecimal notation to specify a color, use "#" or "0x" before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six digits to specify a color (the way colors are specified in HTML and CSS). When using the hexadecimal notation starting with "0x", the hexadecimal value must be specified with eight characters; the first two characters define the alpha component and the remainder the red, green, and blue components.
+When using hexadecimal notation to specify a color, use "#" or "0x" before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six digits to specify a color (the way colors are specified in HTML and CSS). When using the hexadecimal notation starting with "0x", the hexadecimal value must be specified with eight characters
+the first two characters define the alpha component and the remainder the red, green, and blue components.
 
 The value for the parameter "gray" must be less than or equal to the current maximum value as specified by `color_mode()` . The default maximum value is 255.
 
@@ -4846,7 +4885,7 @@ tint that was last set (read-only)
 Parameters
 ----------
 
-$params_Py5Graphics_tint_color
+PARAMTEXT
 
 Notes
 -----
@@ -4861,7 +4900,7 @@ Specifies an amount to displace objects within the display window.
 Parameters
 ----------
 
-$params_Py5Graphics_translate
+PARAMTEXT
 
 Notes
 -----
@@ -4894,7 +4933,7 @@ A triangle is a plane created by connecting three points.
 Parameters
 ----------
 
-$params_Py5Graphics_triangle
+PARAMTEXT
 
 Notes
 -----
@@ -4915,7 +4954,7 @@ Used by renderer subclasses or Py5Shape to efficiently pass in already formatted
 Parameters
 ----------
 
-$params_Py5Graphics_vertex
+PARAMTEXT
 
 Notes
 -----
@@ -4950,7 +4989,7 @@ Set (U, V) coords for the next vertex in the current shape.
 Parameters
 ----------
 
-$params_Py5Graphics_vertex_texture
+PARAMTEXT
 
 Notes
 -----
@@ -4969,7 +5008,7 @@ Blends a region of pixels into the image specified by the , `,img,` , parameter.
 Parameters
 ----------
 
-$params_Py5Image_blend
+PARAMTEXT
 
 Notes
 -----
@@ -5026,7 +5065,7 @@ Add O = MIN(D + S, 1)
 Parameters
 ----------
 
-$params_Py5Image_blend_add_pin
+PARAMTEXT
 
 Notes
 -----
@@ -5041,7 +5080,7 @@ Blend O = S
 Parameters
 ----------
 
-$params_Py5Image_blend_blend
+PARAMTEXT
 
 Notes
 -----
@@ -5056,7 +5095,7 @@ Burn O = 1 - (1 - A) / B
 Parameters
 ----------
 
-$params_Py5Image_blend_burn
+PARAMTEXT
 
 Notes
 -----
@@ -5071,7 +5110,7 @@ Blends two color values together based on the blending mode given as the , `,mod
 Parameters
 ----------
 
-$params_Py5Image_blend_color
+PARAMTEXT
 
 Notes
 -----
@@ -5209,7 +5248,7 @@ Darkest O = MIN(D, S)
 Parameters
 ----------
 
-$params_Py5Image_blend_darkest
+PARAMTEXT
 
 Notes
 -----
@@ -5224,7 +5263,7 @@ Difference O = ABS(D - S)
 Parameters
 ----------
 
-$params_Py5Image_blend_difference
+PARAMTEXT
 
 Notes
 -----
@@ -5239,7 +5278,7 @@ Dodge O = D / (1 - S)
 Parameters
 ----------
 
-$params_Py5Image_blend_dodge
+PARAMTEXT
 
 Notes
 -----
@@ -5254,7 +5293,7 @@ Exclusion O = (1 - S)D + S(1 - D) O = D + S - 2DS
 Parameters
 ----------
 
-$params_Py5Image_blend_exclusion
+PARAMTEXT
 
 Notes
 -----
@@ -5269,7 +5308,7 @@ Hard Light O = OVERLAY(S, D) O = 2 * MULTIPLY(D, S) = 2DS                   for 
 Parameters
 ----------
 
-$params_Py5Image_blend_hard_light
+PARAMTEXT
 
 Notes
 -----
@@ -5284,7 +5323,7 @@ Lightest O = MAX(D, S)
 Parameters
 ----------
 
-$params_Py5Image_blend_lightest
+PARAMTEXT
 
 Notes
 -----
@@ -5299,7 +5338,7 @@ Overlay O = 2 * MULTIPLY(D, S) = 2DS                   for D ,<, 0.5 O = 2 * SCR
 Parameters
 ----------
 
-$params_Py5Image_blend_overlay
+PARAMTEXT
 
 Notes
 -----
@@ -5314,7 +5353,7 @@ Screen O = 1 - (1 - D)(1 - S) O = D + S - DS
 Parameters
 ----------
 
-$params_Py5Image_blend_screen
+PARAMTEXT
 
 Notes
 -----
@@ -5329,7 +5368,7 @@ Soft Light (Pegtop) O = (1 - D) * MULTIPLY(D, S) + D * SCREEN(D, S) O = (1 - D) 
 Parameters
 ----------
 
-$params_Py5Image_blend_soft_light
+PARAMTEXT
 
 Notes
 -----
@@ -5344,7 +5383,7 @@ Subtract O = MAX(0, D - S)
 Parameters
 ----------
 
-$params_Py5Image_blend_sub_pin
+PARAMTEXT
 
 Notes
 -----
@@ -5359,7 +5398,7 @@ Internal blitter/resizer/copier from toxi.
 Parameters
 ----------
 
-$params_Py5Image_blit_resize
+PARAMTEXT
 
 Notes
 -----
@@ -5374,7 +5413,7 @@ Optimized code for building the blur kernel.
 Parameters
 ----------
 
-$params_Py5Image_build_blur_kernel
+PARAMTEXT
 
 Notes
 -----
@@ -5389,7 +5428,7 @@ Check the alpha on an image, using a really primitive loop.
 Parameters
 ----------
 
-$params_Py5Image_check_alpha
+PARAMTEXT
 
 Notes
 -----
@@ -5404,7 +5443,7 @@ Duplicate an image, returns new Py5Image object.
 Parameters
 ----------
 
-$params_Py5Image_clone
+PARAMTEXT
 
 Notes
 -----
@@ -5419,7 +5458,7 @@ Copies a region of pixels from one image into another.
 Parameters
 ----------
 
-$params_Py5Image_copy
+PARAMTEXT
 
 Notes
 -----
@@ -5444,7 +5483,7 @@ Generic dilate/erode filter using luminance values as decision factor.
 Parameters
 ----------
 
-$params_Py5Image_dilate
+PARAMTEXT
 
 Notes
 -----
@@ -5461,7 +5500,7 @@ Filters an image as defined by one of the following modes:,
 Parameters
 ----------
 
-$params_Py5Image_filter
+PARAMTEXT
 
 Notes
 -----
@@ -5508,7 +5547,7 @@ Format for this image, one of RGB, ARGB or ALPHA.
 Parameters
 ----------
 
-$params_Py5Image_format
+PARAMTEXT
 
 Notes
 -----
@@ -5523,7 +5562,7 @@ Reads the color of any pixel or grabs a section of an image.
 Parameters
 ----------
 
-$params_Py5Image_get
+PARAMTEXT
 
 Notes
 -----
@@ -5565,7 +5604,7 @@ Internal function to actually handle getting a block of pixels that has already 
 Parameters
 ----------
 
-$params_Py5Image_get_impl
+PARAMTEXT
 
 Notes
 -----
@@ -5580,7 +5619,7 @@ The height of the image in units of pixels.
 Parameters
 ----------
 
-$params_Py5Image_height
+PARAMTEXT
 
 Notes
 -----
@@ -5595,7 +5634,7 @@ Function to be used by subclasses of Py5Image to init later than at the construc
 Parameters
 ----------
 
-$params_Py5Image_init
+PARAMTEXT
 
 Notes
 -----
@@ -5624,7 +5663,7 @@ Check to see if two rectangles intersect one another
 Parameters
 ----------
 
-$params_Py5Image_intersect
+PARAMTEXT
 
 Notes
 -----
@@ -5639,7 +5678,7 @@ Loads the pixel data for the image into its , `,pixels[],` , array.
 Parameters
 ----------
 
-$params_Py5Image_load_pixels
+PARAMTEXT
 
 Notes
 -----
@@ -5663,7 +5702,7 @@ Targa image loader for RLE-compressed TGA files.
 Parameters
 ----------
 
-$params_Py5Image_load_tga
+PARAMTEXT
 
 Notes
 -----
@@ -5684,7 +5723,7 @@ Loaded pixels flag
 Parameters
 ----------
 
-$params_Py5Image_loaded
+PARAMTEXT
 
 Notes
 -----
@@ -5699,7 +5738,7 @@ Masks part of an image from displaying by loading another image and using it as 
 Parameters
 ----------
 
-$params_Py5Image_mask
+PARAMTEXT
 
 Notes
 -----
@@ -5723,7 +5762,7 @@ modified portion of the image
 Parameters
 ----------
 
-$params_Py5Image_modified
+PARAMTEXT
 
 Notes
 -----
@@ -5738,7 +5777,7 @@ Set the high bits of all pixels to opaque.
 Parameters
 ----------
 
-$params_Py5Image_opaque
+PARAMTEXT
 
 Notes
 -----
@@ -5753,7 +5792,7 @@ Path to parent object that will be used with save().
 Parameters
 ----------
 
-$params_Py5Image_parent
+PARAMTEXT
 
 Notes
 -----
@@ -5768,7 +5807,7 @@ Path to parent object that will be used with save(). This prevents users from ne
 Parameters
 ----------
 
-$params_Py5Image_pixel_density
+PARAMTEXT
 
 Notes
 -----
@@ -5783,7 +5822,7 @@ Actual dimensions of pixels array, taking into account the 2x setting.
 Parameters
 ----------
 
-$params_Py5Image_pixel_width
+PARAMTEXT
 
 Notes
 -----
@@ -5798,7 +5837,7 @@ Array containing the values for all the pixels in the display window.
 Parameters
 ----------
 
-$params_Py5Image_pixels
+PARAMTEXT
 
 Notes
 -----
@@ -5815,7 +5854,7 @@ Resize the image to a new width and height.
 Parameters
 ----------
 
-$params_Py5Image_resize
+PARAMTEXT
 
 Notes
 -----
@@ -5838,7 +5877,7 @@ Saves the image into a file.
 Parameters
 ----------
 
-$params_Py5Image_save
+PARAMTEXT
 
 Notes
 -----
@@ -5875,7 +5914,7 @@ Creates a Targa32 formatted byte sequence of specified pixel buffer using RLE co
 Parameters
 ----------
 
-$params_Py5Image_save_tga
+PARAMTEXT
 
 Notes
 -----
@@ -5915,7 +5954,7 @@ Changes the color of any pixel or writes an image directly into the display wind
 Parameters
 ----------
 
-$params_Py5Image_set
+PARAMTEXT
 
 Notes
 -----
@@ -5944,7 +5983,7 @@ Internal function to actually handle setting a block of pixels that has already 
 Parameters
 ----------
 
-$params_Py5Image_set_impl
+PARAMTEXT
 
 Notes
 -----
@@ -5959,7 +5998,7 @@ Updates the image with the data in its , `,pixels[],` , array.
 Parameters
 ----------
 
-$params_Py5Image_update_pixels
+PARAMTEXT
 
 Notes
 -----
@@ -5983,7 +6022,7 @@ The width of the image in units of pixels.
 Parameters
 ----------
 
-$params_Py5Image_width
+PARAMTEXT
 
 Notes
 -----
@@ -5998,7 +6037,7 @@ Initializes (if needed) and binds the shader program.
 Parameters
 ----------
 
-$params_Py5Shader_bind
+PARAMTEXT
 
 Notes
 -----
@@ -6013,7 +6052,7 @@ Returns true if the shader is bound, false otherwise.
 Parameters
 ----------
 
-$params_Py5Shader_bound
+PARAMTEXT
 
 Notes
 -----
@@ -6028,7 +6067,7 @@ Returns true if the shader is bound, false otherwise.
 Parameters
 ----------
 
-$params_Py5Shader_compile_fragment_shader
+PARAMTEXT
 
 Notes
 -----
@@ -6043,7 +6082,7 @@ Notes
 Parameters
 ----------
 
-$params_Py5Shader_compile_vertex_shader
+PARAMTEXT
 
 Notes
 -----
@@ -6058,7 +6097,7 @@ Returns the ID location of the attribute parameter given its name.
 Parameters
 ----------
 
-$params_Py5Shader_get_attribute_loc
+PARAMTEXT
 
 Notes
 -----
@@ -6073,7 +6112,7 @@ Returns the ID location of the uniform parameter given its name.
 Parameters
 ----------
 
-$params_Py5Shader_get_uniform_loc
+PARAMTEXT
 
 Notes
 -----
@@ -6088,7 +6127,7 @@ Creates a shader program using the specified vertex and fragment shaders.
 Parameters
 ----------
 
-$params_Py5Shader_init
+PARAMTEXT
 
 Notes
 -----
@@ -6103,7 +6142,7 @@ Creates a shader program using the specified vertex and fragment shaders.
 Parameters
 ----------
 
-$params_Py5Shader_set
+PARAMTEXT
 
 Notes
 -----
@@ -6118,7 +6157,7 @@ Extra initialization method that can be used by subclasses, called after compili
 Parameters
 ----------
 
-$params_Py5Shader_setup
+PARAMTEXT
 
 Notes
 -----
@@ -6133,7 +6172,7 @@ Unbinds the shader program.
 Parameters
 ----------
 
-$params_Py5Shader_unbind
+PARAMTEXT
 
 Notes
 -----
@@ -6148,7 +6187,7 @@ Unbinds the shader program.
 Parameters
 ----------
 
-$params_Py5Shape_add_child
+PARAMTEXT
 
 Notes
 -----
@@ -6169,7 +6208,7 @@ Add a shape to the name lookup table.
 Parameters
 ----------
 
-$params_Py5Shape_add_name
+PARAMTEXT
 
 Notes
 -----
@@ -6184,7 +6223,7 @@ Add a shape to the name lookup table.
 Parameters
 ----------
 
-$params_Py5Shape_begin_contour
+PARAMTEXT
 
 Notes
 -----
@@ -6205,7 +6244,7 @@ Py5Shape.end_contour() :
 Parameters
 ----------
 
-$params_Py5Shape_begin_shape
+PARAMTEXT
 
 Notes
 -----
@@ -6226,7 +6265,7 @@ Make sure that the shape's matrix is 1) not null, and 2) has a matrix that can h
 Parameters
 ----------
 
-$params_Py5Shape_check_matrix
+PARAMTEXT
 
 Notes
 -----
@@ -6241,7 +6280,7 @@ True if this is a closed path.
 Parameters
 ----------
 
-$params_Py5Shape_close
+PARAMTEXT
 
 Notes
 -----
@@ -6256,7 +6295,7 @@ Set the pivot point for all transformations.
 Parameters
 ----------
 
-$params_Py5Shape_color_mode
+PARAMTEXT
 
 Notes
 -----
@@ -6271,7 +6310,7 @@ Max value for alpha set by colorMode
 Parameters
 ----------
 
-$params_Py5Shape_color_mode_a
+PARAMTEXT
 
 Notes
 -----
@@ -6286,7 +6325,7 @@ True if colorMode(RGB, 255)
 Parameters
 ----------
 
-$params_Py5Shape_color_mode_default
+PARAMTEXT
 
 Notes
 -----
@@ -6301,7 +6340,7 @@ True if colors are not in the range 0..1
 Parameters
 ----------
 
-$params_Py5Shape_color_mode_scale
+PARAMTEXT
 
 Notes
 -----
@@ -6316,7 +6355,7 @@ Max value for red (or hue) set by colorMode
 Parameters
 ----------
 
-$params_Py5Shape_color_mode_x
+PARAMTEXT
 
 Notes
 -----
@@ -6331,7 +6370,7 @@ Max value for green (or saturation) set by colorMode
 Parameters
 ----------
 
-$params_Py5Shape_color_mode_y
+PARAMTEXT
 
 Notes
 -----
@@ -6346,7 +6385,7 @@ Max value for blue (or value) set by colorMode
 Parameters
 ----------
 
-$params_Py5Shape_color_mode_z
+PARAMTEXT
 
 Notes
 -----
@@ -6361,7 +6400,7 @@ Return true if this x, y coordinate is part of this shape.
 Parameters
 ----------
 
-$params_Py5Shape_contains
+PARAMTEXT
 
 Notes
 -----
@@ -6376,7 +6415,7 @@ Resize the children[] array to be in line with childCount
 Parameters
 ----------
 
-$params_Py5Shape_crop
+PARAMTEXT
 
 Notes
 -----
@@ -6391,7 +6430,7 @@ Disables the shape's style data and uses Processing's current styles.
 Parameters
 ----------
 
-$params_Py5Shape_disable_style
+PARAMTEXT
 
 Notes
 -----
@@ -6412,17 +6451,21 @@ Py5Shape.enable_style() : Enables the shape's style data and ignores Processing'
 
 # Py5Shape_draw
 
-Called by the following (the shape() command adds the g) Py5Shape s = loadShape("blah.svg"); shape(s);
+Called by the following (the shape() command adds the g) Py5Shape s = loadShape("blah.svg")
+shape(s)
+
 
 Parameters
 ----------
 
-$params_Py5Shape_draw
+PARAMTEXT
 
 Notes
 -----
 
-Called by the following (the shape() command adds the g) Py5Shape s = loadShape("blah.svg"); shape(s);
+Called by the following (the shape() command adds the g) Py5Shape s = loadShape("blah.svg")
+shape(s)
+
 
 
 # Py5Shape_draw_impl
@@ -6432,7 +6475,7 @@ Draws the SVG document.
 Parameters
 ----------
 
-$params_Py5Shape_draw_impl
+PARAMTEXT
 
 Notes
 -----
@@ -6447,7 +6490,7 @@ Enables the shape's style data and ignores Processing's current styles.
 Parameters
 ----------
 
-$params_Py5Shape_enable_style
+PARAMTEXT
 
 Notes
 -----
@@ -6468,7 +6511,7 @@ Py5Shape.disable_style() : Disables the shape's style data and uses Processing's
 Parameters
 ----------
 
-$params_Py5Shape_end_contour
+PARAMTEXT
 
 Notes
 -----
@@ -6489,7 +6532,7 @@ Py5Shape.begin_contour() :
 Parameters
 ----------
 
-$params_Py5Shape_end_shape
+PARAMTEXT
 
 Notes
 -----
@@ -6510,7 +6553,7 @@ The shape type, one of GROUP, PRIMITIVE, PATH, or GEOMETRY.
 Parameters
 ----------
 
-$params_Py5Shape_family
+PARAMTEXT
 
 Notes
 -----
@@ -6525,7 +6568,7 @@ Same as getChild(name), except that it first walks all the way up the hierarchy 
 Parameters
 ----------
 
-$params_Py5Shape_find_child
+PARAMTEXT
 
 Notes
 -----
@@ -6540,7 +6583,7 @@ Collections of vertices created with beginShape().
 Parameters
 ----------
 
-$params_Py5Shape_geometry
+PARAMTEXT
 
 Notes
 -----
@@ -6555,7 +6598,7 @@ Extracts a child shape from a parent shape.
 Parameters
 ----------
 
-$params_Py5Shape_get_child
+PARAMTEXT
 
 Notes
 -----
@@ -6576,7 +6619,7 @@ Py5Shape.add_child(p_shape) :
 Parameters
 ----------
 
-$params_Py5Shape_get_child_count
+PARAMTEXT
 
 Notes
 -----
@@ -6591,7 +6634,7 @@ Returns the index of child who.
 Parameters
 ----------
 
-$params_Py5Shape_get_child_index
+PARAMTEXT
 
 Notes
 -----
@@ -6606,7 +6649,7 @@ Get the depth of the shape area (not necessarily the shape boundary).
 Parameters
 ----------
 
-$params_Py5Shape_get_depth
+PARAMTEXT
 
 Notes
 -----
@@ -6621,7 +6664,7 @@ The shape type, one of GROUP, PRIMITIVE, PATH, or GEOMETRY.
 Parameters
 ----------
 
-$params_Py5Shape_get_family
+PARAMTEXT
 
 Notes
 -----
@@ -6636,7 +6679,7 @@ Get the height of the drawing area (not necessarily the shape boundary).
 Parameters
 ----------
 
-$params_Py5Shape_get_height
+PARAMTEXT
 
 Notes
 -----
@@ -6651,7 +6694,7 @@ Get the height of the drawing area (not necessarily the shape boundary).
 Parameters
 ----------
 
-$params_Py5Shape_get_vertex
+PARAMTEXT
 
 Notes
 -----
@@ -6674,7 +6717,7 @@ One of VERTEX, BEZIER_VERTEX, CURVE_VERTEX, or BREAK.
 Parameters
 ----------
 
-$params_Py5Shape_get_vertex_code
+PARAMTEXT
 
 Notes
 -----
@@ -6689,7 +6732,7 @@ One of VERTEX, BEZIER_VERTEX, CURVE_VERTEX, or BREAK.
 Parameters
 ----------
 
-$params_Py5Shape_get_vertex_count
+PARAMTEXT
 
 Notes
 -----
@@ -6712,7 +6755,7 @@ Get the width of the drawing area (not necessarily the shape boundary).
 Parameters
 ----------
 
-$params_Py5Shape_get_width
+PARAMTEXT
 
 Notes
 -----
@@ -6727,7 +6770,7 @@ The height of the Py5Shape document.
 Parameters
 ----------
 
-$params_Py5Shape_height
+PARAMTEXT
 
 Notes
 -----
@@ -6748,7 +6791,7 @@ Texture or image data associated with this shape.
 Parameters
 ----------
 
-$params_Py5Shape_image
+PARAMTEXT
 
 Notes
 -----
@@ -6763,7 +6806,7 @@ Texture or image data associated with this shape.
 Parameters
 ----------
 
-$params_Py5Shape_init
+PARAMTEXT
 
 Notes
 -----
@@ -6778,7 +6821,7 @@ Return true if this shape is 2D.
 Parameters
 ----------
 
-$params_Py5Shape_is2_d
+PARAMTEXT
 
 Notes
 -----
@@ -6793,7 +6836,7 @@ Return true if this shape is 3D.
 Parameters
 ----------
 
-$params_Py5Shape_is3_d
+PARAMTEXT
 
 Notes
 -----
@@ -6808,7 +6851,7 @@ Returns a boolean value "true" if the image is set to be visible, "false" if not
 Parameters
 ----------
 
-$params_Py5Shape_is_visible
+PARAMTEXT
 
 Notes
 -----
@@ -6826,17 +6869,21 @@ Py5Shape.set_visible(boolean) : Sets the shape to be visible or invisible.
 
 # Py5Shape_kind
 
-ELLIPSE, LINE, QUAD; TRIANGLE_FAN, QUAD_STRIP; etc.
+ELLIPSE, LINE, QUAD
+TRIANGLE_FAN, QUAD_STRIP
+etc.
 
 Parameters
 ----------
 
-$params_Py5Shape_kind
+PARAMTEXT
 
 Notes
 -----
 
-ELLIPSE, LINE, QUAD; TRIANGLE_FAN, QUAD_STRIP; etc.
+ELLIPSE, LINE, QUAD
+TRIANGLE_FAN, QUAD_STRIP
+etc.
 
 
 # Py5Shape_open_shape
@@ -6846,7 +6893,7 @@ Retained shape being created with beginShape/endShape
 Parameters
 ----------
 
-$params_Py5Shape_open_shape
+PARAMTEXT
 
 Notes
 -----
@@ -6861,7 +6908,7 @@ For primitive shapes in particular, params like x/y/w/h or x1/y1/x2/y2.
 Parameters
 ----------
 
-$params_Py5Shape_params
+PARAMTEXT
 
 Notes
 -----
@@ -6876,7 +6923,7 @@ Parse a base 64 encoded image within an image path.
 Parameters
 ----------
 
-$params_Py5Shape_parse_base64_image
+PARAMTEXT
 
 Notes
 -----
@@ -6891,7 +6938,7 @@ A series of vertex, curveVertex, and bezierVertex calls.
 Parameters
 ----------
 
-$params_Py5Shape_path
+PARAMTEXT
 
 Notes
 -----
@@ -6906,7 +6953,7 @@ A line, ellipse, arc, image, etc.
 Parameters
 ----------
 
-$params_Py5Shape_primitive
+PARAMTEXT
 
 Notes
 -----
@@ -6921,7 +6968,7 @@ Remove the child shape with index idx.
 Parameters
 ----------
 
-$params_Py5Shape_remove_child
+PARAMTEXT
 
 Notes
 -----
@@ -6936,7 +6983,7 @@ Replaces the current matrix of a shape with the identity matrix.
 Parameters
 ----------
 
-$params_Py5Shape_reset_matrix
+PARAMTEXT
 
 Notes
 -----
@@ -6961,7 +7008,7 @@ Rotates a shape the amount specified by the , `,angle,` , parameter.
 Parameters
 ----------
 
-$params_Py5Shape_rotate
+PARAMTEXT
 
 Notes
 -----
@@ -6994,7 +7041,7 @@ Rotates a shape around the x-axis the amount specified by the , `,angle,` , para
 Parameters
 ----------
 
-$params_Py5Shape_rotate_x
+PARAMTEXT
 
 Notes
 -----
@@ -7029,7 +7076,7 @@ Rotates a shape around the y-axis the amount specified by the , `,angle,` , para
 Parameters
 ----------
 
-$params_Py5Shape_rotate_y
+PARAMTEXT
 
 Notes
 -----
@@ -7064,7 +7111,7 @@ Rotates a shape around the z-axis the amount specified by the , `,angle,` , para
 Parameters
 ----------
 
-$params_Py5Shape_rotate_z
+PARAMTEXT
 
 Notes
 -----
@@ -7099,7 +7146,7 @@ Increases or decreases the size of a shape by expanding and contracting vertices
 Parameters
 ----------
 
-$params_Py5Shape_scale
+PARAMTEXT
 
 Notes
 -----
@@ -7126,7 +7173,7 @@ The , `,set_fill(),` , method defines the fill color of a , `,p_shape,` ,.
 Parameters
 ----------
 
-$params_Py5Shape_set_fill
+PARAMTEXT
 
 Notes
 -----
@@ -7141,7 +7188,7 @@ The , `,set_stroke(),` , method defines the outline color of a , `,p_shape,` ,.
 Parameters
 ----------
 
-$params_Py5Shape_set_stroke
+PARAMTEXT
 
 Notes
 -----
@@ -7156,7 +7203,7 @@ The `set_stroke()` method defines the outline color of a `p_shape` . This method
 Parameters
 ----------
 
-$params_Py5Shape_set_vertex
+PARAMTEXT
 
 Notes
 -----
@@ -7179,7 +7226,7 @@ Sets the shape to be visible or invisible.
 Parameters
 ----------
 
-$params_Py5Shape_set_visible
+PARAMTEXT
 
 Notes
 -----
@@ -7202,7 +7249,7 @@ Temporary toggle for whether styles should be honored.
 Parameters
 ----------
 
-$params_Py5Shape_style
+PARAMTEXT
 
 Notes
 -----
@@ -7217,7 +7264,7 @@ Specifies an amount to displace the shape.
 Parameters
 ----------
 
-$params_Py5Shape_translate
+PARAMTEXT
 
 Notes
 -----
@@ -7244,7 +7291,7 @@ Array of VERTEX, BEZIER_VERTEX, and CURVE_VERTEX calls.
 Parameters
 ----------
 
-$params_Py5Shape_vertex_code_count
+PARAMTEXT
 
 Notes
 -----
@@ -7259,7 +7306,7 @@ When drawing POLYGON shapes, the second param is an array of length VERTEX_FIELD
 Parameters
 ----------
 
-$params_Py5Shape_vertices
+PARAMTEXT
 
 Notes
 -----
@@ -7274,7 +7321,7 @@ The width of the Py5Shape document.
 Parameters
 ----------
 
-$params_Py5Shape_width
+PARAMTEXT
 
 Notes
 -----
@@ -7295,7 +7342,7 @@ Get the native window object associated with this drawing surface.
 Parameters
 ----------
 
-$params_Py5Surface_get_native
+PARAMTEXT
 
 Notes
 -----
@@ -7310,7 +7357,7 @@ Minimum dimensions for the window holding an applet.
 Parameters
 ----------
 
-$params_Py5Surface_min_window_width
+PARAMTEXT
 
 Notes
 -----
@@ -7325,7 +7372,7 @@ Minimum dimensions for the window holding an applet. This varies between platfor
 Parameters
 ----------
 
-$params_Py5Surface_open_link
+PARAMTEXT
 
 Notes
 -----
@@ -7340,7 +7387,7 @@ On the next trip through the animation thread, things should go sleepy-bye.
 Parameters
 ----------
 
-$params_Py5Surface_pause_thread
+PARAMTEXT
 
 Notes
 -----
@@ -7355,7 +7402,7 @@ Dumb name, but inherited from Frame and no better ideas.
 Parameters
 ----------
 
-$params_Py5Surface_set_always_on_top
+PARAMTEXT
 
 Notes
 -----
@@ -7370,7 +7417,7 @@ Set true if we want to resize things (default is not resizable)
 Parameters
 ----------
 
-$params_Py5Surface_set_resizable
+PARAMTEXT
 
 Notes
 -----
@@ -7385,7 +7432,7 @@ Set the window (and dock, or whatever necessary) title.
 Parameters
 ----------
 
-$params_Py5Surface_set_title
+PARAMTEXT
 
 Notes
 -----
@@ -7400,7 +7447,7 @@ Show or hide the window.
 Parameters
 ----------
 
-$params_Py5Surface_set_visible
+PARAMTEXT
 
 Notes
 -----
@@ -7415,7 +7462,7 @@ Start the animation thread
 Parameters
 ----------
 
-$params_Py5Surface_start_thread
+PARAMTEXT
 
 Notes
 -----
@@ -7430,7 +7477,7 @@ Stop the animation thread (set it null)
 Parameters
 ----------
 
-$params_Py5Surface_stop_thread
+PARAMTEXT
 
 Notes
 -----
@@ -7445,7 +7492,7 @@ Calculates the absolute value (magnitude) of a number.
 Parameters
 ----------
 
-$params_Sketch_abs
+PARAMTEXT
 
 Notes
 -----
@@ -7460,7 +7507,7 @@ The inverse of , `,cos(),` ,, returns the arc cosine of a value.
 Parameters
 ----------
 
-$params_Sketch_acos
+PARAMTEXT
 
 Notes
 -----
@@ -7485,7 +7532,7 @@ Extracts the alpha value from a color.
 Parameters
 ----------
 
-$params_Sketch_alpha
+PARAMTEXT
 
 Notes
 -----
@@ -7516,7 +7563,7 @@ Sets the ambient reflectance for shapes drawn to the screen.
 Parameters
 ----------
 
-$params_Sketch_ambient
+PARAMTEXT
 
 Notes
 -----
@@ -7541,7 +7588,7 @@ Adds an ambient light.
 Parameters
 ----------
 
-$params_Sketch_ambient_light
+PARAMTEXT
 
 Notes
 -----
@@ -7568,7 +7615,7 @@ Expands an array by one element and adds data to the new position.
 Parameters
 ----------
 
-$params_Sketch_append
+PARAMTEXT
 
 Notes
 -----
@@ -7593,7 +7640,7 @@ Multiplies the current matrix by the one specified through the parameters.
 Parameters
 ----------
 
-$params_Sketch_apply_matrix
+PARAMTEXT
 
 Notes
 -----
@@ -7620,7 +7667,7 @@ Draws an arc in the display window.
 Parameters
 ----------
 
-$params_Sketch_arc
+PARAMTEXT
 
 Notes
 -----
@@ -7647,7 +7694,7 @@ Command line options passed in from main().
 Parameters
 ----------
 
-$params_Sketch_args
+PARAMTEXT
 
 Notes
 -----
@@ -7668,7 +7715,7 @@ Disable AWT so that LWJGL and others can run
 Parameters
 ----------
 
-$params_Sketch_args_disable_awt
+PARAMTEXT
 
 Notes
 -----
@@ -7683,7 +7730,7 @@ Used by the PDE to suggest a display (set in prefs, passed on Run)
 Parameters
 ----------
 
-$params_Sketch_args_display
+PARAMTEXT
 
 Notes
 -----
@@ -7698,7 +7745,7 @@ Position of the upper-lefthand corner of the editor window that launched this ap
 Parameters
 ----------
 
-$params_Sketch_args_editor_location
+PARAMTEXT
 
 Notes
 -----
@@ -7713,7 +7760,7 @@ Location for where to position the applet window on screen.
 Parameters
 ----------
 
-$params_Sketch_args_location
+PARAMTEXT
 
 Notes
 -----
@@ -7730,7 +7777,7 @@ Allows the user or PdeEditor to set a specific sketch folder path.
 Parameters
 ----------
 
-$params_Sketch_args_sketch_folder
+PARAMTEXT
 
 Notes
 -----
@@ -7747,7 +7794,7 @@ Shortcut to copy the entire contents of the source into the destination array.
 Parameters
 ----------
 
-$params_Sketch_array_copy
+PARAMTEXT
 
 Notes
 -----
@@ -7768,7 +7815,7 @@ Use arrayCopy() instead.
 Parameters
 ----------
 
-$params_Sketch_arraycopy
+PARAMTEXT
 
 Notes
 -----
@@ -7783,7 +7830,7 @@ The inverse of , `,sin(),` ,, returns the arc sine of a value.
 Parameters
 ----------
 
-$params_Sketch_asin
+PARAMTEXT
 
 Notes
 -----
@@ -7808,7 +7855,7 @@ The inverse of , `,tan(),` ,, returns the arc tangent of a value.
 Parameters
 ----------
 
-$params_Sketch_atan
+PARAMTEXT
 
 Notes
 -----
@@ -7833,7 +7880,7 @@ Calculates the angle (in radians) from a specified point to the coordinate origi
 Parameters
 ----------
 
-$params_Sketch_atan2
+PARAMTEXT
 
 Notes
 -----
@@ -7854,7 +7901,7 @@ The , `,background(),` , function sets the color used for the background of the 
 Parameters
 ----------
 
-$params_Sketch_background
+PARAMTEXT
 
 Notes
 -----
@@ -7896,7 +7943,7 @@ The , `,begin_camera(),` , and , `,end_camera(),` , functions enable advanced cu
 Parameters
 ----------
 
-$params_Sketch_begin_camera
+PARAMTEXT
 
 Notes
 -----
@@ -7931,7 +7978,7 @@ Py5Graphics.scale(float, float, float) : Increases or decreases the size of a sh
 Parameters
 ----------
 
-$params_Sketch_begin_contour
+PARAMTEXT
 
 Notes
 -----
@@ -7946,7 +7993,7 @@ To create vectors from 3D data, use the , `,begin_raw(),` , and , `,end_raw(),` 
 Parameters
 ----------
 
-$params_Sketch_begin_raw
+PARAMTEXT
 
 Notes
 -----
@@ -7965,7 +8012,8 @@ See examples in the reference for the `pdf` and `dxf` libraries for more informa
 See Also
 --------
 
-Sketch.end_raw() : Complement to , `,begin_raw(),` ,; they must always be used together.
+Sketch.end_raw() : Complement to , `,begin_raw(),` ,
+they must always be used together.
 
 Sketch.hint(int)
 
@@ -7977,7 +8025,7 @@ Opens a new file and all subsequent drawing functions are echoed to this file as
 Parameters
 ----------
 
-$params_Sketch_begin_record
+PARAMTEXT
 
 Notes
 -----
@@ -8000,7 +8048,7 @@ Using the , `,begin_shape(),` , and , `,end_shape(),` , functions allow creating
 Parameters
 ----------
 
-$params_Sketch_begin_shape
+PARAMTEXT
 
 Notes
 -----
@@ -8031,7 +8079,7 @@ Draws a Bezier curve on the screen.
 Parameters
 ----------
 
-$params_Sketch_bezier
+PARAMTEXT
 
 Notes
 -----
@@ -8046,19 +8094,23 @@ Draw a cubic bezier curve. The first and last points are the on-curve points. Th
 Identical to typing:
 
 ```
-begin_shape(); vertex(x1, y1); bezier_vertex(x2, y2, x3, y3, x4, y4); end_shape();
+begin_shape()
+vertex(x1, y1)
+bezier_vertex(x2, y2, x3, y3, x4, y4)
+end_shape()
 ```
 
 In Postscript-speak, this would be:
 
 ```
-moveto(x1, y1); curveto(x2, y2, x3, y3, x4, y4);
+moveto(x1, y1)
+curveto(x2, y2, x3, y3, x4, y4)
 ```
 
 If you were to try and continue that curve like so:
 
 ```
-curveto(x5, y5, x6, y6, x7, y7);
+curveto(x5, y5, x6, y6, x7, y7)
 ```
 
 This would be done in processing by adding these statements:
@@ -8070,7 +8122,7 @@ bezier_vertex(x5, y5, x6, y6, x7, y7)
 To draw a quadratic (instead of cubic) curve, use the control point twice by doubling it:
 
 ```
-bezier(x1, y1, cx, cy, cx, cy, x2, y2);
+bezier(x1, y1, cx, cy, cx, cy, x2, y2)
 ```
 
 
@@ -8089,7 +8141,7 @@ Sets the resolution at which Beziers display.
 Parameters
 ----------
 
-$params_Sketch_bezier_detail
+PARAMTEXT
 
 Notes
 -----
@@ -8114,7 +8166,7 @@ Evaluates the Bezier at point t for points a, b, c, d.
 Parameters
 ----------
 
-$params_Sketch_bezier_point
+PARAMTEXT
 
 Notes
 -----
@@ -8127,7 +8179,20 @@ Advanced
 For instance, to convert the following example:
 
 ```
-stroke(255, 102, 0); line(85, 20, 10, 10); line(90, 90, 15, 80); stroke(0, 0, 0); bezier(85, 20, 10, 10, 90, 90, 15, 80); // draw it in gray, using 10 steps instead of the default 20 // this is a slower way to do it, but useful if you need // to do things with the coordinates at each step stroke(128); begin_shape(line_strip); for (int i = 0; i<= 10; i++) {   float t = i / 10.0f;   float x = bezier_point(85, 10, 90, 15, t);   float y = bezier_point(20, 10, 90, 80, t);   vertex(x, y); } end_shape();
+stroke(255, 102, 0)
+line(85, 20, 10, 10)
+line(90, 90, 15, 80)
+stroke(0, 0, 0)
+bezier(85, 20, 10, 10, 90, 90, 15, 80)
+// draw it in gray, using 10 steps instead of the default 20 // this is a slower way to do it, but useful if you need // to do things with the coordinates at each step stroke(128)
+begin_shape(line_strip)
+for (int i = 0
+i<= 10
+i++) {   float t = i / 10.0f
+float x = bezier_point(85, 10, 90, 15, t)
+float y = bezier_point(20, 10, 90, 80, t)
+vertex(x, y)
+} end_shape()
 ```
 
 
@@ -8148,7 +8213,7 @@ Calculates the tangent of a point on a Bezier curve.
 Parameters
 ----------
 
-$params_Sketch_bezier_tangent
+PARAMTEXT
 
 Notes
 -----
@@ -8178,7 +8243,7 @@ Specifies vertex coordinates for Bezier curves.
 Parameters
 ----------
 
-$params_Sketch_bezier_vertex
+PARAMTEXT
 
 Notes
 -----
@@ -8205,7 +8270,7 @@ Converts a byte, char, int, or color to a String containing the equivalent binar
 Parameters
 ----------
 
-$params_Sketch_binary
+PARAMTEXT
 
 Notes
 -----
@@ -8232,7 +8297,7 @@ Blends a region of pixels into the image specified by the , `,img,` , parameter.
 Parameters
 ----------
 
-$params_Sketch_blend
+PARAMTEXT
 
 Notes
 -----
@@ -8289,7 +8354,7 @@ This is a new reference entry for Processing 2.0.
 Parameters
 ----------
 
-$params_Sketch_blend_mode
+PARAMTEXT
 
 Notes
 -----
@@ -8304,7 +8369,7 @@ Extracts the blue value from a color, scaled to match current , `,color_mode(),`
 Parameters
 ----------
 
-$params_Sketch_blue
+PARAMTEXT
 
 Notes
 -----
@@ -8312,8 +8377,9 @@ Notes
 Extracts the blue value from a color, scaled to match current `color_mode()` . This value is always returned as a  float so be careful not to assign it to an int value.
 
 The `blue()` function is easy to use and undestand, but is slower than another technique. To achieve the same results when working in `color_mode(rgb, 255)` , but with greater speed, use a bit mask to remove the other color components. For example, the following two lines of code are equivalent:
-<pre>float r1 = blue(myColor);
-float r2 = myColor&0xFF;</pre>
+<pre>float r1 = blue(myColor)
+float r2 = myColor&0xFF
+</pre>
 
 
 See Also
@@ -8339,7 +8405,7 @@ A box is an extruded rectangle.
 Parameters
 ----------
 
-$params_Sketch_box
+PARAMTEXT
 
 Notes
 -----
@@ -8360,7 +8426,7 @@ Extracts the brightness value from a color.
 Parameters
 ----------
 
-$params_Sketch_brightness
+PARAMTEXT
 
 Notes
 -----
@@ -8391,7 +8457,7 @@ Sets the position of the camera through setting the eye position, the center of 
 Parameters
 ----------
 
-$params_Sketch_camera
+PARAMTEXT
 
 Notes
 -----
@@ -8416,7 +8482,7 @@ Calculates the closest int value that is greater than or equal to the value of t
 Parameters
 ----------
 
-$params_Sketch_ceil
+PARAMTEXT
 
 Notes
 -----
@@ -8439,7 +8505,7 @@ Check the alpha on an image, using a really primitive loop.
 Parameters
 ----------
 
-$params_Sketch_check_alpha
+PARAMTEXT
 
 Notes
 -----
@@ -8454,7 +8520,7 @@ Get the compression-free extension for this filename.
 Parameters
 ----------
 
-$params_Sketch_check_extension
+PARAMTEXT
 
 Notes
 -----
@@ -8469,7 +8535,7 @@ Draws a circle to the screen.
 Parameters
 ----------
 
-$params_Sketch_circle
+PARAMTEXT
 
 Notes
 -----
@@ -8492,7 +8558,7 @@ Sketch.ellipse_mode(int) : The origin of the ellipse is modified by the , `,elli
 Parameters
 ----------
 
-$params_Sketch_clear
+PARAMTEXT
 
 Notes
 -----
@@ -8507,7 +8573,7 @@ Limits the rendering to the boundaries of a rectangle defined by the parameters.
 Parameters
 ----------
 
-$params_Sketch_clip
+PARAMTEXT
 
 Notes
 -----
@@ -8522,7 +8588,7 @@ Creates colors for storing in variables of the , `,color,` , datatype.
 Parameters
 ----------
 
-$params_Sketch_color
+PARAMTEXT
 
 Notes
 -----
@@ -8543,7 +8609,7 @@ Changes the way Processing interprets color data.
 Parameters
 ----------
 
-$params_Sketch_color_mode
+PARAMTEXT
 
 Notes
 -----
@@ -8568,7 +8634,7 @@ Concatenates two arrays.
 Parameters
 ----------
 
-$params_Sketch_concat
+PARAMTEXT
 
 Notes
 -----
@@ -8593,7 +8659,7 @@ Constrains a value to not exceed a maximum and minimum value.
 Parameters
 ----------
 
-$params_Sketch_constrain
+PARAMTEXT
 
 Notes
 -----
@@ -8616,7 +8682,7 @@ Copies a region of pixels from one image into another.
 Parameters
 ----------
 
-$params_Sketch_copy
+PARAMTEXT
 
 Notes
 -----
@@ -8641,7 +8707,7 @@ Calculates the cosine of an angle.
 Parameters
 ----------
 
-$params_Sketch_cos
+PARAMTEXT
 
 Notes
 -----
@@ -8666,7 +8732,7 @@ Dynamically converts a font to the format used by Processing from either a font 
 Parameters
 ----------
 
-$params_Sketch_create_font
+PARAMTEXT
 
 Notes
 -----
@@ -8697,7 +8763,7 @@ Create an offscreen graphics surface for drawing, in this case for a renderer th
 Parameters
 ----------
 
-$params_Sketch_create_graphics
+PARAMTEXT
 
 Notes
 -----
@@ -8719,7 +8785,14 @@ Create an offscreen Py5Graphics object for drawing. This can be used for bitmap 
 * If you want to create images that are larger than the screen, you should create your own Py5Graphics object, draw to that, and use<A HREF="http://processing.org/reference/save_.html">save()</A>.
 
 ```
-p_graphics big; void setup() {   big = create_graphics(3000, 3000);   big.begin_draw();   big.background(128);   big.line(20, 1800, 1800, 900);   // etc..   big.end_draw();   // make sure the file is written to the sketch folder   big.save("big.tif"); }
+p_graphics big
+void setup() {   big = create_graphics(3000, 3000)
+big.begin_draw()
+big.background(128)
+big.line(20, 1800, 1800, 900)
+// etc..   big.end_draw()
+// make sure the file is written to the sketch folder   big.save("big.tif")
+}
 ```
 
 
@@ -8740,7 +8813,7 @@ Creates a new Py5Image (the datatype for storing images).
 Parameters
 ----------
 
-$params_Sketch_create_image
+PARAMTEXT
 
 Notes
 -----
@@ -8764,7 +8837,7 @@ This is a function for advanced programmers to open a Java InputStream.
 Parameters
 ----------
 
-$params_Sketch_create_input
+PARAMTEXT
 
 Notes
 -----
@@ -8800,7 +8873,7 @@ It is strongly recommended that libraries use this method to open data files, so
 
 The filename passed in can be:
 
-* A URL, for instance openStream("http://processing.org/");
+* A URL, for instance openStream("http://processing.org/")
 * A file in the sketch's data folder
 * Another file to be opened locally (when running as an application)
 
@@ -8822,7 +8895,7 @@ Call openStream() without automatic gzip decompression.
 Parameters
 ----------
 
-$params_Sketch_create_input_raw
+PARAMTEXT
 
 Notes
 -----
@@ -8837,7 +8910,7 @@ Similar to , `,create_input(),` ,, this creates a Java , `,_output_stream,` , fo
 Parameters
 ----------
 
-$params_Sketch_create_output
+PARAMTEXT
 
 Notes
 -----
@@ -8866,7 +8939,7 @@ Takes a path and creates any in-between folders if they don't already exist.
 Parameters
 ----------
 
-$params_Sketch_create_path
+PARAMTEXT
 
 Notes
 -----
@@ -8881,7 +8954,7 @@ Create default renderer, likely to be resized, but needed for surface init.
 Parameters
 ----------
 
-$params_Sketch_create_primary_graphics
+PARAMTEXT
 
 Notes
 -----
@@ -8896,7 +8969,7 @@ Creates a , `,_buffered_reader,` , object that can be used to read files line-by
 Parameters
 ----------
 
-$params_Sketch_create_reader
+PARAMTEXT
 
 Notes
 -----
@@ -8919,7 +8992,7 @@ Sketch.create_writer(_string) : Creates a new file in the sketch folder, and a ,
 Parameters
 ----------
 
-$params_Sketch_create_shape
+PARAMTEXT
 
 Notes
 -----
@@ -8942,7 +9015,7 @@ Creates a temporary file based on the name/extension of another file and in the 
 Parameters
 ----------
 
-$params_Sketch_create_temp_file
+PARAMTEXT
 
 Notes
 -----
@@ -8957,7 +9030,7 @@ Creates a new file in the sketch folder, and a , `,_print_writer,` , object to w
 Parameters
 ----------
 
-$params_Sketch_create_writer
+PARAMTEXT
 
 Notes
 -----
@@ -8980,7 +9053,7 @@ Sets the cursor to a predefined symbol, an image, or makes it visible if already
 Parameters
 ----------
 
-$params_Sketch_cursor
+PARAMTEXT
 
 Notes
 -----
@@ -9010,7 +9083,7 @@ Draws a curved line on the screen.
 Parameters
 ----------
 
-$params_Sketch_curve
+PARAMTEXT
 
 Notes
 -----
@@ -9025,7 +9098,12 @@ As of revision 0070, this function no longer doubles the first and last points. 
 Identical to typing out:
 
 ```
-begin_shape(); curve_vertex(x1, y1); curve_vertex(x2, y2); curve_vertex(x3, y3); curve_vertex(x4, y4); end_shape();
+begin_shape()
+curve_vertex(x1, y1)
+curve_vertex(x2, y2)
+curve_vertex(x3, y3)
+curve_vertex(x4, y4)
+end_shape()
 ```
 
 
@@ -9046,7 +9124,7 @@ Sets the resolution at which curves display.
 Parameters
 ----------
 
-$params_Sketch_curve_detail
+PARAMTEXT
 
 Notes
 -----
@@ -9071,7 +9149,7 @@ Evalutes the curve at point t for points a, b, c, d.
 Parameters
 ----------
 
-$params_Sketch_curve_point
+PARAMTEXT
 
 Notes
 -----
@@ -9096,7 +9174,7 @@ Calculates the tangent of a point on a curve.
 Parameters
 ----------
 
-$params_Sketch_curve_tangent
+PARAMTEXT
 
 Notes
 -----
@@ -9128,7 +9206,7 @@ Modifies the quality of forms created with , `,curve(),` , and , `,curve_vertex(
 Parameters
 ----------
 
-$params_Sketch_curve_tightness
+PARAMTEXT
 
 Notes
 -----
@@ -9151,7 +9229,7 @@ Specifies vertex coordinates for curves.
 Parameters
 ----------
 
-$params_Sketch_curve_vertex
+PARAMTEXT
 
 Notes
 -----
@@ -9182,7 +9260,7 @@ Return a full path to an item in the data folder as a File object.
 Parameters
 ----------
 
-$params_Sketch_data_file
+PARAMTEXT
 
 Notes
 -----
@@ -9197,7 +9275,7 @@ Return a full path to an item in the data folder as a File object. See the dataP
 Parameters
 ----------
 
-$params_Sketch_data_path
+PARAMTEXT
 
 Notes
 -----
@@ -9214,7 +9292,7 @@ Processing communicates with the clock on your computer.
 Parameters
 ----------
 
-$params_Sketch_day
+PARAMTEXT
 
 Notes
 -----
@@ -9252,7 +9330,7 @@ Default width and height for sketch when not specified
 Parameters
 ----------
 
-$params_Sketch_default_width
+PARAMTEXT
 
 Notes
 -----
@@ -9267,7 +9345,7 @@ Converts a radian measurement to its corresponding value in degrees.
 Parameters
 ----------
 
-$params_Sketch_degrees
+PARAMTEXT
 
 Notes
 -----
@@ -9288,7 +9366,7 @@ The delay() function causes the program to halt for a specified time.
 Parameters
 ----------
 
-$params_Sketch_delay
+PARAMTEXT
 
 Notes
 -----
@@ -9311,7 +9389,7 @@ Function for an applet/application to kill itself and display an error.
 Parameters
 ----------
 
-$params_Sketch_die
+PARAMTEXT
 
 Notes
 -----
@@ -9326,7 +9404,7 @@ Adds a directional light.
 Parameters
 ----------
 
-$params_Sketch_directional_light
+PARAMTEXT
 
 Notes
 -----
@@ -9353,7 +9431,7 @@ This function returns the number "2" if the screen is a high-density screen (cal
 Parameters
 ----------
 
-$params_Sketch_display_density
+PARAMTEXT
 
 Notes
 -----
@@ -9376,7 +9454,7 @@ System variable that stores the height of the computer screen.
 Parameters
 ----------
 
-$params_Sketch_display_height
+PARAMTEXT
 
 Notes
 -----
@@ -9393,7 +9471,7 @@ System variable which stores the width of the computer screen.
 Parameters
 ----------
 
-$params_Sketch_display_width
+PARAMTEXT
 
 Notes
 -----
@@ -9410,7 +9488,7 @@ Called to dispose of resources and shut down the sketch.
 Parameters
 ----------
 
-$params_Sketch_dispose
+PARAMTEXT
 
 Notes
 -----
@@ -9427,7 +9505,7 @@ Calculates the distance between two points.
 Parameters
 ----------
 
-$params_Sketch_dist
+PARAMTEXT
 
 Notes
 -----
@@ -9442,7 +9520,7 @@ Previous mouseX/Y for the draw loop, separated out because this is separate from
 Parameters
 ----------
 
-$params_Sketch_dmouse_x
+PARAMTEXT
 
 Notes
 -----
@@ -9457,7 +9535,7 @@ Previous mouseX/Y for the draw loop, separated out because this is separate from
 Parameters
 ----------
 
-$params_Sketch_dmouse_y
+PARAMTEXT
 
 Notes
 -----
@@ -9472,7 +9550,7 @@ Called directly after , `,setup(),` , and continuously executes the lines of cod
 Parameters
 ----------
 
-$params_Sketch_draw
+PARAMTEXT
 
 Notes
 -----
@@ -9503,7 +9581,7 @@ Sets whether the upcoming vertex is part of an edge.
 Parameters
 ----------
 
-$params_Sketch_edge
+PARAMTEXT
 
 Notes
 -----
@@ -9518,7 +9596,7 @@ Draws an ellipse (oval) in the display window.
 Parameters
 ----------
 
-$params_Sketch_ellipse
+PARAMTEXT
 
 Notes
 -----
@@ -9541,7 +9619,7 @@ The origin of the ellipse is modified by the , `,ellipse_mode(),` , function.
 Parameters
 ----------
 
-$params_Sketch_ellipse_mode
+PARAMTEXT
 
 Notes
 -----
@@ -9564,7 +9642,7 @@ Sets the emissive color of the material used for drawing shapes drawn to the scr
 Parameters
 ----------
 
-$params_Sketch_emissive
+PARAMTEXT
 
 Notes
 -----
@@ -9589,7 +9667,7 @@ The pmouseX/Y for the event handlers (mousePressed(), mouseDragged() etc) these 
 Parameters
 ----------
 
-$params_Sketch_emouse_x
+PARAMTEXT
 
 Notes
 -----
@@ -9604,7 +9682,7 @@ The pmouseX/Y for the event handlers (mousePressed(), mouseDragged() etc) these 
 Parameters
 ----------
 
-$params_Sketch_emouse_y
+PARAMTEXT
 
 Notes
 -----
@@ -9619,7 +9697,7 @@ The , `,begin_camera(),` , and , `,end_camera(),` , functions enable advanced cu
 Parameters
 ----------
 
-$params_Sketch_end_camera
+PARAMTEXT
 
 Notes
 -----
@@ -9642,7 +9720,7 @@ Py5Graphics.camera(float, float, float, float, float, float, float, float, float
 Parameters
 ----------
 
-$params_Sketch_end_contour
+PARAMTEXT
 
 Notes
 -----
@@ -9652,17 +9730,19 @@ Notes
 
 # Sketch_end_raw
 
-Complement to , `,begin_raw(),` ,; they must always be used together.
+Complement to , `,begin_raw(),` ,
+they must always be used together.
 
 Parameters
 ----------
 
-$params_Sketch_end_raw
+PARAMTEXT
 
 Notes
 -----
 
-Complement to `begin_raw()` ; they must always be used together. See the `begin_raw()` reference for details.
+Complement to `begin_raw()` 
+they must always be used together. See the `begin_raw()` reference for details.
 
 
 See Also
@@ -9678,7 +9758,7 @@ Stops the recording process started by , `,begin_record(),` , and closes the fil
 Parameters
 ----------
 
-$params_Sketch_end_record
+PARAMTEXT
 
 Notes
 -----
@@ -9699,7 +9779,7 @@ The , `,end_shape(),` , function is the companion to , `,begin_shape(),` , and m
 Parameters
 ----------
 
-$params_Sketch_end_shape
+PARAMTEXT
 
 Notes
 -----
@@ -9720,12 +9800,16 @@ Alternative version of exec() that retrieves stdout and stderr into the StringLi
 Parameters
 ----------
 
-$params_Sketch_exec
+PARAMTEXT
 
 Notes
 -----
 
-Pass a set of arguments directly to the command line. Uses Java's<A HREF="https://docs.oracle.com/javase/8/docs/api/java/lang/Runtime.html#exec-java.lang.String:A-">Runtime.exec()</A>method. This is different from the<A HREF="https://processing.org/reference/launch_.html">launch()</A>method, which uses the operating system's launcher to open the files. It's always a good idea to use a full path to the executable here.<pre>exec("/usr/bin/say", "welcome to the command line");</pre>Or if you want to wait until it's completed, something like this:<pre>Process p = exec("/usr/bin/say", "waiting until done"); try {   int result = p.waitFor();   println("the process returned " + result); } catch (InterruptedException e) { }</pre>You can also get the system output and error streams from the Process object, but that's more that we'd like to cover here.
+Pass a set of arguments directly to the command line. Uses Java's<A HREF="https://docs.oracle.com/javase/8/docs/api/java/lang/Runtime.html#exec-java.lang.String:A-">Runtime.exec()</A>method. This is different from the<A HREF="https://processing.org/reference/launch_.html">launch()</A>method, which uses the operating system's launcher to open the files. It's always a good idea to use a full path to the executable here.<pre>exec("/usr/bin/say", "welcome to the command line")
+</pre>Or if you want to wait until it's completed, something like this:<pre>Process p = exec("/usr/bin/say", "waiting until done")
+try {   int result = p.waitFor()
+println("the process returned " + result)
+} catch (InterruptedException e) { }</pre>You can also get the system output and error streams from the Process object, but that's more that we'd like to cover here.
 
 
 # Sketch_exit
@@ -9735,7 +9819,7 @@ Quits/stops/exits the program.
 Parameters
 ----------
 
-$params_Sketch_exit
+PARAMTEXT
 
 Notes
 -----
@@ -9754,7 +9838,7 @@ Some subclasses (I'm looking at you, processing.py) might wish to do something o
 Parameters
 ----------
 
-$params_Sketch_exit_actual
+PARAMTEXT
 
 Notes
 -----
@@ -9769,7 +9853,7 @@ true if exit() has been called so that things shut down once the main thread kic
 Parameters
 ----------
 
-$params_Sketch_exit_called
+PARAMTEXT
 
 Notes
 -----
@@ -9784,7 +9868,7 @@ Returns Euler's number ,<i>,e,</i>, (2.71828...) raised to the power of the , `,
 Parameters
 ----------
 
-$params_Sketch_exp
+PARAMTEXT
 
 Notes
 -----
@@ -9799,7 +9883,7 @@ Increases the size of an array.
 Parameters
 ----------
 
-$params_Sketch_expand
+PARAMTEXT
 
 Notes
 -----
@@ -9822,7 +9906,7 @@ true if this sketch is being run by the PDE
 Parameters
 ----------
 
-$params_Sketch_external
+PARAMTEXT
 
 Notes
 -----
@@ -9837,7 +9921,7 @@ When run externally to a PDE Editor, this is sent by the applet whenever the win
 Parameters
 ----------
 
-$params_Sketch_external_move
+PARAMTEXT
 
 Notes
 -----
@@ -9854,7 +9938,7 @@ When run externally to a PdeEditor, this is sent by the sketch when it quits.
 Parameters
 ----------
 
-$params_Sketch_external_stop
+PARAMTEXT
 
 Notes
 -----
@@ -9869,14 +9953,15 @@ Sets the color used to fill shapes.
 Parameters
 ----------
 
-$params_Sketch_fill
+PARAMTEXT
 
 Notes
 -----
 
 Sets the color used to fill shapes. For example, if you run `fill(204, 102, 0)` , all subsequent shapes will be filled with orange. This color is either specified in terms of the RGB or HSB color depending on the current `color_mode()` (the default color space is RGB, with each value in the range from 0 to 255).
 
-When using hexadecimal notation to specify a color, use "#" or "0x" before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six digits to specify a color (the way colors are specified in HTML and CSS). When using the hexadecimal notation starting with "0x", the hexadecimal value must be specified with eight characters; the first two characters define the alpha component and the remainder the red, green, and blue components.
+When using hexadecimal notation to specify a color, use "#" or "0x" before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six digits to specify a color (the way colors are specified in HTML and CSS). When using the hexadecimal notation starting with "0x", the hexadecimal value must be specified with eight characters
+the first two characters define the alpha component and the remainder the red, green, and blue components.
 
 The value for the parameter "gray" must be less than or equal to the current maximum value as specified by `color_mode()` . The default maximum value is 255.
 
@@ -9908,7 +9993,7 @@ Filters an image as defined by one of the following modes:,
 Parameters
 ----------
 
-$params_Sketch_filter
+PARAMTEXT
 
 Notes
 -----
@@ -9955,7 +10040,7 @@ true if the sketch has stopped permanently.
 Parameters
 ----------
 
-$params_Sketch_finished
+PARAMTEXT
 
 Notes
 -----
@@ -9970,7 +10055,7 @@ Used to set pmouseX/Y to mouseX/Y the first time mouseX/Y are used, otherwise pm
 Parameters
 ----------
 
-$params_Sketch_first_mouse
+PARAMTEXT
 
 Notes
 -----
@@ -9987,7 +10072,7 @@ Calculates the closest int value that is less than or equal to the value of the 
 Parameters
 ----------
 
-$params_Sketch_floor
+PARAMTEXT
 
 Notes
 -----
@@ -10010,7 +10095,7 @@ Confirms if a Processing program is "focused", meaning that it is active and wil
 Parameters
 ----------
 
-$params_Sketch_focused
+PARAMTEXT
 
 Notes
 -----
@@ -10025,7 +10110,7 @@ The system variable , `,frame_count,` , contains the number of frames displayed 
 Parameters
 ----------
 
-$params_Sketch_frame_count
+PARAMTEXT
 
 Notes
 -----
@@ -10048,7 +10133,7 @@ The system variable , `,frame_rate,` , contains the approximate frame rate of th
 Parameters
 ----------
 
-$params_Sketch_frame_rate
+PARAMTEXT
 
 Notes
 -----
@@ -10085,7 +10170,7 @@ Last time in nanoseconds that frameRate was checked
 Parameters
 ----------
 
-$params_Sketch_frame_rate_last_nanos
+PARAMTEXT
 
 Notes
 -----
@@ -10100,7 +10185,7 @@ Sets a perspective matrix defined through the parameters.
 Parameters
 ----------
 
-$params_Sketch_frustum
+PARAMTEXT
 
 Notes
 -----
@@ -10127,7 +10212,7 @@ Create a full-screen sketch using the default renderer.
 Parameters
 ----------
 
-$params_Sketch_full_screen
+PARAMTEXT
 
 Notes
 -----
@@ -10154,7 +10239,7 @@ The Py5Graphics renderer associated with this Sketch
 Parameters
 ----------
 
-$params_Sketch_g
+PARAMTEXT
 
 Notes
 -----
@@ -10169,7 +10254,7 @@ Reads the color of any pixel or grabs a section of an image.
 Parameters
 ----------
 
-$params_Sketch_get
+PARAMTEXT
 
 Notes
 -----
@@ -10211,7 +10296,7 @@ Copy the current transformation matrix into the specified target.
 Parameters
 ----------
 
-$params_Sketch_get_matrix
+PARAMTEXT
 
 Notes
 -----
@@ -10226,7 +10311,7 @@ Extracts the green value from a color, scaled to match current , `,color_mode(),
 Parameters
 ----------
 
-$params_Sketch_green
+PARAMTEXT
 
 Notes
 -----
@@ -10234,8 +10319,9 @@ Notes
 Extracts the green value from a color, scaled to match current `color_mode()` . This value is always returned as a  float so be careful not to assign it to an int value.
 
 The `green()` function is easy to use and undestand, but is slower than another technique. To achieve the same results when working in `color_mode(rgb, 255)` , but with greater speed, use the>>(right shift) operator with a bit mask. For example, the following two lines of code are equivalent:
-<pre>float r1 = green(myColor);
-float r2 = myColor>>8&0xFF;</pre>
+<pre>float r1 = green(myColor)
+float r2 = myColor>>8&0xFF
+</pre>
 
 
 See Also
@@ -10261,7 +10347,7 @@ Actually take action based on a mouse event.
 Parameters
 ----------
 
-$params_Sketch_handle_mouse_event
+PARAMTEXT
 
 Notes
 -----
@@ -10276,7 +10362,7 @@ System variable which stores the height of the display window.
 Parameters
 ----------
 
-$params_Sketch_height
+PARAMTEXT
 
 Notes
 -----
@@ -10299,7 +10385,7 @@ Converts a byte, char, int, or color to a String containing the equivalent hexad
 Parameters
 ----------
 
-$params_Sketch_hex
+PARAMTEXT
 
 Notes
 -----
@@ -10326,7 +10412,7 @@ Convenience method, should only be called by Py5Surface subclasses.
 Parameters
 ----------
 
-$params_Sketch_hide_menu_bar
+PARAMTEXT
 
 Notes
 -----
@@ -10341,7 +10427,7 @@ Processing communicates with the clock on your computer.
 Parameters
 ----------
 
-$params_Sketch_hour
+PARAMTEXT
 
 Notes
 -----
@@ -10372,7 +10458,7 @@ Extracts the hue value from a color.
 Parameters
 ----------
 
-$params_Sketch_hue
+PARAMTEXT
 
 Notes
 -----
@@ -10403,7 +10489,7 @@ Draw an image(), also specifying u/v coordinates.
 Parameters
 ----------
 
-$params_Sketch_image
+PARAMTEXT
 
 Notes
 -----
@@ -10441,7 +10527,7 @@ Modifies the location from which images draw.
 Parameters
 ----------
 
-$params_Sketch_image_mode
+PARAMTEXT
 
 Notes
 -----
@@ -10468,7 +10554,7 @@ Check a string for #### signs to see if the frame number should be inserted.
 Parameters
 ----------
 
-$params_Sketch_insert_frame
+PARAMTEXT
 
 Notes
 -----
@@ -10483,7 +10569,7 @@ Check a string for #### signs to see if the frame number should be inserted. Use
 Parameters
 ----------
 
-$params_Sketch_inside_settings
+PARAMTEXT
 
 Notes
 -----
@@ -10498,7 +10584,7 @@ Integer number formatter.
 Parameters
 ----------
 
-$params_Sketch_int_nf
+PARAMTEXT
 
 Notes
 -----
@@ -10508,17 +10594,19 @@ Integer number formatter.
 
 # Sketch_java_version
 
-Do not use; javaPlatform or javaVersionName are better options.
+Do not use
+javaPlatform or javaVersionName are better options.
 
 Parameters
 ----------
 
-$params_Sketch_java_version
+PARAMTEXT
 
 Notes
 -----
 
-Do not use; javaPlatform or javaVersionName are better options. For instance, javaPlatform is useful when you need a number for comparison, i.e. "if (javaPlatform>= 9)".
+Do not use
+javaPlatform or javaVersionName are better options. For instance, javaPlatform is useful when you need a number for comparison, i.e. "if (javaPlatform>= 9)".
 
 
 # Sketch_java_version_name
@@ -10528,7 +10616,7 @@ Full name of the Java version (i.e.
 Parameters
 ----------
 
-$params_Sketch_java_version_name
+PARAMTEXT
 
 Notes
 -----
@@ -10543,7 +10631,7 @@ Combines an array of Strings into one String, each separated by the character(s)
 Parameters
 ----------
 
-$params_Sketch_join
+PARAMTEXT
 
 Notes
 -----
@@ -10570,7 +10658,7 @@ The system variable , `,key,` , always contains the value of the most recent key
 Parameters
 ----------
 
-$params_Sketch_key
+PARAMTEXT
 
 Notes
 -----
@@ -10606,7 +10694,7 @@ The variable , `,key_code,` , is used to detect special keys such as the UP, DOW
 Parameters
 ----------
 
-$params_Sketch_key_code
+PARAMTEXT
 
 Notes
 -----
@@ -10644,7 +10732,7 @@ The last KeyEvent object passed into a mouse function.
 Parameters
 ----------
 
-$params_Sketch_key_event
+PARAMTEXT
 
 Notes
 -----
@@ -10659,7 +10747,7 @@ The boolean system variable , `,key_pressed,` , is , `,true,` , if any key is pr
 Parameters
 ----------
 
-$params_Sketch_key_pressed
+PARAMTEXT
 
 Notes
 -----
@@ -10709,7 +10797,7 @@ The , `,key_released(),` , function is called once every time a key is released.
 Parameters
 ----------
 
-$params_Sketch_key_released
+PARAMTEXT
 
 Notes
 -----
@@ -10736,7 +10824,7 @@ Keeps track of ENABLE_KEY_REPEAT hint
 Parameters
 ----------
 
-$params_Sketch_key_repeat_enabled
+PARAMTEXT
 
 Notes
 -----
@@ -10751,7 +10839,7 @@ The , `,key_typed(),` , function is called once every time a key is pressed, but
 Parameters
 ----------
 
-$params_Sketch_key_typed
+PARAMTEXT
 
 Notes
 -----
@@ -10778,7 +10866,7 @@ Attempts to open an application or file using your platform's launcher.
 Parameters
 ----------
 
-$params_Sketch_launch
+PARAMTEXT
 
 Notes
 -----
@@ -10801,7 +10889,7 @@ Calculates a number between two numbers at a specific increment.
 Parameters
 ----------
 
-$params_Sketch_lerp
+PARAMTEXT
 
 Notes
 -----
@@ -10828,7 +10916,7 @@ Calculates a color or colors between two color at a specific increment.
 Parameters
 ----------
 
-$params_Sketch_lerp_color
+PARAMTEXT
 
 Notes
 -----
@@ -10853,7 +10941,7 @@ Sets the falloff rates for point lights, spot lights, and ambient lights.
 Parameters
 ----------
 
-$params_Sketch_light_falloff
+PARAMTEXT
 
 Notes
 -----
@@ -10887,7 +10975,7 @@ Sets the specular color for lights.
 Parameters
 ----------
 
-$params_Sketch_light_specular
+PARAMTEXT
 
 Notes
 -----
@@ -10916,7 +11004,7 @@ Sets the default ambient light, directional light, falloff, and specular values.
 Parameters
 ----------
 
-$params_Sketch_lights
+PARAMTEXT
 
 Notes
 -----
@@ -10945,7 +11033,7 @@ Draws a line (a direct path between two points) to the screen.
 Parameters
 ----------
 
-$params_Sketch_line
+PARAMTEXT
 
 Notes
 -----
@@ -10972,7 +11060,7 @@ Links to a webpage either in the same window or in a new window.
 Parameters
 ----------
 
-$params_Sketch_link
+PARAMTEXT
 
 Notes
 -----
@@ -10994,7 +11082,7 @@ Reads the contents of a file or url and places it in a byte array.
 Parameters
 ----------
 
-$params_Sketch_load_bytes
+PARAMTEXT
 
 Notes
 -----
@@ -11021,7 +11109,7 @@ Loads a font into a variable of type , `,p_font,` ,.
 Parameters
 ----------
 
-$params_Sketch_load_font
+PARAMTEXT
 
 Notes
 -----
@@ -11050,7 +11138,7 @@ Loads an image into a variable of type , `,p_image,` ,.
 Parameters
 ----------
 
-$params_Sketch_load_image
+PARAMTEXT
 
 Notes
 -----
@@ -11083,7 +11171,7 @@ Py5Graphics.background(float, float, float, float) : The , `,background(),` , fu
 Parameters
 ----------
 
-$params_Sketch_load_json_array
+PARAMTEXT
 
 Notes
 -----
@@ -11108,7 +11196,7 @@ Sketch.save_json_array(json_array, _string) :
 Parameters
 ----------
 
-$params_Sketch_load_json_object
+PARAMTEXT
 
 Notes
 -----
@@ -11133,7 +11221,7 @@ Loads the pixel data for the display window into the , `,pixels[],` , array.
 Parameters
 ----------
 
-$params_Sketch_load_pixels
+PARAMTEXT
 
 Notes
 -----
@@ -11163,7 +11251,7 @@ This is a new reference entry for Processing 2.0.
 Parameters
 ----------
 
-$params_Sketch_load_shader
+PARAMTEXT
 
 Notes
 -----
@@ -11178,7 +11266,7 @@ This is a new reference entry for Processing 2.0. It will be updated shortly.
 Parameters
 ----------
 
-$params_Sketch_load_shape
+PARAMTEXT
 
 Notes
 -----
@@ -11199,7 +11287,7 @@ Reads the contents of a file or url and creates a String array of its individual
 Parameters
 ----------
 
-$params_Sketch_load_strings
+PARAMTEXT
 
 Notes
 -----
@@ -11236,7 +11324,7 @@ Options may contain "header", "tsv", "csv", or "bin" separated by commas.
 Parameters
 ----------
 
-$params_Sketch_load_table
+PARAMTEXT
 
 Notes
 -----
@@ -11263,7 +11351,7 @@ Sketch.load_xml(_string) :
 Parameters
 ----------
 
-$params_Sketch_load_xml
+PARAMTEXT
 
 Notes
 -----
@@ -11292,7 +11380,7 @@ Calculates the natural logarithm (the base-,<i>,e,</i>, logarithm) of a number.
 Parameters
 ----------
 
-$params_Sketch_log
+PARAMTEXT
 
 Notes
 -----
@@ -11307,7 +11395,7 @@ Causes Processing to continuously execute the code within , `,draw(),` ,.
 Parameters
 ----------
 
-$params_Sketch_loop
+PARAMTEXT
 
 Notes
 -----
@@ -11332,7 +11420,7 @@ Calculates the magnitude (or length) of a vector.
 Parameters
 ----------
 
-$params_Sketch_mag
+PARAMTEXT
 
 Notes
 -----
@@ -11353,7 +11441,7 @@ Convenience method so that Sketch.main("YourSketch", args) launches a sketch, ra
 Parameters
 ----------
 
-$params_Sketch_main
+PARAMTEXT
 
 Notes
 -----
@@ -11365,7 +11453,8 @@ Usage: Sketch [options]<class name>[sketch args]<ul><li>The [options] are one or
 The simplest way to turn and sketch into an application is to add the following code to your program:
 
 ```
-static public void main(_string args[]) {   p_applet.main("_your_sketch_name"); }
+static public void main(_string args[]) {   p_applet.main("_your_sketch_name")
+}
 ```
 
 That will properly launch your code from a double-clickable .jar or from the command line.
@@ -11388,7 +11477,7 @@ Version of createGraphics() used internally.
 Parameters
 ----------
 
-$params_Sketch_make_graphics
+PARAMTEXT
 
 Notes
 -----
@@ -11403,7 +11492,7 @@ Re-maps a number from one range to another.
 Parameters
 ----------
 
-$params_Sketch_map
+PARAMTEXT
 
 Notes
 -----
@@ -11428,7 +11517,7 @@ Masks part of an image from displaying by loading another image and using it as 
 Parameters
 ----------
 
-$params_Sketch_mask
+PARAMTEXT
 
 Notes
 -----
@@ -11452,7 +11541,7 @@ The match() function is used to apply a regular expression to a piece of text, a
 Parameters
 ----------
 
-$params_Sketch_match
+PARAMTEXT
 
 Notes
 -----
@@ -11485,7 +11574,7 @@ This function is used to apply a regular expression to a piece of text, and retu
 Parameters
 ----------
 
-$params_Sketch_match_all
+PARAMTEXT
 
 Notes
 -----
@@ -11518,7 +11607,7 @@ Determines the largest value in a sequence of numbers.
 Parameters
 ----------
 
-$params_Sketch_max
+PARAMTEXT
 
 Notes
 -----
@@ -11539,7 +11628,7 @@ Call a method in the current class based on its name.
 Parameters
 ----------
 
-$params_Sketch_method
+PARAMTEXT
 
 Notes
 -----
@@ -11556,7 +11645,7 @@ Returns the number of milliseconds (thousandths of a second) since starting an a
 Parameters
 ----------
 
-$params_Sketch_millis
+PARAMTEXT
 
 Notes
 -----
@@ -11594,7 +11683,7 @@ Time in milliseconds when the applet was started.
 Parameters
 ----------
 
-$params_Sketch_millis_offset
+PARAMTEXT
 
 Notes
 -----
@@ -11611,7 +11700,7 @@ Determines the smallest value in a sequence of numbers.
 Parameters
 ----------
 
-$params_Sketch_min
+PARAMTEXT
 
 Notes
 -----
@@ -11632,7 +11721,7 @@ Processing communicates with the clock on your computer.
 Parameters
 ----------
 
-$params_Sketch_minute
+PARAMTEXT
 
 Notes
 -----
@@ -11663,7 +11752,7 @@ Returns the three-dimensional X, Y, Z position in model space.
 Parameters
 ----------
 
-$params_Sketch_model_x
+PARAMTEXT
 
 Notes
 -----
@@ -11688,7 +11777,7 @@ Returns the three-dimensional X, Y, Z position in model space.
 Parameters
 ----------
 
-$params_Sketch_model_y
+PARAMTEXT
 
 Notes
 -----
@@ -11713,7 +11802,7 @@ Returns the three-dimensional X, Y, Z position in model space.
 Parameters
 ----------
 
-$params_Sketch_model_z
+PARAMTEXT
 
 Notes
 -----
@@ -11738,7 +11827,7 @@ Processing communicates with the clock on your computer.
 Parameters
 ----------
 
-$params_Sketch_month
+PARAMTEXT
 
 Notes
 -----
@@ -11769,7 +11858,7 @@ Processing automatically tracks if the mouse button is pressed and which button 
 Parameters
 ----------
 
-$params_Sketch_mouse_button
+PARAMTEXT
 
 Notes
 -----
@@ -11817,7 +11906,7 @@ The , `,mouse_clicked(),` , function is called once after a mouse button has bee
 Parameters
 ----------
 
-$params_Sketch_mouse_clicked
+PARAMTEXT
 
 Notes
 -----
@@ -11865,7 +11954,7 @@ The , `,mouse_dragged(),` , function is called once every time the mouse moves a
 Parameters
 ----------
 
-$params_Sketch_mouse_dragged
+PARAMTEXT
 
 Notes
 -----
@@ -11908,7 +11997,7 @@ Sketch.mouse_wheel(_mouse_event) : The event.getAmount() method returns negative
 Parameters
 ----------
 
-$params_Sketch_mouse_event
+PARAMTEXT
 
 Notes
 -----
@@ -11923,7 +12012,7 @@ The , `,mouse_moved(),` , function is called every time the mouse moves and a mo
 Parameters
 ----------
 
-$params_Sketch_mouse_moved
+PARAMTEXT
 
 Notes
 -----
@@ -11966,7 +12055,7 @@ The , `,mouse_pressed(),` , function is called once after every time a mouse but
 Parameters
 ----------
 
-$params_Sketch_mouse_pressed
+PARAMTEXT
 
 Notes
 -----
@@ -11976,7 +12065,8 @@ The `mouse_pressed()` function is called once after every time a mouse button is
 Advanced
 --------
 
-If you must, use int button = mouseEvent.getButton(); to figure out which button was clicked. It will be one of: MouseEvent.BUTTON1, MouseEvent.BUTTON2, MouseEvent.BUTTON3 Note, however, that this is completely inconsistent across platforms.
+If you must, use int button = mouseEvent.getButton()
+to figure out which button was clicked. It will be one of: MouseEvent.BUTTON1, MouseEvent.BUTTON2, MouseEvent.BUTTON3 Note, however, that this is completely inconsistent across platforms.
 
 
 See Also
@@ -12038,7 +12128,7 @@ The , `,mouse_released(),` , function is called every time a mouse button is rel
 Parameters
 ----------
 
-$params_Sketch_mouse_released
+PARAMTEXT
 
 Notes
 -----
@@ -12081,7 +12171,7 @@ The event.getAmount() method returns negative values if the mouse wheel if rotat
 Parameters
 ----------
 
-$params_Sketch_mouse_wheel
+PARAMTEXT
 
 Notes
 -----
@@ -12124,7 +12214,7 @@ The system variable , `,mouse_x,` , always contains the current horizontal coord
 Parameters
 ----------
 
-$params_Sketch_mouse_x
+PARAMTEXT
 
 Notes
 -----
@@ -12167,7 +12257,7 @@ The system variable , `,mouse_y,` , always contains the current vertical coordin
 Parameters
 ----------
 
-$params_Sketch_mouse_y
+PARAMTEXT
 
 Notes
 -----
@@ -12210,7 +12300,7 @@ Utility function for formatting numbers into strings.
 Parameters
 ----------
 
-$params_Sketch_nf
+PARAMTEXT
 
 Notes
 -----
@@ -12237,7 +12327,7 @@ Utility function for formatting numbers into strings and placing appropriate com
 Parameters
 ----------
 
-$params_Sketch_nfc
+PARAMTEXT
 
 Notes
 -----
@@ -12264,7 +12354,7 @@ Utility function for formatting numbers into strings.
 Parameters
 ----------
 
-$params_Sketch_nfp
+PARAMTEXT
 
 Notes
 -----
@@ -12289,7 +12379,7 @@ Utility function for formatting numbers into strings.
 Parameters
 ----------
 
-$params_Sketch_nfs
+PARAMTEXT
 
 Notes
 -----
@@ -12314,7 +12404,7 @@ Disables the clipping previously started by the , `,clip(),` , function.
 Parameters
 ----------
 
-$params_Sketch_no_clip
+PARAMTEXT
 
 Notes
 -----
@@ -12329,7 +12419,7 @@ Hides the cursor from view.
 Parameters
 ----------
 
-$params_Sketch_no_cursor
+PARAMTEXT
 
 Notes
 -----
@@ -12355,7 +12445,7 @@ Disables filling geometry.
 Parameters
 ----------
 
-$params_Sketch_no_fill
+PARAMTEXT
 
 Notes
 -----
@@ -12380,7 +12470,7 @@ Disable all lighting.
 Parameters
 ----------
 
-$params_Sketch_no_lights
+PARAMTEXT
 
 Notes
 -----
@@ -12401,7 +12491,7 @@ Stops Processing from continuously executing the code within , `,draw(),` ,.
 Parameters
 ----------
 
-$params_Sketch_no_loop
+PARAMTEXT
 
 Notes
 -----
@@ -12430,7 +12520,7 @@ Sketch.draw() : Called directly after , `,setup(),` , and continuously executes 
 Parameters
 ----------
 
-$params_Sketch_no_smooth
+PARAMTEXT
 
 Notes
 -----
@@ -12445,7 +12535,7 @@ Disables drawing the stroke (outline).
 Parameters
 ----------
 
-$params_Sketch_no_stroke
+PARAMTEXT
 
 Notes
 -----
@@ -12470,7 +12560,7 @@ Removes texture image for current shape.
 Parameters
 ----------
 
-$params_Sketch_no_texture
+PARAMTEXT
 
 Notes
 -----
@@ -12485,7 +12575,7 @@ Removes the current fill value for displaying images and reverts to displaying i
 Parameters
 ----------
 
-$params_Sketch_no_tint
+PARAMTEXT
 
 Notes
 -----
@@ -12508,7 +12598,7 @@ Returns the Perlin noise value at specified coordinates.
 Parameters
 ----------
 
-$params_Sketch_noise
+PARAMTEXT
 
 Notes
 -----
@@ -12539,7 +12629,7 @@ Adjusts the character and level of detail produced by the Perlin noise function.
 Parameters
 ----------
 
-$params_Sketch_noise_detail
+PARAMTEXT
 
 Notes
 -----
@@ -12564,7 +12654,7 @@ Sets the seed value for , `,noise(),` ,.
 Parameters
 ----------
 
-$params_Sketch_noise_seed
+PARAMTEXT
 
 Notes
 -----
@@ -12591,15 +12681,14 @@ Normalizes a number from another range into a value between 0 and 1.
 Parameters
 ----------
 
-$params_Sketch_norm
+PARAMTEXT
 
 Notes
 -----
 
 Normalizes a number from another range into a value between 0 and 1.
 
-Identical to map(value, low, high, 0, 1);
-
+Identical to map(value, low, high, 0, 1)
 Numbers outside the range are not clamped to 0 and 1, because out-of-range values are often intentional and useful.
 
 
@@ -12618,7 +12707,7 @@ Sets the current normal vector.
 Parameters
 ----------
 
-$params_Sketch_normal
+PARAMTEXT
 
 Notes
 -----
@@ -12643,7 +12732,7 @@ Sets an orthographic projection and defines a parallel clipping volume.
 Parameters
 ----------
 
-$params_Sketch_ortho
+PARAMTEXT
 
 Notes
 -----
@@ -12658,7 +12747,7 @@ Convert the string "true" or "false" to a boolean.
 Parameters
 ----------
 
-$params_Sketch_parse_boolean
+PARAMTEXT
 
 Notes
 -----
@@ -12675,7 +12764,7 @@ Convert an int to a float value.
 Parameters
 ----------
 
-$params_Sketch_parse_float
+PARAMTEXT
 
 Notes
 -----
@@ -12690,12 +12779,14 @@ Parse a String to an int, and provide an alternate value that should be used whe
 Parameters
 ----------
 
-$params_Sketch_parse_int
+PARAMTEXT
 
 Notes
 -----
 
-Make an array of int elements from an array of String objects. If the String can't be parsed as a number, its entry in the array will be set to the value of the "missing" parameter. String s[] = { "1", "300", "apple", "44" }; int numbers[] = parseInt(s, 9999); numbers will contain { 1, 300, 9999, 44 }
+Make an array of int elements from an array of String objects. If the String can't be parsed as a number, its entry in the array will be set to the value of the "missing" parameter. String s[] = { "1", "300", "apple", "44" }
+int numbers[] = parseInt(s, 9999)
+numbers will contain { 1, 300, 9999, 44 }
 
 
 # Sketch_parse_json_array
@@ -12705,7 +12796,7 @@ Make an array of int elements from an array of String objects. If the String can
 Parameters
 ----------
 
-$params_Sketch_parse_json_array
+PARAMTEXT
 
 Notes
 -----
@@ -12728,7 +12819,7 @@ Sketch.save_json_object(json_object, _string) :
 Parameters
 ----------
 
-$params_Sketch_parse_json_object
+PARAMTEXT
 
 Notes
 -----
@@ -12751,7 +12842,7 @@ Sketch.save_json_object(json_object, _string) :
 Parameters
 ----------
 
-$params_Sketch_parse_xml
+PARAMTEXT
 
 Notes
 -----
@@ -12774,7 +12865,7 @@ Sketch has been paused.
 Parameters
 ----------
 
-$params_Sketch_pause
+PARAMTEXT
 
 Notes
 -----
@@ -12789,12 +12880,13 @@ Sets a perspective projection applying foreshortening, making distant objects ap
 Parameters
 ----------
 
-$params_Sketch_perspective
+PARAMTEXT
 
 Notes
 -----
 
-Sets a perspective projection applying foreshortening, making distant objects appear smaller than closer ones. The parameters define a viewing volume with the shape of truncated pyramid. Objects near to the front of the volume appear their actual size, while farther objects appear smaller. This projection simulates the perspective of the world more accurately than orthographic projection. The version of perspective without parameters sets the default perspective and the version with four parameters allows the programmer to set the area precisely. The default values are: perspective(PI/3.0, width/height, cameraZ/10.0, cameraZ*10.0) where cameraZ is ((height/2.0) / tan(PI*60.0/360.0));
+Sets a perspective projection applying foreshortening, making distant objects appear smaller than closer ones. The parameters define a viewing volume with the shape of truncated pyramid. Objects near to the front of the volume appear their actual size, while farther objects appear smaller. This projection simulates the perspective of the world more accurately than orthographic projection. The version of perspective without parameters sets the default perspective and the version with four parameters allows the programmer to set the area precisely. The default values are: perspective(PI/3.0, width/height, cameraZ/10.0, cameraZ*10.0) where cameraZ is ((height/2.0) / tan(PI*60.0/360.0))
+
 
 
 # Sketch_pixel_density
@@ -12804,7 +12896,7 @@ Sets a perspective projection applying foreshortening, making distant objects ap
 Parameters
 ----------
 
-$params_Sketch_pixel_density
+PARAMTEXT
 
 Notes
 -----
@@ -12827,7 +12919,7 @@ When , `,pixelDensity(2),</d>, is used to make use of a high resolution display 
 Parameters
 ----------
 
-$params_Sketch_pixel_height
+PARAMTEXT
 
 Notes
 -----
@@ -12852,7 +12944,7 @@ When , `,pixelDensity(2),</d>, is used to make use of a high resolution display 
 Parameters
 ----------
 
-$params_Sketch_pixel_width
+PARAMTEXT
 
 Notes
 -----
@@ -12877,7 +12969,7 @@ Array containing the values for all the pixels in the display window.
 Parameters
 ----------
 
-$params_Sketch_pixels
+PARAMTEXT
 
 Notes
 -----
@@ -12914,7 +13006,7 @@ Current platform in use, one of the PConstants WINDOWS, MACOS, LINUX or OTHER.
 Parameters
 ----------
 
-$params_Sketch_platform
+PARAMTEXT
 
 Notes
 -----
@@ -12931,7 +13023,7 @@ The system variable , `,pmouse_x,` , always contains the horizontal position of 
 Parameters
 ----------
 
-$params_Sketch_pmouse_x
+PARAMTEXT
 
 Notes
 -----
@@ -12974,7 +13066,7 @@ The system variable , `,pmouse_y,` , always contains the vertical position of th
 Parameters
 ----------
 
-$params_Sketch_pmouse_y
+PARAMTEXT
 
 Notes
 -----
@@ -13017,7 +13109,7 @@ Draws a point, a coordinate in space at the dimension of one pixel.
 Parameters
 ----------
 
-$params_Sketch_point
+PARAMTEXT
 
 Notes
 -----
@@ -13038,7 +13130,7 @@ Adds a point light.
 Parameters
 ----------
 
-$params_Sketch_point_light
+PARAMTEXT
 
 Notes
 -----
@@ -13065,7 +13157,7 @@ The , `,pop(),` , function restores the previous drawing style settings and tran
 Parameters
 ----------
 
-$params_Sketch_pop
+PARAMTEXT
 
 Notes
 -----
@@ -13091,7 +13183,7 @@ Pops the current transformation matrix off the matrix stack.
 Parameters
 ----------
 
-$params_Sketch_pop_matrix
+PARAMTEXT
 
 Notes
 -----
@@ -13107,17 +13199,19 @@ Py5Graphics.push_matrix() : Pushes the current transformation matrix onto the ma
 
 # Sketch_pop_style
 
-The , `,push_style(),` , function saves the current style settings and , `,pop_style(),` , restores the prior settings; these functions are always used together.
+The , `,push_style(),` , function saves the current style settings and , `,pop_style(),` , restores the prior settings
+these functions are always used together.
 
 Parameters
 ----------
 
-$params_Sketch_pop_style
+PARAMTEXT
 
 Notes
 -----
 
-The `push_style()` function saves the current style settings and `pop_style()` restores the prior settings; these functions are always used together. They allow you to change the style settings and later return to what you had. When a new style is started with `push_style()` , it builds on the current style information. The `push_style()` and `pop_style()` functions can be embedded to provide more control (see the second example above for a demonstration.)
+The `push_style()` function saves the current style settings and `pop_style()` restores the prior settings
+these functions are always used together. They allow you to change the style settings and later return to what you had. When a new style is started with `push_style()` , it builds on the current style information. The `push_style()` and `pop_style()` functions can be embedded to provide more control (see the second example above for a demonstration.)
 
 
 See Also
@@ -13133,7 +13227,7 @@ Add an event to the internal event queue, or process it immediately if the sketc
 Parameters
 ----------
 
-$params_Sketch_post_event
+PARAMTEXT
 
 Notes
 -----
@@ -13148,7 +13242,7 @@ Facilitates exponential expressions.
 Parameters
 ----------
 
-$params_Sketch_pow
+PARAMTEXT
 
 Notes
 -----
@@ -13169,7 +13263,7 @@ Writes to the console area of the Processing environment.
 Parameters
 ----------
 
-$params_Sketch_print
+PARAMTEXT
 
 Notes
 -----
@@ -13198,7 +13292,7 @@ To come...
 Parameters
 ----------
 
-$params_Sketch_print_array
+PARAMTEXT
 
 Notes
 -----
@@ -13221,7 +13315,7 @@ Prints the current camera matrix to the Console (the text window at the bottom o
 Parameters
 ----------
 
-$params_Sketch_print_camera
+PARAMTEXT
 
 Notes
 -----
@@ -13242,7 +13336,7 @@ Prints the current matrix to the Console (the text window at the bottom of Proce
 Parameters
 ----------
 
-$params_Sketch_print_matrix
+PARAMTEXT
 
 Notes
 -----
@@ -13269,7 +13363,7 @@ Prints the current projection matrix to the Console (the text window at the bott
 Parameters
 ----------
 
-$params_Sketch_print_projection
+PARAMTEXT
 
 Notes
 -----
@@ -13290,7 +13384,7 @@ Better way of handling e.printStackTrace() calls so that they can be handled by 
 Parameters
 ----------
 
-$params_Sketch_print_stack_trace
+PARAMTEXT
 
 Notes
 -----
@@ -13305,7 +13399,7 @@ Writes to the text area of the Processing environment's console.
 Parameters
 ----------
 
-$params_Sketch_println
+PARAMTEXT
 
 Notes
 -----
@@ -13330,7 +13424,7 @@ The , `,push(),` , function saves the current drawing style settings and transfo
 Parameters
 ----------
 
-$params_Sketch_push
+PARAMTEXT
 
 Notes
 -----
@@ -13355,7 +13449,7 @@ Pushes the current transformation matrix onto the matrix stack.
 Parameters
 ----------
 
-$params_Sketch_push_matrix
+PARAMTEXT
 
 Notes
 -----
@@ -13388,7 +13482,7 @@ The , `,push_style(),` , function saves the current style settings and , `,pop_s
 Parameters
 ----------
 
-$params_Sketch_push_style
+PARAMTEXT
 
 Notes
 -----
@@ -13401,7 +13495,8 @@ The style information controlled by the following functions are included in the 
 See Also
 --------
 
-Py5Graphics.pop_style() : The , `,push_style(),` , function saves the current style settings and , `,pop_style(),` , restores the prior settings; these functions are always used together.
+Py5Graphics.pop_style() : The , `,push_style(),` , function saves the current style settings and , `,pop_style(),` , restores the prior settings
+these functions are always used together.
 
 
 # Sketch_quad
@@ -13411,7 +13506,7 @@ A quad is a quadrilateral, a four sided polygon.
 Parameters
 ----------
 
-$params_Sketch_quad
+PARAMTEXT
 
 Notes
 -----
@@ -13426,7 +13521,7 @@ A quad is a quadrilateral, a four sided polygon. It is similar to a rectangle, b
 Parameters
 ----------
 
-$params_Sketch_quadratic_vertex
+PARAMTEXT
 
 Notes
 -----
@@ -13453,7 +13548,7 @@ Converts a degree measurement to its corresponding value in radians.
 Parameters
 ----------
 
-$params_Sketch_radians
+PARAMTEXT
 
 Notes
 -----
@@ -13474,7 +13569,7 @@ Generates random numbers.
 Parameters
 ----------
 
-$params_Sketch_random
+PARAMTEXT
 
 Notes
 -----
@@ -13497,12 +13592,13 @@ Returns a float from a random series of numbers having a mean of 0 and standard 
 Parameters
 ----------
 
-$params_Sketch_random_gaussian
+PARAMTEXT
 
 Notes
 -----
 
-Returns a float from a random series of numbers having a mean of 0 and standard deviation of 1. Each time the `random_gaussian()` function is called, it returns a number fitting a Gaussian, or normal, distribution. There is theoretically no minimum or maximum value that `random_gaussian()` might return. Rather, there is just a very low probability that values far from the mean will be returned; and a higher probability that numbers near the mean will be returned.
+Returns a float from a random series of numbers having a mean of 0 and standard deviation of 1. Each time the `random_gaussian()` function is called, it returns a number fitting a Gaussian, or normal, distribution. There is theoretically no minimum or maximum value that `random_gaussian()` might return. Rather, there is just a very low probability that values far from the mean will be returned
+and a higher probability that numbers near the mean will be returned.
 
 
 See Also
@@ -13520,7 +13616,7 @@ Sets the seed value for , `,random(),` ,.
 Parameters
 ----------
 
-$params_Sketch_random_seed
+PARAMTEXT
 
 Notes
 -----
@@ -13545,7 +13641,7 @@ A leech graphics object that is echoing all events.
 Parameters
 ----------
 
-$params_Sketch_recorder
+PARAMTEXT
 
 Notes
 -----
@@ -13560,7 +13656,7 @@ Draws a rectangle to the screen.
 Parameters
 ----------
 
-$params_Sketch_rect
+PARAMTEXT
 
 Notes
 -----
@@ -13583,7 +13679,7 @@ Modifies the location from which rectangles draw.
 Parameters
 ----------
 
-$params_Sketch_rect_mode
+PARAMTEXT
 
 Notes
 -----
@@ -13604,7 +13700,7 @@ Extracts the red value from a color, scaled to match current , `,color_mode(),` 
 Parameters
 ----------
 
-$params_Sketch_red
+PARAMTEXT
 
 Notes
 -----
@@ -13612,8 +13708,9 @@ Notes
 Extracts the red value from a color, scaled to match current `color_mode()` . This value is always returned as a  float so be careful not to assign it to an int value.
 
 The red() function is easy to use and undestand, but is slower than another technique. To achieve the same results when working in `color_mode(rgb, 255)` , but with greater speed, use the>>(right shift) operator with a bit mask. For example, the following two lines of code are equivalent:
-<pre>float r1 = red(myColor);
-float r2 = myColor>>16&0xFF;</pre>
+<pre>float r1 = red(myColor)
+float r2 = myColor>>16&0xFF
+</pre>
 
 
 See Also
@@ -13639,7 +13736,7 @@ flag set to true when a redraw is asked for by the user
 Parameters
 ----------
 
-$params_Sketch_redraw
+PARAMTEXT
 
 Notes
 -----
@@ -13670,7 +13767,7 @@ Lock when un/registering from multiple threads
 Parameters
 ----------
 
-$params_Sketch_register_lock
+PARAMTEXT
 
 Notes
 -----
@@ -13685,7 +13782,7 @@ Map of registered methods, stored by name.
 Parameters
 ----------
 
-$params_Sketch_register_map
+PARAMTEXT
 
 Notes
 -----
@@ -13700,7 +13797,7 @@ Register a built-in event so that it can be fired for libraries, etc.
 Parameters
 ----------
 
-$params_Sketch_register_method
+PARAMTEXT
 
 Notes
 -----
@@ -13715,7 +13812,7 @@ This function load images on a separate thread so that your sketch does not free
 Parameters
 ----------
 
-$params_Sketch_request_image
+PARAMTEXT
 
 Notes
 -----
@@ -13738,7 +13835,7 @@ Replaces the current matrix with the identity matrix.
 Parameters
 ----------
 
-$params_Sketch_reset_matrix
+PARAMTEXT
 
 Notes
 -----
@@ -13765,7 +13862,7 @@ This is a new reference entry for Processing 2.0.
 Parameters
 ----------
 
-$params_Sketch_reset_shader
+PARAMTEXT
 
 Notes
 -----
@@ -13780,7 +13877,7 @@ Sketch has resumed.
 Parameters
 ----------
 
-$params_Sketch_resume
+PARAMTEXT
 
 Notes
 -----
@@ -13795,7 +13892,7 @@ Reverses the order of an array.
 Parameters
 ----------
 
-$params_Sketch_reverse
+PARAMTEXT
 
 Notes
 -----
@@ -13816,7 +13913,7 @@ Rotates a shape the amount specified by the , `,angle,` , parameter.
 Parameters
 ----------
 
-$params_Sketch_rotate
+PARAMTEXT
 
 Notes
 -----
@@ -13853,7 +13950,7 @@ Rotates a shape around the x-axis the amount specified by the , `,angle,` , para
 Parameters
 ----------
 
-$params_Sketch_rotate_x
+PARAMTEXT
 
 Notes
 -----
@@ -13886,7 +13983,7 @@ Rotates a shape around the y-axis the amount specified by the , `,angle,` , para
 Parameters
 ----------
 
-$params_Sketch_rotate_y
+PARAMTEXT
 
 Notes
 -----
@@ -13919,7 +14016,7 @@ Rotates a shape around the z-axis the amount specified by the , `,angle,` , para
 Parameters
 ----------
 
-$params_Sketch_rotate_z
+PARAMTEXT
 
 Notes
 -----
@@ -13952,7 +14049,7 @@ Calculates the integer closest to the , `,value,` , parameter.
 Parameters
 ----------
 
-$params_Sketch_round
+PARAMTEXT
 
 Notes
 -----
@@ -13975,12 +14072,13 @@ Convenience method for Python Mode to run an already-constructed sketch.
 Parameters
 ----------
 
-$params_Sketch_run_sketch
+PARAMTEXT
 
 Notes
 -----
 
-Convenience method for Python Mode to run an already-constructed sketch. This makes it makes it easy to launch a sketch in Jython:<pre>class MySketch(Sketch):     passMySketch().runSketch();</pre>
+Convenience method for Python Mode to run an already-constructed sketch. This makes it makes it easy to launch a sketch in Jython:<pre>class MySketch(Sketch):     passMySketch().runSketch()
+</pre>
 
 
 # Sketch_saturation
@@ -13990,7 +14088,7 @@ Extracts the saturation value from a color.
 Parameters
 ----------
 
-$params_Sketch_saturation
+PARAMTEXT
 
 Notes
 -----
@@ -14021,7 +14119,7 @@ Saves an image from the display window.
 Parameters
 ----------
 
-$params_Sketch_save
+PARAMTEXT
 
 Notes
 -----
@@ -14045,7 +14143,7 @@ Opposite of , `,load_bytes(),` ,, will write an entire array of bytes to a file.
 Parameters
 ----------
 
-$params_Sketch_save_bytes
+PARAMTEXT
 
 Notes
 -----
@@ -14072,7 +14170,7 @@ Identical to savePath(), but returns a File object.
 Parameters
 ----------
 
-$params_Sketch_save_file
+PARAMTEXT
 
 Notes
 -----
@@ -14087,7 +14185,7 @@ Saves a numbered sequence of images, one image each time the function is run.
 Parameters
 ----------
 
-$params_Sketch_save_frame
+PARAMTEXT
 
 Notes
 -----
@@ -14115,7 +14213,7 @@ Sketch.frame_count : The system variable , `,frame_count,` , contains the number
 Parameters
 ----------
 
-$params_Sketch_save_json_array
+PARAMTEXT
 
 Notes
 -----
@@ -14140,7 +14238,7 @@ Sketch.save_json_object(json_object, _string) :
 Parameters
 ----------
 
-$params_Sketch_save_json_object
+PARAMTEXT
 
 Notes
 -----
@@ -14165,7 +14263,7 @@ Returns a path inside the applet folder to save to.
 Parameters
 ----------
 
-$params_Sketch_save_path
+PARAMTEXT
 
 Notes
 -----
@@ -14188,7 +14286,7 @@ Identical to the other saveStream(), but writes to a File object, for greater co
 Parameters
 ----------
 
-$params_Sketch_save_stream
+PARAMTEXT
 
 Notes
 -----
@@ -14211,7 +14309,7 @@ Writes an array of strings to a file, one line per string.
 Parameters
 ----------
 
-$params_Sketch_save_strings
+PARAMTEXT
 
 Notes
 -----
@@ -14239,7 +14337,7 @@ Sketch.save_bytes(_string, byte[]) : Opposite of , `,load_bytes(),` ,, will writ
 Parameters
 ----------
 
-$params_Sketch_save_table
+PARAMTEXT
 
 Notes
 -----
@@ -14260,7 +14358,7 @@ Sketch.load_table(_string) : Options may contain "header", "tsv", "csv", or "bin
 Parameters
 ----------
 
-$params_Sketch_save_xml
+PARAMTEXT
 
 Notes
 -----
@@ -14283,7 +14381,7 @@ Increases or decreases the size of a shape by expanding and contracting vertices
 Parameters
 ----------
 
-$params_Sketch_scale
+PARAMTEXT
 
 Notes
 -----
@@ -14316,7 +14414,7 @@ Takes a three-dimensional X, Y, Z position and returns the X value for where it 
 Parameters
 ----------
 
-$params_Sketch_screen_x
+PARAMTEXT
 
 Notes
 -----
@@ -14339,7 +14437,7 @@ Takes a three-dimensional X, Y, Z position and returns the Y value for where it 
 Parameters
 ----------
 
-$params_Sketch_screen_y
+PARAMTEXT
 
 Notes
 -----
@@ -14362,7 +14460,7 @@ Takes a three-dimensional X, Y, Z position and returns the Z value for where it 
 Parameters
 ----------
 
-$params_Sketch_screen_z
+PARAMTEXT
 
 Notes
 -----
@@ -14385,7 +14483,7 @@ Processing communicates with the clock on your computer.
 Parameters
 ----------
 
-$params_Sketch_second
+PARAMTEXT
 
 Notes
 -----
@@ -14416,7 +14514,7 @@ See selectInput() for details.
 Parameters
 ----------
 
-$params_Sketch_select_folder
+PARAMTEXT
 
 Notes
 -----
@@ -14431,12 +14529,15 @@ Open a platform-specific file chooser dialog to select a file for input.
 Parameters
 ----------
 
-$params_Sketch_select_input
+PARAMTEXT
 
 Notes
 -----
 
-Open a platform-specific file chooser dialog to select a file for input. After the selection is made, the selected File will be passed to the 'callback' function. If the dialog is closed or canceled, null will be sent to the function, so that the program is not waiting for additional input. The callback is necessary because of how threading works.<pre>void setup() {   selectInput("Select a file to process:", "fileSelected"); } void fileSelected(File selection) {   if (selection == null) {     println("Window was closed or the user hit cancel.");   } else {     println("User selected " + fileSeleted.getAbsolutePath());   } }</pre>For advanced users, the method must be 'public', which is true for all methods inside a sketch when run from the PDE, but must explicitly be set when using Eclipse or other development environments.
+Open a platform-specific file chooser dialog to select a file for input. After the selection is made, the selected File will be passed to the 'callback' function. If the dialog is closed or canceled, null will be sent to the function, so that the program is not waiting for additional input. The callback is necessary because of how threading works.<pre>void setup() {   selectInput("Select a file to process:", "fileSelected")
+} void fileSelected(File selection) {   if (selection == null) {     println("Window was closed or the user hit cancel.")
+} else {     println("User selected " + fileSeleted.getAbsolutePath())
+} }</pre>For advanced users, the method must be 'public', which is true for all methods inside a sketch when run from the PDE, but must explicitly be set when using Eclipse or other development environments.
 
 
 # Sketch_select_output
@@ -14446,7 +14547,7 @@ See selectInput() for details.
 Parameters
 ----------
 
-$params_Sketch_select_output
+PARAMTEXT
 
 Notes
 -----
@@ -14463,7 +14564,7 @@ Changes the color of any pixel or writes an image directly into the display wind
 Parameters
 ----------
 
-$params_Sketch_set
+PARAMTEXT
 
 Notes
 -----
@@ -14492,7 +14593,7 @@ Set the current transformation to the contents of the specified source.
 Parameters
 ----------
 
-$params_Sketch_set_matrix
+PARAMTEXT
 
 Notes
 -----
@@ -14507,7 +14608,7 @@ Called by Py5Surface objects to set the width and height variables, and update t
 Parameters
 ----------
 
-$params_Sketch_set_size
+PARAMTEXT
 
 Notes
 -----
@@ -14522,7 +14623,7 @@ Description to come...
 Parameters
 ----------
 
-$params_Sketch_settings
+PARAMTEXT
 
 Notes
 -----
@@ -14549,7 +14650,7 @@ The , `,setup(),` , function is called once when the program starts.
 Parameters
 ----------
 
-$params_Sketch_setup
+PARAMTEXT
 
 Notes
 -----
@@ -14576,7 +14677,7 @@ This is a new reference entry for Processing 2.0.
 Parameters
 ----------
 
-$params_Sketch_shader
+PARAMTEXT
 
 Notes
 -----
@@ -14591,7 +14692,7 @@ Displays shapes to the screen.
 Parameters
 ----------
 
-$params_Sketch_shape
+PARAMTEXT
 
 Notes
 -----
@@ -14616,7 +14717,7 @@ Modifies the location from which shapes draw.
 Parameters
 ----------
 
-$params_Sketch_shape_mode
+PARAMTEXT
 
 Notes
 -----
@@ -14639,7 +14740,7 @@ Shears a shape around the x-axis the amount specified by the , `,angle,` , param
 Parameters
 ----------
 
-$params_Sketch_shear_x
+PARAMTEXT
 
 Notes
 -----
@@ -14672,7 +14773,7 @@ Shears a shape around the y-axis the amount specified by the , `,angle,` , param
 Parameters
 ----------
 
-$params_Sketch_shear_y
+PARAMTEXT
 
 Notes
 -----
@@ -14705,7 +14806,7 @@ Same as exec() above, but prefixes the call with a shell.
 Parameters
 ----------
 
-$params_Sketch_shell
+PARAMTEXT
 
 Notes
 -----
@@ -14720,7 +14821,7 @@ Sets the amount of gloss in the surface of shapes.
 Parameters
 ----------
 
-$params_Sketch_shininess
+PARAMTEXT
 
 Notes
 -----
@@ -14745,7 +14846,7 @@ Decreases an array by one element and returns the shortened array.
 Parameters
 ----------
 
-$params_Sketch_shorten
+PARAMTEXT
 
 Notes
 -----
@@ -14770,7 +14871,7 @@ Display a warning that the specified method is only available with 3D.
 Parameters
 ----------
 
-$params_Sketch_show_depth_warning
+PARAMTEXT
 
 Notes
 -----
@@ -14785,7 +14886,7 @@ Display a warning that the specified method that takes x, y, z parameters can on
 Parameters
 ----------
 
-$params_Sketch_show_depth_warning_xyz
+PARAMTEXT
 
 Notes
 -----
@@ -14800,7 +14901,7 @@ Display a warning that the specified method is simply unavailable.
 Parameters
 ----------
 
-$params_Sketch_show_method_warning
+PARAMTEXT
 
 Notes
 -----
@@ -14815,7 +14916,7 @@ Display a warning that the specified method is not implemented, meaning that it 
 Parameters
 ----------
 
-$params_Sketch_show_missing_warning
+PARAMTEXT
 
 Notes
 -----
@@ -14830,7 +14931,7 @@ Danger: available for advanced subclassing, but here be dragons.
 Parameters
 ----------
 
-$params_Sketch_show_surface
+PARAMTEXT
 
 Notes
 -----
@@ -14845,7 +14946,7 @@ Error that a particular variation of a method is unavailable (even though other 
 Parameters
 ----------
 
-$params_Sketch_show_variation_warning
+PARAMTEXT
 
 Notes
 -----
@@ -14860,7 +14961,7 @@ Calculates the sine of an angle.
 Parameters
 ----------
 
-$params_Sketch_sin
+PARAMTEXT
 
 Notes
 -----
@@ -14885,7 +14986,7 @@ Defines the dimension of the display window in units of pixels.
 Parameters
 ----------
 
-$params_Sketch_size
+PARAMTEXT
 
 Notes
 -----
@@ -14939,7 +15040,7 @@ Prepend the sketch folder path to the filename (or path) that is passed in.
 Parameters
 ----------
 
-$params_Sketch_sketch_path
+PARAMTEXT
 
 Notes
 -----
@@ -14958,7 +15059,7 @@ This will also cause an error if the sketch is not inited properly, meaning that
 Parameters
 ----------
 
-$params_Sketch_smooth
+PARAMTEXT
 
 Notes
 -----
@@ -14973,7 +15074,7 @@ Sorts an array of numbers from smallest to largest and puts an array of words in
 Parameters
 ----------
 
-$params_Sketch_sort
+PARAMTEXT
 
 Notes
 -----
@@ -14994,7 +15095,7 @@ Sets the specular color of the materials used for shapes drawn to the screen, wh
 Parameters
 ----------
 
-$params_Sketch_specular
+PARAMTEXT
 
 Notes
 -----
@@ -15021,7 +15122,7 @@ A sphere is a hollow ball made from tessellated triangles.
 Parameters
 ----------
 
-$params_Sketch_sphere
+PARAMTEXT
 
 Notes
 -----
@@ -15057,7 +15158,7 @@ Controls the detail used to render a sphere by adjusting the number of vertices 
 Parameters
 ----------
 
-$params_Sketch_sphere_detail
+PARAMTEXT
 
 Notes
 -----
@@ -15083,7 +15184,7 @@ Inserts a value or array of values into an existing array.
 Parameters
 ----------
 
-$params_Sketch_splice
+PARAMTEXT
 
 Notes
 -----
@@ -15108,7 +15209,7 @@ The split() function breaks a string into pieces using a character or string as 
 Parameters
 ----------
 
-$params_Sketch_split
+PARAMTEXT
 
 Notes
 -----
@@ -15127,7 +15228,7 @@ The splitTokens() function splits a String at one or many character "tokens." Th
 Parameters
 ----------
 
-$params_Sketch_split_tokens
+PARAMTEXT
 
 Notes
 -----
@@ -15154,7 +15255,7 @@ Adds a spot light.
 Parameters
 ----------
 
-$params_Sketch_spot_light
+PARAMTEXT
 
 Notes
 -----
@@ -15181,7 +15282,7 @@ Squares a number (multiplies a number by itself).
 Parameters
 ----------
 
-$params_Sketch_sq
+PARAMTEXT
 
 Notes
 -----
@@ -15202,7 +15303,7 @@ Calculates the square root of a number.
 Parameters
 ----------
 
-$params_Sketch_sqrt
+PARAMTEXT
 
 Notes
 -----
@@ -15225,7 +15326,7 @@ Draws a square to the screen.
 Parameters
 ----------
 
-$params_Sketch_square
+PARAMTEXT
 
 Notes
 -----
@@ -15248,7 +15349,7 @@ Called by the browser or applet viewer to inform this applet that it should star
 Parameters
 ----------
 
-$params_Sketch_start
+PARAMTEXT
 
 Notes
 -----
@@ -15265,7 +15366,7 @@ See warning in showSurface()
 Parameters
 ----------
 
-$params_Sketch_start_surface
+PARAMTEXT
 
 Notes
 -----
@@ -15280,7 +15381,7 @@ Called by the browser or applet viewer to inform this applet that it should stop
 Parameters
 ----------
 
-$params_Sketch_stop
+PARAMTEXT
 
 Notes
 -----
@@ -15297,14 +15398,15 @@ Sets the color used to draw lines and borders around shapes.
 Parameters
 ----------
 
-$params_Sketch_stroke
+PARAMTEXT
 
 Notes
 -----
 
 Sets the color used to draw lines and borders around shapes. This color is either specified in terms of the RGB or HSB color depending on the current `color_mode()` (the default color space is RGB, with each value in the range from 0 to 255).
 
-When using hexadecimal notation to specify a color, use "#" or "0x" before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six digits to specify a color (the way colors are specified in HTML and CSS). When using the hexadecimal notation starting with "0x", the hexadecimal value must be specified with eight characters; the first two characters define the alpha component and the remainder the red, green, and blue components.
+When using hexadecimal notation to specify a color, use "#" or "0x" before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six digits to specify a color (the way colors are specified in HTML and CSS). When using the hexadecimal notation starting with "0x", the hexadecimal value must be specified with eight characters
+the first two characters define the alpha component and the remainder the red, green, and blue components.
 
 The value for the parameter "gray" must be less than or equal to the current maximum value as specified by `color_mode()` . The default maximum value is 255.
 
@@ -15338,7 +15440,7 @@ Sets the style for rendering line endings.
 Parameters
 ----------
 
-$params_Sketch_stroke_cap
+PARAMTEXT
 
 Notes
 -----
@@ -15367,7 +15469,7 @@ Sets the style of the joints which connect line segments.
 Parameters
 ----------
 
-$params_Sketch_stroke_join
+PARAMTEXT
 
 Notes
 -----
@@ -15394,7 +15496,7 @@ Sets the width of the stroke used for lines, points, and the border around shape
 Parameters
 ----------
 
-$params_Sketch_stroke_weight
+PARAMTEXT
 
 Notes
 -----
@@ -15421,7 +15523,7 @@ Extracts an array of elements from an existing array.
 Parameters
 ----------
 
-$params_Sketch_subset
+PARAMTEXT
 
 Notes
 -----
@@ -15444,7 +15546,7 @@ Calculates the ratio of the sine and cosine of an angle.
 Parameters
 ----------
 
-$params_Sketch_tan
+PARAMTEXT
 
 Notes
 -----
@@ -15469,7 +15571,7 @@ This does a basic number formatting, to avoid the generally ugly appearance of p
 Parameters
 ----------
 
-$params_Sketch_text
+PARAMTEXT
 
 Notes
 -----
@@ -15510,7 +15612,7 @@ Sets the current alignment for drawing text.
 Parameters
 ----------
 
-$params_Sketch_text_align
+PARAMTEXT
 
 Notes
 -----
@@ -15545,7 +15647,7 @@ Returns ascent of the current font at its current size.
 Parameters
 ----------
 
-$params_Sketch_text_ascent
+PARAMTEXT
 
 Notes
 -----
@@ -15566,7 +15668,7 @@ Returns descent of the current font at its current size.
 Parameters
 ----------
 
-$params_Sketch_text_descent
+PARAMTEXT
 
 Notes
 -----
@@ -15587,7 +15689,7 @@ Sets the current font that will be drawn with the , `,text(),` , function.
 Parameters
 ----------
 
-$params_Sketch_text_font
+PARAMTEXT
 
 Notes
 -----
@@ -15618,7 +15720,7 @@ Sets the spacing between lines of text in units of pixels.
 Parameters
 ----------
 
-$params_Sketch_text_leading
+PARAMTEXT
 
 Notes
 -----
@@ -15647,7 +15749,7 @@ Sets the way text draws to the screen.
 Parameters
 ----------
 
-$params_Sketch_text_mode
+PARAMTEXT
 
 Notes
 -----
@@ -15682,7 +15784,7 @@ Sets the current font size.
 Parameters
 ----------
 
-$params_Sketch_text_size
+PARAMTEXT
 
 Notes
 -----
@@ -15709,7 +15811,7 @@ Calculates and returns the width of any character or text string.
 Parameters
 ----------
 
-$params_Sketch_text_width
+PARAMTEXT
 
 Notes
 -----
@@ -15738,7 +15840,7 @@ Sets a texture to be applied to vertex points.
 Parameters
 ----------
 
-$params_Sketch_texture
+PARAMTEXT
 
 Notes
 -----
@@ -15769,7 +15871,7 @@ Sets the coordinate space for texture mapping.
 Parameters
 ----------
 
-$params_Sketch_texture_mode
+PARAMTEXT
 
 Notes
 -----
@@ -15792,7 +15894,7 @@ Description to come...
 Parameters
 ----------
 
-$params_Sketch_texture_wrap
+PARAMTEXT
 
 Notes
 -----
@@ -15815,7 +15917,7 @@ Launch a new thread and call the specified function from that new thread.
 Parameters
 ----------
 
-$params_Sketch_thread
+PARAMTEXT
 
 Notes
 -----
@@ -15844,7 +15946,7 @@ Sets the fill value for displaying images.
 Parameters
 ----------
 
-$params_Sketch_tint
+PARAMTEXT
 
 Notes
 -----
@@ -15853,7 +15955,8 @@ Sets the fill value for displaying images. Images can be tinted to specified col
 
 To make an image transparent, but not change it's color, use white as the tint color and specify an alpha value. For instance, tint(255, 128) will make an image 50% transparent (unless `color_mode()` has been used).
 
-When using hexadecimal notation to specify a color, use "#" or "0x" before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six digits to specify a color (the way colors are specified in HTML and CSS). When using the hexadecimal notation starting with "0x", the hexadecimal value must be specified with eight characters; the first two characters define the alpha component and the remainder the red, green, and blue components.
+When using hexadecimal notation to specify a color, use "#" or "0x" before the values (e.g. #CCFFAA, 0xFFCCFFAA). The # syntax uses six digits to specify a color (the way colors are specified in HTML and CSS). When using the hexadecimal notation starting with "0x", the hexadecimal value must be specified with eight characters
+the first two characters define the alpha component and the remainder the red, green, and blue components.
 
 The value for the parameter "gray" must be less than or equal to the current maximum value as specified by `color_mode()` . The default maximum value is 255.
 
@@ -15875,7 +15978,7 @@ Specifies an amount to displace objects within the display window.
 Parameters
 ----------
 
-$params_Sketch_translate
+PARAMTEXT
 
 Notes
 -----
@@ -15908,7 +16011,7 @@ A triangle is a plane created by connecting three points.
 Parameters
 ----------
 
-$params_Sketch_triangle
+PARAMTEXT
 
 Notes
 -----
@@ -15929,7 +16032,7 @@ Removes whitespace characters from the beginning and end of a String.
 Parameters
 ----------
 
-$params_Sketch_trim
+PARAMTEXT
 
 Notes
 -----
@@ -15952,7 +16055,7 @@ Converts a String representation of a binary number to its equivalent integer va
 Parameters
 ----------
 
-$params_Sketch_unbinary
+PARAMTEXT
 
 Notes
 -----
@@ -15977,7 +16080,7 @@ used by the UncaughtExceptionHandler, so has to be static
 Parameters
 ----------
 
-$params_Sketch_uncaught_throwable
+PARAMTEXT
 
 Notes
 -----
@@ -15992,7 +16095,7 @@ Converts a String representation of a hexadecimal number to its equivalent integ
 Parameters
 ----------
 
-$params_Sketch_unhex
+PARAMTEXT
 
 Notes
 -----
@@ -16017,7 +16120,7 @@ Updates the display window with the data in the , `,pixels[],` , array.
 Parameters
 ----------
 
-$params_Sketch_update_pixels
+PARAMTEXT
 
 Notes
 -----
@@ -16044,7 +16147,7 @@ Whether to use native (AWT) dialogs for selectInput and selectOutput.
 Parameters
 ----------
 
-$params_Sketch_use_native_select
+PARAMTEXT
 
 Notes
 -----
@@ -16059,7 +16162,7 @@ Used by renderer subclasses or Py5Shape to efficiently pass in already formatted
 Parameters
 ----------
 
-$params_Sketch_vertex
+PARAMTEXT
 
 Notes
 -----
@@ -16094,7 +16197,7 @@ System variable which stores the width of the display window.
 Parameters
 ----------
 
-$params_Sketch_width
+PARAMTEXT
 
 Notes
 -----
@@ -16117,7 +16220,7 @@ Processing communicates with the clock on your computer.
 Parameters
 ----------
 
-$params_Sketch_year
+PARAMTEXT
 
 Notes
 -----

@@ -118,13 +118,13 @@ class ThreadsMixin:
 
     def launch_thread(self, f: Callable, name: str = None,
                       args: Tuple = None, kwargs: Dict = None) -> str:
-        """$class_launch_thread"""
+        """missing docstring"""
         args, kwargs = self._check_param_types(args, kwargs)
         return self._launch_py5thread(name, Py5Thread(self, f, args, kwargs))
 
     def launch_promise_thread(self, f: Callable, name: str = None,
                               args: Tuple = None, kwargs: Dict = None) -> Py5Promise:
-        """$class_launch_promise_thread"""
+        """missing docstring"""
         args, kwargs = self._check_param_types(args, kwargs)
         promise = Py5Promise()
         self._launch_py5thread(name, Py5PromiseThread(self, f, promise, args, kwargs))
@@ -132,7 +132,7 @@ class ThreadsMixin:
 
     def launch_repeating_thread(self, f: Callable, name: str = None, time_delay: float = 0,
                                 args: Tuple = None, kwargs: Dict = None) -> str:
-        """$class_launch_repeating_thread"""
+        """missing docstring"""
         args, kwargs = self._check_param_types(args, kwargs)
         return self._launch_py5thread(name, Py5RepeatingThread(self, f, time_delay, args, kwargs))
 
@@ -143,12 +143,12 @@ class ThreadsMixin:
                 del self._py5threads[t_name]
 
     def has_thread(self, name: str) -> None:
-        """$class_has_thread"""
+        """missing docstring"""
         self._remove_dead_threads()
         return name in self._py5threads
 
     def stop_thread(self, name: str, wait: bool = False) -> None:
-        """$class_stop_thread"""
+        """missing docstring"""
         if name in self._py5threads:
             t, py5thread = self._py5threads[name]
             py5thread.stop()
@@ -157,7 +157,7 @@ class ThreadsMixin:
             del self._py5threads[name]
 
     def stop_all_threads(self, wait: bool = False) -> None:
-        """$class_stop_all_threads"""
+        """missing docstring"""
         current_thread_name = threading.current_thread().name
         for name in self.list_threads():
             if name == current_thread_name:
@@ -166,7 +166,7 @@ class ThreadsMixin:
             self.stop_thread(name, wait=wait)
 
     def list_threads(self) -> None:
-        """$class_list_threads"""
+        """missing docstring"""
         self._remove_dead_threads()
         return list(self._py5threads.keys())
 

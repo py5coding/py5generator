@@ -25,6 +25,7 @@ TYPEHINT_COMMA_REGEX = re.compile(r'(\[[\w\s,]+\])')
 
 
 def snake_case(name):
+    # TODO: put these regexes in precompiled expressions
     name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
     name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', name)
     return name.lower()
@@ -139,6 +140,8 @@ class CodeBuilder:
             paramstrs, rettypestr = self._make_param_rettype_strs(fname, first_param, params, paramnames, rettype)
             class_arguments = ', '.join([p.split(':')[0] for p in paramstrs[1:]])
             module_arguments = class_arguments
+            docstring_param_key = '+'.join(paramstrs[1:]).replace(' ', '')
+
             if len(paramstrs) > 1:
                 if paramstrs[-1][0] == '*':
                     paramstrs.insert(-1, '/')
@@ -154,14 +157,16 @@ class CodeBuilder:
             self.class_members.append(
                 templ.CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
                     self._class_name, py5_name, ', '.join(paramstrs), classobj,
-                    fname, decorator, rettypestr, class_arguments, signature_options
+                    fname, decorator, rettypestr, class_arguments, signature_options,
+                    docstring_param_key
                 )
             )
             if self._code_module:
                 self.module_members.append(
                     templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
                         self._class_name, py5_name, ', '.join(paramstrs[1:]),
-                        moduleobj, rettypestr, module_arguments
+                        moduleobj, rettypestr, module_arguments,
+                        docstring_param_key
                     )
                 )
         else:
@@ -178,6 +183,8 @@ class CodeBuilder:
                     continue
                 skipped_all = False
                 paramstrs, rettypestr = self._make_param_rettype_strs(fname, first_param, params, paramnames, rettype)
+                docstring_param_key = '+'.join(paramstrs[1:]).replace(' ', '')
+
                 if len(paramstrs) > 1:
                     if paramstrs[-1][0] == '*':
                         paramstrs.insert(-1, '/')
@@ -194,13 +201,13 @@ class CodeBuilder:
                 signature_options.append(', '.join([s for s in paramstrs[1:] if s != '/']))
                 self.class_members.append(
                     templ.CLASS_METHOD_TYPEHINT_TEMPLATE.format(
-                        self._class_name, py5_name, joined_paramstrs, rettypestr
+                        self._class_name, py5_name, joined_paramstrs, rettypestr, docstring_param_key
                     )
                 )
                 if self._code_module:
                     self.module_members.append(
                         templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(
-                            self._class_name, py5_name, ', '.join(paramstrs[1:]), rettypestr
+                            self._class_name, py5_name, ', '.join(paramstrs[1:]), rettypestr, docstring_param_key
                         )
                     )
                 created_sigs.add((joined_paramstrs, rettypestr))
@@ -214,6 +221,9 @@ class CodeBuilder:
                 kw_param = kwargs.split(':')[0]
                 module_arguments += f', {kw_param}={kw_param}'
 
+            # TODO: these need to have the parameters for all overloads
+            # TODO: they also need to list all the call signatures
+            # TODO: all comments should say what they return
             self.class_members.append(
                 templ.CLASS_METHOD_TEMPLATE.format(
                     self._class_name, py5_name, first_param, classobj, fname,
@@ -260,9 +270,10 @@ class CodeBuilder:
                         paramlist.append(paramname)
 
                 params = ', '.join(paramlist)
+                # TODO: how will this work with the docstrings? will the extras just copy the docstrings?
                 self.module_members.append(
                     templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
-                        self._class_name, fname, args, moduleobj, rettypestr, params
+                        self._class_name, fname, args, moduleobj, rettypestr, params, ''
                     )
                 )
                 self.extra_names.add(fname)

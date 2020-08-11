@@ -30,7 +30,7 @@ class Py5Font:
 
     @classmethod
     def list(cls) -> List[str]:
-        """$class_list"""
+        """$class_Py5Font_list|"""
         try:
             return [str(x) for x in cls._cls.list()]
         except Exception as e:

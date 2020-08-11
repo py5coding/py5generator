@@ -25,7 +25,7 @@ MODULE_PROPERTY_TEMPLATE = """
 
 CLASS_PROPERTY_TEMPLATE = """
     def _get_{1}(self) -> {2}:
-        \"\"\"$class_{0}_{1}\"\"\"
+        \"\"\"$class_{0}_{1}|\"\"\"
         return self._instance.{3}
     {1}: {2} = property(fget=_get_{1})
 """
@@ -42,7 +42,7 @@ MODULE_PROPERTY_PRE_RUN_TEMPLATE = """
 CLASS_METHOD_TYPEHINT_TEMPLATE = """
     @overload
     def {1}({2}) -> {3}:
-        \"\"\"$class_{0}_{1}\"\"\"
+        \"\"\"$class_{0}_{1}|{4}\"\"\"
         pass
 """
 
@@ -50,7 +50,7 @@ CLASS_METHOD_TYPEHINT_TEMPLATE = """
 CLASS_METHOD_TEMPLATE = """
     {5}
     def {1}({2}, {6}):
-        \"\"\"$class_{0}_{1}\"\"\"
+        \"\"\"$class_{0}_{1}|\"\"\"
         # try:
         return {3}.{4}(*args)
         # except Exception as e:
@@ -61,7 +61,7 @@ CLASS_METHOD_TEMPLATE = """
 CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS = """
     {5}
     def {1}({2}) -> {6}:
-        \"\"\"$class_{0}_{1}\"\"\"
+        \"\"\"$class_{0}_{1}|{9}\"\"\"
         # try:
         return {3}.{4}({7})
         # except Exception as e:
@@ -76,18 +76,18 @@ CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS = """
 MODULE_FUNCTION_TYPEHINT_TEMPLATE = """
 @overload
 def {1}({2}) -> {3}:
-    \"\"\"$module_{0}_{1}\"\"\"
+    \"\"\"$module_{0}_{1}|{4}\"\"\"
     pass
 """
 
 MODULE_FUNCTION_TEMPLATE = """
 def {1}({3}):
-    \"\"\"$module_{0}_{1}\"\"\"
+    \"\"\"$module_{0}_{1}|\"\"\"
     return {2}.{1}({4})
 """
 
 MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS = """
 def {1}({2}) -> {4}:
-    \"\"\"$module_{0}_{1}\"\"\"
+    \"\"\"$module_{0}_{1}|{6}\"\"\"
     return {3}.{1}({5})
 """
