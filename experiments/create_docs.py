@@ -60,10 +60,17 @@ class FunctionDocData:
 
     def _text_cleanup(self, text):
         for c in CODE_REGEX.findall(text):
-            text = text.replace(c, snake_case(c))
-        text = re.sub(r';\s*', '\n', text)
+            new_c = snake_case(c)
+            new_c = re.sub(r';\s*', '\n', new_c)
+            new_c = new_c.replace(',', '')
+            text = text.replace(c, new_c)
+        # fix the backticks
+        text = text.replace('`', '``')
+        text = re.sub('`{3,}', '``', text)
         for pname, py5name in PY5_CLASS_LOOKUP.items():
             text = text.replace(pname, py5name)
+            # this second fixes what the snake_function does to code
+            text = text.replace(snake_case(pname), py5name)
         return text
 
     def report_first(self, first):
@@ -85,7 +92,7 @@ class FunctionDocData:
         self.vars[varname] = vardesc
 
     def report_see_also(self, classname, call):
-        self.see_also.append((classname, snake_case(call)))
+        self.see_also.append((classname, self._text_cleanup(call)))
 
     def get_see(self, docdata):
         out = []

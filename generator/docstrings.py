@@ -25,9 +25,10 @@ class DocstringDict:
             doc = textwrap.indent(
                 self._docstrings[name].replace('PARAMTEXT', paramtext),
                 prefix=(' ' * DocstringDict.INDENTING.get(kind, 0))).strip()
+            doc += '\n'
             return doc
         except KeyError:
-            return f'missing {self._language} language docstring for {name}'
+            return 'missing docstring'
 
 
 class DocstringLibrary:
