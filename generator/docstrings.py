@@ -1,4 +1,5 @@
 import re
+import json
 import textwrap
 
 
@@ -9,9 +10,14 @@ class DocstringDict:
 
     INDENTING = {'class': 8, 'module': 4}
 
-    def __init__(self, filename):
+    def __init__(self, docstring_filename, var_desc_filename):
         super().__init__()
-        self._docstrings = self._load_docstrings(filename)
+        self._docstrings = self._load_docstrings(docstring_filename)
+        self._variable_descriptions = self._load_variable_descriptions(var_desc_filename)
+
+    def _load_variable_descriptions(self, filename):
+        with open(filename, 'r') as f:
+            return json.load(f)
 
     def _load_docstrings(self, filename):
         with open(filename, 'r') as f:
@@ -24,9 +30,17 @@ class DocstringDict:
         try:
             dockey, params = item.split('|')
             kind, name = dockey.split('_', 1)
-            # TODO: replace var description with real description from json file I make in create_docs.py
-            paramtext = '\n\n'.join([f'{p}\n    var description' for p in params.replace(
-                ':', ': ').split('+')]) if params else ''
+            paramtext = ''
+            if params:
+                print(item)
+                vardocs = []
+                for p in params.split('+'):
+                    print(p)
+                    varname, type_ = p.split(':')
+                    # TODO: something wrong with create_shape here because of the *p
+                    vardesc = self._variable_descriptions[name][varname]
+                    vardocs.append(f'{varname}: {type_}\n    {vardesc}')
+                paramtext = '\n\n'.join(vardocs)
             doc = textwrap.indent(
                 self._docstrings[name].replace('PARAMTEXT', paramtext),
                 prefix=(' ' * DocstringDict.INDENTING.get(kind, 0))).strip()

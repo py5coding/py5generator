@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 class DocTemplate(Template):
 
-    idpattern = r'(?a:[_a-z][_a-z0-9\|+:]*)'
+    idpattern = r'(?a:[_a-z][_a-z0-9\|+:\*]*)'
 
 
 class CodeCopier:

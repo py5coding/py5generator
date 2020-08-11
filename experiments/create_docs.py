@@ -147,13 +147,11 @@ for (py5class, py5name), fdata in sorted(docdata.items()):
         doc += SEE_ALSO_TEMPLATE.format(see_also)
     docstrings.append(doc)
 
-    if py5name not in variable_descriptions[py5class]:
-        variable_descriptions[py5class][py5name] = dict()
     for var, desc in fdata.vars.items():
-        variable_descriptions[py5class][py5name][var] = desc
+        variable_descriptions[f'{py5class}_{py5name}'][var] = desc
 
 
-with open('/tmp/en.md', 'w') as f:
+with open('/tmp/docs.rst', 'w') as f:
     for doc in docstrings:
         f.write(doc)
 

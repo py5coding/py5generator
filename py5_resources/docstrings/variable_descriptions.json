@@ -1,0 +1,1783 @@
+{
+  "Py5Font_add_glyph": {
+    "c": "character to create an image for."
+  },
+  "Py5Font_init": {
+    "font": "font the font object to create from",
+    "smooth": "smooth true to enable smoothing/anti-aliasing",
+    "charset": "array of all unicode chars that should be included",
+    "input": "InputStream"
+  },
+  "Py5Graphics_alpha": {
+    "rgb": "any value of the color datatype"
+  },
+  "Py5Graphics_ambient": {
+    "rgb": "any value of the color datatype",
+    "gray": "number specifying value between white and black",
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)"
+  },
+  "Py5Graphics_ambient_light": {
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)",
+    "x": "x-coordinate of the light",
+    "y": "y-coordinate of the light",
+    "z": "z-coordinate of the light"
+  },
+  "Py5Graphics_apply_matrix": {
+    "n00": "numbers which define the 4x4 matrix to be multiplied",
+    "n01": "numbers which define the 4x4 matrix to be multiplied",
+    "n02": "numbers which define the 4x4 matrix to be multiplied",
+    "n10": "numbers which define the 4x4 matrix to be multiplied",
+    "n11": "numbers which define the 4x4 matrix to be multiplied",
+    "n12": "numbers which define the 4x4 matrix to be multiplied",
+    "n03": "numbers which define the 4x4 matrix to be multiplied",
+    "n13": "numbers which define the 4x4 matrix to be multiplied",
+    "n20": "numbers which define the 4x4 matrix to be multiplied",
+    "n21": "numbers which define the 4x4 matrix to be multiplied",
+    "n22": "numbers which define the 4x4 matrix to be multiplied",
+    "n23": "numbers which define the 4x4 matrix to be multiplied",
+    "n30": "numbers which define the 4x4 matrix to be multiplied",
+    "n31": "numbers which define the 4x4 matrix to be multiplied",
+    "n32": "numbers which define the 4x4 matrix to be multiplied",
+    "n33": "numbers which define the 4x4 matrix to be multiplied"
+  },
+  "Py5Graphics_arc": {
+    "a": "x-coordinate of the arc's ellipse",
+    "b": "y-coordinate of the arc's ellipse",
+    "c": "width of the arc's ellipse by default",
+    "d": "height of the arc's ellipse by default",
+    "start": "angle to start the arc, specified in radians",
+    "stop": "angle to stop the arc, specified in radians"
+  },
+  "Py5Graphics_background": {
+    "rgb": "any value of the color datatype",
+    "alpha": "opacity of the background",
+    "gray": "specifies a value between white and black",
+    "v1": "red or hue value (depending on the current color mode)",
+    "v2": "green or saturation value (depending on the current color mode)",
+    "v3": "blue or brightness value (depending on the current color mode)",
+    "image": "PImage to set as background (must be same size as the sketch window)"
+  },
+  "Py5Graphics_begin_shape": {
+    "kind": "Either POINTS, LINES, TRIANGLES, TRIANGLE_FAN, TRIANGLE_STRIP, QUADS, or QUAD_STRIP"
+  },
+  "Py5Graphics_bezier": {
+    "x1": "coordinates for the first anchor point",
+    "y1": "coordinates for the first anchor point",
+    "z1": "coordinates for the first anchor point",
+    "x2": "coordinates for the first control point",
+    "y2": "coordinates for the first control point",
+    "z2": "coordinates for the first control point",
+    "x3": "coordinates for the second control point",
+    "y3": "coordinates for the second control point",
+    "z3": "coordinates for the second control point",
+    "x4": "coordinates for the second anchor point",
+    "y4": "coordinates for the second anchor point",
+    "z4": "coordinates for the second anchor point"
+  },
+  "Py5Graphics_bezier_detail": {
+    "detail": "resolution of the curves"
+  },
+  "Py5Graphics_bezier_point": {
+    "a": "coordinate of first point on the curve",
+    "b": "coordinate of first control point",
+    "c": "coordinate of second control point",
+    "d": "coordinate of second point on the curve",
+    "t": "value between 0 and 1"
+  },
+  "Py5Graphics_bezier_tangent": {
+    "a": "coordinate of first point on the curve",
+    "b": "coordinate of first control point",
+    "c": "coordinate of second control point",
+    "d": "coordinate of second point on the curve",
+    "t": "value between 0 and 1"
+  },
+  "Py5Graphics_bezier_vertex": {
+    "x2": "the x-coordinate of the 1st control point",
+    "y2": "the y-coordinate of the 1st control point",
+    "z2": "the z-coordinate of the 1st control point",
+    "x3": "the x-coordinate of the 2nd control point",
+    "y3": "the y-coordinate of the 2nd control point",
+    "z3": "the z-coordinate of the 2nd control point",
+    "x4": "the x-coordinate of the anchor point",
+    "y4": "the y-coordinate of the anchor point",
+    "z4": "the z-coordinate of the anchor point"
+  },
+  "Py5Graphics_blend_mode": {
+    "mode": "the blending mode to use"
+  },
+  "Py5Graphics_blue": {
+    "rgb": "any value of the color datatype"
+  },
+  "Py5Graphics_box": {
+    "size": "dimension of the box in all dimensions (creates a cube)",
+    "w": "dimension of the box in the x-dimension",
+    "h": "dimension of the box in the y-dimension",
+    "d": "dimension of the box in the z-dimension"
+  },
+  "Py5Graphics_brightness": {
+    "rgb": "any value of the color datatype"
+  },
+  "Py5Graphics_camera": {
+    "eyeX": "x-coordinate for the eye",
+    "eyeY": "y-coordinate for the eye",
+    "eyeZ": "z-coordinate for the eye",
+    "centerX": "x-coordinate for the center of the scene",
+    "centerY": "y-coordinate for the center of the scene",
+    "centerZ": "z-coordinate for the center of the scene",
+    "upX": "usually 0.0, 1.0, or -1.0",
+    "upY": "usually 0.0, 1.0, or -1.0",
+    "upZ": "usually 0.0, 1.0, or -1.0"
+  },
+  "Py5Graphics_circle": {
+    "x": "x-coordinate of the ellipse",
+    "y": "y-coordinate of the ellipse",
+    "extent": "width and height of the ellipse by default"
+  },
+  "Py5Graphics_clip": {
+    "a": "x-coordinate of the rectangle, by default",
+    "b": "y-coordinate of the rectangle, by default",
+    "c": "width of the rectangle, by default",
+    "d": "height of the rectangle, by default"
+  },
+  "Py5Graphics_color": {
+    "c": "can be packed ARGB or a gray in this case"
+  },
+  "Py5Graphics_color_mode": {
+    "mode": "Either RGB or HSB, corresponding to Red/Green/Blue and Hue/Saturation/Brightness",
+    "max": "range for all color elements",
+    "max1": "range for the red or hue depending on the current color mode",
+    "max2": "range for the green or saturation depending on the current color mode",
+    "max3": "range for the blue or brightness depending on the current color mode",
+    "maxA": "range for the alpha"
+  },
+  "Py5Graphics_create_shape": {
+    "kind": "either POINT, LINE, TRIANGLE, QUAD, RECT, ELLIPSE, ARC, BOX, SPHERE",
+    "p": "parameters that match the kind of shape"
+  },
+  "Py5Graphics_curve": {
+    "x1": "coordinates for the beginning control point",
+    "y1": "coordinates for the beginning control point",
+    "x2": "coordinates for the first point",
+    "y2": "coordinates for the first point",
+    "x3": "coordinates for the second point",
+    "y3": "coordinates for the second point",
+    "x4": "coordinates for the ending control point",
+    "y4": "coordinates for the ending control point",
+    "z1": "coordinates for the beginning control point",
+    "z2": "coordinates for the first point",
+    "z3": "coordinates for the second point",
+    "z4": "coordinates for the ending control point"
+  },
+  "Py5Graphics_curve_detail": {
+    "detail": "resolution of the curves"
+  },
+  "Py5Graphics_curve_point": {
+    "a": "coordinate of first control point",
+    "b": "coordinate of first point on the curve",
+    "c": "coordinate of second point on the curve",
+    "d": "coordinate of second control point",
+    "t": "value between 0 and 1"
+  },
+  "Py5Graphics_curve_tangent": {
+    "a": "coordinate of first point on the curve",
+    "b": "coordinate of first control point",
+    "c": "coordinate of second control point",
+    "d": "coordinate of second point on the curve",
+    "t": "value between 0 and 1"
+  },
+  "Py5Graphics_curve_tightness": {
+    "tightness": "amount of deformation from the original vertices"
+  },
+  "Py5Graphics_curve_vertex": {
+    "x": "the x-coordinate of the vertex",
+    "y": "the y-coordinate of the vertex",
+    "z": "the z-coordinate of the vertex"
+  },
+  "Py5Graphics_directional_light": {
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)",
+    "nx": "direction along the x-axis",
+    "ny": "direction along the y-axis",
+    "nz": "direction along the z-axis"
+  },
+  "Py5Graphics_ellipse": {
+    "a": "x-coordinate of the ellipse",
+    "b": "y-coordinate of the ellipse",
+    "c": "width of the ellipse by default",
+    "d": "height of the ellipse by default"
+  },
+  "Py5Graphics_ellipse_mode": {
+    "mode": "either CENTER, RADIUS, CORNER, or CORNERS"
+  },
+  "Py5Graphics_emissive": {
+    "rgb": "color to set",
+    "gray": "value between black and white, by default 0 to 255",
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)"
+  },
+  "Py5Graphics_end_shape": {
+    "mode": "use CLOSE to close the shape"
+  },
+  "Py5Graphics_fill": {
+    "rgb": "color variable or hex value",
+    "alpha": "opacity of the fill",
+    "gray": "number specifying value between white and black",
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)"
+  },
+  "Py5Graphics_filter": {
+    "shader": "the fragment shader to apply"
+  },
+  "Py5Graphics_frustum": {
+    "left": "left coordinate of the clipping plane",
+    "right": "right coordinate of the clipping plane",
+    "bottom": "bottom coordinate of the clipping plane",
+    "top": "top coordinate of the clipping plane",
+    "near": "near component of the clipping plane; must be greater than zero",
+    "far": "far component of the clipping plane; must be greater than the near value"
+  },
+  "Py5Graphics_green": {
+    "rgb": "any value of the color datatype"
+  },
+  "Py5Graphics_handle_text_size": {
+    "size": "size of the text, greater than zero"
+  },
+  "Py5Graphics_hint": {
+    "which": "name of the hint to be enabled or disabled"
+  },
+  "Py5Graphics_hue": {
+    "rgb": "any value of the color datatype"
+  },
+  "Py5Graphics_image": {
+    "img": "the image to display",
+    "a": "x-coordinate of the image by default",
+    "b": "y-coordinate of the image by default",
+    "c": "width to display the image by default",
+    "d": "height to display the image by default"
+  },
+  "Py5Graphics_image_mode": {
+    "mode": "either CORNER, CORNERS, or CENTER"
+  },
+  "Py5Graphics_lerp_color": {
+    "c1": "interpolate from this color",
+    "c2": "interpolate to this color",
+    "amt": "between 0.0 and 1.0"
+  },
+  "Py5Graphics_light_falloff": {
+    "constant": "constant value or determining falloff",
+    "linear": "linear value for determining falloff",
+    "quadratic": "quadratic value for determining falloff"
+  },
+  "Py5Graphics_light_specular": {
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)"
+  },
+  "Py5Graphics_line": {
+    "x1": "x-coordinate of the first point",
+    "y1": "y-coordinate of the first point",
+    "x2": "x-coordinate of the second point",
+    "y2": "y-coordinate of the second point",
+    "z1": "z-coordinate of the first point",
+    "z2": "z-coordinate of the second point"
+  },
+  "Py5Graphics_load_shader": {
+    "fragFilename": "name of fragment shader file",
+    "vertFilename": "name of vertex shader file"
+  },
+  "Py5Graphics_load_shape": {
+    "filename": "name of file to load, can be .svg or .obj"
+  },
+  "Py5Graphics_model_x": {
+    "x": "3D x-coordinate to be mapped",
+    "y": "3D y-coordinate to be mapped",
+    "z": "3D z-coordinate to be mapped"
+  },
+  "Py5Graphics_model_y": {
+    "x": "3D x-coordinate to be mapped",
+    "y": "3D y-coordinate to be mapped",
+    "z": "3D z-coordinate to be mapped"
+  },
+  "Py5Graphics_model_z": {
+    "x": "3D x-coordinate to be mapped",
+    "y": "3D y-coordinate to be mapped",
+    "z": "3D z-coordinate to be mapped"
+  },
+  "Py5Graphics_normal": {
+    "nx": "x direction",
+    "ny": "y direction",
+    "nz": "z direction"
+  },
+  "Py5Graphics_ortho": {
+    "left": "left plane of the clipping volume",
+    "right": "right plane of the clipping volume",
+    "bottom": "bottom plane of the clipping volume",
+    "top": "top plane of the clipping volume",
+    "near": "maximum distance from the origin to the viewer",
+    "far": "maximum distance from the origin away from the viewer"
+  },
+  "Py5Graphics_perspective": {
+    "fovy": "field-of-view angle (in radians) for vertical direction",
+    "aspect": "ratio of width to height",
+    "zNear": "z-position of nearest clipping plane",
+    "zFar": "z-position of farthest clipping plane"
+  },
+  "Py5Graphics_point": {
+    "x": "x-coordinate of the point",
+    "y": "y-coordinate of the point",
+    "z": "z-coordinate of the point"
+  },
+  "Py5Graphics_point_light": {
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)",
+    "x": "x-coordinate of the light",
+    "y": "y-coordinate of the light",
+    "z": "z-coordinate of the light"
+  },
+  "Py5Graphics_quad": {
+    "x1": "x-coordinate of the first corner",
+    "y1": "y-coordinate of the first corner",
+    "x2": "x-coordinate of the second corner",
+    "y2": "y-coordinate of the second corner",
+    "x3": "x-coordinate of the third corner",
+    "y3": "y-coordinate of the third corner",
+    "x4": "x-coordinate of the fourth corner",
+    "y4": "y-coordinate of the fourth corner"
+  },
+  "Py5Graphics_quadratic_vertex": {
+    "cx": "the x-coordinate of the control point",
+    "cy": "the y-coordinate of the control point",
+    "x3": "the x-coordinate of the anchor point",
+    "y3": "the y-coordinate of the anchor point",
+    "cz": "the z-coordinate of the control point",
+    "z3": "the z-coordinate of the anchor point"
+  },
+  "Py5Graphics_rect": {
+    "a": "x-coordinate of the rectangle by default",
+    "b": "y-coordinate of the rectangle by default",
+    "c": "width of the rectangle by default",
+    "d": "height of the rectangle by default",
+    "r": "radii for all four corners",
+    "tl": "radius for top-left corner",
+    "tr": "radius for top-right corner",
+    "br": "radius for bottom-right corner",
+    "bl": "radius for bottom-left corner"
+  },
+  "Py5Graphics_rect_mode": {
+    "mode": "either CORNER, CORNERS, CENTER, or RADIUS"
+  },
+  "Py5Graphics_red": {
+    "rgb": "any value of the color datatype"
+  },
+  "Py5Graphics_remove_cache": {
+    "image": "The image whose cache data should be removed"
+  },
+  "Py5Graphics_reset_shader": {
+    "kind": "type of shader, either POINTS, LINES, or TRIANGLES"
+  },
+  "Py5Graphics_rotate": {
+    "angle": "angle of rotation specified in radians"
+  },
+  "Py5Graphics_rotate_x": {
+    "angle": "angle of rotation specified in radians"
+  },
+  "Py5Graphics_rotate_y": {
+    "angle": "angle of rotation specified in radians"
+  },
+  "Py5Graphics_rotate_z": {
+    "angle": "angle of rotation specified in radians"
+  },
+  "Py5Graphics_saturation": {
+    "rgb": "any value of the color datatype"
+  },
+  "Py5Graphics_scale": {
+    "s": "percentage to scale the object",
+    "x": "percentage to scale the object in the x-axis",
+    "y": "percentage to scale the object in the y-axis",
+    "z": "percentage to scale the object in the z-axis"
+  },
+  "Py5Graphics_screen_x": {
+    "x": "3D x-coordinate to be mapped",
+    "y": "3D y-coordinate to be mapped",
+    "z": "3D z-coordinate to be mapped"
+  },
+  "Py5Graphics_screen_y": {
+    "x": "3D x-coordinate to be mapped",
+    "y": "3D y-coordinate to be mapped",
+    "z": "3D z-coordinate to be mapped"
+  },
+  "Py5Graphics_screen_z": {
+    "x": "3D x-coordinate to be mapped",
+    "y": "3D y-coordinate to be mapped",
+    "z": "3D z-coordinate to be mapped"
+  },
+  "Py5Graphics_set_cache": {
+    "image": "The image to be stored",
+    "storage": "The metadata required by the renderer"
+  },
+  "Py5Graphics_shader": {
+    "shader": "name of shader file",
+    "kind": "type of shader, either POINTS, LINES, or TRIANGLES"
+  },
+  "Py5Graphics_shape": {
+    "shape": "the shape to display",
+    "x": "x-coordinate of the shape",
+    "y": "y-coordinate of the shape",
+    "a": "x-coordinate of the shape",
+    "b": "y-coordinate of the shape",
+    "c": "width to display the shape",
+    "d": "height to display the shape"
+  },
+  "Py5Graphics_shape_mode": {
+    "mode": "either CORNER, CORNERS, CENTER"
+  },
+  "Py5Graphics_shear_x": {
+    "angle": "angle of shear specified in radians"
+  },
+  "Py5Graphics_shear_y": {
+    "angle": "angle of shear specified in radians"
+  },
+  "Py5Graphics_shininess": {
+    "shine": "degree of shininess"
+  },
+  "Py5Graphics_show_depth_warning": {
+    "method": "The method name (no parentheses)"
+  },
+  "Py5Graphics_show_depth_warning_xyz": {
+    "method": "The method name (no parentheses)"
+  },
+  "Py5Graphics_show_warning": {
+    "msg": "the error message (which will be stored for later comparison)"
+  },
+  "Py5Graphics_specular": {
+    "rgb": "color to set",
+    "gray": "value between black and white, by default 0 to 255",
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)"
+  },
+  "Py5Graphics_sphere": {
+    "r": "the radius of the sphere"
+  },
+  "Py5Graphics_sphere_detail": {
+    "res": "number of segments (minimum 3) used per full circle revolution",
+    "ures": "number of segments used longitudinally per full circle revolutoin",
+    "vres": "number of segments used latitudinally from top to bottom"
+  },
+  "Py5Graphics_spline_forward": {
+    "segments": "number of curve segments to use when drawing",
+    "matrix": "target object for the new matrix"
+  },
+  "Py5Graphics_spot_light": {
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)",
+    "x": "x-coordinate of the light",
+    "y": "y-coordinate of the light",
+    "z": "z-coordinate of the light",
+    "nx": "direction along the x axis",
+    "ny": "direction along the y axis",
+    "nz": "direction along the z axis",
+    "angle": "angle of the spotlight cone",
+    "concentration": "exponent determining the center bias of the cone"
+  },
+  "Py5Graphics_square": {
+    "x": "x-coordinate of the rectangle by default",
+    "y": "y-coordinate of the rectangle by default",
+    "extent": "width and height of the rectangle by default"
+  },
+  "Py5Graphics_stroke": {
+    "rgb": "color value in hexadecimal notation",
+    "alpha": "opacity of the stroke",
+    "gray": "specifies a value between white and black",
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)"
+  },
+  "Py5Graphics_stroke_cap": {
+    "cap": "either SQUARE, PROJECT, or ROUND"
+  },
+  "Py5Graphics_stroke_join": {
+    "join": "either MITER, BEVEL, ROUND"
+  },
+  "Py5Graphics_stroke_weight": {
+    "weight": "the weight (in pixels) of the stroke"
+  },
+  "Py5Graphics_text": {
+    "c": "the alphanumeric character to be displayed",
+    "x": "x-coordinate of text",
+    "y": "y-coordinate of text",
+    "z": "z-coordinate of text",
+    "chars": "the alphanumberic symbols to be displayed",
+    "start": "array index at which to start writing characters",
+    "stop": "array index at which to stop writing characters",
+    "x1": "by default, the x-coordinate of text, see rectMode() for more info",
+    "y1": "by default, the y-coordinate of text, see rectMode() for more info",
+    "x2": "by default, the width of the text box, see rectMode() for more info",
+    "y2": "by default, the height of the text box, see rectMode() for more info",
+    "num": "the numeric value to be displayed"
+  },
+  "Py5Graphics_text_align": {
+    "alignX": "horizontal alignment, either LEFT, CENTER, or RIGHT",
+    "alignY": "vertical alignment, either TOP, BOTTOM, CENTER, or BASELINE"
+  },
+  "Py5Graphics_text_font": {
+    "which": "any variable of the type PFont",
+    "size": "the size of the letters in units of pixels"
+  },
+  "Py5Graphics_text_font_impl": {
+    "which": "font to set, not null",
+    "size": "size to set, greater than zero"
+  },
+  "Py5Graphics_text_leading": {
+    "leading": "the size in pixels for spacing between lines"
+  },
+  "Py5Graphics_text_mode": {
+    "mode": "either MODEL or SHAPE"
+  },
+  "Py5Graphics_text_sentence": {
+    "stop": "non-inclusive, the end of the text in question"
+  },
+  "Py5Graphics_text_size": {
+    "size": "the size of the letters in units of pixels"
+  },
+  "Py5Graphics_text_size_impl": {
+    "size": "size of the text, greater than zero"
+  },
+  "Py5Graphics_text_width": {
+    "c": "the character to measure",
+    "str": "the String of characters to measure"
+  },
+  "Py5Graphics_texture": {
+    "image": "reference to a PImage object"
+  },
+  "Py5Graphics_texture_mode": {
+    "mode": "either IMAGE or NORMAL"
+  },
+  "Py5Graphics_texture_wrap": {
+    "wrap": "Either CLAMP (default) or REPEAT"
+  },
+  "Py5Graphics_tint": {
+    "rgb": "color value in hexadecimal notation",
+    "alpha": "opacity of the image",
+    "gray": "specifies a value between white and black",
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)"
+  },
+  "Py5Graphics_translate": {
+    "x": "left/right translation",
+    "y": "up/down translation",
+    "z": "forward/backward translation"
+  },
+  "Py5Graphics_triangle": {
+    "x1": "x-coordinate of the first point",
+    "y1": "y-coordinate of the first point",
+    "x2": "x-coordinate of the second point",
+    "y2": "y-coordinate of the second point",
+    "x3": "x-coordinate of the third point",
+    "y3": "y-coordinate of the third point"
+  },
+  "Py5Graphics_vertex": {
+    "v": "vertical coordinate for the texture mapping",
+    "x": "x-coordinate of the vertex",
+    "y": "y-coordinate of the vertex",
+    "z": "z-coordinate of the vertex",
+    "u": "horizontal coordinate for the texture mapping"
+  },
+  "Py5Image_blend": {
+    "src": "an image variable referring to the source image",
+    "sx": "X coordinate of the source's upper left corner",
+    "sy": "Y coordinate of the source's upper left corner",
+    "sw": "source image width",
+    "sh": "source image height",
+    "dx": "X coordinate of the destinations's upper left corner",
+    "dy": "Y coordinate of the destinations's upper left corner",
+    "dw": "destination image width",
+    "dh": "destination image height",
+    "mode": "Either BLEND, ADD, SUBTRACT, LIGHTEST, DARKEST, DIFFERENCE, EXCLUSION, MULTIPLY, SCREEN, OVERLAY, HARD_LIGHT, SOFT_LIGHT, DODGE, BURN"
+  },
+  "Py5Image_blend_color": {
+    "c1": "the first color to blend",
+    "c2": "the second color to blend",
+    "mode": "either BLEND, ADD, SUBTRACT, DARKEST, LIGHTEST, DIFFERENCE, EXCLUSION, MULTIPLY, SCREEN, OVERLAY, HARD_LIGHT, SOFT_LIGHT, DODGE, or BURN"
+  },
+  "Py5Image_copy": {
+    "sx": "X coordinate of the source's upper left corner",
+    "sy": "Y coordinate of the source's upper left corner",
+    "sw": "source image width",
+    "sh": "source image height",
+    "dx": "X coordinate of the destination's upper left corner",
+    "dy": "Y coordinate of the destination's upper left corner",
+    "dw": "destination image width",
+    "dh": "destination image height",
+    "src": "an image variable referring to the source image."
+  },
+  "Py5Image_filter": {
+    "kind": "Either THRESHOLD, GRAY, OPAQUE, INVERT, POSTERIZE, BLUR, ERODE, or DILATE",
+    "param": "unique for each, see above"
+  },
+  "Py5Image_get": {
+    "x": "x-coordinate of the pixel",
+    "y": "y-coordinate of the pixel",
+    "w": "width of pixel rectangle to get",
+    "h": "height of pixel rectangle to get"
+  },
+  "Py5Image_init": {
+    "width": "image width",
+    "height": "image height",
+    "format": "Either RGB, ARGB, ALPHA (grayscale alpha channel)"
+  },
+  "Py5Image_mask": {
+    "maskArray": "array of integers used as the alpha channel, needs to be the same length as the image's pixel array.",
+    "img": "image to use as the mask"
+  },
+  "Py5Image_resize": {
+    "w": "the resized image width",
+    "h": "the resized image height"
+  },
+  "Py5Image_save": {
+    "filename": "a sequence of letters and numbers"
+  },
+  "Py5Image_set": {
+    "x": "x-coordinate of the pixel",
+    "y": "y-coordinate of the pixel",
+    "c": "any value of the color datatype",
+    "img": "image to copy into the original image"
+  },
+  "Py5Image_update_pixels": {
+    "x": "x-coordinate of the upper-left corner",
+    "y": "y-coordinate of the upper-left corner",
+    "w": "width",
+    "h": "height"
+  },
+  "Py5Shader_compile_fragment_shader": {
+    "shaderSource": "a string containing the shader's code"
+  },
+  "Py5Shader_compile_vertex_shader": {
+    "shaderSource": "a string containing the shader's code"
+  },
+  "Py5Shader_get_attribute_loc": {
+    "name": "String"
+  },
+  "Py5Shader_get_uniform_loc": {
+    "name": "String"
+  },
+  "Py5Shader_init": {
+    "parent": "the parent program",
+    "vertFilename": "name of the vertex shader",
+    "fragFilename": "name of the fragment shader",
+    "vertURL": "network location of the vertex shader",
+    "fragURL": "network location of the fragment shader"
+  },
+  "Py5Shader_set": {
+    "name": "the name of the uniform variable to modify",
+    "x": "first component of the variable to modify",
+    "y": "second component of the variable to modify. The variable has to be declared with an array/vector type in the shader (i.e.: int[2], vec2)",
+    "z": "third component of the variable to modify. The variable has to be declared with an array/vector type in the shader (i.e.: int[3], vec3)",
+    "w": "fourth component of the variable to modify. The variable has to be declared with an array/vector type in the shader (i.e.: int[4], vec4)",
+    "vec": "modifies all the components of an array/vector uniform variable. PVector can only be used if the type of the variable is vec3.",
+    "ncoords": "number of coordinates per element, max 4",
+    "mat": "matrix of values",
+    "use3x3": "enforces the matrix is 3 x 3",
+    "tex": "sets the sampler uniform variable to read from this image texture"
+  },
+  "Py5Shape_add_child": {
+    "who": "any variable of type PShape",
+    "idx": "the layer position in which to insert the new child"
+  },
+  "Py5Shape_color_mode": {
+    "max": "range for all color elements",
+    "maxX": "range for the red or hue depending on the current color mode",
+    "maxY": "range for the green or saturation depending on the current color mode",
+    "maxZ": "range for the blue or brightness depending on the current color mode",
+    "maxA": "range for the alpha"
+  },
+  "Py5Shape_get_child": {
+    "index": "the layer position of the shape to get",
+    "target": "the name of the shape to get"
+  },
+  "Py5Shape_get_vertex": {
+    "index": "the location of the vertex",
+    "vec": "PVector to assign the data to"
+  },
+  "Py5Shape_parse_base64_image": {
+    "imagePath": "The image path containing the base 64 image data."
+  },
+  "Py5Shape_rotate": {
+    "angle": "angle of rotation specified in radians"
+  },
+  "Py5Shape_rotate_x": {
+    "angle": "angle of rotation specified in radians"
+  },
+  "Py5Shape_rotate_y": {
+    "angle": "angle of rotation specified in radians"
+  },
+  "Py5Shape_rotate_z": {
+    "angle": "angle of rotation specified in radians"
+  },
+  "Py5Shape_scale": {
+    "s": "percentate to scale the object",
+    "x": "percentage to scale the object in the x-axis",
+    "y": "percentage to scale the object in the y-axis",
+    "z": "percentage to scale the object in the z-axis"
+  },
+  "Py5Shape_set_vertex": {
+    "index": "the location of the vertex",
+    "x": "the x value for the vertex",
+    "y": "the y value for the vertex",
+    "z": "the z value for the vertex",
+    "vec": "the PVector to define the x, y, z coordinates"
+  },
+  "Py5Shape_set_visible": {
+    "visible": "\"false\" makes the shape invisible and \"true\" makes it visible"
+  },
+  "Py5Shape_translate": {
+    "x": "left/right translation",
+    "y": "up/down translation",
+    "z": "forward/back translation"
+  },
+  "Py5Surface_open_link": {
+    "url": "the link to open"
+  },
+  "Sketch_abs": {
+    "n": "number to compute"
+  },
+  "Sketch_acos": {
+    "value": "the value whose arc cosine is to be returned"
+  },
+  "Sketch_alpha": {
+    "rgb": "any value of the color datatype"
+  },
+  "Sketch_ambient": {
+    "rgb": "any value of the color datatype",
+    "gray": "number specifying value between white and black",
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)"
+  },
+  "Sketch_ambient_light": {
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)",
+    "x": "x-coordinate of the light",
+    "y": "y-coordinate of the light",
+    "z": "z-coordinate of the light"
+  },
+  "Sketch_append": {
+    "array": "array to append",
+    "value": "new data for the array"
+  },
+  "Sketch_apply_matrix": {
+    "n00": "numbers which define the 4x4 matrix to be multiplied",
+    "n01": "numbers which define the 4x4 matrix to be multiplied",
+    "n02": "numbers which define the 4x4 matrix to be multiplied",
+    "n10": "numbers which define the 4x4 matrix to be multiplied",
+    "n11": "numbers which define the 4x4 matrix to be multiplied",
+    "n12": "numbers which define the 4x4 matrix to be multiplied",
+    "n03": "numbers which define the 4x4 matrix to be multiplied",
+    "n13": "numbers which define the 4x4 matrix to be multiplied",
+    "n20": "numbers which define the 4x4 matrix to be multiplied",
+    "n21": "numbers which define the 4x4 matrix to be multiplied",
+    "n22": "numbers which define the 4x4 matrix to be multiplied",
+    "n23": "numbers which define the 4x4 matrix to be multiplied",
+    "n30": "numbers which define the 4x4 matrix to be multiplied",
+    "n31": "numbers which define the 4x4 matrix to be multiplied",
+    "n32": "numbers which define the 4x4 matrix to be multiplied",
+    "n33": "numbers which define the 4x4 matrix to be multiplied"
+  },
+  "Sketch_arc": {
+    "a": "x-coordinate of the arc's ellipse",
+    "b": "y-coordinate of the arc's ellipse",
+    "c": "width of the arc's ellipse by default",
+    "d": "height of the arc's ellipse by default",
+    "start": "angle to start the arc, specified in radians",
+    "stop": "angle to stop the arc, specified in radians"
+  },
+  "Sketch_array_copy": {
+    "src": "the source array",
+    "srcPosition": "starting position in the source array",
+    "dst": "the destination array of the same data type as the source array",
+    "dstPosition": "starting position in the destination array",
+    "length": "number of array elements to be copied"
+  },
+  "Sketch_asin": {
+    "value": "the value whose arc sine is to be returned"
+  },
+  "Sketch_atan": {
+    "value": "-Infinity to Infinity (exclusive)"
+  },
+  "Sketch_atan2": {
+    "y": "y-coordinate of the point",
+    "x": "x-coordinate of the point"
+  },
+  "Sketch_background": {
+    "rgb": "any value of the color datatype",
+    "alpha": "opacity of the background",
+    "gray": "specifies a value between white and black",
+    "v1": "red or hue value (depending on the current color mode)",
+    "v2": "green or saturation value (depending on the current color mode)",
+    "v3": "blue or brightness value (depending on the current color mode)",
+    "image": "PImage to set as background (must be same size as the sketch window)"
+  },
+  "Sketch_begin_raw": {
+    "renderer": "for example, PDF or DXF",
+    "filename": "filename for output",
+    "rawGraphics": "???"
+  },
+  "Sketch_begin_record": {
+    "renderer": "PDF or SVG",
+    "filename": "filename for output"
+  },
+  "Sketch_begin_shape": {
+    "kind": "Either POINTS, LINES, TRIANGLES, TRIANGLE_FAN, TRIANGLE_STRIP, QUADS, or QUAD_STRIP"
+  },
+  "Sketch_bezier": {
+    "x1": "coordinates for the first anchor point",
+    "y1": "coordinates for the first anchor point",
+    "z1": "coordinates for the first anchor point",
+    "x2": "coordinates for the first control point",
+    "y2": "coordinates for the first control point",
+    "z2": "coordinates for the first control point",
+    "x3": "coordinates for the second control point",
+    "y3": "coordinates for the second control point",
+    "z3": "coordinates for the second control point",
+    "x4": "coordinates for the second anchor point",
+    "y4": "coordinates for the second anchor point",
+    "z4": "coordinates for the second anchor point"
+  },
+  "Sketch_bezier_detail": {
+    "detail": "resolution of the curves"
+  },
+  "Sketch_bezier_point": {
+    "a": "coordinate of first point on the curve",
+    "b": "coordinate of first control point",
+    "c": "coordinate of second control point",
+    "d": "coordinate of second point on the curve",
+    "t": "value between 0 and 1"
+  },
+  "Sketch_bezier_tangent": {
+    "a": "coordinate of first point on the curve",
+    "b": "coordinate of first control point",
+    "c": "coordinate of second control point",
+    "d": "coordinate of second point on the curve",
+    "t": "value between 0 and 1"
+  },
+  "Sketch_bezier_vertex": {
+    "x2": "the x-coordinate of the 1st control point",
+    "y2": "the y-coordinate of the 1st control point",
+    "z2": "the z-coordinate of the 1st control point",
+    "x3": "the x-coordinate of the 2nd control point",
+    "y3": "the y-coordinate of the 2nd control point",
+    "z3": "the z-coordinate of the 2nd control point",
+    "x4": "the x-coordinate of the anchor point",
+    "y4": "the y-coordinate of the anchor point",
+    "z4": "the z-coordinate of the anchor point"
+  },
+  "Sketch_binary": {
+    "value": "value to convert",
+    "digits": "number of digits to return"
+  },
+  "Sketch_blend": {
+    "src": "an image variable referring to the source image",
+    "sx": "X coordinate of the source's upper left corner",
+    "sy": "Y coordinate of the source's upper left corner",
+    "sw": "source image width",
+    "sh": "source image height",
+    "dx": "X coordinate of the destinations's upper left corner",
+    "dy": "Y coordinate of the destinations's upper left corner",
+    "dw": "destination image width",
+    "dh": "destination image height",
+    "mode": "Either BLEND, ADD, SUBTRACT, LIGHTEST, DARKEST, DIFFERENCE, EXCLUSION, MULTIPLY, SCREEN, OVERLAY, HARD_LIGHT, SOFT_LIGHT, DODGE, BURN"
+  },
+  "Sketch_blend_mode": {
+    "mode": "the blending mode to use"
+  },
+  "Sketch_blue": {
+    "rgb": "any value of the color datatype"
+  },
+  "Sketch_box": {
+    "size": "dimension of the box in all dimensions (creates a cube)",
+    "w": "dimension of the box in the x-dimension",
+    "h": "dimension of the box in the y-dimension",
+    "d": "dimension of the box in the z-dimension"
+  },
+  "Sketch_brightness": {
+    "rgb": "any value of the color datatype"
+  },
+  "Sketch_camera": {
+    "eyeX": "x-coordinate for the eye",
+    "eyeY": "y-coordinate for the eye",
+    "eyeZ": "z-coordinate for the eye",
+    "centerX": "x-coordinate for the center of the scene",
+    "centerY": "y-coordinate for the center of the scene",
+    "centerZ": "z-coordinate for the center of the scene",
+    "upX": "usually 0.0, 1.0, or -1.0",
+    "upY": "usually 0.0, 1.0, or -1.0",
+    "upZ": "usually 0.0, 1.0, or -1.0"
+  },
+  "Sketch_ceil": {
+    "n": "number to round up"
+  },
+  "Sketch_check_extension": {
+    "filename": "The filename to check"
+  },
+  "Sketch_circle": {
+    "x": "x-coordinate of the ellipse",
+    "y": "y-coordinate of the ellipse",
+    "extent": "width and height of the ellipse by default"
+  },
+  "Sketch_clip": {
+    "a": "x-coordinate of the rectangle, by default",
+    "b": "y-coordinate of the rectangle, by default",
+    "c": "width of the rectangle, by default",
+    "d": "height of the rectangle, by default"
+  },
+  "Sketch_color": {
+    "gray": "number specifying value between white and black",
+    "fgray": "number specifying value between white and black",
+    "alpha": "relative to current color range",
+    "v1": "red or hue values relative to the current color range",
+    "v2": "green or saturation values relative to the current color range",
+    "v3": "blue or brightness values relative to the current color range"
+  },
+  "Sketch_color_mode": {
+    "mode": "Either RGB or HSB, corresponding to Red/Green/Blue and Hue/Saturation/Brightness",
+    "max": "range for all color elements",
+    "max1": "range for the red or hue depending on the current color mode",
+    "max2": "range for the green or saturation depending on the current color mode",
+    "max3": "range for the blue or brightness depending on the current color mode",
+    "maxA": "range for the alpha"
+  },
+  "Sketch_concat": {
+    "a": "first array to concatenate",
+    "b": "second array to concatenate"
+  },
+  "Sketch_constrain": {
+    "amt": "the value to constrain",
+    "low": "minimum limit",
+    "high": "maximum limit"
+  },
+  "Sketch_copy": {
+    "sx": "X coordinate of the source's upper left corner",
+    "sy": "Y coordinate of the source's upper left corner",
+    "sw": "source image width",
+    "sh": "source image height",
+    "dx": "X coordinate of the destination's upper left corner",
+    "dy": "Y coordinate of the destination's upper left corner",
+    "dw": "destination image width",
+    "dh": "destination image height",
+    "src": "an image variable referring to the source image."
+  },
+  "Sketch_cos": {
+    "angle": "an angle in radians"
+  },
+  "Sketch_create_font": {
+    "name": "name of the font to load",
+    "size": "point size of the font",
+    "smooth": "true for an antialiased font, false for aliased",
+    "charset": "array containing characters to be generated"
+  },
+  "Sketch_create_graphics": {
+    "w": "width in pixels",
+    "h": "height in pixels",
+    "renderer": "Either P2D, P3D, or PDF",
+    "path": "the name of the file (can be an absolute or relative path)"
+  },
+  "Sketch_create_image": {
+    "w": "width in pixels",
+    "h": "height in pixels",
+    "format": "Either RGB, ARGB, ALPHA (grayscale alpha channel)"
+  },
+  "Sketch_create_input": {
+    "filename": "the name of the file to use as input"
+  },
+  "Sketch_create_output": {
+    "filename": "name of the file to open"
+  },
+  "Sketch_create_reader": {
+    "filename": "name of the file to be opened"
+  },
+  "Sketch_create_shape": {
+    "kind": "either POINT, LINE, TRIANGLE, QUAD, RECT, ELLIPSE, ARC, BOX, SPHERE",
+    "p": "parameters that match the kind of shape"
+  },
+  "Sketch_create_writer": {
+    "filename": "name of the file to be created"
+  },
+  "Sketch_cursor": {
+    "kind": "either ARROW, CROSS, HAND, MOVE, TEXT, or WAIT",
+    "img": "any variable of type PImage",
+    "x": "the horizontal active spot of the cursor",
+    "y": "the vertical active spot of the cursor"
+  },
+  "Sketch_curve": {
+    "x1": "coordinates for the beginning control point",
+    "y1": "coordinates for the beginning control point",
+    "x2": "coordinates for the first point",
+    "y2": "coordinates for the first point",
+    "x3": "coordinates for the second point",
+    "y3": "coordinates for the second point",
+    "x4": "coordinates for the ending control point",
+    "y4": "coordinates for the ending control point",
+    "z1": "coordinates for the beginning control point",
+    "z2": "coordinates for the first point",
+    "z3": "coordinates for the second point",
+    "z4": "coordinates for the ending control point"
+  },
+  "Sketch_curve_detail": {
+    "detail": "resolution of the curves"
+  },
+  "Sketch_curve_point": {
+    "a": "coordinate of first control point",
+    "b": "coordinate of first point on the curve",
+    "c": "coordinate of second point on the curve",
+    "d": "coordinate of second control point",
+    "t": "value between 0 and 1"
+  },
+  "Sketch_curve_tangent": {
+    "a": "coordinate of first point on the curve",
+    "b": "coordinate of first control point",
+    "c": "coordinate of second control point",
+    "d": "coordinate of second point on the curve",
+    "t": "value between 0 and 1"
+  },
+  "Sketch_curve_tightness": {
+    "tightness": "amount of deformation from the original vertices"
+  },
+  "Sketch_curve_vertex": {
+    "x": "the x-coordinate of the vertex",
+    "y": "the y-coordinate of the vertex",
+    "z": "the z-coordinate of the vertex"
+  },
+  "Sketch_degrees": {
+    "radians": "radian value to convert to degrees"
+  },
+  "Sketch_delay": {
+    "napTime": "milliseconds to pause before running draw() again"
+  },
+  "Sketch_directional_light": {
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)",
+    "nx": "direction along the x-axis",
+    "ny": "direction along the y-axis",
+    "nz": "direction along the z-axis"
+  },
+  "Sketch_display_density": {
+    "display": "the display number to check (1-indexed to match the Preferences dialog box)"
+  },
+  "Sketch_dist": {
+    "x1": "x-coordinate of the first point",
+    "y1": "y-coordinate of the first point",
+    "z1": "z-coordinate of the first point",
+    "x2": "x-coordinate of the second point",
+    "y2": "y-coordinate of the second point",
+    "z2": "z-coordinate of the second point"
+  },
+  "Sketch_ellipse": {
+    "a": "x-coordinate of the ellipse",
+    "b": "y-coordinate of the ellipse",
+    "c": "width of the ellipse by default",
+    "d": "height of the ellipse by default"
+  },
+  "Sketch_ellipse_mode": {
+    "mode": "either CENTER, RADIUS, CORNER, or CORNERS"
+  },
+  "Sketch_emissive": {
+    "rgb": "color to set",
+    "gray": "value between black and white, by default 0 to 255",
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)"
+  },
+  "Sketch_end_shape": {
+    "mode": "use CLOSE to close the shape"
+  },
+  "Sketch_exec": {
+    "stdout": "a non-null StringList object to be filled with any output",
+    "stderr": "a non-null StringList object to be filled with error lines",
+    "args": "each argument to be passed as a series of String objects"
+  },
+  "Sketch_exp": {
+    "n": "exponent to raise"
+  },
+  "Sketch_expand": {
+    "list": "the array to expand",
+    "newSize": "new size for the array"
+  },
+  "Sketch_fill": {
+    "rgb": "color variable or hex value",
+    "alpha": "opacity of the fill",
+    "gray": "number specifying value between white and black",
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)"
+  },
+  "Sketch_filter": {
+    "shader": "the fragment shader to apply",
+    "kind": "Either THRESHOLD, GRAY, OPAQUE, INVERT, POSTERIZE, BLUR, ERODE, or DILATE",
+    "param": "unique for each, see above"
+  },
+  "Sketch_floor": {
+    "n": "number to round down"
+  },
+  "Sketch_frame_rate": {
+    "fps": "number of desired frames per second"
+  },
+  "Sketch_frustum": {
+    "left": "left coordinate of the clipping plane",
+    "right": "right coordinate of the clipping plane",
+    "bottom": "bottom coordinate of the clipping plane",
+    "top": "top coordinate of the clipping plane",
+    "near": "near component of the clipping plane; must be greater than zero",
+    "far": "far component of the clipping plane; must be greater than the near value"
+  },
+  "Sketch_full_screen": {
+    "renderer": "the renderer to use, e.g. P2D, P3D, JAVA2D (default)",
+    "display": "the screen to run the sketch on (1, 2, 3, etc. or on multiple screens using SPAN)"
+  },
+  "Sketch_get": {
+    "x": "x-coordinate of the pixel",
+    "y": "y-coordinate of the pixel",
+    "w": "width of pixel rectangle to get",
+    "h": "height of pixel rectangle to get"
+  },
+  "Sketch_green": {
+    "rgb": "any value of the color datatype"
+  },
+  "Sketch_hex": {
+    "value": "the value to convert",
+    "digits": "the number of digits (maximum 8)"
+  },
+  "Sketch_hue": {
+    "rgb": "any value of the color datatype"
+  },
+  "Sketch_image": {
+    "img": "the image to display",
+    "a": "x-coordinate of the image by default",
+    "b": "y-coordinate of the image by default",
+    "c": "width to display the image by default",
+    "d": "height to display the image by default"
+  },
+  "Sketch_image_mode": {
+    "mode": "either CORNER, CORNERS, or CENTER"
+  },
+  "Sketch_inside_settings": {
+    "method": "\"size\" or \"fullScreen\"",
+    "args": "parameters passed to the function so we can show the user"
+  },
+  "Sketch_join": {
+    "list": "array of Strings",
+    "separator": "char or String to be placed between each item"
+  },
+  "Sketch_launch": {
+    "args": "arguments to the launcher, eg. a filename."
+  },
+  "Sketch_lerp": {
+    "start": "first value",
+    "stop": "second value",
+    "amt": "float between 0.0 and 1.0"
+  },
+  "Sketch_lerp_color": {
+    "c1": "interpolate from this color",
+    "c2": "interpolate to this color",
+    "amt": "between 0.0 and 1.0"
+  },
+  "Sketch_light_falloff": {
+    "constant": "constant value or determining falloff",
+    "linear": "linear value for determining falloff",
+    "quadratic": "quadratic value for determining falloff"
+  },
+  "Sketch_light_specular": {
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)"
+  },
+  "Sketch_line": {
+    "x1": "x-coordinate of the first point",
+    "y1": "y-coordinate of the first point",
+    "x2": "x-coordinate of the second point",
+    "y2": "y-coordinate of the second point",
+    "z1": "z-coordinate of the first point",
+    "z2": "z-coordinate of the second point"
+  },
+  "Sketch_link": {
+    "url": "the complete URL, as a String in quotes"
+  },
+  "Sketch_load_bytes": {
+    "filename": "name of a file in the data folder or a URL."
+  },
+  "Sketch_load_font": {
+    "filename": "name of the font to load"
+  },
+  "Sketch_load_image": {
+    "filename": "name of file to load, can be .gif, .jpg, .tga, or a handful of other image types depending on your platform",
+    "extension": "type of image to load, for example \"png\", \"gif\", \"jpg\""
+  },
+  "Sketch_load_json_array": {
+    "filename": "name of a file in the data folder or a URL"
+  },
+  "Sketch_load_json_object": {
+    "filename": "name of a file in the data folder or a URL"
+  },
+  "Sketch_load_shader": {
+    "fragFilename": "name of fragment shader file",
+    "vertFilename": "name of vertex shader file"
+  },
+  "Sketch_load_shape": {
+    "filename": "name of file to load, can be .svg or .obj"
+  },
+  "Sketch_load_strings": {
+    "filename": "name of the file or url to load"
+  },
+  "Sketch_load_table": {
+    "filename": "name of a file in the data folder or a URL.",
+    "options": "may contain \"header\", \"tsv\", \"csv\", or \"bin\" separated by commas"
+  },
+  "Sketch_load_xml": {
+    "filename": "name of a file in the data folder or a URL."
+  },
+  "Sketch_log": {
+    "n": "number greater than 0.0"
+  },
+  "Sketch_mag": {
+    "a": "first value",
+    "b": "second value",
+    "c": "third value"
+  },
+  "Sketch_main": {
+    "mainClass": "name of the class to load (with package if any)",
+    "sketchArgs": "command line arguments to pass to the sketch's 'args'             array. Note that this is <i>not</i> the same as the args passed             to (and understood by) PApplet such as --display."
+  },
+  "Sketch_make_graphics": {
+    "path": "A path (or null if none), can be absolute or relative ({@link PApplet#savePath} will be called)"
+  },
+  "Sketch_map": {
+    "value": "the incoming value to be converted",
+    "start1": "lower bound of the value's current range",
+    "stop1": "upper bound of the value's current range",
+    "start2": "lower bound of the value's target range",
+    "stop2": "upper bound of the value's target range"
+  },
+  "Sketch_mask": {
+    "img": "image to use as the mask"
+  },
+  "Sketch_match": {
+    "str": "the String to be searched",
+    "regexp": "the regexp to be used for matching"
+  },
+  "Sketch_match_all": {
+    "str": "the String to be searched",
+    "regexp": "the regexp to be used for matching"
+  },
+  "Sketch_max": {
+    "a": "first number to compare",
+    "b": "second number to compare",
+    "c": "third number to compare",
+    "list": "array of numbers to compare"
+  },
+  "Sketch_min": {
+    "a": "first number",
+    "b": "second number",
+    "c": "third number",
+    "list": "array of numbers to compare"
+  },
+  "Sketch_model_x": {
+    "x": "3D x-coordinate to be mapped",
+    "y": "3D y-coordinate to be mapped",
+    "z": "3D z-coordinate to be mapped"
+  },
+  "Sketch_model_y": {
+    "x": "3D x-coordinate to be mapped",
+    "y": "3D y-coordinate to be mapped",
+    "z": "3D z-coordinate to be mapped"
+  },
+  "Sketch_model_z": {
+    "x": "3D x-coordinate to be mapped",
+    "y": "3D y-coordinate to be mapped",
+    "z": "3D z-coordinate to be mapped"
+  },
+  "Sketch_mouse_wheel": {
+    "event": "the MouseEvent"
+  },
+  "Sketch_nf": {
+    "nums": "the numbers to format",
+    "digits": "number of digits to pad with zero",
+    "num": "the number to format",
+    "left": "number of digits to the left of the decimal point",
+    "right": "number of digits to the right of the decimal point"
+  },
+  "Sketch_nfc": {
+    "nums": "the numbers to format",
+    "num": "the number to format",
+    "right": "number of digits to the right of the decimal point"
+  },
+  "Sketch_nfp": {
+    "num": "the number to format",
+    "digits": "number of digits to pad with zeroes",
+    "nums": "the numbers to format",
+    "left": "the number of digits to the left of the decimal point",
+    "right": "the number of digits to the right of the decimal point"
+  },
+  "Sketch_nfs": {
+    "num": "the number to format",
+    "digits": "number of digits to pad with zeroes",
+    "nums": "the numbers to format",
+    "left": "the number of digits to the left of the decimal point",
+    "right": "the number of digits to the right of the decimal point"
+  },
+  "Sketch_noise": {
+    "x": "x-coordinate in noise space",
+    "y": "y-coordinate in noise space",
+    "z": "z-coordinate in noise space"
+  },
+  "Sketch_noise_detail": {
+    "lod": "number of octaves to be used by the noise",
+    "falloff": "falloff factor for each octave"
+  },
+  "Sketch_noise_seed": {
+    "seed": "seed value"
+  },
+  "Sketch_norm": {
+    "value": "the incoming value to be converted",
+    "start": "lower bound of the value's current range",
+    "stop": "upper bound of the value's current range"
+  },
+  "Sketch_normal": {
+    "nx": "x direction",
+    "ny": "y direction",
+    "nz": "z direction"
+  },
+  "Sketch_ortho": {
+    "left": "left plane of the clipping volume",
+    "right": "right plane of the clipping volume",
+    "bottom": "bottom plane of the clipping volume",
+    "top": "top plane of the clipping volume",
+    "near": "maximum distance from the origin to the viewer",
+    "far": "maximum distance from the origin away from the viewer"
+  },
+  "Sketch_parse_json_array": {
+    "input": "String to parse as a JSONArray"
+  },
+  "Sketch_parse_json_object": {
+    "input": "String to parse as a JSONObject"
+  },
+  "Sketch_parse_xml": {
+    "xmlString": "the content to be parsed as XML"
+  },
+  "Sketch_perspective": {
+    "fovy": "field-of-view angle (in radians) for vertical direction",
+    "aspect": "ratio of width to height",
+    "zNear": "z-position of nearest clipping plane",
+    "zFar": "z-position of farthest clipping plane"
+  },
+  "Sketch_pixel_density": {
+    "density": "1 or 2"
+  },
+  "Sketch_point": {
+    "x": "x-coordinate of the point",
+    "y": "y-coordinate of the point",
+    "z": "z-coordinate of the point"
+  },
+  "Sketch_point_light": {
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)",
+    "x": "x-coordinate of the light",
+    "y": "y-coordinate of the light",
+    "z": "z-coordinate of the light"
+  },
+  "Sketch_pow": {
+    "n": "base of the exponential expression",
+    "e": "power by which to raise the base"
+  },
+  "Sketch_print": {
+    "what": "data to print to console",
+    "variables": "list of data, separated by commas"
+  },
+  "Sketch_print_array": {
+    "what": "one-dimensional array"
+  },
+  "Sketch_println": {
+    "what": "data to print to console",
+    "variables": "list of data, separated by commas"
+  },
+  "Sketch_quad": {
+    "x1": "x-coordinate of the first corner",
+    "y1": "y-coordinate of the first corner",
+    "x2": "x-coordinate of the second corner",
+    "y2": "y-coordinate of the second corner",
+    "x3": "x-coordinate of the third corner",
+    "y3": "y-coordinate of the third corner",
+    "x4": "x-coordinate of the fourth corner",
+    "y4": "y-coordinate of the fourth corner"
+  },
+  "Sketch_quadratic_vertex": {
+    "cx": "the x-coordinate of the control point",
+    "cy": "the y-coordinate of the control point",
+    "x3": "the x-coordinate of the anchor point",
+    "y3": "the y-coordinate of the anchor point",
+    "cz": "the z-coordinate of the control point",
+    "z3": "the z-coordinate of the anchor point"
+  },
+  "Sketch_radians": {
+    "degrees": "degree value to convert to radians"
+  },
+  "Sketch_random": {
+    "low": "lower limit",
+    "high": "upper limit"
+  },
+  "Sketch_random_seed": {
+    "seed": "seed value"
+  },
+  "Sketch_rect": {
+    "a": "x-coordinate of the rectangle by default",
+    "b": "y-coordinate of the rectangle by default",
+    "c": "width of the rectangle by default",
+    "d": "height of the rectangle by default",
+    "r": "radii for all four corners",
+    "tl": "radius for top-left corner",
+    "tr": "radius for top-right corner",
+    "br": "radius for bottom-right corner",
+    "bl": "radius for bottom-left corner"
+  },
+  "Sketch_rect_mode": {
+    "mode": "either CORNER, CORNERS, CENTER, or RADIUS"
+  },
+  "Sketch_red": {
+    "rgb": "any value of the color datatype"
+  },
+  "Sketch_register_method": {
+    "methodName": "name of the method to be called",
+    "target": "the target object that should receive the event"
+  },
+  "Sketch_request_image": {
+    "filename": "name of the file to load, can be .gif, .jpg, .tga, or a handful of other image types depending on your platform",
+    "extension": "the type of image to load, for example \"png\", \"gif\", \"jpg\""
+  },
+  "Sketch_reset_shader": {
+    "kind": "type of shader, either POINTS, LINES, or TRIANGLES"
+  },
+  "Sketch_reverse": {
+    "list": "booleans[], bytes[], chars[], ints[], floats[], or Strings[]"
+  },
+  "Sketch_rotate": {
+    "angle": "angle of rotation specified in radians"
+  },
+  "Sketch_rotate_x": {
+    "angle": "angle of rotation specified in radians"
+  },
+  "Sketch_rotate_y": {
+    "angle": "angle of rotation specified in radians"
+  },
+  "Sketch_rotate_z": {
+    "angle": "angle of rotation specified in radians"
+  },
+  "Sketch_round": {
+    "n": "number to round"
+  },
+  "Sketch_saturation": {
+    "rgb": "any value of the color datatype"
+  },
+  "Sketch_save": {
+    "filename": "any sequence of letters and numbers"
+  },
+  "Sketch_save_bytes": {
+    "filename": "name of the file to write to",
+    "data": "array of bytes to be written"
+  },
+  "Sketch_save_frame": {
+    "filename": "any sequence of letters or numbers that ends with either \".tif\", \".tga\", \".jpg\", or \".png\""
+  },
+  "Sketch_save_json_array": {
+    "json": "the JSONArray to save",
+    "filename": "the name of the file to save to",
+    "options": "\"compact\" and \"indent=N\", replace N with the number of spaces"
+  },
+  "Sketch_save_json_object": {
+    "json": "the JSONObject to save",
+    "filename": "the name of the file to save to",
+    "options": "\"compact\" and \"indent=N\", replace N with the number of spaces"
+  },
+  "Sketch_save_stream": {
+    "target": "name of the file to write to",
+    "source": "location to read from (a filename, path, or URL)"
+  },
+  "Sketch_save_strings": {
+    "filename": "filename for output",
+    "data": "string array to be written"
+  },
+  "Sketch_save_table": {
+    "table": "the Table object to save to a file",
+    "filename": "the filename to which the Table should be saved",
+    "options": "can be one of \"tsv\", \"csv\", \"bin\", or \"html\""
+  },
+  "Sketch_save_xml": {
+    "xml": "the XML object to save to disk",
+    "filename": "name of the file to write to"
+  },
+  "Sketch_scale": {
+    "s": "percentage to scale the object",
+    "x": "percentage to scale the object in the x-axis",
+    "y": "percentage to scale the object in the y-axis",
+    "z": "percentage to scale the object in the z-axis"
+  },
+  "Sketch_screen_x": {
+    "x": "3D x-coordinate to be mapped",
+    "y": "3D y-coordinate to be mapped",
+    "z": "3D z-coordinate to be mapped"
+  },
+  "Sketch_screen_y": {
+    "x": "3D x-coordinate to be mapped",
+    "y": "3D y-coordinate to be mapped",
+    "z": "3D z-coordinate to be mapped"
+  },
+  "Sketch_screen_z": {
+    "x": "3D x-coordinate to be mapped",
+    "y": "3D y-coordinate to be mapped",
+    "z": "3D z-coordinate to be mapped"
+  },
+  "Sketch_select_folder": {
+    "prompt": "message to the user",
+    "callback": "name of the method to be called when the selection is made"
+  },
+  "Sketch_select_input": {
+    "prompt": "message to the user",
+    "callback": "name of the method to be called when the selection is made"
+  },
+  "Sketch_select_output": {
+    "prompt": "message to the user",
+    "callback": "name of the method to be called when the selection is made"
+  },
+  "Sketch_set": {
+    "x": "x-coordinate of the pixel",
+    "y": "y-coordinate of the pixel",
+    "c": "any value of the color datatype",
+    "img": "image to copy into the original image"
+  },
+  "Sketch_shader": {
+    "shader": "name of shader file",
+    "kind": "type of shader, either POINTS, LINES, or TRIANGLES"
+  },
+  "Sketch_shape": {
+    "shape": "the shape to display",
+    "x": "x-coordinate of the shape",
+    "y": "y-coordinate of the shape",
+    "a": "x-coordinate of the shape",
+    "b": "y-coordinate of the shape",
+    "c": "width to display the shape",
+    "d": "height to display the shape"
+  },
+  "Sketch_shape_mode": {
+    "mode": "either CORNER, CORNERS, CENTER"
+  },
+  "Sketch_shear_x": {
+    "angle": "angle of shear specified in radians"
+  },
+  "Sketch_shear_y": {
+    "angle": "angle of shear specified in radians"
+  },
+  "Sketch_shininess": {
+    "shine": "degree of shininess"
+  },
+  "Sketch_shorten": {
+    "list": "array to shorten"
+  },
+  "Sketch_show_depth_warning": {
+    "method": "The method name (no parentheses)"
+  },
+  "Sketch_show_depth_warning_xyz": {
+    "method": "The method name (no parentheses)"
+  },
+  "Sketch_sin": {
+    "angle": "an angle in radians"
+  },
+  "Sketch_size": {
+    "width": "width of the display window in units of pixels",
+    "height": "height of the display window in units of pixels"
+  },
+  "Sketch_smooth": {
+    "level": "either 2, 3, 4, or 8 depending on the renderer"
+  },
+  "Sketch_sort": {
+    "list": "array to sort",
+    "count": "number of elements to sort, starting from 0"
+  },
+  "Sketch_specular": {
+    "rgb": "color to set",
+    "gray": "value between black and white, by default 0 to 255",
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)"
+  },
+  "Sketch_sphere": {
+    "r": "the radius of the sphere"
+  },
+  "Sketch_sphere_detail": {
+    "res": "number of segments (minimum 3) used per full circle revolution",
+    "ures": "number of segments used longitudinally per full circle revolutoin",
+    "vres": "number of segments used latitudinally from top to bottom"
+  },
+  "Sketch_splice": {
+    "list": "array to splice into",
+    "value": "value to be spliced in",
+    "index": "position in the array from which to insert data"
+  },
+  "Sketch_split": {
+    "value": "the String to be split",
+    "delim": "the character or String used to separate the data"
+  },
+  "Sketch_split_tokens": {
+    "value": "the String to be split",
+    "delim": "list of individual characters that will be used as separators"
+  },
+  "Sketch_spot_light": {
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)",
+    "x": "x-coordinate of the light",
+    "y": "y-coordinate of the light",
+    "z": "z-coordinate of the light",
+    "nx": "direction along the x axis",
+    "ny": "direction along the y axis",
+    "nz": "direction along the z axis",
+    "angle": "angle of the spotlight cone",
+    "concentration": "exponent determining the center bias of the cone"
+  },
+  "Sketch_sq": {
+    "n": "number to square"
+  },
+  "Sketch_sqrt": {
+    "n": "non-negative number"
+  },
+  "Sketch_square": {
+    "x": "x-coordinate of the rectangle by default",
+    "y": "y-coordinate of the rectangle by default",
+    "extent": "width and height of the rectangle by default"
+  },
+  "Sketch_stroke": {
+    "rgb": "color value in hexadecimal notation",
+    "alpha": "opacity of the stroke",
+    "gray": "specifies a value between white and black",
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)"
+  },
+  "Sketch_stroke_cap": {
+    "cap": "either SQUARE, PROJECT, or ROUND"
+  },
+  "Sketch_stroke_join": {
+    "join": "either MITER, BEVEL, ROUND"
+  },
+  "Sketch_stroke_weight": {
+    "weight": "the weight (in pixels) of the stroke"
+  },
+  "Sketch_subset": {
+    "list": "array to extract from",
+    "start": "position to begin",
+    "count": "number of values to extract"
+  },
+  "Sketch_tan": {
+    "angle": "an angle in radians"
+  },
+  "Sketch_text": {
+    "c": "the alphanumeric character to be displayed",
+    "x": "x-coordinate of text",
+    "y": "y-coordinate of text",
+    "z": "z-coordinate of text",
+    "chars": "the alphanumberic symbols to be displayed",
+    "start": "array index at which to start writing characters",
+    "stop": "array index at which to stop writing characters",
+    "x1": "by default, the x-coordinate of text, see rectMode() for more info",
+    "y1": "by default, the y-coordinate of text, see rectMode() for more info",
+    "x2": "by default, the width of the text box, see rectMode() for more info",
+    "y2": "by default, the height of the text box, see rectMode() for more info",
+    "num": "the numeric value to be displayed"
+  },
+  "Sketch_text_align": {
+    "alignX": "horizontal alignment, either LEFT, CENTER, or RIGHT",
+    "alignY": "vertical alignment, either TOP, BOTTOM, CENTER, or BASELINE"
+  },
+  "Sketch_text_font": {
+    "which": "any variable of the type PFont",
+    "size": "the size of the letters in units of pixels"
+  },
+  "Sketch_text_leading": {
+    "leading": "the size in pixels for spacing between lines"
+  },
+  "Sketch_text_mode": {
+    "mode": "either MODEL or SHAPE"
+  },
+  "Sketch_text_size": {
+    "size": "the size of the letters in units of pixels"
+  },
+  "Sketch_text_width": {
+    "c": "the character to measure",
+    "str": "the String of characters to measure"
+  },
+  "Sketch_texture": {
+    "image": "reference to a PImage object"
+  },
+  "Sketch_texture_mode": {
+    "mode": "either IMAGE or NORMAL"
+  },
+  "Sketch_texture_wrap": {
+    "wrap": "Either CLAMP (default) or REPEAT"
+  },
+  "Sketch_thread": {
+    "name": "name of the function to be executed in a separate thread"
+  },
+  "Sketch_tint": {
+    "rgb": "color value in hexadecimal notation",
+    "alpha": "opacity of the image",
+    "gray": "specifies a value between white and black",
+    "v1": "red or hue value (depending on current color mode)",
+    "v2": "green or saturation value (depending on current color mode)",
+    "v3": "blue or brightness value (depending on current color mode)"
+  },
+  "Sketch_translate": {
+    "x": "left/right translation",
+    "y": "up/down translation",
+    "z": "forward/backward translation"
+  },
+  "Sketch_triangle": {
+    "x1": "x-coordinate of the first point",
+    "y1": "y-coordinate of the first point",
+    "x2": "x-coordinate of the second point",
+    "y2": "y-coordinate of the second point",
+    "x3": "x-coordinate of the third point",
+    "y3": "y-coordinate of the third point"
+  },
+  "Sketch_trim": {
+    "str": "any string",
+    "array": "a String array"
+  },
+  "Sketch_unbinary": {
+    "value": "String to convert to an integer"
+  },
+  "Sketch_unhex": {
+    "value": "String to convert to an integer"
+  },
+  "Sketch_update_pixels": {
+    "x1": "x-coordinate of the upper-left corner",
+    "y1": "y-coordinate of the upper-left corner",
+    "x2": "width of the region",
+    "y2": "height of the region"
+  },
+  "Sketch_vertex": {
+    "v": "vertical coordinate for the texture mapping",
+    "x": "x-coordinate of the vertex",
+    "y": "y-coordinate of the vertex",
+    "z": "z-coordinate of the vertex",
+    "u": "horizontal coordinate for the texture mapping"
+  }
+}
