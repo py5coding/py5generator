@@ -18,6 +18,8 @@ logger = logging.getLogger(__name__)
 METHOD_REGEX = re.compile(r'(@\w+)?\s*def (.*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):$', re.MULTILINE | re.DOTALL)
 TYPEHINT_COMMA_REGEX = re.compile(r'(\[[\w\s,]+\])')
 
+SNAKE_CASE_1 = re.compile('(.)([A-Z][a-z]+)')
+SNAKE_CASE_2 = re.compile('([a-z0-9])([A-Z])')
 
 ###############################################################################
 # UTIL FUNCTIONS
@@ -25,9 +27,8 @@ TYPEHINT_COMMA_REGEX = re.compile(r'(\[[\w\s,]+\])')
 
 
 def snake_case(name):
-    # TODO: put these regexes in precompiled expressions
-    name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
-    name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', name)
+    name = SNAKE_CASE_1.sub(r'\1_\2', name)
+    name = SNAKE_CASE_2.sub(r'\1_\2', name)
     return name.lower()
 
 
