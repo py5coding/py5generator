@@ -34,8 +34,8 @@ docletjar: $(py5_doclet_jar_file)
 $(py5_doclet_jar_file) : $(py5_doclet_java_src)
 	ant -f py5_docs/build.xml
 
-create_docfiles: $(py5_method_param_names_file) $(py5_javadoc_file)
-$(py5_method_param_names_file) $(py5_javadoc_file): $(py5_doclet_jar_file)
+create_docfiles: $(py5_javadoc_file)
+$(py5_javadoc_file): $(py5_doclet_jar_file)
 	javadoc -doclet py5.javadocs.Py5Doclet \
 		-docletpath py5_docs/dist/py5doclet.jar \
 		--source-path $(processing_dir)/core/src/ \
