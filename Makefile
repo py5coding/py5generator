@@ -46,6 +46,9 @@ $(py5_method_param_names_file) $(py5_javadoc_file): $(py5_doclet_jar_file)
 		--javadoc-file $(py5_javadoc_file) \
 		"processing.core" "processing.opengl"
 
+sphinx_docs:
+	sphinx-build -M html py5_resources/sphinx docs
+
 .PHONY: clean
 clean:
 	rm -Rf build/
