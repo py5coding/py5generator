@@ -28,17 +28,14 @@ class DocstringDict:
 
     def __getitem__(self, item):
         try:
-            dockey, params = item.split('|')
+            dockey, params = item.replace('*', '').split('|')
             kind, name = dockey.split('_', 1)
             paramtext = ''
             if params:
-                print(item)
                 vardocs = []
                 for p in params.split('+'):
-                    print(p)
                     varname, type_ = p.split(':')
-                    # TODO: something wrong with create_shape here because of the *p
-                    vardesc = self._variable_descriptions[name][varname]
+                    vardesc = self._variable_descriptions[name].get(varname, '(no description)')
                     vardocs.append(f'{varname}: {type_}\n    {vardesc}')
                 paramtext = '\n\n'.join(vardocs)
             doc = textwrap.indent(
