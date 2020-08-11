@@ -1,4 +1,5 @@
 import re
+import json
 from collections import defaultdict
 import xmltodict
 
@@ -137,11 +138,25 @@ for commenttree in root['commenttrees']['commenttree']:
                 fdata.report_see_also(PY5_CLASS_LOOKUP.get(tokens[0], py5class), tokens[1])
 
 
+variable_descriptions = defaultdict(dict)
+docstrings = []
+for (py5class, py5name), fdata in sorted(docdata.items()):
+    doc = DOC_TEMPLATE.format(py5class, py5name, fdata.get_first(), fdata.get_full())
+    see_also = fdata.get_see(docdata)
+    if see_also:
+        doc += SEE_ALSO_TEMPLATE.format(see_also)
+    docstrings.append(doc)
+
+    if py5name not in variable_descriptions[py5class]:
+        variable_descriptions[py5class][py5name] = dict()
+    for var, desc in fdata.vars.items():
+        variable_descriptions[py5class][py5name][var] = desc
+
+
 with open('/tmp/en.md', 'w') as f:
-    for (py5class, py5name), fdata in sorted(docdata.items()):
-        doc = DOC_TEMPLATE.format(py5class, py5name, fdata.get_first(), fdata.get_full())
-        see_also = fdata.get_see(docdata)
-        if see_also:
-            doc += SEE_ALSO_TEMPLATE.format(see_also)
+    for doc in docstrings:
         f.write(doc)
-    # print('VARS', fdata.vars)
+
+
+with open('/tmp/variable_descriptions.json', 'w') as f:
+    json.dump(variable_descriptions, f, indent=2)
