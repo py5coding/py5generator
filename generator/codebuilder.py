@@ -1,6 +1,7 @@
 import re
 import logging
 from functools import lru_cache
+from collections import defaultdict
 
 from . import reference as ref
 from . import templates as templ
@@ -78,6 +79,7 @@ class CodeBuilder:
         self.dynamic_variable_names = set()
         self.method_names = set()
         self.extra_names = set()
+        self.method_signatures = defaultdict(list)
 
         self.class_members = []
         self.module_members = []
@@ -141,7 +143,6 @@ class CodeBuilder:
             paramstrs, rettypestr = self._make_param_rettype_strs(fname, first_param, params, paramnames, rettype)
             class_arguments = ', '.join([p.split(':')[0] for p in paramstrs[1:]])
             module_arguments = class_arguments
-            docstring_param_key = '+'.join(paramstrs[1:]).replace(' ', '')
 
             if len(paramstrs) > 1:
                 if paramstrs[-1][0] == '*':
@@ -158,16 +159,15 @@ class CodeBuilder:
             self.class_members.append(
                 templ.CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
                     self._class_name, py5_name, ', '.join(paramstrs), classobj,
-                    fname, decorator, rettypestr, class_arguments, signature_options,
-                    docstring_param_key
+                    fname, decorator, rettypestr, class_arguments, signature_options
                 )
             )
+            self.method_signatures[py5_name].append((', '.join(paramstrs[1:]), rettypestr))
             if self._code_module:
                 self.module_members.append(
                     templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
                         self._class_name, py5_name, ', '.join(paramstrs[1:]),
-                        moduleobj, rettypestr, module_arguments,
-                        docstring_param_key
+                        moduleobj, rettypestr, module_arguments
                     )
                 )
         else:
@@ -184,7 +184,6 @@ class CodeBuilder:
                     continue
                 skipped_all = False
                 paramstrs, rettypestr = self._make_param_rettype_strs(fname, first_param, params, paramnames, rettype)
-                docstring_param_key = '+'.join(paramstrs[1:]).replace(' ', '')
 
                 if len(paramstrs) > 1:
                     if paramstrs[-1][0] == '*':
@@ -202,13 +201,14 @@ class CodeBuilder:
                 signature_options.append(', '.join([s for s in paramstrs[1:] if s != '/']))
                 self.class_members.append(
                     templ.CLASS_METHOD_TYPEHINT_TEMPLATE.format(
-                        self._class_name, py5_name, joined_paramstrs, rettypestr, docstring_param_key
+                        self._class_name, py5_name, joined_paramstrs, rettypestr
                     )
                 )
+                self.method_signatures[py5_name].append((', '.join(paramstrs[1:]), rettypestr))
                 if self._code_module:
                     self.module_members.append(
                         templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(
-                            self._class_name, py5_name, ', '.join(paramstrs[1:]), rettypestr, docstring_param_key
+                            self._class_name, py5_name, ', '.join(paramstrs[1:]), rettypestr
                         )
                     )
                 created_sigs.add((joined_paramstrs, rettypestr))

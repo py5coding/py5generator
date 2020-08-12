@@ -28,18 +28,9 @@ class DocstringDict:
 
     def __getitem__(self, item):
         try:
-            dockey, params = item.replace('*', '').split('|')
-            kind, name = dockey.split('_', 1)
-            paramtext = ''
-            if params:
-                vardocs = []
-                for p in params.split('+'):
-                    varname, type_ = p.split(':')
-                    vardesc = self._variable_descriptions[name].get(varname, '(no description)')
-                    vardocs.append(f'{varname}: {type_}\n    {vardesc}')
-                paramtext = '\n\n'.join(vardocs)
+            kind, name = item.split('_', 1)
             doc = textwrap.indent(
-                self._docstrings[name].replace('PARAMTEXT', paramtext),
+                self._docstrings[name],
                 prefix=(' ' * DocstringDict.INDENTING.get(kind, 0))).strip()
             doc += '\n'
             return doc
