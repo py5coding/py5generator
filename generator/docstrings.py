@@ -19,9 +19,11 @@ class MethodParamsDict:
 
     def __getitem__(self, item):
         try:
-            class_name, method_name = item[:-11].split('_', 1)
+            class_method = item[:-11]
+            class_name, method_name = class_method.split('_', 1)
             signature_info = self._method_signatures_lookup[class_name, method_name]
-            return 'it works: ' + str(signature_info)
+            var_descriptions = self._variable_descriptions[class_method]
+            return 'it works: ' + str(signature_info) + ' ' + str(var_descriptions)
         except KeyError:
             return f'missing param information for {item}'
 
