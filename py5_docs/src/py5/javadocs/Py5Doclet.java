@@ -3,22 +3,17 @@ package py5.javadocs;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.ElementFilter;
 import javax.tools.Diagnostic;
 
@@ -28,29 +23,17 @@ import jdk.javadoc.doclet.Reporter;
 
 import com.sun.source.util.DocTrees;
 import com.sun.source.doctree.DocTree;
-import com.sun.source.doctree.ParamTree;
-import com.sun.source.doctree.SeeTree;
-import com.sun.source.doctree.ReturnTree;
-import com.sun.source.doctree.DeprecatedTree;
-import com.sun.source.doctree.ThrowsTree;
-import com.sun.source.doctree.UnknownBlockTagTree;
 import com.sun.source.doctree.DocCommentTree;
 
 public class Py5Doclet implements Doclet {
     protected Reporter reporter;
     private final Pattern LINK_REGEX;
-    private final Pattern DOT_REGEX;
-    private PrintWriter paramPrinter;
     private PrintWriter javadocPrinter;
-    private Py5DocletOption paramFileOption;
     private Py5DocletOption javadocFileOption;
 
     public Py5Doclet() {
         LINK_REGEX = Pattern.compile("<a href=\"([^\"]*)\">([^<]*)</a>", Pattern.CASE_INSENSITIVE);
-        DOT_REGEX = Pattern.compile("\\.");
 
-        paramFileOption = new Py5DocletOption("output file for method parameter names",
-                new String[] { "-paramfile", "--param-file" });
         javadocFileOption = new Py5DocletOption("output file for javadoc comments and block tags",
                 new String[] { "-javadocfile", "--javadoc-file" });
     }
@@ -69,15 +52,6 @@ public class Py5Doclet implements Doclet {
                 return text;
             }
         }
-    }
-
-    private String removePackage(String str) {
-        String[] tokens = DOT_REGEX.split(str);
-        return tokens[tokens.length - 1];
-    }
-
-    private String listToString(List<String> list) {
-        return list.stream().map(this::removePackage).collect(Collectors.joining(","));
     }
 
     private String cleanupText(String s) {
@@ -117,18 +91,6 @@ public class Py5Doclet implements Doclet {
     public void processElement(DocTrees trees, String partOf, Element e) {
         ElementKind kind = e.getKind();
         String name = e.getSimpleName().toString().replace("<", "").replace(">", "");
-
-        if (paramPrinter != null && kind == ElementKind.METHOD) {
-            List<String> paramTypes = new ArrayList<String>();
-            List<String> paramNames = new ArrayList<String>();
-            ExecutableElement ee = (ExecutableElement) e;
-            for (VariableElement pe : ee.getParameters()) {
-                paramTypes.add(pe.asType().toString());
-                paramNames.add(pe.toString());
-            }
-            paramPrinter.printf("%s|%s|%s|%s|%s\n", removePackage(partOf), name, listToString(paramTypes),
-                    listToString(paramNames), removePackage(ee.getReturnType().toString()));
-        }
 
         DocCommentTree docCommentTree = trees.getDocCommentTree(e);
         if (javadocPrinter != null && docCommentTree != null) {
@@ -176,7 +138,6 @@ public class Py5Doclet implements Doclet {
 
     @Override
     public boolean run(DocletEnvironment docEnv) {
-        paramPrinter = openPrintWriter(paramFileOption);
         javadocPrinter = openPrintWriter(javadocFileOption);
 
         if (javadocPrinter != null) {
@@ -191,9 +152,6 @@ public class Py5Doclet implements Doclet {
             }
         }
 
-        if (paramPrinter != null) {
-            paramPrinter.close();
-        }
         if (javadocPrinter != null) {
             javadocPrinter.println("</commenttrees>");
             javadocPrinter.close();
@@ -214,6 +172,6 @@ public class Py5Doclet implements Doclet {
 
     @Override
     public Set<? extends Option> getSupportedOptions() {
-        return new HashSet<Option>(Arrays.asList(new Option[] { paramFileOption, javadocFileOption }));
+        return new HashSet<Option>(Arrays.asList(new Option[] { javadocFileOption }));
     }
 }
