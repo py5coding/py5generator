@@ -8,7 +8,7 @@ import pandas as pd
 import xmltodict
 
 
-DOC_TEMPLATE = """
+METHOD_DOC_TEMPLATE = """
 # {0}_{1}
 
 {2}
@@ -22,6 +22,19 @@ Notes
 -----
 
 {4}
+
+"""
+
+
+FIELD_DOC_TEMPLATE = """
+# {0}_{1}
+
+{2}
+
+Notes
+-----
+
+{3}
 
 """
 
@@ -55,7 +68,7 @@ def snake_case(name):
     return name.lower()
 
 
-class FunctionDocData:
+class DocData:
 
     def __init__(self):
         self.first = ''
@@ -115,7 +128,7 @@ for pclass in PY5_CLASS_LOOKUP.keys():
     class_data_info[pclass] = class_data.query("implementation_from_processing==True")['py5_name']
 
 # where the documentation data will be organized and stored
-docdata = defaultdict(FunctionDocData)
+docdata = defaultdict(DocData)
 
 for commenttree in root['commenttrees']['commenttree']:
     pclass = commenttree['@class'].split('.')[-1]
@@ -129,8 +142,9 @@ for commenttree in root['commenttrees']['commenttree']:
 
     py5class = PY5_CLASS_LOOKUP[pclass]
     body = commenttree['body']
+    kind = commenttree['@kind']
 
-    fdata = docdata[(py5class, py5name)]
+    fdata = docdata[(py5class, kind, py5name)]
     fdata.report_first_full(body['first'], body['first'])
 
     blocktags = commenttree['blocktags']
@@ -150,9 +164,12 @@ for commenttree in root['commenttrees']['commenttree']:
 
 variable_descriptions = defaultdict(dict)
 docstrings = []
-for (py5class, py5name), fdata in sorted(docdata.items()):
-    parameter_key = f'${py5class}_{py5name}_parameters'
-    doc = DOC_TEMPLATE.format(py5class, py5name, fdata.first, parameter_key, fdata.full)
+for (py5class, kind, py5name), fdata in sorted(docdata.items()):
+    if kind == 'METHOD':
+        parameter_key = f'${py5class}_{py5name}_parameters'
+        doc = METHOD_DOC_TEMPLATE.format(py5class, py5name, fdata.first, parameter_key, fdata.full)
+    elif kind == 'FIELD':
+        doc = FIELD_DOC_TEMPLATE.format(py5class, py5name, fdata.first, fdata.full)
     see_also = fdata.get_see(docdata)
     if see_also:
         doc += SEE_ALSO_TEMPLATE.format(see_also)

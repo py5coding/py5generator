@@ -1,6 +1,26 @@
 
 # Py5Font_ascent
 
+The ascent of the font.
+
+Notes
+-----
+
+The ascent of the font.
+
+
+# Py5Font_descent
+
+The descent of the font.
+
+Notes
+-----
+
+The descent of the font.
+
+
+# Py5Font_ascent
+
 Returns the ascent of this font from the baseline.
 
 Parameters
@@ -78,11 +98,6 @@ Width of this character for a font of size 1.
 
 stroke argb values
 
-Parameters
-----------
-
-$Py5Graphics_SR_parameters
-
 Notes
 -----
 
@@ -93,15 +108,210 @@ stroke argb values
 
 stroke weight
 
-Parameters
-----------
-
-$Py5Graphics_SW_parameters
-
 Notes
 -----
 
 stroke weight
+
+
+# Py5Graphics_blend_mode
+
+The current blending mode.
+
+Notes
+-----
+
+The current blending mode.
+
+
+# Py5Graphics_color_mode
+
+The current colorMode
+
+Notes
+-----
+
+The current colorMode
+
+
+# Py5Graphics_ellipse_mode
+
+The current ellipse mode (read-only)
+
+Notes
+-----
+
+The current ellipse mode (read-only)
+
+
+# Py5Graphics_fill
+
+true if fill() is enabled, (read-only)
+
+Notes
+-----
+
+true if fill() is enabled, (read-only)
+
+
+# Py5Graphics_image
+
+Java AWT Image object associated with this renderer.
+
+Notes
+-----
+
+Java AWT Image object associated with this renderer.
+
+
+# Py5Graphics_image_mode
+
+The current image alignment (read-only)
+
+Notes
+-----
+
+The current image alignment (read-only)
+
+
+# Py5Graphics_rect_mode
+
+The current rect mode (read-only)
+
+Notes
+-----
+
+The current rect mode (read-only)
+
+
+# Py5Graphics_shape
+
+Type of shape passed to beginShape(), zero if no shape is currently being drawn.
+
+Notes
+-----
+
+Type of shape passed to beginShape(), zero if no shape is currently being drawn.
+
+
+# Py5Graphics_shape_mode
+
+The current shape alignment mode (read-only)
+
+Notes
+-----
+
+The current shape alignment mode (read-only)
+
+
+# Py5Graphics_stroke
+
+true if stroke() is enabled, (read-only)
+
+Notes
+-----
+
+true if stroke() is enabled, (read-only)
+
+
+# Py5Graphics_stroke_cap
+
+Set by strokeCap() (read-only).
+
+Notes
+-----
+
+Set by strokeCap() (read-only).
+
+
+# Py5Graphics_stroke_join
+
+Set by strokeJoin() (read-only).
+
+Notes
+-----
+
+Set by strokeJoin() (read-only).
+
+
+# Py5Graphics_stroke_weight
+
+Last value set by strokeWeight() (read-only).
+
+Notes
+-----
+
+Last value set by strokeWeight() (read-only).
+
+
+# Py5Graphics_text_align
+
+The current text align (read-only)
+
+Notes
+-----
+
+The current text align (read-only)
+
+
+# Py5Graphics_text_font
+
+The current text font (read-only)
+
+Notes
+-----
+
+The current text font (read-only)
+
+
+# Py5Graphics_text_leading
+
+The current text leading (read-only)
+
+Notes
+-----
+
+The current text leading (read-only)
+
+
+# Py5Graphics_text_mode
+
+The current text mode (read-only)
+
+Notes
+-----
+
+The current text mode (read-only)
+
+
+# Py5Graphics_text_size
+
+The current text size (read-only)
+
+Notes
+-----
+
+The current text size (read-only)
+
+
+# Py5Graphics_texture_mode
+
+Sets whether texture coordinates passed to vertex() calls will be based on coordinates that are based on the IMAGE or NORMALIZED.
+
+Notes
+-----
+
+Sets whether texture coordinates passed to vertex() calls will be based on coordinates that are based on the IMAGE or NORMALIZED.
+
+
+# Py5Graphics_tint
+
+True if tint() is enabled (read-only).
+
+Notes
+-----
+
+True if tint() is enabled (read-only).
 
 
 # Py5Graphics_alpha
@@ -122,17 +332,17 @@ Extracts the alpha value from a color.
 See Also
 --------
 
-Py5Graphics.red(int) : Extracts the red value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.red(int)
 
-Py5Graphics.green(int) : Extracts the green value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.green(int)
 
-Py5Graphics.blue(int) : Extracts the blue value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.blue(int)
 
-Py5Graphics.hue(int) : Extracts the hue value from a color.
+Py5Graphics.hue(int)
 
-Py5Graphics.saturation(int) : Extracts the saturation value from a color.
+Py5Graphics.saturation(int)
 
-Py5Graphics.brightness(int) : Extracts the brightness value from a color.
+Py5Graphics.brightness(int)
 
 
 # Py5Graphics_ambient
@@ -153,11 +363,11 @@ Sets the ambient reflectance for shapes drawn to the screen.
 See Also
 --------
 
-Py5Graphics.emissive(float, float, float) : Sets the emissive color of the material used for drawing shapes drawn to the screen.
+Py5Graphics.emissive(float, float, float)
 
-Py5Graphics.specular(float, float, float) : Sets the specular color of the materials used for shapes drawn to the screen, which sets the color of hightlights.
+Py5Graphics.specular(float, float, float)
 
-Py5Graphics.shininess(float) : Sets the amount of gloss in the surface of shapes.
+Py5Graphics.shininess(float)
 
 
 # Py5Graphics_ambient_light
@@ -178,7 +388,7 @@ Adds an ambient light.
 See Also
 --------
 
-Py5Graphics.lights() : Sets the default ambient light, directional light, falloff, and specular values.
+Py5Graphics.lights()
 
 Py5Graphics.directionalLight(float, float, float, float, float, float)
 
@@ -247,7 +457,7 @@ Draws an arc in the display window.
 See Also
 --------
 
-Sketch.ellipse(float, float, float, float) : Draws an ellipse (oval) in the display window.
+Sketch.ellipse(float, float, float, float)
 
 Sketch.ellipseMode(int)
 
@@ -274,11 +484,11 @@ The , ``background()`` , function sets the color used for the background of the 
 See Also
 --------
 
-Py5Graphics.stroke(float) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(float)
 
-Py5Graphics.fill(float) : Sets the color used to fill shapes.
+Py5Graphics.fill(float)
 
-Py5Graphics.tint(float) : Sets the fill value for displaying images.
+Py5Graphics.tint(float)
 
 Py5Graphics.colorMode(int)
 
@@ -301,7 +511,7 @@ The , ``begin_camera()`` , and , ``end_camera()`` , functions enable advanced cu
 See Also
 --------
 
-Py5Graphics.camera() : Sets the position of the camera through setting the eye position, the center of the scene, and which axis is facing upward.
+Py5Graphics.camera()
 
 Py5Graphics.endCamera()
 
@@ -309,9 +519,9 @@ Py5Graphics.applyMatrix(PMatrix)
 
 Py5Graphics.resetMatrix()
 
-Py5Graphics.translate(float, float, float) : Specifies an amount to displace objects within the display window.
+Py5Graphics.translate(float, float, float)
 
-Py5Graphics.scale(float, float, float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float, float, float)
 
 
 # Py5Graphics_begin_contour
@@ -379,7 +589,7 @@ See Also
 
 Py5Graphics.endShape()
 
-Py5Graphics.vertex(float, float, float, float, float) : All shapes are constructed by connecting a series of vertices.
+Py5Graphics.vertex(float, float, float, float, float)
 
 Py5Graphics.curveVertex(float, float, float)
 
@@ -406,7 +616,7 @@ See Also
 
 Py5Graphics.bezierVertex(float, float, float, float, float, float)
 
-Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a curved line on the screen.
+Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float)
 
 
 # Py5Graphics_bezier_detail
@@ -427,7 +637,7 @@ Sets the resolution at which Beziers display.
 See Also
 --------
 
-Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a curved line on the screen.
+Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.curveVertex(float, float, float)
 
@@ -452,7 +662,7 @@ Evaluates the Bezier at point t for points a, b, c, d.
 See Also
 --------
 
-Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a Bezier curve on the screen.
+Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.bezierVertex(float, float, float, float, float, float)
 
@@ -477,7 +687,7 @@ Calculates the tangent of a point on a Bezier curve.
 See Also
 --------
 
-Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a Bezier curve on the screen.
+Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.bezierVertex(float, float, float, float, float, float)
 
@@ -504,11 +714,11 @@ See Also
 
 Py5Graphics.curveVertex(float, float, float)
 
-Py5Graphics.vertex(float, float, float, float, float) : All shapes are constructed by connecting a series of vertices.
+Py5Graphics.vertex(float, float, float, float, float)
 
 Py5Graphics.quadraticVertex(float, float, float, float, float, float)
 
-Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a Bezier curve on the screen.
+Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float)
 
 
 # Py5Graphics_blend_mode
@@ -544,17 +754,17 @@ Extracts the blue value from a color, scaled to match current , ``color_mode()``
 See Also
 --------
 
-Py5Graphics.red(int) : Extracts the red value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.red(int)
 
-Py5Graphics.green(int) : Extracts the green value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.green(int)
 
-Py5Graphics.alpha(int) : Extracts the alpha value from a color.
+Py5Graphics.alpha(int)
 
-Py5Graphics.hue(int) : Extracts the hue value from a color.
+Py5Graphics.hue(int)
 
-Py5Graphics.saturation(int) : Extracts the saturation value from a color.
+Py5Graphics.saturation(int)
 
-Py5Graphics.brightness(int) : Extracts the brightness value from a color.
+Py5Graphics.brightness(int)
 
 
 # Py5Graphics_box
@@ -575,7 +785,7 @@ A box is an extruded rectangle.
 See Also
 --------
 
-Py5Graphics.sphere(float) : A sphere is a hollow ball made from tessellated triangles.
+Py5Graphics.sphere(float)
 
 
 # Py5Graphics_brightness
@@ -596,17 +806,17 @@ Extracts the brightness value from a color.
 See Also
 --------
 
-Py5Graphics.red(int) : Extracts the red value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.red(int)
 
-Py5Graphics.green(int) : Extracts the green value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.green(int)
 
-Py5Graphics.blue(int) : Extracts the blue value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.blue(int)
 
-Py5Graphics.alpha(int) : Extracts the alpha value from a color.
+Py5Graphics.alpha(int)
 
-Py5Graphics.hue(int) : Extracts the hue value from a color.
+Py5Graphics.hue(int)
 
-Py5Graphics.saturation(int) : Extracts the saturation value from a color.
+Py5Graphics.saturation(int)
 
 
 # Py5Graphics_camera
@@ -631,7 +841,7 @@ Py5Graphics.beginCamera()
 
 Py5Graphics.endCamera()
 
-Py5Graphics.frustum(float, float, float, float, float, float) : Sets a perspective matrix defined through the parameters.
+Py5Graphics.frustum(float, float, float, float, float, float)
 
 
 # Py5Graphics_circle
@@ -652,7 +862,7 @@ Draws a circle to the screen.
 See Also
 --------
 
-Sketch.ellipse(float, float, float, float) : Draws an ellipse (oval) in the display window.
+Sketch.ellipse(float, float, float, float)
 
 Sketch.ellipseMode(int)
 
@@ -720,11 +930,11 @@ Changes the way Processing interprets color data.
 See Also
 --------
 
-Py5Graphics.background(float) : The , ``background()`` , function sets the color used for the background of the Processing window.
+Py5Graphics.background(float)
 
-Py5Graphics.fill(float) : Sets the color used to fill shapes.
+Py5Graphics.fill(float)
 
-Py5Graphics.stroke(float) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(float)
 
 
 # Py5Graphics_create_shape
@@ -772,7 +982,7 @@ Py5Graphics.curveVertex(float, float)
 
 Py5Graphics.curveTightness(float)
 
-Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a Bezier curve on the screen.
+Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float)
 
 
 # Py5Graphics_curve_detail
@@ -793,7 +1003,7 @@ Sets the resolution at which curves display.
 See Also
 --------
 
-Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a curved line on the screen.
+Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.curveVertex(float, float)
 
@@ -818,7 +1028,7 @@ Evalutes the curve at point t for points a, b, c, d.
 See Also
 --------
 
-Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a curved line on the screen.
+Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.curveVertex(float, float)
 
@@ -843,7 +1053,7 @@ Calculates the tangent of a point on a curve.
 See Also
 --------
 
-Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a curved line on the screen.
+Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.curveVertex(float, float)
 
@@ -870,7 +1080,7 @@ Modifies the quality of forms created with , ``curve()`` , and , ``curve_vertex(
 See Also
 --------
 
-Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a curved line on the screen.
+Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.curveVertex(float, float)
 
@@ -893,15 +1103,15 @@ Specifies vertex coordinates for curves.
 See Also
 --------
 
-Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a curved line on the screen.
+Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.beginShape(int)
 
 Py5Graphics.endShape(int)
 
-Py5Graphics.vertex(float, float, float, float, float) : All shapes are constructed by connecting a series of vertices.
+Py5Graphics.vertex(float, float, float, float, float)
 
-Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a Bezier curve on the screen.
+Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.quadraticVertex(float, float, float, float, float, float)
 
@@ -924,7 +1134,7 @@ Adds a directional light.
 See Also
 --------
 
-Py5Graphics.lights() : Sets the default ambient light, directional light, falloff, and specular values.
+Py5Graphics.lights()
 
 Py5Graphics.ambientLight(float, float, float, float, float, float)
 
@@ -953,7 +1163,7 @@ See Also
 
 Sketch.ellipseMode(int)
 
-Sketch.arc(float, float, float, float, float, float) : Draws an arc in the display window.
+Sketch.arc(float, float, float, float, float, float)
 
 
 # Py5Graphics_ellipse_mode
@@ -974,9 +1184,9 @@ The origin of the ellipse is modified by the , ``ellipse_mode()`` , function.
 See Also
 --------
 
-Sketch.ellipse(float, float, float, float) : Draws an ellipse (oval) in the display window.
+Sketch.ellipse(float, float, float, float)
 
-Sketch.arc(float, float, float, float, float, float) : Draws an arc in the display window.
+Sketch.arc(float, float, float, float, float, float)
 
 
 # Py5Graphics_emissive
@@ -997,11 +1207,11 @@ Sets the emissive color of the material used for drawing shapes drawn to the scr
 See Also
 --------
 
-Py5Graphics.ambient(float, float, float) : Sets the ambient reflectance for shapes drawn to the screen.
+Py5Graphics.ambient(float, float, float)
 
-Py5Graphics.specular(float, float, float) : Sets the specular color of the materials used for shapes drawn to the screen, which sets the color of hightlights.
+Py5Graphics.specular(float, float, float)
 
-Py5Graphics.shininess(float) : Sets the amount of gloss in the surface of shapes.
+Py5Graphics.shininess(float)
 
 
 # Py5Graphics_end_camera
@@ -1024,7 +1234,7 @@ See Also
 
 Py5Graphics.beginCamera()
 
-Py5Graphics.camera(float, float, float, float, float, float, float, float, float) : Sets the position of the camera through setting the eye position, the center of the scene, and which axis is facing upward.
+Py5Graphics.camera(float, float, float, float, float, float, float, float, float)
 
 
 # Py5Graphics_end_contour
@@ -1098,13 +1308,13 @@ See Also
 
 Py5Graphics.noFill()
 
-Py5Graphics.stroke(int, float) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(int, float)
 
 Py5Graphics.noStroke()
 
-Py5Graphics.tint(int, float) : Sets the fill value for displaying images.
+Py5Graphics.tint(int, float)
 
-Py5Graphics.background(float, float, float, float) : The , ``background()`` , function sets the color used for the background of the Processing window.
+Py5Graphics.background(float, float, float, float)
 
 Py5Graphics.colorMode(int, float, float, float, float)
 
@@ -1127,13 +1337,13 @@ Sets a perspective matrix defined through the parameters.
 See Also
 --------
 
-Py5Graphics.camera(float, float, float, float, float, float, float, float, float) : Sets the position of the camera through setting the eye position, the center of the scene, and which axis is facing upward.
+Py5Graphics.camera(float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.beginCamera()
 
 Py5Graphics.endCamera()
 
-Py5Graphics.perspective(float, float, float, float) : Sets a perspective projection applying foreshortening, making distant objects appear smaller than closer ones.
+Py5Graphics.perspective(float, float, float, float)
 
 
 # Py5Graphics_get_matrix
@@ -1169,17 +1379,17 @@ Extracts the green value from a color, scaled to match current , ``color_mode()`
 See Also
 --------
 
-Py5Graphics.red(int) : Extracts the red value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.red(int)
 
-Py5Graphics.blue(int) : Extracts the blue value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.blue(int)
 
-Py5Graphics.alpha(int) : Extracts the alpha value from a color.
+Py5Graphics.alpha(int)
 
-Py5Graphics.hue(int) : Extracts the hue value from a color.
+Py5Graphics.hue(int)
 
-Py5Graphics.saturation(int) : Extracts the saturation value from a color.
+Py5Graphics.saturation(int)
 
-Py5Graphics.brightness(int) : Extracts the brightness value from a color.
+Py5Graphics.brightness(int)
 
 
 # Py5Graphics_hint
@@ -1202,7 +1412,7 @@ See Also
 
 Sketch.createGraphics(int, int, String, String)
 
-Sketch.size(int, int) : Defines the dimension of the display window in units of pixels.
+Sketch.size(int, int)
 
 
 # Py5Graphics_hue
@@ -1223,17 +1433,17 @@ Extracts the hue value from a color.
 See Also
 --------
 
-Py5Graphics.red(int) : Extracts the red value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.red(int)
 
-Py5Graphics.green(int) : Extracts the green value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.green(int)
 
-Py5Graphics.blue(int) : Extracts the blue value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.blue(int)
 
-Py5Graphics.alpha(int) : Extracts the alpha value from a color.
+Py5Graphics.alpha(int)
 
-Py5Graphics.saturation(int) : Extracts the saturation value from a color.
+Py5Graphics.saturation(int)
 
-Py5Graphics.brightness(int) : Extracts the brightness value from a color.
+Py5Graphics.brightness(int)
 
 
 # Py5Graphics_image
@@ -1258,11 +1468,11 @@ Sketch.loadImage(String, String)
 
 Py5Graphics.imageMode(int)
 
-Py5Graphics.tint(float) : Sets the fill value for displaying images.
+Py5Graphics.tint(float)
 
-Py5Graphics.background(float, float, float, float) : The , ``background()`` , function sets the color used for the background of the Processing window.
+Py5Graphics.background(float, float, float, float)
 
-Py5Graphics.alpha(int) : Extracts the alpha value from a color.
+Py5Graphics.alpha(int)
 
 
 # Py5Graphics_image_mode
@@ -1285,9 +1495,9 @@ See Also
 
 Sketch.loadImage(String, String)
 
-Py5Graphics.image(Py5Image, float, float, float, float) : Draw an image(), also specifying u/v coordinates.
+Py5Graphics.image(Py5Image, float, float, float, float)
 
-Py5Graphics.background(float, float, float, float) : The , ``background()`` , function sets the color used for the background of the Processing window.
+Py5Graphics.background(float, float, float, float)
 
 
 # Py5Graphics_lerp_color
@@ -1310,7 +1520,7 @@ See Also
 
 Py5Image.blendColor(int, int, int)
 
-Py5Graphics.color(float, float, float, float) : 
+Py5Graphics.color(float, float, float, float)
 
 Sketch.lerp(float, float, float)
 
@@ -1333,7 +1543,7 @@ Sets the falloff rates for point lights, spot lights, and ambient lights.
 See Also
 --------
 
-Py5Graphics.lights() : Sets the default ambient light, directional light, falloff, and specular values.
+Py5Graphics.lights()
 
 Py5Graphics.ambientLight(float, float, float, float, float, float)
 
@@ -1362,9 +1572,9 @@ Sets the specular color for lights.
 See Also
 --------
 
-Py5Graphics.specular(float, float, float) : Sets the specular color of the materials used for shapes drawn to the screen, which sets the color of hightlights.
+Py5Graphics.specular(float, float, float)
 
-Py5Graphics.lights() : Sets the default ambient light, directional light, falloff, and specular values.
+Py5Graphics.lights()
 
 Py5Graphics.ambientLight(float, float, float, float, float, float)
 
@@ -1567,9 +1777,9 @@ Disables filling geometry.
 See Also
 --------
 
-Py5Graphics.fill(float, float, float, float) : Sets the color used to fill shapes.
+Py5Graphics.fill(float, float, float, float)
 
-Py5Graphics.stroke(int, float) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(int, float)
 
 Py5Graphics.noStroke()
 
@@ -1592,7 +1802,7 @@ Disable all lighting.
 See Also
 --------
 
-Py5Graphics.lights() : Sets the default ambient light, directional light, falloff, and specular values.
+Py5Graphics.lights()
 
 
 # Py5Graphics_no_stroke
@@ -1613,9 +1823,9 @@ Disables drawing the stroke (outline).
 See Also
 --------
 
-Py5Graphics.stroke(int, float) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(int, float)
 
-Py5Graphics.fill(float, float, float, float) : Sets the color used to fill shapes.
+Py5Graphics.fill(float, float, float, float)
 
 Py5Graphics.noFill()
 
@@ -1653,9 +1863,9 @@ Removes the current fill value for displaying images and reverts to displaying i
 See Also
 --------
 
-Py5Graphics.tint(float, float, float, float) : Sets the fill value for displaying images.
+Py5Graphics.tint(float, float, float, float)
 
-Py5Graphics.image(Py5Image, float, float, float, float) : Draw an image(), also specifying u/v coordinates.
+Py5Graphics.image(Py5Image, float, float, float, float)
 
 
 # Py5Graphics_normal
@@ -1680,7 +1890,7 @@ Py5Graphics.beginShape(int)
 
 Py5Graphics.endShape(int)
 
-Py5Graphics.lights() : Sets the default ambient light, directional light, falloff, and specular values.
+Py5Graphics.lights()
 
 
 # Py5Graphics_ortho
@@ -1731,7 +1941,7 @@ Draws a point, a coordinate in space at the dimension of one pixel.
 See Also
 --------
 
-Py5Graphics.stroke(int) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(int)
 
 
 # Py5Graphics_point_light
@@ -1752,7 +1962,7 @@ Adds a point light.
 See Also
 --------
 
-Py5Graphics.lights() : Sets the default ambient light, directional light, falloff, and specular values.
+Py5Graphics.lights()
 
 Py5Graphics.directionalLight(float, float, float, float, float, float)
 
@@ -1779,7 +1989,7 @@ The , ``pop()`` , function restores the previous drawing style settings and tran
 See Also
 --------
 
-Py5Graphics.push() : The , ``push()`` , function saves the current drawing style settings and transformations, while , ``pop()`` , restores these settings.
+Py5Graphics.push()
 
 
 # Py5Graphics_pop_matrix
@@ -1842,7 +2052,7 @@ Prints the current camera matrix to the Console (the text window at the bottom o
 See Also
 --------
 
-Py5Graphics.camera(float, float, float, float, float, float, float, float, float) : Sets the position of the camera through setting the eye position, the center of the scene, and which axis is facing upward.
+Py5Graphics.camera(float, float, float, float, float, float, float, float, float)
 
 
 # Py5Graphics_print_matrix
@@ -1890,7 +2100,7 @@ Prints the current projection matrix to the Console (the text window at the bott
 See Also
 --------
 
-Py5Graphics.camera(float, float, float, float, float, float, float, float, float) : Sets the position of the camera through setting the eye position, the center of the scene, and which axis is facing upward.
+Py5Graphics.camera(float, float, float, float, float, float, float, float, float)
 
 
 # Py5Graphics_push
@@ -1911,7 +2121,7 @@ The , ``push()`` , function saves the current drawing style settings and transfo
 See Also
 --------
 
-Py5Graphics.pop() : The , ``pop()`` , function restores the previous drawing style settings and transformations after , ``push()`` , has changed them.
+Py5Graphics.pop()
 
 
 # Py5Graphics_push_matrix
@@ -1934,11 +2144,11 @@ See Also
 
 Py5Graphics.popMatrix()
 
-Py5Graphics.translate(float, float, float) : Specifies an amount to displace objects within the display window.
+Py5Graphics.translate(float, float, float)
 
-Py5Graphics.scale(float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float)
 
-Py5Graphics.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Graphics.rotate(float)
 
 Py5Graphics.rotateX(float)
 
@@ -2003,11 +2213,11 @@ See Also
 
 Py5Graphics.curveVertex(float, float, float)
 
-Py5Graphics.vertex(float, float, float, float, float) : All shapes are constructed by connecting a series of vertices.
+Py5Graphics.vertex(float, float, float, float, float)
 
 Py5Graphics.bezierVertex(float, float, float, float, float, float)
 
-Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a Bezier curve on the screen.
+Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float)
 
 
 # Py5Graphics_rect
@@ -2030,7 +2240,7 @@ See Also
 
 Py5Graphics.rectMode(int)
 
-Py5Graphics.quad(float, float, float, float, float, float, float, float) : A quad is a quadrilateral, a four sided polygon.
+Py5Graphics.quad(float, float, float, float, float, float, float, float)
 
 
 # Py5Graphics_rect_mode
@@ -2051,7 +2261,7 @@ Modifies the location from which rectangles draw.
 See Also
 --------
 
-Py5Graphics.rect(float, float, float, float) : Draws a rectangle to the screen.
+Py5Graphics.rect(float, float, float, float)
 
 
 # Py5Graphics_red
@@ -2072,17 +2282,17 @@ Extracts the red value from a color, scaled to match current , ``color_mode()`` 
 See Also
 --------
 
-Py5Graphics.green(int) : Extracts the green value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.green(int)
 
-Py5Graphics.blue(int) : Extracts the blue value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.blue(int)
 
-Py5Graphics.alpha(int) : Extracts the alpha value from a color.
+Py5Graphics.alpha(int)
 
-Py5Graphics.hue(int) : Extracts the hue value from a color.
+Py5Graphics.hue(int)
 
-Py5Graphics.saturation(int) : Extracts the saturation value from a color.
+Py5Graphics.saturation(int)
 
-Py5Graphics.brightness(int) : Extracts the brightness value from a color.
+Py5Graphics.brightness(int)
 
 
 # Py5Graphics_reset_matrix
@@ -2155,7 +2365,7 @@ Py5Graphics.rotateY(float)
 
 Py5Graphics.rotateZ(float)
 
-Py5Graphics.scale(float, float, float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float, float, float)
 
 Sketch.radians(float)
 
@@ -2182,15 +2392,15 @@ Py5Graphics.popMatrix()
 
 Py5Graphics.pushMatrix()
 
-Py5Graphics.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Graphics.rotate(float)
 
 Py5Graphics.rotateY(float)
 
 Py5Graphics.rotateZ(float)
 
-Py5Graphics.scale(float, float, float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float, float, float)
 
-Py5Graphics.translate(float, float, float) : Specifies an amount to displace objects within the display window.
+Py5Graphics.translate(float, float, float)
 
 
 # Py5Graphics_rotate_y
@@ -2215,15 +2425,15 @@ Py5Graphics.popMatrix()
 
 Py5Graphics.pushMatrix()
 
-Py5Graphics.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Graphics.rotate(float)
 
 Py5Graphics.rotateX(float)
 
 Py5Graphics.rotateZ(float)
 
-Py5Graphics.scale(float, float, float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float, float, float)
 
-Py5Graphics.translate(float, float, float) : Specifies an amount to displace objects within the display window.
+Py5Graphics.translate(float, float, float)
 
 
 # Py5Graphics_rotate_z
@@ -2248,15 +2458,15 @@ Py5Graphics.popMatrix()
 
 Py5Graphics.pushMatrix()
 
-Py5Graphics.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Graphics.rotate(float)
 
 Py5Graphics.rotateX(float)
 
 Py5Graphics.rotateY(float)
 
-Py5Graphics.scale(float, float, float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float, float, float)
 
-Py5Graphics.translate(float, float, float) : Specifies an amount to displace objects within the display window.
+Py5Graphics.translate(float, float, float)
 
 
 # Py5Graphics_saturation
@@ -2277,17 +2487,17 @@ Extracts the saturation value from a color.
 See Also
 --------
 
-Py5Graphics.red(int) : Extracts the red value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.red(int)
 
-Py5Graphics.green(int) : Extracts the green value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.green(int)
 
-Py5Graphics.blue(int) : Extracts the blue value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.blue(int)
 
-Py5Graphics.alpha(int) : Extracts the alpha value from a color.
+Py5Graphics.alpha(int)
 
-Py5Graphics.hue(int) : Extracts the hue value from a color.
+Py5Graphics.hue(int)
 
-Py5Graphics.brightness(int) : Extracts the brightness value from a color.
+Py5Graphics.brightness(int)
 
 
 # Py5Graphics_scale
@@ -2312,9 +2522,9 @@ Py5Graphics.pushMatrix()
 
 Py5Graphics.popMatrix()
 
-Py5Graphics.translate(float, float, float) : Specifies an amount to displace objects within the display window.
+Py5Graphics.translate(float, float, float)
 
-Py5Graphics.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Graphics.rotate(float)
 
 Py5Graphics.rotateX(float)
 
@@ -2424,7 +2634,7 @@ This is a new reference entry for Processing 2.0.
 
 # Py5Graphics_shape
 
-Type of shape passed to beginShape(), zero if no shape is currently being drawn.
+Displays shapes to the screen.
 
 Parameters
 ----------
@@ -2434,7 +2644,7 @@ $Py5Graphics_shape_parameters
 Notes
 -----
 
-Type of shape passed to beginShape(), zero if no shape is currently being drawn.
+Displays shapes to the screen.
 
 
 See Also
@@ -2463,7 +2673,7 @@ Modifies the location from which shapes draw.
 See Also
 --------
 
-Py5Graphics.shape(Py5Shape) : Type of shape passed to beginShape(), zero if no shape is currently being drawn.
+Py5Graphics.shape(Py5Shape)
 
 Py5Graphics.rectMode(int)
 
@@ -2492,9 +2702,9 @@ Py5Graphics.pushMatrix()
 
 Py5Graphics.shearY(float)
 
-Py5Graphics.scale(float, float, float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float, float, float)
 
-Py5Graphics.translate(float, float, float) : Specifies an amount to displace objects within the display window.
+Py5Graphics.translate(float, float, float)
 
 Sketch.radians(float)
 
@@ -2523,9 +2733,9 @@ Py5Graphics.pushMatrix()
 
 Py5Graphics.shearX(float)
 
-Py5Graphics.scale(float, float, float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float, float, float)
 
-Py5Graphics.translate(float, float, float) : Specifies an amount to displace objects within the display window.
+Py5Graphics.translate(float, float, float)
 
 Sketch.radians(float)
 
@@ -2548,11 +2758,11 @@ Sets the amount of gloss in the surface of shapes.
 See Also
 --------
 
-Py5Graphics.emissive(float, float, float) : Sets the emissive color of the material used for drawing shapes drawn to the screen.
+Py5Graphics.emissive(float, float, float)
 
-Py5Graphics.ambient(float, float, float) : Sets the ambient reflectance for shapes drawn to the screen.
+Py5Graphics.ambient(float, float, float)
 
-Py5Graphics.specular(float, float, float) : Sets the specular color of the materials used for shapes drawn to the screen, which sets the color of hightlights.
+Py5Graphics.specular(float, float, float)
 
 
 # Py5Graphics_specular
@@ -2575,11 +2785,11 @@ See Also
 
 Py5Graphics.lightSpecular(float, float, float)
 
-Py5Graphics.ambient(float, float, float) : Sets the ambient reflectance for shapes drawn to the screen.
+Py5Graphics.ambient(float, float, float)
 
-Py5Graphics.emissive(float, float, float) : Sets the emissive color of the material used for drawing shapes drawn to the screen.
+Py5Graphics.emissive(float, float, float)
 
-Py5Graphics.shininess(float) : Sets the amount of gloss in the surface of shapes.
+Py5Graphics.shininess(float)
 
 
 # Py5Graphics_sphere
@@ -2621,7 +2831,7 @@ Controls the detail used to render a sphere by adjusting the number of vertices 
 See Also
 --------
 
-Py5Graphics.sphere(float) : A sphere is a hollow ball made from tessellated triangles.
+Py5Graphics.sphere(float)
 
 
 # Py5Graphics_spot_light
@@ -2642,7 +2852,7 @@ Adds a spot light.
 See Also
 --------
 
-Py5Graphics.lights() : Sets the default ambient light, directional light, falloff, and specular values.
+Py5Graphics.lights()
 
 Py5Graphics.directionalLight(float, float, float, float, float, float)
 
@@ -2669,7 +2879,7 @@ Draws a square to the screen.
 See Also
 --------
 
-Py5Graphics.rect(float, float, float, float) : Draws a rectangle to the screen.
+Py5Graphics.rect(float, float, float, float)
 
 Py5Graphics.rectMode(int)
 
@@ -2700,13 +2910,13 @@ Py5Graphics.strokeJoin(int)
 
 Py5Graphics.strokeCap(int)
 
-Py5Graphics.fill(int, float) : Sets the color used to fill shapes.
+Py5Graphics.fill(int, float)
 
 Py5Graphics.noFill()
 
-Py5Graphics.tint(int, float) : Sets the fill value for displaying images.
+Py5Graphics.tint(int, float)
 
-Py5Graphics.background(float, float, float, float) : The , ``background()`` , function sets the color used for the background of the Processing window.
+Py5Graphics.background(float, float, float, float)
 
 Py5Graphics.colorMode(int, float, float, float, float)
 
@@ -2729,13 +2939,13 @@ Sets the style for rendering line endings.
 See Also
 --------
 
-Py5Graphics.stroke(int, float) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(int, float)
 
 Py5Graphics.strokeWeight(float)
 
 Py5Graphics.strokeJoin(int)
 
-Sketch.size(int, int, String, String) : Defines the dimension of the display window in units of pixels.
+Sketch.size(int, int, String, String)
 
 
 # Py5Graphics_stroke_join
@@ -2756,7 +2966,7 @@ Sets the style of the joints which connect line segments.
 See Also
 --------
 
-Py5Graphics.stroke(int, float) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(int, float)
 
 Py5Graphics.strokeWeight(float)
 
@@ -2781,7 +2991,7 @@ Sets the width of the stroke used for lines, points, and the border around shape
 See Also
 --------
 
-Py5Graphics.stroke(int, float) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(int, float)
 
 Py5Graphics.strokeJoin(int)
 
@@ -2824,7 +3034,7 @@ Py5Graphics.textDescent()
 
 Py5Graphics.rectMode(int)
 
-Py5Graphics.fill(int, float) : Sets the color used to fill shapes.
+Py5Graphics.fill(int, float)
 
 
 # Py5Graphics_text_align
@@ -2847,7 +3057,7 @@ See Also
 
 Sketch.loadFont(String)
 
-Py5Graphics.text(String, float, float) : This does a basic number formatting, to avoid the generally ugly appearance of printing floats.
+Py5Graphics.text(String, float, float)
 
 Py5Graphics.textSize(float)
 
@@ -2920,7 +3130,7 @@ Sketch.createFont(String, float, boolean)
 
 Sketch.loadFont(String)
 
-Py5Graphics.text(String, float, float) : This does a basic number formatting, to avoid the generally ugly appearance of printing floats.
+Py5Graphics.text(String, float, float)
 
 Py5Graphics.textSize(float)
 
@@ -2947,7 +3157,7 @@ Sketch.loadFont(String)
 
 Py5Font.Py5Font
 
-Py5Graphics.text(String, float, float) : This does a basic number formatting, to avoid the generally ugly appearance of printing floats.
+Py5Graphics.text(String, float, float)
 
 Py5Graphics.textFont(Py5Font)
 
@@ -2976,7 +3186,7 @@ Sketch.loadFont(String)
 
 Py5Font.Py5Font
 
-Py5Graphics.text(String, float, float) : This does a basic number formatting, to avoid the generally ugly appearance of printing floats.
+Py5Graphics.text(String, float, float)
 
 Py5Graphics.textFont(Py5Font)
 
@@ -3007,7 +3217,7 @@ Sketch.loadFont(String)
 
 Py5Font.Py5Font
 
-Py5Graphics.text(String, float, float) : This does a basic number formatting, to avoid the generally ugly appearance of printing floats.
+Py5Graphics.text(String, float, float)
 
 Py5Graphics.textFont(Py5Font)
 
@@ -3034,7 +3244,7 @@ Sketch.loadFont(String)
 
 Py5Font.Py5Font
 
-Py5Graphics.text(String, float, float) : This does a basic number formatting, to avoid the generally ugly appearance of printing floats.
+Py5Graphics.text(String, float, float)
 
 Py5Graphics.textFont(Py5Font)
 
@@ -3067,12 +3277,12 @@ Py5Graphics.beginShape(int)
 
 Py5Graphics.endShape(int)
 
-Py5Graphics.vertex(float, float, float, float, float) : All shapes are constructed by connecting a series of vertices.
+Py5Graphics.vertex(float, float, float, float, float)
 
 
 # Py5Graphics_texture_mode
 
-Sets whether texture coordinates passed to vertex() calls will be based on coordinates that are based on the IMAGE or NORMALIZED.
+Sets the coordinate space for texture mapping.
 
 Parameters
 ----------
@@ -3082,13 +3292,13 @@ $Py5Graphics_texture_mode_parameters
 Notes
 -----
 
-Sets whether texture coordinates passed to vertex() calls will be based on coordinates that are based on the IMAGE or NORMALIZED.
+Sets the coordinate space for texture mapping.
 
 
 See Also
 --------
 
-Py5Graphics.texture(Py5Image) : Sets a texture to be applied to vertex points.
+Py5Graphics.texture(Py5Image)
 
 Py5Graphics.textureWrap(int)
 
@@ -3111,7 +3321,7 @@ Description to come...
 See Also
 --------
 
-Py5Graphics.texture(Py5Image) : Sets a texture to be applied to vertex points.
+Py5Graphics.texture(Py5Image)
 
 Py5Graphics.textureMode(int)
 
@@ -3136,7 +3346,7 @@ See Also
 
 Py5Graphics.noTint()
 
-Py5Graphics.image(Py5Image, float, float, float, float) : Draw an image(), also specifying u/v coordinates.
+Py5Graphics.image(Py5Image, float, float, float, float)
 
 
 # Py5Graphics_translate
@@ -3161,7 +3371,7 @@ Py5Graphics.popMatrix()
 
 Py5Graphics.pushMatrix()
 
-Py5Graphics.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Graphics.rotate(float)
 
 Py5Graphics.rotateX(float)
 
@@ -3169,7 +3379,7 @@ Py5Graphics.rotateY(float)
 
 Py5Graphics.rotateZ(float)
 
-Py5Graphics.scale(float, float, float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float, float, float)
 
 
 # Py5Graphics_triangle
@@ -3221,7 +3431,57 @@ Py5Graphics.quadraticVertex(float, float, float, float, float, float)
 
 Py5Graphics.curveVertex(float, float, float)
 
-Py5Graphics.texture(Py5Image) : Sets a texture to be applied to vertex points.
+Py5Graphics.texture(Py5Image)
+
+
+# Py5Image_height
+
+The height of the image in units of pixels.
+
+Notes
+-----
+
+The height of the image in units of pixels.
+
+
+# Py5Image_pixel_density
+
+1 for most images, 2 for hi-dpi/retina
+
+Notes
+-----
+
+1 for most images, 2 for hi-dpi/retina
+
+
+# Py5Image_pixel_width
+
+Actual dimensions of pixels array, taking into account the 2x setting.
+
+Notes
+-----
+
+Actual dimensions of pixels array, taking into account the 2x setting.
+
+
+# Py5Image_pixels
+
+Array containing the values for all the pixels in the display window.
+
+Notes
+-----
+
+Array containing the values for all the pixels in the display window.
+
+
+# Py5Image_width
+
+The width of the image in units of pixels.
+
+Notes
+-----
+
+The width of the image in units of pixels.
 
 
 # Py5Image_apply_filter
@@ -3261,9 +3521,9 @@ Blends a region of pixels into the image specified by the , ``img`` , parameter.
 See Also
 --------
 
-Sketch.alpha(int) : Extracts the alpha value from a color.
+Sketch.alpha(int)
 
-Py5Image.copy(Py5Image, int, int, int, int, int, int, int, int) : Copies a region of pixels from one image into another.
+Py5Image.copy(Py5Image, int, int, int, int, int, int, int, int)
 
 Py5Image.blendColor(int,int,int)
 
@@ -3286,9 +3546,9 @@ Copies a region of pixels from one image into another.
 See Also
 --------
 
-Py5Graphics.alpha(int) : Extracts the alpha value from a color.
+Py5Graphics.alpha(int)
 
-Py5Image.blend(Py5Image, int, int, int, int, int, int, int, int, int) : Blends a region of pixels into the image specified by the , ``img`` , parameter.
+Py5Image.blend(Py5Image, int, int, int, int, int, int, int, int, int)
 
 
 # Py5Image_get
@@ -3311,24 +3571,9 @@ See Also
 
 Sketch.set(int, int, int)
 
-Sketch.pixels : Array containing the values for all the pixels in the display window.
+Sketch.pixels
 
-Sketch.copy(Py5Image, int, int, int, int, int, int, int, int) : Copies a region of pixels from one image into another.
-
-
-# Py5Image_height
-
-The height of the image in units of pixels.
-
-Parameters
-----------
-
-$Py5Image_height_parameters
-
-Notes
------
-
-The height of the image in units of pixels.
+Sketch.copy(Py5Image, int, int, int, int, int, int, int, int)
 
 
 # Py5Image_load_pixels
@@ -3361,51 +3606,6 @@ Notes
 Masks part of an image from displaying by loading another image and using it as an alpha channel.
 
 
-# Py5Image_pixel_density
-
-1 for most images, 2 for hi-dpi/retina
-
-Parameters
-----------
-
-$Py5Image_pixel_density_parameters
-
-Notes
------
-
-1 for most images, 2 for hi-dpi/retina
-
-
-# Py5Image_pixel_width
-
-Actual dimensions of pixels array, taking into account the 2x setting.
-
-Parameters
-----------
-
-$Py5Image_pixel_width_parameters
-
-Notes
------
-
-Actual dimensions of pixels array, taking into account the 2x setting.
-
-
-# Py5Image_pixels
-
-Array containing the values for all the pixels in the display window.
-
-Parameters
-----------
-
-$Py5Image_pixels_parameters
-
-Notes
------
-
-Array containing the values for all the pixels in the display window.
-
-
 # Py5Image_update_pixels
 
 Updates the image with the data in its , ``pixels[]`` , array.
@@ -3421,21 +3621,6 @@ Notes
 Updates the image with the data in its , ``pixels[]`` , array.
 
 
-# Py5Image_width
-
-The width of the image in units of pixels.
-
-Parameters
-----------
-
-$Py5Image_width_parameters
-
-Notes
------
-
-The width of the image in units of pixels.
-
-
 # Py5Shader_set
 
 
@@ -3449,6 +3634,48 @@ Notes
 -----
 
 
+
+
+# Py5Shape_height
+
+The height of the Py5Shape document.
+
+Notes
+-----
+
+The height of the Py5Shape document.
+
+
+See Also
+--------
+
+Py5Shape.width
+
+
+# Py5Shape_is3d
+
+True if contains 3D data
+
+Notes
+-----
+
+True if contains 3D data
+
+
+# Py5Shape_width
+
+The width of the Py5Shape document.
+
+Notes
+-----
+
+The width of the Py5Shape document.
+
+
+See Also
+--------
+
+Py5Shape.height
 
 
 # Py5Shape_add_child
@@ -3758,27 +3985,6 @@ Notes
 Get the width of the drawing area (not necessarily the shape boundary).
 
 
-# Py5Shape_height
-
-The height of the Py5Shape document.
-
-Parameters
-----------
-
-$Py5Shape_height_parameters
-
-Notes
------
-
-The height of the Py5Shape document.
-
-
-See Also
---------
-
-Py5Shape.width : The width of the Py5Shape document.
-
-
 # Py5Shape_is2d
 
 Return true if this shape is 2D.
@@ -3863,11 +4069,11 @@ Replaces the current matrix of a shape with the identity matrix.
 See Also
 --------
 
-Py5Shape.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Shape.rotate(float)
 
-Py5Shape.scale(float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Shape.scale(float)
 
-Py5Shape.translate(float, float) : Specifies an amount to displace the shape.
+Py5Shape.translate(float, float)
 
 
 # Py5Shape_rotate
@@ -3894,9 +4100,9 @@ Py5Shape.rotateY(float)
 
 Py5Shape.rotateZ(float)
 
-Py5Shape.scale(float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Shape.scale(float)
 
-Py5Shape.translate(float, float) : Specifies an amount to displace the shape.
+Py5Shape.translate(float, float)
 
 Py5Shape.resetMatrix()
 
@@ -3919,15 +4125,15 @@ Rotates a shape around the x-axis the amount specified by the , ``angle`` , para
 See Also
 --------
 
-Py5Shape.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Shape.rotate(float)
 
 Py5Shape.rotateY(float)
 
 Py5Shape.rotateZ(float)
 
-Py5Shape.scale(float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Shape.scale(float)
 
-Py5Shape.translate(float, float) : Specifies an amount to displace the shape.
+Py5Shape.translate(float, float)
 
 Py5Shape.resetMatrix()
 
@@ -3950,15 +4156,15 @@ Rotates a shape around the y-axis the amount specified by the , ``angle`` , para
 See Also
 --------
 
-Py5Shape.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Shape.rotate(float)
 
 Py5Shape.rotateX(float)
 
 Py5Shape.rotateZ(float)
 
-Py5Shape.scale(float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Shape.scale(float)
 
-Py5Shape.translate(float, float) : Specifies an amount to displace the shape.
+Py5Shape.translate(float, float)
 
 Py5Shape.resetMatrix()
 
@@ -3981,15 +4187,15 @@ Rotates a shape around the z-axis the amount specified by the , ``angle`` , para
 See Also
 --------
 
-Py5Shape.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Shape.rotate(float)
 
 Py5Shape.rotateX(float)
 
 Py5Shape.rotateY(float)
 
-Py5Shape.scale(float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Shape.scale(float)
 
-Py5Shape.translate(float, float) : Specifies an amount to displace the shape.
+Py5Shape.translate(float, float)
 
 Py5Shape.resetMatrix()
 
@@ -4012,9 +4218,9 @@ Increases or decreases the size of a shape by expanding and contracting vertices
 See Also
 --------
 
-Py5Shape.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Shape.rotate(float)
 
-Py5Shape.translate(float, float) : Specifies an amount to displace the shape.
+Py5Shape.translate(float, float)
 
 Py5Shape.resetMatrix()
 
@@ -4111,32 +4317,11 @@ Specifies an amount to displace the shape.
 See Also
 --------
 
-Py5Shape.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Shape.rotate(float)
 
-Py5Shape.scale(float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Shape.scale(float)
 
 Py5Shape.resetMatrix()
-
-
-# Py5Shape_width
-
-The width of the Py5Shape document.
-
-Parameters
-----------
-
-$Py5Shape_width_parameters
-
-Notes
------
-
-The width of the Py5Shape document.
-
-
-See Also
---------
-
-Py5Shape.height : The height of the Py5Shape document.
 
 
 # Py5Surface_get_native
@@ -4263,11 +4448,6 @@ Stop the animation thread (set it null)
 
 Disable AWT so that LWJGL and others can run
 
-Parameters
-----------
-
-$Sketch_ARGS_DISABLE_AWT_parameters
-
 Notes
 -----
 
@@ -4277,11 +4457,6 @@ Disable AWT so that LWJGL and others can run
 # Sketch_ARGS_DISPLAY
 
 Used by the PDE to suggest a display (set in prefs, passed on Run)
-
-Parameters
-----------
-
-$Sketch_ARGS_DISPLAY_parameters
 
 Notes
 -----
@@ -4293,11 +4468,6 @@ Used by the PDE to suggest a display (set in prefs, passed on Run)
 
 Position of the upper-lefthand corner of the editor window that launched this applet.
 
-Parameters
-----------
-
-$Sketch_ARGS_EDITOR_LOCATION_parameters
-
 Notes
 -----
 
@@ -4307,11 +4477,6 @@ Position of the upper-lefthand corner of the editor window that launched this ap
 # Sketch_ARGS_LOCATION
 
 Location for where to position the applet window on screen.
-
-Parameters
-----------
-
-$Sketch_ARGS_LOCATION_parameters
 
 Notes
 -----
@@ -4323,11 +4488,6 @@ Location for where to position the applet window on screen.
 
 Allows the user or PdeEditor to set a specific sketch folder path.
 
-Parameters
-----------
-
-$Sketch_ARGS_SKETCH_FOLDER_parameters
-
 Notes
 -----
 
@@ -4337,11 +4497,6 @@ Allows the user or PdeEditor to set a specific sketch folder path.
 # Sketch_DEFAULT_WIDTH
 
 Default width and height for sketch when not specified
-
-Parameters
-----------
-
-$Sketch_DEFAULT_WIDTH_parameters
 
 Notes
 -----
@@ -4353,11 +4508,6 @@ Default width and height for sketch when not specified
 
 When run externally to a PDE Editor, this is sent by the applet whenever the window is moved.
 
-Parameters
-----------
-
-$Sketch_EXTERNAL_MOVE_parameters
-
 Notes
 -----
 
@@ -4368,15 +4518,474 @@ When run externally to a PDE Editor, this is sent by the applet whenever the win
 
 When run externally to a PdeEditor, this is sent by the sketch when it quits.
 
-Parameters
-----------
-
-$Sketch_EXTERNAL_STOP_parameters
-
 Notes
 -----
 
 When run externally to a PdeEditor, this is sent by the sketch when it quits.
+
+
+# Sketch_args
+
+Command line options passed in from main().
+
+Notes
+-----
+
+Command line options passed in from main().
+
+
+See Also
+--------
+
+Sketch.main
+
+
+# Sketch_display_height
+
+System variable that stores the height of the computer screen.
+
+Notes
+-----
+
+System variable that stores the height of the computer screen.
+
+
+# Sketch_display_width
+
+System variable which stores the width of the computer screen.
+
+Notes
+-----
+
+System variable which stores the width of the computer screen.
+
+
+# Sketch_finished
+
+true if the sketch has stopped permanently.
+
+Notes
+-----
+
+true if the sketch has stopped permanently.
+
+
+# Sketch_focused
+
+Confirms if a Processing program is "focused", meaning that it is active and will accept input from mouse or keyboard.
+
+Notes
+-----
+
+Confirms if a Processing program is "focused", meaning that it is active and will accept input from mouse or keyboard.
+
+
+# Sketch_frame_count
+
+The system variable , ``frame_count`` , contains the number of frames displayed since the program started.
+
+Notes
+-----
+
+The system variable , ``frame_count`` , contains the number of frames displayed since the program started.
+
+
+See Also
+--------
+
+Sketch.frameRate(float)
+
+Sketch.frameRate
+
+
+# Sketch_frame_rate
+
+The system variable , ``frame_rate`` , contains the approximate frame rate of the software as it executes.
+
+Notes
+-----
+
+The system variable , ``frame_rate`` , contains the approximate frame rate of the software as it executes.
+
+
+See Also
+--------
+
+Sketch.frameRate(float)
+
+Sketch.frameCount
+
+
+# Sketch_height
+
+System variable which stores the height of the display window.
+
+Notes
+-----
+
+System variable which stores the height of the display window.
+
+
+See Also
+--------
+
+Sketch.width
+
+Sketch.size(int, int)
+
+
+# Sketch_java_version
+
+Do not use; javaPlatform or javaVersionName are better options.
+
+Notes
+-----
+
+Do not use; javaPlatform or javaVersionName are better options.
+
+
+# Sketch_java_version_name
+
+Full name of the Java version (i.e.
+
+Notes
+-----
+
+Full name of the Java version (i.e.
+
+
+# Sketch_key
+
+The system variable , ``key`` , always contains the value of the most recent key on the keyboard that was used (either pressed or released).
+
+Notes
+-----
+
+The system variable , ``key`` , always contains the value of the most recent key on the keyboard that was used (either pressed or released).
+
+
+See Also
+--------
+
+Sketch.keyCode
+
+Sketch.keyPressed
+
+Sketch.keyPressed()
+
+Sketch.keyReleased()
+
+
+# Sketch_key_code
+
+The variable , ``key_code`` , is used to detect special keys such as the UP, DOWN, LEFT, RIGHT arrow keys and ALT, CONTROL, SHIFT.
+
+Notes
+-----
+
+The variable , ``key_code`` , is used to detect special keys such as the UP, DOWN, LEFT, RIGHT arrow keys and ALT, CONTROL, SHIFT.
+
+
+See Also
+--------
+
+Sketch.key
+
+Sketch.keyPressed
+
+Sketch.keyPressed()
+
+Sketch.keyReleased()
+
+
+# Sketch_mouse_button
+
+Processing automatically tracks if the mouse button is pressed and which button is pressed.
+
+Notes
+-----
+
+Processing automatically tracks if the mouse button is pressed and which button is pressed.
+
+
+See Also
+--------
+
+Sketch.mouseX
+
+Sketch.mouseY
+
+Sketch.pmouseX
+
+Sketch.pmouseY
+
+Sketch.mousePressed
+
+Sketch.mousePressed()
+
+Sketch.mouseReleased()
+
+Sketch.mouseClicked()
+
+Sketch.mouseMoved()
+
+Sketch.mouseDragged()
+
+Sketch.mouseWheel(MouseEvent)
+
+
+# Sketch_mouse_x
+
+The system variable , ``mouse_x`` , always contains the current horizontal coordinate of the mouse.
+
+Notes
+-----
+
+The system variable , ``mouse_x`` , always contains the current horizontal coordinate of the mouse.
+
+
+See Also
+--------
+
+Sketch.mouseY
+
+Sketch.pmouseX
+
+Sketch.pmouseY
+
+Sketch.mousePressed
+
+Sketch.mousePressed()
+
+Sketch.mouseReleased()
+
+Sketch.mouseClicked()
+
+Sketch.mouseMoved()
+
+Sketch.mouseDragged()
+
+Sketch.mouseButton
+
+Sketch.mouseWheel(MouseEvent)
+
+
+# Sketch_mouse_y
+
+The system variable , ``mouse_y`` , always contains the current vertical coordinate of the mouse.
+
+Notes
+-----
+
+The system variable , ``mouse_y`` , always contains the current vertical coordinate of the mouse.
+
+
+See Also
+--------
+
+Sketch.mouseX
+
+Sketch.pmouseX
+
+Sketch.pmouseY
+
+Sketch.mousePressed
+
+Sketch.mousePressed()
+
+Sketch.mouseReleased()
+
+Sketch.mouseClicked()
+
+Sketch.mouseMoved()
+
+Sketch.mouseDragged()
+
+Sketch.mouseButton
+
+Sketch.mouseWheel(MouseEvent)
+
+
+# Sketch_pixel_height
+
+When , ``,pixelDensity(2),</d>, is used to make use of a high resolution display (called a Retina display on OS X or high-dpi on Windows and Linux), the width and height of the sketch do not change, but the number of pixels is doubled.
+
+Notes
+-----
+
+When , ``,pixelDensity(2),</d>, is used to make use of a high resolution display (called a Retina display on OS X or high-dpi on Windows and Linux), the width and height of the sketch do not change, but the number of pixels is doubled.
+
+
+See Also
+--------
+
+Sketch.pixelWidth
+
+Sketch.pixelDensity(int)
+
+Sketch.displayDensity()
+
+
+# Sketch_pixel_width
+
+When , ``,pixelDensity(2),</d>, is used to make use of a high resolution display (called a Retina display on OS X or high-dpi on Windows and Linux), the width and height of the sketch do not change, but the number of pixels is doubled.
+
+Notes
+-----
+
+When , ``,pixelDensity(2),</d>, is used to make use of a high resolution display (called a Retina display on OS X or high-dpi on Windows and Linux), the width and height of the sketch do not change, but the number of pixels is doubled.
+
+
+See Also
+--------
+
+Sketch.pixelHeight
+
+Sketch.pixelDensity(int)
+
+Sketch.displayDensity()
+
+
+# Sketch_pixels
+
+Array containing the values for all the pixels in the display window.
+
+Notes
+-----
+
+Array containing the values for all the pixels in the display window.
+
+
+See Also
+--------
+
+Sketch.loadPixels()
+
+Sketch.updatePixels()
+
+Sketch.get(int, int, int, int)
+
+Sketch.set(int, int, int)
+
+Sketch.pixelDensity(int)
+
+Sketch.pixelWidth
+
+Sketch.pixelHeight
+
+
+# Sketch_pmouse_x
+
+The system variable , ``pmouse_x`` , always contains the horizontal position of the mouse in the frame previous to the current frame.,
+, ,
+, You may find that , ``pmouse_x`` , and , ``pmouse_y`` , have different values inside , ``draw()`` , and inside events like , ``mouse_pressed()`` , and , ``mouse_moved()`` ,.
+
+Notes
+-----
+
+The system variable , ``pmouse_x`` , always contains the horizontal position of the mouse in the frame previous to the current frame.,
+, ,
+, You may find that , ``pmouse_x`` , and , ``pmouse_y`` , have different values inside , ``draw()`` , and inside events like , ``mouse_pressed()`` , and , ``mouse_moved()`` ,.
+
+
+See Also
+--------
+
+Sketch.mouseX
+
+Sketch.mouseY
+
+Sketch.pmouseY
+
+Sketch.mousePressed
+
+Sketch.mousePressed()
+
+Sketch.mouseReleased()
+
+Sketch.mouseClicked()
+
+Sketch.mouseMoved()
+
+Sketch.mouseDragged()
+
+Sketch.mouseButton
+
+Sketch.mouseWheel(MouseEvent)
+
+
+# Sketch_pmouse_y
+
+The system variable , ``pmouse_y`` , always contains the vertical position of the mouse in the frame previous to the current frame.
+
+Notes
+-----
+
+The system variable , ``pmouse_y`` , always contains the vertical position of the mouse in the frame previous to the current frame.
+
+
+See Also
+--------
+
+Sketch.mouseX
+
+Sketch.mouseY
+
+Sketch.pmouseX
+
+Sketch.mousePressed
+
+Sketch.mousePressed()
+
+Sketch.mouseReleased()
+
+Sketch.mouseClicked()
+
+Sketch.mouseMoved()
+
+Sketch.mouseDragged()
+
+Sketch.mouseButton
+
+Sketch.mouseWheel(MouseEvent)
+
+
+# Sketch_redraw
+
+flag set to true when a redraw is asked for by the user
+
+Notes
+-----
+
+flag set to true when a redraw is asked for by the user
+
+
+# Sketch_sketch_path
+
+Path to sketch folder.
+
+Notes
+-----
+
+Path to sketch folder.
+
+
+# Sketch_width
+
+System variable which stores the width of the display window.
+
+Notes
+-----
+
+System variable which stores the width of the display window.
+
+
+See Also
+--------
+
+Sketch.height
+
+Sketch.size(int, int)
 
 
 # Sketch_alpha
@@ -4397,17 +5006,17 @@ Extracts the alpha value from a color.
 See Also
 --------
 
-Py5Graphics.red(int) : Extracts the red value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.red(int)
 
-Py5Graphics.green(int) : Extracts the green value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.green(int)
 
-Py5Graphics.blue(int) : Extracts the blue value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.blue(int)
 
-Py5Graphics.hue(int) : Extracts the hue value from a color.
+Py5Graphics.hue(int)
 
-Py5Graphics.saturation(int) : Extracts the saturation value from a color.
+Py5Graphics.saturation(int)
 
-Py5Graphics.brightness(int) : Extracts the brightness value from a color.
+Py5Graphics.brightness(int)
 
 
 # Sketch_ambient
@@ -4428,11 +5037,11 @@ Sets the ambient reflectance for shapes drawn to the screen.
 See Also
 --------
 
-Py5Graphics.emissive(float, float, float) : Sets the emissive color of the material used for drawing shapes drawn to the screen.
+Py5Graphics.emissive(float, float, float)
 
-Py5Graphics.specular(float, float, float) : Sets the specular color of the materials used for shapes drawn to the screen, which sets the color of hightlights.
+Py5Graphics.specular(float, float, float)
 
-Py5Graphics.shininess(float) : Sets the amount of gloss in the surface of shapes.
+Py5Graphics.shininess(float)
 
 
 # Sketch_ambient_light
@@ -4453,7 +5062,7 @@ Adds an ambient light.
 See Also
 --------
 
-Py5Graphics.lights() : Sets the default ambient light, directional light, falloff, and specular values.
+Py5Graphics.lights()
 
 Py5Graphics.directionalLight(float, float, float, float, float, float)
 
@@ -4526,34 +5135,13 @@ Draws an arc in the display window.
 See Also
 --------
 
-Sketch.ellipse(float, float, float, float) : Draws an ellipse (oval) in the display window.
+Sketch.ellipse(float, float, float, float)
 
 Sketch.ellipseMode(int)
 
 Sketch.radians(float)
 
 Sketch.degrees(float)
-
-
-# Sketch_args
-
-Command line options passed in from main().
-
-Parameters
-----------
-
-$Sketch_args_parameters
-
-Notes
------
-
-Command line options passed in from main().
-
-
-See Also
---------
-
-Sketch.main
 
 
 # Sketch_background
@@ -4574,11 +5162,11 @@ The , ``background()`` , function sets the color used for the background of the 
 See Also
 --------
 
-Py5Graphics.stroke(float) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(float)
 
-Py5Graphics.fill(float) : Sets the color used to fill shapes.
+Py5Graphics.fill(float)
 
-Py5Graphics.tint(float) : Sets the fill value for displaying images.
+Py5Graphics.tint(float)
 
 Py5Graphics.colorMode(int)
 
@@ -4601,7 +5189,7 @@ The , ``begin_camera()`` , and , ``end_camera()`` , functions enable advanced cu
 See Also
 --------
 
-Py5Graphics.camera() : Sets the position of the camera through setting the eye position, the center of the scene, and which axis is facing upward.
+Py5Graphics.camera()
 
 Py5Graphics.endCamera()
 
@@ -4609,9 +5197,9 @@ Py5Graphics.applyMatrix(PMatrix)
 
 Py5Graphics.resetMatrix()
 
-Py5Graphics.translate(float, float, float) : Specifies an amount to displace objects within the display window.
+Py5Graphics.translate(float, float, float)
 
-Py5Graphics.scale(float, float, float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float, float, float)
 
 
 # Sketch_begin_contour
@@ -4693,7 +5281,7 @@ See Also
 
 Py5Graphics.endShape()
 
-Py5Graphics.vertex(float, float, float, float, float) : All shapes are constructed by connecting a series of vertices.
+Py5Graphics.vertex(float, float, float, float, float)
 
 Py5Graphics.curveVertex(float, float, float)
 
@@ -4720,7 +5308,7 @@ See Also
 
 Py5Graphics.bezierVertex(float, float, float, float, float, float)
 
-Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a curved line on the screen.
+Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float)
 
 
 # Sketch_bezier_detail
@@ -4741,7 +5329,7 @@ Sets the resolution at which Beziers display.
 See Also
 --------
 
-Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a curved line on the screen.
+Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.curveVertex(float, float, float)
 
@@ -4766,7 +5354,7 @@ Evaluates the Bezier at point t for points a, b, c, d.
 See Also
 --------
 
-Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a Bezier curve on the screen.
+Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.bezierVertex(float, float, float, float, float, float)
 
@@ -4791,7 +5379,7 @@ Calculates the tangent of a point on a Bezier curve.
 See Also
 --------
 
-Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a Bezier curve on the screen.
+Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.bezierVertex(float, float, float, float, float, float)
 
@@ -4818,11 +5406,11 @@ See Also
 
 Py5Graphics.curveVertex(float, float, float)
 
-Py5Graphics.vertex(float, float, float, float, float) : All shapes are constructed by connecting a series of vertices.
+Py5Graphics.vertex(float, float, float, float, float)
 
 Py5Graphics.quadraticVertex(float, float, float, float, float, float)
 
-Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a Bezier curve on the screen.
+Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float)
 
 
 # Sketch_blend
@@ -4843,9 +5431,9 @@ Blends a region of pixels into the image specified by the , ``img`` , parameter.
 See Also
 --------
 
-Sketch.alpha(int) : Extracts the alpha value from a color.
+Sketch.alpha(int)
 
-Py5Image.copy(Py5Image, int, int, int, int, int, int, int, int) : Copies a region of pixels from one image into another.
+Py5Image.copy(Py5Image, int, int, int, int, int, int, int, int)
 
 Py5Image.blendColor(int,int,int)
 
@@ -4883,17 +5471,17 @@ Extracts the blue value from a color, scaled to match current , ``color_mode()``
 See Also
 --------
 
-Py5Graphics.red(int) : Extracts the red value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.red(int)
 
-Py5Graphics.green(int) : Extracts the green value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.green(int)
 
-Py5Graphics.alpha(int) : Extracts the alpha value from a color.
+Py5Graphics.alpha(int)
 
-Py5Graphics.hue(int) : Extracts the hue value from a color.
+Py5Graphics.hue(int)
 
-Py5Graphics.saturation(int) : Extracts the saturation value from a color.
+Py5Graphics.saturation(int)
 
-Py5Graphics.brightness(int) : Extracts the brightness value from a color.
+Py5Graphics.brightness(int)
 
 
 # Sketch_box
@@ -4914,7 +5502,7 @@ A box is an extruded rectangle.
 See Also
 --------
 
-Py5Graphics.sphere(float) : A sphere is a hollow ball made from tessellated triangles.
+Py5Graphics.sphere(float)
 
 
 # Sketch_brightness
@@ -4935,17 +5523,17 @@ Extracts the brightness value from a color.
 See Also
 --------
 
-Py5Graphics.red(int) : Extracts the red value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.red(int)
 
-Py5Graphics.green(int) : Extracts the green value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.green(int)
 
-Py5Graphics.blue(int) : Extracts the blue value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.blue(int)
 
-Py5Graphics.alpha(int) : Extracts the alpha value from a color.
+Py5Graphics.alpha(int)
 
-Py5Graphics.hue(int) : Extracts the hue value from a color.
+Py5Graphics.hue(int)
 
-Py5Graphics.saturation(int) : Extracts the saturation value from a color.
+Py5Graphics.saturation(int)
 
 
 # Sketch_camera
@@ -4970,7 +5558,7 @@ Py5Graphics.beginCamera()
 
 Py5Graphics.endCamera()
 
-Py5Graphics.frustum(float, float, float, float, float, float) : Sets a perspective matrix defined through the parameters.
+Py5Graphics.frustum(float, float, float, float, float, float)
 
 
 # Sketch_circle
@@ -4991,7 +5579,7 @@ Draws a circle to the screen.
 See Also
 --------
 
-Sketch.ellipse(float, float, float, float) : Draws an ellipse (oval) in the display window.
+Sketch.ellipse(float, float, float, float)
 
 Sketch.ellipseMode(int)
 
@@ -5065,11 +5653,11 @@ Changes the way Processing interprets color data.
 See Also
 --------
 
-Py5Graphics.background(float) : The , ``background()`` , function sets the color used for the background of the Processing window.
+Py5Graphics.background(float)
 
-Py5Graphics.fill(float) : Sets the color used to fill shapes.
+Py5Graphics.fill(float)
 
-Py5Graphics.stroke(float) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(float)
 
 
 # Sketch_copy
@@ -5090,9 +5678,9 @@ Copies a region of pixels from one image into another.
 See Also
 --------
 
-Py5Graphics.alpha(int) : Extracts the alpha value from a color.
+Py5Graphics.alpha(int)
 
-Py5Image.blend(Py5Image, int, int, int, int, int, int, int, int, int) : Blends a region of pixels into the image specified by the , ``img`` , parameter.
+Py5Image.blend(Py5Image, int, int, int, int, int, int, int, int, int)
 
 
 # Sketch_create_font
@@ -5115,7 +5703,7 @@ See Also
 
 Py5Graphics.textFont(Py5Font, float)
 
-Py5Graphics.text(String, float, float, float, float) : This does a basic number formatting, to avoid the generally ugly appearance of printing floats.
+Py5Graphics.text(String, float, float, float, float)
 
 Sketch.loadFont(String)
 
@@ -5222,7 +5810,7 @@ Py5Graphics.curveVertex(float, float)
 
 Py5Graphics.curveTightness(float)
 
-Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a Bezier curve on the screen.
+Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float)
 
 
 # Sketch_curve_detail
@@ -5243,7 +5831,7 @@ Sets the resolution at which curves display.
 See Also
 --------
 
-Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a curved line on the screen.
+Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.curveVertex(float, float)
 
@@ -5268,7 +5856,7 @@ Evalutes the curve at point t for points a, b, c, d.
 See Also
 --------
 
-Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a curved line on the screen.
+Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.curveVertex(float, float)
 
@@ -5293,7 +5881,7 @@ Calculates the tangent of a point on a curve.
 See Also
 --------
 
-Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a curved line on the screen.
+Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.curveVertex(float, float)
 
@@ -5320,7 +5908,7 @@ Modifies the quality of forms created with , ``curve()`` , and , ``curve_vertex(
 See Also
 --------
 
-Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a curved line on the screen.
+Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.curveVertex(float, float)
 
@@ -5343,15 +5931,15 @@ Specifies vertex coordinates for curves.
 See Also
 --------
 
-Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a curved line on the screen.
+Py5Graphics.curve(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.beginShape(int)
 
 Py5Graphics.endShape(int)
 
-Py5Graphics.vertex(float, float, float, float, float) : All shapes are constructed by connecting a series of vertices.
+Py5Graphics.vertex(float, float, float, float, float)
 
-Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a Bezier curve on the screen.
+Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.quadraticVertex(float, float, float, float, float, float)
 
@@ -5374,17 +5962,17 @@ Processing communicates with the clock on your computer.
 See Also
 --------
 
-Sketch.millis() : Returns the number of milliseconds (thousandths of a second) since starting an applet.
+Sketch.millis()
 
-Sketch.second() : Processing communicates with the clock on your computer.
+Sketch.second()
 
-Sketch.minute() : Processing communicates with the clock on your computer.
+Sketch.minute()
 
-Sketch.hour() : Processing communicates with the clock on your computer.
+Sketch.hour()
 
-Sketch.month() : Processing communicates with the clock on your computer.
+Sketch.month()
 
-Sketch.year() : Processing communicates with the clock on your computer.
+Sketch.year()
 
 
 # Sketch_directional_light
@@ -5405,7 +5993,7 @@ Adds a directional light.
 See Also
 --------
 
-Py5Graphics.lights() : Sets the default ambient light, directional light, falloff, and specular values.
+Py5Graphics.lights()
 
 Py5Graphics.ambientLight(float, float, float, float, float, float)
 
@@ -5434,37 +6022,7 @@ See Also
 
 Sketch.pixelDensity(int)
 
-Sketch.size(int,int) : Defines the dimension of the display window in units of pixels.
-
-
-# Sketch_display_height
-
-System variable that stores the height of the computer screen.
-
-Parameters
-----------
-
-$Sketch_display_height_parameters
-
-Notes
------
-
-System variable that stores the height of the computer screen.
-
-
-# Sketch_display_width
-
-System variable which stores the width of the computer screen.
-
-Parameters
-----------
-
-$Sketch_display_width_parameters
-
-Notes
------
-
-System variable which stores the width of the computer screen.
+Sketch.size(int,int)
 
 
 # Sketch_ellipse
@@ -5487,7 +6045,7 @@ See Also
 
 Sketch.ellipseMode(int)
 
-Sketch.arc(float, float, float, float, float, float) : Draws an arc in the display window.
+Sketch.arc(float, float, float, float, float, float)
 
 
 # Sketch_ellipse_mode
@@ -5508,9 +6066,9 @@ The origin of the ellipse is modified by the , ``ellipse_mode()`` , function.
 See Also
 --------
 
-Sketch.ellipse(float, float, float, float) : Draws an ellipse (oval) in the display window.
+Sketch.ellipse(float, float, float, float)
 
-Sketch.arc(float, float, float, float, float, float) : Draws an arc in the display window.
+Sketch.arc(float, float, float, float, float, float)
 
 
 # Sketch_emissive
@@ -5531,11 +6089,11 @@ Sets the emissive color of the material used for drawing shapes drawn to the scr
 See Also
 --------
 
-Py5Graphics.ambient(float, float, float) : Sets the ambient reflectance for shapes drawn to the screen.
+Py5Graphics.ambient(float, float, float)
 
-Py5Graphics.specular(float, float, float) : Sets the specular color of the materials used for shapes drawn to the screen, which sets the color of hightlights.
+Py5Graphics.specular(float, float, float)
 
-Py5Graphics.shininess(float) : Sets the amount of gloss in the surface of shapes.
+Py5Graphics.shininess(float)
 
 
 # Sketch_end_camera
@@ -5558,7 +6116,7 @@ See Also
 
 Py5Graphics.beginCamera()
 
-Py5Graphics.camera(float, float, float, float, float, float, float, float, float) : Sets the position of the camera through setting the eye position, the center of the scene, and which axis is facing upward.
+Py5Graphics.camera(float, float, float, float, float, float, float, float, float)
 
 
 # Sketch_end_contour
@@ -5659,73 +6217,20 @@ See Also
 
 Py5Graphics.noFill()
 
-Py5Graphics.stroke(int, float) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(int, float)
 
 Py5Graphics.noStroke()
 
-Py5Graphics.tint(int, float) : Sets the fill value for displaying images.
+Py5Graphics.tint(int, float)
 
-Py5Graphics.background(float, float, float, float) : The , ``background()`` , function sets the color used for the background of the Processing window.
+Py5Graphics.background(float, float, float, float)
 
 Py5Graphics.colorMode(int, float, float, float, float)
 
 
-# Sketch_finished
-
-true if the sketch has stopped permanently.
-
-Parameters
-----------
-
-$Sketch_finished_parameters
-
-Notes
------
-
-true if the sketch has stopped permanently.
-
-
-# Sketch_focused
-
-Confirms if a Processing program is "focused", meaning that it is active and will accept input from mouse or keyboard.
-
-Parameters
-----------
-
-$Sketch_focused_parameters
-
-Notes
------
-
-Confirms if a Processing program is "focused", meaning that it is active and will accept input from mouse or keyboard.
-
-
-# Sketch_frame_count
-
-The system variable , ``frame_count`` , contains the number of frames displayed since the program started.
-
-Parameters
-----------
-
-$Sketch_frame_count_parameters
-
-Notes
------
-
-The system variable , ``frame_count`` , contains the number of frames displayed since the program started.
-
-
-See Also
---------
-
-Sketch.frameRate(float)
-
-Sketch.frameRate
-
-
 # Sketch_frame_rate
 
-The system variable , ``frame_rate`` , contains the approximate frame rate of the software as it executes.
+Specifies the number of frames to be displayed every second.
 
 Parameters
 ----------
@@ -5735,15 +6240,11 @@ $Sketch_frame_rate_parameters
 Notes
 -----
 
-The system variable , ``frame_rate`` , contains the approximate frame rate of the software as it executes.
+Specifies the number of frames to be displayed every second.
 
 
 See Also
 --------
-
-Sketch.frameRate(float)
-
-Sketch.frameCount
 
 Sketch.frameRate
 
@@ -5753,11 +6254,11 @@ Sketch.setup()
 
 Sketch.draw()
 
-Sketch.loop() : Causes Processing to continuously execute the code within , ``draw()`` ,.
+Sketch.loop()
 
 Sketch.noLoop()
 
-Sketch.redraw() : Executes the code within , ``draw()`` , one time.
+Sketch.redraw()
 
 
 # Sketch_frustum
@@ -5778,13 +6279,13 @@ Sets a perspective matrix defined through the parameters.
 See Also
 --------
 
-Py5Graphics.camera(float, float, float, float, float, float, float, float, float) : Sets the position of the camera through setting the eye position, the center of the scene, and which axis is facing upward.
+Py5Graphics.camera(float, float, float, float, float, float, float, float, float)
 
 Py5Graphics.beginCamera()
 
 Py5Graphics.endCamera()
 
-Py5Graphics.perspective(float, float, float, float) : Sets a perspective projection applying foreshortening, making distant objects appear smaller than closer ones.
+Py5Graphics.perspective(float, float, float, float)
 
 
 # Sketch_full_screen
@@ -5809,9 +6310,9 @@ Sketch.settings()
 
 Sketch.setup()
 
-Sketch.size(int,int) : Defines the dimension of the display window in units of pixels.
+Sketch.size(int,int)
 
-Sketch.smooth() : 
+Sketch.smooth()
 
 
 # Sketch_get
@@ -5834,9 +6335,9 @@ See Also
 
 Sketch.set(int, int, int)
 
-Sketch.pixels : Array containing the values for all the pixels in the display window.
+Sketch.pixels
 
-Sketch.copy(Py5Image, int, int, int, int, int, int, int, int) : Copies a region of pixels from one image into another.
+Sketch.copy(Py5Image, int, int, int, int, int, int, int, int)
 
 
 # Sketch_get_matrix
@@ -5872,40 +6373,17 @@ Extracts the green value from a color, scaled to match current , ``color_mode()`
 See Also
 --------
 
-Py5Graphics.red(int) : Extracts the red value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.red(int)
 
-Py5Graphics.blue(int) : Extracts the blue value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.blue(int)
 
-Py5Graphics.alpha(int) : Extracts the alpha value from a color.
+Py5Graphics.alpha(int)
 
-Py5Graphics.hue(int) : Extracts the hue value from a color.
+Py5Graphics.hue(int)
 
-Py5Graphics.saturation(int) : Extracts the saturation value from a color.
+Py5Graphics.saturation(int)
 
-Py5Graphics.brightness(int) : Extracts the brightness value from a color.
-
-
-# Sketch_height
-
-System variable which stores the height of the display window.
-
-Parameters
-----------
-
-$Sketch_height_parameters
-
-Notes
------
-
-System variable which stores the height of the display window.
-
-
-See Also
---------
-
-Sketch.width : System variable which stores the width of the display window.
-
-Sketch.size(int, int) : Defines the dimension of the display window in units of pixels.
+Py5Graphics.brightness(int)
 
 
 # Sketch_hour
@@ -5926,17 +6404,17 @@ Processing communicates with the clock on your computer.
 See Also
 --------
 
-Sketch.millis() : Returns the number of milliseconds (thousandths of a second) since starting an applet.
+Sketch.millis()
 
-Sketch.second() : Processing communicates with the clock on your computer.
+Sketch.second()
 
-Sketch.minute() : Processing communicates with the clock on your computer.
+Sketch.minute()
 
-Sketch.day() : Processing communicates with the clock on your computer.
+Sketch.day()
 
-Sketch.month() : Processing communicates with the clock on your computer.
+Sketch.month()
 
-Sketch.year() : Processing communicates with the clock on your computer.
+Sketch.year()
 
 
 # Sketch_hue
@@ -5957,17 +6435,17 @@ Extracts the hue value from a color.
 See Also
 --------
 
-Py5Graphics.red(int) : Extracts the red value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.red(int)
 
-Py5Graphics.green(int) : Extracts the green value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.green(int)
 
-Py5Graphics.blue(int) : Extracts the blue value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.blue(int)
 
-Py5Graphics.alpha(int) : Extracts the alpha value from a color.
+Py5Graphics.alpha(int)
 
-Py5Graphics.saturation(int) : Extracts the saturation value from a color.
+Py5Graphics.saturation(int)
 
-Py5Graphics.brightness(int) : Extracts the brightness value from a color.
+Py5Graphics.brightness(int)
 
 
 # Sketch_image
@@ -5992,11 +6470,11 @@ Sketch.loadImage(String, String)
 
 Py5Graphics.imageMode(int)
 
-Py5Graphics.tint(float) : Sets the fill value for displaying images.
+Py5Graphics.tint(float)
 
-Py5Graphics.background(float, float, float, float) : The , ``background()`` , function sets the color used for the background of the Processing window.
+Py5Graphics.background(float, float, float, float)
 
-Py5Graphics.alpha(int) : Extracts the alpha value from a color.
+Py5Graphics.alpha(int)
 
 
 # Sketch_image_mode
@@ -6019,93 +6497,9 @@ See Also
 
 Sketch.loadImage(String, String)
 
-Py5Graphics.image(Py5Image, float, float, float, float) : Draw an image(), also specifying u/v coordinates.
+Py5Graphics.image(Py5Image, float, float, float, float)
 
-Py5Graphics.background(float, float, float, float) : The , ``background()`` , function sets the color used for the background of the Processing window.
-
-
-# Sketch_java_version
-
-Do not use; javaPlatform or javaVersionName are better options.
-
-Parameters
-----------
-
-$Sketch_java_version_parameters
-
-Notes
------
-
-Do not use; javaPlatform or javaVersionName are better options.
-
-
-# Sketch_java_version_name
-
-Full name of the Java version (i.e.
-
-Parameters
-----------
-
-$Sketch_java_version_name_parameters
-
-Notes
------
-
-Full name of the Java version (i.e.
-
-
-# Sketch_key
-
-The system variable , ``key`` , always contains the value of the most recent key on the keyboard that was used (either pressed or released).
-
-Parameters
-----------
-
-$Sketch_key_parameters
-
-Notes
------
-
-The system variable , ``key`` , always contains the value of the most recent key on the keyboard that was used (either pressed or released).
-
-
-See Also
---------
-
-Sketch.keyCode
-
-Sketch.keyPressed
-
-Sketch.keyPressed()
-
-Sketch.keyReleased()
-
-
-# Sketch_key_code
-
-The variable , ``key_code`` , is used to detect special keys such as the UP, DOWN, LEFT, RIGHT arrow keys and ALT, CONTROL, SHIFT.
-
-Parameters
-----------
-
-$Sketch_key_code_parameters
-
-Notes
------
-
-The variable , ``key_code`` , is used to detect special keys such as the UP, DOWN, LEFT, RIGHT arrow keys and ALT, CONTROL, SHIFT.
-
-
-See Also
---------
-
-Sketch.key : The system variable , ``key`` , always contains the value of the most recent key on the keyboard that was used (either pressed or released).
-
-Sketch.keyPressed
-
-Sketch.keyPressed()
-
-Sketch.keyReleased()
+Py5Graphics.background(float, float, float, float)
 
 
 # Sketch_lerp_color
@@ -6128,7 +6522,7 @@ See Also
 
 Py5Image.blendColor(int, int, int)
 
-Py5Graphics.color(float, float, float, float) : 
+Py5Graphics.color(float, float, float, float)
 
 Sketch.lerp(float, float, float)
 
@@ -6151,7 +6545,7 @@ Sets the falloff rates for point lights, spot lights, and ambient lights.
 See Also
 --------
 
-Py5Graphics.lights() : Sets the default ambient light, directional light, falloff, and specular values.
+Py5Graphics.lights()
 
 Py5Graphics.ambientLight(float, float, float, float, float, float)
 
@@ -6180,9 +6574,9 @@ Sets the specular color for lights.
 See Also
 --------
 
-Py5Graphics.specular(float, float, float) : Sets the specular color of the materials used for shapes drawn to the screen, which sets the color of hightlights.
+Py5Graphics.specular(float, float, float)
 
-Py5Graphics.lights() : Sets the default ambient light, directional light, falloff, and specular values.
+Py5Graphics.lights()
 
 Py5Graphics.ambientLight(float, float, float, float, float, float)
 
@@ -6288,7 +6682,7 @@ Loads the pixel data for the display window into the , ``pixels[]`` , array.
 See Also
 --------
 
-Sketch.pixels : Array containing the values for all the pixels in the display window.
+Sketch.pixels
 
 Sketch.updatePixels()
 
@@ -6349,7 +6743,7 @@ See Also
 
 Sketch.noLoop()
 
-Sketch.redraw() : Executes the code within , ``draw()`` , one time.
+Sketch.redraw()
 
 Sketch.draw()
 
@@ -6387,17 +6781,17 @@ Returns the number of milliseconds (thousandths of a second) since starting an a
 See Also
 --------
 
-Sketch.second() : Processing communicates with the clock on your computer.
+Sketch.second()
 
-Sketch.minute() : Processing communicates with the clock on your computer.
+Sketch.minute()
 
-Sketch.hour() : Processing communicates with the clock on your computer.
+Sketch.hour()
 
-Sketch.day() : Processing communicates with the clock on your computer.
+Sketch.day()
 
-Sketch.month() : Processing communicates with the clock on your computer.
+Sketch.month()
 
-Sketch.year() : Processing communicates with the clock on your computer.
+Sketch.year()
 
 
 # Sketch_minute
@@ -6418,17 +6812,17 @@ Processing communicates with the clock on your computer.
 See Also
 --------
 
-Sketch.millis() : Returns the number of milliseconds (thousandths of a second) since starting an applet.
+Sketch.millis()
 
-Sketch.second() : Processing communicates with the clock on your computer.
+Sketch.second()
 
-Sketch.hour() : Processing communicates with the clock on your computer.
+Sketch.hour()
 
-Sketch.day() : Processing communicates with the clock on your computer.
+Sketch.day()
 
-Sketch.month() : Processing communicates with the clock on your computer.
+Sketch.month()
 
-Sketch.year() : Processing communicates with the clock on your computer.
+Sketch.year()
 
 
 # Sketch_model_x
@@ -6518,140 +6912,17 @@ Processing communicates with the clock on your computer.
 See Also
 --------
 
-Sketch.millis() : Returns the number of milliseconds (thousandths of a second) since starting an applet.
+Sketch.millis()
 
-Sketch.second() : Processing communicates with the clock on your computer.
+Sketch.second()
 
-Sketch.minute() : Processing communicates with the clock on your computer.
+Sketch.minute()
 
-Sketch.hour() : Processing communicates with the clock on your computer.
+Sketch.hour()
 
-Sketch.day() : Processing communicates with the clock on your computer.
+Sketch.day()
 
-Sketch.year() : Processing communicates with the clock on your computer.
-
-
-# Sketch_mouse_button
-
-Processing automatically tracks if the mouse button is pressed and which button is pressed.
-
-Parameters
-----------
-
-$Sketch_mouse_button_parameters
-
-Notes
------
-
-Processing automatically tracks if the mouse button is pressed and which button is pressed.
-
-
-See Also
---------
-
-Sketch.mouseX
-
-Sketch.mouseY
-
-Sketch.pmouseX
-
-Sketch.pmouseY
-
-Sketch.mousePressed
-
-Sketch.mousePressed()
-
-Sketch.mouseReleased()
-
-Sketch.mouseClicked()
-
-Sketch.mouseMoved()
-
-Sketch.mouseDragged()
-
-Sketch.mouseWheel(MouseEvent)
-
-
-# Sketch_mouse_x
-
-The system variable , ``mouse_x`` , always contains the current horizontal coordinate of the mouse.
-
-Parameters
-----------
-
-$Sketch_mouse_x_parameters
-
-Notes
------
-
-The system variable , ``mouse_x`` , always contains the current horizontal coordinate of the mouse.
-
-
-See Also
---------
-
-Sketch.mouseY
-
-Sketch.pmouseX
-
-Sketch.pmouseY
-
-Sketch.mousePressed
-
-Sketch.mousePressed()
-
-Sketch.mouseReleased()
-
-Sketch.mouseClicked()
-
-Sketch.mouseMoved()
-
-Sketch.mouseDragged()
-
-Sketch.mouseButton
-
-Sketch.mouseWheel(MouseEvent)
-
-
-# Sketch_mouse_y
-
-The system variable , ``mouse_y`` , always contains the current vertical coordinate of the mouse.
-
-Parameters
-----------
-
-$Sketch_mouse_y_parameters
-
-Notes
------
-
-The system variable , ``mouse_y`` , always contains the current vertical coordinate of the mouse.
-
-
-See Also
---------
-
-Sketch.mouseX
-
-Sketch.pmouseX
-
-Sketch.pmouseY
-
-Sketch.mousePressed
-
-Sketch.mousePressed()
-
-Sketch.mouseReleased()
-
-Sketch.mouseClicked()
-
-Sketch.mouseMoved()
-
-Sketch.mouseDragged()
-
-Sketch.mouseButton
-
-Sketch.mouseWheel(MouseEvent)
+Sketch.year()
 
 
 # Sketch_no_clip
@@ -6687,7 +6958,7 @@ Hides the cursor from view.
 See Also
 --------
 
-Sketch.cursor() : Sets the cursor to a predefined symbol, an image, or makes it visible if already hidden.
+Sketch.cursor()
 
 
 # Sketch_no_fill
@@ -6708,9 +6979,9 @@ Disables filling geometry.
 See Also
 --------
 
-Py5Graphics.fill(float, float, float, float) : Sets the color used to fill shapes.
+Py5Graphics.fill(float, float, float, float)
 
-Py5Graphics.stroke(int, float) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(int, float)
 
 Py5Graphics.noStroke()
 
@@ -6733,7 +7004,7 @@ Disable all lighting.
 See Also
 --------
 
-Py5Graphics.lights() : Sets the default ambient light, directional light, falloff, and specular values.
+Py5Graphics.lights()
 
 
 # Sketch_no_loop
@@ -6754,9 +7025,9 @@ Stops Processing from continuously executing the code within , ``draw()`` ,.
 See Also
 --------
 
-Sketch.loop() : Causes Processing to continuously execute the code within , ``draw()`` ,.
+Sketch.loop()
 
-Sketch.redraw() : Executes the code within , ``draw()`` , one time.
+Sketch.redraw()
 
 Sketch.draw()
 
@@ -6794,9 +7065,9 @@ Disables drawing the stroke (outline).
 See Also
 --------
 
-Py5Graphics.stroke(int, float) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(int, float)
 
-Py5Graphics.fill(float, float, float, float) : Sets the color used to fill shapes.
+Py5Graphics.fill(float, float, float, float)
 
 Py5Graphics.noFill()
 
@@ -6834,9 +7105,9 @@ Removes the current fill value for displaying images and reverts to displaying i
 See Also
 --------
 
-Py5Graphics.tint(float, float, float, float) : Sets the fill value for displaying images.
+Py5Graphics.tint(float, float, float, float)
 
-Py5Graphics.image(Py5Image, float, float, float, float) : Draw an image(), also specifying u/v coordinates.
+Py5Graphics.image(Py5Image, float, float, float, float)
 
 
 # Sketch_noise
@@ -6861,7 +7132,7 @@ Sketch.noiseSeed(long)
 
 Sketch.noiseDetail(int, float)
 
-Sketch.random(float,float) : Generates random numbers.
+Sketch.random(float,float)
 
 
 # Sketch_noise_detail
@@ -6882,7 +7153,7 @@ Adjusts the character and level of detail produced by the Perlin noise function.
 See Also
 --------
 
-Sketch.noise(float, float, float) : Returns the Perlin noise value at specified coordinates.
+Sketch.noise(float, float, float)
 
 Sketch.noiseDetail(int)
 
@@ -6905,11 +7176,11 @@ Sets the seed value for , ``noise()`` ,.
 See Also
 --------
 
-Sketch.noise(float, float, float) : Returns the Perlin noise value at specified coordinates.
+Sketch.noise(float, float, float)
 
 Sketch.noiseDetail(int, float)
 
-Sketch.random(float,float) : Generates random numbers.
+Sketch.random(float,float)
 
 Sketch.randomSeed(long)
 
@@ -6936,7 +7207,7 @@ Py5Graphics.beginShape(int)
 
 Py5Graphics.endShape(int)
 
-Py5Graphics.lights() : Sets the default ambient light, directional light, falloff, and specular values.
+Py5Graphics.lights()
 
 
 # Sketch_ortho
@@ -7007,175 +7278,6 @@ Sketch.pixelWidth
 Sketch.pixelHeight
 
 
-# Sketch_pixel_height
-
-When , ``,pixelDensity(2),</d>, is used to make use of a high resolution display (called a Retina display on OS X or high-dpi on Windows and Linux), the width and height of the sketch do not change, but the number of pixels is doubled.
-
-Parameters
-----------
-
-$Sketch_pixel_height_parameters
-
-Notes
------
-
-When , ``,pixelDensity(2),</d>, is used to make use of a high resolution display (called a Retina display on OS X or high-dpi on Windows and Linux), the width and height of the sketch do not change, but the number of pixels is doubled.
-
-
-See Also
---------
-
-Sketch.pixelWidth
-
-Sketch.pixelDensity(int)
-
-Sketch.displayDensity()
-
-
-# Sketch_pixel_width
-
-When , ``,pixelDensity(2),</d>, is used to make use of a high resolution display (called a Retina display on OS X or high-dpi on Windows and Linux), the width and height of the sketch do not change, but the number of pixels is doubled.
-
-Parameters
-----------
-
-$Sketch_pixel_width_parameters
-
-Notes
------
-
-When , ``,pixelDensity(2),</d>, is used to make use of a high resolution display (called a Retina display on OS X or high-dpi on Windows and Linux), the width and height of the sketch do not change, but the number of pixels is doubled.
-
-
-See Also
---------
-
-Sketch.pixelHeight
-
-Sketch.pixelDensity(int)
-
-Sketch.displayDensity()
-
-
-# Sketch_pixels
-
-Array containing the values for all the pixels in the display window.
-
-Parameters
-----------
-
-$Sketch_pixels_parameters
-
-Notes
------
-
-Array containing the values for all the pixels in the display window.
-
-
-See Also
---------
-
-Sketch.loadPixels()
-
-Sketch.updatePixels()
-
-Sketch.get(int, int, int, int) : Reads the color of any pixel or grabs a section of an image.
-
-Sketch.set(int, int, int)
-
-Sketch.pixelDensity(int)
-
-Sketch.pixelWidth
-
-Sketch.pixelHeight
-
-
-# Sketch_pmouse_x
-
-The system variable , ``pmouse_x`` , always contains the horizontal position of the mouse in the frame previous to the current frame.,
-, ,
-, You may find that , ``pmouse_x`` , and , ``pmouse_y`` , have different values inside , ``draw()`` , and inside events like , ``mouse_pressed()`` , and , ``mouse_moved()`` ,.
-
-Parameters
-----------
-
-$Sketch_pmouse_x_parameters
-
-Notes
------
-
-The system variable , ``pmouse_x`` , always contains the horizontal position of the mouse in the frame previous to the current frame.,
-, ,
-, You may find that , ``pmouse_x`` , and , ``pmouse_y`` , have different values inside , ``draw()`` , and inside events like , ``mouse_pressed()`` , and , ``mouse_moved()`` ,.
-
-
-See Also
---------
-
-Sketch.mouseX
-
-Sketch.mouseY
-
-Sketch.pmouseY
-
-Sketch.mousePressed
-
-Sketch.mousePressed()
-
-Sketch.mouseReleased()
-
-Sketch.mouseClicked()
-
-Sketch.mouseMoved()
-
-Sketch.mouseDragged()
-
-Sketch.mouseButton
-
-Sketch.mouseWheel(MouseEvent)
-
-
-# Sketch_pmouse_y
-
-The system variable , ``pmouse_y`` , always contains the vertical position of the mouse in the frame previous to the current frame.
-
-Parameters
-----------
-
-$Sketch_pmouse_y_parameters
-
-Notes
------
-
-The system variable , ``pmouse_y`` , always contains the vertical position of the mouse in the frame previous to the current frame.
-
-
-See Also
---------
-
-Sketch.mouseX
-
-Sketch.mouseY
-
-Sketch.pmouseX
-
-Sketch.mousePressed
-
-Sketch.mousePressed()
-
-Sketch.mouseReleased()
-
-Sketch.mouseClicked()
-
-Sketch.mouseMoved()
-
-Sketch.mouseDragged()
-
-Sketch.mouseButton
-
-Sketch.mouseWheel(MouseEvent)
-
-
 # Sketch_point
 
 Draws a point, a coordinate in space at the dimension of one pixel.
@@ -7194,7 +7296,7 @@ Draws a point, a coordinate in space at the dimension of one pixel.
 See Also
 --------
 
-Py5Graphics.stroke(int) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(int)
 
 
 # Sketch_point_light
@@ -7215,7 +7317,7 @@ Adds a point light.
 See Also
 --------
 
-Py5Graphics.lights() : Sets the default ambient light, directional light, falloff, and specular values.
+Py5Graphics.lights()
 
 Py5Graphics.directionalLight(float, float, float, float, float, float)
 
@@ -7242,7 +7344,7 @@ The , ``pop()`` , function restores the previous drawing style settings and tran
 See Also
 --------
 
-Py5Graphics.push() : The , ``push()`` , function saves the current drawing style settings and transformations, while , ``pop()`` , restores these settings.
+Py5Graphics.push()
 
 
 # Sketch_pop_matrix
@@ -7305,7 +7407,7 @@ Prints the current camera matrix to the Console (the text window at the bottom o
 See Also
 --------
 
-Py5Graphics.camera(float, float, float, float, float, float, float, float, float) : Sets the position of the camera through setting the eye position, the center of the scene, and which axis is facing upward.
+Py5Graphics.camera(float, float, float, float, float, float, float, float, float)
 
 
 # Sketch_print_matrix
@@ -7353,7 +7455,7 @@ Prints the current projection matrix to the Console (the text window at the bott
 See Also
 --------
 
-Py5Graphics.camera(float, float, float, float, float, float, float, float, float) : Sets the position of the camera through setting the eye position, the center of the scene, and which axis is facing upward.
+Py5Graphics.camera(float, float, float, float, float, float, float, float, float)
 
 
 # Sketch_push
@@ -7374,7 +7476,7 @@ The , ``push()`` , function saves the current drawing style settings and transfo
 See Also
 --------
 
-Py5Graphics.pop() : The , ``pop()`` , function restores the previous drawing style settings and transformations after , ``push()`` , has changed them.
+Py5Graphics.pop()
 
 
 # Sketch_push_matrix
@@ -7397,11 +7499,11 @@ See Also
 
 Py5Graphics.popMatrix()
 
-Py5Graphics.translate(float, float, float) : Specifies an amount to displace objects within the display window.
+Py5Graphics.translate(float, float, float)
 
-Py5Graphics.scale(float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float)
 
-Py5Graphics.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Graphics.rotate(float)
 
 Py5Graphics.rotateX(float)
 
@@ -7466,11 +7568,11 @@ See Also
 
 Py5Graphics.curveVertex(float, float, float)
 
-Py5Graphics.vertex(float, float, float, float, float) : All shapes are constructed by connecting a series of vertices.
+Py5Graphics.vertex(float, float, float, float, float)
 
 Py5Graphics.bezierVertex(float, float, float, float, float, float)
 
-Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float) : Draws a Bezier curve on the screen.
+Py5Graphics.bezier(float, float, float, float, float, float, float, float, float, float, float, float)
 
 
 # Sketch_random
@@ -7493,7 +7595,7 @@ See Also
 
 Sketch.randomSeed(long)
 
-Sketch.noise(float, float, float) : Returns the Perlin noise value at specified coordinates.
+Sketch.noise(float, float, float)
 
 
 # Sketch_random_gaussian
@@ -7514,9 +7616,9 @@ Returns a float from a random series of numbers having a mean of 0 and standard 
 See Also
 --------
 
-Sketch.random(float,float) : Generates random numbers.
+Sketch.random(float,float)
 
-Sketch.noise(float, float, float) : Returns the Perlin noise value at specified coordinates.
+Sketch.noise(float, float, float)
 
 
 # Sketch_random_seed
@@ -7537,9 +7639,9 @@ Sets the seed value for , ``random()`` ,.
 See Also
 --------
 
-Sketch.random(float,float) : Generates random numbers.
+Sketch.random(float,float)
 
-Sketch.noise(float, float, float) : Returns the Perlin noise value at specified coordinates.
+Sketch.noise(float, float, float)
 
 Sketch.noiseSeed(long)
 
@@ -7564,7 +7666,7 @@ See Also
 
 Py5Graphics.rectMode(int)
 
-Py5Graphics.quad(float, float, float, float, float, float, float, float) : A quad is a quadrilateral, a four sided polygon.
+Py5Graphics.quad(float, float, float, float, float, float, float, float)
 
 
 # Sketch_rect_mode
@@ -7585,7 +7687,7 @@ Modifies the location from which rectangles draw.
 See Also
 --------
 
-Py5Graphics.rect(float, float, float, float) : Draws a rectangle to the screen.
+Py5Graphics.rect(float, float, float, float)
 
 
 # Sketch_red
@@ -7606,17 +7708,17 @@ Extracts the red value from a color, scaled to match current , ``color_mode()`` 
 See Also
 --------
 
-Py5Graphics.green(int) : Extracts the green value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.green(int)
 
-Py5Graphics.blue(int) : Extracts the blue value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.blue(int)
 
-Py5Graphics.alpha(int) : Extracts the alpha value from a color.
+Py5Graphics.alpha(int)
 
-Py5Graphics.hue(int) : Extracts the hue value from a color.
+Py5Graphics.hue(int)
 
-Py5Graphics.saturation(int) : Extracts the saturation value from a color.
+Py5Graphics.saturation(int)
 
-Py5Graphics.brightness(int) : Extracts the brightness value from a color.
+Py5Graphics.brightness(int)
 
 
 # Sketch_redraw
@@ -7639,7 +7741,7 @@ See Also
 
 Sketch.draw()
 
-Sketch.loop() : Causes Processing to continuously execute the code within , ``draw()`` ,.
+Sketch.loop()
 
 Sketch.noLoop()
 
@@ -7731,7 +7833,7 @@ Py5Graphics.rotateY(float)
 
 Py5Graphics.rotateZ(float)
 
-Py5Graphics.scale(float, float, float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float, float, float)
 
 Sketch.radians(float)
 
@@ -7758,15 +7860,15 @@ Py5Graphics.popMatrix()
 
 Py5Graphics.pushMatrix()
 
-Py5Graphics.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Graphics.rotate(float)
 
 Py5Graphics.rotateY(float)
 
 Py5Graphics.rotateZ(float)
 
-Py5Graphics.scale(float, float, float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float, float, float)
 
-Py5Graphics.translate(float, float, float) : Specifies an amount to displace objects within the display window.
+Py5Graphics.translate(float, float, float)
 
 
 # Sketch_rotate_y
@@ -7791,15 +7893,15 @@ Py5Graphics.popMatrix()
 
 Py5Graphics.pushMatrix()
 
-Py5Graphics.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Graphics.rotate(float)
 
 Py5Graphics.rotateX(float)
 
 Py5Graphics.rotateZ(float)
 
-Py5Graphics.scale(float, float, float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float, float, float)
 
-Py5Graphics.translate(float, float, float) : Specifies an amount to displace objects within the display window.
+Py5Graphics.translate(float, float, float)
 
 
 # Sketch_rotate_z
@@ -7824,15 +7926,15 @@ Py5Graphics.popMatrix()
 
 Py5Graphics.pushMatrix()
 
-Py5Graphics.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Graphics.rotate(float)
 
 Py5Graphics.rotateX(float)
 
 Py5Graphics.rotateY(float)
 
-Py5Graphics.scale(float, float, float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float, float, float)
 
-Py5Graphics.translate(float, float, float) : Specifies an amount to displace objects within the display window.
+Py5Graphics.translate(float, float, float)
 
 
 # Sketch_saturation
@@ -7853,17 +7955,17 @@ Extracts the saturation value from a color.
 See Also
 --------
 
-Py5Graphics.red(int) : Extracts the red value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.red(int)
 
-Py5Graphics.green(int) : Extracts the green value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.green(int)
 
-Py5Graphics.blue(int) : Extracts the blue value from a color, scaled to match current , ``color_mode()`` ,.
+Py5Graphics.blue(int)
 
-Py5Graphics.alpha(int) : Extracts the alpha value from a color.
+Py5Graphics.alpha(int)
 
-Py5Graphics.hue(int) : Extracts the hue value from a color.
+Py5Graphics.hue(int)
 
-Py5Graphics.brightness(int) : Extracts the brightness value from a color.
+Py5Graphics.brightness(int)
 
 
 # Sketch_scale
@@ -7888,9 +7990,9 @@ Py5Graphics.pushMatrix()
 
 Py5Graphics.popMatrix()
 
-Py5Graphics.translate(float, float, float) : Specifies an amount to displace objects within the display window.
+Py5Graphics.translate(float, float, float)
 
-Py5Graphics.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Graphics.rotate(float)
 
 Py5Graphics.rotateX(float)
 
@@ -7986,17 +8088,17 @@ Processing communicates with the clock on your computer.
 See Also
 --------
 
-Sketch.millis() : Returns the number of milliseconds (thousandths of a second) since starting an applet.
+Sketch.millis()
 
-Sketch.minute() : Processing communicates with the clock on your computer.
+Sketch.minute()
 
-Sketch.hour() : Processing communicates with the clock on your computer.
+Sketch.hour()
 
-Sketch.day() : Processing communicates with the clock on your computer.
+Sketch.day()
 
-Sketch.month() : Processing communicates with the clock on your computer.
+Sketch.month()
 
-Sketch.year() : Processing communicates with the clock on your computer.
+Sketch.year()
 
 
 # Sketch_set_matrix
@@ -8070,7 +8172,7 @@ Modifies the location from which shapes draw.
 See Also
 --------
 
-Py5Graphics.shape(Py5Shape) : Type of shape passed to beginShape(), zero if no shape is currently being drawn.
+Py5Graphics.shape(Py5Shape)
 
 Py5Graphics.rectMode(int)
 
@@ -8099,9 +8201,9 @@ Py5Graphics.pushMatrix()
 
 Py5Graphics.shearY(float)
 
-Py5Graphics.scale(float, float, float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float, float, float)
 
-Py5Graphics.translate(float, float, float) : Specifies an amount to displace objects within the display window.
+Py5Graphics.translate(float, float, float)
 
 Sketch.radians(float)
 
@@ -8130,9 +8232,9 @@ Py5Graphics.pushMatrix()
 
 Py5Graphics.shearX(float)
 
-Py5Graphics.scale(float, float, float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float, float, float)
 
-Py5Graphics.translate(float, float, float) : Specifies an amount to displace objects within the display window.
+Py5Graphics.translate(float, float, float)
 
 Sketch.radians(float)
 
@@ -8155,11 +8257,11 @@ Sets the amount of gloss in the surface of shapes.
 See Also
 --------
 
-Py5Graphics.emissive(float, float, float) : Sets the emissive color of the material used for drawing shapes drawn to the screen.
+Py5Graphics.emissive(float, float, float)
 
-Py5Graphics.ambient(float, float, float) : Sets the ambient reflectance for shapes drawn to the screen.
+Py5Graphics.ambient(float, float, float)
 
-Py5Graphics.specular(float, float, float) : Sets the specular color of the materials used for shapes drawn to the screen, which sets the color of hightlights.
+Py5Graphics.specular(float, float, float)
 
 
 # Sketch_size
@@ -8180,9 +8282,9 @@ Defines the dimension of the display window in units of pixels.
 See Also
 --------
 
-Sketch.width : System variable which stores the width of the display window.
+Sketch.width
 
-Sketch.height : System variable which stores the height of the display window.
+Sketch.height
 
 Sketch.setup()
 
@@ -8241,11 +8343,11 @@ See Also
 
 Py5Graphics.lightSpecular(float, float, float)
 
-Py5Graphics.ambient(float, float, float) : Sets the ambient reflectance for shapes drawn to the screen.
+Py5Graphics.ambient(float, float, float)
 
-Py5Graphics.emissive(float, float, float) : Sets the emissive color of the material used for drawing shapes drawn to the screen.
+Py5Graphics.emissive(float, float, float)
 
-Py5Graphics.shininess(float) : Sets the amount of gloss in the surface of shapes.
+Py5Graphics.shininess(float)
 
 
 # Sketch_sphere
@@ -8287,7 +8389,7 @@ Controls the detail used to render a sphere by adjusting the number of vertices 
 See Also
 --------
 
-Py5Graphics.sphere(float) : A sphere is a hollow ball made from tessellated triangles.
+Py5Graphics.sphere(float)
 
 
 # Sketch_spot_light
@@ -8308,7 +8410,7 @@ Adds a spot light.
 See Also
 --------
 
-Py5Graphics.lights() : Sets the default ambient light, directional light, falloff, and specular values.
+Py5Graphics.lights()
 
 Py5Graphics.directionalLight(float, float, float, float, float, float)
 
@@ -8335,7 +8437,7 @@ Draws a square to the screen.
 See Also
 --------
 
-Py5Graphics.rect(float, float, float, float) : Draws a rectangle to the screen.
+Py5Graphics.rect(float, float, float, float)
 
 Py5Graphics.rectMode(int)
 
@@ -8396,13 +8498,13 @@ Py5Graphics.strokeJoin(int)
 
 Py5Graphics.strokeCap(int)
 
-Py5Graphics.fill(int, float) : Sets the color used to fill shapes.
+Py5Graphics.fill(int, float)
 
 Py5Graphics.noFill()
 
-Py5Graphics.tint(int, float) : Sets the fill value for displaying images.
+Py5Graphics.tint(int, float)
 
-Py5Graphics.background(float, float, float, float) : The , ``background()`` , function sets the color used for the background of the Processing window.
+Py5Graphics.background(float, float, float, float)
 
 Py5Graphics.colorMode(int, float, float, float, float)
 
@@ -8425,13 +8527,13 @@ Sets the style for rendering line endings.
 See Also
 --------
 
-Py5Graphics.stroke(int, float) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(int, float)
 
 Py5Graphics.strokeWeight(float)
 
 Py5Graphics.strokeJoin(int)
 
-Sketch.size(int, int, String, String) : Defines the dimension of the display window in units of pixels.
+Sketch.size(int, int, String, String)
 
 
 # Sketch_stroke_join
@@ -8452,7 +8554,7 @@ Sets the style of the joints which connect line segments.
 See Also
 --------
 
-Py5Graphics.stroke(int, float) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(int, float)
 
 Py5Graphics.strokeWeight(float)
 
@@ -8477,7 +8579,7 @@ Sets the width of the stroke used for lines, points, and the border around shape
 See Also
 --------
 
-Py5Graphics.stroke(int, float) : Sets the color used to draw lines and borders around shapes.
+Py5Graphics.stroke(int, float)
 
 Py5Graphics.strokeJoin(int)
 
@@ -8520,7 +8622,7 @@ Py5Graphics.textDescent()
 
 Py5Graphics.rectMode(int)
 
-Py5Graphics.fill(int, float) : Sets the color used to fill shapes.
+Py5Graphics.fill(int, float)
 
 
 # Sketch_text_align
@@ -8543,7 +8645,7 @@ See Also
 
 Sketch.loadFont(String)
 
-Py5Graphics.text(String, float, float) : This does a basic number formatting, to avoid the generally ugly appearance of printing floats.
+Py5Graphics.text(String, float, float)
 
 Py5Graphics.textSize(float)
 
@@ -8616,7 +8718,7 @@ Sketch.createFont(String, float, boolean)
 
 Sketch.loadFont(String)
 
-Py5Graphics.text(String, float, float) : This does a basic number formatting, to avoid the generally ugly appearance of printing floats.
+Py5Graphics.text(String, float, float)
 
 Py5Graphics.textSize(float)
 
@@ -8643,7 +8745,7 @@ Sketch.loadFont(String)
 
 Py5Font.Py5Font
 
-Py5Graphics.text(String, float, float) : This does a basic number formatting, to avoid the generally ugly appearance of printing floats.
+Py5Graphics.text(String, float, float)
 
 Py5Graphics.textFont(Py5Font)
 
@@ -8672,7 +8774,7 @@ Sketch.loadFont(String)
 
 Py5Font.Py5Font
 
-Py5Graphics.text(String, float, float) : This does a basic number formatting, to avoid the generally ugly appearance of printing floats.
+Py5Graphics.text(String, float, float)
 
 Py5Graphics.textFont(Py5Font)
 
@@ -8703,7 +8805,7 @@ Sketch.loadFont(String)
 
 Py5Font.Py5Font
 
-Py5Graphics.text(String, float, float) : This does a basic number formatting, to avoid the generally ugly appearance of printing floats.
+Py5Graphics.text(String, float, float)
 
 Py5Graphics.textFont(Py5Font)
 
@@ -8730,7 +8832,7 @@ Sketch.loadFont(String)
 
 Py5Font.Py5Font
 
-Py5Graphics.text(String, float, float) : This does a basic number formatting, to avoid the generally ugly appearance of printing floats.
+Py5Graphics.text(String, float, float)
 
 Py5Graphics.textFont(Py5Font)
 
@@ -8763,7 +8865,7 @@ Py5Graphics.beginShape(int)
 
 Py5Graphics.endShape(int)
 
-Py5Graphics.vertex(float, float, float, float, float) : All shapes are constructed by connecting a series of vertices.
+Py5Graphics.vertex(float, float, float, float, float)
 
 
 # Sketch_texture_mode
@@ -8784,7 +8886,7 @@ Sets the coordinate space for texture mapping.
 See Also
 --------
 
-Py5Graphics.texture(Py5Image) : Sets a texture to be applied to vertex points.
+Py5Graphics.texture(Py5Image)
 
 Py5Graphics.textureWrap(int)
 
@@ -8807,7 +8909,7 @@ Description to come...
 See Also
 --------
 
-Py5Graphics.texture(Py5Image) : Sets a texture to be applied to vertex points.
+Py5Graphics.texture(Py5Image)
 
 Py5Graphics.textureMode(int)
 
@@ -8834,7 +8936,7 @@ Sketch.setup()
 
 Sketch.draw()
 
-Sketch.loop() : Causes Processing to continuously execute the code within , ``draw()`` ,.
+Sketch.loop()
 
 Sketch.noLoop()
 
@@ -8859,7 +8961,7 @@ See Also
 
 Py5Graphics.noTint()
 
-Py5Graphics.image(Py5Image, float, float, float, float) : Draw an image(), also specifying u/v coordinates.
+Py5Graphics.image(Py5Image, float, float, float, float)
 
 
 # Sketch_translate
@@ -8884,7 +8986,7 @@ Py5Graphics.popMatrix()
 
 Py5Graphics.pushMatrix()
 
-Py5Graphics.rotate(float) : Rotates a shape the amount specified by the , ``angle`` , parameter.
+Py5Graphics.rotate(float)
 
 Py5Graphics.rotateX(float)
 
@@ -8892,7 +8994,7 @@ Py5Graphics.rotateY(float)
 
 Py5Graphics.rotateZ(float)
 
-Py5Graphics.scale(float, float, float) : Increases or decreases the size of a shape by expanding and contracting vertices.
+Py5Graphics.scale(float, float, float)
 
 
 # Sketch_triangle
@@ -8936,7 +9038,7 @@ See Also
 
 Sketch.loadPixels()
 
-Sketch.pixels : Array containing the values for all the pixels in the display window.
+Sketch.pixels
 
 
 # Sketch_vertex
@@ -8967,30 +9069,7 @@ Py5Graphics.quadraticVertex(float, float, float, float, float, float)
 
 Py5Graphics.curveVertex(float, float, float)
 
-Py5Graphics.texture(Py5Image) : Sets a texture to be applied to vertex points.
-
-
-# Sketch_width
-
-System variable which stores the width of the display window.
-
-Parameters
-----------
-
-$Sketch_width_parameters
-
-Notes
------
-
-System variable which stores the width of the display window.
-
-
-See Also
---------
-
-Sketch.height : System variable which stores the height of the display window.
-
-Sketch.size(int, int) : Defines the dimension of the display window in units of pixels.
+Py5Graphics.texture(Py5Image)
 
 
 # Sketch_year
@@ -9011,15 +9090,15 @@ Processing communicates with the clock on your computer.
 See Also
 --------
 
-Sketch.millis() : Returns the number of milliseconds (thousandths of a second) since starting an applet.
+Sketch.millis()
 
-Sketch.second() : Processing communicates with the clock on your computer.
+Sketch.second()
 
-Sketch.minute() : Processing communicates with the clock on your computer.
+Sketch.minute()
 
-Sketch.hour() : Processing communicates with the clock on your computer.
+Sketch.hour()
 
-Sketch.day() : Processing communicates with the clock on your computer.
+Sketch.day()
 
-Sketch.month() : Processing communicates with the clock on your computer.
+Sketch.month()
 

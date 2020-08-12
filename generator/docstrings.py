@@ -1,4 +1,5 @@
 import re
+from string import Template
 import json
 import textwrap
 
@@ -6,22 +7,36 @@ import textwrap
 DOCSTRING_FILE_HEADER = re.compile(r"^# \w+$", re.UNICODE | re.MULTILINE)
 
 
-class DocstringDict:
+class MethodParamsDict:
 
-    INDENTING = {'class': 8, 'module': 4}
-
-    def __init__(self, docstring_filename, var_desc_filename):
-        super().__init__()
-        self._docstrings = self._load_docstrings(docstring_filename)
+    def __init__(self, method_signatures_lookup, var_desc_filename):
+        self._method_signatures_lookup = method_signatures_lookup
         self._variable_descriptions = self._load_variable_descriptions(var_desc_filename)
 
     def _load_variable_descriptions(self, filename):
         with open(filename, 'r') as f:
             return json.load(f)
 
-    def _load_docstrings(self, filename):
+    def __getitem__(self, item):
+        try:
+            class_name, method_name = item[:-11].split('_', 1)
+            signature_info = self._method_signatures_lookup[class_name, method_name]
+            return 'it works: ' + str(signature_info)
+        except KeyError:
+            return f'missing param information for {item}'
+
+
+class DocstringDict:
+
+    INDENTING = {'class': 8, 'module': 4}
+
+    def __init__(self, docstring_filename, method_params_dict):
+        self._docstrings = self._load_docstrings(docstring_filename, method_params_dict)
+
+    def _load_docstrings(self, filename, method_params_dict):
         with open(filename, 'r') as f:
             md_contents = f.read()
+        md_contents = Template(md_contents).substitute(method_params_dict)
         return {k[1:].strip(): v.strip()
                 for k, v in zip(DOCSTRING_FILE_HEADER.findall(md_contents),
                                 DOCSTRING_FILE_HEADER.split(md_contents)[1:])}

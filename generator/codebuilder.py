@@ -162,7 +162,7 @@ class CodeBuilder:
                     fname, decorator, rettypestr, class_arguments, signature_options
                 )
             )
-            self.method_signatures[py5_name].append((', '.join(paramstrs[1:]), rettypestr))
+            self.method_signatures[(self._class_name, py5_name)].append((paramstrs[1:], rettypestr))
             if self._code_module:
                 self.module_members.append(
                     templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
@@ -204,7 +204,7 @@ class CodeBuilder:
                         self._class_name, py5_name, joined_paramstrs, rettypestr
                     )
                 )
-                self.method_signatures[py5_name].append((', '.join(paramstrs[1:]), rettypestr))
+                self.method_signatures[(self._class_name, py5_name)].append((paramstrs[1:], rettypestr))
                 if self._code_module:
                     self.module_members.append(
                         templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(

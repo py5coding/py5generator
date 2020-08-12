@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from generator import CodeBuilder, DocstringDict, CodeCopier
+from generator import CodeBuilder, MethodParamsDict, DocstringDict, CodeCopier
 from generator import reference as ref
 from generator import templates as templ
 from generator import javap
@@ -112,6 +112,17 @@ def generate_py5(repo_dir):
     py5image_class_members_code = ''.join(py5image_builder.class_members)
     run_sketch_pre_run_code = ''.join(run_sketch_pre_run_steps)
 
+    # gather method_signatures info
+    method_signatures_lookup = {
+        **py5applet_builder.method_signatures,
+        **py5shader_builder.method_signatures,
+        **py5shape_builder.method_signatures,
+        **py5font_builder.method_signatures,
+        **py5surface_builder.method_signatures,
+        **py5graphics_builder.method_signatures,
+        **py5image_builder.method_signatures,
+    }
+
     # code the result of the module's __dir__ function and __all__ variable
     py5_dir_names = py5applet_builder.all_names | ref.EXTRA_DIR_NAMES
     py5_dir_str = str(sorted(py5_dir_names, key=lambda x: (x.lower(), x)))
@@ -135,8 +146,14 @@ def generate_py5(repo_dir):
     logger.info(f'building py5 in {dest_dir}')
     if dest_dir.exists():
         shutil.rmtree(dest_dir)
-    docstrings = DocstringDict(Path('py5_resources', 'docstrings', 'docs.rst'),
-                               Path('py5_resources', 'docstrings', 'variable_descriptions.json'))
+    method_params_dict = MethodParamsDict(
+        method_signatures_lookup,
+        Path('py5_resources', 'docstrings', 'variable_descriptions.json')
+    )
+    docstrings = DocstringDict(
+        Path('py5_resources', 'docstrings', 'docs.rst'),
+        method_params_dict
+    )
     copier = CodeCopier(format_params, docstrings)
     if dest_dir.exists():
         shutil.rmtree(dest_dir)
