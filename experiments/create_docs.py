@@ -12,12 +12,12 @@ DOC_TEMPLATE = """
 Parameters
 ----------
 
-PARAMTEXT
+{3}
 
 Notes
 -----
 
-{3}
+{4}
 
 """
 
@@ -141,7 +141,8 @@ for commenttree in root['commenttrees']['commenttree']:
 variable_descriptions = defaultdict(dict)
 docstrings = []
 for (py5class, py5name), fdata in sorted(docdata.items()):
-    doc = DOC_TEMPLATE.format(py5class, py5name, fdata.get_first(), fdata.get_full())
+    parameter_key = f'${py5class}_{py5name}_parameters'
+    doc = DOC_TEMPLATE.format(py5class, py5name, fdata.get_first(), parameter_key, fdata.get_full())
     see_also = fdata.get_see(docdata)
     if see_also:
         doc += SEE_ALSO_TEMPLATE.format(see_also)
