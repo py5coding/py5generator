@@ -1,6 +1,10 @@
 import re
 import json
+from pathlib import Path
 from collections import defaultdict
+
+import pandas as pd
+
 import xmltodict
 
 
@@ -74,20 +78,11 @@ class FunctionDocData:
             text = text.replace(snake_case(pname), py5name)
         return text
 
-    def report_first(self, first):
-        first = re.sub(AUTOGEN_REGEX, '', first or '')
-        if first and len(first) > len(self.first):
-            self.first = first
-
-    def get_first(self):
-        return self._text_cleanup(self.first)
-
-    def report_full(self, full):
+    def report_first_full(self, first, full):
         if full and len(full) > len(self.full):
-            self.full = full
-
-    def get_full(self):
-        return self._text_cleanup(self.full)
+            # I want to take both of them or neither of them
+            self.full = self._text_cleanup(re.sub(AUTOGEN_REGEX, '', full or ''))
+            self.first = self._text_cleanup(re.sub(AUTOGEN_REGEX, '', first or ''))
 
     def report_param(self, varname, vardesc):
         self.vars[varname] = vardesc
@@ -101,27 +96,42 @@ class FunctionDocData:
             see = f'{classname}.{call}'
             key = (classname, call.split('(', 1)[0])
             if key in docdata:
-                see += ' : ' + docdata[key].get_first()
+                see += ' : ' + docdata[key].first
             out.append(see)
         return '\n\n'.join(out)
 
 
-docdata = defaultdict(FunctionDocData)
-
+# load the javadocs information
 filename = 'py5_docs/docfiles/javadocs.xml'
 with open(filename, 'r') as f:
     root = xmltodict.parse(f.read())
+
+# read the class datafiles
+class_data_info = dict()
+class_resource_data = Path('py5_resources', 'data')
+for pclass in PY5_CLASS_LOOKUP.keys():
+    filename = 'py5applet.csv' if pclass == 'PApplet' else pclass.lower() + '.csv'
+    class_data = pd.read_csv(class_resource_data / filename).fillna('').set_index('processing_name')
+    class_data_info[pclass] = class_data.query("implementation_from_processing==True")['py5_name']
+
+# where the documentation data will be organized and stored
+docdata = defaultdict(FunctionDocData)
+
 for commenttree in root['commenttrees']['commenttree']:
     pclass = commenttree['@class'].split('.')[-1]
+    # only generate comments for classes and methods that are actually used
     if pclass not in PY5_CLASS_LOOKUP.keys():
         continue
+    if commenttree['@name'] in class_data_info[pclass]:
+        py5name = class_data_info[pclass][commenttree['@name']]
+    else:
+        continue
+
     py5class = PY5_CLASS_LOOKUP[pclass]
-    py5name = snake_case(commenttree['@name'])
     body = commenttree['body']
 
     fdata = docdata[(py5class, py5name)]
-    fdata.report_first(body['first'])
-    fdata.report_full(body['full'])
+    fdata.report_first_full(body['first'], body['first'])
 
     blocktags = commenttree['blocktags']
     if blocktags:
@@ -142,7 +152,7 @@ variable_descriptions = defaultdict(dict)
 docstrings = []
 for (py5class, py5name), fdata in sorted(docdata.items()):
     parameter_key = f'${py5class}_{py5name}_parameters'
-    doc = DOC_TEMPLATE.format(py5class, py5name, fdata.get_first(), parameter_key, fdata.get_full())
+    doc = DOC_TEMPLATE.format(py5class, py5name, fdata.first, parameter_key, fdata.full)
     see_also = fdata.get_see(docdata)
     if see_also:
         doc += SEE_ALSO_TEMPLATE.format(see_also)
