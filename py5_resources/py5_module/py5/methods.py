@@ -25,7 +25,7 @@ _module_install_dir = str(Path(__file__).parent)
 
 def handle_exception(exc_type, exc_value, exc_tb):
     py5info = []
-    if _prune_tracebacks:
+    if _prune_tracebacks and hasattr(exc_tb, 'tb_next'):
         prev_tb = exc_tb
         trim_tb = None
         tb = exc_tb.tb_next
@@ -37,8 +37,8 @@ def handle_exception(exc_type, exc_value, exc_tb):
                     trim_tb = prev_tb
             prev_tb = tb
             tb = tb.tb_next
-        # TODO: maybe only do this when pruning tracebacks?
-        trim_tb.tb_next = None
+        if trim_tb:
+            trim_tb.tb_next = None
 
     errmsg = stackprinter.format(
         thing=(exc_type, exc_value, exc_tb.tb_next),
