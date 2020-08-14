@@ -23,6 +23,7 @@ from .surface import Py5Surface, _return_py5surface  # noqa
 from .shader import Py5Shader, _return_py5shader  # noqa
 from .font import Py5Font, _return_py5font  # noqa
 from .graphics import Py5Graphics, _return_py5graphics  # noqa
+from .type_decorators import _text_fix_str  # noqa
 from .pmath import _get_matrix_wrapper  # noqa
 from . import image_conversion
 from .image_conversion import NumpyImageArray

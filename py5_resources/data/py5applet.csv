@@ -226,7 +226,7 @@ hash_code,hashCode,,,method,,,FALSE,FALSE,public methods that shouldn't be avail
 get_class,getClass,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 notify,notify,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 notify_all,notifyAll,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-text,text,,,method,typography,loading_displaying,TRUE,TRUE,
+text,text,@_text_fix_str,,method,typography,loading_displaying,TRUE,TRUE,
 println,println,,,method,output,text_area,FALSE,FALSE,user should use python instead
 main,main,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 exit,exit,,,method,,,FALSE,FALSE,"conflict with builtin python function, use exit_sketch instead"
@@ -348,7 +348,7 @@ shell,shell,,,static method,,,FALSE,FALSE,methods that should be re-implemented 
 die,die,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 dispose,dispose,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 save_frame,saveFrame,,,method,output,image,FALSE,TRUE,"implemented in sketch.py, uses Pillow to save the frame"
-insert_frame,insertFrame,,,method,,,FALSE,FALSE,
+insert_frame,insertFrame,,,method,,,FALSE,FALSE,"not intended to be public, but there is the _insert_frame method that also lets you specify the number instead of frame_count"
 no_cursor,noCursor,,,method,environment,,TRUE,TRUE,
 print_array,printArray,,,static method,output,text_area,FALSE,FALSE,user should use python instead
 sq,sq,,,static method,,,FALSE,TRUE,implemented in mixin file math.py

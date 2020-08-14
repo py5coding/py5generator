@@ -24,6 +24,8 @@ _module_install_dir = str(Path(__file__).parent)
 
 
 def handle_exception(exc_type, exc_value, exc_tb):
+    # TODO: this should have its own exception handler, especially if I am going
+    # to use user registered functions to respond to errors.
     py5info = []
     if _prune_tracebacks and hasattr(exc_tb, 'tb_next'):
         prev_tb = exc_tb

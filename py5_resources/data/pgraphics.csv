@@ -323,7 +323,7 @@ line,line,,,method,TRUE,TRUE,
 scale,scale,,,method,TRUE,TRUE,
 set_parent,setParent,,,method,FALSE,FALSE,
 rotate,rotate,,,method,TRUE,TRUE,
-text,text,,,method,TRUE,TRUE,
+text,text,@_text_fix_str,,method,TRUE,TRUE,
 normal,normal,,,method,TRUE,TRUE,
 red,red,,,method,TRUE,TRUE,
 set_size,setSize,,,method,FALSE,FALSE,public methods that shouldn't be available to users
