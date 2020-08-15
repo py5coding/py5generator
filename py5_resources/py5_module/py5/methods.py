@@ -182,11 +182,11 @@ class Py5Methods:
 
     @JOverride
     def shutdown(self):
-        logger.critical('shutdown initiated')
+        logger.info('shutdown initiated')
         try:
             self._sketch._shutdown()
             self._is_terminated = True
             self.terminate_hooks()
-            logger.critical('shutdown complete')
+            logger.info('shutdown complete')
         except Exception:
             logger.exception('exception in sketch shutdown sequence')
