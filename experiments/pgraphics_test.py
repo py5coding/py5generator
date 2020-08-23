@@ -27,6 +27,9 @@ class Test(Sketch):
         self.pg.stroke(0)
         random_coords = 200 * np.random.rand(20, 4)
         self.pg.lines(random_coords)
+        self.pg.stroke(255, 0, 0)
+        random_coords = 200 * np.random.rand(200, 2)
+        self.pg.points(random_coords)
         self.pg.load_np_pixels()
         self.pg.np_pixels[:50, :50, :2] = 255
         self.pg.np_pixels[:50, :50, 2:] = 0

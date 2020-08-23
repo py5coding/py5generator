@@ -57,5 +57,8 @@ class Py5Graphics(PixelMixin, Py5Base):
     def lines(self, coordinates):
         Py5GraphicsHelper.lines(self._instance, coordinates)
 
+    def points(self, coordinates):
+        Py5GraphicsHelper.points(self._instance, coordinates)
+
 
 {py5graphics_class_members_code}

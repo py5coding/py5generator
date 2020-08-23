@@ -197,18 +197,11 @@ public class Py5Applet extends PApplet {
    */
 
   public void lines(float[][] coordinates) {
-    if (coordinates[0].length == 4) {
-      for (int i = 0; i < coordinates.length; ++i) {
-        line(coordinates[i][0], coordinates[i][1], coordinates[i][2], coordinates[i][3]);
-      }
-    } else if (coordinates[0].length == 6) {
-      for (int i = 0; i < coordinates.length; ++i) {
-        line(coordinates[i][0], coordinates[i][1], coordinates[i][2], coordinates[i][3], coordinates[i][4],
-            coordinates[i][5]);
-      }
-    } else {
-      System.out.println("error in lines");
-    }
+    Py5GraphicsHelper.lines(g, coordinates);
+  }
+  
+  public void points(float[][] coordinates) {
+    Py5GraphicsHelper.points(g, coordinates);
   }
 
 }

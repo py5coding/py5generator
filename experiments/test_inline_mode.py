@@ -35,6 +35,9 @@ def draw():
     py5.stroke(0, 64)
     random_coords = 500 * np.random.rand(2, 4)
     py5.lines(random_coords)
+    py5.stroke(0, 255)
+    random_coords = 500 * np.random.rand(50, 2)
+    py5.points(random_coords)
 
 
 def mouse_entered():
