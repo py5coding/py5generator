@@ -10,10 +10,11 @@ import processing.core.PGraphics;
  * picks up on the replaced CODED constant.
  * 
  * If I replaced the "JAVA2D", "P2D", "P3D", etc constants and possibly also
- * overloaded the makeGraphics method I could force Processing to create my
- * own versions of those classes (Py5GraphicsJava2D, Py5Graphics2D, etc) to get
- * the same result as modifying Processing's PGraphics class, but that would
- * end up being a lot of work and hard to maintain. It is not a good approach.
+ * overloaded the makeGraphics method I could force Processing to create my own
+ * versions of those classes (perhaps named Py5GraphicsJava2D, Py5Graphics2D,
+ * etc) to get the same result as modifying Processing's PGraphics class, but
+ * that would end up being a lot of work and hard to maintain. A better approach
+ * is to add functions to Py5GraphicsHelper.
  */
 
 public class Py5Graphics extends PGraphics {

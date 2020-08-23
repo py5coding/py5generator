@@ -197,10 +197,14 @@ public class Py5Applet extends PApplet {
    */
 
   public void lines(float[][] coordinates) {
+    if (recorder != null)
+      Py5GraphicsHelper.lines(recorder, coordinates);
     Py5GraphicsHelper.lines(g, coordinates);
   }
-  
+
   public void points(float[][] coordinates) {
+    if (recorder != null)
+      Py5GraphicsHelper.points(recorder, coordinates);
     Py5GraphicsHelper.points(g, coordinates);
   }
 
