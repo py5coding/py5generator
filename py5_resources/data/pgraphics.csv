@@ -465,3 +465,4 @@ update_np_pixels,,,,method,FALSE,TRUE,like updatePixels but for np_pixels; imple
 set_np_pixels,,,,method,FALSE,TRUE,replaces data in the np_pixels array; implemented in the pixels.py mixin
 np_pixels,,,,dynamic variable,FALSE,TRUE,numpy array containing pixel data
 HIDDEN,HIDDEN,,,static field,TRUE,TRUE,hidden version of default renderer
+lines,,,,method,FALSE,TRUE,implemented by me in Py5GraphicsHelper

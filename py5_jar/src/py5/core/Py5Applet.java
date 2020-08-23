@@ -18,9 +18,15 @@ public class Py5Applet extends PApplet {
 
   public static final char CODED = PApplet.CODED;
 
-  public static final String HIDDEN = "py5.core.hidden.HiddenPGraphicsJava2D";
+  public static final String HIDDEN = "py5.core.graphics.HiddenPy5GraphicsJava2D";
+
+  /*
+   * The below methods are how Java makes calls to the Python implementations of
+   * the Processing methods.
+   */
 
   public void usePy5Methods(Py5Methods py5Methods) {
+    // TODO: shouldn't this be in a constructor??? It could be
     this.py5Methods = py5Methods;
     this.py5RegisteredEvents = new HashSet<String>();
     for (String f : py5Methods.get_function_list())
@@ -130,7 +136,8 @@ public class Py5Applet extends PApplet {
 
   @Override
   public void exitActual() {
-    // call exiting even if success == false. user might need to do shutdown activities
+    // call exiting even if success == false. user might need to do shutdown
+    // activities
     if (py5RegisteredEvents.contains("exiting")) {
       py5Methods.run_method("exiting");
       // if the exiting method was not successful we still need to run the below
@@ -167,6 +174,12 @@ public class Py5Applet extends PApplet {
     }
   }
 
+  /*
+   * These extra methods are here to get around the collisions caused by the
+   * methods and fields that have the same name. This is allowed in Java but not
+   * in Python.
+   */
+
   public float getFrameRate() {
     return frameRate;
   }
@@ -177,6 +190,25 @@ public class Py5Applet extends PApplet {
 
   public boolean isMousePressed() {
     return mousePressed;
+  }
+
+  /*
+   * New functions to improve performance
+   */
+
+  public void lines(float[][] coordinates) {
+    if (coordinates[0].length == 4) {
+      for (int i = 0; i < coordinates.length; ++i) {
+        line(coordinates[i][0], coordinates[i][1], coordinates[i][2], coordinates[i][3]);
+      }
+    } else if (coordinates[0].length == 6) {
+      for (int i = 0; i < coordinates.length; ++i) {
+        line(coordinates[i][0], coordinates[i][1], coordinates[i][2], coordinates[i][3], coordinates[i][4],
+            coordinates[i][5]);
+      }
+    } else {
+      System.out.println("error in lines");
+    }
   }
 
 }

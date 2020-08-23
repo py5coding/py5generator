@@ -8,6 +8,8 @@ It can be run from the command line, like so:
 $ python test_inline_mode.py
 """
 
+import numpy as np
+
 import py5
 
 
@@ -29,6 +31,10 @@ def draw():
 
     if py5.frame_count == 300:
         py5.save_frame('/tmp/frame_###.png')
+
+    py5.stroke(0, 64)
+    random_coords = 500 * np.random.rand(2, 4)
+    py5.lines(random_coords)
 
 
 def mouse_entered():

@@ -8,6 +8,8 @@ from nptyping import NDArray, Float  # noqa
 
 import numpy as np  # noqa
 
+from jpype import JClass
+
 from .base import Py5Base
 from .mixins import PixelMixin
 from .methods import Py5Exception  # noqa
@@ -43,11 +45,17 @@ def _return_py5graphics(f):
     return decorated
 
 
+Py5GraphicsHelper = JClass('py5.core.Py5GraphicsHelper')
+
+
 class Py5Graphics(PixelMixin, Py5Base):
 
     def __init__(self, pgraphics):
         self._instance = pgraphics
         super().__init__(instance=pgraphics)
+
+    def lines(self, coordinates):
+        Py5GraphicsHelper.lines(self._instance, coordinates)
 
 
 {py5graphics_class_members_code}

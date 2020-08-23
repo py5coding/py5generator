@@ -1,4 +1,4 @@
-package py5.core.hidden;
+package py5.core.surfaces;
 
 import processing.core.PGraphics;
 import processing.core.PSurfaceNone;
