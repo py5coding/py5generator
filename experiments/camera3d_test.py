@@ -4,7 +4,7 @@ import py5
 
 Camera3D = py5.JClass('camera3D.Camera3D')
 camera3D = None
-
+label = None
 
 rotX = 0
 rotY = 0
@@ -12,8 +12,8 @@ rotZ = 0
 
 
 def settings():
-    # py5.size(500, 500, py5.P3D)
-    py5.full_screen(py5.P3D)
+    py5.size(500, 500, py5.P3D)
+    # py5.full_screen(py5.P3D)
 
 
 def setup():
@@ -25,16 +25,27 @@ def setup():
     camera3D.setBackgroundColor(py5.color(192))
     camera3D.renderDefaultAnaglyph().setDivergence(1)
 
+    global label
+    label = py5.create_graphics(140, 50)
+    label.begin_draw()
+    label.text_align(py5.LEFT, py5.TOP)
+    label.fill(0)
+    label.text_size(16)
+    label.text("Rotating Cube", 0, 0)
+    label.end_draw()
+
+
+def pre_draw():
+    global rotX
+    rotX += 0.5
+    global rotY
+    rotY += 0.1
+    global rotZ
+    rotZ += 0.3
+
 
 def draw():
     # print(py5.get_frame_rate())
-    if camera3D.currentActivity() == 'right':
-        global rotX
-        rotX += 0.5
-        global rotY
-        rotY += 0.1
-        global rotZ
-        rotZ += 0.3
 
     py5.stroke_weight(8)
     py5.stroke(0)
@@ -44,6 +55,10 @@ def draw():
     py5.rotate_y(np.radians(rotY))
     py5.rotate_z(np.radians(rotZ))
     py5.box(250)
+
+
+def post_draw():
+    py5.image(label, py5.width - label.width, py5.height - label.height)
 
 
 py5.run_sketch(block=False)

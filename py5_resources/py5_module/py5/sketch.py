@@ -31,10 +31,11 @@ from .image_conversion import NumpyImageArray
 
 sketch_class_members_code = None  # DELETE
 
-_METHODS = ['settings', 'setup', 'draw', 'key_pressed', 'key_typed',
-            'key_released', 'mouse_clicked', 'mouse_dragged', 'mouse_moved',
-            'mouse_entered', 'mouse_exited', 'mouse_pressed', 'mouse_released',
-            'mouse_wheel', 'exiting']
+_METHODS = ['settings', 'setup', 'draw', 'pre_draw', 'post_draw',
+            'key_pressed', 'key_typed', 'key_released',
+            'mouse_clicked', 'mouse_dragged', 'mouse_moved', 'mouse_entered',
+            'mouse_exited', 'mouse_pressed', 'mouse_released', 'mouse_wheel',
+            'exiting']
 
 
 _Py5Applet = jpype.JClass('py5.core.Py5Applet')

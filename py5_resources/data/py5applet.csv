@@ -295,6 +295,8 @@ round,round,,,static method,math,calculation,FALSE,FALSE,user should use numpy i
 random,random,,,method,math,random,TRUE,TRUE,
 settings,settings,,,method,environment,,FALSE,FALSE,method implemented by user
 draw,draw,,,method,structure,,FALSE,FALSE,method implemented by user
+pre_draw,preDraw,,,method,structure,,FALSE,FALSE,method implemented by user
+post_draw,postDraw,,,method,structure,,FALSE,FALSE,method implemented by user
 mouse_released,mouseReleased,,,method,input,mouse,FALSE,FALSE,method implemented by user
 mouse_clicked,mouseClicked,,,method,input,mouse,FALSE,FALSE,method implemented by user
 mouse_dragged,mouseDragged,,,method,input,mouse,FALSE,FALSE,method implemented by user

@@ -57,6 +57,18 @@ public class Py5Applet extends PApplet {
     }
   }
 
+  public void preDraw() {
+    if (success && py5RegisteredEvents.contains("pre_draw")) {
+      success = py5Methods.run_method("pre_draw");
+    }
+  }
+
+  public void postDraw() {
+    if (success && py5RegisteredEvents.contains("post_draw")) {
+      success = py5Methods.run_method("post_draw");
+    }
+  }
+
   @Override
   public void mousePressed() {
     if (success && py5RegisteredEvents.contains("mouse_pressed")) {
