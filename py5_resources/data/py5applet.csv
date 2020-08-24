@@ -599,5 +599,9 @@ stop_thread,,,,method,,,FALSE,TRUE,implemented in mixin file threads.py
 stop_all_threads,,,,method,,,FALSE,TRUE,implemented in mixin file threads.py
 list_threads,,,,method,,,FALSE,TRUE,implemented in mixin file threads.py
 HIDDEN,HIDDEN,,,static field,,,TRUE,TRUE,hidden version of default renderer
-lines,lines,,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper
 points,points,,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper
+lines,lines,,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper
+vertices,vertices,,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper
+bezier_vertices,bezierVertices,,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper
+curve_vertices,curveVertices,,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper
+quadratic_vertices,quadraticVertices,,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper

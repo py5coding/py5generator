@@ -10,6 +10,8 @@ rotX = 0
 rotY = 0
 rotZ = 0
 
+coordinates = 500 * (np.random.rand(20, 3) - 0.5)
+
 
 def settings():
     py5.size(500, 500, py5.P3D)
@@ -54,7 +56,19 @@ def draw():
     py5.rotate_x(np.radians(rotX))
     py5.rotate_y(np.radians(rotY))
     py5.rotate_z(np.radians(rotZ))
-    py5.box(250)
+    # py5.box(250)
+
+    py5.no_fill()
+
+    # py5.begin_shape()
+    # py5.vertex(0, 0, 0)
+    # py5.bezier_vertices(coordinates)
+    # py5.end_shape()
+
+    py5.begin_shape()
+    py5.vertex(0, 0, 0)
+    py5.vertices(coordinates)
+    py5.end_shape(py5.CLOSE)
 
 
 def post_draw():

@@ -208,16 +208,40 @@ public class Py5Applet extends PApplet {
    * New functions to improve performance
    */
 
+  public void points(float[][] coordinates) {
+    if (recorder != null)
+      Py5GraphicsHelper.points(recorder, coordinates);
+    Py5GraphicsHelper.points(g, coordinates);
+  }
+
   public void lines(float[][] coordinates) {
     if (recorder != null)
       Py5GraphicsHelper.lines(recorder, coordinates);
     Py5GraphicsHelper.lines(g, coordinates);
   }
 
-  public void points(float[][] coordinates) {
+  public void vertices(float[][] coordinates) {
     if (recorder != null)
-      Py5GraphicsHelper.points(recorder, coordinates);
-    Py5GraphicsHelper.points(g, coordinates);
+      Py5GraphicsHelper.vertices(recorder, coordinates);
+    Py5GraphicsHelper.vertices(g, coordinates);
+  }
+
+  public void bezierVertices(float[][] coordinates) {
+    if (recorder != null)
+      Py5GraphicsHelper.bezierVertices(recorder, coordinates);
+    Py5GraphicsHelper.bezierVertices(g, coordinates);
+  }
+
+  public void curveVertices(float[][] coordinates) {
+    if (recorder != null)
+      Py5GraphicsHelper.curveVertices(recorder, coordinates);
+    Py5GraphicsHelper.curveVertices(g, coordinates);
+  }
+
+  public void quadraticVertices(float[][] coordinates) {
+    if (recorder != null)
+      Py5GraphicsHelper.quadraticVertices(recorder, coordinates);
+    Py5GraphicsHelper.quadraticVertices(g, coordinates);
   }
 
 }
