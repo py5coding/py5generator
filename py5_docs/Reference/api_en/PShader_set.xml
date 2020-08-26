@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+<name>PShader</name>
+
+<category>PShader</category>
+
+<subcategory>Method</subcategory>
+
+<example>
+<image></image>
+<code><![CDATA[
+PImage tex;
+PShader deform;
+
+void setup() {
+  size(640, 360, P2D);
+  tex = loadImage("tex1.jpg");
+  deform = loadShader("deform.glsl");
+  deform.set("resolution", float(width), float(height));
+}
+
+void draw() {
+  deform.set("time", millis() / 1000.0);
+  deform.set("mouse", float(mouseX), float(mouseY));
+  shader(deform);
+  image(tex, 0, 0, width, height);
+}
+]]></code>
+</example>
+
+<description><![CDATA[
+Sets the uniform variables inside the shader to modify the effect while the program is running.
+]]></description>
+
+
+</root>

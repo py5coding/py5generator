@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+<name>save()</name>
+
+<category>PImage</category>
+
+<subcategory>Method</subcategory>
+
+<type></type>
+
+<example>
+<image></image>
+<code><![CDATA[
+PImage tower = loadImage("tower.jpg");
+tower.save("outputImage.jpg");
+
+]]></code>
+</example>
+
+<example>
+<image></image>
+<code><![CDATA[
+size(100, 100);
+PImage tower = loadImage("tower.jpg");
+PImage newImage = createImage(100, 100, RGB);
+newImage = tower.get();
+newImage.save("outputImage.jpg");
+]]></code>
+</example>
+
+<description><![CDATA[
+Saves the image into a file. Append a file extension to the name of the file, to indicate the file format to be used: either TIFF (.tif), TARGA (.tga), JPEG (.jpg), or PNG (.png). If no extension is included in the filename, the image will save in TIFF format and .tif will be added to the name.  These files are saved to the sketch's folder, which may be opened by selecting "Show sketch folder" from the "Sketch" menu.<br /><br />To save an image created within the code, rather than through loading, it's necessary to make the image with the <b>createImage()</b> function so it is aware of the location of the program and can therefore save the file to the right place. See the <b>createImage()</b> reference for more information.
+]]></description>
+
+</root>

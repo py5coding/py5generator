@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+<name>noSmooth()</name>
+
+<category>Environment</category>
+
+<subcategory></subcategory>
+
+<type></type>
+
+<example>
+<image></image>
+<code><![CDATA[
+size(100, 100);
+noSmooth();
+noStroke();
+background(0);
+ellipse(30, 48, 36, 36);
+ellipse(70, 48, 36, 36);
+]]></code>
+</example>
+
+<example>
+<image></image>
+<code><![CDATA[
+void setup() {
+  size(100, 100, P2D);
+  noSmooth();
+  noStroke();
+}
+
+void draw() {
+  background(0);
+  ellipse(30, 48, 36, 36);
+  ellipse(70, 48, 36, 36);
+}
+]]></code>
+</example>
+
+<description><![CDATA[
+Draws all geometry and fonts with jagged (aliased) edges and images with hard edges between the pixels when enlarged rather than interpolating pixels.  Note that <b>smooth()</b> is active by default, so it is necessary to call <b>noSmooth()</b> to disable smoothing of geometry, fonts, and images. Since the release of Processing 3.0, the <b>noSmooth()</b> function can only be run once for each sketch, either at the top of a sketch without a <b>setup()</b>, or after the <b>size()</b> function when used in a sketch with <b>setup()</b>. See the examples above for both scenarios.
+]]></description>
+
+</root>

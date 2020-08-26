@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+<name>focused</name>
+
+<category>Environment</category>
+
+<subcategory></subcategory>
+
+<type>variable</type>
+
+<example>
+<image></image>
+<code><![CDATA[
+if (focused) {  // or "if (focused == true)"
+  ellipse(25, 25, 50, 50);
+} else {
+  line(0, 0, 100, 100);
+  line(100, 0, 0, 100);
+}
+]]></code>
+</example>
+
+<description><![CDATA[
+Confirms if a Processing program is "focused," meaning that it is active and will accept mouse or keyboard input. This variable is "true" if it is focused and "false" if not.
+]]></description>
+
+</root>

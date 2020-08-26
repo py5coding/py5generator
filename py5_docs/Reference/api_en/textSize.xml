@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+<name>textSize()</name>
+
+<category>Typography</category>
+
+<subcategory>Attributes</subcategory>
+
+<type></type>
+
+<example>
+<image>textSize_.png</image>
+<code><![CDATA[
+background(0);
+fill(255);
+textSize(26); 
+text("WORD", 10, 50); 
+textSize(14);
+text("WORD", 10, 70);
+]]></code>
+</example>
+
+<description><![CDATA[
+Sets the current font size. This size will be used in all subsequent calls to the <b>text()</b> function. Font size is measured in units of pixels.
+]]></description>
+
+</root>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root>
+<name>loadPixels()</name>
+
+<category>Image</category>
+
+<subcategory>Pixels</subcategory>
+
+<type></type>
+
+<example>
+<image>loadPixels_.png</image>
+<code><![CDATA[
+int halfImage = width*height/2;
+PImage myImage = loadImage("apples.jpg");
+image(myImage, 0, 0);
+
+loadPixels();
+for (int i = 0; i < halfImage; i++) {
+  pixels[i+halfImage] = pixels[i];
+}
+updatePixels();
+]]></code>
+</example>
+
+<description><![CDATA[
+Loads the pixel data of the current display window into the <b>pixels[]</b> array. This function must always be called before reading from or writing to <b>pixels[]</b>. Subsequent changes to the display window will not be reflected in <b>pixels</b> until <b>loadPixels()</b> is called again.
+]]></description>
+
+</root>
