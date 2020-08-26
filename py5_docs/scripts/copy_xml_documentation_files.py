@@ -98,8 +98,9 @@ for pclass, class_data in class_data_info.items():
             # documentation exists, and should have already been copied
             continue
 
-        # new documentation
-        new_xml_files.append((pclass, py5_name, processing_name))
+        # new documentation that I must write
+        if pclass != 'PGraphics':
+            new_xml_files.append((pclass, py5_name, processing_name))
 
 
 # copy the relevant xml files to the py5 directory
@@ -114,8 +115,9 @@ for xml_file, file_data in xml_files:
 
 
 for new_file_data in new_xml_files:
+    print(new_file_data)
     pclass, py5_name, *_ = new_file_data
-    with open(PY5_API_EN / f'{pclass}_{py5_name}.xml', 'w') as f:
+    with open(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.xml', 'w') as f:
         f.write(NEW_TEMPLATE.format(py5_name))
 
 
