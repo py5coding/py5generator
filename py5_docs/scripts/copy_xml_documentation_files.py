@@ -76,10 +76,13 @@ for pclass, class_data in class_data_info.items():
             name = f'{processing_name}.xml'
         else:
             name = f'{pclass}_{processing_name}.xml'
-        xml_file = PROCESSING_API_EN / name
+        if processing_name == 'hint':
+            xml_file = PROCESSING_API_EN / 'include' / name
+        else:
+            xml_file = PROCESSING_API_EN / name
         if xml_file.exists():
             # documentation exists, copy
-            xml_files.append(xml_file)
+            xml_files.append((xml_file, (pclass, py5_name, processing_name)))
             continue
 
         # might be in a different file
@@ -92,8 +95,7 @@ for pclass, class_data in class_data_info.items():
                 if xml_file.exists():
                     break
         if xml_file.exists():
-            # documentation exists, copy
-            xml_files.append(xml_file)
+            # documentation exists, and should have already been copied
             continue
 
         # new documentation
@@ -101,15 +103,14 @@ for pclass, class_data in class_data_info.items():
 
 
 # copy the relevant xml files to the py5 directory
-for xml_file in xml_files:
+for xml_file, file_data in xml_files:
+    pclass, py5_name, processing_name = file_data
+    new_filename = f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.xml'
     # TODO: I should add extra metadata and Pythonize the code example
-    # name files with py5 name? YES because the new methods don't have a processing name
-    # use Py5 Class names
-    # add PApplet prefix for files that need it? YES because the current way is a complication
-    # add underlying processing function to metadata? YES because I want to mention this in the documentation
-    shutil.copy(xml_file, PY5_API_EN / xml_file.name)
+    # add underlying processing field or method to metadata? YES because I want to mention this in the documentation
+    shutil.copy(xml_file, PY5_API_EN / new_filename)
     permissions = stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP | stat.S_IROTH
-    os.chmod(PY5_API_EN / xml_file.name, permissions)
+    os.chmod(PY5_API_EN / new_filename, permissions)
 
 
 for new_file_data in new_xml_files:
