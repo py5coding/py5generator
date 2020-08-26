@@ -30,8 +30,7 @@ Missing Description
 </root>
 """
 
-PROCESSING_API_EN = Path(
-    '/home/jim/Projects/ITP/pythonprocessing/processing-docs/content/api_en/')
+PROCESSING_API_EN = Path('/home/jim/Projects/ITP/pythonprocessing/processing-docs/content/api_en/')
 PY5_API_EN = Path('py5_docs/Reference/api_en/')
 
 PY5_CLASS_LOOKUP = {
@@ -70,8 +69,7 @@ for pclass, class_data in class_data_info.items():
             new_xml_files.append((pclass, py5_name))
             continue
 
-        # first try this
-        # what about the hint file? it is in PGraphics and PApplet
+        # first try the correct documentation filename
         if pclass == 'PApplet':
             name = f'{processing_name}.xml'
         else:
@@ -85,7 +83,7 @@ for pclass, class_data in class_data_info.items():
             xml_files.append((xml_file, (pclass, py5_name, processing_name)))
             continue
 
-        # might be in a different file
+        # usable documentation might be in a different file because of inheritance
         if pclass in ['PApplet', 'PGraphics', 'PImage']:
             for prefix in ['', 'PGraphics_', 'PImage_']:
                 if processing_name == 'hint':
@@ -98,7 +96,7 @@ for pclass, class_data in class_data_info.items():
             # documentation exists, and should have already been copied
             continue
 
-        # new documentation that I must write
+        # new documentation that I must write. skip pgraphics so I don't duplicate work
         if pclass != 'PGraphics':
             new_xml_files.append((pclass, py5_name, processing_name))
 
@@ -107,20 +105,16 @@ for pclass, class_data in class_data_info.items():
 for xml_file, file_data in xml_files:
     pclass, py5_name, processing_name = file_data
     new_filename = f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.xml'
-    # TODO: I should add extra metadata and Pythonize the code example
-    # add underlying processing field or method to metadata? YES because I want to mention this in the documentation
+    # TODO: add extra metadata and Pythonize the code example
+    # add underlying processing field or method to metadata because I want to mention this in the documentation
     shutil.copy(xml_file, PY5_API_EN / new_filename)
     permissions = stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP | stat.S_IROTH
     os.chmod(PY5_API_EN / new_filename, permissions)
 
-
 for new_file_data in new_xml_files:
-    print(new_file_data)
     pclass, py5_name, *_ = new_file_data
     with open(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.xml', 'w') as f:
         f.write(NEW_TEMPLATE.format(py5_name))
-
-
 
 
 # generate docstrings using these xml descriptions with html removed and other info on parameters and signatures taken from other data files
