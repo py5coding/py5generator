@@ -6,8 +6,7 @@ from pathlib import Path
 import pandas as pd
 
 
-NEW_TEMPLATE = """
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+NEW_TEMPLATE = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <root>
 <name>{0}</name>
 
