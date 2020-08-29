@@ -3,9 +3,6 @@ import builtins
 
 # TODO: maybe move this back to py5_tools?
 # TODO: use MutableMapping https://docs.python.org/3/library/collections.abc.html instead
-# setter should add to user_ns if available
-# maybe don't pull from py5 namespace? or only do that for pde mode?
-# I can do all of this with one class, just use the user_ns to store new variables
 
 
 class Py5Namespace(dict):
