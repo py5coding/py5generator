@@ -20,26 +20,26 @@ py5.run_sketch(block=True)
 
 _SVG_CODE_TEMPLATE = """
 def settings():
-    size({0}, {1}, SVG, "{2}")
+    py5.size({0}, {1}, py5.SVG, "{2}")
 
 
 def setup():
 {3}
 
-    exit_sketch()
+    py5.exit_sketch()
 """
 
 
 _HIDDEN_CODE_TEMPLATE = """
 def settings():
-    size({0}, {1}, HIDDEN)
+    py5.size({0}, {1}, py5.HIDDEN)
 
 
 def setup():
 {3}
 
-    save_frame("{2}")
-    exit_sketch()
+    py5.save_frame("{2}")
+    py5.exit_sketch()
 """
 
 
@@ -97,6 +97,7 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns=None, suppres
     py5_ns = Py5Namespace(py5, user_ns=user_ns,
                           suppress_warnings=suppress_warnings)
     exec(_CODE_FRAMEWORK.format(temp_py.name), py5_ns)
+    # exec(_CODE_FRAMEWORK.format(temp_py.name), user_ns)
 
     py5.reset_py5()
 
