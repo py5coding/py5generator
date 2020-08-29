@@ -71,7 +71,7 @@ def run_sketch(sketch_path, classpath=None, new_process=False):
         _run_sketch(sketch_path, classpath)
 
 
-def run_single_frame_sketch(renderer, code, width, height, user_ns=None, suppress_warnings=False):
+def run_single_frame_sketch(renderer, code, width, height, user_ns=None):
 
     if renderer == 'SVG':
         template = _SVG_CODE_TEMPLATE
@@ -93,11 +93,7 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns=None, suppres
     import py5
     if not py5.get_current_sketch().is_ready:
         py5.reset_py5()
-    from py5.namespace import Py5Namespace
-    py5_ns = Py5Namespace(py5, user_ns=user_ns,
-                          suppress_warnings=suppress_warnings)
-    exec(_CODE_FRAMEWORK.format(temp_py.name), py5_ns)
-    # exec(_CODE_FRAMEWORK.format(temp_py.name), user_ns)
+    exec(_CODE_FRAMEWORK.format(temp_py.name), user_ns or dict())
 
     py5.reset_py5()
 

@@ -146,9 +146,8 @@ class Py5Magics(Magics):
         --no_warnings flag.
         """
         args = parse_argstring(self.py5drawsvg, line)
-        svg = run_single_frame_sketch(
-            'SVG', cell, args.width, args.height, user_ns=self.shell.user_ns,
-            suppress_warnings=args.suppress_warnings)
+        svg = run_single_frame_sketch('SVG', cell, args.width, args.height,
+                                      user_ns=self.shell.user_ns)
         if svg:
             if args.filename:
                 filename = self._filename_check(args.filename)
@@ -188,9 +187,8 @@ class Py5Magics(Magics):
         --no_warnings flag.
         """
         args = parse_argstring(self.py5draw, line)
-        png = run_single_frame_sketch(
-            'HIDDEN', cell, args.width, args.height, user_ns=self.shell.user_ns,
-            suppress_warnings=args.suppress_warnings)
+        png = run_single_frame_sketch('HIDDEN', cell, args.width, args.height,
+                                      user_ns=self.shell.user_ns)
         if png:
             if args.filename:
                 filename = self._filename_check(args.filename)
