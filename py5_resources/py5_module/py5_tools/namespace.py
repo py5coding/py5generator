@@ -1,8 +1,6 @@
 import builtins
 from collections.abc import MutableMapping
 
-# TODO: maybe move this back to py5_tools?
-
 
 class Py5Namespace(MutableMapping, dict):
 

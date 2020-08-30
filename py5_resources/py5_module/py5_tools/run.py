@@ -62,7 +62,7 @@ def run_sketch(sketch_path, classpath=None, new_process=False):
         if not py5.get_current_sketch().is_ready:
             py5.reset_py5()
         sys.path.extend([str(sketch_path.absolute().parent), os.getcwd()])
-        from py5.namespace import Py5Namespace
+        from .namespace import Py5Namespace
         py5_ns = Py5Namespace(py5)
         exec(_CODE_FRAMEWORK.format(sketch_path), py5_ns)
 
