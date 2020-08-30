@@ -1,29 +1,48 @@
 import builtins
-
+from collections.abc import MutableMapping
 
 # TODO: maybe move this back to py5_tools?
-# TODO: use MutableMapping https://docs.python.org/3/library/collections.abc.html instead
 
 
-class Py5Namespace(dict):
+class Py5Namespace(MutableMapping, dict):
 
-    def __init__(self, py5, user_ns=None):
-        super().__init__()
+    """
+    Variable Namespace used for pde mode py5 execution.
+
+    This inherits from both MutableMapping and dict because `exec` requires
+    the globals param to be a `dict` type. The MutableMapping implementation
+    should take precedence over all of the method calls.
+    """
+
+    def __init__(self, py5):
+        super(Py5Namespace, self).__init__()
         self._py5 = py5
-        self._user_ns = user_ns or dict()
-
-    def __setitem__(self, key, value):
-        return super().__setitem__(key, value)
+        self._ns = dict()
 
     def __getitem__(self, item):
         try:
-            return super().__getitem__(item)
+            return self._ns[item]
         except KeyError:
             if item in dir(self._py5):
                 return getattr(self._py5, item)
             elif hasattr(builtins, item):
                 return getattr(builtins, item)
-            elif item in self._user_ns:
-                return self._user_ns[item]
             else:
                 raise KeyError(f'{item} not found')
+
+    def __setitem__(self, key, value):
+        self._ns[key] = value
+
+    def __delitem__(self, key):
+        del self._ns[key]
+
+    def __iter__(self):
+        for k in self._ns.keys():
+            yield k
+        for k in dir(self._py5):
+            yield k
+        for k in dir(builtins):
+            yield k
+
+    def __len__(self):
+        return len(self._ns) + len(dir(self._py5)) + len(dir(builtins))
