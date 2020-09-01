@@ -3,6 +3,7 @@ import os
 from multiprocessing import Process
 from pathlib import Path
 import tempfile
+import textwrap
 
 from . import jvm
 
@@ -39,7 +40,7 @@ def settings():
 
 
 def setup():
-    exec(\"\"\"{3}\"\"\", _py5_user_ns)
+{3}
 
     py5.save_frame("{2}")
     py5.exit_sketch()
@@ -74,7 +75,7 @@ def run_sketch(sketch_path, classpath=None, new_process=False):
         _run_sketch(sketch_path, classpath)
 
 
-def run_single_frame_sketch(renderer, code, width, height, user_ns):
+def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
 
     if renderer == 'SVG':
         template = _SVG_CODE_TEMPLATE
@@ -85,19 +86,27 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns):
         suffix = '.png'
         read_mode = 'rb'
 
+    import py5
+    if not py5.get_current_sketch().is_ready:
+        py5.reset_py5()
+
+    if safe_exec:
+        prepared_code = textwrap.indent(code, '    ')
+    else:
+        user_ns['_py5_user_ns'] = user_ns
+        prepared_code = f'    exec("""{code}""", _py5_user_ns)'
+
     temp_py = tempfile.NamedTemporaryFile(suffix='.py')
     temp_out = tempfile.NamedTemporaryFile(suffix=suffix)
 
     with open(temp_py.name, 'w') as f:
-        code = template.format(width, height, temp_out.name, code)
+        code = template.format(width, height, temp_out.name, prepared_code)
         f.write(code)
 
-    import py5
-    if not py5.get_current_sketch().is_ready:
-        py5.reset_py5()
-    user_ns['_py5_user_ns'] = user_ns
     exec(_CODE_FRAMEWORK.format(temp_py.name), user_ns)
-    del user_ns['_py5_user_ns']
+
+    if not safe_exec:
+        del user_ns['_py5_user_ns']
 
     py5.reset_py5()
 

@@ -159,8 +159,8 @@ class Py5Magics(Magics):
     @argument('width', type=int, help='width of PNG drawing')
     @argument('height', type=int, help='height of PNG drawing')
     @argument('--filename', dest='filename', help='save image to file')
-    @argument('--no-warnings', dest='suppress_warnings', action='store_true',
-              help="suppress name conflict warnings")
+    @argument('--unsafe', dest='unsafe', action='store_true',
+              help="allow variables to enter the global namespace, creating potentially unsafe situation")
     @cell_magic
     def py5draw(self, line, cell):
         """Create a PNG image with py5 and embed result in the notebook.
@@ -180,15 +180,11 @@ class Py5Magics(Magics):
         ```
 
         Code used in this cell can reference functions and variables defined in
-        other cells. This will create a name conflict if your functions and
-        variables overlap with py5's. A name conflict may cause an error. If
-        such a conflict is detected, py5 will issue a helpful warning to alert
-        you to the potential problem. You can suppress warnings with the
-        --no_warnings flag.
+        other cells. TODO: write more
         """
         args = parse_argstring(self.py5draw, line)
         png = run_single_frame_sketch('HIDDEN', cell, args.width, args.height,
-                                      user_ns=self.shell.user_ns)
+                                      self.shell.user_ns, not args.unsafe)
         if png:
             if args.filename:
                 filename = self._filename_check(args.filename)
