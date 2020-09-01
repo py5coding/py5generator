@@ -165,8 +165,8 @@ class Py5Magics(Magics):
 
         For users who are familiar with Processing and py5 programming, you can
         pretend the code in this cell will be executed in a sketch with no
-        `draw()` function and your code in the `setup()` function. It will use
-        the default renderer.
+        `draw()` function and your code in the `setup()` function. By default it
+        will use the default Processing renderer.
 
         The below example will create a red square on a gray background:
 
@@ -178,7 +178,16 @@ class Py5Magics(Magics):
         ```
 
         Code used in this cell can reference functions and variables defined in
-        other cells. TODO: write more
+        other cells. By default, variables and functions created in this cell
+        will be local to only this cell because doing otherwise is potentially
+        unsafe. If you understand the risks, you can use the `global` keyword to
+        add a single function or variable to the notebook namespace or the
+        --unsafe argument to add everything to the notebook namespace. This may
+        be very useful to you, but be aware that using py5 objects in a
+        different notebook cell or reusing them in another sketch can result in
+        nasty errors and bizzare consequences. Any and all problems resulting
+        from this are solely your responsibility and not the py5 library
+        maintainers.
         """
         args = parse_argstring(self.py5draw, line)
         out = run_single_frame_sketch(args.renderer, cell, args.width, args.height,
