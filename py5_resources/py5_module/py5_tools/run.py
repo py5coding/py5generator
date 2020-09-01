@@ -26,7 +26,7 @@ def settings():
 
 
 def setup():
-    exec(\"\"\"{3}\"\"\", _py5_user_ns)
+{3}
 
     py5.exit_sketch()
 """
