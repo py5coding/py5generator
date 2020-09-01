@@ -77,6 +77,7 @@ def run_sketch(sketch_path, classpath=None, new_process=False):
 
 def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
 
+    # TODO: what about PDF and DXF renderers? others?
     if renderer == 'SVG':
         template = _SVG_CODE_TEMPLATE
         suffix = '.svg'

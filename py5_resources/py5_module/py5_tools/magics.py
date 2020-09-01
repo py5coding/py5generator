@@ -154,8 +154,8 @@ class Py5Magics(Magics):
     @magic_arguments()
     @argument('width', type=int, help='width of PNG drawing')
     @argument('height', type=int, help='height of PNG drawing')
-    @argument('--filename', dest='filename', help='save image to file')
-    @argument('--renderer', type=str, dest='renderer', default='HIDDEN',
+    @argument('-f', '--filename', dest='filename', help='save image to file')
+    @argument('-r', '--renderer', type=str, dest='renderer', default='HIDDEN',
               help='processing renderer to use for sketch')
     @argument('--unsafe', dest='unsafe', action='store_true',
               help="allow variables to enter the global namespace, creating a potentially unsafe situation")
@@ -181,13 +181,22 @@ class Py5Magics(Magics):
         other cells. TODO: write more
         """
         args = parse_argstring(self.py5draw, line)
-        png = run_single_frame_sketch(args.renderer, cell, args.width, args.height,
+        out = run_single_frame_sketch(args.renderer, cell, args.width, args.height,
                                       self.shell.user_ns, not args.unsafe)
-        if png:
-            if args.filename:
-                filename = self._filename_check(args.filename)
-                PIL.Image.open(io.BytesIO(png)).convert(mode='RGB').save(filename)
-            display(Image(png))
+        # TODO: what about PDF and DXF renderers? others?
+        # maybe keep py5drawsvg and make new ones for PDF and DXF to better manage the idiosyncrasies
+        if out:
+            if args.renderer in ['HIDDEN', 'JAVA2D', 'P2D', 'P3D']:
+                if args.filename:
+                    filename = self._filename_check(args.filename)
+                    PIL.Image.open(io.BytesIO(out)).convert(mode='RGB').save(filename)
+                display(Image(out))
+            elif args.renderer == 'SVG':
+                if args.filename:
+                    filename = self._filename_check(args.filename)
+                    with open(filename, 'w') as f:
+                        f.write(out)
+                display(SVG(out))
 
     @line_magic
     @magic_arguments()
