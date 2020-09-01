@@ -155,6 +155,8 @@ class Py5Magics(Magics):
     @argument('width', type=int, help='width of PNG drawing')
     @argument('height', type=int, help='height of PNG drawing')
     @argument('--filename', dest='filename', help='save image to file')
+    @argument('--renderer', type=str, dest='renderer', default='HIDDEN',
+              help='processing renderer to use for sketch')
     @argument('--unsafe', dest='unsafe', action='store_true',
               help="allow variables to enter the global namespace, creating a potentially unsafe situation")
     @cell_magic
@@ -179,7 +181,7 @@ class Py5Magics(Magics):
         other cells. TODO: write more
         """
         args = parse_argstring(self.py5draw, line)
-        png = run_single_frame_sketch('HIDDEN', cell, args.width, args.height,
+        png = run_single_frame_sketch(args.renderer, cell, args.width, args.height,
                                       self.shell.user_ns, not args.unsafe)
         if png:
             if args.filename:

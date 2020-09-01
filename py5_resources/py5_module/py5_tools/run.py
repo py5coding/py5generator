@@ -22,11 +22,11 @@ _SVG_CODE_TEMPLATE = """
 import py5
 
 def settings():
-    py5.size({0}, {1}, py5.SVG, "{2}")
+    py5.size({0}, {1}, py5.{2}, "{3}")
 
 
 def setup():
-{3}
+{4}
 
     py5.exit_sketch()
 """
@@ -36,13 +36,13 @@ _HIDDEN_CODE_TEMPLATE = """
 import py5
 
 def settings():
-    py5.size({0}, {1}, py5.HIDDEN)
+    py5.size({0}, {1}, py5.{2})
 
 
 def setup():
-{3}
+{4}
 
-    py5.save_frame("{2}")
+    py5.save_frame("{3}")
     py5.exit_sketch()
 """
 
@@ -81,7 +81,7 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
         template = _SVG_CODE_TEMPLATE
         suffix = '.svg'
         read_mode = 'r'
-    elif renderer == 'HIDDEN':
+    else:
         template = _HIDDEN_CODE_TEMPLATE
         suffix = '.png'
         read_mode = 'rb'
@@ -100,7 +100,7 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
     temp_out = tempfile.NamedTemporaryFile(suffix=suffix)
 
     with open(temp_py.name, 'w') as f:
-        code = template.format(width, height, temp_out.name, prepared_code)
+        code = template.format(width, height, renderer, temp_out.name, prepared_code)
         f.write(code)
 
     exec(_CODE_FRAMEWORK.format(temp_py.name), user_ns)
