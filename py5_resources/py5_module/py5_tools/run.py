@@ -18,21 +18,7 @@ py5.run_sketch(block=True)
 """
 
 
-_SVG_CODE_TEMPLATE = """
-import py5
-
-def settings():
-    py5.size({0}, {1}, py5.{2}, "{3}")
-
-
-def setup():
-{4}
-
-    py5.exit_sketch()
-"""
-
-
-_HIDDEN_CODE_TEMPLATE = """
+_STANDARD_CODE_TEMPLATE = """
 import py5
 
 def settings():
@@ -43,6 +29,20 @@ def setup():
 {4}
 
     py5.save_frame("{3}")
+    py5.exit_sketch()
+"""
+
+
+_ALT_CODE_TEMPLATE = """
+import py5
+
+def settings():
+    py5.size({0}, {1}, py5.{2}, "{3}")
+
+
+def setup():
+{4}
+
     py5.exit_sketch()
 """
 
@@ -79,11 +79,15 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
 
     # TODO: what about PDF and DXF renderers? others?
     if renderer == 'SVG':
-        template = _SVG_CODE_TEMPLATE
+        template = _ALT_CODE_TEMPLATE
         suffix = '.svg'
         read_mode = 'r'
+    elif renderer == 'PDF':
+        template = _ALT_CODE_TEMPLATE
+        suffix = '.pdf'
+        read_mode = 'rb'
     else:
-        template = _HIDDEN_CODE_TEMPLATE
+        template = _STANDARD_CODE_TEMPLATE
         suffix = '.png'
         read_mode = 'rb'
 

@@ -101,7 +101,6 @@ class GrabFramesHook(BaseHook):
             self.hook_error(sketch, e)
 
 
-
 @magics_class
 class Py5Magics(Magics):
 
@@ -112,14 +111,62 @@ class Py5Magics(Magics):
         return filename
 
     @magic_arguments()
+    @argument('width', type=int, help='width of PDF output')
+    @argument('height', type=int, help='height of PDF output')
+    @argument('filename', type=str, help='filename for PDF output')
+    @argument('--unsafe', dest='unsafe', action='store_true',
+              help="allow variables to enter the global namespace, creating a potentially unsafe situation")
+    @cell_magic
+    def py5drawpdf(self, line, cell):
+        """Create a PDF with py5.
+
+        For users who are familiar with Processing and py5 programming, you can
+        pretend the code in this cell will be executed in a sketch with no
+        `draw()` function and your code in the `setup()` function. It will use
+        the PDF renderer.
+
+        The below example will create a red square on a gray background:
+
+        ```
+            %%py5drawpdf 500 250
+            background(128)
+            fill(255, 0, 0)
+            rect(80, 100, 50, 50)
+        ```
+
+        As this is creating a PDF, you cannot do operations on the
+        `pixels` or `np_pixels` arrays. Use `%%py5draw` instead.
+
+        Code used in this cell can reference functions and variables defined in
+        other cells. By default, variables and functions created in this cell
+        will be local to only this cell because to do otherwise would be unsafe.
+        If you understand the risks, you can use the `global` keyword to add a
+        single function or variable to the notebook namespace or the --unsafe
+        argument to add everything to the notebook namespace. Either option may
+        be very useful to you, but be aware that using py5 objects in a
+        different notebook cell or reusing them in another sketch can result in
+        nasty errors and bizzare consequences. Any and all problems resulting
+        from using these features are solely your responsibility and not the py5
+        library maintainers.
+        """
+        args = parse_argstring(self.py5drawpdf, line)
+        pdf = run_single_frame_sketch('PDF', cell, args.width, args.height,
+                                      self.shell.user_ns, not args.unsafe)
+        if pdf:
+            filename = self._filename_check(args.filename)
+            with open(filename, 'wb') as f:
+                f.write(pdf)
+            print(f'PDF written to {filename}')
+
+    @magic_arguments()
     @argument('width', type=int, help='width of SVG drawing')
     @argument('height', type=int, help='height of SVG drawing')
-    @argument('--filename', type=str, dest='filename', help='save SVG image to file')
+    @argument('-f', '--filename', type=str, dest='filename', help='save SVG drawing to file')
     @argument('--unsafe', dest='unsafe', action='store_true',
               help="allow variables to enter the global namespace, creating a potentially unsafe situation")
     @cell_magic
     def py5drawsvg(self, line, cell):
-        """Create an SVG image with py5 and embed result in the notebook.
+        """Create an SVG drawing with py5 and embed result in the notebook.
 
         For users who are familiar with Processing and py5 programming, you can
         pretend the code in this cell will be executed in a sketch with no
@@ -135,11 +182,20 @@ class Py5Magics(Magics):
             rect(80, 100, 50, 50)
         ```
 
-        As this is creating an SVG image, you cannot do operations on the
+        As this is creating a SVG drawing, you cannot do operations on the
         `pixels` or `np_pixels` arrays. Use `%%py5draw` instead.
 
         Code used in this cell can reference functions and variables defined in
-        other cells. TODO: write more
+        other cells. By default, variables and functions created in this cell
+        will be local to only this cell because to do otherwise would be unsafe.
+        If you understand the risks, you can use the `global` keyword to add a
+        single function or variable to the notebook namespace or the --unsafe
+        argument to add everything to the notebook namespace. Either option may
+        be very useful to you, but be aware that using py5 objects in a
+        different notebook cell or reusing them in another sketch can result in
+        nasty errors and bizzare consequences. Any and all problems resulting
+        from using these features are solely your responsibility and not the py5
+        library maintainers.
         """
         args = parse_argstring(self.py5drawsvg, line)
         svg = run_single_frame_sketch('SVG', cell, args.width, args.height,
@@ -149,11 +205,12 @@ class Py5Magics(Magics):
                 filename = self._filename_check(args.filename)
                 with open(filename, 'w') as f:
                     f.write(svg)
+                print(f'SVG drawing written to {filename}')
             display(SVG(svg))
 
     @magic_arguments()
-    @argument('width', type=int, help='width of PNG drawing')
-    @argument('height', type=int, help='height of PNG drawing')
+    @argument('width', type=int, help='width of PNG image')
+    @argument('height', type=int, help='height of PNG image')
     @argument('-f', '--filename', dest='filename', help='save image to file')
     @argument('-r', '--renderer', type=str, dest='renderer', default='HIDDEN',
               help='processing renderer to use for sketch')
@@ -179,33 +236,36 @@ class Py5Magics(Magics):
 
         Code used in this cell can reference functions and variables defined in
         other cells. By default, variables and functions created in this cell
-        will be local to only this cell because doing otherwise is potentially
-        unsafe. If you understand the risks, you can use the `global` keyword to
-        add a single function or variable to the notebook namespace or the
-        --unsafe argument to add everything to the notebook namespace. This may
+        will be local to only this cell because to do otherwise would be unsafe.
+        If you understand the risks, you can use the `global` keyword to add a
+        single function or variable to the notebook namespace or the --unsafe
+        argument to add everything to the notebook namespace. Either option may
         be very useful to you, but be aware that using py5 objects in a
         different notebook cell or reusing them in another sketch can result in
         nasty errors and bizzare consequences. Any and all problems resulting
-        from this are solely your responsibility and not the py5 library
-        maintainers.
+        from using these features are solely your responsibility and not the py5
+        library maintainers.
         """
         args = parse_argstring(self.py5draw, line)
-        out = run_single_frame_sketch(args.renderer, cell, args.width, args.height,
+
+        if args.renderer == 'SVG':
+            print('please use %%py5drawsvg for SVG drawings.')
+            return
+        if args.renderer == 'PDF':
+            print('please use %%py5drawpdf for PDFs.')
+            return
+        if args.renderer not in ['HIDDEN', 'JAVA2D', 'P2D', 'P3D']:
+            print(f'unknown renderer {args.renderer}')
+            return
+
+        png = run_single_frame_sketch(args.renderer, cell, args.width, args.height,
                                       self.shell.user_ns, not args.unsafe)
-        # TODO: what about PDF and DXF renderers? others?
-        # maybe keep py5drawsvg and make new ones for PDF and DXF to better manage the idiosyncrasies
-        if out:
-            if args.renderer in ['HIDDEN', 'JAVA2D', 'P2D', 'P3D']:
-                if args.filename:
-                    filename = self._filename_check(args.filename)
-                    PIL.Image.open(io.BytesIO(out)).convert(mode='RGB').save(filename)
-                display(Image(out))
-            elif args.renderer == 'SVG':
-                if args.filename:
-                    filename = self._filename_check(args.filename)
-                    with open(filename, 'w') as f:
-                        f.write(out)
-                display(SVG(out))
+        if png:
+            if args.filename:
+                filename = self._filename_check(args.filename)
+                PIL.Image.open(io.BytesIO(png)).convert(mode='RGB').save(filename)
+                print(f'PNG file written to {filename}')
+            display(Image(png))
 
     @line_magic
     @magic_arguments()
