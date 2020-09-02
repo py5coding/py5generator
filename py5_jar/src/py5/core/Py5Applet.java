@@ -26,7 +26,6 @@ public class Py5Applet extends PApplet {
    */
 
   public void usePy5Methods(Py5Methods py5Methods) {
-    // TODO: shouldn't this be in a constructor??? It could be
     this.py5Methods = py5Methods;
     this.py5RegisteredEvents = new HashSet<String>();
     for (String f : py5Methods.get_function_list())

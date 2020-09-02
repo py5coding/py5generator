@@ -14,9 +14,6 @@ class Test(Sketch):
         self.background(255)
         self.rect_mode(py5.CENTER)
         self.frame_rate(30)
-        # TODO: why is this here and does it do anything???
-        self.hint(self.ENABLE_ASYNC_SAVEFRAME)
-        # self.hint(self.DISABLE_ASYNC_SAVEFRAME)
 
         # self.pg = self.create_graphics(200, 200)
         self.pg = self.create_graphics(200, 200, self.P2D)

@@ -24,23 +24,24 @@ _module_install_dir = str(Path(__file__).parent)
 
 
 def handle_exception(exc_type, exc_value, exc_tb):
-    # TODO: this should have its own exception handler, especially if I am going
-    # to use user registered functions to respond to errors.
     py5info = []
-    if _prune_tracebacks and hasattr(exc_tb, 'tb_next'):
-        prev_tb = exc_tb
-        trim_tb = None
-        tb = exc_tb.tb_next
-        while hasattr(tb, 'tb_next') and hasattr(tb, 'tb_frame'):
-            f_code = tb.tb_frame.f_code
-            if f_code.co_filename.startswith(_module_install_dir):
-                py5info.append((f_code.co_filename[(len(_module_install_dir) + 1):], f_code.co_name))
-                if trim_tb is None:
-                    trim_tb = prev_tb
-            prev_tb = tb
-            tb = tb.tb_next
-        if trim_tb:
-            trim_tb.tb_next = None
+    try:
+        if _prune_tracebacks and hasattr(exc_tb, 'tb_next'):
+            prev_tb = exc_tb
+            trim_tb = None
+            tb = exc_tb.tb_next
+            while hasattr(tb, 'tb_next') and hasattr(tb, 'tb_frame'):
+                f_code = tb.tb_frame.f_code
+                if f_code.co_filename.startswith(_module_install_dir):
+                    py5info.append((f_code.co_filename[(len(_module_install_dir) + 1):], f_code.co_name))
+                    if trim_tb is None:
+                        trim_tb = prev_tb
+                prev_tb = tb
+                tb = tb.tb_next
+            if trim_tb:
+                trim_tb.tb_next = None
+    except Exception as e:
+        logger.critical(f'Exception thrown while examining error traceback: {str(e)}')
 
     errmsg = stackprinter.format(
         thing=(exc_type, exc_value, exc_tb.tb_next),
