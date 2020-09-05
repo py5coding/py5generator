@@ -146,7 +146,7 @@ def generate_py5(repo_dir):
     logger.info(f'building py5 in {dest_dir}')
     if dest_dir.exists():
         shutil.rmtree(dest_dir)
-    docstrings = DocstringFinder()
+    docstrings = DocstringFinder(method_signatures_lookup)
     copier = CodeCopier(format_params, docstrings)
     if dest_dir.exists():
         shutil.rmtree(dest_dir)
