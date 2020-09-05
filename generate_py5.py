@@ -146,7 +146,10 @@ def generate_py5(repo_dir):
     logger.info(f'building py5 in {dest_dir}')
     if dest_dir.exists():
         shutil.rmtree(dest_dir)
-    docstrings = DocstringFinder(method_signatures_lookup)
+    docstrings = DocstringFinder(
+        method_signatures_lookup,
+        # TODO: shouldn't this file be in a py5_docs subdir?
+        Path('py5_resources', 'docstrings', 'variable_descriptions.json'))
     copier = CodeCopier(format_params, docstrings)
     if dest_dir.exists():
         shutil.rmtree(dest_dir)
