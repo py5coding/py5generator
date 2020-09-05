@@ -17,8 +17,8 @@ class HighlightPy5Style(Style):
         **{
             Token: '#000000',
             Name.Other: 'bold #ff2222',
-        #    Name.Builtin: '#0f0',
-           }
+            # Name.Builtin: '#0f0',
+        }
     }
     background_color = '#d0d0d0'
 
