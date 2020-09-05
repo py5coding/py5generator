@@ -50,7 +50,7 @@ CLASS_METHOD_TYPEHINT_TEMPLATE = """
 CLASS_METHOD_TEMPLATE = """
     {5}
     def {1}({2}, {6}):
-        \"\"\"$class_{0}_{1}|\"\"\"
+        \"\"\"$class_{0}_{1}\"\"\"
         # try:
         return {3}.{4}(*args)
         # except Exception as e:

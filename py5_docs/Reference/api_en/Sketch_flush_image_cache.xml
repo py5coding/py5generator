@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <root>
-<name>flush_image_cache</name>
+<name>flush_image_cache()</name>
 
 <category></category>
 
 <subcategory></subcategory>
 
-<type></type>
+<type>method</type>
 
 <example>
 <image></image>

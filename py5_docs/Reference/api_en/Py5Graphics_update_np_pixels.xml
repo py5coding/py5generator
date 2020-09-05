@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <root>
-<name>update_np_pixels</name>
+<name>update_np_pixels()</name>
 
 <category></category>
 
 <subcategory></subcategory>
 
-<type></type>
+<type>method</type>
 
 <example>
 <image></image>

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <root>
-<name>sketch_path</name>
+<name>sketch_path()</name>
 
 <category></category>
 
 <subcategory></subcategory>
 
-<type></type>
+<type>method</type>
 
 <example>
 <image></image>
