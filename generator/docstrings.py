@@ -1,3 +1,4 @@
+import re
 from io import StringIO
 import textwrap
 from html.parser import HTMLParser
@@ -21,6 +22,16 @@ Notes
 -----
 
 {2}
+"""
+
+
+VARIABLE_DOC_TEMPLATE = """
+{0}.
+
+Notes
+-----
+
+{1}
 """
 
 
@@ -54,17 +65,23 @@ def prepare_docstrings(method_signatures_lookup):
             data = xmltodict.parse(f.read())
         # TODO: I don't want to remove all html, I want to replace the <b> tags with backticks, for example
         description = remove_html(data['root']['description']).strip()
+        # item_type = data['root'].get('type', 'method')
+        item_name = data['root']['name']
         description = '\n'.join([textwrap.fill(d, 80) for d in description.split('\n')])
-        first_sentence = description.split('. ', maxsplit=1)[0]
-        if key not in method_signatures_lookup:
-            print('missing', key)
-            method_signatures = 'signatures missing'
+        first_sentence = re.split(r'\.\s', description, maxsplit=1)[0]
+        if item_name.endswith('()'):
+            if key not in method_signatures_lookup:
+                print('missing method signatures', key)
+                method_signatures = 'signatures missing'
+            else:
+                signatures = []
+                for params, rettype in method_signatures_lookup[key]:
+                    signatures.append(f"{key[1]}({', '.join(filter(lambda p: p != '/', params))}) -> {rettype}")
+                method_signatures = '\n'.join(sorted(signatures))
+            docstring = METHOD_DOC_TEMPLATE.format(first_sentence, method_signatures, description)
         else:
-            signatures = []
-            for params, rettype in method_signatures_lookup[key]:
-                signatures.append(f"{key[1]}({', '.join(filter(lambda p: p != '/', params))}) -> {rettype}")
-            method_signatures = '\n'.join(sorted(signatures))
-        docstring = METHOD_DOC_TEMPLATE.format(first_sentence, method_signatures, description)
+            docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence, description)
+
         docstrings[key] = docstring
 
     return docstrings

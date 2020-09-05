@@ -14,7 +14,7 @@ NEW_TEMPLATE = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 
 <subcategory></subcategory>
 
-<type></type>
+<type>{1}</type>
 
 <example>
 <image></image>
@@ -59,13 +59,14 @@ xml_files = []
 new_xml_files = []
 for pclass, class_data in class_data_info.items():
     for processing_name, data in class_data.iterrows():
-        if data['type'] in ['static field', 'unknown']:
+        item_type = data['type']
+        if item_type in ['static field', 'unknown']:
             # skip, we don't care
             continue
         py5_name = data['py5_name']
         if not processing_name:
             # definitely a new function I need to document
-            new_xml_files.append((pclass, py5_name))
+            new_xml_files.append((pclass, py5_name, item_type))
             continue
 
         # first try the correct documentation filename
@@ -97,7 +98,7 @@ for pclass, class_data in class_data_info.items():
 
         # new documentation that I must write. skip pgraphics so I don't duplicate work
         if pclass != 'PGraphics':
-            new_xml_files.append((pclass, py5_name, processing_name))
+            new_xml_files.append((pclass, py5_name, item_type, processing_name))
 
 
 # copy the relevant xml files to the py5 directory
@@ -112,9 +113,12 @@ for xml_file, file_data in xml_files:
     os.chmod(PY5_API_EN / new_filename, permissions)
 
 for new_file_data in new_xml_files:
-    pclass, py5_name, *_ = new_file_data
+    pclass, py5_name, item_type, *_ = new_file_data
     with open(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.xml', 'w') as f:
-        f.write(NEW_TEMPLATE.format(py5_name))
+        name = py5_name if item_type == 'dynamic variable' else py5_name + '()'
+        f.write(NEW_TEMPLATE.format(name, item_type))
+
+print(f'copied {len(xml_files)} files and created {len(new_xml_files)} new files.')
 
 
 # generate docstrings using these xml descriptions with html removed and other info on parameters and signatures taken from other data files
