@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from generator import CodeBuilder, MethodParamsDict, DocstringDict, CodeCopier
+from generator import CodeBuilder, DocstringFinder, CodeCopier
 from generator import reference as ref
 from generator import templates as templ
 from generator import javap
@@ -146,14 +146,8 @@ def generate_py5(repo_dir):
     logger.info(f'building py5 in {dest_dir}')
     if dest_dir.exists():
         shutil.rmtree(dest_dir)
-    method_params_dict = MethodParamsDict(
-        method_signatures_lookup,
-        Path('py5_resources', 'docstrings', 'variable_descriptions.json')
-    )
-    docstrings = DocstringDict(
-        Path('py5_resources', 'docstrings', 'docs.rst'),
-        method_params_dict
-    )
+    # TODO: instead of saving to a pickle file I should call a function
+    docstrings = DocstringFinder('/tmp/docstrings.p')
     copier = CodeCopier(format_params, docstrings)
     if dest_dir.exists():
         shutil.rmtree(dest_dir)

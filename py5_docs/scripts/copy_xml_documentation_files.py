@@ -105,7 +105,8 @@ for xml_file, file_data in xml_files:
     pclass, py5_name, processing_name = file_data
     new_filename = f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.xml'
     # TODO: add extra metadata and Pythonize the code example
-    # add underlying processing field or method to metadata because I want to mention this in the documentation
+    # TODO: should I and can I convert to a different format like yaml or toml? I can't do json
+    # TODO: add underlying processing field or method to metadata because I want to mention this in the documentation
     shutil.copy(xml_file, PY5_API_EN / new_filename)
     permissions = stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP | stat.S_IROTH
     os.chmod(PY5_API_EN / new_filename, permissions)
@@ -117,4 +118,5 @@ for new_file_data in new_xml_files:
 
 
 # generate docstrings using these xml descriptions with html removed and other info on parameters and signatures taken from other data files
-# later, generate processing-like docs using all the xml files using the existing process
+# later, generate processing-like docs using all the xml files by learning from the existing process
+# use the xml files to make rst files that I can then use in a nikola website

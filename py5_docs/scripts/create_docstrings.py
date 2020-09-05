@@ -58,5 +58,8 @@ for xml_file in PY5_API_EN.glob('*.xml'):
         docstrings[key] = docstring
 
 
+# TODO: all this should be a function that gets called from generate_py5, I do not want to create a pickle file that gets checked in
+
+
 with open('/tmp/docstrings.p', 'wb') as f:
     pickle.dump(docstrings, f)
