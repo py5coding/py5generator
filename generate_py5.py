@@ -146,8 +146,7 @@ def generate_py5(repo_dir):
     logger.info(f'building py5 in {dest_dir}')
     if dest_dir.exists():
         shutil.rmtree(dest_dir)
-    # TODO: instead of saving to a pickle file I should call a function
-    docstrings = DocstringFinder('/tmp/docstrings.p')
+    docstrings = DocstringFinder()
     copier = CodeCopier(format_params, docstrings)
     if dest_dir.exists():
         shutil.rmtree(dest_dir)
