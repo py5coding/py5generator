@@ -11,7 +11,7 @@ import xmltodict
 PY5_API_EN = Path('py5_docs/Reference/api_en/')
 
 
-PARAMETER_TEMPLATE = """
+PARAMETERS_TEMPLATE = """
 
 Parameters
 ----------
@@ -67,7 +67,6 @@ def remove_html(html):
 
 def prepare_docstrings(method_signatures_lookup, variable_descriptions):
     docstrings = {}
-    # TODO: how does this work for frameRate the variable and frameRate the method? they are two different things but only there is only one file
     for xml_file in sorted(PY5_API_EN.glob('*.xml')):
         key = xml_file.stem
         tuple_key = tuple(key.split('_', maxsplit=1))
@@ -75,7 +74,6 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
             data = xmltodict.parse(f.read())
         # TODO: I don't want to remove all html, I want to replace the <b> tags with backticks, for example
         description = remove_html(data['root']['description']).strip()
-        # item_type = data['root'].get('type', 'method')
         item_name = data['root']['name']
         description = '\n'.join([textwrap.fill(d, 80) for d in description.split('\n')])
         first_sentence = re.split(r'\.\s', description, maxsplit=1)[0]
@@ -98,7 +96,7 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
 
                 signatures_variables = '\n'.join(sorted(signatures))
                 if variables:
-                    signatures_variables += PARAMETER_TEMPLATE.format('\n'.join(sorted(variables)))
+                    signatures_variables += PARAMETERS_TEMPLATE.format('\n'.join(sorted(variables)))
             docstring = METHOD_DOC_TEMPLATE.format(first_sentence, signatures_variables, description)
         else:
             docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence, description)

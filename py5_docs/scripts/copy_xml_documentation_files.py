@@ -43,6 +43,14 @@ PY5_CLASS_LOOKUP = {
 }
 
 
+PY5_SKETCH_EXTRAS = [
+    # don't do these because I want new files to be created
+    # ('get_frame_rate', 'frameRate'),
+    # ('is_key_pressed', 'keyPressed'),
+    # ('is_mouse_pressed', 'mousePressed'),
+]
+
+
 # read the class datafiles so I know what methods and fields are relevant
 class_data_info = dict()
 class_resource_data = Path('py5_resources', 'data')
@@ -67,6 +75,10 @@ for pclass, class_data in class_data_info.items():
         if not processing_name:
             # definitely a new function I need to document
             new_xml_files.append((pclass, py5_name, item_type))
+            continue
+
+        # these will be added manually; don't want them added to new_xml_files
+        if py5_name in {x[0] for x in PY5_SKETCH_EXTRAS}:
             continue
 
         # first try the correct documentation filename
@@ -100,6 +112,11 @@ for pclass, class_data in class_data_info.items():
         if pclass != 'PGraphics':
             new_xml_files.append((pclass, py5_name, item_type, processing_name))
 
+
+# add a few extras
+for py5_name, processing_name in PY5_SKETCH_EXTRAS:
+    xml_file = PROCESSING_API_EN / f'{processing_name}_var.xml'
+    xml_files.append((xml_file, ('PApplet', py5_name, processing_name)))
 
 # copy the relevant xml files to the py5 directory
 for xml_file, file_data in xml_files:
