@@ -221,9 +221,6 @@ blend,blend,,,method,TRUE,TRUE,
 load_tiff,loadTIFF,,,static method,FALSE,FALSE,
 load_tga,loadTGA,,,static method,FALSE,FALSE,
 is_loaded,isLoaded,,,method,FALSE,FALSE,
-set_pixel_buffer,setPixelBuffer,,,method,FALSE,FALSE,public methods that shouldn't be available to users
-load_and_put_pixels,loadAndPutPixels,,,method,FALSE,FALSE,public methods that shouldn't be available to users
-get_and_update_pixels,getAndUpdatePixels,,,method,FALSE,FALSE,public methods that shouldn't be available to users
 load_np_pixels,,,,method,FALSE,TRUE,like loadPixels but for np_pixels; implemented in pixels.py mixin
 update_np_pixels,,,,method,FALSE,TRUE,like updatePixels but for np_pixels; implemented in the pixels.py mixin
 set_np_pixels,,,,method,FALSE,TRUE,replaces data in the np_pixels array; implemented in the pixels.py mixin

@@ -570,17 +570,13 @@ push,push,,,method,structure,,TRUE,TRUE,
 pop,pop,,,method,structure,,TRUE,TRUE,
 link,link,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 use_py5_methods,usePy5Methods,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-set_pixel_buffer,setPixelBuffer,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 get_frame_rate,getFrameRate,,,method,,,TRUE,TRUE,this replaces the frame_rate variable which conflicts with the frame_rate function
 is_key_pressed,isKeyPressed,,,method,,,TRUE,TRUE,"this replaces the key_pressed variable which conflicts with the key_pressed function. note that this is a method, not a dynamic field, so you need to use the () at the end."
 is_mouse_pressed,isMousePressed,,,method,,,TRUE,TRUE,"this replaces the mouse_pressed variable which conflicts with the mouse_pressed function. note that this is a method, not a dynamic field, so you need to use the () at the end."
-load_and_put_pixels,loadAndPutPixels,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-get_and_update_pixels,getAndUpdatePixels,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 load_np_pixels,,,,method,,,FALSE,TRUE,like loadPixels but for np_pixels; implemented in pixels.py mixin
 update_np_pixels,,,,method,,,FALSE,TRUE,like updatePixels but for np_pixels; implemented in the pixels.py mixin
 set_np_pixels,,,,method,,,FALSE,TRUE,replaces data in the np_pixels array; implemented in the pixels.py mixin
 np_pixels,,,,dynamic variable,,,FALSE,TRUE,numpy array containing pixel data
-convert_bytes_to_p_image,convertBytesToPImage,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 load_json,,,,static method,,,FALSE,TRUE,implemented in mixin file data.py
 save_json,,,,static method,,,FALSE,TRUE,implemented in mixin file data.py
 parse_json,,,,static method,,,FALSE,TRUE,implemented in mixin file data.py
