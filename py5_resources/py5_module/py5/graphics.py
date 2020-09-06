@@ -56,7 +56,7 @@ class Py5Graphics(PixelMixin, Py5Base):
         super().__init__(instance=pgraphics)
 
     def points(self, coordinates):
-        _Py5GraphicsHelper.points(self._instan1ce, coordinates)
+        _Py5GraphicsHelper.points(self._instance, coordinates)
 
     def lines(self, coordinates):
         _Py5GraphicsHelper.lines(self._instance, coordinates)
