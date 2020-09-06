@@ -222,9 +222,6 @@ class CodeBuilder:
                 kw_param = kwargs.split(':')[0]
                 module_arguments += f', {kw_param}={kw_param}'
 
-            # TODO: these need to have the parameters for all overloads
-            # TODO: they also need to list all the call signatures
-            # TODO: all comments should say what they return
             self.class_members.append(
                 templ.CLASS_METHOD_TEMPLATE.format(
                     self._class_name, py5_name, first_param, classobj, fname,
