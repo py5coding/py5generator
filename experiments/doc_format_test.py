@@ -1,4 +1,7 @@
 import re
+from pathlib import Path
+
+import xmltodict
 
 
 test_text = """## meta
@@ -27,17 +30,54 @@ CODE_REGEX = re.compile(r'image = ([\w\d\.]+)\s+(.*)', re.DOTALL)
 
 class Documentation:
 
-    def __init__(self, text):
-        self.meta = dict()
-        self.description = ''
-        self.examples = []
+    def __init__(self, filename):
+        if not isinstance(filename, Path):
+            filename = Path(filename)
+        if filename.suffix == '.txt':
+            self.meta, self.examples, self.description = self._from_txt_file(filename)
+        elif filename.suffix == '.xml':
+            self.meta, self.examples, self.description = self._from_xml_file(filename)
+
+    def _from_xml_file(self, filename):
+        with open(filename, 'r') as f:
+            content = xmltodict.parse(f.read())['root']
+        meta = dict()
+        examples = []
+        description = ''
+        for key in content.keys():
+            if key == 'description':
+                description = content['description']
+            elif key == 'example':
+                example = content['example']
+                if isinstance(example, list):
+                    examples = [(x.get('image'), x['code']) for x in example]
+                else:
+                    examples = [(example.get('image'), example['code'])]
+            else:
+                meta[key] = content[key]
+        return meta, examples, description
+
+    def _from_txt_file(self, filename):
+        with open(filename, 'r') as f:
+            text = f.read()
+        meta = dict()
+        examples = []
+        description = ''
         for kind, content in DOC_REGEX.findall(text):
             if kind == 'meta':
-                self.meta = dict(META_REGEX.findall(content))
-            elif kind == 'description':
-                self.description = content.strip()
+                meta = dict(META_REGEX.findall(content))
             elif kind == 'example':
-                self.examples.append(CODE_REGEX.match(content.strip()).groups())
+                # TODO: this is wrong, there might not be an image
+                examples.append(CODE_REGEX.match(content.strip()).groups())
+            elif kind == 'description':
+                description = content.strip()
+        return meta, examples, description
 
 
-doc = Documentation(test_text)
+filename1 = 'py5_docs/Reference/api_en/Sketch_tint.xml'
+filename2 = 'py5_docs/Reference/api_en/Sketch_bezier_detail.xml'
+doc1 = Documentation(filename1)
+doc2 = Documentation(filename2)
+
+for filename in Path('py5_docs/Reference/api_en/').glob('*.xml'):
+    Documentation(filename)
