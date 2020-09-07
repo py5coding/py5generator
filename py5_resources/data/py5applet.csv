@@ -269,14 +269,14 @@ print,print,,,method,output,text_area,FALSE,FALSE,conflict with builtin python f
 save,save,,,method,output,image,FALSE,TRUE,implemented in pixels.py mixin
 flush,flush,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 copy,copy,@_return_py5image,,method,image,pixels,TRUE,TRUE,
-mask,mask,,,method,pimage,method,TRUE,TRUE,
+mask,mask,,,method,pimage,method,FALSE,FALSE,why is this method in PApplet? It is not documented and cannot actually work correctly
 nf,nf,,,method,data,string_functions,FALSE,FALSE,user should use python instead
 expand,expand,,,method,data,array_functions,FALSE,FALSE,user should use python instead
 box,box,,,method,shape,3d_primitives,TRUE,TRUE,
 loop,loop,,,method,structure,,TRUE,TRUE,
 reverse,reverse,,,method,data,array_functions,FALSE,FALSE,user should use python instead
 line,line,,,method,shape,2d_primitives,TRUE,TRUE,
-thread,thread,,,method,structure,,TRUE,TRUE,
+thread,thread,,,method,structure,,FALSE,FALSE,use launch_thread insead
 parse_boolean,parseBoolean,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 parse_int,parseInt,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 parse_float,parseFloat,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
