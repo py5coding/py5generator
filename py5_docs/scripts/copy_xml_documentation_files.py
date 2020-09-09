@@ -7,16 +7,15 @@ from generator.docfiles import Documentation
 
 
 NEW_TEMPLATE = """## meta
-name = 
+name = {0}
 category = 
 subcategory = 
-type = 
+type = {1}
 
 ## description
-
+new template no description
 
 ## example
-image = 
 
 """
 
@@ -119,10 +118,10 @@ for py5_name, processing_name in PY5_SKETCH_EXTRAS:
 for xml_file, file_data in xml_files:
     pclass, py5_name, processing_name = file_data
     doc = Documentation(xml_file)
+    # TODO: convert descriptions to markdown or rest
+    # TODO: Pythonize the code examples
+    # TODO: add extra metadata such as underlying processing field or method because I want to mention this in the documentation
     doc.write(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.txt')
-    # TODO: add extra metadata and Pythonize the code example
-    # TODO: should I and can I convert to a different format like yaml or toml? I can't do json
-    # TODO: add underlying processing field or method to metadata because I want to mention this in the documentation
 
 for new_file_data in new_xml_files:
     pclass, py5_name, item_type, *_ = new_file_data

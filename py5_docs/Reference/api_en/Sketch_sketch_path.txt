@@ -1,12 +1,11 @@
 ## meta
-name = 
+name = sketch_path()
 category = 
 subcategory = 
-type = 
+type = method
 
 ## description
-
+new template no description
 
 ## example
-image = 
 

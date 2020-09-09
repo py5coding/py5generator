@@ -1,12 +1,11 @@
 ## meta
-name = 
+name = set_texture()
 category = 
 subcategory = 
-type = 
+type = method
 
 ## description
-
+new template no description
 
 ## example
-image = 
 

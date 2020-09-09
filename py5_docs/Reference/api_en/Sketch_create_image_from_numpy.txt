@@ -1,5 +1,5 @@
 ## meta
-name = get_ambient()
+name = create_image_from_numpy()
 category = 
 subcategory = 
 type = method

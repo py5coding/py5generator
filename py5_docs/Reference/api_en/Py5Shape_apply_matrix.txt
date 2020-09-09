@@ -1,12 +1,11 @@
 ## meta
-name = 
+name = apply_matrix()
 category = 
 subcategory = 
-type = 
+type = method
 
 ## description
-
+new template no description
 
 ## example
-image = 
 

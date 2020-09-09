@@ -1,12 +1,11 @@
 ## meta
-name = 
+name = parse_json()
 category = 
 subcategory = 
-type = 
+type = static method
 
 ## description
-
+new template no description
 
 ## example
-image = 
 

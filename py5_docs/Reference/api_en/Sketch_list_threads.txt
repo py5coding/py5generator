@@ -1,12 +1,11 @@
 ## meta
-name = 
+name = list_threads()
 category = 
 subcategory = 
-type = 
+type = method
 
 ## description
-
+new template no description
 
 ## example
-image = 
 

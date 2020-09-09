@@ -1,12 +1,11 @@
 ## meta
-name = 
+name = print_line_profiler_stats()
 category = 
 subcategory = 
-type = 
+type = method
 
 ## description
-
+new template no description
 
 ## example
-image = 
 

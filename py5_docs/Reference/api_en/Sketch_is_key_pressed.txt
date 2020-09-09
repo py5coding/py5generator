@@ -1,12 +1,11 @@
 ## meta
-name = 
+name = is_key_pressed()
 category = 
 subcategory = 
-type = 
+type = method
 
 ## description
-
+new template no description
 
 ## example
-image = 
 

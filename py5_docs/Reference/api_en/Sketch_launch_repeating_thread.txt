@@ -1,12 +1,11 @@
 ## meta
-name = 
+name = launch_repeating_thread()
 category = 
 subcategory = 
-type = 
+type = method
 
 ## description
-
+new template no description
 
 ## example
-image = 
 

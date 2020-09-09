@@ -1,5 +1,5 @@
 ## meta
-name = get_ambient()
+name = convert_image()
 category = 
 subcategory = 
 type = method

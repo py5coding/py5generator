@@ -1,12 +1,11 @@
 ## meta
-name = 
+name = stop_thread()
 category = 
 subcategory = 
-type = 
+type = method
 
 ## description
-
+new template no description
 
 ## example
-image = 
 
