@@ -1,6 +1,4 @@
-# import os
-# import stat
-# import shutil
+import re
 from pathlib import Path
 
 import pandas as pd
@@ -42,6 +40,12 @@ PY5_SKETCH_EXTRAS = [
     # ('is_key_pressed', 'keyPressed'),
     # ('is_mouse_pressed', 'mousePressed'),
 ]
+
+
+def snake_case(name):
+    name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+    name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', name)
+    return name.lower()
 
 
 # read the class datafiles so I know what methods and fields are relevant
@@ -119,9 +123,6 @@ for xml_file, file_data in xml_files:
     # TODO: add extra metadata and Pythonize the code example
     # TODO: should I and can I convert to a different format like yaml or toml? I can't do json
     # TODO: add underlying processing field or method to metadata because I want to mention this in the documentation
-    # shutil.copy(xml_file, PY5_API_EN / new_filename)
-    # permissions = stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP | stat.S_IROTH
-    # os.chmod(PY5_API_EN / new_filename, permissions)
 
 for new_file_data in new_xml_files:
     pclass, py5_name, item_type, *_ = new_file_data

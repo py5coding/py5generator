@@ -71,8 +71,6 @@ def snake_case(name):
 class DocData:
 
     def __init__(self):
-        self.first = ''
-        self.full = ''
         self.vars = dict()
         self.see_also = []
 
@@ -90,12 +88,6 @@ class DocData:
             # this second fixes what the snake_function does to code
             text = text.replace(snake_case(pname), py5name)
         return text
-
-    def report_first_full(self, first, full):
-        if full and len(full) > len(self.full):
-            # I want to take both of them or neither of them
-            self.full = self._text_cleanup(re.sub(AUTOGEN_REGEX, '', full or ''))
-            self.first = self._text_cleanup(re.sub(AUTOGEN_REGEX, '', first or ''))
 
     def report_param(self, varname, vardesc):
         self.vars[varname] = vardesc
@@ -145,7 +137,6 @@ for commenttree in root['commenttrees']['commenttree']:
     kind = commenttree['@kind']
 
     fdata = docdata[(py5class, kind, py5name)]
-    fdata.report_first_full(body['first'], body['first'])
 
     blocktags = commenttree['blocktags']
     if blocktags:
@@ -165,25 +156,8 @@ for commenttree in root['commenttrees']['commenttree']:
 variable_descriptions = defaultdict(dict)
 docstrings = []
 for (py5class, kind, py5name), fdata in sorted(docdata.items()):
-    if kind == 'METHOD':
-        parameter_key = f'${py5class}_{py5name}_parameters'
-        doc = METHOD_DOC_TEMPLATE.format(py5class, py5name, fdata.first, parameter_key, fdata.full)
-    elif kind == 'FIELD':
-        doc = FIELD_DOC_TEMPLATE.format(py5class, py5name, fdata.first, fdata.full)
-    see_also = fdata.get_see(docdata)
-    if see_also:
-        doc += SEE_ALSO_TEMPLATE.format(see_also)
-    docstrings.append(doc)
-
     for var, desc in fdata.vars.items():
         variable_descriptions[f'{py5class}_{py5name}'][var] = desc
 
-
-with open('/tmp/docs.rst', 'w') as f:
-    for doc in docstrings:
-        f.write(doc)
-
-
-# TODO: I don't need the docs.rst file but I do need the variable descriptions file
 with open('/tmp/variable_descriptions.json', 'w') as f:
     json.dump(variable_descriptions, f, indent=2)
