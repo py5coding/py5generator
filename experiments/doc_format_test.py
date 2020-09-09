@@ -7,7 +7,7 @@ import xmltodict
 test_text = """## meta
 name = noise()
 category =Math
-subcategory= Random
+subcategory=   Random
 type=method
 
 ## description
@@ -16,7 +16,7 @@ this is awesome
 so is this
 
 ## example
-image = foo.jpg
+image=  foo.jpg
 
 foo = 10 # asdf
 py5.size(10, 20)
@@ -30,8 +30,8 @@ py5.rect(1, 2, 3, 4)
 """
 
 DOC_REGEX = re.compile(r'(?<=## )(\w+)\s(.*?)(?=##|$)', re.DOTALL)
-META_REGEX = re.compile(r'(\w*)\s?=\s?(.*)')
-CODE_REGEX = re.compile(r'image\s?=\s?([\w\d\.]+)\s+(.*)', re.DOTALL)
+META_REGEX = re.compile(r'(\w*)\s*=\s*(.*)')
+CODE_REGEX = re.compile(r'image\s*=\s*([\w\d\.]+)\s+(.*)', re.DOTALL)
 
 
 class Documentation:
