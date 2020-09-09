@@ -5,7 +5,7 @@ import textwrap
 from html.parser import HTMLParser
 from pathlib import Path
 
-import xmltodict
+from .docfiles import Documentation
 
 
 PY5_API_EN = Path('py5_docs/Reference/api_en/')
@@ -67,14 +67,13 @@ def remove_html(html):
 
 def prepare_docstrings(method_signatures_lookup, variable_descriptions):
     docstrings = {}
-    for xml_file in sorted(PY5_API_EN.glob('*.xml')):
-        key = xml_file.stem
+    for docfile in sorted(PY5_API_EN.glob('*.txt')):
+        key = docfile.stem
         tuple_key = tuple(key.split('_', maxsplit=1))
-        with open(xml_file, 'r') as f:
-            data = xmltodict.parse(f.read())
+        doc = Documentation(docfile)
         # TODO: I don't want to remove all html, I want to replace the <b> tags with backticks, for example
-        description = remove_html(data['root']['description']).strip()
-        item_name = data['root']['name']
+        description = remove_html(doc.description).strip()
+        item_name = doc.meta['name']
         description = '\n'.join([textwrap.fill(d, 80) for d in description.split('\n')])
         first_sentence = re.split(r'\.\s', description, maxsplit=1)[0]
         if item_name.endswith('()'):
