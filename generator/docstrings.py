@@ -10,6 +10,7 @@ from .docfiles import Documentation
 
 PY5_API_EN = Path('py5_docs/Reference/api_en/')
 
+FIRST_SENTENCE_REGEX = re.compile(r'^.*?\.(?=\s)')
 
 PARAMETERS_TEMPLATE = """
 
@@ -20,7 +21,7 @@ Parameters
 
 
 METHOD_DOC_TEMPLATE = """
-{0}.
+{0}
 
 Signatures
 ----------
@@ -75,7 +76,8 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
         description = remove_html(doc.description).strip()
         item_name = doc.meta['name']
         description = '\n'.join([textwrap.fill(d, 80) for d in description.split('\n')])
-        first_sentence = re.split(r'\.\s', description, maxsplit=1)[0]
+        m = FIRST_SENTENCE_REGEX.match(description)
+        first_sentence = m .group() if m else description
         if item_name.endswith('()'):
             if tuple_key not in method_signatures_lookup:
                 print('missing method signatures', tuple_key)
@@ -91,6 +93,7 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
                             var_desc = variable_descriptions[key][var_name]
                         else:
                             var_desc = 'missing variable description'
+                            print(var_desc, item_name, p)
                         variables.add(f'{p} - {var_desc}')
 
                 signatures_variables = '\n'.join(sorted(signatures))

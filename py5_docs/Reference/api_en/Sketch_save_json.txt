@@ -5,7 +5,7 @@ subcategory =
 type = static method
 
 ## description
-new template no description
+new template no description.
 
 ## example
 

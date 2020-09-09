@@ -13,7 +13,7 @@ subcategory =
 type = {1}
 
 ## description
-new template no description
+new template no description.
 
 ## example
 
