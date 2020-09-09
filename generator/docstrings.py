@@ -121,6 +121,8 @@ class DocstringFinder:
             raw_docstring = self._data[(clsname, methodname)]
         elif clsname in ['Py5Graphics', 'Py5Image'] and ('Sketch', methodname) in self._data:
             raw_docstring = self._data[('Sketch', methodname)]
+        elif (clsname, methodname) == ('Py5Graphics', 'mask'):
+            raw_docstring = self._data[('Py5Image', methodname)]
 
         if raw_docstring == 'missing docstring':
             print(raw_docstring, clsname, methodname)
