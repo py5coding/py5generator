@@ -1,0 +1,18 @@
+## meta
+name = textSize()
+category = Typography
+subcategory = Attributes
+type = None
+
+## description
+Sets the current font size. This size will be used in all subsequent calls to the <b>text()</b> function. Font size is measured in units of pixels.
+
+## example
+image = textSize_.png
+
+background(0);
+fill(255);
+textSize(26); 
+text("WORD", 10, 50); 
+textSize(14);
+text("WORD", 10, 70);

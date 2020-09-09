@@ -1,0 +1,28 @@
+## meta
+name = resetMatrix()
+category = Transform
+subcategory = None
+type = None
+
+## description
+Replaces the current matrix with the identity matrix. The equivalent function in OpenGL is <b>glLoadIdentity()</b>.
+
+## example
+size(100, 100, P3D);
+noFill();
+box(80);
+printMatrix();
+// Prints:
+// 01.0000  00.0000  00.0000 -50.0000
+// 00.0000  01.0000  00.0000 -50.0000
+// 00.0000  00.0000  01.0000 -86.6025
+// 00.0000  00.0000  00.0000  01.0000
+
+resetMatrix();
+box(80);
+printMatrix();
+// Prints:
+// 1.0000  0.0000  0.0000  0.0000
+// 0.0000  1.0000  0.0000  0.0000
+// 0.0000  0.0000  1.0000  0.0000
+// 0.0000  0.0000  0.0000  1.0000

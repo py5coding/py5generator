@@ -1,0 +1,29 @@
+## meta
+name = beginRecord()
+category = Output
+subcategory = Files
+type = None
+
+## description
+Opens a new file and all subsequent drawing functions are echoed to this file as well as the display window. The <b>beginRecord()</b> function requires two parameters, the first is the renderer and the second is the file name. This function is always used with <b>endRecord()</b> to stop the recording process and close the file.
+<br /><br />
+Note that <b>beginRecord()</b> will only pick up any settings that happen after it has been called. For instance, if you call <b>textFont()</b> before <b>beginRecord()</b>, then that font will not be set for the file that you're recording to.
+<br /><br />
+<b>beginRecord()</b> works only with the PDF and SVG renderers.
+
+## example
+import processing.pdf.*;
+
+void setup() {
+  size(400, 400);
+  beginRecord(PDF, "everything.pdf");
+}
+
+void draw() {
+  ellipse(mouseX, mouseY, 10, 10);
+}
+
+void mousePressed() {
+  endRecord();
+  exit();
+}

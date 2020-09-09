@@ -1,0 +1,33 @@
+## meta
+name = loop()
+category = Structure
+subcategory = None
+type = None
+
+## description
+By default, Processing loops through <b>draw()</b> continuously, executing the code within it. However, the <b>draw()</b> loop may be stopped by calling <b>noLoop()</b>. In that case, the <b>draw()</b> loop can be resumed with <b>loop()</b>.
+
+## example
+void setup() {
+  size(200, 200);
+  noLoop();  // draw() will not loop
+}
+
+float x = 0;
+
+void draw() {
+  background(204);
+  x = x + .1;
+  if (x > width) {
+    x = 0;
+  }
+  line(x, 0, x, height); 
+}
+
+void mousePressed() {
+  loop();  // Holding down the mouse activates looping
+}
+
+void mouseReleased() {
+  noLoop();  // Releasing the mouse stops looping draw()
+}

@@ -1,0 +1,29 @@
+## meta
+name = loadPixels()
+category = PImage
+subcategory = Method
+type = None
+
+## description
+Loads the pixel data for the image into its <b>pixels[]</b> array. This function must always be called before reading from or writing to <b>pixels[]</b>.
+
+## example
+image = PImage_loadPixels_.png
+
+PImage myImage;
+int halfImage;
+
+void setup() {
+  size(100, 100);
+  halfImage = width * height/2;
+  myImage = loadImage("apples.jpg");
+  myImage.loadPixels();
+  for (int i = 0; i < halfImage; i++) {
+    myImage.pixels[i+halfImage] = myImage.pixels[i];
+  }
+  myImage.updatePixels();
+}
+
+void draw() {
+  image(myImage, 0, 0);
+}

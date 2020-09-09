@@ -1,0 +1,11 @@
+## meta
+name = screenZ()
+category = Lights, Camera
+subcategory = Coordinates
+type = None
+
+## description
+Takes a three-dimensional X, Y, Z position and returns the Z value for where it will appear on a (two-dimensional) screen.
+
+## example
+Coming soon...

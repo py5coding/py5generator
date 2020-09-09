@@ -1,0 +1,23 @@
+## meta
+name = shader()
+category = Rendering
+subcategory = Shaders
+type = None
+
+## description
+Applies the shader specified by the parameters. It's compatible with the P2D and P3D renderers, but not with the default renderer.
+
+## example
+PShader edges;  
+PImage img;
+    
+void setup() {
+  size(640, 360, P2D);
+  img = loadImage("leaves.jpg");      
+  edges = loadShader("edges.glsl");
+}
+
+void draw() {
+  shader(edges);
+  image(img, 0, 0);
+}

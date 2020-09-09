@@ -1,0 +1,18 @@
+## meta
+name = noTint()
+category = Image
+subcategory = Loading & Displaying
+type = None
+
+## description
+Removes the current fill value for displaying images and reverts to displaying images with their original hues.
+
+## example
+image = noTint_.png
+
+PImage img;
+img = loadImage("laDefense.jpg");
+tint(0, 153, 204);  // Tint blue
+image(img, 0, 0);
+noTint();  // Disable tint
+image(img, 50, 0);

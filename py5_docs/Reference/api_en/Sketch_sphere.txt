@@ -1,0 +1,16 @@
+## meta
+name = sphere()
+category = Shape
+subcategory = 3D Primitives
+type = None
+
+## description
+A sphere is a hollow ball made from tessellated triangles.
+
+## example
+image = sphere_.png
+
+noStroke();
+lights();
+translate(58, 48, 0);
+sphere(28);

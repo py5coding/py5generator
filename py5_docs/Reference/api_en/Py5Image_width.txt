@@ -1,0 +1,15 @@
+## meta
+name = width
+category = PImage
+subcategory = field
+type = None
+
+## description
+The width of the image in units of pixels.
+
+## example
+image = PImage_width.png
+
+PImage tiles = loadImage("tiles.jpg");
+image(tiles, 20, 10);
+rect(55, 10, tiles.width, tiles.height);

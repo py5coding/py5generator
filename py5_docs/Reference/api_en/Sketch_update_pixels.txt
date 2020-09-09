@@ -1,0 +1,20 @@
+## meta
+name = updatePixels()
+category = Image
+subcategory = Pixels
+type = None
+
+## description
+Updates the display window with the data in the <b>pixels[]</b> array. Use in conjunction with <b>loadPixels()</b>. If you're only reading pixels from the array, there's no need to call <b>updatePixels()</b> &mdash; updating is only necessary to apply changes.
+
+## example
+image = updatePixels_.png
+
+PImage img = loadImage("rockies.jpg");
+image(img, 0, 0);
+int halfImage = img.width * img.height/2;
+loadPixels();
+for (int i = 0; i < halfImage; i++) {
+  pixels[i+halfImage] = pixels[i];
+}
+updatePixels();

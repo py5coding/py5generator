@@ -1,0 +1,22 @@
+## meta
+name = bezierPoint()
+category = Shape
+subcategory = Curves
+type = None
+
+## description
+Evaluates the Bezier at point t for points a, b, c, d. The parameter t varies between 0 and 1, a and d are points on the curve, and b and c are the control points. This can be done once with the x coordinates and a second time with the y coordinates to get the location of a bezier curve at t.
+
+## example
+image = bezierPoint_.png
+
+noFill();
+bezier(85, 20, 10, 10, 90, 90, 15, 80);
+fill(255);
+int steps = 10;
+for (int i = 0; i <= steps; i++) {
+  float t = i / float(steps);
+  float x = bezierPoint(85, 10, 90, 15, t);
+  float y = bezierPoint(20, 10, 90, 80, t);
+  ellipse(x, y, 5, 5);
+}

@@ -1,0 +1,26 @@
+## meta
+name = disableStyle()
+category = PShape
+subcategory = Method
+type = None
+
+## description
+Disables the shape's style data and uses Processing's current styles. Styles include attributes such as colors, stroke weight, and stroke joints.
+
+## example
+image = PShape_disableStyle_.png
+
+PShape s;
+
+void setup() {
+  // The file "bot.svg" must be in the data folder
+  // of the current sketch to load successfully
+  s = loadShape("bot.svg");
+}
+
+void draw() {
+  s.disableStyle();
+  shape(s, -30, 10, 80, 80);
+  s.enableStyle();
+  shape(s, 50, 10, 80, 80);
+}

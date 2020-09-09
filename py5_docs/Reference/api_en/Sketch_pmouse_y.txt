@@ -1,0 +1,19 @@
+## meta
+name = pmouseY
+category = Input
+subcategory = Mouse
+type = variable
+
+## description
+The system variable <b>pmouseY</b> always contains the vertical position of the mouse in the frame previous to the current frame.
+<br /><br />
+For more detail on how <b>pmouseY</b> is updated inside of mouse events and <b>draw()</b>, see the reference for <b>pmouseX</b>.
+
+## example
+// Move the mouse quickly to see the difference 
+// between the current and previous position 
+void draw() { 
+  background(204); 
+  line(20, mouseY, 80, pmouseY); 
+  println(mouseY + " : " + pmouseY);
+}
