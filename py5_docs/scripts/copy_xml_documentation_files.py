@@ -1,32 +1,25 @@
-import os
-import stat
-import shutil
+# import os
+# import stat
+# import shutil
 from pathlib import Path
 
 import pandas as pd
 
+from generator.docfiles import Documentation
 
-NEW_TEMPLATE = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<root>
-<name>{0}</name>
 
-<category></category>
+NEW_TEMPLATE = """## meta
+name = 
+category = 
+subcategory = 
+type = 
 
-<subcategory></subcategory>
+## description
 
-<type>{1}</type>
 
-<example>
-<image></image>
-<code><![CDATA[
-]]></code>
-</example>
+## example
+image = 
 
-<description><![CDATA[
-Missing Description
-]]></description>
-
-</root>
 """
 
 PROCESSING_API_EN = Path('/home/jim/Projects/ITP/pythonprocessing/processing-docs/content/api_en/')
@@ -121,17 +114,18 @@ for py5_name, processing_name in PY5_SKETCH_EXTRAS:
 # copy the relevant xml files to the py5 directory
 for xml_file, file_data in xml_files:
     pclass, py5_name, processing_name = file_data
-    new_filename = f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.xml'
+    doc = Documentation(xml_file)
+    doc.write(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.txt')
     # TODO: add extra metadata and Pythonize the code example
     # TODO: should I and can I convert to a different format like yaml or toml? I can't do json
     # TODO: add underlying processing field or method to metadata because I want to mention this in the documentation
-    shutil.copy(xml_file, PY5_API_EN / new_filename)
-    permissions = stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP | stat.S_IROTH
-    os.chmod(PY5_API_EN / new_filename, permissions)
+    # shutil.copy(xml_file, PY5_API_EN / new_filename)
+    # permissions = stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP | stat.S_IROTH
+    # os.chmod(PY5_API_EN / new_filename, permissions)
 
 for new_file_data in new_xml_files:
     pclass, py5_name, item_type, *_ = new_file_data
-    with open(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.xml', 'w') as f:
+    with open(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.txt', 'w') as f:
         name = py5_name if item_type == 'dynamic variable' else py5_name + '()'
         f.write(NEW_TEMPLATE.format(name, item_type))
 

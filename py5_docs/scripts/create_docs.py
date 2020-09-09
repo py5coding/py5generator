@@ -184,5 +184,6 @@ with open('/tmp/docs.rst', 'w') as f:
         f.write(doc)
 
 
+# TODO: I don't need the docs.rst file but I do need the variable descriptions file
 with open('/tmp/variable_descriptions.json', 'w') as f:
     json.dump(variable_descriptions, f, indent=2)
