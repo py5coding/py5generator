@@ -41,10 +41,27 @@ class Documentation:
             filename = Path(filename)
         with open(filename, 'r') as f:
             content = f.read()
+        self.meta = {}
+        self.examples = []
+        self.description = ''
         if filename.suffix == '.txt':
             self.meta, self.examples, self.description = self._from_txt(content)
         elif filename.suffix == '.xml':
             self.meta, self.examples, self.description = self._from_xml(content)
+        else:
+            raise RuntimeError(f'unable to read {filename}')
+
+    def write(self, filename):
+        with open(filename, 'w') as f:
+            f.write('## meta\n')
+            f.write('\n'.join(f'{m[0]} = {m[1]}' for m in self.meta.items()))
+            f.write('\n\n## description\n')
+            f.write(f'{self.description}\n')
+            for image, code in self.examples:
+                f.write('\n## example\n')
+                if image:
+                    f.write(f'image = {image}\n\n')
+                f.write(f'{code}\n')
 
     def _from_xml(self, content):
         xml = xmltodict.parse(content)['root']
@@ -93,3 +110,7 @@ doc3 = Documentation(filename3)
 
 for filename in Path('py5_docs/Reference/api_en/').glob('*.xml'):
     Documentation(filename)
+
+doc1.write('/tmp/doc1.txt')
+doc2.write('/tmp/doc2.txt')
+doc3.write('/tmp/doc3.txt')
