@@ -36,20 +36,21 @@ CODE_REGEX = re.compile(r'image\s*=\s*([\w\d\.]+)\s+(.*)', re.DOTALL)
 
 class Documentation:
 
-    def __init__(self, filename):
-        if not isinstance(filename, Path):
-            filename = Path(filename)
-        with open(filename, 'r') as f:
-            content = f.read()
+    def __init__(self, filename=None):
         self.meta = {}
         self.examples = []
         self.description = ''
-        if filename.suffix == '.txt':
-            self.meta, self.examples, self.description = self._from_txt(content)
-        elif filename.suffix == '.xml':
-            self.meta, self.examples, self.description = self._from_xml(content)
-        else:
-            raise RuntimeError(f'unable to read {filename}')
+        if filename:
+            if not isinstance(filename, Path):
+                filename = Path(filename)
+            with open(filename, 'r') as f:
+                content = f.read()
+            if filename.suffix == '.txt':
+                self.meta, self.examples, self.description = self._from_txt(content)
+            elif filename.suffix == '.xml':
+                self.meta, self.examples, self.description = self._from_xml(content)
+            else:
+                raise RuntimeError(f'unable to read {filename}')
 
     def write(self, filename):
         with open(filename, 'w') as f:
@@ -107,6 +108,7 @@ filename3 = '/tmp/test_text.txt'
 with open(filename3, 'w') as f:
     f.write(test_text)
 doc3 = Documentation(filename3)
+doc4 = Documentation()
 
 for filename in Path('py5_docs/Reference/api_en/').glob('*.xml'):
     Documentation(filename)
@@ -114,3 +116,4 @@ for filename in Path('py5_docs/Reference/api_en/').glob('*.xml'):
 doc1.write('/tmp/doc1.txt')
 doc2.write('/tmp/doc2.txt')
 doc3.write('/tmp/doc3.txt')
+doc4.write('/tmp/doc4.txt')
