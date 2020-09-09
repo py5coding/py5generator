@@ -8,47 +8,6 @@ import pandas as pd
 import xmltodict
 
 
-METHOD_DOC_TEMPLATE = """
-# {0}_{1}
-
-{2}
-
-Parameters
-----------
-
-{3}
-
-Notes
------
-
-{4}
-
-"""
-
-
-FIELD_DOC_TEMPLATE = """
-# {0}_{1}
-
-{2}
-
-Notes
------
-
-{3}
-
-"""
-
-
-SEE_ALSO_TEMPLATE = """
-See Also
---------
-
-{0}
-
-"""
-
-
-AUTOGEN_REGEX = re.compile(r'\( begin auto-generated from .*?xml \) ')
 CODE_REGEX = re.compile(r'(`[^`]*`)')
 
 PY5_CLASS_LOOKUP = {
@@ -133,7 +92,6 @@ for commenttree in root['commenttrees']['commenttree']:
         continue
 
     py5class = PY5_CLASS_LOOKUP[pclass]
-    body = commenttree['body']
     kind = commenttree['@kind']
 
     fdata = docdata[(py5class, kind, py5name)]
