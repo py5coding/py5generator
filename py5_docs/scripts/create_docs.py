@@ -157,7 +157,7 @@ variable_descriptions = defaultdict(dict)
 docstrings = []
 for (py5class, kind, py5name), fdata in sorted(docdata.items()):
     for var, desc in fdata.vars.items():
-        variable_descriptions[f'{py5class}_{py5name}'][var] = desc
+        variable_descriptions[f'{py5class}_{py5name}'][snake_case(var)] = desc
 
 with open('/tmp/variable_descriptions.json', 'w') as f:
     json.dump(variable_descriptions, f, indent=2)

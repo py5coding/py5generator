@@ -93,7 +93,7 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
                             var_desc = variable_descriptions[key][var_name]
                         else:
                             var_desc = 'missing variable description'
-                            print(var_desc, item_name, p)
+                            print(var_desc, tuple_key, item_name, p)
                         variables.add(f'{p} - {var_desc}')
 
                 signatures_variables = '\n'.join(sorted(signatures))

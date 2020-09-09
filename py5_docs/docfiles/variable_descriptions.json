@@ -116,15 +116,15 @@
     "rgb": "any value of the color datatype"
   },
   "Py5Graphics_camera": {
-    "eyeX": "x-coordinate for the eye",
-    "eyeY": "y-coordinate for the eye",
-    "eyeZ": "z-coordinate for the eye",
-    "centerX": "x-coordinate for the center of the scene",
-    "centerY": "y-coordinate for the center of the scene",
-    "centerZ": "z-coordinate for the center of the scene",
-    "upX": "usually 0.0, 1.0, or -1.0",
-    "upY": "usually 0.0, 1.0, or -1.0",
-    "upZ": "usually 0.0, 1.0, or -1.0"
+    "eye_x": "x-coordinate for the eye",
+    "eye_y": "y-coordinate for the eye",
+    "eye_z": "z-coordinate for the eye",
+    "center_x": "x-coordinate for the center of the scene",
+    "center_y": "y-coordinate for the center of the scene",
+    "center_z": "z-coordinate for the center of the scene",
+    "up_x": "usually 0.0, 1.0, or -1.0",
+    "up_y": "usually 0.0, 1.0, or -1.0",
+    "up_z": "usually 0.0, 1.0, or -1.0"
   },
   "Py5Graphics_circle": {
     "x": "x-coordinate of the ellipse",
@@ -146,7 +146,7 @@
     "max1": "range for the red or hue depending on the current color mode",
     "max2": "range for the green or saturation depending on the current color mode",
     "max3": "range for the blue or brightness depending on the current color mode",
-    "maxA": "range for the alpha"
+    "max_a": "range for the alpha"
   },
   "Py5Graphics_create_shape": {
     "kind": "either POINT, LINE, TRIANGLE, QUAD, RECT, ELLIPSE, ARC, BOX, SPHERE",
@@ -277,8 +277,8 @@
     "z2": "z-coordinate of the second point"
   },
   "Py5Graphics_load_shader": {
-    "fragFilename": "name of fragment shader file",
-    "vertFilename": "name of vertex shader file"
+    "frag_filename": "name of fragment shader file",
+    "vert_filename": "name of vertex shader file"
   },
   "Py5Graphics_load_shape": {
     "filename": "name of file to load, can be .svg or .obj"
@@ -314,8 +314,8 @@
   "Py5Graphics_perspective": {
     "fovy": "field-of-view angle (in radians) for vertical direction",
     "aspect": "ratio of width to height",
-    "zNear": "z-position of nearest clipping plane",
-    "zFar": "z-position of farthest clipping plane"
+    "z_near": "z-position of nearest clipping plane",
+    "z_far": "z-position of farthest clipping plane"
   },
   "Py5Graphics_point": {
     "x": "x-coordinate of the point",
@@ -494,8 +494,8 @@
     "num": "the numeric value to be displayed"
   },
   "Py5Graphics_text_align": {
-    "alignX": "horizontal alignment, either LEFT, CENTER, or RIGHT",
-    "alignY": "vertical alignment, either TOP, BOTTOM, CENTER, or BASELINE"
+    "align_x": "horizontal alignment, either LEFT, CENTER, or RIGHT",
+    "align_y": "vertical alignment, either TOP, BOTTOM, CENTER, or BASELINE"
   },
   "Py5Graphics_text_font": {
     "which": "any variable of the type PFont",
@@ -585,7 +585,7 @@
     "h": "height of pixel rectangle to get"
   },
   "Py5Image_mask": {
-    "maskArray": "array of integers used as the alpha channel, needs to be the same length as the image's pixel array.",
+    "mask_array": "array of integers used as the alpha channel, needs to be the same length as the image's pixel array.",
     "img": "image to use as the mask"
   },
   "Py5Image_update_pixels": {
@@ -715,7 +715,7 @@
   "Sketch_begin_raw": {
     "renderer": "for example, PDF or DXF",
     "filename": "filename for output",
-    "rawGraphics": "???"
+    "raw_graphics": "???"
   },
   "Sketch_begin_record": {
     "renderer": "PDF or SVG",
@@ -794,15 +794,15 @@
     "rgb": "any value of the color datatype"
   },
   "Sketch_camera": {
-    "eyeX": "x-coordinate for the eye",
-    "eyeY": "y-coordinate for the eye",
-    "eyeZ": "z-coordinate for the eye",
-    "centerX": "x-coordinate for the center of the scene",
-    "centerY": "y-coordinate for the center of the scene",
-    "centerZ": "z-coordinate for the center of the scene",
-    "upX": "usually 0.0, 1.0, or -1.0",
-    "upY": "usually 0.0, 1.0, or -1.0",
-    "upZ": "usually 0.0, 1.0, or -1.0"
+    "eye_x": "x-coordinate for the eye",
+    "eye_y": "y-coordinate for the eye",
+    "eye_z": "z-coordinate for the eye",
+    "center_x": "x-coordinate for the center of the scene",
+    "center_y": "y-coordinate for the center of the scene",
+    "center_z": "z-coordinate for the center of the scene",
+    "up_x": "usually 0.0, 1.0, or -1.0",
+    "up_y": "usually 0.0, 1.0, or -1.0",
+    "up_z": "usually 0.0, 1.0, or -1.0"
   },
   "Sketch_circle": {
     "x": "x-coordinate of the ellipse",
@@ -829,7 +829,7 @@
     "max1": "range for the red or hue depending on the current color mode",
     "max2": "range for the green or saturation depending on the current color mode",
     "max3": "range for the blue or brightness depending on the current color mode",
-    "maxA": "range for the alpha"
+    "max_a": "range for the alpha"
   },
   "Sketch_copy": {
     "sx": "X coordinate of the source's upper left corner",
@@ -1010,8 +1010,8 @@
     "filename": "name of the font to load"
   },
   "Sketch_load_shader": {
-    "fragFilename": "name of fragment shader file",
-    "vertFilename": "name of vertex shader file"
+    "frag_filename": "name of fragment shader file",
+    "vert_filename": "name of vertex shader file"
   },
   "Sketch_load_shape": {
     "filename": "name of file to load, can be .svg or .obj"
@@ -1059,8 +1059,8 @@
   "Sketch_perspective": {
     "fovy": "field-of-view angle (in radians) for vertical direction",
     "aspect": "ratio of width to height",
-    "zNear": "z-position of nearest clipping plane",
-    "zFar": "z-position of farthest clipping plane"
+    "z_near": "z-position of nearest clipping plane",
+    "z_far": "z-position of farthest clipping plane"
   },
   "Sketch_pixel_density": {
     "density": "1 or 2"
@@ -1256,8 +1256,8 @@
     "num": "the numeric value to be displayed"
   },
   "Sketch_text_align": {
-    "alignX": "horizontal alignment, either LEFT, CENTER, or RIGHT",
-    "alignY": "vertical alignment, either TOP, BOTTOM, CENTER, or BASELINE"
+    "align_x": "horizontal alignment, either LEFT, CENTER, or RIGHT",
+    "align_y": "vertical alignment, either TOP, BOTTOM, CENTER, or BASELINE"
   },
   "Sketch_text_font": {
     "which": "any variable of the type PFont",
