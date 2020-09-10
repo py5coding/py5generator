@@ -1,22 +1,11 @@
 ## meta
 name = acos()
-category = Math
-subcategory = Trigonometry
-type = None
+category = 
+subcategory = 
+type = static method
 
 ## description
-The inverse of <b>cos()</b>, returns the arc cosine of a value. This function expects the values in the range of -1 to 1 and values are returned in the range <b>0</b> to <b>PI (3.1415927)</b>.
+new template no description.
 
 ## example
-float a = PI;
-float c = cos(a);
-float ac = acos(c);
-// Prints "3.1415927 : -1.0 : 3.1415927"
-println(a + " : " + c + " : " +  ac);
 
-## example
-float a = PI + PI/4.0;
-float c = cos(a);
-float ac = acos(c);
-// Prints "3.926991 : -0.70710665 : 2.3561943"
-println(a + " : " + c + " : " +  ac);

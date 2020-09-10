@@ -195,7 +195,7 @@ clone,clone,,,method,FALSE,FALSE,
 apply_filter,filter,,,method,TRUE,TRUE,filter method has name conflict with python builtin function; replaced with apply_filter method
 set,set,,,method,FALSE,FALSE,conflict with builtin python function
 init,init,,,method,FALSE,FALSE,
-save,,,,method,FALSE,TRUE,implemented in pixels.py mixin
+save,save,,,method,FALSE,TRUE,implemented in pixels.py mixin
 copy,copy,,,method,TRUE,TRUE,
 mask,mask,,,method,TRUE,TRUE,
 resize,resize,,,method,FALSE,FALSE,

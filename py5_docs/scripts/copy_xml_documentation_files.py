@@ -33,15 +33,6 @@ PY5_CLASS_LOOKUP = {
 }
 
 
-PY5_SKETCH_EXTRAS = [
-    # don't do these because I want new files to be created
-    # ('get_frame_rate', 'frameRate'),
-    # ('is_key_pressed', 'keyPressed'),
-    # ('is_mouse_pressed', 'mousePressed'),
-]
-
-
-
 def snake_case(name):
     name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
     name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', name)
@@ -65,55 +56,54 @@ new_xml_files = []
 for pclass, class_data in class_data_info.items():
     for processing_name, data in class_data.iterrows():
         item_type = data['type']
+        implementation_from_processing = data['implementation_from_processing']
         if item_type in ['static field', 'unknown']:
             # skip, we don't care
             continue
         py5_name = data['py5_name']
-        if not processing_name and pclass == 'PApplet':
-            # definitely a new function I need to document
-            new_xml_files.append((pclass, py5_name, item_type))
-            continue
-
-        # these will be added manually; don't want them added to new_xml_files
-        if py5_name in {x[0] for x in PY5_SKETCH_EXTRAS}:
+        if not implementation_from_processing:
+            if pclass == 'PApplet':
+                # definitely a new function I need to document
+                new_xml_files.append((pclass, py5_name, item_type))
             continue
 
         # first try the correct documentation filename
-        if pclass == 'PApplet':
-            name = f'{processing_name}.xml'
-        else:
-            name = f'{pclass}_{processing_name}.xml'
-        if processing_name == 'hint':
-            xml_file = PROCESSING_API_EN / 'include' / name
-        else:
-            xml_file = PROCESSING_API_EN / name
-        if xml_file.exists():
-            # documentation exists, copy
-            xml_files.append((xml_file, (pclass, py5_name, processing_name)))
-            continue
+        if processing_name:
+            if pclass == 'PApplet':
+                name = f'{processing_name}.xml'
+            else:
+                name = f'{pclass}_{processing_name}.xml'
+            if processing_name == 'hint':
+                xml_file = PROCESSING_API_EN / 'include' / name
+            else:
+                xml_file = PROCESSING_API_EN / name
+            if xml_file.exists():
+                # documentation exists, copy
+                xml_files.append((xml_file, (pclass, py5_name, processing_name)))
+                continue
 
-        # usable documentation might be in a different file because of inheritance
-        if pclass in ['PApplet', 'PGraphics', 'PImage']:
-            for prefix in ['', 'PGraphics_', 'PImage_']:
-                if processing_name == 'hint':
-                    xml_file = PROCESSING_API_EN / 'include' / f'{prefix}{processing_name}.xml'
-                else:
-                    xml_file = PROCESSING_API_EN / f'{prefix}{processing_name}.xml'
-                if xml_file.exists():
-                    break
-        if xml_file.exists():
-            # documentation exists, and should have already been copied
-            continue
+            # usable documentation might be in a different file because of inheritance
+            if pclass in ['PApplet', 'PGraphics', 'PImage']:
+                for prefix in ['', 'PGraphics_', 'PImage_']:
+                    if processing_name == 'hint':
+                        xml_file = PROCESSING_API_EN / 'include' / f'{prefix}{processing_name}.xml'
+                    else:
+                        xml_file = PROCESSING_API_EN / f'{prefix}{processing_name}.xml'
+                    if xml_file.exists():
+                        break
+            if xml_file.exists():
+                # documentation exists, and should have already been copied
+                continue
 
         # new documentation that I must write. skip pgraphics so I don't duplicate work
         if pclass not in ['PGraphics', 'PImage']:
             new_xml_files.append((pclass, py5_name, item_type, processing_name))
 
 
-# add a few extras
-for py5_name, processing_name in PY5_SKETCH_EXTRAS:
-    xml_file = PROCESSING_API_EN / f'{processing_name}_var.xml'
-    xml_files.append((xml_file, ('PApplet', py5_name, processing_name)))
+# # add a few extras
+# for py5_name, processing_name in PY5_SKETCH_EXTRAS:
+#     xml_file = PROCESSING_API_EN / f'{processing_name}_var.xml'
+#     xml_files.append((xml_file, ('PApplet', py5_name, processing_name)))
 
 # copy the relevant xml files to the py5 directory
 for xml_file, file_data in xml_files:

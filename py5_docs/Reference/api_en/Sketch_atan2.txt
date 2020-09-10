@@ -1,17 +1,11 @@
 ## meta
 name = atan2()
-category = Math
-subcategory = Trigonometry
-type = None
+category = 
+subcategory = 
+type = static method
 
 ## description
-Calculates the angle (in radians) from a specified point to the coordinate origin as measured from the positive x-axis. Values are returned as a <b>float</b> in the range from <b>PI</b> to <b>-PI</b>. The <b>atan2()</b> function is most often used for orienting geometry to the position of the cursor.  Note: The y-coordinate of the point is the first parameter, and the x-coordinate is the second parameter, due the the structure of calculating the tangent.
+new template no description.
 
 ## example
-void draw() {
-  background(204);
-  translate(width/2, height/2);
-  float a = atan2(mouseY-height/2, mouseX-width/2);
-  rotate(a);
-  rect(-30, -5, 60, 10);
-}
+

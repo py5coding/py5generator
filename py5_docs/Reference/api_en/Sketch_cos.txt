@@ -1,18 +1,11 @@
 ## meta
 name = cos()
-category = Math
-subcategory = Trigonometry
-type = None
+category = 
+subcategory = 
+type = static method
 
 ## description
-Calculates the cosine of an angle. This function expects the values of the <b>angle</b> parameter to be provided in radians (values from 0 to PI*2). Values are returned in the range -1 to 1.
+new template no description.
 
 ## example
-image = cos_.png
 
-float a = 0.0;
-float inc = TWO_PI/25.0;
-for (int i = 0; i < 25; i++) {
-  line(i*4, 50, i*4, 50+cos(a)*40.0);
-  a = a + inc;
-}

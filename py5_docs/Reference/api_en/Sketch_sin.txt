@@ -1,19 +1,11 @@
 ## meta
 name = sin()
-category = Math
-subcategory = Trigonometry
-type = None
+category = 
+subcategory = 
+type = static method
 
 ## description
-Calculates the sine of an angle. This function expects the values of the <b>angle</b> parameter to be provided in radians (values from 0 to 6.28). Values are returned in the range -1 to 1.
+new template no description.
 
 ## example
-image = sin_.png
 
-float a = 0.0;
-float inc = TWO_PI/25.0;
-
-for (int i = 0; i < 100; i=i+4) {
-  line(i, 50, i, 50+sin(a)*40.0);
-  a = a + inc;
-}

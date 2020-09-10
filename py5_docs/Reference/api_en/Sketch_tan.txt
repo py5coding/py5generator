@@ -1,19 +1,11 @@
 ## meta
 name = tan()
-category = Math
-subcategory = Trigonometry
-type = None
+category = 
+subcategory = 
+type = static method
 
 ## description
-Calculates the ratio of the sine and cosine of an angle. This function expects the values of the <b>angle</b> parameter to be provided in radians (values from 0 to PI*2). Values are returned in the range <b>infinity</b> to <b>-infinity</b>.
+new template no description.
 
 ## example
-image = tan_.png
 
-float a = 0.0;
-float inc = TWO_PI/50.0;
-
-for (int i = 0; i < 100; i = i+2) {
-  line(i, 50, i, 50+tan(a)*2.0);
-  a = a + inc;
-}
