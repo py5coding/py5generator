@@ -27,12 +27,14 @@ class PixelMixin:
     # *** BEGIN METHODS ***
 
     def load_np_pixels(self) -> None:
+        """$class_Sketch_load_np_pixels"""
         if self._np_pixels is None:
             self._init_np_pixels()
         self._instance.loadPixels()
         self._java_bb.asIntBuffer().put(self._instance.pixels)
 
     def update_np_pixels(self) -> None:
+        """$class_Sketch_update_np_pixels"""
         if self._np_pixels is None:
             self._init_np_pixels()
         self._java_bb.asIntBuffer().get(self._instance.pixels)
@@ -40,9 +42,11 @@ class PixelMixin:
 
     @property
     def np_pixels(self) -> np.ndarray:
+        """$class_Sketch_np_pixels"""
         return self._np_pixels
 
     def set_np_pixels(self, array: np.ndarray, bands: str = 'ARGB') -> None:
+        """$class_Sketch_set_np_pixels"""
         self.load_np_pixels()
         if bands == 'L':
             self._np_pixels[:, :, 0] = 255
@@ -58,7 +62,7 @@ class PixelMixin:
         self.update_np_pixels()
 
     def save(self, filename: Union[str, Path], format: str = None, **params) -> None:
-        """missing docstring"""
+        """$class_Sketch_save"""
         filename = self._instance.savePath(str(filename))
         self.load_np_pixels()
         arr = np.roll(self.np_pixels, -1, axis=2)

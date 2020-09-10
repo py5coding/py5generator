@@ -41,6 +41,7 @@ PY5_SKETCH_EXTRAS = [
 ]
 
 
+
 def snake_case(name):
     name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
     name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', name)
@@ -68,7 +69,7 @@ for pclass, class_data in class_data_info.items():
             # skip, we don't care
             continue
         py5_name = data['py5_name']
-        if not processing_name:
+        if not processing_name and pclass == 'PApplet':
             # definitely a new function I need to document
             new_xml_files.append((pclass, py5_name, item_type))
             continue
@@ -105,7 +106,7 @@ for pclass, class_data in class_data_info.items():
             continue
 
         # new documentation that I must write. skip pgraphics so I don't duplicate work
-        if pclass != 'PGraphics':
+        if pclass not in ['PGraphics', 'PImage']:
             new_xml_files.append((pclass, py5_name, item_type, processing_name))
 
 
