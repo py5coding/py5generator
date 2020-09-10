@@ -1,12 +1,15 @@
 import re
 import json
 from io import StringIO
+import logging
 import textwrap
 from html.parser import HTMLParser
 from pathlib import Path
 
 from .docfiles import Documentation
 
+
+logger = logging.getLogger(__name__)
 
 PY5_API_EN = Path('py5_docs/Reference/api_en/')
 
@@ -80,7 +83,7 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
         first_sentence = m .group() if m else description
         if item_name.endswith('()'):
             if tuple_key not in method_signatures_lookup:
-                print('missing method signatures', tuple_key)
+                logger.warning(f'missing method signatures {tuple_key[0]}.{tuple_key[1]}')
                 signatures_variables = 'signatures missing'
             else:
                 signatures = []
@@ -93,7 +96,7 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
                             var_desc = variable_descriptions[key][var_name]
                         else:
                             var_desc = 'missing variable description'
-                            print(var_desc, tuple_key, item_name, p)
+                            logger.warning(f'{var_desc}: {tuple_key[0]}.{tuple_key[1]}, {p}')
                         variables.add(f'{p} - {var_desc}')
 
                 signatures_variables = '\n'.join(sorted(signatures))
@@ -128,7 +131,7 @@ class DocstringFinder:
             raw_docstring = self._data[('Py5Image', methodname)]
 
         if raw_docstring == 'missing docstring':
-            print(raw_docstring, clsname, methodname)
+            logger.warning(f'{raw_docstring}: {clsname}.{methodname}')
 
         doc = textwrap.indent(
             raw_docstring,
