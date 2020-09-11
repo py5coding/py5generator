@@ -1,7 +1,7 @@
 ## meta
 name = is_dead
-category = 
-subcategory = 
+category = UNKNOWN
+subcategory = UNKNOWN
 type = dynamic variable
 
 ## description

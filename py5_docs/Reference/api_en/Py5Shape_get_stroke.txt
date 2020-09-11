@@ -1,7 +1,7 @@
 ## meta
 name = get_stroke()
-category = 
-subcategory = 
+category = UNKNOWN
+subcategory = UNKNOWN
 type = method
 
 ## description

@@ -1,7 +1,7 @@
 ## meta
 name = create_image_from_numpy()
-category = 
-subcategory = 
+category = UNKNOWN
+subcategory = UNKNOWN
 type = method
 
 ## description

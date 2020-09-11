@@ -1,7 +1,7 @@
 ## meta
 name = asin()
-category = 
-subcategory = 
+category = UNKNOWN
+subcategory = UNKNOWN
 type = static method
 
 ## description

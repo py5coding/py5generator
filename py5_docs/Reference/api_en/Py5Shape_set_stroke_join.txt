@@ -1,7 +1,7 @@
 ## meta
 name = set_stroke_join()
-category = 
-subcategory = 
+category = UNKNOWN
+subcategory = UNKNOWN
 type = method
 
 ## description

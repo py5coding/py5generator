@@ -1,7 +1,7 @@
 ## meta
 name = stop_all_threads()
-category = 
-subcategory = 
+category = UNKNOWN
+subcategory = UNKNOWN
 type = method
 
 ## description

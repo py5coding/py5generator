@@ -1,7 +1,7 @@
 ## meta
 name = set_always_on_top()
-category = 
-subcategory = 
+category = UNKNOWN
+subcategory = UNKNOWN
 type = method
 
 ## description

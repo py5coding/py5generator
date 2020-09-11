@@ -1,7 +1,7 @@
 ## meta
 name = cos()
-category = 
-subcategory = 
+category = UNKNOWN
+subcategory = UNKNOWN
 type = static method
 
 ## description

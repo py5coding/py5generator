@@ -8,8 +8,8 @@ from generator.docfiles import Documentation
 
 NEW_TEMPLATE = """## meta
 name = {0}
-category = 
-subcategory = 
+category = UNKNOWN
+subcategory = UNKNOWN
 type = {1}
 
 ## description

@@ -1,7 +1,7 @@
 ## meta
 name = radians()
-category = 
-subcategory = 
+category = UNKNOWN
+subcategory = UNKNOWN
 type = static method
 
 ## description

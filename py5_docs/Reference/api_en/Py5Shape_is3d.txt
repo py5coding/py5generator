@@ -1,7 +1,7 @@
 ## meta
 name = is3d()
-category = 
-subcategory = 
+category = UNKNOWN
+subcategory = UNKNOWN
 type = method
 
 ## description
