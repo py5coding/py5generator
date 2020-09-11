@@ -1,0 +1,11 @@
+## meta
+name = java_platform
+category = 
+subcategory = 
+type = dynamic variable
+
+## description
+new template no description.
+
+## example
+

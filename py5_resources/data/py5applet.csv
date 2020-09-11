@@ -170,9 +170,9 @@ ENABLE_KEY_REPEAT,ENABLE_KEY_REPEAT,,,static field,constants,,TRUE,TRUE,
 DISABLE_ASYNC_SAVEFRAME,DISABLE_ASYNC_SAVEFRAME,,,static field,constants,,TRUE,TRUE,
 ENABLE_ASYNC_SAVEFRAME,ENABLE_ASYNC_SAVEFRAME,,,static field,constants,,TRUE,TRUE,
 HINT_COUNT,HINT_COUNT,,,static field,constants,,TRUE,TRUE,
-java_version_name,javaVersionName,,,static field,constants,,TRUE,TRUE,
-java_platform,javaPlatform,,,static field,constants,,TRUE,TRUE,
-java_version,javaVersion,,,static field,constants,,TRUE,TRUE,
+java_version_name,javaVersionName,,,dynamic variable,constants,,TRUE,TRUE,
+java_platform,javaPlatform,,,dynamic variable,constants,,TRUE,TRUE,
+java_version,javaVersion,,,dynamic variable,constants,,TRUE,TRUE,
 platform,platform,,,static field,constants,,FALSE,FALSE,"use ""import sys; sys.platform"" instead"
 useNativeSelect,useNativeSelect,,,static field,constants,,FALSE,FALSE,
 g,g,,,dynamic variable,,,FALSE,FALSE,"internal pgraphics object, use get_graphics to access"
