@@ -109,7 +109,6 @@ for pclass, class_data in class_data_info.items():
 for xml_file, file_data in xml_files:
     pclass, py5_name, processing_name = file_data
     doc = Documentation(xml_file)
-    # TODO: convert descriptions to markdown or rest
     # TODO: Pythonize the code examples
     # TODO: add extra metadata such as underlying processing field or method because I want to mention this in the documentation
     doc.write(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.txt')
@@ -121,8 +120,3 @@ for new_file_data in new_xml_files:
         f.write(NEW_TEMPLATE.format(name, item_type))
 
 print(f'copied {len(xml_files)} files and created {len(new_xml_files)} new files.')
-
-
-# generate docstrings using these xml descriptions with html removed and other info on parameters and signatures taken from other data files
-# later, generate processing-like docs using all the xml files by learning from the existing process
-# use the xml files to make rst files that I can then use in a nikola website

@@ -273,7 +273,6 @@ class CodeBuilder:
                         paramlist.append(paramname)
 
                 params = ', '.join(paramlist)
-                # TODO: how will this work with the docstrings? will the extras just copy the docstrings?
                 self.module_members.append(
                     templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
                         self._class_name, fname, args, moduleobj, rettypestr, params, ''

@@ -46,26 +46,18 @@ CLASS_METHOD_TYPEHINT_TEMPLATE = """
         pass
 """
 
-# TODO: remove these commented out lines
 CLASS_METHOD_TEMPLATE = """
     {5}
     def {1}({2}, {6}):
         \"\"\"$class_{0}_{1}\"\"\"
-        # try:
         return {3}.{4}(*args)
-        # except Exception as e:
-        #     raise Py5Exception(e, '{1}', args, {7})
 """
 
-# TODO: remove these commented out lines
 CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS = """
     {5}
     def {1}({2}) -> {6}:
         \"\"\"$class_{0}_{1}\"\"\"
-        # try:
         return {3}.{4}({7})
-        # except Exception as e:
-        #     raise Py5Exception(e, '{1}', [{7}], {8})
 """
 
 ###############################################################################
