@@ -12,14 +12,17 @@ class DataMixin:
 
     @classmethod
     def load_json(cls, filename: Union[str, Path], **kwargs: Dict[str, Any]) -> Any:
+        """$class_Sketch_load_json"""
         with open(filename, 'r') as f:
             return json.load(f, **kwargs)
 
     @classmethod
     def save_json(cls, json_data: Any, filename: Union[str, Path], **kwargs: Dict[str, Any]) -> None:
+        """$class_Sketch_save_json"""
         with open(filename, 'w') as f:
             json.dump(json_data, f, **kwargs)
 
     @classmethod
     def parse_json(cls, serialized_json: Any, **kwargs: Dict[str, Any]) -> Any:
+        """$class_Sketch_parse_json"""
         return json.loads(serialized_json, **kwargs)

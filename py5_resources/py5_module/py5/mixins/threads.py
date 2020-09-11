@@ -93,8 +93,6 @@ class ThreadsMixin:
         super().__init__(*args, **kwargs)
         self._py5threads = {}
 
-    # *** BEGIN METHODS ***
-
     def _check_param_types(self, args, kwargs):
         if not isinstance(args, Iterable) and args is not None:
             raise RuntimeError('args argument must be iterable (such as a tuple or list)')
@@ -116,15 +114,21 @@ class ThreadsMixin:
 
         return t.name
 
+    def _shutdown(self):
+        self.stop_all_threads(wait=True)
+        super()._shutdown()
+
+    # *** BEGIN METHODS ***
+
     def launch_thread(self, f: Callable, name: str = None,
                       args: Tuple = None, kwargs: Dict = None) -> str:
-        """missing docstring"""
+        """$class_Sketch_launch_thread"""
         args, kwargs = self._check_param_types(args, kwargs)
         return self._launch_py5thread(name, Py5Thread(self, f, args, kwargs))
 
     def launch_promise_thread(self, f: Callable, name: str = None,
                               args: Tuple = None, kwargs: Dict = None) -> Py5Promise:
-        """missing docstring"""
+        """$class_Sketch_launch_promise_thread"""
         args, kwargs = self._check_param_types(args, kwargs)
         promise = Py5Promise()
         self._launch_py5thread(name, Py5PromiseThread(self, f, promise, args, kwargs))
@@ -132,7 +136,7 @@ class ThreadsMixin:
 
     def launch_repeating_thread(self, f: Callable, name: str = None, time_delay: float = 0,
                                 args: Tuple = None, kwargs: Dict = None) -> str:
-        """missing docstring"""
+        """$class_Sketch_launch_repeating_thread"""
         args, kwargs = self._check_param_types(args, kwargs)
         return self._launch_py5thread(name, Py5RepeatingThread(self, f, time_delay, args, kwargs))
 
@@ -143,12 +147,12 @@ class ThreadsMixin:
                 del self._py5threads[t_name]
 
     def has_thread(self, name: str) -> None:
-        """missing docstring"""
+        """$class_Sketch_has_thread"""
         self._remove_dead_threads()
         return name in self._py5threads
 
     def stop_thread(self, name: str, wait: bool = False) -> None:
-        """missing docstring"""
+        """$class_Sketch_stop_thread"""
         if name in self._py5threads:
             t, py5thread = self._py5threads[name]
             py5thread.stop()
@@ -157,7 +161,7 @@ class ThreadsMixin:
             del self._py5threads[name]
 
     def stop_all_threads(self, wait: bool = False) -> None:
-        """missing docstring"""
+        """$class_Sketch_stop_all_threads"""
         current_thread_name = threading.current_thread().name
         for name in self.list_threads():
             if name == current_thread_name:
@@ -166,10 +170,6 @@ class ThreadsMixin:
             self.stop_thread(name, wait=wait)
 
     def list_threads(self) -> None:
-        """missing docstring"""
+        """$class_Sketch_list_threads"""
         self._remove_dead_threads()
         return list(self._py5threads.keys())
-
-    def _shutdown(self):
-        self.stop_all_threads(wait=True)
-        super()._shutdown()
