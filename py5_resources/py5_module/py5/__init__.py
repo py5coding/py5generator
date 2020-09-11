@@ -54,25 +54,10 @@ _py5sketch = Sketch()
 {sketch_module_members_code}
 
 
-def run_sketch(function_dict: Dict[str, Any] = None,
-               block: bool = not _in_ipython_session,
+def run_sketch(block: bool = not _in_ipython_session,
                py5_options: List = None,
                sketch_args: List = None) -> None:
-    """run the py5 sketch
-
-    The optional function_dict parameter needs to a be a dictionary that
-    contains the settings, setup, and draw functions.
-
-    You can call it like this:
-    ```
-        py5.run_sketch(function_dict=locals())
-    ```
-
-    But most likely you can just do this:
-    ```
-        py5.run_sketch()
-    ```
-    """
+    """$module_Sketch_run_sketch"""
     # Before running the sketch, delete the module fields that need to be kept
     # uptodate. This will allow the module `__getattr__` function return the
     # proper values.
@@ -82,15 +67,15 @@ def run_sketch(function_dict: Dict[str, Any] = None,
         # these variables might have already been removed
         pass
 
-    if not function_dict:
-        function_dict = inspect.stack()[1].frame.f_locals
+    function_dict = inspect.stack()[1].frame.f_locals
     methods = dict([(e, function_dict[e]) for e in _METHODS if e in function_dict])
 
     if not set(methods.keys()) & set(['settings', 'setup', 'draw']):
         print(("Unable to find settings, setup, or draw functions. "
                "Your sketch will be a small boring gray square. "
-               "If that isn't what you intended, try this instead:\n"
-               "py5.run_sketch(function_dict=locals())"))
+               "If that isn't what you intended, you need to make sure "
+               "your implementation of those functions are available in "
+               "the local namespace that made the `run_sketch()` call."))
 
     global _py5sketch
     if _py5sketch.is_running:

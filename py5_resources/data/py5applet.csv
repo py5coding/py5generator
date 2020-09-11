@@ -427,7 +427,7 @@ lerp_color,lerpColor,,,method,color,creating_reading,TRUE,TRUE,
 blend_color,blendColor,,,static method,color,creating_reading,FALSE,FALSE,methods that are not part of the processing framework
 frame_moved,frameMoved,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 frame_resized,frameResized,,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-run_sketch,runSketch,,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
+run_sketch,runSketch,,,static method,,,FALSE,TRUE,my implementation of run_sketch calls Processing's runSketch method after doing some setup stuff
 hide_menu_bar,hideMenuBar,,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
 begin_record,beginRecord,@_return_py5graphics,,method,output,files,TRUE,TRUE,
 end_record,endRecord,,,method,output,files,TRUE,TRUE,
