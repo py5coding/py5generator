@@ -61,32 +61,6 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_methods = None
 
-    @property
-    def is_ready(self) -> bool:
-        """$class_Sketch_is_ready"""
-        surface = self.get_surface()
-        # if there is no surface yet, the sketch can be run.
-        return surface._instance is None
-
-    @property
-    def is_running(self) -> bool:
-        """$class_Sketch_is_running"""
-        surface = self.get_surface()
-        if surface._instance is None:
-            # Sketch has not been run yet
-            return False
-        else:
-            return not surface.is_stopped()
-
-    @property
-    def is_dead(self) -> bool:
-        """$class_Sketch_is_dead"""
-        surface = self.get_surface()
-        if surface._instance is None:
-            # Sketch has not been run yet
-            return False
-        return surface.is_stopped()
-
     def run_sketch(self, block: bool = not _in_ipython_session,
                    py5_options: List = None, sketch_args: List = None) -> None:
         """$class_Sketch_run_sketch"""
@@ -157,6 +131,32 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             self._py5_methods.remove_post_hook(method_name, hook_name)
 
     # *** BEGIN METHODS ***
+
+    @property
+    def is_ready(self) -> bool:
+        """$class_Sketch_is_ready"""
+        surface = self.get_surface()
+        # if there is no surface yet, the sketch can be run.
+        return surface._instance is None
+
+    @property
+    def is_running(self) -> bool:
+        """$class_Sketch_is_running"""
+        surface = self.get_surface()
+        if surface._instance is None:
+            # Sketch has not been run yet
+            return False
+        else:
+            return not surface.is_stopped()
+
+    @property
+    def is_dead(self) -> bool:
+        """$class_Sketch_is_dead"""
+        surface = self.get_surface()
+        if surface._instance is None:
+            # Sketch has not been run yet
+            return False
+        return surface.is_stopped()
 
     def exit_sketch(self) -> None:
         """$class_Sketch_exit_sketch"""

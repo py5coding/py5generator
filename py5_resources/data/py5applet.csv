@@ -602,3 +602,6 @@ vertices,vertices,,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper
 bezier_vertices,bezierVertices,,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper
 curve_vertices,curveVertices,,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper
 quadratic_vertices,quadraticVertices,,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper
+is_ready,,,,dynamic variable,,,FALSE,TRUE,property to determine sketch state
+is_running,,,,dynamic variable,,,FALSE,TRUE,property to determine sketch state
+is_dead,,,,dynamic variable,,,FALSE,TRUE,property to determine sketch state

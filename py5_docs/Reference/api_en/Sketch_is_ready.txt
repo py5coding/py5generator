@@ -1,0 +1,11 @@
+## meta
+name = is_ready
+category = 
+subcategory = 
+type = dynamic variable
+
+## description
+new template no description.
+
+## example
+
