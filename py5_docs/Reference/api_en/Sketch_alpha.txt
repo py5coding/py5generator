@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = alpha()
 category = Color
 subcategory = Creating & Reading
 type = None
 
-## description
+@@ description
 Extracts the alpha value from a color.
 
-## example
+@@ example
 image = alpha_.png
 
 noStroke();

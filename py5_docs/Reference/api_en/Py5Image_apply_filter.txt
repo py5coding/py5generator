@@ -1,10 +1,10 @@
-## meta
+@@ meta
 name = filter()
 category = PImage
 subcategory = Method
 type = None
 
-## description
+@@ description
 Filters the image as defined by one of the following modes:<br />
 <br />
 THRESHOLD<br />
@@ -31,7 +31,7 @@ Reduces the light areas. No parameter is used.<br />
 DILATE<br />
 Increases the light areas. No parameter is used.
 
-## example
+@@ example
 image = PImage_filter_0_threshold.png
 
 PImage img1, img2;
@@ -49,7 +49,7 @@ void draw() {
   image(img2, width/2, 0);
 }
 
-## example
+@@ example
 image = PImage_filter_1_gray.png
 
 PImage img1, img2;
@@ -65,7 +65,7 @@ void draw() {
   image(img2, width/2, 0);
 }
 
-## example
+@@ example
 image = PImage_filter_2_invert.png
 
 PImage img1, img2;
@@ -81,7 +81,7 @@ void draw() {
   image(img2, width/2, 0);
 }
 
-## example
+@@ example
 image = PImage_filter_3_posterize.png
 
 PImage img1, img2;
@@ -97,7 +97,7 @@ void draw() {
   image(img2, width/2, 0);
 }
 
-## example
+@@ example
 image = PImage_filter_4_blur.png
 
 PImage img1, img2;
@@ -113,7 +113,7 @@ void draw() {
   image(img2, width/2, 0);
 }
 
-## example
+@@ example
 image = PImage_filter_5_erode.png
 
 PImage img1, img2;
@@ -129,7 +129,7 @@ void draw() {
   image(img2, width/2, 0);
 }
 
-## example
+@@ example
 image = PImage_filter_6_dilate.png
 
 PImage img1, img2;

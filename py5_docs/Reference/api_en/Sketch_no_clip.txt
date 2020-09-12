@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = noClip()
 category = Rendering
 subcategory = None
 type = None
 
-## description
+@@ description
 Disables the clipping previously started by the <b>clip()</b> function.
 
-## example
+@@ example
 void setup() {
   size(200, 200);
   imageMode(CENTER);

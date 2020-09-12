@@ -6,16 +6,16 @@ import pandas as pd
 from generator.docfiles import Documentation
 
 
-NEW_TEMPLATE = """## meta
+NEW_TEMPLATE = """@@ meta
 name = {0}
 category = UNKNOWN
 subcategory = UNKNOWN
 type = {1}
 
-## description
+@@ description
 new template no description.
 
-## example
+@@ example
 
 """
 

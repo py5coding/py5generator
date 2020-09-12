@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = resetMatrix()
 category = PShape
 subcategory = Method
 type = None
 
-## description
+@@ description
 Replaces the current matrix of a shape with the identity matrix. The equivalent function in OpenGL is <b>glLoadIdentity()</b>.
 
-## example
+@@ example
 PShape s;
 
 void setup() {

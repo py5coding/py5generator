@@ -1,11 +1,11 @@
-## meta
+@@ meta
 name = sketch_path()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
 
-## description
+@@ description
 new template no description.
 
-## example
+@@ example
 

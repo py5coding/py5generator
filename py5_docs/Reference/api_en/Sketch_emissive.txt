@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = emissive()
 category = Lights, Camera
 subcategory = Material Properties
 type = None
 
-## description
+@@ description
 Sets the emissive color of the material used for drawing shapes drawn to the screen. Used in combination with <b>ambient()</b>, <b>specular()</b>, and <b>shininess()</b> in setting the material properties of shapes.
 
-## example
+@@ example
 image = emissive_.png
 
 size(100, 100, P3D);

@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = loop()
 category = Structure
 subcategory = None
 type = None
 
-## description
+@@ description
 By default, Processing loops through <b>draw()</b> continuously, executing the code within it. However, the <b>draw()</b> loop may be stopped by calling <b>noLoop()</b>. In that case, the <b>draw()</b> loop can be resumed with <b>loop()</b>.
 
-## example
+@@ example
 void setup() {
   size(200, 200);
   noLoop();  // draw() will not loop

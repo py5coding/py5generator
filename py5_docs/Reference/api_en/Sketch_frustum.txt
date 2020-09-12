@@ -1,10 +1,10 @@
-## meta
+@@ meta
 name = frustum()
 category = Lights, Camera
 subcategory = Camera
 type = None
 
-## description
+@@ description
 Sets a perspective matrix as defined by the parameters.<br />
 <br />
 A frustum is a geometric form: a pyramid with its top cut off.  With the viewer's eye at the imaginary top of the pyramid, the six planes of the frustum act as clipping planes when rendering a 3D view.  Thus, any form inside the clipping planes is rendered and visible; anything outside those planes is not visible.<br />
@@ -15,7 +15,7 @@ Note that the near value must be greater than zero (as the point of the frustum 
 <br />
 Works like glFrustum, except it wipes out the current perspective matrix rather than multiplying itself with it.
 
-## example
+@@ example
 image = frustum_.png
 
 size(100, 100, P3D);  

@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = bezierTangent()
 category = Shape
 subcategory = Curves
 type = None
 
-## description
+@@ description
 Calculates the tangent of a point on a Bezier curve. There is a good definition of <a href="http://en.wikipedia.org/wiki/Tangent" target="new"><em>tangent</em> on Wikipedia</a>.
 
-## example
+@@ example
 image = bezierTangent_0.png
 
 noFill();
@@ -34,7 +34,7 @@ for (int i = 0; i <= steps; i++) {
   ellipse(x, y, 5, 5);
 }
 
-## example
+@@ example
 image = bezierTangent_1.png
 
 noFill();

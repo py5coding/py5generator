@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = noStroke()
 category = Color
 subcategory = Setting
 type = None
 
-## description
+@@ description
 Disables drawing the stroke (outline). If both <b>noStroke()</b> and <b>noFill()</b> are called, nothing will be drawn to the screen.
 
-## example
+@@ example
 image = noStroke_.png
 
 noStroke();

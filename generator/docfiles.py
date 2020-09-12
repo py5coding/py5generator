@@ -4,7 +4,7 @@ from pathlib import Path
 import xmltodict
 
 
-DOC_REGEX = re.compile(r'(?<=## )(\w+)\s(.*?)(?=##|$)', re.DOTALL)
+DOC_REGEX = re.compile(r'(?<=@@ )(\w+)\s(.*?)(?=@@|$)', re.DOTALL)
 META_REGEX = re.compile(r'(\w*)\s*=\s*(.*)')
 CODE_REGEX = re.compile(r'image\s*=\s*([\w\d\.]+)\s+(.*)', re.DOTALL)
 
@@ -34,20 +34,20 @@ class Documentation:
         if not filename.parent.exists():
             filename.parent.mkdir(parents=True)
         with open(filename, 'w') as f:
-            f.write('## meta\n')
+            f.write('@@ meta\n')
             f.write('\n'.join(f'{m[0]} = {m[1]}' for m in self.meta.items()) + '\n')
             if self.signatures:
-                f.write('\n## signatures\n')
+                f.write('\n@@ signatures\n')
                 for signature in sorted(self.signatures):
                     f.write(f'{signature}\n')
             if self.variables:
-                f.write('\n## variables\n')
+                f.write('\n@@ variables\n')
                 for var, desc in sorted(self.variables.items()):
                     f.write(f'{var} - {desc}\n')
-            f.write('\n## description\n')
+            f.write('\n@@ description\n')
             f.write(f'{self.description}\n')
             for image, code in self.examples:
-                f.write('\n## example\n')
+                f.write('\n@@ example\n')
                 if image:
                     f.write(f'image = {image}\n\n')
                 f.write(f'{code}\n')

@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = strokeJoin()
 category = Shape
 subcategory = Attributes
 type = None
 
-## description
+@@ description
 Sets the style of the joints which connect line segments. These joints are either mitered, beveled, or rounded and specified with the corresponding parameters MITER, BEVEL, and ROUND. The default joint is MITER.
 
-## example
+@@ example
 image = strokeJoin_0.png
 
 noFill();
@@ -19,7 +19,7 @@ vertex(65, 50);
 vertex(35, 80);
 endShape();
 
-## example
+@@ example
 image = strokeJoin_1.png
 
 noFill();
@@ -31,7 +31,7 @@ vertex(65, 50);
 vertex(35, 80);
 endShape();
 
-## example
+@@ example
 image = strokeJoin_2.png
 
 noFill();

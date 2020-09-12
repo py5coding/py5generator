@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = sphere()
 category = Shape
 subcategory = 3D Primitives
 type = None
 
-## description
+@@ description
 A sphere is a hollow ball made from tessellated triangles.
 
-## example
+@@ example
 image = sphere_.png
 
 noStroke();

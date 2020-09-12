@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = day()
 category = Input
 subcategory = Time & Date
 type = None
 
-## description
+@@ description
 Processing communicates with the clock on your computer. The <b>day()</b> function returns the current day as a value from 1 - 31.
 
-## example
+@@ example
 int d = day();    // Values from 1 - 31
 int m = month();  // Values from 1 - 12
 int y = year();   // 2003, 2004, 2005, etc.

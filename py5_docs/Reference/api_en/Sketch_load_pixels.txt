@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = loadPixels()
 category = Image
 subcategory = Pixels
 type = None
 
-## description
+@@ description
 Loads the pixel data of the current display window into the <b>pixels[]</b> array. This function must always be called before reading from or writing to <b>pixels[]</b>. Subsequent changes to the display window will not be reflected in <b>pixels</b> until <b>loadPixels()</b> is called again.
 
-## example
+@@ example
 image = loadPixels_.png
 
 int halfImage = width*height/2;

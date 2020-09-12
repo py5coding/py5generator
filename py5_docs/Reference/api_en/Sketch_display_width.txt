@@ -1,12 +1,12 @@
-## meta
+@@ meta
 name = displayWidth
 category = Environment
 subcategory = None
 type = ['variable', 'variable']
 
-## description
+@@ description
 System variable that stores the width of the entire screen display. This is used to run a full-screen program on any display size.
 
-## example
+@@ example
 size(displayWidth, displayHeight);
 line(0, 0, width, height);

@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = brightness()
 category = Color
 subcategory = Creating & Reading
 type = None
 
-## description
+@@ description
 Extracts the brightness value from a color.
 
-## example
+@@ example
 image = brightness_.png
 
 noStroke();

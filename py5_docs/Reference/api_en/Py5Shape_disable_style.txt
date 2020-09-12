@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = disableStyle()
 category = PShape
 subcategory = Method
 type = None
 
-## description
+@@ description
 Disables the shape's style data and uses Processing's current styles. Styles include attributes such as colors, stroke weight, and stroke joints.
 
-## example
+@@ example
 image = PShape_disableStyle_.png
 
 PShape s;

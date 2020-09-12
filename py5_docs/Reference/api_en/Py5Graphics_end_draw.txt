@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = endDraw()
 category = PGraphics
 subcategory = Method
 type = None
 
-## description
+@@ description
 Finalizes the rendering of a PGraphics object so that it can be shown on screen.
 
-## example
+@@ example
 PGraphics pg;
 
 void setup() {

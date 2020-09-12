@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = width
 category = PImage
 subcategory = field
 type = None
 
-## description
+@@ description
 The width of the image in units of pixels.
 
-## example
+@@ example
 image = PImage_width.png
 
 PImage tiles = loadImage("tiles.jpg");

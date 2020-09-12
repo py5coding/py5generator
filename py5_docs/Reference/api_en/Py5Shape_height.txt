@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = height
 category = PShape
 subcategory = field
 type = None
 
-## description
+@@ description
 The height of the PShape document.
 
-## example
+@@ example
 PShape s;
 
 void setup() {

@@ -1,10 +1,10 @@
-## meta
+@@ meta
 name = imageMode()
 category = Image
 subcategory = Loading & Displaying
 type = None
 
-## description
+@@ description
 Modifies the location from which images are drawn by changing the way in which parameters given to <b>image()</b> are intepreted.<br />
 <br />
 The default mode is <b>imageMode(CORNER)</b>, which interprets the second and third parameters of <b>image()</b> as the upper-left corner of the image. If two additional parameters are specified, they are used to set the image's width and height.<br />
@@ -15,7 +15,7 @@ The default mode is <b>imageMode(CORNER)</b>, which interprets the second and th
 <br />
 The parameter must be written in ALL CAPS because Processing is a case-sensitive language.
 
-## example
+@@ example
 image = imageMode_0.png
 
 PImage img;
@@ -29,7 +29,7 @@ void draw() {
   image(img, 10, 10, 50, 50);  // Draw image using CORNER mode
 }
 
-## example
+@@ example
 image = imageMode_1.png
 
 PImage img;
@@ -43,7 +43,7 @@ void draw() {
   image(img, 10, 10, 90, 40);  // Draw image using CORNERS mode
 }
 
-## example
+@@ example
 image = imageMode_2.png
 
 PImage img;

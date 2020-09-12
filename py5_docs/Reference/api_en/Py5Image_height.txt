@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = height
 category = PImage
 subcategory = Field
 type = None
 
-## description
+@@ description
 The height of the image in units of pixels.
 
-## example
+@@ example
 image = PImage_height.png
 
 PImage tiles = loadImage("tiles.jpg");

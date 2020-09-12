@@ -1,10 +1,10 @@
-## meta
+@@ meta
 name = noise()
 category = Math
 subcategory = Random
 type = None
 
-## description
+@@ description
 Returns the Perlin noise value at specified coordinates. Perlin noise is a random sequence generator producing a more natural, harmonic succession of numbers than that of the standard <b>random()</b> function. It was developed by Ken Perlin in the 1980s and has been used in graphical applications to generate procedural textures, shapes, terrains, and other seemingly organic forms.<br />
 <br />
 In contrast to the <b>random()</b> function, Perlin noise is defined in an infinite n-dimensional space, in which each pair of coordinates corresponds to a fixed semi-random value (fixed only for the lifespan of the program). The resulting value will always be between 0.0 and 1.0. Processing can compute 1D, 2D and 3D noise, depending on the number of coordinates given. The noise value can be animated by moving through the noise space, as demonstrated in the first example above. The 2nd and 3rd dimensions can also be interpreted as time.<br />
@@ -15,7 +15,7 @@ Another way to adjust the character of the resulting sequence is the scale of th
 <br />
 There have been debates over the accuracy of the implementation of noise in Processing. For clarification, it's an implementation of "classic Perlin noise" from 1983, and not the newer "simplex noise" method from 2001.
 
-## example
+@@ example
 float xoff = 0.0;
 
 void draw() {
@@ -25,7 +25,7 @@ void draw() {
   line(n, 0, n, height);
 }
 
-## example
+@@ example
 float noiseScale = 0.02;
 
 void draw() {

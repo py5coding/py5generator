@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = minute()
 category = Input
 subcategory = Time & Date
 type = None
 
-## description
+@@ description
 Processing communicates with the clock on your computer. The <b>minute()</b> function returns the current minute as a value from 0 - 59.
 
-## example
+@@ example
 void draw() {
   background(204);
   int s = second();  // Values from 0 - 59

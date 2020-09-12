@@ -1,10 +1,10 @@
-## meta
+@@ meta
 name = keyCode
 category = Input
 subcategory = Keyboard
 type = variable
 
-## description
+@@ description
 The variable <b>keyCode</b> is used to detect special keys such as the arrow keys (UP, DOWN, LEFT, and RIGHT) as well as ALT, CONTROL, and SHIFT.
 <br /><br />
 When checking for these keys, it can be useful to first check if the key is coded. This is done with the conditional <b>if (key == CODED)</b>, as shown in the example above.
@@ -17,7 +17,7 @@ There are issues with how <b>keyCode</b> behaves across different renderers and 
 <br /><br />
 If you are using P2D or P3D as your renderer, use the <a href="https://jogamp.org/deployment/jogamp-next/javadoc/jogl/javadoc/com/jogamp/newt/event/KeyEvent.html">NEWT KeyEvent constants</a>.
 
-## example
+@@ example
 color fillVal = color(126);
 
 void draw() {

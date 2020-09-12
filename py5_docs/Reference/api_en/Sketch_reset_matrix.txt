@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = resetMatrix()
 category = Transform
 subcategory = None
 type = None
 
-## description
+@@ description
 Replaces the current matrix with the identity matrix. The equivalent function in OpenGL is <b>glLoadIdentity()</b>.
 
-## example
+@@ example
 size(100, 100, P3D);
 noFill();
 box(80);

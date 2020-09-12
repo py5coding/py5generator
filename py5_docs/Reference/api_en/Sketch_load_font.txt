@@ -1,10 +1,10 @@
-## meta
+@@ meta
 name = loadFont()
 category = Typography
 subcategory = Loading & Displaying
 type = None
 
-## description
+@@ description
 Loads a .vlw formatted font into a <b>PFont</b> object. Create a .vlw font by selecting "Create Font..." from the Tools menu. This tool creates a texture for each alphanumeric character and then adds them as a .vlw file to the current sketch's data folder. Because the letters are defined as textures (and not vector data) the size at which the fonts are created must be considered in relation to the size at which they are drawn. For example, load a 32pt font if the sketch displays the font at 32 pixels or smaller. Conversely, if a 12pt font is loaded and displayed at 48pts, the letters will be distorted because the program will be stretching a small graphic to a large size.<br />
 <br />
 Like <b>loadImage()</b> and other functions that load data, the <b>loadFont()</b> function should not be used inside <b>draw()</b>, because it will slow down the sketch considerably, as the font will be re-loaded from the disk (or network) on each frame. It's recommended to load files inside <b>setup()</b><br />
@@ -15,7 +15,7 @@ If the file is not available or an error occurs, <b>null</b> will be returned an
 <br />
 Use <b>createFont()</b> (instead of <b>loadFont()</b>) to enable vector data to be used with the default renderer setting. This can be helpful when many font sizes are needed, or when using any renderer based on the default renderer, such as the PDF library.
 
-## example
+@@ example
 image = loadFont_.png
 
 PFont font;

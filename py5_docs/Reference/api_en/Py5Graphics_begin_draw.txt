@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = beginDraw()
 category = PGraphics
 subcategory = Method
 type = None
 
-## description
+@@ description
 Sets the default properties for a PGraphics object. It should be called before anything is drawn into the object.
 
-## example
+@@ example
 PGraphics pg;
 
 void setup() {

@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = endRecord()
 category = Output
 subcategory = Files
 type = None
 
-## description
+@@ description
 Stops the recording process started by <b>beginRecord()</b> and closes the file.
 
-## example
+@@ example
 import processing.pdf.*;
 
 void setup() {

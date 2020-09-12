@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = box()
 category = Shape
 subcategory = 3D Primitives
 type = None
 
-## description
+@@ description
 A box is an extruded rectangle. A box with equal dimensions on all sides is a cube.
 
-## example
+@@ example
 image = box_0.png
 
 size(100, 100, P3D);
@@ -16,7 +16,7 @@ rotateY(0.5);
 noFill();
 box(40);
 
-## example
+@@ example
 image = box_1.png
 
 size(100, 100, P3D);

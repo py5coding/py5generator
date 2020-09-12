@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = bezierDetail()
 category = Shape
 subcategory = Curves
 type = None
 
-## description
+@@ description
 Sets the resolution at which Beziers display. The default value is 20. This function is only useful when using the <b>P3D</b> renderer; the default <b>P2D</b> renderer does not use this information.
 
-## example
+@@ example
 // Move the mouse left and right to see the detail change
 
 void setup() {

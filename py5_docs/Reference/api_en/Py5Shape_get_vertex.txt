@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = getVertex()
 category = PShape
 subcategory = Method
 type = None
 
-## description
+@@ description
 The <b>getVertex()</b> method returns a PVector with the coordinates of the vertex point located at the position defined by the <b>index</b> parameter. This method works when shapes are created as shown in the example above, but won't work properly when a shape is defined explicitly (e.g. <b>createShape(RECT, 20, 20, 80, 80)</b>.
 
-## example
+@@ example
 PShape s;
 
 void setup() {

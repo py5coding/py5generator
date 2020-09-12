@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = saturation()
 category = Color
 subcategory = Creating & Reading
 type = None
 
-## description
+@@ description
 Extracts the saturation value from a color.
 
-## example
+@@ example
 image = saturation_.png
 
 noStroke();

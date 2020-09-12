@@ -1,10 +1,10 @@
-## meta
+@@ meta
 name = blend()
 category = Image
 subcategory = Pixels
 type = None
 
-## description
+@@ description
 Blends a region of pixels from one image into another (or in itself again) with full alpha channel support. There is a choice of the following modes to blend the source pixels (A) with the ones of pixels in the destination image (B):<br />
 <br />
 BLEND - linear interpolation of colors: C = A*factor + B<br />
@@ -43,7 +43,7 @@ All modes use the alpha information (highest byte) of source image pixels as the
 <br />
 As of release 0149, this function ignores <b>imageMode()</b>.
 
-## example
+@@ example
 image = blend_0_add.png
 
 background(loadImage("rockies.jpg"));
@@ -51,7 +51,7 @@ PImage img = loadImage("bricks.jpg");
 image(img, 0, 0);
 blend(img, 0, 0, 33, 100, 67, 0, 33, 100, ADD);
 
-## example
+@@ example
 image = blend_1_subtract.png
 
 background(loadImage("rockies.jpg"));
@@ -59,7 +59,7 @@ PImage img = loadImage("bricks.jpg");
 image(img, 0, 0);
 blend(img, 0, 0, 33, 100, 67, 0, 33, 100, SUBTRACT);
 
-## example
+@@ example
 image = blend_2_darkest.png
 
 background(loadImage("rockies.jpg"));
@@ -67,7 +67,7 @@ PImage img = loadImage("bricks.jpg");
 image(img, 0, 0);
 blend(img, 0, 0, 33, 100, 67, 0, 33, 100, DARKEST);
 
-## example
+@@ example
 image = blend_3_lightest.png
 
 background(loadImage("rockies.jpg"));

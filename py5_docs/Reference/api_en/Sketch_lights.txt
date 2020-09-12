@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = lights()
 category = Lights, Camera
 subcategory = Lights
 type = None
 
-## description
+@@ description
 Sets the default ambient light, directional light, falloff, and specular values. The defaults are ambientLight(128, 128, 128) and directionalLight(128, 128, 128, 0, 0, -1), lightFalloff(1, 0, 0), and lightSpecular(0, 0, 0). Lights need to be included in the draw() to remain persistent in a looping program. Placing them in the setup() of a looping program will cause them to only have an effect the first time through the loop.
 
-## example
+@@ example
 image = lights_0.png
 
 size(100, 100, P3D);
@@ -21,7 +21,7 @@ sphere(30);
 translate(60, 0, 0);
 sphere(30);
 
-## example
+@@ example
 image = lights_1.png
 
 void setup() {

@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = printMatrix()
 category = Transform
 subcategory = None
 type = None
 
-## description
+@@ description
 Prints the current matrix to the Console (the text window at the bottom of Processing).
 
-## example
+@@ example
 size(100, 100, P3D);
 printMatrix();
 // Prints:

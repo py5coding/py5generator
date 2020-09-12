@@ -1,10 +1,10 @@
-## meta
+@@ meta
 name = blend()
 category = PImage
 subcategory = Method
 type = None
 
-## description
+@@ description
 Blends a region of pixels into the image specified by the <b>img</b> parameter. These copies utilize full alpha channel support and a choice of the following modes to blend the colors of source pixels (A) with the ones of pixels in the destination image (B):<br />
 <br />
 BLEND - linear interpolation of colours: C = A*factor + B<br />
@@ -43,7 +43,7 @@ All modes use the alpha information (highest byte) of source image pixels as the
 <br />
 As of release 0149, this function ignores <b>imageMode()</b>.
 
-## example
+@@ example
 image = PImage_blend_0_add.png
 
 PImage mountains = loadImage("rockies.jpg");
@@ -52,7 +52,7 @@ mountains.blend(bricks, 0, 0, 33, 100, 67, 0, 33, 100, ADD);
 image(mountains, 0, 0);
 image(bricks, 0, 0);
 
-## example
+@@ example
 image = PImage_blend_1_subtract.png
 
 PImage mountains = loadImage("rockies.jpg");
@@ -61,7 +61,7 @@ mountains.blend(bricks, 0, 0, 33, 100, 67, 0, 33, 100, SUBTRACT);
 image(mountains, 0, 0);
 image(bricks, 0, 0);
 
-## example
+@@ example
 image = PImage_blend_2_darkest.png
 
 PImage mountains = loadImage("rockies.jpg");
@@ -70,7 +70,7 @@ mountains.blend(bricks, 0, 0, 33, 100, 67, 0, 33, 100, DARKEST);
 image(mountains, 0, 0);
 image(bricks, 0, 0);
 
-## example
+@@ example
 image = PImage_blend_3_lightest.png
 
 PImage mountains = loadImage("rockies.jpg");

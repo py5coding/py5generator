@@ -1,10 +1,10 @@
-## meta
+@@ meta
 name = blendMode()
 category = Rendering
 subcategory = None
 type = None
 
-## description
+@@ description
 Blends the pixels in the display window according to a defined mode. There is a choice of the following modes to blend the source pixels (A) with the ones of pixels already in the display window (B). Each pixel's final color is the result of applying one of the blend modes with each channel of (A) and (B) independently. The red channel is compared with red, green with green, and blue with blue.<br />
 <br />
 BLEND - linear interpolation of colors: C = A*factor + B. This is the default.<br />
@@ -29,7 +29,7 @@ REPLACE - the pixels entirely replace the others and don't utilize alpha (transp
 <br />
 We recommend using <b>blendMode()</b> and not the previous <b>blend()</b> function. However, unlike <b>blend()</b>, the <b>blendMode()</b> function does not support the following: HARD_LIGHT, SOFT_LIGHT, OVERLAY, DODGE, BURN. On older hardware, the LIGHTEST, DARKEST, and DIFFERENCE modes might not be available as well.
 
-## example
+@@ example
 size(100, 100);
 background(0);
 blendMode(ADD);
@@ -38,7 +38,7 @@ strokeWeight(30);
 line(25, 25, 75, 75);
 line(75, 25, 25, 75);
 
-## example
+@@ example
 size(100, 100, P2D);
 blendMode(MULTIPLY);
 stroke(51);

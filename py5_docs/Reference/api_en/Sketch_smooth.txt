@@ -1,10 +1,10 @@
-## meta
+@@ meta
 name = smooth()
 category = Environment
 subcategory = None
 type = None
 
-## description
+@@ description
 Draws all geometry with smooth (anti-aliased) edges. This behavior is the default, so <b>smooth()</b> only needs to be used when a program needs to set the smoothing in a different way. The <b>level</b> parameter increases the amount of smoothness. This is the level of over sampling applied to the graphics buffer.
 <br /><br />
 With the P2D and P3D renderers, <b>smooth(2)</b> is the default, this is called "2x anti-aliasing." The code <b>smooth(4)</b> is used for 4x anti-aliasing and <b>smooth(8)</b> is specified for "8x anti-aliasing." The maximum anti-aliasing level is determined by the hardware of the machine that is running the software, so <b>smooth(4)</b> and <b>smooth(8)</b> will not work with every computer.
@@ -15,7 +15,7 @@ With Processing 3.0, <b>smooth()</b> is different than before. It was common to 
 <br /><br />
 When <b>smooth()</b> is used with a <b>PGraphics</b> object, it should be run right after the object is created with <b>createGraphics()</b>, as shown in the Reference in the third example.
 
-## example
+@@ example
 void setup() {
   size(100, 100);
   smooth(2);
@@ -28,7 +28,7 @@ void draw() {
   ellipse(70, 48, 36, 36);
 }
 
-## example
+@@ example
 int x = 0;
 
 void setup() {
@@ -42,7 +42,7 @@ void draw() {
   x += 1;
 }
 
-## example
+@@ example
 PGraphics pg;
 int x = 0;
 

@@ -1,12 +1,12 @@
-## meta
+@@ meta
 name = PShader
 category = PShader
 subcategory = Method
 
-## description
+@@ description
 Sets the uniform variables inside the shader to modify the effect while the program is running.
 
-## example
+@@ example
 PImage tex;
 PShader deform;
 

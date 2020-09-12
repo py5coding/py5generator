@@ -1,10 +1,10 @@
-## meta
+@@ meta
 name = ellipseMode()
 category = Shape
 subcategory = Attributes
 type = None
 
-## description
+@@ description
 Modifies the location from which ellipses are drawn by changing the way in which parameters given to <b>ellipse()</b> are intepreted.<br />
 <br />
 The default mode is <b>ellipseMode(CENTER)</b>, which interprets the first two parameters of <b>ellipse()</b> as the shape's center point, while the third and fourth parameters are its width and height.<br />
@@ -17,7 +17,7 @@ The default mode is <b>ellipseMode(CENTER)</b>, which interprets the first two p
 <br />
 The parameter must be written in ALL CAPS because Processing is a case-sensitive language.
 
-## example
+@@ example
 image = ellipseMode_0.png
 
 ellipseMode(RADIUS);  // Set ellipseMode to RADIUS
@@ -28,7 +28,7 @@ ellipseMode(CENTER);  // Set ellipseMode to CENTER
 fill(100);  // Set fill to gray
 ellipse(50, 50, 30, 30);  // Draw gray ellipse using CENTER mode
 
-## example
+@@ example
 image = ellipseMode_1.png
 
 ellipseMode(CORNER);  // Set ellipseMode is CORNER

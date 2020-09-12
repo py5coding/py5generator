@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = noTint()
 category = Image
 subcategory = Loading & Displaying
 type = None
 
-## description
+@@ description
 Removes the current fill value for displaying images and reverts to displaying images with their original hues.
 
-## example
+@@ example
 image = noTint_.png
 
 PImage img;

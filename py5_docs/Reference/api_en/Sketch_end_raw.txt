@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = endRaw()
 category = Output
 subcategory = Files
 type = None
 
-## description
+@@ description
 Complement to <b>beginRaw()</b>; they must always be used together. See the <b>beginRaw()</b> reference for details.
 
-## example
+@@ example
 import processing.pdf.*;
 
 void setup() {

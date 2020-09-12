@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = loadPixels()
 category = PImage
 subcategory = Method
 type = None
 
-## description
+@@ description
 Loads the pixel data for the image into its <b>pixels[]</b> array. This function must always be called before reading from or writing to <b>pixels[]</b>.
 
-## example
+@@ example
 image = PImage_loadPixels_.png
 
 PImage myImage;

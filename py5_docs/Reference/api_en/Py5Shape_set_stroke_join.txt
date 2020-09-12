@@ -1,11 +1,11 @@
-## meta
+@@ meta
 name = set_stroke_join()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
 
-## description
+@@ description
 new template no description.
 
-## example
+@@ example
 

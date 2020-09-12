@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = updatePixels()
 category = PImage
 subcategory = Method
 type = None
 
-## description
+@@ description
 Updates the image with the data in its <b>pixels[]</b> array. Use in conjunction with <b>loadPixels()</b>. If you're only reading pixels from the array, there's no need to call <b>updatePixels()</b>.
 
-## example
+@@ example
 image = PImage_updatePixels_.png
 
 PImage myImage;

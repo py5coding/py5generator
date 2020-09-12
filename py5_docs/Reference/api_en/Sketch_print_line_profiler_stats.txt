@@ -1,11 +1,11 @@
-## meta
+@@ meta
 name = print_line_profiler_stats()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
 
-## description
+@@ description
 new template no description.
 
-## example
+@@ example
 

@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = hour()
 category = Input
 subcategory = Time & Date
 type = None
 
-## description
+@@ description
 Processing communicates with the clock on your computer. The <b>hour()</b> function returns the current hour as a value from 0 - 23.
 
-## example
+@@ example
 void draw() {
   background(204);
   int s = second();  // Values from 0 - 59

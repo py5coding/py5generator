@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = printProjection()
 category = Lights, Camera
 subcategory = Camera
 type = None
 
-## description
+@@ description
 Prints the current projection matrix to the Console (the text window at the bottom of Processing).
 
-## example
+@@ example
 size(100, 100, P3D);
 printProjection();
 

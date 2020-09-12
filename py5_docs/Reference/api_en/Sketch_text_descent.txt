@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = textDescent()
 category = Typography
 subcategory = Metrics
 type = None
 
-## description
+@@ description
 Returns descent of the current font at its current size. This information is useful for determining the height of the font below the baseline.
 
-## example
+@@ example
 image = textDescent_.png
 
 float base = height * 0.75;

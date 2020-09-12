@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = focused
 category = Environment
 subcategory = None
 type = variable
 
-## description
+@@ description
 Confirms if a Processing program is "focused," meaning that it is active and will accept mouse or keyboard input. This variable is "true" if it is focused and "false" if not.
 
-## example
+@@ example
 if (focused) {  // or "if (focused == true)"
   ellipse(25, 25, 50, 50);
 } else {

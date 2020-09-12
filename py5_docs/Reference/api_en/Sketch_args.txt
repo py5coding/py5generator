@@ -1,11 +1,11 @@
-## meta
+@@ meta
 name = args
 category = UNKNOWN
 subcategory = UNKNOWN
 type = dynamic variable
 
-## description
+@@ description
 new template no description.
 
-## example
+@@ example
 

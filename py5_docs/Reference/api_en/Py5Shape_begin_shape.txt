@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = beginShape()
 category = PShape
 subcategory = Method
 type = None
 
-## description
+@@ description
 This method is used to start a custom shape created with the <b>createShape()</b> function. It's always and only used with <b>createShape()</b>.
 
-## example
+@@ example
 PShape s;  // The PShape object
 
 void setup() {  

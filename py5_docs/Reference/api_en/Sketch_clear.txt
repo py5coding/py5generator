@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = clear()
 category = Color
 subcategory = Setting
 type = None
 
-## description
+@@ description
 Clears the pixels within a buffer. This function only works on <b>PGraphics</b> objects created with the <b>createGraphics()</b> function. Unlike the main graphics context (the display window), pixels in additional graphics areas created with <b>createGraphics()</b> can be entirely or partially transparent. This function clears everything in a <b>PGraphics</b> object to make all of the pixels 100% transparent.
 
-## example
+@@ example
 PGraphics pg;
 
 void setup() {

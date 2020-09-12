@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = getChildCount()
 category = PShape
 subcategory = Method
 type = None
 
-## description
+@@ description
 Returns the number of children within the PShape.
 
-## example
+@@ example
 PShape states;
 
 void setup() {

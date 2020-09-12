@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = bezier()
 category = Shape
 subcategory = Curves
 type = None
 
-## description
+@@ description
 Draws a Bezier curve on the screen. These curves are defined by a series of anchor and control points. The first two parameters specify the first anchor point and the last two parameters specify the other anchor point. The middle parameters specify the control points which define the shape of the curve. Bezier curves were developed by French engineer Pierre Bezier. Using the 3D version requires rendering with P3D (see the Environment reference for more information).
 
-## example
+@@ example
 image = bezier_0.png
 
 noFill();
@@ -17,7 +17,7 @@ line(90, 90, 15, 80);
 stroke(0, 0, 0);
 bezier(85, 20, 10, 10, 90, 90, 15, 80);
 
-## example
+@@ example
 image = bezier_1.png
 
 noFill();

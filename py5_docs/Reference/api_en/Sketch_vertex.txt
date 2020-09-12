@@ -1,17 +1,17 @@
-## meta
+@@ meta
 name = vertex()
 category = Shape
 subcategory = Vertex
 type = None
 
-## description
+@@ description
 All shapes are constructed by connecting a series of vertices. <b>vertex()</b> is used to specify the vertex coordinates for points, lines, triangles, quads, and polygons. It is used exclusively within the <b>beginShape()</b> and <b>endShape()</b> functions.
 <br /><br />
 Drawing a vertex in 3D using the <b>z</b> parameter requires the P3D parameter in combination with size, as shown in the above example.
 <br /><br />
 This function is also used to map a texture onto geometry. The <b>texture()</b> function declares the texture to apply to the geometry and the <b>u</b> and <b>v</b> coordinates set define the mapping of this texture to the form. By default, the coordinates used for <b>u</b> and <b>v</b> are specified in relation to the image's size in pixels, but this relation can be changed with <b>textureMode()</b>.
 
-## example
+@@ example
 image = vertex_0.png
 
 beginShape(POINTS);
@@ -21,7 +21,7 @@ vertex(85, 75);
 vertex(30, 75);
 endShape();
 
-## example
+@@ example
 image = vertex_1.png
 
 // Drawing vertices in 3D requires P3D
@@ -34,7 +34,7 @@ vertex(85, 75, -50);
 vertex(30, 75, -50);
 endShape();
 
-## example
+@@ example
 image = vertex_2.png
 
 size(100, 100, P3D);

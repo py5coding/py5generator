@@ -1,11 +1,11 @@
-## meta
+@@ meta
 name = np_pixels
 category = UNKNOWN
 subcategory = UNKNOWN
 type = dynamic variable
 
-## description
+@@ description
 new template no description.
 
-## example
+@@ example
 

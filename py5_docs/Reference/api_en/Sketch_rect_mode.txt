@@ -1,10 +1,10 @@
-## meta
+@@ meta
 name = rectMode()
 category = Shape
 subcategory = Attributes
 type = None
 
-## description
+@@ description
 Modifies the location from which rectangles are drawn by changing the way in which parameters given to <b>rect()</b> are intepreted.<br />
 <br />
 The default mode is <b>rectMode(CORNER)</b>, which interprets the first two parameters of <b>rect()</b> as the upper-left corner of the shape, while the third and fourth parameters are its width and height.<br />
@@ -17,7 +17,7 @@ The default mode is <b>rectMode(CORNER)</b>, which interprets the first two para
 <br />
 The parameter must be written in ALL CAPS because Processing is a case-sensitive language.
 
-## example
+@@ example
 image = rectMode_0.png
 
 rectMode(CORNER);  // Default rectMode is CORNER
@@ -28,7 +28,7 @@ rectMode(CORNERS);  // Set rectMode to CORNERS
 fill(100);  // Set fill to gray
 rect(25, 25, 50, 50);  // Draw gray rect using CORNERS mode
 
-## example
+@@ example
 image = rectMode_1.png
 
 rectMode(RADIUS);  // Set rectMode to RADIUS

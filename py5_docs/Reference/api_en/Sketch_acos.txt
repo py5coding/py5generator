@@ -1,11 +1,11 @@
-## meta
+@@ meta
 name = acos()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = static method
 
-## description
+@@ description
 new template no description.
 
-## example
+@@ example
 

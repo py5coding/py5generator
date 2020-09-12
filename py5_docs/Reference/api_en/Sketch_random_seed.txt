@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = randomSeed()
 category = Math
 subcategory = Random
 type = None
 
-## description
+@@ description
 Sets the seed value for <b>random()</b>. By default, <b>random()</b> produces different results each time the program is run. Set the <b>seed</b> parameter to a constant to return the same pseudo-random numbers each time the software is run.
 
-## example
+@@ example
 randomSeed(0);
 for (int i=0; i < 100; i++) {
   float r = random(0, 255);

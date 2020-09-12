@@ -1,10 +1,10 @@
-## meta
+@@ meta
 name = size()
 category = Environment
 subcategory = None
 type = None
 
-## description
+@@ description
 Defines the dimension of the display window width and height in units of pixels. In a program that has the <b>setup()</b> function, the <b>size()</b> function must be the first line of code inside <b>setup()</b>, and the <b>setup()</b> function must appear in the code tab with the same name as your sketch folder.<br />
 <br />
 The built-in variables <b>width</b> and <b>height</b> are set by the parameters passed to this function. For example, running <b>size(640, 480)</b> will assign 640 to the <b>width</b> variable and 480 to the height <b>variable</b>. If <b>size()</b> is not used, the window will be given a default size of 100 x 100 pixels.<br />
@@ -32,12 +32,12 @@ The <b>renderer</b> parameter selects which rendering engine to use. For example
 As of Processing 3.0, to use variables as the parameters to <b>size()</b> function, place the <b>size()</b> function within the <b>settings()</b> function (instead of <b>setup()</b>). There is more information about this on the <b>settings()</b> reference page.<br />
 <br />
 
-## example
+@@ example
 size(200, 100);
 background(153);
 line(0, 0, width, height);
 
-## example
+@@ example
 void setup() {
   size(320, 240);
 }
@@ -47,7 +47,7 @@ void draw() {
   line(0, 0, width, height);
 }
 
-## example
+@@ example
 size(150, 200, P3D);  // Specify P3D renderer
 background(153);
 

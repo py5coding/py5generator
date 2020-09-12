@@ -1,13 +1,13 @@
-## meta
+@@ meta
 name = textWidth()
 category = Typography
 subcategory = Metrics
 type = None
 
-## description
+@@ description
 Calculates and returns the width of any character or text string.
 
-## example
+@@ example
 image = textWidth_.png
 
 textSize(28);
