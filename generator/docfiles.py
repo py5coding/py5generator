@@ -14,6 +14,8 @@ class Documentation:
     def __init__(self, filename=None):
         self.meta = {}
         self.examples = []
+        self.signatures = []
+        self.variables = {}
         self.description = ''
         if filename:
             if not isinstance(filename, Path):
@@ -21,7 +23,7 @@ class Documentation:
             with open(filename, 'r') as f:
                 content = f.read()
             if filename.suffix == '.txt':
-                self.meta, self.examples, self.description = self._from_txt(content)
+                self.meta, self.signatures, self.variables, self.examples, self.description = self._from_txt(content)
             elif filename.suffix == '.xml':
                 self.meta, self.examples, self.description = self._from_xml(content)
             else:
@@ -31,6 +33,14 @@ class Documentation:
         with open(filename, 'w') as f:
             f.write('## meta\n')
             f.write('\n'.join(f'{m[0]} = {m[1]}' for m in self.meta.items()))
+            if self.signatures:
+                f.write('\n\n## signatures\n')
+                for signature in self.signatures:
+                    f.write(f'{signature}\n')
+            if self.variables:
+                f.write('\n\n## variables\n')
+                for var, desc in self.variables.items():
+                    f.write(f'{var}, {desc}\n')
             f.write('\n\n## description\n')
             f.write(f'{self.description}\n')
             for image, code in self.examples:
@@ -41,7 +51,7 @@ class Documentation:
 
     def _from_xml(self, content):
         xml = xmltodict.parse(content)['root']
-        meta = dict()
+        meta = {}
         examples = []
         description = ''
         for key in xml.keys():
@@ -58,12 +68,19 @@ class Documentation:
         return meta, examples, description
 
     def _from_txt(self, text):
-        meta = dict()
+        meta = {}
+        signatures = []
+        variables = {}
         examples = []
         description = ''
         for kind, content in DOC_REGEX.findall(text):
             if kind == 'meta':
                 meta = dict(META_REGEX.findall(content))
+            elif kind == 'signatures':
+                signatures.extend(content.strip().split('\n'))
+            elif kind == 'variables':
+                var_desc = [var.split('-', 1) for var in content.strip().split('\n')]
+                variables.update({k.strip(): v.strip() for k, v in var_desc})
             elif kind == 'example':
                 if m := CODE_REGEX.match(content.strip()):
                     examples.append(m.groups())
@@ -71,4 +88,4 @@ class Documentation:
                     examples.append((None, content.strip()))
             elif kind == 'description':
                 description = content.strip()
-        return meta, examples, description
+        return meta, signatures, variables, examples, description

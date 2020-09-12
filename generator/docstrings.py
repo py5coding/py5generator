@@ -82,26 +82,30 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
         m = FIRST_SENTENCE_REGEX.match(description)
         first_sentence = m .group() if m else description
         if item_name.endswith('()'):
+            signatures = doc.signatures
+            variables = doc.variables
             if tuple_key not in method_signatures_lookup:
-                logger.warning(f'missing method signatures {tuple_key[0]}.{tuple_key[1]}')
-                signatures_variables = 'signatures missing'
+                if not signatures:
+                    logger.warning(f'missing method signatures {tuple_key[0]}.{tuple_key[1]}')
+                    signatures = ['signatures missing']
             else:
-                signatures = []
-                variables = set()
                 for params, rettype in method_signatures_lookup[tuple_key]:
                     signatures.append(f"{tuple_key[1]}({', '.join(filter(lambda p: p != '/', params))}) -> {rettype}")
                     for p in filter(lambda p: p != '/', params):
+                        if p in variables:
+                            continue
                         var_name = p.split(':')[0]
                         if key in variable_descriptions and var_name in variable_descriptions[key]:
                             var_desc = variable_descriptions[key][var_name]
                         else:
                             var_desc = 'missing variable description'
                             logger.warning(f'{var_desc}: {tuple_key[0]}.{tuple_key[1]}, {p}')
-                        variables.add(f'{p} - {var_desc}')
+                        variables[p] = var_desc
 
-                signatures_variables = '\n'.join(sorted(signatures))
-                if variables:
-                    signatures_variables += PARAMETERS_TEMPLATE.format('\n'.join(sorted(variables)))
+            signatures_variables = '\n'.join(sorted(signatures))
+            if variables:
+                variables_txt = [f'{k} - {v}' for k, v in variables.items()]
+                signatures_variables += PARAMETERS_TEMPLATE.format('\n'.join(sorted(variables_txt)))
             docstring = METHOD_DOC_TEMPLATE.format(first_sentence, signatures_variables, description)
         else:
             docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence, description)

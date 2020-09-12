@@ -4,6 +4,14 @@ category = UNKNOWN
 subcategory = UNKNOWN
 type = static method
 
+## signatures
+run_sketch(block: bool = False, py5_options: List = None, sketch_args: List = None) -> None
+
+## variables
+block: bool - determines if function returns right away or waits for the sketch to exit.
+py5_options: List - list of arguments
+sketch_args: List - list of arguments
+
 ## description
 new template no description.
 
