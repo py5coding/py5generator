@@ -103,7 +103,7 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
                         variables[p] = var_desc
 
             # TODO: write the documentation information back to the same file? or a different one?
-            # doc.write(docfile)
+            doc.write(Path('/tmp/docfiles/') / docfile.name)
 
             signatures_variables = '\n'.join(sorted(signatures))
             if variables:

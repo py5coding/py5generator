@@ -30,6 +30,9 @@ class Documentation:
                 raise RuntimeError(f'unable to read {filename}')
 
     def write(self, filename):
+        filename = Path(filename)
+        if not filename.parent.exists():
+            filename.parent.mkdir(parents=True)
         with open(filename, 'w') as f:
             f.write('## meta\n')
             f.write('\n'.join(f'{m[0]} = {m[1]}' for m in self.meta.items()) + '\n')
