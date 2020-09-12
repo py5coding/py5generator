@@ -32,16 +32,16 @@ class Documentation:
     def write(self, filename):
         with open(filename, 'w') as f:
             f.write('## meta\n')
-            f.write('\n'.join(f'{m[0]} = {m[1]}' for m in self.meta.items()))
+            f.write('\n'.join(f'{m[0]} = {m[1]}' for m in self.meta.items()) + '\n')
             if self.signatures:
-                f.write('\n\n## signatures\n')
-                for signature in self.signatures:
+                f.write('\n## signatures\n')
+                for signature in sorted(self.signatures):
                     f.write(f'{signature}\n')
             if self.variables:
-                f.write('\n\n## variables\n')
-                for var, desc in self.variables.items():
-                    f.write(f'{var}, {desc}\n')
-            f.write('\n\n## description\n')
+                f.write('\n## variables\n')
+                for var, desc in sorted(self.variables.items()):
+                    f.write(f'{var} - {desc}\n')
+            f.write('\n## description\n')
             f.write(f'{self.description}\n')
             for image, code in self.examples:
                 f.write('\n## example\n')

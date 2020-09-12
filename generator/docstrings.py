@@ -102,6 +102,9 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
                             logger.warning(f'{var_desc}: {tuple_key[0]}.{tuple_key[1]}, {p}')
                         variables[p] = var_desc
 
+            # TODO: write the documentation information back to the same file? or a different one?
+            # doc.write(docfile)
+
             signatures_variables = '\n'.join(sorted(signatures))
             if variables:
                 variables_txt = [f'{k} - {v}' for k, v in variables.items()]
