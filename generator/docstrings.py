@@ -106,9 +106,10 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
             # TODO: write the documentation information back to the same file? or a different one?
             doc.write(Path('/tmp/docfiles/') / docfile.name)
 
-            signatures_variables = '\n'.join(sorted([f'* {s}' for s in signatures]))
+            signatures_variables = '\n'.join(sorted([f' * {s}' for s in signatures]))
             if variables:
-                variables_txt = [f':param {k.split(":")[0]}: \n    {v}' for k, v in variables.items()]
+                # variables_txt = [f'{k}\n    {v}\n' for k, v in variables.items()]
+                variables_txt = [f'{k} - {v}\n' for k, v in variables.items()]
                 signatures_variables += PARAMETERS_TEMPLATE.format('\n'.join(sorted(variables_txt)))
             docstring = METHOD_DOC_TEMPLATE.format(first_sentence, signatures_variables, description)
         else:
