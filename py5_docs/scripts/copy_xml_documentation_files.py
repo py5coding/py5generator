@@ -35,6 +35,9 @@ PY5_CLASS_LOOKUP = {
     'PSurface': 'Py5Surface',
 }
 
+SNAKE_CASE_OVERRIDE = {
+    'null': 'None'
+}
 
 CONSTANT_CHARACTERS = string.ascii_uppercase + string.digits + '_'
 
@@ -42,8 +45,10 @@ CONSTANT_CHARACTERS = string.ascii_uppercase + string.digits + '_'
 def snake_case(name):
     if all([c in CONSTANT_CHARACTERS for c in list(name)]):
         return name
-    if (stem := name.replace('()', '')) in PY5_CLASS_LOOKUP:
+    elif (stem := name.replace('()', '')) in PY5_CLASS_LOOKUP:
         return name.replace(stem, PY5_CLASS_LOOKUP[stem])
+    elif name in SNAKE_CASE_OVERRIDE:
+        return SNAKE_CASE_OVERRIDE[name]
     else:
         name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
         name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', name)
