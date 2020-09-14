@@ -24,8 +24,10 @@ Parameters
 METHOD_DOC_TEMPLATE = """
 {0}
 
-Signatures
-----------
+Note
+----
+
+You can use any of the following signatures:
 
 {1}
 
@@ -82,6 +84,7 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
             # TODO: write the documentation information back to the same file? or a different one?
             doc.write(Path('/tmp/docfiles/') / docfile.name)
 
+            # TODO: if there are no signatures or parameters, skip those sections
             signatures_variables = '\n'.join(sorted([f' * {s}' for s in signatures]))
             if variables:
                 variables_txt = [f'{k}\n    {v}\n' for k, v in variables.items()]
