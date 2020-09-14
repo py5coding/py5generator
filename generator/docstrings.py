@@ -76,11 +76,12 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
         tuple_key = tuple(key.split('_', maxsplit=1))
         doc = Documentation(docfile)
         # TODO: I don't want to remove all html, I want to replace the <b> tags with backticks, for example
-        description = remove_html(doc.description).strip()
         item_name = doc.meta['name']
-        description = '\n'.join([textwrap.fill(d, 80) for d in description.split('\n')])
+        description = remove_html(doc.description).strip()
         m = FIRST_SENTENCE_REGEX.match(description)
-        first_sentence = m .group() if m else description
+        first_sentence = m.group() if m else description
+        description = '\n'.join([textwrap.fill(d, 80) for d in description.split('\n')])
+        first_sentence = textwrap.fill(first_sentence, 80)
         if item_name.endswith('()'):
             signatures = doc.signatures
             variables = doc.variables
@@ -105,9 +106,9 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
             # TODO: write the documentation information back to the same file? or a different one?
             doc.write(Path('/tmp/docfiles/') / docfile.name)
 
-            signatures_variables = '\n'.join(sorted(signatures))
+            signatures_variables = '\n'.join(sorted([f'* {s}' for s in signatures]))
             if variables:
-                variables_txt = [f'{k} - {v}' for k, v in variables.items()]
+                variables_txt = [f':param {k.split(":")[0]}: \n    {v}' for k, v in variables.items()]
                 signatures_variables += PARAMETERS_TEMPLATE.format('\n'.join(sorted(variables_txt)))
             docstring = METHOD_DOC_TEMPLATE.format(first_sentence, signatures_variables, description)
         else:
