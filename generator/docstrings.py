@@ -1,9 +1,7 @@
 import re
 import json
-from io import StringIO
 import logging
 import textwrap
-from html.parser import HTMLParser
 from pathlib import Path
 
 from .docfiles import Documentation
@@ -48,36 +46,14 @@ Notes
 """
 
 
-class TagRemover(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.reset()
-        self.strict = False
-        self.convert_charrefs = True
-        self.text = StringIO()
-
-    def handle_data(self, d):
-        self.text.write(d)
-
-    def get_data(self):
-        return self.text.getvalue()
-
-
-def remove_html(html):
-    tr = TagRemover()
-    tr.feed(html)
-    return tr.get_data()
-
-
 def prepare_docstrings(method_signatures_lookup, variable_descriptions):
     docstrings = {}
     for docfile in sorted(PY5_API_EN.glob('*.txt')):
         key = docfile.stem
         tuple_key = tuple(key.split('_', maxsplit=1))
         doc = Documentation(docfile)
-        # TODO: I don't want to remove all html, I want to replace the <b> tags with backticks, for example
         item_name = doc.meta['name']
-        description = remove_html(doc.description).strip()
+        description = doc.description.strip()
         m = FIRST_SENTENCE_REGEX.match(description)
         first_sentence = m.group() if m else description
         description = '\n'.join([textwrap.fill(d, 80) for d in description.split('\n')])
@@ -108,8 +84,7 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
 
             signatures_variables = '\n'.join(sorted([f' * {s}' for s in signatures]))
             if variables:
-                # variables_txt = [f'{k}\n    {v}\n' for k, v in variables.items()]
-                variables_txt = [f'{k} - {v}\n' for k, v in variables.items()]
+                variables_txt = [f'{k}\n    {v}\n' for k, v in variables.items()]
                 signatures_variables += PARAMETERS_TEMPLATE.format('\n'.join(sorted(variables_txt)))
             docstring = METHOD_DOC_TEMPLATE.format(first_sentence, signatures_variables, description)
         else:

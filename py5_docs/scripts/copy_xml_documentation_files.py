@@ -1,5 +1,7 @@
 import re
 from pathlib import Path
+from io import StringIO
+from html.parser import HTMLParser
 
 import pandas as pd
 
@@ -37,6 +39,27 @@ def snake_case(name):
     name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
     name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', name)
     return name.lower()
+
+
+class TagRemover(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.reset()
+        self.strict = False
+        self.convert_charrefs = True
+        self.text = StringIO()
+
+    def handle_data(self, d):
+        self.text.write(d)
+
+    def get_data(self):
+        return self.text.getvalue()
+
+
+def remove_html(html):
+    tr = TagRemover()
+    tr.feed(html)
+    return tr.get_data()
 
 
 # read the class datafiles so I know what methods and fields are relevant
@@ -109,6 +132,7 @@ for pclass, class_data in class_data_info.items():
 for xml_file, file_data in xml_files:
     pclass, py5_name, processing_name = file_data
     doc = Documentation(xml_file)
+    doc.description = remove_html(doc.description)
     # TODO: Pythonize the code examples
     # TODO: add extra metadata such as underlying processing field or method because I want to mention this in the documentation
     doc.write(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.txt')
