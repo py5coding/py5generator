@@ -17,17 +17,17 @@ The maximum width and height is limited by your operating system, and is usually
 
 The minimum width and height is around 100 pixels in each direction. This is the smallest that is supported across Windows, macOS, and Linux. We enforce the minimum size so that sketches will run identically on different machines.
 
-The ``renderer`` parameter selects which rendering engine to use. For example, if you will be drawing 3D shapes, use ``p3_d``. In addition to the default renderer, other renderers are:
+The ``renderer`` parameter selects which rendering engine to use. For example, if you will be drawing 3D shapes, use ``P3D``. In addition to the default renderer, other renderers are:
 
-``p2_d`` (Processing 2D): 2D graphics renderer that makes use of OpenGL-compatible graphics hardware.
+``P2D`` (Processing 2D): 2D graphics renderer that makes use of OpenGL-compatible graphics hardware.
 
-``p3_d`` (Processing 3D): 3D graphics renderer that makes use of OpenGL-compatible graphics hardware.
+``P3D`` (Processing 3D): 3D graphics renderer that makes use of OpenGL-compatible graphics hardware.
 
 ``fx2_d`` (JavaFX 2D): A 2D renderer that uses JavaFX, which may be faster for some applications, but has some compatibility quirks.
 
-``pdf``: The PDF renderer draws 2D graphics directly to an Acrobat PDF file. This produces excellent results when you need vector shapes for high-resolution output or printing. You must first use Import Library → PDF to make use of the library. More information can be found in the PDF library reference.
+``PDF``: The PDF renderer draws 2D graphics directly to an Acrobat PDF file. This produces excellent results when you need vector shapes for high-resolution output or printing. You must first use Import Library → PDF to make use of the library. More information can be found in the PDF library reference.
 
-``svg``: The SVG renderer draws 2D graphics directly to an SVG file. This is great for importing into other vector programs or using for digital fabrication. You must first use Import Library → SVG Export to make use of the library.
+``SVG``: The SVG renderer draws 2D graphics directly to an SVG file. This is great for importing into other vector programs or using for digital fabrication. You must first use Import Library → SVG Export to make use of the library.
 
 As of Processing 3.0, to use variables as the parameters to ``size()`` function, place the ``size()`` function within the ``settings()`` function (instead of ``setup()``). There is more information about this on the ``settings()`` reference page.
 

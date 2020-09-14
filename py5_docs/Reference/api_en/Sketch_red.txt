@@ -9,8 +9,8 @@ Extracts the red value from a color, scaled to match current ``color_mode()``. T
 
 The ``red()`` function is easy to use and understand, but it is slower than a technique called bit shifting. When working in ``color_mode(rgb, 255)``, you can acheive the same results as ``red()`` but with greater speed by using the right shift operator (``>>``) with a bit mask. For example, the following two lines of code are equivalent means of getting the red value of the color value ``c``:
 
-float r1 = red(c);  // Simpler, but slower to calculate
-float r2 = c >> 16 & 0xFF;  // Very fast to calculate
+``float r1 = red(c);  # _simpler, but slower to calculate
+float r2 = c >> 16 & 0x_ff;  # _very fast to calculate``
 
 @@ example
 image = red_.png

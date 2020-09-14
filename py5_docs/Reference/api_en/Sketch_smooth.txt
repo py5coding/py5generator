@@ -13,7 +13,7 @@ The default renderer uses ``smooth(3)`` by default. This is bicubic smoothing. T
 
 With Processing 3.0, ``smooth()`` is different than before. It was common to use ``smooth()`` and ``no_smooth()`` to turn on and off antialiasing within a sketch. Now, because of how the software has changed, ``smooth()`` can only be set once within a sketch. It can be used either at the top of a sketch without a ``setup()``, or after the ``size()`` function when used in a sketch with ``setup()``. The ``no_smooth()`` function also follows the same rules. 
 
-When ``smooth()`` is used with a ``p_graphics`` object, it should be run right after the object is created with ``create_graphics()``, as shown in the Reference in the third example.
+When ``smooth()`` is used with a ``Py5Graphics`` object, it should be run right after the object is created with ``create_graphics()``, as shown in the Reference in the third example.
 
 @@ example
 void setup() {

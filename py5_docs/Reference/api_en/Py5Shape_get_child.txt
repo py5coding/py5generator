@@ -5,7 +5,7 @@ subcategory = Method
 type = None
 
 @@ description
-Extracts a child shape from a parent shape. Specify the name of the shape with the ``target`` parameter. The shape is returned as a ``p_shape`` object, or ``null`` is returned if there is an error.
+Extracts a child shape from a parent shape. Specify the name of the shape with the ``target`` parameter. The shape is returned as a ``Py5Shape`` object, or ``null`` is returned if there is an error.
 
 @@ example
 image = PShape_getChild_.png

@@ -11,7 +11,7 @@ When using hexadecimal notation to specify a color, use "``#``" or "``0x``" befo
  
 The value for the gray parameter must be less than or equal to the current maximum value as specified by ``color_mode()``. The default maximum value is 255.
  
-When drawing in 2D with the default renderer, you may need ``hint(enable_stroke_pure)`` to improve drawing quality (at the expense of performance). See ``hint()``nt() documentation for more details.
+When drawing in 2D with the default renderer, you may need ``hint(enable_stroke_pure)`` to improve drawing quality (at the expense of performance). See the ``hint()`` documentation for more details.
 
 @@ example
 image = stroke_0.png

@@ -9,7 +9,7 @@ The ``background()`` function sets the color used for the background of the Proc
  
 An image can also be used as the background for a sketch, although the image's width and height must match that of the sketch window. Images used with ``background()`` will ignore the current ``tint()`` setting. To resize an image to the size of the sketch window, use image.resize(width, height).
  
-It is not possible to use the transparency ``alpha`` parameter with background colors on the main drawing surface. It can only be used along with a ``p_graphics`` object and ``create_graphics()``.
+It is not possible to use the transparency ``alpha`` parameter with background colors on the main drawing surface. It can only be used along with a ``Py5Graphics`` object and ``create_graphics()``.
 
 @@ example
 image = background_0.png

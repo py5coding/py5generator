@@ -5,7 +5,7 @@ subcategory = Curves
 type = None
 
 @@ description
-Sets the resolution at which Beziers display. The default value is 20. This function is only useful when using the ``p3_d`` renderer; the default ``p2_d`` renderer does not use this information.
+Sets the resolution at which Beziers display. The default value is 20. This function is only useful when using the ``P3D`` renderer; the default ``P2D`` renderer does not use this information.
 
 @@ example
 // Move the mouse left and right to see the detail change

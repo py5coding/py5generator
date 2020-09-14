@@ -5,7 +5,7 @@ subcategory = Curves
 type = None
 
 @@ description
-Calculates the tangent of a point on a Bezier curve. There is a good definition of tangent on Wikipedia.
+Calculates the tangent of a point on a Bezier curve. There is a good definition of *tangent* on Wikipedia.
 
 @@ example
 image = bezierTangent_0.png

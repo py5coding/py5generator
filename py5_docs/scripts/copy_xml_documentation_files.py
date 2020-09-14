@@ -35,10 +35,20 @@ PY5_CLASS_LOOKUP = {
 }
 
 
+SNAKE_CASE_IGNORE = {
+    'P2D', 'P3D', 'JAVA2D', 'SVG', 'PDF', 'DXF'
+} 
+
+
 def snake_case(name):
-    name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
-    name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', name)
-    return name.lower()
+    if name in SNAKE_CASE_IGNORE:
+        return name
+    if (stem := name.replace('()', '')) in PY5_CLASS_LOOKUP:
+        return name.replace(stem, PY5_CLASS_LOOKUP[stem])
+    else:
+        name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+        name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', name)
+        return name.lower()
 
 
 class TagRemover(HTMLParser):
@@ -48,25 +58,54 @@ class TagRemover(HTMLParser):
         self.strict = False
         self.convert_charrefs = True
         self.text = StringIO()
+        self._in_code_block = False
+        self._tag_list = set()
+
+    def handle_starttag(self, tag, attrs):
+        if tag in {'b', 'tt', 'strong', 'pre'}:
+            self.text.write('``')
+            self._in_code_block = True
+        elif tag in {'i', 'em'}:
+            self.text.write('*')
+        elif tag in {'a', 'br'}:
+            pass
+        else:
+            self._tag_list.add(tag)
+
+    def handle_endtag(self, tag):
+        # documentation erroniously uses </s> to end some <b> tags
+        if tag in {'b', 's', 'tt', 'strong', 'pre'}:
+            self.text.write('``')
+            self._in_code_block = False
+        elif tag in {'i', 'em'}:
+            self.text.write('*')
+        elif tag in {'br', 'a'}:
+            pass
+        else:
+            self._tag_list.add(tag)
 
     def handle_data(self, d):
-        self.text.write(d)
+        if self._in_code_block:
+            self.text.write(snake_case(d.replace('//', '#')))
+        else:
+            self.text.write(d)
 
     def get_data(self):
+        if self._tag_list:
+            print(self._tag_list)
         return self.text.getvalue()
 
 
 def remove_html(html):
-    # first convert bold tags to ``
-    for full, code in re.findall(r'(<[bB]>(.*?)</?[bB]>)', html):
-        html = html.replace(full, f'``{snake_case(code)}``')
-    # TODO: this is wrong, can't use replace to do the replace because I can
-    # replace more than one and have weird side effects
-    for m in re.finditer(r'(?<!`)(\w+\(\))(?!`)', html):
-        html = html[:m.start()] + f'``{snake_case(m.group())}``' + html[m.end():]
+    # remove html tags and do some conversions
     tr = TagRemover()
     tr.feed(html)
-    return tr.get_data()
+    text = tr.get_data()
+    # find text that looks like a function reference
+    while m := re.search(r'(?<!`)(\w+\(\))(?!`)', text):
+        text = text[:m.start()] + f'``{snake_case(m.group())}``' + text[m.end():]
+
+    return text
 
 
 # read the class datafiles so I know what methods and fields are relevant
