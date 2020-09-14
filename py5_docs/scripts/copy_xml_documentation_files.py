@@ -1,6 +1,7 @@
 import re
 from pathlib import Path
 from io import StringIO
+import string
 from html.parser import HTMLParser
 
 import pandas as pd
@@ -35,13 +36,11 @@ PY5_CLASS_LOOKUP = {
 }
 
 
-SNAKE_CASE_IGNORE = {
-    'P2D', 'P3D', 'JAVA2D', 'SVG', 'PDF', 'DXF'
-} 
+CONSTANT_CHARACTERS = string.ascii_uppercase + string.digits + '_'
 
 
 def snake_case(name):
-    if name in SNAKE_CASE_IGNORE:
+    if all([c in CONSTANT_CHARACTERS for c in list(name)]):
         return name
     if (stem := name.replace('()', '')) in PY5_CLASS_LOOKUP:
         return name.replace(stem, PY5_CLASS_LOOKUP[stem])

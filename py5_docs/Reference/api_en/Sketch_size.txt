@@ -24,7 +24,7 @@ The ``renderer`` parameter selects which rendering engine to use. For example, i
 
 ``P3D`` (Processing 3D): 3D graphics renderer that makes use of OpenGL-compatible graphics hardware.
 
-``fx2_d`` (JavaFX 2D): A 2D renderer that uses JavaFX, which may be faster for some applications, but has some compatibility quirks.
+``FX2D`` (JavaFX 2D): A 2D renderer that uses JavaFX, which may be faster for some applications, but has some compatibility quirks.
 
 ``PDF``: The PDF renderer draws 2D graphics directly to an Acrobat PDF file. This produces excellent results when you need vector shapes for high-resolution output or printing. You must first use Import Library → PDF to make use of the library. More information can be found in the PDF library reference.
 
