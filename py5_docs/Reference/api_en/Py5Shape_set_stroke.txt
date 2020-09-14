@@ -1,8 +1,9 @@
 @@ meta
-name = setStroke()
+name = set_stroke()
 category = PShape
 subcategory = Method
 type = None
+processing_name = setStroke
 
 @@ description
 The ``set_stroke()`` method defines the outline color of a ``Py5Shape``. This method is used after shapes are created or when a shape is defined explicitly (e.g. ``create_shape(rect, 20, 20, 80, 80)``) as shown in the above example. When a shape is created with ``begin_shape()`` and ``end_shape()``, its attributes may be changed with ``fill()`` and ``stroke()`` within ``begin_shape()`` and ``end_shape()``. However, after the shape is created, only the ``set_stroke()`` method can define a new stroke value for the ``Py5Shape``.

@@ -1,8 +1,9 @@
 @@ meta
-name = colorMode()
+name = color_mode()
 category = Color
 subcategory = Setting
 type = None
+processing_name = colorMode
 
 @@ description
 Changes the way Processing interprets color data. By default, the parameters for ``fill()``, ``stroke()``, ``background()``, and ``color()`` are defined by values between 0 and 255 using the RGB color model. The ``color_mode()`` function is used to change the numerical range used for specifying colors and to switch color systems. For example, calling ``color_mode(rgb, 1.0)`` will specify that values are specified between 0 and 1. The limits for defining colors are altered by setting the parameters ``max``, ``max1``, ``max2``, ``max3``, and ``max_a``.

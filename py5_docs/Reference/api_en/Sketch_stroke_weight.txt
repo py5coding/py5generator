@@ -1,8 +1,9 @@
 @@ meta
-name = strokeWeight()
+name = stroke_weight()
 category = Shape
 subcategory = Attributes
 type = None
+processing_name = strokeWeight
 
 @@ description
 Sets the width of the stroke used for lines, points, and the border around shapes. All widths are set in units of pixels.

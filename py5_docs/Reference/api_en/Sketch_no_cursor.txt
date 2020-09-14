@@ -1,8 +1,9 @@
 @@ meta
-name = noCursor()
+name = no_cursor()
 category = Environment
 subcategory = None
 type = None
+processing_name = noCursor
 
 @@ description
 Hides the cursor from view. Will not work when running the program in a web browser or in full screen (Present) mode.

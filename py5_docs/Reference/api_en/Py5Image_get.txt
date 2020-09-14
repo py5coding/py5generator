@@ -3,6 +3,7 @@ name = get()
 category = PImage
 subcategory = Method
 type = None
+processing_name = get
 
 @@ description
 Reads the color of any pixel or grabs a section of an image. If no parameters are specified, the entire image is returned. Use the ``x`` and ``y`` parameters to get the value of one pixel. Get a section of the display window by specifying an additional ``width`` and ``height`` parameter. When getting an image, the ``x`` and ``y`` parameters define the coordinates for the upper-left corner of the image, regardless of the current ``image_mode()``.

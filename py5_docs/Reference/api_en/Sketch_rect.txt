@@ -3,6 +3,7 @@ name = rect()
 category = Shape
 subcategory = 2D Primitives
 type = None
+processing_name = rect
 
 @@ description
 Draws a rectangle to the screen. A rectangle is a four-sided shape with every angle at ninety degrees. By default, the first two parameters set the location of the upper-left corner, the third sets the width, and the fourth sets the height. The way these parameters are interpreted, however, may be changed with the ``rect_mode()`` function.

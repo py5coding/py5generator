@@ -1,8 +1,9 @@
 @@ meta
-name = bezierDetail()
+name = bezier_detail()
 category = Shape
 subcategory = Curves
 type = None
+processing_name = bezierDetail
 
 @@ description
 Sets the resolution at which Beziers display. The default value is 20. This function is only useful when using the ``P3D`` renderer; the default ``P2D`` renderer does not use this information.

@@ -3,6 +3,7 @@ name = normal()
 category = Lights, Camera
 subcategory = Lights
 type = None
+processing_name = normal
 
 @@ description
 Sets the current normal vector. Used for drawing three dimensional shapes and surfaces, ``normal()`` specifies a vector perpendicular to a shape's surface which, in turn, determines how lighting affects it. Processing attempts to automatically assign normals to shapes, but since that's imperfect, this is a better option when you want more control. This function is identical to ``gl_normal3f()`` in OpenGL.

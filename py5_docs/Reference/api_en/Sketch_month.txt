@@ -3,6 +3,7 @@ name = month()
 category = Input
 subcategory = Time & Date
 type = None
+processing_name = month
 
 @@ description
 Processing communicates with the clock on your computer. The ``month()`` function returns the current month as a value from 1 - 12.

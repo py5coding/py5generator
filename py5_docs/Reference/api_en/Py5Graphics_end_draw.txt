@@ -1,8 +1,9 @@
 @@ meta
-name = endDraw()
+name = end_draw()
 category = PGraphics
 subcategory = Method
 type = None
+processing_name = endDraw
 
 @@ description
 Finalizes the rendering of a PGraphics object so that it can be shown on screen.

@@ -1,8 +1,9 @@
 @@ meta
-name = beginRecord()
+name = begin_record()
 category = Output
 subcategory = Files
 type = None
+processing_name = beginRecord
 
 @@ description
 Opens a new file and all subsequent drawing functions are echoed to this file as well as the display window. The ``begin_record()`` function requires two parameters, the first is the renderer and the second is the file name. This function is always used with ``end_record()`` to stop the recording process and close the file.

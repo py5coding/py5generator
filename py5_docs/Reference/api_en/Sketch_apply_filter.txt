@@ -1,8 +1,9 @@
 @@ meta
-name = filter()
+name = apply_filter()
 category = Image
 subcategory = Pixels
 type = None
+processing_name = filter
 
 @@ description
 Filters the display window using a preset filter or with a custom shader. Using a shader with ``filter()`` is much faster than without. Shaders require the P2D or P3D renderer in ``size()``.

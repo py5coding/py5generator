@@ -3,6 +3,7 @@ name = rotate()
 category = PShape
 subcategory = Method
 type = None
+processing_name = rotate
 
 @@ description
 Rotates the shape the amount specified by the ``angle`` parameter. Angles should be specified in radians (values from 0 to TWO_PI) or converted from degrees to radians with the ``radians()`` method.

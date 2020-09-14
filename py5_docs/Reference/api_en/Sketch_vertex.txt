@@ -3,6 +3,7 @@ name = vertex()
 category = Shape
 subcategory = Vertex
 type = None
+processing_name = vertex
 
 @@ description
 All shapes are constructed by connecting a series of vertices. ``vertex()`` is used to specify the vertex coordinates for points, lines, triangles, quads, and polygons. It is used exclusively within the ``begin_shape()`` and ``end_shape()`` functions.

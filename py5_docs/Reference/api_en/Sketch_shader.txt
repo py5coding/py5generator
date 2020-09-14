@@ -3,6 +3,7 @@ name = shader()
 category = Rendering
 subcategory = Shaders
 type = None
+processing_name = shader
 
 @@ description
 Applies the shader specified by the parameters. It's compatible with the P2D and P3D renderers, but not with the default renderer.

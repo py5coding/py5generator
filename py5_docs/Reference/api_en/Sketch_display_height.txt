@@ -1,8 +1,9 @@
 @@ meta
-name = displayHeight
+name = display_height
 category = Environment
 subcategory = None
 type = variable
+processing_name = displayHeight
 
 @@ description
 System variable that stores the height of the entire screen display. This is used to run a full-screen program on any display size.

@@ -1,8 +1,9 @@
 @@ meta
-name = mouseY
+name = mouse_y
 category = Input
 subcategory = Mouse
 type = variable
+processing_name = mouseY
 
 @@ description
 The system variable ``mouse_y`` always contains the current vertical coordinate of the mouse.

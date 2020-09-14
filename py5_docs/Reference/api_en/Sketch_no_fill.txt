@@ -1,8 +1,9 @@
 @@ meta
-name = noFill()
+name = no_fill()
 category = Color
 subcategory = Setting
 type = None
+processing_name = noFill
 
 @@ description
 Disables filling geometry. If both ``no_stroke()`` and ``no_fill()`` are called, nothing will be drawn to the screen.

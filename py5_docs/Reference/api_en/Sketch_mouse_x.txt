@@ -1,8 +1,9 @@
 @@ meta
-name = mouseX
+name = mouse_x
 category = Input
 subcategory = Mouse
 type = variable
+processing_name = mouseX
 
 @@ description
 The system variable ``mouse_x`` always contains the current horizontal coordinate of the mouse.

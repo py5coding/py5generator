@@ -1,8 +1,9 @@
 @@ meta
-name = addChild()
+name = add_child()
 category = PShape
 subcategory = Method
 type = None
+processing_name = addChild
 
 @@ description
 Adds a child PShape to a parent PShape that is defined as a GROUP. In the example, the three shapes ``path``, ``rectangle``, and ``circle`` are added to a parent PShape variable named ``house`` that is a GROUP.

@@ -1,8 +1,9 @@
 @@ meta
-name = ellipseMode()
+name = ellipse_mode()
 category = Shape
 subcategory = Attributes
 type = None
+processing_name = ellipseMode
 
 @@ description
 Modifies the location from which ellipses are drawn by changing the way in which parameters given to ``ellipse()`` are intepreted.

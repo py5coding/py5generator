@@ -1,8 +1,9 @@
 @@ meta
-name = printMatrix()
+name = print_matrix()
 category = Transform
 subcategory = None
 type = None
+processing_name = printMatrix
 
 @@ description
 Prints the current matrix to the Console (the text window at the bottom of Processing).

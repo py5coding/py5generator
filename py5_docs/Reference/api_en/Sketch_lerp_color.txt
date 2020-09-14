@@ -1,8 +1,9 @@
 @@ meta
-name = lerpColor()
+name = lerp_color()
 category = Color
 subcategory = Creating & Reading
 type = None
+processing_name = lerpColor
 
 @@ description
 Calculates a color between two colors at a specific increment. The ``amt`` parameter is the amount to interpolate between the two values where 0.0 is equal to the first point, 0.1 is very near the first point, 0.5 is halfway in between, etc. 

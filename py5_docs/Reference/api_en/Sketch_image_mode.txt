@@ -1,8 +1,9 @@
 @@ meta
-name = imageMode()
+name = image_mode()
 category = Image
 subcategory = Loading & Displaying
 type = None
+processing_name = imageMode
 
 @@ description
 Modifies the location from which images are drawn by changing the way in which parameters given to ``image()`` are intepreted.

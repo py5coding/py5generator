@@ -1,8 +1,9 @@
 @@ meta
-name = screenY()
+name = screen_y()
 category = Lights, Camera
 subcategory = Coordinates
 type = None
+processing_name = screenY
 
 @@ description
 Takes a three-dimensional X, Y, Z position and returns the Y value for where it will appear on a (two-dimensional) screen.

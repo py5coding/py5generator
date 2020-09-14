@@ -3,6 +3,7 @@ name = height
 category = PImage
 subcategory = Field
 type = None
+processing_name = height
 
 @@ description
 The height of the image in units of pixels.

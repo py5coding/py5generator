@@ -3,6 +3,7 @@ name = size()
 category = Environment
 subcategory = None
 type = None
+processing_name = size
 
 @@ description
 Defines the dimension of the display window width and height in units of pixels. In a program that has the ``setup()`` function, the ``size()`` function must be the first line of code inside ``setup()``, and the ``setup()`` function must appear in the code tab with the same name as your sketch folder.

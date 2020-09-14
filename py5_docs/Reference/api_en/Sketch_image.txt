@@ -3,6 +3,7 @@ name = image()
 category = Image
 subcategory = Loading & Displaying
 type = None
+processing_name = image
 
 @@ description
 The ``image()`` function draws an image to the display window. Images must be in the sketch's "data" directory to load correctly. Select "Add file..." from the "Sketch" menu to add the image to the data directory, or just drag the image file onto the sketch window. Processing currently works with GIF, JPEG, and PNG images. 

@@ -1,8 +1,9 @@
 @@ meta
-name = noLoop()
+name = no_loop()
 category = Structure
 subcategory = None
 type = None
+processing_name = noLoop
 
 @@ description
 Stops Processing from continuously executing the code within ``draw()``. If ``loop()`` is called, the code in ``draw()`` begins to run continuously again. If using ``no_loop()`` in ``setup()``, it should be the last line inside the block.

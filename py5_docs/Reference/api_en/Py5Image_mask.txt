@@ -3,6 +3,7 @@ name = mask()
 category = PImage
 subcategory = Method
 type = None
+processing_name = mask
 
 @@ description
 Masks part of an image from displaying by loading another image and using it as an alpha channel. This mask image should only contain grayscale data, but only the blue color channel is used. The mask image needs to be the same size as the image to which it is applied.

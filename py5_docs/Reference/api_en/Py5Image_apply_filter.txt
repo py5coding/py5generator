@@ -1,8 +1,9 @@
 @@ meta
-name = filter()
+name = apply_filter()
 category = PImage
 subcategory = Method
 type = None
+processing_name = filter
 
 @@ description
 Filters the image as defined by one of the following modes:

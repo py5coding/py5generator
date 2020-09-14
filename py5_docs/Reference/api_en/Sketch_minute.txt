@@ -3,6 +3,7 @@ name = minute()
 category = Input
 subcategory = Time & Date
 type = None
+processing_name = minute
 
 @@ description
 Processing communicates with the clock on your computer. The ``minute()`` function returns the current minute as a value from 0 - 59.

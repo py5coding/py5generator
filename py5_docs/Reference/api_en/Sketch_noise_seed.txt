@@ -1,8 +1,9 @@
 @@ meta
-name = noiseSeed()
+name = noise_seed()
 category = Math
 subcategory = Random
 type = None
+processing_name = noiseSeed
 
 @@ description
 Sets the seed value for ``noise()``. By default, ``noise()`` produces different results each time the program is run. Set the ``seed`` parameter to a constant to return the same pseudo-random numbers each time the software is run.

@@ -1,8 +1,9 @@
 @@ meta
-name = updatePixels()
+name = update_pixels()
 category = Image
 subcategory = Pixels
 type = None
+processing_name = updatePixels
 
 @@ description
 Updates the display window with the data in the ``pixels[]`` array. Use in conjunction with ``load_pixels()``. If you're only reading pixels from the array, there's no need to call ``update_pixels()`` — updating is only necessary to apply changes.

@@ -1,8 +1,9 @@
 @@ meta
-name = getChildCount()
+name = get_child_count()
 category = PShape
 subcategory = Method
 type = None
+processing_name = getChildCount
 
 @@ description
 Returns the number of children within the PShape.

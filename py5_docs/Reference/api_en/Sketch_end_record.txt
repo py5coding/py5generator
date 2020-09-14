@@ -1,8 +1,9 @@
 @@ meta
-name = endRecord()
+name = end_record()
 category = Output
 subcategory = Files
 type = None
+processing_name = endRecord
 
 @@ description
 Stops the recording process started by ``begin_record()`` and closes the file.

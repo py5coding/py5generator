@@ -1,8 +1,9 @@
 @@ meta
-name = pmouseX
+name = pmouse_x
 category = Input
 subcategory = Mouse
 type = variable
+processing_name = pmouseX
 
 @@ description
 The system variable ``pmouse_x`` always contains the horizontal position of the mouse in the frame previous to the current frame.

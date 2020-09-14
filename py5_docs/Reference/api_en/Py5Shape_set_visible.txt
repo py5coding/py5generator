@@ -1,8 +1,9 @@
 @@ meta
-name = setVisible()
+name = set_visible()
 category = PShape
 subcategory = Method
 type = None
+processing_name = setVisible
 
 @@ description
 Sets the shape to be visible or invisible. This is determined by the value of the ``visible`` parameter.

@@ -169,18 +169,14 @@ for pclass, class_data in class_data_info.items():
             new_xml_files.append((pclass, py5_name, item_type, processing_name))
 
 
-# # add a few extras
-# for py5_name, processing_name in PY5_SKETCH_EXTRAS:
-#     xml_file = PROCESSING_API_EN / f'{processing_name}_var.xml'
-#     xml_files.append((xml_file, ('PApplet', py5_name, processing_name)))
-
 # copy the relevant xml files to the py5 directory
 for xml_file, file_data in xml_files:
     pclass, py5_name, processing_name = file_data
     doc = Documentation(xml_file)
     doc.description = remove_html(doc.description)
+    doc.meta['processing_name'] = processing_name
+    doc.meta['name'] = doc.meta['name'].replace(processing_name, py5_name)
     # TODO: Pythonize the code examples
-    # TODO: add extra metadata such as underlying processing field or method because I want to mention this in the documentation
     doc.write(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.txt')
 
 for new_file_data in new_xml_files:

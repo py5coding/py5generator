@@ -3,6 +3,7 @@ name = scale()
 category = Transform
 subcategory = None
 type = None
+processing_name = scale
 
 @@ description
 Increases or decreases the size of a shape by expanding and contracting vertices. Objects always scale from their relative origin to the coordinate system. Scale values are specified as decimal percentages. For example, the function call ``scale(2.0)`` increases the dimension of a shape by 200%.

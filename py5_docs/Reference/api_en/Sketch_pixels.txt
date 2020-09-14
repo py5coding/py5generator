@@ -3,6 +3,7 @@ name = pixels[]
 category = Image
 subcategory = Pixels
 type = variable
+processing_name = pixels
 
 @@ description
 The ``pixels[]`` array contains the values for all the pixels in the display window. These values are of the color datatype. This array is defined by the size of the display window. For example, if the window is 100 x 100 pixels, there will be 10,000 values and if the window is 200 x 300 pixels, there will be 60,000 values. When the pixel density is set to higher than 1 with the ``pixel_density()`` function, these values will change. See the reference for ``pixel_width`` or ``pixel_height`` for more information. 

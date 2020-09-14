@@ -1,8 +1,9 @@
 @@ meta
-name = bezierTangent()
+name = bezier_tangent()
 category = Shape
 subcategory = Curves
 type = None
+processing_name = bezierTangent
 
 @@ description
 Calculates the tangent of a point on a Bezier curve. There is a good definition of *tangent* on Wikipedia.

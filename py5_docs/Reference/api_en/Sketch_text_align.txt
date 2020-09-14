@@ -1,8 +1,9 @@
 @@ meta
-name = textAlign()
+name = text_align()
 category = Typography
 subcategory = Attributes
 type = None
+processing_name = textAlign
 
 @@ description
 Sets the current alignment for drawing text. The parameters LEFT, CENTER, and RIGHT set the display characteristics of the letters in relation to the values for the ``x`` and ``y`` parameters of the ``text()`` function.

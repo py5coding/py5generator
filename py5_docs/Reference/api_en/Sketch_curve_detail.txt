@@ -1,8 +1,9 @@
 @@ meta
-name = curveDetail()
+name = curve_detail()
 category = Shape
 subcategory = Curves
 type = None
+processing_name = curveDetail
 
 @@ description
 Sets the resolution at which curves display. The default value is 20. This function is only useful when using the P3D renderer as the default P2D renderer does not use this information.

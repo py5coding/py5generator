@@ -1,8 +1,9 @@
 @@ meta
-name = textFont()
+name = text_font()
 category = Typography
 subcategory = Loading & Displaying
 type = None
+processing_name = textFont
 
 @@ description
 Sets the current font that will be drawn with the ``text()`` function. Fonts must be created for Processing with ``create_font()`` or loaded with ``load_font()`` before they can be used. The font set through ``text_font()`` will be used in all subsequent calls to the ``text()`` function. If no ``size`` parameter is specified, the font size defaults to the original size (the size in which it was created with the "Create Font..." tool) overriding any previous calls to ``text_font()`` or ``text_size()``.

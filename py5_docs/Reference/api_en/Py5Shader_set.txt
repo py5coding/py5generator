@@ -2,6 +2,7 @@
 name = PShader
 category = PShader
 subcategory = Method
+processing_name = set
 
 @@ description
 Sets the uniform variables inside the shader to modify the effect while the program is running.

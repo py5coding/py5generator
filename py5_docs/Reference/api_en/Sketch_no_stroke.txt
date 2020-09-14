@@ -1,8 +1,9 @@
 @@ meta
-name = noStroke()
+name = no_stroke()
 category = Color
 subcategory = Setting
 type = None
+processing_name = noStroke
 
 @@ description
 Disables drawing the stroke (outline). If both ``no_stroke()`` and ``no_fill()`` are called, nothing will be drawn to the screen.

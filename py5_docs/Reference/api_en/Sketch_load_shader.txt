@@ -1,8 +1,9 @@
 @@ meta
-name = loadShader()
+name = load_shader()
 category = Rendering
 subcategory = Shaders
 type = None
+processing_name = loadShader
 
 @@ description
 Loads a shader into the PShader object. The shader file must be loaded in the sketch's "data" folder/directory to load correctly. Shaders are compatible with the P2D and P3D renderers, but not with the default renderer.

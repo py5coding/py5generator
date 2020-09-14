@@ -3,6 +3,7 @@ name = text()
 category = Typography
 subcategory = Loading & Displaying
 type = None
+processing_name = text
 
 @@ description
 Draws text to the screen. Displays the information specified in the first parameter on the screen in the position specified by the additional parameters. A default font will be used unless a font is set with the ``text_font()`` function and a default size will be used unless a font is set with ``text_size()``. Change the color of the text with the ``fill()`` function. The text displays in relation to the ``text_align()`` function, which gives the option to draw to the left, right, and center of the coordinates.

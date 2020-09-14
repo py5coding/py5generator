@@ -3,6 +3,7 @@ name = day()
 category = Input
 subcategory = Time & Date
 type = None
+processing_name = day
 
 @@ description
 Processing communicates with the clock on your computer. The ``day()`` function returns the current day as a value from 1 - 31.

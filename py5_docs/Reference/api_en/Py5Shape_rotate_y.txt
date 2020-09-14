@@ -1,8 +1,9 @@
 @@ meta
-name = rotateY()
+name = rotate_y()
 category = PShape
 subcategory = Method
 type = None
+processing_name = rotateY
 
 @@ description
 Rotates the shape around the y-axis the amount specified by the ``angle`` parameter. Angles should be specified in radians (values from 0 to TWO_PI) or converted from degrees to radians with the ``radians()`` method.

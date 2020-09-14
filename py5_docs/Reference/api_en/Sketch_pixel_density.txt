@@ -1,8 +1,9 @@
 @@ meta
-name = pixelDensity()
+name = pixel_density()
 category = Environment
 subcategory = None
 type = None
+processing_name = pixelDensity
 
 @@ description
 This function is new with Processing 3.0. It makes it possible for Processing to render using all of the pixels on high resolutions screens like Apple Retina displays and Windows High-DPI displays. This function can only be run once within a program and it must be used right after ``size()`` in a program without a ``setup()`` and used within ``setup()`` when a program has one.  The ``pixel_density()`` should only be used with hardcoded numbers (in almost all cases this number will be 2) or in combination with ``display_density()`` as in the third example above.

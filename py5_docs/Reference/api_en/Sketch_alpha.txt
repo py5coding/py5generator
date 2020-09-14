@@ -3,6 +3,7 @@ name = alpha()
 category = Color
 subcategory = Creating & Reading
 type = None
+processing_name = alpha
 
 @@ description
 Extracts the alpha value from a color.

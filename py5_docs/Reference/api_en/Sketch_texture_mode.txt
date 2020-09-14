@@ -1,8 +1,9 @@
 @@ meta
-name = textureMode()
+name = texture_mode()
 category = Shape
 subcategory = Vertex
 type = None
+processing_name = textureMode
 
 @@ description
 Sets the coordinate space for texture mapping. The default mode is ``image``, which refers to the actual coordinates of the image. ``normal`` refers to a normalized space of values ranging from 0 to 1. This function only works with the P2D and P3D renderers.

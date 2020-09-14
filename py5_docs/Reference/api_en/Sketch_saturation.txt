@@ -3,6 +3,7 @@ name = saturation()
 category = Color
 subcategory = Creating & Reading
 type = None
+processing_name = saturation
 
 @@ description
 Extracts the saturation value from a color.

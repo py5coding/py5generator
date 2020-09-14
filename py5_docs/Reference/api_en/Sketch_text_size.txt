@@ -1,8 +1,9 @@
 @@ meta
-name = textSize()
+name = text_size()
 category = Typography
 subcategory = Attributes
 type = None
+processing_name = textSize
 
 @@ description
 Sets the current font size. This size will be used in all subsequent calls to the ``text()`` function. Font size is measured in units of pixels.

@@ -3,6 +3,7 @@ name = sphere()
 category = Shape
 subcategory = 3D Primitives
 type = None
+processing_name = sphere
 
 @@ description
 A sphere is a hollow ball made from tessellated triangles.

@@ -1,6 +1,7 @@
 @@ meta
 name = arc()
 type = None
+processing_name = arc
 
 @@ description
 Draws an arc to the screen. Arcs are drawn along the outer edge of an ellipse defined by the ``a``, ``b``, ``c``, and ``d`` parameters. The origin of the arc's ellipse may be changed with the ``ellipse_mode()`` function. Use the ``start`` and ``stop`` parameters to specify the angles (in radians) at which to draw the arc. The start/stop values must be in clockwise order.

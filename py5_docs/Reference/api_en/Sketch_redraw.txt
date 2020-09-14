@@ -3,6 +3,7 @@ name = redraw()
 category = Structure
 subcategory = None
 type = None
+processing_name = redraw
 
 @@ description
 Executes the code within ``draw()`` one time. This functions allows the program to update the display window only when necessary, for example when an event registered by ``mouse_pressed()`` or ``key_pressed()`` occurs. 

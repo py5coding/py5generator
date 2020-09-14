@@ -3,6 +3,7 @@ name = second()
 category = Input
 subcategory = Time & Date
 type = None
+processing_name = second
 
 @@ description
 Processing communicates with the clock on your computer. The ``second()`` function returns the current second as a value from 0 - 59.

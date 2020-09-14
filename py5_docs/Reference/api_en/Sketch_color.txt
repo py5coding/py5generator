@@ -3,6 +3,7 @@ name = color()
 category = Color
 subcategory = Creating & Reading
 type = None
+processing_name = color
 
 @@ description
 Creates colors for storing in variables of the ``color`` datatype. The parameters are interpreted as RGB or HSB values depending on the current ``color_mode()``. The default mode is RGB values from 0 to 255 and, therefore, ``color(255, 204, 0)`` will return a bright yellow color (see the first example above).

@@ -1,8 +1,9 @@
 @@ meta
-name = curveTangent()
+name = curve_tangent()
 category = Shape
 subcategory = Curves
 type = None
+processing_name = curveTangent
 
 @@ description
 Calculates the tangent of a point on a curve. There's a good definition of *tangent* on Wikipedia.

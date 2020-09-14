@@ -3,6 +3,7 @@ name = list()
 category = PFont
 subcategory = None
 type = None
+processing_name = list
 
 @@ description
 Gets a list of the fonts installed on the system. The data is returned as a String array. This list provides the names of each font for input into ``create_font()``, which allows Processing to dynamically format fonts.

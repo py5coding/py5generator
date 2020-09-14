@@ -3,6 +3,7 @@ name = frustum()
 category = Lights, Camera
 subcategory = Camera
 type = None
+processing_name = frustum
 
 @@ description
 Sets a perspective matrix as defined by the parameters.

@@ -1,8 +1,9 @@
 @@ meta
-name = bezierPoint()
+name = bezier_point()
 category = Shape
 subcategory = Curves
 type = None
+processing_name = bezierPoint
 
 @@ description
 Evaluates the Bezier at point t for points a, b, c, d. The parameter t varies between 0 and 1, a and d are points on the curve, and b and c are the control points. This can be done once with the x coordinates and a second time with the y coordinates to get the location of a bezier curve at t.

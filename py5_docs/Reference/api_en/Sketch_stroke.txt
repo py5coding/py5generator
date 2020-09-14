@@ -3,6 +3,7 @@ name = stroke()
 category = Color
 subcategory = Setting
 type = None
+processing_name = stroke
 
 @@ description
 Sets the color used to draw lines and borders around shapes. This color is either specified in terms of the RGB or HSB color depending on the current ``c``olor_mode()``.`` The default color space is RGB, with each value in the range from 0 to 255. 

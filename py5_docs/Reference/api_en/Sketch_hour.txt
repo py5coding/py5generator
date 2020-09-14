@@ -3,6 +3,7 @@ name = hour()
 category = Input
 subcategory = Time & Date
 type = None
+processing_name = hour
 
 @@ description
 Processing communicates with the clock on your computer. The ``hour()`` function returns the current hour as a value from 0 - 23.

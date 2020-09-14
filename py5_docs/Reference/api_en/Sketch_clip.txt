@@ -3,6 +3,7 @@ name = clip()
 category = Rendering
 subcategory = None
 type = None
+processing_name = clip
 
 @@ description
 Limits the rendering to the boundaries of a rectangle defined by the parameters. The boundaries are drawn based on the state of the ``image_mode()`` fuction, either CORNER, CORNERS, or CENTER.

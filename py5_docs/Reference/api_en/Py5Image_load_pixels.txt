@@ -1,8 +1,9 @@
 @@ meta
-name = loadPixels()
+name = load_pixels()
 category = PImage
 subcategory = Method
 type = None
+processing_name = loadPixels
 
 @@ description
 Loads the pixel data for the image into its ``pixels[]`` array. This function must always be called before reading from or writing to ``pixels[]``.

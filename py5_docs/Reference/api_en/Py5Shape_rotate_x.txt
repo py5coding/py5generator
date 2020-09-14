@@ -1,8 +1,9 @@
 @@ meta
-name = rotateX()
+name = rotate_x()
 category = PShape
 subcategory = Method
 type = None
+processing_name = rotateX
 
 @@ description
 Rotates the shape around the x-axis the amount specified by the ``angle`` parameter. Angles should be specified in radians (values from 0 to TWO_PI) or converted from degrees to radians with the ``radians()`` method.

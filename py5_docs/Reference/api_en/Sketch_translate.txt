@@ -3,6 +3,7 @@ name = translate()
 category = Transform
 subcategory = None
 type = None
+processing_name = translate
 
 @@ description
 Specifies an amount to displace objects within the display window. The ``x`` parameter specifies left/right translation, the ``y`` parameter specifies up/down translation, and the ``z`` parameter specifies translations toward/away from the screen. Using this function with the ``z`` parameter requires using P3D as a parameter in combination with size as shown in the above example.

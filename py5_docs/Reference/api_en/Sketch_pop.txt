@@ -3,6 +3,7 @@ name = pop()
 category = Structure
 subcategory = None
 type = None
+processing_name = pop
 
 @@ description
 The ``pop()`` function restores the previous drawing style settings and transformations after ``push()`` has changed them. Note that these functions are always used together. They allow you to change the style and transformation settings and later return to what you had. When a new state is started with ``push()``, it builds on the current style and transform information.

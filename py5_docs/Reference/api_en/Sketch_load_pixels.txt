@@ -1,8 +1,9 @@
 @@ meta
-name = loadPixels()
+name = load_pixels()
 category = Image
 subcategory = Pixels
 type = None
+processing_name = loadPixels
 
 @@ description
 Loads the pixel data of the current display window into the ``pixels[]`` array. This function must always be called before reading from or writing to ``pixels[]``. Subsequent changes to the display window will not be reflected in ``pixels`` until ``load_pixels()`` is called again.

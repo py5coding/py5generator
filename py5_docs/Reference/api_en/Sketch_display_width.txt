@@ -1,8 +1,9 @@
 @@ meta
-name = displayWidth
+name = display_width
 category = Environment
 subcategory = None
 type = ['variable', 'variable']
+processing_name = displayWidth
 
 @@ description
 System variable that stores the width of the entire screen display. This is used to run a full-screen program on any display size.

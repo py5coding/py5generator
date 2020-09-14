@@ -3,6 +3,7 @@ name = texture()
 category = Shape
 subcategory = Vertex
 type = None
+processing_name = texture
 
 @@ description
 Sets a texture to be applied to vertex points. The ``texture()`` function must be called between ``begin_shape()`` and ``end_shape()`` and before any calls to ``vertex()``. This function only works with the P2D and P3D renderers.

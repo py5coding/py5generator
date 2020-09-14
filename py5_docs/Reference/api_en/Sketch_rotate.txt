@@ -3,6 +3,7 @@ name = rotate()
 category = Transform
 subcategory = None
 type = None
+processing_name = rotate
 
 @@ description
 Rotates the amount specified by the ``angle`` parameter. Angles must be specified in radians (values from ``0`` to ``two_pi``), or they can be converted from degrees to radians with the ``radians()`` function. 

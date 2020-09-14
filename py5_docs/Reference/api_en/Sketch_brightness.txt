@@ -3,6 +3,7 @@ name = brightness()
 category = Color
 subcategory = Creating & Reading
 type = None
+processing_name = brightness
 
 @@ description
 Extracts the brightness value from a color.

@@ -1,8 +1,9 @@
 @@ meta
-name = createShape()
+name = create_shape()
 category = Shape
 subcategory = None
 type = None
+processing_name = createShape
 
 @@ description
 The ``create_shape()`` function is used to define a new shape. Once created, this shape can be drawn with the ``shape()`` function. The basic way to use the function defines new primitive shapes. One of the following parameters are used as the first parameter: ``ellipse``, ``rect``, ``arc``, ``triangle``, ``sphere``, ``box``, ``quad``, or ``line``. The parameters for each of these different shapes are the same as their corresponding functions: ``ellipse()``, ``rect()``, ``arc()``, ``triangle()``, ``sphere()``, ``box()``, ``quad()``, and ``line()``. The first example above clarifies how this works.

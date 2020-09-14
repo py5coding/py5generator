@@ -1,8 +1,9 @@
 @@ meta
-name = beginShape()
+name = begin_shape()
 category = PShape
 subcategory = Method
 type = None
+processing_name = beginShape
 
 @@ description
 This method is used to start a custom shape created with the ``create_shape()`` function. It's always and only used with ``create_shape()``.

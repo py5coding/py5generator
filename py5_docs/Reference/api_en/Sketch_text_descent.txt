@@ -1,8 +1,9 @@
 @@ meta
-name = textDescent()
+name = text_descent()
 category = Typography
 subcategory = Metrics
 type = None
+processing_name = textDescent
 
 @@ description
 Returns descent of the current font at its current size. This information is useful for determining the height of the font below the baseline.

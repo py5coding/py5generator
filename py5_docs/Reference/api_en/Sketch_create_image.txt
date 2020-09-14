@@ -1,8 +1,9 @@
 @@ meta
-name = createImage()
+name = create_image()
 category = Image
 subcategory = None
 type = None
+processing_name = createImage
 
 @@ description
 Creates a new PImage (the datatype for storing images). This provides a fresh buffer of pixels to play with. Set the size of the buffer with the ``width`` and ``height`` parameters. The ``format`` parameter defines how the pixels are stored. See the PImage reference for more information.

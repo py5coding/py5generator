@@ -1,8 +1,9 @@
 @@ meta
-name = randomGaussian()
+name = random_gaussian()
 category = Math
 subcategory = Random
 type = None
+processing_name = randomGaussian
 
 @@ description
 Returns a float from a random series of numbers having a mean of 0 and standard deviation of 1. Each time the ``random_gaussian()`` function is called, it returns a number fitting a Gaussian, or normal, distribution. There is theoretically no minimum or maximum value that ``random_gaussian()`` might return. Rather, there is just a very low probability that values far from the mean will be returned; and a higher probability that numbers near the mean will be returned.

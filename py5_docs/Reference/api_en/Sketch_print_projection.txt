@@ -1,8 +1,9 @@
 @@ meta
-name = printProjection()
+name = print_projection()
 category = Lights, Camera
 subcategory = Camera
 type = None
+processing_name = printProjection
 
 @@ description
 Prints the current projection matrix to the Console (the text window at the bottom of Processing).

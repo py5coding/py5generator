@@ -1,8 +1,9 @@
 @@ meta
-name = pmouseY
+name = pmouse_y
 category = Input
 subcategory = Mouse
 type = variable
+processing_name = pmouseY
 
 @@ description
 The system variable ``pmouse_y`` always contains the vertical position of the mouse in the frame previous to the current frame.

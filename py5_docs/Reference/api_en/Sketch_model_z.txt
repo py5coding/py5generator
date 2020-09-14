@@ -1,8 +1,9 @@
 @@ meta
-name = modelZ()
+name = model_z()
 category = Lights, Camera
 subcategory = Coordinates
 type = None
+processing_name = modelZ
 
 @@ description
 Returns the three-dimensional X, Y, Z position in model space. This returns the Z value for a given coordinate based on the current set of transformations (scale, rotate, translate, etc.) The Z value can be used to place an object in space relative to the location of the original point once the transformations are no longer in use.

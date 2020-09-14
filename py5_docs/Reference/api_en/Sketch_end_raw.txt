@@ -1,8 +1,9 @@
 @@ meta
-name = endRaw()
+name = end_raw()
 category = Output
 subcategory = Files
 type = None
+processing_name = endRaw
 
 @@ description
 Complement to ``begin_raw()``; they must always be used together. See the ``begin_raw()`` reference for details.

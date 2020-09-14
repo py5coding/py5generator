@@ -3,6 +3,7 @@ name = box()
 category = Shape
 subcategory = 3D Primitives
 type = None
+processing_name = box
 
 @@ description
 A box is an extruded rectangle. A box with equal dimensions on all sides is a cube.

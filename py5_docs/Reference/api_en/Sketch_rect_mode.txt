@@ -1,8 +1,9 @@
 @@ meta
-name = rectMode()
+name = rect_mode()
 category = Shape
 subcategory = Attributes
 type = None
+processing_name = rectMode
 
 @@ description
 Modifies the location from which rectangles are drawn by changing the way in which parameters given to ``rect()`` are intepreted.

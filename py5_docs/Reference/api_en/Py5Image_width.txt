@@ -3,6 +3,7 @@ name = width
 category = PImage
 subcategory = field
 type = None
+processing_name = width
 
 @@ description
 The width of the image in units of pixels.

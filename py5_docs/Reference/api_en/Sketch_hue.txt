@@ -3,6 +3,7 @@ name = hue()
 category = Color
 subcategory = Creating & Reading
 type = None
+processing_name = hue
 
 @@ description
 Extracts the hue value from a color.

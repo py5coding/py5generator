@@ -3,6 +3,7 @@ name = smooth()
 category = Environment
 subcategory = None
 type = None
+processing_name = smooth
 
 @@ description
 Draws all geometry with smooth (anti-aliased) edges. This behavior is the default, so ``smooth()`` only needs to be used when a program needs to set the smoothing in a different way. The ``level`` parameter increases the amount of smoothness. This is the level of over sampling applied to the graphics buffer.

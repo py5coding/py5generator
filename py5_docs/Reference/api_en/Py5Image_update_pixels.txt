@@ -1,8 +1,9 @@
 @@ meta
-name = updatePixels()
+name = update_pixels()
 category = PImage
 subcategory = Method
 type = None
+processing_name = updatePixels
 
 @@ description
 Updates the image with the data in its ``pixels[]`` array. Use in conjunction with ``load_pixels()``. If you're only reading pixels from the array, there's no need to call ``update_pixels()``.

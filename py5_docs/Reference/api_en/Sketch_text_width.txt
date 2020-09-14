@@ -1,8 +1,9 @@
 @@ meta
-name = textWidth()
+name = text_width()
 category = Typography
 subcategory = Metrics
 type = None
+processing_name = textWidth
 
 @@ description
 Calculates and returns the width of any character or text string.

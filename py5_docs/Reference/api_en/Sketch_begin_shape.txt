@@ -1,8 +1,9 @@
 @@ meta
-name = beginShape()
+name = begin_shape()
 category = Shape
 subcategory = Vertex
 type = None
+processing_name = beginShape
 
 @@ description
 Using the ``begin_shape()`` and ``end_shape()`` functions allow creating more complex forms. ``begin_shape()`` begins recording vertices for a shape and ``end_shape()`` stops recording. The value of the ``kind`` parameter tells it which types of shapes to create from the provided vertices. With no mode specified, the shape can be any irregular polygon. The parameters available for ``begin_shape()`` are POINTS, LINES, TRIANGLES, TRIANGLE_FAN, TRIANGLE_STRIP, QUADS, and QUAD_STRIP. After calling the ``begin_shape()`` function, a series of ``vertex()`` commands must follow. To stop drawing the shape, call ``end_shape()``. The ``vertex()`` function with two parameters specifies a position in 2D and the ``vertex()`` function with three parameters specifies a position in 3D. Each shape will be outlined with the current stroke color and filled with the fill color. 

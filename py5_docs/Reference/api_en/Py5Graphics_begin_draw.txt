@@ -1,8 +1,9 @@
 @@ meta
-name = beginDraw()
+name = begin_draw()
 category = PGraphics
 subcategory = Method
 type = None
+processing_name = beginDraw
 
 @@ description
 Sets the default properties for a PGraphics object. It should be called before anything is drawn into the object.

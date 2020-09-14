@@ -1,8 +1,9 @@
 @@ meta
-name = fullScreen()
+name = full_screen()
 category = Environment
 subcategory = None
 type = None
+processing_name = fullScreen
 
 @@ description
 This function is new for Processing 3.0. It opens a sketch using the full size of the computer's display. This function must be the first line in ``setup()``. The ``size()`` and ``full_screen()`` functions cannot both be used in the same program, just choose one.

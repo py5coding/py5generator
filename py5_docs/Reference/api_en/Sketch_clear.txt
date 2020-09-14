@@ -3,6 +3,7 @@ name = clear()
 category = Color
 subcategory = Setting
 type = None
+processing_name = clear
 
 @@ description
 Clears the pixels within a buffer. This function only works on ``Py5Graphics`` objects created with the ``create_graphics()`` function. Unlike the main graphics context (the display window), pixels in additional graphics areas created with ``create_graphics()`` can be entirely or partially transparent. This function clears everything in a ``Py5Graphics`` object to make all of the pixels 100% transparent.

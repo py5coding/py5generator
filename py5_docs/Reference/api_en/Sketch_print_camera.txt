@@ -1,8 +1,9 @@
 @@ meta
-name = printCamera()
+name = print_camera()
 category = Lights, Camera
 subcategory = Camera
 type = None
+processing_name = printCamera
 
 @@ description
 Prints the current camera matrix to the Console (the text window at the bottom of Processing).

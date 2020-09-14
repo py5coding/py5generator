@@ -3,6 +3,7 @@ name = width
 category = PShape
 subcategory = field
 type = None
+processing_name = width
 
 @@ description
 The width of the PShape document.

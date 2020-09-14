@@ -1,8 +1,9 @@
 @@ meta
-name = keyCode
+name = key_code
 category = Input
 subcategory = Keyboard
 type = variable
+processing_name = keyCode
 
 @@ description
 The variable ``key_code`` is used to detect special keys such as the arrow keys (UP, DOWN, LEFT, and RIGHT) as well as ALT, CONTROL, and SHIFT.

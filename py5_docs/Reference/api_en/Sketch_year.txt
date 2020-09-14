@@ -3,6 +3,7 @@ name = year()
 category = Input
 subcategory = Time & Date
 type = None
+processing_name = year
 
 @@ description
 Processing communicates with the clock on your computer. The ``year()`` function returns the current year as an integer (2003, 2004, 2005, etc).

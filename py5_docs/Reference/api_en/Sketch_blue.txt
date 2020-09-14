@@ -3,6 +3,7 @@ name = blue()
 category = Color
 subcategory = Creating & Reading
 type = None
+processing_name = blue
 
 @@ description
 Extracts the blue value from a color, scaled to match current ``color_mode()``. The value is always returned as a float, so be careful not to assign it to an int value.

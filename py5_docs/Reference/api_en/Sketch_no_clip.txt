@@ -1,8 +1,9 @@
 @@ meta
-name = noClip()
+name = no_clip()
 category = Rendering
 subcategory = None
 type = None
+processing_name = noClip
 
 @@ description
 Disables the clipping previously started by the ``clip()`` function.

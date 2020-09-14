@@ -1,8 +1,9 @@
 @@ meta
-name = endCamera()
+name = end_camera()
 category = Lights, Camera
 subcategory = Camera
 type = None
+processing_name = endCamera
 
 @@ description
 The ``begin_camera()`` and ``end_camera()`` functions enable advanced customization of the camera space. Please see the reference for ``begin_camera()`` for a description of how the functions are used.

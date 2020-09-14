@@ -1,8 +1,9 @@
 @@ meta
-name = randomSeed()
+name = random_seed()
 category = Math
 subcategory = Random
 type = None
+processing_name = randomSeed
 
 @@ description
 Sets the seed value for ``random()``. By default, ``random()`` produces different results each time the program is run. Set the ``seed`` parameter to a constant to return the same pseudo-random numbers each time the software is run.

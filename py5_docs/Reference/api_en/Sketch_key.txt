@@ -3,6 +3,7 @@ name = key
 category = Input
 subcategory = Keyboard
 type = variable
+processing_name = key
 
 @@ description
 The system variable ``key`` always contains the value of the most recent key on the keyboard that was used (either pressed or released). 

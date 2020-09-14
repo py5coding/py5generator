@@ -1,8 +1,9 @@
 @@ meta
-name = loadShape()
+name = load_shape()
 category = Shape
 subcategory = Loading & Displaying
 type = None
+processing_name = loadShape
 
 @@ description
 Loads geometry into a variable of type ``Py5Shape``. SVG and OBJ files may be loaded. To load correctly, the file must be located in the data directory of the current sketch. In most cases, ``load_shape()`` should be used inside ``setup()`` because loading shapes inside ``draw()`` will reduce the speed of a sketch.

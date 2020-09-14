@@ -11,6 +11,7 @@ createGraphics()
 size()
 availability = 1.0
 partof = PDE
+processing_name = hint
 
 @@ description
 This function is used to enable or disable special features that control how graphics are drawn. In the course of developing Processing, we had to make hard decisions about tradeoffs between performance and visual quality. We put significant effort into determining what makes most sense for the largest number of users, and then use functions like ``hint()`` to allow people to tune the settings for their particular sketch. Implementing a ``hint()`` is a last resort that's used when a more elegant solution cannot be found. Some options might graduate to standard features instead of hints over time, or be added and removed between (major) releases.

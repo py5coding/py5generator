@@ -1,8 +1,9 @@
 @@ meta
-name = blendMode()
+name = blend_mode()
 category = Rendering
 subcategory = None
 type = None
+processing_name = blendMode
 
 @@ description
 Blends the pixels in the display window according to a defined mode. There is a choice of the following modes to blend the source pixels (A) with the ones of pixels already in the display window (B). Each pixel's final color is the result of applying one of the blend modes with each channel of (A) and (B) independently. The red channel is compared with red, green with green, and blue with blue.
