@@ -11,4 +11,4 @@ Draws a circle to the screen. By default, the first two parameters set the locat
 @@ example
 image = ellipse_.png
 
-circle(56, 46, 55);
+circle(56, 46, 55)

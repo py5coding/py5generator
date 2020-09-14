@@ -9,20 +9,20 @@ processing_name = beginShape
 This method is used to start a custom shape created with the ``create_shape()`` function. It's always and only used with ``create_shape()``.
 
 @@ example
-PShape s;  // The PShape object
+PShape s  # The PShape object
 
 void setup() {  
-  size(100, 100);
-  s = createShape();
-  s.beginShape();
-  s.fill(0, 0, 255);
-  s.noStroke();
-  s.vertex(0, 0);
-  s.vertex(0, 50);
-  s.vertex(50, 0);
-  s.endShape();
+  size(100, 100)
+  s = createShape()
+  s.beginShape()
+  s.fill(0, 0, 255)
+  s.noStroke()
+  s.vertex(0, 0)
+  s.vertex(0, 50)
+  s.vertex(50, 0)
+  s.endShape()
 }
 
 void draw() {
-  shape(s, 25, 25);
+  shape(s, 25, 25)
 }

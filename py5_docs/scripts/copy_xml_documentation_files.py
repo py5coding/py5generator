@@ -176,7 +176,15 @@ for xml_file, file_data in xml_files:
     doc.description = remove_html(doc.description)
     doc.meta['processing_name'] = processing_name
     doc.meta['name'] = doc.meta['name'].replace(processing_name, py5_name)
-    # TODO: Pythonize the code examples
+    new_examples = []
+    for image_name, code in doc.examples:
+        code = code.replace('println', 'print')
+        code = code.replace('//', '#')
+        code = code.replace(';', '')
+        # TODO: tokenize code and run each through snake_case
+        # TODO: convert Java functions to Python functions
+        new_examples.append((image_name, code))
+    doc.examples = new_examples
     doc.write(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.txt')
 
 for new_file_data in new_xml_files:

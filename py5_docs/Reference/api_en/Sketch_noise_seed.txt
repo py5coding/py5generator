@@ -9,15 +9,15 @@ processing_name = noiseSeed
 Sets the seed value for ``noise()``. By default, ``noise()`` produces different results each time the program is run. Set the ``seed`` parameter to a constant to return the same pseudo-random numbers each time the software is run.
 
 @@ example
-float xoff = 0.0;
+float xoff = 0.0
 
 void setup() {
-  noiseSeed(0);
-  stroke(0, 10);
+  noiseSeed(0)
+  stroke(0, 10)
 }
 
 void draw() {
-  xoff = xoff + .01;
-  float n = noise(xoff) * width;
-  line(n, 0, n, height);
+  xoff = xoff + .01
+  float n = noise(xoff) * width
+  line(n, 0, n, height)
 }

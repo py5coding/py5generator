@@ -11,16 +11,16 @@ Sets the spacing between lines of text in units of pixels. This setting will be 
 @@ example
 image = textLeading_.png
 
-// Text to display. The "&#92;n" is a "new line" character
-String lines = "L1&#92;nL2&#92;nL3";
-textSize(12);
-fill(0);  // Set fill to black
+# Text to display. The "&#92n" is a "new line" character
+String lines = "L1&#92nL2&#92nL3"
+textSize(12)
+fill(0)  # Set fill to black
 
-textLeading(10);  // Set leading to 10
-text(lines, 10, 25);
+textLeading(10)  # Set leading to 10
+text(lines, 10, 25)
 
-textLeading(20);  // Set leading to 20
-text(lines, 40, 25);
+textLeading(20)  # Set leading to 20
+text(lines, 40, 25)
 
-textLeading(30);  // Set leading to 30
-text(lines, 70, 25);
+textLeading(30)  # Set leading to 30
+text(lines, 70, 25)

@@ -11,5 +11,5 @@ Disables drawing the stroke (outline). If both ``no_stroke()`` and ``no_fill()``
 @@ example
 image = noStroke_.png
 
-noStroke();
-rect(30, 20, 55, 55);
+noStroke()
+rect(30, 20, 55, 55)

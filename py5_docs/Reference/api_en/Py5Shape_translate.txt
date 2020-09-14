@@ -11,18 +11,18 @@ Specifies an amount to displace the shape. The ``x`` parameter specifies left/ri
 Using this method with the ``z`` parameter requires using the P3D parameter in combination with size.
 
 @@ example
-PShape s;
+PShape s
 
 void setup() {
-  s = loadShape("bot.svg");
+  s = loadShape("bot.svg")
 }
 
 void draw() {
-  background(204);
-  shape(s);
+  background(204)
+  shape(s)
 }
 
 void mousePressed() {
-  // Move the shape 10 pixels right each time the mouse is pressed
-  s.translate(10, 0);  
+  # Move the shape 10 pixels right each time the mouse is pressed
+  s.translate(10, 0)  
 }

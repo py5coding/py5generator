@@ -13,18 +13,18 @@ Note that ``begin_record()`` will only pick up any settings that happen after it
 ``begin_record()`` works only with the PDF and SVG renderers.
 
 @@ example
-import processing.pdf.*;
+import processing.pdf.*
 
 void setup() {
-  size(400, 400);
-  beginRecord(PDF, "everything.pdf");
+  size(400, 400)
+  beginRecord(PDF, "everything.pdf")
 }
 
 void draw() {
-  ellipse(mouseX, mouseY, 10, 10);
+  ellipse(mouseX, mouseY, 10, 10)
 }
 
 void mousePressed() {
-  endRecord();
-  exit();
+  endRecord()
+  exit()
 }

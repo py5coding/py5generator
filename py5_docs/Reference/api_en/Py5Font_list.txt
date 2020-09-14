@@ -9,6 +9,6 @@ processing_name = list
 Gets a list of the fonts installed on the system. The data is returned as a String array. This list provides the names of each font for input into ``create_font()``, which allows Processing to dynamically format fonts.
 
 @@ example
-size(200, 200);
-String[] fontList = PFont.list();
-printArray(fontList);
+size(200, 200)
+String[] fontList = PFont.list()
+printArray(fontList)

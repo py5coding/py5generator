@@ -11,4 +11,4 @@ Draws a square to the screen. A square is a four-sided shape with every angle at
 @@ example
 image = rect_0.png
 
-square(30, 20, 55);
+square(30, 20, 55)

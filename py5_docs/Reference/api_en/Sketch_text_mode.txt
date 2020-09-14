@@ -11,15 +11,15 @@ Sets the way text draws to the screen, either as texture maps or as vector geome
 The ``text_mode(shape)`` option in ``P3D`` can be combined with ``begin_raw()`` to write vector-accurate text to 2D and 3D output files, for instance ``DXF`` or ``PDF``. The ``shape`` mode is not currently optimized for ``P3D``, so if recording shape data, use ``text_mode(model)`` until you're ready to capture the geometry with ``begin_raw()``.
 
 @@ example
-import processing.pdf.*;
+import processing.pdf.*
 
 void setup() {
-  size(500, 500, PDF, "TypeDemo.pdf");
-  textMode(SHAPE);
-  textSize(180);
+  size(500, 500, PDF, "TypeDemo.pdf")
+  textMode(SHAPE)
+  textSize(180)
 }
 
 void draw() {
-  text("ABC", 75, 350);
-  exit();  // Quit the program
+  text("ABC", 75, 350)
+  exit()  # Quit the program
 }

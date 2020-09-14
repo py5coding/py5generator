@@ -11,20 +11,20 @@ Generates random numbers. Each time the ``random()`` function is called, it retu
 If two parameters are specified, the function will return a float with a value between the two values. For example, ``random(-5, 10.2)`` returns values starting at -5 and up to (but not including) 10.2. To convert a floating-point random number to an integer, use the ``int()`` function.
 
 @@ example
-for (int i = 0; i < 100; i++) {
-  float r = random(50);
-  stroke(r*5);
-  line(50, i, 50+r, i);
+for (int i = 0 i < 100 i++) {
+  float r = random(50)
+  stroke(r*5)
+  line(50, i, 50+r, i)
 }
 
 @@ example
-for (int i = 0; i < 100; i++) {
-  float r = random(-50, 50);
-  println(r);
+for (int i = 0 i < 100 i++) {
+  float r = random(-50, 50)
+  print(r)
 }
 
 @@ example
-// Get a random element from an array
-String[] words = { "apple", "bear", "cat", "dog" };
-int index = int(random(words.length));  // Same as int(random(4))
-println(words[index]);  // Prints one of the four words
+# Get a random element from an array
+String[] words = { "apple", "bear", "cat", "dog" }
+int index = int(random(words.length))  # Same as int(random(4))
+print(words[index])  # Prints one of the four words

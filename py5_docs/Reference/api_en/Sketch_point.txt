@@ -17,18 +17,18 @@ Using ``point()`` with strokeWeight(1) or smaller may draw nothing to the screen
 @@ example
 image = point_0.png
 
-noSmooth();
-point(30, 20);
-point(85, 20);
-point(85, 75);
-point(30, 75);
+noSmooth()
+point(30, 20)
+point(85, 20)
+point(85, 75)
+point(30, 75)
 
 @@ example
 image = point_1.png
 
-size(100, 100, P3D);
-noSmooth();
-point(30, 20, -50);
-point(85, 20, -50);
-point(85, 75, -50);
-point(30, 75, -50);
+size(100, 100, P3D)
+noSmooth()
+point(30, 20, -50)
+point(85, 20, -50)
+point(85, 75, -50)
+point(30, 75, -50)

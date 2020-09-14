@@ -13,16 +13,16 @@ For non-ASCII keys, use the ``key_code`` variable. The keys included in the ASCI
 There are issues with how ``key_code`` behaves across different renderers and operating systems. Watch out for unexpected behavior as you switch renderers and operating systems.
 
 @@ example
-// Click on the window to give it focus,
-// and press the 'B' key.
+# Click on the window to give it focus,
+# and press the 'B' key.
 
 void draw() {
   if (keyPressed) {
     if (key == 'b' || key == 'B') {
-      fill(0);
+      fill(0)
     }
   } else {
-    fill(255);
+    fill(255)
   }
-  rect(25, 25, 50, 50);
+  rect(25, 25, 50, 50)
 }

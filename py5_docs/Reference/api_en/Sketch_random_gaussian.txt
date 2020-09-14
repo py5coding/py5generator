@@ -11,32 +11,32 @@ Returns a float from a random series of numbers having a mean of 0 and standard 
 @@ example
 image = randomGaussian_0.png
 
-for (int y = 0; y < 100; y++) {
-  float x = randomGaussian() * 15;
-  line(50, y, 50 + x, y);
+for (int y = 0 y < 100 y++) {
+  float x = randomGaussian() * 15
+  line(50, y, 50 + x, y)
 }
 
 @@ example
 image = randomGaussian_1.png
 
-float[] distribution = new float[360];
+float[] distribution = new float[360]
 
 void setup() {
-  size(100, 100);
-  for (int i = 0; i < distribution.length; i++) {
-    distribution[i] = int(randomGaussian() * 15);
+  size(100, 100)
+  for (int i = 0 i < distribution.length i++) {
+    distribution[i] = int(randomGaussian() * 15)
   }
 }
 
 void draw() {
-  background(204);
+  background(204)
   
-  translate(width/2, width/2);
+  translate(width/2, width/2)
 
-  for (int i = 0; i < distribution.length; i++) {
-    rotate(TWO_PI/distribution.length);
-    stroke(0);
-    float dist = abs(distribution[i]);
-    line(0, 0, dist, 0);
+  for (int i = 0 i < distribution.length i++) {
+    rotate(TWO_PI/distribution.length)
+    stroke(0)
+    float dist = abs(distribution[i])
+    line(0, 0, dist, 0)
   }
 }

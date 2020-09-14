@@ -31,18 +31,18 @@ REPLACE - the pixels entirely replace the others and don't utilize alpha (transp
 We recommend using ``blend_mode()`` and not the previous ``blend()`` function. However, unlike ``blend()``, the ``blend_mode()`` function does not support the following: HARD_LIGHT, SOFT_LIGHT, OVERLAY, DODGE, BURN. On older hardware, the LIGHTEST, DARKEST, and DIFFERENCE modes might not be available as well.
 
 @@ example
-size(100, 100);
-background(0);
-blendMode(ADD);
-stroke(102);
-strokeWeight(30);
-line(25, 25, 75, 75);
-line(75, 25, 25, 75);
+size(100, 100)
+background(0)
+blendMode(ADD)
+stroke(102)
+strokeWeight(30)
+line(25, 25, 75, 75)
+line(75, 25, 25, 75)
 
 @@ example
-size(100, 100, P2D);
-blendMode(MULTIPLY);
-stroke(51);
-strokeWeight(30);
-line(25, 25, 75, 75);
-line(75, 25, 25, 75);
+size(100, 100, P2D)
+blendMode(MULTIPLY)
+stroke(51)
+strokeWeight(30)
+line(25, 25, 75, 75)
+line(75, 25, 25, 75)

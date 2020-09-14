@@ -18,46 +18,46 @@ When ``smooth()`` is used with a ``Py5Graphics`` object, it should be run right 
 
 @@ example
 void setup() {
-  size(100, 100);
-  smooth(2);
-  noStroke();
+  size(100, 100)
+  smooth(2)
+  noStroke()
 }
 
 void draw() {
-  background(0);
-  ellipse(30, 48, 36, 36);
-  ellipse(70, 48, 36, 36);
+  background(0)
+  ellipse(30, 48, 36, 36)
+  ellipse(70, 48, 36, 36)
 }
 
 @@ example
-int x = 0;
+int x = 0
 
 void setup() {
-  fullScreen(P2D, SPAN);
-  smooth(4);
+  fullScreen(P2D, SPAN)
+  smooth(4)
 }
 
 void draw() {
-  background(0);
-  ellipse(x, height/2, height/4, height/4);
-  x += 1;
+  background(0)
+  ellipse(x, height/2, height/4, height/4)
+  x += 1
 }
 
 @@ example
-PGraphics pg;
-int x = 0;
+PGraphics pg
+int x = 0
 
 void setup() {
-  fullScreen(P2D);
-  pg = createGraphics(width, height, P2D);
-  pg.smooth(4);
+  fullScreen(P2D)
+  pg = createGraphics(width, height, P2D)
+  pg.smooth(4)
 }
 
 void draw() {
-  pg.beginDraw();
-  pg.background(0);
-  pg.ellipse(x, height/2, height/4, height/4);
-  pg.endDraw();
-  image(pg, 0, 0);
-  x += 1;
+  pg.beginDraw()
+  pg.background(0)
+  pg.ellipse(x, height/2, height/4, height/4)
+  pg.endDraw()
+  image(pg, 0, 0)
+  x += 1
 }

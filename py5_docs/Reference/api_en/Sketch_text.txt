@@ -15,25 +15,25 @@ Note that Processing now lets you call ``text()`` without first specifying a PFo
 @@ example
 image = text_0.png
 
-textSize(32);
-text("word", 10, 30); 
-fill(0, 102, 153);
-text("word", 10, 60);
-fill(0, 102, 153, 51);
-text("word", 10, 90);
+textSize(32)
+text("word", 10, 30) 
+fill(0, 102, 153)
+text("word", 10, 60)
+fill(0, 102, 153, 51)
+text("word", 10, 90)
 
 @@ example
 image = text_1.png
 
-size(100, 100, P3D);
-textSize(32);
-fill(0, 102, 153, 204);
-text("word", 12, 45, -30);  // Specify a z-axis value
-text("word", 12, 60);  // Default depth, no z-value specified
+size(100, 100, P3D)
+textSize(32)
+fill(0, 102, 153, 204)
+text("word", 12, 45, -30)  # Specify a z-axis value
+text("word", 12, 60)  # Default depth, no z-value specified
 
 @@ example
 image = text_2.png
 
-String s = "The quick brown fox jumps over the lazy dog.";
-fill(50);
-text(s, 10, 10, 70, 80);  // Text wraps within text box
+String s = "The quick brown fox jumps over the lazy dog."
+fill(50)
+text(s, 10, 10, 70, 80)  # Text wraps within text box

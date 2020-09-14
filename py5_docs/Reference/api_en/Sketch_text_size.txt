@@ -11,9 +11,9 @@ Sets the current font size. This size will be used in all subsequent calls to th
 @@ example
 image = textSize_.png
 
-background(0);
-fill(255);
-textSize(26); 
-text("WORD", 10, 50); 
-textSize(14);
-text("WORD", 10, 70);
+background(0)
+fill(255)
+textSize(26) 
+text("WORD", 10, 50) 
+textSize(14)
+text("WORD", 10, 70)

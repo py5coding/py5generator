@@ -19,9 +19,9 @@ Works like glFrustum, except it wipes out the current perspective matrix rather 
 @@ example
 image = frustum_.png
 
-size(100, 100, P3D);  
-noFill();
-background(204);
-frustum(-10, 0, 0, 10, 10, 200);
-rotateY(PI/6);
-box(45);
+size(100, 100, P3D)  
+noFill()
+background(204)
+frustum(-10, 0, 0, 10, 10, 200)
+rotateY(PI/6)
+box(45)

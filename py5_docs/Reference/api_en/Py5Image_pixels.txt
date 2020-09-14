@@ -13,19 +13,19 @@ Before accessing this array, the data must loaded with the ``load_pixels()`` met
 @@ example
 image = PImage_pixels.png
 
-PImage tower;
+PImage tower
 
 void setup() {
-  size(100, 100);
-  tower = loadImage("tower.jpg");
-  int dimension = tower.width * tower.height;
-  tower.loadPixels();
-  for (int i = 0; i < dimension; i += 2) { 
-    tower.pixels[i] = color(0, 0, 0); 
+  size(100, 100)
+  tower = loadImage("tower.jpg")
+  int dimension = tower.width * tower.height
+  tower.loadPixels()
+  for (int i = 0 i < dimension i += 2) { 
+    tower.pixels[i] = color(0, 0, 0) 
   } 
-  tower.updatePixels();
+  tower.updatePixels()
 }
 
 void draw() {
-  image(tower, 0, 0);
+  image(tower, 0, 0)
 }

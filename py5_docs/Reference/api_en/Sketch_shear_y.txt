@@ -13,7 +13,7 @@ Technically, ``shear_y()`` multiplies the current transformation matrix by a rot
 @@ example
 image = shearY_.png
 
-size(100, 100);
-translate(width/4, height/4);
-shearY(PI/4.0);
-rect(0, 0, 30, 30);
+size(100, 100)
+translate(width/4, height/4)
+shearY(PI/4.0)
+rect(0, 0, 30, 30)

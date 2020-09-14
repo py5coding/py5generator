@@ -11,12 +11,12 @@ Loads the pixel data of the current display window into the ``pixels[]`` array. 
 @@ example
 image = loadPixels_.png
 
-int halfImage = width*height/2;
-PImage myImage = loadImage("apples.jpg");
-image(myImage, 0, 0);
+int halfImage = width*height/2
+PImage myImage = loadImage("apples.jpg")
+image(myImage, 0, 0)
 
-loadPixels();
-for (int i = 0; i < halfImage; i++) {
-  pixels[i+halfImage] = pixels[i];
+loadPixels()
+for (int i = 0 i < halfImage i++) {
+  pixels[i+halfImage] = pixels[i]
 }
-updatePixels();
+updatePixels()

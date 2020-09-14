@@ -13,36 +13,36 @@ When the pixel density is set to more than 1, it changes all of the pixel operat
 To use variables as the arguments to ``pixel_density()`` function, place the ``pixel_density()`` function within the ``settings()`` function. There is more information about this on the ``settings()`` reference page.
 
 @@ example
-size(100, 100);
-pixelDensity(2);
-noStroke();
-background(0);
-ellipse(30, 48, 36, 36);
-ellipse(70, 48, 36, 36);
+size(100, 100)
+pixelDensity(2)
+noStroke()
+background(0)
+ellipse(30, 48, 36, 36)
+ellipse(70, 48, 36, 36)
 
 @@ example
 void setup() {
-  size(100, 100);
-  pixelDensity(2);
-  noStroke();
+  size(100, 100)
+  pixelDensity(2)
+  noStroke()
 }
 
 void draw() {
-  background(0);
-  ellipse(30, 48, 36, 36);
-  ellipse(70, 48, 36, 36);
+  background(0)
+  ellipse(30, 48, 36, 36)
+  ellipse(70, 48, 36, 36)
 }
 
 @@ example
 void setup() {
-  size(100, 100);
-  // Pulling the display's density dynamically
-  pixelDensity(displayDensity());
-  noStroke();
+  size(100, 100)
+  # Pulling the display's density dynamically
+  pixelDensity(displayDensity())
+  noStroke()
 }
 
 void draw() {
-  background(0);
-  ellipse(30, 48, 36, 36);
-  ellipse(70, 48, 36, 36);
+  background(0)
+  ellipse(30, 48, 36, 36)
+  ellipse(70, 48, 36, 36)
 }

@@ -15,27 +15,27 @@ The ``push()`` and ``pop()`` functions were added with Processing 3.5. They can 
 @@ example
 image = popMatrix_.png
 
-fill(255);
-rect(0, 0, 50, 50);  // White rectangle
+fill(255)
+rect(0, 0, 50, 50)  # White rectangle
 
-push();
-translate(30, 20);
-fill(0);  
-rect(0, 0, 50, 50);  // Black rectangle
-pop();  // Restore original settings
+push()
+translate(30, 20)
+fill(0)  
+rect(0, 0, 50, 50)  # Black rectangle
+pop()  # Restore original settings
 
-fill(100);  
-rect(15, 10, 50, 50);  // Gray rectangle
+fill(100)  
+rect(15, 10, 50, 50)  # Gray rectangle
 
 @@ example
 image = popStyle_0.png
 
-ellipse(0, 50, 33, 33);  // Left circle
+ellipse(0, 50, 33, 33)  # Left circle
 
-push();
-strokeWeight(10);
-fill(204, 153, 0);
-ellipse(50, 50, 33, 33);  // Middle circle
-pop();  // Restore original settings
+push()
+strokeWeight(10)
+fill(204, 153, 0)
+ellipse(50, 50, 33, 33)  # Middle circle
+pop()  # Restore original settings
 
-ellipse(100, 50, 33, 33);  // Right circle
+ellipse(100, 50, 33, 33)  # Right circle

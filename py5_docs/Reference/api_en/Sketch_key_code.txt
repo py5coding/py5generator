@@ -19,21 +19,21 @@ There are issues with how ``key_code`` behaves across different renderers and op
 If you are using P2D or P3D as your renderer, use the NEWT KeyEvent constants.
 
 @@ example
-color fillVal = color(126);
+color fillVal = color(126)
 
 void draw() {
-  fill(fillVal);
-  rect(25, 25, 50, 50);
+  fill(fillVal)
+  rect(25, 25, 50, 50)
 }
 
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == UP) {
-      fillVal = 255;
+      fillVal = 255
     } else if (keyCode == DOWN) {
-      fillVal = 0;
+      fillVal = 0
     } 
   } else {
-    fillVal = 126;
+    fillVal = 126
   }
 }

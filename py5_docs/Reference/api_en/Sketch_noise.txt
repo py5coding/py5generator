@@ -17,23 +17,23 @@ Another way to adjust the character of the resulting sequence is the scale of th
 There have been debates over the accuracy of the implementation of noise in Processing. For clarification, it's an implementation of "classic Perlin noise" from 1983, and not the newer "simplex noise" method from 2001.
 
 @@ example
-float xoff = 0.0;
+float xoff = 0.0
 
 void draw() {
-  background(204);
-  xoff = xoff + .01;
-  float n = noise(xoff) * width;
-  line(n, 0, n, height);
+  background(204)
+  xoff = xoff + .01
+  float n = noise(xoff) * width
+  line(n, 0, n, height)
 }
 
 @@ example
-float noiseScale = 0.02;
+float noiseScale = 0.02
 
 void draw() {
-  background(0);
-  for (int x=0; x < width; x++) {
-    float noiseVal = noise((mouseX+x)*noiseScale, mouseY*noiseScale);
-    stroke(noiseVal*255);
-    line(x, mouseY+noiseVal*80, x, height);
+  background(0)
+  for (int x=0 x < width x++) {
+    float noiseVal = noise((mouseX+x)*noiseScale, mouseY*noiseScale)
+    stroke(noiseVal*255)
+    line(x, mouseY+noiseVal*80, x, height)
   }
 }

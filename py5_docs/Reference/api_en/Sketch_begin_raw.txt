@@ -17,20 +17,20 @@ Using ``hint(enable_depth_sort)`` can improve the appearance of 3D geometry draw
 See examples in the reference for the ``PDF`` and ``DXF`` libraries for more information.
 
 @@ example
-import processing.pdf.*;
+import processing.pdf.*
 
 void setup() {
-  size(400, 400);
-  beginRaw(PDF, "raw.pdf");
+  size(400, 400)
+  beginRaw(PDF, "raw.pdf")
 }
 
 void draw() {
-  line(pmouseX, pmouseY, mouseX, mouseY);
+  line(pmouseX, pmouseY, mouseX, mouseY)
 }
 
 void keyPressed() {
   if (key == ' ') {
-    endRaw();
-    exit();
+    endRaw()
+    exit()
   }
 }

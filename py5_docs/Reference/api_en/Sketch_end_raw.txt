@@ -9,20 +9,20 @@ processing_name = endRaw
 Complement to ``begin_raw()``; they must always be used together. See the ``begin_raw()`` reference for details.
 
 @@ example
-import processing.pdf.*;
+import processing.pdf.*
 
 void setup() {
-  size(400, 400);
-  beginRaw(PDF, "raw.pdf");
+  size(400, 400)
+  beginRaw(PDF, "raw.pdf")
 }
 
 void draw() {
-  line(pmouseX, pmouseY, mouseX, mouseY);
+  line(pmouseX, pmouseY, mouseX, mouseY)
 }
 
 void keyPressed() {
   if (key == ' ') {
-    endRaw();
-    exit();
+    endRaw()
+    exit()
   }
 }

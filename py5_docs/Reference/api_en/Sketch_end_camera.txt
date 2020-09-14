@@ -11,14 +11,14 @@ The ``begin_camera()`` and ``end_camera()`` functions enable advanced customizat
 @@ example
 image = endCamera_.png
 
-size(100, 100, P3D);
-noFill();
+size(100, 100, P3D)
+noFill()
 
-beginCamera();
-camera();
-rotateX(-PI/6);
-endCamera();
+beginCamera()
+camera()
+rotateX(-PI/6)
+endCamera()
 
-translate(50, 50, 0);
-rotateY(PI/3);
-box(45);
+translate(50, 50, 0)
+rotateY(PI/3)
+box(45)

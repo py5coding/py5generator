@@ -11,7 +11,7 @@ System variable that stores the height of the display window. This value is set 
 @@ example
 image = height.png
 
-noStroke();
-background(0);
-rect(40, 0, 20, height);
-rect(60, 0, 20, height/2);
+noStroke()
+background(0)
+rect(40, 0, 20, height)
+rect(60, 0, 20, height/2)

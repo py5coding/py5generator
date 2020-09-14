@@ -15,28 +15,28 @@ The color of an image may be modified with the ``tint()`` function. This functio
 @@ example
 image = image_0.png
 
-PImage img;
+PImage img
 
 void setup() {
-  // Images must be in the "data" directory to load correctly
-  img = loadImage("laDefense.jpg");
+  # Images must be in the "data" directory to load correctly
+  img = loadImage("laDefense.jpg")
 }
 
 void draw() {
-  image(img, 0, 0);
+  image(img, 0, 0)
 }
 
 @@ example
 image = image_1.png
 
-PImage img;
+PImage img
 
 void setup() {
-  // Images must be in the "data" directory to load correctly
-  img = loadImage("laDefense.jpg");
+  # Images must be in the "data" directory to load correctly
+  img = loadImage("laDefense.jpg")
 }
 
 void draw() {
-  image(img, 0, 0);
-  image(img, 0, 0, width/2, height/2);
+  image(img, 0, 0)
+  image(img, 0, 0, width/2, height/2)
 }

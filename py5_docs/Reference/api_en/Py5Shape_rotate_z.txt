@@ -13,19 +13,19 @@ Shapes are always rotated around the upper-left corner of their bounding box. Po
 This method requires a 3D renderer. You need to use P3D as a third parameter for the ``size()`` function as shown in the example above.
 
 @@ example
-PShape s;
+PShape s
 
 void setup() {
-  size(100, 100, P3D);
-  s = loadShape("ohio.svg");
+  size(100, 100, P3D)
+  s = loadShape("ohio.svg")
 }
 
 void draw() {
-  background(204);
-  shape(s);
+  background(204)
+  shape(s)
 }
 
 void mousePressed() {
-  // Rotate the shape around the z-axis each time the mouse is pressed
-  s.rotateZ(0.1);  
+  # Rotate the shape around the z-axis each time the mouse is pressed
+  s.rotateZ(0.1)  
 }

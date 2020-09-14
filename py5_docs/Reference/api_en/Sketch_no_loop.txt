@@ -14,52 +14,52 @@ Note that if the sketch is resized, ``redraw()`` will be called to update the sk
 
 @@ example
 void setup() {
-  size(200, 200);
-  noLoop();
+  size(200, 200)
+  noLoop()
 }
 
 void draw() {
-  line(10, 10, 190, 190);
+  line(10, 10, 190, 190)
 }
 
 @@ example
 void setup() {
-  size(200, 200);
+  size(200, 200)
 }
 
-float x = 0.0;
+float x = 0.0
 
 void draw() {
-  background(204);
-  x = x + 0.1;
+  background(204)
+  x = x + 0.1
   if (x > width) {
-    x = 0;
+    x = 0
   }
-  line(x, 0, x, height); 
+  line(x, 0, x, height) 
 }
 
 void mousePressed() {
-  noLoop();
+  noLoop()
 }
 
 void mouseReleased() {
-  loop();
+  loop()
 }
 
 @@ example
-boolean someMode = false;
+boolean someMode = false
 
 void setup() {
-  noLoop();
+  noLoop()
 }
 
 void draw() {
   if (someMode) {
-    // do something
+    # do something
   }
 }
 
 void mousePressed() {
-  someMode = true;
-  redraw();  // or loop()
+  someMode = true
+  redraw()  # or loop()
 }
