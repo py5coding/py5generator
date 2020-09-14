@@ -60,8 +60,10 @@ def remove_html(html):
     # first convert bold tags to ``
     for full, code in re.findall(r'(<[bB]>(.*?)</?[bB]>)', html):
         html = html.replace(full, f'``{snake_case(code)}``')
-    for code in re.findall(r'(?<!`)(\w+\(\))(?!`)', html):
-        html = html.replace(code, f'``{snake_case(code)}``')
+    # TODO: this is wrong, can't use replace to do the replace because I can
+    # replace more than one and have weird side effects
+    for m in re.finditer(r'(?<!`)(\w+\(\))(?!`)', html):
+        html = html[:m.start()] + f'``{snake_case(m.group())}``' + html[m.end():]
     tr = TagRemover()
     tr.feed(html)
     return tr.get_data()
