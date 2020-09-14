@@ -5,7 +5,7 @@ subcategory = Method
 type = None
 
 @@ description
-Updates the image with the data in its <b>pixels[]</b> array. Use in conjunction with <b>loadPixels()</b>. If you're only reading pixels from the array, there's no need to call <b>updatePixels()</b>.
+Updates the image with the data in its ``pixels[]`` array. Use in conjunction with ``load_pixels()``. If you're only reading pixels from the array, there's no need to call ``update_pixels()``.
 
 @@ example
 image = PImage_updatePixels_.png

@@ -5,7 +5,7 @@ subcategory = Pixels
 type = None
 
 @@ description
-Updates the display window with the data in the <b>pixels[]</b> array. Use in conjunction with <b>loadPixels()</b>. If you're only reading pixels from the array, there's no need to call <b>updatePixels()</b> &mdash; updating is only necessary to apply changes.
+Updates the display window with the data in the ``pixels[]`` array. Use in conjunction with ``load_pixels()``. If you're only reading pixels from the array, there's no need to call ``update_pixels()`` — updating is only necessary to apply changes.
 
 @@ example
 image = updatePixels_.png

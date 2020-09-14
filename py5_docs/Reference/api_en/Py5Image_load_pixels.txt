@@ -5,7 +5,7 @@ subcategory = Method
 type = None
 
 @@ description
-Loads the pixel data for the image into its <b>pixels[]</b> array. This function must always be called before reading from or writing to <b>pixels[]</b>.
+Loads the pixel data for the image into its ``pixels[]`` array. This function must always be called before reading from or writing to ``pixels[]``.
 
 @@ example
 image = PImage_loadPixels_.png

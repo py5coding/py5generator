@@ -5,7 +5,7 @@ subcategory = Camera
 type = None
 
 @@ description
-The <b>beginCamera()</b> and <b>endCamera()</b> functions enable advanced customization of the camera space. Please see the reference for <b>beginCamera()</b> for a description of how the functions are used.
+The ``begin_camera()`` and ``end_camera()`` functions enable advanced customization of the camera space. Please see the reference for ``begin_camera()`` for a description of how the functions are used.
 
 @@ example
 image = endCamera_.png

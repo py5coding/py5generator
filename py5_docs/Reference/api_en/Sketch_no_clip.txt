@@ -5,7 +5,7 @@ subcategory = None
 type = None
 
 @@ description
-Disables the clipping previously started by the <b>clip()</b> function.
+Disables the clipping previously started by the ``clip()`` function.
 
 @@ example
 void setup() {

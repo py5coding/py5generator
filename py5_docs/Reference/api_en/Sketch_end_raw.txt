@@ -5,7 +5,7 @@ subcategory = Files
 type = None
 
 @@ description
-Complement to <b>beginRaw()</b>; they must always be used together. See the <b>beginRaw()</b> reference for details.
+Complement to ``begin_raw()``; they must always be used together. See the ``begin_raw()`` reference for details.
 
 @@ example
 import processing.pdf.*;

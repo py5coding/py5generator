@@ -5,11 +5,11 @@ subcategory = None
 type = None
 
 @@ description
-Creates a new PImage (the datatype for storing images). This provides a fresh buffer of pixels to play with. Set the size of the buffer with the <b>width</b> and <b>height</b> parameters. The <b>format</b> parameter defines how the pixels are stored. See the PImage reference for more information.
-<br /> <br />
+Creates a new PImage (the datatype for storing images). This provides a fresh buffer of pixels to play with. Set the size of the buffer with the ``width`` and ``height`` parameters. The ``format`` parameter defines how the pixels are stored. See the PImage reference for more information.
+ 
 Be sure to include all three parameters, specifying only the width and height (but no format) will produce a strange error.
-<br /> <br />
-Advanced users please note that createImage() should be used instead of the syntax <tt>new PImage()</tt>.
+ 
+Advanced users please note that ``create_image()`` should be used instead of the syntax .
 
 @@ example
 image = createImage_0.png

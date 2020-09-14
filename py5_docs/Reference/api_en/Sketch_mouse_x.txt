@@ -5,9 +5,9 @@ subcategory = Mouse
 type = variable
 
 @@ description
-The system variable <b>mouseX</b> always contains the current horizontal coordinate of the mouse.
-<br /><br />
-Note that Processing can only track the mouse position when the pointer is over the current window. The default value of <b>mouseX</b> is <b>0</b>, so <b>0</b> will be returned until the mouse moves in front of the sketch window. (This typically happens when a sketch is first run.)  Once the mouse moves away from the window, <b>mouseX</b> will continue to report its most recent position.
+The system variable ``mouse_x`` always contains the current horizontal coordinate of the mouse.
+
+Note that Processing can only track the mouse position when the pointer is over the current window. The default value of ``mouse_x`` is ``0``, so ``0`` will be returned until the mouse moves in front of the sketch window. (This typically happens when a sketch is first run.)  Once the mouse moves away from the window, ``mouse_x`` will continue to report its most recent position.
 
 @@ example
 void draw() {

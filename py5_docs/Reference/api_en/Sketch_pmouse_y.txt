@@ -5,9 +5,9 @@ subcategory = Mouse
 type = variable
 
 @@ description
-The system variable <b>pmouseY</b> always contains the vertical position of the mouse in the frame previous to the current frame.
-<br /><br />
-For more detail on how <b>pmouseY</b> is updated inside of mouse events and <b>draw()</b>, see the reference for <b>pmouseX</b>.
+The system variable ``pmouse_y`` always contains the vertical position of the mouse in the frame previous to the current frame.
+
+For more detail on how ``pmouse_y`` is updated inside of mouse events and ``draw()``, see the reference for ``pmouse_x``.
 
 @@ example
 // Move the mouse quickly to see the difference 

@@ -5,7 +5,7 @@ subcategory = None
 type = None
 
 @@ description
-Replaces the current matrix with the identity matrix. The equivalent function in OpenGL is <b>glLoadIdentity()</b>.
+Replaces the current matrix with the identity matrix. The equivalent function in OpenGL is ``gl_load_identity()``.
 
 @@ example
 size(100, 100, P3D);

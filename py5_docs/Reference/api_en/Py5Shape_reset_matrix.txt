@@ -5,7 +5,7 @@ subcategory = Method
 type = None
 
 @@ description
-Replaces the current matrix of a shape with the identity matrix. The equivalent function in OpenGL is <b>glLoadIdentity()</b>.
+Replaces the current matrix of a shape with the identity matrix. The equivalent function in OpenGL is ``gl_load_identity()``.
 
 @@ example
 PShape s;

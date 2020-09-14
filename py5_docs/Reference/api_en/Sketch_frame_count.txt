@@ -5,7 +5,7 @@ subcategory = None
 type = variable
 
 @@ description
-The system variable <b>frameCount</b> contains the number of frames that have been displayed since the program started. Inside <b>setup()</b> the value is 0, after the first iteration of draw it is 1, etc.
+The system variable ``frame_count`` contains the number of frames that have been displayed since the program started. Inside ``setup()`` the value is 0, after the first iteration of draw it is 1, etc.
 
 @@ example
 void setup() {

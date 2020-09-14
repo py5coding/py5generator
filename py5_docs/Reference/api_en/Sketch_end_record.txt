@@ -5,7 +5,7 @@ subcategory = Files
 type = None
 
 @@ description
-Stops the recording process started by <b>beginRecord()</b> and closes the file.
+Stops the recording process started by ``begin_record()`` and closes the file.
 
 @@ example
 import processing.pdf.*;

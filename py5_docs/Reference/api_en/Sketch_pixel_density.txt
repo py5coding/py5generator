@@ -5,11 +5,11 @@ subcategory = None
 type = None
 
 @@ description
-This function is new with Processing 3.0. It makes it possible for Processing to render using all of the pixels on high resolutions screens like Apple Retina displays and Windows High-DPI displays. This function can only be run once within a program and it must be used right after <b>size()</b> in a program without a <b>setup()</b> and used within <b>setup()</b> when a program has one.  The <b>pixelDensity()</b> should only be used with hardcoded numbers (in almost all cases this number will be 2) or in combination with <b>displayDensity()</b> as in the third example above.
-<br /><br />
-When the pixel density is set to more than 1, it changes all of the pixel operations including the way <b>get()</b>, <b>set()</b>, <b>blend()</b>, <b>copy()</b>, and <b>updatePixels()</b> all work. See the reference for <b>pixelWidth</b> and <b>pixelHeight</b> for more information. 
-<br /><br />
-To use variables as the arguments to <b>pixelDensity()</b> function, place the <b>pixelDensity()</b> function within the <b>settings()</b> function. There is more information about this on the <b>settings()</b> reference page.
+This function is new with Processing 3.0. It makes it possible for Processing to render using all of the pixels on high resolutions screens like Apple Retina displays and Windows High-DPI displays. This function can only be run once within a program and it must be used right after ``size()`` in a program without a ``setup()`` and used within ``setup()`` when a program has one.  The ``pixel_density()`` should only be used with hardcoded numbers (in almost all cases this number will be 2) or in combination with ``display_density()`` as in the third example above.
+
+When the pixel density is set to more than 1, it changes all of the pixel operations including the way ``get()``, ``set()``, ``blend()``, ``copy()``, and ``update_pixels()`` all work. See the reference for ``pixel_width`` and ``pixel_height`` for more information. 
+
+To use variables as the arguments to ``pixel_density()`` function, place the ``pixel_density()`` function within the ``settings()`` function. There is more information about this on the ``settings()`` reference page.
 
 @@ example
 size(100, 100);

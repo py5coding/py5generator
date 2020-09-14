@@ -5,7 +5,7 @@ subcategory = Time & Date
 type = None
 
 @@ description
-Processing communicates with the clock on your computer. The <b>minute()</b> function returns the current minute as a value from 0 - 59.
+Processing communicates with the clock on your computer. The ``minute()`` function returns the current minute as a value from 0 - 59.
 
 @@ example
 void draw() {

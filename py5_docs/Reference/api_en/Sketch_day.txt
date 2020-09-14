@@ -5,7 +5,7 @@ subcategory = Time & Date
 type = None
 
 @@ description
-Processing communicates with the clock on your computer. The <b>day()</b> function returns the current day as a value from 1 - 31.
+Processing communicates with the clock on your computer. The ``day()`` function returns the current day as a value from 1 - 31.
 
 @@ example
 int d = day();    // Values from 1 - 31

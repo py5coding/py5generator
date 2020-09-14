@@ -5,7 +5,7 @@ subcategory = Random
 type = None
 
 @@ description
-Sets the seed value for <b>noise()</b>. By default, <b>noise()</b> produces different results each time the program is run. Set the <b>seed</b> parameter to a constant to return the same pseudo-random numbers each time the software is run.
+Sets the seed value for ``noise()``. By default, ``noise()`` produces different results each time the program is run. Set the ``seed`` parameter to a constant to return the same pseudo-random numbers each time the software is run.
 
 @@ example
 float xoff = 0.0;

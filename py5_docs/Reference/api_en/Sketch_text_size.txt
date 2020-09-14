@@ -5,7 +5,7 @@ subcategory = Attributes
 type = None
 
 @@ description
-Sets the current font size. This size will be used in all subsequent calls to the <b>text()</b> function. Font size is measured in units of pixels.
+Sets the current font size. This size will be used in all subsequent calls to the ``text()`` function. Font size is measured in units of pixels.
 
 @@ example
 image = textSize_.png

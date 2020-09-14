@@ -5,9 +5,9 @@ subcategory = Vertex
 type = None
 
 @@ description
-Use the <b>beginContour()</b> and <b>endContour()</b> function to create negative shapes within shapes such as the center of the letter 'O'. <b>beginContour()</b> begins recording vertices for the shape and <b>endContour()</b> stops recording. The vertices that define a negative shape must "wind" in the opposite direction from the exterior shape. First draw vertices for the exterior shape in clockwise order, then for internal shapes, draw vertices counterclockwise.<br />
-<br />
-These functions can only be used within a <b>beginShape()</b>/<b>endShape()</b> pair and transformations such as <b>translate()</b>, <b>rotate()</b>, and <b>scale()</b> do not work within a <b>beginContour()</b>/<b>endContour()</b> pair. It is also not possible to use other shapes, such as <b>ellipse()</b> or <b>rect()</b> within.
+Use the ``begin_contour()`` and ``end_contour()`` function to create negative shapes within shapes such as the center of the letter 'O'. ``begin_contour()`` begins recording vertices for the shape and ``end_contour()`` stops recording. The vertices that define a negative shape must "wind" in the opposite direction from the exterior shape. First draw vertices for the exterior shape in clockwise order, then for internal shapes, draw vertices counterclockwise.
+
+These functions can only be used within a ``begin_shape()``/``end_shape()`` pair and transformations such as ``translate()``, ``rotate()``, and ``scale()`` do not work within a ``begin_contour()``/``end_contour()`` pair. It is also not possible to use other shapes, such as ``ellipse()`` or ``rect()`` within.
 
 @@ example
 image = beginContour_0.png

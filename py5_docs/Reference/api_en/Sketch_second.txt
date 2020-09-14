@@ -5,7 +5,7 @@ subcategory = Time & Date
 type = None
 
 @@ description
-Processing communicates with the clock on your computer. The <b>second()</b> function returns the current second as a value from 0 - 59.
+Processing communicates with the clock on your computer. The ``second()`` function returns the current second as a value from 0 - 59.
 
 @@ example
 void draw() {

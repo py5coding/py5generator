@@ -5,7 +5,7 @@ subcategory = Setting
 type = None
 
 @@ description
-Disables drawing the stroke (outline). If both <b>noStroke()</b> and <b>noFill()</b> are called, nothing will be drawn to the screen.
+Disables drawing the stroke (outline). If both ``no_stroke()`` and ``no_fill()`` are called, nothing will be drawn to the screen.
 
 @@ example
 image = noStroke_.png

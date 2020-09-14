@@ -5,7 +5,7 @@ subcategory = Time & Date
 type = None
 
 @@ description
-Processing communicates with the clock on your computer. The <b>month()</b> function returns the current month as a value from 1 - 12.
+Processing communicates with the clock on your computer. The ``month()`` function returns the current month as a value from 1 - 12.
 
 @@ example
 int d = day();    // Values from 1 - 31

@@ -5,15 +5,15 @@ subcategory = None
 type = None
 
 @@ description
-Draws all geometry with smooth (anti-aliased) edges. This behavior is the default, so <b>smooth()</b> only needs to be used when a program needs to set the smoothing in a different way. The <b>level</b> parameter increases the amount of smoothness. This is the level of over sampling applied to the graphics buffer.
-<br /><br />
-With the P2D and P3D renderers, <b>smooth(2)</b> is the default, this is called "2x anti-aliasing." The code <b>smooth(4)</b> is used for 4x anti-aliasing and <b>smooth(8)</b> is specified for "8x anti-aliasing." The maximum anti-aliasing level is determined by the hardware of the machine that is running the software, so <b>smooth(4)</b> and <b>smooth(8)</b> will not work with every computer.
-<br ><br />
-The default renderer uses <b>smooth(3)</b> by default. This is bicubic smoothing. The other option for the default renderer is <b>smooth(2)</b>, which is bilinear smoothing.
-<br /><br />
-With Processing 3.0, <b>smooth()</b> is different than before. It was common to use <b>smooth()</b> and <b>noSmooth()</b> to turn on and off antialiasing within a sketch. Now, because of how the software has changed, <b>smooth()</b> can only be set once within a sketch. It can be used either at the top of a sketch without a <b>setup()</b>, or after the <b>size()</b> function when used in a sketch with <b>setup()</b>. The <b>noSmooth()</b> function also follows the same rules. 
-<br /><br />
-When <b>smooth()</b> is used with a <b>PGraphics</b> object, it should be run right after the object is created with <b>createGraphics()</b>, as shown in the Reference in the third example.
+Draws all geometry with smooth (anti-aliased) edges. This behavior is the default, so ``smooth()`` only needs to be used when a program needs to set the smoothing in a different way. The ``level`` parameter increases the amount of smoothness. This is the level of over sampling applied to the graphics buffer.
+
+With the P2D and P3D renderers, ``smooth(2)`` is the default, this is called "2x anti-aliasing." The code ``smooth(4)`` is used for 4x anti-aliasing and ``smooth(8)`` is specified for "8x anti-aliasing." The maximum anti-aliasing level is determined by the hardware of the machine that is running the software, so ``smooth(4)`` and ``smooth(8)`` will not work with every computer.
+
+The default renderer uses ``smooth(3)`` by default. This is bicubic smoothing. The other option for the default renderer is ``smooth(2)``, which is bilinear smoothing.
+
+With Processing 3.0, ``smooth()`` is different than before. It was common to use ``smooth()`` and ``no_smooth()`` to turn on and off antialiasing within a sketch. Now, because of how the software has changed, ``smooth()`` can only be set once within a sketch. It can be used either at the top of a sketch without a ``setup()``, or after the ``size()`` function when used in a sketch with ``setup()``. The ``no_smooth()`` function also follows the same rules. 
+
+When ``smooth()`` is used with a ``p_graphics`` object, it should be run right after the object is created with ``create_graphics()``, as shown in the Reference in the third example.
 
 @@ example
 void setup() {

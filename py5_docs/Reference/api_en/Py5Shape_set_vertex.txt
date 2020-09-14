@@ -5,7 +5,7 @@ subcategory = Method
 type = None
 
 @@ description
-The <b>setVertex()</b> method defines the coordinates of the vertex point located at the position defined by the <b>index</b> parameter. This method works when shapes are created as shown in the example above, but won't work properly when a shape is defined explicitly (e.g. <b>createShape(RECT, 20, 20, 80, 80)</b>.
+The ``set_vertex()`` method defines the coordinates of the vertex point located at the position defined by the ``index`` parameter. This method works when shapes are created as shown in the example above, but won't work properly when a shape is defined explicitly (e.g. ``create_shape(rect, 20, 20, 80, 80)``.
 
 @@ example
 PShape s;

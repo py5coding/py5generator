@@ -5,7 +5,7 @@ subcategory = Lights
 type = None
 
 @@ description
-Adds a spot light. Lights need to be included in the <b>draw()</b> to remain persistent in a looping program. Placing them in the <b>setup()</b> of a looping program will cause them to only have an effect the first time through the loop. The <b>v1</b>, <b>v2</b>, and <b>v3</b> parameters are interpreted as either RGB or HSB values, depending on the current color mode. The <b>x</b>, <b>y</b>, and <b>z</b> parameters specify the position of the light and <b>nx</b>, <b>ny</b>, <b>nz</b> specify the direction of light. The <b>angle</b> parameter affects angle of the spotlight cone, while <b>concentration</b> sets the bias of light focusing toward the center of that cone.
+Adds a spot light. Lights need to be included in the ``draw()`` to remain persistent in a looping program. Placing them in the ``setup()`` of a looping program will cause them to only have an effect the first time through the loop. The ``v1``, ``v2``, and ``v3`` parameters are interpreted as either RGB or HSB values, depending on the current color mode. The ``x``, ``y``, and ``z`` parameters specify the position of the light and ``nx``, ``ny``, ``nz`` specify the direction of light. The ``angle`` parameter affects angle of the spotlight cone, while ``concentration`` sets the bias of light focusing toward the center of that cone.
 
 @@ example
 image = spotLight_0.png

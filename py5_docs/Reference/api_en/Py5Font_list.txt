@@ -5,7 +5,7 @@ subcategory = None
 type = None
 
 @@ description
-Gets a list of the fonts installed on the system. The data is returned as a String array. This list provides the names of each font for input into <b>createFont()</b>, which allows Processing to dynamically format fonts.
+Gets a list of the fonts installed on the system. The data is returned as a String array. This list provides the names of each font for input into ``create_font()``, which allows Processing to dynamically format fonts.
 
 @@ example
 size(200, 200);

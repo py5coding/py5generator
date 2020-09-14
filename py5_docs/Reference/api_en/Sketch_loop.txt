@@ -5,7 +5,7 @@ subcategory = None
 type = None
 
 @@ description
-By default, Processing loops through <b>draw()</b> continuously, executing the code within it. However, the <b>draw()</b> loop may be stopped by calling <b>noLoop()</b>. In that case, the <b>draw()</b> loop can be resumed with <b>loop()</b>.
+By default, Processing loops through ``draw()`` continuously, executing the code within it. However, the ``draw()`` loop may be stopped by calling ``no_loop()``. In that case, the ``draw()`` loop can be resumed with ``loop()``.
 
 @@ example
 void setup() {

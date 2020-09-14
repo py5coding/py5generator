@@ -5,11 +5,11 @@ subcategory = None
 type = None
 
 @@ description
-Sets the cursor to a predefined symbol or an image, or makes it visible if already hidden. If you are trying to set an image as the cursor, the recommended size is 16x16 or 32x32 pixels. The values for parameters <b>x</b> and <b>y</b> must be less than the dimensions of the image.
-<br /><br />
+Sets the cursor to a predefined symbol or an image, or makes it visible if already hidden. If you are trying to set an image as the cursor, the recommended size is 16x16 or 32x32 pixels. The values for parameters ``x`` and ``y`` must be less than the dimensions of the image.
+
 Setting or hiding the cursor does not generally work with "Present" mode (when running full-screen).
-<br /><br />
-With the P2D and P3D renderers, a generic set of cursors are used because the OpenGL renderer doesn't have access to the default cursor images for each platform (<a href="https://github.com/processing/processing/issues/3791">Issue 3791</a>).
+
+With the P2D and P3D renderers, a generic set of cursors are used because the OpenGL renderer doesn't have access to the default cursor images for each platform (Issue 3791).
 
 @@ example
 // Move the mouse left and right across the image
