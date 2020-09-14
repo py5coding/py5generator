@@ -12,13 +12,11 @@ Pushes the current transformation matrix onto the matrix stack. Understanding ``
 image = pushMatrix_.png
 
 fill(255)
-rect(0, 0, 50, 50)  # White rectangle
-
-pushMatrix()
+rect(0, 0, 50, 50)  
+push_matrix()
 translate(30, 20)
 fill(0)  
-rect(0, 0, 50, 50)  # Black rectangle
-popMatrix()
+rect(0, 0, 50, 50)  pop_matrix()
 
 fill(100)  
-rect(15, 10, 50, 50)  # Gray rectangle
+rect(15, 10, 50, 50)  

@@ -27,13 +27,13 @@ void draw() {
 }
 
 @@ example
-float noiseScale = 0.02
+float noise_scale = 0.02
 
 void draw() {
   background(0)
   for (int x=0 x < width x++) {
-    float noiseVal = noise((mouseX+x)*noiseScale, mouseY*noiseScale)
-    stroke(noiseVal*255)
-    line(x, mouseY+noiseVal*80, x, height)
+    float noise_val = noise((mouse_x+x)*noise_scale, mouse_y*noise_scale)
+    stroke(noise_val*255)
+    line(x, mouse_y+noise_val*80, x, height)
   }
 }

@@ -14,8 +14,8 @@ Before accessing this array, the data must loaded with the ``load_pixels()`` fun
 image = pixels.png
 
 color pink = color(255, 102, 204)
-loadPixels()
+load_pixels()
 for (int i = 0 i < (width*height/2)-width/2 i++) {
   pixels[i] = pink
 }
-updatePixels()
+update_pixels()

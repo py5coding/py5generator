@@ -13,15 +13,13 @@ When ``full_screen()`` is used without a parameter, it draws the sketch to the s
 Prior to Processing 3.0, a full-screen program was defined with ``size(display_width, display_height)``.
 
 @@ example
-# Run the code at the full dimensions of the screen currently
-# selected inside the Preferences window
 
 int x = 0
 
 void setup() {
-  fullScreen()
+  full_screen()
   background(0)
-  noStroke()
+  no_stroke()
   fill(102)
 }
 
@@ -31,16 +29,13 @@ void draw() {
 }
 
 @@ example
-# If more than one screen is attached to the computer, run the 
-# code at the full dimensions on the screen defined by the 
-# parameter to fullScreen()
 
 int x = 0
 
 void setup() {
-  fullScreen(2)
+  full_screen(2)
   background(0)
-  noStroke()
+  no_stroke()
   fill(102)
 }
 
@@ -50,14 +45,13 @@ void draw() {
 }
 
 @@ example
-# Run full screen using the P2D renderer on screen 2
 
 int x = 0
 
 void setup() {
-  fullScreen(P2D, 2)
+  full_screen(P2D, 2)
   background(0)
-  noStroke()
+  no_stroke()
   fill(102)
 }
 
@@ -67,15 +61,13 @@ void draw() {
 }
 
 @@ example
-# If more than one screen is attached to the computer, run the 
-# code at the full dimensions across all of the attached screens
 
 int x = 0
 
 void setup() {
-  fullScreen(P2D, SPAN)
+  full_screen(P2D, SPAN)
   background(0)
-  noStroke()
+  no_stroke()
   fill(102)
 }
 

@@ -13,11 +13,11 @@ Shapes are always rotated around the upper-left corner of their bounding box. Po
 This method requires a 3D renderer. You need to use P3D as a third parameter for the ``size()`` function as shown in the example above.
 
 @@ example
-PShape s
+Py5Shape s
 
 void setup() {
   size(100, 100, P3D)
-  s = loadShape("ohio.svg")
+  s = load_shape("ohio.svg")
 }
 
 void draw() {
@@ -25,7 +25,6 @@ void draw() {
   shape(s)
 }
 
-void mousePressed() {
-  # Rotate the shape around the y-axis each time the mouse is pressed
-  s.rotateY(0.1)  
+void mouse_pressed() {
+    s.rotate_y(0.1)  
 }

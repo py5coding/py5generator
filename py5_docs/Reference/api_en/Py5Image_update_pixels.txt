@@ -11,20 +11,20 @@ Updates the image with the data in its ``pixels[]`` array. Use in conjunction wi
 @@ example
 image = PImage_updatePixels_.png
 
-PImage myImage
-int halfImage
+Py5Image my_image
+int half_image
 
 void setup() {
   size(100, 100)
-  halfImage = width * height/2
-  myImage = loadImage("apples.jpg")
-  myImage.loadPixels()
-  for (int i = 0 i < halfImage i++) {
-    myImage.pixels[i+halfImage] = myImage.pixels[i]
+  half_image = width * height/2
+  my_image = load_image("apples.jpg")
+  my_image.load_pixels()
+  for (int i = 0 i < half_image i++) {
+    my_image.pixels[i+half_image] = my_image.pixels[i]
   }
-  myImage.updatePixels()
+  my_image.update_pixels()
 }
 
 void draw() {
-  image(myImage, 0, 0)
+  image(my_image, 0, 0)
 }

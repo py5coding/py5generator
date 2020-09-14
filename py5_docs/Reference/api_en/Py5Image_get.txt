@@ -15,9 +15,9 @@ Getting the color of a single pixel with ``get(x, y)`` is easy, but not as fast 
 @@ example
 image = PImage_get_0.png
 
-PImage mountains = loadImage("rockies.jpg")
+Py5Image mountains = load_image("rockies.jpg")
 background(mountains)
-noStroke()
+no_stroke()
 color c = mountains.get(60, 90)
 fill(c)
 rect(25, 25, 50, 50)
@@ -25,7 +25,7 @@ rect(25, 25, 50, 50)
 @@ example
 image = PImage_get_1.png
 
-PImage mountains = loadImage("rockies.jpg")
+Py5Image mountains = load_image("rockies.jpg")
 background(mountains)
-PImage newMountains = mountains.get(50, 0, 50, 100) 
-image(newMountains, 0, 0)
+Py5Image new_mountains = mountains.get(50, 0, 50, 100) 
+image(new_mountains, 0, 0)

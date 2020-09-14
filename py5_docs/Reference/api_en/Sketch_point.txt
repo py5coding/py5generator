@@ -17,7 +17,7 @@ Using ``point()`` with strokeWeight(1) or smaller may draw nothing to the screen
 @@ example
 image = point_0.png
 
-noSmooth()
+no_smooth()
 point(30, 20)
 point(85, 20)
 point(85, 75)
@@ -27,7 +27,7 @@ point(30, 75)
 image = point_1.png
 
 size(100, 100, P3D)
-noSmooth()
+no_smooth()
 point(30, 20, -50)
 point(85, 20, -50)
 point(85, 75, -50)

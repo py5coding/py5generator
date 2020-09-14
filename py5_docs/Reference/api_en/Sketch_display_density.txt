@@ -11,8 +11,8 @@ This function returns the number "2" if the screen is a high-density screen (cal
 @@ example
 void setup() {
   size(100, 100)
-  pixelDensity(displayDensity())
-  noStroke()
+  pixel_density(display_density())
+  no_stroke()
 }
 
 void draw() {

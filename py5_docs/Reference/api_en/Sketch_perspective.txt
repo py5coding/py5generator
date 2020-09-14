@@ -11,14 +11,13 @@ Sets a perspective projection applying foreshortening, making distant objects ap
 @@ example
 image = perspective_.png
 
-# Re-creates the default perspective
 size(100, 100, P3D)
-noFill()
+no_fill()
 float fov = PI/3.0
-float cameraZ = (height/2.0) / tan(fov/2.0)
+float camera_z = (height/2.0) / tan(fov/2.0)
 perspective(fov, float(width)/float(height), 
-            cameraZ/10.0, cameraZ*10.0)
+            camera_z/10.0, camera_z*10.0)
 translate(50, 50, 0)
-rotateX(-PI/6)
-rotateY(PI/3)
+rotate_x(-PI/6)
+rotate_y(PI/3)
 box(45)

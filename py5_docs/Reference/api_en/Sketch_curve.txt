@@ -11,7 +11,7 @@ Draws a curved line on the screen. The first and second parameters specify the b
 @@ example
 image = curve_.png
 
-noFill()
+no_fill()
 stroke(255, 102, 0)
 curve(5, 26, 5, 26, 73, 24, 73, 61)
 stroke(0) 

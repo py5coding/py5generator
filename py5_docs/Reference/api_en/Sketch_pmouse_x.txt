@@ -12,10 +12,8 @@ You may find that ``pmouse_x`` and ``pmouse_y`` have different values when refer
 If you want values relative to the previous frame, use ``pmouse_x`` and ``pmouse_y`` inside ``draw()``. If you want continuous response, use ``pmouse_x`` and ``pmouse_y`` inside the mouse event functions.
 
 @@ example
-# Move the mouse quickly to see the difference 
-# between the current and previous position 
 void draw() { 
   background(204) 
-  line(mouseX, 20, pmouseX, 80) 
-  print(mouseX + " : " + pmouseX)
+  line(mouse_x, 20, pmouse_x, 80) 
+  print(mouse_x + " : " + pmouse_x)
 }

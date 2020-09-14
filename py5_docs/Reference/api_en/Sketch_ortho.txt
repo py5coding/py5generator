@@ -12,9 +12,8 @@ Sets an orthographic projection and defines a parallel clipping volume. All obje
 image = ortho_.png
 
 size(100, 100, P3D)
-noFill()
-ortho(-width/2, width/2, -height/2, height/2) # Same as ortho()
-translate(width/2, height/2, 0)
-rotateX(-PI/6)
-rotateY(PI/3)
+no_fill()
+ortho(-width/2, width/2, -height/2, height/2) translate(width/2, height/2, 0)
+rotate_x(-PI/6)
+rotate_y(PI/3)
 box(45)

@@ -11,16 +11,16 @@ Modifies the location from which shapes draw. The default mode is ``shape_mode(c
 @@ example
 image = shapeMode_.png
 
-PShape bot 
+Py5Shape bot 
 
 void setup() {
   size(100, 100)
-  bot = loadShape("bot.svg")
+  bot = load_shape("bot.svg")
 }
 
 void draw() {
-  shapeMode(CENTER)
+  shape_mode(CENTER)
   shape(bot, 35, 35, 50, 50)
-  shapeMode(CORNER)
+  shape_mode(CORNER)
   shape(bot, 35, 35, 50, 50)
 }

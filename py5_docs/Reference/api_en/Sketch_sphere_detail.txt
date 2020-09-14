@@ -17,9 +17,9 @@ void draw() {
   background(200)
   stroke(255, 50)
   translate(50, 50, 0)
-  rotateX(mouseY * 0.05)
-  rotateY(mouseX * 0.05)
-  fill(mouseX * 2, 0, 160)
-  sphereDetail(mouseX / 4)
+  rotate_x(mouse_y * 0.05)
+  rotate_y(mouse_x * 0.05)
+  fill(mouse_x * 2, 0, 160)
+  sphere_detail(mouse_x / 4)
   sphere(40)
 }

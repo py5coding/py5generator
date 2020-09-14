@@ -11,18 +11,18 @@ Evaluates the curve at point ``t`` for points ``a``, ``b``, ``c``, ``d``. The pa
 @@ example
 image = curvePoint_.png
 
-noFill()
+no_fill()
 curve(5, 26, 5, 26, 73, 24, 73, 61)
 curve(5, 26, 73, 24, 73, 61, 15, 65)
 fill(255)
-ellipseMode(CENTER)
+ellipse_mode(CENTER)
 int steps = 6
 for (int i = 0 i <= steps i++) {
   float t = i / float(steps)
-  float x = curvePoint(5, 5, 73, 73, t)
-  float y = curvePoint(26, 26, 24, 61, t)
+  float x = curve_point(5, 5, 73, 73, t)
+  float y = curve_point(26, 26, 24, 61, t)
   ellipse(x, y, 5, 5)
-  x = curvePoint(5, 73, 73, 15, t)
-  y = curvePoint(26, 24, 61, 65, t)
+  x = curve_point(5, 73, 73, 15, t)
+  y = curve_point(26, 24, 61, 65, t)
   ellipse(x, y, 5, 5)
 }

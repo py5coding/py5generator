@@ -11,11 +11,11 @@ Rotates the shape the amount specified by the ``angle`` parameter. Angles should
 Shapes are always rotated around the upper-left corner of their bounding box. Positive numbers rotate objects in a clockwise direction. Transformations apply to everything that happens after and subsequent calls to the method accumulates the effect. For example, calling ``rotate(half_pi)`` and then ``rotate(half_pi)`` is the same as ``rotate(pi)``. This transformation is applied directly to the shape, it's not refreshed each time ``draw()`` is run.
 
 @@ example
-PShape s
+Py5Shape s
 
 void setup() {
   size(100, 100)
-  s = loadShape("ohio.svg")
+  s = load_shape("ohio.svg")
 }
 
 void draw() {
@@ -23,7 +23,6 @@ void draw() {
   shape(s)
 }
 
-void mousePressed() {
-  # Rotate the shape each time the mouse is pressed
-  s.rotate(0.1)  
+void mouse_pressed() {
+    s.rotate(0.1)  
 }

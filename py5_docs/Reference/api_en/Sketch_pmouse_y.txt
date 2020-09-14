@@ -11,10 +11,8 @@ The system variable ``pmouse_y`` always contains the vertical position of the mo
 For more detail on how ``pmouse_y`` is updated inside of mouse events and ``draw()``, see the reference for ``pmouse_x``.
 
 @@ example
-# Move the mouse quickly to see the difference 
-# between the current and previous position 
 void draw() { 
   background(204) 
-  line(20, mouseY, 80, pmouseY) 
-  print(mouseY + " : " + pmouseY)
+  line(20, mouse_y, 80, pmouse_y) 
+  print(mouse_y + " : " + pmouse_y)
 }

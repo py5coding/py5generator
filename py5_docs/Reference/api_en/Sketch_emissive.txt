@@ -13,9 +13,9 @@ image = emissive_.png
 
 size(100, 100, P3D)
 background(0)
-noStroke()
+no_stroke()
 background(0)
-directionalLight(204, 204, 204, .5, 0, -1)
+directional_light(204, 204, 204, .5, 0, -1)
 emissive(0, 26, 51)
 translate(70, 50, 0)
 sphere(30)

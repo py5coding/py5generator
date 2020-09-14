@@ -11,8 +11,7 @@ By default, Processing loops through ``draw()`` continuously, executing the code
 @@ example
 void setup() {
   size(200, 200)
-  noLoop()  # draw() will not loop
-}
+  no_loop()  }
 
 float x = 0
 
@@ -25,10 +24,8 @@ void draw() {
   line(x, 0, x, height) 
 }
 
-void mousePressed() {
-  loop()  # Holding down the mouse activates looping
-}
+void mouse_pressed() {
+  loop()  }
 
-void mouseReleased() {
-  noLoop()  # Releasing the mouse stops looping draw()
-}
+void mouse_released() {
+  no_loop()  }

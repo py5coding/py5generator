@@ -19,41 +19,38 @@ The parameter must be written in ALL CAPS because Processing is a case-sensitive
 @@ example
 image = imageMode_0.png
 
-PImage img
+Py5Image img
 
 void setup() {
-  img = loadImage("laDefense.jpg")
+  img = load_image("laDefense.jpg")
 }
 
 void draw() {
-  imageMode(CORNER)
-  image(img, 10, 10, 50, 50)  # Draw image using CORNER mode
-}
+  image_mode(CORNER)
+  image(img, 10, 10, 50, 50)  }
 
 @@ example
 image = imageMode_1.png
 
-PImage img
+Py5Image img
 
 void setup() {
-  img = loadImage("laDefense.jpg")
+  img = load_image("laDefense.jpg")
 }
 
 void draw() {
-  imageMode(CORNERS)
-  image(img, 10, 10, 90, 40)  # Draw image using CORNERS mode
-}
+  image_mode(CORNERS)
+  image(img, 10, 10, 90, 40)  }
 
 @@ example
 image = imageMode_2.png
 
-PImage img
+Py5Image img
 
 void setup() {
-  img = loadImage("laDefense.jpg")
+  img = load_image("laDefense.jpg")
 }
 
 void draw() {
-  imageMode(CENTER)
-  image(img, 50, 50, 80, 80)  # Draw image using CENTER mode
-}
+  image_mode(CENTER)
+  image(img, 50, 50, 80, 80)  }

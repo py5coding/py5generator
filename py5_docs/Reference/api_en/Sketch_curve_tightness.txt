@@ -9,23 +9,22 @@ processing_name = curveTightness
 Modifies the quality of forms created with ``curve()`` and ``curve_vertex()``. The parameter ``tightness`` determines how the curve fits to the vertex points. The value 0.0 is the default value for ``tightness`` (this value defines the curves to be Catmull-Rom splines) and the value 1.0 connects all the points with straight lines. Values within the range -5.0 and 5.0 will deform the curves but will leave them recognizable and as values increase in magnitude, they will continue to deform.
 
 @@ example
-# Move the mouse left and right to see the curve change
 
 void setup() {
   size(100, 100)
-  noFill()
+  no_fill()
 }
 
 void draw() {
   background(204)
-  float t = map(mouseX, 0, width, -5, 5)
-  curveTightness(t)
-  beginShape()
-  curveVertex(10, 26)
-  curveVertex(10, 26)
-  curveVertex(83, 24)
-  curveVertex(83, 61)
-  curveVertex(25, 65) 
-  curveVertex(25, 65)
-  endShape()
+  float t = map(mouse_x, 0, width, -5, 5)
+  curve_tightness(t)
+  begin_shape()
+  curve_vertex(10, 26)
+  curve_vertex(10, 26)
+  curve_vertex(83, 24)
+  curve_vertex(83, 61)
+  curve_vertex(25, 65) 
+  curve_vertex(25, 65)
+  end_shape()
 }

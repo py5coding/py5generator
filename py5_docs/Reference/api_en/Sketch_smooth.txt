@@ -20,7 +20,7 @@ When ``smooth()`` is used with a ``Py5Graphics`` object, it should be run right 
 void setup() {
   size(100, 100)
   smooth(2)
-  noStroke()
+  no_stroke()
 }
 
 void draw() {
@@ -33,7 +33,7 @@ void draw() {
 int x = 0
 
 void setup() {
-  fullScreen(P2D, SPAN)
+  full_screen(P2D, SPAN)
   smooth(4)
 }
 
@@ -44,20 +44,20 @@ void draw() {
 }
 
 @@ example
-PGraphics pg
+Py5Graphics pg
 int x = 0
 
 void setup() {
-  fullScreen(P2D)
-  pg = createGraphics(width, height, P2D)
+  full_screen(P2D)
+  pg = create_graphics(width, height, P2D)
   pg.smooth(4)
 }
 
 void draw() {
-  pg.beginDraw()
+  pg.begin_draw()
   pg.background(0)
   pg.ellipse(x, height/2, height/4, height/4)
-  pg.endDraw()
+  pg.end_draw()
   image(pg, 0, 0)
   x += 1
 }

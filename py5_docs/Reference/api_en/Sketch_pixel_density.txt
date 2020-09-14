@@ -14,8 +14,8 @@ To use variables as the arguments to ``pixel_density()`` function, place the ``p
 
 @@ example
 size(100, 100)
-pixelDensity(2)
-noStroke()
+pixel_density(2)
+no_stroke()
 background(0)
 ellipse(30, 48, 36, 36)
 ellipse(70, 48, 36, 36)
@@ -23,8 +23,8 @@ ellipse(70, 48, 36, 36)
 @@ example
 void setup() {
   size(100, 100)
-  pixelDensity(2)
-  noStroke()
+  pixel_density(2)
+  no_stroke()
 }
 
 void draw() {
@@ -36,9 +36,8 @@ void draw() {
 @@ example
 void setup() {
   size(100, 100)
-  # Pulling the display's density dynamically
-  pixelDensity(displayDensity())
-  noStroke()
+    pixel_density(display_density())
+  no_stroke()
 }
 
 void draw() {

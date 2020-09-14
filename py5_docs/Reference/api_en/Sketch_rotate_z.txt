@@ -13,7 +13,7 @@ image = rotateZ_0.png
 
 size(100, 100, P3D)
 translate(width/2, height/2)
-rotateZ(PI/3.0)
+rotate_z(PI/3.0)
 rect(-26, -26, 52, 52)
 
 @@ example
@@ -21,5 +21,5 @@ image = rotateZ_1.png
 
 size(100, 100, P3D)
 translate(width/2, height/2)
-rotateZ(radians(60))
+rotate_z(radians(60))
 rect(-26, -26, 52, 52)

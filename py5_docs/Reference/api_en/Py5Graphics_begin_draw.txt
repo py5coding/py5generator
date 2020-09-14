@@ -9,17 +9,17 @@ processing_name = beginDraw
 Sets the default properties for a PGraphics object. It should be called before anything is drawn into the object.
 
 @@ example
-PGraphics pg
+Py5Graphics pg
 
 void setup() {
   size(100, 100)
-  pg = createGraphics(80, 80, P2D)
-  pg.beginDraw()
+  pg = create_graphics(80, 80, P2D)
+  pg.begin_draw()
   pg.background(102)
   pg.stroke(255)
   pg.line(20, 20, 80, 80)
-  pg.endDraw()
-  noLoop()
+  pg.end_draw()
+  no_loop()
 }
 
 void draw() {

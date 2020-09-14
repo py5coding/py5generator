@@ -11,12 +11,12 @@ Loads the pixel data of the current display window into the ``pixels[]`` array. 
 @@ example
 image = loadPixels_.png
 
-int halfImage = width*height/2
-PImage myImage = loadImage("apples.jpg")
-image(myImage, 0, 0)
+int half_image = width*height/2
+Py5Image my_image = load_image("apples.jpg")
+image(my_image, 0, 0)
 
-loadPixels()
-for (int i = 0 i < halfImage i++) {
-  pixels[i+halfImage] = pixels[i]
+load_pixels()
+for (int i = 0 i < half_image i++) {
+  pixels[i+half_image] = pixels[i]
 }
-updatePixels()
+update_pixels()

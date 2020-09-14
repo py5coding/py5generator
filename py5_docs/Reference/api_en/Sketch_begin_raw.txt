@@ -21,16 +21,16 @@ import processing.pdf.*
 
 void setup() {
   size(400, 400)
-  beginRaw(PDF, "raw.pdf")
+  begin_raw(PDF, "raw.pdf")
 }
 
 void draw() {
-  line(pmouseX, pmouseY, mouseX, mouseY)
+  line(pmouse_x, pmouse_y, mouse_x, mouse_y)
 }
 
-void keyPressed() {
+void key_pressed() {
   if (key == ' ') {
-    endRaw()
+    end_raw()
     exit()
   }
 }

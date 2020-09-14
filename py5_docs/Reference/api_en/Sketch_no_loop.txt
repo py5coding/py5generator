@@ -15,7 +15,7 @@ Note that if the sketch is resized, ``redraw()`` will be called to update the sk
 @@ example
 void setup() {
   size(200, 200)
-  noLoop()
+  no_loop()
 }
 
 void draw() {
@@ -38,28 +38,26 @@ void draw() {
   line(x, 0, x, height) 
 }
 
-void mousePressed() {
-  noLoop()
+void mouse_pressed() {
+  no_loop()
 }
 
-void mouseReleased() {
+void mouse_released() {
   loop()
 }
 
 @@ example
-boolean someMode = false
+boolean some_mode = false
 
 void setup() {
-  noLoop()
+  no_loop()
 }
 
 void draw() {
-  if (someMode) {
-    # do something
-  }
+  if (some_mode) {
+      }
 }
 
-void mousePressed() {
-  someMode = true
-  redraw()  # or loop()
-}
+void mouse_pressed() {
+  some_mode = true
+  redraw()  }

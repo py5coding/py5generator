@@ -9,11 +9,8 @@ processing_name = height
 The height of the PShape document.
 
 @@ example
-PShape s
+Py5Shape s
 
 void setup() {
-  # The file "bot.svg" must be in the data folder
-  # of the current sketch to load successfully
-  s = loadShape("bot.svg")
-  print(s.height)  # Prints "281.0", the height of the shape
-}
+      s = load_shape("bot.svg")
+  print(s.height)  }

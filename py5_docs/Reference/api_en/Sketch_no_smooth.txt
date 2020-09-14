@@ -10,8 +10,8 @@ Draws all geometry and fonts with jagged (aliased) edges and images with hard ed
 
 @@ example
 size(100, 100)
-noSmooth()
-noStroke()
+no_smooth()
+no_stroke()
 background(0)
 ellipse(30, 48, 36, 36)
 ellipse(70, 48, 36, 36)
@@ -19,8 +19,8 @@ ellipse(70, 48, 36, 36)
 @@ example
 void setup() {
   size(100, 100, P2D)
-  noSmooth()
-  noStroke()
+  no_smooth()
+  no_stroke()
 }
 
 void draw() {

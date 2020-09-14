@@ -11,35 +11,35 @@ Sets the style of the joints which connect line segments. These joints are eithe
 @@ example
 image = strokeJoin_0.png
 
-noFill()
-strokeWeight(10.0)
-strokeJoin(MITER)
-beginShape()
+no_fill()
+stroke_weight(10.0)
+stroke_join(MITER)
+begin_shape()
 vertex(35, 20)
 vertex(65, 50)
 vertex(35, 80)
-endShape()
+end_shape()
 
 @@ example
 image = strokeJoin_1.png
 
-noFill()
-strokeWeight(10.0)
-strokeJoin(BEVEL)
-beginShape()
+no_fill()
+stroke_weight(10.0)
+stroke_join(BEVEL)
+begin_shape()
 vertex(35, 20)
 vertex(65, 50)
 vertex(35, 80)
-endShape()
+end_shape()
 
 @@ example
 image = strokeJoin_2.png
 
-noFill()
-strokeWeight(10.0)
-strokeJoin(ROUND)
-beginShape()
+no_fill()
+stroke_weight(10.0)
+stroke_join(ROUND)
+begin_shape()
 vertex(35, 20)
 vertex(65, 50)
 vertex(35, 80)
-endShape()
+end_shape()

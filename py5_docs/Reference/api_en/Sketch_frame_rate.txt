@@ -9,7 +9,7 @@ Specifies the number of frames to be displayed every second. For example, the fu
 
 @@ example
 void setup() {
-  frameRate(4)
+  frame_rate(4)
 }
 int pos = 0
 void draw() {

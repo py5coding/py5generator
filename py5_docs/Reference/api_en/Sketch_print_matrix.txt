@@ -10,17 +10,8 @@ Prints the current matrix to the Console (the text window at the bottom of Proce
 
 @@ example
 size(100, 100, P3D)
-printMatrix()
-# Prints:
-# 01.0000  00.0000  00.0000 -50.0000
-# 00.0000  01.0000  00.0000 -50.0000
-# 00.0000  00.0000  01.0000 -86.6025
-# 00.0000  00.0000  00.0000  01.0000
+print_matrix()
 
-resetMatrix()
-printMatrix()
-# Prints:
-# 1.0000  0.0000  0.0000  0.0000
-# 0.0000  1.0000  0.0000  0.0000
-# 0.0000  0.0000  1.0000  0.0000
-# 0.0000  0.0000  0.0000  1.0000
+reset_matrix()
+print_matrix()
+

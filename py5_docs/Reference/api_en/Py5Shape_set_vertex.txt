@@ -9,26 +9,26 @@ processing_name = setVertex
 The ``set_vertex()`` method defines the coordinates of the vertex point located at the position defined by the ``index`` parameter. This method works when shapes are created as shown in the example above, but won't work properly when a shape is defined explicitly (e.g. ``create_shape(rect, 20, 20, 80, 80)``.
 
 @@ example
-PShape s
+Py5Shape s
 
 void setup() {
   size(100, 100)
-  s = createShape()
-  s.beginShape()
+  s = create_shape()
+  s.begin_shape()
   s.vertex(0, 0)
   s.vertex(60, 0)
   s.vertex(60, 60)
   s.vertex(0, 60)
-  s.endShape(CLOSE)
+  s.end_shape(CLOSE)
 }
 
 void draw() {
   translate(20, 20)
-  for (int i = 0 i < s.getVertexCount() i++) {
-    PVector v = s.getVertex(i)
+  for (int i = 0 i < s.get_vertex_count() i++) {
+    p_vector v = s.get_vertex(i)
     v.x += random(-1, 1)
     v.y += random(-1, 1)
-    s.setVertex(i, v)
+    s.set_vertex(i, v)
   }
   shape(s)
 }

@@ -15,15 +15,12 @@ The  ``create_shape()`` function can also be used to make a complex shape made o
 After using ``create_shape()``, stroke and fill color can be set by calling methods like ``set_fill()`` and ``set_stroke()``, as seen in the examples above. The complete list of methods and fields for the PShape class are in the Processing Javadoc.
 
 @@ example
-PShape square  # The PShape object
-
+Py5Shape square  
 void setup() {
   size(100, 100)
-  # Creating the PShape as a square. The
-  # numeric arguments are similar to rect().
-  square = createShape(RECT, 0, 0, 50, 50)
-  square.setFill(color(0, 0, 255))
-  square.setStroke(false)
+      square = create_shape(RECT, 0, 0, 50, 50)
+  square.set_fill(color(0, 0, 255))
+  square.set_stroke(false)
 }
 
 void draw() {
@@ -31,21 +28,18 @@ void draw() {
 }
 
 @@ example
-PShape s  # The PShape object
-
+Py5Shape s  
 void setup() {
   size(100, 100)
-  # Creating a custom PShape as a square, by
-  # specifying a series of vertices.
-  s = createShape()
-  s.beginShape()
+      s = create_shape()
+  s.begin_shape()
   s.fill(0, 0, 255)
-  s.noStroke()
+  s.no_stroke()
   s.vertex(0, 0)
   s.vertex(0, 50)
   s.vertex(50, 50)
   s.vertex(50, 0)
-  s.endShape(CLOSE)
+  s.end_shape(CLOSE)
 }
 
 void draw() {
@@ -53,12 +47,12 @@ void draw() {
 }
 
 @@ example
-PShape s
+Py5Shape s
 
 void setup() {
   size(100, 100, P2D)
-  s = createShape()
-  s.beginShape(TRIANGLE_STRIP)
+  s = create_shape()
+  s.begin_shape(TRIANGLE_STRIP)
   s.vertex(30, 75)
   s.vertex(40, 20)
   s.vertex(50, 75)
@@ -66,7 +60,7 @@ void setup() {
   s.vertex(70, 75)
   s.vertex(80, 20)
   s.vertex(90, 75)
-  s.endShape()
+  s.end_shape()
 }
 
 void draw() {
@@ -74,28 +68,24 @@ void draw() {
 }
 
 @@ example
-PShape alien, head, body
+Py5Shape alien, head, body
 
 void setup() {
   size(100, 100)
 
-  # Create the shape group
-  alien = createShape(GROUP)
+    alien = create_shape(GROUP)
 
-  # Make two shapes
-  ellipseMode(CORNER)
-  head = createShape(ELLIPSE, -25, 0, 50, 50)
-  head.setFill(color(255))
-  body = createShape(RECT, -25, 45, 50, 40)
-  body.setFill(color(0))
+    ellipse_mode(CORNER)
+  head = create_shape(ELLIPSE, -25, 0, 50, 50)
+  head.set_fill(color(255))
+  body = create_shape(RECT, -25, 45, 50, 40)
+  body.set_fill(color(0))
 
-  # Add the two "child" shapes to the parent group
-  alien.addChild(body)
-  alien.addChild(head)
+    alien.add_child(body)
+  alien.add_child(head)
 }
 
 void draw() {
   background(204)
   translate(50, 15)
-  shape(alien) # Draw the group
-}
+  shape(alien) }

@@ -11,14 +11,14 @@ Calculates and returns the width of any character or text string.
 @@ example
 image = textWidth_.png
 
-textSize(28)
+text_size(28)
 
-char c = 'T'
-float cw = textWidth(c)
+char c = 't'
+float cw = text_width(c)
 text(c, 0, 40)
 line(cw, 0, cw, 50) 
 
-String s = "Tokyo"
-float sw = textWidth(s)
+string s = "Tokyo"
+float sw = text_width(s)
 text(s, 0, 85)
 line(sw, 50, sw, 100)

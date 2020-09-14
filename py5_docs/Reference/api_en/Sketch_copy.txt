@@ -13,10 +13,9 @@ As of release 0149, this function ignores ``image_mode()``.
 @@ example
 image = copy_.png
 
-PImage img = loadImage("eames.jpg")
+Py5Image img = load_image("eames.jpg")
 image(img, 0, 0, width, height)
 copy(7, 22, 10, 10, 35, 25, 50, 50)
 stroke(255)
-noFill()
-# Rectangle shows area being copied
+no_fill()
 rect(7, 22, 10, 10)

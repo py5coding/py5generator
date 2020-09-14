@@ -11,10 +11,10 @@ Specifies an amount to displace the shape. The ``x`` parameter specifies left/ri
 Using this method with the ``z`` parameter requires using the P3D parameter in combination with size.
 
 @@ example
-PShape s
+Py5Shape s
 
 void setup() {
-  s = loadShape("bot.svg")
+  s = load_shape("bot.svg")
 }
 
 void draw() {
@@ -22,7 +22,6 @@ void draw() {
   shape(s)
 }
 
-void mousePressed() {
-  # Move the shape 10 pixels right each time the mouse is pressed
-  s.translate(10, 0)  
+void mouse_pressed() {
+    s.translate(10, 0)  
 }

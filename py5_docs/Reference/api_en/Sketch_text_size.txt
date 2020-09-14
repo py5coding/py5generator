@@ -13,7 +13,7 @@ image = textSize_.png
 
 background(0)
 fill(255)
-textSize(26) 
+text_size(26) 
 text("WORD", 10, 50) 
-textSize(14)
+text_size(14)
 text("WORD", 10, 70)

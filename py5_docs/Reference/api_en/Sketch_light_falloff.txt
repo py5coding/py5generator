@@ -17,13 +17,13 @@ Thinking about an ambient light with a falloff can be tricky. If you want a regi
 image = lightFalloff_.png
 
 size(100, 100, P3D)
-noStroke()
+no_stroke()
 background(0)
-lightFalloff(1.0, 0.001, 0.0)
-pointLight(150, 250, 150, 50, 50, 50)
-beginShape()
+light_falloff(1.0, 0.001, 0.0)
+point_light(150, 250, 150, 50, 50, 50)
+begin_shape()
 vertex(0, 0, 0)
 vertex(100, 0, -100)
 vertex(100, 100, -100)
 vertex(0, 100, 0)
-endShape(CLOSE)
+end_shape(CLOSE)

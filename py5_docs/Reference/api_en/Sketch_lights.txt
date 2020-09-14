@@ -13,9 +13,7 @@ image = lights_0.png
 
 size(100, 100, P3D)
 background(0)
-noStroke()
-# Sets the default ambient 
-# and directional light
+no_stroke()
 lights()
 translate(20, 50, 0)
 sphere(30)
@@ -28,13 +26,11 @@ image = lights_1.png
 void setup() {
   size(100, 100, P3D)
   background(0)
-  noStroke()
+  no_stroke()
 }
 
 void draw() {
-  # Include lights() at the beginning
-  # of draw() to keep them persistent 
-  lights()
+      lights()
   translate(20, 50, 0)
   sphere(30)
   translate(60, 0, 0)

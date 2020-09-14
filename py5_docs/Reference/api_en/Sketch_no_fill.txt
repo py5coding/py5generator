@@ -12,5 +12,5 @@ Disables filling geometry. If both ``no_stroke()`` and ``no_fill()`` are called,
 image = noFill_.png
 
 rect(15, 10, 55, 55)
-noFill()
+no_fill()
 rect(30, 20, 55, 55)

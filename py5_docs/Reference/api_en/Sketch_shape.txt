@@ -11,10 +11,10 @@ Draws shapes to the display window. Shapes must be in the sketch's "data" direct
 @@ example
 image = shape_1.png
 
-PShape s
+Py5Shape s
 
 void setup() {
-  s = loadShape("bot.svg")
+  s = load_shape("bot.svg")
 }
 
 void draw() {

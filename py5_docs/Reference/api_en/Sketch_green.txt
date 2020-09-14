@@ -16,11 +16,5 @@ float g2 = c >> 8 & 0x_ff;  # _very fast to calculate``
 @@ example
 image = green_.png
 
-color c = color(20, 75, 200)  # Define color 'c'
-fill(c)  # Use color variable 'c' as fill color
-rect(15, 20, 35, 60)  # Draw left rectangle
-
-float greenValue = green(c)  # Get green in 'c'
-print(greenValue)  # Print "75.0"
-fill(0, greenValue, 0)  # Use 'greenValue' in new fill
-rect(50, 20, 35, 60)  # Draw right rectangle
+color c = color(20, 75, 200)  fill(c)  rect(15, 20, 35, 60)  
+float green_value = green(c)  print(green_value)  fill(0, green_value, 0)  rect(50, 20, 35, 60)  

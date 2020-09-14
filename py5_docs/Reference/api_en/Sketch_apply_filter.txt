@@ -37,72 +37,71 @@ Increases the light areas. No parameter is used.
 @@ example
 image = filter_0_threshold.png
 
-PImage img
-img = loadImage("apples.jpg")
+Py5Image img
+img = load_image("apples.jpg")
 image(img, 0, 0)
 filter(THRESHOLD)
 
 @@ example
 image = filter_1_gray.png
 
-PImage img
-img = loadImage("apples.jpg")
+Py5Image img
+img = load_image("apples.jpg")
 image(img, 0, 0)
 filter(GRAY)
 
 @@ example
 image = filter_2_invert.png
 
-PImage img
-img = loadImage("apples.jpg")
+Py5Image img
+img = load_image("apples.jpg")
 image(img, 0, 0)
 filter(INVERT)
 
 @@ example
 image = filter_3_posterize.png
 
-PImage img
-img = loadImage("apples.jpg")
+Py5Image img
+img = load_image("apples.jpg")
 image(img, 0, 0)
 filter(POSTERIZE, 4)
 
 @@ example
 image = filter_4_blur.png
 
-PImage img
-img = loadImage("apples.jpg")
+Py5Image img
+img = load_image("apples.jpg")
 image(img, 0, 0)
 filter(BLUR, 6)
 
 @@ example
 image = filter_5_erode.png
 
-PImage img
-img = loadImage("apples.jpg")
+Py5Image img
+img = load_image("apples.jpg")
 image(img, 0, 0)
 filter(ERODE)
 
 @@ example
 image = filter_6_dilate.png
 
-PImage img
-img = loadImage("apples.jpg")
+Py5Image img
+img = load_image("apples.jpg")
 image(img, 0, 0)
 filter(DILATE)
 
 @@ example
 image = filter_4_blur.png
 
-PShader blur
-PImage img
+Py5Shader blur
+Py5Image img
 
 void setup() {
   size(100, 100, P2D)
-  blur = loadShader("blur.glsl")
-  img = loadImage("apples.jpg")
+  blur = load_shader("blur.glsl")
+  img = load_image("apples.jpg")
   image(img, 0, 0) 
 }
 
 void draw() {
-  filter(blur) # Blurs more each time through draw()
-}
+  filter(blur) }

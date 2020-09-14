@@ -11,12 +11,12 @@ Specifies vertex coordinates for curves. This function may only be used between 
 @@ example
 image = curveVertex_.png
 
-noFill()
-beginShape()
-curveVertex(84,  91)
-curveVertex(84,  91)
-curveVertex(68,  19)
-curveVertex(21,  17)
-curveVertex(32, 100)
-curveVertex(32, 100)
-endShape()
+no_fill()
+begin_shape()
+curve_vertex(84,  91)
+curve_vertex(84,  91)
+curve_vertex(68,  19)
+curve_vertex(21,  17)
+curve_vertex(32, 100)
+curve_vertex(32, 100)
+end_shape()

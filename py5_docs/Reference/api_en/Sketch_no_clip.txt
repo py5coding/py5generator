@@ -11,15 +11,15 @@ Disables the clipping previously started by the ``clip()`` function.
 @@ example
 void setup() {
   size(200, 200)
-  imageMode(CENTER)
+  image_mode(CENTER)
 }
 
 void draw() {
   background(204)
-  if (mousePressed) {
-    clip(mouseX, mouseY, 100, 100)
+  if (mouse_pressed) {
+    clip(mouse_x, mouse_y, 100, 100)
   } else {
-    noClip()
+    no_clip()
   }
   line(0, 0, width, height)
   line(0, height, width, 0)

@@ -14,28 +14,28 @@ With ``IMAGE``, if an image is 100 x 200 pixels, mapping the image onto the enti
 image = textureMode_0.png
 
 size(100, 100, P3D)
-noStroke()
-PImage img = loadImage("laDefense.jpg")
-textureMode(IMAGE)
-beginShape()
+no_stroke()
+Py5Image img = load_image("laDefense.jpg")
+texture_mode(IMAGE)
+begin_shape()
 texture(img)
 vertex(10, 20, 0, 0)
 vertex(80, 5, 100, 0)
 vertex(95, 90, 100, 100)
 vertex(40, 95, 0, 100)
-endShape()
+end_shape()
 
 @@ example
 image = textureMode_1.png
 
 size(100, 100, P3D)
-noStroke()
-PImage img = loadImage("laDefense.jpg")
-textureMode(NORMAL)
-beginShape()
+no_stroke()
+Py5Image img = load_image("laDefense.jpg")
+texture_mode(NORMAL)
+begin_shape()
 texture(img)
 vertex(10, 20, 0, 0)
 vertex(80, 5, 1, 0)
 vertex(95, 90, 1, 1)
 vertex(40, 95, 0, 1)
-endShape()
+end_shape()

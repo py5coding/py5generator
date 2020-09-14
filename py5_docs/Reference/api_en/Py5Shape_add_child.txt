@@ -9,32 +9,29 @@ processing_name = addChild
 Adds a child PShape to a parent PShape that is defined as a GROUP. In the example, the three shapes ``path``, ``rectangle``, and ``circle`` are added to a parent PShape variable named ``house`` that is a GROUP.
 
 @@ example
-PShape house
+Py5Shape house
 
 void setup() {
   size(200, 200)
 
-  # Make a group PShape
-  house = createShape(GROUP)
+    house = create_shape(GROUP)
   
-  # Make three shapes
-  PShape path = createShape()
-  path.beginShape()
+    Py5Shape path = create_shape()
+  path.begin_shape()
   path.vertex(-20, -20)
   path.vertex(0, -40)
   path.vertex(20, -20)
-  path.endShape()
-  PShape rectangle = createShape(RECT, -20, -20, 40, 40)
-  PShape circle = createShape(ELLIPSE, 0, 0, 20, 20)
+  path.end_shape()
+  Py5Shape rectangle = create_shape(RECT, -20, -20, 40, 40)
+  Py5Shape circle = create_shape(ELLIPSE, 0, 0, 20, 20)
   
-  # Add all three as children
-  house.addChild(path)
-  house.addChild(rectangle)
-  house.addChild(circle)
+    house.add_child(path)
+  house.add_child(rectangle)
+  house.add_child(circle)
 }
 
 void draw() {
   background(52)
-  translate(mouseX, mouseY)
+  translate(mouse_x, mouse_y)
   shape(house)
 }

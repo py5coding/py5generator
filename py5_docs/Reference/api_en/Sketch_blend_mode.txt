@@ -33,16 +33,16 @@ We recommend using ``blend_mode()`` and not the previous ``blend()`` function. H
 @@ example
 size(100, 100)
 background(0)
-blendMode(ADD)
+blend_mode(ADD)
 stroke(102)
-strokeWeight(30)
+stroke_weight(30)
 line(25, 25, 75, 75)
 line(75, 25, 25, 75)
 
 @@ example
 size(100, 100, P2D)
-blendMode(MULTIPLY)
+blend_mode(MULTIPLY)
 stroke(51)
-strokeWeight(30)
+stroke_weight(30)
 line(25, 25, 75, 75)
 line(75, 25, 25, 75)

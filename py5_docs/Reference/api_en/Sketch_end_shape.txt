@@ -11,16 +11,16 @@ The ``end_shape()`` function is the companion to ``begin_shape()`` and may only 
 @@ example
 image = endShape_.png
 
-noFill()
+no_fill()
 
-beginShape()
+begin_shape()
 vertex(20, 20)
 vertex(45, 20)
 vertex(45, 80)
-endShape(CLOSE)
+end_shape(CLOSE)
 
-beginShape()
+begin_shape()
 vertex(50, 20)
 vertex(75, 20)
 vertex(75, 80)
-endShape()
+end_shape()

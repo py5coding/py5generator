@@ -15,11 +15,10 @@ The color of an image may be modified with the ``tint()`` function. This functio
 @@ example
 image = image_0.png
 
-PImage img
+Py5Image img
 
 void setup() {
-  # Images must be in the "data" directory to load correctly
-  img = loadImage("laDefense.jpg")
+    img = load_image("laDefense.jpg")
 }
 
 void draw() {
@@ -29,11 +28,10 @@ void draw() {
 @@ example
 image = image_1.png
 
-PImage img
+Py5Image img
 
 void setup() {
-  # Images must be in the "data" directory to load correctly
-  img = loadImage("laDefense.jpg")
+    img = load_image("laDefense.jpg")
 }
 
 void draw() {

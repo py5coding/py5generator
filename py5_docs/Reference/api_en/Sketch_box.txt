@@ -13,8 +13,8 @@ image = box_0.png
 
 size(100, 100, P3D)
 translate(58, 48, 0) 
-rotateY(0.5)
-noFill()
+rotate_y(0.5)
+no_fill()
 box(40)
 
 @@ example
@@ -22,6 +22,6 @@ image = box_1.png
 
 size(100, 100, P3D)
 translate(58, 48, 0) 
-rotateY(0.5)
-noFill()
+rotate_y(0.5)
+no_fill()
 box(40, 20, 50)

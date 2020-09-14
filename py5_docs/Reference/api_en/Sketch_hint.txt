@@ -60,10 +60,10 @@ void setup() {
 
 void draw() {
   background(204)
-  pushMatrix()
+  push_matrix()
   translate(width/2, height/2)
-  rotateY(1)
+  rotate_y(1)
   box(60)
-  popMatrix()
+  pop_matrix()
   line(10, 100, 190, 100)
 }

@@ -13,8 +13,8 @@ After changing the range of values for colors with code like ``color_mode(hsb, 3
 @@ example
 image = colorMode_0.png
 
-noStroke()
-colorMode(RGB, 100)
+no_stroke()
+color_mode(RGB, 100)
 for (int i = 0 i < 100 i++) {
   for (int j = 0 j < 100 j++) {
     stroke(i, j, 0)
@@ -25,8 +25,8 @@ for (int i = 0 i < 100 i++) {
 @@ example
 image = colorMode_1.png
 
-noStroke()
-colorMode(HSB, 100)
+no_stroke()
+color_mode(HSB, 100)
 for (int i = 0 i < 100 i++) {
   for (int j = 0 j < 100 j++) {
     stroke(i, j, 100)
@@ -37,16 +37,10 @@ for (int i = 0 i < 100 i++) {
 @@ example
 image = colorMode_2.png
 
-# If the color is defined here, it won't be 
-# affected by the colorMode() in setup(). 
-# Instead, just declare the variable here and 
-# assign the value after the colorMode() in setup()
-#color bg = color(180, 50, 50)  # No
-color bg  # Yes, but assign it in setup()
-
+color bg  
 void setup() {
   size(100, 100)
-  colorMode(HSB, 360, 100, 100)
+  color_mode(HSB, 360, 100, 100)
   bg = color(180, 50, 50)
 }
 

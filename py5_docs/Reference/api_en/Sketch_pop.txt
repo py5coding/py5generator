@@ -16,26 +16,20 @@ The ``push()`` and ``pop()`` functions were added with Processing 3.5. They can 
 image = popMatrix_.png
 
 fill(255)
-rect(0, 0, 50, 50)  # White rectangle
-
+rect(0, 0, 50, 50)  
 push()
 translate(30, 20)
 fill(0)  
-rect(0, 0, 50, 50)  # Black rectangle
-pop()  # Restore original settings
-
+rect(0, 0, 50, 50)  pop()  
 fill(100)  
-rect(15, 10, 50, 50)  # Gray rectangle
+rect(15, 10, 50, 50)  
 
 @@ example
 image = popStyle_0.png
 
-ellipse(0, 50, 33, 33)  # Left circle
-
+ellipse(0, 50, 33, 33)  
 push()
-strokeWeight(10)
+stroke_weight(10)
 fill(204, 153, 0)
-ellipse(50, 50, 33, 33)  # Middle circle
-pop()  # Restore original settings
-
-ellipse(100, 50, 33, 33)  # Right circle
+ellipse(50, 50, 33, 33)  pop()  
+ellipse(100, 50, 33, 33)  

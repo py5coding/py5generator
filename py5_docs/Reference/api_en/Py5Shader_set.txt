@@ -8,19 +8,19 @@ processing_name = set
 Sets the uniform variables inside the shader to modify the effect while the program is running.
 
 @@ example
-PImage tex
-PShader deform
+Py5Image tex
+Py5Shader deform
 
 void setup() {
   size(640, 360, P2D)
-  tex = loadImage("tex1.jpg")
-  deform = loadShader("deform.glsl")
+  tex = load_image("tex1.jpg")
+  deform = load_shader("deform.glsl")
   deform.set("resolution", float(width), float(height))
 }
 
 void draw() {
   deform.set("time", millis() / 1000.0)
-  deform.set("mouse", float(mouseX), float(mouseY))
+  deform.set("mouse", float(mouse_x), float(mouse_y))
   shader(deform)
   image(tex, 0, 0, width, height)
 }

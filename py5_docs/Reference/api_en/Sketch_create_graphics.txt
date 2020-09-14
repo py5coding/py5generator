@@ -17,18 +17,18 @@ The ``create_graphics()`` function should almost never be used inside ``draw()``
 Unlike the main drawing surface which is completely opaque, surfaces created with ``create_graphics()`` can have transparency. This makes it possible to draw into a graphics and maintain the alpha channel. By using ``save()`` to write a PNG or TGA file, the transparency of the graphics object will be honored.
 
 @@ example
-PGraphics pg
+Py5Graphics pg
 
 void setup() {
   size(200, 200)
-  pg = createGraphics(100, 100)
+  pg = create_graphics(100, 100)
 }
 
 void draw() {
-  pg.beginDraw()
+  pg.begin_draw()
   pg.background(102)
   pg.stroke(255)
-  pg.line(pg.width*0.5, pg.height*0.5, mouseX, mouseY)
-  pg.endDraw()
+  pg.line(pg.width*0.5, pg.height*0.5, mouse_x, mouse_y)
+  pg.end_draw()
   image(pg, 50, 50) 
 }

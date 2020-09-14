@@ -15,71 +15,71 @@ The P2D and P3D renderers allow ``stroke()`` and ``fill()`` to be altered on a p
 @@ example
 image = beginShape_0.png
 
-beginShape()
+begin_shape()
 vertex(30, 20)
 vertex(85, 20)
 vertex(85, 75)
 vertex(30, 75)
-endShape(CLOSE)
+end_shape(CLOSE)
 
 @@ example
 image = beginShape_1.png
 
-beginShape(POINTS)
+begin_shape(POINTS)
 vertex(30, 20)
 vertex(85, 20)
 vertex(85, 75)
 vertex(30, 75)
-endShape()
+end_shape()
 
 @@ example
 image = beginShape_2.png
 
-beginShape(LINES)
+begin_shape(LINES)
 vertex(30, 20)
 vertex(85, 20)
 vertex(85, 75)
 vertex(30, 75)
-endShape()
+end_shape()
 
 @@ example
 image = beginShape_3.png
 
-noFill()
-beginShape()
+no_fill()
+begin_shape()
 vertex(30, 20)
 vertex(85, 20)
 vertex(85, 75)
 vertex(30, 75)
-endShape()
+end_shape()
 
 @@ example
 image = beginShape_4.png
 
-noFill()
-beginShape()
+no_fill()
+begin_shape()
 vertex(30, 20)
 vertex(85, 20)
 vertex(85, 75)
 vertex(30, 75)
-endShape(CLOSE)
+end_shape(CLOSE)
 
 @@ example
 image = beginShape_5.png
 
-beginShape(TRIANGLES)
+begin_shape(TRIANGLES)
 vertex(30, 75)
 vertex(40, 20)
 vertex(50, 75)
 vertex(60, 20)
 vertex(70, 75)
 vertex(80, 20)
-endShape()
+end_shape()
 
 @@ example
 image = beginShape_6.png
 
-beginShape(TRIANGLE_STRIP)
+begin_shape(TRIANGLE_STRIP)
 vertex(30, 75)
 vertex(40, 20)
 vertex(50, 75)
@@ -87,24 +87,24 @@ vertex(60, 20)
 vertex(70, 75)
 vertex(80, 20)
 vertex(90, 75)
-endShape()
+end_shape()
 
 @@ example
 image = beginShape_7.png
 
-beginShape(TRIANGLE_FAN)
+begin_shape(TRIANGLE_FAN)
 vertex(57.5, 50)
 vertex(57.5, 15) 
 vertex(92, 50) 
 vertex(57.5, 85) 
 vertex(22, 50) 
 vertex(57.5, 15) 
-endShape()
+end_shape()
 
 @@ example
 image = beginShape_8.png
 
-beginShape(QUADS)
+begin_shape(QUADS)
 vertex(30, 20)
 vertex(30, 75)
 vertex(50, 75)
@@ -113,12 +113,12 @@ vertex(65, 20)
 vertex(65, 75)
 vertex(85, 75)
 vertex(85, 20)
-endShape()
+end_shape()
 
 @@ example
 image = beginShape_9.png
 
-beginShape(QUAD_STRIP) 
+begin_shape(QUAD_STRIP) 
 vertex(30, 20) 
 vertex(30, 75) 
 vertex(50, 20)
@@ -127,16 +127,16 @@ vertex(65, 20)
 vertex(65, 75) 
 vertex(85, 20)
 vertex(85, 75) 
-endShape()
+end_shape()
 
 @@ example
 image = beginShape_10.png
 
-beginShape()
+begin_shape()
 vertex(20, 20)
 vertex(40, 20)
 vertex(40, 40)
 vertex(60, 40)
 vertex(60, 60)
 vertex(20, 60)
-endShape(CLOSE)
+end_shape(CLOSE)

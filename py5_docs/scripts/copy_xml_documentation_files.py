@@ -2,6 +2,7 @@ import re
 from pathlib import Path
 from io import StringIO
 import string
+import shlex
 from html.parser import HTMLParser
 
 import pandas as pd
@@ -185,9 +186,18 @@ for xml_file, file_data in xml_files:
         code = code.replace('println', 'print')
         code = code.replace('//', '#')
         code = code.replace(';', '')
-        # TODO: tokenize code and run each through snake_case
+        new_code = StringIO()
         # TODO: convert Java functions to Python functions
-        new_examples.append((image_name, code))
+        # TODO: do something about varible declarations
+        tokens = shlex.shlex(code)
+        tokens.whitespace = ''
+        for token in tokens:
+            if token[0] in {'"'}:
+                new_code.write(token)
+            else:
+                new_code.write(snake_case(token))
+        new_code.getvalue()
+        new_examples.append((image_name, new_code.getvalue()))
     doc.examples = new_examples
     doc.write(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.txt')
 

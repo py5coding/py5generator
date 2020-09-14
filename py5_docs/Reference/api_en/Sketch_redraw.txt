@@ -17,7 +17,7 @@ float x = 0
 
 void setup() {
   size(200, 200)
-  noLoop()
+  no_loop()
 }
 
 void draw() {
@@ -25,7 +25,7 @@ void draw() {
   line(x, 0, x, height) 
 }
 
-void mousePressed() {
+void mouse_pressed() {
   x += 1
   redraw()
 }

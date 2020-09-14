@@ -9,13 +9,13 @@ processing_name = shader
 Applies the shader specified by the parameters. It's compatible with the P2D and P3D renderers, but not with the default renderer.
 
 @@ example
-PShader edges  
-PImage img
+Py5Shader edges  
+Py5Image img
     
 void setup() {
   size(640, 360, P2D)
-  img = loadImage("leaves.jpg")      
-  edges = loadShader("edges.glsl")
+  img = load_image("leaves.jpg")      
+  edges = load_shader("edges.glsl")
 }
 
 void draw() {

@@ -9,26 +9,25 @@ processing_name = clear
 Clears the pixels within a buffer. This function only works on ``Py5Graphics`` objects created with the ``create_graphics()`` function. Unlike the main graphics context (the display window), pixels in additional graphics areas created with ``create_graphics()`` can be entirely or partially transparent. This function clears everything in a ``Py5Graphics`` object to make all of the pixels 100% transparent.
 
 @@ example
-PGraphics pg
+Py5Graphics pg
 
 void setup() {
   size(200, 200)
-  pg = createGraphics(width, height)
+  pg = create_graphics(width, height)
 }
 
 void draw() {
   background(204)
   
-  # Clear the PGraphics when the mouse is pressed
-  if (mousePressed == true) {
-    pg.beginDraw() 
+    if (mouse_pressed == true) {
+    pg.begin_draw() 
     pg.clear()
-    pg.endDraw()
+    pg.end_draw()
   } else {
-    pg.beginDraw()
+    pg.begin_draw()
     pg.stroke(0, 102, 153)
-    pg.line(width/2, height/2, mouseX, mouseY)
-    pg.endDraw()
+    pg.line(width/2, height/2, mouse_x, mouse_y)
+    pg.end_draw()
   }
 
   image(pg, 0, 0)

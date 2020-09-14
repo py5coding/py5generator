@@ -13,11 +13,11 @@ As of release 0149, this function ignores ``image_mode()``.
 @@ example
 image = PImage_copy_.png
 
-PImage apples
+Py5Image apples
 
 void setup() {
   size(100, 100)
-  apples = loadImage("apples.jpg")
+  apples = load_image("apples.jpg")
   int x = width/2
   apples.copy(x, 0, x, height, 0, 0, x, height)
 }

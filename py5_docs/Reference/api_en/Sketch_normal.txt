@@ -12,13 +12,13 @@ Sets the current normal vector. Used for drawing three dimensional shapes and su
 image = normal_.png
 
 size(100, 100, P3D)
-noStroke()
+no_stroke()
 background(0)
-pointLight(150, 250, 150, 10, 30, 50)
-beginShape()
+point_light(150, 250, 150, 10, 30, 50)
+begin_shape()
 normal(0, 0, 1)
 vertex(20, 20, -10)
 vertex(80, 20, 10)
 vertex(80, 80, -10)
 vertex(20, 80, 10)
-endShape(CLOSE)
+end_shape(CLOSE)

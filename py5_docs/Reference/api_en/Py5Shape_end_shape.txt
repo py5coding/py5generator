@@ -9,18 +9,17 @@ processing_name = endShape
 This method is used to complete a custom shape created with the ``create_shape()`` function. It's always and only used with ``create_shape()``.
 
 @@ example
-PShape s  # The PShape object
-
+Py5Shape s  
 void setup() {  
   size(100, 100)
-  s = createShape()
-  s.beginShape()
+  s = create_shape()
+  s.begin_shape()
   s.fill(0, 0, 255)
-  s.noStroke()
+  s.no_stroke()
   s.vertex(0, 0)
   s.vertex(0, 50)
   s.vertex(50, 0)
-  s.endShape()
+  s.end_shape()
 }
 
 void draw() {

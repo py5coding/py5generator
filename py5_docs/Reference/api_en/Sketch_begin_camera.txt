@@ -12,13 +12,13 @@ The ``begin_camera()`` and ``end_camera()`` functions enable advanced customizat
 image = beginCamera_.png
 
 size(100, 100, P3D)
-noFill()
+no_fill()
 
-beginCamera()
+begin_camera()
 camera()
-rotateX(-PI/6)
-endCamera()
+rotate_x(-PI/6)
+end_camera()
 
 translate(50, 50, 0)
-rotateY(PI/3)
+rotate_y(PI/3)
 box(45)

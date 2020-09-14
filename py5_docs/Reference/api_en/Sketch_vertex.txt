@@ -15,40 +15,34 @@ This function is also used to map a texture onto geometry. The ``texture()`` fun
 @@ example
 image = vertex_0.png
 
-beginShape(POINTS)
+begin_shape(POINTS)
 vertex(30, 20)
 vertex(85, 20)
 vertex(85, 75)
 vertex(30, 75)
-endShape()
+end_shape()
 
 @@ example
 image = vertex_1.png
 
-# Drawing vertices in 3D requires P3D
-# as a parameter to size()
 size(100, 100, P3D)
-beginShape(POINTS)
+begin_shape(POINTS)
 vertex(30, 20, -50)
 vertex(85, 20, -50)
 vertex(85, 75, -50)
 vertex(30, 75, -50)
-endShape()
+end_shape()
 
 @@ example
 image = vertex_2.png
 
 size(100, 100, P3D)
-PImage img = loadImage("laDefense.jpg")
-noStroke()
-beginShape()
+Py5Image img = load_image("laDefense.jpg")
+no_stroke()
+begin_shape()
 texture(img)
-# "laDefense.jpg" is 100x100 pixels in size so
-# the values 0 and 100 are used for the
-# parameters "u" and "v" to map it directly
-# to the vertex points
 vertex(10, 20, 0, 0)
 vertex(80, 5, 100, 0)
 vertex(95, 90, 100, 100)
 vertex(40, 95, 0, 100)
-endShape()
+end_shape()

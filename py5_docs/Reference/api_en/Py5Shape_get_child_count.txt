@@ -9,11 +9,11 @@ processing_name = getChildCount
 Returns the number of children within the PShape.
 
 @@ example
-PShape states
+Py5Shape states
 
 void setup() {
   size(100, 100)
-  states = loadShape("tristate.svg")
-  int count = states.getChildCount()
+  states = load_shape("tristate.svg")
+  int count = states.get_child_count()
   print(count)
 }

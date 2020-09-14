@@ -18,12 +18,12 @@ The vertical alignment is based on the value of ``text_ascent()``, which many fo
 image = textAlign_0.png
 
 background(0)
-textSize(16)
-textAlign(RIGHT)
+text_size(16)
+text_align(RIGHT)
 text("ABCD", 50, 30)
-textAlign(CENTER)
+text_align(CENTER)
 text("EFGH", 50, 50)
-textAlign(LEFT)
+text_align(LEFT)
 text("IJKL", 50, 70)
 
 @@ example
@@ -31,13 +31,13 @@ image = textAlign_1.png
 
 background(0)
 stroke(153)
-textSize(11)
-textAlign(CENTER, BOTTOM)
+text_size(11)
+text_align(CENTER, BOTTOM)
 line(0, 30, width, 30)
 text("CENTER,BOTTOM", 50, 30)
-textAlign(CENTER, CENTER)
+text_align(CENTER, CENTER)
 line(0, 50, width, 50)
 text("CENTER,CENTER", 50, 50)
-textAlign(CENTER, TOP)
+text_align(CENTER, TOP)
 line(0, 70, width, 70)
 text("CENTER,TOP", 50, 70)

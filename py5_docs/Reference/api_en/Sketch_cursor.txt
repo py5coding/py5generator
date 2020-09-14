@@ -13,15 +13,13 @@ Setting or hiding the cursor does not generally work with "Present" mode (when r
 With the P2D and P3D renderers, a generic set of cursors are used because the OpenGL renderer doesn't have access to the default cursor images for each platform (Issue 3791).
 
 @@ example
-# Move the mouse left and right across the image
-# to see the cursor change from a cross to a hand
 
 void setup() {
   size(100, 100)
 }
 
 void draw() {
-  if (mouseX < 50) {
+  if (mouse_x < 50) {
     cursor(CROSS)
   } else {
     cursor(HAND)

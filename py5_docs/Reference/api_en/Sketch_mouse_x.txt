@@ -13,5 +13,5 @@ Note that Processing can only track the mouse position when the pointer is over 
 @@ example
 void draw() {
   background(204)
-  line(mouseX, 20, mouseX, 80)
+  line(mouse_x, 20, mouse_x, 80)
 }

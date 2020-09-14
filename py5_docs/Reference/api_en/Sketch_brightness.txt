@@ -11,11 +11,10 @@ Extracts the brightness value from a color.
 @@ example
 image = brightness_.png
 
-noStroke()
-colorMode(HSB, 255)
+no_stroke()
+color_mode(HSB, 255)
 color c = color(0, 126, 255)
 fill(c)
 rect(15, 20, 35, 60)
-float value = brightness(c)  # Sets 'value' to 255
-fill(value)
+float value = brightness(c)  fill(value)
 rect(50, 20, 35, 60)

@@ -11,21 +11,21 @@ Specifies vertex coordinates for quadratic Bezier curves. Each call to ``quadrat
 @@ example
 image = quadraticVertex_0.png
 
-noFill()
-strokeWeight(4)
-beginShape()
+no_fill()
+stroke_weight(4)
+begin_shape()
 vertex(20, 20)
-quadraticVertex(80, 20, 50, 50)
-endShape()
+quadratic_vertex(80, 20, 50, 50)
+end_shape()
 
 @@ example
 image = quadraticVertex_1.png
 
-noFill()
-strokeWeight(4)
-beginShape()
+no_fill()
+stroke_weight(4)
+begin_shape()
 vertex(20, 20)
-quadraticVertex(80, 20, 50, 50)
-quadraticVertex(20, 80, 80, 80)
+quadratic_vertex(80, 20, 50, 50)
+quadratic_vertex(20, 80, 80, 80)
 vertex(80, 60)
-endShape()
+end_shape()

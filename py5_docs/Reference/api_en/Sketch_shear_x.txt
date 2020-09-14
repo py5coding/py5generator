@@ -15,5 +15,5 @@ image = shearX_.png
 
 size(100, 100)
 translate(width/4, height/4)
-shearX(PI/4.0)
+shear_x(PI/4.0)
 rect(0, 0, 30, 30)

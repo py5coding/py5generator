@@ -11,10 +11,10 @@ Increases or decreases the size of a shape by expanding and contracting vertices
 Using this method with the ``z`` parameter requires using the P3D parameter in combination with size.
 
 @@ example
-PShape s
+Py5Shape s
 
 void setup() {
-  s = loadShape("bot.svg")
+  s = load_shape("bot.svg")
 }
 
 void draw() {
@@ -22,7 +22,6 @@ void draw() {
   shape(s)
 }
 
-void mousePressed() {
-  # Shrink the shape 90% each time the mouse is pressed
-  s.scale(0.9)  
+void mouse_pressed() {
+    s.scale(0.9)  
 }
