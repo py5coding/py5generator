@@ -57,6 +57,11 @@ class TagRemover(HTMLParser):
 
 
 def remove_html(html):
+    # first convert bold tags to ``
+    for full, code in re.findall(r'(<[bB]>(.*?)</?[bB]>)', html):
+        html = html.replace(full, f'``{snake_case(code)}``')
+    for code in re.findall(r'(?<!`)(\w+\(\))(?!`)', html):
+        html = html.replace(code, f'``{snake_case(code)}``')
     tr = TagRemover()
     tr.feed(html)
     return tr.get_data()
