@@ -14,8 +14,8 @@ image = perspective_.png
 # re-creates the default perspective
 size(100, 100, P3D)
 no_fill()
-float fov = PI/3.0
-float camera_z = (height/2.0) / tan(fov/2.0)
+fov = PI/3.0
+camera_z = (height/2.0) / tan(fov/2.0)
 perspective(fov, float(width)/float(height), 
                         camera_z/10.0, camera_z*10.0)
 translate(50, 50, 0)

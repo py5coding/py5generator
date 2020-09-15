@@ -12,9 +12,9 @@ Extracts the alpha value from a color.
 image = alpha_.png
 
 no_stroke()
-color c = color(0, 126, 255, 102)
+c = color(0, 126, 255, 102)
 fill(c)
 rect(15, 15, 35, 70)
-float value = alpha(c)  # sets 'value' to 102
+value = alpha(c)  # sets 'value' to 102
 fill(value)
 rect(50, 15, 35, 70)

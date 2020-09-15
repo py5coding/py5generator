@@ -48,7 +48,7 @@ As of release 0149, this function ignores ``image_mode()``.
 image = blend_0_add.png
 
 background(load_image("rockies.jpg"))
-Py5Image img = load_image("bricks.jpg")
+img = load_image("bricks.jpg")
 image(img, 0, 0)
 blend(img, 0, 0, 33, 100, 67, 0, 33, 100, ADD)
 
@@ -56,7 +56,7 @@ blend(img, 0, 0, 33, 100, 67, 0, 33, 100, ADD)
 image = blend_1_subtract.png
 
 background(load_image("rockies.jpg"))
-Py5Image img = load_image("bricks.jpg")
+img = load_image("bricks.jpg")
 image(img, 0, 0)
 blend(img, 0, 0, 33, 100, 67, 0, 33, 100, SUBTRACT)
 
@@ -64,7 +64,7 @@ blend(img, 0, 0, 33, 100, 67, 0, 33, 100, SUBTRACT)
 image = blend_2_darkest.png
 
 background(load_image("rockies.jpg"))
-Py5Image img = load_image("bricks.jpg")
+img = load_image("bricks.jpg")
 image(img, 0, 0)
 blend(img, 0, 0, 33, 100, 67, 0, 33, 100, DARKEST)
 
@@ -72,6 +72,6 @@ blend(img, 0, 0, 33, 100, 67, 0, 33, 100, DARKEST)
 image = blend_3_lightest.png
 
 background(load_image("rockies.jpg"))
-Py5Image img = load_image("bricks.jpg")
+img = load_image("bricks.jpg")
 image(img, 0, 0)
 blend(img, 0, 0, 33, 100, 67, 0, 33, 100, LIGHTEST)

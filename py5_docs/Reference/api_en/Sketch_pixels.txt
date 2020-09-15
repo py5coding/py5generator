@@ -13,7 +13,7 @@ Before accessing this array, the data must loaded with the ``load_pixels()`` fun
 @@ example
 image = pixels.png
 
-color pink = color(255, 102, 204)
+pink = color(255, 102, 204)
 load_pixels()
 for i = range(0, (width*height/2)-width/2):
     pixels[i] = pink

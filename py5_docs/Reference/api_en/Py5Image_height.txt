@@ -11,6 +11,6 @@ The height of the image in units of pixels.
 @@ example
 image = PImage_height.png
 
-Py5Image tiles = load_image("tiles.jpg")
+tiles = load_image("tiles.jpg")
 image(tiles, 20, 10)
 rect(55, 10, tiles.width, tiles.height)

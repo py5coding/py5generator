@@ -12,19 +12,19 @@ If two parameters are specified, the function will return a float with a value b
 
 @@ example
 for i = range(0, 100):
-    float r = random(50)
+    r = random(50)
     stroke(r*5)
     line(50, i, 50+r, i)
 
 
 @@ example
 for i = range(0, 100):
-    float r = random(-50, 50)
+    r = random(-50, 50)
     print(r)
 
 
 @@ example
 # get a random element from an array
-string[] words = { "apple", "bear", "cat", "dog" }
-int index = int(random(words.length))  # same as int(random(4))
+words = { "apple", "bear", "cat", "dog" }
+index = int(random(len(words)))  # same as int(random(4))
 print(words[index])  # prints one of the four words

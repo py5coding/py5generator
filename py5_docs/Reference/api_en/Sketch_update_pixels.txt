@@ -11,9 +11,9 @@ Updates the display window with the data in the ``pixels[]`` array. Use in conju
 @@ example
 image = updatePixels_.png
 
-Py5Image img = load_image("rockies.jpg")
+img = load_image("rockies.jpg")
 image(img, 0, 0)
-int half_image = img.width * img.height/2
+half_image = img.width * img.height/2
 load_pixels()
 for i = range(0, half_image):
     pixels[i+half_image] = pixels[i]

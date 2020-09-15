@@ -14,10 +14,10 @@ image = bezierPoint_.png
 no_fill()
 bezier(85, 20, 10, 10, 90, 90, 15, 80)
 fill(255)
-int steps = 10
+steps = 10
 for i = range(0, steps + 1):
-    float t = i / float(steps)
-    float x = bezier_point(85, 10, 90, 15, t)
-    float y = bezier_point(20, 10, 90, 80, t)
+    t = i / float(steps)
+    x = bezier_point(85, 10, 90, 15, t)
+    y = bezier_point(20, 10, 90, 80, t)
     ellipse(x, y, 5, 5)
 

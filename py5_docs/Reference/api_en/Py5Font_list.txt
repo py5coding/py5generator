@@ -10,5 +10,5 @@ Gets a list of the fonts installed on the system. The data is returned as a Stri
 
 @@ example
 size(200, 200)
-string[] font_list = Py5Font.list()
+font_list = Py5Font.list()
 print_array(font_list)

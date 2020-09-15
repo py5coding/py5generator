@@ -34,7 +34,7 @@ def draw():
 def mouse_pressed():
     if mouse_button == LEFT:
         fill(0)
-    elif mouse_button == RIGHT:
+    mouse_button == RIGHT:
         fill(255)
     else:
         fill(126)

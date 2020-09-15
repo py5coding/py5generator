@@ -14,7 +14,7 @@ def setup():
     no_loop()  # draw() will not loop
 
 
-float x = 0
+x = 0
 
 def draw():
     background(204)

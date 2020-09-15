@@ -17,22 +17,22 @@ Another way to adjust the character of the resulting sequence is the scale of th
 There have been debates over the accuracy of the implementation of noise in Processing. For clarification, it's an implementation of "classic Perlin noise" from 1983, and not the newer "simplex noise" method from 2001.
 
 @@ example
-float xoff = 0.0
+xoff = 0.0
 
 def draw():
     background(204)
     xoff = xoff + .01
-    float n = noise(xoff) * width
+    n = noise(xoff) * width
     line(n, 0, n, height)
 
 
 @@ example
-float noise_scale = 0.02
+noise_scale = 0.02
 
 def draw():
     background(0)
     for x = range(0, width):
-        float noise_val = noise((mouse_x+x)*noise_scale, mouse_y*noise_scale)
+        noise_val = noise((mouse_x+x)*noise_scale, mouse_y*noise_scale)
         stroke(noise_val*255)
         line(x, mouse_y+noise_val*80, x, height)
 

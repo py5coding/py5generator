@@ -12,18 +12,18 @@ Returns a float from a random series of numbers having a mean of 0 and standard 
 image = randomGaussian_0.png
 
 for y = range(0, 100):
-    float x = random_gaussian() * 15
+    x = random_gaussian() * 15
     line(50, y, 50 + x, y)
 
 
 @@ example
 image = randomGaussian_1.png
 
-float[] distribution = new float[360]
+distribution = new float[360]
 
 def setup():
     size(100, 100)
-    for i = range(0, distribution.length):
+    for i = range(0, len(distribution)):
         distribution[i] = int(random_gaussian() * 15)
 
 
@@ -33,10 +33,10 @@ def draw():
    
     translate(width/2, width/2)
 
-    for i = range(0, distribution.length):
-        rotate(TWO_PI/distribution.length)
+    for i = range(0, len(distribution)):
+        rotate(TWO_PI/len(distribution))
         stroke(0)
-        float dist = abs(distribution[i])
+        dist = abs(distribution[i])
         line(0, 0, dist, 0)
 
 

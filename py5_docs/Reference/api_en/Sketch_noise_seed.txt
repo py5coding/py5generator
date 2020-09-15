@@ -9,7 +9,7 @@ processing_name = noiseSeed
 Sets the seed value for ``noise()``. By default, ``noise()`` produces different results each time the program is run. Set the ``seed`` parameter to a constant to return the same pseudo-random numbers each time the software is run.
 
 @@ example
-float xoff = 0.0
+xoff = 0.0
 
 def setup():
     noise_seed(0)
@@ -18,6 +18,6 @@ def setup():
 
 def draw():
     xoff = xoff + .01
-    float n = noise(xoff) * width
+    n = noise(xoff) * width
     line(n, 0, n, height)
 

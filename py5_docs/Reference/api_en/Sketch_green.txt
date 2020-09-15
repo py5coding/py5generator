@@ -10,17 +10,17 @@ Extracts the green value from a color, scaled to match current ``color_mode()``.
 
 The ``green()`` function is easy to use and understand, but it is slower than a technique called bit shifting. When working in ``color_mode(RGB, 255)``, you can acheive the same results as ``green()`` but with greater speed by using the right shift operator (``>>``) with a bit mask. For example, the following two lines of code are equivalent means of getting the green value of the color value ``c``:
 
-``float g1 = green(c)  # simpler, but slower to calculate
-float g2 = c >> 8 & 0xFF  # very fast to calculate``
+``g1 = green(c)  # simpler, but slower to calculate
+g2 = c >> 8 & 0xFF  # very fast to calculate``
 
 @@ example
 image = green_.png
 
-color c = color(20, 75, 200)  # define color 'c'
+c = color(20, 75, 200)  # define color 'c'
 fill(c)  # use color variable 'c' as fill color
 rect(15, 20, 35, 60)  # draw left rectangle
 
-float green_value = green(c)  # get green in 'c'
+green_value = green(c)  # get green in 'c'
 print(green_value)  # print "75.0"
 fill(0, green_value, 0)  # use 'green_value' in new fill
 rect(50, 20, 35, 60)  # draw right rectangle

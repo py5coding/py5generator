@@ -19,7 +19,7 @@ There are issues with how ``key_code`` behaves across different renderers and op
 If you are using P2D or P3D as your renderer, use the NEWT KeyEvent constants.
 
 @@ example
-color fill_val = color(126)
+fill_val = color(126)
 
 def draw():
     fill(fill_val)
@@ -30,7 +30,7 @@ def key_pressed():
     if key == CODED:
         if key_code == UP:
             fill_val = 255
-        elif key_code == DOWN:
+        key_code == DOWN:
             fill_val = 0
  
     else:

@@ -16,7 +16,7 @@ Prior to Processing 3.0, a full-screen program was defined with ``size(display_w
 # run the code at the full dimensions of the screen currently
 # selected inside the preferences window
 
-int x = 0
+x = 0
 
 def setup():
     full_screen()
@@ -35,7 +35,7 @@ def draw():
 # code at the full dimensions on the screen defined by the 
 # parameter to full_screen()
 
-int x = 0
+x = 0
 
 def setup():
     full_screen(2)
@@ -52,7 +52,7 @@ def draw():
 @@ example
 # run full screen using the P2D renderer on screen 2
 
-int x = 0
+x = 0
 
 def setup():
     full_screen(P2D, 2)
@@ -70,7 +70,7 @@ def draw():
 # if more than one screen is attached to the computer, run the 
 # code at the full dimensions across all of the attached screens
 
-int x = 0
+x = 0
 
 def setup():
     full_screen(P2D, SPAN)

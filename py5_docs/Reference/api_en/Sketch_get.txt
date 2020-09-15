@@ -17,17 +17,17 @@ Getting the color of a single pixel with ``get(x, y)`` is easy, but not as fast 
 @@ example
 image = get_0.png
 
-Py5Image my_image = load_image("apples.jpg")
+my_image = load_image("apples.jpg")
 image(my_image, 0, 0)
-Py5Image c = get()
+c = get()
 image(c, width/2, 0)
 
 @@ example
 image = get_1.png
 
-Py5Image my_image = load_image("apples.jpg")
+my_image = load_image("apples.jpg")
 image(my_image, 0, 0)
-color c = get(25, 25)
+c = get(25, 25)
 fill(c)
 no_stroke()
 rect(25, 25, 50, 50)

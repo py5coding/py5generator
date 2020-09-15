@@ -13,7 +13,7 @@ As of release 0149, this function ignores ``image_mode()``.
 @@ example
 image = copy_.png
 
-Py5Image img = load_image("eames.jpg")
+img = load_image("eames.jpg")
 image(img, 0, 0, width, height)
 copy(7, 22, 10, 10, 35, 25, 50, 50)
 stroke(255)

@@ -13,18 +13,18 @@ image = bezierTangent_0.png
 
 no_fill()
 bezier(85, 20, 10, 10, 90, 90, 15, 80)
-int steps = 6
+steps = 6
 fill(255)
 for i = range(0, steps + 1):
-    float t = i / float(steps)
+    t = i / float(steps)
     # get the location of the point
-    float x = bezier_point(85, 10, 90, 15, t)
-    float y = bezier_point(20, 10, 90, 80, t)
+    x = bezier_point(85, 10, 90, 15, t)
+    y = bezier_point(20, 10, 90, 80, t)
     # get the tangent points
-    float tx = bezier_tangent(85, 10, 90, 15, t)
-    float ty = bezier_tangent(20, 10, 90, 80, t)
+    tx = bezier_tangent(85, 10, 90, 15, t)
+    ty = bezier_tangent(20, 10, 90, 80, t)
     # calculate an angle from the tangent points
-    float a = atan2(ty, tx)
+    a = atan2(ty, tx)
     a += PI
     stroke(255, 102, 0)
     line(x, y, cos(a)*30 + x, sin(a)*30 + y)
@@ -41,14 +41,14 @@ image = bezierTangent_1.png
 no_fill()
 bezier(85, 20, 10, 10, 90, 90, 15, 80)
 stroke(255, 102, 0)
-int steps = 16
+steps = 16
 for i = range(0, steps + 1):
-    float t = i / float(steps)
-    float x = bezier_point(85, 10, 90, 15, t)
-    float y = bezier_point(20, 10, 90, 80, t)
-    float tx = bezier_tangent(85, 10, 90, 15, t)
-    float ty = bezier_tangent(20, 10, 90, 80, t)
-    float a = atan2(ty, tx)
+    t = i / float(steps)
+    x = bezier_point(85, 10, 90, 15, t)
+    y = bezier_point(20, 10, 90, 80, t)
+    tx = bezier_tangent(85, 10, 90, 15, t)
+    ty = bezier_tangent(20, 10, 90, 80, t)
+    a = atan2(ty, tx)
     a -= HALF_PI
     line(x, y, cos(a)*8 + x, sin(a)*8 + y)
 

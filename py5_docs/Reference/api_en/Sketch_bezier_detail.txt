@@ -18,7 +18,7 @@ def setup():
 
 def draw():
     background(204)
-    int d = int(map(mouse_x, 0, 100, 1, 20))
+    d = int(map(mouse_x, 0, 100, 1, 20))
     bezier_detail(d)
     bezier(85, 20, 10, 10, 90, 90, 15, 80)
 

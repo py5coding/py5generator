@@ -18,7 +18,7 @@ def setup():
 
 def draw():
     background(204)
-    float t = map(mouse_x, 0, width, -5, 5)
+    t = map(mouse_x, 0, width, -5, 5)
     curve_tightness(t)
     begin_shape()
     curve_vertex(10, 26)

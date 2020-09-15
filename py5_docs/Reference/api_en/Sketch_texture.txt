@@ -15,7 +15,7 @@ image = texture_.png
 
 size(100, 100, P3D)
 no_stroke()
-Py5Image img = load_image("laDefense.jpg")
+img = load_image("laDefense.jpg")
 begin_shape()
 texture(img)
 vertex(10, 20, 0, 0)

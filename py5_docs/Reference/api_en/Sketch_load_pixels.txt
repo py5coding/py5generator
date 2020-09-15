@@ -11,8 +11,8 @@ Loads the pixel data of the current display window into the ``pixels[]`` array. 
 @@ example
 image = loadPixels_.png
 
-int half_image = width*height/2
-Py5Image my_image = load_image("apples.jpg")
+half_image = width*height/2
+my_image = load_image("apples.jpg")
 image(my_image, 0, 0)
 
 load_pixels()

@@ -78,6 +78,16 @@ def convert_to_python(code):
         step = '' if (step := m.group(5)) == '++' else f",{step.split('=')[1]}"
         code = code.replace(m.group(), f'for {m.group(1)} = range({m.group(2)}, {end}{step}):')
 
+    # convert variable declarations
+    for m in re.finditer(r'^(\s*)([\w\[\]]+) +(\w+)\s*=', code, flags=re.MULTILINE):
+        if m.group(2) in {'for', 'if'}:
+            continue
+        else:
+            code = code.replace(m.group(), f'{m.group(1)}{m.group(3)} =')
+
+    # convert x.length to len(x)
+    code = re.sub(r'([\w\.]+)\.length', r'len(\1)', code)
+
     # get rid of the closing braces
     code = re.sub(r'^\s*}', '', code, flags=re.MULTILINE)
 

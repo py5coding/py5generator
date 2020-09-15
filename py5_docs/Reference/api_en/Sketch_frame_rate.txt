@@ -11,7 +11,7 @@ Specifies the number of frames to be displayed every second. For example, the fu
 def setup():
     frame_rate(4)
 
-int pos = 0
+pos = 0
 def draw():
     background(204)
     pos++

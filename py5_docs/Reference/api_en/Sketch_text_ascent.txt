@@ -11,11 +11,11 @@ Returns ascent of the current font at its current size. This information is usef
 @@ example
 image = textAscent_.png
 
-float base = height * 0.75
-float scalar = 0.8 # different for each font
+base = height * 0.75
+scalar = 0.8 # different for each font
 
 text_size(32)  # set initial text size
-float a = text_ascent() * scalar  # calc ascent
+a = text_ascent() * scalar  # calc ascent
 line(0, base-a, width, base-a)
 text("dp", 0, base)  # draw text on baseline
 

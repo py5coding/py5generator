@@ -35,9 +35,9 @@ def draw():
     box(50)
  
     # the box was drawn at (0, 0, 0), store that location
-    float x = model_x(0, 0, 0)
-    float y = model_y(0, 0, 0)
-    float z = model_z(0, 0, 0)
+    x = model_x(0, 0, 0)
+    y = model_y(0, 0, 0)
+    z = model_z(0, 0, 0)
     # clear out all the transformations
     pop_matrix()
 

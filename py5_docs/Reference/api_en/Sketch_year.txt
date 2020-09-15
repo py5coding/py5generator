@@ -9,11 +9,11 @@ processing_name = year
 Processing communicates with the clock on your computer. The ``year()`` function returns the current year as an integer (2003, 2004, 2005, etc).
 
 @@ example
-int d = day()    # values from 1 - 31
-int m = month()  # values from 1 - 12
-int y = year()   # 2003, 2004, 2005, etc.
+d = day()    # values from 1 - 31
+m = month()  # values from 1 - 12
+y = year()   # 2003, 2004, 2005, etc.
 
-string s = string.value_of(d)
+s = string.value_of(d)
 text(s, 10, 28)
 s = string.value_of(m)
 text(s, 10, 56) 

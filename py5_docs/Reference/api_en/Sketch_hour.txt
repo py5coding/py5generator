@@ -11,9 +11,9 @@ Processing communicates with the clock on your computer. The ``hour()`` function
 @@ example
 def draw():
     background(204)
-    int s = second()  # values from 0 - 59
-    int m = minute()  # values from 0 - 59
-    int h = hour()    # values from 0 - 23
+    s = second()  # values from 0 - 59
+    m = minute()  # values from 0 - 59
+    h = hour()    # values from 0 - 23
     line(s, 0, s, 33)
     line(m, 33, m, 66)
     line(h, 66, h, 100)

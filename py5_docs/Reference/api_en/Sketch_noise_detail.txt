@@ -14,7 +14,7 @@ By changing these parameters, the signal created by the ``noise()`` function can
 
 @@ example
 float noise_val
-float noise_scale=0.02
+noise_scale =0.02
 
 def draw():
     for y = range(0, height):

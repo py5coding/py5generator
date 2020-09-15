@@ -18,8 +18,8 @@ rotate_y(PI/6)
 stroke(153)
 box(35)
 # set rotation angles
-float ct = cos(PI/9.0)
-float st = sin(PI/9.0)          
+ct = cos(PI/9.0)
+st = sin(PI/9.0)          
 # matrix for rotation around the Y axis
 apply_matrix(  ct, 0.0,  st,  0.0,
                           0.0, 1.0, 0.0,  0.0,

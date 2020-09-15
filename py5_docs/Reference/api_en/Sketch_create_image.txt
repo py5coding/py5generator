@@ -15,9 +15,9 @@ Advanced users please note that ``create_image()`` should be used instead of the
 @@ example
 image = createImage_0.png
 
-Py5Image img = create_image(66, 66, RGB)
+img = create_image(66, 66, RGB)
 img.load_pixels()
-for i = range(0, img.pixels.length):
+for i = range(0, len(img.pixels)):
     img.pixels[i] = color(0, 90, 102) 
 
 img.update_pixels()
@@ -26,9 +26,9 @@ image(img, 17, 17)
 @@ example
 image = createImage_1.png
 
-Py5Image img = create_image(66, 66, ARGB)
+img = create_image(66, 66, ARGB)
 img.load_pixels()
-for i = range(0, img.pixels.length):
+for i = range(0, len(img.pixels)):
     img.pixels[i] = color(0, 90, 102, i % img.width * 2) 
 
 img.update_pixels()

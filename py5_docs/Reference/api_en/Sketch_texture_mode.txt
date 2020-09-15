@@ -15,7 +15,7 @@ image = textureMode_0.png
 
 size(100, 100, P3D)
 no_stroke()
-Py5Image img = load_image("laDefense.jpg")
+img = load_image("laDefense.jpg")
 texture_mode(IMAGE)
 begin_shape()
 texture(img)
@@ -30,7 +30,7 @@ image = textureMode_1.png
 
 size(100, 100, P3D)
 no_stroke()
-Py5Image img = load_image("laDefense.jpg")
+img = load_image("laDefense.jpg")
 texture_mode(NORMAL)
 begin_shape()
 texture(img)

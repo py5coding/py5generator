@@ -18,7 +18,7 @@ Py5Image tower
 def setup():
     size(100, 100)
     tower = load_image("tower.jpg")
-    int dimension = tower.width * tower.height
+    dimension = tower.width * tower.height
     tower.load_pixels()
     for i = range(0, dimension, 2): 
         tower.pixels[i] = color(0, 0, 0) 

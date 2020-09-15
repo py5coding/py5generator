@@ -11,7 +11,7 @@ Sets the seed value for ``random()``. By default, ``random()`` produces differen
 @@ example
 random_seed(0)
 for i = range(0, 100):
-    float r = random(0, 255)
+    r = random(0, 255)
     stroke(r)
     line(i, 0, i, 100)
 

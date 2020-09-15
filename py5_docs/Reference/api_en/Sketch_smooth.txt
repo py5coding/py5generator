@@ -30,7 +30,7 @@ def draw():
 
 
 @@ example
-int x = 0
+x = 0
 
 def setup():
     full_screen(P2D, SPAN)
@@ -45,7 +45,7 @@ def draw():
 
 @@ example
 Py5Graphics pg
-int x = 0
+x = 0
 
 def setup():
     full_screen(P2D)

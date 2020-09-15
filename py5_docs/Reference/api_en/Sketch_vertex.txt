@@ -39,7 +39,7 @@ end_shape()
 image = vertex_2.png
 
 size(100, 100, P3D)
-Py5Image img = load_image("laDefense.jpg")
+img = load_image("laDefense.jpg")
 no_stroke()
 begin_shape()
 texture(img)

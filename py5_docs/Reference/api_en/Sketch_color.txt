@@ -10,14 +10,14 @@ Creates colors for storing in variables of the ``color`` datatype. The parameter
 
 Note that if only one value is provided to ``color()``, it will be interpreted as a grayscale value. Add a second value, and it will be used for alpha transparency. When three values are specified, they are interpreted as either RGB or HSB values. Adding a fourth value applies alpha transparency.
 
-Note that when using hexadecimal notation, it is not necessary to use ``color()``, as in: ``color c = 0x006699``
+Note that when using hexadecimal notation, it is not necessary to use ``color()``, as in: ``c = 0x006699``
 
 More about how colors are stored can be found in the reference for the color datatype.
 
 @@ example
 image = color_0.png
 
-color c = color(255, 204, 0)  # define color 'c'
+c = color(255, 204, 0)  # define color 'c'
 fill(c)  # use color variable 'c' as fill color
 no_stroke()  # don't draw a stroke around shapes
 rect(30, 20, 55, 55)  # draw rectangle
@@ -25,7 +25,7 @@ rect(30, 20, 55, 55)  # draw rectangle
 @@ example
 image = color_1.png
 
-color c = color(255, 204, 0)  # define color 'c'
+c = color(255, 204, 0)  # define color 'c'
 fill(c)  # use color variable 'c' as fill color
 no_stroke()  # don't draw a stroke around shapes
 ellipse(25, 25, 80, 80)  # draw left circle
