@@ -11,40 +11,40 @@ Returns the three-dimensional X, Y, Z position in model space. This returns the 
 In the example, the ``model_x()``, ``model_y()``, and ``model_z()`` functions record the location of a box in space after being placed using a series of translate and rotate commands. After ``pop_matrix()`` is called, those transformations no longer apply, but the (x, y, z) coordinate returned by the model functions is used to place another box in the same location.
 
 @@ example
-void setup() {
-  size(500, 500, P3D)
-  no_fill()
-}
+def setup():
+    size(500, 500, P3D)
+    no_fill()
 
-void draw() {
-  background(0)
- 
-  push_matrix()
-  # start at the middle of the screen
-  translate(width/2, height/2, -200)     
-  # some random rotation to make things interesting
-  rotate_y(1.0) #yrot)
-  rotate_z(2.0) #zrot)
-  # rotate in X a little more each frame
-  rotate_x(frame_count / 100.0)
-  # offset from center
-  translate(0, 150, 0)
- 
-  # draw a white box outline at (0, 0, 0)
-  stroke(255)
-  box(50)
- 
-  # the box was drawn at (0, 0, 0), store that location
-  float x = model_x(0, 0, 0)
-  float y = model_y(0, 0, 0)
-  float z = model_z(0, 0, 0)
-  # clear out all the transformations
-  pop_matrix()
 
-  # draw another box at the same (x, y, z) coordinate as the other
-  push_matrix()
-  translate(x, y, z)
-  stroke(255, 0, 0)
-  box(50)
-  pop_matrix()
-}
+def draw():
+    background(0)
+ 
+    push_matrix()
+    # start at the middle of the screen
+    translate(width/2, height/2, -200)     
+    # some random rotation to make things interesting
+    rotate_y(1.0) #yrot)
+    rotate_z(2.0) #zrot)
+    # rotate in X a little more each frame
+    rotate_x(frame_count / 100.0)
+    # offset from center
+    translate(0, 150, 0)
+ 
+    # draw a white box outline at (0, 0, 0)
+    stroke(255)
+    box(50)
+ 
+    # the box was drawn at (0, 0, 0), store that location
+    float x = model_x(0, 0, 0)
+    float y = model_y(0, 0, 0)
+    float z = model_z(0, 0, 0)
+    # clear out all the transformations
+    pop_matrix()
+
+    # draw another box at the same (x, y, z) coordinate as the other
+    push_matrix()
+    translate(x, y, z)
+    stroke(255, 0, 0)
+    box(50)
+    pop_matrix()
+

@@ -11,14 +11,14 @@ Applies the shader specified by the parameters. It's compatible with the P2D and
 @@ example
 Py5Shader edges  
 Py5Image img
-    
-void setup() {
-  size(640, 360, P2D)
-  img = load_image("leaves.jpg")      
-  edges = load_shader("edges.glsl")
-}
+       
+def setup():
+    size(640, 360, P2D)
+    img = load_image("leaves.jpg")      
+    edges = load_shader("edges.glsl")
 
-void draw() {
-  shader(edges)
-  image(img, 0, 0)
-}
+
+def draw():
+    shader(edges)
+    image(img, 0, 0)
+

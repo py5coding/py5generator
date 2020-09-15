@@ -17,47 +17,47 @@ With Processing 3.0, ``smooth()`` is different than before. It was common to use
 When ``smooth()`` is used with a ``Py5Graphics`` object, it should be run right after the object is created with ``create_graphics()``, as shown in the Reference in the third example.
 
 @@ example
-void setup() {
-  size(100, 100)
-  smooth(2)
-  no_stroke()
-}
+def setup():
+    size(100, 100)
+    smooth(2)
+    no_stroke()
 
-void draw() {
-  background(0)
-  ellipse(30, 48, 36, 36)
-  ellipse(70, 48, 36, 36)
-}
+
+def draw():
+    background(0)
+    ellipse(30, 48, 36, 36)
+    ellipse(70, 48, 36, 36)
+
 
 @@ example
 int x = 0
 
-void setup() {
-  full_screen(P2D, SPAN)
-  smooth(4)
-}
+def setup():
+    full_screen(P2D, SPAN)
+    smooth(4)
 
-void draw() {
-  background(0)
-  ellipse(x, height/2, height/4, height/4)
-  x += 1
-}
+
+def draw():
+    background(0)
+    ellipse(x, height/2, height/4, height/4)
+    x += 1
+
 
 @@ example
 Py5Graphics pg
 int x = 0
 
-void setup() {
-  full_screen(P2D)
-  pg = create_graphics(width, height, P2D)
-  pg.smooth(4)
-}
+def setup():
+    full_screen(P2D)
+    pg = create_graphics(width, height, P2D)
+    pg.smooth(4)
 
-void draw() {
-  pg.begin_draw()
-  pg.background(0)
-  pg.ellipse(x, height/2, height/4, height/4)
-  pg.end_draw()
-  image(pg, 0, 0)
-  x += 1
-}
+
+def draw():
+    pg.begin_draw()
+    pg.background(0)
+    pg.ellipse(x, height/2, height/4, height/4)
+    pg.end_draw()
+    image(pg, 0, 0)
+    x += 1
+

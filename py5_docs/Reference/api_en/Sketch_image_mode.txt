@@ -21,39 +21,39 @@ image = imageMode_0.png
 
 Py5Image img
 
-void setup() {
-  img = load_image("laDefense.jpg")
-}
+def setup():
+    img = load_image("laDefense.jpg")
 
-void draw() {
-  image_mode(CORNER)
-  image(img, 10, 10, 50, 50)  # draw image using CORNER mode
-}
+
+def draw():
+    image_mode(CORNER)
+    image(img, 10, 10, 50, 50)  # draw image using CORNER mode
+
 
 @@ example
 image = imageMode_1.png
 
 Py5Image img
 
-void setup() {
-  img = load_image("laDefense.jpg")
-}
+def setup():
+    img = load_image("laDefense.jpg")
 
-void draw() {
-  image_mode(CORNERS)
-  image(img, 10, 10, 90, 40)  # draw image using CORNERS mode
-}
+
+def draw():
+    image_mode(CORNERS)
+    image(img, 10, 10, 90, 40)  # draw image using CORNERS mode
+
 
 @@ example
 image = imageMode_2.png
 
 Py5Image img
 
-void setup() {
-  img = load_image("laDefense.jpg")
-}
+def setup():
+    img = load_image("laDefense.jpg")
 
-void draw() {
-  image_mode(CENTER)
-  image(img, 50, 50, 80, 80)  # draw image using CENTER mode
-}
+
+def draw():
+    image_mode(CENTER)
+    image(img, 50, 50, 80, 80)  # draw image using CENTER mode
+

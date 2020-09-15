@@ -14,8 +14,8 @@ If you want values relative to the previous frame, use ``pmouse_x`` and ``pmouse
 @@ example
 # move the mouse quickly to see the difference 
 # between the current and previous position 
-void draw() { 
-  background(204) 
-  line(mouse_x, 20, pmouse_x, 80) 
-  print(mouse_x + " : " + pmouse_x)
-}
+def draw(): 
+    background(204) 
+    line(mouse_x, 20, pmouse_x, 80) 
+    print(mouse_x + " : " + pmouse_x)
+

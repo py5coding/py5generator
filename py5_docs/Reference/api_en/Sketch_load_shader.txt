@@ -15,16 +15,16 @@ If the file is not available or an error occurs, ``None`` will be returned and a
 @@ example
 Py5Shader blur
 
-void setup() {
-  size(640, 360, P2D)
-  # shaders files must be in the "data" folder to load correctly
-  blur = load_shader("blur.glsl") 
-  stroke(0, 102, 153)
-  rect_mode(CENTER)
-}
+def setup():
+    size(640, 360, P2D)
+    # shaders files must be in the "data" folder to load correctly
+    blur = load_shader("blur.glsl") 
+    stroke(0, 102, 153)
+    rect_mode(CENTER)
 
-void draw() {
-  filter(blur)  
-  rect(mouse_x-75, mouse_y, 150, 150) 
-  ellipse(mouse_x+75, mouse_y, 150, 150)
-}
+
+def draw():
+    filter(blur)  
+    rect(mouse_x-75, mouse_y, 150, 150) 
+    ellipse(mouse_x+75, mouse_y, 150, 150)
+

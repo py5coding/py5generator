@@ -15,7 +15,7 @@ Py5Image img = load_image("rockies.jpg")
 image(img, 0, 0)
 int half_image = img.width * img.height/2
 load_pixels()
-for (int i = 0 i < half_image i++) {
-  pixels[i+half_image] = pixels[i]
-}
+for i = range(0, half_image):
+    pixels[i+half_image] = pixels[i]
+
 update_pixels()

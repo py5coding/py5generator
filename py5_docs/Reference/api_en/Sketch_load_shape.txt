@@ -15,29 +15,29 @@ If the file is not available or an error occurs, ``None`` will be returned and a
 @@ example
 Py5Shape s
 
-void setup() {
-  size(100, 100)
-  # the file "bot.svg" must be in the data folder
-  # of the current sketch to load successfully
-  s = load_shape("bot.svg")
-}
+def setup():
+    size(100, 100)
+    # the file "bot.svg" must be in the data folder
+    # of the current sketch to load successfully
+    s = load_shape("bot.svg")
 
-void draw() {
-  shape(s, 10, 10, 80, 80)
-}
+
+def draw():
+    shape(s, 10, 10, 80, 80)
+
 
 @@ example
 Py5Shape s
 
-void setup() {
-  size(100, 100, P3D)
-  # the file "bot.obj" must be in the data folder
-  # of the current sketch to load successfully
-  s = load_shape("bot.obj")
-}
+def setup():
+    size(100, 100, P3D)
+    # the file "bot.obj" must be in the data folder
+    # of the current sketch to load successfully
+    s = load_shape("bot.obj")
 
-void draw() {
-  background(204)
-  translate(width/2, height/2)
-  shape(s, 0, 0)
-}
+
+def draw():
+    background(204)
+    translate(width/2, height/2)
+    shape(s, 0, 0)
+

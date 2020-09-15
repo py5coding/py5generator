@@ -17,12 +17,12 @@ curve(5, 26, 73, 24, 73, 61, 15, 65)
 fill(255)
 ellipse_mode(CENTER)
 int steps = 6
-for (int i = 0 i <= steps i++) {
-  float t = i / float(steps)
-  float x = curve_point(5, 5, 73, 73, t)
-  float y = curve_point(26, 26, 24, 61, t)
-  ellipse(x, y, 5, 5)
-  x = curve_point(5, 73, 73, 15, t)
-  y = curve_point(26, 24, 61, 65, t)
-  ellipse(x, y, 5, 5)
-}
+for i = range(0, steps + 1):
+    float t = i / float(steps)
+    float x = curve_point(5, 5, 73, 73, t)
+    float y = curve_point(26, 26, 24, 61, t)
+    ellipse(x, y, 5, 5)
+    x = curve_point(5, 73, 73, 15, t)
+    y = curve_point(26, 24, 61, 65, t)
+    ellipse(x, y, 5, 5)
+

@@ -17,9 +17,9 @@ image = createImage_0.png
 
 Py5Image img = create_image(66, 66, RGB)
 img.load_pixels()
-for (int i = 0 i < img.pixels.length i++) {
-  img.pixels[i] = color(0, 90, 102) 
-}
+for i = range(0, img.pixels.length):
+    img.pixels[i] = color(0, 90, 102) 
+
 img.update_pixels()
 image(img, 17, 17)
 
@@ -28,9 +28,9 @@ image = createImage_1.png
 
 Py5Image img = create_image(66, 66, ARGB)
 img.load_pixels()
-for (int i = 0 i < img.pixels.length i++) {
-  img.pixels[i] = color(0, 90, 102, i % img.width * 2) 
-}
+for i = range(0, img.pixels.length):
+    img.pixels[i] = color(0, 90, 102, i % img.width * 2) 
+
 img.update_pixels()
 image(img, 17, 17)
 image(img, 34, 34)

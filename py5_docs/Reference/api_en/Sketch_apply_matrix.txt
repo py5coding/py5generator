@@ -22,8 +22,8 @@ float ct = cos(PI/9.0)
 float st = sin(PI/9.0)          
 # matrix for rotation around the Y axis
 apply_matrix(  ct, 0.0,  st,  0.0,
-             0.0, 1.0, 0.0,  0.0,
-             -st, 0.0,  ct,  0.0,
-             0.0, 0.0, 0.0,  1.0)  
+                          0.0, 1.0, 0.0,  0.0,
+                          -st, 0.0,  ct,  0.0,
+                          0.0, 0.0, 0.0,  1.0)  
 stroke(255)
 box(50)

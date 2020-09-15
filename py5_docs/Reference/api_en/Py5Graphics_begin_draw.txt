@@ -11,17 +11,17 @@ Sets the default properties for a PGraphics object. It should be called before a
 @@ example
 Py5Graphics pg
 
-void setup() {
-  size(100, 100)
-  pg = create_graphics(80, 80, P2D)
-  pg.begin_draw()
-  pg.background(102)
-  pg.stroke(255)
-  pg.line(20, 20, 80, 80)
-  pg.end_draw()
-  no_loop()
-}
+def setup():
+    size(100, 100)
+    pg = create_graphics(80, 80, P2D)
+    pg.begin_draw()
+    pg.background(102)
+    pg.stroke(255)
+    pg.line(20, 20, 80, 80)
+    pg.end_draw()
+    no_loop()
 
-void draw() {
-  image(pg, 10, 10) 
-}
+
+def draw():
+    image(pg, 10, 10) 
+

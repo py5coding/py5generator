@@ -11,16 +11,16 @@ Stops the recording process started by ``begin_record()`` and closes the file.
 @@ example
 import processing.pdf.*
 
-void setup() {
-  size(400, 400)
-  begin_record(PDF, "everything.pdf")
-}
+def setup():
+    size(400, 400)
+    begin_record(PDF, "everything.pdf")
 
-void draw() {
-  ellipse(mouse_x, mouse_y, 10, 10)
-}
 
-void mouse_pressed() {
-  end_record()
-  exit()
-}
+def draw():
+    ellipse(mouse_x, mouse_y, 10, 10)
+
+
+def mouse_pressed():
+    end_record()
+    exit()
+

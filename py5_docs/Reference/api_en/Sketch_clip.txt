@@ -9,18 +9,18 @@ processing_name = clip
 Limits the rendering to the boundaries of a rectangle defined by the parameters. The boundaries are drawn based on the state of the ``image_mode()`` fuction, either CORNER, CORNERS, or CENTER.
 
 @@ example
-void setup() {
-  size(200, 200)
-  image_mode(CENTER)
-}
+def setup():
+    size(200, 200)
+    image_mode(CENTER)
 
-void draw() {
-  background(204)
-  if (mouse_pressed) {
-    clip(mouse_x, mouse_y, 100, 100)
-  } else {
-    no_clip()
-  }
-  line(0, 0, width, height)
-  line(0, height, width, 0)
-}
+
+def draw():
+    background(204)
+    if mouse_pressed:
+        clip(mouse_x, mouse_y, 100, 100)
+    else:
+        no_clip()
+
+    line(0, 0, width, height)
+    line(0, height, width, 0)
+

@@ -19,21 +19,21 @@ There have been debates over the accuracy of the implementation of noise in Proc
 @@ example
 float xoff = 0.0
 
-void draw() {
-  background(204)
-  xoff = xoff + .01
-  float n = noise(xoff) * width
-  line(n, 0, n, height)
-}
+def draw():
+    background(204)
+    xoff = xoff + .01
+    float n = noise(xoff) * width
+    line(n, 0, n, height)
+
 
 @@ example
 float noise_scale = 0.02
 
-void draw() {
-  background(0)
-  for (int x=0 x < width x++) {
-    float noise_val = noise((mouse_x+x)*noise_scale, mouse_y*noise_scale)
-    stroke(noise_val*255)
-    line(x, mouse_y+noise_val*80, x, height)
-  }
-}
+def draw():
+    background(0)
+    for x = range(0, width):
+        float noise_val = noise((mouse_x+x)*noise_scale, mouse_y*noise_scale)
+        stroke(noise_val*255)
+        line(x, mouse_y+noise_val*80, x, height)
+
+

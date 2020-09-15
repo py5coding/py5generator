@@ -60,8 +60,37 @@ def snake_case(name):
         return name.lower()
 
 
+def convert_to_python(code):
+    code = code.replace('println', 'print')
+    code = code.replace('//', '#')
+
+    # convert function declarations
+    code = re.sub(r'void\s+(\w+)\(([\w\s]*)\)\s*{', r'def \1(\2):', code)
+
+    # convert if statements
+    code = re.sub(r'if\s+\((.+?)\)\s*{', r'if \1:', code)
+    code = code.replace('} else if', 'elif')
+    code = code.replace('} else {', 'else:')
+
+    # convert for loops to range iteration
+    for m in re.finditer(r'for \(\w+\s+(\w+)\s*=\s*(\d+); \1\s*([<=>]+)\s*([^;]+);\s*\1\s*([^\)]*)\)\s*{', code):
+        end = m.group(4) + ('' if m.group(3) == '<' else ' + 1')
+        step = '' if (step := m.group(5)) == '++' else f",{step.split('=')[1]}"
+        code = code.replace(m.group(), f'for {m.group(1)} = range({m.group(2)}, {end}{step}):')
+
+    # get rid of the closing braces
+    code = re.sub(r'^\s*}', '', code, flags=re.MULTILINE)
+
+    # indenting spacing == 4
+    code = re.sub(r'^( +)(?!$)', r'\1\1', code, flags=re.MULTILINE)
+
+    # because of course ;)
+    code = code.replace(';', '')
+
+    return code
+
+
 def adjust_code(code):
-    # TODO: convert Java functions to Python functions
     # TODO: do something about varible declarations
     if code == '#':
         return code
@@ -76,9 +105,7 @@ def adjust_code(code):
             new_code.write(snake_case(token))
 
     code = new_code.getvalue()
-    code = code.replace('println', 'print')
-    code = code.replace('//', '#')
-    code = code.replace(';', '')
+    code = convert_to_python(code)
 
     return code
 

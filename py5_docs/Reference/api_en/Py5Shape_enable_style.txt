@@ -13,15 +13,15 @@ image = PShape_enableStyle_.png
 
 Py5Shape s
 
-void setup() {
-  # the file "bot.svg" must be in the data folder
-  # of the current sketch to load successfully
-  s = load_shape("bot.svg")
-}
+def setup():
+    # the file "bot.svg" must be in the data folder
+    # of the current sketch to load successfully
+    s = load_shape("bot.svg")
 
-void draw() {
-  s.disable_style()
-  shape(s, -30, 10, 80, 80)
-  s.enable_style()
-  shape(s, 50, 10, 80, 80)
-}
+
+def draw():
+    s.disable_style()
+    shape(s, -30, 10, 80, 80)
+    s.enable_style()
+    shape(s, 50, 10, 80, 80)
+

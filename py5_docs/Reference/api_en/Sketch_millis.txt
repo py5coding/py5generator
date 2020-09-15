@@ -9,9 +9,9 @@ processing_name = millis
 Returns the number of milliseconds (thousandths of a second) since starting the program. This information is often used for timing events and animation sequences.
 
 @@ example
-void draw() {
-  int m = millis()
-  no_stroke()
-  fill(m % 255)
-  rect(25, 25, 50, 50)
-}
+def draw():
+    int m = millis()
+    no_stroke()
+    fill(m % 255)
+    rect(25, 25, 50, 50)
+

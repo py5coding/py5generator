@@ -17,85 +17,85 @@ After using ``create_shape()``, stroke and fill color can be set by calling meth
 @@ example
 Py5Shape square  # the Py5Shape object
 
-void setup() {
-  size(100, 100)
-  # creating the Py5Shape as a square. the
-  # numeric arguments are similar to rect().
-  square = create_shape(RECT, 0, 0, 50, 50)
-  square.set_fill(color(0, 0, 255))
-  square.set_stroke(False)
-}
+def setup():
+    size(100, 100)
+    # creating the Py5Shape as a square. the
+    # numeric arguments are similar to rect().
+    square = create_shape(RECT, 0, 0, 50, 50)
+    square.set_fill(color(0, 0, 255))
+    square.set_stroke(False)
 
-void draw() {
-  shape(square, 25, 25)
-}
+
+def draw():
+    shape(square, 25, 25)
+
 
 @@ example
 Py5Shape s  # the Py5Shape object
 
-void setup() {
-  size(100, 100)
-  # creating a custom Py5Shape as a square, by
-  # specifying a series of vertices.
-  s = create_shape()
-  s.begin_shape()
-  s.fill(0, 0, 255)
-  s.no_stroke()
-  s.vertex(0, 0)
-  s.vertex(0, 50)
-  s.vertex(50, 50)
-  s.vertex(50, 0)
-  s.end_shape(CLOSE)
-}
+def setup():
+    size(100, 100)
+    # creating a custom Py5Shape as a square, by
+    # specifying a series of vertices.
+    s = create_shape()
+    s.begin_shape()
+    s.fill(0, 0, 255)
+    s.no_stroke()
+    s.vertex(0, 0)
+    s.vertex(0, 50)
+    s.vertex(50, 50)
+    s.vertex(50, 0)
+    s.end_shape(CLOSE)
 
-void draw() {
-  shape(s, 25, 25)
-}
+
+def draw():
+    shape(s, 25, 25)
+
 
 @@ example
 Py5Shape s
 
-void setup() {
-  size(100, 100, P2D)
-  s = create_shape()
-  s.begin_shape(TRIANGLE_STRIP)
-  s.vertex(30, 75)
-  s.vertex(40, 20)
-  s.vertex(50, 75)
-  s.vertex(60, 20)
-  s.vertex(70, 75)
-  s.vertex(80, 20)
-  s.vertex(90, 75)
-  s.end_shape()
-}
+def setup():
+    size(100, 100, P2D)
+    s = create_shape()
+    s.begin_shape(TRIANGLE_STRIP)
+    s.vertex(30, 75)
+    s.vertex(40, 20)
+    s.vertex(50, 75)
+    s.vertex(60, 20)
+    s.vertex(70, 75)
+    s.vertex(80, 20)
+    s.vertex(90, 75)
+    s.end_shape()
 
-void draw() {
-  shape(s, 0, 0)
-}
+
+def draw():
+    shape(s, 0, 0)
+
 
 @@ example
 Py5Shape alien, head, body
 
-void setup() {
-  size(100, 100)
+def setup():
+    size(100, 100)
 
-  # create the shape group
-  alien = create_shape(GROUP)
+    # create the shape group
+    alien = create_shape(GROUP)
 
-  # make two shapes
-  ellipse_mode(CORNER)
-  head = create_shape(ELLIPSE, -25, 0, 50, 50)
-  head.set_fill(color(255))
-  body = create_shape(RECT, -25, 45, 50, 40)
-  body.set_fill(color(0))
+    # make two shapes
+    ellipse_mode(CORNER)
+    head = create_shape(ELLIPSE, -25, 0, 50, 50)
+    head.set_fill(color(255))
+    body = create_shape(RECT, -25, 45, 50, 40)
+    body.set_fill(color(0))
 
-  # add the two "child" shapes to the parent group
-  alien.add_child(body)
-  alien.add_child(head)
-}
+    # add the two "child" shapes to the parent group
+    alien.add_child(body)
+    alien.add_child(head)
 
-void draw() {
-  background(204)
-  translate(50, 15)
-  shape(alien) # draw the group
-}
+
+def draw():
+    background(204)
+    translate(50, 15)
+    shape(alien) # draw the group
+

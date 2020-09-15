@@ -11,24 +11,24 @@ The ``set_vertex()`` method defines the coordinates of the vertex point located 
 @@ example
 Py5Shape s
 
-void setup() {
-  size(100, 100)
-  s = create_shape()
-  s.begin_shape()
-  s.vertex(0, 0)
-  s.vertex(60, 0)
-  s.vertex(60, 60)
-  s.vertex(0, 60)
-  s.end_shape(CLOSE)
-}
+def setup():
+    size(100, 100)
+    s = create_shape()
+    s.begin_shape()
+    s.vertex(0, 0)
+    s.vertex(60, 0)
+    s.vertex(60, 60)
+    s.vertex(0, 60)
+    s.end_shape(CLOSE)
 
-void draw() {
-  translate(20, 20)
-  for (int i = 0 i < s.get_vertex_count() i++) {
-    p_vector v = s.get_vertex(i)
-    v.x += random(-1, 1)
-    v.y += random(-1, 1)
-    s.set_vertex(i, v)
-  }
-  shape(s)
-}
+
+def draw():
+    translate(20, 20)
+    for i = range(0, s.get_vertex_count()):
+        p_vector v = s.get_vertex(i)
+        v.x += random(-1, 1)
+        v.y += random(-1, 1)
+        s.set_vertex(i, v)
+
+    shape(s)
+

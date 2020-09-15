@@ -15,14 +15,14 @@ image = PImage_mask_.png
 
 Py5Image photo, mask_image
 
-void setup() {
-  size(100, 100)
-  photo = load_image("test.jpg")
-  mask_image = load_image("mask.jpg")
-  photo.mask(mask_image)
-}
+def setup():
+    size(100, 100)
+    photo = load_image("test.jpg")
+    mask_image = load_image("mask.jpg")
+    photo.mask(mask_image)
 
-void draw() {
-  image(photo, 0, 0)
-  image(photo, width/4, 0)
-}
+
+def draw():
+    image(photo, 0, 0)
+    image(photo, width/4, 0)
+

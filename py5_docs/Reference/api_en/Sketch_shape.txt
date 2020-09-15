@@ -13,10 +13,10 @@ image = shape_1.png
 
 Py5Shape s
 
-void setup() {
-  s = load_shape("bot.svg")
-}
+def setup():
+    s = load_shape("bot.svg")
 
-void draw() {
-  shape(s, 10, 10, 80, 80)
-}
+
+def draw():
+    shape(s, 10, 10, 80, 80)
+

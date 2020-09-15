@@ -15,17 +15,17 @@ The ``redraw()`` function does not work properly when called inside ``draw()``. 
 @@ example
 float x = 0
 
-void setup() {
-  size(200, 200)
-  no_loop()
-}
+def setup():
+    size(200, 200)
+    no_loop()
 
-void draw() {
-  background(204)
-  line(x, 0, x, height) 
-}
 
-void mouse_pressed() {
-  x += 1
-  redraw()
-}
+def draw():
+    background(204)
+    line(x, 0, x, height) 
+
+
+def mouse_pressed():
+    x += 1
+    redraw()
+

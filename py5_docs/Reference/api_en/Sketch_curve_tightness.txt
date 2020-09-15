@@ -11,21 +11,21 @@ Modifies the quality of forms created with ``curve()`` and ``curve_vertex()``. T
 @@ example
 # move the mouse left and right to see the curve change
 
-void setup() {
-  size(100, 100)
-  no_fill()
-}
+def setup():
+    size(100, 100)
+    no_fill()
 
-void draw() {
-  background(204)
-  float t = map(mouse_x, 0, width, -5, 5)
-  curve_tightness(t)
-  begin_shape()
-  curve_vertex(10, 26)
-  curve_vertex(10, 26)
-  curve_vertex(83, 24)
-  curve_vertex(83, 61)
-  curve_vertex(25, 65) 
-  curve_vertex(25, 65)
-  end_shape()
-}
+
+def draw():
+    background(204)
+    float t = map(mouse_x, 0, width, -5, 5)
+    curve_tightness(t)
+    begin_shape()
+    curve_vertex(10, 26)
+    curve_vertex(10, 26)
+    curve_vertex(83, 24)
+    curve_vertex(83, 61)
+    curve_vertex(25, 65) 
+    curve_vertex(25, 65)
+    end_shape()
+

@@ -11,13 +11,13 @@ Sets the seed value for ``noise()``. By default, ``noise()`` produces different 
 @@ example
 float xoff = 0.0
 
-void setup() {
-  noise_seed(0)
-  stroke(0, 10)
-}
+def setup():
+    noise_seed(0)
+    stroke(0, 10)
 
-void draw() {
-  xoff = xoff + .01
-  float n = noise(xoff) * width
-  line(n, 0, n, height)
-}
+
+def draw():
+    xoff = xoff + .01
+    float n = noise(xoff) * width
+    line(n, 0, n, height)
+

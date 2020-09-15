@@ -11,18 +11,18 @@ This method is used to start a custom shape created with the ``create_shape()`` 
 @@ example
 Py5Shape s  # the Py5Shape object
 
-void setup() {  
-  size(100, 100)
-  s = create_shape()
-  s.begin_shape()
-  s.fill(0, 0, 255)
-  s.no_stroke()
-  s.vertex(0, 0)
-  s.vertex(0, 50)
-  s.vertex(50, 0)
-  s.end_shape()
-}
+def setup():  
+    size(100, 100)
+    s = create_shape()
+    s.begin_shape()
+    s.fill(0, 0, 255)
+    s.no_stroke()
+    s.vertex(0, 0)
+    s.vertex(0, 50)
+    s.vertex(50, 0)
+    s.end_shape()
 
-void draw() {
-  shape(s, 25, 25)
-}
+
+def draw():
+    shape(s, 25, 25)
+

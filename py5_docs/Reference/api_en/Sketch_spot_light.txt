@@ -26,6 +26,6 @@ int concentration = 600  # try 1 -> 10000
 background(0) 
 no_stroke() 
 spot_light(51, 102, 126, 50, 50, 400, 
-          0, 0, -1, PI/16, concentration) 
+                    0, 0, -1, PI/16, concentration) 
 translate(80, 50, 0) 
 sphere(30)

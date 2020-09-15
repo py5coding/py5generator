@@ -10,11 +10,10 @@ Hides the cursor from view. Will not work when running the program in a web brow
 
 @@ example
 # press the mouse to hide the cursor
-void draw() 
-{
-  if (mouse_pressed == True) {
-    no_cursor()
-  } else {
-    cursor(HAND)
-  }
-}
+def draw():
+    if mouse_pressed == True:
+        no_cursor()
+    else:
+        cursor(HAND)
+
+

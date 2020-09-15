@@ -11,25 +11,25 @@ Clears the pixels within a buffer. This function only works on ``Py5Graphics`` o
 @@ example
 Py5Graphics pg
 
-void setup() {
-  size(200, 200)
-  pg = create_graphics(width, height)
-}
+def setup():
+    size(200, 200)
+    pg = create_graphics(width, height)
 
-void draw() {
-  background(204)
-  
-  # clear the Py5Graphics when the mouse is pressed
-  if (mouse_pressed == True) {
-    pg.begin_draw() 
-    pg.clear()
-    pg.end_draw()
-  } else {
-    pg.begin_draw()
-    pg.stroke(0, 102, 153)
-    pg.line(width/2, height/2, mouse_x, mouse_y)
-    pg.end_draw()
-  }
 
-  image(pg, 0, 0)
-}
+def draw():
+    background(204)
+   
+    # clear the Py5Graphics when the mouse is pressed
+    if mouse_pressed == True:
+        pg.begin_draw() 
+        pg.clear()
+        pg.end_draw()
+    else:
+        pg.begin_draw()
+        pg.stroke(0, 102, 153)
+        pg.line(width/2, height/2, mouse_x, mouse_y)
+        pg.end_draw()
+
+
+    image(pg, 0, 0)
+

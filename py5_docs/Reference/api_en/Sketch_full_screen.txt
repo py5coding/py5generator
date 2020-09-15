@@ -18,17 +18,17 @@ Prior to Processing 3.0, a full-screen program was defined with ``size(display_w
 
 int x = 0
 
-void setup() {
-  full_screen()
-  background(0)
-  no_stroke()
-  fill(102)
-}
+def setup():
+    full_screen()
+    background(0)
+    no_stroke()
+    fill(102)
 
-void draw() {
-  rect(x, height*0.2, 1, height*0.6) 
-  x = x + 2
-}
+
+def draw():
+    rect(x, height*0.2, 1, height*0.6) 
+    x = x + 2
+
 
 @@ example
 # if more than one screen is attached to the computer, run the 
@@ -37,34 +37,34 @@ void draw() {
 
 int x = 0
 
-void setup() {
-  full_screen(2)
-  background(0)
-  no_stroke()
-  fill(102)
-}
+def setup():
+    full_screen(2)
+    background(0)
+    no_stroke()
+    fill(102)
 
-void draw() {
-  rect(x, height*0.2, 1, height*0.6) 
-  x = x + 2
-}
+
+def draw():
+    rect(x, height*0.2, 1, height*0.6) 
+    x = x + 2
+
 
 @@ example
 # run full screen using the P2D renderer on screen 2
 
 int x = 0
 
-void setup() {
-  full_screen(P2D, 2)
-  background(0)
-  no_stroke()
-  fill(102)
-}
+def setup():
+    full_screen(P2D, 2)
+    background(0)
+    no_stroke()
+    fill(102)
 
-void draw() {
-  rect(x, height*0.2, 1, height*0.6) 
-  x = x + 2
-}
+
+def draw():
+    rect(x, height*0.2, 1, height*0.6) 
+    x = x + 2
+
 
 @@ example
 # if more than one screen is attached to the computer, run the 
@@ -72,14 +72,14 @@ void draw() {
 
 int x = 0
 
-void setup() {
-  full_screen(P2D, SPAN)
-  background(0)
-  no_stroke()
-  fill(102)
-}
+def setup():
+    full_screen(P2D, SPAN)
+    background(0)
+    no_stroke()
+    fill(102)
 
-void draw() {
-  rect(x, height*0.2, 1, height*0.6) 
-  x = x + 2
-}
+
+def draw():
+    rect(x, height*0.2, 1, height*0.6) 
+    x = x + 2
+

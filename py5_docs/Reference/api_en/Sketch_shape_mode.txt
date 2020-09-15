@@ -13,14 +13,14 @@ image = shapeMode_.png
 
 Py5Shape bot 
 
-void setup() {
-  size(100, 100)
-  bot = load_shape("bot.svg")
-}
+def setup():
+    size(100, 100)
+    bot = load_shape("bot.svg")
 
-void draw() {
-  shape_mode(CENTER)
-  shape(bot, 35, 35, 50, 50)
-  shape_mode(CORNER)
-  shape(bot, 35, 35, 50, 50)
-}
+
+def draw():
+    shape_mode(CENTER)
+    shape(bot, 35, 35, 50, 50)
+    shape_mode(CORNER)
+    shape(bot, 35, 35, 50, 50)
+

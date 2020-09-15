@@ -14,17 +14,17 @@ image = PImage_loadPixels_.png
 Py5Image my_image
 int half_image
 
-void setup() {
-  size(100, 100)
-  half_image = width * height/2
-  my_image = load_image("apples.jpg")
-  my_image.load_pixels()
-  for (int i = 0 i < half_image i++) {
-    my_image.pixels[i+half_image] = my_image.pixels[i]
-  }
-  my_image.update_pixels()
-}
+def setup():
+    size(100, 100)
+    half_image = width * height/2
+    my_image = load_image("apples.jpg")
+    my_image.load_pixels()
+    for i = range(0, half_image):
+        my_image.pixels[i+half_image] = my_image.pixels[i]
 
-void draw() {
-  image(my_image, 0, 0)
-}
+    my_image.update_pixels()
+
+
+def draw():
+    image(my_image, 0, 0)
+

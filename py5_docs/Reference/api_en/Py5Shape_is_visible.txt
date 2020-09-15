@@ -15,18 +15,18 @@ image = PShape_isVisible_.png
 
 Py5Shape s
 
-void setup() {
-  size(100, 100)
-  # the file "bot.svg" must be in the data folder
-  # of the current sketch to load successfully 
-  s = load_shape("bot.svg")
-}
-void draw() {
-  background(204)
-  shape(s, 10, 10, 80, 80)  # draw shape
-  s.set_visible(mouse_pressed)
-  if (s.is_visible() == False) {  # or use: "if (!s.isVisible)"
-    no_fill()
-    rect(10, 10, 80, 80) 
-  }
-}
+def setup():
+    size(100, 100)
+    # the file "bot.svg" must be in the data folder
+    # of the current sketch to load successfully 
+    s = load_shape("bot.svg")
+
+def draw():
+    background(204)
+    shape(s, 10, 10, 80, 80)  # draw shape
+    s.set_visible(mouse_pressed)
+    if s.is_visible() == False:  # or use: "if (!s.isVisible)"
+        no_fill()
+        rect(10, 10, 80, 80) 
+
+

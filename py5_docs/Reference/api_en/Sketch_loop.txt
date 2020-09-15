@@ -9,26 +9,26 @@ processing_name = loop
 By default, Processing loops through ``draw()`` continuously, executing the code within it. However, the ``draw()`` loop may be stopped by calling ``no_loop()``. In that case, the ``draw()`` loop can be resumed with ``loop()``.
 
 @@ example
-void setup() {
-  size(200, 200)
-  no_loop()  # draw() will not loop
-}
+def setup():
+    size(200, 200)
+    no_loop()  # draw() will not loop
+
 
 float x = 0
 
-void draw() {
-  background(204)
-  x = x + .1
-  if (x > width) {
-    x = 0
-  }
-  line(x, 0, x, height) 
-}
+def draw():
+    background(204)
+    x = x + .1
+    if x > width:
+        x = 0
 
-void mouse_pressed() {
-  loop()  # holding down the mouse activates looping
-}
+    line(x, 0, x, height) 
 
-void mouse_released() {
-  no_loop()  # releasing the mouse stops looping draw()
-}
+
+def mouse_pressed():
+    loop()  # holding down the mouse activates looping
+
+
+def mouse_released():
+    no_loop()  # releasing the mouse stops looping draw()
+

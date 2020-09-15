@@ -11,25 +11,25 @@ Sets the resolution at which curves display. The default value is 20. This funct
 @@ example
 image = curveDetail_.png
 
-void setup() {
-  size(100, 100, P3D)
-  no_fill()
-  no_loop()
-}
+def setup():
+    size(100, 100, P3D)
+    no_fill()
+    no_loop()
 
-void draw() {
-  curve_detail(1)
-  draw_curves(-15)
-  stroke(126)
-  curve_detail(2)
-  draw_curves(0)
-  stroke(255)
-  curve_detail(4)
-  draw_curves(15)
-}
 
-void draw_curves(float y) {
-  curve( 5, 28+y,  5, 28+y, 73, 26+y, 73, 63+y)
-  curve( 5, 28+y, 73, 26+y, 73, 63+y, 15, 67+y) 
-  curve(73, 26+y, 73, 63+y, 15, 67+y, 15, 67+y)
-}
+def draw():
+    curve_detail(1)
+    draw_curves(-15)
+    stroke(126)
+    curve_detail(2)
+    draw_curves(0)
+    stroke(255)
+    curve_detail(4)
+    draw_curves(15)
+
+
+def draw_curves(float y):
+    curve( 5, 28+y,  5, 28+y, 73, 26+y, 73, 63+y)
+    curve( 5, 28+y, 73, 26+y, 73, 63+y, 15, 67+y) 
+    curve(73, 26+y, 73, 63+y, 15, 67+y, 15, 67+y)
+

@@ -15,7 +15,7 @@ image = pixels.png
 
 color pink = color(255, 102, 204)
 load_pixels()
-for (int i = 0 i < (width*height/2)-width/2 i++) {
-  pixels[i] = pink
-}
+for i = range(0, (width*height/2)-width/2):
+    pixels[i] = pink
+
 update_pixels()

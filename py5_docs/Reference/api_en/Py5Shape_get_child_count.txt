@@ -11,9 +11,9 @@ Returns the number of children within the PShape.
 @@ example
 Py5Shape states
 
-void setup() {
-  size(100, 100)
-  states = load_shape("tristate.svg")
-  int count = states.get_child_count()
-  print(count)
-}
+def setup():
+    size(100, 100)
+    states = load_shape("tristate.svg")
+    int count = states.get_child_count()
+    print(count)
+

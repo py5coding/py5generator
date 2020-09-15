@@ -13,53 +13,53 @@ When ``no_loop()`` is used, it's not possible to manipulate or access the screen
 Note that if the sketch is resized, ``redraw()`` will be called to update the sketch, even after ``no_loop()`` has been specified. Otherwise, the sketch would enter an odd state until ``loop()`` was called.
 
 @@ example
-void setup() {
-  size(200, 200)
-  no_loop()
-}
+def setup():
+    size(200, 200)
+    no_loop()
 
-void draw() {
-  line(10, 10, 190, 190)
-}
+
+def draw():
+    line(10, 10, 190, 190)
+
 
 @@ example
-void setup() {
-  size(200, 200)
-}
+def setup():
+    size(200, 200)
+
 
 float x = 0.0
 
-void draw() {
-  background(204)
-  x = x + 0.1
-  if (x > width) {
-    x = 0
-  }
-  line(x, 0, x, height) 
-}
+def draw():
+    background(204)
+    x = x + 0.1
+    if x > width:
+        x = 0
 
-void mouse_pressed() {
-  no_loop()
-}
+    line(x, 0, x, height) 
 
-void mouse_released() {
-  loop()
-}
+
+def mouse_pressed():
+    no_loop()
+
+
+def mouse_released():
+    loop()
+
 
 @@ example
 boolean some_mode = False
 
-void setup() {
-  no_loop()
-}
+def setup():
+    no_loop()
 
-void draw() {
-  if (some_mode) {
-    # do something
-  }
-}
 
-void mouse_pressed() {
-  some_mode = True
-  redraw()  # or loop()
-}
+def draw():
+    if some_mode:
+        # do something
+
+
+
+def mouse_pressed():
+    some_mode = True
+    redraw()  # or loop()
+

@@ -13,16 +13,16 @@ Using this method with the ``z`` parameter requires using the P3D parameter in c
 @@ example
 Py5Shape s
 
-void setup() {
-  s = load_shape("bot.svg")
-}
+def setup():
+    s = load_shape("bot.svg")
 
-void draw() {
-  background(204)
-  shape(s)
-}
 
-void mouse_pressed() {
-  # move the shape 10 pixels right each time the mouse is pressed
-  s.translate(10, 0)  
-}
+def draw():
+    background(204)
+    shape(s)
+
+
+def mouse_pressed():
+    # move the shape 10 pixels right each time the mouse is pressed
+    s.translate(10, 0)  
+

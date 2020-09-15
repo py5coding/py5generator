@@ -17,7 +17,7 @@ no_fill()
 float fov = PI/3.0
 float camera_z = (height/2.0) / tan(fov/2.0)
 perspective(fov, float(width)/float(height), 
-            camera_z/10.0, camera_z*10.0)
+                        camera_z/10.0, camera_z*10.0)
 translate(50, 50, 0)
 rotate_x(-PI/6)
 rotate_y(PI/3)

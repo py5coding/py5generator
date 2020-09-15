@@ -17,26 +17,26 @@ image = image_0.png
 
 Py5Image img
 
-void setup() {
-  # images must be in the "data" directory to load correctly
-  img = load_image("laDefense.jpg")
-}
+def setup():
+    # images must be in the "data" directory to load correctly
+    img = load_image("laDefense.jpg")
 
-void draw() {
-  image(img, 0, 0)
-}
+
+def draw():
+    image(img, 0, 0)
+
 
 @@ example
 image = image_1.png
 
 Py5Image img
 
-void setup() {
-  # images must be in the "data" directory to load correctly
-  img = load_image("laDefense.jpg")
-}
+def setup():
+    # images must be in the "data" directory to load correctly
+    img = load_image("laDefense.jpg")
 
-void draw() {
-  image(img, 0, 0)
-  image(img, 0, 0, width/2, height/2)
-}
+
+def draw():
+    image(img, 0, 0)
+    image(img, 0, 0, width/2, height/2)
+

@@ -96,13 +96,13 @@ image = filter_4_blur.png
 Py5Shader blur
 Py5Image img
 
-void setup() {
-  size(100, 100, P2D)
-  blur = load_shader("blur.glsl")
-  img = load_image("apples.jpg")
-  image(img, 0, 0) 
-}
+def setup():
+    size(100, 100, P2D)
+    blur = load_shader("blur.glsl")
+    img = load_image("apples.jpg")
+    image(img, 0, 0) 
 
-void draw() {
-  filter(blur) # blurs more each time through draw()
-}
+
+def draw():
+    filter(blur) # blurs more each time through draw()
+

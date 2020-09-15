@@ -15,13 +15,13 @@ image = PImage_copy_.png
 
 Py5Image apples
 
-void setup() {
-  size(100, 100)
-  apples = load_image("apples.jpg")
-  int x = width/2
-  apples.copy(x, 0, x, height, 0, 0, x, height)
-}
+def setup():
+    size(100, 100)
+    apples = load_image("apples.jpg")
+    int x = width/2
+    apples.copy(x, 0, x, height, 0, 0, x, height)
 
-void draw() {
-  image(apples, 0, 0)
-}
+
+def draw():
+    image(apples, 0, 0)
+

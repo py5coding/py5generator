@@ -21,28 +21,28 @@ ellipse(30, 48, 36, 36)
 ellipse(70, 48, 36, 36)
 
 @@ example
-void setup() {
-  size(100, 100)
-  pixel_density(2)
-  no_stroke()
-}
+def setup():
+    size(100, 100)
+    pixel_density(2)
+    no_stroke()
 
-void draw() {
-  background(0)
-  ellipse(30, 48, 36, 36)
-  ellipse(70, 48, 36, 36)
-}
+
+def draw():
+    background(0)
+    ellipse(30, 48, 36, 36)
+    ellipse(70, 48, 36, 36)
+
 
 @@ example
-void setup() {
-  size(100, 100)
-  # pulling the display's density dynamically
-  pixel_density(display_density())
-  no_stroke()
-}
+def setup():
+    size(100, 100)
+    # pulling the display's density dynamically
+    pixel_density(display_density())
+    no_stroke()
 
-void draw() {
-  background(0)
-  ellipse(30, 48, 36, 36)
-  ellipse(70, 48, 36, 36)
-}
+
+def draw():
+    background(0)
+    ellipse(30, 48, 36, 36)
+    ellipse(70, 48, 36, 36)
+

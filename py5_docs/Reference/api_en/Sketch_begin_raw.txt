@@ -19,18 +19,18 @@ See examples in the reference for the ``PDF`` and ``DXF`` libraries for more inf
 @@ example
 import processing.pdf.*
 
-void setup() {
-  size(400, 400)
-  begin_raw(PDF, "raw.pdf")
-}
+def setup():
+    size(400, 400)
+    begin_raw(PDF, "raw.pdf")
 
-void draw() {
-  line(pmouse_x, pmouse_y, mouse_x, mouse_y)
-}
 
-void key_pressed() {
-  if (key == ' ') {
-    end_raw()
-    exit()
-  }
-}
+def draw():
+    line(pmouse_x, pmouse_y, mouse_x, mouse_y)
+
+
+def key_pressed():
+    if key == ' ':
+        end_raw()
+        exit()
+
+

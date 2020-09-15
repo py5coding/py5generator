@@ -15,17 +15,17 @@ This method requires a 3D renderer. You need to use P3D as a third parameter for
 @@ example
 Py5Shape s
 
-void setup() {
-  size(100, 100, P3D)
-  s = load_shape("ohio.svg")
-}
+def setup():
+    size(100, 100, P3D)
+    s = load_shape("ohio.svg")
 
-void draw() {
-  background(204)
-  shape(s)
-}
 
-void mouse_pressed() {
-  # rotate the shape around the x-axis each time the mouse is pressed
-  s.rotate_x(0.1)  
-}
+def draw():
+    background(204)
+    shape(s)
+
+
+def mouse_pressed():
+    # rotate the shape around the x-axis each time the mouse is pressed
+    s.rotate_x(0.1)  
+

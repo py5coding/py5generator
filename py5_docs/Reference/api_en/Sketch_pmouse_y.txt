@@ -13,8 +13,8 @@ For more detail on how ``pmouse_y`` is updated inside of mouse events and ``draw
 @@ example
 # move the mouse quickly to see the difference 
 # between the current and previous position 
-void draw() { 
-  background(204) 
-  line(20, mouse_y, 80, pmouse_y) 
-  print(mouse_y + " : " + pmouse_y)
-}
+def draw(): 
+    background(204) 
+    line(20, mouse_y, 80, pmouse_y) 
+    print(mouse_y + " : " + pmouse_y)
+

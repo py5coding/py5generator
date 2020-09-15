@@ -11,30 +11,30 @@ Adds a child PShape to a parent PShape that is defined as a GROUP. In the exampl
 @@ example
 Py5Shape house
 
-void setup() {
-  size(200, 200)
+def setup():
+    size(200, 200)
 
-  # make a group Py5Shape
-  house = create_shape(GROUP)
-  
-  # make three shapes
-  Py5Shape path = create_shape()
-  path.begin_shape()
-  path.vertex(-20, -20)
-  path.vertex(0, -40)
-  path.vertex(20, -20)
-  path.end_shape()
-  Py5Shape rectangle = create_shape(RECT, -20, -20, 40, 40)
-  Py5Shape circle = create_shape(ELLIPSE, 0, 0, 20, 20)
-  
-  # add all three as children
-  house.add_child(path)
-  house.add_child(rectangle)
-  house.add_child(circle)
-}
+    # make a group Py5Shape
+    house = create_shape(GROUP)
+   
+    # make three shapes
+    Py5Shape path = create_shape()
+    path.begin_shape()
+    path.vertex(-20, -20)
+    path.vertex(0, -40)
+    path.vertex(20, -20)
+    path.end_shape()
+    Py5Shape rectangle = create_shape(RECT, -20, -20, 40, 40)
+    Py5Shape circle = create_shape(ELLIPSE, 0, 0, 20, 20)
+   
+    # add all three as children
+    house.add_child(path)
+    house.add_child(rectangle)
+    house.add_child(circle)
 
-void draw() {
-  background(52)
-  translate(mouse_x, mouse_y)
-  shape(house)
-}
+
+def draw():
+    background(52)
+    translate(mouse_x, mouse_y)
+    shape(house)
+

@@ -12,31 +12,31 @@ When a mouse button is pressed, the value of the system variable ``mouse_button`
 # click within the image and press
 # the left and right mouse buttons to 
 # change the value of the rectangle
-void draw() {
-  if (mouse_pressed && (mouse_button == LEFT)) {
-    fill(0)
-  } else if (mouse_pressed && (mouse_button == RIGHT)) {
-    fill(255)
-  } else {
-    fill(126)
-  }
-  rect(25, 25, 50, 50)
-}
+def draw():
+    if mouse_pressed && (mouse_button == LEFT):
+        fill(0)
+    elif mouse_pressed && (mouse_button == RIGHT):
+        fill(255)
+    else:
+        fill(126)
+
+    rect(25, 25, 50, 50)
+
 
 @@ example
 # click within the image and press
 # the left and right mouse buttons to 
 # change the value of the rectangle
-void draw() {
-  rect(25, 25, 50, 50)
-}
+def draw():
+    rect(25, 25, 50, 50)
 
-void mouse_pressed() {
-  if (mouse_button == LEFT) {
-    fill(0)
-  } else if (mouse_button == RIGHT) {
-    fill(255)
-  } else {
-    fill(126)
-  }
-}
+
+def mouse_pressed():
+    if mouse_button == LEFT:
+        fill(0)
+    elif mouse_button == RIGHT:
+        fill(255)
+    else:
+        fill(126)
+
+

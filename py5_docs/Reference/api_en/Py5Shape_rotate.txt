@@ -13,17 +13,17 @@ Shapes are always rotated around the upper-left corner of their bounding box. Po
 @@ example
 Py5Shape s
 
-void setup() {
-  size(100, 100)
-  s = load_shape("ohio.svg")
-}
+def setup():
+    size(100, 100)
+    s = load_shape("ohio.svg")
 
-void draw() {
-  background(204)
-  shape(s)
-}
 
-void mouse_pressed() {
-  # rotate the shape each time the mouse is pressed
-  s.rotate(0.1)  
-}
+def draw():
+    background(204)
+    shape(s)
+
+
+def mouse_pressed():
+    # rotate the shape each time the mouse is pressed
+    s.rotate(0.1)  
+

@@ -11,15 +11,15 @@ The ``set_fill()`` method defines the fill color of a ``Py5Shape``. This method 
 @@ example
 Py5Shape circle
 
-void setup() {  
-  size(640, 360, P2D)
-  circle = create_shape(ELLIPSE, 0, 0, 200, 200)
-  circle.set_stroke(color(255))  
-}
+def setup():  
+    size(640, 360, P2D)
+    circle = create_shape(ELLIPSE, 0, 0, 200, 200)
+    circle.set_stroke(color(255))  
 
-void draw() {
-  background(51)
-  circle.set_fill(color(random(255)))
-  translate(mouse_x, mouse_y)
-  shape(circle)
-}
+
+def draw():
+    background(51)
+    circle.set_fill(color(random(255)))
+    translate(mouse_x, mouse_y)
+    shape(circle)
+

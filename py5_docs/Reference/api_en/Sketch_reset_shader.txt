@@ -11,16 +11,16 @@ Restores the default shaders. Code that runs after ``reset_shader()`` will not b
 @@ example
 Py5Shader edges  
 Py5Image img
-    
-void setup() {
-  size(640, 360, P2D)
-  img = load_image("leaves.jpg")      
-  edges = load_shader("edges.glsl")
-}
+       
+def setup():
+    size(640, 360, P2D)
+    img = load_image("leaves.jpg")      
+    edges = load_shader("edges.glsl")
 
-void draw() {
-  shader(edges)
-  image(img, 0, 0)
-  reset_shader()
-  image(img, width/2, 0)
-}
+
+def draw():
+    shader(edges)
+    image(img, 0, 0)
+    reset_shader()
+    image(img, width/2, 0)
+

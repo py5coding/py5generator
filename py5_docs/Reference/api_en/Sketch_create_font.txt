@@ -15,13 +15,13 @@ This function allows Processing to work with the font natively in the default re
 @@ example
 Py5Font my_font
 
-void setup() {
-  size(200, 200)
-  # uncomment the following two lines to see the available fonts 
-  #string[] font_list = Py5Font.list()
-  #print_array(font_list)
-  my_font = create_font("Georgia", 32)
-  text_font(my_font)
-  text_align(CENTER, CENTER)
-  text("!@#$%", width/2, height/2)
-}
+def setup():
+    size(200, 200)
+    # uncomment the following two lines to see the available fonts 
+    #string[] font_list = Py5Font.list()
+    #print_array(font_list)
+    my_font = create_font("Georgia", 32)
+    text_font(my_font)
+    text_align(CENTER, CENTER)
+    text("!@#$%", width/2, height/2)
+

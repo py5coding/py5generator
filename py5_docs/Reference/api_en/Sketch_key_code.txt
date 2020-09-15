@@ -21,19 +21,19 @@ If you are using P2D or P3D as your renderer, use the NEWT KeyEvent constants.
 @@ example
 color fill_val = color(126)
 
-void draw() {
-  fill(fill_val)
-  rect(25, 25, 50, 50)
-}
+def draw():
+    fill(fill_val)
+    rect(25, 25, 50, 50)
 
-void key_pressed() {
-  if (key == CODED) {
-    if (key_code == UP) {
-      fill_val = 255
-    } else if (key_code == DOWN) {
-      fill_val = 0
-    } 
-  } else {
-    fill_val = 126
-  }
-}
+
+def key_pressed():
+    if key == CODED:
+        if key_code == UP:
+            fill_val = 255
+        elif key_code == DOWN:
+            fill_val = 0
+ 
+    else:
+        fill_val = 126
+
+
