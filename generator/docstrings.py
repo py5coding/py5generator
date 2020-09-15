@@ -6,8 +6,6 @@ from pathlib import Path
 
 from .docfiles import Documentation
 
-# TODO: use Google format instead?
-# https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html#docstring-sections
 
 logger = logging.getLogger(__name__)
 
@@ -25,8 +23,8 @@ Parameters
 
 SIGNATURES_TEMPLATE = """
 
-Note
-----
+Methods
+-------
 
 You can use any of the following signatures:
 
