@@ -31,8 +31,7 @@ You can use any of the following signatures:
 {0}"""
 
 
-METHOD_DOC_TEMPLATE = """
-{0}
+METHOD_DOC_TEMPLATE = """{0}
 
 Notes
 -----
@@ -93,7 +92,7 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
                 extras = SIGNATURES_TEMPLATE.format(signatures_txt)
             if variables:
                 variables_txt = [f'{k}\n    {v}\n' for k, v in variables.items()]
-                extras += PARAMETERS_TEMPLATE.format('\n'.join(sorted(variables_txt)))
+                extras += PARAMETERS_TEMPLATE.format('\n'.join(sorted(variables_txt)))[:-1]
             docstring = METHOD_DOC_TEMPLATE.format(first_sentence + extras, description)
         else:
             docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence, description)
