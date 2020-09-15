@@ -181,7 +181,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         self.profile_functions(['draw'])
 
     def print_line_profiler_stats(self) -> None:
-        """$class_Sketch_print_line_profiler_stats|"""
+        """$class_Sketch_print_line_profiler_stats"""
         self._py5_methods.dump_stats()
 
     def _insert_frame(self, what, num=None):

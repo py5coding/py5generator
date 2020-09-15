@@ -71,6 +71,7 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
                     signatures = ['signatures missing']
             else:
                 for params, rettype in method_signatures_lookup[tuple_key]:
+                    params = [p.replace('*', '') for p in params]
                     signatures.append(f"{tuple_key[1]}({', '.join(filter(lambda p: p != '/', params))}) -> {rettype}")
                     for p in filter(lambda p: p != '/', params):
                         if p in variables:

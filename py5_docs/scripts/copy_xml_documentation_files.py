@@ -63,6 +63,8 @@ def snake_case(name):
 def adjust_code(code):
     # TODO: convert Java functions to Python functions
     # TODO: do something about varible declarations
+    if code == '#':
+        return code
     code = re.sub(r'#(?=[\da-fA-F]{2,})', '0x', code)
     tokens = shlex.shlex(code)
     tokens.whitespace = ''
