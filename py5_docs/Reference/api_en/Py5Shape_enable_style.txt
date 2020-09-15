@@ -14,7 +14,9 @@ image = PShape_enableStyle_.png
 Py5Shape s
 
 void setup() {
-      s = load_shape("bot.svg")
+  # the file "bot.svg" must be in the data folder
+  # of the current sketch to load successfully
+  s = load_shape("bot.svg")
 }
 
 void draw() {

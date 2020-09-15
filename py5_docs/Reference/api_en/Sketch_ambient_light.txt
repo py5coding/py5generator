@@ -14,6 +14,8 @@ image = ambientLight_0.png
 size(100, 100, P3D)
 background(0)
 no_stroke()
+# the spheres are white by default so
+# the ambient light changes their color
 ambient_light(51, 102, 126)
 translate(20, 50, 0)
 sphere(30)

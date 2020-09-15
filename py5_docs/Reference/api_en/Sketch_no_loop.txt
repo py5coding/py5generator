@@ -47,7 +47,7 @@ void mouse_released() {
 }
 
 @@ example
-boolean some_mode = false
+boolean some_mode = False
 
 void setup() {
   no_loop()
@@ -55,9 +55,11 @@ void setup() {
 
 void draw() {
   if (some_mode) {
-      }
+    # do something
+  }
 }
 
 void mouse_pressed() {
-  some_mode = true
-  redraw()  }
+  some_mode = True
+  redraw()  # or loop()
+}

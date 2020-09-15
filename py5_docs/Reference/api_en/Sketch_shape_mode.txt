@@ -6,7 +6,7 @@ type = None
 processing_name = shapeMode
 
 @@ description
-Modifies the location from which shapes draw. The default mode is ``shape_mode(corner)``, which specifies the location to be the upper left corner of the shape and uses the third and fourth parameters of ``shape()`` to specify the width and height. The syntax ``shape_mode(corners)`` uses the first and second parameters of ``shape()`` to set the location of one corner and uses the third and fourth parameters to set the opposite corner. The syntax ``shape_mode(center)`` draws the shape from its center point and uses the third and forth parameters of ``shape()`` to specify the width and height. The parameter must be written in "ALL CAPS" because Processing is a case sensitive language.
+Modifies the location from which shapes draw. The default mode is ``shape_mode(CORNER)``, which specifies the location to be the upper left corner of the shape and uses the third and fourth parameters of ``shape()`` to specify the width and height. The syntax ``shape_mode(CORNERS)`` uses the first and second parameters of ``shape()`` to set the location of one corner and uses the third and fourth parameters to set the opposite corner. The syntax ``shape_mode(CENTER)`` draws the shape from its center point and uses the third and forth parameters of ``shape()`` to specify the width and height. The parameter must be written in "ALL CAPS" because Processing is a case sensitive language.
 
 @@ example
 image = shapeMode_.png

@@ -49,12 +49,15 @@ void draw() {
 }
 
 @@ example
-size(150, 200, P3D)  background(153)
+size(150, 200, P3D)  # specify P3D renderer
+background(153)
 
+# with P3D, we can use z (depth) values...
 line(0, 0, 0, width, height, -100)
 line(width, 0, 0, width, height, -100)
 line(0, height, 0, width, height, -100)
 
+#...and 3D-specific functions, like box()
 translate(width/2, height/2)
 rotate_x(PI/6)
 rotate_y(PI/6)

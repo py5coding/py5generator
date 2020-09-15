@@ -10,24 +10,45 @@ Creates colors for storing in variables of the ``color`` datatype. The parameter
 
 Note that if only one value is provided to ``color()``, it will be interpreted as a grayscale value. Add a second value, and it will be used for alpha transparency. When three values are specified, they are interpreted as either RGB or HSB values. Adding a fourth value applies alpha transparency.
 
-Note that when using hexadecimal notation, it is not necessary to use ``color()``, as in: ``color c = #006699``
+Note that when using hexadecimal notation, it is not necessary to use ``color()``, as in: ``color c = 0x006699``
 
 More about how colors are stored can be found in the reference for the color datatype.
 
 @@ example
 image = color_0.png
 
-color c = color(255, 204, 0)  fill(c)  no_stroke()  rect(30, 20, 55, 55)  
+color c = color(255, 204, 0)  # define color 'c'
+fill(c)  # use color variable 'c' as fill color
+no_stroke()  # don't draw a stroke around shapes
+rect(30, 20, 55, 55)  # draw rectangle
 
 @@ example
 image = color_1.png
 
-color c = color(255, 204, 0)  fill(c)  no_stroke()  ellipse(25, 25, 80, 80)  
-c = color(65)  fill(c)  ellipse(75, 75, 80, 80)  
+color c = color(255, 204, 0)  # define color 'c'
+fill(c)  # use color variable 'c' as fill color
+no_stroke()  # don't draw a stroke around shapes
+ellipse(25, 25, 80, 80)  # draw left circle
+
+# using only one value with color()
+# generates a grayscale value.
+c = color(65)  # update 'c' with grayscale value
+fill(c)  # use updated 'c' as fill color
+ellipse(75, 75, 80, 80)  # draw right circle
 
 @@ example
 image = color_2.png
 
-color c  no_stroke()  
-c = color(50, 55, 100)  fill(c)  rect(0, 10, 45, 80)  
-color_mode(HSB, 100)  c = color(50, 55, 100)  fill(c)  rect(55, 10, 45, 80)  
+color c  # declare color 'c'
+no_stroke()  # don't draw a stroke around shapes
+
+# if no color_mode is specified, then the
+# default of RGB with scale of 0-255 is used.
+c = color(50, 55, 100)  # create a color for 'c'
+fill(c)  # use color variable 'c' as fill color
+rect(0, 10, 45, 80)  # draw left rect
+
+color_mode(HSB, 100)  # use HSB with scale of 0-100
+c = color(50, 55, 100)  # update 'c' with new color
+fill(c)  # use updated 'c' as fill color
+rect(55, 10, 45, 80)  # draw right rect

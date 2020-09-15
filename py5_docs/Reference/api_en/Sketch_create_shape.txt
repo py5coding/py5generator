@@ -15,12 +15,15 @@ The  ``create_shape()`` function can also be used to make a complex shape made o
 After using ``create_shape()``, stroke and fill color can be set by calling methods like ``set_fill()`` and ``set_stroke()``, as seen in the examples above. The complete list of methods and fields for the PShape class are in the Processing Javadoc.
 
 @@ example
-Py5Shape square  
+Py5Shape square  # the Py5Shape object
+
 void setup() {
   size(100, 100)
-      square = create_shape(RECT, 0, 0, 50, 50)
+  # creating the Py5Shape as a square. the
+  # numeric arguments are similar to rect().
+  square = create_shape(RECT, 0, 0, 50, 50)
   square.set_fill(color(0, 0, 255))
-  square.set_stroke(false)
+  square.set_stroke(False)
 }
 
 void draw() {
@@ -28,10 +31,13 @@ void draw() {
 }
 
 @@ example
-Py5Shape s  
+Py5Shape s  # the Py5Shape object
+
 void setup() {
   size(100, 100)
-      s = create_shape()
+  # creating a custom Py5Shape as a square, by
+  # specifying a series of vertices.
+  s = create_shape()
   s.begin_shape()
   s.fill(0, 0, 255)
   s.no_stroke()
@@ -73,19 +79,23 @@ Py5Shape alien, head, body
 void setup() {
   size(100, 100)
 
-    alien = create_shape(GROUP)
+  # create the shape group
+  alien = create_shape(GROUP)
 
-    ellipse_mode(CORNER)
+  # make two shapes
+  ellipse_mode(CORNER)
   head = create_shape(ELLIPSE, -25, 0, 50, 50)
   head.set_fill(color(255))
   body = create_shape(RECT, -25, 45, 50, 40)
   body.set_fill(color(0))
 
-    alien.add_child(body)
+  # add the two "child" shapes to the parent group
+  alien.add_child(body)
   alien.add_child(head)
 }
 
 void draw() {
   background(204)
   translate(50, 15)
-  shape(alien) }
+  shape(alien) # draw the group
+}

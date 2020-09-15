@@ -20,19 +20,29 @@ void draw() {
   background(0)
  
   push_matrix()
-    translate(width/2, height/2, -200)     
-    rotate_y(1.0)   rotate_z(2.0)     rotate_x(frame_count / 100.0)
-    translate(0, 150, 0)
+  # start at the middle of the screen
+  translate(width/2, height/2, -200)     
+  # some random rotation to make things interesting
+  rotate_y(1.0) #yrot)
+  rotate_z(2.0) #zrot)
+  # rotate in X a little more each frame
+  rotate_x(frame_count / 100.0)
+  # offset from center
+  translate(0, 150, 0)
  
-    stroke(255)
+  # draw a white box outline at (0, 0, 0)
+  stroke(255)
   box(50)
  
-    float x = model_x(0, 0, 0)
+  # the box was drawn at (0, 0, 0), store that location
+  float x = model_x(0, 0, 0)
   float y = model_y(0, 0, 0)
   float z = model_z(0, 0, 0)
-    pop_matrix()
+  # clear out all the transformations
+  pop_matrix()
 
-    push_matrix()
+  # draw another box at the same (x, y, z) coordinate as the other
+  push_matrix()
   translate(x, y, z)
   stroke(255, 0, 0)
   box(50)

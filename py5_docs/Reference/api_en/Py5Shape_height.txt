@@ -12,5 +12,8 @@ The height of the PShape document.
 Py5Shape s
 
 void setup() {
-      s = load_shape("bot.svg")
-  print(s.height)  }
+  # the file "bot.svg" must be in the data folder
+  # of the current sketch to load successfully
+  s = load_shape("bot.svg")
+  print(s.height)  # prints "281.0", the height of the shape
+}

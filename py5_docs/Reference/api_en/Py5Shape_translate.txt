@@ -23,5 +23,6 @@ void draw() {
 }
 
 void mouse_pressed() {
-    s.translate(10, 0)  
+  # move the shape 10 pixels right each time the mouse is pressed
+  s.translate(10, 0)  
 }

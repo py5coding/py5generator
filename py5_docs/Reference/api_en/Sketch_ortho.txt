@@ -13,7 +13,8 @@ image = ortho_.png
 
 size(100, 100, P3D)
 no_fill()
-ortho(-width/2, width/2, -height/2, height/2) translate(width/2, height/2, 0)
+ortho(-width/2, width/2, -height/2, height/2) # same as ortho()
+translate(width/2, height/2, 0)
 rotate_x(-PI/6)
 rotate_y(PI/3)
 box(45)

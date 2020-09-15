@@ -13,6 +13,8 @@ For non-ASCII keys, use the ``key_code`` variable. The keys included in the ASCI
 There are issues with how ``key_code`` behaves across different renderers and operating systems. Watch out for unexpected behavior as you switch renderers and operating systems.
 
 @@ example
+# click on the window to give it focus,
+# and press the 'b' key.
 
 void draw() {
   if (key_pressed) {

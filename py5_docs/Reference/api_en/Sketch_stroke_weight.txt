@@ -13,6 +13,9 @@ Using ``point()`` with strokeWeight(1) or smaller may draw nothing to the screen
 @@ example
 image = strokeWeight_.png
 
-stroke_weight(1)  line(20, 20, 80, 20)
-stroke_weight(4)  line(20, 40, 80, 40)
-stroke_weight(10)  line(20, 70, 80, 70)
+stroke_weight(1)  # default
+line(20, 20, 80, 20)
+stroke_weight(4)  # thicker
+line(20, 40, 80, 40)
+stroke_weight(10)  # beastly
+line(20, 70, 80, 70)

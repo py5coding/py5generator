@@ -25,6 +25,8 @@ end_shape()
 @@ example
 image = vertex_1.png
 
+# drawing vertices in 3D requires P3D
+# as a parameter to size()
 size(100, 100, P3D)
 begin_shape(POINTS)
 vertex(30, 20, -50)
@@ -41,6 +43,10 @@ Py5Image img = load_image("laDefense.jpg")
 no_stroke()
 begin_shape()
 texture(img)
+# "laDefense.jpg" is 100x100 pixels in size so
+# the values 0 and 100 are used for the
+# parameters "u" and "v" to map it directly
+# to the vertex points
 vertex(10, 20, 0, 0)
 vertex(80, 5, 100, 0)
 vertex(95, 90, 100, 100)

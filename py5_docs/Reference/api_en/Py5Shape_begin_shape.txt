@@ -9,7 +9,8 @@ processing_name = beginShape
 This method is used to start a custom shape created with the ``create_shape()`` function. It's always and only used with ``create_shape()``.
 
 @@ example
-Py5Shape s  
+Py5Shape s  # the Py5Shape object
+
 void setup() {  
   size(100, 100)
   s = create_shape()

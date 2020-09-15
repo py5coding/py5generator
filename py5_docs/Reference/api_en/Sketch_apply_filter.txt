@@ -104,4 +104,5 @@ void setup() {
 }
 
 void draw() {
-  filter(blur) }
+  filter(blur) # blurs more each time through draw()
+}

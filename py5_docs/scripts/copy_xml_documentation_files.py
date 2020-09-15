@@ -37,7 +37,9 @@ PY5_CLASS_LOOKUP = {
 }
 
 SNAKE_CASE_OVERRIDE = {
-    'null': 'None'
+    'null': 'None',
+    'true': 'True',
+    'false': 'False',
 }
 
 CONSTANT_CHARACTERS = string.ascii_uppercase + string.digits + '_'
@@ -45,6 +47,8 @@ CONSTANT_CHARACTERS = string.ascii_uppercase + string.digits + '_'
 
 def snake_case(name):
     if all([c in CONSTANT_CHARACTERS for c in list(name)]):
+        return name
+    if re.match(r'0x[\da-fA-F]{2,}', name):
         return name
     elif (stem := name.replace('()', '')) in PY5_CLASS_LOOKUP:
         return name.replace(stem, PY5_CLASS_LOOKUP[stem])
@@ -54,6 +58,27 @@ def snake_case(name):
         name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
         name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', name)
         return name.lower()
+
+
+def adjust_code(code):
+    # TODO: convert Java functions to Python functions
+    # TODO: do something about varible declarations
+    code = re.sub(r'#(?=[\da-fA-F]{2,})', '0x', code)
+    tokens = shlex.shlex(code)
+    tokens.whitespace = ''
+    new_code = StringIO()
+    for token in tokens:
+        if token[0] in {'"'}:
+            new_code.write(token)
+        else:
+            new_code.write(snake_case(token))
+
+    code = new_code.getvalue()
+    code = code.replace('println', 'print')
+    code = code.replace('//', '#')
+    code = code.replace(';', '')
+
+    return code
 
 
 class TagRemover(HTMLParser):
@@ -91,7 +116,7 @@ class TagRemover(HTMLParser):
 
     def handle_data(self, d):
         if self._in_code_block:
-            self.text.write(snake_case(d.replace('//', '#')))
+            self.text.write(adjust_code(d))
         else:
             self.text.write(d)
 
@@ -183,21 +208,7 @@ for xml_file, file_data in xml_files:
     doc.meta['name'] = doc.meta['name'].replace(processing_name, py5_name)
     new_examples = []
     for image_name, code in doc.examples:
-        code = code.replace('println', 'print')
-        code = code.replace('//', '#')
-        code = code.replace(';', '')
-        new_code = StringIO()
-        # TODO: convert Java functions to Python functions
-        # TODO: do something about varible declarations
-        tokens = shlex.shlex(code)
-        tokens.whitespace = ''
-        for token in tokens:
-            if token[0] in {'"'}:
-                new_code.write(token)
-            else:
-                new_code.write(snake_case(token))
-        new_code.getvalue()
-        new_examples.append((image_name, new_code.getvalue()))
+        new_examples.append((image_name, adjust_code(code)))
     doc.examples = new_examples
     doc.write(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.txt')
 

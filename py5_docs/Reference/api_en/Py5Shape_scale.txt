@@ -23,5 +23,6 @@ void draw() {
 }
 
 void mouse_pressed() {
-    s.scale(0.9)  
+  # shrink the shape 90% each time the mouse is pressed
+  s.scale(0.9)  
 }

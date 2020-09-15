@@ -11,11 +11,16 @@ Sets the spacing between lines of text in units of pixels. This setting will be 
 @@ example
 image = textLeading_.png
 
-string lines = "L1&#92nL2&#92nL3"
+# text to display. the "&0x92n" is a "new line" character
+string lines = "L1&0x92nL2&0x92nL3"
 text_size(12)
-fill(0)  
-text_leading(10)  text(lines, 10, 25)
+fill(0)  # set fill to black
 
-text_leading(20)  text(lines, 40, 25)
+text_leading(10)  # set leading to 10
+text(lines, 10, 25)
 
-text_leading(30)  text(lines, 70, 25)
+text_leading(20)  # set leading to 20
+text(lines, 40, 25)
+
+text_leading(30)  # set leading to 30
+text(lines, 70, 25)

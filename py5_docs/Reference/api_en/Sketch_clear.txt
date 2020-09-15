@@ -19,7 +19,8 @@ void setup() {
 void draw() {
   background(204)
   
-    if (mouse_pressed == true) {
+  # clear the Py5Graphics when the mouse is pressed
+  if (mouse_pressed == True) {
     pg.begin_draw() 
     pg.clear()
     pg.end_draw()

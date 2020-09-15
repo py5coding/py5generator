@@ -20,14 +20,19 @@ void draw() {
   float y = mouse_y
   float z = -100
   
-    stroke(255)
+  # draw "X" at z = -100
+  stroke(255)
   line(x-10, y-10, z, x+10, y+10, z) 
   line(x+10, y-10, z, x-10, y+10, z) 
   
-      stroke(102)
+  # draw gray line at z = 0 and same 
+  # x value. notice the parallax
+  stroke(102)
   line(x, 0, 0, x, height, 0)
   
-      stroke(0)
+  # draw black line at z = 0 to match 
+  # the x value element drawn at z = -100 
+  stroke(0)
   float the_x = screen_x(x, y, z)
   line(the_x, 0, 0, the_x, height, 0)    
 }

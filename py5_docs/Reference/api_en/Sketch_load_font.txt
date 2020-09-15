@@ -20,6 +20,8 @@ Use ``create_font()`` (instead of ``load_font()``) to enable vector data to be u
 image = loadFont_.png
 
 Py5Font font
+# the font must be located in the sketch's 
+# "data" directory to load successfully
 font = load_font("LetterGothicStd-32.vlw")
 text_font(font, 32)
 text("word", 10, 50)

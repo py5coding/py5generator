@@ -6,7 +6,7 @@ type = None
 processing_name = createFont
 
 @@ description
-Dynamically converts a font to the format used by Processing from a .ttf or .otf file inside the sketch's "data" folder or a font that's installed elsewhere on the computer. If you want to use a font installed on your computer, use the ``p_font.list()`` method to first determine the names for the fonts recognized by the computer and are compatible with this function. Not all fonts can be used and some might work with one operating system and not others. When sharing a sketch with other people or posting it on the web, you may need to include a .ttf or .otf version of your font in the data directory of the sketch because other people might not have the font installed on their computer. Only fonts that can legally be distributed should be included with a sketch.
+Dynamically converts a font to the format used by Processing from a .ttf or .otf file inside the sketch's "data" folder or a font that's installed elsewhere on the computer. If you want to use a font installed on your computer, use the ``Py5Font.list()`` method to first determine the names for the fonts recognized by the computer and are compatible with this function. Not all fonts can be used and some might work with one operating system and not others. When sharing a sketch with other people or posting it on the web, you may need to include a .ttf or .otf version of your font in the data directory of the sketch because other people might not have the font installed on their computer. Only fonts that can legally be distributed should be included with a sketch.
 
 The ``size`` parameter states the font size you want to generate. The ``smooth`` parameter specifies if the font should be antialiased or not. The ``charset`` parameter is an array of chars that specifies the characters to generate.
 
@@ -17,7 +17,10 @@ Py5Font my_font
 
 void setup() {
   size(200, 200)
-        my_font = create_font("Georgia", 32)
+  # uncomment the following two lines to see the available fonts 
+  #string[] font_list = Py5Font.list()
+  #print_array(font_list)
+  my_font = create_font("Georgia", 32)
   text_font(my_font)
   text_align(CENTER, CENTER)
   text("!@#$%", width/2, height/2)

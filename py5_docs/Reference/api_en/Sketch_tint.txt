@@ -10,7 +10,7 @@ Sets the fill value for displaying images. Images can be tinted to specified col
 
 To apply transparency to an image without affecting its color, use white as the tint color and specify an alpha value. For instance, ``tint(255, 128)`` will make an image 50% transparent (assuming the default alpha range of 0-255, which can be changed with ``color_mode()``).
 
-When using hexadecimal notation to specify a color, use "``#``" or "``0x``" before the values (e.g., ``#ccffaa`` or ``0x_ffccffaa``). The ``#`` syntax uses six digits to specify a color (just as colors are typically specified in HTML and CSS). When using the hexadecimal notation starting with "``0x``", the hexadecimal value must be specified with eight characters; the first two characters define the alpha component, and the remainder define the red, green, and blue components. 
+When using hexadecimal notation to specify a color, use "````" or "``0x``" before the values (e.g., ``0xCCFFAA`` or ``0xFFCCFFAA``). The ```` syntax uses six digits to specify a color (just as colors are typically specified in HTML and CSS). When using the hexadecimal notation starting with "``0x``", the hexadecimal value must be specified with eight characters; the first two characters define the alpha component, and the remainder define the red, green, and blue components. 
 
 The value for the gray parameter must be less than or equal to the current maximum value as specified by ``color_mode()``. The default maximum value is 255.
 
@@ -22,7 +22,8 @@ image = tint_0.png
 Py5Image img
 img = load_image("laDefense.jpg")
 image(img, 0, 0)
-tint(0, 153, 204)  image(img, 50, 0)
+tint(0, 153, 204)  # tint blue
+image(img, 50, 0)
 
 @@ example
 image = tint_1.png
@@ -30,7 +31,8 @@ image = tint_1.png
 Py5Image img
 img = load_image("laDefense.jpg")
 image(img, 0, 0)
-tint(0, 153, 204, 126)  image(img, 50, 0)
+tint(0, 153, 204, 126)  # tint blue and set transparency
+image(img, 50, 0)
 
 @@ example
 image = tint_2.png
@@ -38,4 +40,5 @@ image = tint_2.png
 Py5Image img
 img = load_image("laDefense.jpg")
 image(img, 0, 0)
-tint(255, 126)  image(img, 50, 0)
+tint(255, 126)  # apply transparency without changing color
+image(img, 50, 0)

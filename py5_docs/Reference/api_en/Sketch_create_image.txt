@@ -10,7 +10,7 @@ Creates a new PImage (the datatype for storing images). This provides a fresh bu
  
 Be sure to include all three parameters, specifying only the width and height (but no format) will produce a strange error.
  
-Advanced users please note that ``create_image()`` should be used instead of the syntax ``new p_image()``.
+Advanced users please note that ``create_image()`` should be used instead of the syntax ``new Py5Image()``.
 
 @@ example
 image = createImage_0.png

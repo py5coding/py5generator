@@ -17,7 +17,8 @@ Py5Shader blur
 
 void setup() {
   size(640, 360, P2D)
-    blur = load_shader("blur.glsl") 
+  # shaders files must be in the "data" folder to load correctly
+  blur = load_shader("blur.glsl") 
   stroke(0, 102, 153)
   rect_mode(CENTER)
 }

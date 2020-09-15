@@ -19,13 +19,19 @@ rect(0, 0, 55, 55)
 @@ example
 image = translate_1.png
 
+# translating in 3D requires P3D
+# as the parameter to size()
 size(100, 100, P3D)
+# translate 30 across, 20 down, and
+# 50 back, or "away" from the screen.
 translate(30, 20, -50)
 rect(0, 0, 55, 55)
 
 @@ example
 image = translate_2.png
 
-rect(0, 0, 55, 55)  translate(30, 20)
-rect(0, 0, 55, 55)  translate(14, 14)
-rect(0, 0, 55, 55)  
+rect(0, 0, 55, 55)  # draw rect at original 0,0
+translate(30, 20)
+rect(0, 0, 55, 55)  # draw rect at new 0,0
+translate(14, 14)
+rect(0, 0, 55, 55)  # draw rect at new 0,0

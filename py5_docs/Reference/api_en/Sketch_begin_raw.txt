@@ -12,7 +12,7 @@ When using ``begin_raw()`` and ``end_raw()``, it's possible to write to either a
 
 If you want a background to show up in your files, use ``rect(0, 0, width, height)`` after setting the ``fill()`` to the background color. Otherwise the background will not be rendered to the file because the background is not shape.
 
-Using ``hint(enable_depth_sort)`` can improve the appearance of 3D geometry drawn to 2D file formats.
+Using ``hint(ENABLE_DEPTH_SORT)`` can improve the appearance of 3D geometry drawn to 2D file formats.
 
 See examples in the reference for the ``PDF`` and ``DXF`` libraries for more information.
 

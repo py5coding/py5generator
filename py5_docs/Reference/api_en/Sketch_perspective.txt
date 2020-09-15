@@ -11,6 +11,7 @@ Sets a perspective projection applying foreshortening, making distant objects ap
 @@ example
 image = perspective_.png
 
+# re-creates the default perspective
 size(100, 100, P3D)
 no_fill()
 float fov = PI/3.0

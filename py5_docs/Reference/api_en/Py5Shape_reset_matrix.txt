@@ -23,5 +23,7 @@ void draw() {
 }
 
 void mouse_pressed() {
-      s.reset_matrix()
+  # removes all transformations applied to shape
+  # loads the identity matrix
+  s.reset_matrix()
 }

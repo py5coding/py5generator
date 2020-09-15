@@ -24,5 +24,7 @@ for (int i = 0 i < 100 i++) {
 }
 
 @@ example
+# get a random element from an array
 string[] words = { "apple", "bear", "cat", "dog" }
-int index = int(random(words.length))  print(words[index])  
+int index = int(random(words.length))  # same as int(random(4))
+print(words[index])  # prints one of the four words

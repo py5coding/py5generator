@@ -14,6 +14,8 @@ Sets the current font that will be drawn with the ``text()`` function. Fonts mus
 image = textFont_.png
 
 Py5Font mono
+# the font "andalemo.ttf" must be located in the 
+# current sketch's "data" directory to load successfully
 mono = create_font("andalemo.ttf", 32)
 background(0)
 text_font(mono)
