@@ -88,7 +88,6 @@ def convert_to_python(code):
 
     # this removes declarations without assignments but adds global statement to setup if it is present
     global_vars = []
-    # for m in re.finditer(r'^[\w\[\]]+ +(\w+);.*$', code, flags=re.MULTILINE):
     for m in re.finditer(r'^[\w\[\]]+ +([\w #\d;]+)$', code, flags=re.MULTILINE):
         global_vars.append(m.group(1))
         code = code.replace(m.group(), '')
