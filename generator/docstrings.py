@@ -6,6 +6,8 @@ from pathlib import Path
 
 from .docfiles import Documentation
 
+# TODO: use Google format instead?
+# https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html#docstring-sections
 
 logger = logging.getLogger(__name__)
 
@@ -21,25 +23,28 @@ Parameters
 {0}"""
 
 
-METHOD_DOC_TEMPLATE = """
-{0}
+SIGNATURES_TEMPLATE = """
 
 Note
 ----
 
 You can use any of the following signatures:
 
-{1}
+{0}"""
+
+
+METHOD_DOC_TEMPLATE = """
+{0}
 
 Notes
 -----
 
-{2}
+{1}
 """
 
 
 VARIABLE_DOC_TEMPLATE = """
-{0}.
+{0}
 
 Notes
 -----
@@ -84,12 +89,14 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
             # TODO: write the documentation information back to the same file? or a different one?
             doc.write(Path('/tmp/docfiles/') / docfile.name)
 
-            # TODO: if there are no signatures or parameters, skip those sections
-            signatures_variables = '\n'.join(sorted([f' * {s}' for s in signatures]))
+            extras = ''
+            if len(signatures) > 1:
+                signatures_txt = '\n'.join(sorted([f' * {s}' for s in signatures]))
+                extras = SIGNATURES_TEMPLATE.format(signatures_txt)
             if variables:
                 variables_txt = [f'{k}\n    {v}\n' for k, v in variables.items()]
-                signatures_variables += PARAMETERS_TEMPLATE.format('\n'.join(sorted(variables_txt)))
-            docstring = METHOD_DOC_TEMPLATE.format(first_sentence, signatures_variables, description)
+                extras += PARAMETERS_TEMPLATE.format('\n'.join(sorted(variables_txt)))
+            docstring = METHOD_DOC_TEMPLATE.format(first_sentence + extras, description)
         else:
             docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence, description)
 

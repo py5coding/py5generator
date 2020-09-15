@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 METHOD_REGEX = re.compile(r'(@\w+)?\s*def (.*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):$', re.MULTILINE | re.DOTALL)
 TYPEHINT_COMMA_REGEX = re.compile(r'(\[[\w\s,]+\])')
-COMMA_REGEX = re.compile(r',\s+')
+COMMA_REGEX = re.compile(r',\s*(?!\s*\w+\])')
 
 SNAKE_CASE_1 = re.compile('(.)([A-Z][a-z]+)')
 SNAKE_CASE_2 = re.compile('([a-z0-9])([A-Z])')
@@ -240,12 +240,12 @@ class CodeBuilder:
         self.method_names.add(py5_name)
 
     def code_extra(self, class_name, filename):
+        if not self._code_module:
+            return
+
         with open(filename) as f:
             code = f.read()
             code = code.split('*** BEGIN METHODS ***')[1].strip()
-
-        if not self._code_module:
-            return
 
         self.module_members.append(f'\n{"#" * 78}\n# module functions from {filename.name}\n{"#" * 78}\n')
         for decorator, fname, arg0, args, rettypestr in METHOD_REGEX.findall(code):
@@ -262,7 +262,9 @@ class CodeBuilder:
                 )
                 self.dynamic_variable_names.add(fname)
             else:
-                self.method_signatures[(class_name, fname)].append((COMMA_REGEX.split(args), rettypestr))
+                split_args = COMMA_REGEX.split(args) if args else []
+                split_args = [a.replace('*', '').split('=')[0].strip() for a in split_args]
+                self.method_signatures[(class_name, fname)].append((split_args, rettypestr))
                 moduleobj = self._class_name if arg0 == 'cls' else self._instance_name
                 paramlist = []
                 for arg in TYPEHINT_COMMA_REGEX.sub('', args).split(','):
