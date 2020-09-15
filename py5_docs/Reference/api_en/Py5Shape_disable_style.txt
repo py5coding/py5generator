@@ -11,9 +11,10 @@ Disables the shape's style data and uses Processing's current styles. Styles inc
 @@ example
 image = PShape_disableStyle_.png
 
-Py5Shape s
+
 
 def setup():
+    global s
     # the file "bot.svg" must be in the data folder
     # of the current sketch to load successfully
     s = load_shape("bot.svg")

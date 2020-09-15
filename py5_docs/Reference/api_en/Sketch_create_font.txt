@@ -13,9 +13,10 @@ The ``size`` parameter states the font size you want to generate. The ``smooth``
 This function allows Processing to work with the font natively in the default renderer, so the letters are defined by vector geometry and are rendered quickly. In the ``P2D`` and ``P3D`` renderers, the function sets the project to render the font as a series of small textures. For instance, when using the default renderer, the actual native version of the font will be employed by the sketch, improving drawing quality and performance. With the ``P2D`` and ``P3D`` renderers, the bitmapped version will be used to improve speed and appearance, but the results are poor when exporting if the sketch does not include the .otf or .ttf file, and the requested font is not available on the machine running the sketch.
 
 @@ example
-Py5Font my_font
+
 
 def setup():
+    global my_font
     size(200, 200)
     # uncomment the following two lines to see the available fonts 
     #string[] font_list = Py5Font.list()

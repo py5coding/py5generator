@@ -11,9 +11,10 @@ Specifies an amount to displace the shape. The ``x`` parameter specifies left/ri
 Using this method with the ``z`` parameter requires using the P3D parameter in combination with size.
 
 @@ example
-Py5Shape s
+
 
 def setup():
+    global s
     s = load_shape("bot.svg")
 
 

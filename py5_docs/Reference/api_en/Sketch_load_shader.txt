@@ -13,9 +13,10 @@ Alternatively, the file maybe be loaded from anywhere on the local computer usin
 If the file is not available or an error occurs, ``None`` will be returned and an error message will be printed to the console. The error message does not halt the program, however the null value may cause a NullPointerException if your code does not check whether the value returned is null.
 
 @@ example
-Py5Shader blur
+
 
 def setup():
+    global blur
     size(640, 360, P2D)
     # shaders files must be in the "data" folder to load correctly
     blur = load_shader("blur.glsl") 

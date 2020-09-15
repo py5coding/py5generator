@@ -11,9 +11,10 @@ Increases or decreases the size of a shape by expanding and contracting vertices
 Using this method with the ``z`` parameter requires using the P3D parameter in combination with size.
 
 @@ example
-Py5Shape s
+
 
 def setup():
+    global s
     s = load_shape("bot.svg")
 
 

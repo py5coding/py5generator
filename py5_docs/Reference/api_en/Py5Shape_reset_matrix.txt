@@ -9,9 +9,10 @@ processing_name = resetMatrix
 Replaces the current matrix of a shape with the identity matrix. The equivalent function in OpenGL is ``gl_load_identity()``.
 
 @@ example
-Py5Shape s
+
 
 def setup():
+    global s
     size(100, 100)
     s = load_shape("ohio.svg")
     s.rotate(PI/6)

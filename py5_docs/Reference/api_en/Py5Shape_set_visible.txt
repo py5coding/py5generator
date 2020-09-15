@@ -11,9 +11,10 @@ Sets the shape to be visible or invisible. This is determined by the value of th
 The default visibility of a shape is usually controlled by whatever program created the SVG file. For instance, this parameter is controlled by showing or hiding the shape in the layers palette in Adobe Illustrator.
 
 @@ example
-Py5Shape s
+
 
 def setup():
+    global s
     size(100, 100)
     # the file "bot.svg" must be in the data folder
     # of the current sketch to load successfully 

@@ -13,7 +13,7 @@ By default, noise is computed over 4 octaves with each octave contributing exact
 By changing these parameters, the signal created by the ``noise()`` function can be adapted to fit very specific needs and characteristics.
 
 @@ example
-float noise_val
+
 noise_scale =0.02
 
 def draw():

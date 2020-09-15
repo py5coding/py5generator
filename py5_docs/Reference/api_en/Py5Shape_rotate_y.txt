@@ -13,9 +13,10 @@ Shapes are always rotated around the upper-left corner of their bounding box. Po
 This method requires a 3D renderer. You need to use P3D as a third parameter for the ``size()`` function as shown in the example above.
 
 @@ example
-Py5Shape s
+
 
 def setup():
+    global s
     size(100, 100, P3D)
     s = load_shape("ohio.svg")
 

@@ -13,9 +13,10 @@ As of release 0149, this function ignores ``image_mode()``.
 @@ example
 image = PImage_copy_.png
 
-Py5Image apples
+
 
 def setup():
+    global apples
     size(100, 100)
     apples = load_image("apples.jpg")
     x = width/2

@@ -11,10 +11,12 @@ Loads the pixel data for the image into its ``pixels[]`` array. This function mu
 @@ example
 image = PImage_loadPixels_.png
 
-Py5Image my_image
-int half_image
+
+
 
 def setup():
+    global my_image
+    global half_image
     size(100, 100)
     half_image = width * height/2
     my_image = load_image("apples.jpg")

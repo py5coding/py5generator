@@ -79,11 +79,23 @@ def convert_to_python(code):
         code = code.replace(m.group(), f'for {m.group(1)} = range({m.group(2)}, {end}{step}):')
 
     # convert variable declarations
+    # this converts declarations with assignments
     for m in re.finditer(r'^(\s*)([\w\[\]]+) +(\w+)\s*=', code, flags=re.MULTILINE):
         if m.group(2) in {'for', 'if'}:
             continue
         else:
             code = code.replace(m.group(), f'{m.group(1)}{m.group(3)} =')
+
+    # this removes declarations without assignments but adds global statement to setup if it is present
+    global_vars = []
+    # for m in re.finditer(r'^[\w\[\]]+ +(\w+);.*$', code, flags=re.MULTILINE):
+    for m in re.finditer(r'^[\w\[\]]+ +([\w #\d;]+)$', code, flags=re.MULTILINE):
+        global_vars.append(m.group(1))
+        code = code.replace(m.group(), '')
+
+    if global_vars:
+        replacement = '\n'.join([f'  global {g}' for g in global_vars])
+        code = code.replace('def setup():', f'def setup():\n{replacement}')
 
     # convert x.length to len(x)
     code = re.sub(r'([\w\.]+)\.length', r'len(\1)', code)
@@ -101,7 +113,6 @@ def convert_to_python(code):
 
 
 def adjust_code(code):
-    # TODO: do something about varible declarations
     if code == '#':
         return code
     code = re.sub(r'#(?=[\da-fA-F]{2,})', '0x', code)

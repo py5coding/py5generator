@@ -9,9 +9,10 @@ processing_name = endDraw
 Finalizes the rendering of a PGraphics object so that it can be shown on screen.
 
 @@ example
-Py5Graphics pg
+
 
 def setup():
+    global pg
     size(100, 100)
     pg = create_graphics(80, 80, P2D)
     pg.begin_draw()

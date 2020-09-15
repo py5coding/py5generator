@@ -11,9 +11,10 @@ Modifies the location from which shapes draw. The default mode is ``shape_mode(C
 @@ example
 image = shapeMode_.png
 
-Py5Shape bot 
+
 
 def setup():
+    global bot 
     size(100, 100)
     bot = load_shape("bot.svg")
 

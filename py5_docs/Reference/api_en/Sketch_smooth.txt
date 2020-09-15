@@ -44,10 +44,11 @@ def draw():
 
 
 @@ example
-Py5Graphics pg
+
 x = 0
 
 def setup():
+    global pg
     full_screen(P2D)
     pg = create_graphics(width, height, P2D)
     pg.smooth(4)

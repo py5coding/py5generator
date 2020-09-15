@@ -11,10 +11,12 @@ Extracts a child shape from a parent shape. Specify the name of the shape with t
 @@ example
 image = PShape_getChild_.png
 
-Py5Shape states
-Py5Shape ohio
+
+
 
 def setup():
+    global states
+    global ohio
     size(100, 100)
     states = load_shape("tristate.svg")
     ohio = states.get_child("OH")

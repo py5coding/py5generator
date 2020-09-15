@@ -9,9 +9,10 @@ processing_name = getVertex
 The ``get_vertex()`` method returns a PVector with the coordinates of the vertex point located at the position defined by the ``index`` parameter. This method works when shapes are created as shown in the example above, but won't work properly when a shape is defined explicitly (e.g. ``create_shape(RECT, 20, 20, 80, 80)``.
 
 @@ example
-Py5Shape s
+
 
 def setup():
+    global s
     size(100, 100)
     s = create_shape()
     s.begin_shape()

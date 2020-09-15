@@ -13,9 +13,10 @@ Before accessing this array, the data must loaded with the ``load_pixels()`` met
 @@ example
 image = PImage_pixels.png
 
-Py5Image tower
+
 
 def setup():
+    global tower
     size(100, 100)
     tower = load_image("tower.jpg")
     dimension = tower.width * tower.height

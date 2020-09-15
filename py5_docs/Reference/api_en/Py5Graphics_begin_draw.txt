@@ -9,9 +9,10 @@ processing_name = beginDraw
 Sets the default properties for a PGraphics object. It should be called before anything is drawn into the object.
 
 @@ example
-Py5Graphics pg
+
 
 def setup():
+    global pg
     size(100, 100)
     pg = create_graphics(80, 80, P2D)
     pg.begin_draw()
