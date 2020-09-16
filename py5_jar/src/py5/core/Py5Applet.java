@@ -35,24 +35,36 @@ public class Py5Applet extends PApplet {
 
   @Override
   public void settings() {
-    if (success && py5RegisteredEvents.contains("settings")) {
-      success = py5Methods.run_method("settings");
+    if (success) {
+      if (py5RegisteredEvents.contains("settings")) {
+        success = py5Methods.run_method("settings");
+      } else {
+        // parent method doesn't do anything but that might change
+        super.settings();
+      }
     }
   }
 
   @Override
   public void setup() {
-    if (success && py5RegisteredEvents.contains("setup")) {
-      success = py5Methods.run_method("setup");
+    if (success) {
+      if (py5RegisteredEvents.contains("setup")) {
+        success = py5Methods.run_method("setup");
+      } else {
+        // parent method doesn't do anything but that might change
+        super.setup();
+      }
     }
   }
 
   @Override
   public void draw() {
-    if (success && py5RegisteredEvents.contains("draw")) {
-      success = py5Methods.run_method("draw");
-    } else {
-      noLoop();
+    if (success) {
+      if (py5RegisteredEvents.contains("draw")) {
+        success = py5Methods.run_method("draw");
+      } else {
+        super.draw();
+      }
     }
   }
 
