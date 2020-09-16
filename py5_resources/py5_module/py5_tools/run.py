@@ -53,6 +53,8 @@ def run_sketch(sketch_path, classpath=None, new_process=False):
         print(f'file {sketch_path} not found')
         return
 
+    # TODO: this should allow sketches with no functions, ie a bunch of commands that get put into a setup
+    # TODO: this should not require a settings() and should pull out the necessary stuff from setup()
     def _run_sketch(sketch_path, classpath):
         if not jvm.is_jvm_running():
             if classpath:

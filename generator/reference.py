@@ -22,6 +22,7 @@ JPYPE_CONVERSIONS = {
     'java.lang.String': 'JString',
 }
 
+# TODO: add more stuff here to get rid of the remaining JArray stuff
 JTYPE_CONVERSIONS = {
     'boolean': 'bool',
     'char': 'chr',
