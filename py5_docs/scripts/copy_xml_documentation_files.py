@@ -21,8 +21,6 @@ type = {1}
 @@ description
 new template no description.
 
-@@ example
-
 """
 
 PROCESSING_API_EN = Path('/home/jim/Projects/ITP/pythonprocessing/processing-docs/content/api_en/')

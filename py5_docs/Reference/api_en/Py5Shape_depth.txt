@@ -7,5 +7,3 @@ type = dynamic variable
 @@ description
 new template no description.
 
-@@ example
-

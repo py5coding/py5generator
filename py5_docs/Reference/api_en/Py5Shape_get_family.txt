@@ -7,5 +7,3 @@ type = method
 @@ description
 new template no description.
 
-@@ example
-
