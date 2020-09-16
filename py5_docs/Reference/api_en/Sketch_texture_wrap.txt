@@ -23,7 +23,7 @@ def draw():
     translate(width/2, height/2)
     rotate(map(mouse_x, 0, width, -PI, PI))
     if mouse_pressed:
-        texture_wrap(REPEAT) 
+        texture_wrap(REPEAT)
     else:
         texture_wrap(CLAMP)
 

@@ -11,3 +11,4 @@ System variable that stores the height of the entire screen display. This is use
 @@ example
 size(display_width, display_height)
 line(0, 0, width, height)
+

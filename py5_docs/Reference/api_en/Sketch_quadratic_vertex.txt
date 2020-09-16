@@ -18,6 +18,7 @@ vertex(20, 20)
 quadratic_vertex(80, 20, 50, 50)
 end_shape()
 
+
 @@ example
 image = quadraticVertex_1.png
 
@@ -29,3 +30,4 @@ quadratic_vertex(80, 20, 50, 50)
 quadratic_vertex(20, 80, 80, 80)
 vertex(80, 60)
 end_shape()
+

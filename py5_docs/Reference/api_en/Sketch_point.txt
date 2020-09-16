@@ -23,6 +23,7 @@ point(85, 20)
 point(85, 75)
 point(30, 75)
 
+
 @@ example
 image = point_1.png
 
@@ -32,3 +33,4 @@ point(30, 20, -50)
 point(85, 20, -50)
 point(85, 75, -50)
 point(30, 75, -50)
+

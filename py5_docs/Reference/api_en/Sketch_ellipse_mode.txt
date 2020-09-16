@@ -29,6 +29,7 @@ ellipse_mode(CENTER)  # set ellipse_mode to CENTER
 fill(100)  # set fill to gray
 ellipse(50, 50, 30, 30)  # draw gray ellipse using CENTER mode
 
+
 @@ example
 image = ellipseMode_1.png
 
@@ -39,3 +40,4 @@ ellipse(25, 25, 50, 50)  # draw white ellipse using CORNER mode
 ellipse_mode(CORNERS)  # set ellipse_mode to CORNERS
 fill(100)  # set fill to gray
 ellipse(25, 25, 50, 50)  # draw gray ellipse using CORNERS mode
+

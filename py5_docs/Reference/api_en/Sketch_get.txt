@@ -22,6 +22,7 @@ image(my_image, 0, 0)
 c = get()
 image(c, width/2, 0)
 
+
 @@ example
 image = get_1.png
 
@@ -31,3 +32,4 @@ c = get(25, 25)
 fill(c)
 no_stroke()
 rect(25, 25, 50, 50)
+

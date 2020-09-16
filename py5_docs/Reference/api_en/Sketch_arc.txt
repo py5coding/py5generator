@@ -19,17 +19,21 @@ arc(50, 55, 60, 60, HALF_PI, PI)
 arc(50, 55, 70, 70, PI, PI+QUARTER_PI)
 arc(50, 55, 80, 80, PI+QUARTER_PI, TWO_PI)
 
+
 @@ example
 image = arc_2.png
 
 arc(50, 50, 80, 80, 0, PI+QUARTER_PI, OPEN)
+
 
 @@ example
 image = arc_3.png
 
 arc(50, 50, 80, 80, 0, PI+QUARTER_PI, CHORD)
 
+
 @@ example
 image = arc_4.png
 
 arc(50, 50, 80, 80, 0, PI+QUARTER_PI, PIE)
+

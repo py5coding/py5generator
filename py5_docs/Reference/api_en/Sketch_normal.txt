@@ -22,3 +22,4 @@ vertex(80, 20, 10)
 vertex(80, 80, -10)
 vertex(20, 80, 10)
 end_shape(CLOSE)
+

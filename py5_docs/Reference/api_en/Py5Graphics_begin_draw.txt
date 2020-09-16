@@ -24,5 +24,5 @@ def setup():
 
 
 def draw():
-    image(pg, 10, 10) 
+    image(pg, 10, 10)
 

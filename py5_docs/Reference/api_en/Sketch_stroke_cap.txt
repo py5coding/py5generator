@@ -20,3 +20,4 @@ stroke_cap(SQUARE)
 line(20, 50, 80, 50)
 stroke_cap(PROJECT)
 line(20, 70, 80, 70)
+

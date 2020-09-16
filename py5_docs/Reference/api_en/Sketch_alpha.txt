@@ -18,3 +18,4 @@ rect(15, 15, 35, 70)
 value = alpha(c)  # sets 'value' to 102
 fill(value)
 rect(50, 15, 35, 70)
+

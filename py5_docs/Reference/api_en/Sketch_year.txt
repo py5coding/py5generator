@@ -16,6 +16,7 @@ y = year()   # 2003, 2004, 2005, etc.
 s = string.value_of(d)
 text(s, 10, 28)
 s = string.value_of(m)
-text(s, 10, 56) 
+text(s, 10, 56)
 s = string.value_of(y)
 text(s, 10, 84)
+

@@ -22,3 +22,4 @@ end_camera()
 translate(50, 50, 0)
 rotate_y(PI/3)
 box(45)
+

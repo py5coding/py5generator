@@ -13,7 +13,6 @@ image = PShape_getChild_.png
 
 
 
-
 def setup():
     global states
     global ohio

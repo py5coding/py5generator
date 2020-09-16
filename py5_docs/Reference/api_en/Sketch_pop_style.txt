@@ -21,6 +21,7 @@ pop_style()  # restore original style
 
 ellipse(100, 50, 33, 33)  # right circle
 
+
 @@ example
 image = popStyle_1.png
 
@@ -39,3 +40,4 @@ pop_style()  # restore the previous style
 pop_style()  # restore original style
 
 ellipse(100, 50, 33, 33)  # right circle
+

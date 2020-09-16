@@ -18,6 +18,7 @@ directional_light(51, 102, 126, -1, 0, 0)
 translate(20, 50, 0)
 sphere(30)
 
+
 @@ example
 image = directionalLight_1.png
 
@@ -27,3 +28,4 @@ no_stroke()
 directional_light(51, 102, 126, 0, -1, 0)
 translate(80, 50, 0)
 sphere(30)
+

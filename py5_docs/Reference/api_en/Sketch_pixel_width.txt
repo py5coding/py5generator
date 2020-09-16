@@ -32,7 +32,7 @@ def draw():
 
     # fill one quarter of the pixels to yellow
     # because the pixel density is set to 2 in setup()
-    # and 'width' and 'height' don't reflect the pixel 
+    # and 'width' and 'height' don't reflect the pixel
     # dimensions of the sketch
     for i = range(0, width * height):
         pixels[i] = color(255, 255, 0)

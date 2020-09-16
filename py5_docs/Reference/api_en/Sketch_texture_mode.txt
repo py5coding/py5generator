@@ -25,6 +25,7 @@ vertex(95, 90, 100, 100)
 vertex(40, 95, 0, 100)
 end_shape()
 
+
 @@ example
 image = textureMode_1.png
 
@@ -39,3 +40,4 @@ vertex(80, 5, 1, 0)
 vertex(95, 90, 1, 1)
 vertex(40, 95, 0, 1)
 end_shape()
+

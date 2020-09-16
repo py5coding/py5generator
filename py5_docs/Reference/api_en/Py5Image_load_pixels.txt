@@ -13,7 +13,6 @@ image = PImage_loadPixels_.png
 
 
 
-
 def setup():
     global my_image
     global half_image

@@ -16,11 +16,12 @@ Note that Processing now lets you call ``text()`` without first specifying a PFo
 image = text_0.png
 
 text_size(32)
-text("word", 10, 30) 
+text("word", 10, 30)
 fill(0, 102, 153)
 text("word", 10, 60)
 fill(0, 102, 153, 51)
 text("word", 10, 90)
+
 
 @@ example
 image = text_1.png
@@ -31,9 +32,11 @@ fill(0, 102, 153, 204)
 text("word", 12, 45, -30)  # specify a z-axis value
 text("word", 12, 60)  # default depth, no z-value specified
 
+
 @@ example
 image = text_2.png
 
 s = "The quick brown fox jumps over the lazy dog."
 fill(50)
 text(s, 10, 10, 70, 80)  # text wraps within text box
+

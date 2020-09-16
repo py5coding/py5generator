@@ -38,6 +38,7 @@ size(200, 100)
 background(153)
 line(0, 0, width, height)
 
+
 @@ example
 def setup():
     size(320, 240)
@@ -57,8 +58,9 @@ line(0, 0, 0, width, height, -100)
 line(width, 0, 0, width, height, -100)
 line(0, height, 0, width, height, -100)
 
-#...and 3D-specific functions, like box()
+# ...and 3D-specific functions, like box()
 translate(width/2, height/2)
 rotate_x(PI/6)
 rotate_y(PI/6)
 box(35)
+

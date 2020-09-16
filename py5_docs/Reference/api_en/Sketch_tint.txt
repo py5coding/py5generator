@@ -25,6 +25,7 @@ image(img, 0, 0)
 tint(0, 153, 204)  # tint blue
 image(img, 50, 0)
 
+
 @@ example
 image = tint_1.png
 
@@ -34,6 +35,7 @@ image(img, 0, 0)
 tint(0, 153, 204, 126)  # tint blue and set transparency
 image(img, 50, 0)
 
+
 @@ example
 image = tint_2.png
 
@@ -42,3 +44,4 @@ img = load_image("laDefense.jpg")
 image(img, 0, 0)
 tint(255, 126)  # apply transparency without changing color
 image(img, 50, 0)
+

@@ -21,16 +21,16 @@ image = randomGaussian_1.png
 
 distribution = new float[360]
 
+
 def setup():
     size(100, 100)
     for i = range(0, len(distribution)):
         distribution[i] = int(random_gaussian() * 15)
 
 
-
 def draw():
     background(204)
-   
+
     translate(width/2, width/2)
 
     for i = range(0, len(distribution)):
@@ -38,5 +38,4 @@ def draw():
         stroke(0)
         dist = abs(distribution[i])
         line(0, 0, dist, 0)
-
 

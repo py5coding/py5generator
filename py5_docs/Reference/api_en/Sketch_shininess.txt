@@ -11,11 +11,11 @@ Sets the amount of gloss in the surface of shapes. Used in combination with ``am
 @@ example
 image = shininess_.png
 
-size(100, 100, P3D) 
+size(100, 100, P3D)
 background(0)
 no_stroke()
-background(0) 
-fill(0, 51, 102) 
+background(0)
+fill(0, 51, 102)
 ambient_light(102, 102, 102)
 light_specular(204, 204, 204)
 directional_light(102, 102, 102, 0, 0, -1)
@@ -23,6 +23,7 @@ specular(255, 255, 255)
 translate(30, 50, 0)
 shininess(1.0)
 sphere(20)  # left sphere
-translate(40, 0, 0) 
-shininess(5.0) 
+translate(40, 0, 0)
+shininess(5.0)
 sphere(20)  # right sphere
+

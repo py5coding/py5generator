@@ -10,7 +10,6 @@ Sets the uniform variables inside the shader to modify the effect while the prog
 @@ example
 
 
-
 def setup():
     global tex
     global deform

@@ -52,6 +52,7 @@ img = load_image("bricks.jpg")
 image(img, 0, 0)
 blend(img, 0, 0, 33, 100, 67, 0, 33, 100, ADD)
 
+
 @@ example
 image = blend_1_subtract.png
 
@@ -59,6 +60,7 @@ background(load_image("rockies.jpg"))
 img = load_image("bricks.jpg")
 image(img, 0, 0)
 blend(img, 0, 0, 33, 100, 67, 0, 33, 100, SUBTRACT)
+
 
 @@ example
 image = blend_2_darkest.png
@@ -68,6 +70,7 @@ img = load_image("bricks.jpg")
 image(img, 0, 0)
 blend(img, 0, 0, 33, 100, 67, 0, 33, 100, DARKEST)
 
+
 @@ example
 image = blend_3_lightest.png
 
@@ -75,3 +78,4 @@ background(load_image("rockies.jpg"))
 img = load_image("bricks.jpg")
 image(img, 0, 0)
 blend(img, 0, 0, 33, 100, 67, 0, 33, 100, LIGHTEST)
+

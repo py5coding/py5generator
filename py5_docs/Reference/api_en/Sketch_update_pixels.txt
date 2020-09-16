@@ -19,3 +19,4 @@ for i = range(0, half_image):
     pixels[i+half_image] = pixels[i]
 
 update_pixels()
+

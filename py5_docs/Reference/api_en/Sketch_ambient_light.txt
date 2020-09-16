@@ -22,6 +22,7 @@ sphere(30)
 translate(60, 0, 0)
 sphere(30)
 
+
 @@ example
 image = ambientLight_1.png
 
@@ -35,3 +36,4 @@ rotate_y(PI/5)
 box(40)
 translate(60, 0, 0)
 sphere(30)
+

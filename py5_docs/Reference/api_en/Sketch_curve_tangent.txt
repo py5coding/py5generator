@@ -12,7 +12,7 @@ Calculates the tangent of a point on a curve. There's a good definition of *tang
 image = curveTangent_.png
 
 no_fill()
-curve(5, 26, 73, 24, 73, 61, 15, 65) 
+curve(5, 26, 73, 24, 73, 61, 15, 65)
 steps = 6
 for i = range(0, steps + 1):
     t = i / float(steps)

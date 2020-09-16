@@ -21,9 +21,9 @@ def setup():
     tower = load_image("tower.jpg")
     dimension = tower.width * tower.height
     tower.load_pixels()
-    for i = range(0, dimension, 2): 
-        tower.pixels[i] = color(0, 0, 0) 
- 
+    for i = range(0, dimension, 2):
+        tower.pixels[i] = color(0, 0, 0)
+
     tower.update_pixels()
 
 

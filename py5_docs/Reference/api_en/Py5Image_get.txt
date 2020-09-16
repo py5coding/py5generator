@@ -22,10 +22,12 @@ c = mountains.get(60, 90)
 fill(c)
 rect(25, 25, 50, 50)
 
+
 @@ example
 image = PImage_get_1.png
 
 mountains = load_image("rockies.jpg")
 background(mountains)
-new_mountains = mountains.get(50, 0, 50, 100) 
+new_mountains = mountains.get(50, 0, 50, 100)
 image(new_mountains, 0, 0)
+

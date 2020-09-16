@@ -29,13 +29,14 @@ def setup():
 
 x = 0.0
 
+
 def draw():
     background(204)
     x = x + 0.1
     if x > width:
         x = 0
 
-    line(x, 0, x, height) 
+    line(x, 0, x, height)
 
 
 def mouse_pressed():
@@ -49,6 +50,7 @@ def mouse_released():
 @@ example
 some_mode = False
 
+
 def setup():
     no_loop()
 
@@ -56,7 +58,6 @@ def setup():
 def draw():
     if some_mode:
         # do something
-
 
 
 def mouse_pressed():

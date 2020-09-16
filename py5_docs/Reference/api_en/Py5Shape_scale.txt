@@ -25,5 +25,5 @@ def draw():
 
 def mouse_pressed():
     # shrink the shape 90% each time the mouse is pressed
-    s.scale(0.9)  
+    s.scale(0.9)
 

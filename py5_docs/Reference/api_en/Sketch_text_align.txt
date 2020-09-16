@@ -26,6 +26,7 @@ text("EFGH", 50, 50)
 text_align(LEFT)
 text("IJKL", 50, 70)
 
+
 @@ example
 image = textAlign_1.png
 
@@ -41,3 +42,4 @@ text("CENTER,CENTER", 50, 50)
 text_align(CENTER, TOP)
 line(0, 70, width, 70)
 text("CENTER,TOP", 50, 70)
+

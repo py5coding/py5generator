@@ -19,13 +19,13 @@ def setup():
     global blur
     size(640, 360, P2D)
     # shaders files must be in the "data" folder to load correctly
-    blur = load_shader("blur.glsl") 
+    blur = load_shader("blur.glsl")
     stroke(0, 102, 153)
     rect_mode(CENTER)
 
 
 def draw():
-    filter(blur)  
-    rect(mouse_x-75, mouse_y, 150, 150) 
+    filter(blur)
+    rect(mouse_x-75, mouse_y, 150, 150)
     ellipse(mouse_x+75, mouse_y, 150, 150)
 

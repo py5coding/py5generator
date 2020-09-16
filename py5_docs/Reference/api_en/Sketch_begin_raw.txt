@@ -17,7 +17,7 @@ Using ``hint(ENABLE_DEPTH_SORT)`` can improve the appearance of 3D geometry draw
 See examples in the reference for the ``PDF`` and ``DXF`` libraries for more information.
 
 @@ example
-import processing.pdf.*
+
 
 def setup():
     size(400, 400)
@@ -32,5 +32,4 @@ def key_pressed():
     if key == ' ':
         end_raw()
         exit()
-
 

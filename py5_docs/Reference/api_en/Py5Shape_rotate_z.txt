@@ -28,5 +28,5 @@ def draw():
 
 def mouse_pressed():
     # rotate the shape around the z-axis each time the mouse is pressed
-    s.rotate_z(0.1)  
+    s.rotate_z(0.1)
 

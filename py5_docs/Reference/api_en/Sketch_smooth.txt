@@ -32,6 +32,7 @@ def draw():
 @@ example
 x = 0
 
+
 def setup():
     full_screen(P2D, SPAN)
     smooth(4)
@@ -46,6 +47,7 @@ def draw():
 @@ example
 
 x = 0
+
 
 def setup():
     global pg

@@ -16,6 +16,7 @@ image = translate_0.png
 translate(30, 20)
 rect(0, 0, 55, 55)
 
+
 @@ example
 image = translate_1.png
 
@@ -27,6 +28,7 @@ size(100, 100, P3D)
 translate(30, 20, -50)
 rect(0, 0, 55, 55)
 
+
 @@ example
 image = translate_2.png
 
@@ -35,3 +37,4 @@ translate(30, 20)
 rect(0, 0, 55, 55)  # draw rect at new 0,0
 translate(14, 14)
 rect(0, 0, 55, 55)  # draw rect at new 0,0
+

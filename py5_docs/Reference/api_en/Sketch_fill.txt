@@ -20,8 +20,10 @@ image = fill_0.png
 fill(153)
 rect(30, 20, 55, 55)
 
+
 @@ example
 image = fill_1.png
 
 fill(204, 102, 0)
 rect(30, 20, 55, 55)
+

@@ -9,7 +9,7 @@ processing_name = endRaw
 Complement to ``begin_raw()``; they must always be used together. See the ``begin_raw()`` reference for details.
 
 @@ example
-import processing.pdf.*
+
 
 def setup():
     size(400, 400)
@@ -24,5 +24,4 @@ def key_pressed():
     if key == ' ':
         end_raw()
         exit()
-
 

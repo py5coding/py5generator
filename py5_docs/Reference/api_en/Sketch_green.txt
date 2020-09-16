@@ -24,3 +24,4 @@ green_value = green(c)  # get green in 'c'
 print(green_value)  # print "75.0"
 fill(0, green_value, 0)  # use 'green_value' in new fill
 rect(50, 20, 35, 60)  # draw right rectangle
+

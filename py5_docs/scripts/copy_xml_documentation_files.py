@@ -5,6 +5,8 @@ import string
 import shlex
 from html.parser import HTMLParser
 
+import autopep8
+
 import pandas as pd
 
 from generator.docfiles import Documentation
@@ -102,6 +104,9 @@ def convert_to_python(code):
     # get rid of the closing braces
     code = re.sub(r'^\s*}', '', code, flags=re.MULTILINE)
 
+    # remove import statements
+    code = re.sub(r'^import .*$', '', code, flags=re.MULTILINE)
+
     # indenting spacing == 4
     code = re.sub(r'^( +)(?!$)', r'\1\1', code, flags=re.MULTILINE)
 
@@ -111,7 +116,7 @@ def convert_to_python(code):
     return code
 
 
-def adjust_code(code):
+def adjust_code(code, use_autopep8=False):
     if code == '#':
         return code
     code = re.sub(r'#(?=[\da-fA-F]{2,})', '0x', code)
@@ -126,6 +131,9 @@ def adjust_code(code):
 
     code = new_code.getvalue()
     code = convert_to_python(code)
+
+    if use_autopep8:
+        code = autopep8.fix_code(code, options={'aggressive': 2})
 
     return code
 
@@ -249,7 +257,9 @@ for pclass, class_data in class_data_info.items():
 
 
 # copy the relevant xml files to the py5 directory
-for xml_file, file_data in xml_files:
+print("read and translate Processing's xml documentation files")
+for num, (xml_file, file_data) in enumerate(xml_files):
+    print(f'{num + 1} / {len(xml_files)} {xml_file.name}')
     pclass, py5_name, processing_name = file_data
     doc = Documentation(xml_file)
     doc.description = remove_html(doc.description)
@@ -257,11 +267,12 @@ for xml_file, file_data in xml_files:
     doc.meta['name'] = doc.meta['name'].replace(processing_name, py5_name)
     new_examples = []
     for image_name, code in doc.examples:
-        new_examples.append((image_name, adjust_code(code)))
+        new_examples.append((image_name, adjust_code(code, use_autopep8=True)))
     doc.examples = new_examples
     doc.write(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.txt')
 
-for new_file_data in new_xml_files:
+print(f"create {len(new_xml_files)} new documentation files")
+for num, new_file_data in enumerate(new_xml_files):
     pclass, py5_name, item_type, *_ = new_file_data
     with open(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.txt', 'w') as f:
         name = py5_name if item_type == 'dynamic variable' else py5_name + '()'

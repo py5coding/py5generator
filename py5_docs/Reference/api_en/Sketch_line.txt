@@ -13,6 +13,7 @@ image = line_0.png
 
 line(30, 20, 85, 75)
 
+
 @@ example
 image = line_1.png
 
@@ -21,6 +22,7 @@ stroke(126)
 line(85, 20, 85, 75)
 stroke(255)
 line(85, 75, 30, 75)
+
 
 @@ example
 image = line_2.png
@@ -33,3 +35,4 @@ stroke(126)
 line(85, 20, 15, 85, 75, 0)
 stroke(255)
 line(85, 75, 0, 30, 75, -50)
+

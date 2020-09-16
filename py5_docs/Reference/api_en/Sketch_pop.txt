@@ -20,12 +20,13 @@ rect(0, 0, 50, 50)  # white rectangle
 
 push()
 translate(30, 20)
-fill(0)  
+fill(0)
 rect(0, 0, 50, 50)  # black rectangle
 pop()  # restore original settings
 
-fill(100)  
+fill(100)
 rect(15, 10, 50, 50)  # gray rectangle
+
 
 @@ example
 image = popStyle_0.png
@@ -39,3 +40,4 @@ ellipse(50, 50, 33, 33)  # middle circle
 pop()  # restore original settings
 
 ellipse(100, 50, 33, 33)  # right circle
+

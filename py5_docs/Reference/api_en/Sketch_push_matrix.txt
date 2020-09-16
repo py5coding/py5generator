@@ -16,9 +16,10 @@ rect(0, 0, 50, 50)  # white rectangle
 
 push_matrix()
 translate(30, 20)
-fill(0)  
+fill(0)
 rect(0, 0, 50, 50)  # black rectangle
 pop_matrix()
 
-fill(100)  
+fill(100)
 rect(15, 10, 50, 50)  # gray rectangle
+

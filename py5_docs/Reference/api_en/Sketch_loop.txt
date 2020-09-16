@@ -16,13 +16,14 @@ def setup():
 
 x = 0
 
+
 def draw():
     background(204)
     x = x + .1
     if x > width:
         x = 0
 
-    line(x, 0, x, height) 
+    line(x, 0, x, height)
 
 
 def mouse_pressed():

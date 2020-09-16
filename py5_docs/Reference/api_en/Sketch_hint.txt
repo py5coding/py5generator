@@ -54,7 +54,7 @@ Enables stroke geometry (lines and points) to be affected by the perspective, me
 
 @@ example
 def setup():
-    size(200, 200, P3D) 
+    size(200, 200, P3D)
     hint(DISABLE_DEPTH_TEST)
 
 

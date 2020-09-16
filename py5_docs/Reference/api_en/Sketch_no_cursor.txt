@@ -11,9 +11,8 @@ Hides the cursor from view. Will not work when running the program in a web brow
 @@ example
 # press the mouse to hide the cursor
 def draw():
-    if mouse_pressed == True:
+    if mouse_pressed:
         no_cursor()
     else:
         cursor(HAND)
-
 

@@ -20,3 +20,4 @@ stroke(255)
 no_fill()
 # rectangle shows area being copied
 rect(7, 22, 10, 10)
+

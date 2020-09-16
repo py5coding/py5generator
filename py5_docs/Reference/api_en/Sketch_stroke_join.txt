@@ -20,6 +20,7 @@ vertex(65, 50)
 vertex(35, 80)
 end_shape()
 
+
 @@ example
 image = strokeJoin_1.png
 
@@ -32,6 +33,7 @@ vertex(65, 50)
 vertex(35, 80)
 end_shape()
 
+
 @@ example
 image = strokeJoin_2.png
 
@@ -43,3 +45,4 @@ vertex(35, 20)
 vertex(65, 50)
 vertex(35, 80)
 end_shape()
+

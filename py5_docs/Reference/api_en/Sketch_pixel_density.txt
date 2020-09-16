@@ -20,6 +20,7 @@ background(0)
 ellipse(30, 48, 36, 36)
 ellipse(70, 48, 36, 36)
 
+
 @@ example
 def setup():
     size(100, 100)

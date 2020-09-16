@@ -37,6 +37,7 @@ image = PImage_filter_0_threshold.png
 
 Py5Image img1, img2
 
+
 def setup():
     size(100, 100)
     img1 = load_image("apples.jpg")
@@ -55,6 +56,7 @@ image = PImage_filter_1_gray.png
 
 Py5Image img1, img2
 
+
 def setup():
     img1 = load_image("apples.jpg")
     img2 = load_image("apples.jpg")
@@ -70,6 +72,7 @@ def draw():
 image = PImage_filter_2_invert.png
 
 Py5Image img1, img2
+
 
 def setup():
     img1 = load_image("apples.jpg")
@@ -87,6 +90,7 @@ image = PImage_filter_3_posterize.png
 
 Py5Image img1, img2
 
+
 def setup():
     img1 = load_image("apples.jpg")
     img2 = load_image("apples.jpg")
@@ -102,6 +106,7 @@ def draw():
 image = PImage_filter_4_blur.png
 
 Py5Image img1, img2
+
 
 def setup():
     img1 = load_image("apples.jpg")
@@ -119,6 +124,7 @@ image = PImage_filter_5_erode.png
 
 Py5Image img1, img2
 
+
 def setup():
     img1 = load_image("apples.jpg")
     img2 = load_image("apples.jpg")
@@ -134,6 +140,7 @@ def draw():
 image = PImage_filter_6_dilate.png
 
 Py5Image img1, img2
+
 
 def setup():
     img1 = load_image("apples.jpg")

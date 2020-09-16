@@ -22,6 +22,7 @@ vertex(85, 75)
 vertex(30, 75)
 end_shape(CLOSE)
 
+
 @@ example
 image = beginShape_1.png
 
@@ -32,6 +33,7 @@ vertex(85, 75)
 vertex(30, 75)
 end_shape()
 
+
 @@ example
 image = beginShape_2.png
 
@@ -41,6 +43,7 @@ vertex(85, 20)
 vertex(85, 75)
 vertex(30, 75)
 end_shape()
+
 
 @@ example
 image = beginShape_3.png
@@ -53,6 +56,7 @@ vertex(85, 75)
 vertex(30, 75)
 end_shape()
 
+
 @@ example
 image = beginShape_4.png
 
@@ -63,6 +67,7 @@ vertex(85, 20)
 vertex(85, 75)
 vertex(30, 75)
 end_shape(CLOSE)
+
 
 @@ example
 image = beginShape_5.png
@@ -75,6 +80,7 @@ vertex(60, 20)
 vertex(70, 75)
 vertex(80, 20)
 end_shape()
+
 
 @@ example
 image = beginShape_6.png
@@ -89,17 +95,19 @@ vertex(80, 20)
 vertex(90, 75)
 end_shape()
 
+
 @@ example
 image = beginShape_7.png
 
 begin_shape(TRIANGLE_FAN)
 vertex(57.5, 50)
-vertex(57.5, 15) 
-vertex(92, 50) 
-vertex(57.5, 85) 
-vertex(22, 50) 
-vertex(57.5, 15) 
+vertex(57.5, 15)
+vertex(92, 50)
+vertex(57.5, 85)
+vertex(22, 50)
+vertex(57.5, 15)
 end_shape()
+
 
 @@ example
 image = beginShape_8.png
@@ -115,19 +123,21 @@ vertex(85, 75)
 vertex(85, 20)
 end_shape()
 
+
 @@ example
 image = beginShape_9.png
 
-begin_shape(QUAD_STRIP) 
-vertex(30, 20) 
-vertex(30, 75) 
+begin_shape(QUAD_STRIP)
+vertex(30, 20)
+vertex(30, 75)
 vertex(50, 20)
 vertex(50, 75)
-vertex(65, 20) 
-vertex(65, 75) 
+vertex(65, 20)
+vertex(65, 75)
 vertex(85, 20)
-vertex(85, 75) 
+vertex(85, 75)
 end_shape()
+
 
 @@ example
 image = beginShape_10.png
@@ -140,3 +150,4 @@ vertex(60, 40)
 vertex(60, 60)
 vertex(20, 60)
 end_shape(CLOSE)
+

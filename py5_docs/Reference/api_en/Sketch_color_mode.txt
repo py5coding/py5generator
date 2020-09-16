@@ -21,7 +21,6 @@ for i = range(0, 100):
         point(i, j)
 
 
-
 @@ example
 image = colorMode_1.png
 
@@ -33,16 +32,16 @@ for i = range(0, 100):
         point(i, j)
 
 
-
 @@ example
 image = colorMode_2.png
 
-# if the color is defined here, it won't be 
-# affected by the color_mode() in setup(). 
-# instead, just declare the variable here and 
+# if the color is defined here, it won't be
+# affected by the color_mode() in setup().
+# instead, just declare the variable here and
 # assign the value after the color_mode() in setup()
-#color bg = color(180, 50, 50)  # no
+# color bg = color(180, 50, 50)  # no
 color bg  # yes, but assign it in setup()
+
 
 def setup():
     size(100, 100)
@@ -51,5 +50,5 @@ def setup():
 
 
 def draw():
-    background(bg)	
+    background(bg)
 

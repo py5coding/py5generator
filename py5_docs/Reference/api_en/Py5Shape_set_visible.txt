@@ -17,8 +17,9 @@ def setup():
     global s
     size(100, 100)
     # the file "bot.svg" must be in the data folder
-    # of the current sketch to load successfully 
+    # of the current sketch to load successfully
     s = load_shape("bot.svg")
+
 
 def draw():
     background(204)
@@ -26,6 +27,5 @@ def draw():
     s.set_visible(mouse_pressed)
     if s.is_visible() == False:  # or use: "if (!s.isVisible)"
         no_fill()
-        rect(10, 10, 80, 80) 
-
+        rect(10, 10, 80, 80)
 

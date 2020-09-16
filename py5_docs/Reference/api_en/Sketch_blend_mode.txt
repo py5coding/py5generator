@@ -39,6 +39,7 @@ stroke_weight(30)
 line(25, 25, 75, 75)
 line(75, 25, 25, 75)
 
+
 @@ example
 size(100, 100, P2D)
 blend_mode(MULTIPLY)
@@ -46,3 +47,4 @@ stroke(51)
 stroke_weight(30)
 line(25, 25, 75, 75)
 line(75, 25, 25, 75)
+

@@ -79,6 +79,7 @@ def draw():
 @@ example
 Py5Shape alien, head, body
 
+
 def setup():
     size(100, 100)
 
@@ -100,5 +101,5 @@ def setup():
 def draw():
     background(204)
     translate(50, 15)
-    shape(alien) # draw the group
+    shape(alien)  # draw the group
 

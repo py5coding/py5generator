@@ -12,10 +12,10 @@ The ``set_stroke()`` method defines the outline color of a ``Py5Shape``. This me
 
 
 def setup():
-    global circle  
+    global circle
     size(640, 360, P2D)
     circle = create_shape(ELLIPSE, 0, 0, 200, 200)
-    circle.set_stroke(color(255))  
+    circle.set_stroke(color(255))
 
 
 def draw():

@@ -9,7 +9,7 @@ processing_name = endRecord
 Stops the recording process started by ``begin_record()`` and closes the file.
 
 @@ example
-import processing.pdf.*
+
 
 def setup():
     size(400, 400)

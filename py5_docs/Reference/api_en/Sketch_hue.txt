@@ -19,3 +19,4 @@ rect(15, 20, 35, 60)
 value = hue(c)  # sets 'value' to "0"
 fill(value)
 rect(50, 20, 35, 60)
+

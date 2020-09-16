@@ -22,6 +22,7 @@ vertex(85, 75)
 vertex(30, 75)
 end_shape()
 
+
 @@ example
 image = vertex_1.png
 
@@ -34,6 +35,7 @@ vertex(85, 20, -50)
 vertex(85, 75, -50)
 vertex(30, 75, -50)
 end_shape()
+
 
 @@ example
 image = vertex_2.png
@@ -52,3 +54,4 @@ vertex(80, 5, 100, 0)
 vertex(95, 90, 100, 100)
 vertex(40, 95, 0, 100)
 end_shape()
+

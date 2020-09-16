@@ -17,7 +17,7 @@ def setup():
 
     # make a group Py5Shape
     house = create_shape(GROUP)
-   
+
     # make three shapes
     path = create_shape()
     path.begin_shape()
@@ -27,7 +27,7 @@ def setup():
     path.end_shape()
     rectangle = create_shape(RECT, -20, -20, 40, 40)
     circle = create_shape(ELLIPSE, 0, 0, 20, 20)
-   
+
     # add all three as children
     house.add_child(path)
     house.add_child(rectangle)

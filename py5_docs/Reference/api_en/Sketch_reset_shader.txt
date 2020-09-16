@@ -11,12 +11,11 @@ Restores the default shaders. Code that runs after ``reset_shader()`` will not b
 @@ example
 
 
-       
 def setup():
-    global edges  
+    global edges
     global img
     size(640, 360, P2D)
-    img = load_image("leaves.jpg")      
+    img = load_image("leaves.jpg")
     edges = load_shader("edges.glsl")
 
 

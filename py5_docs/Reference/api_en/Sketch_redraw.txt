@@ -15,6 +15,7 @@ The ``redraw()`` function does not work properly when called inside ``draw()``. 
 @@ example
 x = 0
 
+
 def setup():
     size(200, 200)
     no_loop()
@@ -22,7 +23,7 @@ def setup():
 
 def draw():
     background(204)
-    line(x, 0, x, height) 
+    line(x, 0, x, height)
 
 
 def mouse_pressed():

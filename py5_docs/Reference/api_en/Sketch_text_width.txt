@@ -16,9 +16,10 @@ text_size(28)
 c = 't'
 cw = text_width(c)
 text(c, 0, 40)
-line(cw, 0, cw, 50) 
+line(cw, 0, cw, 50)
 
 s = "Tokyo"
 sw = text_width(s)
 text(s, 0, 85)
 line(sw, 50, sw, 100)
+

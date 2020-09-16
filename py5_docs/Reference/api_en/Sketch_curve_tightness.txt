@@ -25,7 +25,7 @@ def draw():
     curve_vertex(10, 26)
     curve_vertex(83, 24)
     curve_vertex(83, 61)
-    curve_vertex(25, 65) 
+    curve_vertex(25, 65)
     curve_vertex(25, 65)
     end_shape()
 

@@ -31,5 +31,5 @@ def draw():
     pg.stroke(255)
     pg.line(pg.width*0.5, pg.height*0.5, mouse_x, mouse_y)
     pg.end_draw()
-    image(pg, 50, 50) 
+    image(pg, 50, 50)
 
