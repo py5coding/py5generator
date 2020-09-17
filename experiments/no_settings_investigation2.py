@@ -35,7 +35,7 @@ def transform_code(code):
         for start, line in sorted(lines):
             settings += f'    {line}\n'
             # replace the original line so it doesn't get called in setup
-            code = code.replace(line, 'pass')
+            code = code.replace(line, f'pass  # moved to settings(): {line}')
     else:
         settings = ''
 

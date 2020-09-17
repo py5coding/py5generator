@@ -64,6 +64,54 @@ def setup():
     py5.exit_sketch()
 """
 
+SETTINGS_REGEX = re.compile(r'^def settings\(\):', flags=re.MULTILINE)
+SETUP_REGEX = re.compile(r'^def setup\(\):', flags=re.MULTILINE)
+SETUP_CODE_REGEX = re.compile(r'^def setup\(\):.*?(?=^\w|\Z)', flags=re.MULTILINE | re.DOTALL)
+DRAW_REGEX = re.compile(r'^def draw\(\):', flags=re.MULTILINE)
+CODE_REGEXES = {f: re.compile(r'^\s*(' + f + r'\([^\)]*\))', flags=re.MULTILINE)
+                for f in ['size', 'full_screen', 'smooth', 'no_smooth', 'pixel_density']}
+
+
+def fix_triple_quote_str(code):
+    for m in re.finditer(r'\"\"\"[^\"]*\"\"\"', code):
+        code = code.replace(
+            m.group(), m.group().replace('\n    ', '\n'))
+    return code
+
+
+def prepare_code(code):
+    "transform functionless or setttings-less py5 code into code that runs"
+    if SETTINGS_REGEX.search(code):
+        return False, code
+    no_setup = SETUP_REGEX.search(code) is None
+    no_draw = DRAW_REGEX.search(code) is None
+
+    # get just the setup function if it is defined
+    code2 = code if no_setup else SETUP_CODE_REGEX.search(code).group()
+    # find the key lines in the relevant code
+    matches = [m for m in [r.search(code2) for r in CODE_REGEXES.values()] if m]
+
+    # if anything was found, build the settings function
+    if matches:
+        lines = [(m.start(), m.group(1)) for m in matches]
+        settings = 'def settings():\n'
+        for start, line in sorted(lines):
+            settings += f'    {line}\n'
+            # replace the original line so it doesn't get called in setup
+            code = code.replace(line, f'pass  # moved to settings(): {line}')
+    else:
+        settings = ''
+
+    if no_setup and no_draw:
+        # put all of the remaining code into a setup function
+        remaining_code = 'def setup():\n' + textwrap.indent(code, prefix='    ')
+        remaining_code = fix_triple_quote_str(remaining_code)
+    else:
+        # remaining code has been modified with key lines moved from setup to settings
+        remaining_code = code
+
+    return True, f'{settings.strip()}\n\n{remaining_code.strip()}\n'
+
 
 def run_sketch(sketch_path, classpath=None, new_process=False):
     sketch_path = Path(sketch_path)
@@ -71,8 +119,15 @@ def run_sketch(sketch_path, classpath=None, new_process=False):
         print(f'file {sketch_path} not found')
         return
 
-    # TODO: this should allow sketches with no functions, ie a bunch of commands that get put into a setup
-    # TODO: this should not require a settings() and should pull out the necessary stuff from setup()
+    with open(sketch_path, 'r') as f:
+        code = f.read()
+    tranformed, code = prepare_code(code)
+    if tranformed:
+        temp_py = tempfile.NamedTemporaryFile(suffix='.py')
+        with open(temp_py.name, 'w') as f:
+            f.write(code)
+        sketch_path = Path(temp_py.name)
+
     def _run_sketch(sketch_path, classpath):
         if not jvm.is_jvm_running():
             if classpath:
@@ -93,6 +148,8 @@ def run_sketch(sketch_path, classpath=None, new_process=False):
         return p
     else:
         _run_sketch(sketch_path, classpath)
+        if tranformed:
+            temp_py.close()
 
 
 def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
@@ -120,9 +177,7 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
 
     if safe_exec:
         prepared_code = textwrap.indent(code, '    ')
-        for m in re.finditer(r'\"\"\"[^\"]*\"\"\"', prepared_code):
-            prepared_code = prepared_code.replace(
-                m.group(), m.group().replace('\n    ', '\n'))
+        prepared_code = fix_triple_quote_str(prepared_code)
     else:
         user_ns['_py5_user_ns'] = user_ns
         code = code.replace('"""', r'\"\"\"')
