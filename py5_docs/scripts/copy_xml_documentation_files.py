@@ -73,7 +73,7 @@ def convert_to_python(code):
     code = code.replace('} else {', 'else:')
 
     # convert for loops to range iteration
-    for m in re.finditer(r'for \(\w+\s+(\w+)\s*=\s*(\d+); \1\s*([<=>]+)\s*([^;]+);\s*\1\s*([^\)]*)\)\s*{', code):
+    while m := re.search(r'for \(\w+\s+(\w+)\s*=\s*(\d+); \1\s*([<=>]+)\s*([^;]+);\s*\1\s*([^\)]*)\)\s*{', code):
         end = m.group(4) + ('' if m.group(3) == '<' else ' + 1')
         step = '' if (step := m.group(5)) == '++' else f",{step.split('=')[1]}"
         code = code.replace(m.group(), f'for {m.group(1)} = range({m.group(2)}, {end}{step}):')
@@ -88,7 +88,7 @@ def convert_to_python(code):
 
     # this removes declarations without assignments but adds global statement to setup if it is present
     global_vars = []
-    for m in re.finditer(r'^[\w\[\]]+ +([\w #\d;]+)$', code, flags=re.MULTILINE):
+    while m := re.search(r'^[\w\[\]]+ +([\w #\d;]+)$', code, flags=re.MULTILINE):
         global_vars.append(m.group(1))
         code = code.replace(m.group(), '')
 
