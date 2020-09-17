@@ -118,11 +118,11 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
         py5.reset_py5()
 
     if safe_exec:
+        # TODO: I should not indent the contents of a triple-quote string
         prepared_code = textwrap.indent(code, '    ')
     else:
         user_ns['_py5_user_ns'] = user_ns
-        # TODO: do I need to do this?
-        # code = code.replace('"""', r'\"\"\"')
+        code = code.replace('"""', r'\"\"\"')
         prepared_code = f'    exec("""{code}""", _py5_user_ns)'
 
     temp_py = tempfile.NamedTemporaryFile(suffix='.py')
