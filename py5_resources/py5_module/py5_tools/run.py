@@ -2,6 +2,7 @@ import sys
 import os
 from multiprocessing import Process
 from pathlib import Path
+import re
 import tempfile
 import textwrap
 
@@ -118,8 +119,10 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
         py5.reset_py5()
 
     if safe_exec:
-        # TODO: I should not indent the contents of a triple-quote string
         prepared_code = textwrap.indent(code, '    ')
+        for m in re.finditer(r'\"\"\"[^\"]*\"\"\"', prepared_code):
+            prepared_code = prepared_code.replace(
+                m.group(), m.group().replace('\n    ', '\n'))
     else:
         user_ns['_py5_user_ns'] = user_ns
         code = code.replace('"""', r'\"\"\"')
