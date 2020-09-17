@@ -54,6 +54,7 @@ def generate_py5(repo_dir):
 
     core_jar_path = find_jar('core')
     svg_jar_path = find_jar('svg')
+    dxf_jar_path = find_jar('dxf')
     pdf_jar_path = find_jar('pdf')
 
     py5_jar_path = Path('py5_jar', 'dist', 'py5.jar')
@@ -165,6 +166,7 @@ def generate_py5(repo_dir):
 
     copy_jars(core_jar_path.parent, dest_dir / 'py5' / 'jars')
     copy_jars(svg_jar_path.parent, dest_dir / 'py5' / 'jars' / 'svg')
+    copy_jars(dxf_jar_path.parent, dest_dir / 'py5' / 'jars' / 'dxf')
     copy_jars(pdf_jar_path.parent, dest_dir / 'py5' / 'jars' / 'pdf')
     shutil.copy(py5_jar_path, dest_dir / 'py5' / 'jars')
 

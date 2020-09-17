@@ -115,7 +115,7 @@ class Py5Magics(Magics):
     @argument('height', type=int, help='height of PDF output')
     @argument('filename', type=str, help='filename for PDF output')
     @argument('--unsafe', dest='unsafe', action='store_true',
-              help="allow variables to enter the global namespace, creating a potentially unsafe situation")
+              help="allow new variables to enter the global namespace, creating a potentially unsafe situation")
     @cell_magic
     def py5drawpdf(self, line, cell):
         """Create a PDF with py5.
@@ -128,10 +128,10 @@ class Py5Magics(Magics):
         The below example will create a red square on a gray background:
 
         ```
-            %%py5drawpdf 500 250
-            background(128)
-            fill(255, 0, 0)
-            rect(80, 100, 50, 50)
+            %%py5drawpdf 500 250 /tmp/test.pdf
+            py5.background(128)
+            py5.fill(255, 0, 0)
+            py5.rect(80, 100, 50, 50)
         ```
 
         As this is creating a PDF, you cannot do operations on the
@@ -159,14 +159,63 @@ class Py5Magics(Magics):
             print(f'PDF written to {filename}')
 
     @magic_arguments()
+    @argument('width', type=int, help='width of DXF output')
+    @argument('height', type=int, help='height of DXF output')
+    @argument('filename', type=str, help='filename for DXF output')
+    @argument('--unsafe', dest='unsafe', action='store_true',
+              help="allow new variables to enter the global namespace, creating a potentially unsafe situation")
+    @cell_magic
+    def py5drawdxf(self, line, cell):
+        """Create a DXF file with py5.
+
+        For users who are familiar with Processing and py5 programming, you can
+        pretend the code in this cell will be executed in a sketch with no
+        `draw()` function and your code in the `setup()` function. It will use
+        the DXF renderer.
+
+        The below example will create a rotated cube:
+
+        ```
+           %%py5drawdxf 200 200 /tmp/test.dxf
+            py5.translate(py5.width / 2, py5.height / 2)
+            py5.rotate_x(0.4)
+            py5.rotate_y(0.8)
+            py5.box(80)
+        ```
+
+        As this is creating a DXF file, your code will be limited to the
+        capabilities of that renderer.
+
+        Code used in this cell can reference functions and variables defined in
+        other cells. By default, variables and functions created in this cell
+        will be local to only this cell because to do otherwise would be unsafe.
+        If you understand the risks, you can use the `global` keyword to add a
+        single function or variable to the notebook namespace or the --unsafe
+        argument to add everything to the notebook namespace. Either option may
+        be very useful to you, but be aware that using py5 objects in a
+        different notebook cell or reusing them in another sketch can result in
+        nasty errors and bizzare consequences. Any and all problems resulting
+        from using these features are solely your responsibility and not the py5
+        library maintainers.
+        """
+        args = parse_argstring(self.py5drawdxf, line)
+        dxf = run_single_frame_sketch('DXF', cell, args.width, args.height,
+                                      self.shell.user_ns, not args.unsafe)
+        if dxf:
+            filename = self._filename_check(args.filename)
+            with open(filename, 'w') as f:
+                f.write(dxf)
+            print(f'DXF written to {filename}')
+
+    @magic_arguments()
     @argument('width', type=int, help='width of SVG drawing')
     @argument('height', type=int, help='height of SVG drawing')
     @argument('-f', '--filename', type=str, dest='filename', help='save SVG drawing to file')
     @argument('--unsafe', dest='unsafe', action='store_true',
-              help="allow variables to enter the global namespace, creating a potentially unsafe situation")
+              help="allow new variables to enter the global namespace, creating a potentially unsafe situation")
     @cell_magic
     def py5drawsvg(self, line, cell):
-        """Create an SVG drawing with py5 and embed result in the notebook.
+        """Create a SVG drawing with py5 and embed result in the notebook.
 
         For users who are familiar with Processing and py5 programming, you can
         pretend the code in this cell will be executed in a sketch with no
@@ -177,9 +226,9 @@ class Py5Magics(Magics):
 
         ```
             %%py5drawsvg 500 250
-            background(128)
-            fill(255, 0, 0)
-            rect(80, 100, 50, 50)
+            py5.background(128)
+            py5.fill(255, 0, 0)
+            py5.rect(80, 100, 50, 50)
         ```
 
         As this is creating a SVG drawing, you cannot do operations on the
@@ -215,7 +264,7 @@ class Py5Magics(Magics):
     @argument('-r', '--renderer', type=str, dest='renderer', default='HIDDEN',
               help='processing renderer to use for sketch')
     @argument('--unsafe', dest='unsafe', action='store_true',
-              help="allow variables to enter the global namespace, creating a potentially unsafe situation")
+              help="allow new variables to enter the global namespace, creating a potentially unsafe situation")
     @cell_magic
     def py5draw(self, line, cell):
         """Create a PNG image with py5 and embed result in the notebook.
@@ -229,9 +278,9 @@ class Py5Magics(Magics):
 
         ```
             %%py5draw 500 250
-            background(128)
-            fill(255, 0, 0)
-            rect(80, 100, 50, 50)
+            py5.background(128)
+            py5.fill(255, 0, 0)
+            py5.rect(80, 100, 50, 50)
         ```
 
         Code used in this cell can reference functions and variables defined in

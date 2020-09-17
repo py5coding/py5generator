@@ -47,6 +47,23 @@ def setup():
 """
 
 
+_DXF_CODE_TEMPLATE = """
+import py5
+
+def settings():
+    py5.size({0}, {1}, py5.P3D)
+
+
+def setup():
+    py5.begin_raw(py5.DXF, "{3}")
+
+{4}
+
+    py5.end_raw()
+    py5.exit_sketch()
+"""
+
+
 def run_sketch(sketch_path, classpath=None, new_process=False):
     sketch_path = Path(sketch_path)
     if not sketch_path.exists():
@@ -79,7 +96,6 @@ def run_sketch(sketch_path, classpath=None, new_process=False):
 
 def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
 
-    # TODO: what about the DXF renderer? others?
     if renderer == 'SVG':
         template = _ALT_CODE_TEMPLATE
         suffix = '.svg'
@@ -88,6 +104,10 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
         template = _ALT_CODE_TEMPLATE
         suffix = '.pdf'
         read_mode = 'rb'
+    elif renderer == 'DXF':
+        template = _DXF_CODE_TEMPLATE
+        suffix = '.dxf'
+        read_mode = 'r'
     else:
         template = _STANDARD_CODE_TEMPLATE
         suffix = '.png'
@@ -101,6 +121,8 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
         prepared_code = textwrap.indent(code, '    ')
     else:
         user_ns['_py5_user_ns'] = user_ns
+        # TODO: do I need to do this?
+        # code = code.replace('"""', r'\"\"\"')
         prepared_code = f'    exec("""{code}""", _py5_user_ns)'
 
     temp_py = tempfile.NamedTemporaryFile(suffix='.py')
