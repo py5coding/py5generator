@@ -12,6 +12,8 @@ TYPE_OVERRIDES = {
     'processing.core.PShape[]': 'List[Py5Shape]',  # this is correct, see _return_list_py5shapes
     'char[]': 'List[chr]',
     'java.lang.String[]': 'List[str]',
+    'float[]': 'NDArray[(Any,), Float]',
+    'float[][]': 'NDArray[(Any, Any), Float]',
 }
 
 
@@ -23,7 +25,6 @@ JPYPE_CONVERSIONS = {
     'java.lang.String': 'JString',
 }
 
-# TODO: add more stuff here to get rid of the remaining JArray stuff
 JTYPE_CONVERSIONS = {
     'boolean': 'bool',
     'char': 'chr',

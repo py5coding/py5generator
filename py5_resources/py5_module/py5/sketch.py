@@ -9,7 +9,7 @@ from typing import overload, Any, Callable, Union, Dict, List  # noqa
 from nptyping import NDArray, Float  # noqa
 
 import jpype
-from jpype.types import JArray, JFloat, JInt  # noqa
+from jpype.types import JArray, JInt  # noqa
 
 import numpy as np  # noqa
 
