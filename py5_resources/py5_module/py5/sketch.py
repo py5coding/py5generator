@@ -158,13 +158,6 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             return False
         return surface.is_stopped()
 
-    def exit_sketch(self) -> None:
-        """$class_Sketch_exit_sketch"""
-        # TODO: why do I need this if statement? and if I remove it, I am then basically just
-        # renaming exit to exit_sketch and don't need this at all.
-        if not self.get_surface().is_stopped():
-            self._py5applet.exit()
-
     def hot_reload_draw(self, draw: Callable) -> None:
         """$class_Sketch_hot_reload_draw"""
         self._py5_methods.set_functions(**dict(draw=draw))

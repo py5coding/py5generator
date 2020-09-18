@@ -229,7 +229,7 @@ notify_all,notifyAll,,,method,,,FALSE,FALSE,public methods that shouldn't be ava
 text,text,@_text_fix_str,,method,typography,loading_displaying,TRUE,TRUE,
 println,println,,,method,output,text_area,FALSE,FALSE,user should use python instead
 main,main,,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-exit,exit,,,method,,,FALSE,FALSE,"conflict with builtin python function, use exit_sketch instead"
+exit_sketch,exit,,,method,,,TRUE,TRUE,renamed because of conflict with builtin python function
 get,get,@_return_py5image,,method,image,pixels,TRUE,TRUE,
 method,method,,,method,,,FALSE,FALSE,
 append,append,,,method,data,array_functions,FALSE,FALSE,user should use python instead
