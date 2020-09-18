@@ -24,6 +24,7 @@ MODULE_PROPERTY_TEMPLATE = """
 {0}: {1} = None"""
 
 CLASS_PROPERTY_TEMPLATE = """
+    {4}
     def _get_{1}(self) -> {2}:
         \"\"\"$class_{0}_{1}\"\"\"
         return self._instance.{3}

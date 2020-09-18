@@ -37,4 +37,4 @@ class Test(Sketch):
         print('mouse exited')
 
 test = Test()
-test.run_sketch()
+test.run_sketch(sketch_args=['a', 'b', 'c'])

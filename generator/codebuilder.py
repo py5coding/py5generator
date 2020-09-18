@@ -112,10 +112,11 @@ class CodeBuilder:
 
     def code_dynamic_variable(self, name, type_name):
         py5_name = self._py5_names[name]
+        decorator = self._py5_decorators[name]
         var_type = _convert_type(type_name)
 
         self.class_members.append(
-            templ.CLASS_PROPERTY_TEMPLATE.format(self._class_name, py5_name, var_type, name)
+            templ.CLASS_PROPERTY_TEMPLATE.format(self._class_name, py5_name, var_type, name, decorator)
         )
         if self._code_module:
             self.module_members.append(templ.MODULE_PROPERTY_TEMPLATE.format(py5_name, var_type))

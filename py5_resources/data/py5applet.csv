@@ -179,7 +179,7 @@ g,g,,,dynamic variable,,,FALSE,FALSE,"internal pgraphics object, use get_graphic
 display_width,displayWidth,,,dynamic variable,,,TRUE,TRUE,
 display_height,displayHeight,,,dynamic variable,,,TRUE,TRUE,
 recorder,recorder,,,dynamic variable,,,FALSE,FALSE,
-args,args,,,dynamic variable,,,TRUE,TRUE,
+args,args,@_return_list_str,,dynamic variable,,,TRUE,TRUE,
 DEFAULT_WIDTH,DEFAULT_WIDTH,,,static field,,,TRUE,TRUE,
 DEFAULT_HEIGHT,DEFAULT_HEIGHT,,,static field,,,TRUE,TRUE,
 pixels,pixels,,,dynamic variable,image,pixels,TRUE,TRUE,
