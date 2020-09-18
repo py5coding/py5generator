@@ -35,10 +35,10 @@ def draw():
 
     if py5.frame_count == 100:
         # print(10 / 0)
-        # cause_error('garbage')
+        cause_error('garbage')
 
-        print('calling exit_sketch')
-        py5.exit_sketch()
+        # print('calling exit_sketch')
+        # py5.exit_sketch()
     #     py5.fill('garbage input', 4, 5, 32)
 
     # if py5.frame_count == 100:
