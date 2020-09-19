@@ -30,18 +30,17 @@ _EXCEPTION_MSGS = {
 
 
 def _exception_msg(exc_type_name, exc_msg, py5info):
-    msg = _EXCEPTION_MSGS.get(exc_type_name, exc_msg)
     try:
+        msg = _EXCEPTION_MSGS.get(exc_type_name, exc_msg)
         if isinstance(msg, str):
             return msg
-        elif isinstance(msg, callable):
+        elif callable(msg):
             return msg(exc_type_name, exc_msg, py5info)
         else:
-            logger.error(f'unknown exception msg type for {exc_type_name}')
+            logger.error(f'unknown exception msg type for {exc_type_name}: {type(msg).__name__}')
             return exc_msg
     except Exception as e:
-        # TODO: properly say something about what went wrong
-        logger.error('error', e.with_traceback())
+        logger.error(f'error generating exception msg for {exc_type_name}: {e}')
         return exc_msg
 
 
