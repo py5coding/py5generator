@@ -26,7 +26,7 @@ if not py5_tools.is_jvm_running():
     py5_tools.add_jars(Path('jars'))
     py5_tools.start_jvm()
 
-from .methods import Py5Exception  # noqa
+from .methods import Py5Exception, register_exception_msg  # noqa
 from .sketch import Sketch, _METHODS, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Shape, Py5Font, Py5Promise, _in_ipython_session  # noqa
 from .create_font_tool import create_font_file  # noqa
 from .image_conversion import register_image_conversion, NumpyImageArray  # noqa

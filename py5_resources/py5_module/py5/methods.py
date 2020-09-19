@@ -2,9 +2,12 @@ import sys
 import logging
 from pathlib import Path
 from collections import defaultdict
+from typing import Union
 import line_profiler
 
-from jpype import JImplements, JException, JOverride, JString, JClass
+from jpype import JImplements, JOverride, JString, JClass
+# TODO: what was this?
+# from numpy.lib.arraysetops import isin
 
 import stackprinter
 
@@ -21,6 +24,31 @@ _stackprinter_style = 'plaintext'
 # prune tracebacks to only show only show stack levels in the user's py5 code.
 _prune_tracebacks = True
 _module_install_dir = str(Path(__file__).parent)
+
+
+_EXCEPTION_MSGS = {
+
+}
+
+
+def _exception_msg(exc_type_name, exc_msg, py5info):
+    msg = _EXCEPTION_MSGS.get(exc_type_name, exc_msg)
+    try:
+        if isinstance(msg, str):
+            return msg
+        elif isinstance(msg, callable):
+            return msg(exc_type_name, exc_msg, py5info)
+        else:
+            logger.error(f'unknown exception msg type for {exc_type_name}')
+            return exc_msg
+    except Exception as e:
+        # TODO: properly say something about what went wrong
+        logger.error('error', e.with_traceback())
+        return exc_msg
+
+
+def register_exception_msg(exc_type_name: str, msg: Union[str, callable]):
+    _EXCEPTION_MSGS[exc_type_name] = msg
 
 
 def handle_exception(exc_type, exc_value, exc_tb):
@@ -51,16 +79,15 @@ def handle_exception(exc_type, exc_value, exc_tb):
                           r"lib/python.*?/site-packages/py5/"])
 
     if _prune_tracebacks:
-        # TODO: replace default message with something better
-        errmsg = errmsg.replace(str(exc_value), '*************')
-        print(exc_type.__name__, py5info)
-        print(f'exc_value = [{str(exc_value)}]')
+        errmsg = errmsg.replace(str(exc_value),
+                                _exception_msg(exc_type.__name__, str(exc_value), py5info))
 
     logger.critical(errmsg)
 
     sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
 
 
+# TODO: can't I get rid of this now???
 class Py5Exception(Exception):
 
     def __init__(self, exception, method, args, signature_options):
