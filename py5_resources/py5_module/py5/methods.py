@@ -6,8 +6,6 @@ from typing import Union
 import line_profiler
 
 from jpype import JImplements, JOverride, JString, JClass
-# TODO: what was this?
-# from numpy.lib.arraysetops import isin
 
 import stackprinter
 
