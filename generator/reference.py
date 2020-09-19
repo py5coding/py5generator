@@ -48,7 +48,7 @@ JTYPE_CONVERSIONS = {
 
 EXTRA_DIR_NAMES = {
     'run_sketch', 'get_current_sketch', 'reset_py5',
-    'JClass', 'Py5Exception', 'Sketch', 'Py5Font',
+    'JClass', 'Sketch', 'Py5Font',
     'prune_tracebacks', 'set_stackprinter_style',
     'create_font_file', 'register_image_conversion',
     'register_exception_msg',

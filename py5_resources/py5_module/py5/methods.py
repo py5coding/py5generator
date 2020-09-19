@@ -87,34 +87,6 @@ def handle_exception(exc_type, exc_value, exc_tb):
     sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
 
 
-# TODO: can't I get rid of this now???
-class Py5Exception(Exception):
-
-    def __init__(self, exception, method, args, signature_options):
-        super().__init__()
-        self.e = exception
-        self.method = method
-        self.args = args
-        self.signature_options = signature_options
-
-    def __str__(self):
-        if isinstance(self.e, _JavaNullPointerException):
-            return 'Java NullPointerException thrown. Is this a running sketch?'
-        elif isinstance(self.e, TypeError):
-            msg = "\nTypeError: The variables your code passed don't match what this method can handle."
-            arg_types = ', '.join([x.__class__.__name__ for x in self.args])
-            msg += f"\nThe method received these types: {arg_types}"
-            msg += "\nThese are the options it can handle:"
-            for sig in self.signature_options:
-                msg += f"\n    {sig}" if sig else "\n    (no parameters)"
-            return msg
-        else:
-            return self.e.__class__.__name__ + ' thrown while calling ' + self.method + ': ' + str(self.e)
-
-    def __repr__(self):
-        return str(self)
-
-
 @JImplements('py5.core.Py5Methods')
 class Py5Methods:
 

@@ -7,7 +7,6 @@ from typing import overload, List, Union  # noqa
 
 from .base import Py5Base
 from .mixins import PixelMixin
-from .methods import Py5Exception  # noqa
 
 
 py5image_class_members_code = None  # DELETE

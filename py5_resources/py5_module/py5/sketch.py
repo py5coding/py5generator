@@ -13,7 +13,7 @@ from jpype.types import JArray, JInt  # noqa
 
 import numpy as np  # noqa
 
-from .methods import Py5Methods, Py5Exception  # noqa
+from .methods import Py5Methods
 from .base import Py5Base
 from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin
 from .mixins.threads import Py5Promise  # noqa

@@ -7,7 +7,6 @@ from nptyping import NDArray, Float  # noqa
 import numpy as np  # noqa
 
 from .base import Py5Base
-from .methods import Py5Exception  # noqa
 from .image import Py5Image  # noqa
 from jpype.types import JArray, JBoolean, JInt, JFloat  # noqa
 from .pmath import _numpy_to_pvector, _numpy_to_pmatrix2d, _numpy_to_pmatrix3d  # noqa

@@ -12,7 +12,6 @@ from jpype import JClass
 
 from .base import Py5Base
 from .mixins import PixelMixin
-from .methods import Py5Exception  # noqa
 from .font import Py5Font  # noqa
 from .shader import Py5Shader, _return_py5shader  # noqa
 from .shape import Py5Shape, _return_py5shape  # noqa
