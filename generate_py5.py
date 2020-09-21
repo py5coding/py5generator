@@ -129,6 +129,11 @@ def generate_py5(repo_dir):
     py5_dir_str = str(sorted(py5_dir_names, key=lambda x: (x.lower(), x)))
     # don't want import * to import the dynamic variables because they cannot be updated
     py5_all_str = str(sorted(py5_dir_names - py5applet_builder.dynamic_variable_names, key=lambda x: (x.lower(), x)))
+    # build signatures lookup for custom exceptions, do formatting so autopep8 doesn't have to
+
+    def build_signatures(v):
+        return [f"({', '.join(params)}) -> {rettype}" for params, rettype in v]
+    method_signatures_lookup_str = '\n    '.join(f'({str(k)}, {build_signatures(v)}),' for k, v in method_signatures_lookup.items())
 
     format_params = dict(sketch_class_members_code=sketch_class_members_code,
                          sketch_module_members_code=sketch_module_members_code,
@@ -138,6 +143,7 @@ def generate_py5(repo_dir):
                          py5surface_class_members_code=py5surface_class_members_code,
                          py5graphics_class_members_code=py5graphics_class_members_code,
                          py5image_class_members_code=py5image_class_members_code,
+                         method_signatures_lookup_str=method_signatures_lookup_str,
                          run_sketch_pre_run_code=run_sketch_pre_run_code,
                          py5_dir_str=py5_dir_str,
                          py5_all_str=py5_all_str)

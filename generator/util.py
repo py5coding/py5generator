@@ -24,7 +24,8 @@ class CodeCopier:
                              content.format(**self.format_params),
                              flags=re.MULTILINE | re.UNICODE)
         content = Template(content).substitute(self.docstring_dict)
-        content = autopep8.fix_code(content, options={'aggressive': 2})
+        if content.find('*** SKIP AUTOPEP8 ***') == -1:
+            content = autopep8.fix_code(content, options={'aggressive': 2})
 
         with open(dest, 'w') as f:
             f.write(content)
