@@ -9,6 +9,8 @@ from jpype import JImplements, JOverride, JString, JClass
 
 import stackprinter
 
+from . import custom_exceptions
+
 
 _JavaNullPointerException = JClass('java.lang.NullPointerException')
 
@@ -25,7 +27,7 @@ _module_install_dir = str(Path(__file__).parent)
 
 
 _EXCEPTION_MSGS = {
-
+    **custom_exceptions.CUSTOM_EXCEPTION_MSGS,
 }
 
 

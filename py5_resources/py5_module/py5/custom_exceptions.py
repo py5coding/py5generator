@@ -4,6 +4,10 @@
 
 method_signatures_lookup_str = None  # DELETE
 
-method_signatures_lookup = dict([
+METHOD_SIGNATURES_LOOKUP = dict([
     {method_signatures_lookup_str}
 ])
+
+CUSTOM_EXCEPTION_MSGS = dict(
+    ZeroDivisionError='Dividing by zero? Madness!!!',
+)
