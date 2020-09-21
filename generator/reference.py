@@ -53,3 +53,7 @@ EXTRA_DIR_NAMES = {
     'create_font_file', 'register_image_conversion',
     'register_exception_msg',
 }
+
+EXTRA_METHOD_SIGNATURES = {
+    ('Sketch', 'run_sketch'): [(['block: bool = False', 'py5_options: List = None', 'sketch_args: List = None'], 'None')]
+}

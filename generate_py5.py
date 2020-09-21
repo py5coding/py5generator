@@ -122,6 +122,7 @@ def generate_py5(repo_dir):
         **py5surface_builder.method_signatures,
         **py5graphics_builder.method_signatures,
         **py5image_builder.method_signatures,
+        **ref.EXTRA_METHOD_SIGNATURES,
     }
 
     # code the result of the module's __dir__ function and __all__ variable
