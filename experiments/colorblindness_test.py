@@ -1,3 +1,5 @@
+import numpy as np
+
 import py5_tools
 
 
@@ -51,6 +53,8 @@ def draw():
 
 def cause_error(junk):
     # try:
+    # py5.launch_thread(1, 2, 3, 4, 5, 6, 7)
+    # py5.sin(junk)
     py5.fill(junk, 4, 5, 32)
     # except Exception:
     #     print(10 / 0)
