@@ -47,8 +47,6 @@ java_conversion.init_jpype_converters()
 
 sketch_module_members_code = None  # DELETE
 run_sketch_pre_run_code = None  # DELETE
-py5_dir_str = None  # DELETE
-py5_all_str = None  # DELETE
 
 _py5sketch = Sketch()
 
@@ -117,7 +115,7 @@ def __getattr__(name):
 
 
 def __dir__():
-    return {py5_dir_str}
+    return reference.PY5_DIR_STR
 
 
-__all__ = {py5_all_str}
+__all__ = reference.PY5_ALL_STR

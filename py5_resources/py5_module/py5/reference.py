@@ -3,12 +3,17 @@
 # *** SKIP AUTOPEP8 ***
 
 method_signatures_lookup_str = None  # DELETE
+py5_dir_str = None  # DELETE
+py5_all_str = None  # DELETE
 
-METHODS = ['settings', 'setup', 'draw', 'pre_draw', 'post_draw',
-           'key_pressed', 'key_typed', 'key_released',
-           'mouse_clicked', 'mouse_dragged', 'mouse_moved', 'mouse_entered',
-           'mouse_exited', 'mouse_pressed', 'mouse_released', 'mouse_wheel',
-           'exiting']
+
+METHODS = [
+    'settings', 'setup', 'draw', 'pre_draw', 'post_draw',
+    'key_pressed', 'key_typed', 'key_released',
+    'mouse_clicked', 'mouse_dragged', 'mouse_moved', 'mouse_entered',
+    'mouse_exited', 'mouse_pressed', 'mouse_released', 'mouse_wheel',
+    'exiting'
+]
 
 FILE_CLASS_LOOKUP = dict([
     (('font.py',), 'Py5Font'),
@@ -27,3 +32,11 @@ FILE_CLASS_LOOKUP = dict([
 METHOD_SIGNATURES_LOOKUP = dict([
     {method_signatures_lookup_str}
 ])
+
+PY5_DIR_STR = [
+    {py5_dir_str}
+]
+
+PY5_ALL_STR = [
+    {py5_all_str}
+]
