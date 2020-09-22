@@ -13,31 +13,34 @@ METHOD_SIGNATURES_LOOKUP = dict([
 JPYPE_TYPEERROR_REGEX = re.compile(r'No matching overloads found for [\w\.]*(\([^\)]*\))')
 
 FILE_CLASS_LOOKUP = dict([
-    ('font.py', 'Py5Font'),
-    ('graphics.py', 'Py5Graphics'),
-    ('image.py', 'Py5Image'),
-    ('shader.py', 'Py5Shader'),
-    ('shape.py', 'Py5Shape'),
-    ('sketch.py', 'Sketch'),
-    ('surface.py', 'Py5Surface'),
-    # TODO: would these work correctly on windows?
-    ('mixins/data.py', 'Sketch'),
-    ('mixins/math.py', 'Sketch'),
-    ('mixins/pixels.py', 'Sketch'),
-    ('mixins/threads.py', 'Sketch'),
+    (('font.py',), 'Py5Font'),
+    (('graphics.py',), 'Py5Graphics'),
+    (('image.py',), 'Py5Image'),
+    (('shader.py',), 'Py5Shader'),
+    (('shape.py',), 'Py5Shape'),
+    (('sketch.py',), 'Sketch'),
+    (('surface.py',), 'Py5Surface'),
+    (('mixins', 'data.py'), 'Sketch'),
+    (('mixins', 'math.py'), 'Sketch'),
+    (('mixins', 'pixels.py'), 'Sketch'),
+    (('mixins', 'threads.py'), 'Sketch'),
 ])
 
 
 def handle_typeerror(exc_type_name, exc_msg, py5info):
     if py5info:
         filename, fname = py5info[-1]
-        print(filename, fname)
         signatures = METHOD_SIGNATURES_LOOKUP.get((FILE_CLASS_LOOKUP.get(filename), fname))
-        if signatures and (m := JPYPE_TYPEERROR_REGEX.search(exc_msg)):
-            passed = m.groups(1)[0].replace(',', ', ')
-            exc_msg = 'The parameter types ' + passed + ' are invalid for method ' + fname + '.\n'
-            exc_msg += 'Your parameters must match one of the following signatures:\n'
-            exc_msg += '\n'.join([' * ' + fname + sig for sig in signatures])
+        if signatures:
+            m = JPYPE_TYPEERROR_REGEX.search(exc_msg)
+            passed = m.groups(1)[0].replace(',', ', ') + ' ' if m else ''
+            exc_msg = 'The parameter types ' + passed + 'are invalid for method ' + fname + '.\n'
+            if len(signatures) == 1:
+                exc_msg += 'Your parameters must match the following signature:\n'
+                exc_msg += ' * ' + fname + signatures[0]
+            else:
+                exc_msg += 'Your parameters must match one of the following signatures:\n'
+                exc_msg += '\n'.join([' * ' + fname + sig for sig in signatures])
 
     return exc_msg
 

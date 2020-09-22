@@ -60,7 +60,8 @@ def handle_exception(exc_type, exc_value, exc_tb):
             while hasattr(tb, 'tb_next') and hasattr(tb, 'tb_frame'):
                 f_code = tb.tb_frame.f_code
                 if f_code.co_filename.startswith(_module_install_dir):
-                    py5info.append((f_code.co_filename[(len(_module_install_dir) + 1):], f_code.co_name))
+                    py5info.append((Path(f_code.co_filename[(len(_module_install_dir) + 1):]).parts,
+                                   f_code.co_name))
                     if trim_tb is None:
                         trim_tb = prev_tb
                 prev_tb = tb
