@@ -27,16 +27,9 @@ from .type_decorators import _text_fix_str  # noqa
 from .pmath import _get_matrix_wrapper  # noqa
 from . import image_conversion
 from .image_conversion import NumpyImageArray
-
+from . import reference
 
 sketch_class_members_code = None  # DELETE
-
-_METHODS = ['settings', 'setup', 'draw', 'pre_draw', 'post_draw',
-            'key_pressed', 'key_typed', 'key_released',
-            'mouse_clicked', 'mouse_dragged', 'mouse_moved', 'mouse_entered',
-            'mouse_exited', 'mouse_pressed', 'mouse_released', 'mouse_wheel',
-            'exiting']
-
 
 _Py5Applet = jpype.JClass('py5.core.Py5Applet')
 
@@ -70,7 +63,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
                  'method without a call to `super().__init__()`?')
             )
 
-        methods = dict([(e, getattr(self, e)) for e in _METHODS if hasattr(self, e)])
+        methods = dict([(e, getattr(self, e)) for e in reference.METHODS if hasattr(self, e)])
         self._run_sketch(methods, block, py5_options, sketch_args)
 
     def _run_sketch(self,

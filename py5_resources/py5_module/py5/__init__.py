@@ -27,9 +27,10 @@ if not py5_tools.is_jvm_running():
     py5_tools.start_jvm()
 
 from .methods import register_exception_msg  # noqa
-from .sketch import Sketch, _METHODS, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Shape, Py5Font, Py5Promise, _in_ipython_session  # noqa
+from .sketch import Sketch, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Shape, Py5Font, Py5Promise, _in_ipython_session  # noqa
 from .create_font_tool import create_font_file  # noqa
 from .image_conversion import register_image_conversion, NumpyImageArray  # noqa
+from . import reference
 from . import java_conversion  # noqa
 try:
     from py5_tools.magics import load_ipython_extension  # noqa
@@ -68,7 +69,7 @@ def run_sketch(block: bool = not _in_ipython_session,
         pass
 
     function_dict = inspect.stack()[1].frame.f_locals
-    methods = dict([(e, function_dict[e]) for e in _METHODS if e in function_dict])
+    methods = dict([(e, function_dict[e]) for e in reference.METHODS if e in function_dict])
 
     if not set(methods.keys()) & set(['settings', 'setup', 'draw']):
         print(("Unable to find settings, setup, or draw functions. "
