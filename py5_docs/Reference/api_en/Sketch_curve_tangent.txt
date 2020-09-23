@@ -14,7 +14,7 @@ image = Sketch_curve_tangent_0.png
 no_fill()
 curve(5, 26, 73, 24, 73, 61, 15, 65)
 steps = 6
-for i = range(0, steps + 1):
+for i in range(0, steps + 1):
     t = i / float(steps)
     x = curve_point(5, 73, 73, 15, t)
     y = curve_point(26, 24, 61, 65, t)

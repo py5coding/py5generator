@@ -76,7 +76,7 @@ def convert_to_python(code):
     while m := re.search(r'for \(\w+\s+(\w+)\s*=\s*(\d+); \1\s*([<=>]+)\s*([^;]+);\s*\1\s*([^\)]*)\)\s*{', code):
         end = m.group(4) + ('' if m.group(3) == '<' else ' + 1')
         step = '' if (step := m.group(5)) == '++' else f",{step.split('=')[1]}"
-        code = code.replace(m.group(), f'for {m.group(1)} = range({m.group(2)}, {end}{step}):')
+        code = code.replace(m.group(), f'for {m.group(1)} in range({m.group(2)}, {end}{step}):')
 
     # convert variable declarations
     # this converts declarations with assignments

@@ -25,7 +25,7 @@ def setup():
 
 def draw():
     translate(20, 20)
-    for i = range(0, s.get_vertex_count()):
+    for i in range(0, s.get_vertex_count()):
         v = s.get_vertex(i)
         v.x += random(-1, 1)
         v.y += random(-1, 1)

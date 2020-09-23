@@ -11,7 +11,7 @@ Returns a float from a random series of numbers having a mean of 0 and standard 
 @@ example
 image = Sketch_random_gaussian_0.png
 
-for y = range(0, 100):
+for y in range(0, 100):
     x = random_gaussian() * 15
     line(50, y, 50 + x, y)
 
@@ -24,7 +24,7 @@ distribution = new float[360]
 
 def setup():
     size(100, 100)
-    for i = range(0, len(distribution)):
+    for i in range(0, len(distribution)):
         distribution[i] = int(random_gaussian() * 15)
 
 
@@ -33,7 +33,7 @@ def draw():
 
     translate(width/2, width/2)
 
-    for i = range(0, len(distribution)):
+    for i in range(0, len(distribution)):
         rotate(TWO_PI/len(distribution))
         stroke(0)
         dist = abs(distribution[i])

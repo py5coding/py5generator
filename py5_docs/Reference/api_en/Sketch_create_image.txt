@@ -17,7 +17,7 @@ image = Sketch_create_image_0.png
 
 img = create_image(66, 66, RGB)
 img.load_pixels()
-for i = range(0, len(img.pixels)):
+for i in range(0, len(img.pixels)):
     img.pixels[i] = color(0, 90, 102)
 
 img.update_pixels()
@@ -29,7 +29,7 @@ image = Sketch_create_image_1.png
 
 img = create_image(66, 66, ARGB)
 img.load_pixels()
-for i = range(0, len(img.pixels)):
+for i in range(0, len(img.pixels)):
     img.pixels[i] = color(0, 90, 102, i % img.width * 2)
 
 img.update_pixels()

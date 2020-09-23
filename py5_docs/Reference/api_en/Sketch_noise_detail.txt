@@ -18,8 +18,8 @@ noise_scale = 0.02
 
 
 def draw():
-    for y = range(0, height):
-        for x = range(0, width/2):
+    for y in range(0, height):
+        for x in range(0, width/2):
             noise_detail(3, 0.5)
             noise_val = noise(
                 (mouse_x+x) * noise_scale,

@@ -20,7 +20,7 @@ def setup():
     half_image = width * height/2
     my_image = load_image("apples.jpg")
     my_image.load_pixels()
-    for i = range(0, half_image):
+    for i in range(0, half_image):
         my_image.pixels[i+half_image] = my_image.pixels[i]
 
     my_image.update_pixels()

@@ -17,7 +17,7 @@ curve(5, 26, 73, 24, 73, 61, 15, 65)
 fill(255)
 ellipse_mode(CENTER)
 steps = 6
-for i = range(0, steps + 1):
+for i in range(0, steps + 1):
     t = i / float(steps)
     x = curve_point(5, 5, 73, 73, t)
     y = curve_point(26, 26, 24, 61, t)

@@ -16,7 +16,7 @@ my_image = load_image("apples.jpg")
 image(my_image, 0, 0)
 
 load_pixels()
-for i = range(0, half_image):
+for i in range(0, half_image):
     pixels[i+half_image] = pixels[i]
 
 update_pixels()

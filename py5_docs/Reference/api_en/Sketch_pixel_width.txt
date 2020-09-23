@@ -27,14 +27,14 @@ def draw():
     load_pixels()
     # fill all the pixels to blue with using
     # pixel_width and pixel_height
-    for i = range(0, pixel_width * pixel_height):
+    for i in range(0, pixel_width * pixel_height):
         pixels[i] = color(0, 0, 255)
 
     # fill one quarter of the pixels to yellow
     # because the pixel density is set to 2 in setup()
     # and 'width' and 'height' don't reflect the pixel
     # dimensions of the sketch
-    for i = range(0, width * height):
+    for i in range(0, width * height):
         pixels[i] = color(255, 255, 0)
 
     update_pixels()

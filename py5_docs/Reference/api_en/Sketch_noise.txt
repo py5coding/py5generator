@@ -33,7 +33,7 @@ noise_scale = 0.02
 
 def draw():
     background(0)
-    for x = range(0, width):
+    for x in range(0, width):
         noise_val = noise((mouse_x+x)*noise_scale, mouse_y*noise_scale)
         stroke(noise_val*255)
         line(x, mouse_y+noise_val*80, x, height)
