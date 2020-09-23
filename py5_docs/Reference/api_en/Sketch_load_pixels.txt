@@ -9,7 +9,7 @@ processing_name = loadPixels
 Loads the pixel data of the current display window into the ``pixels[]`` array. This function must always be called before reading from or writing to ``pixels[]``. Subsequent changes to the display window will not be reflected in ``pixels`` until ``load_pixels()`` is called again.
 
 @@ example
-image = loadPixels_.png
+image = Sketch_load_pixels_0.png
 
 half_image = width*height/2
 my_image = load_image("apples.jpg")

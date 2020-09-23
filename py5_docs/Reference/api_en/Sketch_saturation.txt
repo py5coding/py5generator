@@ -9,7 +9,7 @@ processing_name = saturation
 Extracts the saturation value from a color.
 
 @@ example
-image = saturation_.png
+image = Sketch_saturation_0.png
 
 no_stroke()
 color_mode(HSB, 255)

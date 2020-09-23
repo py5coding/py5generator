@@ -13,7 +13,7 @@ The ``img`` parameter specifies the image to display and by default the ``a`` an
 The color of an image may be modified with the ``tint()`` function. This function will maintain transparency for GIF and PNG images.
 
 @@ example
-image = image_0.png
+image = Sketch_image_0.png
 
 
 
@@ -28,7 +28,7 @@ def draw():
 
 
 @@ example
-image = image_1.png
+image = Sketch_image_1.png
 
 
 

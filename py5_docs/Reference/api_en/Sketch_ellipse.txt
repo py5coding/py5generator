@@ -9,7 +9,7 @@ processing_name = ellipse
 Draws an ellipse (oval) to the screen. An ellipse with equal width and height is a circle. By default, the first two parameters set the location, and the third and fourth parameters set the shape's width and height. The origin may be changed with the ``ellipse_mode()`` function.
 
 @@ example
-image = ellipse_.png
+image = Sketch_ellipse_0.png
 
 ellipse(56, 46, 55, 55)
 

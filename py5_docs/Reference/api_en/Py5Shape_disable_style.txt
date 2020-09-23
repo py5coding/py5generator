@@ -9,7 +9,7 @@ processing_name = disableStyle
 Disables the shape's style data and uses Processing's current styles. Styles include attributes such as colors, stroke weight, and stroke joints.
 
 @@ example
-image = PShape_disableStyle_.png
+image = Py5Shape_disable_style_0.png
 
 
 

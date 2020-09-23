@@ -9,7 +9,7 @@ processing_name = getChild
 Extracts a child shape from a parent shape. Specify the name of the shape with the ``target`` parameter. The shape is returned as a ``Py5Shape`` object, or ``None`` is returned if there is an error.
 
 @@ example
-image = PShape_getChild_.png
+image = Py5Shape_get_child_0.png
 
 
 

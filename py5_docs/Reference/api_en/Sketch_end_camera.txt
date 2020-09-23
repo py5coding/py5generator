@@ -9,7 +9,7 @@ processing_name = endCamera
 The ``begin_camera()`` and ``end_camera()`` functions enable advanced customization of the camera space. Please see the reference for ``begin_camera()`` for a description of how the functions are used.
 
 @@ example
-image = endCamera_.png
+image = Sketch_end_camera_0.png
 
 size(100, 100, P3D)
 no_fill()

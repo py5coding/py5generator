@@ -11,14 +11,14 @@ Specifies an amount to displace objects within the display window. The ``x`` par
 Transformations are cumulative and apply to everything that happens after and subsequent calls to the function accumulates the effect. For example, calling ``translate(50, 0)`` and then ``translate(20, 0)`` is the same as ``translate(70, 0)``. If ``translate()`` is called within ``draw()``, the transformation is reset when the loop begins again. This function can be further controlled by using ``push_matrix()`` and ``pop_matrix()``.
 
 @@ example
-image = translate_0.png
+image = Sketch_translate_0.png
 
 translate(30, 20)
 rect(0, 0, 55, 55)
 
 
 @@ example
-image = translate_1.png
+image = Sketch_translate_1.png
 
 # translating in 3D requires P3D
 # as the parameter to size()
@@ -30,7 +30,7 @@ rect(0, 0, 55, 55)
 
 
 @@ example
-image = translate_2.png
+image = Sketch_translate_2.png
 
 rect(0, 0, 55, 55)  # draw rect at original 0,0
 translate(30, 20)

@@ -9,7 +9,7 @@ processing_name = updatePixels
 Updates the display window with the data in the ``pixels[]`` array. Use in conjunction with ``load_pixels()``. If you're only reading pixels from the array, there's no need to call ``update_pixels()`` — updating is only necessary to apply changes.
 
 @@ example
-image = updatePixels_.png
+image = Sketch_update_pixels_0.png
 
 img = load_image("rockies.jpg")
 image(img, 0, 0)

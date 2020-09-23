@@ -45,7 +45,7 @@ All modes use the alpha information (highest byte) of source image pixels as the
 As of release 0149, this function ignores ``image_mode()``.
 
 @@ example
-image = PImage_blend_0_add.png
+image = Py5Image_blend_0.png
 
 mountains = load_image("rockies.jpg")
 bricks = load_image("bricks.jpg")
@@ -55,7 +55,7 @@ image(bricks, 0, 0)
 
 
 @@ example
-image = PImage_blend_1_subtract.png
+image = Py5Image_blend_1.png
 
 mountains = load_image("rockies.jpg")
 bricks = load_image("bricks.jpg")
@@ -65,7 +65,7 @@ image(bricks, 0, 0)
 
 
 @@ example
-image = PImage_blend_2_darkest.png
+image = Py5Image_blend_2.png
 
 mountains = load_image("rockies.jpg")
 bricks = load_image("bricks.jpg")
@@ -75,7 +75,7 @@ image(bricks, 0, 0)
 
 
 @@ example
-image = PImage_blend_3_lightest.png
+image = Py5Image_blend_3.png
 
 mountains = load_image("rockies.jpg")
 bricks = load_image("bricks.jpg")

@@ -11,7 +11,7 @@ Sets a texture to be applied to vertex points. The ``texture()`` function must b
 When textures are in use, the fill color is ignored. Instead, use ``tint()`` to specify the color of the texture as it is applied to the shape.
 
 @@ example
-image = texture_.png
+image = Sketch_texture_0.png
 
 size(100, 100, P3D)
 no_stroke()

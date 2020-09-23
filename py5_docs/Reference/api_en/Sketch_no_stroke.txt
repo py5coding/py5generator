@@ -9,7 +9,7 @@ processing_name = noStroke
 Disables drawing the stroke (outline). If both ``no_stroke()`` and ``no_fill()`` are called, nothing will be drawn to the screen.
 
 @@ example
-image = noStroke_.png
+image = Sketch_no_stroke_0.png
 
 no_stroke()
 rect(30, 20, 55, 55)

@@ -9,7 +9,7 @@ processing_name = curveDetail
 Sets the resolution at which curves display. The default value is 20. This function is only useful when using the P3D renderer as the default P2D renderer does not use this information.
 
 @@ example
-image = curveDetail_.png
+image = Sketch_curve_detail_0.png
 
 def setup():
     size(100, 100, P3D)

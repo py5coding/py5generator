@@ -11,7 +11,7 @@ Copies a region of pixels from one image into another. If the source and destina
 As of release 0149, this function ignores ``image_mode()``.
 
 @@ example
-image = PImage_copy_.png
+image = Py5Image_copy_0.png
 
 
 

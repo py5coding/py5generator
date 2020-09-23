@@ -15,7 +15,7 @@ When using ``text()`` with width and height parameters, BASELINE is ignored, and
 The vertical alignment is based on the value of ``text_ascent()``, which many fonts do not specify correctly. It may be necessary to use a hack and offset by a few pixels by hand so that the offset looks correct. To do this as less of a hack, use some percentage of ``text_ascent()`` or ``text_descent()`` so that the hack works even if you change the size of the font.
 
 @@ example
-image = textAlign_0.png
+image = Sketch_text_align_0.png
 
 background(0)
 text_size(16)
@@ -28,7 +28,7 @@ text("IJKL", 50, 70)
 
 
 @@ example
-image = textAlign_1.png
+image = Sketch_text_align_1.png
 
 background(0)
 stroke(153)

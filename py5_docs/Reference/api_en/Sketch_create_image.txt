@@ -13,7 +13,7 @@ Be sure to include all three parameters, specifying only the width and height (b
 Advanced users please note that ``create_image()`` should be used instead of the syntax ``new Py5Image()``.
 
 @@ example
-image = createImage_0.png
+image = Sketch_create_image_0.png
 
 img = create_image(66, 66, RGB)
 img.load_pixels()
@@ -25,7 +25,7 @@ image(img, 17, 17)
 
 
 @@ example
-image = createImage_1.png
+image = Sketch_create_image_1.png
 
 img = create_image(66, 66, ARGB)
 img.load_pixels()

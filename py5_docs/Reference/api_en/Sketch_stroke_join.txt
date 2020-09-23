@@ -9,7 +9,7 @@ processing_name = strokeJoin
 Sets the style of the joints which connect line segments. These joints are either mitered, beveled, or rounded and specified with the corresponding parameters MITER, BEVEL, and ROUND. The default joint is MITER.
 
 @@ example
-image = strokeJoin_0.png
+image = Sketch_stroke_join_0.png
 
 no_fill()
 stroke_weight(10.0)
@@ -22,7 +22,7 @@ end_shape()
 
 
 @@ example
-image = strokeJoin_1.png
+image = Sketch_stroke_join_1.png
 
 no_fill()
 stroke_weight(10.0)
@@ -35,7 +35,7 @@ end_shape()
 
 
 @@ example
-image = strokeJoin_2.png
+image = Sketch_stroke_join_2.png
 
 no_fill()
 stroke_weight(10.0)

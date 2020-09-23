@@ -13,19 +13,19 @@ An image can also be used as the background for a sketch, although the image's w
 It is not possible to use the transparency ``alpha`` parameter with background colors on the main drawing surface. It can only be used along with a ``Py5Graphics`` object and ``create_graphics()``.
 
 @@ example
-image = background_0.png
+image = Sketch_background_0.png
 
 background(51)
 
 
 @@ example
-image = background_1.png
+image = Sketch_background_1.png
 
 background(255, 204, 0)
 
 
 @@ example
-image = background_2.png
+image = Sketch_background_2.png
 
 
 img = load_image("laDefense.jpg")

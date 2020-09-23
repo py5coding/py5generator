@@ -9,7 +9,7 @@ processing_name = textWidth
 Calculates and returns the width of any character or text string.
 
 @@ example
-image = textWidth_.png
+image = Sketch_text_width_0.png
 
 text_size(28)
 

@@ -17,7 +17,7 @@ If the file is not available or an error occurs, ``None`` will be returned and a
 Use ``create_font()`` (instead of ``load_font()``) to enable vector data to be used with the default renderer setting. This can be helpful when many font sizes are needed, or when using any renderer based on the default renderer, such as the PDF library.
 
 @@ example
-image = loadFont_.png
+image = Sketch_load_font_0.png
 
 
 # the font must be located in the sketch's

@@ -9,7 +9,7 @@ processing_name = curve
 Draws a curved line on the screen. The first and second parameters specify the beginning control point and the last two parameters specify the ending control point. The middle parameters specify the start and stop of the curve. Longer curves can be created by putting a series of ``curve()`` functions together or using ``curve_vertex()``. An additional function called ``curve_tightness()`` provides control for the visual quality of the curve. The ``curve()`` function is an implementation of Catmull-Rom splines. Using the 3D version requires rendering with P3D (see the Environment reference for more information).
 
 @@ example
-image = curve_.png
+image = Sketch_curve_0.png
 
 no_fill()
 stroke(255, 102, 0)

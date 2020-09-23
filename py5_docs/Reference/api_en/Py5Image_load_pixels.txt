@@ -9,7 +9,7 @@ processing_name = loadPixels
 Loads the pixel data for the image into its ``pixels[]`` array. This function must always be called before reading from or writing to ``pixels[]``.
 
 @@ example
-image = PImage_loadPixels_.png
+image = Py5Image_load_pixels_0.png
 
 
 

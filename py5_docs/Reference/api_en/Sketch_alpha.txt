@@ -9,7 +9,7 @@ processing_name = alpha
 Extracts the alpha value from a color.
 
 @@ example
-image = alpha_.png
+image = Sketch_alpha_0.png
 
 no_stroke()
 c = color(0, 126, 255, 102)

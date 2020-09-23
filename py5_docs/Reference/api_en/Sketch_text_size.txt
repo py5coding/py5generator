@@ -9,7 +9,7 @@ processing_name = textSize
 Sets the current font size. This size will be used in all subsequent calls to the ``text()`` function. Font size is measured in units of pixels.
 
 @@ example
-image = textSize_.png
+image = Sketch_text_size_0.png
 
 background(0)
 fill(255)

@@ -11,7 +11,7 @@ Sets the style for rendering line endings. These ends are either squared, extend
 To make ``point()`` appear square, use ``stroke_cap(PROJECT)``. Using ``stroke_cap(SQUARE)`` (no cap) causes points to become invisible.
 
 @@ example
-image = strokeCap_.png
+image = Sketch_stroke_cap_0.png
 
 stroke_weight(12.0)
 stroke_cap(ROUND)

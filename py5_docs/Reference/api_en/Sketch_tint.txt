@@ -17,7 +17,7 @@ The value for the gray parameter must be less than or equal to the current maxim
 The ``tint()`` function is also used to control the coloring of textures in 3D.
 
 @@ example
-image = tint_0.png
+image = Sketch_tint_0.png
 
 
 img = load_image("laDefense.jpg")
@@ -27,7 +27,7 @@ image(img, 50, 0)
 
 
 @@ example
-image = tint_1.png
+image = Sketch_tint_1.png
 
 
 img = load_image("laDefense.jpg")
@@ -37,7 +37,7 @@ image(img, 50, 0)
 
 
 @@ example
-image = tint_2.png
+image = Sketch_tint_2.png
 
 
 img = load_image("laDefense.jpg")

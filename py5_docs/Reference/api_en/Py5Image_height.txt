@@ -9,7 +9,7 @@ processing_name = height
 The height of the image in units of pixels.
 
 @@ example
-image = PImage_height.png
+image = Py5Image_height_0.png
 
 tiles = load_image("tiles.jpg")
 image(tiles, 20, 10)

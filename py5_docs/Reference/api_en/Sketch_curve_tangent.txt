@@ -9,7 +9,7 @@ processing_name = curveTangent
 Calculates the tangent of a point on a curve. There's a good definition of *tangent* on Wikipedia.
 
 @@ example
-image = curveTangent_.png
+image = Sketch_curve_tangent_0.png
 
 no_fill()
 curve(5, 26, 73, 24, 73, 61, 15, 65)

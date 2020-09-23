@@ -35,7 +35,7 @@ DILATE
 Increases the light areas. No parameter is used.
 
 @@ example
-image = filter_0_threshold.png
+image = Sketch_apply_filter_0.png
 
 
 img = load_image("apples.jpg")
@@ -44,7 +44,7 @@ filter(THRESHOLD)
 
 
 @@ example
-image = filter_1_gray.png
+image = Sketch_apply_filter_1.png
 
 
 img = load_image("apples.jpg")
@@ -53,7 +53,7 @@ filter(GRAY)
 
 
 @@ example
-image = filter_2_invert.png
+image = Sketch_apply_filter_2.png
 
 
 img = load_image("apples.jpg")
@@ -62,7 +62,7 @@ filter(INVERT)
 
 
 @@ example
-image = filter_3_posterize.png
+image = Sketch_apply_filter_3.png
 
 
 img = load_image("apples.jpg")
@@ -71,7 +71,7 @@ filter(POSTERIZE, 4)
 
 
 @@ example
-image = filter_4_blur.png
+image = Sketch_apply_filter_4.png
 
 
 img = load_image("apples.jpg")
@@ -80,7 +80,7 @@ filter(BLUR, 6)
 
 
 @@ example
-image = filter_5_erode.png
+image = Sketch_apply_filter_5.png
 
 
 img = load_image("apples.jpg")
@@ -89,7 +89,7 @@ filter(ERODE)
 
 
 @@ example
-image = filter_6_dilate.png
+image = Sketch_apply_filter_6.png
 
 
 img = load_image("apples.jpg")
@@ -98,7 +98,7 @@ filter(DILATE)
 
 
 @@ example
-image = filter_4_blur.png
+image = Sketch_apply_filter_7.png
 
 
 

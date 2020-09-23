@@ -15,14 +15,14 @@ The value for the gray parameter must be less than or equal to the current maxim
 When drawing in 2D with the default renderer, you may need ``hint(ENABLE_STROKE_PURE)`` to improve drawing quality (at the expense of performance). See the ``hint()`` documentation for more details.
 
 @@ example
-image = stroke_0.png
+image = Sketch_stroke_0.png
 
 stroke(153)
 rect(30, 20, 55, 55)
 
 
 @@ example
-image = stroke_1.png
+image = Sketch_stroke_1.png
 
 stroke(204, 102, 0)
 rect(30, 20, 55, 55)

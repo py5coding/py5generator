@@ -13,7 +13,7 @@ If the pixel requested is outside of the image window, black is returned. The nu
 Getting the color of a single pixel with ``get(x, y)`` is easy, but not as fast as grabbing the data directly from ``pixels[]``. The equivalent statement to ``get(x, y)`` using ``pixels[]`` is ``pixels[y*width+x]``. See the reference for ``pixels[]`` for more information.
 
 @@ example
-image = PImage_get_0.png
+image = Py5Image_get_0.png
 
 mountains = load_image("rockies.jpg")
 background(mountains)
@@ -24,7 +24,7 @@ rect(25, 25, 50, 50)
 
 
 @@ example
-image = PImage_get_1.png
+image = Py5Image_get_1.png
 
 mountains = load_image("rockies.jpg")
 background(mountains)

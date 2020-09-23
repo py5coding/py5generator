@@ -9,7 +9,7 @@ processing_name = noTint
 Removes the current fill value for displaying images and reverts to displaying images with their original hues.
 
 @@ example
-image = noTint_.png
+image = Sketch_no_tint_0.png
 
 
 img = load_image("laDefense.jpg")

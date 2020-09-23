@@ -33,7 +33,7 @@ DILATE
 Increases the light areas. No parameter is used.
 
 @@ example
-image = PImage_filter_0_threshold.png
+image = Py5Image_apply_filter_0.png
 
 Py5Image img1, img2
 
@@ -52,7 +52,7 @@ def draw():
 
 
 @@ example
-image = PImage_filter_1_gray.png
+image = Py5Image_apply_filter_1.png
 
 Py5Image img1, img2
 
@@ -69,7 +69,7 @@ def draw():
 
 
 @@ example
-image = PImage_filter_2_invert.png
+image = Py5Image_apply_filter_2.png
 
 Py5Image img1, img2
 
@@ -86,7 +86,7 @@ def draw():
 
 
 @@ example
-image = PImage_filter_3_posterize.png
+image = Py5Image_apply_filter_3.png
 
 Py5Image img1, img2
 
@@ -103,7 +103,7 @@ def draw():
 
 
 @@ example
-image = PImage_filter_4_blur.png
+image = Py5Image_apply_filter_4.png
 
 Py5Image img1, img2
 
@@ -120,7 +120,7 @@ def draw():
 
 
 @@ example
-image = PImage_filter_5_erode.png
+image = Py5Image_apply_filter_5.png
 
 Py5Image img1, img2
 
@@ -137,7 +137,7 @@ def draw():
 
 
 @@ example
-image = PImage_filter_6_dilate.png
+image = Py5Image_apply_filter_6.png
 
 Py5Image img1, img2
 

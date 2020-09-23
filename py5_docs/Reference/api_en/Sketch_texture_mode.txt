@@ -11,7 +11,7 @@ Sets the coordinate space for texture mapping. The default mode is ``IMAGE``, wh
 With ``IMAGE``, if an image is 100 x 200 pixels, mapping the image onto the entire size of a quad would require the points (0,0) (100, 0) (100,200) (0,200). The same mapping in ``NORMAL`` is (0,0) (1,0) (1,1) (0,1).
 
 @@ example
-image = textureMode_0.png
+image = Sketch_texture_mode_0.png
 
 size(100, 100, P3D)
 no_stroke()
@@ -27,7 +27,7 @@ end_shape()
 
 
 @@ example
-image = textureMode_1.png
+image = Sketch_texture_mode_1.png
 
 size(100, 100, P3D)
 no_stroke()

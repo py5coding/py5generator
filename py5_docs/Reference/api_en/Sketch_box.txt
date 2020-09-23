@@ -9,7 +9,7 @@ processing_name = box
 A box is an extruded rectangle. A box with equal dimensions on all sides is a cube.
 
 @@ example
-image = box_0.png
+image = Sketch_box_0.png
 
 size(100, 100, P3D)
 translate(58, 48, 0)
@@ -19,7 +19,7 @@ box(40)
 
 
 @@ example
-image = box_1.png
+image = Sketch_box_1.png
 
 size(100, 100, P3D)
 translate(58, 48, 0)

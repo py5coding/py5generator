@@ -13,7 +13,7 @@ The ``push()`` function saves the current drawing style settings and transformat
 The ``push()`` and ``pop()`` functions were added with Processing 3.5. They can be used in place of ``push_matrix()``, ``pop_matrix()``, ``push_styles()``, and ``pop_styles()``. The difference is that ``push()`` and ``pop()`` control both the transformations (rotate, scale, translate) and the drawing styles at the same time.
 
 @@ example
-image = pushMatrix_.png
+image = Sketch_push_0.png
 
 fill(255)
 rect(0, 0, 50, 50)  # white rectangle
@@ -29,7 +29,7 @@ rect(15, 10, 50, 50)  # gray rectangle
 
 
 @@ example
-image = pushStyle_0.png
+image = Sketch_push_1.png
 
 ellipse(0, 50, 33, 33)  # left circle
 

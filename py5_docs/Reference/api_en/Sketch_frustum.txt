@@ -17,7 +17,7 @@ Note that the near value must be greater than zero (as the point of the frustum 
 Works like glFrustum, except it wipes out the current perspective matrix rather than multiplying itself with it.
 
 @@ example
-image = frustum_.png
+image = Sketch_frustum_0.png
 
 size(100, 100, P3D)
 no_fill()

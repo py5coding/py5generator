@@ -13,7 +13,7 @@ The ``x2`` and ``y2`` parameters define a rectangular area to display within and
 Note that Processing now lets you call ``text()`` without first specifying a PFont with ``text_font()``. In that case, a generic sans-serif font will be used instead. (See the third example above.)
 
 @@ example
-image = text_0.png
+image = Sketch_text_0.png
 
 text_size(32)
 text("word", 10, 30)
@@ -24,7 +24,7 @@ text("word", 10, 90)
 
 
 @@ example
-image = text_1.png
+image = Sketch_text_1.png
 
 size(100, 100, P3D)
 text_size(32)
@@ -34,7 +34,7 @@ text("word", 12, 60)  # default depth, no z-value specified
 
 
 @@ example
-image = text_2.png
+image = Sketch_text_2.png
 
 s = "The quick brown fox jumps over the lazy dog."
 fill(50)

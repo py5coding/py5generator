@@ -11,7 +11,7 @@ There are three ways to draw an arc; the rendering technique used is defined by 
 In some cases, the ``arc()`` function isn't accurate enough for smooth drawing. For example, the shape may jitter on screen when rotating slowly. If you're having an issue with how arcs are rendered, you'll need to draw the arc yourself with ``begin_shape()``/``end_shape()`` or a ``Py5Shape``.
 
 @@ example
-image = arc_.png
+image = Sketch_arc_0.png
 
 arc(50, 55, 50, 50, 0, HALF_PI)
 no_fill()
@@ -21,19 +21,19 @@ arc(50, 55, 80, 80, PI+QUARTER_PI, TWO_PI)
 
 
 @@ example
-image = arc_2.png
+image = Sketch_arc_1.png
 
 arc(50, 50, 80, 80, 0, PI+QUARTER_PI, OPEN)
 
 
 @@ example
-image = arc_3.png
+image = Sketch_arc_2.png
 
 arc(50, 50, 80, 80, 0, PI+QUARTER_PI, CHORD)
 
 
 @@ example
-image = arc_4.png
+image = Sketch_arc_3.png
 
 arc(50, 50, 80, 80, 0, PI+QUARTER_PI, PIE)
 

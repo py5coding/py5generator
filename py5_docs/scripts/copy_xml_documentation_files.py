@@ -259,15 +259,19 @@ print("read and translate Processing's xml documentation files")
 for num, (xml_file, file_data) in enumerate(xml_files):
     print(f'{num + 1} / {len(xml_files)} {xml_file.name}')
     pclass, py5_name, processing_name = file_data
+    new_filename_base = f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}'
     doc = Documentation(xml_file)
     doc.description = remove_html(doc.description)
     doc.meta['processing_name'] = processing_name
     doc.meta['name'] = doc.meta['name'].replace(processing_name, py5_name)
     new_examples = []
-    for image_name, code in doc.examples:
+    for num, (image_name, code) in enumerate(doc.examples):
+        # this makes sure the image names are all unique
+        if image_name:
+            image_name = f'{new_filename_base}_{num}.png'
         new_examples.append((image_name, adjust_code(code, use_autopep8=True)))
     doc.examples = new_examples
-    doc.write(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.txt')
+    doc.write(PY5_API_EN / (new_filename_base + '.txt'))
 
 print(f"create {len(new_xml_files)} new documentation files")
 for num, new_file_data in enumerate(new_xml_files):

@@ -9,7 +9,7 @@ processing_name = noFill
 Disables filling geometry. If both ``no_stroke()`` and ``no_fill()`` are called, nothing will be drawn to the screen.
 
 @@ example
-image = noFill_.png
+image = Sketch_no_fill_0.png
 
 rect(15, 10, 55, 55)
 no_fill()

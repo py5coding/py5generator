@@ -13,7 +13,7 @@ The coordinates are always rotated around their relative position to the origin.
 Technically, ``rotate()`` multiplies the current transformation matrix by a rotation matrix. This function can be further controlled by ``push_matrix()`` and ``pop_matrix()``.
 
 @@ example
-image = rotate_.png
+image = Sketch_rotate_0.png
 
 translate(width/2, height/2)
 rotate(PI/3.0)

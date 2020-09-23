@@ -11,7 +11,7 @@ The pixels[] array contains the values for all the pixels in the image. These va
 Before accessing this array, the data must loaded with the ``load_pixels()`` method. Failure to do so may result in a NullPointerException. After the array data has been modified, the ``update_pixels()`` method must be run to update the content of the display window.
 
 @@ example
-image = PImage_pixels.png
+image = Py5Image_pixels_0.png
 
 
 

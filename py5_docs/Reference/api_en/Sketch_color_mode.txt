@@ -11,7 +11,7 @@ Changes the way Processing interprets color data. By default, the parameters for
 After changing the range of values for colors with code like ``color_mode(HSB, 360, 100, 100)``, those ranges remain in use until they are explicitly changed again. For example, after running ``color_mode(HSB, 360, 100, 100)`` and then changing back to ``color_mode(RGB)``, the range for R will be 0 to 360 and the range for G and B will be 0 to 100. To avoid this, be explicit about the ranges when changing the color mode. For instance, instead of ``color_mode(RGB)``, write ``color_mode(RGB, 255, 255, 255)``.
 
 @@ example
-image = colorMode_0.png
+image = Sketch_color_mode_0.png
 
 no_stroke()
 color_mode(RGB, 100)
@@ -22,7 +22,7 @@ for i = range(0, 100):
 
 
 @@ example
-image = colorMode_1.png
+image = Sketch_color_mode_1.png
 
 no_stroke()
 color_mode(HSB, 100)
@@ -33,7 +33,7 @@ for i = range(0, 100):
 
 
 @@ example
-image = colorMode_2.png
+image = Sketch_color_mode_2.png
 
 # if the color is defined here, it won't be
 # affected by the color_mode() in setup().

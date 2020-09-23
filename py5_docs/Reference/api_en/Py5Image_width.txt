@@ -9,7 +9,7 @@ processing_name = width
 The width of the image in units of pixels.
 
 @@ example
-image = PImage_width.png
+image = Py5Image_width_0.png
 
 tiles = load_image("tiles.jpg")
 image(tiles, 20, 10)

@@ -9,7 +9,7 @@ processing_name = enableStyle
 Enables the shape's style data and ignores Processing's current styles. Styles include attributes such as colors, stroke weight, and stroke joints.
 
 @@ example
-image = PShape_enableStyle_.png
+image = Py5Shape_enable_style_0.png
 
 
 

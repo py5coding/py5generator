@@ -11,7 +11,7 @@ Sets the current font that will be drawn with the ``text()`` function. Fonts mus
 
 
 @@ example
-image = textFont_.png
+image = Sketch_text_font_0.png
 
 
 # the font "andalemo.ttf" must be located in the

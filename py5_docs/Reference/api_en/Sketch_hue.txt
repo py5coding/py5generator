@@ -9,7 +9,7 @@ processing_name = hue
 Extracts the hue value from a color.
 
 @@ example
-image = hue_.png
+image = Sketch_hue_0.png
 
 no_stroke()
 color_mode(HSB, 255)

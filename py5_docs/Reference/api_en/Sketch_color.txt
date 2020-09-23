@@ -15,7 +15,7 @@ Note that when using hexadecimal notation, it is not necessary to use ``color()`
 More about how colors are stored can be found in the reference for the color datatype.
 
 @@ example
-image = color_0.png
+image = Sketch_color_0.png
 
 c = color(255, 204, 0)  # define color 'c'
 fill(c)  # use color variable 'c' as fill color
@@ -24,7 +24,7 @@ rect(30, 20, 55, 55)  # draw rectangle
 
 
 @@ example
-image = color_1.png
+image = Sketch_color_1.png
 
 c = color(255, 204, 0)  # define color 'c'
 fill(c)  # use color variable 'c' as fill color
@@ -39,7 +39,7 @@ ellipse(75, 75, 80, 80)  # draw right circle
 
 
 @@ example
-image = color_2.png
+image = Sketch_color_2.png
 
 color c  # declare color 'c'
 no_stroke()  # don't draw a stroke around shapes

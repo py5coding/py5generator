@@ -9,7 +9,7 @@ processing_name = quadraticVertex
 Specifies vertex coordinates for quadratic Bezier curves. Each call to ``quadratic_vertex()`` defines the position of one control point and one anchor point of a Bezier curve, adding a new segment to a line or shape. The first time ``quadratic_vertex()`` is used within a ``begin_shape()`` call, it must be prefaced with a call to ``vertex()`` to set the first anchor point. This function must be used between ``begin_shape()`` and ``end_shape()`` and only when there is no MODE parameter specified to ``begin_shape()``. Using the 3D version requires rendering with P3D (see the Environment reference for more information).
 
 @@ example
-image = quadraticVertex_0.png
+image = Sketch_quadratic_vertex_0.png
 
 no_fill()
 stroke_weight(4)
@@ -20,7 +20,7 @@ end_shape()
 
 
 @@ example
-image = quadraticVertex_1.png
+image = Sketch_quadratic_vertex_1.png
 
 no_fill()
 stroke_weight(4)

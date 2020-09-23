@@ -14,7 +14,7 @@ The ``blue()`` function is easy to use and understand, but it is slower than a t
 b2 = c & 0xFF  # very fast to calculate``
 
 @@ example
-image = blue_.png
+image = Sketch_blue_0.png
 
 c = color(175, 100, 220)  # define color 'c'
 fill(c)  # use color variable 'c' as fill color
