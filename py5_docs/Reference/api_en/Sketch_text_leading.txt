@@ -11,8 +11,8 @@ Sets the spacing between lines of text in units of pixels. This setting will be 
 @@ example
 image = Sketch_text_leading_0.png
 
-# text to display. the "&0x92n" is a "new line" character
-lines = "L1&0x92nL2&0x92nL3"
+# text to display. the "\n" is a "new line" character
+lines = "L1\nL2\nL3"
 text_size(12)
 fill(0)  # set fill to black
 

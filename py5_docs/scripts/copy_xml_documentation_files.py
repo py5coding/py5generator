@@ -111,6 +111,9 @@ def convert_to_python(code):
     # because of course ;)
     code = code.replace(';', '')
 
+    # minor issue
+    code = code.replace('&0x92', '\\')
+
     return code
 
 
