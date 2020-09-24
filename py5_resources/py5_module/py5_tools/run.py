@@ -16,9 +16,12 @@ with open('{0}', 'r') as f:
     eval(compile(f.read(), '{0}', 'exec'))
 
 py5.run_sketch(block=True)
+if {1} and py5.is_dead_from_error:
+    py5.exit_sketch()
 """
 
 
+# TODO: if there is an exception in the user's code it will not call exit sketch
 _STANDARD_CODE_TEMPLATE = """
 import py5
 
@@ -113,7 +116,7 @@ def prepare_code(code):
     return True, f'{settings.strip()}\n\n{remaining_code.strip()}\n'
 
 
-def run_sketch(sketch_path, classpath=None, new_process=False):
+def run_sketch(sketch_path, classpath=None, new_process=False, exit_if_error=False):
     sketch_path = Path(sketch_path)
     if not sketch_path.exists():
         print(f'file {sketch_path} not found')
@@ -128,7 +131,7 @@ def run_sketch(sketch_path, classpath=None, new_process=False):
             f.write(code)
         sketch_path = Path(temp_py.name)
 
-    def _run_sketch(sketch_path, classpath):
+    def _run_sketch(sketch_path, classpath, exit_if_error):
         if not jvm.is_jvm_running():
             if classpath:
                 jvm.add_classpath(classpath)
@@ -140,14 +143,14 @@ def run_sketch(sketch_path, classpath=None, new_process=False):
         sys.path.extend([str(sketch_path.absolute().parent), os.getcwd()])
         from .namespace import Py5Namespace
         py5_ns = Py5Namespace(py5)
-        exec(_CODE_FRAMEWORK.format(sketch_path), py5_ns)
+        exec(_CODE_FRAMEWORK.format(sketch_path, exit_if_error), py5_ns)
 
     if new_process:
-        p = Process(target=_run_sketch, args=(sketch_path, classpath))
+        p = Process(target=_run_sketch, args=(sketch_path, classpath, exit_if_error))
         p.start()
         return p
     else:
-        _run_sketch(sketch_path, classpath)
+        _run_sketch(sketch_path, classpath, exit_if_error)
         if tranformed:
             temp_py.close()
 
@@ -190,7 +193,7 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
         code = template.format(width, height, renderer, temp_out.name, prepared_code)
         f.write(code)
 
-    exec(_CODE_FRAMEWORK.format(temp_py.name), user_ns)
+    exec(_CODE_FRAMEWORK.format(temp_py.name, False), user_ns)
 
     if not safe_exec:
         del user_ns['_py5_user_ns']
