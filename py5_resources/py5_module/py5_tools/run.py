@@ -21,7 +21,6 @@ if {1} and py5.is_dead_from_error:
 """
 
 
-# TODO: if there is an exception in the user's code it will not call exit sketch
 _STANDARD_CODE_TEMPLATE = """
 import py5
 
@@ -193,7 +192,7 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
         code = template.format(width, height, renderer, temp_out.name, prepared_code)
         f.write(code)
 
-    exec(_CODE_FRAMEWORK.format(temp_py.name, False), user_ns)
+    exec(_CODE_FRAMEWORK.format(temp_py.name, True), user_ns)
 
     if not safe_exec:
         del user_ns['_py5_user_ns']
