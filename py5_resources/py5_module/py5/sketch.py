@@ -228,13 +228,16 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
     def load_image(self, filename: Union[str, Path], dst: Py5Image = None) -> Py5Image:
         """$class_Sketch_load_image"""
         pimg = self._instance.loadImage(str(filename))
-        if dst:
-            if pimg.pixel_width != dst.pixel_width or pimg.pixel_height != dst.pixel_height:
-                raise RuntimeError("size of loaded image does not match size of dst Py5Image")
-            dst._replace_instance(pimg)
-            return dst
+        if pimg:
+            if dst:
+                if pimg.pixel_width != dst.pixel_width or pimg.pixel_height != dst.pixel_height:
+                    raise RuntimeError("size of loaded image does not match size of dst Py5Image")
+                dst._replace_instance(pimg)
+                return dst
+            else:
+                return Py5Image(pimg)
         else:
-            return Py5Image(pimg)
+            raise RuntimeError('unable to load image ' + filename)
 
     def request_image(self, filename: Union[str, Path]) -> Py5Promise:
         """$class_Sketch_request_image"""
