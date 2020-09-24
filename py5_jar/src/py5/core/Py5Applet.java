@@ -33,6 +33,10 @@ public class Py5Applet extends PApplet {
     this.success = true;
   }
 
+  public boolean getSuccess() {
+    return success;
+  }
+
   @Override
   public void settings() {
     if (success) {

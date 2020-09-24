@@ -151,6 +151,11 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             return False
         return surface.is_stopped()
 
+    @property
+    def is_dead_from_error(self) -> bool:
+        """$class_Sketch_is_dead_from_error"""
+        return self.is_dead and not self._instance.getSuccess()
+
     def hot_reload_draw(self, draw: Callable) -> None:
         """$class_Sketch_hot_reload_draw"""
         self._py5_methods.set_functions(**dict(draw=draw))
