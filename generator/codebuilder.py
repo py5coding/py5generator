@@ -68,7 +68,6 @@ class CodeBuilder:
         self._class_name = class_name
         self._py5_names = class_data['py5_name']
         self._py5_decorators = class_data['decorator']
-        self._py5_special_kwargs = class_data['special_kwargs']
 
         self._code_module = False
         self._instance_name = None
@@ -125,10 +124,7 @@ class CodeBuilder:
 
     def code_method(self, fname, method_data):
         py5_name = self._py5_names[fname]
-        kwargs = self._py5_special_kwargs[fname]
         static = all([x['static'] for x in method_data.values()])
-        if kwargs:
-            kwargs_precondition, kwargs = kwargs.split('|')
         if static:
             first_param, classobj, moduleobj, decorator = 'cls', 'cls._cls', self._class_name, '@classmethod'
             if self._py5_decorators[fname]:
@@ -153,10 +149,6 @@ class CodeBuilder:
                     paramstrs.insert(-1, '/')
                 else:
                     paramstrs.append('/')
-            if kwargs and any([kwargs_precondition in p for p in paramstrs]):
-                paramstrs.append(kwargs)
-                kw_param = kwargs.split(':')[0]
-                module_arguments += f', {kw_param}={kw_param}'
 
             # create the class and module code
             signature_options = [', '.join([s for s in paramstrs[1:] if s != '/'])]
@@ -194,8 +186,6 @@ class CodeBuilder:
                         paramstrs.insert(-1, '/')
                     else:
                         paramstrs.append('/')
-                if kwargs and any([kwargs_precondition in p for p in paramstrs]):
-                    paramstrs.append(kwargs)
 
                 joined_paramstrs = ', '.join(paramstrs)
                 # has an identical signature already been added?
@@ -218,14 +208,10 @@ class CodeBuilder:
                 created_sigs.add((joined_paramstrs, rettypestr))
             if skipped_all:
                 return
+
             # now construct the real methods
             arguments = '*args'
             module_arguments = '*args'
-            if kwargs:
-                arguments += f', {kwargs}'
-                kw_param = kwargs.split(':')[0]
-                module_arguments += f', {kw_param}={kw_param}'
-
             self.class_members.append(
                 templ.CLASS_METHOD_TEMPLATE.format(
                     self._class_name, py5_name, first_param, classobj, fname,
