@@ -38,6 +38,8 @@ def _load_py5shape(f):
             filename = Path(filename)
         if not isinstance(filename, Path):
             raise RuntimeError('filename parameter must be string or Path object')
+        # TODO: if it is just a filename it might be in the data directory
+        # TODO: what about relative paths?
         if not filename.exists():
             raise RuntimeError('filename ' + str(filename) + ' cannot be found')
         try:
