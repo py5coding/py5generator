@@ -343,7 +343,7 @@ begin_pgl,beginPGL,,method,FALSE,FALSE,methods that are not part of the processi
 end_pgl,endPGL,,method,FALSE,FALSE,methods that are not part of the processing framework
 hint,hint,,method,TRUE,TRUE,
 texture_wrap,textureWrap,,method,TRUE,TRUE,
-load_shape,loadShape,@_return_py5shape,method,TRUE,TRUE,
+load_shape,loadShape,@_load_py5shape,method,TRUE,TRUE,
 load_shader,loadShader,@_return_py5shader,method,TRUE,TRUE,
 shader,shader,,method,TRUE,TRUE,
 reset_shader,resetShader,,method,TRUE,TRUE,
