@@ -227,17 +227,25 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     def load_image(self, filename: Union[str, Path], dst: Py5Image = None) -> Py5Image:
         """$class_Sketch_load_image"""
-        pimg = self._instance.loadImage(str(filename))
-        if pimg:
-            if dst:
-                if pimg.pixel_width != dst.pixel_width or pimg.pixel_height != dst.pixel_height:
-                    raise RuntimeError("size of loaded image does not match size of dst Py5Image")
-                dst._replace_instance(pimg)
-                return dst
+        if isinstance(filename, str):
+            filename = Path(filename)
+        if filename.exists():
+            pimg = self._instance.loadImage(str(filename))
+            if pimg is None:
+                # TODO: this doesn't work. if only it was this simple.
+                # currently if the image data is invalid it returns an image object with width == -1
+                # why doesn't it throw an exception? this might change as Processing 4.0 evolves
+                raise RuntimeError('unable to load image ' + str(filename))
             else:
-                return Py5Image(pimg)
+                if dst:
+                    if pimg.pixel_width != dst.pixel_width or pimg.pixel_height != dst.pixel_height:
+                        raise RuntimeError("size of loaded image does not match size of dst Py5Image")
+                    dst._replace_instance(pimg)
+                    return dst
+                else:
+                    return Py5Image(pimg)
         else:
-            raise RuntimeError('unable to load image ' + filename)
+            raise RuntimeError('image ' + str(filename) + ' not found')
 
     def request_image(self, filename: Union[str, Path]) -> Py5Promise:
         """$class_Sketch_request_image"""
