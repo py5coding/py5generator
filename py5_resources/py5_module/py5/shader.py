@@ -34,6 +34,12 @@ def _py5shader_set_wrapper(f):
                 args[0] = _numpy_to_pmatrix2d(array)
             elif array.shape == (4, 4):
                 args[0] = _numpy_to_pmatrix3d(array)
+        elif isinstance(args[0], bool):
+            args[0] = JBoolean(args[0])
+        elif isinstance(args[0], int):
+            args[0] = JInt(args[0])
+        elif isinstance(args[0], float):
+            args[0] = JFloat(args[0])
         return f(self_, name, *tuple(args))
     return decorated
 

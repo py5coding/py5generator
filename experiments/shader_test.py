@@ -51,7 +51,7 @@ class Test3(Sketch):
         self.cloud2 = self.load_image("data/cloud2.png")
         self.cloud3 = self.load_image("data/cloud3.png")
         self.cloud4 = (np.random.randint(0, 255, size=(300, 40, 4), dtype=np.uint8), "ARGB")
-        self.point_shader.set("sprite", self.cloud2, cache=True)
+        self.point_shader.set("sprite", self.cloud2)
 
         self.stroke_weight(10)
         self.stroke_cap(self.SQUARE)
@@ -66,11 +66,11 @@ class Test3(Sketch):
 
     def key_pressed(self):
         if self.key == '1':
-            self.point_shader.set("sprite", self.cloud1, cache=True)
+            self.point_shader.set("sprite", self.cloud1)
         elif self.key == '2':
-            self.point_shader.set("sprite", self.cloud2, cache=True)
+            self.point_shader.set("sprite", self.cloud2)
         elif self.key == '3':
-            self.point_shader.set("sprite", self.cloud3, cache=True)
+            self.point_shader.set("sprite", self.cloud3)
 
 
 py5.prune_tracebacks(False)
