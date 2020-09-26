@@ -230,19 +230,22 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         try:
             pimg = self._instance.loadImage(str(filename))
         except JException as e:
-            msg = 'cannot load image ' + str(filename)
+            msg = 'cannot load image file ' + str(filename)
             if e.message() == 'None':
                 msg += '. error message: either the file cannot be found or the file does not contain valid image data.'
             else:
                 msg += '. error message: ' + e.message()
         else:
-            if dst:
-                if pimg.pixel_width != dst.pixel_width or pimg.pixel_height != dst.pixel_height:
-                    raise RuntimeError("size of loaded image does not match size of dst Py5Image")
-                dst._replace_instance(pimg)
-                return dst
+            if pimg and pimg.width > 0:
+                if dst:
+                    if pimg.pixel_width != dst.pixel_width or pimg.pixel_height != dst.pixel_height:
+                        raise RuntimeError("size of loaded image does not match size of dst Py5Image")
+                    dst._replace_instance(pimg)
+                    return dst
+                else:
+                    return Py5Image(pimg)
             else:
-                return Py5Image(pimg)
+                raise RuntimeError('cannot load image file ' + str(filename) + '. error message: either the file cannot be found or the file does not contain valid image data.')
         raise RuntimeError(msg)
 
     def request_image(self, filename: Union[str, Path]) -> Py5Promise:
