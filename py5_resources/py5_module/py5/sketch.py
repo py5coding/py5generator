@@ -20,7 +20,7 @@ from .mixins.threads import Py5Promise  # noqa
 from .image import Py5Image, _return_py5image  # noqa
 from .shape import Py5Shape, _return_py5shape, _load_py5shape  # noqa
 from .surface import Py5Surface, _return_py5surface  # noqa
-from .shader import Py5Shader, _return_py5shader  # noqa
+from .shader import Py5Shader, _return_py5shader, _load_py5shader  # noqa
 from .font import Py5Font, _return_py5font, _load_py5font, _return_list_str  # noqa
 from .graphics import Py5Graphics, _return_py5graphics  # noqa
 from .type_decorators import _text_fix_str  # noqa

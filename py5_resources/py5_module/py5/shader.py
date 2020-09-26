@@ -8,7 +8,7 @@ import numpy as np  # noqa
 
 from .base import Py5Base
 from .image import Py5Image  # noqa
-from jpype.types import JArray, JBoolean, JInt, JFloat  # noqa
+from jpype.types import JException, JArray, JBoolean, JInt, JFloat  # noqa
 from .pmath import _numpy_to_pvector, _numpy_to_pmatrix2d, _numpy_to_pmatrix3d  # noqa
 
 
@@ -19,6 +19,19 @@ def _return_py5shader(f):
     @functools.wraps(f)
     def decorated(self_, *args):
         return Py5Shader(f(self_, *args))
+    return decorated
+
+
+def _load_py5shader(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        try:
+            return Py5Shader(f(self_, *args))
+        except JException as e:
+            msg = e.message()
+            if msg == 'None':
+                msg = 'shader file cannot be found'
+        raise RuntimeError('cannot load shader file ' + str(args[0]) + '. error message: ' + msg)
     return decorated
 
 
