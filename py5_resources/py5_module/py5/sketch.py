@@ -9,7 +9,7 @@ from typing import overload, Any, Callable, Union, Dict, List  # noqa
 from nptyping import NDArray, Float  # noqa
 
 import jpype
-from jpype.types import JArray, JInt  # noqa
+from jpype.types import JException, JArray, JInt  # noqa
 
 import numpy as np  # noqa
 
@@ -227,25 +227,23 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     def load_image(self, filename: Union[str, Path], dst: Py5Image = None) -> Py5Image:
         """$class_Sketch_load_image"""
-        if isinstance(filename, str):
-            filename = Path(filename)
-        if filename.exists():
+        try:
             pimg = self._instance.loadImage(str(filename))
-            if pimg is None:
-                # TODO: this doesn't work. if only it was this simple.
-                # currently if the image data is invalid it returns an image object with width == -1
-                # why doesn't it throw an exception? this might change as Processing 4.0 evolves
-                raise RuntimeError('unable to load image ' + str(filename))
+        except JException as e:
+            msg = 'cannot load image ' + str(filename)
+            if e.message() == 'None':
+                msg += '. error message: either the file cannot be found or the file does not contain valid image data.'
             else:
-                if dst:
-                    if pimg.pixel_width != dst.pixel_width or pimg.pixel_height != dst.pixel_height:
-                        raise RuntimeError("size of loaded image does not match size of dst Py5Image")
-                    dst._replace_instance(pimg)
-                    return dst
-                else:
-                    return Py5Image(pimg)
+                msg += '. error message: ' + e.message()
         else:
-            raise RuntimeError('image ' + str(filename) + ' not found')
+            if dst:
+                if pimg.pixel_width != dst.pixel_width or pimg.pixel_height != dst.pixel_height:
+                    raise RuntimeError("size of loaded image does not match size of dst Py5Image")
+                dst._replace_instance(pimg)
+                return dst
+            else:
+                return Py5Image(pimg)
+        raise RuntimeError(msg)
 
     def request_image(self, filename: Union[str, Path]) -> Py5Promise:
         """$class_Sketch_request_image"""
