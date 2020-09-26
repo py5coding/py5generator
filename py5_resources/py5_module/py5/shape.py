@@ -32,20 +32,12 @@ def _return_py5shape(f):
 def _load_py5shape(f):
     @functools.wraps(f)
     def decorated(self_, *args):
-        filename = args[0]
-        # TODO: this should be in a reusable function
-        if isinstance(filename, str):
-            filename = Path(filename)
-        if not isinstance(filename, Path):
-            raise RuntimeError('filename parameter must be string or Path object')
-        # TODO: if it is just a filename it might be in the data directory
-        # TODO: what about relative paths?
-        if not filename.exists():
-            raise RuntimeError('filename ' + str(filename) + ' cannot be found')
         try:
             return Py5Shape(f(self_, *args))
         except JException as e:
             msg = e.message()
+            if msg == 'None':
+                msg = 'shape file cannot be found'
         raise RuntimeError('cannot load shape ' + str(args[0]) + '. error message: ' + msg)
     return decorated
 
