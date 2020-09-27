@@ -6,7 +6,7 @@ type = None
 processing_name = filter
 
 @@ description
-Filters the display window using a preset filter or with a custom shader. Using a shader with ``filter()`` is much faster than without. Shaders require the P2D or P3D renderer in ``size()``.
+Filters the display window using a preset filter or with a custom shader. Using a shader with ``apply_filter()`` is much faster than without. Shaders require the P2D or P3D renderer in ``size()``.
 
 The presets options are:
 
@@ -40,7 +40,7 @@ image = Sketch_apply_filter_0.png
 
 img = load_image("apples.jpg")
 image(img, 0, 0)
-filter(THRESHOLD)
+apply_filter(THRESHOLD)
 
 
 @@ example
@@ -49,7 +49,7 @@ image = Sketch_apply_filter_1.png
 
 img = load_image("apples.jpg")
 image(img, 0, 0)
-filter(GRAY)
+apply_filter(GRAY)
 
 
 @@ example
@@ -58,7 +58,7 @@ image = Sketch_apply_filter_2.png
 
 img = load_image("apples.jpg")
 image(img, 0, 0)
-filter(INVERT)
+apply_filter(INVERT)
 
 
 @@ example
@@ -67,7 +67,7 @@ image = Sketch_apply_filter_3.png
 
 img = load_image("apples.jpg")
 image(img, 0, 0)
-filter(POSTERIZE, 4)
+apply_filter(POSTERIZE, 4)
 
 
 @@ example
@@ -76,7 +76,7 @@ image = Sketch_apply_filter_4.png
 
 img = load_image("apples.jpg")
 image(img, 0, 0)
-filter(BLUR, 6)
+apply_filter(BLUR, 6)
 
 
 @@ example
@@ -85,7 +85,7 @@ image = Sketch_apply_filter_5.png
 
 img = load_image("apples.jpg")
 image(img, 0, 0)
-filter(ERODE)
+apply_filter(ERODE)
 
 
 @@ example
@@ -94,7 +94,7 @@ image = Sketch_apply_filter_6.png
 
 img = load_image("apples.jpg")
 image(img, 0, 0)
-filter(DILATE)
+apply_filter(DILATE)
 
 
 @@ example
@@ -112,5 +112,5 @@ def setup():
 
 
 def draw():
-    filter(blur)  # blurs more each time through draw()
+    apply_filter(blur)  # blurs more each time through draw()
 

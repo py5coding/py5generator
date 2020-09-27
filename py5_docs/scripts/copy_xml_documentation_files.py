@@ -42,6 +42,11 @@ SNAKE_CASE_OVERRIDE = {
     'false': 'False',
 }
 
+CODE_REPLACEMENTS = {
+    '&0x92': '\\',
+    'filter(': 'apply_filter(',
+}
+
 CONSTANT_CHARACTERS = string.ascii_uppercase + string.digits + '_'
 
 
@@ -111,8 +116,9 @@ def convert_to_python(code):
     # because of course ;)
     code = code.replace(';', '')
 
-    # minor issue
-    code = code.replace('&0x92', '\\')
+    # minor issues
+    for k, v in CODE_REPLACEMENTS.items():
+        code = code.replace(k, v)
 
     return code
 
