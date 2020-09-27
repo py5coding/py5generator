@@ -22,11 +22,16 @@ def _return_py5font(f):
 def _load_py5font(f):
     @functools.wraps(f)
     def decorated(self_, *args):
-        # TODO: this prints a Java exception to strerr if the file cannot be found or read
+        # TODO: for load_font this prints a Java exception to strerr if the file cannot be found or read
         try:
-            return Py5Font(f(self_, *args))
+            ret = f(self_, *args)
         except JException as e:
             msg = e.message()
+        else:
+            if ret is None:
+                msg = 'font file is missing or inaccessible.'
+            else:
+                return Py5Font(ret)
         raise RuntimeError('cannot load font file ' + str(args[0]) + '. error message: ' + msg)
     return decorated
 

@@ -381,7 +381,7 @@ save_json_array,saveJSONArray,,method,output,files,FALSE,FALSE,"use load_json, s
 load_table,loadTable,,method,input,files,FALSE,FALSE,methods that should be re-implemented by me in Python
 save_table,saveTable,,method,output,files,FALSE,FALSE,methods that should be re-implemented by me in Python
 load_font,loadFont,@_load_py5font,method,typography,loading_displaying,TRUE,TRUE,
-create_font,createFont,@_return_py5font,method,typography,loading_displaying,TRUE,TRUE,
+create_font,createFont,@_load_py5font,method,typography,loading_displaying,TRUE,TRUE,
 select_input,selectInput,,method,input,files,FALSE,FALSE,this should be available to users but the callback makes it complicated and I will do it later
 select_output,selectOutput,,method,output,files,FALSE,FALSE,this should be available to users but the callback makes it complicated and I will do it later
 select_folder,selectFolder,,method,input,files,FALSE,FALSE,this should be available to users but the callback makes it complicated and I will do it later
