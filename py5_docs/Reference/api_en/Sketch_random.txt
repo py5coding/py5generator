@@ -24,7 +24,7 @@ for i in range(0, 100):
 
 
 @@ example
-# get a random element from an array
+# get a random element from_ an array
 words = {"apple", "bear", "cat", "dog"}
 index = int(random(len(words)))  # same as int(random(4))
 print(words[index])  # prints one of the four words

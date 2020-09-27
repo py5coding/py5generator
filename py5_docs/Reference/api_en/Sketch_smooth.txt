@@ -40,7 +40,7 @@ def setup():
 
 def draw():
     background(0)
-    ellipse(x, height/2, height/4, height/4)
+    ellipse(x, height//2, height/4, height/4)
     x += 1
 
 
@@ -59,7 +59,7 @@ def setup():
 def draw():
     pg.begin_draw()
     pg.background(0)
-    pg.ellipse(x, height/2, height/4, height/4)
+    pg.ellipse(x, height//2, height/4, height/4)
     pg.end_draw()
     image(pg, 0, 0)
     x += 1

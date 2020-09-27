@@ -40,6 +40,6 @@ def setup():
 
 def draw():
     background(204)
-    translate(width/2, height/2)
+    translate(width//2, height//2)
     shape(s, 0, 0)
 

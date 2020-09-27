@@ -16,7 +16,7 @@ def setup():
 
 def draw():
     background(204)
-    if mouse_pressed:
+    if is_mouse_pressed():
         clip(mouse_x, mouse_y, 100, 100)
     else:
         no_clip()

@@ -19,7 +19,7 @@ for y in range(0, 100):
 @@ example
 image = Sketch_random_gaussian_1.png
 
-distribution = new float[360]
+distribution = [0] * 360
 
 
 def setup():
@@ -31,7 +31,7 @@ def setup():
 def draw():
     background(204)
 
-    translate(width/2, width/2)
+    translate(width//2, width//2)
 
     for i in range(0, len(distribution)):
         rotate(TWO_PI/len(distribution))

@@ -23,7 +23,7 @@ for i in range(0, steps + 1):
     # get the tangent points
     tx = bezier_tangent(85, 10, 90, 15, t)
     ty = bezier_tangent(20, 10, 90, 80, t)
-    # calculate an angle from the tangent points
+    # calculate an angle from_ the tangent points
     a = atan2(ty, tx)
     a += PI
     stroke(255, 102, 0)

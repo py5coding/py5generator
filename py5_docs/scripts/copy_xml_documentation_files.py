@@ -45,6 +45,14 @@ SNAKE_CASE_OVERRIDE = {
 CODE_REPLACEMENTS = {
     '&0x92': '\\',
     'filter(': 'apply_filter(',
+    '(mouse_pressed)': '(is_mouse_pressed())',
+    'Py5Image img1, img2': 'Py5Image img1\nPy5Image img2',
+    'distribution = new float[360]': 'distribution = [0] * 360',
+    '(float y)': '(y)',
+    'width/2': 'width//2',
+    'height/2': 'height//2',
+    'from': 'from_',
+    "color c  # declare color 'c'": '',
 }
 
 CONSTANT_CHARACTERS = string.ascii_uppercase + string.digits + '_'
@@ -68,6 +76,10 @@ def snake_case(name):
 def convert_to_python(code):
     code = code.replace('println', 'print')
     code = code.replace('//', '#')
+
+    # minor issues
+    for k, v in CODE_REPLACEMENTS.items():
+        code = code.replace(k, v)
 
     # convert function declarations
     code = re.sub(r'void\s+(\w+)\(([\w\s]*)\)\s*{', r'def \1(\2):', code)
@@ -115,10 +127,6 @@ def convert_to_python(code):
 
     # because of course ;)
     code = code.replace(';', '')
-
-    # minor issues
-    for k, v in CODE_REPLACEMENTS.items():
-        code = code.replace(k, v)
 
     return code
 

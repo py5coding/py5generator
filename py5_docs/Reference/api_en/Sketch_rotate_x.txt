@@ -12,7 +12,7 @@ Rotates around the x-axis the amount specified by the ``angle`` parameter. Angle
 image = Sketch_rotate_x_0.png
 
 size(100, 100, P3D)
-translate(width/2, height/2)
+translate(width//2, height//2)
 rotate_x(PI/3.0)
 rect(-26, -26, 52, 52)
 
@@ -21,7 +21,7 @@ rect(-26, -26, 52, 52)
 image = Sketch_rotate_x_1.png
 
 size(100, 100, P3D)
-translate(width/2, height/2)
+translate(width//2, height//2)
 rotate_x(radians(60))
 rect(-26, -26, 52, 52)
 

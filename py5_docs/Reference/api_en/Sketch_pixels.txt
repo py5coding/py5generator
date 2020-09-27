@@ -15,7 +15,7 @@ image = Sketch_pixels_0.png
 
 pink = color(255, 102, 204)
 load_pixels()
-for i in range(0, (width*height/2)-width/2):
+for i in range(0, (width*height//2)-width//2):
     pixels[i] = pink
 
 update_pixels()

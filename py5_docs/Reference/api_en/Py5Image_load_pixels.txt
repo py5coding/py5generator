@@ -17,7 +17,7 @@ def setup():
     global my_image
     global half_image
     size(100, 100)
-    half_image = width * height/2
+    half_image = width * height//2
     my_image = load_image("apples.jpg")
     my_image.load_pixels()
     for i in range(0, half_image):

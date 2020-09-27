@@ -11,7 +11,7 @@ Loads the pixel data of the current display window into the ``pixels[]`` array. 
 @@ example
 image = Sketch_load_pixels_0.png
 
-half_image = width*height/2
+half_image = width*height//2
 my_image = load_image("apples.jpg")
 image(my_image, 0, 0)
 

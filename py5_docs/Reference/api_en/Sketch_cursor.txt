@@ -14,7 +14,7 @@ With the P2D and P3D renderers, a generic set of cursors are used because the Op
 
 @@ example
 # move the mouse left and right across the image
-# to see the cursor change from a cross to a hand
+# to see the cursor change from_ a cross to a hand
 
 def setup():
     size(100, 100)

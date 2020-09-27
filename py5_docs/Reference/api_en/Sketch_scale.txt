@@ -33,7 +33,7 @@ image = Sketch_scale_2.png
 # as a parameter to size()
 size(100, 100, P3D)
 no_fill()
-translate(width/2+12, height/2)
+translate(width//2+12, height//2)
 box(20, 20, 20)
 scale(2.5, 2.5, 2.5)
 box(20, 20, 20)

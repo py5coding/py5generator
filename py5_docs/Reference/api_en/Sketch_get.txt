@@ -20,7 +20,7 @@ image = Sketch_get_0.png
 my_image = load_image("apples.jpg")
 image(my_image, 0, 0)
 c = get()
-image(c, width/2, 0)
+image(c, width//2, 0)
 
 
 @@ example

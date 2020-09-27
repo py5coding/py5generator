@@ -28,7 +28,7 @@ def draw():
     else:
         pg.begin_draw()
         pg.stroke(0, 102, 153)
-        pg.line(width/2, height/2, mouse_x, mouse_y)
+        pg.line(width//2, height//2, mouse_x, mouse_y)
         pg.end_draw()
 
     image(pg, 0, 0)

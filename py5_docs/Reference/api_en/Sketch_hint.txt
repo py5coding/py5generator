@@ -61,7 +61,7 @@ def setup():
 def draw():
     background(204)
     push_matrix()
-    translate(width/2, height/2)
+    translate(width//2, height//2)
     rotate_y(1)
     box(60)
     pop_matrix()
