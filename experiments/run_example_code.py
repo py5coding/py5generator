@@ -8,7 +8,7 @@ import py5_tools
 from generator.docfiles import Documentation
 
 PY5_API_EN = Path('/home/jim/Projects/ITP/pythonprocessing/py5development/py5_docs/Reference/api_en/')
-DOC_DATA = Path('/home/jim/Projects/ITP/pythonprocessing/jdf-processing-py-site/data')
+DOC_DATA = Path('/home/jim/Projects/ITP/pythonprocessing/py5development/py5_docs/Reference/data')
 DEST_DIR = Path('/tmp/examples/')
 
 
