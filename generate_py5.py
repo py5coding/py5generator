@@ -130,6 +130,7 @@ def generate_py5(repo_dir):
     py5_dir_str = str(sorted(py5_dir_names, key=lambda x: (x.lower(), x)))[1:-1].replace(', ', ',\n    ')
     # don't want import * to import the dynamic variables because they cannot be updated
     py5_all_str = str(sorted(py5_dir_names - py5applet_builder.dynamic_variable_names, key=lambda x: (x.lower(), x)))[1:-1].replace(', ', ',\n    ')
+    py5_dynamic_variables_str = str(sorted(py5applet_builder.dynamic_variable_names))
 
     def build_signatures(v):
         return [f"({', '.join(params)}) -> {rettype}" for params, rettype in v]
@@ -147,7 +148,8 @@ def generate_py5(repo_dir):
                          method_signatures_lookup_str=method_signatures_lookup_str,
                          run_sketch_pre_run_code=run_sketch_pre_run_code,
                          py5_dir_str=py5_dir_str,
-                         py5_all_str=py5_all_str)
+                         py5_all_str=py5_all_str,
+                         py5_dynamic_variables_str=py5_dynamic_variables_str)
 
     # build complete py5 module in destination directory
     dest_dir = Path('build')

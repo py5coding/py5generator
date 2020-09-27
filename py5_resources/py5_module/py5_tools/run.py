@@ -7,14 +7,12 @@ import tempfile
 import textwrap
 
 from . import jvm
+from . import reference as ref
 
 
 _CODE_FRAMEWORK_EXTRAS = """
 def _py5_update_dynamic_variables(sketch):
-    global mouse_x
-    mouse_x = sketch.mouse_x
-    global mouse_y
-    mouse_y = sketch.mouse_y
+{0}
 
 py5._py5sketch._add_pre_hook('draw', '_py5_update_dynamic_variables', _py5_update_dynamic_variables)
 """
@@ -155,7 +153,8 @@ def run_sketch(sketch_path, classpath=None, new_process=False, exit_if_error=Fal
         sys.path.extend([str(sketch_path.absolute().parent), os.getcwd()])
         py5_ns = dict()
         py5_ns.update(py5.__dict__)
-        exec(_CODE_FRAMEWORK.format(sketch_path, exit_if_error, _CODE_FRAMEWORK_EXTRAS), py5_ns)
+        update_dynamic_variables_code = '\n'.join(f'    global {v}\n    {v} = sketch.{v}' for v in ref.UPDATE_DYNAMIC_VARIABLES)
+        exec(_CODE_FRAMEWORK.format(sketch_path, exit_if_error, _CODE_FRAMEWORK_EXTRAS.format(update_dynamic_variables_code)), py5_ns)
 
     if new_process:
         p = Process(target=_run_sketch, args=(sketch_path, classpath, exit_if_error))
