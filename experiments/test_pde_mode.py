@@ -15,6 +15,7 @@ def settings():
 def setup():
     background(255)
     rect_mode(CENTER)
+    print(width, height)
 
 
 def draw():
