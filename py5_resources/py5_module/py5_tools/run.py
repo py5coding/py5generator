@@ -11,11 +11,16 @@ from . import reference as ref
 
 
 _CODE_FRAMEWORK_EXTRAS = """
+def _py5_init_dynamic_variables(sketch):
+    sketch.load_pixels()
+    sketch.load_np_pixels()
+{0}
+
 def _py5_update_dynamic_variables(sketch):
 {0}
 
+py5._py5sketch._add_pre_hook('setup', '_py5_init_dynamic_variables', _py5_init_dynamic_variables)
 py5._py5sketch._add_pre_hook('draw', '_py5_update_dynamic_variables', _py5_update_dynamic_variables)
-py5._py5sketch._add_pre_hook('setup', '_py5_update_dynamic_variables', _py5_update_dynamic_variables)
 """
 
 
