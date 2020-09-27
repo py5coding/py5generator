@@ -160,8 +160,6 @@ def generate_py5(repo_dir):
         method_signatures_lookup,
         Path('py5_docs', 'docfiles', 'variable_descriptions.json'))
     copier = CodeCopier(format_params, docstrings)
-    if dest_dir.exists():
-        shutil.rmtree(dest_dir)
     try:
         shutil.copytree(Path('py5_resources', 'py5_module'), dest_dir, copy_function=copier)
     except shutil.Error:
