@@ -47,12 +47,12 @@ CODE_REPLACEMENTS = {
     'filter(': 'apply_filter(',
     '(mouse_pressed)': '(is_mouse_pressed())',
     'Py5Image img1, img2': 'Py5Image img1\nPy5Image img2',
+    'Py5Image photo, mask_image': 'Py5Image photo\nPy5Image mask_image',
     'distribution = new float[360]': 'distribution = [0] * 360',
     '(float y)': '(y)',
     'width/2': 'width//2',
     'height/2': 'height//2',
     'from': 'from_',
-    "color c  # declare color 'c'": '',
 }
 
 CONSTANT_CHARACTERS = string.ascii_uppercase + string.digits + '_'
