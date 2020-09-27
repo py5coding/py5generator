@@ -173,7 +173,6 @@ def run_sketch(sketch_path, classpath=None, new_process=False, exit_if_error=Fal
 
 
 def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
-
     if renderer == 'SVG':
         template = _ALT_CODE_TEMPLATE
         suffix = '.svg'
