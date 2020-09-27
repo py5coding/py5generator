@@ -16,7 +16,9 @@ def _return_py5image(f):
     @functools.wraps(f)
     def decorated(self_, *args):
         ret = f(self_, *args)
-        if ret is not None:
+        if ret is None or isinstance(ret, int):
+            return ret
+        else:
             return Py5Image(ret)
     return decorated
 
