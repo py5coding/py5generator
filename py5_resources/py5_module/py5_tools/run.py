@@ -9,8 +9,21 @@ import textwrap
 from . import jvm
 
 
+_CODE_FRAMEWORK_EXTRAS = """
+def _py5_update_dynamic_variables(sketch):
+    global mouse_x
+    mouse_x = sketch.mouse_x
+    global mouse_y
+    mouse_y = sketch.mouse_y
+
+py5._py5sketch._add_pre_hook('draw', '_py5_update_dynamic_variables', _py5_update_dynamic_variables)
+"""
+
+
 _CODE_FRAMEWORK = """
 import py5
+
+{2}
 
 with open('{0}', 'r') as f:
     eval(compile(f.read(), '{0}', 'exec'))
@@ -125,10 +138,10 @@ def run_sketch(sketch_path, classpath=None, new_process=False, exit_if_error=Fal
         code = f.read()
     tranformed, code = prepare_code(code)
     if tranformed:
-        temp_py = tempfile.NamedTemporaryFile(suffix='.py')
-        with open(temp_py.name, 'w') as f:
+        temp_py = sketch_path.with_suffix('.tmp.py')
+        with open(temp_py, 'w') as f:
             f.write(code)
-        sketch_path = Path(temp_py.name)
+        sketch_path = temp_py
 
     def _run_sketch(sketch_path, classpath, exit_if_error):
         if not jvm.is_jvm_running():
@@ -140,9 +153,9 @@ def run_sketch(sketch_path, classpath=None, new_process=False, exit_if_error=Fal
         if not py5.get_current_sketch().is_ready:
             py5.reset_py5()
         sys.path.extend([str(sketch_path.absolute().parent), os.getcwd()])
-        from .namespace import Py5Namespace
-        py5_ns = Py5Namespace(py5)
-        exec(_CODE_FRAMEWORK.format(sketch_path, exit_if_error), py5_ns)
+        py5_ns = dict()
+        py5_ns.update(py5.__dict__)
+        exec(_CODE_FRAMEWORK.format(sketch_path, exit_if_error, _CODE_FRAMEWORK_EXTRAS), py5_ns)
 
     if new_process:
         p = Process(target=_run_sketch, args=(sketch_path, classpath, exit_if_error))
@@ -151,7 +164,7 @@ def run_sketch(sketch_path, classpath=None, new_process=False, exit_if_error=Fal
     else:
         _run_sketch(sketch_path, classpath, exit_if_error)
         if tranformed:
-            temp_py.close()
+            os.remove(temp_py)
 
 
 def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
@@ -192,7 +205,7 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
         code = template.format(width, height, renderer, temp_out.name, prepared_code)
         f.write(code)
 
-    exec(_CODE_FRAMEWORK.format(temp_py.name, True), user_ns)
+    exec(_CODE_FRAMEWORK.format(temp_py.name, True, ''), user_ns)
 
     if not safe_exec:
         del user_ns['_py5_user_ns']
