@@ -93,6 +93,7 @@ class Py5Methods:
     def __init__(self, sketch):
         self._sketch = sketch
         self._functions = dict()
+        self._pre_hooks = defaultdict(dict)
         self._post_hooks = defaultdict(dict)
         self._profiler = line_profiler.LineProfiler()
         self._is_terminated = False
@@ -109,24 +110,44 @@ class Py5Methods:
     def dump_stats(self):
         self._profiler.print_stats()
 
+    def add_pre_hook(self, method_name, hook_name, hook):
+        if self._is_terminated and hasattr(hook, 'sketch_terminated'):
+            hook.sketch_terminated()
+        else:
+            self._pre_hooks[method_name][hook_name] = hook
+
     def add_post_hook(self, method_name, hook_name, hook):
-        if self._is_terminated:
+        if self._is_terminated and hasattr(hook, 'sketch_terminated'):
             hook.sketch_terminated()
         else:
             self._post_hooks[method_name][hook_name] = hook
 
+    def add_pre_hooks(self, method_hooks):
+        for method_name, hook_name, hook in method_hooks:
+            self.add_pre_hook(method_name, hook_name, hook)
+
     def add_post_hooks(self, method_hooks):
         for method_name, hook_name, hook in method_hooks:
             self.add_post_hook(method_name, hook_name, hook)
+
+    def remove_pre_hook(self, method_name, hook_name):
+        if hook_name in self._pre_hooks[method_name]:
+            self._pre_hooks[method_name].pop(hook_name)
 
     def remove_post_hook(self, method_name, hook_name):
         if hook_name in self._post_hooks[method_name]:
             self._post_hooks[method_name].pop(hook_name)
 
     def terminate_hooks(self):
+        for method_name, hooks in self._pre_hooks.items():
+            for hook_name, hook in list(hooks.items()):
+                if hasattr(hook, 'sketch_terminated'):
+                    hook.sketch_terminated()
+                self.remove_pre_hook(method_name, hook_name)
         for method_name, hooks in self._post_hooks.items():
             for hook_name, hook in list(hooks.items()):
-                hook.sketch_terminated()
+                if hasattr(hook, 'sketch_terminated'):
+                    hook.sketch_terminated()
                 self.remove_post_hook(method_name, hook_name)
 
     @JOverride
@@ -137,7 +158,15 @@ class Py5Methods:
     def run_method(self, method_name, params):
         try:
             if method_name in self._functions:
+                # first run the pre-hooks, if any
+                if method_name in self._pre_hooks:
+                    for hook in list(self._pre_hooks[method_name].values()):
+                        hook(self._sketch)
+
+                # now run the actual method
                 self._functions[method_name](*params)
+
+                # finally, post-hooks
                 if method_name in self._post_hooks:
                     for hook in list(self._post_hooks[method_name].values()):
                         hook(self._sketch)
