@@ -34,7 +34,7 @@ def _load_py5font(f):
 def _return_list_str(f):
     @functools.wraps(f)
     def decorated(cls_, *args):
-        return [str(x) for x in f(cls_, *args)]
+        return [str(x) for x in f(cls_, *args) or []]
     return decorated
 
 
