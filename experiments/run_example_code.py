@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 import textwrap
 
@@ -5,7 +6,7 @@ import py5_tools
 
 from generator.docfiles import Documentation
 
-PY5_API_EN = Path('py5_docs/Reference/api_en/')
+PY5_API_EN = Path('/home/jim/Projects/ITP/pythonprocessing/py5development/py5_docs/Reference/api_en/')
 
 
 def run_example(image, code):
@@ -27,8 +28,14 @@ def run_example(image, code):
         return True
 
 
+cwd = os.getcwd()
+os.mkdir('/tmp/examples/')
+os.chdir('/tmp/examples/')
+
 for docfile in sorted(PY5_API_EN.glob('*.txt')):
     doc = Documentation(docfile)
     for image, code in doc.examples:
         if image:
             run_example(image, code)
+
+os.chdir(cwd)
