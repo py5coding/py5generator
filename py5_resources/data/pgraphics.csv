@@ -362,7 +362,7 @@ curve,curve,,method,TRUE,TRUE,
 no_smooth,noSmooth,,method,TRUE,TRUE,
 text_ascent,textAscent,,method,TRUE,TRUE,
 text_descent,textDescent,,method,TRUE,TRUE,
-text_width,textWidth,,method,TRUE,TRUE,
+text_width,textWidth,@_text_fix_str,method,TRUE,TRUE,
 get_matrix,getMatrix,@ _get_matrix_wrapper,method,TRUE,TRUE,this and all of the matrix functions need to be re-implemented using numpy
 set_matrix,setMatrix,,method,TRUE,TRUE,this and all of the matrix functions need to be re-implemented using numpy
 print_matrix,printMatrix,,method,TRUE,TRUE,
