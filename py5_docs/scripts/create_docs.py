@@ -1,3 +1,12 @@
+"""
+The current purpose of this code is to generate the variable_descriptions.json
+file, which gets read by docstrings.py to create the docstrings. Previously it
+also pulled the descriptions from javadocs.xml but those descriptions are not
+as good as the ones found in the Reference *.xml files.
+
+In future iterations of the documentation management code, this code and the
+Java Doclet stuff will be removed.
+"""
 import re
 import json
 from pathlib import Path
