@@ -1,3 +1,8 @@
+"""
+Parse the output of `javap` to get info on a class's methods and fields.
+
+Java classes need to have been compiled with debug information for this to work.
+"""
 import re
 import subprocess
 from collections import defaultdict
@@ -87,6 +92,11 @@ def process_class(classname, data):
 
 
 def get_class_information(classname):
+    """parse the output of `javap` to get info on a class's methods and fields
+
+    Java classes need to have been compiled with debug information for this to
+    work.
+    """
     data = []
     process_class(classname, data)
 
@@ -104,7 +114,8 @@ def get_class_information(classname):
             method_data[d['fname']][','.join(d['paramtypes'])] = dict(
                 static=d['static'], rettype=d['rettype'], paramnames=d['paramnames'])
 
-    # cannot have a method and field with the same name
+    # cannot have a method and field with the same name. drop the field if there
+    # is a collision.
     for key in list(field_data.keys()):
         if key in method_data:
             del field_data[key]

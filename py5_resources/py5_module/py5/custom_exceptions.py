@@ -24,6 +24,5 @@ def handle_typeerror(exc_type_name, exc_msg, py5info):
 
 
 CUSTOM_EXCEPTION_MSGS = dict(
-    ZeroDivisionError='Dividing by zero? Madness!!!',
     TypeError=handle_typeerror,
 )

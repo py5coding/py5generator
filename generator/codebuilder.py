@@ -1,3 +1,7 @@
+"""
+Write method and field code fragments for classes based on data in csv files and
+information extracted from javap.
+"""
 import re
 import logging
 from functools import lru_cache

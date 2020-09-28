@@ -33,8 +33,7 @@ parser.add_argument('processing_build_dir', action='store', help='location of bu
 
 
 def generate_py5(repo_dir, build_dir):
-    """Generate an installable py5 library using processing jars
-    """
+    "Generate an installable py5 library using processing jars"
     repo_dir = Path(repo_dir)
     build_dir = Path(build_dir)
 
@@ -70,6 +69,7 @@ def generate_py5(repo_dir, build_dir):
     logger.info('creating Sketch code')
     py5applet_data = pd.read_csv(Path('py5_resources', 'data', 'py5applet.csv')).fillna('').set_index('processing_name')
 
+    # these CodeBuilder objects write the code fragments for the methods and fields.
     py5applet_builder = CodeBuilder('py5.core.Py5Applet', 'Sketch', py5applet_data)
     py5applet_builder.code_module_members('_py5sketch')
     py5applet_builder.run_builder()
@@ -104,6 +104,8 @@ def generate_py5(repo_dir, build_dir):
     py5graphics_builder = run_code_builder('Py5Graphics', 'py5.core.Py5Graphics', class_name='PGraphics')
     py5image_builder = run_code_builder('Py5Image', 'processing.core.PImage')
 
+    # this assembles the code fragments from the builders so it can be
+    # inserted into the code templates to complete the py5 module.
     logger.info('joining code fragments')
     sketch_class_members_code = ''.join(py5applet_builder.class_members)
     sketch_module_members_code = ''.join(py5applet_builder.module_members)
@@ -115,7 +117,7 @@ def generate_py5(repo_dir, build_dir):
     py5image_class_members_code = ''.join(py5image_builder.class_members)
     run_sketch_pre_run_code = ''.join(run_sketch_pre_run_steps)
 
-    # gather method_signatures info
+    # gather method_signatures info so they can be added to the docstrings
     method_signatures_lookup = {
         **py5applet_builder.method_signatures,
         **py5shader_builder.method_signatures,
@@ -139,6 +141,7 @@ def generate_py5(repo_dir, build_dir):
     # build signatures lookup for custom exceptions and do formatting so autopep8 doesn't have to
     method_signatures_lookup_str = '\n    '.join(f'({str(k)}, {build_signatures(v)}),' for k, v in method_signatures_lookup.items())
 
+    # this dictionary of code strings will be inserted into the python code templates
     format_params = dict(sketch_class_members_code=sketch_class_members_code,
                          sketch_module_members_code=sketch_module_members_code,
                          py5shader_class_members_code=py5shader_class_members_code,
@@ -164,9 +167,14 @@ def generate_py5(repo_dir, build_dir):
                 shutil.rmtree(c)
             else:
                 os.remove(c)
+
+    # build the docstrings for each method
     docstrings = DocstringFinder(
         method_signatures_lookup,
         Path('py5_docs', 'docfiles', 'variable_descriptions.json'))
+
+    # as the code is copied, the code strings and docstrings will be assembled
+    # CodeCopier is callable and is basically a custom version of `shutil.copy`
     copier = CodeCopier(format_params, docstrings)
     try:
         shutil.copytree(Path('py5_resources', 'py5_module'), build_dir, copy_function=copier, dirs_exist_ok=True)
@@ -174,6 +182,7 @@ def generate_py5(repo_dir, build_dir):
         # for some reason on WSL this exception will be thrown but the files all get copied.
         logger.error('errors thrown in shutil.copytree, continuing and hoping for the best', exc_info=True)
 
+    # finally, add the jars
     def copy_jars(jar_dir, dest):
         dest.mkdir(parents=True, exist_ok=True)
         for jar in jar_dir.glob('*.jar'):

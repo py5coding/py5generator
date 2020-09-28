@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # *** FORMAT PARAMS ***
 """
-py5 code, interface to the Java version of Processing using JPype.
+py5 makes Processing available to the CPython interpreter using JPype.
 """
 import sys
 from pathlib import Path
