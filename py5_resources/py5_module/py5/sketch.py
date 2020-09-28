@@ -64,7 +64,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
                  'method without a call to `super().__init__()`?')
             )
 
-        methods = dict([(e, getattr(self, e)) for e in reference.METHODS if hasattr(self, e)])
+        methods = dict([(e, getattr(self, e)) for e in reference.METHODS if hasattr(self, e) and callable(getattr(self, e))])
         self._run_sketch(methods, block, py5_options, sketch_args)
 
     def _run_sketch(self,

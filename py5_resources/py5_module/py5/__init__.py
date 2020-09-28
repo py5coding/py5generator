@@ -39,7 +39,7 @@ except ModuleNotFoundError:
     pass
 
 
-__version__ = '0.2a2'
+__version__ = '0.3a2'
 
 logger = logging.getLogger(__name__)
 
@@ -67,7 +67,7 @@ def run_sketch(block: bool = not _in_ipython_session,
         pass
 
     function_dict = inspect.stack()[1].frame.f_locals
-    methods = dict([(e, function_dict[e]) for e in reference.METHODS if e in function_dict])
+    methods = dict([(e, function_dict[e]) for e in reference.METHODS if e in function_dict and callable(function_dict[e])])
 
     if not set(methods.keys()) & set(['settings', 'setup', 'draw']):
         print(("Unable to find settings, setup, or draw functions. "
