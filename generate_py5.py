@@ -1,3 +1,4 @@
+import os
 import argparse
 import logging
 import shutil
@@ -22,8 +23,8 @@ logger = logging.getLogger(__name__)
 
 parser = argparse.ArgumentParser(description="Generate py5 library using processing jars",
                                  epilog="this is the epilog")
-parser.add_argument('-r', '--repo', action='store', dest='processing_repo_dir',
-                    help='location of processing code (github repository)')
+parser.add_argument('processing_repo_dir', action='store', help='location of processing code (github repository)')
+parser.add_argument('processing_build_dir', action='store', help='location of build directory')
 
 
 ###############################################################################
@@ -31,10 +32,11 @@ parser.add_argument('-r', '--repo', action='store', dest='processing_repo_dir',
 ###############################################################################
 
 
-def generate_py5(repo_dir):
+def generate_py5(repo_dir, build_dir):
     """Generate an installable py5 library using processing jars
     """
     repo_dir = Path(repo_dir)
+    build_dir = Path(build_dir)
 
     logger.info('generating py5 library...')
 
@@ -152,16 +154,22 @@ def generate_py5(repo_dir):
                          py5_dynamic_variables_str=py5_dynamic_variables_str)
 
     # build complete py5 module in destination directory
-    dest_dir = Path('build')
-    logger.info(f'building py5 in {dest_dir}')
-    if dest_dir.exists():
-        shutil.rmtree(dest_dir)
+    logger.info(f'building py5 in {build_dir}')
+    if build_dir.exists():
+        logger.info(f'emptying contents of {build_dir}')
+        for c in build_dir.glob('*'):
+            if c.name == '.git':
+                continue
+            if c.is_dir():
+                shutil.rmtree(c)
+            else:
+                os.remove(c)
     docstrings = DocstringFinder(
         method_signatures_lookup,
         Path('py5_docs', 'docfiles', 'variable_descriptions.json'))
     copier = CodeCopier(format_params, docstrings)
     try:
-        shutil.copytree(Path('py5_resources', 'py5_module'), dest_dir, copy_function=copier)
+        shutil.copytree(Path('py5_resources', 'py5_module'), build_dir, copy_function=copier, dirs_exist_ok=True)
     except shutil.Error:
         # for some reason on WSL this exception will be thrown but the files all get copied.
         logger.error('errors thrown in shutil.copytree, continuing and hoping for the best', exc_info=True)
@@ -171,20 +179,20 @@ def generate_py5(repo_dir):
         for jar in jar_dir.glob('*.jar'):
             shutil.copy(jar, dest)
 
-    copy_jars(core_jar_path.parent, dest_dir / 'py5' / 'jars')
-    copy_jars(svg_jar_path.parent, dest_dir / 'py5' / 'jars' / 'svg')
-    copy_jars(dxf_jar_path.parent, dest_dir / 'py5' / 'jars' / 'dxf')
-    copy_jars(pdf_jar_path.parent, dest_dir / 'py5' / 'jars' / 'pdf')
-    shutil.copy(py5_jar_path, dest_dir / 'py5' / 'jars')
+    copy_jars(core_jar_path.parent, build_dir / 'py5' / 'jars')
+    copy_jars(svg_jar_path.parent, build_dir / 'py5' / 'jars' / 'svg')
+    copy_jars(dxf_jar_path.parent, build_dir / 'py5' / 'jars' / 'dxf')
+    copy_jars(pdf_jar_path.parent, build_dir / 'py5' / 'jars' / 'pdf')
+    shutil.copy(py5_jar_path, build_dir / 'py5' / 'jars')
 
-    dest_dir.touch()
+    build_dir.touch()
 
     logger.info('py5 build complete!')
 
 
 def main():
     args = parser.parse_args()
-    generate_py5(repo_dir=args.processing_repo_dir)
+    generate_py5(args.processing_repo_dir, args.processing_build_dir)
 
 
 if __name__ == '__main__':
