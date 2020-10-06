@@ -27,3 +27,4 @@ dependencies:
     - nptyping==1.3.0
     - rstcheck==3.3.1
     - stackprinter==0.2.4
+    - nikola==8.1.1
