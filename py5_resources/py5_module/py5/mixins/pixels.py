@@ -63,7 +63,12 @@ class PixelMixin:
 
     def save(self, filename: Union[str, Path], format: str = None, **params) -> None:
         """$class_Sketch_save"""
-        filename = self._instance.savePath(str(filename))
+        filename = Path(str(self._instance.savePath(str(filename))))
         self.load_np_pixels()
-        arr = np.roll(self.np_pixels, -1, axis=2)
-        Image.fromarray(arr, mode='RGBA').save(str(filename), format=format, **params)
+        # TODO: this is insufficient. PIL won't automatically drop the alpha
+        # channel if the image format doesn't support it.
+        if filename.suffix == '.jpg':
+            arr = self.np_pixels[:, :, 1:]
+        else:
+            arr = np.roll(self.np_pixels, -1, axis=2)
+        Image.fromarray(arr).save(filename, format=format, **params)
