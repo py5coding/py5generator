@@ -8,6 +8,7 @@ from typing import overload, List  # noqa
 from nptyping import NDArray, Float  # noqa
 
 from jpype import JException
+from jpype.types import JBoolean, JInt, JFloat
 
 from .pmath import _get_pvector_wrapper  # noqa
 
@@ -26,6 +27,24 @@ def _return_py5shape(f):
     @functools.wraps(f)
     def decorated(self_, *args):
         return Py5Shape(f(self_, *args))
+    return decorated
+
+
+def _py5shape_type_fixer(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        args = list(args)
+        def fix_type(arg):
+            if isinstance(arg, bool):
+                return JBoolean(arg)
+            elif isinstance(arg, int):
+                return JInt(arg)
+            elif isinstance(arg, float):
+                return JFloat(arg)
+            else:
+                return arg
+        args = [fix_type(a) for a in args]
+        return f(self_, *tuple(args))
     return decorated
 
 
