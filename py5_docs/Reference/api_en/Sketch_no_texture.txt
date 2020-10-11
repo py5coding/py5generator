@@ -3,6 +3,7 @@ name = no_texture()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = noTexture
 
 @@ description
 new template no description.

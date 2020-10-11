@@ -3,6 +3,7 @@ name = find_child()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = findChild
 
 @@ description
 new template no description.

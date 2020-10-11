@@ -3,6 +3,7 @@ name = pause_thread()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = pauseThread
 
 @@ description
 new template no description.

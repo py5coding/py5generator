@@ -3,6 +3,7 @@ name = sketch_path()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = sketchPath
 
 @@ description
 new template no description.

@@ -3,6 +3,7 @@ name = set_visible()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = setVisible
 
 @@ description
 new template no description.

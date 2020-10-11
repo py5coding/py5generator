@@ -3,6 +3,7 @@ name = bezier_vertices()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = bezierVertices
 
 @@ description
 new template no description.

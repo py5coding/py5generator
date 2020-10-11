@@ -3,6 +3,7 @@ name = set_matrix()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = setMatrix
 
 @@ description
 new template no description.

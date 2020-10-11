@@ -3,6 +3,7 @@ name = set_always_on_top()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = setAlwaysOnTop
 
 @@ description
 new template no description.

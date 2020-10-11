@@ -3,6 +3,7 @@ name = get_graphics()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getGraphics
 
 @@ description
 new template no description.

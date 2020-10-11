@@ -3,6 +3,7 @@ name = curve_vertices()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = curveVertices
 
 @@ description
 new template no description.

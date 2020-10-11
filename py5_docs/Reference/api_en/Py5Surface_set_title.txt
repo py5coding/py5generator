@@ -3,6 +3,7 @@ name = set_title()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = setTitle
 
 @@ description
 new template no description.

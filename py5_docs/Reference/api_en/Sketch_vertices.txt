@@ -3,6 +3,7 @@ name = vertices()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = vertices
 
 @@ description
 new template no description.

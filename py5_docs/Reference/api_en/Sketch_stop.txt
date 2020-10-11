@@ -3,6 +3,7 @@ name = stop()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = stop
 
 @@ description
 new template no description.

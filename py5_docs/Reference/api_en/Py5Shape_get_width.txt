@@ -3,6 +3,7 @@ name = get_width()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getWidth
 
 @@ description
 new template no description.

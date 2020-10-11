@@ -3,6 +3,7 @@ name = get_shape()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getShape
 
 @@ description
 new template no description.

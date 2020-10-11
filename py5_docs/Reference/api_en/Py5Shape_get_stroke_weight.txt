@@ -3,6 +3,7 @@ name = get_stroke_weight()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getStrokeWeight
 
 @@ description
 new template no description.

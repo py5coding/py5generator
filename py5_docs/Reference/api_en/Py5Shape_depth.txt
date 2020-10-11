@@ -3,6 +3,7 @@ name = depth
 category = UNKNOWN
 subcategory = UNKNOWN
 type = dynamic variable
+processing_name = depth
 
 @@ description
 new template no description.

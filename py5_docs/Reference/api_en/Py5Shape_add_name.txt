@@ -3,6 +3,7 @@ name = add_name()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = addName
 
 @@ description
 new template no description.

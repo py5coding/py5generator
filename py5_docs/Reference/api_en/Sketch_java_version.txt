@@ -3,6 +3,7 @@ name = java_version
 category = UNKNOWN
 subcategory = UNKNOWN
 type = dynamic variable
+processing_name = javaVersion
 
 @@ description
 new template no description.

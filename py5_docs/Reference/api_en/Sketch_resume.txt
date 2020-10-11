@@ -3,6 +3,7 @@ name = resume()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = resume
 
 @@ description
 new template no description.

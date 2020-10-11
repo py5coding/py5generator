@@ -17,7 +17,7 @@ name = {0}
 category = UNKNOWN
 subcategory = UNKNOWN
 type = {1}
-
+{2}
 @@ description
 new template no description.
 
@@ -235,7 +235,7 @@ for pclass, class_data in class_data_info.items():
         if not implementation_from_processing:
             if pclass == 'PApplet':
                 # definitely a new function I need to document
-                new_xml_files.append((pclass, py5_name, item_type))
+                new_xml_files.append((pclass, py5_name, item_type, None))
             continue
 
         # first try the correct documentation filename
@@ -292,9 +292,10 @@ for num, (xml_file, file_data) in enumerate(xml_files):
 
 print(f"create {len(new_xml_files)} new documentation files")
 for num, new_file_data in enumerate(new_xml_files):
-    pclass, py5_name, item_type, *_ = new_file_data
+    pclass, py5_name, item_type, processing_name = new_file_data
     with open(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.txt', 'w') as f:
         name = py5_name if item_type == 'dynamic variable' else py5_name + '()'
-        f.write(NEW_TEMPLATE.format(name, item_type))
+        extra = f'processing_name = {processing_name}\n' if processing_name else ''
+        f.write(NEW_TEMPLATE.format(name, item_type, extra))
 
 print(f'copied {len(xml_files)} files and created {len(new_xml_files)} new files.')

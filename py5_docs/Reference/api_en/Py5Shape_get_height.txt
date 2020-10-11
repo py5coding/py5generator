@@ -3,6 +3,7 @@ name = get_height()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getHeight
 
 @@ description
 new template no description.

@@ -3,6 +3,7 @@ name = set_stroke_join()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = setStrokeJoin
 
 @@ description
 new template no description.

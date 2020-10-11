@@ -3,6 +3,7 @@ name = get_child_index()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getChildIndex
 
 @@ description
 new template no description.

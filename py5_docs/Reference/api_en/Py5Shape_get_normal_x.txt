@@ -3,6 +3,7 @@ name = get_normal_x()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getNormalX
 
 @@ description
 new template no description.

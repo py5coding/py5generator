@@ -3,6 +3,7 @@ name = attrib_color()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = attribColor
 
 @@ description
 new template no description.

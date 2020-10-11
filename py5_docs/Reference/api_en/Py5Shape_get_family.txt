@@ -3,6 +3,7 @@ name = get_family()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getFamily
 
 @@ description
 new template no description.

@@ -3,6 +3,7 @@ name = bezier_detail()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = bezierDetail
 
 @@ description
 new template no description.

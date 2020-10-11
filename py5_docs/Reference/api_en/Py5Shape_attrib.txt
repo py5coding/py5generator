@@ -3,6 +3,7 @@ name = attrib()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = attrib
 
 @@ description
 new template no description.

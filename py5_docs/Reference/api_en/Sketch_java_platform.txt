@@ -3,6 +3,7 @@ name = java_platform
 category = UNKNOWN
 subcategory = UNKNOWN
 type = dynamic variable
+processing_name = javaPlatform
 
 @@ description
 new template no description.

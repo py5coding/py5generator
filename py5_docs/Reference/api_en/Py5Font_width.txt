@@ -3,6 +3,7 @@ name = width()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = width
 
 @@ description
 new template no description.

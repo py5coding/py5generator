@@ -3,6 +3,7 @@ name = get_shininess()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getShininess
 
 @@ description
 new template no description.

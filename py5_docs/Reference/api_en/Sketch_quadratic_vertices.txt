@@ -3,6 +3,7 @@ name = quadratic_vertices()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = quadraticVertices
 
 @@ description
 new template no description.

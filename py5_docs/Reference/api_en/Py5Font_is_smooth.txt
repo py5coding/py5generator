@@ -3,6 +3,7 @@ name = is_smooth()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = isSmooth
 
 @@ description
 new template no description.

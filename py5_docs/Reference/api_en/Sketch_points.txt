@@ -3,6 +3,7 @@ name = points()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = points
 
 @@ description
 new template no description.

@@ -3,6 +3,7 @@ name = set_icon()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = setIcon
 
 @@ description
 new template no description.

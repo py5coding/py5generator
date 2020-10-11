@@ -3,6 +3,7 @@ name = args
 category = UNKNOWN
 subcategory = UNKNOWN
 type = dynamic variable
+processing_name = args
 
 @@ description
 new template no description.

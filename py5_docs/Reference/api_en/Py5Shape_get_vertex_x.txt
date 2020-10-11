@@ -3,6 +3,7 @@ name = get_vertex_x()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getVertexX
 
 @@ description
 new template no description.

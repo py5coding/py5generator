@@ -3,6 +3,7 @@ name = get_stroke()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getStroke
 
 @@ description
 new template no description.

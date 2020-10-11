@@ -3,6 +3,7 @@ name = set_subsetting()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = setSubsetting
 
 @@ description
 new template no description.

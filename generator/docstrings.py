@@ -57,6 +57,7 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
         tuple_key = tuple(key.split('_', maxsplit=1))
         doc = Documentation(docfile)
         item_name = doc.meta['name']
+        processing_name = doc.meta.get('processing_name')
         description = doc.description.strip()
         m = FIRST_SENTENCE_REGEX.match(description)
         first_sentence = m.group() if m else description
@@ -88,15 +89,20 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
             doc.write(Path('/tmp/docfiles/') / docfile.name)
 
             extras = ''
+            if processing_name:
+                extras += f'\n\nUnderlying Processing method: {processing_name}'
             if len(signatures) > 1:
                 signatures_txt = '\n'.join(sorted([f' * {s}' for s in signatures]))
-                extras = SIGNATURES_TEMPLATE.format(signatures_txt)
+                extras += SIGNATURES_TEMPLATE.format(signatures_txt)
             if variables:
                 variables_txt = [f'{k}\n    {v}\n' for k, v in variables.items()]
                 extras += PARAMETERS_TEMPLATE.format('\n'.join(sorted(variables_txt)))[:-1]
             docstring = METHOD_DOC_TEMPLATE.format(first_sentence + extras, description)
         else:
-            docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence, description)
+            extras = ''
+            if processing_name:
+                extras += f'\n\nUnderlying Processing field: {processing_name}'
+            docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence + extras, description)
 
         docstrings[tuple_key] = docstring
 

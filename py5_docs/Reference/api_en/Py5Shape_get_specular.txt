@@ -3,6 +3,7 @@ name = get_specular()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getSpecular
 
 @@ description
 new template no description.

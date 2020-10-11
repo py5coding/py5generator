@@ -3,6 +3,7 @@ name = get_tint()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getTint
 
 @@ description
 new template no description.

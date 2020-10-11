@@ -3,6 +3,7 @@ name = start()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = start
 
 @@ description
 new template no description.

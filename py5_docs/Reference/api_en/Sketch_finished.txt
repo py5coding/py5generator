@@ -3,6 +3,7 @@ name = finished
 category = UNKNOWN
 subcategory = UNKNOWN
 type = dynamic variable
+processing_name = finished
 
 @@ description
 new template no description.

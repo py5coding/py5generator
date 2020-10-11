@@ -3,6 +3,7 @@ name = get_surface()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getSurface
 
 @@ description
 new template no description.

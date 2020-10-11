@@ -3,6 +3,7 @@ name = get_post_script_name()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getPostScriptName
 
 @@ description
 new template no description.

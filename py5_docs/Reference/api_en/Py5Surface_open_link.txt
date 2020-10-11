@@ -3,6 +3,7 @@ name = open_link()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = openLink
 
 @@ description
 new template no description.

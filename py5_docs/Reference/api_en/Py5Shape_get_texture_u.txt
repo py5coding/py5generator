@@ -3,6 +3,7 @@ name = get_texture_u()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getTextureU
 
 @@ description
 new template no description.

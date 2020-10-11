@@ -3,6 +3,7 @@ name = get_normal_y()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getNormalY
 
 @@ description
 new template no description.

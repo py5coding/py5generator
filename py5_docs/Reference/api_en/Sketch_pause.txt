@@ -3,6 +3,7 @@ name = pause()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = pause
 
 @@ description
 new template no description.

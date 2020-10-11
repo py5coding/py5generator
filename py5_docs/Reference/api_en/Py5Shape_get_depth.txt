@@ -3,6 +3,7 @@ name = get_depth()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getDepth
 
 @@ description
 new template no description.

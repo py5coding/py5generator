@@ -3,6 +3,7 @@ name = get_kind()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = getKind
 
 @@ description
 new template no description.

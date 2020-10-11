@@ -3,6 +3,7 @@ name = set_texture_mode()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = setTextureMode
 
 @@ description
 new template no description.

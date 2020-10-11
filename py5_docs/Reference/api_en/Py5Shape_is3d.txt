@@ -3,6 +3,7 @@ name = is3d()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = is3D
 
 @@ description
 new template no description.

@@ -3,6 +3,7 @@ name = is_mouse_pressed()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = isMousePressed
 
 @@ description
 new template no description.

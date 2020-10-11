@@ -3,6 +3,7 @@ name = attrib_normal()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = attribNormal
 
 @@ description
 new template no description.

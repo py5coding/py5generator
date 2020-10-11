@@ -3,6 +3,7 @@ name = ascent()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+processing_name = ascent
 
 @@ description
 new template no description.
