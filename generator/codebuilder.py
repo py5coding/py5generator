@@ -238,11 +238,14 @@ class CodeBuilder:
             code = f.read()
             code = code.split('*** BEGIN METHODS ***')[1].strip()
 
+        overloaded = set()
+
         self.module_members.append(f'\n{"#" * 78}\n# module functions from {filename.name}\n{"#" * 78}\n')
         for decorator, fname, arg0, args, rettypestr in METHOD_REGEX.findall(code):
             if fname.startswith('_'):
                 continue
             elif decorator == '@overload':
+                overloaded.add((class_name, fname))
                 self.module_members.append(
                     templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(self._class_name, fname, args, rettypestr)
                 )
@@ -255,7 +258,8 @@ class CodeBuilder:
             else:
                 split_args = COMMA_REGEX.split(args) if args else []
                 split_args = [a.replace('*', '').split('=')[0].strip() for a in split_args]
-                self.method_signatures[(class_name, fname)].append((split_args, rettypestr))
+                if (class_name, fname) not in overloaded:
+                    self.method_signatures[(class_name, fname)].append((split_args, rettypestr))
                 moduleobj = self._class_name if arg0 == 'cls' else self._instance_name
                 paramlist = []
                 for arg in TYPEHINT_COMMA_REGEX.sub('', args).split(','):
