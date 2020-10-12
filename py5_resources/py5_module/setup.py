@@ -13,11 +13,8 @@ with open(Path('py5', '__init__.py')) as f:
 
 
 INSTALL_REQUIRES = [
-    'cairocffi>=1.1',
-    'cairosvg>=2.4',
     'jpype1>=1.0.1',
     'line_profiler>=2.1.2',
-    'matplotlib>=3.2',
     'nptyping>=1.3',
     'numpy>=1.18',
     'pandas>=1.0',
