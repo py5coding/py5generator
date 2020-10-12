@@ -61,7 +61,7 @@ class MathMixin:
         return np.where(amt < low, low, np.where(amt > high, high, amt))
 
     @classmethod
-    def dist(cls, *args) -> float:
+    def dist(cls, *args: float) -> float:
         """$class_Sketch_dist"""
         p1 = args[:(len(args) // 2)]
         p2 = args[(len(args) // 2):]
@@ -74,7 +74,7 @@ class MathMixin:
         return amt * (stop - start) + start
 
     @classmethod
-    def mag(cls, *args) -> float:
+    def mag(cls, *args: float) -> float:
         """$class_Sketch_mag"""
         return sum([x * x for x in args])**0.5
 
@@ -89,17 +89,17 @@ class MathMixin:
         return n * n
 
     @overload
-    def random(cls, high: float, /) -> float:
+    def random(cls, high: float) -> float:
         """$class_Sketch_random"""
         pass
 
     @overload
-    def random(cls, low: float, high: float, /) -> float:
+    def random(cls, low: float, high: float) -> float:
         """$class_Sketch_random"""
         pass
 
     @classmethod
-    def random(cls, *args) -> float:
+    def random(cls, *args: float) -> float:
         """$class_Sketch_random"""
         if len(args) == 1:
             high = args[0]
