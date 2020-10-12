@@ -1,3 +1,5 @@
+from typing import overload
+
 import numpy as np
 
 
@@ -85,3 +87,28 @@ class MathMixin:
     def sq(cls, n: float) -> float:
         """$class_Sketch_sq"""
         return n * n
+
+    @overload
+    def random(cls, high: float, /) -> float:
+        """$class_Sketch_random"""
+        pass
+
+    @overload
+    def random(cls, low: float, high: float, /) -> float:
+        """$class_Sketch_random"""
+        pass
+
+    @classmethod
+    def random(cls, *args) -> float:
+        """$class_Sketch_random"""
+        if len(args) == 1:
+            high = args[0]
+            if isinstance(high, (int, float)):
+                return high * np.random.rand()
+        elif len(args) == 2:
+            low, high = args
+            if isinstance(low, (int, float)) and isinstance(high, (int, float)):
+                return low + (high - low) * np.random.rand()
+
+        types = ','.join([type(a).__name__ for a in args])
+        raise TypeError(f'No matching overloads found for Sketch.random({types})')

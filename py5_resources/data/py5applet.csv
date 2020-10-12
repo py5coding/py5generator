@@ -292,7 +292,7 @@ atan,atan,,static method,math,calculation,FALSE,TRUE,implemented in mixin file m
 ceil,ceil,,static method,math,calculation,FALSE,FALSE,user should use numpy instead
 floor,floor,,static method,math,calculation,FALSE,FALSE,user should use numpy instead
 round,round,,static method,math,calculation,FALSE,FALSE,user should use numpy instead
-random,random,,method,math,random,TRUE,TRUE,
+random,random,,method,math,random,FALSE,TRUE,implementation uses numpy because it is faster
 settings,settings,,method,environment,,FALSE,FALSE,method implemented by user
 draw,draw,,method,structure,,FALSE,FALSE,method implemented by user
 pre_draw,preDraw,,method,structure,,FALSE,FALSE,method implemented by user
