@@ -1,17 +1,9 @@
 @@ meta
 name = random_seed()
-category = Math
-subcategory = Random
-type = None
-processing_name = randomSeed
+category = UNKNOWN
+subcategory = UNKNOWN
+type = method
 
 @@ description
-Sets the seed value for ``random()``. By default, ``random()`` produces different results each time the program is run. Set the ``seed`` parameter to a constant to return the same pseudo-random numbers each time the software is run.
-
-@@ example
-random_seed(0)
-for i in range(0, 100):
-    r = random(0, 255)
-    stroke(r)
-    line(i, 0, i, 100)
+new template no description.
 

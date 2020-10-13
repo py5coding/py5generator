@@ -291,8 +291,8 @@ acos,acos,,static method,math,calculation,FALSE,TRUE,implemented in mixin file m
 atan,atan,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
 ceil,ceil,,static method,math,calculation,FALSE,FALSE,user should use numpy instead
 floor,floor,,static method,math,calculation,FALSE,FALSE,user should use numpy instead
-round,round,,static method,math,calculation,FALSE,FALSE,user should use numpy instead
-random,random,,method,math,random,FALSE,TRUE,implementation uses numpy because it is faster
+round,round,,static method,math,calculation,FALSE,FALSE,user should use numpy or builtin instead
+random,random,,method,math,random,FALSE,TRUE,implementation uses numpy for performance reasons
 settings,settings,,method,environment,,FALSE,FALSE,method implemented by user
 draw,draw,,method,structure,,FALSE,FALSE,method implemented by user
 pre_draw,preDraw,,method,structure,,FALSE,FALSE,method implemented by user
@@ -360,8 +360,8 @@ radians,radians,,static method,,,FALSE,TRUE,implemented in mixin file math.py
 dist,dist,,static method,,,FALSE,TRUE,implemented in mixin file math.py
 lerp,lerp,,static method,,,FALSE,TRUE,implemented in mixin file math.py
 norm,norm,,static method,,,FALSE,TRUE,implemented in mixin file math.py
-random_gaussian,randomGaussian,,method,math,random,TRUE,TRUE,
-random_seed,randomSeed,,method,math,random,TRUE,TRUE,
+random_gaussian,randomGaussian,,method,math,random,FALSE,TRUE,implementation uses numpy for performance reasons
+random_seed,randomSeed,,method,math,random,FALSE,TRUE,implementation uses numpy for performance reasons
 noise,noise,,method,math,random,TRUE,TRUE,
 noise_detail,noiseDetail,,method,math,random,TRUE,TRUE,
 noise_seed,noiseSeed,,method,math,random,TRUE,TRUE,

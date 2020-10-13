@@ -1,9 +1,12 @@
 from typing import overload
 
 import numpy as np
-
+from numpy.random import MT19937
+from numpy.random import RandomState, SeedSequence
 
 class MathMixin:
+
+    _rs = RandomState(MT19937(SeedSequence()))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -99,16 +102,24 @@ class MathMixin:
         pass
 
     @classmethod
+    def random_seed(cls, seed: int) -> None:
+        cls._rs = RandomState(MT19937(SeedSequence(seed)))
+
+    @classmethod
     def random(cls, *args: float) -> float:
         """$class_Sketch_random"""
         if len(args) == 1:
             high = args[0]
             if isinstance(high, (int, float)):
-                return high * np.random.rand()
+                return high * cls._rs.rand()
         elif len(args) == 2:
             low, high = args
             if isinstance(low, (int, float)) and isinstance(high, (int, float)):
-                return low + (high - low) * np.random.rand()
+                return low + (high - low) * cls._rs.rand()
 
         types = ','.join([type(a).__name__ for a in args])
         raise TypeError(f'No matching overloads found for Sketch.random({types})')
+
+    @classmethod
+    def random_gaussian(cls) -> float:
+        return cls._rs.randn()
