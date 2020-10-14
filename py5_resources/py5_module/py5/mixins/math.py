@@ -1,4 +1,4 @@
-from typing import overload
+from typing import overload, Union
 
 import numpy as np
 from numpy.random import MT19937
@@ -87,9 +87,14 @@ class MathMixin:
         return (value - start) / (stop - start)
 
     @classmethod
-    def sq(cls, n: float) -> float:
+    def sq(cls, value: float) -> float:
         """$class_Sketch_sq"""
-        return n * n
+        return value * value
+
+    @classmethod
+    def sqrt(cls, value: float) -> Union[float, complex]:
+        """$class_Sketch_sqrt"""
+        return value**0.5
 
     @classmethod
     def floor(cls, value: float) -> int:
