@@ -106,6 +106,16 @@ class MathMixin:
         """$class_Sketch_ceil"""
         return int(np.ceil(value))
 
+    @classmethod
+    def exp(cls, value: float) -> float:
+        """$class_Sketch_exp"""
+        return np.exp(value)
+
+    @classmethod
+    def log(cls, value: float) -> float:
+        """$class_Sketch_log"""
+        return np.log(value)
+
     @overload
     def random(cls, high: float) -> float:
         """$class_Sketch_random"""

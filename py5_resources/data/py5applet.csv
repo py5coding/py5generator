@@ -239,9 +239,9 @@ cos,cos,,static method,math,calculation,FALSE,TRUE,implemented in mixin file mat
 tan,tan,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
 atan2,atan2,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
 sqrt,sqrt,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
-log,log,,static method,math,calculation,FALSE,FALSE,user should use numpy instead
+log,log,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
 pow,pow,,static method,math,calculation,FALSE,FALSE,user should use builtin or numpy instead
-exp,exp,,static method,math,calculation,FALSE,FALSE,user should use numpy instead
+exp,exp,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
 min,min,,method,math,calculation,FALSE,FALSE,user should use numpy instead
 max,max,,method,math,calculation,FALSE,FALSE,user should use numpy instead
 arraycopy,arraycopy,,method,,,FALSE,FALSE,user should use python instead

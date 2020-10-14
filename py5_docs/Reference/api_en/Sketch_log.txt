@@ -1,0 +1,9 @@
+@@ meta
+name = log()
+category = UNKNOWN
+subcategory = UNKNOWN
+type = static method
+
+@@ description
+new template no description.
+
