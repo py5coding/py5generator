@@ -1,0 +1,9 @@
+@@ meta
+name = floor()
+category = UNKNOWN
+subcategory = UNKNOWN
+type = static method
+
+@@ description
+new template no description.
+
