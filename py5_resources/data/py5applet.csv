@@ -291,7 +291,7 @@ acos,acos,,static method,math,calculation,FALSE,TRUE,implemented in mixin file m
 atan,atan,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
 ceil,ceil,,static method,math,calculation,FALSE,TRUE,implementation in mixin file math.py makes call to numpy
 floor,floor,,static method,math,calculation,FALSE,TRUE,implementation in mixin file math.py makes call to numpy
-round,round,,static method,math,calculation,FALSE,TRUE,implementation in mixin file math.py makes call to numpy
+round,round,,static method,math,calculation,FALSE,FALSE,user should use numpy or builtin method instead
 random,random,,method,math,random,FALSE,TRUE,implementation uses numpy for performance reasons
 settings,settings,,method,environment,,FALSE,FALSE,method implemented by user
 draw,draw,,method,structure,,FALSE,FALSE,method implemented by user

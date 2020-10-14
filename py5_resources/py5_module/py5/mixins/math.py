@@ -97,11 +97,6 @@ class MathMixin:
         return int(np.floor(value))
 
     @classmethod
-    def round(cls, value: float) -> int:
-        """$class_Sketch_round"""
-        return int(np.round(value))
-
-    @classmethod
     def ceil(cls, value: float) -> int:
         """$class_Sketch_ceil"""
         return int(np.ceil(value))
