@@ -257,7 +257,7 @@ apply_filter,filter,,method,image,pixels,TRUE,TRUE,filter method has name confli
 second,second,,static method,input,time_date,TRUE,TRUE,
 match,match,,static method,data,string_functions,FALSE,FALSE,user should use python instead
 set,set,,method,image,pixels,FALSE,FALSE,conflict with builtin python function
-map,map,,static method,math,calculation,FALSE,FALSE,conflict with builtin python function
+remap,map,,static method,math,calculation,FALSE,TRUE,renamed to remap to avoid conflict with builtin function; implemented in python for performance
 setup,setup,,method,structure,,FALSE,FALSE,method implemented by user
 debug,debug,,static method,,,FALSE,FALSE,user should use python instead
 start,start,,method,,,TRUE,TRUE,

@@ -64,6 +64,11 @@ class MathMixin:
         return np.where(amt < low, low, np.where(amt > high, high, amt))
 
     @classmethod
+    def remap(cls, value: float, start1: float, stop1: float, start2: float, stop2: float) -> float:
+        """$class_Sketch_remap"""
+        return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1))
+
+    @classmethod
     def dist(cls, *args: float) -> float:
         """$class_Sketch_dist"""
         p1 = args[:(len(args) // 2)]
