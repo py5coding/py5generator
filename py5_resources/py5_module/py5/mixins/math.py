@@ -133,6 +133,7 @@ class MathMixin:
 
     @classmethod
     def random_seed(cls, seed: int) -> None:
+        """$class_Sketch_random_seed"""
         cls._rs = RandomState(MT19937(SeedSequence(seed)))
 
     @classmethod
@@ -152,4 +153,5 @@ class MathMixin:
 
     @classmethod
     def random_gaussian(cls) -> float:
+        """$class_Sketch_random_gaussian"""
         return cls._rs.randn()
