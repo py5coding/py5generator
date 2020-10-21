@@ -4,9 +4,22 @@ import numpy as np
 from numpy.random import MT19937
 from numpy.random import RandomState, SeedSequence
 
+import noise
+
+
 class MathMixin:
 
     _rs = RandomState(MT19937(SeedSequence()))
+
+    # TODO: these two will trip up the CodeBuilder
+    PERLIN_NOISE = 1
+    SIMPLEX_NOISE = 2
+
+    _NOISE_MODE = SIMPLEX_NOISE
+    _NOISE_SEED = 0
+    _NOISE_OCTAVES = 4
+    _NOISE_PERSISTENCE = 0.5
+    _NOISE_LACUNARITY = 2.0
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -155,3 +168,49 @@ class MathMixin:
     def random_gaussian(cls) -> float:
         """$class_Sketch_random_gaussian"""
         return cls._rs.randn()
+
+    # TODO: write typehints
+
+    @classmethod
+    def noise(cls, *args, **kwargs) -> float:
+        """$class_Sketch_noise"""
+        len_args = len(args)
+        noise_args = {
+            'octaves': cls._NOISE_OCTAVES,
+            'persistence': cls._NOISE_PERSISTENCE,
+            'lacunarity': cls._NOISE_LACUNARITY,
+            'base': cls._NOISE_SEED,
+            # this will override other parameters if specified by the user
+            **kwargs
+        }
+        noisef = lambda *x, **_: x[0]
+        if cls._NOISE_MODE == cls.PERLIN_NOISE:
+            if not len_args in [1, 2, 3]:
+                raise RuntimeError('Sorry, this noise function can only generate 1D, 2D, or 3D Perlin noise.')
+            noisef = {1: noise.pnoise1, 2: noise.pnoise2, 3: noise.pnoise3}[len_args]
+        elif cls._NOISE_MODE == cls.SIMPLEX_NOISE:
+            if not len_args in [1, 2, 3, 4]:
+                raise RuntimeError('Sorry, this noise function can only generate 1D, 2D, 3D, or 4D Simplex noise.')
+            noisef = {1: noise.snoise2, 2: noise.snoise2, 3: noise.snoise3, 4: noise.snoise4}[len_args]
+            if len_args == 1:
+                args = args[0], 0
+        if any(isinstance(v, np.ndarray) for v in args):
+            noisef = np.vectorize(noisef)
+        return noisef(*args, **noise_args)
+
+    @classmethod
+    def noise_mode(cls, mode: int) -> None:
+        """$class_Sketch_noise_mode"""
+        if mode in [cls.PERLIN_NOISE, cls.SIMPLEX_NOISE]:
+            cls._NOISE_MODE = mode
+
+    @classmethod
+    def noise_detail(cls, args: float) -> None:
+        """$class_Sketch_noise_detail"""
+        # TODO: how to write this function cleanly?
+        pass
+
+    @classmethod
+    def noise_seed(cls, seed: float) -> None:
+        """$class_Sketch_noise_seed"""
+        cls._NOISE_SEED = seed

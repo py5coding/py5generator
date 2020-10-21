@@ -1,5 +1,5 @@
 @@ meta
-name = noise_seed()
+name = noise_mode()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
