@@ -167,7 +167,25 @@ class MathMixin:
         """$class_Sketch_random_gaussian"""
         return cls._rs.randn()
 
-    # TODO: write typehints
+    @overload
+    def noise(cls, x, **kwargs) -> float:
+        """$class_Sketch_noise"""
+        pass
+
+    @overload
+    def noise(cls, x, y, **kwargs) -> float:
+        """$class_Sketch_noise"""
+        pass
+
+    @overload
+    def noise(cls, x, y, z, **kwargs) -> float:
+        """$class_Sketch_noise"""
+        pass
+
+    @overload
+    def noise(cls, x, y, z, w, **kwargs) -> float:
+        """$class_Sketch_noise"""
+        pass
 
     @classmethod
     def noise(cls, *args, **kwargs) -> float:
