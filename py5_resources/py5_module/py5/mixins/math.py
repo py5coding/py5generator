@@ -11,10 +11,8 @@ class MathMixin:
 
     _rs = RandomState(MT19937(SeedSequence()))
 
-    # TODO: these two will trip up the CodeBuilder
-    PERLIN_NOISE = 1
-    SIMPLEX_NOISE = 2
-
+    SIMPLEX_NOISE = 1  # CODEBUILDER INCLUDE
+    PERLIN_NOISE = 2  # CODEBUILDER INCLUDE
     _NOISE_MODE = SIMPLEX_NOISE
     _NOISE_SEED = 0
     _NOISE_OCTAVES = 4

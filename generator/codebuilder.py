@@ -20,6 +20,7 @@ logger = logging.getLogger(__name__)
 ###############################################################################
 
 
+CONSTANT_REGEX = re.compile(r'^\s*([A-Z_]*)\s*=\s*(.*?)\s+# CODEBUILDER INCLUDE$', re.MULTILINE)
 METHOD_REGEX = re.compile(r'(@\w+)?\s*def (.*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):$', re.MULTILINE | re.DOTALL)
 TYPEHINT_COMMA_REGEX = re.compile(r'(\[[\w\s,]+\])')
 COMMA_REGEX = re.compile(r',\s*(?!\s*\w+\])')
@@ -111,7 +112,7 @@ class CodeBuilder:
         if self._code_module:
             self.module_members.append(templ.MODULE_STATIC_FIELD_TEMPLATE.format(py5_name, val))
 
-        self.static_constant_names.add(name)
+        self.static_constant_names.add(py5_name)
 
     def code_dynamic_variable(self, name, type_name):
         py5_name = self._py5_names[name]
@@ -236,12 +237,15 @@ class CodeBuilder:
 
         with open(filename) as f:
             code = f.read()
-            code = code.split('*** BEGIN METHODS ***')[1].strip()
+
+        for name, val in CONSTANT_REGEX.findall(code):
+            self.module_members.append(templ.MODULE_STATIC_FIELD_TEMPLATE.format(name, val))
+            self.static_constant_names.add(name)
 
         overloaded = set()
-
         self.module_members.append(f'\n{"#" * 78}\n# module functions from {filename.name}\n{"#" * 78}\n')
-        for decorator, fname, arg0, args, rettypestr in METHOD_REGEX.findall(code):
+        method_code = code.split('*** BEGIN METHODS ***')[1].strip()
+        for decorator, fname, arg0, args, rettypestr in METHOD_REGEX.findall(method_code):
             if fname.startswith('_'):
                 continue
             elif decorator == '@overload':
