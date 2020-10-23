@@ -210,6 +210,8 @@ class MathMixin:
             noisef = {1: noise.snoise2, 2: noise.snoise2, 3: noise.snoise3, 4: noise.snoise4}[len_args]
             if len_args == 1:
                 args = args[0], 0
+            if len_args in [3, 4]:
+                del noise_args['base']
         if any(isinstance(v, np.ndarray) for v in args):
             noisef = np.vectorize(noisef)
         return noisef(*args, **noise_args)
@@ -221,10 +223,15 @@ class MathMixin:
             cls._NOISE_MODE = mode
 
     @classmethod
-    def noise_detail(cls, args: float) -> None:
+    def noise_detail(cls, octaves: float = None, persistence: float = None,
+                     lacunarity: float = None) -> None:
         """$class_Sketch_noise_detail"""
-        # TODO: how to write this function cleanly?
-        pass
+        if octaves:
+            cls._NOISE_OCTAVES = octaves
+        if persistence:
+            cls._NOISE_PERSISTENCE = persistence
+        if lacunarity:
+            cls._NOISE_LACUNARITY = lacunarity
 
     @classmethod
     def noise_seed(cls, seed: float) -> None:
