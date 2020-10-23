@@ -34,6 +34,8 @@ sketch_class_members_code = None  # DELETE
 _Py5Applet = jpype.JClass('py5.core.Py5Applet')
 
 try:
+    # TODO: is this the best way to do this?
+    _ipython_shell = get_ipython()
     _in_ipython_session = True
 except NameError:
     _in_ipython_session = False
@@ -99,7 +101,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
             # wait no more than 1 second for any shutdown tasks to complete
             time_waited = 0
-            while not hasattr(self, '_shutdown_complete') and time_waited < 1.0:
+            while time_waited < 1.0:
                 pause = 0.01
                 time_waited += pause
                 time.sleep(pause)
