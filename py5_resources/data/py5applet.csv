@@ -608,3 +608,5 @@ is_dead,,,dynamic variable,,,FALSE,TRUE,property to determine sketch state
 is_dead_from_error,,,dynamic variable,,,FALSE,TRUE,property to determine sketch state
 get_success,getSuccess,,method,,,FALSE,FALSE,used to determine if sketch had an error
 noise_mode,,,method,math,random,FALSE,TRUE,implemented in math.py and used to switch between noise algorithms
+SIMPLEX_NOISE,,,static field,,,FALSE,TRUE,static constants for noise_mode
+PERLIN_NOISE,,,static field,,,FALSE,TRUE,static constants for noise_mode
