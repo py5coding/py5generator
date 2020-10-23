@@ -15,6 +15,7 @@ with open(Path('py5', '__init__.py')) as f:
 INSTALL_REQUIRES = [
     'jpype1>=1.0.1',
     'line_profiler>=2.1.2',
+    'noise>=1.2.2',
     'nptyping>=1.3',
     'numpy>=1.18',
     'pandas>=1.0',
