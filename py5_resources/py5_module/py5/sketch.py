@@ -34,8 +34,7 @@ sketch_class_members_code = None  # DELETE
 _Py5Applet = jpype.JClass('py5.core.Py5Applet')
 
 try:
-    # TODO: is this the best way to do this?
-    _ipython_shell = get_ipython()
+    __IPYTHON__  # type: ignore
     _in_ipython_session = True
 except NameError:
     _in_ipython_session = False
