@@ -28,3 +28,4 @@ dependencies:
     - rstcheck==3.3.1
     - stackprinter==0.2.4
     - nikola==8.1.1
+    - noise==1.2.2
