@@ -23,7 +23,7 @@ new template no description.
 
 """
 
-PROCESSING_API_EN = Path('/home/jim/Projects/ITP/pythonprocessing/processing-docs/content/api_en/')
+PROCESSING_API_EN = Path('../processing-docs/content/api_en/')
 PY5_API_EN = Path('py5_docs/Reference/api_en/')
 
 PY5_CLASS_LOOKUP = {
