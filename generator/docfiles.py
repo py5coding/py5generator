@@ -68,6 +68,7 @@ class Documentation:
                     examples = [(example.get('image'), example['code'])]
             else:
                 meta[key] = xml[key]
+        # TODO: clean up the type metadata
         return meta, examples, description
 
     def _from_txt(self, text):

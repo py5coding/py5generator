@@ -85,9 +85,6 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
                             logger.warning(f'{var_desc}: {tuple_key[0]}.{tuple_key[1]}, {p}')
                         variables[p] = var_desc
 
-            # TODO: write the documentation information back to the same file? or a different one?
-            doc.write(Path('/tmp/docfiles/') / docfile.name)
-
             extras = ''
             if processing_name:
                 extras += f'\n\nUnderlying Processing method: {processing_name}'
@@ -103,6 +100,9 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
             if processing_name:
                 extras += f'\n\nUnderlying Processing field: {processing_name}'
             docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence + extras, description)
+
+        # TODO: write the documentation information back to the same file? or a different one?
+        doc.write(Path('/tmp/docfiles/') / docfile.name)
 
         docstrings[tuple_key] = docstring
 
