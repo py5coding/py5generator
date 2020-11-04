@@ -87,7 +87,8 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
 
             extras = ''
             if processing_name:
-                extras += f'\n\nUnderlying Processing method: {processing_name}'
+                # TODO: should this include this class name like what I do in the documenation?
+                extras += f'\n\nUnderlying Java method: {processing_name}'
             if len(signatures) > 1:
                 signatures_txt = '\n'.join(sorted([f' * {s}' for s in signatures]))
                 extras += SIGNATURES_TEMPLATE.format(signatures_txt)
@@ -98,7 +99,8 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
         else:
             extras = ''
             if processing_name:
-                extras += f'\n\nUnderlying Processing field: {processing_name}'
+                # TODO: changes made to method should be done here also
+                extras += f'\n\nUnderlying Java field: {processing_name}'
             docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence + extras, description)
 
         # TODO: write the documentation information back to the same file? or a different one?
