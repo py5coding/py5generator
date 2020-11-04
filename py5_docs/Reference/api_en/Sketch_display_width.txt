@@ -2,7 +2,7 @@
 name = display_width
 category = Environment
 subcategory = None
-type = ['variable', 'variable']
+type = field
 processing_name = displayWidth
 
 @@ description

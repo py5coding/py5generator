@@ -2,7 +2,7 @@
 name = copy()
 category = Image
 subcategory = Pixels
-type = None
+type = method
 processing_name = copy
 
 @@ description

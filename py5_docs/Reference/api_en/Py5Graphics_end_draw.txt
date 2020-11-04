@@ -2,7 +2,7 @@
 name = end_draw()
 category = PGraphics
 subcategory = Method
-type = None
+type = method
 processing_name = endDraw
 
 @@ description

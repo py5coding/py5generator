@@ -2,7 +2,7 @@
 name = shape_mode()
 category = Shape
 subcategory = Loading & Displaying
-type = None
+type = method
 processing_name = shapeMode
 
 @@ description

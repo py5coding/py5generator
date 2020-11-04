@@ -2,7 +2,7 @@
 name = no_lights()
 category = Lights, Camera
 subcategory = Lights
-type = None
+type = method
 processing_name = noLights
 
 @@ description

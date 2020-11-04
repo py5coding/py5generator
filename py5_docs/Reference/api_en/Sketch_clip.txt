@@ -2,7 +2,7 @@
 name = clip()
 category = Rendering
 subcategory = None
-type = None
+type = method
 processing_name = clip
 
 @@ description

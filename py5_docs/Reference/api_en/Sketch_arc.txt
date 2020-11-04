@@ -1,6 +1,6 @@
 @@ meta
 name = arc()
-type = None
+type = method
 processing_name = arc
 
 @@ description

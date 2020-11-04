@@ -68,7 +68,8 @@ class Documentation:
                     examples = [(example.get('image'), example['code'])]
             else:
                 meta[key] = xml[key]
-        # TODO: clean up the type metadata
+        # clean up the type metadata
+        meta['type'] = 'method' if meta['name'].endswith('()') else 'field'
         return meta, examples, description
 
     def _from_txt(self, text):

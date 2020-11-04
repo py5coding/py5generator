@@ -2,7 +2,7 @@
 name = text()
 category = Typography
 subcategory = Loading & Displaying
-type = None
+type = method
 processing_name = text
 
 @@ description

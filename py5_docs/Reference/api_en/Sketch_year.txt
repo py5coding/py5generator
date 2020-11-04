@@ -2,7 +2,7 @@
 name = year()
 category = Input
 subcategory = Time & Date
-type = None
+type = method
 processing_name = year
 
 @@ description

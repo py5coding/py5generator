@@ -2,7 +2,7 @@
 name = scale()
 category = Transform
 subcategory = None
-type = None
+type = method
 processing_name = scale
 
 @@ description

@@ -2,7 +2,7 @@
 name = rotate_z()
 category = Transform
 subcategory = None
-type = None
+type = method
 processing_name = rotateZ
 
 @@ description

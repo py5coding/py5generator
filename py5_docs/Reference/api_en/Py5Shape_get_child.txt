@@ -2,7 +2,7 @@
 name = get_child()
 category = PShape
 subcategory = Method
-type = None
+type = method
 processing_name = getChild
 
 @@ description

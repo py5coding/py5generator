@@ -2,7 +2,7 @@
 name = focused
 category = Environment
 subcategory = None
-type = variable
+type = field
 processing_name = focused
 
 @@ description

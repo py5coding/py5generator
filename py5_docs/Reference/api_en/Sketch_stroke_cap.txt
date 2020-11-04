@@ -2,7 +2,7 @@
 name = stroke_cap()
 category = Shape
 subcategory = Attributes
-type = None
+type = method
 processing_name = strokeCap
 
 @@ description

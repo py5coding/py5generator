@@ -2,7 +2,7 @@
 name = cursor()
 category = Environment
 subcategory = None
-type = None
+type = method
 processing_name = cursor
 
 @@ description

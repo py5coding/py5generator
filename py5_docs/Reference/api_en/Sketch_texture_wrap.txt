@@ -2,7 +2,7 @@
 name = texture_wrap()
 category = Image
 subcategory = Textures
-type = None
+type = method
 processing_name = textureWrap
 
 @@ description

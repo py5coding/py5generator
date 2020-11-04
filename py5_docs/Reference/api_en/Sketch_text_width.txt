@@ -2,7 +2,7 @@
 name = text_width()
 category = Typography
 subcategory = Metrics
-type = None
+type = method
 processing_name = textWidth
 
 @@ description

@@ -2,7 +2,7 @@
 name = mask()
 category = PImage
 subcategory = Method
-type = None
+type = method
 processing_name = mask
 
 @@ description

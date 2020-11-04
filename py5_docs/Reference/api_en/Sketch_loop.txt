@@ -2,7 +2,7 @@
 name = loop()
 category = Structure
 subcategory = None
-type = None
+type = method
 processing_name = loop
 
 @@ description

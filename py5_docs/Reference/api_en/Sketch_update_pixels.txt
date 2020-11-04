@@ -2,7 +2,7 @@
 name = update_pixels()
 category = Image
 subcategory = Pixels
-type = None
+type = method
 processing_name = updatePixels
 
 @@ description

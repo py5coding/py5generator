@@ -2,7 +2,7 @@
 name = width
 category = Environment
 subcategory = None
-type = ['variable', 'variable']
+type = field
 processing_name = width
 
 @@ description

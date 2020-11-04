@@ -2,7 +2,7 @@
 name = create_shape()
 category = Shape
 subcategory = None
-type = None
+type = method
 processing_name = createShape
 
 @@ description

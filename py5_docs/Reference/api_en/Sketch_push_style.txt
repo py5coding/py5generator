@@ -2,7 +2,7 @@
 name = push_style()
 category = Structure
 subcategory = None
-type = None
+type = method
 processing_name = pushStyle
 
 @@ description

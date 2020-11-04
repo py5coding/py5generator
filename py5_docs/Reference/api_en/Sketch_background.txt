@@ -2,7 +2,7 @@
 name = background()
 category = Color
 subcategory = Setting
-type = None
+type = method
 processing_name = background
 
 @@ description

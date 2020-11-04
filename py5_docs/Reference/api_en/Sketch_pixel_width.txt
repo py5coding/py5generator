@@ -2,6 +2,7 @@
 name = pixel_width
 category = Environment
 subcategory = None
+type = field
 processing_name = pixelWidth
 
 @@ description

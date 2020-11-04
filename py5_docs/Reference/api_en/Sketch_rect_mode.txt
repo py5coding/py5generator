@@ -2,7 +2,7 @@
 name = rect_mode()
 category = Shape
 subcategory = Attributes
-type = None
+type = method
 processing_name = rectMode
 
 @@ description

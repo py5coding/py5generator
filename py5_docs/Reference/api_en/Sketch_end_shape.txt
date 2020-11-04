@@ -2,7 +2,7 @@
 name = end_shape()
 category = Shape
 subcategory = Vertex
-type = None
+type = method
 processing_name = endShape
 
 @@ description

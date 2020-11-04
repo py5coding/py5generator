@@ -2,7 +2,7 @@
 name = height
 category = Environment
 subcategory = None
-type = variable
+type = field
 processing_name = height
 
 @@ description

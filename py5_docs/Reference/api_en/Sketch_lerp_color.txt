@@ -2,7 +2,7 @@
 name = lerp_color()
 category = Color
 subcategory = Creating & Reading
-type = None
+type = method
 processing_name = lerpColor
 
 @@ description

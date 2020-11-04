@@ -2,7 +2,7 @@
 name = curve_vertex()
 category = Shape
 subcategory = Vertex
-type = None
+type = method
 processing_name = curveVertex
 
 @@ description

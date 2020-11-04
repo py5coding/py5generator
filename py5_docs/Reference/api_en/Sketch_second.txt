@@ -2,7 +2,7 @@
 name = second()
 category = Input
 subcategory = Time & Date
-type = None
+type = method
 processing_name = second
 
 @@ description

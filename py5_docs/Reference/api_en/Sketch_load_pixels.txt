@@ -2,7 +2,7 @@
 name = load_pixels()
 category = Image
 subcategory = Pixels
-type = None
+type = method
 processing_name = loadPixels
 
 @@ description

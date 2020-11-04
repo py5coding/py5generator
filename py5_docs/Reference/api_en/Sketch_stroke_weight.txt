@@ -2,7 +2,7 @@
 name = stroke_weight()
 category = Shape
 subcategory = Attributes
-type = None
+type = method
 processing_name = strokeWeight
 
 @@ description

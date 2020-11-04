@@ -2,7 +2,7 @@
 name = frame_count
 category = Environment
 subcategory = None
-type = variable
+type = field
 processing_name = frameCount
 
 @@ description

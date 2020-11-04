@@ -2,7 +2,7 @@
 name = enable_style()
 category = PShape
 subcategory = Method
-type = None
+type = method
 processing_name = enableStyle
 
 @@ description

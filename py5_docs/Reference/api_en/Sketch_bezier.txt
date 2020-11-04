@@ -2,7 +2,7 @@
 name = bezier()
 category = Shape
 subcategory = Curves
-type = None
+type = method
 processing_name = bezier
 
 @@ description

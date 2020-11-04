@@ -2,7 +2,7 @@
 name = no_tint()
 category = Image
 subcategory = Loading & Displaying
-type = None
+type = method
 processing_name = noTint
 
 @@ description

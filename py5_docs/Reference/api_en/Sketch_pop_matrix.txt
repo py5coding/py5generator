@@ -2,7 +2,7 @@
 name = pop_matrix()
 category = Transform
 subcategory = None
-type = None
+type = method
 processing_name = popMatrix
 
 @@ description

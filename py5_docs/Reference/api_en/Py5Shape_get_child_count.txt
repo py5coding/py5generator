@@ -2,7 +2,7 @@
 name = get_child_count()
 category = PShape
 subcategory = Method
-type = None
+type = method
 processing_name = getChildCount
 
 @@ description

@@ -2,7 +2,7 @@
 name = load_shader()
 category = Rendering
 subcategory = Shaders
-type = None
+type = method
 processing_name = loadShader
 
 @@ description

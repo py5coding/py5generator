@@ -2,7 +2,7 @@
 name = translate()
 category = Transform
 subcategory = None
-type = None
+type = method
 processing_name = translate
 
 @@ description

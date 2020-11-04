@@ -2,7 +2,7 @@
 name = java_version_name
 category = UNKNOWN
 subcategory = UNKNOWN
-type = dynamic variable
+type = field
 processing_name = javaVersionName
 
 @@ description

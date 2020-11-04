@@ -2,7 +2,7 @@
 name = no_stroke()
 category = Color
 subcategory = Setting
-type = None
+type = method
 processing_name = noStroke
 
 @@ description

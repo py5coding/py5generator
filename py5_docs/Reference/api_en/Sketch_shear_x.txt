@@ -2,7 +2,7 @@
 name = shear_x()
 category = Transform
 subcategory = None
-type = None
+type = method
 processing_name = shearX
 
 @@ description

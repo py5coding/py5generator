@@ -2,7 +2,7 @@
 name = key_code
 category = Input
 subcategory = Keyboard
-type = variable
+type = field
 processing_name = keyCode
 
 @@ description

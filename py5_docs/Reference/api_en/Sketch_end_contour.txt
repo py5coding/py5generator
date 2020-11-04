@@ -2,7 +2,7 @@
 name = end_contour()
 category = Shape
 subcategory = Vertex
-type = None
+type = method
 processing_name = endContour
 
 @@ description

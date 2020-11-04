@@ -2,7 +2,7 @@
 name = pmouse_x
 category = Input
 subcategory = Mouse
-type = variable
+type = field
 processing_name = pmouseX
 
 @@ description

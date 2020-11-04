@@ -2,7 +2,7 @@
 name = curve_detail()
 category = Shape
 subcategory = Curves
-type = None
+type = method
 processing_name = curveDetail
 
 @@ description

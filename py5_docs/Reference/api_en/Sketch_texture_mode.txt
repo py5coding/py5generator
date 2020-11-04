@@ -2,7 +2,7 @@
 name = texture_mode()
 category = Shape
 subcategory = Vertex
-type = None
+type = method
 processing_name = textureMode
 
 @@ description

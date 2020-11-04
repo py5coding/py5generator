@@ -2,7 +2,7 @@
 name = reset_shader()
 category = Rendering
 subcategory = Shaders
-type = None
+type = method
 processing_name = resetShader
 
 @@ description

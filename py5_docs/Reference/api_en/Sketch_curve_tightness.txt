@@ -2,7 +2,7 @@
 name = curve_tightness()
 category = Shape
 subcategory = Curves
-type = None
+type = method
 processing_name = curveTightness
 
 @@ description

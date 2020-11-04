@@ -2,7 +2,7 @@
 name = saturation()
 category = Color
 subcategory = Creating & Reading
-type = None
+type = method
 processing_name = saturation
 
 @@ description

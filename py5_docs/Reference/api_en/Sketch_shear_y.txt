@@ -2,7 +2,7 @@
 name = shear_y()
 category = Transform
 subcategory = None
-type = None
+type = method
 processing_name = shearY
 
 @@ description

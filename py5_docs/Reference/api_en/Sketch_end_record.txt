@@ -2,7 +2,7 @@
 name = end_record()
 category = Output
 subcategory = Files
-type = None
+type = method
 processing_name = endRecord
 
 @@ description

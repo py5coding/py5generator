@@ -2,7 +2,7 @@
 name = specular()
 category = Lights, Camera
 subcategory = Material Properties
-type = None
+type = method
 processing_name = specular
 
 @@ description

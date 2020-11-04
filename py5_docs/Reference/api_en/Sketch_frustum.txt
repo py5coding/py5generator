@@ -2,7 +2,7 @@
 name = frustum()
 category = Lights, Camera
 subcategory = Camera
-type = None
+type = method
 processing_name = frustum
 
 @@ description

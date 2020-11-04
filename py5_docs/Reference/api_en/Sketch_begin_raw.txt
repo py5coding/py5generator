@@ -2,7 +2,7 @@
 name = begin_raw()
 category = Output
 subcategory = Files
-type = None
+type = method
 processing_name = beginRaw
 
 @@ description

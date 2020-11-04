@@ -2,7 +2,7 @@
 name = pixel_density()
 category = Environment
 subcategory = None
-type = None
+type = method
 processing_name = pixelDensity
 
 @@ description

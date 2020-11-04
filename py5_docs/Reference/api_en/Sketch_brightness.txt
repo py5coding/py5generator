@@ -2,7 +2,7 @@
 name = brightness()
 category = Color
 subcategory = Creating & Reading
-type = None
+type = method
 processing_name = brightness
 
 @@ description

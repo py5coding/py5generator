@@ -2,7 +2,7 @@
 name = model_z()
 category = Lights, Camera
 subcategory = Coordinates
-type = None
+type = method
 processing_name = modelZ
 
 @@ description

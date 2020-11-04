@@ -2,7 +2,7 @@
 name = color_mode()
 category = Color
 subcategory = Setting
-type = None
+type = method
 processing_name = colorMode
 
 @@ description

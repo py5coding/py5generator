@@ -2,7 +2,7 @@
 name = screen_y()
 category = Lights, Camera
 subcategory = Coordinates
-type = None
+type = method
 processing_name = screenY
 
 @@ description

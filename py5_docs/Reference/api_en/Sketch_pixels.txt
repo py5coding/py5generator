@@ -2,7 +2,7 @@
 name = pixels[]
 category = Image
 subcategory = Pixels
-type = variable
+type = field
 processing_name = pixels
 
 @@ description

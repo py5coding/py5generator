@@ -2,7 +2,7 @@
 name = display_density()
 category = Environment
 subcategory = None
-type = None
+type = method
 processing_name = displayDensity
 
 @@ description

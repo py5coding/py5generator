@@ -2,7 +2,7 @@
 name = translate()
 category = PShape
 subcategory = Method
-type = None
+type = method
 processing_name = translate
 
 @@ description

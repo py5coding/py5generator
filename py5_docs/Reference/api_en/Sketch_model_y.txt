@@ -2,7 +2,7 @@
 name = model_y()
 category = Lights, Camera
 subcategory = Coordinates
-type = None
+type = method
 processing_name = modelY
 
 @@ description

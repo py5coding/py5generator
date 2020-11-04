@@ -2,7 +2,7 @@
 name = key
 category = Input
 subcategory = Keyboard
-type = variable
+type = field
 processing_name = key
 
 @@ description

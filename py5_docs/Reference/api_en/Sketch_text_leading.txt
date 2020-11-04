@@ -2,7 +2,7 @@
 name = text_leading()
 category = Typography
 subcategory = Attributes
-type = None
+type = method
 processing_name = textLeading
 
 @@ description

@@ -2,7 +2,7 @@
 name = no_clip()
 category = Rendering
 subcategory = None
-type = None
+type = method
 processing_name = noClip
 
 @@ description

@@ -2,7 +2,7 @@
 name = red()
 category = Color
 subcategory = Creating & Reading
-type = None
+type = method
 processing_name = red
 
 @@ description

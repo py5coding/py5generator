@@ -2,6 +2,7 @@
 name = PShader
 category = PShader
 subcategory = Method
+type = field
 processing_name = set
 
 @@ description

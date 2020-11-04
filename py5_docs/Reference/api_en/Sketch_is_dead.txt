@@ -2,7 +2,7 @@
 name = is_dead
 category = UNKNOWN
 subcategory = UNKNOWN
-type = dynamic variable
+type = field
 
 @@ description
 new template no description.

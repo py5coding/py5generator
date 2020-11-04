@@ -2,7 +2,7 @@
 name = sin()
 category = UNKNOWN
 subcategory = UNKNOWN
-type = static method
+type = method
 
 @@ description
 new template no description.

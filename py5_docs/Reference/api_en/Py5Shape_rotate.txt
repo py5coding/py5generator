@@ -2,7 +2,7 @@
 name = rotate()
 category = PShape
 subcategory = Method
-type = None
+type = method
 processing_name = rotate
 
 @@ description

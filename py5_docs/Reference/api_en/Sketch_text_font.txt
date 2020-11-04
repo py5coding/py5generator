@@ -2,7 +2,7 @@
 name = text_font()
 category = Typography
 subcategory = Loading & Displaying
-type = None
+type = method
 processing_name = textFont
 
 @@ description

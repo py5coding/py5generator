@@ -2,7 +2,7 @@
 name = shape()
 category = Shape
 subcategory = Loading & Displaying
-type = None
+type = method
 processing_name = shape
 
 @@ description

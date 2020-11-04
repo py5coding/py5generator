@@ -2,7 +2,7 @@
 name = height
 category = PImage
 subcategory = Field
-type = None
+type = field
 processing_name = height
 
 @@ description

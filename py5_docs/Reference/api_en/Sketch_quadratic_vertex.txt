@@ -2,7 +2,7 @@
 name = quadratic_vertex()
 category = Shape
 subcategory = Vertex
-type = None
+type = method
 processing_name = quadraticVertex
 
 @@ description

@@ -2,7 +2,7 @@
 name = hue()
 category = Color
 subcategory = Creating & Reading
-type = None
+type = method
 processing_name = hue
 
 @@ description

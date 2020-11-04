@@ -2,6 +2,7 @@
 name = frame_rate()
 category = Environment
 subcategory = None
+type = method
 processing_name = frameRate
 
 @@ description

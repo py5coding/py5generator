@@ -2,7 +2,7 @@
 name = begin_draw()
 category = PGraphics
 subcategory = Method
-type = None
+type = method
 processing_name = beginDraw
 
 @@ description

@@ -2,7 +2,7 @@
 name = point()
 category = Shape
 subcategory = 2D Primitives
-type = None
+type = method
 processing_name = point
 
 @@ description

@@ -2,7 +2,7 @@
 name = point_light()
 category = Lights, Camera
 subcategory = Lights
-type = None
+type = method
 processing_name = pointLight
 
 @@ description

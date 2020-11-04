@@ -2,7 +2,7 @@
 name = perspective()
 category = Lights, Camera
 subcategory = Camera
-type = None
+type = method
 processing_name = perspective
 
 @@ description

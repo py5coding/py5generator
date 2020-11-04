@@ -2,7 +2,7 @@
 name = pop()
 category = Structure
 subcategory = None
-type = None
+type = method
 processing_name = pop
 
 @@ description

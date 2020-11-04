@@ -2,7 +2,7 @@
 name = begin_record()
 category = Output
 subcategory = Files
-type = None
+type = method
 processing_name = beginRecord
 
 @@ description

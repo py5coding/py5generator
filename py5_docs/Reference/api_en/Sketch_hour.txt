@@ -2,7 +2,7 @@
 name = hour()
 category = Input
 subcategory = Time & Date
-type = None
+type = method
 processing_name = hour
 
 @@ description

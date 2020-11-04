@@ -2,7 +2,7 @@
 name = sphere_detail()
 category = Shape
 subcategory = 3D Primitives
-type = None
+type = method
 processing_name = sphereDetail
 
 @@ description

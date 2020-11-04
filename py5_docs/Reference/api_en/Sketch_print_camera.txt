@@ -2,7 +2,7 @@
 name = print_camera()
 category = Lights, Camera
 subcategory = Camera
-type = None
+type = method
 processing_name = printCamera
 
 @@ description

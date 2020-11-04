@@ -2,7 +2,7 @@
 name = shininess()
 category = Lights, Camera
 subcategory = Material Properties
-type = None
+type = method
 processing_name = shininess
 
 @@ description

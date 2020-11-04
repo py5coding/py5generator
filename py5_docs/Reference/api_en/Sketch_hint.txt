@@ -2,7 +2,7 @@
 name = hint()
 category = Rendering
 subcategory = None
-type = ['function', 'Function']
+type = method
 syntax = hint(which)
 parameter = OrderedDict([('label', 'which'), ('description', 'int: the hint mode to use')])
 returns = void

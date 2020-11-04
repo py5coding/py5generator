@@ -2,7 +2,7 @@
 name = blend_mode()
 category = Rendering
 subcategory = None
-type = None
+type = method
 processing_name = blendMode
 
 @@ description
