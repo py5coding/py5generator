@@ -61,14 +61,9 @@ class PixelMixin:
             self._np_pixels[:, :, 1:] = array[:, :, :3]
         self.update_np_pixels()
 
-    def save(self, filename: Union[str, Path], format: str = None, **params) -> None:
+    def save(self, filename: Union[str, Path], format: str = None, drop_alpha: bool = True, **params) -> None:
         """$class_Sketch_save"""
         filename = Path(str(self._instance.savePath(str(filename))))
         self.load_np_pixels()
-        # TODO: this is insufficient. PIL won't automatically drop the alpha
-        # channel if the image format doesn't support it.
-        if filename.suffix == '.jpg':
-            arr = self.np_pixels[:, :, 1:]
-        else:
-            arr = np.roll(self.np_pixels, -1, axis=2)
+        arr = self.np_pixels[:, :, 1:] if drop_alpha else np.roll(self.np_pixels, -1, axis=2)
         Image.fromarray(arr).save(filename, format=format, **params)
