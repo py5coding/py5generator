@@ -1,13 +1,12 @@
 import re
 from pathlib import Path
 import textwrap
+from collections import defaultdict
 
 import requests
 import pandas as pd
 
 from generator.docfiles import Documentation
-
-# TODO: Need method/attribute index pages for Sketch and other classes
 
 # PY5_API_EN = Path('py5_docs/Reference/api_en/')
 PY5_API_EN = Path('/tmp/docfiles/')
@@ -118,6 +117,7 @@ def write_doc_rst_files():
     now = pd.Timestamp.now(tz='UTC')
     now_nikola = now.strftime('%Y-%m-%d %H:%M:%S %Z%z')[:-2] + ':00'
     now_pretty = now.strftime('%B %d, %Y %H:%M:%S%P %Z')
+    rstfiles = defaultdict(set)
     docfiles = sorted(PY5_API_EN.glob('*.txt'))
     for num, docfile in enumerate(docfiles):
         doc = Documentation(docfile)
@@ -143,6 +143,20 @@ def write_doc_rst_files():
 
         with open(DEST_DIR / (stem.lower() + '.rst'), 'w') as f:
             f.write(doc_rst)
+        rstfiles[stem.split('_', 1)[0].lower()].add((name, stem.lower(), first_sentence))
+
+    # TODO: why don't the classes have their own docstrings that are also included in the reference documentation?
+    for group, data in rstfiles.items():
+        # TODO: need to use categories and subcategories for main doc page
+        # if group == 'sketch':
+        #     pass
+        # else:
+        with open(DEST_DIR / f'{group}_include.rst', 'w') as f:
+            for name, stem, first_sentence in sorted(data):
+                if group == 'sketch':
+                    f.write(f'* `{name} <{stem}/>`_: {first_sentence}\n')
+                else:
+                    f.write(f'* `{name} <../{stem}/>`_: {first_sentence}\n')
 
 
 if not DEST_DIR.exists():
