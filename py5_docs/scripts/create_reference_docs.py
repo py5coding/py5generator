@@ -180,7 +180,10 @@ def write_doc_rst_files():
 
         with open(DEST_DIR / f'{stem}.rst', 'w') as f:
             f.write(doc_rst)
-        if item_type != 'class':
+        if item_type == 'class':
+            if stem != 'Sketch':
+                rstfiles['sketch'].add((name, slug, first_sentence))
+        else:
             rstfiles[stem.split('_', 1)[0].lower()].add((name, slug, first_sentence))
 
     for group, data in rstfiles.items():
