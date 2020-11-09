@@ -19,7 +19,8 @@ PROCESSING_CLASSNAME_LOOKUP = {
     'Py5Image': 'PImage',
     'Py5Shape': 'PShape',
     'Py5Shader': 'PShader',
-    'Py5Font': 'PFont'
+    'Py5Font': 'PFont',
+    'Py5Surface': 'PSurface',
 }
 
 DOC_TEMPLATE = """.. title: {0}
@@ -43,6 +44,30 @@ Updated on {9}
 
 """
 
+CLASS_DOC_TEMPLATE = """.. title: {0}
+.. slug: {1}
+.. date: {2}
+.. tags:
+.. category:
+.. link:
+.. description: py5 {0} documentation
+.. type: text
+
+{3}
+{4}
+Description
+===========
+
+{5}{6}
+
+This class provices the following methods and fields:
+
+.. include:: reference/{7}_include.rst
+
+Updated on {8}
+
+"""
+
 def format_underlying_java_ref(stem, doc_type, processing_name):
     out = ''
 
@@ -51,7 +76,7 @@ def format_underlying_java_ref(stem, doc_type, processing_name):
         link = processing_name
 
         processing_classname = PROCESSING_CLASSNAME_LOOKUP.get(stem.split('_')[0])
-        if processing_classname:
+        if doc_type != 'class' and processing_classname:
             text = processing_classname + '.'
             link = f'{processing_classname}_{link}'
         text += processing_name
@@ -122,30 +147,42 @@ def write_doc_rst_files():
     for num, docfile in enumerate(docfiles):
         doc = Documentation(docfile)
         name = doc.meta['name']
-        doc_type = doc.meta['type']
+        item_type = doc.meta['type']
         stem = docfile.stem
+        if stem == 'Sketch':
+            slug = 'index'
+        elif stem.startswith('Sketch'):
+            slug = stem[7:].lower()
+        else:
+            slug = stem.lower()
 
-        print(f'{num + 1} / {len(docfiles)} creating rst doc for {stem}')
+        print(f'{num + 1} / {len(docfiles)} creating rst doc for {stem} ({slug})')
 
         description = doc.description
         m = FIRST_SENTENCE_REGEX.match(description)
         first_sentence = m.group() if m else description
 
         underlying_java_ref = format_underlying_java_ref(
-            stem, doc_type, doc.meta.get('processing_name'))
+            stem, item_type, doc.meta.get('processing_name'))
         examples = format_examples(name, doc.examples)
-        signatures = format_signatures(doc.signatures)
-        parameters = format_parameters(doc.variables)
 
-        doc_rst = DOC_TEMPLATE.format(
-            name, stem.lower(), now_nikola, first_sentence, examples,
-            description, underlying_java_ref, signatures, parameters, now_pretty)
+        if item_type == 'class':
+            doc_rst = CLASS_DOC_TEMPLATE.format(
+                name, slug, now_nikola, first_sentence, examples,
+                description, underlying_java_ref, stem.lower(), now_pretty)
+        else:
+            signatures = format_signatures(doc.signatures)
+            parameters = format_parameters(doc.variables)
 
-        with open(DEST_DIR / (stem.lower() + '.rst'), 'w') as f:
+            doc_rst = DOC_TEMPLATE.format(
+                name, slug, now_nikola, first_sentence, examples,
+                description, underlying_java_ref, signatures, parameters, now_pretty)
+
+        with open(DEST_DIR / f'{stem}.rst', 'w') as f:
             f.write(doc_rst)
-        rstfiles[stem.split('_', 1)[0].lower()].add((name, stem.lower(), first_sentence))
+        if item_type != 'class':
+            rstfiles[stem.split('_', 1)[0].lower()].add((name, slug, first_sentence))
 
-    # TODO: why don't the classes have their own docstrings that are also included in the reference documentation?
     for group, data in rstfiles.items():
         # TODO: need to use categories and subcategories for main doc page
         # if group == 'sketch':
