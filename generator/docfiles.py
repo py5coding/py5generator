@@ -69,7 +69,12 @@ class Documentation:
             else:
                 meta[key] = xml[key]
         # clean up the type metadata
-        meta['type'] = 'method' if meta['name'].endswith('()') else 'field'
+        if meta['name'].endswith('()'):
+            meta['type'] = 'method'
+        elif meta['name'][0].isupper():
+            meta['type'] = 'class'
+        else:
+            meta['type'] = 'field'
         return meta, examples, description
 
     def _from_txt(self, text):

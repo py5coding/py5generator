@@ -270,14 +270,30 @@ for pclass, class_data in class_data_info.items():
         if pclass not in ['PGraphics', 'PImage']:
             new_xml_files.append((pclass, py5_name, item_type, processing_name))
 
+# add in the class documentation files
+for pclass, py5class in PY5_CLASS_LOOKUP.items():
+    if pclass == 'PApplet':
+        continue
+    xml_file = PROCESSING_API_EN / f'{pclass}.xml'
+    if xml_file.exists():
+        xml_files.append((xml_file, (pclass, py5class, pclass)))
+    else:
+        new_xml_files.append((pclass, py5class, 'class', pclass))
 
 # copy the relevant xml files to the py5 directory
 print("read and translate Processing's xml documentation files")
 for num, (xml_file, file_data) in enumerate(xml_files):
     print(f'{num + 1} / {len(xml_files)} {xml_file.name}')
     pclass, py5_name, processing_name = file_data
-    new_filename_base = f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}'
     doc = Documentation(xml_file)
+    # hack to fix bad data
+    if xml_file.stem == 'PShader_set':
+        doc.meta['name'] = 'set()'
+        doc.meta['type'] = 'method'
+    if doc.meta['type'] == 'class':
+        new_filename_base = f'{PY5_CLASS_LOOKUP[pclass]}'
+    else:
+        new_filename_base = f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}'
     doc.description = remove_html(doc.description)
     doc.meta['processing_name'] = processing_name
     doc.meta['name'] = doc.meta['name'].replace(processing_name, py5_name)
@@ -293,9 +309,20 @@ for num, (xml_file, file_data) in enumerate(xml_files):
 print(f"create {len(new_xml_files)} new documentation files")
 for num, new_file_data in enumerate(new_xml_files):
     pclass, py5_name, item_type, processing_name = new_file_data
-    with open(PY5_API_EN / f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}.txt', 'w') as f:
-        doc_type = 'field' if item_type == 'dynamic variable' else 'method'
-        name = py5_name if doc_type == 'field' else py5_name + '()'
+    if item_type == 'dynamic variable':
+        doc_type = 'field'
+        name = py5_name
+        new_filename_base = f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}'
+    elif item_type == 'class':
+        doc_type = 'class'
+        name = py5_name
+        new_filename_base = f'{PY5_CLASS_LOOKUP[pclass]}'
+    else:
+        doc_type = 'method'
+        name = py5_name + '()'
+        new_filename_base = f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}'
+
+    with open(PY5_API_EN / f'{new_filename_base}.txt', 'w') as f:
         extra = f'processing_name = {processing_name}\n' if processing_name else ''
         f.write(NEW_TEMPLATE.format(name, doc_type, extra))
 

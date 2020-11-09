@@ -1,8 +1,8 @@
 @@ meta
-name = PShader
+name = set()
 category = PShader
 subcategory = Method
-type = field
+type = method
 processing_name = set
 
 @@ description

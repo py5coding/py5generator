@@ -1,0 +1,30 @@
+@@ meta
+name = Py5Graphics
+category = Rendering
+subcategory = PGraphics
+type = class
+processing_name = PGraphics
+
+@@ description
+Main graphics and rendering context, as well as the base API implementation for processing "core". Use this class if you need to draw into an off-screen graphics buffer. A PGraphics object can be constructed with the ``create_graphics()`` function. The ``begin_draw()`` and ``end_draw()`` methods (see above example) are necessary to set up the buffer and to finalize it. The fields and methods for this class are extensive. For a complete list, visit the developer's reference.
+
+To create a new graphics context, use the ``create_graphics()`` function. Do not use the syntax ``new Py5Graphics()``.
+
+@@ example
+
+
+def setup():
+    global pg
+    size(100, 100)
+    pg = create_graphics(40, 40)
+
+
+def draw():
+    pg.begin_draw()
+    pg.background(100)
+    pg.stroke(255)
+    pg.line(20, 20, mouse_x, mouse_y)
+    pg.end_draw()
+    image(pg, 9, 30)
+    image(pg, 51, 30)
+

@@ -1,0 +1,43 @@
+@@ meta
+name = Py5Shape
+category = Shape
+subcategory = PShape
+type = class
+processing_name = PShape
+
+@@ description
+Datatype for storing shapes. Before a shape is used, it must be loaded with the ``load_shape()`` or created with the ``create_shape()``. The ``shape()`` function is used to draw the shape to the display window. Processing can currently load and display SVG (Scalable Vector Graphics) and OBJ shapes. OBJ files can only be opened using the ``P3D`` renderer. The ``load_shape()`` function supports SVG files created with Inkscape and Adobe Illustrator. It is not a full SVG implementation, but offers some straightforward support for handling vector data.
+
+The ``Py5Shape`` object contains a group of methods that can operate on the shape data. Some of the methods are listed below, but the full list used for creating and modifying shapes is available here in the Processing Javadoc.
+
+To create a new shape, use the ``create_shape()`` function. Do not use the syntax ``new Py5Shape()``.
+
+@@ example
+
+
+def setup():
+    global s
+    size(100, 100)
+    # the file "bot.svg" must be in the data folder
+    # of the current sketch to load successfully
+    s = load_shape("bot.svg")
+
+
+def draw():
+    shape(s, 10, 10, 80, 80)
+
+
+@@ example
+
+
+def setup():
+    global square  # the Py5Shape object
+    size(100, 100)
+    # creating the Py5Shape as a square. the corner
+    # is 0,0 so that the center is at 40,40
+    square = create_shape(RECT, 0, 0, 80, 80)
+
+
+def draw():
+    shape(square, 10, 10)
+
