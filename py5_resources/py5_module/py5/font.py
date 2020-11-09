@@ -44,6 +44,7 @@ def _return_list_str(f):
 
 
 class Py5Font:
+    """$classdoc_Py5Font"""
 
     _cls = jpype.JClass('processing.core.PFont')
     CHARSET = _cls.CHARSET

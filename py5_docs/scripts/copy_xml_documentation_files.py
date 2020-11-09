@@ -272,8 +272,6 @@ for pclass, class_data in class_data_info.items():
 
 # add in the class documentation files
 for pclass, py5class in PY5_CLASS_LOOKUP.items():
-    if pclass == 'PApplet':
-        continue
     xml_file = PROCESSING_API_EN / f'{pclass}.xml'
     if xml_file.exists():
         xml_files.append((xml_file, (pclass, py5class, pclass)))

@@ -63,6 +63,7 @@ def _py5shader_set_wrapper(f):
 
 
 class Py5Shader(Py5Base):
+    """$classdoc_Py5Shader"""
 
     def __init__(self, pshader):
         self._instance = pshader

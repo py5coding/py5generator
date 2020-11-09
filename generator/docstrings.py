@@ -57,13 +57,14 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
         tuple_key = tuple(key.split('_', maxsplit=1))
         doc = Documentation(docfile)
         item_name = doc.meta['name']
+        item_type = doc.meta['type']
         processing_name = doc.meta.get('processing_name')
         description = doc.description.strip()
         m = FIRST_SENTENCE_REGEX.match(description)
         first_sentence = m.group() if m else description
         description = '\n'.join([textwrap.fill(d, 80) for d in description.split('\n')])
         first_sentence = textwrap.fill(first_sentence, 80)
-        if item_name.endswith('()'):
+        if item_type == 'method':
             signatures = doc.signatures
             variables = doc.variables
             if tuple_key not in method_signatures_lookup:
@@ -88,7 +89,7 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
             extras = ''
             if processing_name:
                 # TODO: should this include this class name like what I do in the documenation?
-                extras += f'\n\nUnderlying Java method: {processing_name}'
+                extras += f'\n\nUnderlying Java {item_type}: {processing_name}'
             if len(signatures) > 1:
                 signatures_txt = '\n'.join(sorted([f' * {s}' for s in signatures]))
                 extras += SIGNATURES_TEMPLATE.format(signatures_txt)
@@ -100,7 +101,7 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
             extras = ''
             if processing_name:
                 # TODO: changes made to method should be done here also
-                extras += f'\n\nUnderlying Java field: {processing_name}'
+                extras += f'\n\nUnderlying Java {item_type}: {processing_name}'
             docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence + extras, description)
 
         # TODO: write the documentation information back to the same file? or a different one?
@@ -113,7 +114,7 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
 
 class DocstringFinder:
 
-    INDENTING = {'class': 8, 'module': 4}
+    INDENTING = {'class': 8, 'module': 4, 'classdoc': 4}
 
     def __init__(self, method_signatures_lookup, variable_descriptions_filename):
         with open(variable_descriptions_filename, 'r') as f:
@@ -121,17 +122,24 @@ class DocstringFinder:
         self._data = prepare_docstrings(method_signatures_lookup, variable_descriptions)
 
     def __getitem__(self, item):
-        kind, clsname, methodname = item.split('_', 2)
-        raw_docstring = 'missing docstring'
-        if (clsname, methodname) in self._data:
-            raw_docstring = self._data[(clsname, methodname)]
-        elif clsname in ['Py5Graphics', 'Py5Image'] and ('Sketch', methodname) in self._data:
-            raw_docstring = self._data[('Sketch', methodname)]
-        elif (clsname, methodname) == ('Py5Graphics', 'mask'):
-            raw_docstring = self._data[('Py5Image', methodname)]
-
-        if raw_docstring == 'missing docstring':
-            logger.warning(f'{raw_docstring}: {clsname}.{methodname}')
+        if item.startswith('classdoc'):
+            kind, clsname = item.split('_', 1)
+            if (clsname,) in self._data:
+                raw_docstring = self._data[(clsname,)]
+            else:
+                raw_docstring = 'missing docstring'
+                logger.warning(f'no docstring for class {clsname}')
+        else:
+            kind, clsname, methodname = item.split('_', 2)
+            if (clsname, methodname) in self._data:
+                raw_docstring = self._data[(clsname, methodname)]
+            elif clsname in ['Py5Graphics', 'Py5Image'] and ('Sketch', methodname) in self._data:
+                raw_docstring = self._data[('Sketch', methodname)]
+            elif (clsname, methodname) == ('Py5Graphics', 'mask'):
+                raw_docstring = self._data[('Py5Image', methodname)]
+            else:
+                raw_docstring = 'missing docstring'
+                logger.warning(f'missing docstring: {clsname}.{methodname}')
 
         doc = textwrap.indent(
             raw_docstring,

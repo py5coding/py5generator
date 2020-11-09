@@ -1,0 +1,10 @@
+@@ meta
+name = Sketch
+category = UNKNOWN
+subcategory = UNKNOWN
+type = class
+processing_name = PApplet
+
+@@ description
+new template no description.
+

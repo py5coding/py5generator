@@ -24,6 +24,7 @@ def _return_py5image(f):
 
 
 class Py5Image(PixelMixin, Py5Base):
+    """$classdoc_Py5Image"""
 
     def __init__(self, pimage):
         self._instance = pimage
