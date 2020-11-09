@@ -56,7 +56,6 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
         key = docfile.stem
         tuple_key = tuple(key.split('_', maxsplit=1))
         doc = Documentation(docfile)
-        item_name = doc.meta['name']
         item_type = doc.meta['type']
         processing_name = doc.meta.get('processing_name')
         description = doc.description.strip()
