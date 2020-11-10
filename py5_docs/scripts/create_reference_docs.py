@@ -60,9 +60,9 @@ Description
 
 {5}{6}
 
-This class provices the following methods and fields:
+This class provides the following methods and fields:
 
-.. include:: reference/{7}_include.rst
+.. include:: include/{7}_include.rst
 
 Updated on {8}
 
@@ -139,9 +139,16 @@ def format_parameters(variables):
 
 
 def write_doc_rst_files():
-    now = pd.Timestamp.now(tz='UTC')
+    # TODO: when this is ready, start using real timestamps
+    # now = pd.Timestamp.now(tz='UTC')
+    now = pd.Timestamp(0, tz='UTC')
     now_nikola = now.strftime('%Y-%m-%d %H:%M:%S %Z%z')[:-2] + ':00'
     now_pretty = now.strftime('%B %d, %Y %H:%M:%S%P %Z')
+
+    # create the destination directories
+    (DEST_DIR / 'reference').mkdir(parents=True, exist_ok=True)
+    (DEST_DIR / 'include').mkdir(parents=True, exist_ok=True)
+
     rstfiles = defaultdict(set)
     docfiles = sorted(PY5_API_EN.glob('*.txt'))
     for num, docfile in enumerate(docfiles):
@@ -156,7 +163,7 @@ def write_doc_rst_files():
         else:
             slug = stem.lower()
 
-        print(f'{num + 1} / {len(docfiles)} creating rst doc for {stem} ({slug})')
+        print(f'{num + 1} / {len(docfiles)} creating rst doc for {stem}')
 
         description = doc.description
         m = FIRST_SENTENCE_REGEX.match(description)
@@ -178,7 +185,8 @@ def write_doc_rst_files():
                 name, slug, now_nikola, first_sentence, examples,
                 description, underlying_java_ref, signatures, parameters, now_pretty)
 
-        with open(DEST_DIR / f'{stem}.rst', 'w') as f:
+        # TODO: how about I only write the file if it has changed? otherwise the update timestamps will be meaningless
+        with open(DEST_DIR / 'reference' / f'{stem.lower()}.rst', 'w') as f:
             f.write(doc_rst)
         if item_type == 'class':
             if stem != 'Sketch':
@@ -191,7 +199,7 @@ def write_doc_rst_files():
         # if group == 'sketch':
         #     pass
         # else:
-        with open(DEST_DIR / f'{group}_include.rst', 'w') as f:
+        with open(DEST_DIR / 'include' / f'{group}_include.rst', 'w') as f:
             for name, stem, first_sentence in sorted(data):
                 if group == 'sketch':
                     f.write(f'* `{name} <{stem}/>`_: {first_sentence}\n')
