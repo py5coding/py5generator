@@ -3,6 +3,7 @@ name = get_depth()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PShape
 processing_name = getDepth
 
 @@ description

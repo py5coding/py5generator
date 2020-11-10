@@ -3,6 +3,7 @@ name = get_shape()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PFont
 processing_name = getShape
 
 @@ description

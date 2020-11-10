@@ -3,6 +3,7 @@ name = frame_rate()
 category = Environment
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = frameRate
 
 @@ description

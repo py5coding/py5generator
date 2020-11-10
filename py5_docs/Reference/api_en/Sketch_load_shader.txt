@@ -3,6 +3,7 @@ name = load_shader()
 category = Rendering
 subcategory = Shaders
 type = method
+pclass = PApplet
 processing_name = loadShader
 
 @@ description

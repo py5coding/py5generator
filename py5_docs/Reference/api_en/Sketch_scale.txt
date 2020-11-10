@@ -3,6 +3,7 @@ name = scale()
 category = Transform
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = scale
 
 @@ description

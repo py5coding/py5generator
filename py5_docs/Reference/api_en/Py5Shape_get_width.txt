@@ -3,6 +3,7 @@ name = get_width()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PShape
 processing_name = getWidth
 
 @@ description

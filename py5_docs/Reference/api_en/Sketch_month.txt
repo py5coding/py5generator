@@ -3,6 +3,7 @@ name = month()
 category = Input
 subcategory = Time & Date
 type = method
+pclass = PApplet
 processing_name = month
 
 @@ description

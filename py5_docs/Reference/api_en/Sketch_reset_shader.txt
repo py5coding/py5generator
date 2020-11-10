@@ -3,6 +3,7 @@ name = reset_shader()
 category = Rendering
 subcategory = Shaders
 type = method
+pclass = PApplet
 processing_name = resetShader
 
 @@ description

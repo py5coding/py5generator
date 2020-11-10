@@ -3,6 +3,7 @@ name = apply_matrix()
 category = Transform
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = applyMatrix
 
 @@ description

@@ -3,6 +3,7 @@ name = end_camera()
 category = Lights, Camera
 subcategory = Camera
 type = method
+pclass = PApplet
 processing_name = endCamera
 
 @@ description

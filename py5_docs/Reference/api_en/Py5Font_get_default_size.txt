@@ -3,6 +3,7 @@ name = get_default_size()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PFont
 processing_name = getDefaultSize
 
 @@ description

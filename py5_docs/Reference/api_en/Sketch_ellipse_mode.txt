@@ -3,6 +3,7 @@ name = ellipse_mode()
 category = Shape
 subcategory = Attributes
 type = method
+pclass = PApplet
 processing_name = ellipseMode
 
 @@ description

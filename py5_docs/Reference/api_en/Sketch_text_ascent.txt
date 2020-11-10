@@ -3,6 +3,7 @@ name = text_ascent()
 category = Typography
 subcategory = Metrics
 type = method
+pclass = PApplet
 processing_name = textAscent
 
 @@ description

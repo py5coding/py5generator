@@ -3,6 +3,7 @@ name = saturation()
 category = Color
 subcategory = Creating & Reading
 type = method
+pclass = PApplet
 processing_name = saturation
 
 @@ description

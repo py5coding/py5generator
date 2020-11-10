@@ -3,6 +3,7 @@ name = get()
 category = Image
 subcategory = Pixels
 type = method
+pclass = PApplet
 processing_name = get
 
 @@ description

@@ -3,6 +3,7 @@ name = ambient()
 category = Lights, Camera
 subcategory = Material Properties
 type = method
+pclass = PApplet
 processing_name = ambient
 
 @@ description

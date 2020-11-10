@@ -3,6 +3,7 @@ name = text_font()
 category = Typography
 subcategory = Loading & Displaying
 type = method
+pclass = PApplet
 processing_name = textFont
 
 @@ description

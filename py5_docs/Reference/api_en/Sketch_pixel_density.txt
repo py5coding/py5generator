@@ -3,6 +3,7 @@ name = pixel_density()
 category = Environment
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = pixelDensity
 
 @@ description

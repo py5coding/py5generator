@@ -3,6 +3,7 @@ name = key
 category = Input
 subcategory = Keyboard
 type = field
+pclass = PApplet
 processing_name = key
 
 @@ description

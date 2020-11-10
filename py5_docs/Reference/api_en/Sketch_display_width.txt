@@ -3,6 +3,7 @@ name = display_width
 category = Environment
 subcategory = None
 type = field
+pclass = PApplet
 processing_name = displayWidth
 
 @@ description

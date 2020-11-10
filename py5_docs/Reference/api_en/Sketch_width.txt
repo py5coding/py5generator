@@ -3,6 +3,7 @@ name = width
 category = Environment
 subcategory = None
 type = field
+pclass = PApplet
 processing_name = width
 
 @@ description

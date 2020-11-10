@@ -3,6 +3,7 @@ name = create_image()
 category = Image
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = createImage
 
 @@ description

@@ -3,6 +3,7 @@ name = stroke_weight()
 category = Shape
 subcategory = Attributes
 type = method
+pclass = PApplet
 processing_name = strokeWeight
 
 @@ description

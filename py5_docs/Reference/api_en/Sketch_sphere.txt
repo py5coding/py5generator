@@ -3,6 +3,7 @@ name = sphere()
 category = Shape
 subcategory = 3D Primitives
 type = method
+pclass = PApplet
 processing_name = sphere
 
 @@ description

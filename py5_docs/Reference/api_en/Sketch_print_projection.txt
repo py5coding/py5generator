@@ -3,6 +3,7 @@ name = print_projection()
 category = Lights, Camera
 subcategory = Camera
 type = method
+pclass = PApplet
 processing_name = printProjection
 
 @@ description

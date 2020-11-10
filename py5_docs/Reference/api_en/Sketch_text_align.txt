@@ -3,6 +3,7 @@ name = text_align()
 category = Typography
 subcategory = Attributes
 type = method
+pclass = PApplet
 processing_name = textAlign
 
 @@ description

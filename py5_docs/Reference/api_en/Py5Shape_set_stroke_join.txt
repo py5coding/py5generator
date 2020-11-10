@@ -3,6 +3,7 @@ name = set_stroke_join()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PShape
 processing_name = setStrokeJoin
 
 @@ description

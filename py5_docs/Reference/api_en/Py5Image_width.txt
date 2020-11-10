@@ -3,6 +3,7 @@ name = width
 category = PImage
 subcategory = field
 type = field
+pclass = PImage
 processing_name = width
 
 @@ description

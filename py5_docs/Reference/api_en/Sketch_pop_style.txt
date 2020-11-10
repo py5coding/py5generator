@@ -3,6 +3,7 @@ name = pop_style()
 category = Structure
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = popStyle
 
 @@ description

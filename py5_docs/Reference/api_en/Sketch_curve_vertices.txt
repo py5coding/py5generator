@@ -3,6 +3,7 @@ name = curve_vertices()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PApplet
 processing_name = curveVertices
 
 @@ description

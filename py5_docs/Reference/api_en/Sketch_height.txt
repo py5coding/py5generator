@@ -3,6 +3,7 @@ name = height
 category = Environment
 subcategory = None
 type = field
+pclass = PApplet
 processing_name = height
 
 @@ description

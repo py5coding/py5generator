@@ -3,6 +3,7 @@ name = Py5Shape
 category = Shape
 subcategory = PShape
 type = class
+pclass = PShape
 processing_name = PShape
 
 @@ description

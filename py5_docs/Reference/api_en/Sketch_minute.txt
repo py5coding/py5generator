@@ -3,6 +3,7 @@ name = minute()
 category = Input
 subcategory = Time & Date
 type = method
+pclass = PApplet
 processing_name = minute
 
 @@ description

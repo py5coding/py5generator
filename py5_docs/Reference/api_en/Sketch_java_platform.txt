@@ -3,6 +3,7 @@ name = java_platform
 category = UNKNOWN
 subcategory = UNKNOWN
 type = field
+pclass = PApplet
 processing_name = javaPlatform
 
 @@ description

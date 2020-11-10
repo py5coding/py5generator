@@ -3,6 +3,7 @@ name = end_shape()
 category = PShape
 subcategory = Method
 type = method
+pclass = PShape
 processing_name = endShape
 
 @@ description

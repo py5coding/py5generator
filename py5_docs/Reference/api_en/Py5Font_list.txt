@@ -3,6 +3,7 @@ name = list()
 category = PFont
 subcategory = None
 type = method
+pclass = PFont
 processing_name = list
 
 @@ description

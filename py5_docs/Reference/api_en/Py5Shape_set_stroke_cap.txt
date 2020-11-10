@@ -3,6 +3,7 @@ name = set_stroke_cap()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PShape
 processing_name = setStrokeCap
 
 @@ description

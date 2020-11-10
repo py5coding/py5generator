@@ -3,6 +3,7 @@ name = reset_matrix()
 category = PShape
 subcategory = Method
 type = method
+pclass = PShape
 processing_name = resetMatrix
 
 @@ description

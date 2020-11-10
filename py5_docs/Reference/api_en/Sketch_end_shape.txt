@@ -3,6 +3,7 @@ name = end_shape()
 category = Shape
 subcategory = Vertex
 type = method
+pclass = PApplet
 processing_name = endShape
 
 @@ description

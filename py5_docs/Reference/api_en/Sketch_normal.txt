@@ -3,6 +3,7 @@ name = normal()
 category = Lights, Camera
 subcategory = Lights
 type = method
+pclass = PApplet
 processing_name = normal
 
 @@ description

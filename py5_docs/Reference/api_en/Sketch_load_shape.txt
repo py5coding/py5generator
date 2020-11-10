@@ -3,6 +3,7 @@ name = load_shape()
 category = Shape
 subcategory = Loading & Displaying
 type = method
+pclass = PApplet
 processing_name = loadShape
 
 @@ description

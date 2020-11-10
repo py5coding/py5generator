@@ -3,6 +3,7 @@ name = begin_raw()
 category = Output
 subcategory = Files
 type = method
+pclass = PApplet
 processing_name = beginRaw
 
 @@ description

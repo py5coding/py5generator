@@ -3,6 +3,7 @@ name = specular()
 category = Lights, Camera
 subcategory = Material Properties
 type = method
+pclass = PApplet
 processing_name = specular
 
 @@ description

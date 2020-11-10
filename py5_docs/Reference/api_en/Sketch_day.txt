@@ -3,6 +3,7 @@ name = day()
 category = Input
 subcategory = Time & Date
 type = method
+pclass = PApplet
 processing_name = day
 
 @@ description

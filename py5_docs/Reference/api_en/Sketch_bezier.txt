@@ -3,6 +3,7 @@ name = bezier()
 category = Shape
 subcategory = Curves
 type = method
+pclass = PApplet
 processing_name = bezier
 
 @@ description

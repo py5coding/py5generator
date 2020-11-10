@@ -16,7 +16,6 @@ TYPE_OVERRIDES = {
     'float[][]': 'NDArray[(Any, Any), Float]',
 }
 
-
 JPYPE_CONVERSIONS = {
     'boolean': 'JBoolean',
     'int': 'JInt',

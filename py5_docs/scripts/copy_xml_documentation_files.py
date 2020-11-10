@@ -293,6 +293,7 @@ for num, (xml_file, file_data) in enumerate(xml_files):
     else:
         new_filename_base = f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}'
     doc.description = remove_html(doc.description)
+    doc.meta['pclass'] = pclass
     doc.meta['processing_name'] = processing_name
     doc.meta['name'] = doc.meta['name'].replace(processing_name, py5_name)
     new_examples = []
@@ -321,7 +322,7 @@ for num, new_file_data in enumerate(new_xml_files):
         new_filename_base = f'{PY5_CLASS_LOOKUP[pclass]}_{py5_name}'
 
     with open(PY5_API_EN / f'{new_filename_base}.txt', 'w') as f:
-        extra = f'processing_name = {processing_name}\n' if processing_name else ''
+        extra = f'pclass = {pclass}\nprocessing_name = {processing_name}\n' if processing_name else ''
         f.write(NEW_TEMPLATE.format(name, doc_type, extra))
 
 print(f'copied {len(xml_files)} files and created {len(new_xml_files)} new files.')

@@ -3,6 +3,7 @@ name = is_visible()
 category = PShape
 subcategory = Method
 type = method
+pclass = PShape
 processing_name = isVisible
 
 @@ description

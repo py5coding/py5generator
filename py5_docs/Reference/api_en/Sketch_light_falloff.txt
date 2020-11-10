@@ -3,6 +3,7 @@ name = light_falloff()
 category = Lights, Camera
 subcategory = Lights
 type = method
+pclass = PApplet
 processing_name = lightFalloff
 
 @@ description

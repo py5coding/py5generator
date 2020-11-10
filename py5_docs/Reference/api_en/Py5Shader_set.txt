@@ -3,6 +3,7 @@ name = set()
 category = PShader
 subcategory = Method
 type = method
+pclass = PShader
 processing_name = set
 
 @@ description

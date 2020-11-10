@@ -3,6 +3,7 @@ name = set_visible()
 category = PShape
 subcategory = Method
 type = method
+pclass = PShape
 processing_name = setVisible
 
 @@ description

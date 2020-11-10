@@ -3,6 +3,7 @@ name = get_tessellation()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PShape
 processing_name = getTessellation
 
 @@ description

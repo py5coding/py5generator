@@ -3,6 +3,7 @@ name = print_matrix()
 category = Transform
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = printMatrix
 
 @@ description

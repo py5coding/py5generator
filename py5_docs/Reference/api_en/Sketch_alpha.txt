@@ -3,6 +3,7 @@ name = alpha()
 category = Color
 subcategory = Creating & Reading
 type = method
+pclass = PApplet
 processing_name = alpha
 
 @@ description

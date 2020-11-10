@@ -3,6 +3,7 @@ name = update_pixels()
 category = PImage
 subcategory = Method
 type = method
+pclass = PImage
 processing_name = updatePixels
 
 @@ description

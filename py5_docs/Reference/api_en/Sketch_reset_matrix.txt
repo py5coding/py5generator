@@ -3,6 +3,7 @@ name = reset_matrix()
 category = Transform
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = resetMatrix
 
 @@ description

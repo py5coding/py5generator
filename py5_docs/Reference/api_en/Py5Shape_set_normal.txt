@@ -3,6 +3,7 @@ name = set_normal()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PShape
 processing_name = setNormal
 
 @@ description

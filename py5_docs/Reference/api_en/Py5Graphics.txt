@@ -3,6 +3,7 @@ name = Py5Graphics
 category = Rendering
 subcategory = PGraphics
 type = class
+pclass = PGraphics
 processing_name = PGraphics
 
 @@ description

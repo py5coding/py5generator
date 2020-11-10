@@ -3,6 +3,7 @@ name = begin_contour()
 category = Shape
 subcategory = Vertex
 type = method
+pclass = PApplet
 processing_name = beginContour
 
 @@ description

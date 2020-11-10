@@ -3,6 +3,7 @@ name = bezier_vertex()
 category = Shape
 subcategory = Vertex
 type = method
+pclass = PApplet
 processing_name = bezierVertex
 
 @@ description

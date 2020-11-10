@@ -3,6 +3,7 @@ name = create_shape()
 category = Shape
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = createShape
 
 @@ description

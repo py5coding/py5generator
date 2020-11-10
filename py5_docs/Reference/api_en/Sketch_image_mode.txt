@@ -3,6 +3,7 @@ name = image_mode()
 category = Image
 subcategory = Loading & Displaying
 type = method
+pclass = PApplet
 processing_name = imageMode
 
 @@ description

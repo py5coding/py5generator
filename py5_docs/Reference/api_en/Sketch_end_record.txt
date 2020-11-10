@@ -3,6 +3,7 @@ name = end_record()
 category = Output
 subcategory = Files
 type = method
+pclass = PApplet
 processing_name = endRecord
 
 @@ description

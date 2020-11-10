@@ -3,6 +3,7 @@ name = Py5Surface
 category = UNKNOWN
 subcategory = UNKNOWN
 type = class
+pclass = PSurface
 processing_name = PSurface
 
 @@ description

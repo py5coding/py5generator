@@ -3,6 +3,7 @@ name = set_texture()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PShape
 processing_name = setTexture
 
 @@ description

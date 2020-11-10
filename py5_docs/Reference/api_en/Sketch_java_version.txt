@@ -3,6 +3,7 @@ name = java_version
 category = UNKNOWN
 subcategory = UNKNOWN
 type = field
+pclass = PApplet
 processing_name = javaVersion
 
 @@ description

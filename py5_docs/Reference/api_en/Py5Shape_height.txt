@@ -3,6 +3,7 @@ name = height
 category = PShape
 subcategory = field
 type = field
+pclass = PShape
 processing_name = height
 
 @@ description

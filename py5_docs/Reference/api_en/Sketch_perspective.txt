@@ -3,6 +3,7 @@ name = perspective()
 category = Lights, Camera
 subcategory = Camera
 type = method
+pclass = PApplet
 processing_name = perspective
 
 @@ description

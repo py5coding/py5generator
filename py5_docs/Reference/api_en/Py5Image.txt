@@ -3,6 +3,7 @@ name = Py5Image
 category = Image
 subcategory = PImage
 type = class
+pclass = PImage
 processing_name = PImage
 
 @@ description

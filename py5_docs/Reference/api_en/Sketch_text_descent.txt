@@ -3,6 +3,7 @@ name = text_descent()
 category = Typography
 subcategory = Metrics
 type = method
+pclass = PApplet
 processing_name = textDescent
 
 @@ description

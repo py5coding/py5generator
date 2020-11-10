@@ -3,6 +3,7 @@ name = get_frame_rate()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PApplet
 processing_name = getFrameRate
 
 @@ description

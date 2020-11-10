@@ -3,6 +3,7 @@ name = load_pixels()
 category = PImage
 subcategory = Method
 type = method
+pclass = PImage
 processing_name = loadPixels
 
 @@ description

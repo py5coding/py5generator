@@ -3,6 +3,7 @@ name = lines()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PApplet
 processing_name = lines
 
 @@ description

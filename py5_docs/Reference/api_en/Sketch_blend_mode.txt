@@ -3,6 +3,7 @@ name = blend_mode()
 category = Rendering
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = blendMode
 
 @@ description

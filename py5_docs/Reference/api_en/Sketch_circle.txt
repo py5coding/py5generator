@@ -3,6 +3,7 @@ name = circle()
 category = Shape
 subcategory = 2D Primitives
 type = method
+pclass = PApplet
 processing_name = circle
 
 @@ description

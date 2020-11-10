@@ -3,6 +3,7 @@ name = shininess()
 category = Lights, Camera
 subcategory = Material Properties
 type = method
+pclass = PApplet
 processing_name = shininess
 
 @@ description

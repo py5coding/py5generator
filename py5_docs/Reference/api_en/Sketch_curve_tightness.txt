@@ -3,6 +3,7 @@ name = curve_tightness()
 category = Shape
 subcategory = Curves
 type = method
+pclass = PApplet
 processing_name = curveTightness
 
 @@ description

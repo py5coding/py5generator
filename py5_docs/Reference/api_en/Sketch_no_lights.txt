@@ -3,6 +3,7 @@ name = no_lights()
 category = Lights, Camera
 subcategory = Lights
 type = method
+pclass = PApplet
 processing_name = noLights
 
 @@ description

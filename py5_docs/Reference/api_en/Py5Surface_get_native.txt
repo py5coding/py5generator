@@ -3,6 +3,7 @@ name = get_native()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PSurface
 processing_name = getNative
 
 @@ description

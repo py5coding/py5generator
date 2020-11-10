@@ -3,6 +3,7 @@ name = stroke_cap()
 category = Shape
 subcategory = Attributes
 type = method
+pclass = PApplet
 processing_name = strokeCap
 
 @@ description

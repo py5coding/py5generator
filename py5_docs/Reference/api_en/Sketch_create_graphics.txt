@@ -3,6 +3,7 @@ name = create_graphics()
 category = Rendering
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = createGraphics
 
 @@ description

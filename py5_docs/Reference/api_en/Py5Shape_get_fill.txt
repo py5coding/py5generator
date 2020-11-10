@@ -3,6 +3,7 @@ name = get_fill()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PShape
 processing_name = getFill
 
 @@ description

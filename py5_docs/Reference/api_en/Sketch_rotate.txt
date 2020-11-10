@@ -3,6 +3,7 @@ name = rotate()
 category = Transform
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = rotate
 
 @@ description

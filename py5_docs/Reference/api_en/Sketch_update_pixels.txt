@@ -3,6 +3,7 @@ name = update_pixels()
 category = Image
 subcategory = Pixels
 type = method
+pclass = PApplet
 processing_name = updatePixels
 
 @@ description

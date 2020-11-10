@@ -11,6 +11,7 @@ createGraphics()
 size()
 availability = 1.0
 partof = PDE
+pclass = PApplet
 processing_name = hint
 
 @@ description

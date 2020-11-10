@@ -3,6 +3,7 @@ name = shape_mode()
 category = Shape
 subcategory = Loading & Displaying
 type = method
+pclass = PApplet
 processing_name = shapeMode
 
 @@ description

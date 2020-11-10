@@ -3,6 +3,7 @@ name = get_child_count()
 category = PShape
 subcategory = Method
 type = method
+pclass = PShape
 processing_name = getChildCount
 
 @@ description

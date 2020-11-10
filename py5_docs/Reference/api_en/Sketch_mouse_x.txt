@@ -3,6 +3,7 @@ name = mouse_x
 category = Input
 subcategory = Mouse
 type = field
+pclass = PApplet
 processing_name = mouseX
 
 @@ description

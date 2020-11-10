@@ -3,6 +3,7 @@ name = no_loop()
 category = Structure
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = noLoop
 
 @@ description

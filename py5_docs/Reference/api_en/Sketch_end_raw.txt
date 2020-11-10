@@ -3,6 +3,7 @@ name = end_raw()
 category = Output
 subcategory = Files
 type = method
+pclass = PApplet
 processing_name = endRaw
 
 @@ description

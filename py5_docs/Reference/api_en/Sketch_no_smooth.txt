@@ -3,6 +3,7 @@ name = no_smooth()
 category = Environment
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = noSmooth
 
 @@ description

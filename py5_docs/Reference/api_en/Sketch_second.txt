@@ -3,6 +3,7 @@ name = second()
 category = Input
 subcategory = Time & Date
 type = method
+pclass = PApplet
 processing_name = second
 
 @@ description

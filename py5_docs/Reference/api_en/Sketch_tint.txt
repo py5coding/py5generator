@@ -3,6 +3,7 @@ name = tint()
 category = Image
 subcategory = Loading & Displaying
 type = method
+pclass = PApplet
 processing_name = tint
 
 @@ description

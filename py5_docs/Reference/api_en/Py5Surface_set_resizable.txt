@@ -3,6 +3,7 @@ name = set_resizable()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PSurface
 processing_name = setResizable
 
 @@ description

@@ -3,6 +3,7 @@ name = copy()
 category = PImage
 subcategory = Method
 type = method
+pclass = PImage
 processing_name = copy
 
 @@ description

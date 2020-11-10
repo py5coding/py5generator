@@ -3,6 +3,7 @@ name = display_height
 category = Environment
 subcategory = None
 type = field
+pclass = PApplet
 processing_name = displayHeight
 
 @@ description

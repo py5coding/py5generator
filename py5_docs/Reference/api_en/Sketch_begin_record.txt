@@ -3,6 +3,7 @@ name = begin_record()
 category = Output
 subcategory = Files
 type = method
+pclass = PApplet
 processing_name = beginRecord
 
 @@ description

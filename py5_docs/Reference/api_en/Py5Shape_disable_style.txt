@@ -3,6 +3,7 @@ name = disable_style()
 category = PShape
 subcategory = Method
 type = method
+pclass = PShape
 processing_name = disableStyle
 
 @@ description

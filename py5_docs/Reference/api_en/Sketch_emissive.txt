@@ -3,6 +3,7 @@ name = emissive()
 category = Lights, Camera
 subcategory = Material Properties
 type = method
+pclass = PApplet
 processing_name = emissive
 
 @@ description

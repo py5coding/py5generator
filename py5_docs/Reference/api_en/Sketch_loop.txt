@@ -3,6 +3,7 @@ name = loop()
 category = Structure
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = loop
 
 @@ description

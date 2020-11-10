@@ -3,6 +3,7 @@ name = get_vertex_count()
 category = PShape
 subcategory = Method
 type = method
+pclass = PShape
 processing_name = getVertexCount
 
 @@ description

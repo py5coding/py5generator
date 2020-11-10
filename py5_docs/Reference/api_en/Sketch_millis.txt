@@ -3,6 +3,7 @@ name = millis()
 category = Input
 subcategory = Time & Date
 type = method
+pclass = PApplet
 processing_name = millis
 
 @@ description

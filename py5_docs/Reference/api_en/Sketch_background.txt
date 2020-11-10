@@ -3,6 +3,7 @@ name = background()
 category = Color
 subcategory = Setting
 type = method
+pclass = PApplet
 processing_name = background
 
 @@ description

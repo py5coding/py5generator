@@ -3,6 +3,7 @@ name = frame_count
 category = Environment
 subcategory = None
 type = field
+pclass = PApplet
 processing_name = frameCount
 
 @@ description

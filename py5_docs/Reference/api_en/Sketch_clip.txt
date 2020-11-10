@@ -3,6 +3,7 @@ name = clip()
 category = Rendering
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = clip
 
 @@ description

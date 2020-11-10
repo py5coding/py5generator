@@ -3,6 +3,7 @@ name = get_glyph_count()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PFont
 processing_name = getGlyphCount
 
 @@ description

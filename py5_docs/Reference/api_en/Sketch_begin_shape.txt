@@ -3,6 +3,7 @@ name = begin_shape()
 category = Shape
 subcategory = Vertex
 type = method
+pclass = PApplet
 processing_name = beginShape
 
 @@ description

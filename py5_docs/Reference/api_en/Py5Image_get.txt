@@ -3,6 +3,7 @@ name = get()
 category = PImage
 subcategory = Method
 type = method
+pclass = PImage
 processing_name = get
 
 @@ description

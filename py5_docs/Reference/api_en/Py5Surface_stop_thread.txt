@@ -3,6 +3,7 @@ name = stop_thread()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PSurface
 processing_name = stopThread
 
 @@ description

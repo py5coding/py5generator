@@ -3,6 +3,7 @@ name = apply_filter()
 category = PImage
 subcategory = Method
 type = method
+pclass = PImage
 processing_name = filter
 
 @@ description

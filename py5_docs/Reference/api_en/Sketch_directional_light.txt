@@ -3,6 +3,7 @@ name = directional_light()
 category = Lights, Camera
 subcategory = Lights
 type = method
+pclass = PApplet
 processing_name = directionalLight
 
 @@ description

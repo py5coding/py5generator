@@ -3,6 +3,7 @@ name = bezier_vertices()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PApplet
 processing_name = bezierVertices
 
 @@ description

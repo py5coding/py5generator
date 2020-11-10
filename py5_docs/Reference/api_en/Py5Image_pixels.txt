@@ -3,6 +3,7 @@ name = pixels[]
 category = PImage
 subcategory = Field
 type = field
+pclass = PImage
 processing_name = pixels
 
 @@ description

@@ -3,6 +3,7 @@ name = stop()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PApplet
 processing_name = stop
 
 @@ description

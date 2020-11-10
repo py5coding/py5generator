@@ -3,6 +3,7 @@ name = lerp_color()
 category = Color
 subcategory = Creating & Reading
 type = method
+pclass = PApplet
 processing_name = lerpColor
 
 @@ description

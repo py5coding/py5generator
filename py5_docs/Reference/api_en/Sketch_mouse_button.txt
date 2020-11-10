@@ -3,6 +3,7 @@ name = mouse_button
 category = Input
 subcategory = Mouse
 type = field
+pclass = PApplet
 processing_name = mouseButton
 
 @@ description

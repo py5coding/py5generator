@@ -3,6 +3,7 @@ name = get_normal_y()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PShape
 processing_name = getNormalY
 
 @@ description

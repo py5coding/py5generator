@@ -3,6 +3,7 @@ name = texture_wrap()
 category = Image
 subcategory = Textures
 type = method
+pclass = PApplet
 processing_name = textureWrap
 
 @@ description

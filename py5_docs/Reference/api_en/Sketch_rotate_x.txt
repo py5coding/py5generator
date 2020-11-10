@@ -3,6 +3,7 @@ name = rotate_x()
 category = Transform
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = rotateX
 
 @@ description

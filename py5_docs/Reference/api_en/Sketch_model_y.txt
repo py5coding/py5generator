@@ -3,6 +3,7 @@ name = model_y()
 category = Lights, Camera
 subcategory = Coordinates
 type = method
+pclass = PApplet
 processing_name = modelY
 
 @@ description

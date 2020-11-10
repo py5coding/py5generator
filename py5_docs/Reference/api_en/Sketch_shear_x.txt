@@ -3,6 +3,7 @@ name = shear_x()
 category = Transform
 subcategory = None
 type = method
+pclass = PApplet
 processing_name = shearX
 
 @@ description

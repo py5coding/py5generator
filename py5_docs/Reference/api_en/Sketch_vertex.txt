@@ -3,6 +3,7 @@ name = vertex()
 category = Shape
 subcategory = Vertex
 type = method
+pclass = PApplet
 processing_name = vertex
 
 @@ description

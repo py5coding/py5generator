@@ -3,6 +3,7 @@ name = Py5Font
 category = Typography
 subcategory = PFont
 type = class
+pclass = PFont
 processing_name = PFont
 
 @@ description

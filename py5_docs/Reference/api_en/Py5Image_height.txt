@@ -3,6 +3,7 @@ name = height
 category = PImage
 subcategory = Field
 type = field
+pclass = PImage
 processing_name = height
 
 @@ description

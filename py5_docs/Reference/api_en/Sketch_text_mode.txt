@@ -3,6 +3,7 @@ name = text_mode()
 category = Typography
 subcategory = Attributes
 type = method
+pclass = PApplet
 processing_name = textMode
 
 @@ description

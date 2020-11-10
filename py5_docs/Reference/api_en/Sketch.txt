@@ -3,6 +3,7 @@ name = Sketch
 category = UNKNOWN
 subcategory = UNKNOWN
 type = class
+pclass = PApplet
 processing_name = PApplet
 
 @@ description

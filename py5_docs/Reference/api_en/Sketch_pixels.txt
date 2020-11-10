@@ -3,6 +3,7 @@ name = pixels[]
 category = Image
 subcategory = Pixels
 type = field
+pclass = PApplet
 processing_name = pixels
 
 @@ description

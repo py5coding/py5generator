@@ -3,6 +3,7 @@ name = text_size()
 category = Typography
 subcategory = Attributes
 type = method
+pclass = PApplet
 processing_name = textSize
 
 @@ description

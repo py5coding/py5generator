@@ -3,6 +3,7 @@ name = apply_filter()
 category = Image
 subcategory = Pixels
 type = method
+pclass = PApplet
 processing_name = filter
 
 @@ description

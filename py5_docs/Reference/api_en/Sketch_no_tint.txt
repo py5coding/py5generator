@@ -3,6 +3,7 @@ name = no_tint()
 category = Image
 subcategory = Loading & Displaying
 type = method
+pclass = PApplet
 processing_name = noTint
 
 @@ description

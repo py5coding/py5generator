@@ -3,6 +3,7 @@ name = box()
 category = Shape
 subcategory = 3D Primitives
 type = method
+pclass = PApplet
 processing_name = box
 
 @@ description

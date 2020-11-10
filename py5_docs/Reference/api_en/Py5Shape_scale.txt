@@ -3,6 +3,7 @@ name = scale()
 category = PShape
 subcategory = Method
 type = method
+pclass = PShape
 processing_name = scale
 
 @@ description

@@ -3,6 +3,7 @@ name = stroke()
 category = Color
 subcategory = Setting
 type = method
+pclass = PApplet
 processing_name = stroke
 
 @@ description

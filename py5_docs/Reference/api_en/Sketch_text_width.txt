@@ -3,6 +3,7 @@ name = text_width()
 category = Typography
 subcategory = Metrics
 type = method
+pclass = PApplet
 processing_name = textWidth
 
 @@ description

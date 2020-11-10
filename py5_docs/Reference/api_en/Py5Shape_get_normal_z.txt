@@ -3,6 +3,7 @@ name = get_normal_z()
 category = UNKNOWN
 subcategory = UNKNOWN
 type = method
+pclass = PShape
 processing_name = getNormalZ
 
 @@ description
