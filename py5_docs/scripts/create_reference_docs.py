@@ -10,7 +10,7 @@ from generator.docfiles import Documentation
 
 # PY5_API_EN = Path('py5_docs/Reference/api_en/')
 PY5_API_EN = Path('/tmp/docfiles/')
-DEST_DIR = Path('/tmp/reference_docs/')
+DEST_DIR = Path('../py5website/')
 
 FIRST_SENTENCE_REGEX = re.compile(r'^.*?\.(?=\s)')
 
@@ -138,10 +138,18 @@ def format_parameters(variables):
     return out
 
 
+def compare_files(old_filename, new_content):
+    with open(old_filename, 'r') as f:
+        old_content = f.read()
+    old_content = re.sub(r'^\.\. date: .*$', '', old_content, flags=re.MULTILINE)
+    old_content = re.sub(r'^Updated on .*$', '', old_content, flags=re.MULTILINE)
+    new_content = re.sub(r'^\.\. date: .*$', '', new_content, flags=re.MULTILINE)
+    new_content = re.sub(r'^Updated on .*$', '', new_content, flags=re.MULTILINE)
+    return old_content == new_content
+
+
 def write_doc_rst_files():
-    # TODO: when this is ready, start using real timestamps
-    # now = pd.Timestamp.now(tz='UTC')
-    now = pd.Timestamp(0, tz='UTC')
+    now = pd.Timestamp.now(tz='UTC')
     now_nikola = now.strftime('%Y-%m-%d %H:%M:%S %Z%z')[:-2] + ':00'
     now_pretty = now.strftime('%B %d, %Y %H:%M:%S%P %Z')
 
@@ -163,7 +171,7 @@ def write_doc_rst_files():
         else:
             slug = stem.lower()
 
-        print(f'{num + 1} / {len(docfiles)} creating rst doc for {stem}')
+        print(f'{num + 1} / {len(docfiles)} generating rst doc for {stem}')
 
         description = doc.description
         m = FIRST_SENTENCE_REGEX.match(description)
@@ -185,9 +193,12 @@ def write_doc_rst_files():
                 name, slug, now_nikola, first_sentence, examples,
                 description, underlying_java_ref, signatures, parameters, now_pretty)
 
-        # TODO: how about I only write the file if it has changed? otherwise the update timestamps will be meaningless
-        with open(DEST_DIR / 'reference' / f'{stem.lower()}.rst', 'w') as f:
-            f.write(doc_rst)
+        # only write new file if the more changed than the timestamp
+        dest_filename = DEST_DIR / 'reference' / f'{stem.lower()}.rst'
+        if not compare_files(dest_filename, doc_rst):
+            print('writing file', dest_filename)
+            with open(dest_filename, 'w') as f:
+                f.write(doc_rst)
         if item_type == 'class':
             if stem != 'Sketch':
                 rstfiles['sketch'].add((name, slug, first_sentence))
