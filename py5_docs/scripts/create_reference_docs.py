@@ -1,6 +1,7 @@
 import re
 from pathlib import Path
 import textwrap
+from itertools import groupby
 from collections import defaultdict
 
 import requests
@@ -157,6 +158,8 @@ def write_doc_rst_files():
     (DEST_DIR / 'reference').mkdir(parents=True, exist_ok=True)
     (DEST_DIR / 'include').mkdir(parents=True, exist_ok=True)
 
+    py5applet_data = pd.read_csv('py5_resources/data/py5applet.csv').set_index('py5_name')[['category', 'subcategory']].fillna('unknown')
+
     rstfiles = defaultdict(set)
     docfiles = sorted(PY5_API_EN.glob('*.txt'))
     for num, docfile in enumerate(docfiles):
@@ -193,7 +196,7 @@ def write_doc_rst_files():
                 name, slug, now_nikola, first_sentence, examples,
                 description, underlying_java_ref, signatures, parameters, now_pretty)
 
-        # only write new file if the more changed than the timestamp
+        # only write new file if more changed than the timestamp
         dest_filename = DEST_DIR / 'reference' / f'{stem.lower()}.rst'
         if not compare_files(dest_filename, doc_rst):
             print('writing file', dest_filename)
@@ -201,20 +204,31 @@ def write_doc_rst_files():
                 f.write(doc_rst)
         if item_type == 'class':
             if stem != 'Sketch':
-                rstfiles['sketch'].add((name, slug, first_sentence))
+                rstfiles['sketch'].add((name, slug, first_sentence, ('unknown', 'unknown')))
         else:
-            rstfiles[stem.split('_', 1)[0].lower()].add((name, slug, first_sentence))
+            if stem.startswith('Sketch'):
+                rstfiles['sketch'].add((name, slug, first_sentence, tuple(py5applet_data.loc[slug].tolist())))
+            else:
+                rstfiles[stem.split('_', 1)[0].lower()].add((name, slug, first_sentence))
 
     for group, data in rstfiles.items():
         # TODO: need to use categories and subcategories for main doc page
-        # if group == 'sketch':
-        #     pass
-        # else:
-        with open(DEST_DIR / 'include' / f'{group}_include.rst', 'w') as f:
-            for name, stem, first_sentence in sorted(data):
-                if group == 'sketch':
-                    f.write(f'* `{name} <{stem}/>`_: {first_sentence}\n')
-                else:
+        if group == 'sketch':
+            organized_data = groupby(sorted(data, key=lambda x: x[3]), key=lambda x: x[3])
+            prev_category = ('', '')
+            with open(DEST_DIR / 'include' / f'{group}_include.rst', 'w') as f:
+                for category, contents in organized_data:
+                    if category[0] != prev_category[0]:
+                        f.write(f'\n{category[0]}\n{"=" * len(category[0])}\n')
+                    if category[1] != prev_category[1] and category[1] != 'unknown':
+                        f.write(f'\n{category[1]}\n{"-" * len(category[1])}\n')
+                    prev_category = category
+                    f.write('\n')
+                    for (name, stem, first_sentence, _) in sorted(contents):
+                        f.write(f'* `{name} <{stem}/>`_: {first_sentence}\n')
+        else:
+            with open(DEST_DIR / 'include' / f'{group}_include.rst', 'w') as f:
+                for name, stem, first_sentence in sorted(data):
                     f.write(f'* `{name} <../{stem}/>`_: {first_sentence}\n')
 
 
