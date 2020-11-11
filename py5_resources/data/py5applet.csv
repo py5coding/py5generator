@@ -582,7 +582,6 @@ np_pixels,,,dynamic variable,,,FALSE,TRUE,numpy array containing pixel data
 load_json,,,static method,,,FALSE,TRUE,implemented in mixin file data.py
 save_json,,,static method,,,FALSE,TRUE,implemented in mixin file data.py
 parse_json,,,static method,,,FALSE,TRUE,implemented in mixin file data.py
-exit_sketch,,,method,,,FALSE,TRUE,"implemented in sketch.py, exits the sketch"
 hot_reload_draw,,,method,,,FALSE,TRUE,"implemented in sketch.py, replaces draw method"
 profile_functions,,,method,,,FALSE,TRUE,"implemented in sketch.py, use line profiler"
 profile_draw,,,method,,,FALSE,TRUE,"implemented in sketch.py, use line profiler on draw method"
