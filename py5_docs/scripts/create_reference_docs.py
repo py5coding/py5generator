@@ -24,6 +24,15 @@ PROCESSING_CLASSNAME_LOOKUP = {
     'Py5Surface': 'PSurface',
 }
 
+CATEGORY_LOOKUP = {
+    'lights_camera': 'Lights & Camera',
+    'loading_displaying': 'Loading / Displaying',
+    '2d_primitives': '2D Primitives',
+    '3d_primitives': '3D Primitives',
+    'time_date': 'Time & Date',
+    'creating_reading': 'Creating / Reading',
+}
+
 DOC_TEMPLATE = """.. title: {0}
 .. slug: {1}
 .. date: {2}
@@ -149,6 +158,15 @@ def compare_files(old_filename, new_content):
     return old_content == new_content
 
 
+def write_category_heading(f, catname, subcategory=False):
+    if catname in CATEGORY_LOOKUP:
+        catname = CATEGORY_LOOKUP[catname]
+    else:
+        catname = ' '.join([w.capitalize() for w in catname.split('_')])
+    char = '-' if subcategory else '='
+    f.write(f'\n{catname}\n{char * len(catname)}\n')
+
+
 def write_doc_rst_files():
     now = pd.Timestamp.now(tz='UTC')
     now_nikola = now.strftime('%Y-%m-%d %H:%M:%S %Z%z')[:-2] + ':00'
@@ -219,13 +237,13 @@ def write_doc_rst_files():
             with open(DEST_DIR / 'include' / f'{group}_include.rst', 'w') as f:
                 for category, contents in organized_data:
                     if category[0] != prev_category[0]:
-                        f.write(f'\n{category[0]}\n{"=" * len(category[0])}\n')
+                        write_category_heading(f, category[0])
                     if category[1] != prev_category[1] and category[1] != 'unknown':
-                        f.write(f'\n{category[1]}\n{"-" * len(category[1])}\n')
+                        write_category_heading(f, category[1], subcategory=True)
                     prev_category = category
                     f.write('\n')
                     for (name, stem, first_sentence, _) in sorted(contents):
-                        f.write(f'* `{name} <{stem}/>`_: {first_sentence}\n')
+                        f.write(f'* `{name} <{stem}/>`_\n')
         else:
             with open(DEST_DIR / 'include' / f'{group}_include.rst', 'w') as f:
                 for name, stem, first_sentence in sorted(data):
