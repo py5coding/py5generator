@@ -1,6 +1,7 @@
 import re
 from pathlib import Path
 import textwrap
+from io import StringIO
 from itertools import groupby
 from collections import defaultdict
 
@@ -14,6 +15,8 @@ PY5_API_EN = Path('/tmp/docfiles/')
 DEST_DIR = Path('../py5website/')
 
 FIRST_SENTENCE_REGEX = re.compile(r'^.*?\.(?=\s)')
+
+MAIN_REF_COLUMN_STARTS = [('lights_camera', 'camera'), ('structure', 'unknown')]
 
 PROCESSING_CLASSNAME_LOOKUP = {
     'Py5Graphics': 'PGraphics',
@@ -148,6 +151,17 @@ def format_parameters(variables):
     return out
 
 
+def write_main_ref_columns(filename, columns):
+    with open(filename, 'w') as f:
+        f.write('.. raw:: html\n\n    <table style="width:100%"><tr><td style="vertical-align:top">\n\n')
+        f.write(columns[0].getvalue())
+        f.write('\n\n.. raw:: html\n\n    </td><td style="vertical-align:top">\n\n')
+        f.write(columns[1].getvalue())
+        f.write('\n\n.. raw:: html\n\n    </td><td style="vertical-align:top">\n\n')
+        f.write(columns[2].getvalue())
+        f.write('\n\n.. raw:: html\n\n    </td></tr></table>\n\n')
+
+
 def compare_files(old_filename, new_content):
     with open(old_filename, 'r') as f:
         old_content = f.read()
@@ -230,20 +244,23 @@ def write_doc_rst_files():
                 rstfiles[stem.split('_', 1)[0].lower()].add((name, slug, first_sentence))
 
     for group, data in rstfiles.items():
-        # TODO: need to use categories and subcategories for main doc page
         if group == 'sketch':
             organized_data = groupby(sorted(data, key=lambda x: x[3]), key=lambda x: x[3])
             prev_category = ('', '')
-            with open(DEST_DIR / 'include' / f'{group}_include.rst', 'w') as f:
-                for category, contents in organized_data:
-                    if category[0] != prev_category[0]:
-                        write_category_heading(f, category[0])
-                    if category[1] != prev_category[1] and category[1] != 'unknown':
-                        write_category_heading(f, category[1], subcategory=True)
-                    prev_category = category
-                    f.write('\n')
-                    for (name, stem, first_sentence, _) in sorted(contents):
-                        f.write(f'* `{name} <{stem}/>`_\n')
+            columns = [StringIO() for _ in range(3)]
+            column_num = 0
+            for category, contents in organized_data:
+                if category in MAIN_REF_COLUMN_STARTS:
+                    column_num += 1
+                if category[0] != prev_category[0]:
+                    write_category_heading(columns[column_num], category[0])
+                if category[1] != prev_category[1] and category[1] != 'unknown':
+                    write_category_heading(columns[column_num], category[1], subcategory=True)
+                prev_category = category
+                columns[column_num].write('\n')
+                for (name, stem, first_sentence, _) in sorted(contents):
+                    columns[column_num].write(f'* `{name} <{stem}/>`_\n')
+            write_main_ref_columns(DEST_DIR / 'include' / f'{group}_include.rst', columns)
         else:
             with open(DEST_DIR / 'include' / f'{group}_include.rst', 'w') as f:
                 for name, stem, first_sentence in sorted(data):
