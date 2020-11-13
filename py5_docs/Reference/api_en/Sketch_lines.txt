@@ -3,8 +3,8 @@ name = lines()
 type = method
 pclass = PApplet
 processing_name = lines
-category = None
-subcategory = None
+category = shape
+subcategory = 2d_primitives
 
 @@ description
 new template no description.

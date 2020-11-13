@@ -1,6 +1,6 @@
 @@ meta
 name = display_width
-category = None
+category = environment
 subcategory = None
 type = field
 pclass = PApplet

@@ -3,8 +3,8 @@ name = is_mouse_pressed()
 type = method
 pclass = PApplet
 processing_name = isMousePressed
-category = None
-subcategory = None
+category = input
+subcategory = mouse
 
 @@ description
 new template no description.

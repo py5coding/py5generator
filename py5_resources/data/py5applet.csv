@@ -176,10 +176,10 @@ java_version,javaVersion,,dynamic variable,constants,,TRUE,TRUE,
 platform,platform,,static field,constants,,FALSE,FALSE,"use ""import sys; sys.platform"" instead"
 useNativeSelect,useNativeSelect,,static field,constants,,FALSE,FALSE,
 g,g,,dynamic variable,,,FALSE,FALSE,"internal pgraphics object, use get_graphics to access"
-display_width,displayWidth,,dynamic variable,,,TRUE,TRUE,
-display_height,displayHeight,,dynamic variable,,,TRUE,TRUE,
+display_width,displayWidth,,dynamic variable,environment,,TRUE,TRUE,
+display_height,displayHeight,,dynamic variable,environment,,TRUE,TRUE,
 recorder,recorder,,dynamic variable,,,FALSE,FALSE,
-args,args,@_return_list_str,dynamic variable,,,TRUE,TRUE,
+args,args,@_return_list_str,dynamic variable,structure,,TRUE,TRUE,
 DEFAULT_WIDTH,DEFAULT_WIDTH,,static field,,,TRUE,TRUE,
 DEFAULT_HEIGHT,DEFAULT_HEIGHT,,static field,,,TRUE,TRUE,
 pixels,pixels,,dynamic variable,image,pixels,TRUE,TRUE,
@@ -202,7 +202,7 @@ key_event,keyEvent,,dynamic variable,,,FALSE,FALSE,deprecated
 focused,focused,,dynamic variable,environment,,TRUE,TRUE,
 frame_rate,frameRate,,method,environment,,TRUE,TRUE,
 frame_count,frameCount,,dynamic variable,environment,,TRUE,TRUE,
-finished,finished,,dynamic variable,,,TRUE,TRUE,
+finished,finished,,dynamic variable,structure,,TRUE,TRUE,
 ARGS_EDITOR_LOCATION,ARGS_EDITOR_LOCATION,,static field,constants,,TRUE,TRUE,
 ARGS_EXTERNAL,ARGS_EXTERNAL,,static field,constants,,TRUE,TRUE,
 ARGS_LOCATION,ARGS_LOCATION,,static field,constants,,TRUE,TRUE,
@@ -229,15 +229,15 @@ notify_all,notifyAll,,method,,,FALSE,FALSE,public methods that shouldn't be avai
 text,text,@_text_fix_str,method,typography,loading_displaying,TRUE,TRUE,
 println,println,,method,output,text_area,FALSE,FALSE,user should use python instead
 main,main,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-exit_sketch,exit,,method,,,TRUE,TRUE,renamed because of conflict with builtin python function
+exit_sketch,exit,,method,structure,,TRUE,TRUE,renamed because of conflict with builtin python function
 get,get,@_return_py5image,method,image,pixels,TRUE,TRUE,
 method,method,,method,,,FALSE,FALSE,
 append,append,,method,data,array_functions,FALSE,FALSE,user should use python instead
 abs,abs,,method,math,calculation,FALSE,FALSE,user should use numpy instead
-sin,sin,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
-cos,cos,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
-tan,tan,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
-atan2,atan2,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
+sin,sin,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
+cos,cos,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
+tan,tan,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
+atan2,atan2,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
 sqrt,sqrt,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
 log,log,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
 pow,pow,,static method,math,calculation,FALSE,FALSE,user should use builtin or numpy instead
@@ -245,7 +245,7 @@ exp,exp,,static method,math,calculation,FALSE,TRUE,implemented in mixin file mat
 min,min,,method,math,calculation,FALSE,FALSE,user should use numpy instead
 max,max,,method,math,calculation,FALSE,FALSE,user should use numpy instead
 arraycopy,arraycopy,,method,,,FALSE,FALSE,user should use python instead
-clear,clear,,method,,,TRUE,TRUE,
+clear,clear,,method,color,setting,TRUE,TRUE,
 str,str,,method,,,FALSE,FALSE,conflict with builtin python function
 concat,concat,,method,data,array_functions,FALSE,FALSE,user should use python instead
 split,split,,method,data,string_functions,FALSE,FALSE,user should use python instead
@@ -260,10 +260,10 @@ set,set,,method,image,pixels,FALSE,FALSE,conflict with builtin python function
 remap,map,,static method,math,calculation,FALSE,TRUE,renamed to remap to avoid conflict with builtin function; implemented in python for performance
 setup,setup,,method,structure,,FALSE,FALSE,method implemented by user
 debug,debug,,static method,,,FALSE,FALSE,user should use python instead
-start,start,,method,,,TRUE,TRUE,
+start,start,,method,structure,,TRUE,TRUE,
 millis,millis,,method,input,time_date,TRUE,TRUE,
-stop,stop,,method,,,TRUE,TRUE,
-resume,resume,,method,,,TRUE,TRUE,
+stop,stop,,method,structure,,TRUE,TRUE,
+resume,resume,,method,structure,,TRUE,TRUE,
 delay,delay,,method,environment,,FALSE,FALSE,user should use python instead
 print,print,,method,output,text_area,FALSE,FALSE,conflict with builtin python function
 save,save,,method,output,image,FALSE,TRUE,implemented in pixels.py mixin
@@ -286,9 +286,9 @@ scale,scale,,method,transform,,TRUE,TRUE,
 exec,exec,,method,,,FALSE,FALSE,conflict with builtin python function
 sort,sort,,method,data,array_functions,FALSE,FALSE,conflict with builtin python function
 rotate,rotate,,method,transform,,TRUE,TRUE,
-asin,asin,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
-acos,acos,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
-atan,atan,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
+asin,asin,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
+acos,acos,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
+atan,atan,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
 ceil,ceil,,static method,math,calculation,FALSE,TRUE,implementation in mixin file math.py makes call to numpy
 floor,floor,,static method,math,calculation,FALSE,TRUE,implementation in mixin file math.py makes call to numpy
 round,round,,static method,math,calculation,FALSE,FALSE,user should use numpy or builtin method instead
@@ -310,12 +310,12 @@ exit_actual,exitActual,,method,structure,,FALSE,FALSE,replaced with exiting()
 no_loop,noLoop,,method,structure,,TRUE,TRUE,
 load_pixels,loadPixels,,method,image,pixels,TRUE,TRUE,
 update_pixels,updatePixels,,method,image,pixels,TRUE,TRUE,
-sketch_path,sketchPath,,method,,,TRUE,TRUE,
+sketch_path,sketchPath,,method,environment,,TRUE,TRUE,
 redraw,redraw,,method,structure,,TRUE,TRUE,
 exit_called,exitCalled,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 smooth,smooth,,method,environment,,TRUE,TRUE,
 full_screen,fullScreen,,method,environment,,TRUE,TRUE,
-get_surface,getSurface,@_return_py5surface,method,,,TRUE,TRUE,
+get_surface,getSurface,@_return_py5surface,method,environment,,TRUE,TRUE,
 surface,surface,,unknown,,,FALSE,FALSE,use get_surface
 sketch_width,sketchWidth,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 sketch_height,sketchHeight,,method,,,FALSE,FALSE,methods that are not part of the processing framework
@@ -328,11 +328,11 @@ sketch_output_stream,sketchOutputStream,,method,,,FALSE,FALSE,methods that are n
 sketch_window_color,sketchWindowColor,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 sketch_pixel_density,sketchPixelDensity,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 display_density,displayDensity,,method,environment,,TRUE,TRUE,
-no_smooth,noSmooth,,method,,,TRUE,TRUE,
-get_graphics,getGraphics,@_return_py5graphics,method,,,TRUE,TRUE,
-graphics,graphics,,unknown,,,TRUE,TRUE,
+no_smooth,noSmooth,,method,environment,,TRUE,TRUE,
+get_graphics,getGraphics,@_return_py5graphics,method,rendering,,TRUE,TRUE,
+graphics,graphics,,unknown,,,FALSE,FALSE,use get_graphics
 orientation,orientation,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-pause,pause,,method,,,TRUE,TRUE,
+pause,pause,,method,structure,,TRUE,TRUE,
 register_method,registerMethod,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 unregister_method,unregisterMethod,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 create_graphics,createGraphics,@_return_py5graphics,method,rendering,,TRUE,TRUE,this needs to be reimplemented but I haven't decided what to do with it yet
@@ -353,13 +353,13 @@ save_frame,saveFrame,,method,output,image,FALSE,TRUE,"implemented in sketch.py, 
 insert_frame,insertFrame,,method,,,FALSE,FALSE,"not intended to be public, but there is the _insert_frame method that also lets you specify the number instead of frame_count"
 no_cursor,noCursor,,method,environment,,TRUE,TRUE,
 print_array,printArray,,static method,output,text_area,FALSE,FALSE,user should use python instead
-sq,sq,,static method,,,FALSE,TRUE,implemented in mixin file math.py
-constrain,constrain,,static method,,,FALSE,TRUE,implemented in mixin file math.py
-degrees,degrees,,static method,,,FALSE,TRUE,implemented in mixin file math.py
-radians,radians,,static method,,,FALSE,TRUE,implemented in mixin file math.py
-dist,dist,,static method,,,FALSE,TRUE,implemented in mixin file math.py
-lerp,lerp,,static method,,,FALSE,TRUE,implemented in mixin file math.py
-norm,norm,,static method,,,FALSE,TRUE,implemented in mixin file math.py
+sq,sq,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
+constrain,constrain,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
+degrees,degrees,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
+radians,radians,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
+dist,dist,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
+lerp,lerp,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
+norm,norm,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
 random_gaussian,randomGaussian,,method,math,random,FALSE,TRUE,implementation uses numpy for performance reasons
 random_seed,randomSeed,,method,math,random,FALSE,TRUE,implementation uses numpy for performance reasons
 noise,noise,,method,math,random,FALSE,TRUE,implementation uses python noise library for performance and increased functionality
@@ -427,7 +427,7 @@ lerp_color,lerpColor,,method,color,creating_reading,TRUE,TRUE,
 blend_color,blendColor,,static method,color,creating_reading,FALSE,FALSE,methods that are not part of the processing framework
 frame_moved,frameMoved,,method,,,FALSE,FALSE,methods that are not part of the processing framework
 frame_resized,frameResized,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-run_sketch,runSketch,,static method,,,FALSE,TRUE,my implementation of run_sketch calls Processing's runSketch method after doing some setup stuff
+run_sketch,runSketch,,static method,structure,,FALSE,TRUE,my implementation of run_sketch calls Processing's runSketch method after doing some setup stuff
 hide_menu_bar,hideMenuBar,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
 begin_record,beginRecord,@_return_py5graphics,method,output,files,TRUE,TRUE,
 end_record,endRecord,,method,output,files,TRUE,TRUE,
@@ -445,7 +445,7 @@ attrib,attrib,,method,,,FALSE,FALSE,methods that are not part of the processing 
 texture_mode,textureMode,,method,image,textures,TRUE,TRUE,
 texture_wrap,textureWrap,,method,image,textures,TRUE,TRUE,
 texture,texture,,method,image,textures,TRUE,TRUE,
-no_texture,noTexture,,method,,,TRUE,TRUE,
+no_texture,noTexture,,method,image,textures,TRUE,TRUE,
 vertex,vertex,,method,shape,vertex,TRUE,TRUE,
 begin_contour,beginContour,,method,shape,vertex,TRUE,TRUE,
 end_contour,endContour,,method,shape,vertex,TRUE,TRUE,
@@ -572,39 +572,39 @@ push,push,,method,structure,,TRUE,TRUE,
 pop,pop,,method,structure,,TRUE,TRUE,
 link,link,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 use_py5_methods,usePy5Methods,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-get_frame_rate,getFrameRate,,method,,,TRUE,TRUE,this replaces the frame_rate variable which conflicts with the frame_rate function
-is_key_pressed,isKeyPressed,,method,,,TRUE,TRUE,"this replaces the key_pressed variable which conflicts with the key_pressed function. note that this is a method, not a dynamic field, so you need to use the () at the end."
-is_mouse_pressed,isMousePressed,,method,,,TRUE,TRUE,"this replaces the mouse_pressed variable which conflicts with the mouse_pressed function. note that this is a method, not a dynamic field, so you need to use the () at the end."
-load_np_pixels,,,method,,,FALSE,TRUE,like loadPixels but for np_pixels; implemented in pixels.py mixin
-update_np_pixels,,,method,,,FALSE,TRUE,like updatePixels but for np_pixels; implemented in the pixels.py mixin
-set_np_pixels,,,method,,,FALSE,TRUE,replaces data in the np_pixels array; implemented in the pixels.py mixin
-np_pixels,,,dynamic variable,,,FALSE,TRUE,numpy array containing pixel data
-load_json,,,static method,,,FALSE,TRUE,implemented in mixin file data.py
-save_json,,,static method,,,FALSE,TRUE,implemented in mixin file data.py
-parse_json,,,static method,,,FALSE,TRUE,implemented in mixin file data.py
-hot_reload_draw,,,method,,,FALSE,TRUE,"implemented in sketch.py, replaces draw method"
-profile_functions,,,method,,,FALSE,TRUE,"implemented in sketch.py, use line profiler"
-profile_draw,,,method,,,FALSE,TRUE,"implemented in sketch.py, use line profiler on draw method"
-print_line_profiler_stats,,,method,,,FALSE,TRUE,"implemented in sketch.py, print line profiler stats"
+get_frame_rate,getFrameRate,,method,environment,,TRUE,TRUE,this replaces the frame_rate variable which conflicts with the frame_rate function
+is_key_pressed,isKeyPressed,,method,input,keyboard,TRUE,TRUE,"this replaces the key_pressed variable which conflicts with the key_pressed function. note that this is a method, not a dynamic field, so you need to use the () at the end."
+is_mouse_pressed,isMousePressed,,method,input,mouse,TRUE,TRUE,"this replaces the mouse_pressed variable which conflicts with the mouse_pressed function. note that this is a method, not a dynamic field, so you need to use the () at the end."
+load_np_pixels,,,method,image,pixels,FALSE,TRUE,like loadPixels but for np_pixels; implemented in pixels.py mixin
+update_np_pixels,,,method,image,pixels,FALSE,TRUE,like updatePixels but for np_pixels; implemented in the pixels.py mixin
+set_np_pixels,,,method,image,pixels,FALSE,TRUE,replaces data in the np_pixels array; implemented in the pixels.py mixin
+np_pixels,,,dynamic variable,image,pixels,FALSE,TRUE,numpy array containing pixel data
+load_json,,,static method,input,files,FALSE,TRUE,implemented in mixin file data.py
+save_json,,,static method,input,files,FALSE,TRUE,implemented in mixin file data.py
+parse_json,,,static method,input,files,FALSE,TRUE,implemented in mixin file data.py
+hot_reload_draw,,,method,structure,,FALSE,TRUE,"implemented in sketch.py, replaces draw method"
+profile_functions,,,method,structure,,FALSE,TRUE,"implemented in sketch.py, use line profiler"
+profile_draw,,,method,structure,,FALSE,TRUE,"implemented in sketch.py, use line profiler on draw method"
+print_line_profiler_stats,,,method,structure,,FALSE,TRUE,"implemented in sketch.py, print line profiler stats"
 exiting,,,method,,,FALSE,FALSE,method implemented by user
-launch_thread,,,method,,,FALSE,TRUE,implemented in mixin file threads.py
-launch_promise_thread,,,method,,,FALSE,TRUE,implemented in mixin file threads.py
-launch_repeating_thread,,,method,,,FALSE,TRUE,implemented in mixin file threads.py
-has_thread,,,method,,,FALSE,TRUE,implemented in mixin file threads.py
-stop_thread,,,method,,,FALSE,TRUE,implemented in mixin file threads.py
-stop_all_threads,,,method,,,FALSE,TRUE,implemented in mixin file threads.py
-list_threads,,,method,,,FALSE,TRUE,implemented in mixin file threads.py
+launch_thread,,,method,structure,threading,FALSE,TRUE,implemented in mixin file threads.py
+launch_promise_thread,,,method,structure,threading,FALSE,TRUE,implemented in mixin file threads.py
+launch_repeating_thread,,,method,structure,threading,FALSE,TRUE,implemented in mixin file threads.py
+has_thread,,,method,structure,threading,FALSE,TRUE,implemented in mixin file threads.py
+stop_thread,,,method,structure,threading,FALSE,TRUE,implemented in mixin file threads.py
+stop_all_threads,,,method,structure,threading,FALSE,TRUE,implemented in mixin file threads.py
+list_threads,,,method,structure,threading,FALSE,TRUE,implemented in mixin file threads.py
 HIDDEN,HIDDEN,,static field,,,TRUE,TRUE,hidden version of default renderer
-points,points,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper
-lines,lines,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper
-vertices,vertices,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper
-bezier_vertices,bezierVertices,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper
-curve_vertices,curveVertices,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper
-quadratic_vertices,quadraticVertices,,method,,,TRUE,TRUE,implemented by me in Py5GraphicsHelper
-is_ready,,,dynamic variable,,,FALSE,TRUE,property to determine sketch state
-is_running,,,dynamic variable,,,FALSE,TRUE,property to determine sketch state
-is_dead,,,dynamic variable,,,FALSE,TRUE,property to determine sketch state
-is_dead_from_error,,,dynamic variable,,,FALSE,TRUE,property to determine sketch state
+points,points,,method,shape,2d_primitives,TRUE,TRUE,implemented by me in Py5GraphicsHelper
+lines,lines,,method,shape,2d_primitives,TRUE,TRUE,implemented by me in Py5GraphicsHelper
+vertices,vertices,,method,shape,vertex,TRUE,TRUE,implemented by me in Py5GraphicsHelper
+bezier_vertices,bezierVertices,,method,shape,vertex,TRUE,TRUE,implemented by me in Py5GraphicsHelper
+curve_vertices,curveVertices,,method,shape,vertex,TRUE,TRUE,implemented by me in Py5GraphicsHelper
+quadratic_vertices,quadraticVertices,,method,shape,vertex,TRUE,TRUE,implemented by me in Py5GraphicsHelper
+is_ready,,,dynamic variable,structure,,FALSE,TRUE,property to determine sketch state
+is_running,,,dynamic variable,structure,,FALSE,TRUE,property to determine sketch state
+is_dead,,,dynamic variable,structure,,FALSE,TRUE,property to determine sketch state
+is_dead_from_error,,,dynamic variable,structure,,FALSE,TRUE,property to determine sketch state
 get_success,getSuccess,,method,,,FALSE,FALSE,used to determine if sketch had an error
 noise_mode,,,method,math,random,FALSE,TRUE,implemented in math.py and used to switch between noise algorithms
 SIMPLEX_NOISE,,,static field,,,FALSE,TRUE,static constants for noise_mode

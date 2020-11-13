@@ -1,6 +1,6 @@
 @@ meta
 name = no_smooth()
-category = None
+category = environment
 subcategory = None
 type = method
 pclass = PApplet

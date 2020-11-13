@@ -1,6 +1,6 @@
 @@ meta
 name = exit_sketch()
-category = None
+category = structure
 subcategory = None
 type = method
 pclass = PApplet

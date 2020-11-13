@@ -1,7 +1,7 @@
 @@ meta
 name = is_dead
 type = field
-category = None
+category = structure
 subcategory = None
 
 @@ description

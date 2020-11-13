@@ -1,8 +1,8 @@
 @@ meta
 name = load_np_pixels()
 type = method
-category = None
-subcategory = None
+category = image
+subcategory = pixels
 
 @@ description
 new template no description.

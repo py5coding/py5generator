@@ -3,7 +3,7 @@ name = finished
 type = field
 pclass = PApplet
 processing_name = finished
-category = None
+category = structure
 subcategory = None
 
 @@ description

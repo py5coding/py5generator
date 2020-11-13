@@ -1,7 +1,7 @@
 @@ meta
 name = profile_functions()
 type = method
-category = None
+category = structure
 subcategory = None
 
 @@ description

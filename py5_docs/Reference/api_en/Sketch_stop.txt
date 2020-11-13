@@ -3,7 +3,7 @@ name = stop()
 type = method
 pclass = PApplet
 processing_name = stop
-category = None
+category = structure
 subcategory = None
 
 @@ description

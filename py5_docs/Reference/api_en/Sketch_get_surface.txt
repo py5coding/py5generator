@@ -3,7 +3,7 @@ name = get_surface()
 type = method
 pclass = PApplet
 processing_name = getSurface
-category = None
+category = environment
 subcategory = None
 
 @@ description

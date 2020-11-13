@@ -16,7 +16,16 @@ DEST_DIR = Path('../py5website/')
 
 FIRST_SENTENCE_REGEX = re.compile(r'^.*?\.(?=\s)')
 
-MAIN_REF_COLUMN_STARTS = [('lights_camera', 'camera'), ('structure', '')]
+MAIN_REF_COLUMN_STARTS = [('lights_camera', 'camera'), ('shape', '')]
+
+CLASS_CATEGORY_LOOKUP = {
+    'Py5Graphics': ('rendering', ''),
+    'Py5Image': ('image', ''),
+    'Py5Shape': ('shape', ''),
+    'Py5Shader': ('rendering', 'shaders'),
+    'Py5Font': ('typography', ''),
+    'Py5Surface': ('environment', ''),
+}
 
 PROCESSING_CLASSNAME_LOOKUP = {
     'Py5Graphics': 'PGraphics',
@@ -191,8 +200,6 @@ def write_doc_rst_files():
     (DEST_DIR / 'reference').mkdir(parents=True, exist_ok=True)
     (DEST_DIR / 'include').mkdir(parents=True, exist_ok=True)
 
-    # py5applet_data = pd.read_csv('py5_resources/data/py5applet.csv').set_index('py5_name')[['category', 'subcategory']].fillna('unknown')
-
     rstfiles = defaultdict(set)
     docfiles = sorted(PY5_API_EN.glob('*.txt'))
     for num, docfile in enumerate(docfiles):
@@ -237,8 +244,7 @@ def write_doc_rst_files():
                 f.write(doc_rst)
         if item_type == 'class':
             if stem != 'Sketch':
-                # TODO: needs to be something other than None, None
-                rstfiles['sketch'].add((name, slug, first_sentence, ('', '')))
+                rstfiles['sketch'].add((name, slug, first_sentence, CLASS_CATEGORY_LOOKUP[name]))
         else:
             if stem.startswith('Sketch'):
                 rstfiles['sketch'].add(

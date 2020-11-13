@@ -1,6 +1,6 @@
 @@ meta
 name = display_height
-category = None
+category = environment
 subcategory = None
 type = field
 pclass = PApplet

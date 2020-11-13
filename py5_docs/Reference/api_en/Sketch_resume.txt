@@ -3,7 +3,7 @@ name = resume()
 type = method
 pclass = PApplet
 processing_name = resume
-category = None
+category = structure
 subcategory = None
 
 @@ description

@@ -3,7 +3,7 @@ name = get_graphics()
 type = method
 pclass = PApplet
 processing_name = getGraphics
-category = None
+category = rendering
 subcategory = None
 
 @@ description

@@ -3,7 +3,7 @@ name = pause()
 type = method
 pclass = PApplet
 processing_name = pause
-category = None
+category = structure
 subcategory = None
 
 @@ description

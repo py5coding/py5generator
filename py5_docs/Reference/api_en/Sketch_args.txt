@@ -3,7 +3,7 @@ name = args
 type = field
 pclass = PApplet
 processing_name = args
-category = None
+category = structure
 subcategory = None
 
 @@ description

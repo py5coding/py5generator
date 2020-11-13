@@ -1,8 +1,8 @@
 @@ meta
 name = dist()
 type = method
-category = None
-subcategory = None
+category = math
+subcategory = calculation
 
 @@ description
 new template no description.

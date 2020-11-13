@@ -3,7 +3,7 @@ name = start()
 type = method
 pclass = PApplet
 processing_name = start
-category = None
+category = structure
 subcategory = None
 
 @@ description

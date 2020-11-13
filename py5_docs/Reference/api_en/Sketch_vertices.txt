@@ -3,8 +3,8 @@ name = vertices()
 type = method
 pclass = PApplet
 processing_name = vertices
-category = None
-subcategory = None
+category = shape
+subcategory = vertex
 
 @@ description
 new template no description.

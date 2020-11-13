@@ -1,7 +1,7 @@
 @@ meta
 name = profile_draw()
 type = method
-category = None
+category = structure
 subcategory = None
 
 @@ description

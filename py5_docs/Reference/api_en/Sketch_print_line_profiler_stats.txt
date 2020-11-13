@@ -1,7 +1,7 @@
 @@ meta
 name = print_line_profiler_stats()
 type = method
-category = None
+category = structure
 subcategory = None
 
 @@ description

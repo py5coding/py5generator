@@ -3,8 +3,8 @@ name = is_key_pressed()
 type = method
 pclass = PApplet
 processing_name = isKeyPressed
-category = None
-subcategory = None
+category = input
+subcategory = keyboard
 
 @@ description
 new template no description.

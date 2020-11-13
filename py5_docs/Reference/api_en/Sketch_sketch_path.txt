@@ -3,7 +3,7 @@ name = sketch_path()
 type = method
 pclass = PApplet
 processing_name = sketchPath
-category = None
+category = environment
 subcategory = None
 
 @@ description

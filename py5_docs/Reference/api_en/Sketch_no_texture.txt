@@ -3,8 +3,8 @@ name = no_texture()
 type = method
 pclass = PApplet
 processing_name = noTexture
-category = None
-subcategory = None
+category = image
+subcategory = textures
 
 @@ description
 new template no description.

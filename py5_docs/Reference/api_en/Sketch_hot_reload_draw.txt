@@ -1,7 +1,7 @@
 @@ meta
 name = hot_reload_draw()
 type = method
-category = None
+category = structure
 subcategory = None
 
 @@ description
