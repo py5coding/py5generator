@@ -1,7 +1,7 @@
 @@ meta
 name = no_tint()
-category = Image
-subcategory = Loading & Displaying
+category = image
+subcategory = loading_displaying
 type = method
 pclass = PApplet
 processing_name = noTint

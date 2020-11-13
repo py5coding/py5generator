@@ -1,7 +1,7 @@
 @@ meta
 name = curve_tightness()
-category = Shape
-subcategory = Curves
+category = shape
+subcategory = curves
 type = method
 pclass = PApplet
 processing_name = curveTightness

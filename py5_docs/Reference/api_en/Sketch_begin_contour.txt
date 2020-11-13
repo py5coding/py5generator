@@ -1,7 +1,7 @@
 @@ meta
 name = begin_contour()
-category = Shape
-subcategory = Vertex
+category = shape
+subcategory = vertex
 type = method
 pclass = PApplet
 processing_name = beginContour

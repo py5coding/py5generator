@@ -1,6 +1,6 @@
 @@ meta
 name = blend_mode()
-category = Rendering
+category = rendering
 subcategory = None
 type = method
 pclass = PApplet

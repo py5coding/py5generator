@@ -1,7 +1,7 @@
 @@ meta
 name = apply_filter()
-category = Image
-subcategory = Pixels
+category = image
+subcategory = pixels
 type = method
 pclass = PApplet
 processing_name = filter

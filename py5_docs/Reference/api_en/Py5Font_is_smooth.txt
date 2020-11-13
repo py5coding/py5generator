@@ -1,7 +1,5 @@
 @@ meta
 name = is_smooth()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PFont
 processing_name = isSmooth

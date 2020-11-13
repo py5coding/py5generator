@@ -14,8 +14,6 @@ from generator.docfiles import Documentation
 
 NEW_TEMPLATE = """@@ meta
 name = {0}
-category = UNKNOWN
-subcategory = UNKNOWN
 type = {1}
 {2}
 @@ description
@@ -213,11 +211,14 @@ def remove_html(html):
 # read the class datafiles so I know what methods and fields are relevant
 class_data_info = dict()
 class_resource_data = Path('py5_resources', 'data')
+papplet_category_data = None
 for pclass in PY5_CLASS_LOOKUP.keys():
     filename = 'py5applet.csv' if pclass == 'PApplet' else pclass.lower() + '.csv'
     class_data = pd.read_csv(class_resource_data / filename)
     class_data = class_data.fillna('').set_index('processing_name')
     class_data_info[pclass] = class_data.query("available_in_py5==True")
+    if pclass == 'PApplet':
+        papplet_category_data = class_data_info[pclass].set_index('py5_name')[['category', 'subcategory']]
 
 
 # go through the class data info and for each relevant method and field
@@ -296,6 +297,10 @@ for num, (xml_file, file_data) in enumerate(xml_files):
     doc.meta['pclass'] = pclass
     doc.meta['processing_name'] = processing_name
     doc.meta['name'] = doc.meta['name'].replace(processing_name, py5_name)
+    if pclass == 'PApplet':
+        doc.meta['category'] = papplet_category_data.loc[py5_name, 'category'] or 'None'
+        doc.meta['subcategory'] = papplet_category_data.loc[py5_name, 'subcategory'] or 'None'
+
     new_examples = []
     for num, (image_name, code) in enumerate(doc.examples):
         # this makes sure the image names are all unique
@@ -323,6 +328,10 @@ for num, new_file_data in enumerate(new_xml_files):
 
     with open(PY5_API_EN / f'{new_filename_base}.txt', 'w') as f:
         extra = f'pclass = {pclass}\nprocessing_name = {processing_name}\n' if processing_name else ''
+        if pclass == 'PApplet' and py5_name in papplet_category_data.index:
+            category = papplet_category_data.loc[py5_name, 'category'] or 'None'
+            subcategory = papplet_category_data.loc[py5_name, 'subcategory'] or 'None'
+            extra += f'category = {category}\nsubcategory = {subcategory}\n'
         f.write(NEW_TEMPLATE.format(name, doc_type, extra))
 
 print(f'copied {len(xml_files)} files and created {len(new_xml_files)} new files.')

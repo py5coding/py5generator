@@ -1,6 +1,6 @@
 @@ meta
 name = smooth()
-category = Environment
+category = environment
 subcategory = None
 type = method
 pclass = PApplet

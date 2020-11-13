@@ -1,7 +1,5 @@
 @@ meta
 name = depth
-category = UNKNOWN
-subcategory = UNKNOWN
 type = field
 pclass = PShape
 processing_name = depth

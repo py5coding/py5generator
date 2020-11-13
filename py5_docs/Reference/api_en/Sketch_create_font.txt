@@ -1,7 +1,7 @@
 @@ meta
 name = create_font()
-category = Typography
-subcategory = Loading & Displaying
+category = typography
+subcategory = loading_displaying
 type = method
 pclass = PApplet
 processing_name = createFont

@@ -1,7 +1,7 @@
 @@ meta
 name = stroke_join()
-category = Shape
-subcategory = Attributes
+category = shape
+subcategory = attributes
 type = method
 pclass = PApplet
 processing_name = strokeJoin

@@ -1,7 +1,5 @@
 @@ meta
 name = set_location()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PSurface
 processing_name = setLocation

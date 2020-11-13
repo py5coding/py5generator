@@ -1,7 +1,5 @@
 @@ meta
 name = set_stroke_weight()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PShape
 processing_name = setStrokeWeight

@@ -1,7 +1,5 @@
 @@ meta
 name = attrib_normal()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PShape
 processing_name = attribNormal

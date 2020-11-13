@@ -1,7 +1,7 @@
 @@ meta
 name = emissive()
-category = Lights, Camera
-subcategory = Material Properties
+category = lights_camera
+subcategory = material_properties
 type = method
 pclass = PApplet
 processing_name = emissive

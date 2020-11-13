@@ -1,6 +1,6 @@
 @@ meta
 name = height
-category = Environment
+category = environment
 subcategory = None
 type = field
 pclass = PApplet

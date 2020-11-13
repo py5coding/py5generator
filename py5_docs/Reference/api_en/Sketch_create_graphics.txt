@@ -1,6 +1,6 @@
 @@ meta
 name = create_graphics()
-category = Rendering
+category = rendering
 subcategory = None
 type = method
 pclass = PApplet

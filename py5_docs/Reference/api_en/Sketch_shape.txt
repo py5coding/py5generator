@@ -1,7 +1,7 @@
 @@ meta
 name = shape()
-category = Shape
-subcategory = Loading & Displaying
+category = shape
+subcategory = loading_displaying
 type = method
 pclass = PApplet
 processing_name = shape

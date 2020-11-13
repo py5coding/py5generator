@@ -1,7 +1,7 @@
 @@ meta
 name = triangle()
-category = Shape
-subcategory = 2D Primitives
+category = shape
+subcategory = 2d_primitives
 type = method
 pclass = PApplet
 processing_name = triangle

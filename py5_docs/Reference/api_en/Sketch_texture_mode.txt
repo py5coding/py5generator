@@ -1,7 +1,7 @@
 @@ meta
 name = texture_mode()
-category = Shape
-subcategory = Vertex
+category = image
+subcategory = textures
 type = method
 pclass = PApplet
 processing_name = textureMode

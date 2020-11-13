@@ -1,10 +1,10 @@
 @@ meta
 name = lines()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PApplet
 processing_name = lines
+category = None
+subcategory = None
 
 @@ description
 new template no description.

@@ -1,8 +1,8 @@
 @@ meta
 name = np_pixels
-category = UNKNOWN
-subcategory = UNKNOWN
 type = field
+category = None
+subcategory = None
 
 @@ description
 new template no description.

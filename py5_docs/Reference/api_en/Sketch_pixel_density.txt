@@ -1,6 +1,6 @@
 @@ meta
 name = pixel_density()
-category = Environment
+category = environment
 subcategory = None
 type = method
 pclass = PApplet

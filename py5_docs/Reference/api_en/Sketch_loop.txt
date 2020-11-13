@@ -1,6 +1,6 @@
 @@ meta
 name = loop()
-category = Structure
+category = structure
 subcategory = None
 type = method
 pclass = PApplet

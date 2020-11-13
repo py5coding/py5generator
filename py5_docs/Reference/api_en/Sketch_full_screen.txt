@@ -1,6 +1,6 @@
 @@ meta
 name = full_screen()
-category = Environment
+category = environment
 subcategory = None
 type = method
 pclass = PApplet

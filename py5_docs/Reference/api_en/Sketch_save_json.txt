@@ -1,8 +1,8 @@
 @@ meta
 name = save_json()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
+category = None
+subcategory = None
 
 @@ description
 new template no description.

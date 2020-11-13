@@ -1,10 +1,10 @@
 @@ meta
 name = stop()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PApplet
 processing_name = stop
+category = None
+subcategory = None
 
 @@ description
 new template no description.

@@ -1,7 +1,5 @@
 @@ meta
 name = is_stopped()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PSurface
 processing_name = isStopped

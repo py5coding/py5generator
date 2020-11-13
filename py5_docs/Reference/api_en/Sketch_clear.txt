@@ -1,7 +1,7 @@
 @@ meta
 name = clear()
-category = Color
-subcategory = Setting
+category = None
+subcategory = None
 type = method
 pclass = PApplet
 processing_name = clear

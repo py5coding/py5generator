@@ -1,10 +1,10 @@
 @@ meta
 name = pause()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PApplet
 processing_name = pause
+category = None
+subcategory = None
 
 @@ description
 new template no description.

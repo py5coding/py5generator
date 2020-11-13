@@ -1,7 +1,7 @@
 @@ meta
 name = end_record()
-category = Output
-subcategory = Files
+category = output
+subcategory = files
 type = method
 pclass = PApplet
 processing_name = endRecord

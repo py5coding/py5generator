@@ -1,6 +1,6 @@
 @@ meta
 name = print_matrix()
-category = Transform
+category = transform
 subcategory = None
 type = method
 pclass = PApplet

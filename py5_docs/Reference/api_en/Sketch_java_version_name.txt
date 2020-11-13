@@ -1,10 +1,10 @@
 @@ meta
 name = java_version_name
-category = UNKNOWN
-subcategory = UNKNOWN
 type = field
 pclass = PApplet
 processing_name = javaVersionName
+category = constants
+subcategory = None
 
 @@ description
 new template no description.

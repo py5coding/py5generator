@@ -1,7 +1,7 @@
 @@ meta
 name = fill()
-category = Color
-subcategory = Setting
+category = color
+subcategory = setting
 type = method
 pclass = PApplet
 processing_name = fill

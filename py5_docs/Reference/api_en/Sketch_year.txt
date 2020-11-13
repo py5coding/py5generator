@@ -1,7 +1,7 @@
 @@ meta
 name = year()
-category = Input
-subcategory = Time & Date
+category = input
+subcategory = time_date
 type = method
 pclass = PApplet
 processing_name = year

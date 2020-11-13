@@ -1,7 +1,7 @@
 @@ meta
 name = begin_camera()
-category = Lights, Camera
-subcategory = Camera
+category = lights_camera
+subcategory = camera
 type = method
 pclass = PApplet
 processing_name = beginCamera

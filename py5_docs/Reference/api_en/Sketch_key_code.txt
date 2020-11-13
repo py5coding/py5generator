@@ -1,7 +1,7 @@
 @@ meta
 name = key_code
-category = Input
-subcategory = Keyboard
+category = input
+subcategory = keyboard
 type = field
 pclass = PApplet
 processing_name = keyCode

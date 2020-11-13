@@ -1,7 +1,5 @@
 @@ meta
 name = contains()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PShape
 processing_name = contains

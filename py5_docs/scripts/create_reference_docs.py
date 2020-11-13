@@ -16,7 +16,7 @@ DEST_DIR = Path('../py5website/')
 
 FIRST_SENTENCE_REGEX = re.compile(r'^.*?\.(?=\s)')
 
-MAIN_REF_COLUMN_STARTS = [('lights_camera', 'camera'), ('structure', 'unknown')]
+MAIN_REF_COLUMN_STARTS = [('lights_camera', 'camera'), ('structure', '')]
 
 PROCESSING_CLASSNAME_LOOKUP = {
     'Py5Graphics': 'PGraphics',
@@ -28,6 +28,7 @@ PROCESSING_CLASSNAME_LOOKUP = {
 }
 
 CATEGORY_LOOKUP = {
+    '': 'Unknown',
     'lights_camera': 'Lights & Camera',
     'loading_displaying': 'Loading / Displaying',
     '2d_primitives': '2D Primitives',
@@ -190,7 +191,7 @@ def write_doc_rst_files():
     (DEST_DIR / 'reference').mkdir(parents=True, exist_ok=True)
     (DEST_DIR / 'include').mkdir(parents=True, exist_ok=True)
 
-    py5applet_data = pd.read_csv('py5_resources/data/py5applet.csv').set_index('py5_name')[['category', 'subcategory']].fillna('unknown')
+    # py5applet_data = pd.read_csv('py5_resources/data/py5applet.csv').set_index('py5_name')[['category', 'subcategory']].fillna('unknown')
 
     rstfiles = defaultdict(set)
     docfiles = sorted(PY5_API_EN.glob('*.txt'))
@@ -236,17 +237,22 @@ def write_doc_rst_files():
                 f.write(doc_rst)
         if item_type == 'class':
             if stem != 'Sketch':
-                rstfiles['sketch'].add((name, slug, first_sentence, ('unknown', 'unknown')))
+                # TODO: needs to be something other than None, None
+                rstfiles['sketch'].add((name, slug, first_sentence, ('', '')))
         else:
             if stem.startswith('Sketch'):
-                rstfiles['sketch'].add((name, slug, first_sentence, tuple(py5applet_data.loc[slug].tolist())))
+                rstfiles['sketch'].add(
+                    (name, slug, first_sentence,
+                     (doc.meta['category'].replace('None', ''), doc.meta['subcategory'].replace('None', ''))
+                    )
+                )
             else:
                 rstfiles[stem.split('_', 1)[0].lower()].add((name, slug, first_sentence))
 
     for group, data in rstfiles.items():
         if group == 'sketch':
             organized_data = groupby(sorted(data, key=lambda x: x[3]), key=lambda x: x[3])
-            prev_category = ('', '')
+            prev_category = ('_', '_')
             columns = [StringIO() for _ in range(3)]
             column_num = 0
             for category, contents in organized_data:
@@ -254,7 +260,7 @@ def write_doc_rst_files():
                     column_num += 1
                 if category[0] != prev_category[0]:
                     write_category_heading(columns[column_num], category[0])
-                if category[1] != prev_category[1] and category[1] != 'unknown':
+                if category[1] != prev_category[1] and category[1] != '':
                     write_category_heading(columns[column_num], category[1], subcategory=True)
                 prev_category = category
                 columns[column_num].write('\n')

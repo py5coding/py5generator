@@ -1,7 +1,5 @@
 @@ meta
 name = get_post_script_name()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PFont
 processing_name = getPostScriptName

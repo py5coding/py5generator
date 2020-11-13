@@ -1,7 +1,7 @@
 @@ meta
 name = mouse_y
-category = Input
-subcategory = Mouse
+category = input
+subcategory = mouse
 type = field
 pclass = PApplet
 processing_name = mouseY

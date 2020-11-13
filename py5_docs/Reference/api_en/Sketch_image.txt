@@ -1,7 +1,7 @@
 @@ meta
 name = image()
-category = Image
-subcategory = Loading & Displaying
+category = image
+subcategory = loading_displaying
 type = method
 pclass = PApplet
 processing_name = image

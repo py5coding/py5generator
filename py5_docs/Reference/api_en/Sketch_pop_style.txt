@@ -1,6 +1,6 @@
 @@ meta
 name = pop_style()
-category = Structure
+category = structure
 subcategory = None
 type = method
 pclass = PApplet

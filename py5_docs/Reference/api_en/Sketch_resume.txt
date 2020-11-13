@@ -1,10 +1,10 @@
 @@ meta
 name = resume()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PApplet
 processing_name = resume
+category = None
+subcategory = None
 
 @@ description
 new template no description.

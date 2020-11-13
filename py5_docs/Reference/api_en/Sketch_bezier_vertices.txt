@@ -1,10 +1,10 @@
 @@ meta
 name = bezier_vertices()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PApplet
 processing_name = bezierVertices
+category = None
+subcategory = None
 
 @@ description
 new template no description.

@@ -1,7 +1,7 @@
 @@ meta
 name = saturation()
-category = Color
-subcategory = Creating & Reading
+category = color
+subcategory = creating_reading
 type = method
 pclass = PApplet
 processing_name = saturation

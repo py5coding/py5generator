@@ -1,7 +1,7 @@
 @@ meta
 name = sphere_detail()
-category = Shape
-subcategory = 3D Primitives
+category = shape
+subcategory = 3d_primitives
 type = method
 pclass = PApplet
 processing_name = sphereDetail

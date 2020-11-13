@@ -1,7 +1,5 @@
 @@ meta
 name = open_link()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PSurface
 processing_name = openLink

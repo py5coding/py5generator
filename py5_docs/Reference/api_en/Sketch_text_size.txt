@@ -1,7 +1,7 @@
 @@ meta
 name = text_size()
-category = Typography
-subcategory = Attributes
+category = typography
+subcategory = attributes
 type = method
 pclass = PApplet
 processing_name = textSize

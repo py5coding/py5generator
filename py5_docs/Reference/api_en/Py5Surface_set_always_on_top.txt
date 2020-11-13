@@ -1,7 +1,5 @@
 @@ meta
 name = set_always_on_top()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PSurface
 processing_name = setAlwaysOnTop

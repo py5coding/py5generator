@@ -1,6 +1,6 @@
 @@ meta
 name = create_image()
-category = Image
+category = image
 subcategory = None
 type = method
 pclass = PApplet

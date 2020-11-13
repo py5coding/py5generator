@@ -1,10 +1,10 @@
 @@ meta
 name = finished
-category = UNKNOWN
-subcategory = UNKNOWN
 type = field
 pclass = PApplet
 processing_name = finished
+category = None
+subcategory = None
 
 @@ description
 new template no description.

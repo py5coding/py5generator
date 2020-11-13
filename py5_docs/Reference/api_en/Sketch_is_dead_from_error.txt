@@ -1,8 +1,8 @@
 @@ meta
 name = is_dead_from_error
-category = UNKNOWN
-subcategory = UNKNOWN
 type = field
+category = None
+subcategory = None
 
 @@ description
 new template no description.

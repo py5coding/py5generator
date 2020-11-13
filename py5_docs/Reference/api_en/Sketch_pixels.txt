@@ -1,7 +1,7 @@
 @@ meta
 name = pixels[]
-category = Image
-subcategory = Pixels
+category = image
+subcategory = pixels
 type = field
 pclass = PApplet
 processing_name = pixels

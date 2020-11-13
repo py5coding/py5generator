@@ -1,6 +1,6 @@
 @@ meta
 name = hint()
-category = Rendering
+category = rendering
 subcategory = None
 type = method
 syntax = hint(which)

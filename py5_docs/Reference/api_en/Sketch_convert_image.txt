@@ -1,8 +1,8 @@
 @@ meta
 name = convert_image()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
+category = image
+subcategory = loading_displaying
 
 @@ description
 new template no description.

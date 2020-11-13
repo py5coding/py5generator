@@ -1,10 +1,10 @@
 @@ meta
 name = args
-category = UNKNOWN
-subcategory = UNKNOWN
 type = field
 pclass = PApplet
 processing_name = args
+category = None
+subcategory = None
 
 @@ description
 new template no description.

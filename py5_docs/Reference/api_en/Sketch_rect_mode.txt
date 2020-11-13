@@ -1,7 +1,7 @@
 @@ meta
 name = rect_mode()
-category = Shape
-subcategory = Attributes
+category = shape
+subcategory = attributes
 type = method
 pclass = PApplet
 processing_name = rectMode

@@ -1,8 +1,8 @@
 @@ meta
 name = create_image_from_numpy()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
+category = image
+subcategory = loading_displaying
 
 @@ description
 new template no description.

@@ -1,6 +1,6 @@
 @@ meta
 name = translate()
-category = Transform
+category = transform
 subcategory = None
 type = method
 pclass = PApplet

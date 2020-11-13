@@ -1,10 +1,10 @@
 @@ meta
 name = is_key_pressed()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PApplet
 processing_name = isKeyPressed
+category = None
+subcategory = None
 
 @@ description
 new template no description.

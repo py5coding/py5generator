@@ -1,8 +1,8 @@
 @@ meta
 name = noise_mode()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
+category = math
+subcategory = random
 
 @@ description
 new template no description.

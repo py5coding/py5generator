@@ -1,6 +1,6 @@
 @@ meta
 name = pixel_width
-category = Environment
+category = environment
 subcategory = None
 type = field
 pclass = PApplet

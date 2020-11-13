@@ -1,7 +1,5 @@
 @@ meta
 name = set_icon()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PSurface
 processing_name = setIcon

@@ -1,6 +1,6 @@
 @@ meta
 name = scale()
-category = Transform
+category = transform
 subcategory = None
 type = method
 pclass = PApplet

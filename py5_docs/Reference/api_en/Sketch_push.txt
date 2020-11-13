@@ -1,6 +1,6 @@
 @@ meta
 name = push()
-category = Structure
+category = structure
 subcategory = None
 type = method
 pclass = PApplet

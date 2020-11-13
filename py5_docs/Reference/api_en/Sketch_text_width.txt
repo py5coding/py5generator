@@ -1,7 +1,7 @@
 @@ meta
 name = text_width()
-category = Typography
-subcategory = Metrics
+category = typography
+subcategory = attributes
 type = method
 pclass = PApplet
 processing_name = textWidth

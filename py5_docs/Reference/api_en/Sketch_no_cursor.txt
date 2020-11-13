@@ -1,6 +1,6 @@
 @@ meta
 name = no_cursor()
-category = Environment
+category = environment
 subcategory = None
 type = method
 pclass = PApplet

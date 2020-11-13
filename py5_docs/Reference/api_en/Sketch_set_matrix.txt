@@ -1,10 +1,10 @@
 @@ meta
 name = set_matrix()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PApplet
 processing_name = setMatrix
+category = transform
+subcategory = None
 
 @@ description
 new template no description.

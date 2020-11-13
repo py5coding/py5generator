@@ -1,10 +1,10 @@
 @@ meta
 name = points()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PApplet
 processing_name = points
+category = None
+subcategory = None
 
 @@ description
 new template no description.

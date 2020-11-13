@@ -1,10 +1,10 @@
 @@ meta
 name = get_graphics()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
 pclass = PApplet
 processing_name = getGraphics
+category = None
+subcategory = None
 
 @@ description
 new template no description.

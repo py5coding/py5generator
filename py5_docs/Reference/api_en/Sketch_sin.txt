@@ -1,8 +1,8 @@
 @@ meta
 name = sin()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
+category = math
+subcategory = calculation
 
 @@ description
 new template no description.

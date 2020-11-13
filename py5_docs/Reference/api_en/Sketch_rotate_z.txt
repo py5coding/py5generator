@@ -1,6 +1,6 @@
 @@ meta
 name = rotate_z()
-category = Transform
+category = transform
 subcategory = None
 type = method
 pclass = PApplet

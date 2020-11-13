@@ -1,7 +1,7 @@
 @@ meta
 name = reset_shader()
-category = Rendering
-subcategory = Shaders
+category = rendering
+subcategory = shaders
 type = method
 pclass = PApplet
 processing_name = resetShader

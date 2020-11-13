@@ -1,6 +1,6 @@
 @@ meta
 name = create_shape()
-category = Shape
+category = shape
 subcategory = None
 type = method
 pclass = PApplet

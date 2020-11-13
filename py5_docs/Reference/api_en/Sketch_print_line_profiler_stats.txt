@@ -1,8 +1,8 @@
 @@ meta
 name = print_line_profiler_stats()
-category = UNKNOWN
-subcategory = UNKNOWN
 type = method
+category = None
+subcategory = None
 
 @@ description
 new template no description.
