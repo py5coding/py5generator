@@ -200,7 +200,7 @@ def write_doc_rst_files():
         item_type = doc.meta['type']
         stem = docfile.stem
         if stem == 'Sketch':
-            slug = 'index'
+            continue
         elif stem.startswith('Sketch'):
             slug = stem[7:].lower()
         else:
