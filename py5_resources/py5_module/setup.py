@@ -45,8 +45,13 @@ setup(
     },
     classifiers=[
         'Intended Audience :: Developers',
+        'Intended Audience :: Education',
+        'Intended Audience :: Science/Research',
+        'Topic :: Artistic Software',
+        'Topic :: Multimedia :: Graphics',
         'Development Status :: 3 - Alpha',
-        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+        'License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)',
         'Programming Language :: Python :: 3.8',
+        'Programming Language :: Java',
     ],
 )
