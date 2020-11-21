@@ -39,7 +39,7 @@ except ModuleNotFoundError:
     pass
 
 
-__version__ = '0.3a2'
+__version__ = '0.3a3'
 
 logger = logging.getLogger(__name__)
 
