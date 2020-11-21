@@ -101,12 +101,12 @@ try:
     def cairocffi_surface_to_tempfile_precondition(obj):
         return isinstance(obj, cairocffi.Surface)
 
-    def cairo_surface_to_tempfile_converter(surface):
+    def cairocffi_surface_to_tempfile_converter(surface):
         temp_png = tempfile.NamedTemporaryFile(suffix='.png')
         surface.write_to_png(temp_png.name)
         return temp_png
 
-    register_image_conversion(cairocffi_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
+    register_image_conversion(cairocffi_surface_to_tempfile_precondition, cairocffi_surface_to_tempfile_converter)
 except ModuleNotFoundError:
     pass
 
@@ -116,6 +116,11 @@ try:
 
     def cairo_surface_to_tempfile_precondition(obj):
         return isinstance(obj, cairo.Surface)
+
+    def cairo_surface_to_tempfile_converter(surface):
+        temp_png = tempfile.NamedTemporaryFile(suffix='.png')
+        surface.write_to_png(temp_png.name)
+        return temp_png
 
     register_image_conversion(cairo_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
 except ModuleNotFoundError:
