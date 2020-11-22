@@ -13,6 +13,7 @@ dependencies:
   - numpy=1.19.1
   - openjdk=11.0.1
   - pandas=1.1.0
+  - pillow=8.0.1
   - pip=20.2
   - python=3.8.5
   - requests=2.24.0
