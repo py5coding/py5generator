@@ -1,5 +1,6 @@
 import re
 from pathlib import Path
+import argparse
 import textwrap
 from io import StringIO
 from itertools import groupby
@@ -10,8 +11,20 @@ import pandas as pd
 
 from generator.docfiles import Documentation
 
-PY5_API_EN = Path('py5_docs/Reference/api_en/')
-DEST_DIR = Path('../py5website/')
+###############################################################################
+# ARGUMENT PARSING
+###############################################################################
+
+
+parser = argparse.ArgumentParser(description="Generate py5 library reference documentation")
+parser.add_argument('dest_dir', action='store', help='location to write documentation files to')
+parser.add_argument('py5_doc_ref_dir', action='store', help='location to write py5 documenation rst files')
+
+
+###############################################################################
+# REFERENCE AND LOOKUPS
+###############################################################################
+
 
 FIRST_SENTENCE_REGEX = re.compile(r'^.*?\.(?=\s)')
 
@@ -89,6 +102,12 @@ This class provides the following methods and fields:
 Updated on {8}
 
 """
+
+
+###############################################################################
+# HELPER FUNCTIONS
+###############################################################################
+
 
 def format_underlying_java_ref(stem, doc_type, processing_name):
     out = ''
@@ -190,17 +209,22 @@ def write_category_heading(f, catname, subcategory=False):
     f.write(f'\n{catname}\n{char * len(catname)}\n')
 
 
-def write_doc_rst_files():
+###############################################################################
+# MAIN
+###############################################################################
+
+
+def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
     now = pd.Timestamp.now(tz='UTC')
     now_nikola = now.strftime('%Y-%m-%d %H:%M:%S %Z%z')[:-2] + ':00'
     now_pretty = now.strftime('%B %d, %Y %H:%M:%S%P %Z')
 
     # create the destination directories
-    (DEST_DIR / 'reference').mkdir(parents=True, exist_ok=True)
-    (DEST_DIR / 'include').mkdir(parents=True, exist_ok=True)
+    (dest_dir / 'reference').mkdir(parents=True, exist_ok=True)
+    (dest_dir / 'include').mkdir(parents=True, exist_ok=True)
 
     rstfiles = defaultdict(set)
-    docfiles = sorted(PY5_API_EN.glob('*.txt'))
+    docfiles = sorted(py5_doc_ref_dir.glob('*.txt'))
     for num, docfile in enumerate(docfiles):
         doc = Documentation(docfile)
         name = doc.meta['name']
@@ -236,7 +260,7 @@ def write_doc_rst_files():
                 description, underlying_java_ref, signatures, parameters, now_pretty)
 
         # only write new file if more changed than the timestamp
-        dest_filename = DEST_DIR / 'reference' / f'{stem.lower()}.rst'
+        dest_filename = dest_dir / 'reference' / f'{stem.lower()}.rst'
         if not compare_files(dest_filename, doc_rst):
             print('writing file', dest_filename)
             with open(dest_filename, 'w') as f:
@@ -271,14 +295,18 @@ def write_doc_rst_files():
                 columns[column_num].write('\n')
                 for (name, stem, first_sentence, _) in sorted(contents):
                     columns[column_num].write(f'* `{name} <{stem}/>`_\n')
-            write_main_ref_columns(DEST_DIR / 'include' / f'{group}_include.rst', columns)
+            write_main_ref_columns(dest_dir / 'include' / f'{group}_include.rst', columns)
         else:
-            with open(DEST_DIR / 'include' / f'{group}_include.rst', 'w') as f:
+            with open(dest_dir / 'include' / f'{group}_include.rst', 'w') as f:
                 for name, stem, first_sentence in sorted(data):
                     f.write(f'* `{name} <../{stem}/>`_: {first_sentence}\n')
 
 
-if not DEST_DIR.exists():
-    DEST_DIR.mkdir(parents=True)
 
-write_doc_rst_files()
+def main():
+    args = parser.parse_args()
+    write_doc_rst_files(Path(args.dest_dir), Path(args.py5_doc_ref_dir))
+
+
+if __name__ == '__main__':
+    main()

@@ -27,7 +27,7 @@ distributions:
 	cd $(py5_build_dir) && python setup.py sdist && python setup.py bdist_wheel
 
 create_reference_docs:
-	python py5_docs/scripts/create_reference_docs.py
+	python create_reference_docs.py $(py5_website_dir) py5_docs/Reference/$(py5_api_lang)
 
 sphinx_docs:
 	sphinx-build -M html py5_docs/sphinx $(py5_sphinx_dir)
