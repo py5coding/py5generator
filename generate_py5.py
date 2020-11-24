@@ -21,8 +21,7 @@ logger = logging.getLogger(__name__)
 ###############################################################################
 
 
-parser = argparse.ArgumentParser(description="Generate py5 library using processing jars",
-                                 epilog="this is the epilog")
+parser = argparse.ArgumentParser(description="Generate py5 library using processing jars")
 parser.add_argument('processing_repo_dir', action='store', help='location of processing code (github repository)')
 parser.add_argument('processing_build_dir', action='store', help='location of build directory')
 
