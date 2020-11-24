@@ -6,6 +6,14 @@ type = method
 pclass = PImage
 processing_name = filter
 
+@@ signatures
+apply_filter(kind: int, /) -> None
+apply_filter(kind: int, param: float, /) -> None
+
+@@ variables
+kind: int - Either THRESHOLD, GRAY, OPAQUE, INVERT, POSTERIZE, BLUR, ERODE, or DILATE
+param: float - unique for each, see above
+
 @@ description
 Filters the image as defined by one of the following modes:
 
@@ -36,8 +44,6 @@ Increases the light areas. No parameter is used.
 @@ example
 image = Py5Image_apply_filter_0.png
 
-
-
 def setup():
     global img1
     global img2
@@ -52,11 +58,8 @@ def draw():
     image(img1, 0, 0)
     image(img2, width//2, 0)
 
-
 @@ example
 image = Py5Image_apply_filter_1.png
-
-
 
 def setup():
     global img1
@@ -70,11 +73,8 @@ def draw():
     image(img1, 0, 0)
     image(img2, width//2, 0)
 
-
 @@ example
 image = Py5Image_apply_filter_2.png
-
-
 
 def setup():
     global img1
@@ -88,11 +88,8 @@ def draw():
     image(img1, 0, 0)
     image(img2, width//2, 0)
 
-
 @@ example
 image = Py5Image_apply_filter_3.png
-
-
 
 def setup():
     global img1
@@ -106,11 +103,8 @@ def draw():
     image(img1, 0, 0)
     image(img2, width//2, 0)
 
-
 @@ example
 image = Py5Image_apply_filter_4.png
-
-
 
 def setup():
     global img1
@@ -124,11 +118,8 @@ def draw():
     image(img1, 0, 0)
     image(img2, width//2, 0)
 
-
 @@ example
 image = Py5Image_apply_filter_5.png
-
-
 
 def setup():
     global img1
@@ -142,11 +133,8 @@ def draw():
     image(img1, 0, 0)
     image(img2, width//2, 0)
 
-
 @@ example
 image = Py5Image_apply_filter_6.png
-
-
 
 def setup():
     global img1
@@ -159,4 +147,3 @@ def setup():
 def draw():
     image(img1, 0, 0)
     image(img2, width//2, 0)
-

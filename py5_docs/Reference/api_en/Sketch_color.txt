@@ -6,6 +6,29 @@ type = method
 pclass = PApplet
 processing_name = color
 
+@@ signatures
+color(fgray: float, /) -> int
+color(fgray: float, falpha: float, /) -> int
+color(gray: int, /) -> int
+color(gray: int, alpha: int, /) -> int
+color(v1: float, v2: float, v3: float, /) -> int
+color(v1: float, v2: float, v3: float, alpha: float, /) -> int
+color(v1: int, v2: int, v3: int, /) -> int
+color(v1: int, v2: int, v3: int, alpha: int, /) -> int
+
+@@ variables
+alpha: float - relative to current color range
+alpha: int - relative to current color range
+falpha: float - missing variable description
+fgray: float - number specifying value between white and black
+gray: int - number specifying value between white and black
+v1: float - red or hue values relative to the current color range
+v1: int - red or hue values relative to the current color range
+v2: float - green or saturation values relative to the current color range
+v2: int - green or saturation values relative to the current color range
+v3: float - blue or brightness values relative to the current color range
+v3: int - blue or brightness values relative to the current color range
+
 @@ description
 Creates colors for storing in variables of the ``color`` datatype. The parameters are interpreted as RGB or HSB values depending on the current ``color_mode()``. The default mode is RGB values from 0 to 255 and, therefore, ``color(255, 204, 0)`` will return a bright yellow color (see the first example above).
 
@@ -23,7 +46,6 @@ fill(c)  # use color variable 'c' as fill color
 no_stroke()  # don't draw a stroke around shapes
 rect(30, 20, 55, 55)  # draw rectangle
 
-
 @@ example
 image = Sketch_color_1.png
 
@@ -37,7 +59,6 @@ ellipse(25, 25, 80, 80)  # draw left circle
 c = color(65)  # update 'c' with grayscale value
 fill(c)  # use updated 'c' as fill color
 ellipse(75, 75, 80, 80)  # draw right circle
-
 
 @@ example
 image = Sketch_color_2.png
@@ -55,4 +76,3 @@ color_mode(HSB, 100)  # use HSB with scale of 0-100
 c = color(50, 55, 100)  # update 'c' with new color
 fill(c)  # use updated 'c' as fill color
 rect(55, 10, 45, 80)  # draw right rect
-

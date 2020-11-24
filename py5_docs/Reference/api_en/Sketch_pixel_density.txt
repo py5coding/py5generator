@@ -6,6 +6,12 @@ type = method
 pclass = PApplet
 processing_name = pixelDensity
 
+@@ signatures
+pixel_density(density: int, /) -> None
+
+@@ variables
+density: int - 1 or 2
+
 @@ description
 This function is new with Processing 3.0. It makes it possible for Processing to render using all of the pixels on high resolutions screens like Apple Retina displays and Windows High-DPI displays. This function can only be run once within a program and it must be used right after ``size()`` in a program without a ``setup()`` and used within ``setup()`` when a program has one.  The ``pixel_density()`` should only be used with hardcoded numbers (in almost all cases this number will be 2) or in combination with ``display_density()`` as in the third example above.
 
@@ -21,7 +27,6 @@ background(0)
 ellipse(30, 48, 36, 36)
 ellipse(70, 48, 36, 36)
 
-
 @@ example
 def setup():
     size(100, 100)
@@ -33,7 +38,6 @@ def draw():
     background(0)
     ellipse(30, 48, 36, 36)
     ellipse(70, 48, 36, 36)
-
 
 @@ example
 def setup():
@@ -47,4 +51,3 @@ def draw():
     background(0)
     ellipse(30, 48, 36, 36)
     ellipse(70, 48, 36, 36)
-

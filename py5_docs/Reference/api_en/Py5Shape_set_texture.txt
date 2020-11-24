@@ -4,6 +4,11 @@ type = method
 pclass = PShape
 processing_name = setTexture
 
+@@ signatures
+set_texture(tex: Py5Image, /) -> None
+
+@@ variables
+tex: Py5Image - missing variable description
+
 @@ description
 new template no description.
-

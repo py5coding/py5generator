@@ -6,6 +6,13 @@ type = method
 pclass = PApplet
 processing_name = smooth
 
+@@ signatures
+smooth() -> None
+smooth(level: int, /) -> None
+
+@@ variables
+level: int - either 2, 3, 4, or 8 depending on the renderer
+
 @@ description
 Draws all geometry with smooth (anti-aliased) edges. This behavior is the default, so ``smooth()`` only needs to be used when a program needs to set the smoothing in a different way. The ``level`` parameter increases the amount of smoothness. This is the level of over sampling applied to the graphics buffer.
 
@@ -29,7 +36,6 @@ def draw():
     ellipse(30, 48, 36, 36)
     ellipse(70, 48, 36, 36)
 
-
 @@ example
 x = 0
 
@@ -44,9 +50,7 @@ def draw():
     ellipse(x, height//2, height/4, height/4)
     x += 1
 
-
 @@ example
-
 x = 0
 
 
@@ -64,4 +68,3 @@ def draw():
     pg.end_draw()
     image(pg, 0, 0)
     x += 1
-

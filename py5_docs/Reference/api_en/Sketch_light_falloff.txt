@@ -6,6 +6,14 @@ type = method
 pclass = PApplet
 processing_name = lightFalloff
 
+@@ signatures
+light_falloff(constant: float, linear: float, quadratic: float, /) -> None
+
+@@ variables
+constant: float - constant value or determining falloff
+linear: float - linear value for determining falloff
+quadratic: float - quadratic value for determining falloff
+
 @@ description
 Sets the falloff rates for point lights, spot lights, and ambient lights. Like ``fill()``, it affects only the elements which are created after it in the code. The default value is ``light_falloff(1.0, 0.0, 0.0)``, and the parameters are used to calculate the falloff with the following equation:
 
@@ -28,4 +36,3 @@ vertex(100, 0, -100)
 vertex(100, 100, -100)
 vertex(0, 100, 0)
 end_shape(CLOSE)
-

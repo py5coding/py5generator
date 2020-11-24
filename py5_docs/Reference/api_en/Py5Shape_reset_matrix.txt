@@ -6,12 +6,13 @@ type = method
 pclass = PShape
 processing_name = resetMatrix
 
+@@ signatures
+reset_matrix() -> None
+
 @@ description
 Replaces the current matrix of a shape with the identity matrix. The equivalent function in OpenGL is ``gl_load_identity()``.
 
 @@ example
-
-
 def setup():
     global s
     size(100, 100)
@@ -28,4 +29,3 @@ def mouse_pressed():
     # removes all transformations applied to shape
     # loads the identity matrix
     s.reset_matrix()
-

@@ -4,6 +4,12 @@ type = method
 category = image
 subcategory = loading_displaying
 
+@@ signatures
+convert_image(obj: Any, dst: Py5Image) -> Py5Image
+
+@@ variables
+dst: Py5Image - missing variable description
+obj: Any - missing variable description
+
 @@ description
 new template no description.
-

@@ -6,6 +6,14 @@ type = method
 pclass = PImage
 processing_name = mask
 
+@@ signatures
+mask(img: Py5Image, /) -> None
+mask(mask_array: JArray(JInt), /) -> None
+
+@@ variables
+img: Py5Image - image to use as the mask
+mask_array: JArray(JInt) - array of integers used as the alpha channel, needs to be the same length as the image's pixel array.
+
 @@ description
 Masks part of an image from displaying by loading another image and using it as an alpha channel. This mask image should only contain grayscale data, but only the blue color channel is used. The mask image needs to be the same size as the image to which it is applied.
 
@@ -13,8 +21,6 @@ In addition to using a mask image, an integer array containing the alpha channel
 
 @@ example
 image = Py5Image_mask_0.png
-
-
 
 def setup():
     global photo
@@ -28,4 +34,3 @@ def setup():
 def draw():
     image(photo, 0, 0)
     image(photo, width/4, 0)
-

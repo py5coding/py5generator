@@ -6,6 +6,22 @@ type = method
 pclass = PImage
 processing_name = blend
 
+@@ signatures
+blend(src: Py5Image, sx: int, sy: int, sw: int, sh: int, dx: int, dy: int, dw: int, dh: int, mode: int, /) -> None
+blend(sx: int, sy: int, sw: int, sh: int, dx: int, dy: int, dw: int, dh: int, mode: int, /) -> None
+
+@@ variables
+dh: int - destination image height
+dw: int - destination image width
+dx: int - X coordinate of the destinations's upper left corner
+dy: int - Y coordinate of the destinations's upper left corner
+mode: int - Either BLEND, ADD, SUBTRACT, LIGHTEST, DARKEST, DIFFERENCE, EXCLUSION, MULTIPLY, SCREEN, OVERLAY, HARD_LIGHT, SOFT_LIGHT, DODGE, BURN
+sh: int - source image height
+src: Py5Image - an image variable referring to the source image
+sw: int - source image width
+sx: int - X coordinate of the source's upper left corner
+sy: int - Y coordinate of the source's upper left corner
+
 @@ description
 Blends a region of pixels into the image specified by the ``img`` parameter. These copies utilize full alpha channel support and a choice of the following modes to blend the colors of source pixels (A) with the ones of pixels in the destination image (B):
 
@@ -54,7 +70,6 @@ mountains.blend(bricks, 0, 0, 33, 100, 67, 0, 33, 100, ADD)
 image(mountains, 0, 0)
 image(bricks, 0, 0)
 
-
 @@ example
 image = Py5Image_blend_1.png
 
@@ -63,7 +78,6 @@ bricks = load_image("bricks.jpg")
 mountains.blend(bricks, 0, 0, 33, 100, 67, 0, 33, 100, SUBTRACT)
 image(mountains, 0, 0)
 image(bricks, 0, 0)
-
 
 @@ example
 image = Py5Image_blend_2.png
@@ -74,7 +88,6 @@ mountains.blend(bricks, 0, 0, 33, 100, 67, 0, 33, 100, DARKEST)
 image(mountains, 0, 0)
 image(bricks, 0, 0)
 
-
 @@ example
 image = Py5Image_blend_3.png
 
@@ -83,4 +96,3 @@ bricks = load_image("bricks.jpg")
 mountains.blend(bricks, 0, 0, 33, 100, 67, 0, 33, 100, LIGHTEST)
 image(mountains, 0, 0)
 image(bricks, 0, 0)
-

@@ -4,6 +4,12 @@ type = method
 pclass = PShape
 processing_name = addName
 
+@@ signatures
+add_name(nom: str, shape: Py5Shape, /) -> None
+
+@@ variables
+nom: str - missing variable description
+shape: Py5Shape - missing variable description
+
 @@ description
 new template no description.
-

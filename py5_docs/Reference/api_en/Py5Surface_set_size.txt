@@ -4,6 +4,12 @@ type = method
 pclass = PSurface
 processing_name = setSize
 
+@@ signatures
+set_size(width: int, height: int, /) -> None
+
+@@ variables
+height: int - missing variable description
+width: int - missing variable description
+
 @@ description
 new template no description.
-

@@ -4,6 +4,14 @@ type = method
 category = output
 subcategory = image
 
+@@ signatures
+save_frame(filename: Union[str, Path], format: str, drop_alpha: bool, params) -> None
+
+@@ variables
+drop_alpha: bool - missing variable description
+filename: Union[str, Path] - missing variable description
+format: str - missing variable description
+params - missing variable description
+
 @@ description
 new template no description.
-

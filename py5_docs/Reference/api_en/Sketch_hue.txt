@@ -6,6 +6,12 @@ type = method
 pclass = PApplet
 processing_name = hue
 
+@@ signatures
+hue(rgb: int, /) -> float
+
+@@ variables
+rgb: int - any value of the color datatype
+
 @@ description
 Extracts the hue value from a color.
 
@@ -20,4 +26,3 @@ rect(15, 20, 35, 60)
 value = hue(c)  # sets 'value' to "0"
 fill(value)
 rect(50, 20, 35, 60)
-

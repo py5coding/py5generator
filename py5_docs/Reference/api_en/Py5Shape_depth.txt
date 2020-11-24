@@ -6,4 +6,3 @@ processing_name = depth
 
 @@ description
 new template no description.
-

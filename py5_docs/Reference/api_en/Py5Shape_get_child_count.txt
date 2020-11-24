@@ -6,16 +6,16 @@ type = method
 pclass = PShape
 processing_name = getChildCount
 
+@@ signatures
+get_child_count() -> int
+
 @@ description
 Returns the number of children within the PShape.
 
 @@ example
-
-
 def setup():
     global states
     size(100, 100)
     states = load_shape("tristate.svg")
     count = states.get_child_count()
     print(count)
-

@@ -6,6 +6,12 @@ type = method
 pclass = PApplet
 processing_name = frameRate
 
+@@ signatures
+frame_rate(fps: float, /) -> None
+
+@@ variables
+fps: float - number of desired frames per second
+
 @@ description
 Specifies the number of frames to be displayed every second. For example, the function call ``frame_rate(30)`` will attempt to refresh 30 times a second. If the processor is not fast enough to maintain the specified rate, the frame rate will not be achieved. Setting the frame rate within ``setup()`` is recommended. The default rate is 60 frames per second.
 
@@ -23,4 +29,3 @@ def draw():
     line(pos, 20, pos, 80)
     if pos > width:
         pos = 0
-

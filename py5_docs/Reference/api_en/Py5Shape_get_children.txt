@@ -4,6 +4,8 @@ type = method
 pclass = PShape
 processing_name = getChildren
 
+@@ signatures
+get_children() -> List[Py5Shape]
+
 @@ description
 new template no description.
-

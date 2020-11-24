@@ -6,6 +6,12 @@ type = method
 pclass = PApplet
 processing_name = green
 
+@@ signatures
+green(rgb: int, /) -> float
+
+@@ variables
+rgb: int - any value of the color datatype
+
 @@ description
 Extracts the green value from a color, scaled to match current ``color_mode()``. The value is always returned as a float, so be careful not to assign it to an int value.
 
@@ -25,4 +31,3 @@ green_value = green(c)  # get green in 'c'
 print(green_value)  # print "75.0"
 fill(0, green_value, 0)  # use 'green_value' in new fill
 rect(50, 20, 35, 60)  # draw right rectangle
-

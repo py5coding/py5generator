@@ -4,6 +4,11 @@ type = method
 category = structure
 subcategory = None
 
+@@ signatures
+profile_functions(function_names: List[str]) -> None
+
+@@ variables
+function_names: List[str] - missing variable description
+
 @@ description
 new template no description.
-

@@ -4,6 +4,8 @@ type = method
 pclass = PShape
 processing_name = getWidth
 
+@@ signatures
+get_width() -> float
+
 @@ description
 new template no description.
-

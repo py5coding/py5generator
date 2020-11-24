@@ -4,6 +4,11 @@ type = method
 pclass = PShape
 processing_name = bezierDetail
 
+@@ signatures
+bezier_detail(detail: int, /) -> None
+
+@@ variables
+detail: int - missing variable description
+
 @@ description
 new template no description.
-

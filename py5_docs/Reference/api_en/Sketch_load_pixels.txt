@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = loadPixels
 
+@@ signatures
+load_pixels() -> None
+
 @@ description
 Loads the pixel data of the current display window into the ``pixels[]`` array. This function must always be called before reading from or writing to ``pixels[]``. Subsequent changes to the display window will not be reflected in ``pixels`` until ``load_pixels()`` is called again.
 
@@ -21,4 +24,3 @@ for i in range(0, half_image):
     pixels[i+half_image] = pixels[i]
 
 update_pixels()
-

@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = endCamera
 
+@@ signatures
+end_camera() -> None
+
 @@ description
 The ``begin_camera()`` and ``end_camera()`` functions enable advanced customization of the camera space. Please see the reference for ``begin_camera()`` for a description of how the functions are used.
 
@@ -23,4 +26,3 @@ end_camera()
 translate(50, 50, 0)
 rotate_y(PI/3)
 box(45)
-

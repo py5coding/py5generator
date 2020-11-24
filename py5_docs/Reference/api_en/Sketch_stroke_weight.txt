@@ -6,6 +6,12 @@ type = method
 pclass = PApplet
 processing_name = strokeWeight
 
+@@ signatures
+stroke_weight(weight: float, /) -> None
+
+@@ variables
+weight: float - the weight (in pixels) of the stroke
+
 @@ description
 Sets the width of the stroke used for lines, points, and the border around shapes. All widths are set in units of pixels.
 
@@ -20,4 +26,3 @@ stroke_weight(4)  # thicker
 line(20, 40, 80, 40)
 stroke_weight(10)  # beastly
 line(20, 70, 80, 70)
-

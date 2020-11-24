@@ -4,6 +4,13 @@ type = method
 pclass = PShape
 processing_name = setEmissive
 
+@@ signatures
+set_emissive(emissive: int, /) -> None
+set_emissive(index: int, emissive: int, /) -> None
+
+@@ variables
+emissive: int - missing variable description
+index: int - missing variable description
+
 @@ description
 new template no description.
-

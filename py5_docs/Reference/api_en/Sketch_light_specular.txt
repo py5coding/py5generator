@@ -6,6 +6,14 @@ type = method
 pclass = PApplet
 processing_name = lightSpecular
 
+@@ signatures
+light_specular(v1: float, v2: float, v3: float, /) -> None
+
+@@ variables
+v1: float - red or hue value (depending on current color mode)
+v2: float - green or saturation value (depending on current color mode)
+v3: float - blue or brightness value (depending on current color mode)
+
 @@ description
 Sets the specular color for lights. Like ``fill()``, it affects only the elements which are created after it in the code. Specular refers to light which bounces off a surface in a preferred direction (rather than bouncing in all directions like a diffuse light) and is used for creating highlights. The specular quality of a light interacts with the specular material qualities set through the ``specular()`` and ``shininess()`` functions.
 
@@ -25,4 +33,3 @@ sphere(30)
 translate(60, 0, 0)
 specular(102, 102, 102)
 sphere(30)
-

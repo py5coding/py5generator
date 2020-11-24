@@ -6,12 +6,20 @@ type = method
 pclass = PShape
 processing_name = setFill
 
+@@ signatures
+set_fill(fill: bool, /) -> None
+set_fill(fill: int, /) -> None
+set_fill(index: int, fill: int, /) -> None
+
+@@ variables
+fill: bool - missing variable description
+fill: int - missing variable description
+index: int - missing variable description
+
 @@ description
 The ``set_fill()`` method defines the fill color of a ``Py5Shape``. This method is used after shapes are created or when a shape is defined explicitly (e.g. ``create_shape(RECT, 20, 20, 80, 80)``) as shown in the above example. When a shape is created with ``begin_shape()`` and ``end_shape()``, its attributes may be changed with ``fill()`` and ``stroke()`` within ``begin_shape()`` and ``end_shape()``. However, after the shape is created, only the ``set_fill()`` method can define a new fill value for the ``Py5Shape``.
 
 @@ example
-
-
 def setup():
     global circle
     size(640, 360, P2D)
@@ -24,4 +32,3 @@ def draw():
     circle.set_fill(color(random(255)))
     translate(mouse_x, mouse_y)
     shape(circle)
-

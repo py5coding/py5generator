@@ -7,12 +7,16 @@ syntax = hint(which)
 parameter = OrderedDict([('label', 'which'), ('description', 'int: the hint mode to use')])
 returns = void
 related = PGraphics
-createGraphics()
-size()
 availability = 1.0
 partof = PDE
 pclass = PApplet
 processing_name = hint
+
+@@ signatures
+hint(which: int, /) -> None
+
+@@ variables
+which: int - missing variable description
 
 @@ description
 This function is used to enable or disable special features that control how graphics are drawn. In the course of developing Processing, we had to make hard decisions about tradeoffs between performance and visual quality. We put significant effort into determining what makes most sense for the largest number of users, and then use functions like ``hint()`` to allow people to tune the settings for their particular sketch. Implementing a ``hint()`` is a last resort that's used when a more elegant solution cannot be found. Some options might graduate to standard features instead of hints over time, or be added and removed between (major) releases.
@@ -67,4 +71,3 @@ def draw():
     box(60)
     pop_matrix()
     line(10, 100, 190, 100)
-

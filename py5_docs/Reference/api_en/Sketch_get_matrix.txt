@@ -6,6 +6,14 @@ processing_name = getMatrix
 category = transform
 subcategory = None
 
+@@ signatures
+get_matrix() -> NDArray[(Any, Any), Float]
+get_matrix(target: NDArray[(2, 3), Float], /) -> NDArray[(2, 3), Float]
+get_matrix(target: NDArray[(4, 4), Float], /) -> NDArray[(4, 4), Float]
+
+@@ variables
+target: NDArray[(2, 3), Float] - missing variable description
+target: NDArray[(4, 4), Float] - missing variable description
+
 @@ description
 new template no description.
-

@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = exit
 
+@@ signatures
+exit_sketch() -> None
+
 @@ description
 Quits/stops/exits the program. Programs without a ``draw()`` function stop automatically after the last line has run, but programs with ``draw()`` run continuously until the program is manually stopped or ``exit()`` is run.
 
@@ -20,4 +23,3 @@ def draw():
 
 def mouse_pressed():
     exit()
-

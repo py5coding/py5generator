@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = hour
 
+@@ signatures
+hour() -> int
+
 @@ description
 Processing communicates with the clock on your computer. The ``hour()`` function returns the current hour as a value from 0 - 23.
 
@@ -18,4 +21,3 @@ def draw():
     line(s, 0, s, 33)
     line(m, 33, m, 66)
     line(h, 66, h, 100)
-

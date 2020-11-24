@@ -4,6 +4,11 @@ type = method
 category = math
 subcategory = random
 
+@@ signatures
+noise_seed(seed: float) -> None
+
+@@ variables
+seed: float - seed value
+
 @@ description
 new template no description.
-

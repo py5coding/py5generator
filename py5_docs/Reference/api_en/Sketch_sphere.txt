@@ -6,6 +6,12 @@ type = method
 pclass = PApplet
 processing_name = sphere
 
+@@ signatures
+sphere(r: float, /) -> None
+
+@@ variables
+r: float - the radius of the sphere
+
 @@ description
 A sphere is a hollow ball made from tessellated triangles.
 
@@ -16,4 +22,3 @@ no_stroke()
 lights()
 translate(58, 48, 0)
 sphere(28)
-

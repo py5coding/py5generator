@@ -4,6 +4,12 @@ type = method
 category = image
 subcategory = loading_displaying
 
+@@ signatures
+create_image_from_numpy(numpy_image: NumpyImageArray, dst: Py5Image) -> Py5Image
+
+@@ variables
+dst: Py5Image - missing variable description
+numpy_image: NumpyImageArray - missing variable description
+
 @@ description
 new template no description.
-

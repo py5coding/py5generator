@@ -4,6 +4,14 @@ type = method
 pclass = PShape
 processing_name = attribPosition
 
+@@ signatures
+attrib_position(name: str, x: float, y: float, z: float, /) -> None
+
+@@ variables
+name: str - missing variable description
+x: float - missing variable description
+y: float - missing variable description
+z: float - missing variable description
+
 @@ description
 new template no description.
-

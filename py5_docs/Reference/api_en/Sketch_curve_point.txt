@@ -6,6 +6,16 @@ type = method
 pclass = PApplet
 processing_name = curvePoint
 
+@@ signatures
+curve_point(a: float, b: float, c: float, d: float, t: float, /) -> float
+
+@@ variables
+a: float - coordinate of first control point
+b: float - coordinate of first point on the curve
+c: float - coordinate of second point on the curve
+d: float - coordinate of second control point
+t: float - value between 0 and 1
+
 @@ description
 Evaluates the curve at point ``t`` for points ``a``, ``b``, ``c``, ``d``. The parameter ``t`` may range from 0 (the start of the curve) and 1 (the end of the curve). ``a`` and ``d`` are the control points, and ``b`` and ``c`` are points on the curve. As seen in the example above, this can be used once with the ``x`` coordinates and a second time with the ``y`` coordinates to get the location of a curve at ``t``.
 
@@ -26,4 +36,3 @@ for i in range(0, steps + 1):
     x = curve_point(5, 73, 73, 15, t)
     y = curve_point(26, 24, 61, 65, t)
     ellipse(x, y, 5, 5)
-

@@ -6,6 +6,12 @@ type = method
 pclass = PShape
 processing_name = rotateZ
 
+@@ signatures
+rotate_z(angle: float, /) -> None
+
+@@ variables
+angle: float - angle of rotation specified in radians
+
 @@ description
 Rotates the shape around the z-axis the amount specified by the ``angle`` parameter. Angles should be specified in radians (values from 0 to TWO_PI) or converted from degrees to radians with the ``radians()`` method.
 
@@ -14,8 +20,6 @@ Shapes are always rotated around the upper-left corner of their bounding box. Po
 This method requires a 3D renderer. You need to use P3D as a third parameter for the ``size()`` function as shown in the example above.
 
 @@ example
-
-
 def setup():
     global s
     size(100, 100, P3D)
@@ -30,4 +34,3 @@ def draw():
 def mouse_pressed():
     # rotate the shape around the z-axis each time the mouse is pressed
     s.rotate_z(0.1)
-

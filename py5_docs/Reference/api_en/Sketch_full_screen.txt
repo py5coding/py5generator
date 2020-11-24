@@ -6,6 +6,16 @@ type = method
 pclass = PApplet
 processing_name = fullScreen
 
+@@ signatures
+full_screen() -> None
+full_screen(display: int, /) -> None
+full_screen(renderer: str, /) -> None
+full_screen(renderer: str, display: int, /) -> None
+
+@@ variables
+display: int - the screen to run the sketch on (1, 2, 3, etc. or on multiple screens using SPAN)
+renderer: str - the renderer to use, e.g. P2D, P3D, JAVA2D (default)
+
 @@ description
 This function is new for Processing 3.0. It opens a sketch using the full size of the computer's display. This function must be the first line in ``setup()``. The ``size()`` and ``full_screen()`` functions cannot both be used in the same program, just choose one.
 
@@ -31,7 +41,6 @@ def draw():
     rect(x, height*0.2, 1, height*0.6)
     x = x + 2
 
-
 @@ example
 # if more than one screen is attached to the computer, run the
 # code at the full dimensions on the screen defined by the
@@ -51,7 +60,6 @@ def draw():
     rect(x, height*0.2, 1, height*0.6)
     x = x + 2
 
-
 @@ example
 # run full screen using the P2D renderer on screen 2
 
@@ -68,7 +76,6 @@ def setup():
 def draw():
     rect(x, height*0.2, 1, height*0.6)
     x = x + 2
-
 
 @@ example
 # if more than one screen is attached to the computer, run the
@@ -87,4 +94,3 @@ def setup():
 def draw():
     rect(x, height*0.2, 1, height*0.6)
     x = x + 2
-

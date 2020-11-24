@@ -4,6 +4,11 @@ type = method
 category = structure
 subcategory = threading
 
+@@ signatures
+has_thread(name: str) -> None
+
+@@ variables
+name: str - missing variable description
+
 @@ description
 new template no description.
-

@@ -4,6 +4,12 @@ type = method
 category = input
 subcategory = files
 
+@@ signatures
+load_json(filename: Union[str, Path], kwargs: Dict[str, Any]) -> Any
+
+@@ variables
+filename: Union[str, Path] - missing variable description
+kwargs: Dict[str, Any] - missing variable description
+
 @@ description
 new template no description.
-

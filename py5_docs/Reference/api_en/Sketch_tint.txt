@@ -6,6 +6,22 @@ type = method
 pclass = PApplet
 processing_name = tint
 
+@@ signatures
+tint(gray: float, /) -> None
+tint(gray: float, alpha: float, /) -> None
+tint(rgb: int, /) -> None
+tint(rgb: int, alpha: float, /) -> None
+tint(v1: float, v2: float, v3: float, /) -> None
+tint(v1: float, v2: float, v3: float, alpha: float, /) -> None
+
+@@ variables
+alpha: float - opacity of the image
+gray: float - specifies a value between white and black
+rgb: int - color value in hexadecimal notation
+v1: float - red or hue value (depending on current color mode)
+v2: float - green or saturation value (depending on current color mode)
+v3: float - blue or brightness value (depending on current color mode)
+
 @@ description
 Sets the fill value for displaying images. Images can be tinted to specified colors or made transparent by including an alpha value. 
 
@@ -20,29 +36,23 @@ The ``tint()`` function is also used to control the coloring of textures in 3D.
 @@ example
 image = Sketch_tint_0.png
 
-
 img = load_image("laDefense.jpg")
 image(img, 0, 0)
 tint(0, 153, 204)  # tint blue
 image(img, 50, 0)
 
-
 @@ example
 image = Sketch_tint_1.png
-
 
 img = load_image("laDefense.jpg")
 image(img, 0, 0)
 tint(0, 153, 204, 126)  # tint blue and set transparency
 image(img, 50, 0)
 
-
 @@ example
 image = Sketch_tint_2.png
-
 
 img = load_image("laDefense.jpg")
 image(img, 0, 0)
 tint(255, 126)  # apply transparency without changing color
 image(img, 50, 0)
-

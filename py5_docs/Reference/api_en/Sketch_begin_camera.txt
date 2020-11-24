@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = beginCamera
 
+@@ signatures
+begin_camera() -> None
+
 @@ description
 The ``begin_camera()`` and ``end_camera()`` functions enable advanced customization of the camera space. The functions are useful if you want to more control over camera movement, however for most users, the ``camera()`` function will be sufficient.The camera functions will replace any transformations (such as ``rotate()`` or ``translate()``) that occur before them in ``draw()``, but they will not automatically replace the camera transform itself. For this reason, camera functions should be placed at the beginning of ``draw()`` (so that transformations happen afterwards), and the ``camera()`` function can be used after ``begin_camera()`` if you want to reset the camera before applying transformations.This function sets the matrix mode to the camera matrix so calls such as ``translate()``, ``rotate()``, ``apply_matrix()`` and ``reset_matrix()`` affect the camera. ``begin_camera()`` should always be used with a following ``end_camera()`` and pairs of ``begin_camera()`` and ``end_camera()`` cannot be nested.
 
@@ -23,4 +26,3 @@ end_camera()
 translate(50, 50, 0)
 rotate_y(PI/3)
 box(45)
-

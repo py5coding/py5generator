@@ -6,6 +6,16 @@ type = method
 pclass = PApplet
 processing_name = updatePixels
 
+@@ signatures
+update_pixels() -> None
+update_pixels(x1: int, y1: int, x2: int, y2: int, /) -> None
+
+@@ variables
+x1: int - x-coordinate of the upper-left corner
+x2: int - width of the region
+y1: int - y-coordinate of the upper-left corner
+y2: int - height of the region
+
 @@ description
 Updates the display window with the data in the ``pixels[]`` array. Use in conjunction with ``load_pixels()``. If you're only reading pixels from the array, there's no need to call ``update_pixels()`` — updating is only necessary to apply changes.
 
@@ -20,4 +30,3 @@ for i in range(0, half_image):
     pixels[i+half_image] = pixels[i]
 
 update_pixels()
-

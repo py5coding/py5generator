@@ -6,6 +6,8 @@ processing_name = isMousePressed
 category = input
 subcategory = mouse
 
+@@ signatures
+is_mouse_pressed() -> bool
+
 @@ description
 new template no description.
-

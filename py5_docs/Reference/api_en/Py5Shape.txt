@@ -14,8 +14,6 @@ The ``Py5Shape`` object contains a group of methods that can operate on the shap
 To create a new shape, use the ``create_shape()`` function. Do not use the syntax ``new Py5Shape()``.
 
 @@ example
-
-
 def setup():
     global s
     size(100, 100)
@@ -27,10 +25,7 @@ def setup():
 def draw():
     shape(s, 10, 10, 80, 80)
 
-
 @@ example
-
-
 def setup():
     global square  # the Py5Shape object
     size(100, 100)
@@ -41,4 +36,3 @@ def setup():
 
 def draw():
     shape(square, 10, 10)
-

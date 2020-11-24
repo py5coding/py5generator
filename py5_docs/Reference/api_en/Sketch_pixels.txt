@@ -20,4 +20,3 @@ for i in range(0, (width*height//2)-width//2):
     pixels[i] = pink
 
 update_pixels()
-

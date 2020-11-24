@@ -6,6 +6,8 @@ processing_name = noTexture
 category = image
 subcategory = textures
 
+@@ signatures
+no_texture() -> None
+
 @@ description
 new template no description.
-

@@ -16,7 +16,6 @@ def setup():
     print(width, height)
     print(pixel_width, pixel_height)
 
-
 @@ example
 def setup():
     size(600, 400)
@@ -41,4 +40,3 @@ def draw():
 
     update_pixels()
     no_loop()
-

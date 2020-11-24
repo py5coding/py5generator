@@ -4,6 +4,8 @@ type = method
 pclass = PShape
 processing_name = getParent
 
+@@ signatures
+get_parent() -> Py5Shape
+
 @@ description
 new template no description.
-

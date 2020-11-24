@@ -6,6 +6,12 @@ type = method
 pclass = PApplet
 processing_name = rectMode
 
+@@ signatures
+rect_mode(mode: int, /) -> None
+
+@@ variables
+mode: int - either CORNER, CORNERS, CENTER, or RADIUS
+
 @@ description
 Modifies the location from which rectangles are drawn by changing the way in which parameters given to ``rect()`` are intepreted.
 
@@ -30,7 +36,6 @@ rect_mode(CORNERS)  # set rect_mode to CORNERS
 fill(100)  # set fill to gray
 rect(25, 25, 50, 50)  # draw gray rect using CORNERS mode
 
-
 @@ example
 image = Sketch_rect_mode_1.png
 
@@ -41,4 +46,3 @@ rect(50, 50, 30, 30)  # draw white rect using RADIUS mode
 rect_mode(CENTER)  # set rect_mode to CENTER
 fill(100)  # set fill to gray
 rect(50, 50, 30, 30)  # draw gray rect using CENTER mode
-

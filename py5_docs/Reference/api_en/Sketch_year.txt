@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = year
 
+@@ signatures
+year() -> int
+
 @@ description
 Processing communicates with the clock on your computer. The ``year()`` function returns the current year as an integer (2003, 2004, 2005, etc).
 
@@ -20,4 +23,3 @@ s = string.value_of(m)
 text(s, 10, 56)
 s = string.value_of(y)
 text(s, 10, 84)
-

@@ -4,6 +4,11 @@ type = method
 pclass = PShape
 processing_name = getNormalY
 
+@@ signatures
+get_normal_y(index: int, /) -> float
+
+@@ variables
+index: int - missing variable description
+
 @@ description
 new template no description.
-

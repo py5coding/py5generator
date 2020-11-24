@@ -4,6 +4,8 @@ type = method
 pclass = PFont
 processing_name = getSize
 
+@@ signatures
+get_size() -> int
+
 @@ description
 new template no description.
-

@@ -4,6 +4,8 @@ type = method
 pclass = PSurface
 processing_name = getNative
 
+@@ signatures
+get_native() -> Any
+
 @@ description
 new template no description.
-

@@ -4,6 +4,8 @@ type = method
 pclass = PShape
 processing_name = getTessellation
 
+@@ signatures
+get_tessellation() -> Py5Shape
+
 @@ description
 new template no description.
-

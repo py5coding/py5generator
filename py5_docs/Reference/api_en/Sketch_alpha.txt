@@ -6,6 +6,12 @@ type = method
 pclass = PApplet
 processing_name = alpha
 
+@@ signatures
+alpha(rgb: int, /) -> float
+
+@@ variables
+rgb: int - any value of the color datatype
+
 @@ description
 Extracts the alpha value from a color.
 
@@ -19,4 +25,3 @@ rect(15, 15, 35, 70)
 value = alpha(c)  # sets 'value' to 102
 fill(value)
 rect(50, 15, 35, 70)
-

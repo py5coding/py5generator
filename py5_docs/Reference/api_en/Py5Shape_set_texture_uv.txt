@@ -4,6 +4,13 @@ type = method
 pclass = PShape
 processing_name = setTextureUV
 
+@@ signatures
+set_texture_uv(index: int, u: float, v: float, /) -> None
+
+@@ variables
+index: int - missing variable description
+u: float - missing variable description
+v: float - missing variable description
+
 @@ description
 new template no description.
-

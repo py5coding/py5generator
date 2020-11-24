@@ -6,16 +6,17 @@ type = method
 pclass = PApplet
 processing_name = noTint
 
+@@ signatures
+no_tint() -> None
+
 @@ description
 Removes the current fill value for displaying images and reverts to displaying images with their original hues.
 
 @@ example
 image = Sketch_no_tint_0.png
 
-
 img = load_image("laDefense.jpg")
 tint(0, 153, 204)  # tint blue
 image(img, 0, 0)
 no_tint()  # disable tint
 image(img, 50, 0)
-

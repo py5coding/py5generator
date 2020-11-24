@@ -6,13 +6,14 @@ type = method
 pclass = PImage
 processing_name = loadPixels
 
+@@ signatures
+load_pixels() -> None
+
 @@ description
 Loads the pixel data for the image into its ``pixels[]`` array. This function must always be called before reading from or writing to ``pixels[]``.
 
 @@ example
 image = Py5Image_load_pixels_0.png
-
-
 
 def setup():
     global my_image
@@ -29,4 +30,3 @@ def setup():
 
 def draw():
     image(my_image, 0, 0)
-

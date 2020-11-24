@@ -4,6 +4,11 @@ type = method
 category = math
 subcategory = calculation
 
+@@ signatures
+floor(value: float) -> int
+
+@@ variables
+value: float - missing variable description
+
 @@ description
 new template no description.
-

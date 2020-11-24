@@ -6,6 +6,19 @@ type = method
 pclass = PApplet
 processing_name = ortho
 
+@@ signatures
+ortho() -> None
+ortho(left: float, right: float, bottom: float, top: float, /) -> None
+ortho(left: float, right: float, bottom: float, top: float, near: float, far: float, /) -> None
+
+@@ variables
+bottom: float - bottom plane of the clipping volume
+far: float - maximum distance from the origin away from the viewer
+left: float - left plane of the clipping volume
+near: float - maximum distance from the origin to the viewer
+right: float - right plane of the clipping volume
+top: float - top plane of the clipping volume
+
 @@ description
 Sets an orthographic projection and defines a parallel clipping volume. All objects with the same dimension appear the same size, regardless of whether they are near or far from the camera. The parameters to this function specify the clipping volume where left and right are the minimum and maximum x values, top and bottom are the minimum and maximum y values, and near and far are the minimum and maximum z values. If no parameters are given, the default is used: ortho(-width/2, width/2, -height/2, height/2).
 
@@ -19,4 +32,3 @@ translate(width//2, height//2, 0)
 rotate_x(-PI/6)
 rotate_y(PI/3)
 box(45)
-

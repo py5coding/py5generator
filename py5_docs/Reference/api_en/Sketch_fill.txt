@@ -6,6 +6,22 @@ type = method
 pclass = PApplet
 processing_name = fill
 
+@@ signatures
+fill(gray: float, /) -> None
+fill(gray: float, alpha: float, /) -> None
+fill(rgb: int, /) -> None
+fill(rgb: int, alpha: float, /) -> None
+fill(v1: float, v2: float, v3: float, /) -> None
+fill(v1: float, v2: float, v3: float, alpha: float, /) -> None
+
+@@ variables
+alpha: float - opacity of the fill
+gray: float - number specifying value between white and black
+rgb: int - color variable or hex value
+v1: float - red or hue value (depending on current color mode)
+v2: float - green or saturation value (depending on current color mode)
+v3: float - blue or brightness value (depending on current color mode)
+
 @@ description
 Sets the color used to fill shapes. For example, if you run ``fill(204, 102, 0)``, all subsequent shapes will be filled with orange. This color is either specified in terms of the RGB or HSB color depending on the current ``color_mode()``. The default color space is RGB, with each value in the range from 0 to 255.
 
@@ -21,10 +37,8 @@ image = Sketch_fill_0.png
 fill(153)
 rect(30, 20, 55, 55)
 
-
 @@ example
 image = Sketch_fill_1.png
 
 fill(204, 102, 0)
 rect(30, 20, 55, 55)
-

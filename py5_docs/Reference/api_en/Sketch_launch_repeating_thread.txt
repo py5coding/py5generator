@@ -4,6 +4,16 @@ type = method
 category = structure
 subcategory = threading
 
+@@ signatures
+launch_repeating_thread(f: Callable, name: str, time_delay: float, daemon: bool, args: Tuple, kwargs: Dict) -> str
+
+@@ variables
+args: Tuple - missing variable description
+daemon: bool - missing variable description
+f: Callable - missing variable description
+kwargs: Dict - missing variable description
+name: str - missing variable description
+time_delay: float - missing variable description
+
 @@ description
 new template no description.
-

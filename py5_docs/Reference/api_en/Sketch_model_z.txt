@@ -6,6 +6,14 @@ type = method
 pclass = PApplet
 processing_name = modelZ
 
+@@ signatures
+model_z(x: float, y: float, z: float, /) -> float
+
+@@ variables
+x: float - 3D x-coordinate to be mapped
+y: float - 3D y-coordinate to be mapped
+z: float - 3D z-coordinate to be mapped
+
 @@ description
 Returns the three-dimensional X, Y, Z position in model space. This returns the Z value for a given coordinate based on the current set of transformations (scale, rotate, translate, etc.) The Z value can be used to place an object in space relative to the location of the original point once the transformations are no longer in use.
 
@@ -48,4 +56,3 @@ def draw():
     stroke(255, 0, 0)
     box(50)
     pop_matrix()
-

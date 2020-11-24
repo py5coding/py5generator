@@ -6,6 +6,8 @@ processing_name = getFrameRate
 category = environment
 subcategory = None
 
+@@ signatures
+get_frame_rate() -> float
+
 @@ description
 new template no description.
-

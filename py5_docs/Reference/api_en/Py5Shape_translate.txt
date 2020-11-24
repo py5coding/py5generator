@@ -6,14 +6,21 @@ type = method
 pclass = PShape
 processing_name = translate
 
+@@ signatures
+translate(x: float, y: float, /) -> None
+translate(x: float, y: float, z: float, /) -> None
+
+@@ variables
+x: float - left/right translation
+y: float - up/down translation
+z: float - forward/back translation
+
 @@ description
 Specifies an amount to displace the shape. The ``x`` parameter specifies left/right translation, the ``y`` parameter specifies up/down translation, and the ``z`` parameter specifies translations toward/away from the screen. Subsequent calls to the method accumulates the effect. For example, calling ``translate(50, 0)`` and then ``translate(20, 0)`` is the same as ``translate(70, 0)``. This transformation is applied directly to the shape, it's not refreshed each time ``draw()`` is run. 
 
 Using this method with the ``z`` parameter requires using the P3D parameter in combination with size.
 
 @@ example
-
-
 def setup():
     global s
     s = load_shape("bot.svg")
@@ -27,4 +34,3 @@ def draw():
 def mouse_pressed():
     # move the shape 10 pixels right each time the mouse is pressed
     s.translate(10, 0)
-

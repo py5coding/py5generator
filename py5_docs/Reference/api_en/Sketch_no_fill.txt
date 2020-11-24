@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = noFill
 
+@@ signatures
+no_fill() -> None
+
 @@ description
 Disables filling geometry. If both ``no_stroke()`` and ``no_fill()`` are called, nothing will be drawn to the screen.
 
@@ -15,4 +18,3 @@ image = Sketch_no_fill_0.png
 rect(15, 10, 55, 55)
 no_fill()
 rect(30, 20, 55, 55)
-

@@ -6,13 +6,14 @@ type = method
 pclass = PShape
 processing_name = enableStyle
 
+@@ signatures
+enable_style() -> None
+
 @@ description
 Enables the shape's style data and ignores Processing's current styles. Styles include attributes such as colors, stroke weight, and stroke joints.
 
 @@ example
 image = Py5Shape_enable_style_0.png
-
-
 
 def setup():
     global s
@@ -26,4 +27,3 @@ def draw():
     shape(s, -30, 10, 80, 80)
     s.enable_style()
     shape(s, 50, 10, 80, 80)
-

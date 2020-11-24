@@ -16,8 +16,6 @@ To create a new image, use the ``create_image()`` function. Do not use the synta
 @@ example
 image = Py5Image_0.png
 
-
-
 def setup():
     global photo
     size(100, 100)
@@ -26,4 +24,3 @@ def setup():
 
 def draw():
     image(photo, 0, 0)
-

@@ -4,6 +4,11 @@ type = method
 pclass = PSurface
 processing_name = setIcon
 
+@@ signatures
+set_icon(icon: Py5Image, /) -> None
+
+@@ variables
+icon: Py5Image - missing variable description
+
 @@ description
 new template no description.
-

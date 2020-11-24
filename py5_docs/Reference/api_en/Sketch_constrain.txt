@@ -4,6 +4,13 @@ type = method
 category = math
 subcategory = calculation
 
+@@ signatures
+constrain(amt: float, low: float, high: float) -> float
+
+@@ variables
+amt: float - missing variable description
+high: float - missing variable description
+low: float - missing variable description
+
 @@ description
 new template no description.
-

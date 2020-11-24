@@ -4,6 +4,17 @@ type = method
 pclass = PShape
 processing_name = setAttrib
 
+@@ signatures
+set_attrib(name: str, index: int, /, *values: bool) -> None
+set_attrib(name: str, index: int, /, *values: float) -> None
+set_attrib(name: str, index: int, /, *values: int) -> None
+
+@@ variables
+index: int - missing variable description
+name: str - missing variable description
+values: bool - missing variable description
+values: float - missing variable description
+values: int - missing variable description
+
 @@ description
 new template no description.
-

@@ -6,6 +6,12 @@ type = method
 pclass = PApplet
 processing_name = blendMode
 
+@@ signatures
+blend_mode(mode: int, /) -> None
+
+@@ variables
+mode: int - the blending mode to use
+
 @@ description
 Blends the pixels in the display window according to a defined mode. There is a choice of the following modes to blend the source pixels (A) with the ones of pixels already in the display window (B). Each pixel's final color is the result of applying one of the blend modes with each channel of (A) and (B) independently. The red channel is compared with red, green with green, and blue with blue.
 
@@ -40,7 +46,6 @@ stroke_weight(30)
 line(25, 25, 75, 75)
 line(75, 25, 25, 75)
 
-
 @@ example
 size(100, 100, P2D)
 blend_mode(MULTIPLY)
@@ -48,4 +53,3 @@ stroke(51)
 stroke_weight(30)
 line(25, 25, 75, 75)
 line(75, 25, 25, 75)
-

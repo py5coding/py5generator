@@ -6,14 +6,18 @@ type = method
 pclass = PShape
 processing_name = setVisible
 
+@@ signatures
+set_visible(visible: bool, /) -> None
+
+@@ variables
+visible: bool - "false" makes the shape invisible and "true" makes it visible
+
 @@ description
 Sets the shape to be visible or invisible. This is determined by the value of the ``visible`` parameter.
 
 The default visibility of a shape is usually controlled by whatever program created the SVG file. For instance, this parameter is controlled by showing or hiding the shape in the layers palette in Adobe Illustrator.
 
 @@ example
-
-
 def setup():
     global s
     size(100, 100)
@@ -29,4 +33,3 @@ def draw():
     if s.is_visible() == False:  # or use: "if (!s.isVisible)"
         no_fill()
         rect(10, 10, 80, 80)
-

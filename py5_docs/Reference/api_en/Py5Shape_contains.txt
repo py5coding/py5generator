@@ -4,6 +4,12 @@ type = method
 pclass = PShape
 processing_name = contains
 
+@@ signatures
+contains(x: float, y: float, /) -> bool
+
+@@ variables
+x: float - missing variable description
+y: float - missing variable description
+
 @@ description
 new template no description.
-

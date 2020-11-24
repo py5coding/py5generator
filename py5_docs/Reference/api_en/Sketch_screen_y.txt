@@ -6,6 +6,15 @@ type = method
 pclass = PApplet
 processing_name = screenY
 
+@@ signatures
+screen_y(x: float, y: float, /) -> float
+screen_y(x: float, y: float, z: float, /) -> float
+
+@@ variables
+x: float - 3D x-coordinate to be mapped
+y: float - 3D y-coordinate to be mapped
+z: float - 3D z-coordinate to be mapped
+
 @@ description
 Takes a three-dimensional X, Y, Z position and returns the Y value for where it will appear on a (two-dimensional) screen.
 
@@ -36,4 +45,3 @@ def draw():
     stroke(0)
     the_y = screen_y(x, y, z)
     line(0, the_y, 0, width, the_y, 0)
-

@@ -4,6 +4,8 @@ type = method
 pclass = PFont
 processing_name = isStream
 
+@@ signatures
+is_stream() -> bool
+
 @@ description
 new template no description.
-

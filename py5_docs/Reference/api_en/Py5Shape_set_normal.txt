@@ -4,6 +4,14 @@ type = method
 pclass = PShape
 processing_name = setNormal
 
+@@ signatures
+set_normal(index: int, nx: float, ny: float, nz: float, /) -> None
+
+@@ variables
+index: int - missing variable description
+nx: float - missing variable description
+ny: float - missing variable description
+nz: float - missing variable description
+
 @@ description
 new template no description.
-

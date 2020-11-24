@@ -6,6 +6,12 @@ type = method
 pclass = PApplet
 processing_name = ellipseMode
 
+@@ signatures
+ellipse_mode(mode: int, /) -> None
+
+@@ variables
+mode: int - either CENTER, RADIUS, CORNER, or CORNERS
+
 @@ description
 Modifies the location from which ellipses are drawn by changing the way in which parameters given to ``ellipse()`` are intepreted.
 
@@ -30,7 +36,6 @@ ellipse_mode(CENTER)  # set ellipse_mode to CENTER
 fill(100)  # set fill to gray
 ellipse(50, 50, 30, 30)  # draw gray ellipse using CENTER mode
 
-
 @@ example
 image = Sketch_ellipse_mode_1.png
 
@@ -41,4 +46,3 @@ ellipse(25, 25, 50, 50)  # draw white ellipse using CORNER mode
 ellipse_mode(CORNERS)  # set ellipse_mode to CORNERS
 fill(100)  # set fill to gray
 ellipse(25, 25, 50, 50)  # draw gray ellipse using CORNERS mode
-

@@ -4,6 +4,8 @@ type = method
 pclass = PShape
 processing_name = getFamily
 
+@@ signatures
+get_family() -> int
+
 @@ description
 new template no description.
-

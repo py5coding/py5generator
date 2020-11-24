@@ -6,6 +6,12 @@ type = method
 pclass = PApplet
 processing_name = blue
 
+@@ signatures
+blue(rgb: int, /) -> float
+
+@@ variables
+rgb: int - any value of the color datatype
+
 @@ description
 Extracts the blue value from a color, scaled to match current ``color_mode()``. The value is always returned as a float, so be careful not to assign it to an int value.
 
@@ -25,4 +31,3 @@ blue_value = blue(c)  # get blue in 'c'
 print(blue_value)  # prints "220.0"
 fill(0, 0, blue_value)  # use 'blue_value' in new fill
 rect(50, 20, 35, 60)  # draw right rectangle
-

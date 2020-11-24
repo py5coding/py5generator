@@ -4,6 +4,11 @@ type = method
 category = math
 subcategory = random
 
+@@ signatures
+random_seed(seed: int) -> None
+
+@@ variables
+seed: int - seed value
+
 @@ description
 new template no description.
-

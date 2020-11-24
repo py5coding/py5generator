@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = loop
 
+@@ signatures
+loop() -> None
+
 @@ description
 By default, Processing loops through ``draw()`` continuously, executing the code within it. However, the ``draw()`` loop may be stopped by calling ``no_loop()``. In that case, the ``draw()`` loop can be resumed with ``loop()``.
 
@@ -33,4 +36,3 @@ def mouse_pressed():
 
 def mouse_released():
     no_loop()  # releasing the mouse stops looping draw()
-

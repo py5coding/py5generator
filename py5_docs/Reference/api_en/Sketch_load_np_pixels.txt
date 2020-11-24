@@ -4,6 +4,8 @@ type = method
 category = image
 subcategory = pixels
 
+@@ signatures
+load_np_pixels() -> None
+
 @@ description
 new template no description.
-

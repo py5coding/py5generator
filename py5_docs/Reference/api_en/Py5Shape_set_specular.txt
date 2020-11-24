@@ -4,6 +4,13 @@ type = method
 pclass = PShape
 processing_name = setSpecular
 
+@@ signatures
+set_specular(index: int, specular: int, /) -> None
+set_specular(specular: int, /) -> None
+
+@@ variables
+index: int - missing variable description
+specular: int - missing variable description
+
 @@ description
 new template no description.
-

@@ -10,12 +10,9 @@ processing_name = width
 The width of the PShape document.
 
 @@ example
-
-
 def setup():
     global s
     # the file "bot.svg" must be in the data folder
     # of the current sketch to load successfully
     s = load_shape("bot.svg")
     print(s.width)  # prints "281.0", the width of the shape
-

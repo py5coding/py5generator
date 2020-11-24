@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = noCursor
 
+@@ signatures
+no_cursor() -> None
+
 @@ description
 Hides the cursor from view. Will not work when running the program in a web browser or in full screen (Present) mode.
 
@@ -16,4 +19,3 @@ def draw():
         no_cursor()
     else:
         cursor(HAND)
-

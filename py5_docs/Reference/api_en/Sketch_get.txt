@@ -6,6 +6,17 @@ type = method
 pclass = PApplet
 processing_name = get
 
+@@ signatures
+get() -> Py5Image
+get(x: int, y: int, /) -> int
+get(x: int, y: int, w: int, h: int, /) -> Py5Image
+
+@@ variables
+h: int - height of pixel rectangle to get
+w: int - width of pixel rectangle to get
+x: int - x-coordinate of the pixel
+y: int - y-coordinate of the pixel
+
 @@ description
 Reads the color of any pixel or grabs a section of an image. If no parameters are specified, the entire image is returned. Use the ``x`` and ``y`` parameters to get the value of one pixel. Get a section of the display window by specifying additional ``w`` and ``h`` parameters. When getting an image, the ``x`` and ``y`` parameters define the coordinates for the upper-left corner of the image, regardless of the current ``image_mode()``.
 
@@ -23,7 +34,6 @@ image(my_image, 0, 0)
 c = get()
 image(c, width//2, 0)
 
-
 @@ example
 image = Sketch_get_1.png
 
@@ -33,4 +43,3 @@ c = get(25, 25)
 fill(c)
 no_stroke()
 rect(25, 25, 50, 50)
-

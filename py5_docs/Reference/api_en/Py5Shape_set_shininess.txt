@@ -4,6 +4,13 @@ type = method
 pclass = PShape
 processing_name = setShininess
 
+@@ signatures
+set_shininess(index: int, shine: float, /) -> None
+set_shininess(shine: float, /) -> None
+
+@@ variables
+index: int - missing variable description
+shine: float - missing variable description
+
 @@ description
 new template no description.
-

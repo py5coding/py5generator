@@ -4,6 +4,8 @@ type = method
 pclass = PSurface
 processing_name = isStopped
 
+@@ signatures
+is_stopped() -> bool
+
 @@ description
 new template no description.
-

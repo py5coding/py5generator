@@ -4,6 +4,11 @@ type = method
 category = image
 subcategory = loading_displaying
 
+@@ signatures
+request_image(filename: Union[str, Path]) -> Py5Promise
+
+@@ variables
+filename: Union[str, Path] - missing variable description
+
 @@ description
 new template no description.
-

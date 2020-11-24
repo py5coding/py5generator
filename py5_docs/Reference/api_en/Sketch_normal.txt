@@ -6,6 +6,14 @@ type = method
 pclass = PApplet
 processing_name = normal
 
+@@ signatures
+normal(nx: float, ny: float, nz: float, /) -> None
+
+@@ variables
+nx: float - x direction
+ny: float - y direction
+nz: float - z direction
+
 @@ description
 Sets the current normal vector. Used for drawing three dimensional shapes and surfaces, ``normal()`` specifies a vector perpendicular to a shape's surface which, in turn, determines how lighting affects it. Processing attempts to automatically assign normals to shapes, but since that's imperfect, this is a better option when you want more control. This function is identical to ``gl_normal3f()`` in OpenGL.
 
@@ -23,4 +31,3 @@ vertex(80, 20, 10)
 vertex(80, 80, -10)
 vertex(20, 80, 10)
 end_shape(CLOSE)
-

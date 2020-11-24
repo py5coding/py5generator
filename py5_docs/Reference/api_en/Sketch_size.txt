@@ -6,6 +6,17 @@ type = method
 pclass = PApplet
 processing_name = size
 
+@@ signatures
+size(width: int, height: int, /) -> None
+size(width: int, height: int, renderer: str, /) -> None
+size(width: int, height: int, renderer: str, path: str, /) -> None
+
+@@ variables
+height: int - height of the display window in units of pixels
+path: str - missing variable description
+renderer: str - missing variable description
+width: int - width of the display window in units of pixels
+
 @@ description
 Defines the dimension of the display window width and height in units of pixels. In a program that has the ``setup()`` function, the ``size()`` function must be the first line of code inside ``setup()``, and the ``setup()`` function must appear in the code tab with the same name as your sketch folder.
 
@@ -33,12 +44,10 @@ The ``renderer`` parameter selects which rendering engine to use. For example, i
 
 As of Processing 3.0, to use variables as the parameters to ``size()`` function, place the ``size()`` function within the ``settings()`` function (instead of ``setup()``). There is more information about this on the ``settings()`` reference page.
 
-
 @@ example
 size(200, 100)
 background(153)
 line(0, 0, width, height)
-
 
 @@ example
 def setup():
@@ -48,7 +57,6 @@ def setup():
 def draw():
     background(153)
     line(0, 0, width, height)
-
 
 @@ example
 size(150, 200, P3D)  # specify P3D renderer
@@ -64,4 +72,3 @@ translate(width//2, height//2)
 rotate_x(PI/6)
 rotate_y(PI/6)
 box(35)
-

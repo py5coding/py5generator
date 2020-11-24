@@ -4,6 +4,11 @@ type = method
 pclass = PShape
 processing_name = getTint
 
+@@ signatures
+get_tint(index: int, /) -> int
+
+@@ variables
+index: int - missing variable description
+
 @@ description
 new template no description.
-

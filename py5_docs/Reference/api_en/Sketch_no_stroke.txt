@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = noStroke
 
+@@ signatures
+no_stroke() -> None
+
 @@ description
 Disables drawing the stroke (outline). If both ``no_stroke()`` and ``no_fill()`` are called, nothing will be drawn to the screen.
 
@@ -14,4 +17,3 @@ image = Sketch_no_stroke_0.png
 
 no_stroke()
 rect(30, 20, 55, 55)
-

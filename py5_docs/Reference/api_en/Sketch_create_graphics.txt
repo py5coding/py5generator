@@ -6,6 +6,17 @@ type = method
 pclass = PApplet
 processing_name = createGraphics
 
+@@ signatures
+create_graphics(w: int, h: int, /) -> Py5Graphics
+create_graphics(w: int, h: int, renderer: str, /) -> Py5Graphics
+create_graphics(w: int, h: int, renderer: str, path: str, /) -> Py5Graphics
+
+@@ variables
+h: int - height in pixels
+path: str - the name of the file (can be an absolute or relative path)
+renderer: str - Either P2D, P3D, or PDF
+w: int - width in pixels
+
 @@ description
 Creates and returns a new ``Py5Graphics`` object. Use this class if you need to draw into an off-screen graphics buffer. The first two parameters define the width and height in pixels. The third, optional parameter specifies the renderer. It can be defined as P2D, P3D, PDF, or SVG. If the third parameter isn't used, the default renderer is set. The PDF and SVG renderers require the filename parameter.
 
@@ -18,8 +29,6 @@ The ``create_graphics()`` function should almost never be used inside ``draw()``
 Unlike the main drawing surface which is completely opaque, surfaces created with ``create_graphics()`` can have transparency. This makes it possible to draw into a graphics and maintain the alpha channel. By using ``save()`` to write a PNG or TGA file, the transparency of the graphics object will be honored.
 
 @@ example
-
-
 def setup():
     global pg
     size(200, 200)
@@ -33,4 +42,3 @@ def draw():
     pg.line(pg.width*0.5, pg.height*0.5, mouse_x, mouse_y)
     pg.end_draw()
     image(pg, 50, 50)
-

@@ -6,6 +6,15 @@ type = method
 pclass = PApplet
 processing_name = point
 
+@@ signatures
+point(x: float, y: float, /) -> None
+point(x: float, y: float, z: float, /) -> None
+
+@@ variables
+x: float - x-coordinate of the point
+y: float - y-coordinate of the point
+z: float - z-coordinate of the point
+
 @@ description
 Draws a point, a coordinate in space at the dimension of one pixel. The first parameter is the horizontal value for the point, the second value is the vertical value for the point, and the optional third value is the depth value. Drawing this shape in 3D with the ``z`` parameter requires the P3D parameter in combination with ``size()`` as shown in the above example.
 
@@ -24,7 +33,6 @@ point(85, 20)
 point(85, 75)
 point(30, 75)
 
-
 @@ example
 image = Sketch_point_1.png
 
@@ -34,4 +42,3 @@ point(30, 20, -50)
 point(85, 20, -50)
 point(85, 75, -50)
 point(30, 75, -50)
-

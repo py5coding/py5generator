@@ -6,6 +6,8 @@ processing_name = getSurface
 category = environment
 subcategory = None
 
+@@ signatures
+get_surface() -> Py5Surface
+
 @@ description
 new template no description.
-

@@ -6,6 +6,8 @@ processing_name = resume
 category = structure
 subcategory = None
 
+@@ signatures
+resume() -> None
+
 @@ description
 new template no description.
-

@@ -4,6 +4,11 @@ type = method
 pclass = PSurface
 processing_name = openLink
 
+@@ signatures
+open_link(url: str, /) -> bool
+
+@@ variables
+url: str - the link to open
+
 @@ description
 new template no description.
-

@@ -6,6 +6,18 @@ type = method
 pclass = PApplet
 processing_name = textWidth
 
+@@ signatures
+text_width(c: chr, /) -> float
+text_width(chars: List[chr], start: int, length: int, /) -> float
+text_width(str: str, /) -> float
+
+@@ variables
+c: chr - the character to measure
+chars: List[chr] - missing variable description
+length: int - missing variable description
+start: int - missing variable description
+str: str - the String of characters to measure
+
 @@ description
 Calculates and returns the width of any character or text string.
 
@@ -23,4 +35,3 @@ s = "Tokyo"
 sw = text_width(s)
 text(s, 0, 85)
 line(sw, 50, sw, 100)
-

@@ -6,13 +6,19 @@ type = method
 pclass = PShape
 processing_name = getChild
 
+@@ signatures
+get_child(index: int, /) -> Py5Shape
+get_child(target: str, /) -> Py5Shape
+
+@@ variables
+index: int - the layer position of the shape to get
+target: str - the name of the shape to get
+
 @@ description
 Extracts a child shape from a parent shape. Specify the name of the shape with the ``target`` parameter. The shape is returned as a ``Py5Shape`` object, or ``None`` is returned if there is an error.
 
 @@ example
 image = Py5Shape_get_child_0.png
-
-
 
 def setup():
     global states
@@ -28,4 +34,3 @@ def draw():
     shape(states, -48, 5)
     fill(102, 0, 0)
     shape(ohio, -48, 5)
-

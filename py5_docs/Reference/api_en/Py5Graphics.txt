@@ -12,8 +12,6 @@ Main graphics and rendering context, as well as the base API implementation for 
 To create a new graphics context, use the ``create_graphics()`` function. Do not use the syntax ``new Py5Graphics()``.
 
 @@ example
-
-
 def setup():
     global pg
     size(100, 100)
@@ -28,4 +26,3 @@ def draw():
     pg.end_draw()
     image(pg, 9, 30)
     image(pg, 51, 30)
-

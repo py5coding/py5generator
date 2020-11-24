@@ -6,6 +6,19 @@ processing_name = arc
 category = shape
 subcategory = 2d_primitives
 
+@@ signatures
+arc(a: float, b: float, c: float, d: float, start: float, stop: float, /) -> None
+arc(a: float, b: float, c: float, d: float, start: float, stop: float, mode: int, /) -> None
+
+@@ variables
+a: float - x-coordinate of the arc's ellipse
+b: float - y-coordinate of the arc's ellipse
+c: float - width of the arc's ellipse by default
+d: float - height of the arc's ellipse by default
+mode: int - missing variable description
+start: float - angle to start the arc, specified in radians
+stop: float - angle to stop the arc, specified in radians
+
 @@ description
 Draws an arc to the screen. Arcs are drawn along the outer edge of an ellipse defined by the ``a``, ``b``, ``c``, and ``d`` parameters. The origin of the arc's ellipse may be changed with the ``ellipse_mode()`` function. Use the ``start`` and ``stop`` parameters to specify the angles (in radians) at which to draw the arc. The start/stop values must be in clockwise order.
 
@@ -22,21 +35,17 @@ arc(50, 55, 60, 60, HALF_PI, PI)
 arc(50, 55, 70, 70, PI, PI+QUARTER_PI)
 arc(50, 55, 80, 80, PI+QUARTER_PI, TWO_PI)
 
-
 @@ example
 image = Sketch_arc_1.png
 
 arc(50, 50, 80, 80, 0, PI+QUARTER_PI, OPEN)
-
 
 @@ example
 image = Sketch_arc_2.png
 
 arc(50, 50, 80, 80, 0, PI+QUARTER_PI, CHORD)
 
-
 @@ example
 image = Sketch_arc_3.png
 
 arc(50, 50, 80, 80, 0, PI+QUARTER_PI, PIE)
-

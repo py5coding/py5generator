@@ -4,6 +4,15 @@ type = method
 category = math
 subcategory = calculation
 
+@@ signatures
+remap(value: float, start1: float, stop1: float, start2: float, stop2: float) -> float
+
+@@ variables
+start1: float - missing variable description
+start2: float - missing variable description
+stop1: float - missing variable description
+stop2: float - missing variable description
+value: float - missing variable description
+
 @@ description
 new template no description.
-

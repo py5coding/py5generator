@@ -4,6 +4,11 @@ type = method
 pclass = PSurface
 processing_name = setTitle
 
+@@ signatures
+set_title(title: str, /) -> None
+
+@@ variables
+title: str - missing variable description
+
 @@ description
 new template no description.
-

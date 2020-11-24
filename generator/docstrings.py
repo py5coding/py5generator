@@ -1,5 +1,4 @@
 import re
-import json
 import logging
 import textwrap
 from pathlib import Path
@@ -50,7 +49,7 @@ Notes
 """
 
 
-def prepare_docstrings(method_signatures_lookup, variable_descriptions):
+def prepare_docstrings(method_signatures_lookup):
     docstrings = {}
     for docfile in sorted(PY5_API_EN.glob('*.txt')):
         key = docfile.stem
@@ -68,22 +67,31 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
             variables = doc.variables
             if tuple_key not in method_signatures_lookup:
                 if not signatures:
-                    logger.warning(f'missing method signatures {tuple_key[0]}.{tuple_key[1]}')
-                    signatures = ['signatures missing']
+                    logger.error(f'missing method signatures in lookup for {tuple_key[0]}.{tuple_key[1]}')
             else:
+                found_signatures = set()
+                found_variables = set()
                 for params, rettype in method_signatures_lookup[tuple_key]:
-                    params = [p.replace('*', '') for p in params]
-                    signatures.append(f"{tuple_key[1]}({', '.join(filter(lambda p: p != '/', params))}) -> {rettype}")
-                    for p in filter(lambda p: p != '/', params):
-                        if p in variables:
-                            continue
-                        var_name = p.split(':')[0]
-                        if key in variable_descriptions and var_name in variable_descriptions[key]:
-                            var_desc = variable_descriptions[key][var_name]
-                        else:
-                            var_desc = 'missing variable description'
-                            logger.warning(f'{var_desc}: {tuple_key[0]}.{tuple_key[1]}, {p}')
-                        variables[p] = var_desc
+                    sig = f"{tuple_key[1]}({', '.join(params)}) -> {rettype}"
+                    found_signatures.add(sig)
+                    if sig not in signatures:
+                        logger.warning(f'new signature: {tuple_key[0]}.{tuple_key[1]}, {sig}')
+                        signatures.append(sig)
+                    for p in [p.replace('*', '') for p in params if p != '/']:
+                        found_variables.add(p)
+                        if p not in variables:
+                            logger.warning(f'new variable: {tuple_key[0]}.{tuple_key[1]}, {p}')
+                            variables[p] = 'missing variable description'
+
+                # remove no longer used variables and signatures from documentation
+                dropped_signatures = set(signatures).difference(found_signatures)
+                for dropped_sig in dropped_signatures:
+                    logger.warning(f'dropped signature: {tuple_key[0]}.{tuple_key[1]}, {dropped_sig}')
+                    signatures.remove(dropped_sig)
+                dropped_variables = set(variables.keys()).difference(found_variables)
+                for dropped_var in dropped_variables:
+                    logger.warning(f'dropped variable: {tuple_key[0]}.{tuple_key[1]}, {dropped_var}')
+                    variables.pop(dropped_var)
 
             extras = ''
             if processing_name:
@@ -101,8 +109,12 @@ def prepare_docstrings(method_signatures_lookup, variable_descriptions):
                 extras += f'\n\nUnderlying Java {item_type}: {doc.meta["pclass"]}.{processing_name}'
             docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence + extras, description)
 
-        # TODO: write the documentation information back to the same file? or a different one?
-        doc.write(Path('/tmp/docfiles/') / docfile.name)
+        # sort to make everything neat and tidy
+        doc.signatures = list(sorted(doc.signatures))
+        doc.variables = dict(sorted(doc.variables.items()))
+
+        # write the documentation information back to the original file
+        doc.write(PY5_API_EN / docfile.name)
 
         docstrings[tuple_key] = docstring
 
@@ -113,10 +125,8 @@ class DocstringFinder:
 
     INDENTING = {'class': 8, 'module': 4, 'classdoc': 4}
 
-    def __init__(self, method_signatures_lookup, variable_descriptions_filename):
-        with open(variable_descriptions_filename, 'r') as f:
-            variable_descriptions = json.load(f)
-        self._data = prepare_docstrings(method_signatures_lookup, variable_descriptions)
+    def __init__(self, method_signatures_lookup):
+        self._data = prepare_docstrings(method_signatures_lookup)
 
     def __getitem__(self, item):
         if item.startswith('classdoc'):

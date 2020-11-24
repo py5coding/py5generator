@@ -6,6 +6,16 @@ type = method
 pclass = PApplet
 processing_name = createShape
 
+@@ signatures
+create_shape() -> Py5Shape
+create_shape(kind: int, /, *p: float) -> Py5Shape
+create_shape(type: int, /) -> Py5Shape
+
+@@ variables
+kind: int - either POINT, LINE, TRIANGLE, QUAD, RECT, ELLIPSE, ARC, BOX, SPHERE
+p: float - parameters that match the kind of shape
+type: int - missing variable description
+
 @@ description
 The ``create_shape()`` function is used to define a new shape. Once created, this shape can be drawn with the ``shape()`` function. The basic way to use the function defines new primitive shapes. One of the following parameters are used as the first parameter: ``ELLIPSE``, ``RECT``, ``ARC``, ``TRIANGLE``, ``SPHERE``, ``BOX``, ``QUAD``, or ``LINE``. The parameters for each of these different shapes are the same as their corresponding functions: ``ellipse()``, ``rect()``, ``arc()``, ``triangle()``, ``sphere()``, ``box()``, ``quad()``, and ``line()``. The first example above clarifies how this works.
 
@@ -16,8 +26,6 @@ The  ``create_shape()`` function can also be used to make a complex shape made o
 After using ``create_shape()``, stroke and fill color can be set by calling methods like ``set_fill()`` and ``set_stroke()``, as seen in the examples above. The complete list of methods and fields for the PShape class are in the Processing Javadoc.
 
 @@ example
-
-
 def setup():
     global square  # the Py5Shape object
     size(100, 100)
@@ -31,10 +39,7 @@ def setup():
 def draw():
     shape(square, 25, 25)
 
-
 @@ example
-
-
 def setup():
     global s  # the Py5Shape object
     size(100, 100)
@@ -54,10 +59,7 @@ def setup():
 def draw():
     shape(s, 25, 25)
 
-
 @@ example
-
-
 def setup():
     global s
     size(100, 100, P2D)
@@ -75,7 +77,6 @@ def setup():
 
 def draw():
     shape(s, 0, 0)
-
 
 @@ example
 Py5Shape alien, head, body
@@ -103,4 +104,3 @@ def draw():
     background(204)
     translate(50, 15)
     shape(alien)  # draw the group
-

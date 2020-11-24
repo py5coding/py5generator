@@ -15,8 +15,6 @@ processing_name = PShader
 This class encapsulates a GLSL shader program, including a vertex and a fragment shader. It's compatible with the P2D and P3D renderers, but not with the default renderer. Use the ``load_shader()`` function to load your shader code. [Note: It's strongly encouraged to use ``load_shader()`` to create a PShader object, rather than calling the PShader constructor manually.]
 
 @@ example
-
-
 def setup():
     global blur
     size(640, 360, P2D)
@@ -30,4 +28,3 @@ def draw():
     apply_filter(blur)
     rect(mouse_x-75, mouse_y, 150, 150)
     ellipse(mouse_x+75, mouse_y, 150, 150)
-

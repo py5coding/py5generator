@@ -6,6 +6,16 @@ type = method
 pclass = PApplet
 processing_name = box
 
+@@ signatures
+box(size: float, /) -> None
+box(w: float, h: float, d: float, /) -> None
+
+@@ variables
+d: float - dimension of the box in the z-dimension
+h: float - dimension of the box in the y-dimension
+size: float - dimension of the box in all dimensions (creates a cube)
+w: float - dimension of the box in the x-dimension
+
 @@ description
 A box is an extruded rectangle. A box with equal dimensions on all sides is a cube.
 
@@ -18,7 +28,6 @@ rotate_y(0.5)
 no_fill()
 box(40)
 
-
 @@ example
 image = Sketch_box_1.png
 
@@ -27,4 +36,3 @@ translate(58, 48, 0)
 rotate_y(0.5)
 no_fill()
 box(40, 20, 50)
-

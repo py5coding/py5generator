@@ -4,6 +4,11 @@ type = method
 category = structure
 subcategory = threading
 
+@@ signatures
+stop_all_threads(wait: bool) -> None
+
+@@ variables
+wait: bool - missing variable description
+
 @@ description
 new template no description.
-

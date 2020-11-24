@@ -6,6 +6,14 @@ type = method
 pclass = PApplet
 processing_name = textAlign
 
+@@ signatures
+text_align(align_x: int, /) -> None
+text_align(align_x: int, align_y: int, /) -> None
+
+@@ variables
+align_x: int - horizontal alignment, either LEFT, CENTER, or RIGHT
+align_y: int - vertical alignment, either TOP, BOTTOM, CENTER, or BASELINE
+
 @@ description
 Sets the current alignment for drawing text. The parameters LEFT, CENTER, and RIGHT set the display characteristics of the letters in relation to the values for the ``x`` and ``y`` parameters of the ``text()`` function.
  
@@ -27,7 +35,6 @@ text("EFGH", 50, 50)
 text_align(LEFT)
 text("IJKL", 50, 70)
 
-
 @@ example
 image = Sketch_text_align_1.png
 
@@ -43,4 +50,3 @@ text("CENTER,CENTER", 50, 50)
 text_align(CENTER, TOP)
 line(0, 70, width, 70)
 text("CENTER,TOP", 50, 70)
-

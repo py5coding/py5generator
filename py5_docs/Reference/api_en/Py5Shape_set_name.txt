@@ -4,6 +4,11 @@ type = method
 pclass = PShape
 processing_name = setName
 
+@@ signatures
+set_name(name: str, /) -> None
+
+@@ variables
+name: str - missing variable description
+
 @@ description
 new template no description.
-

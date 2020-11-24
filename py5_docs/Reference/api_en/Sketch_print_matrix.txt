@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = printMatrix
 
+@@ signatures
+print_matrix() -> None
+
 @@ description
 Prints the current matrix to the Console (the text window at the bottom of Processing).
 
@@ -25,4 +28,3 @@ print_matrix()
 # 0.0000  1.0000  0.0000  0.0000
 # 0.0000  0.0000  1.0000  0.0000
 # 0.0000  0.0000  0.0000  1.0000
-

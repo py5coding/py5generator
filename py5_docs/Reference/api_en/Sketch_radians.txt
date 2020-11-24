@@ -4,6 +4,11 @@ type = method
 category = math
 subcategory = trigonometry
 
+@@ signatures
+radians(degrees: float) -> float
+
+@@ variables
+degrees: float - missing variable description
+
 @@ description
 new template no description.
-

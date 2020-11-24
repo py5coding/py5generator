@@ -4,6 +4,12 @@ type = method
 pclass = PShape
 processing_name = attribColor
 
+@@ signatures
+attrib_color(name: str, color: int, /) -> None
+
+@@ variables
+color: int - missing variable description
+name: str - missing variable description
+
 @@ description
 new template no description.
-

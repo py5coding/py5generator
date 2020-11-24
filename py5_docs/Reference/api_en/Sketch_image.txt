@@ -6,6 +6,22 @@ type = method
 pclass = PApplet
 processing_name = image
 
+@@ signatures
+image(img: Py5Image, a: float, b: float, /) -> None
+image(img: Py5Image, a: float, b: float, c: float, d: float, /) -> None
+image(img: Py5Image, a: float, b: float, c: float, d: float, u1: int, v1: int, u2: int, v2: int, /) -> None
+
+@@ variables
+a: float - x-coordinate of the image by default
+b: float - y-coordinate of the image by default
+c: float - width to display the image by default
+d: float - height to display the image by default
+img: Py5Image - the image to display
+u1: int - missing variable description
+u2: int - missing variable description
+v1: int - missing variable description
+v2: int - missing variable description
+
 @@ description
 The ``image()`` function draws an image to the display window. Images must be in the sketch's "data" directory to load correctly. Select "Add file..." from the "Sketch" menu to add the image to the data directory, or just drag the image file onto the sketch window. Processing currently works with GIF, JPEG, and PNG images. 
 
@@ -16,8 +32,6 @@ The color of an image may be modified with the ``tint()`` function. This functio
 @@ example
 image = Sketch_image_0.png
 
-
-
 def setup():
     global img
     # images must be in the "data" directory to load correctly
@@ -27,11 +41,8 @@ def setup():
 def draw():
     image(img, 0, 0)
 
-
 @@ example
 image = Sketch_image_1.png
-
-
 
 def setup():
     global img
@@ -42,4 +53,3 @@ def setup():
 def draw():
     image(img, 0, 0)
     image(img, 0, 0, width//2, height//2)
-

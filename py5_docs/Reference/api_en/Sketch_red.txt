@@ -6,6 +6,12 @@ type = method
 pclass = PApplet
 processing_name = red
 
+@@ signatures
+red(rgb: int, /) -> float
+
+@@ variables
+rgb: int - any value of the color datatype
+
 @@ description
 Extracts the red value from a color, scaled to match current ``color_mode()``. The value is always returned as a float, so be careful not to assign it to an int value.
 
@@ -25,4 +31,3 @@ red_value = red(c)  # get red in 'c'
 print(red_value)  # print "255.0"
 fill(red_value, 0, 0)  # use 'red_value' in new fill
 rect(50, 20, 35, 60)  # draw right rectangle
-

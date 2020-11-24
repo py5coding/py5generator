@@ -6,6 +6,22 @@ type = method
 pclass = PApplet
 processing_name = blend
 
+@@ signatures
+blend(src: Py5Image, sx: int, sy: int, sw: int, sh: int, dx: int, dy: int, dw: int, dh: int, mode: int, /) -> None
+blend(sx: int, sy: int, sw: int, sh: int, dx: int, dy: int, dw: int, dh: int, mode: int, /) -> None
+
+@@ variables
+dh: int - destination image height
+dw: int - destination image width
+dx: int - X coordinate of the destinations's upper left corner
+dy: int - Y coordinate of the destinations's upper left corner
+mode: int - Either BLEND, ADD, SUBTRACT, LIGHTEST, DARKEST, DIFFERENCE, EXCLUSION, MULTIPLY, SCREEN, OVERLAY, HARD_LIGHT, SOFT_LIGHT, DODGE, BURN
+sh: int - source image height
+src: Py5Image - an image variable referring to the source image
+sw: int - source image width
+sx: int - X coordinate of the source's upper left corner
+sy: int - Y coordinate of the source's upper left corner
+
 @@ description
 Blends a region of pixels from one image into another (or in itself again) with full alpha channel support. There is a choice of the following modes to blend the source pixels (A) with the ones of pixels in the destination image (B):
 
@@ -53,7 +69,6 @@ img = load_image("bricks.jpg")
 image(img, 0, 0)
 blend(img, 0, 0, 33, 100, 67, 0, 33, 100, ADD)
 
-
 @@ example
 image = Sketch_blend_1.png
 
@@ -61,7 +76,6 @@ background(load_image("rockies.jpg"))
 img = load_image("bricks.jpg")
 image(img, 0, 0)
 blend(img, 0, 0, 33, 100, 67, 0, 33, 100, SUBTRACT)
-
 
 @@ example
 image = Sketch_blend_2.png
@@ -71,7 +85,6 @@ img = load_image("bricks.jpg")
 image(img, 0, 0)
 blend(img, 0, 0, 33, 100, 67, 0, 33, 100, DARKEST)
 
-
 @@ example
 image = Sketch_blend_3.png
 
@@ -79,4 +92,3 @@ background(load_image("rockies.jpg"))
 img = load_image("bricks.jpg")
 image(img, 0, 0)
 blend(img, 0, 0, 33, 100, 67, 0, 33, 100, LIGHTEST)
-

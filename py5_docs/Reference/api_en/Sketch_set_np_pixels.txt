@@ -4,6 +4,12 @@ type = method
 category = image
 subcategory = pixels
 
+@@ signatures
+set_np_pixels(array: np.ndarray, bands: str) -> None
+
+@@ variables
+array: np.ndarray - missing variable description
+bands: str - missing variable description
+
 @@ description
 new template no description.
-

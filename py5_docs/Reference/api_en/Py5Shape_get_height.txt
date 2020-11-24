@@ -4,6 +4,8 @@ type = method
 pclass = PShape
 processing_name = getHeight
 
+@@ signatures
+get_height() -> float
+
 @@ description
 new template no description.
-

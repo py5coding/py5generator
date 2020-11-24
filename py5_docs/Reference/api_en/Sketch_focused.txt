@@ -15,4 +15,3 @@ if focused:  # or "if (focused == true)"
 else:
     line(0, 0, 100, 100)
     line(100, 0, 0, 100)
-

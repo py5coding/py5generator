@@ -4,6 +4,13 @@ type = method
 pclass = PFont
 processing_name = getShape
 
+@@ signatures
+get_shape(ch: chr, /) -> Py5Shape
+get_shape(ch: chr, detail: float, /) -> Py5Shape
+
+@@ variables
+ch: chr - missing variable description
+detail: float - missing variable description
+
 @@ description
 new template no description.
-

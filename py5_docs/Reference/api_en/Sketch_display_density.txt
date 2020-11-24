@@ -6,6 +6,13 @@ type = method
 pclass = PApplet
 processing_name = displayDensity
 
+@@ signatures
+display_density() -> int
+display_density(display: int, /) -> int
+
+@@ variables
+display: int - the display number to check (1-indexed to match the Preferences dialog box)
+
 @@ description
 This function returns the number "2" if the screen is a high-density screen (called a Retina display on OS X or high-dpi on Windows and Linux) and a "1" if not. This information is useful for a program to adapt to run at double the pixel density on a screen that supports it.
 
@@ -20,4 +27,3 @@ def draw():
     background(0)
     ellipse(30, 48, 36, 36)
     ellipse(70, 48, 36, 36)
-

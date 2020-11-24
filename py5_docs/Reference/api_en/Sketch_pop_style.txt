@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = popStyle
 
+@@ signatures
+pop_style() -> None
+
 @@ description
 The ``push_style()`` function saves the current style settings and ``pop_style()`` restores the prior settings; these functions are always used together. They allow you to change the style settings and later return to what you had. When a new style is started with ``push_style()``, it builds on the current style information. The ``push_style()`` and ``pop_style()`` functions can be embedded to provide more control (see the second example above for a demonstration.)
 
@@ -21,7 +24,6 @@ ellipse(50, 50, 33, 33)  # middle circle
 pop_style()  # restore original style
 
 ellipse(100, 50, 33, 33)  # right circle
-
 
 @@ example
 image = Sketch_pop_style_1.png
@@ -41,4 +43,3 @@ pop_style()  # restore the previous style
 pop_style()  # restore original style
 
 ellipse(100, 50, 33, 33)  # right circle
-

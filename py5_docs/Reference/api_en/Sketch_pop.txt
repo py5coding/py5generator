@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = pop
 
+@@ signatures
+pop() -> None
+
 @@ description
 The ``pop()`` function restores the previous drawing style settings and transformations after ``push()`` has changed them. Note that these functions are always used together. They allow you to change the style and transformation settings and later return to what you had. When a new state is started with ``push()``, it builds on the current style and transform information.
 
@@ -28,7 +31,6 @@ pop()  # restore original settings
 fill(100)
 rect(15, 10, 50, 50)  # gray rectangle
 
-
 @@ example
 image = Sketch_pop_1.png
 
@@ -41,4 +43,3 @@ ellipse(50, 50, 33, 33)  # middle circle
 pop()  # restore original settings
 
 ellipse(100, 50, 33, 33)  # right circle
-

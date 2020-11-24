@@ -6,6 +6,15 @@ type = method
 pclass = PApplet
 processing_name = beginRecord
 
+@@ signatures
+begin_record(recorder: Py5Graphics, /) -> None
+begin_record(renderer: str, filename: str, /) -> Py5Graphics
+
+@@ variables
+filename: str - filename for output
+recorder: Py5Graphics - missing variable description
+renderer: str - PDF or SVG
+
 @@ description
 Opens a new file and all subsequent drawing functions are echoed to this file as well as the display window. The ``begin_record()`` function requires two parameters, the first is the renderer and the second is the file name. This function is always used with ``end_record()`` to stop the recording process and close the file.
 
@@ -14,8 +23,6 @@ Note that ``begin_record()`` will only pick up any settings that happen after it
 ``begin_record()`` works only with the PDF and SVG renderers.
 
 @@ example
-
-
 def setup():
     size(400, 400)
     begin_record(PDF, "everything.pdf")
@@ -28,4 +35,3 @@ def draw():
 def mouse_pressed():
     end_record()
     exit()
-

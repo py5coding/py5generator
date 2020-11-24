@@ -6,6 +6,8 @@ processing_name = pause
 category = structure
 subcategory = None
 
+@@ signatures
+pause() -> None
+
 @@ description
 new template no description.
-

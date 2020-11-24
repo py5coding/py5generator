@@ -6,12 +6,13 @@ type = method
 pclass = PApplet
 processing_name = endRecord
 
+@@ signatures
+end_record() -> None
+
 @@ description
 Stops the recording process started by ``begin_record()`` and closes the file.
 
 @@ example
-
-
 def setup():
     size(400, 400)
     begin_record(PDF, "everything.pdf")
@@ -24,4 +25,3 @@ def draw():
 def mouse_pressed():
     end_record()
     exit()
-

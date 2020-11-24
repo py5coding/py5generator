@@ -4,6 +4,13 @@ type = method
 pclass = PShape
 processing_name = setStrokeWeight
 
+@@ signatures
+set_stroke_weight(index: int, weight: float, /) -> None
+set_stroke_weight(weight: float, /) -> None
+
+@@ variables
+index: int - missing variable description
+weight: float - missing variable description
+
 @@ description
 new template no description.
-

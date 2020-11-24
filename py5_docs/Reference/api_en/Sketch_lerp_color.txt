@@ -6,6 +6,16 @@ type = method
 pclass = PApplet
 processing_name = lerpColor
 
+@@ signatures
+lerp_color(c1: int, c2: int, amt: float, /) -> int
+lerp_color(c1: int, c2: int, amt: float, mode: int, /) -> int
+
+@@ variables
+amt: float - between 0.0 and 1.0
+c1: int - interpolate from this color
+c2: int - interpolate to this color
+mode: int - missing variable description
+
 @@ description
 Calculates a color between two colors at a specific increment. The ``amt`` parameter is the amount to interpolate between the two values where 0.0 is equal to the first point, 0.1 is very near the first point, 0.5 is halfway in between, etc. 
 
@@ -28,4 +38,3 @@ fill(inter_b)
 rect(50, 20, 20, 60)
 fill(to)
 rect(70, 20, 20, 60)
-

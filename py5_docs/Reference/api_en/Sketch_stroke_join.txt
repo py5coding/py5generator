@@ -6,6 +6,12 @@ type = method
 pclass = PApplet
 processing_name = strokeJoin
 
+@@ signatures
+stroke_join(join: int, /) -> None
+
+@@ variables
+join: int - either MITER, BEVEL, ROUND
+
 @@ description
 Sets the style of the joints which connect line segments. These joints are either mitered, beveled, or rounded and specified with the corresponding parameters MITER, BEVEL, and ROUND. The default joint is MITER.
 
@@ -21,7 +27,6 @@ vertex(65, 50)
 vertex(35, 80)
 end_shape()
 
-
 @@ example
 image = Sketch_stroke_join_1.png
 
@@ -34,7 +39,6 @@ vertex(65, 50)
 vertex(35, 80)
 end_shape()
 
-
 @@ example
 image = Sketch_stroke_join_2.png
 
@@ -46,4 +50,3 @@ vertex(35, 20)
 vertex(65, 50)
 vertex(35, 80)
 end_shape()
-

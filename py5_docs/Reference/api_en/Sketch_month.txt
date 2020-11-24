@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = month
 
+@@ signatures
+month() -> int
+
 @@ description
 Processing communicates with the clock on your computer. The ``month()`` function returns the current month as a value from 1 - 12.
 
@@ -20,4 +23,3 @@ s = string.value_of(m)
 text(s, 10, 56)
 s = string.value_of(y)
 text(s, 10, 84)
-

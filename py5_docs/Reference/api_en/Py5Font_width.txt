@@ -4,6 +4,11 @@ type = method
 pclass = PFont
 processing_name = width
 
+@@ signatures
+width(c: chr, /) -> float
+
+@@ variables
+c: chr - missing variable description
+
 @@ description
 new template no description.
-

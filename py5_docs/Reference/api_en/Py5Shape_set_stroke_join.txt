@@ -4,6 +4,11 @@ type = method
 pclass = PShape
 processing_name = setStrokeJoin
 
+@@ signatures
+set_stroke_join(join: int, /) -> None
+
+@@ variables
+join: int - missing variable description
+
 @@ description
 new template no description.
-

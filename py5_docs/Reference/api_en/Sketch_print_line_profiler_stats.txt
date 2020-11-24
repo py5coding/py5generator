@@ -4,6 +4,8 @@ type = method
 category = structure
 subcategory = None
 
+@@ signatures
+print_line_profiler_stats() -> None
+
 @@ description
 new template no description.
-

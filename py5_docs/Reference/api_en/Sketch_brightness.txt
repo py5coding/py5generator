@@ -6,6 +6,12 @@ type = method
 pclass = PApplet
 processing_name = brightness
 
+@@ signatures
+brightness(rgb: int, /) -> float
+
+@@ variables
+rgb: int - any value of the color datatype
+
 @@ description
 Extracts the brightness value from a color.
 
@@ -20,4 +26,3 @@ rect(15, 20, 35, 60)
 value = brightness(c)  # sets 'value' to 255
 fill(value)
 rect(50, 20, 35, 60)
-

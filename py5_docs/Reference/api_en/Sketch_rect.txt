@@ -6,6 +6,22 @@ type = method
 pclass = PApplet
 processing_name = rect
 
+@@ signatures
+rect(a: float, b: float, c: float, d: float, /) -> None
+rect(a: float, b: float, c: float, d: float, r: float, /) -> None
+rect(a: float, b: float, c: float, d: float, tl: float, tr: float, br: float, bl: float, /) -> None
+
+@@ variables
+a: float - x-coordinate of the rectangle by default
+b: float - y-coordinate of the rectangle by default
+bl: float - radius for bottom-left corner
+br: float - radius for bottom-right corner
+c: float - width of the rectangle by default
+d: float - height of the rectangle by default
+r: float - radii for all four corners
+tl: float - radius for top-left corner
+tr: float - radius for top-right corner
+
 @@ description
 Draws a rectangle to the screen. A rectangle is a four-sided shape with every angle at ninety degrees. By default, the first two parameters set the location of the upper-left corner, the third sets the width, and the fourth sets the height. The way these parameters are interpreted, however, may be changed with the ``rect_mode()`` function.
 
@@ -18,15 +34,12 @@ image = Sketch_rect_0.png
 
 rect(30, 20, 55, 55)
 
-
 @@ example
 image = Sketch_rect_1.png
 
 rect(30, 20, 55, 55, 7)
 
-
 @@ example
 image = Sketch_rect_2.png
 
 rect(30, 20, 55, 55, 3, 6, 12, 18)
-

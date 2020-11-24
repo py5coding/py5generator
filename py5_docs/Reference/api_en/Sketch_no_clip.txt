@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = noClip
 
+@@ signatures
+no_clip() -> None
+
 @@ description
 Disables the clipping previously started by the ``clip()`` function.
 
@@ -24,4 +27,3 @@ def draw():
 
     line(0, 0, width, height)
     line(0, height, width, 0)
-

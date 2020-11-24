@@ -4,6 +4,11 @@ type = method
 pclass = PShape
 processing_name = findChild
 
+@@ signatures
+find_child(target: str, /) -> Py5Shape
+
+@@ variables
+target: str - missing variable description
+
 @@ description
 new template no description.
-

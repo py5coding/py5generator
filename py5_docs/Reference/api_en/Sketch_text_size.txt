@@ -6,6 +6,12 @@ type = method
 pclass = PApplet
 processing_name = textSize
 
+@@ signatures
+text_size(size: float, /) -> None
+
+@@ variables
+size: float - the size of the letters in units of pixels
+
 @@ description
 Sets the current font size. This size will be used in all subsequent calls to the ``text()`` function. Font size is measured in units of pixels.
 
@@ -18,4 +24,3 @@ text_size(26)
 text("WORD", 10, 50)
 text_size(14)
 text("WORD", 10, 70)
-

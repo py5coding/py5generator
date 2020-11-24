@@ -4,6 +4,8 @@ type = method
 pclass = PFont
 processing_name = setSubsetting
 
+@@ signatures
+set_subsetting() -> None
+
 @@ description
 new template no description.
-

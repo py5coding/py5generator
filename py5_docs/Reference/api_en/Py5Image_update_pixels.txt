@@ -6,13 +6,21 @@ type = method
 pclass = PImage
 processing_name = updatePixels
 
+@@ signatures
+update_pixels() -> None
+update_pixels(x: int, y: int, w: int, h: int, /) -> None
+
+@@ variables
+h: int - height
+w: int - width
+x: int - x-coordinate of the upper-left corner
+y: int - y-coordinate of the upper-left corner
+
 @@ description
 Updates the image with the data in its ``pixels[]`` array. Use in conjunction with ``load_pixels()``. If you're only reading pixels from the array, there's no need to call ``update_pixels()``.
 
 @@ example
 image = Py5Image_update_pixels_0.png
-
-
 
 def setup():
     global my_image
@@ -29,4 +37,3 @@ def setup():
 
 def draw():
     image(my_image, 0, 0)
-

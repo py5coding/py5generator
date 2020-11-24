@@ -4,6 +4,8 @@ type = method
 pclass = PFont
 processing_name = descent
 
+@@ signatures
+descent() -> float
+
 @@ description
 new template no description.
-

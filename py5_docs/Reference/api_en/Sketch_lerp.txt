@@ -4,6 +4,13 @@ type = method
 category = math
 subcategory = calculation
 
+@@ signatures
+lerp(start: float, stop: float, amt: float) -> float
+
+@@ variables
+amt: float - missing variable description
+start: float - missing variable description
+stop: float - missing variable description
+
 @@ description
 new template no description.
-

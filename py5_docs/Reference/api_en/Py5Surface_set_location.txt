@@ -4,6 +4,12 @@ type = method
 pclass = PSurface
 processing_name = setLocation
 
+@@ signatures
+set_location(x: int, y: int, /) -> None
+
+@@ variables
+x: int - missing variable description
+y: int - missing variable description
+
 @@ description
 new template no description.
-

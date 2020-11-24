@@ -4,6 +4,11 @@ type = method
 pclass = PShape
 processing_name = getTextureV
 
+@@ signatures
+get_texture_v(index: int, /) -> float
+
+@@ variables
+index: int - missing variable description
+
 @@ description
 new template no description.
-

@@ -4,6 +4,13 @@ type = method
 category = math
 subcategory = calculation
 
+@@ signatures
+norm(value: float, start: float, stop: float) -> float
+
+@@ variables
+start: float - missing variable description
+stop: float - missing variable description
+value: float - missing variable description
+
 @@ description
 new template no description.
-

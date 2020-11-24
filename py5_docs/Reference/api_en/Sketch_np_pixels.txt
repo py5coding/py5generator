@@ -6,4 +6,3 @@ subcategory = pixels
 
 @@ description
 new template no description.
-

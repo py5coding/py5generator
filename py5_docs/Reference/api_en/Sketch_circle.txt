@@ -6,6 +6,14 @@ type = method
 pclass = PApplet
 processing_name = circle
 
+@@ signatures
+circle(x: float, y: float, extent: float, /) -> None
+
+@@ variables
+extent: float - width and height of the ellipse by default
+x: float - x-coordinate of the ellipse
+y: float - y-coordinate of the ellipse
+
 @@ description
 Draws a circle to the screen. By default, the first two parameters set the location of the center, and the third sets the shape's width and height. The origin may be changed with the ``ellipse_mode()`` function.
 
@@ -13,4 +21,3 @@ Draws a circle to the screen. By default, the first two parameters set the locat
 image = Sketch_circle_0.png
 
 circle(56, 46, 55)
-

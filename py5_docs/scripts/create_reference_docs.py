@@ -10,8 +10,7 @@ import pandas as pd
 
 from generator.docfiles import Documentation
 
-# PY5_API_EN = Path('py5_docs/Reference/api_en/')
-PY5_API_EN = Path('/tmp/docfiles/')
+PY5_API_EN = Path('py5_docs/Reference/api_en/')
 DEST_DIR = Path('../py5website/')
 
 FIRST_SENTENCE_REGEX = re.compile(r'^.*?\.(?=\s)')

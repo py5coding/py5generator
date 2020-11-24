@@ -4,6 +4,8 @@ type = method
 pclass = PShape
 processing_name = getName
 
+@@ signatures
+get_name() -> str
+
 @@ description
 new template no description.
-

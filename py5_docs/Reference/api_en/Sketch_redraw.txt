@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = redraw
 
+@@ signatures
+redraw() -> None
+
 @@ description
 Executes the code within ``draw()`` one time. This functions allows the program to update the display window only when necessary, for example when an event registered by ``mouse_pressed()`` or ``key_pressed()`` occurs. 
 
@@ -30,4 +33,3 @@ def draw():
 def mouse_pressed():
     x += 1
     redraw()
-

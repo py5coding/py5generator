@@ -4,6 +4,12 @@ type = method
 category = input
 subcategory = files
 
+@@ signatures
+parse_json(serialized_json: Any, kwargs: Dict[str, Any]) -> Any
+
+@@ variables
+kwargs: Dict[str, Any] - missing variable description
+serialized_json: Any - missing variable description
+
 @@ description
 new template no description.
-

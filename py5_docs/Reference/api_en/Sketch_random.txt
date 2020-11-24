@@ -4,6 +4,13 @@ type = method
 category = math
 subcategory = random
 
+@@ signatures
+random(high: float) -> float
+random(low: float, high: float) -> float
+
+@@ variables
+high: float - upper limit
+low: float - lower limit
+
 @@ description
 new template no description.
-

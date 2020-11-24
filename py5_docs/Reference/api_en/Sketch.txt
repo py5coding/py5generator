@@ -6,4 +6,3 @@ processing_name = PApplet
 
 @@ description
 new template no description.
-

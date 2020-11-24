@@ -14,8 +14,6 @@ Before accessing this array, the data must loaded with the ``load_pixels()`` met
 @@ example
 image = Py5Image_pixels_0.png
 
-
-
 def setup():
     global tower
     size(100, 100)
@@ -30,4 +28,3 @@ def setup():
 
 def draw():
     image(tower, 0, 0)
-

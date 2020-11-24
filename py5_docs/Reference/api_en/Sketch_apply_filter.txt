@@ -6,6 +6,16 @@ type = method
 pclass = PApplet
 processing_name = filter
 
+@@ signatures
+apply_filter(kind: int, /) -> None
+apply_filter(kind: int, param: float, /) -> None
+apply_filter(shader: Py5Shader, /) -> None
+
+@@ variables
+kind: int - Either THRESHOLD, GRAY, OPAQUE, INVERT, POSTERIZE, BLUR, ERODE, or DILATE
+param: float - unique for each, see above
+shader: Py5Shader - the fragment shader to apply
+
 @@ description
 Filters the display window using a preset filter or with a custom shader. Using a shader with ``apply_filter()`` is much faster than without. Shaders require the P2D or P3D renderer in ``size()``.
 
@@ -38,70 +48,54 @@ Increases the light areas. No parameter is used.
 @@ example
 image = Sketch_apply_filter_0.png
 
-
 img = load_image("apples.jpg")
 image(img, 0, 0)
 apply_filter(THRESHOLD)
 
-
 @@ example
 image = Sketch_apply_filter_1.png
-
 
 img = load_image("apples.jpg")
 image(img, 0, 0)
 apply_filter(GRAY)
 
-
 @@ example
 image = Sketch_apply_filter_2.png
-
 
 img = load_image("apples.jpg")
 image(img, 0, 0)
 apply_filter(INVERT)
 
-
 @@ example
 image = Sketch_apply_filter_3.png
-
 
 img = load_image("apples.jpg")
 image(img, 0, 0)
 apply_filter(POSTERIZE, 4)
 
-
 @@ example
 image = Sketch_apply_filter_4.png
-
 
 img = load_image("apples.jpg")
 image(img, 0, 0)
 apply_filter(BLUR, 6)
 
-
 @@ example
 image = Sketch_apply_filter_5.png
-
 
 img = load_image("apples.jpg")
 image(img, 0, 0)
 apply_filter(ERODE)
 
-
 @@ example
 image = Sketch_apply_filter_6.png
-
 
 img = load_image("apples.jpg")
 image(img, 0, 0)
 apply_filter(DILATE)
 
-
 @@ example
 image = Sketch_apply_filter_7.png
-
-
 
 def setup():
     global blur
@@ -114,4 +108,3 @@ def setup():
 
 def draw():
     apply_filter(blur)  # blurs more each time through draw()
-

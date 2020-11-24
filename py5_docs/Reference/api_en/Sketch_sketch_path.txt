@@ -6,6 +6,12 @@ processing_name = sketchPath
 category = environment
 subcategory = None
 
+@@ signatures
+sketch_path() -> str
+sketch_path(where: str, /) -> str
+
+@@ variables
+where: str - missing variable description
+
 @@ description
 new template no description.
-

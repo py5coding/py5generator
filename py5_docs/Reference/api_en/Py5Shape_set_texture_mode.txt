@@ -4,6 +4,11 @@ type = method
 pclass = PShape
 processing_name = setTextureMode
 
+@@ signatures
+set_texture_mode(mode: int, /) -> None
+
+@@ variables
+mode: int - missing variable description
+
 @@ description
 new template no description.
-

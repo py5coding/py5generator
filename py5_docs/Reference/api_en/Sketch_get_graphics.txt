@@ -6,6 +6,8 @@ processing_name = getGraphics
 category = rendering
 subcategory = None
 
+@@ signatures
+get_graphics() -> Py5Graphics
+
 @@ description
 new template no description.
-

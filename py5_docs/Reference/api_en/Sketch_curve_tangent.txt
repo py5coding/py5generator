@@ -6,6 +6,16 @@ type = method
 pclass = PApplet
 processing_name = curveTangent
 
+@@ signatures
+curve_tangent(a: float, b: float, c: float, d: float, t: float, /) -> float
+
+@@ variables
+a: float - coordinate of first point on the curve
+b: float - coordinate of first control point
+c: float - coordinate of second control point
+d: float - coordinate of second point on the curve
+t: float - value between 0 and 1
+
 @@ description
 Calculates the tangent of a point on a curve. There's a good definition of *tangent* on Wikipedia.
 
@@ -25,4 +35,3 @@ for i in range(0, steps + 1):
     a = atan2(ty, tx)
     a -= PI/2.0
     line(x, y, cos(a)*8 + x, sin(a)*8 + y)
-

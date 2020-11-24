@@ -4,6 +4,8 @@ type = method
 pclass = PSurface
 processing_name = stopThread
 
+@@ signatures
+stop_thread() -> bool
+
 @@ description
 new template no description.
-

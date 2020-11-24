@@ -6,6 +6,22 @@ type = method
 pclass = PApplet
 processing_name = stroke
 
+@@ signatures
+stroke(gray: float, /) -> None
+stroke(gray: float, alpha: float, /) -> None
+stroke(rgb: int, /) -> None
+stroke(rgb: int, alpha: float, /) -> None
+stroke(v1: float, v2: float, v3: float, /) -> None
+stroke(v1: float, v2: float, v3: float, alpha: float, /) -> None
+
+@@ variables
+alpha: float - opacity of the stroke
+gray: float - specifies a value between white and black
+rgb: int - color value in hexadecimal notation
+v1: float - red or hue value (depending on current color mode)
+v2: float - green or saturation value (depending on current color mode)
+v3: float - blue or brightness value (depending on current color mode)
+
 @@ description
 Sets the color used to draw lines and borders around shapes. This color is either specified in terms of the RGB or HSB color depending on the current ``c``olor_mode()``.`` The default color space is RGB, with each value in the range from 0 to 255. 
  
@@ -21,10 +37,8 @@ image = Sketch_stroke_0.png
 stroke(153)
 rect(30, 20, 55, 55)
 
-
 @@ example
 image = Sketch_stroke_1.png
 
 stroke(204, 102, 0)
 rect(30, 20, 55, 55)
-

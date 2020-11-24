@@ -6,6 +6,22 @@ type = method
 pclass = PApplet
 processing_name = copy
 
+@@ signatures
+copy() -> Py5Image
+copy(src: Py5Image, sx: int, sy: int, sw: int, sh: int, dx: int, dy: int, dw: int, dh: int, /) -> None
+copy(sx: int, sy: int, sw: int, sh: int, dx: int, dy: int, dw: int, dh: int, /) -> None
+
+@@ variables
+dh: int - destination image height
+dw: int - destination image width
+dx: int - X coordinate of the destination's upper left corner
+dy: int - Y coordinate of the destination's upper left corner
+sh: int - source image height
+src: Py5Image - an image variable referring to the source image.
+sw: int - source image width
+sx: int - X coordinate of the source's upper left corner
+sy: int - Y coordinate of the source's upper left corner
+
 @@ description
 Copies a region of pixels from the display window to another area of the display window and copies a region of pixels from an image used as the ``src_img`` parameter into the display window. If the source and destination regions aren't the same size, it will automatically resize the source pixels to fit the specified target region. No alpha information is used in the process, however if the source image has an alpha channel set, it will be copied as well.
 
@@ -21,4 +37,3 @@ stroke(255)
 no_fill()
 # rectangle shows area being copied
 rect(7, 22, 10, 10)
-

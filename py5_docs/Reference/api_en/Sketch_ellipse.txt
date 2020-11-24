@@ -6,6 +6,15 @@ type = method
 pclass = PApplet
 processing_name = ellipse
 
+@@ signatures
+ellipse(a: float, b: float, c: float, d: float, /) -> None
+
+@@ variables
+a: float - x-coordinate of the ellipse
+b: float - y-coordinate of the ellipse
+c: float - width of the ellipse by default
+d: float - height of the ellipse by default
+
 @@ description
 Draws an ellipse (oval) to the screen. An ellipse with equal width and height is a circle. By default, the first two parameters set the location, and the third and fourth parameters set the shape's width and height. The origin may be changed with the ``ellipse_mode()`` function.
 
@@ -13,4 +22,3 @@ Draws an ellipse (oval) to the screen. An ellipse with equal width and height is
 image = Sketch_ellipse_0.png
 
 ellipse(56, 46, 55, 55)
-

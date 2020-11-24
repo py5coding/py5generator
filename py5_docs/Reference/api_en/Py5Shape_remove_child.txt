@@ -4,6 +4,11 @@ type = method
 pclass = PShape
 processing_name = removeChild
 
+@@ signatures
+remove_child(idx: int, /) -> None
+
+@@ variables
+idx: int - missing variable description
+
 @@ description
 new template no description.
-

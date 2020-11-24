@@ -6,6 +6,11 @@ processing_name = quadraticVertices
 category = shape
 subcategory = vertex
 
+@@ signatures
+quadratic_vertices(coordinates: NDArray[(Any, Any), Float], /) -> None
+
+@@ variables
+coordinates: NDArray[(Any, Any), Float] - missing variable description
+
 @@ description
 new template no description.
-

@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = second
 
+@@ signatures
+second() -> int
+
 @@ description
 Processing communicates with the clock on your computer. The ``second()`` function returns the current second as a value from 0 - 59.
 
@@ -18,4 +21,3 @@ def draw():
     line(s, 0, s, 33)
     line(m, 33, m, 66)
     line(h, 66, h, 100)
-

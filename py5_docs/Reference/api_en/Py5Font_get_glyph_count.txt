@@ -4,6 +4,8 @@ type = method
 pclass = PFont
 processing_name = getGlyphCount
 
+@@ signatures
+get_glyph_count() -> int
+
 @@ description
 new template no description.
-

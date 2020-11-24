@@ -4,6 +4,18 @@ type = method
 category = math
 subcategory = random
 
+@@ signatures
+noise(x, **kwargs) -> float
+noise(x, y, **kwargs) -> float
+noise(x, y, z, **kwargs) -> float
+noise(x, y, z, w, **kwargs) -> float
+
+@@ variables
+kwargs - missing variable description
+w - missing variable description
+x - x-coordinate in noise space
+y - y-coordinate in noise space
+z - z-coordinate in noise space
+
 @@ description
 new template no description.
-

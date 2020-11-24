@@ -6,6 +6,17 @@ type = method
 pclass = PApplet
 processing_name = frustum
 
+@@ signatures
+frustum(left: float, right: float, bottom: float, top: float, near: float, far: float, /) -> None
+
+@@ variables
+bottom: float - bottom coordinate of the clipping plane
+far: float - far component of the clipping plane; must be greater than the near value
+left: float - left coordinate of the clipping plane
+near: float - near component of the clipping plane; must be greater than zero
+right: float - right coordinate of the clipping plane
+top: float - top coordinate of the clipping plane
+
 @@ description
 Sets a perspective matrix as defined by the parameters.
 
@@ -26,4 +37,3 @@ background(204)
 frustum(-10, 0, 0, 10, 10, 200)
 rotate_y(PI/6)
 box(45)
-

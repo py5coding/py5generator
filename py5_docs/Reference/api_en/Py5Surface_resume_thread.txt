@@ -4,6 +4,8 @@ type = method
 pclass = PSurface
 processing_name = resumeThread
 
+@@ signatures
+resume_thread() -> None
+
 @@ description
 new template no description.
-

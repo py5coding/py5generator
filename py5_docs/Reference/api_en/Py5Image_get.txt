@@ -6,6 +6,17 @@ type = method
 pclass = PImage
 processing_name = get
 
+@@ signatures
+get() -> Py5Image
+get(x: int, y: int, /) -> int
+get(x: int, y: int, w: int, h: int, /) -> Py5Image
+
+@@ variables
+h: int - height of pixel rectangle to get
+w: int - width of pixel rectangle to get
+x: int - x-coordinate of the pixel
+y: int - y-coordinate of the pixel
+
 @@ description
 Reads the color of any pixel or grabs a section of an image. If no parameters are specified, the entire image is returned. Use the ``x`` and ``y`` parameters to get the value of one pixel. Get a section of the display window by specifying an additional ``width`` and ``height`` parameter. When getting an image, the ``x`` and ``y`` parameters define the coordinates for the upper-left corner of the image, regardless of the current ``image_mode()``.
 
@@ -23,7 +34,6 @@ c = mountains.get(60, 90)
 fill(c)
 rect(25, 25, 50, 50)
 
-
 @@ example
 image = Py5Image_get_1.png
 
@@ -31,4 +41,3 @@ mountains = load_image("rockies.jpg")
 background(mountains)
 new_mountains = mountains.get(50, 0, 50, 100)
 image(new_mountains, 0, 0)
-

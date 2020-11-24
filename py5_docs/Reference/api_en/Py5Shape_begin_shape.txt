@@ -6,12 +6,17 @@ type = method
 pclass = PShape
 processing_name = beginShape
 
+@@ signatures
+begin_shape() -> None
+begin_shape(kind: int, /) -> None
+
+@@ variables
+kind: int - missing variable description
+
 @@ description
 This method is used to start a custom shape created with the ``create_shape()`` function. It's always and only used with ``create_shape()``.
 
 @@ example
-
-
 def setup():
     global s  # the Py5Shape object
     size(100, 100)
@@ -27,4 +32,3 @@ def setup():
 
 def draw():
     shape(s, 25, 25)
-

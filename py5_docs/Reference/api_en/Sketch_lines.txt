@@ -6,6 +6,11 @@ processing_name = lines
 category = shape
 subcategory = 2d_primitives
 
+@@ signatures
+lines(coordinates: NDArray[(Any, Any), Float], /) -> None
+
+@@ variables
+coordinates: NDArray[(Any, Any), Float] - missing variable description
+
 @@ description
 new template no description.
-

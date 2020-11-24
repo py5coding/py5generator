@@ -4,6 +4,13 @@ type = method
 category = structure
 subcategory = None
 
-@@ description
-new template no description.
+@@ signatures
+run_sketch(block: bool = False, py5_options: List = None, sketch_args: List = None) -> None
 
+@@ variables
+block: bool = False - block or don't block
+py5_options: List = None - py5 options
+sketch_args: List = None - missing variable description
+
+@@ description
+Run the sketch. Use block to block. and other stuff.

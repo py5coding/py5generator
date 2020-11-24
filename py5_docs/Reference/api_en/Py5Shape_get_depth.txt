@@ -4,6 +4,8 @@ type = method
 pclass = PShape
 processing_name = getDepth
 
+@@ signatures
+get_depth() -> float
+
 @@ description
 new template no description.
-

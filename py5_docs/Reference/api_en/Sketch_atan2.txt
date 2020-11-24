@@ -4,6 +4,12 @@ type = method
 category = math
 subcategory = trigonometry
 
+@@ signatures
+atan2(y: float, x: float) -> float
+
+@@ variables
+x: float - missing variable description
+y: float - missing variable description
+
 @@ description
 new template no description.
-

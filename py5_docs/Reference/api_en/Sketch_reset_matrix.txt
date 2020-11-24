@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = resetMatrix
 
+@@ signatures
+reset_matrix() -> None
+
 @@ description
 Replaces the current matrix with the identity matrix. The equivalent function in OpenGL is ``gl_load_identity()``.
 
@@ -28,4 +31,3 @@ print_matrix()
 # 0.0000  1.0000  0.0000  0.0000
 # 0.0000  0.0000  1.0000  0.0000
 # 0.0000  0.0000  0.0000  1.0000
-

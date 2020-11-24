@@ -23,7 +23,6 @@ def draw():
 
     rect(25, 25, 50, 50)
 
-
 @@ example
 # click within the image and press
 # the left and right mouse buttons to
@@ -39,4 +38,3 @@ def mouse_pressed():
         fill(255)
     else:
         fill(126)
-

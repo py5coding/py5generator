@@ -169,9 +169,7 @@ def generate_py5(repo_dir, build_dir):
                 os.remove(c)
 
     # build the docstrings for each method
-    docstrings = DocstringFinder(
-        method_signatures_lookup,
-        Path('py5_docs', 'docfiles', 'variable_descriptions.json'))
+    docstrings = DocstringFinder(method_signatures_lookup)
 
     # as the code is copied, the code strings and docstrings will be assembled
     # CodeCopier is callable and is basically a custom version of `shutil.copy`

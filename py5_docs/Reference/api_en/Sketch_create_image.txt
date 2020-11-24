@@ -6,6 +6,14 @@ type = method
 pclass = PApplet
 processing_name = createImage
 
+@@ signatures
+create_image(w: int, h: int, format: int, /) -> Py5Image
+
+@@ variables
+format: int - Either RGB, ARGB, ALPHA (grayscale alpha channel)
+h: int - height in pixels
+w: int - width in pixels
+
 @@ description
 Creates a new PImage (the datatype for storing images). This provides a fresh buffer of pixels to play with. Set the size of the buffer with the ``width`` and ``height`` parameters. The ``format`` parameter defines how the pixels are stored. See the PImage reference for more information.
  
@@ -24,7 +32,6 @@ for i in range(0, len(img.pixels)):
 img.update_pixels()
 image(img, 17, 17)
 
-
 @@ example
 image = Sketch_create_image_1.png
 
@@ -36,4 +43,3 @@ for i in range(0, len(img.pixels)):
 img.update_pixels()
 image(img, 17, 17)
 image(img, 34, 34)
-

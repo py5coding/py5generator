@@ -4,6 +4,13 @@ type = method
 category = math
 subcategory = random
 
+@@ signatures
+noise_detail(octaves: float, persistence: float, lacunarity: float) -> None
+
+@@ variables
+lacunarity: float - missing variable description
+octaves: float - missing variable description
+persistence: float - missing variable description
+
 @@ description
 new template no description.
-

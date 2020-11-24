@@ -6,6 +6,16 @@ type = method
 pclass = PApplet
 processing_name = bezierPoint
 
+@@ signatures
+bezier_point(a: float, b: float, c: float, d: float, t: float, /) -> float
+
+@@ variables
+a: float - coordinate of first point on the curve
+b: float - coordinate of first control point
+c: float - coordinate of second control point
+d: float - coordinate of second point on the curve
+t: float - value between 0 and 1
+
 @@ description
 Evaluates the Bezier at point t for points a, b, c, d. The parameter t varies between 0 and 1, a and d are points on the curve, and b and c are the control points. This can be done once with the x coordinates and a second time with the y coordinates to get the location of a bezier curve at t.
 
@@ -21,4 +31,3 @@ for i in range(0, steps + 1):
     x = bezier_point(85, 10, 90, 15, t)
     y = bezier_point(20, 10, 90, 80, t)
     ellipse(x, y, 5, 5)
-

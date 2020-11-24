@@ -6,6 +6,8 @@ processing_name = isKeyPressed
 category = input
 subcategory = keyboard
 
+@@ signatures
+is_key_pressed() -> bool
+
 @@ description
 new template no description.
-

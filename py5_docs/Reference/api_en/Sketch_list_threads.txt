@@ -4,6 +4,8 @@ type = method
 category = structure
 subcategory = threading
 
+@@ signatures
+list_threads() -> None
+
 @@ description
 new template no description.
-

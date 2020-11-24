@@ -4,6 +4,8 @@ type = method
 pclass = PShape
 processing_name = is3D
 
+@@ signatures
+is3d() -> bool
+
 @@ description
 new template no description.
-

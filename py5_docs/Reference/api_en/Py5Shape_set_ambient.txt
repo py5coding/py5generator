@@ -4,6 +4,13 @@ type = method
 pclass = PShape
 processing_name = setAmbient
 
+@@ signatures
+set_ambient(ambient: int, /) -> None
+set_ambient(index: int, ambient: int, /) -> None
+
+@@ variables
+ambient: int - missing variable description
+index: int - missing variable description
+
 @@ description
 new template no description.
-

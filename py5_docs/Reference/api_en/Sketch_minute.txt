@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = minute
 
+@@ signatures
+minute() -> int
+
 @@ description
 Processing communicates with the clock on your computer. The ``minute()`` function returns the current minute as a value from 0 - 59.
 
@@ -18,4 +21,3 @@ def draw():
     line(s, 0, s, 33)
     line(m, 33, m, 66)
     line(h, 66, h, 100)
-

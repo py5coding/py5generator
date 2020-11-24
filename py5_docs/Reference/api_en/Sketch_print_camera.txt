@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = printCamera
 
+@@ signatures
+print_camera() -> None
+
 @@ description
 Prints the current camera matrix to the Console (the text window at the bottom of Processing).
 
@@ -18,4 +21,3 @@ print_camera()
 # 00.0000  01.0000  00.0000 -50.0000
 # 00.0000  00.0000  01.0000 -86.6025
 # 00.0000  00.0000  00.0000  01.0000
-

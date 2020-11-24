@@ -4,6 +4,11 @@ type = method
 pclass = PSurface
 processing_name = setAlwaysOnTop
 
+@@ signatures
+set_always_on_top(always: bool, /) -> None
+
+@@ variables
+always: bool - missing variable description
+
 @@ description
 new template no description.
-

@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = millis
 
+@@ signatures
+millis() -> int
+
 @@ description
 Returns the number of milliseconds (thousandths of a second) since starting the program. This information is often used for timing events and animation sequences.
 
@@ -15,4 +18,3 @@ def draw():
     no_stroke()
     fill(m % 255)
     rect(25, 25, 50, 50)
-

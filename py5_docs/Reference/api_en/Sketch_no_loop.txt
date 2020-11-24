@@ -6,6 +6,9 @@ type = method
 pclass = PApplet
 processing_name = noLoop
 
+@@ signatures
+no_loop() -> None
+
 @@ description
 Stops Processing from continuously executing the code within ``draw()``. If ``loop()`` is called, the code in ``draw()`` begins to run continuously again. If using ``no_loop()`` in ``setup()``, it should be the last line inside the block.
 
@@ -21,7 +24,6 @@ def setup():
 
 def draw():
     line(10, 10, 190, 190)
-
 
 @@ example
 def setup():
@@ -47,7 +49,6 @@ def mouse_pressed():
 def mouse_released():
     loop()
 
-
 @@ example
 some_mode = False
 
@@ -64,4 +65,3 @@ def draw():
 def mouse_pressed():
     some_mode = True
     redraw()  # or loop()
-

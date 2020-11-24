@@ -4,6 +4,11 @@ type = method
 pclass = PShape
 processing_name = getChildIndex
 
+@@ signatures
+get_child_index(who: Py5Shape, /) -> int
+
+@@ variables
+who: Py5Shape - missing variable description
+
 @@ description
 new template no description.
-

@@ -4,6 +4,8 @@ type = method
 pclass = PFont
 processing_name = isSmooth
 
+@@ signatures
+is_smooth() -> bool
+
 @@ description
 new template no description.
-

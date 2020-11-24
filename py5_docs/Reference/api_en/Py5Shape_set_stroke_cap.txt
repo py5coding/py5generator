@@ -4,6 +4,11 @@ type = method
 pclass = PShape
 processing_name = setStrokeCap
 
+@@ signatures
+set_stroke_cap(cap: int, /) -> None
+
+@@ variables
+cap: int - missing variable description
+
 @@ description
 new template no description.
-

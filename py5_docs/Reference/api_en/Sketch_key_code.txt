@@ -37,4 +37,3 @@ def key_pressed():
 
     else:
         fill_val = 126
-

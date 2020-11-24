@@ -6,6 +6,12 @@ type = method
 pclass = PApplet
 processing_name = imageMode
 
+@@ signatures
+image_mode(mode: int, /) -> None
+
+@@ variables
+mode: int - either CORNER, CORNERS, or CENTER
+
 @@ description
 Modifies the location from which images are drawn by changing the way in which parameters given to ``image()`` are intepreted.
 
@@ -20,8 +26,6 @@ The parameter must be written in ALL CAPS because Processing is a case-sensitive
 @@ example
 image = Sketch_image_mode_0.png
 
-
-
 def setup():
     global img
     img = load_image("laDefense.jpg")
@@ -31,11 +35,8 @@ def draw():
     image_mode(CORNER)
     image(img, 10, 10, 50, 50)  # draw image using CORNER mode
 
-
 @@ example
 image = Sketch_image_mode_1.png
-
-
 
 def setup():
     global img
@@ -46,11 +47,8 @@ def draw():
     image_mode(CORNERS)
     image(img, 10, 10, 90, 40)  # draw image using CORNERS mode
 
-
 @@ example
 image = Sketch_image_mode_2.png
-
-
 
 def setup():
     global img
@@ -60,4 +58,3 @@ def setup():
 def draw():
     image_mode(CENTER)
     image(img, 50, 50, 80, 80)  # draw image using CENTER mode
-

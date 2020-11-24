@@ -6,12 +6,18 @@ type = method
 pclass = PShape
 processing_name = addChild
 
+@@ signatures
+add_child(who: Py5Shape, /) -> None
+add_child(who: Py5Shape, idx: int, /) -> None
+
+@@ variables
+idx: int - the layer position in which to insert the new child
+who: Py5Shape - any variable of type PShape
+
 @@ description
 Adds a child PShape to a parent PShape that is defined as a GROUP. In the example, the three shapes ``path``, ``rectangle``, and ``circle`` are added to a parent PShape variable named ``house`` that is a GROUP.
 
 @@ example
-
-
 def setup():
     global house
     size(200, 200)
@@ -39,4 +45,3 @@ def draw():
     background(52)
     translate(mouse_x, mouse_y)
     shape(house)
-

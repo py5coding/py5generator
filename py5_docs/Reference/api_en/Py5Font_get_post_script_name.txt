@@ -4,6 +4,8 @@ type = method
 pclass = PFont
 processing_name = getPostScriptName
 
+@@ signatures
+get_post_script_name() -> str
+
 @@ description
 new template no description.
-

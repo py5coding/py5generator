@@ -6,6 +6,13 @@ type = method
 pclass = PApplet
 processing_name = beginShape
 
+@@ signatures
+begin_shape() -> None
+begin_shape(kind: int, /) -> None
+
+@@ variables
+kind: int - Either POINTS, LINES, TRIANGLES, TRIANGLE_FAN, TRIANGLE_STRIP, QUADS, or QUAD_STRIP
+
 @@ description
 Using the ``begin_shape()`` and ``end_shape()`` functions allow creating more complex forms. ``begin_shape()`` begins recording vertices for a shape and ``end_shape()`` stops recording. The value of the ``kind`` parameter tells it which types of shapes to create from the provided vertices. With no mode specified, the shape can be any irregular polygon. The parameters available for ``begin_shape()`` are POINTS, LINES, TRIANGLES, TRIANGLE_FAN, TRIANGLE_STRIP, QUADS, and QUAD_STRIP. After calling the ``begin_shape()`` function, a series of ``vertex()`` commands must follow. To stop drawing the shape, call ``end_shape()``. The ``vertex()`` function with two parameters specifies a position in 2D and the ``vertex()`` function with three parameters specifies a position in 3D. Each shape will be outlined with the current stroke color and filled with the fill color. 
 
@@ -23,7 +30,6 @@ vertex(85, 75)
 vertex(30, 75)
 end_shape(CLOSE)
 
-
 @@ example
 image = Sketch_begin_shape_1.png
 
@@ -34,7 +40,6 @@ vertex(85, 75)
 vertex(30, 75)
 end_shape()
 
-
 @@ example
 image = Sketch_begin_shape_2.png
 
@@ -44,7 +49,6 @@ vertex(85, 20)
 vertex(85, 75)
 vertex(30, 75)
 end_shape()
-
 
 @@ example
 image = Sketch_begin_shape_3.png
@@ -57,7 +61,6 @@ vertex(85, 75)
 vertex(30, 75)
 end_shape()
 
-
 @@ example
 image = Sketch_begin_shape_4.png
 
@@ -68,7 +71,6 @@ vertex(85, 20)
 vertex(85, 75)
 vertex(30, 75)
 end_shape(CLOSE)
-
 
 @@ example
 image = Sketch_begin_shape_5.png
@@ -81,7 +83,6 @@ vertex(60, 20)
 vertex(70, 75)
 vertex(80, 20)
 end_shape()
-
 
 @@ example
 image = Sketch_begin_shape_6.png
@@ -96,7 +97,6 @@ vertex(80, 20)
 vertex(90, 75)
 end_shape()
 
-
 @@ example
 image = Sketch_begin_shape_7.png
 
@@ -108,7 +108,6 @@ vertex(57.5, 85)
 vertex(22, 50)
 vertex(57.5, 15)
 end_shape()
-
 
 @@ example
 image = Sketch_begin_shape_8.png
@@ -124,7 +123,6 @@ vertex(85, 75)
 vertex(85, 20)
 end_shape()
 
-
 @@ example
 image = Sketch_begin_shape_9.png
 
@@ -139,7 +137,6 @@ vertex(85, 20)
 vertex(85, 75)
 end_shape()
 
-
 @@ example
 image = Sketch_begin_shape_10.png
 
@@ -151,4 +148,3 @@ vertex(60, 40)
 vertex(60, 60)
 vertex(20, 60)
 end_shape(CLOSE)
-

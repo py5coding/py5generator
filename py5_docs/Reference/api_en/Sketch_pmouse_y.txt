@@ -18,4 +18,3 @@ def draw():
     background(204)
     line(20, mouse_y, 80, pmouse_y)
     print(mouse_y + " : " + pmouse_y)
-

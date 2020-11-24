@@ -4,6 +4,8 @@ type = method
 category = math
 subcategory = random
 
+@@ signatures
+random_gaussian() -> float
+
 @@ description
 new template no description.
-

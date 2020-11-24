@@ -4,6 +4,8 @@ type = method
 pclass = PShape
 processing_name = isClosed
 
+@@ signatures
+is_closed() -> bool
+
 @@ description
 new template no description.
-

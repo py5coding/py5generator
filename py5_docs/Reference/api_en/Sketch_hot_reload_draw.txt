@@ -4,6 +4,11 @@ type = method
 category = structure
 subcategory = None
 
+@@ signatures
+hot_reload_draw(draw: Callable) -> None
+
+@@ variables
+draw: Callable - missing variable description
+
 @@ description
 new template no description.
-

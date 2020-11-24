@@ -4,6 +4,11 @@ type = method
 category = math
 subcategory = trigonometry
 
+@@ signatures
+tan(angle: float) -> float
+
+@@ variables
+angle: float - missing variable description
+
 @@ description
 new template no description.
-

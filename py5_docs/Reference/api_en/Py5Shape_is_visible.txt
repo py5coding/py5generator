@@ -6,6 +6,9 @@ type = method
 pclass = PShape
 processing_name = isVisible
 
+@@ signatures
+is_visible() -> bool
+
 @@ description
 Returns a boolean value "true" if the image is set to be visible, "false" if not. This value can be modified with the ``set_visible()`` method.
 
@@ -13,8 +16,6 @@ The default visibility of a shape is usually controlled by whatever program crea
 
 @@ example
 image = Py5Shape_is_visible_0.png
-
-
 
 def setup():
     global s
@@ -31,4 +32,3 @@ def draw():
     if s.is_visible() == False:  # or use: "if (!s.isVisible)"
         no_fill()
         rect(10, 10, 80, 80)
-

@@ -6,12 +6,13 @@ type = method
 pclass = PApplet
 processing_name = endRaw
 
+@@ signatures
+end_raw() -> None
+
 @@ description
 Complement to ``begin_raw()``; they must always be used together. See the ``begin_raw()`` reference for details.
 
 @@ example
-
-
 def setup():
     size(400, 400)
     begin_raw(PDF, "raw.pdf")
@@ -25,4 +26,3 @@ def key_pressed():
     if key == ' ':
         end_raw()
         exit()
-

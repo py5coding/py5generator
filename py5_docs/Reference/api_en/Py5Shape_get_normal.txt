@@ -4,6 +4,13 @@ type = method
 pclass = PShape
 processing_name = getNormal
 
+@@ signatures
+get_normal(index: int, /) -> NDArray[(Any,), Float]
+get_normal(index: int, vec: NDArray[(Any,), Float], /) -> NDArray[(Any,), Float]
+
+@@ variables
+index: int - missing variable description
+vec: NDArray[(Any,), Float] - missing variable description
+
 @@ description
 new template no description.
-

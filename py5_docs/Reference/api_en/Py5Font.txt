@@ -14,10 +14,8 @@ To create a new font dynamically, use the ``create_font()`` function. Do not use
 @@ example
 image = Py5Font_0.png
 
-
 # the font must be located in the sketch's
 # "data" directory to load successfully
 font = create_font("LetterGothicStd.ttf", 32)
 text_font(font)
 text("word", 10, 50)
-
