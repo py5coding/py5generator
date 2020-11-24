@@ -13,15 +13,15 @@ DEST_DIR = Path('/tmp/examples/')
 
 
 def run_example(image, code):
-    example_file = '/tmp/examples/' + image.replace('.png', '.py')
+    example_file = DEST_DIR / image.replace('.png', '.py')
     print('*' * 20)
     print(example_file)
     if image == 'Sketch_curve_detail_0.png':
         # total hack
         code = code.replace('no_loop()', '')
-        code = code.replace('\n\ndef draw_curves(y)', f"\n    save_frame('/tmp/examples/{image}')\n    exit_sketch()\n\ndef draw_curves(y)")
+        code = code.replace('\n\ndef draw_curves(y)', f"\n    save_frame('{DEST_DIR / image}')\n    exit_sketch()\n\ndef draw_curves(y)")
     elif image:
-        extra_code = f"\nsave_frame('/tmp/examples/{image}')\nexit_sketch()\n"
+        extra_code = f"\nsave_frame('{DEST_DIR / image}')\nexit_sketch()\n"
         if py5_tools.run.SETUP_REGEX.search(code):
             extra_code = textwrap.indent(extra_code, prefix='    ')
         code += extra_code
