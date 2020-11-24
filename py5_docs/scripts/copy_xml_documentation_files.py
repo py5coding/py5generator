@@ -1,3 +1,6 @@
+"""
+This code is no longer used but might be pillaged one day to help convert Java example code.
+"""
 import re
 from pathlib import Path
 from io import StringIO
