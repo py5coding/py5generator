@@ -53,13 +53,16 @@ _py5sketch = Sketch()
 {sketch_module_members_code}
 
 
-def run_sketch(block: bool = not _in_ipython_session,
+def run_sketch(block: bool = None,
                py5_options: List = None,
                sketch_args: List = None) -> None:
     """$module_Sketch_run_sketch"""
     # Before running the sketch, delete the module fields that need to be kept
     # uptodate. This will allow the module `__getattr__` function return the
     # proper values.
+    if block is None:
+        block = not _in_ipython_session
+
     try:
         {run_sketch_pre_run_code}
     except NameError:

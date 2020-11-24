@@ -55,5 +55,5 @@ EXTRA_DIR_NAMES = {
 }
 
 EXTRA_METHOD_SIGNATURES = {
-    ('Sketch', 'run_sketch'): [(['block: bool = False', 'py5_options: List = None', 'sketch_args: List = None'], 'None')]
+    ('Sketch', 'run_sketch'): [(['block: bool = None', 'py5_options: List = None', 'sketch_args: List = None'], 'None')]
 }

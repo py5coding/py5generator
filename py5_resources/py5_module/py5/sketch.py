@@ -57,9 +57,12 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_methods = None
 
-    def run_sketch(self, block: bool = not _in_ipython_session,
+    def run_sketch(self, block: bool = None,
                    py5_options: List = None, sketch_args: List = None) -> None:
         """$class_Sketch_run_sketch"""
+        if block is None:
+            block = not _in_ipython_session
+
         if not hasattr(self, '_instance'):
             raise RuntimeError(
                 ('py5 internal problem: did you create a class with an `__init__()` '
