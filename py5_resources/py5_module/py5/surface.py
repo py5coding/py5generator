@@ -17,7 +17,8 @@ def _return_py5surface(f):
 
 
 class Py5Surface:
-    """$classdoc_Py5Surface"""
+    """$classdoc_Py5Surface
+    """
 
     def __init__(self, psurface, pimage_cache):
         self._instance = psurface

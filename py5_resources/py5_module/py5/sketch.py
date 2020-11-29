@@ -43,7 +43,8 @@ logger = logging.getLogger(__name__)
 
 
 class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
-    """$classdoc_Sketch"""
+    """$classdoc_Sketch
+    """
 
     _cls = _Py5Applet
 

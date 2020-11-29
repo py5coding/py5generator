@@ -151,5 +151,4 @@ class DocstringFinder:
         doc = textwrap.indent(
             raw_docstring,
             prefix=(' ' * DocstringFinder.INDENTING.get(kind, 0))).strip()
-        doc += '\n'
         return doc

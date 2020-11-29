@@ -49,7 +49,8 @@ _Py5GraphicsHelper = JClass('py5.core.Py5GraphicsHelper')
 
 
 class Py5Graphics(PixelMixin, Py5Base):
-    """$classdoc_Py5Graphics"""
+    """$classdoc_Py5Graphics
+    """
 
     def __init__(self, pgraphics):
         self._instance = pgraphics

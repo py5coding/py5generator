@@ -62,7 +62,8 @@ def _load_py5shape(f):
 
 
 class Py5Shape:
-    """$classdoc_Py5Shape"""
+    """$classdoc_Py5Shape
+    """
 
     def __init__(self, pshape):
         self._instance = pshape
