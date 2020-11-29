@@ -1,0 +1,14 @@
+@@ meta
+name = get_vertex_code()
+type = method
+pclass = PShape
+processing_name = getVertexCode
+
+@@ signatures
+get_vertex_code(index: int, /) -> int
+
+@@ variables
+index: int - missing variable description
+
+@@ description
+new template no description.

@@ -1,0 +1,15 @@
+@@ meta
+name = get_params()
+type = method
+pclass = PShape
+processing_name = getParams
+
+@@ signatures
+get_params() -> NDArray[(Any,), Float]
+get_params(target: NDArray[(Any,), Float], /) -> NDArray[(Any,), Float]
+
+@@ variables
+target: NDArray[(Any,), Float] - missing variable description
+
+@@ description
+new template no description.

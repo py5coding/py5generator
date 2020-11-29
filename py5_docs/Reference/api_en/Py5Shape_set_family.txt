@@ -1,0 +1,14 @@
+@@ meta
+name = set_family()
+type = method
+pclass = PShape
+processing_name = setFamily
+
+@@ signatures
+set_family(family: int, /) -> None
+
+@@ variables
+family: int - missing variable description
+
+@@ description
+new template no description.

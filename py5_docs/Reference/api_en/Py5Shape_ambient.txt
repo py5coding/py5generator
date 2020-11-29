@@ -1,0 +1,20 @@
+@@ meta
+name = ambient()
+type = method
+pclass = PShape
+processing_name = ambient
+
+@@ signatures
+ambient(gray: float, /) -> None
+ambient(rgb: int, /) -> None
+ambient(x: float, y: float, z: float, /) -> None
+
+@@ variables
+gray: float - missing variable description
+rgb: int - missing variable description
+x: float - missing variable description
+y: float - missing variable description
+z: float - missing variable description
+
+@@ description
+new template no description.

@@ -1,0 +1,20 @@
+@@ meta
+name = quadratic_vertex()
+type = method
+pclass = PShape
+processing_name = quadraticVertex
+
+@@ signatures
+quadratic_vertex(cx: float, cy: float, cz: float, x3: float, y3: float, z3: float, /) -> None
+quadratic_vertex(cx: float, cy: float, x3: float, y3: float, /) -> None
+
+@@ variables
+cx: float - missing variable description
+cy: float - missing variable description
+cz: float - missing variable description
+x3: float - missing variable description
+y3: float - missing variable description
+z3: float - missing variable description
+
+@@ description
+new template no description.

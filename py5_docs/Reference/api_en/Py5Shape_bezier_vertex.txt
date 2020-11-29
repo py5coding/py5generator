@@ -1,0 +1,23 @@
+@@ meta
+name = bezier_vertex()
+type = method
+pclass = PShape
+processing_name = bezierVertex
+
+@@ signatures
+bezier_vertex(x2: float, y2: float, x3: float, y3: float, x4: float, y4: float, /) -> None
+bezier_vertex(x2: float, y2: float, z2: float, x3: float, y3: float, z3: float, x4: float, y4: float, z4: float, /) -> None
+
+@@ variables
+x2: float - missing variable description
+x3: float - missing variable description
+x4: float - missing variable description
+y2: float - missing variable description
+y3: float - missing variable description
+y4: float - missing variable description
+z2: float - missing variable description
+z3: float - missing variable description
+z4: float - missing variable description
+
+@@ description
+new template no description.

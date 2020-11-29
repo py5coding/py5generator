@@ -1,0 +1,25 @@
+@@ meta
+name = fill()
+type = method
+pclass = PShape
+processing_name = fill
+
+@@ signatures
+fill(gray: float, /) -> None
+fill(gray: float, alpha: float, /) -> None
+fill(rgb: int, /) -> None
+fill(rgb: int, alpha: float, /) -> None
+fill(x: float, y: float, z: float, /) -> None
+fill(x: float, y: float, z: float, a: float, /) -> None
+
+@@ variables
+a: float - missing variable description
+alpha: float - missing variable description
+gray: float - missing variable description
+rgb: int - missing variable description
+x: float - missing variable description
+y: float - missing variable description
+z: float - missing variable description
+
+@@ description
+new template no description.

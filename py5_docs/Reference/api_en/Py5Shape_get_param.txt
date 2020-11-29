@@ -1,0 +1,14 @@
+@@ meta
+name = get_param()
+type = method
+pclass = PShape
+processing_name = getParam
+
+@@ signatures
+get_param(index: int, /) -> float
+
+@@ variables
+index: int - missing variable description
+
+@@ description
+new template no description.

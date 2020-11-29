@@ -1,0 +1,21 @@
+@@ meta
+name = vertex()
+type = method
+pclass = PShape
+processing_name = vertex
+
+@@ signatures
+vertex(x: float, y: float, /) -> None
+vertex(x: float, y: float, u: float, v: float, /) -> None
+vertex(x: float, y: float, z: float, /) -> None
+vertex(x: float, y: float, z: float, u: float, v: float, /) -> None
+
+@@ variables
+u: float - missing variable description
+v: float - missing variable description
+x: float - missing variable description
+y: float - missing variable description
+z: float - missing variable description
+
+@@ description
+new template no description.

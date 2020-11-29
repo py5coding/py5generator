@@ -1,0 +1,16 @@
+@@ meta
+name = normal()
+type = method
+pclass = PShape
+processing_name = normal
+
+@@ signatures
+normal(nx: float, ny: float, nz: float, /) -> None
+
+@@ variables
+nx: float - missing variable description
+ny: float - missing variable description
+nz: float - missing variable description
+
+@@ description
+new template no description.

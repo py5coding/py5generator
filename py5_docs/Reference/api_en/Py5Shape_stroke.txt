@@ -1,0 +1,24 @@
+@@ meta
+name = stroke()
+type = method
+pclass = PShape
+processing_name = stroke
+
+@@ signatures
+stroke(gray: float, /) -> None
+stroke(gray: float, alpha: float, /) -> None
+stroke(rgb: int, /) -> None
+stroke(rgb: int, alpha: float, /) -> None
+stroke(x: float, y: float, z: float, /) -> None
+stroke(x: float, y: float, z: float, alpha: float, /) -> None
+
+@@ variables
+alpha: float - missing variable description
+gray: float - missing variable description
+rgb: int - missing variable description
+x: float - missing variable description
+y: float - missing variable description
+z: float - missing variable description
+
+@@ description
+new template no description.

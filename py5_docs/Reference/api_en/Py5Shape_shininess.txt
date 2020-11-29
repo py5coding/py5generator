@@ -1,0 +1,14 @@
+@@ meta
+name = shininess()
+type = method
+pclass = PShape
+processing_name = shininess
+
+@@ signatures
+shininess(shine: float, /) -> None
+
+@@ variables
+shine: float - missing variable description
+
+@@ description
+new template no description.

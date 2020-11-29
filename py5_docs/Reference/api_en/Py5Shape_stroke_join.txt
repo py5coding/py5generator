@@ -1,0 +1,14 @@
+@@ meta
+name = stroke_join()
+type = method
+pclass = PShape
+processing_name = strokeJoin
+
+@@ signatures
+stroke_join(join: int, /) -> None
+
+@@ variables
+join: int - missing variable description
+
+@@ description
+new template no description.

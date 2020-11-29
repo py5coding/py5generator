@@ -1,0 +1,14 @@
+@@ meta
+name = curve_tightness()
+type = method
+pclass = PShape
+processing_name = curveTightness
+
+@@ signatures
+curve_tightness(tightness: float, /) -> None
+
+@@ variables
+tightness: float - missing variable description
+
+@@ description
+new template no description.

@@ -1,0 +1,14 @@
+@@ meta
+name = stroke_cap()
+type = method
+pclass = PShape
+processing_name = strokeCap
+
+@@ signatures
+stroke_cap(cap: int, /) -> None
+
+@@ variables
+cap: int - missing variable description
+
+@@ description
+new template no description.

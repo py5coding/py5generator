@@ -1,0 +1,11 @@
+@@ meta
+name = no_tint()
+type = method
+pclass = PShape
+processing_name = noTint
+
+@@ signatures
+no_tint() -> None
+
+@@ description
+new template no description.

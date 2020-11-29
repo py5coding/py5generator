@@ -1,0 +1,11 @@
+@@ meta
+name = no_texture()
+type = method
+pclass = PShape
+processing_name = noTexture
+
+@@ signatures
+no_texture() -> None
+
+@@ description
+new template no description.

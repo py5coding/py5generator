@@ -1,0 +1,15 @@
+@@ meta
+name = set_path()
+type = method
+pclass = PShape
+processing_name = setPath
+
+@@ signatures
+set_path(vcount: int, verts: NDArray[(Any, Any), Float], /) -> None
+
+@@ variables
+vcount: int - missing variable description
+verts: NDArray[(Any, Any), Float] - missing variable description
+
+@@ description
+new template no description.

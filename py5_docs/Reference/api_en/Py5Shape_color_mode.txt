@@ -1,0 +1,22 @@
+@@ meta
+name = color_mode()
+type = method
+pclass = PShape
+processing_name = colorMode
+
+@@ signatures
+color_mode(mode: int, /) -> None
+color_mode(mode: int, max: float, /) -> None
+color_mode(mode: int, max_x: float, max_y: float, max_z: float, /) -> None
+color_mode(mode: int, max_x: float, max_y: float, max_z: float, max_a: float, /) -> None
+
+@@ variables
+max: float - missing variable description
+max_a: float - missing variable description
+max_x: float - missing variable description
+max_y: float - missing variable description
+max_z: float - missing variable description
+mode: int - missing variable description
+
+@@ description
+new template no description.

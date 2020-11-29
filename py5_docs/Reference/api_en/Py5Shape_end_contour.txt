@@ -1,0 +1,11 @@
+@@ meta
+name = end_contour()
+type = method
+pclass = PShape
+processing_name = endContour
+
+@@ signatures
+end_contour() -> None
+
+@@ description
+new template no description.

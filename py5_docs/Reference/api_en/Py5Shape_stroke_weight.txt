@@ -1,0 +1,14 @@
+@@ meta
+name = stroke_weight()
+type = method
+pclass = PShape
+processing_name = strokeWeight
+
+@@ signatures
+stroke_weight(weight: float, /) -> None
+
+@@ variables
+weight: float - missing variable description
+
+@@ description
+new template no description.

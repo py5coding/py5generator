@@ -1,0 +1,11 @@
+@@ meta
+name = no_fill()
+type = method
+pclass = PShape
+processing_name = noFill
+
+@@ signatures
+no_fill() -> None
+
+@@ description
+new template no description.

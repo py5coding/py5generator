@@ -1,0 +1,11 @@
+@@ meta
+name = get_vertex_codes()
+type = method
+pclass = PShape
+processing_name = getVertexCodes
+
+@@ signatures
+get_vertex_codes() -> JArray(JInt)
+
+@@ description
+new template no description.

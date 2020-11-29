@@ -1,0 +1,14 @@
+@@ meta
+name = texture_mode()
+type = method
+pclass = PShape
+processing_name = textureMode
+
+@@ signatures
+texture_mode(mode: int, /) -> None
+
+@@ variables
+mode: int - missing variable description
+
+@@ description
+new template no description.

@@ -1,0 +1,14 @@
+@@ meta
+name = set_kind()
+type = method
+pclass = PShape
+processing_name = setKind
+
+@@ signatures
+set_kind(kind: int, /) -> None
+
+@@ variables
+kind: int - missing variable description
+
+@@ description
+new template no description.

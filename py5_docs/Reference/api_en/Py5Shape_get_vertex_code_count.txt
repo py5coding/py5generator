@@ -1,0 +1,11 @@
+@@ meta
+name = get_vertex_code_count()
+type = method
+pclass = PShape
+processing_name = getVertexCodeCount
+
+@@ signatures
+get_vertex_code_count() -> int
+
+@@ description
+new template no description.

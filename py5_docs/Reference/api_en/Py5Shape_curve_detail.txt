@@ -1,0 +1,14 @@
+@@ meta
+name = curve_detail()
+type = method
+pclass = PShape
+processing_name = curveDetail
+
+@@ signatures
+curve_detail(detail: int, /) -> None
+
+@@ variables
+detail: int - missing variable description
+
+@@ description
+new template no description.

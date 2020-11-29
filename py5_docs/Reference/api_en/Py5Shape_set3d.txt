@@ -1,0 +1,14 @@
+@@ meta
+name = set3d()
+type = method
+pclass = PShape
+processing_name = set3D
+
+@@ signatures
+set3d(val: bool, /) -> None
+
+@@ variables
+val: bool - missing variable description
+
+@@ description
+new template no description.
