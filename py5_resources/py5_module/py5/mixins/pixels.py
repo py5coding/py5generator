@@ -1,3 +1,4 @@
+import threading
 from pathlib import Path
 from typing import overload, List, Union  # noqa
 
@@ -66,4 +67,9 @@ class PixelMixin:
         filename = Path(str(self._instance.savePath(str(filename))))
         self.load_np_pixels()
         arr = self.np_pixels[:, :, 1:] if drop_alpha else np.roll(self.np_pixels, -1, axis=2)
-        Image.fromarray(arr).save(filename, format=format, **params)
+
+        def _save(arr, filename, format, params):
+            Image.fromarray(arr).save(filename, format=format, **params)
+
+        t = threading.Thread(target=_save, args=(arr, filename, format, params), daemon=True)
+        t.start()
