@@ -191,14 +191,16 @@ def write_main_ref_columns(filename, columns):
 
 
 def compare_files(old_filename, new_content):
-    with open(old_filename, 'r') as f:
-        old_content = f.read()
-    old_content = re.sub(r'^\.\. date: .*$', '', old_content, flags=re.MULTILINE)
-    old_content = re.sub(r'^Updated on .*$', '', old_content, flags=re.MULTILINE)
-    new_content = re.sub(r'^\.\. date: .*$', '', new_content, flags=re.MULTILINE)
-    new_content = re.sub(r'^Updated on .*$', '', new_content, flags=re.MULTILINE)
-    return old_content == new_content
-
+    try:
+        with open(old_filename, 'r') as f:
+            old_content = f.read()
+        old_content = re.sub(r'^\.\. date: .*$', '', old_content, flags=re.MULTILINE)
+        old_content = re.sub(r'^Updated on .*$', '', old_content, flags=re.MULTILINE)
+        new_content = re.sub(r'^\.\. date: .*$', '', new_content, flags=re.MULTILINE)
+        new_content = re.sub(r'^Updated on .*$', '', new_content, flags=re.MULTILINE)
+        return old_content == new_content
+    except FileNotFoundError:
+        return False
 
 def write_category_heading(f, catname, subcategory=False):
     if catname in CATEGORY_LOOKUP:
