@@ -215,7 +215,7 @@ modified_y2,modifiedY2,,unknown,FALSE,FALSE,
 load_pixels,loadPixels,,method,TRUE,TRUE,
 update_pixels,updatePixels,,method,TRUE,TRUE,
 set_loaded,setLoaded,,method,FALSE,FALSE,
-check_alpha,checkAlpha,,method,FALSE,FALSE,public methods that shouldn't be available to users
+check_alpha,checkAlpha,,method,TRUE,TRUE,made public in Processing 4a2
 blend_color,blendColor,,static method,FALSE,FALSE,methods that are not part of the processing framework
 blend,blend,,method,TRUE,TRUE,
 load_tiff,loadTIFF,,static method,FALSE,FALSE,
