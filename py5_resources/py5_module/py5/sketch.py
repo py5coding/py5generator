@@ -212,9 +212,9 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             what = what[:first] + numprefix + numstr + what[last:]
         return what
 
-    def save_frame(self, filename: Union[str, Path], format: str = None, drop_alpha: bool = True, **params) -> None:
+    def save_frame(self, filename: Union[str, Path], format: str = None, drop_alpha: bool = True, use_thread: bool = True, **params) -> None:
         """$class_Sketch_save_frame"""
-        self.save(self._insert_frame(str(filename)), format=format, drop_alpha=drop_alpha, **params)
+        self.save(self._insert_frame(str(filename)), format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
 
     # *** Py5Image methods ***
 

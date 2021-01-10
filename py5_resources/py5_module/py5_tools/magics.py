@@ -47,7 +47,7 @@ class ScreenshotHook(BaseHook):
 
     def __call__(self, sketch):
         try:
-            sketch.save_frame(self.filename)
+            sketch.save_frame(self.filename, use_thread=False)
             self.hook_finished(sketch)
         except Exception as e:
             self.hook_error(sketch, e)
