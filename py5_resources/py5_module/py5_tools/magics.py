@@ -428,7 +428,7 @@ class Py5Magics(Magics):
     @argument('-w', type=int, dest='wait', default=0,
               help='wait time in seconds before starting sketch frame capture')
     @argument('-l', dest='loop', type=int, default=0,
-              help='number of times for the GIF to loop (default of 0 loops indefinitely')
+              help='number of times for the GIF to loop (default of 0 loops indefinitely)')
     @argument('--optimize', action='store_true', help='optimize GIF palette')
     def py5animatedgif(self, line):
         """Save the current running sketch's frames to a directory.
