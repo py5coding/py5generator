@@ -348,15 +348,16 @@ class Py5Magics(Magics):
 
         wait(args.wait, sketch)
 
-        with tempfile.NamedTemporaryFile(suffix='.png') as png_file:
-            hook = ScreenshotHook(png_file.name)
+        with tempfile.TemporaryDirectory() as tempdir:
+            temp_png = Path(tempdir) / 'output.png'
+            hook = ScreenshotHook(temp_png)
             sketch._add_post_hook('draw', hook.hook_name, hook)
 
             while not hook.is_ready and not hook.is_terminated:
                 time.sleep(0.005)
 
             if hook.is_ready:
-                return PIL.Image.open(png_file.name)
+                return PIL.Image.open(temp_png)
             elif hook.is_terminated and hook.exception:
                 print('error running magic:', hook.exception)
 
