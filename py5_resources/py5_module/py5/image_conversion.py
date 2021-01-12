@@ -1,5 +1,6 @@
 import io
 from pathlib import Path
+import uuid
 import tempfile
 from dataclasses import dataclass
 
@@ -8,6 +9,8 @@ from PIL import Image
 
 
 pimage_functions = []
+
+_TEMP_DIR = tempfile.TemporaryDirectory()
 
 
 def _convert(obj):
@@ -102,8 +105,8 @@ try:
         return isinstance(obj, cairocffi.Surface)
 
     def cairocffi_surface_to_tempfile_converter(surface):
-        temp_png = tempfile.NamedTemporaryFile(suffix='.png')
-        surface.write_to_png(temp_png.name)
+        temp_png = Path(_TEMP_DIR.name) / f'{uuid.uuid4()}.png'
+        surface.write_to_png(str(temp_png))
         return temp_png
 
     register_image_conversion(cairocffi_surface_to_tempfile_precondition, cairocffi_surface_to_tempfile_converter)
@@ -118,8 +121,8 @@ try:
         return isinstance(obj, cairo.Surface)
 
     def cairo_surface_to_tempfile_converter(surface):
-        temp_png = tempfile.NamedTemporaryFile(suffix='.png')
-        surface.write_to_png(temp_png.name)
+        temp_png = Path(_TEMP_DIR.name) / f'{uuid.uuid4()}.png'
+        surface.write_to_png(str(temp_png))
         return temp_png
 
     register_image_conversion(cairo_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
