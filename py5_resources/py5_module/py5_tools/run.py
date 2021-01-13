@@ -207,10 +207,10 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
         temp_out = Path(tempdir) / ('output' + suffix)
 
         with open(temp_py, 'w') as f:
-            code = template.format(width, height, renderer, temp_out, prepared_code)
+            code = template.format(width, height, renderer, temp_out.as_posix(), prepared_code)
             f.write(code)
 
-        exec(_CODE_FRAMEWORK.format(temp_py, True, ''), user_ns)
+        exec(_CODE_FRAMEWORK.format(temp_py.as_posix(), True, ''), user_ns)
 
         with open(temp_out, read_mode) as f:
             result = f.read()
