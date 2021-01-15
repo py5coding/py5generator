@@ -106,7 +106,7 @@ try:
 
     def cairocffi_surface_to_tempfile_converter(surface):
         temp_png = Path(_TEMP_DIR.name) / f'{uuid.uuid4()}.png'
-        surface.write_to_png(str(temp_png))
+        surface.write_to_png(temp_png.as_posix())
         return temp_png
 
     register_image_conversion(cairocffi_surface_to_tempfile_precondition, cairocffi_surface_to_tempfile_converter)
@@ -122,7 +122,7 @@ try:
 
     def cairo_surface_to_tempfile_converter(surface):
         temp_png = Path(_TEMP_DIR.name) / f'{uuid.uuid4()}.png'
-        surface.write_to_png(str(temp_png))
+        surface.write_to_png(temp_png.as_posix())
         return temp_png
 
     register_image_conversion(cairo_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
