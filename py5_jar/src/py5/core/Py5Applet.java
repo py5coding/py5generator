@@ -3,9 +3,13 @@ package py5.core;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.jogamp.newt.Window;
+import com.jogamp.newt.Screen;
+import com.jogamp.newt.Display;
 import com.jogamp.newt.event.KeyListener;
 import com.jogamp.newt.event.MouseListener;
 import com.jogamp.newt.event.WindowListener;
+import com.jogamp.newt.opengl.GLWindow;
 
 import processing.core.PApplet;
 import processing.event.MouseEvent;
@@ -174,15 +178,16 @@ public class Py5Applet extends PApplet {
     py5Methods.shutdown();
 
     final Object nativeWindow = surface.getNative();
-    if (nativeWindow instanceof com.jogamp.newt.opengl.GLWindow) {
-      com.jogamp.newt.opengl.GLWindow window = (com.jogamp.newt.opengl.GLWindow) nativeWindow;
+    if (nativeWindow instanceof GLWindow) {
+      GLWindow window = (GLWindow) nativeWindow;
       for (int i = 0; i < window.getGLEventListenerCount(); i++) {
         window.disposeGLEventListener(window.getGLEventListener(i), true);
       }
     }
-    if (nativeWindow instanceof com.jogamp.newt.Window) {
-      com.jogamp.newt.Window window = (com.jogamp.newt.Window) nativeWindow;
-      // remove the listeners before destroying window to prevent a core dump
+    if (nativeWindow instanceof Window) {
+      Window window = (Window) nativeWindow;
+
+      // first remove the listeners before destroying window
       for (WindowListener l : window.getWindowListeners()) {
         window.removeWindowListener(l);
       }
@@ -192,6 +197,14 @@ public class Py5Applet extends PApplet {
       for (MouseListener l : window.getMouseListeners()) {
         window.removeMouseListener(l);
       }
+
+      // get the screen and display and explicitly destroy both
+      Screen screen = window.getScreen();
+      Display display = screen.getDisplay();
+      display.destroy();
+      screen.destroy();
+
+      // finally, destroy the window
       window.destroy();
     } else if (nativeWindow instanceof processing.awt.PSurfaceAWT.SmoothCanvas) {
       processing.awt.PSurfaceAWT.SmoothCanvas window = (processing.awt.PSurfaceAWT.SmoothCanvas) nativeWindow;
@@ -202,9 +215,9 @@ public class Py5Applet extends PApplet {
   }
 
   /*
-   * These extra methods are here to get around the collisions caused by the
-   * methods and fields that have the same name. This is allowed in Java but not
-   * in Python.
+   * These extra methods are here to get around the name collisions caused by
+   * methods and fields that have the same name. That sort of thing is allowed
+   * in Java but not in Python.
    */
 
   public float getFrameRate() {
