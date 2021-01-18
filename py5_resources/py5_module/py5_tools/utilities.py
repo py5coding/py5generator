@@ -65,7 +65,7 @@ BUILD_XML_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
 
     <property name="src" location="src"/>
     <property name="build" location="build"/>
-    <property name="dist" location="jars"/>
+    <property name="dist" location="{jars}"/>
 
     <target name="compile" description="compile the source">
         <mkdir dir="{build}"/>
@@ -92,25 +92,29 @@ BUILD_XML_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
 """
 
 
-def generate_utilities_framework(dest=None):
-    dest = Path(dest or '')
+def generate_utilities_framework(output_dir=None, jars_dir=None):
+    output_path = Path(output_dir or '')
+    ant_build_path = Path(jars_dir or 'jars')
 
     import py5
-    jarsdir = Path(py5.__file__).parent / 'jars'
+    py5_classpath = Path(py5.__file__).parent / 'jars'
 
     template_params = {x: f'{chr(36)}{{{x}}}' for x in ['build', 'dist', 'src']}
-    template_params['path'] = jarsdir.as_posix()
+    template_params['path'] = py5_classpath.as_posix()
+    template_params['jars'] = ant_build_path.absolute().as_posix() if output_dir else ant_build_path.as_posix()
 
-    with open(dest / 'build.xml', 'w') as f:
+    output_path.mkdir(parents=True, exist_ok=True)
+
+    with open(output_path / 'build.xml', 'w') as f:
         f.write(BUILD_XML_TEMPLATE.format(**template_params))
 
-    with open(dest / '.classpath', 'w') as f:
+    with open(output_path / '.classpath', 'w') as f:
         f.write(DOT_CLASSPATH_TEMPLATE.format(**template_params))
-    
-    with open(dest / '.project', 'w') as f:
+
+    with open(output_path / '.project', 'w') as f:
         f.write(DOT_PROJECT)
 
-    src_dir = dest / Path('src/py5/utils')
+    src_dir = output_path / Path('src/py5/utils')
     src_dir.mkdir(parents=True, exist_ok=True)
     with open(src_dir / 'Py5Utilities.java', 'w') as f:
         f.write(PY5_UTILITIES_CLASS)
