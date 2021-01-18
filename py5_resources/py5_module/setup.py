@@ -42,6 +42,7 @@ setup(
         'console_scripts': [
             'run_sketch = py5_tools.tools.run_sketch:main',
             'py5cmd = py5_tools.tools.py5cmd:main',
+            'py5utils = py5_tools.tools.py5utils:main',
         ],
     },
     classifiers=[
