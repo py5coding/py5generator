@@ -92,23 +92,25 @@ BUILD_XML_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
 """
 
 
-def generate_utilities_framework():
+def generate_utilities_framework(dest=None):
+    dest = Path(dest or '')
+
     import py5
     jarsdir = Path(py5.__file__).parent / 'jars'
 
     template_params = {x: f'{chr(36)}{{{x}}}' for x in ['build', 'dist', 'src']}
     template_params['path'] = jarsdir.as_posix()
 
-    with open('build.xml', 'w') as f:
+    with open(dest / 'build.xml', 'w') as f:
         f.write(BUILD_XML_TEMPLATE.format(**template_params))
 
-    with open('.classpath', 'w') as f:
+    with open(dest / '.classpath', 'w') as f:
         f.write(DOT_CLASSPATH_TEMPLATE.format(**template_params))
     
-    with open('.project', 'w') as f:
+    with open(dest / '.project', 'w') as f:
         f.write(DOT_PROJECT)
 
-    src_dir = Path('src/py5/utils')
+    src_dir = dest / Path('src/py5/utils')
     src_dir.mkdir(parents=True, exist_ok=True)
     with open(src_dir / 'Py5Utilities.java', 'w') as f:
         f.write(PY5_UTILITIES_CLASS)
