@@ -58,9 +58,10 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_methods = None
 
+        # attempt to instantiate Py5Utilities
         self.utils = None
         try:
-            self.utils = jpype.JClass('py5.utils.Py5Utilities')
+            self.utils = jpype.JClass('py5.utils.Py5Utilities')(self._py5applet)
         except Exception:
             pass
 
