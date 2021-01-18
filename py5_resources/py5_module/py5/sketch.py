@@ -58,6 +58,12 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_methods = None
 
+        self.utils = None
+        try:
+            self.utils = jpype.JClass('py5.utils.Py5Utilities')
+        except Exception:
+            pass
+
     def run_sketch(self, block: bool = None,
                    py5_options: List = None, sketch_args: List = None) -> None:
         """$class_Sketch_run_sketch"""
