@@ -4,5 +4,5 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="/home/jim/Projects/ITP/pythonprocessing/processing4/core/library/core.jar"/>
 	<classpathentry kind="lib" path="/home/jim/Projects/ITP/pythonprocessing/processing4/core/library/jogl-all.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="build"/>
 </classpath>
