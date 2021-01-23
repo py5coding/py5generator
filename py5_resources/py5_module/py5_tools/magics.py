@@ -331,7 +331,7 @@ class Py5Magics(Magics):
 
     @line_magic
     @magic_arguments()
-    @argument('-w', type=int, dest='wait', default=0, help='wait time in seconds before taking screenshot')
+    @argument('-w', '--wait', type=int, dest='wait', default=0, help='wait time in seconds before taking screenshot')
     def py5screenshot(self, line):
         """Take a screenshot of the current running sketch.
 
@@ -377,13 +377,13 @@ class Py5Magics(Magics):
     @line_magic
     @magic_arguments()
     @argument('dirname', type=str, help='directory to save the frames')
-    @argument('--filename', type=str, dest='filename', default='frame_####.png',
+    @argument('-f', '--filename', type=str, dest='filename', default='frame_####.png',
               help='filename to save frames to')
-    @argument('-w', type=int, dest='wait', default=0,
-              help='wait time in seconds before starting sketch frame capture')
-    @argument('-s', dest='start', type=int,
+    @argument('-w', '--wait', type=int, dest='wait', default=0,
+              help='wait time in seconds before starting to save frames')
+    @argument('-s', '--start', dest='start', type=int,
               help='frame starting number instead of sketch frame_count')
-    @argument('--limit', type=int, dest='limit', default=0,
+    @argument('-l', '--limit', type=int, dest='limit', default=0,
               help='limit the number of frames to save (default 0 means no limit)')
     def py5saveframes(self, line):
         """Save the current running sketch's frames to a directory.
@@ -425,7 +425,7 @@ class Py5Magics(Magics):
             while not hook.is_ready and not hook.is_terminated:
                 time.sleep(0.02)
                 print(f'saving frame {len(hook.filenames)}/{args.limit}', end='\r')
-            print('')
+            print(f'saving frame {len(hook.filenames)}/{args.limit}')
 
             if hook.is_ready:
                 return hook.filenames
@@ -439,9 +439,9 @@ class Py5Magics(Magics):
     @argument('count', type=int, help='number of Sketch snapshots to create')
     @argument('delay', type=int, help='time in milliseconds between Sketch snapshots')
     @argument('duration', type=int, help='time in milliseconds between frames in the GIF')
-    @argument('-w', type=int, dest='wait', default=0,
+    @argument('-w', '--wait', type=int, dest='wait', default=0,
               help='wait time in seconds before starting sketch frame capture')
-    @argument('-l', dest='loop', type=int, default=0,
+    @argument('-l', '--loop', dest='loop', type=int, default=0,
               help='number of times for the GIF to loop (default of 0 loops indefinitely)')
     @argument('--optimize', action='store_true', help='optimize GIF palette')
     def py5animatedgif(self, line):
@@ -496,7 +496,7 @@ class Py5Magics(Magics):
     @magic_arguments()
     @argument('count', type=int, help='number of Sketch snapshots to capture')
     @argument('delay', type=int, help='time in milliseconds between Sketch snapshots')
-    @argument('-w', type=int, dest='wait', default=0,
+    @argument('-w', '--wait', type=int, dest='wait', default=0,
               help='wait time in seconds before starting sketch frame capture')
     def py5captureframes(self, line):
         """Capture frames from the currently running sketch.
@@ -505,8 +505,8 @@ class Py5Magics(Magics):
 
         The below example will capture 10 frames from the currently running
         sketch. The frames will be recorded 1000 milliseconds apart after
-        waiting 3 seconds. The results are returned in a Python list and
-        assigned to the variable `frames`.
+        waiting 3 seconds. The results are returned in a Python list of PIL
+        Image objects and assigned to the variable `frames`.
 
         ```
             frames = %py5captureframes 10 1000 -w 3
