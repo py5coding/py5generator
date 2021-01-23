@@ -1,4 +1,5 @@
 import time
+import re
 import io
 from pathlib import Path
 import tempfile
@@ -109,6 +110,9 @@ class Py5Magics(Magics):
         if not filename.parent.exists():
             filename.parent.mkdir(parents=True)
         return filename
+
+    def _variable_name_check(self, varname):
+        return re.match('^[a-zA-Z_]\w*' + chr(36), varname)
 
     @magic_arguments()
     @argument('width', type=int, help='width of PDF output')
@@ -261,6 +265,7 @@ class Py5Magics(Magics):
     @argument('width', type=int, help='width of PNG image')
     @argument('height', type=int, help='height of PNG image')
     @argument('-f', '--filename', dest='filename', help='save image to file')
+    @argument('-v', '--var', dest='variable', help='assign image to variable')
     @argument('-r', '--renderer', type=str, dest='renderer', default='HIDDEN',
               help='processing renderer to use for sketch')
     @argument('--unsafe', dest='unsafe', action='store_true',
@@ -310,10 +315,18 @@ class Py5Magics(Magics):
         png = run_single_frame_sketch(args.renderer, cell, args.width, args.height,
                                       self.shell.user_ns, not args.unsafe)
         if png:
-            if args.filename:
-                filename = self._filename_check(args.filename)
-                PIL.Image.open(io.BytesIO(png)).convert(mode='RGB').save(filename)
-                print(f'PNG file written to {filename}')
+            if args.filename or args.variable:
+                pil_img = PIL.Image.open(io.BytesIO(png)).convert(mode='RGB')
+                if args.filename:
+                    filename = self._filename_check(args.filename)
+                    pil_img.save(filename)
+                    print(f'PNG file written to {filename}')
+                if args.variable:
+                    if self._variable_name_check(args.variable):
+                        self.shell.user_ns[args.variable] = pil_img
+                        print(f'PIL Image assigned to {args.variable}')
+                    else:
+                        print(f'Invalid variable name {args.variable}')
             display(Image(png))
 
     @line_magic
