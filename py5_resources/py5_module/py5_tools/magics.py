@@ -445,7 +445,7 @@ class Py5Magics(Magics):
               help='number of times for the GIF to loop (default of 0 loops indefinitely)')
     @argument('--optimize', action='store_true', help='optimize GIF palette')
     def py5animatedgif(self, line):
-        """Save the current running sketch's frames to a directory.
+        """Create an animated GIF using the current running sketch.
 
         Use the -w argument to wait before starting.
 
@@ -455,7 +455,7 @@ class Py5Magics(Magics):
         with a 500 millisecond delay between each one and will loop indefinitely.
 
         ```
-            %py5screencapture /tmp/animated.gif 10 1000 500 -w 3
+            %py5animatedgif /tmp/animated.gif 10 1000 500 -w 3
         ```
         """
         args = parse_argstring(self.py5animatedgif, line)
