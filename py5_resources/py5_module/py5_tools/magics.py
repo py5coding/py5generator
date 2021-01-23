@@ -385,7 +385,7 @@ class Py5Magics(Magics):
               help='frame starting number instead of sketch frame_count')
     @argument('--limit', type=int, dest='limit', default=0,
               help='limit the number of frames to save (default 0 means no limit)')
-    def py5screencapture(self, line):
+    def py5saveframes(self, line):
         """Save the current running sketch's frames to a directory.
 
         Use the -w argument to wait before starting.
@@ -395,7 +395,7 @@ class Py5Magics(Magics):
         default name 'frame_####.png' with numbering that starts at 0.
 
         ```
-            %py5screencapture /tmp/frames -w 3 -s 0 --limit 50
+            %py5saveframes /tmp/frames -w 3 -s 0 --limit 50
         ```
 
         If a limit is given, this line magic will wait to return a list of the
@@ -403,7 +403,7 @@ class Py5Magics(Magics):
         in the background. It will keep doing so as long as the sketch continues
         to run.
         """
-        args = parse_argstring(self.py5screencapture, line)
+        args = parse_argstring(self.py5saveframes, line)
         import py5
         sketch = py5.get_current_sketch()
 
