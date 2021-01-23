@@ -56,17 +56,21 @@ class ScreenshotHook(BaseHook):
 
 class SaveFramesHook(BaseHook):
 
-    def __init__(self, dirname, filename, start, limit):
+    def __init__(self, dirname, filename, delay, start, limit):
         super().__init__('py5save_frames_hook')
         self.dirname = dirname
         self.filename = filename
+        self.delay = delay
         self.start = start
         self.limit = limit
         self.num_offset = None
         self.filenames = []
+        self.last_frame_time = 0
 
     def __call__(self, sketch):
         try:
+            if time.time() - self.last_frame_time < self.delay / 1000:
+                return
             if self.num_offset is None:
                 self.num_offset = 0 if self.start is None else sketch.frame_count - self.start
             num = sketch.frame_count - self.num_offset
@@ -74,6 +78,7 @@ class SaveFramesHook(BaseHook):
                 str(self.dirname / self.filename), num=num)
             sketch.save_frame(frame_filename)
             self.filenames.append(frame_filename)
+            self.last_frame_time = time.time()
             if len(self.filenames) == self.limit:
                 self.hook_finished(sketch)
         except Exception as e:
@@ -381,6 +386,8 @@ class Py5Magics(Magics):
               help='filename to save frames to')
     @argument('-w', '--wait', type=int, dest='wait', default=0,
               help='wait time in seconds before starting to save frames')
+    @argument('-d', '--delay', dest='delay', type=int, default=0,
+              help='time in milliseconds between Sketch snapshots (default 0 means no delay)')
     @argument('-s', '--start', dest='start', type=int,
               help='frame starting number instead of sketch frame_count')
     @argument('-l', '--limit', type=int, dest='limit', default=0,
@@ -418,7 +425,7 @@ class Py5Magics(Magics):
 
         wait(args.wait, sketch)
 
-        hook = SaveFramesHook(dirname, args.filename, args.start, args.limit)
+        hook = SaveFramesHook(dirname, args.filename, args.delay, args.start, args.limit)
         sketch._add_post_hook('draw', hook.hook_name, hook)
 
         if args.limit:
