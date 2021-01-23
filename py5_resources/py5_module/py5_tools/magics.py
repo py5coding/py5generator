@@ -445,7 +445,7 @@ class Py5Magics(Magics):
               help='number of times for the GIF to loop (default of 0 loops indefinitely)')
     @argument('--optimize', action='store_true', help='optimize GIF palette')
     def py5animatedgif(self, line):
-        """Create an animated GIF using the current running sketch.
+        """Create an animated GIF using the currently running sketch.
 
         Use the -w argument to wait before starting.
 
@@ -488,6 +488,50 @@ class Py5Magics(Magics):
                       loop=args.loop, optimize=args.optimize, append_images=imgs)
 
             return str(filename)
+
+        elif hook.is_terminated and hook.exception:
+            print('error running magic:', hook.exception)
+
+    @line_magic
+    @magic_arguments()
+    @argument('count', type=int, help='number of Sketch snapshots to capture')
+    @argument('delay', type=int, help='time in milliseconds between Sketch snapshots')
+    @argument('-w', type=int, dest='wait', default=0,
+              help='wait time in seconds before starting sketch frame capture')
+    def py5captureframes(self, line):
+        """Capture frames from the currently running sketch.
+
+        Use the -w argument to wait before starting.
+
+        The below example will capture 10 frames from the currently running
+        sketch. The frames will be recorded 1000 milliseconds apart after
+        waiting 3 seconds. The results are returned in a Python list and
+        assigned to the variable `frames`.
+
+        ```
+            frames = %py5captureframes 10 1000 -w 3
+        ```
+        """
+        args = parse_argstring(self.py5captureframes, line)
+        import py5
+        sketch = py5.get_current_sketch()
+
+        if not sketch.is_running:
+            print('The current sketch is not running.')
+            return
+
+        wait(args.wait, sketch)
+
+        hook = GrabFramesHook(args.delay, args.count)
+        sketch._add_post_hook('draw', hook.hook_name, hook)
+
+        while not hook.is_ready and not hook.is_terminated:
+            time.sleep(0.05)
+            print(f'collecting frame {len(hook.frames)}/{args.count}', end='\r')
+        print('')
+
+        if hook.is_ready:
+            return [PIL.Image.fromarray(arr, mode='RGB') for arr in hook.frames]
 
         elif hook.is_terminated and hook.exception:
             print('error running magic:', hook.exception)
