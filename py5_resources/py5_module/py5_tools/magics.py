@@ -16,7 +16,7 @@ from .run import run_single_frame_sketch
 def wait(wait_time, sketch):
     end_time = time.time() + wait_time
     while time.time() < end_time and sketch.is_running:
-        time.sleep(0.2)
+        time.sleep(0.1)
 
 
 class BaseHook:
@@ -56,11 +56,11 @@ class ScreenshotHook(BaseHook):
 
 class SaveFramesHook(BaseHook):
 
-    def __init__(self, dirname, filename, delay, start, limit):
+    def __init__(self, dirname, filename, period, start, limit):
         super().__init__('py5save_frames_hook')
         self.dirname = dirname
         self.filename = filename
-        self.delay = delay
+        self.period = period
         self.start = start
         self.limit = limit
         self.num_offset = None
@@ -69,7 +69,7 @@ class SaveFramesHook(BaseHook):
 
     def __call__(self, sketch):
         try:
-            if time.time() - self.last_frame_time < self.delay / 1000:
+            if time.time() - self.last_frame_time < self.period:
                 return
             if self.num_offset is None:
                 self.num_offset = 0 if self.start is None else sketch.frame_count - self.start
@@ -87,16 +87,16 @@ class SaveFramesHook(BaseHook):
 
 class GrabFramesHook(BaseHook):
 
-    def __init__(self, delay, count):
+    def __init__(self, period, count):
         super().__init__('py5grab_frames_hook')
-        self.delay = delay
+        self.period = period
         self.count = count
         self.frames = []
         self.last_frame_time = 0
 
     def __call__(self, sketch):
         try:
-            if time.time() - self.last_frame_time < self.delay / 1000:
+            if time.time() - self.last_frame_time < self.period:
                 return
             sketch.load_np_pixels()
             self.frames.append(sketch.np_pixels[:, :, 1:].copy())
@@ -336,7 +336,8 @@ class Py5Magics(Magics):
 
     @line_magic
     @magic_arguments()
-    @argument('-w', '--wait', type=int, dest='wait', default=0, help='wait time in seconds before taking screenshot')
+    @argument('-w', '--wait', type=float, dest='wait', default=0.0,
+              help='wait time in seconds before taking screenshot')
     def py5screenshot(self, line):
         """Take a screenshot of the current running sketch.
 
@@ -384,10 +385,10 @@ class Py5Magics(Magics):
     @argument('dirname', type=str, help='directory to save the frames')
     @argument('-f', '--filename', type=str, dest='filename', default='frame_####.png',
               help='filename to save frames to')
-    @argument('-w', '--wait', type=int, dest='wait', default=0,
+    @argument('-w', '--wait', dest='wait', type=float, default=0.0,
               help='wait time in seconds before starting to save frames')
-    @argument('-d', '--delay', dest='delay', type=int, default=0,
-              help='time in milliseconds between Sketch snapshots (default 0 means no delay)')
+    @argument('-p', '--period', dest='period', type=float, default=0.0,
+              help='time in seconds between Sketch snapshots (default 0 means no delay)')
     @argument('-s', '--start', dest='start', type=int,
               help='frame starting number instead of sketch frame_count')
     @argument('-l', '--limit', type=int, dest='limit', default=0,
@@ -425,7 +426,7 @@ class Py5Magics(Magics):
 
         wait(args.wait, sketch)
 
-        hook = SaveFramesHook(dirname, args.filename, args.delay, args.start, args.limit)
+        hook = SaveFramesHook(dirname, args.filename, args.period, args.start, args.limit)
         sketch._add_post_hook('draw', hook.hook_name, hook)
 
         if args.limit:
@@ -442,11 +443,11 @@ class Py5Magics(Magics):
 
     @line_magic
     @magic_arguments()
-    @argument('filename', type=str, help='filename of gif to create')
+    @argument('filename', type=str, help='filename of GIF to create')
     @argument('count', type=int, help='number of Sketch snapshots to create')
-    @argument('delay', type=int, help='time in milliseconds between Sketch snapshots')
-    @argument('duration', type=int, help='time in milliseconds between frames in the GIF')
-    @argument('-w', '--wait', type=int, dest='wait', default=0,
+    @argument('period', type=float, help='time in seconds between Sketch snapshots')
+    @argument('duration', type=float, help='time in seconds between frames in the GIF')
+    @argument('-w', '--wait', type=float, dest='wait', default=0.0,
               help='wait time in seconds before starting sketch frame capture')
     @argument('-l', '--loop', dest='loop', type=int, default=0,
               help='number of times for the GIF to loop (default of 0 loops indefinitely)')
@@ -457,12 +458,12 @@ class Py5Magics(Magics):
         Use the -w argument to wait before starting.
 
         The below example will create a 10 frame animated GIF saved to
-        '/tmp/animated.gif'. The frames will be recorded 1000 milliseconds
-        apart after waiting 3 seconds. The animated GIF will display the frames
-        with a 500 millisecond delay between each one and will loop indefinitely.
+        '/tmp/animated.gif'. The frames will be recorded 1 second apart after
+        waiting 3 seconds. The animated GIF will display the frames with a 0.5
+        second delay between each one and will loop indefinitely.
 
         ```
-            %py5animatedgif /tmp/animated.gif 10 1000 500 -w 3
+            %py5animatedgif /tmp/animated.gif 10 1 0.5 -w 3
         ```
         """
         args = parse_argstring(self.py5animatedgif, line)
@@ -477,13 +478,13 @@ class Py5Magics(Magics):
 
         wait(args.wait, sketch)
 
-        hook = GrabFramesHook(args.delay, args.count)
+        hook = GrabFramesHook(args.period, args.count)
         sketch._add_post_hook('draw', hook.hook_name, hook)
 
         while not hook.is_ready and not hook.is_terminated:
             time.sleep(0.05)
             print(f'collecting frame {len(hook.frames)}/{args.count}', end='\r')
-        print('')
+        print(f'collecting frame {len(hook.frames)}/{args.count}')
 
         if hook.is_ready:
             if not filename.parent.exists():
@@ -491,7 +492,7 @@ class Py5Magics(Magics):
 
             img1 = PIL.Image.fromarray(hook.frames[0], mode='RGB')
             imgs = [PIL.Image.fromarray(arr, mode='RGB') for arr in hook.frames[1:]]
-            img1.save(filename, save_all=True, duration=args.duration,
+            img1.save(filename, save_all=True, duration=1000 * args.duration,
                       loop=args.loop, optimize=args.optimize, append_images=imgs)
 
             return str(filename)
@@ -502,21 +503,22 @@ class Py5Magics(Magics):
     @line_magic
     @magic_arguments()
     @argument('count', type=int, help='number of Sketch snapshots to capture')
-    @argument('delay', type=int, help='time in milliseconds between Sketch snapshots')
-    @argument('-w', '--wait', type=int, dest='wait', default=0,
+    @argument('-w', '--wait', type=float, dest='wait', default=0.0,
               help='wait time in seconds before starting sketch frame capture')
+    @argument('-p', '--period', type=float, dest='period', default=0.0,
+              help='time in seconds between Sketch snapshots (default 0 means no delay)')
     def py5captureframes(self, line):
         """Capture frames from the currently running sketch.
 
         Use the -w argument to wait before starting.
 
         The below example will capture 10 frames from the currently running
-        sketch. The frames will be recorded 1000 milliseconds apart after
-        waiting 3 seconds. The results are returned in a Python list of PIL
-        Image objects and assigned to the variable `frames`.
+        sketch. The frames will be recorded 1 second apart after waiting 3
+        seconds. The results are returned in a Python list of PIL Image objects
+        and assigned to the variable `frames`.
 
         ```
-            frames = %py5captureframes 10 1000 -w 3
+            frames = %py5captureframes 10 -w 3 -p 1
         ```
         """
         args = parse_argstring(self.py5captureframes, line)
@@ -529,13 +531,13 @@ class Py5Magics(Magics):
 
         wait(args.wait, sketch)
 
-        hook = GrabFramesHook(args.delay, args.count)
+        hook = GrabFramesHook(args.period, args.count)
         sketch._add_post_hook('draw', hook.hook_name, hook)
 
         while not hook.is_ready and not hook.is_terminated:
             time.sleep(0.05)
             print(f'collecting frame {len(hook.frames)}/{args.count}', end='\r')
-        print('')
+        print(f'collecting frame {len(hook.frames)}/{args.count}')
 
         if hook.is_ready:
             return [PIL.Image.fromarray(arr, mode='RGB') for arr in hook.frames]
