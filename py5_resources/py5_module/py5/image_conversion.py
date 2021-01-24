@@ -10,7 +10,8 @@ from PIL import Image
 
 pimage_functions = []
 
-_TEMP_DIR = tempfile.TemporaryDirectory()
+_TEMP_DIR = Path(tempfile.TemporaryDirectory().name)
+_TEMP_DIR.mkdir(exist_ok=True, parents=True)
 
 
 def _convert(obj):
@@ -105,7 +106,7 @@ try:
         return isinstance(obj, cairocffi.Surface)
 
     def cairocffi_surface_to_tempfile_converter(surface):
-        temp_png = Path(_TEMP_DIR.name) / f'{uuid.uuid4()}.png'
+        temp_png = _TEMP_DIR / f'{uuid.uuid4()}.png'
         surface.write_to_png(temp_png.as_posix())
         return temp_png
 
@@ -121,7 +122,7 @@ try:
         return isinstance(obj, cairo.Surface)
 
     def cairo_surface_to_tempfile_converter(surface):
-        temp_png = Path(_TEMP_DIR.name) / f'{uuid.uuid4()}.png'
+        temp_png = _TEMP_DIR / f'{uuid.uuid4()}.png'
         surface.write_to_png(temp_png.as_posix())
         return temp_png
 
