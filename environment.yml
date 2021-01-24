@@ -3,30 +3,30 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - autopep8=1.5.4
-  - flake8=3.8.3
-  - ipython=7.17.0
-  - jupyter=1.0.0
-  - line_profiler=3.0.2
-  - matplotlib=3.3.0
-  - notebook=6.1.0
-  - numpy=1.19.1
-  - openjdk=11.0.1
-  - pandas=1.1.0
-  - pillow=8.0.1
-  - pip=20.2
-  - python=3.8.5
-  - requests=2.24.0
-  - sphinx=3.1.2
-  - twine=3.2.0
-  - wheel=0.34.2
-  - xmltodict=0.12.0
+  - autopep8=1.5.*
+  - cairo=1.16.*
+  - cairocffi=1.2.*
+  - cairosvg=2.5.*
+  - flake8=3.8.*
+  - jupyter=1.0.*
+  - jupyterlab=3.0.*
+  - line_profiler=3.1.*
+  - matplotlib=3.3.*
+  - noise=1.2.*
+  - numpy=1.19.*
+  - openjdk=11.0.8
+  - pandas=1.2.*
+  - pillow=8.1.*
+  - pip
+  - python=3.8.*
+  - requests=2.25.*
+  - sphinx=3.4.*
+  - twine=3.3.*
+  - wheel=0.36.*
+  - xmltodict=0.12.*
   - pip:
-    - cairocffi==1.1.0
-    - cairosvg==2.4.2
-    - jpype1==1.0.1
-    - nptyping==1.3.0
-    - rstcheck==3.3.1
-    - stackprinter==0.2.4
-    - nikola==8.1.1
-    - noise==1.2.2
+    - jpype1==1.2.*
+    - nptyping==1.4.*
+    - rstcheck==3.3.*
+    - stackprinter==0.2.*
+    - nikola==8.1.*
