@@ -8,6 +8,8 @@ dependencies:
   - cairocffi=1.2.*
   - cairosvg=2.5.*
   - flake8=3.8.*
+  # remove after jedi bug fix
+  - jedi=0.17.2
   - jupyter=1.0.*
   - jupyterlab=3.0.*
   - line_profiler=3.1.*
