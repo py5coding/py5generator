@@ -13,14 +13,14 @@ with open(Path('py5', '__init__.py')) as f:
 
 
 INSTALL_REQUIRES = [
-    'jpype1>=1.0.1',
+    'jpype1>=1.2',
     'line_profiler>=2.1.2',
-    'noise>=1.2.2',
-    'nptyping>=1.3',
-    'numpy>=1.18',
+    'noise>=1.2',
+    'nptyping>=1.4',
+    'numpy>=1.19',
     'pandas>=1.0',
-    'pillow>=8.0.1',
-    'requests>=2.24',
+    'pillow>=8.1',
+    'requests>=2.25',
     'stackprinter>=0.2.4',
 ]
 
