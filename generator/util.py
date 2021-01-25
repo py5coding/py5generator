@@ -38,12 +38,15 @@ class CodeCopier:
         with open(src, 'r') as f:
             content = f.read()
 
-        if content.find('*** FORMAT PARAMS ***') > 0:
+        if content.find('# *** FORMAT PARAMS ***') >= 0:
+            content = content.replace('# *** FORMAT PARAMS ***\n', '')
             content = re.sub(r'^.*DELETE$', '',
                              content.format(**self.format_params),
                              flags=re.MULTILINE | re.UNICODE)
         content = Template(content).substitute(self.docstring_dict)
-        if content.find('*** SKIP AUTOPEP8 ***') == -1:
+        if content.find('# *** SKIP AUTOPEP8 ***') >= 0:
+            content = content.replace('# *** SKIP AUTOPEP8 ***\n', '')
+        else:
             content = autopep8.fix_code(content, options={'aggressive': 2})
 
         with open(dest, 'w') as f:
