@@ -21,7 +21,8 @@ dependencies:
   - pillow=8.1.*
   - pip
   - python=3.8.*
-  - requests=2.25.*
+  # pegged because of limitation of snooty language server
+  - requests=2.24.0
   - sphinx=3.4.*
   - twine=3.3.*
   - wheel=0.36.*
