@@ -17,7 +17,6 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-# -*- coding: utf-8 -*-
 # *** FORMAT PARAMS ***
 # *** SKIP AUTOPEP8 ***
 
