@@ -2,11 +2,5 @@
 .*.nogit
 .vscode
 *.pyc
-*.egg-info
 __pycache__/
-.ipynb_checkpoints/
-dist/
-build/
-bin/
-archive/
-docs/
+temp/
