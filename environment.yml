@@ -28,6 +28,7 @@ dependencies:
   - wheel=0.36.*
   - xmltodict=0.12.*
   - pip:
+    - bump2verion==1.0.1
     - jpype1==1.2.*
     - nptyping==1.4.*
     - rstcheck==3.3.*

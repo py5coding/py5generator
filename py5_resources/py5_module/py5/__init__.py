@@ -58,7 +58,7 @@ except ModuleNotFoundError:
     pass
 
 
-__version__ = '0.3a5'
+__version__ = '0.3a5_dev0'
 
 logger = logging.getLogger(__name__)
 
