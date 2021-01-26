@@ -21,14 +21,13 @@ dependencies:
   - pillow=8.1.*
   - pip
   - python=3.8.*
-  # pegged because of limitation of snooty language server
-  - requests=2.24.0
+  - requests=2.25.*
   - sphinx=3.4.*
   - twine=3.3.*
   - wheel=0.36.*
   - xmltodict=0.12.*
   - pip:
-    - bump2verion==1.0.1
+    - bump2version==1.0.1
     - jpype1==1.2.*
     - nptyping==1.4.*
     - rstcheck==3.3.*
