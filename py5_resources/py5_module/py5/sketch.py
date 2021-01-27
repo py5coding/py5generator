@@ -65,12 +65,10 @@ def _auto_convert_to_py5image(f):
     def decorated(self_, *args):
         args_index = args[0]
         if isinstance(args_index, NumpyImageArray):
-            args = list(args)
-            args[0] = self_.create_image_from_numpy(args_index)
+            args = self_.create_image_from_numpy(args_index), *args[1:]
         elif not isinstance(args_index, Py5Image) and _convertable(args_index):
-            args = list(args)
-            args[0] = self_.convert_image(args_index)
-        return f(self_, *tuple(args))
+            args = self_.convert_image(args_index), *args[1:]
+        return f(self_, *args)
     return decorated
 
 
