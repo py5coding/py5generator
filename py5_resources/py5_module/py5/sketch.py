@@ -60,17 +60,15 @@ except NameError:
 logger = logging.getLogger(__name__)
 
 
-def _auto_convert(index):
-    def _decorator(f):
-        @functools.wraps(f)
-        def decorated(self_, *args):
-            args_index = args[index]
-            if not isinstance(args_index, Py5Image) and _convertable(args_index):
-                args = list(args)
-                args[index] = self_.convert_image(args_index)
-            return f(self_, *tuple(args))
-        return decorated
-    return _decorator
+def _auto_convert_to_py5image(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        args_index = args[0]
+        if not isinstance(args_index, Py5Image) and _convertable(args_index):
+            args = list(args)
+            args[0] = self_.convert_image(args_index)
+        return f(self_, *tuple(args))
+    return decorated
 
 
 class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
