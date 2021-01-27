@@ -36,22 +36,9 @@ from .shape import Py5Shape, _return_py5shape, _load_py5shape  # noqa
 from .image import Py5Image, _return_py5image  # noqa
 from .type_decorators import _text_fix_str  # noqa
 from .pmath import _get_matrix_wrapper  # noqa
-from . import image_conversion
 
 
 py5graphics_class_members_code = None  # DELETE
-
-
-def py5graphics_precondition(obj):
-    return isinstance(obj, Py5Graphics)
-
-
-def py5graphics_converter(py5graphics):
-    return py5graphics._instance
-
-
-image_conversion.register_image_conversion(
-    py5graphics_precondition, py5graphics_converter)
 
 
 def _return_py5graphics(f):

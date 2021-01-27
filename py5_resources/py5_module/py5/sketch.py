@@ -66,7 +66,7 @@ def _auto_convert_to_py5image(f):
         args_index = args[0]
         if isinstance(args_index, NumpyImageArray):
             args = self_.create_image_from_numpy(args_index), *args[1:]
-        elif not isinstance(args_index, Py5Image) and _convertable(args_index):
+        elif not isinstance(args_index, (Py5Image, Py5Graphics)) and _convertable(args_index):
             args = self_.convert_image(args_index), *args[1:]
         return f(self_, *args)
     return decorated
@@ -277,11 +277,13 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             return self.load_image(result, dst=dst)
         elif isinstance(result, Path):
             ret = self.load_image(result, dst=dst)
-            # result.close()
             os.remove(result)
             return ret
         elif isinstance(result, NumpyImageArray):
             return self.create_image_from_numpy(result, dst=dst)
+        else:
+            # could be Py5Image or something comparable
+            return result
 
     def load_image(self, filename: Union[str, Path], dst: Py5Image = None) -> Py5Image:
         """$class_Sketch_load_image"""
