@@ -69,8 +69,9 @@ EXTRA_DIR_NAMES = {
     'JClass', 'Sketch', 'Py5Font', 'Py5Graphics', 'Py5Image',
     'Py5Surface', 'Py5Shader', 'Py5Shape',
     'prune_tracebacks', 'set_stackprinter_style',
-    'create_font_file', 'register_image_conversion',
-    'register_exception_msg', '__version__', 'utils'
+    'create_font_file', 'register_exception_msg',
+    'register_image_conversion', 'NumpyImageArray',
+    '__version__', 'utils'
 }
 
 EXTRA_METHOD_SIGNATURES = {
