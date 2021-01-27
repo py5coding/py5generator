@@ -337,7 +337,7 @@ register_method,registerMethod,,method,,,FALSE,FALSE,public methods that shouldn
 unregister_method,unregisterMethod,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 create_graphics,createGraphics,@_return_py5graphics,method,rendering,,TRUE,TRUE,this needs to be reimplemented but I haven't decided what to do with it yet
 create_image,createImage,@_return_py5image,method,image,,TRUE,TRUE,
-image,image,,method,image,loading_displaying,TRUE,TRUE,
+image,image,@_auto_convert(0),method,image,loading_displaying,TRUE,TRUE,
 handle_draw,handleDraw,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
 alpha,alpha,,method,color,creating_reading,TRUE,TRUE,
 is_looping,isLooping,,method,,,FALSE,FALSE,methods that are not part of the processing framework
@@ -555,7 +555,7 @@ show_depth_warning_xyz,showDepthWarningXYZ,,static method,,,FALSE,FALSE,public m
 show_method_warning,showMethodWarning,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
 show_variation_warning,showVariationWarning,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
 show_missing_warning,showMissingWarning,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
-check_alpha,checkAlpha,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
+check_alpha,checkAlpha,,method,,,FALSE,FALSE,
 blend,blend,,method,image,pixels,TRUE,TRUE,
 cursor,cursor,,method,environment,,TRUE,TRUE,
 get_extension,getExtension,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users

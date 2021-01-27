@@ -33,6 +33,10 @@ _TEMP_DIR = Path(tempfile.TemporaryDirectory().name)
 _TEMP_DIR.mkdir(exist_ok=True, parents=True)
 
 
+def _convertable(obj):
+    return any(pre(obj) for pre, _ in pimage_functions)
+
+
 def _convert(obj):
     for precondition, convert_function in pimage_functions:
         if precondition(obj):

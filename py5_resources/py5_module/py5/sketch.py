@@ -22,7 +22,7 @@ import time
 import os
 import logging
 from pathlib import Path
-import tempfile
+import functools
 from typing import overload, Any, Callable, Union, Dict, List  # noqa
 from nptyping import NDArray, Float  # noqa
 
@@ -44,7 +44,7 @@ from .graphics import Py5Graphics, _return_py5graphics  # noqa
 from .type_decorators import _text_fix_str  # noqa
 from .pmath import _get_matrix_wrapper  # noqa
 from . import image_conversion
-from .image_conversion import NumpyImageArray
+from .image_conversion import NumpyImageArray, _convertable
 from . import reference
 
 sketch_class_members_code = None  # DELETE
@@ -58,6 +58,19 @@ except NameError:
     _in_ipython_session = False
 
 logger = logging.getLogger(__name__)
+
+
+def _auto_convert(index):
+    def _decorator(f):
+        @functools.wraps(f)
+        def decorated(self_, *args):
+            args_index = args[index]
+            if not isinstance(args_index, Py5Image) and _convertable(args_index):
+                args = list(args)
+                args[index] = self_.convert_image(args_index)
+            return f(self_, *tuple(args))
+        return decorated
+    return _decorator
 
 
 class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
