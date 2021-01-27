@@ -268,7 +268,7 @@ delay,delay,,method,environment,,FALSE,FALSE,user should use python instead
 print,print,,method,output,text_area,FALSE,FALSE,conflict with builtin python function
 save,save,,method,output,image,FALSE,TRUE,implemented in pixels.py mixin
 flush,flush,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-copy,copy,@_return_py5image,method,image,pixels,TRUE,TRUE,
+copy,copy,@_auto_convert_to_py5image;@_return_py5image,method,image,pixels,TRUE,TRUE,
 mask,mask,,method,pimage,method,FALSE,FALSE,why is this method in PApplet? It is not documented and cannot actually work correctly
 nf,nf,,method,data,string_functions,FALSE,FALSE,user should use python instead
 expand,expand,,method,data,array_functions,FALSE,FALSE,user should use python instead

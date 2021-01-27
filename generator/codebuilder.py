@@ -155,6 +155,8 @@ class CodeBuilder:
                 decorator = '@classmethod\n    ' + self._py5_decorators[fname]
         else:
             first_param, classobj, moduleobj, decorator = 'self', 'self._instance', self._instance_name, self._py5_decorators[fname]
+        # adjust decorator if there are multiple decorators
+        decorator = decorator.replace(';', '\n    ')
         # if there is only one method signature, create the real method with typehints
         if len(method_data) == 1:
             sigstr, sigdata = list(method_data.items())[0]
