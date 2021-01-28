@@ -44,7 +44,7 @@ class CreateFontTool(Sketch):
         characters = self.characters or ''.join(font.CHARSET)
         self.text(characters, self.width / 2, self.height / 2)
 
-        os = self.get_py5applet().createOutput(str(self.filename))
+        os = self._instance.createOutput(str(self.filename))
         font._instance.save(os)
         os.close()
 
@@ -54,10 +54,7 @@ class CreateFontTool(Sketch):
         self.scale(0.95 * self.width / self.text_width(msg))
         self.text(msg, 0, 0)
 
-    def draw(self):
-        if self.pause:
-            self.no_loop()
-        else:
+        if not self.pause:
             self.exit_sketch()
 
 
