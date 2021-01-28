@@ -186,6 +186,11 @@ public class Py5Applet extends PApplet {
 
   @Override
   public void exitActual() {
+    // TODO: On Linux, OpenGL sketches that call `no_loop` core dump when
+    // terminating via Escape key, and this function has something to do with it.
+    // This function needs to be re-written by someone who knows something about
+    // Java GUI programming.
+
     // call exiting even if success == false. user might need to do shutdown
     // activities
     if (py5RegisteredEvents.contains("exiting")) {
@@ -218,13 +223,18 @@ public class Py5Applet extends PApplet {
       }
 
       // get the screen and display and explicitly destroy both
+      // this next piece causes the core dump but is necessary for Windows
       Screen screen = window.getScreen();
       Display display = screen.getDisplay();
       display.destroy();
       screen.destroy();
 
       // finally, destroy the window
-      window.destroy();
+      try {
+        window.destroy();
+      } catch (RuntimeException e) {
+        // ignore possible NullPointerException since exiting anyway
+      }
     } else if (nativeWindow instanceof processing.awt.PSurfaceAWT.SmoothCanvas) {
       processing.awt.PSurfaceAWT.SmoothCanvas window = (processing.awt.PSurfaceAWT.SmoothCanvas) nativeWindow;
       window.getFrame().dispose();
@@ -235,8 +245,8 @@ public class Py5Applet extends PApplet {
 
   /*
    * These extra methods are here to get around the name collisions caused by
-   * methods and fields that have the same name. That sort of thing is allowed
-   * in Java but not in Python.
+   * methods and fields that have the same name. That sort of thing is allowed in
+   * Java but not in Python.
    */
 
   public float getFrameRate() {
