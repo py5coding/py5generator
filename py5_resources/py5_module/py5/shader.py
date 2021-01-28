@@ -56,15 +56,14 @@ def _load_py5shader(f):
 def _py5shader_set_wrapper(f):
     @functools.wraps(f)
     def decorated(self_, name, *args):
-        args = list(args)
         if isinstance(args[0], np.ndarray):
             array = args[0]
             if array.shape in [(2,), (3,)]:
-                args[0] = _numpy_to_pvector(array)
+                args = _numpy_to_pvector(array), *args[1:]
             elif array.shape == (2, 3):
-                args[0] = _numpy_to_pmatrix2d(array)
+                args = _numpy_to_pmatrix2d(array), *args[1:]
             elif array.shape == (4, 4):
-                args[0] = _numpy_to_pmatrix3d(array)
+                args = _numpy_to_pmatrix3d(array), *args[1:]
         else:
             def fix_type(arg):
                 if isinstance(arg, bool):
@@ -76,7 +75,7 @@ def _py5shader_set_wrapper(f):
                 else:
                     return arg
             args = [fix_type(a) for a in args]
-        return f(self_, name, *tuple(args))
+        return f(self_, name, *args)
     return decorated
 
 

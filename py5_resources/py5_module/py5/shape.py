@@ -51,7 +51,6 @@ def _return_py5shape(f):
 def _py5shape_type_fixer(f):
     @functools.wraps(f)
     def decorated(self_, *args):
-        args = list(args)
         def fix_type(arg):
             if isinstance(arg, bool):
                 return JBoolean(arg)
@@ -62,7 +61,7 @@ def _py5shape_type_fixer(f):
             else:
                 return arg
         args = [fix_type(a) for a in args]
-        return f(self_, *tuple(args))
+        return f(self_, *args)
     return decorated
 
 
