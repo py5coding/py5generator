@@ -231,8 +231,11 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
 
         exec(_CODE_FRAMEWORK.format(temp_py.as_posix(), True, ''), user_ns)
 
-        with open(temp_out, read_mode) as f:
-            result = f.read()
+        if temp_out.exists():
+            with open(temp_out, read_mode) as f:
+                result = f.read()
+        else:
+            result = None
 
     py5.reset_py5()
 
