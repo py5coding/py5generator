@@ -5,7 +5,7 @@ from PIL import Image
 from .sketch import Sketch
 
 
-class ArtistHelperSketch(Sketch):
+class RenderHelperSketch(Sketch):
     def __init__(self, setup, draw, width, height, renderer, *, limit=1,
                  setup_args=None, setup_kwargs=None, draw_args=None, draw_kwargs=None):
         super().__init__()
@@ -47,7 +47,7 @@ def render_frame(draw: callable, width: int, height: int,
     globals()['_INSIDE_ARTIST_HELPER_'] = None
 
     try:
-        ahs = ArtistHelperSketch(None, draw, width, height, renderer,
+        ahs = RenderHelperSketch(None, draw, width, height, renderer,
                                  draw_args=draw_args, draw_kwargs=draw_kwargs)
         ahs.run_sketch(block=True)
     finally:
@@ -68,7 +68,7 @@ def render_frames(draw: callable, width: int, height: int,
     globals()['_INSIDE_ARTIST_HELPER_'] = None
 
     try:
-        ahs = ArtistHelperSketch(setup, draw, width, height, renderer, limit=limit,
+        ahs = RenderHelperSketch(setup, draw, width, height, renderer, limit=limit,
                                  setup_args=setup_args, setup_kwargs=setup_kwargs,
                                  draw_args=draw_args, draw_kwargs=draw_kwargs)
         ahs.run_sketch(block=True)
