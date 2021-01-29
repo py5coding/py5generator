@@ -186,10 +186,8 @@ public class Py5Applet extends PApplet {
 
   @Override
   public void exitActual() {
-    // TODO: On Linux, OpenGL sketches that call `no_loop` core dump when
-    // terminating via Escape key, and this function has something to do with it.
-    // This function needs to be re-written by someone who knows something about
-    // Java GUI programming.
+    // TODO: This function needs to be re-written by someone who knows something
+    // about cross platform Java GUI programming.
 
     // call exiting even if success == false. user might need to do shutdown
     // activities
@@ -223,11 +221,14 @@ public class Py5Applet extends PApplet {
       }
 
       // get the screen and display and explicitly destroy both
-      // this next piece causes the core dump but is necessary for Windows
-      Screen screen = window.getScreen();
-      Display display = screen.getDisplay();
-      display.destroy();
-      screen.destroy();
+      // this is necessary for Windows but can cause a core dump on Linux for
+      // OpenGL sketches that call `no_loop` when terminating via Escape key
+      if (platform == WINDOWS) {
+        Screen screen = window.getScreen();
+        Display display = screen.getDisplay();
+        display.destroy();
+        screen.destroy();
+      }
 
       // finally, destroy the window
       try {
