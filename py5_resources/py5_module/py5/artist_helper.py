@@ -38,9 +38,9 @@ class ArtistHelperSketch(Sketch):
             self.exit_sketch()
 
 
-def get_frame(draw: callable, width: int, height: int,
-              renderer: str = Sketch.HIDDEN, *, draw_args: tuple = None,
-              draw_kwargs: dict = None):
+def render_frame(draw: callable, width: int, height: int,
+                 renderer: str = Sketch.HIDDEN, *, draw_args: tuple = None,
+                 draw_kwargs: dict = None):
     """missing docstring"""
     if '_INSIDE_ARTIST_HELPER_' in globals():
         raise RuntimeError('Cannot run sketch inside of a sketch')
@@ -57,11 +57,11 @@ def get_frame(draw: callable, width: int, height: int,
         return ahs.output[0]
 
 
-def get_frames(draw: callable, width: int, height: int,
-               renderer: str = Sketch.HIDDEN, *, limit: int = 1,
-               setup: callable = None,
-               setup_args: tuple = None, setup_kwargs: dict = None,
-               draw_args: tuple = None, draw_kwargs: dict = None):
+def render_frames(draw: callable, width: int, height: int,
+                  renderer: str = Sketch.HIDDEN, *, limit: int = 1,
+                  setup: callable = None,
+                  setup_args: tuple = None, setup_kwargs: dict = None,
+                  draw_args: tuple = None, draw_kwargs: dict = None):
     """missing docstring"""
     if '_INSIDE_ARTIST_HELPER_' in globals():
         raise RuntimeError('Cannot run sketch inside of a sketch')
@@ -79,12 +79,12 @@ def get_frames(draw: callable, width: int, height: int,
         return ahs.output
 
 
-def show(width: int, height: int, renderer: str = Sketch.HIDDEN):
+def render(width: int, height: int, renderer: str = Sketch.HIDDEN):
     """missing docstring"""
     def decorator(draw):
         @functools.wraps(draw)
-        def run_get_frame(*draw_args, **draw_kwargs):
-            return get_frame(draw, width, height, renderer,
-                             draw_args=draw_args, draw_kwargs=draw_kwargs)
-        return run_get_frame
+        def run_render_frame(*draw_args, **draw_kwargs):
+            return render_frame(draw, width, height, renderer,
+                                draw_args=draw_args, draw_kwargs=draw_kwargs)
+        return run_render_frame
     return decorator

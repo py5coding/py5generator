@@ -71,7 +71,7 @@ EXTRA_DIR_NAMES = {
     'prune_tracebacks', 'set_stackprinter_style',
     'create_font_file', 'register_exception_msg',
     'register_image_conversion', 'NumpyImageArray',
-    '__version__', 'utils', 'get_frame', 'get_frames', 'show',
+    '__version__', 'utils', 'render_frame', 'render_frames', 'render',
 }
 
 EXTRA_METHOD_SIGNATURES = {
