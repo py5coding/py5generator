@@ -42,16 +42,9 @@ def render_frame(draw: callable, width: int, height: int,
                  renderer: str = Sketch.HIDDEN, *, draw_args: tuple = None,
                  draw_kwargs: dict = None):
     """missing docstring"""
-    if '_INSIDE_ARTIST_HELPER_' in globals():
-        raise RuntimeError('Cannot run sketch inside of a sketch')
-    globals()['_INSIDE_ARTIST_HELPER_'] = None
-
-    try:
-        ahs = RenderHelperSketch(None, draw, width, height, renderer,
-                                 draw_args=draw_args, draw_kwargs=draw_kwargs)
-        ahs.run_sketch(block=True)
-    finally:
-        del globals()['_INSIDE_ARTIST_HELPER_']
+    ahs = RenderHelperSketch(None, draw, width, height, renderer,
+                                draw_args=draw_args, draw_kwargs=draw_kwargs)
+    ahs.run_sketch(block=True)
 
     if not ahs.is_dead_from_error and ahs.output:
         return ahs.output[0]
@@ -63,17 +56,10 @@ def render_frames(draw: callable, width: int, height: int,
                   setup_args: tuple = None, setup_kwargs: dict = None,
                   draw_args: tuple = None, draw_kwargs: dict = None):
     """missing docstring"""
-    if '_INSIDE_ARTIST_HELPER_' in globals():
-        raise RuntimeError('Cannot run sketch inside of a sketch')
-    globals()['_INSIDE_ARTIST_HELPER_'] = None
-
-    try:
-        ahs = RenderHelperSketch(setup, draw, width, height, renderer, limit=limit,
-                                 setup_args=setup_args, setup_kwargs=setup_kwargs,
-                                 draw_args=draw_args, draw_kwargs=draw_kwargs)
-        ahs.run_sketch(block=True)
-    finally:
-        del globals()['_INSIDE_ARTIST_HELPER_']
+    ahs = RenderHelperSketch(setup, draw, width, height, renderer, limit=limit,
+                                setup_args=setup_args, setup_kwargs=setup_kwargs,
+                                draw_args=draw_args, draw_kwargs=draw_kwargs)
+    ahs.run_sketch(block=True)
 
     if not ahs.is_dead_from_error:
         return ahs.output
