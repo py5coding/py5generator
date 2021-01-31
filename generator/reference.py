@@ -72,7 +72,7 @@ EXTRA_DIR_NAMES = {
     'create_font_file', 'register_exception_msg',
     'register_image_conversion', 'NumpyImageArray',
     '__version__', 'utils',
-    'render_frame', 'render_frames', 'render', 'render_sequence',
+    'render_frame', 'render_frame_sequence', 'render', 'render_sequence',
 }
 
 EXTRA_METHOD_SIGNATURES = {

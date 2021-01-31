@@ -55,11 +55,11 @@ def render_frame(draw: Callable, width: int, height: int,
         return ahs.output[0]
 
 
-def render_frames(draw: Callable, width: int, height: int,
-                  renderer: str = Sketch.HIDDEN, *,
-                  limit: int = 1, setup: Callable = None,
-                  setup_args: Tuple = None, setup_kwargs: Dict = None,
-                  draw_args: Tuple = None, draw_kwargs: Dict = None) -> List[PIL_Image]:
+def render_frame_sequence(draw: Callable, width: int, height: int,
+                          renderer: str = Sketch.HIDDEN, *,
+                          limit: int = 1, setup: Callable = None,
+                          setup_args: Tuple = None, setup_kwargs: Dict = None,
+                          draw_args: Tuple = None, draw_kwargs: Dict = None) -> List[PIL_Image]:
     """missing docstring"""
     ahs = RenderHelperSketch(setup, draw, width, height, renderer, limit=limit,
                                 setup_args=setup_args, setup_kwargs=setup_kwargs,
@@ -88,9 +88,9 @@ def render_sequence(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
     def decorator(draw):
         @functools.wraps(draw)
         def run_render_frames(*draw_args, **draw_kwargs):
-            return render_frames(draw, width, height, renderer,
-                                 limit=limit, setup=setup,
-                                 setup_args=setup_args, setup_kwargs=setup_kwargs,
-                                 draw_args=draw_args, draw_kwargs=draw_kwargs)
+            return render_frame_sequence(draw, width, height, renderer,
+                                         limit=limit, setup=setup,
+                                         setup_args=setup_args, setup_kwargs=setup_kwargs,
+                                         draw_args=draw_args, draw_kwargs=draw_kwargs)
         return run_render_frames
     return decorator
