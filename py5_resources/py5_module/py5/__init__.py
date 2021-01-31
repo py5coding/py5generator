@@ -47,7 +47,7 @@ if not py5_tools.is_jvm_running():
 
 from .methods import register_exception_msg  # noqa
 from .sketch import Sketch, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Shape, Py5Font, Py5Promise, _in_ipython_session  # noqa
-from .render_helper import render_frame, render_frames, render  # noqa
+from .render_helper import render_frame, render_frames, render, render_sequence  # noqa
 from .create_font_tool import create_font_file  # noqa
 from .image_conversion import register_image_conversion, NumpyImageArray  # noqa
 from . import reference

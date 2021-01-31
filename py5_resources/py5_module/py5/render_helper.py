@@ -1,8 +1,13 @@
 import functools
+from typing import Union, Callable, Tuple, Dict, List, NewType
 
+import PIL
 from PIL import Image
 
 from .sketch import Sketch
+
+
+PIL_Image = NewType('PIL_Image', PIL.Image)
 
 
 class RenderHelperSketch(Sketch):
@@ -38,9 +43,9 @@ class RenderHelperSketch(Sketch):
             self.exit_sketch()
 
 
-def render_frame(draw: callable, width: int, height: int,
-                 renderer: str = Sketch.HIDDEN, *, draw_args: tuple = None,
-                 draw_kwargs: dict = None):
+def render_frame(draw: Callable, width: int, height: int,
+                 renderer: str = Sketch.HIDDEN, *,
+                 draw_args: Tuple = None, draw_kwargs: Dict = None) -> Image:
     """missing docstring"""
     ahs = RenderHelperSketch(None, draw, width, height, renderer,
                                 draw_args=draw_args, draw_kwargs=draw_kwargs)
@@ -50,11 +55,11 @@ def render_frame(draw: callable, width: int, height: int,
         return ahs.output[0]
 
 
-def render_frames(draw: callable, width: int, height: int,
-                  renderer: str = Sketch.HIDDEN, *, limit: int = 1,
-                  setup: callable = None,
-                  setup_args: tuple = None, setup_kwargs: dict = None,
-                  draw_args: tuple = None, draw_kwargs: dict = None):
+def render_frames(draw: Callable, width: int, height: int,
+                  renderer: str = Sketch.HIDDEN, *,
+                  limit: int = 1, setup: Callable = None,
+                  setup_args: Tuple = None, setup_kwargs: Dict = None,
+                  draw_args: Tuple = None, draw_kwargs: Dict = None) -> List[PIL_Image]:
     """missing docstring"""
     ahs = RenderHelperSketch(setup, draw, width, height, renderer, limit=limit,
                                 setup_args=setup_args, setup_kwargs=setup_kwargs,
@@ -65,7 +70,7 @@ def render_frames(draw: callable, width: int, height: int,
         return ahs.output
 
 
-def render(width: int, height: int, renderer: str = Sketch.HIDDEN):
+def render(width: int, height: int, renderer: str = Sketch.HIDDEN) -> Image:
     """missing docstring"""
     def decorator(draw):
         @functools.wraps(draw)
@@ -73,4 +78,19 @@ def render(width: int, height: int, renderer: str = Sketch.HIDDEN):
             return render_frame(draw, width, height, renderer,
                                 draw_args=draw_args, draw_kwargs=draw_kwargs)
         return run_render_frame
+    return decorator
+
+
+def render_sequence(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
+                    limit: int = 1, setup: Callable = None,
+                    setup_args: Tuple = None, setup_kwargs: Dict = None) -> List[PIL_Image]:
+    """missing docstring"""
+    def decorator(draw):
+        @functools.wraps(draw)
+        def run_render_frames(*draw_args, **draw_kwargs):
+            return render_frames(draw, width, height, renderer,
+                                 limit=limit, setup=setup,
+                                 setup_args=setup_args, setup_kwargs=setup_kwargs,
+                                 draw_args=draw_args, draw_kwargs=draw_kwargs)
+        return run_render_frames
     return decorator
