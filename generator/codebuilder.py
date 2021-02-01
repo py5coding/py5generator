@@ -97,7 +97,7 @@ class CodeBuilder:
         self._instance_name = None
 
         self._all_known_fields_and_methods = set(class_data.index)
-        self._included_fields_and_methods = set(class_data.query("implementation_from_processing==True").index)
+        self._included_fields_and_methods = set(class_data.query("implementation=='JAVA'").index)
 
         self.static_constant_names = set()
         self.dynamic_variable_names = set()

@@ -1,611 +1,611 @@
-py5_name,processing_name,decorator,type,category,subcategory,implementation_from_processing,available_in_py5,comments
-X,X,,static field,constants,,TRUE,TRUE,
-Y,Y,,static field,constants,,TRUE,TRUE,
-Z,Z,,static field,constants,,TRUE,TRUE,
-JAVA2D,JAVA2D,,static field,constants,,TRUE,TRUE,
-P2D,P2D,,static field,constants,,TRUE,TRUE,
-P3D,P3D,,static field,constants,,TRUE,TRUE,
-OPENGL,OPENGL,,static field,constants,,TRUE,TRUE,
-FX2D,FX2D,,static field,constants,,TRUE,TRUE,
-PDF,PDF,,static field,constants,,TRUE,TRUE,
-SVG,SVG,,static field,constants,,TRUE,TRUE,
-DXF,DXF,,static field,constants,,TRUE,TRUE,
-OTHER,OTHER,,static field,constants,,TRUE,TRUE,
-WINDOWS,WINDOWS,,static field,constants,,TRUE,TRUE,
-MACOS,MACOS,,static field,constants,,TRUE,TRUE,
-LINUX,LINUX,,static field,constants,,TRUE,TRUE,
-MACOSX,MACOSX,,static field,constants,,FALSE,FALSE,deprecated
-platformNames,platformNames,,static field,constants,,FALSE,FALSE,
-EPSILON,EPSILON,,static field,constants,,TRUE,TRUE,
-MAX_FLOAT,MAX_FLOAT,,static field,constants,,TRUE,TRUE,
-MIN_FLOAT,MIN_FLOAT,,static field,constants,,TRUE,TRUE,
-MAX_INT,MAX_INT,,static field,constants,,TRUE,TRUE,
-MIN_INT,MIN_INT,,static field,constants,,TRUE,TRUE,
-VERTEX,VERTEX,,static field,constants,,TRUE,TRUE,
-BEZIER_VERTEX,BEZIER_VERTEX,,static field,constants,,TRUE,TRUE,
-QUADRATIC_VERTEX,QUADRATIC_VERTEX,,static field,constants,,TRUE,TRUE,
-CURVE_VERTEX,CURVE_VERTEX,,static field,constants,,TRUE,TRUE,
-BREAK,BREAK,,static field,constants,,TRUE,TRUE,
-QUAD_BEZIER_VERTEX,QUAD_BEZIER_VERTEX,,static field,constants,,TRUE,TRUE,
-PI,PI,,static field,constants,,TRUE,TRUE,
-HALF_PI,HALF_PI,,static field,constants,,TRUE,TRUE,
-THIRD_PI,THIRD_PI,,static field,constants,,TRUE,TRUE,
-QUARTER_PI,QUARTER_PI,,static field,constants,,TRUE,TRUE,
-TWO_PI,TWO_PI,,static field,constants,,TRUE,TRUE,
-TAU,TAU,,static field,constants,,TRUE,TRUE,
-DEG_TO_RAD,DEG_TO_RAD,,static field,constants,,TRUE,TRUE,
-RAD_TO_DEG,RAD_TO_DEG,,static field,constants,,TRUE,TRUE,
-WHITESPACE,WHITESPACE,,static field,constants,,TRUE,TRUE,
-RGB,RGB,,static field,constants,,TRUE,TRUE,
-ARGB,ARGB,,static field,constants,,TRUE,TRUE,
-HSB,HSB,,static field,constants,,TRUE,TRUE,
-ALPHA,ALPHA,,static field,constants,,TRUE,TRUE,
-TIFF,TIFF,,static field,constants,,TRUE,TRUE,
-TARGA,TARGA,,static field,constants,,TRUE,TRUE,
-JPEG,JPEG,,static field,constants,,TRUE,TRUE,
-GIF,GIF,,static field,constants,,TRUE,TRUE,
-BLUR,BLUR,,static field,constants,,TRUE,TRUE,
-GRAY,GRAY,,static field,constants,,TRUE,TRUE,
-INVERT,INVERT,,static field,constants,,TRUE,TRUE,
-OPAQUE,OPAQUE,,static field,constants,,TRUE,TRUE,
-POSTERIZE,POSTERIZE,,static field,constants,,TRUE,TRUE,
-THRESHOLD,THRESHOLD,,static field,constants,,TRUE,TRUE,
-ERODE,ERODE,,static field,constants,,TRUE,TRUE,
-DILATE,DILATE,,static field,constants,,TRUE,TRUE,
-REPLACE,REPLACE,,static field,constants,,TRUE,TRUE,
-BLEND,BLEND,,static field,constants,,TRUE,TRUE,
-ADD,ADD,,static field,constants,,TRUE,TRUE,
-SUBTRACT,SUBTRACT,,static field,constants,,TRUE,TRUE,
-LIGHTEST,LIGHTEST,,static field,constants,,TRUE,TRUE,
-DARKEST,DARKEST,,static field,constants,,TRUE,TRUE,
-DIFFERENCE,DIFFERENCE,,static field,constants,,TRUE,TRUE,
-EXCLUSION,EXCLUSION,,static field,constants,,TRUE,TRUE,
-MULTIPLY,MULTIPLY,,static field,constants,,TRUE,TRUE,
-SCREEN,SCREEN,,static field,constants,,TRUE,TRUE,
-OVERLAY,OVERLAY,,static field,constants,,TRUE,TRUE,
-HARD_LIGHT,HARD_LIGHT,,static field,constants,,TRUE,TRUE,
-SOFT_LIGHT,SOFT_LIGHT,,static field,constants,,TRUE,TRUE,
-DODGE,DODGE,,static field,constants,,TRUE,TRUE,
-BURN,BURN,,static field,constants,,TRUE,TRUE,
-CHATTER,CHATTER,,static field,constants,,TRUE,TRUE,
-COMPLAINT,COMPLAINT,,static field,constants,,TRUE,TRUE,
-PROBLEM,PROBLEM,,static field,constants,,TRUE,TRUE,
-PROJECTION,PROJECTION,,static field,constants,,TRUE,TRUE,
-MODELVIEW,MODELVIEW,,static field,constants,,TRUE,TRUE,
-CUSTOM,CUSTOM,,static field,constants,,TRUE,TRUE,
-ORTHOGRAPHIC,ORTHOGRAPHIC,,static field,constants,,TRUE,TRUE,
-PERSPECTIVE,PERSPECTIVE,,static field,constants,,TRUE,TRUE,
-GROUP,GROUP,,static field,constants,,TRUE,TRUE,
-POINT,POINT,,static field,constants,,TRUE,TRUE,
-POINTS,POINTS,,static field,constants,,TRUE,TRUE,
-LINE,LINE,,static field,constants,,TRUE,TRUE,
-LINES,LINES,,static field,constants,,TRUE,TRUE,
-LINE_STRIP,LINE_STRIP,,static field,constants,,TRUE,TRUE,
-LINE_LOOP,LINE_LOOP,,static field,constants,,TRUE,TRUE,
-TRIANGLE,TRIANGLE,,static field,constants,,TRUE,TRUE,
-TRIANGLES,TRIANGLES,,static field,constants,,TRUE,TRUE,
-TRIANGLE_STRIP,TRIANGLE_STRIP,,static field,constants,,TRUE,TRUE,
-TRIANGLE_FAN,TRIANGLE_FAN,,static field,constants,,TRUE,TRUE,
-QUAD,QUAD,,static field,constants,,TRUE,TRUE,
-QUADS,QUADS,,static field,constants,,TRUE,TRUE,
-QUAD_STRIP,QUAD_STRIP,,static field,constants,,TRUE,TRUE,
-POLYGON,POLYGON,,static field,constants,,TRUE,TRUE,
-PATH,PATH,,static field,constants,,TRUE,TRUE,
-RECT,RECT,,static field,constants,,TRUE,TRUE,
-ELLIPSE,ELLIPSE,,static field,constants,,TRUE,TRUE,
-ARC,ARC,,static field,constants,,TRUE,TRUE,
-SPHERE,SPHERE,,static field,constants,,TRUE,TRUE,
-BOX,BOX,,static field,constants,,TRUE,TRUE,
-OPEN,OPEN,,static field,constants,,TRUE,TRUE,
-CLOSE,CLOSE,,static field,constants,,TRUE,TRUE,
-CORNER,CORNER,,static field,constants,,TRUE,TRUE,
-CORNERS,CORNERS,,static field,constants,,TRUE,TRUE,
-RADIUS,RADIUS,,static field,constants,,TRUE,TRUE,
-CENTER,CENTER,,static field,constants,,TRUE,TRUE,
-DIAMETER,DIAMETER,,static field,constants,,TRUE,TRUE,
-CHORD,CHORD,,static field,constants,,TRUE,TRUE,
-PIE,PIE,,static field,constants,,TRUE,TRUE,
-BASELINE,BASELINE,,static field,constants,,TRUE,TRUE,
-TOP,TOP,,static field,constants,,TRUE,TRUE,
-BOTTOM,BOTTOM,,static field,constants,,TRUE,TRUE,
-NORMAL,NORMAL,,static field,constants,,TRUE,TRUE,
-IMAGE,IMAGE,,static field,constants,,TRUE,TRUE,
-CLAMP,CLAMP,,static field,constants,,TRUE,TRUE,
-REPEAT,REPEAT,,static field,constants,,TRUE,TRUE,
-MODEL,MODEL,,static field,constants,,TRUE,TRUE,
-SHAPE,SHAPE,,static field,constants,,TRUE,TRUE,
-SQUARE,SQUARE,,static field,constants,,TRUE,TRUE,
-ROUND,ROUND,,static field,constants,,TRUE,TRUE,
-PROJECT,PROJECT,,static field,constants,,TRUE,TRUE,
-MITER,MITER,,static field,constants,,TRUE,TRUE,
-BEVEL,BEVEL,,static field,constants,,TRUE,TRUE,
-AMBIENT,AMBIENT,,static field,constants,,TRUE,TRUE,
-DIRECTIONAL,DIRECTIONAL,,static field,constants,,TRUE,TRUE,
-SPOT,SPOT,,static field,constants,,TRUE,TRUE,
-BACKSPACE,BACKSPACE,,static field,constants,,TRUE,TRUE,
-TAB,TAB,,static field,constants,,TRUE,TRUE,
-ENTER,ENTER,,static field,constants,,TRUE,TRUE,
-RETURN,RETURN,,static field,constants,,TRUE,TRUE,
-ESC,ESC,,static field,constants,,TRUE,TRUE,
-DELETE,DELETE,,static field,constants,,TRUE,TRUE,
-CODED,CODED,,static field,constants,,TRUE,TRUE,
-UP,UP,,static field,constants,,TRUE,TRUE,
-DOWN,DOWN,,static field,constants,,TRUE,TRUE,
-LEFT,LEFT,,static field,constants,,TRUE,TRUE,
-RIGHT,RIGHT,,static field,constants,,TRUE,TRUE,
-ALT,ALT,,static field,constants,,TRUE,TRUE,
-CONTROL,CONTROL,,static field,constants,,TRUE,TRUE,
-SHIFT,SHIFT,,static field,constants,,TRUE,TRUE,
-PORTRAIT,PORTRAIT,,static field,constants,,TRUE,TRUE,
-LANDSCAPE,LANDSCAPE,,static field,constants,,TRUE,TRUE,
-SPAN,SPAN,,static field,constants,,TRUE,TRUE,
-ARROW,ARROW,,static field,constants,,TRUE,TRUE,
-CROSS,CROSS,,static field,constants,,TRUE,TRUE,
-HAND,HAND,,static field,constants,,TRUE,TRUE,
-MOVE,MOVE,,static field,constants,,TRUE,TRUE,
-TEXT,TEXT,,static field,constants,,TRUE,TRUE,
-WAIT,WAIT,,static field,constants,,TRUE,TRUE,
-ENABLE_NATIVE_FONTS,ENABLE_NATIVE_FONTS,,static field,constants,,TRUE,TRUE,
-DISABLE_NATIVE_FONTS,DISABLE_NATIVE_FONTS,,static field,constants,,TRUE,TRUE,
-DISABLE_DEPTH_TEST,DISABLE_DEPTH_TEST,,static field,constants,,TRUE,TRUE,
-ENABLE_DEPTH_TEST,ENABLE_DEPTH_TEST,,static field,constants,,TRUE,TRUE,
-ENABLE_DEPTH_SORT,ENABLE_DEPTH_SORT,,static field,constants,,TRUE,TRUE,
-DISABLE_DEPTH_SORT,DISABLE_DEPTH_SORT,,static field,constants,,TRUE,TRUE,
-DISABLE_OPENGL_ERRORS,DISABLE_OPENGL_ERRORS,,static field,constants,,TRUE,TRUE,
-ENABLE_OPENGL_ERRORS,ENABLE_OPENGL_ERRORS,,static field,constants,,TRUE,TRUE,
-DISABLE_DEPTH_MASK,DISABLE_DEPTH_MASK,,static field,constants,,TRUE,TRUE,
-ENABLE_DEPTH_MASK,ENABLE_DEPTH_MASK,,static field,constants,,TRUE,TRUE,
-DISABLE_OPTIMIZED_STROKE,DISABLE_OPTIMIZED_STROKE,,static field,constants,,TRUE,TRUE,
-ENABLE_OPTIMIZED_STROKE,ENABLE_OPTIMIZED_STROKE,,static field,constants,,TRUE,TRUE,
-ENABLE_STROKE_PERSPECTIVE,ENABLE_STROKE_PERSPECTIVE,,static field,constants,,TRUE,TRUE,
-DISABLE_STROKE_PERSPECTIVE,DISABLE_STROKE_PERSPECTIVE,,static field,constants,,TRUE,TRUE,
-DISABLE_TEXTURE_MIPMAPS,DISABLE_TEXTURE_MIPMAPS,,static field,constants,,TRUE,TRUE,
-ENABLE_TEXTURE_MIPMAPS,ENABLE_TEXTURE_MIPMAPS,,static field,constants,,TRUE,TRUE,
-ENABLE_STROKE_PURE,ENABLE_STROKE_PURE,,static field,constants,,TRUE,TRUE,
-DISABLE_STROKE_PURE,DISABLE_STROKE_PURE,,static field,constants,,TRUE,TRUE,
-ENABLE_BUFFER_READING,ENABLE_BUFFER_READING,,static field,constants,,TRUE,TRUE,
-DISABLE_BUFFER_READING,DISABLE_BUFFER_READING,,static field,constants,,TRUE,TRUE,
-DISABLE_KEY_REPEAT,DISABLE_KEY_REPEAT,,static field,constants,,TRUE,TRUE,
-ENABLE_KEY_REPEAT,ENABLE_KEY_REPEAT,,static field,constants,,TRUE,TRUE,
-DISABLE_ASYNC_SAVEFRAME,DISABLE_ASYNC_SAVEFRAME,,static field,constants,,TRUE,TRUE,
-ENABLE_ASYNC_SAVEFRAME,ENABLE_ASYNC_SAVEFRAME,,static field,constants,,TRUE,TRUE,
-HINT_COUNT,HINT_COUNT,,static field,constants,,TRUE,TRUE,
-java_version_name,javaVersionName,,dynamic variable,constants,,TRUE,TRUE,
-java_platform,javaPlatform,,dynamic variable,constants,,TRUE,TRUE,
-java_version,javaVersion,,dynamic variable,constants,,TRUE,TRUE,
-platform,platform,,static field,constants,,FALSE,FALSE,"use ""import sys; sys.platform"" instead"
-useNativeSelect,useNativeSelect,,static field,constants,,FALSE,FALSE,
-g,g,,dynamic variable,,,FALSE,FALSE,"internal pgraphics object, use get_graphics to access"
-display_width,displayWidth,,dynamic variable,environment,,TRUE,TRUE,
-display_height,displayHeight,,dynamic variable,environment,,TRUE,TRUE,
-recorder,recorder,,dynamic variable,,,FALSE,FALSE,
-args,args,@_return_list_str,dynamic variable,structure,,TRUE,TRUE,
-DEFAULT_WIDTH,DEFAULT_WIDTH,,static field,,,TRUE,TRUE,
-DEFAULT_HEIGHT,DEFAULT_HEIGHT,,static field,,,TRUE,TRUE,
-pixels,pixels,,dynamic variable,image,pixels,TRUE,TRUE,
-width,width,,dynamic variable,environment,,TRUE,TRUE,
-height,height,,dynamic variable,environment,,TRUE,TRUE,
-pixel_width,pixelWidth,,dynamic variable,environment,,TRUE,TRUE,
-pixel_height,pixelHeight,,dynamic variable,environment,,TRUE,TRUE,
-mouse_x,mouseX,,dynamic variable,input,mouse,TRUE,TRUE,
-mouse_y,mouseY,,dynamic variable,input,mouse,TRUE,TRUE,
-pmouse_x,pmouseX,,dynamic variable,input,mouse,TRUE,TRUE,
-pmouse_y,pmouseY,,dynamic variable,input,mouse,TRUE,TRUE,
-first_mouse,firstMouse,,dynamic variable,,,FALSE,FALSE,deprecated
-mouse_button,mouseButton,,dynamic variable,input,mouse,TRUE,TRUE,
-mouse_pressed,mousePressed,,method,input,mouse,FALSE,FALSE,method implemented by user; boolean variable replaced with method is_mouse_pressed
-mouse_event,mouseEvent,,dynamic variable,,,FALSE,FALSE,deprecated
-key,key,,dynamic variable,input,keyboard,TRUE,TRUE,
-key_code,keyCode,,dynamic variable,input,keyboard,TRUE,TRUE,
-key_pressed,keyPressed,,method,input,keyboard,FALSE,FALSE,method implemented by user; boolean variable replaced with is_key_pressed
-key_event,keyEvent,,dynamic variable,,,FALSE,FALSE,deprecated
-focused,focused,,dynamic variable,environment,,TRUE,TRUE,
-frame_rate,frameRate,,method,environment,,TRUE,TRUE,
-frame_count,frameCount,,dynamic variable,environment,,TRUE,TRUE,
-finished,finished,,dynamic variable,structure,,TRUE,TRUE,
-ARGS_EDITOR_LOCATION,ARGS_EDITOR_LOCATION,,static field,constants,,TRUE,TRUE,
-ARGS_EXTERNAL,ARGS_EXTERNAL,,static field,constants,,TRUE,TRUE,
-ARGS_LOCATION,ARGS_LOCATION,,static field,constants,,TRUE,TRUE,
-ARGS_DISPLAY,ARGS_DISPLAY,,static field,constants,,TRUE,TRUE,
-ARGS_DISABLE_AWT,ARGS_DISABLE_AWT,,static field,constants,,TRUE,TRUE,
-ARGS_BGCOLOR,ARGS_BGCOLOR,,static field,constants,,TRUE,TRUE,
-ARGS_FULL_SCREEN,ARGS_FULL_SCREEN,,static field,constants,,TRUE,TRUE,
-ARGS_WINDOW_COLOR,ARGS_WINDOW_COLOR,,static field,constants,,TRUE,TRUE,
-ARGS_PRESENT,ARGS_PRESENT,,static field,constants,,TRUE,TRUE,
-ARGS_STOP_COLOR,ARGS_STOP_COLOR,,static field,constants,,TRUE,TRUE,
-ARGS_HIDE_STOP,ARGS_HIDE_STOP,,static field,constants,,TRUE,TRUE,
-ARGS_SKETCH_FOLDER,ARGS_SKETCH_FOLDER,,static field,constants,,TRUE,TRUE,
-ARGS_DENSITY,ARGS_DENSITY,,static field,constants,,TRUE,TRUE,
-EXTERNAL_STOP,EXTERNAL_STOP,,static field,constants,,TRUE,TRUE,
-EXTERNAL_MOVE,EXTERNAL_MOVE,,static field,constants,,TRUE,TRUE,
-pixel_density,pixelDensity,,method,environment,,TRUE,TRUE,
-wait,wait,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-equals,equals,,method,,,FALSE,FALSE,user should use python instead
-to_string,toString,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-hash_code,hashCode,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-get_class,getClass,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-notify,notify,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-notify_all,notifyAll,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-text,text,@_text_fix_str,method,typography,loading_displaying,TRUE,TRUE,
-println,println,,method,output,text_area,FALSE,FALSE,user should use python instead
-main,main,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-exit_sketch,exit,,method,structure,,TRUE,TRUE,renamed because of conflict with builtin python function
-get,get,@_return_py5image,method,image,pixels,TRUE,TRUE,
-method,method,,method,,,FALSE,FALSE,
-append,append,,method,data,array_functions,FALSE,FALSE,user should use python instead
-abs,abs,,method,math,calculation,FALSE,FALSE,user should use numpy instead
-sin,sin,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
-cos,cos,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
-tan,tan,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
-atan2,atan2,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
-sqrt,sqrt,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
-log,log,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
-pow,pow,,static method,math,calculation,FALSE,FALSE,user should use builtin or numpy instead
-exp,exp,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
-min,min,,method,math,calculation,FALSE,FALSE,user should use numpy instead
-max,max,,method,math,calculation,FALSE,FALSE,user should use numpy instead
-arraycopy,arraycopy,,method,,,FALSE,FALSE,user should use python instead
-clear,clear,,method,color,setting,TRUE,TRUE,
-str,str,,method,,,FALSE,FALSE,conflict with builtin python function
-concat,concat,,method,data,array_functions,FALSE,FALSE,user should use python instead
-split,split,,method,data,string_functions,FALSE,FALSE,user should use python instead
-join,join,,method,data,string_functions,FALSE,FALSE,user should use python instead
-trim,trim,,method,data,string_functions,FALSE,FALSE,user should use python instead
-size,size,,method,environment,,TRUE,TRUE,
-fill,fill,,method,color,setting,TRUE,TRUE,
-apply_filter,filter,,method,image,pixels,TRUE,TRUE,filter method has name conflict with python builtin function; replaced with apply_filter method
-second,second,,static method,input,time_date,TRUE,TRUE,
-match,match,,static method,data,string_functions,FALSE,FALSE,user should use python instead
-set,set,,method,image,pixels,FALSE,FALSE,conflict with builtin python function
-remap,map,,static method,math,calculation,FALSE,TRUE,renamed to remap to avoid conflict with builtin function; implemented in python for performance
-setup,setup,,method,structure,,FALSE,FALSE,method implemented by user
-debug,debug,,static method,,,FALSE,FALSE,user should use python instead
-start,start,,method,structure,,TRUE,TRUE,
-millis,millis,,method,input,time_date,TRUE,TRUE,
-stop,stop,,method,structure,,TRUE,TRUE,
-resume,resume,,method,structure,,TRUE,TRUE,
-delay,delay,,method,environment,,FALSE,FALSE,user should use python instead
-print,print,,method,output,text_area,FALSE,FALSE,conflict with builtin python function
-save,save,,method,output,image,FALSE,TRUE,implemented in pixels.py mixin
-flush,flush,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-copy,copy,@_auto_convert_to_py5image;@_return_py5image,method,image,pixels,TRUE,TRUE,
-mask,mask,,method,pimage,method,FALSE,FALSE,why is this method in PApplet? It is not documented and cannot actually work correctly
-nf,nf,,method,data,string_functions,FALSE,FALSE,user should use python instead
-expand,expand,,method,data,array_functions,FALSE,FALSE,user should use python instead
-box,box,,method,shape,3d_primitives,TRUE,TRUE,
-loop,loop,,method,structure,,TRUE,TRUE,
-reverse,reverse,,method,data,array_functions,FALSE,FALSE,user should use python instead
-line,line,,method,shape,2d_primitives,TRUE,TRUE,
-thread,thread,,method,structure,,FALSE,FALSE,use launch_thread insead
-parse_boolean,parseBoolean,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-parse_int,parseInt,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-parse_float,parseFloat,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-parse_byte,parseByte,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-mag,mag,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
-scale,scale,,method,transform,,TRUE,TRUE,
-exec,exec,,method,,,FALSE,FALSE,conflict with builtin python function
-sort,sort,,method,data,array_functions,FALSE,FALSE,conflict with builtin python function
-rotate,rotate,,method,transform,,TRUE,TRUE,
-asin,asin,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
-acos,acos,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
-atan,atan,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
-ceil,ceil,,static method,math,calculation,FALSE,TRUE,implementation in mixin file math.py makes call to numpy
-floor,floor,,static method,math,calculation,FALSE,TRUE,implementation in mixin file math.py makes call to numpy
-round,round,,static method,math,calculation,FALSE,FALSE,user should use numpy or builtin method instead
-random,random,,method,math,random,FALSE,TRUE,implementation uses numpy for performance reasons
-settings,settings,,method,environment,,FALSE,FALSE,method implemented by user
-draw,draw,,method,structure,,FALSE,FALSE,method implemented by user
-pre_draw,preDraw,,method,structure,,FALSE,FALSE,method implemented by user
-post_draw,postDraw,,method,structure,,FALSE,FALSE,method implemented by user
-mouse_released,mouseReleased,,method,input,mouse,FALSE,FALSE,method implemented by user
-mouse_clicked,mouseClicked,,method,input,mouse,FALSE,FALSE,method implemented by user
-mouse_dragged,mouseDragged,,method,input,mouse,FALSE,FALSE,method implemented by user
-mouse_moved,mouseMoved,,method,input,mouse,FALSE,FALSE,method implemented by user
-mouse_entered,mouseEntered,,method,input,mouse,FALSE,FALSE,method implemented by user
-mouse_exited,mouseExited,,method,input,mouse,FALSE,FALSE,method implemented by user
-mouse_wheel,mouseWheel,,method,input,mouse,FALSE,FALSE,method implemented by user
-key_released,keyReleased,,method,input,keyboard,FALSE,FALSE,method implemented by user
-key_typed,keyTyped,,method,input,keyboard,FALSE,FALSE,method implemented by user
-exit_actual,exitActual,,method,structure,,FALSE,FALSE,replaced with exiting()
-no_loop,noLoop,,method,structure,,TRUE,TRUE,
-load_pixels,loadPixels,,method,image,pixels,TRUE,TRUE,
-update_pixels,updatePixels,,method,image,pixels,TRUE,TRUE,
-sketch_path,sketchPath,,method,environment,,TRUE,TRUE,
-redraw,redraw,,method,structure,,TRUE,TRUE,
-exit_called,exitCalled,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-smooth,smooth,,method,environment,,TRUE,TRUE,
-full_screen,fullScreen,,method,environment,,TRUE,TRUE,
-get_surface,getSurface,@_return_py5surface,method,environment,,TRUE,TRUE,
-surface,surface,,unknown,,,FALSE,FALSE,use get_surface
-sketch_width,sketchWidth,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-sketch_height,sketchHeight,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-sketch_renderer,sketchRenderer,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-sketch_smooth,sketchSmooth,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-sketch_full_screen,sketchFullScreen,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-sketch_display,sketchDisplay,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-sketch_output_path,sketchOutputPath,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-sketch_output_stream,sketchOutputStream,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-sketch_window_color,sketchWindowColor,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-sketch_pixel_density,sketchPixelDensity,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-display_density,displayDensity,,method,environment,,TRUE,TRUE,
-no_smooth,noSmooth,,method,environment,,TRUE,TRUE,
-get_graphics,getGraphics,@_return_py5graphics,method,rendering,,TRUE,TRUE,
-graphics,graphics,,unknown,,,FALSE,FALSE,use get_graphics
-orientation,orientation,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-pause,pause,,method,structure,,TRUE,TRUE,
-register_method,registerMethod,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-unregister_method,unregisterMethod,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-create_graphics,createGraphics,@_return_py5graphics,method,rendering,,TRUE,TRUE,this needs to be reimplemented but I haven't decided what to do with it yet
-create_image,createImage,@_return_py5image,method,image,,TRUE,TRUE,
-image,image,@_auto_convert_to_py5image,method,image,loading_displaying,TRUE,TRUE,
-handle_draw,handleDraw,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-alpha,alpha,,method,color,creating_reading,TRUE,TRUE,
-is_looping,isLooping,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-looping,looping,,unknown,,,FALSE,FALSE,methods that are not part of the processing framework
-post_event,postEvent,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-focus_gained,focusGained,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-focus_lost,focusLost,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-launch,launch,,static method,input,files,FALSE,FALSE,methods that should be re-implemented by me in Python
-shell,shell,,static method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
-die,die,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-dispose,dispose,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-save_frame,saveFrame,,method,output,image,FALSE,TRUE,"implemented in sketch.py, uses Pillow to save the frame"
-insert_frame,insertFrame,,method,,,FALSE,FALSE,"not intended to be public, but there is the _insert_frame method that also lets you specify the number instead of frame_count"
-no_cursor,noCursor,,method,environment,,TRUE,TRUE,
-print_array,printArray,,static method,output,text_area,FALSE,FALSE,user should use python instead
-sq,sq,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
-constrain,constrain,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
-degrees,degrees,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
-radians,radians,,static method,math,trigonometry,FALSE,TRUE,implemented in mixin file math.py
-dist,dist,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
-lerp,lerp,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
-norm,norm,,static method,math,calculation,FALSE,TRUE,implemented in mixin file math.py
-random_gaussian,randomGaussian,,method,math,random,FALSE,TRUE,implementation uses numpy for performance reasons
-random_seed,randomSeed,,method,math,random,FALSE,TRUE,implementation uses numpy for performance reasons
-noise,noise,,method,math,random,FALSE,TRUE,implementation uses python noise library for performance and increased functionality
-noise_detail,noiseDetail,,method,math,random,FALSE,TRUE,implementation uses python noise library for performance and increased functionality
-noise_seed,noiseSeed,,method,math,random,FALSE,TRUE,implementation uses python noise library for performance and increased functionality
-load_image,loadImage,,method,image,loading_displaying,FALSE,TRUE,
-request_image,requestImage,,method,image,loading_displaying,FALSE,TRUE,
-convert_image,,,method,image,loading_displaying,FALSE,TRUE,
-create_image_from_numpy,,,method,image,loading_displaying,FALSE,TRUE,
-load_xml,loadXML,,method,input,files,FALSE,FALSE,methods that should be re-implemented by me in Python
-parse_xml,parseXML,,method,input,files,FALSE,FALSE,methods that should be re-implemented by me in Python
-save_xml,saveXML,,method,output,files,FALSE,FALSE,methods that should be re-implemented by me in Python
-parse_json_object,parseJSONObject,,method,input,files,FALSE,FALSE,"use load_json, save_json, parse_json"
-load_json_object,loadJSONObject,,method,input,files,FALSE,FALSE,"use load_json, save_json, parse_json"
-save_json_object,saveJSONObject,,method,output,files,FALSE,FALSE,"use load_json, save_json, parse_json"
-parse_json_array,parseJSONArray,,method,input,files,FALSE,FALSE,"use load_json, save_json, parse_json"
-load_json_array,loadJSONArray,,method,input,files,FALSE,FALSE,"use load_json, save_json, parse_json"
-save_json_array,saveJSONArray,,method,output,files,FALSE,FALSE,"use load_json, save_json, parse_json"
-load_table,loadTable,,method,input,files,FALSE,FALSE,methods that should be re-implemented by me in Python
-save_table,saveTable,,method,output,files,FALSE,FALSE,methods that should be re-implemented by me in Python
-load_font,loadFont,@_load_py5font,method,typography,loading_displaying,TRUE,TRUE,
-create_font,createFont,@_load_py5font,method,typography,loading_displaying,TRUE,TRUE,
-select_input,selectInput,,method,input,files,FALSE,FALSE,this should be available to users but the callback makes it complicated and I will do it later
-select_output,selectOutput,,method,output,files,FALSE,FALSE,this should be available to users but the callback makes it complicated and I will do it later
-select_folder,selectFolder,,method,input,files,FALSE,FALSE,this should be available to users but the callback makes it complicated and I will do it later
-select_callback,selectCallback,,static method,,,FALSE,FALSE,
-list_paths,listPaths,,method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
-check_extension,checkExtension,,static method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
-create_reader,createReader,,method,input,files,FALSE,FALSE,methods that should be re-implemented by me in Python
-create_writer,createWriter,,method,output,files,FALSE,FALSE,methods that should be re-implemented by me in Python
-create_input,createInput,,method,input,files,FALSE,FALSE,methods that should be re-implemented by me in Python
-create_input_raw,createInputRaw,,method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
-load_bytes,loadBytes,,method,input,files,FALSE,FALSE,methods that should be re-implemented by me in Python
-load_strings,loadStrings,,method,input,files,FALSE,FALSE,methods that should be re-implemented by me in Python
-create_output,createOutput,,method,output,files,FALSE,FALSE,methods that should be re-implemented by me in Python
-save_stream,saveStream,,method,output,files,FALSE,FALSE,methods that should be re-implemented by me in Python
-save_bytes,saveBytes,,method,output,files,FALSE,FALSE,methods that should be re-implemented by me in Python
-save_strings,saveStrings,,method,output,files,FALSE,FALSE,methods that should be re-implemented by me in Python
-sketch_file,sketchFile,,method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
-save_path,savePath,,method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
-save_file,saveFile,,method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
-desktop_file,desktopFile,,static method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
-desktop_path,desktopPath,,static method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
-data_path,dataPath,,method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
-data_file,dataFile,,method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
-create_path,createPath,,method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
-url_encode,urlEncode,,static method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
-url_decode,urlDecode,,static method,,,FALSE,FALSE,methods that should be re-implemented by me in Python
-array_copy,arrayCopy,,method,data,array_functions,FALSE,FALSE,user should use python instead
-shorten,shorten,,method,data,array_functions,FALSE,FALSE,user should use python instead
-splice,splice,,method,data,array_functions,FALSE,FALSE,user should use python instead
-subset,subset,,method,data,array_functions,FALSE,FALSE,user should use python instead
-split_tokens,splitTokens,,method,data,string_functions,FALSE,FALSE,user should use python instead
-match_all,matchAll,,static method,data,string_functions,FALSE,FALSE,user should use python instead
-parse_char,parseChar,,method,,,FALSE,FALSE,user should use python instead
-nfc,nfc,,method,data,string_functions,FALSE,FALSE,user should use python instead
-nfs,nfs,,method,data,string_functions,FALSE,FALSE,user should use python instead
-nfp,nfp,,method,data,string_functions,FALSE,FALSE,user should use python instead
-hex,hex,,method,data,conversion,FALSE,FALSE,user should use python instead
-unhex,unhex,,static method,data,conversion,FALSE,FALSE,user should use python instead
-binary,binary,,method,data,conversion,FALSE,FALSE,user should use python instead
-unbinary,unbinary,,static method,data,conversion,FALSE,FALSE,user should use python instead
-color,color,,method,color,creating_reading,TRUE,TRUE,
-lerp_color,lerpColor,,method,color,creating_reading,TRUE,TRUE,
-blend_color,blendColor,,static method,color,creating_reading,FALSE,FALSE,methods that are not part of the processing framework
-frame_moved,frameMoved,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-frame_resized,frameResized,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-run_sketch,runSketch,,static method,structure,,FALSE,TRUE,my implementation of run_sketch calls Processing's runSketch method after doing some setup stuff
-hide_menu_bar,hideMenuBar,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
-begin_record,beginRecord,@_return_py5graphics,method,output,files,TRUE,TRUE,
-end_record,endRecord,,method,output,files,TRUE,TRUE,
-begin_raw,beginRaw,@_return_py5graphics,method,output,files,TRUE,TRUE,
-end_raw,endRaw,,method,output,files,TRUE,TRUE,
-begin_pgl,beginPGL,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-end_pgl,endPGL,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-hint,hint,,method,rendering,,TRUE,TRUE,
-begin_shape,beginShape,,method,shape,vertex,TRUE,TRUE,
-edge,edge,,method,,,FALSE,FALSE,
-attrib_position,attribPosition,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-attrib_normal,attribNormal,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-attrib_color,attribColor,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-attrib,attrib,,method,,,FALSE,FALSE,methods that are not part of the processing framework
-texture_mode,textureMode,,method,image,textures,TRUE,TRUE,
-texture_wrap,textureWrap,,method,image,textures,TRUE,TRUE,
-texture,texture,@_auto_convert_to_py5image,method,image,textures,TRUE,TRUE,
-no_texture,noTexture,,method,image,textures,TRUE,TRUE,
-vertex,vertex,,method,shape,vertex,TRUE,TRUE,
-begin_contour,beginContour,,method,shape,vertex,TRUE,TRUE,
-end_contour,endContour,,method,shape,vertex,TRUE,TRUE,
-end_shape,endShape,,method,shape,vertex,TRUE,TRUE,
-load_shape,loadShape,@_load_py5shape,method,shape,,TRUE,TRUE,
-create_shape,createShape,@_return_py5shape,method,shape,,TRUE,TRUE,
-load_shader,loadShader,@_load_py5shader,method,rendering,shaders,TRUE,TRUE,
-shader,shader,,method,rendering,shaders,TRUE,TRUE,
-reset_shader,resetShader,,method,rendering,shaders,TRUE,TRUE,
-clip,clip,,method,rendering,,TRUE,TRUE,
-no_clip,noClip,,method,rendering,,TRUE,TRUE,
-blend_mode,blendMode,,method,rendering,,TRUE,TRUE,
-bezier_vertex,bezierVertex,,method,shape,vertex,TRUE,TRUE,
-quadratic_vertex,quadraticVertex,,method,shape,vertex,TRUE,TRUE,
-curve_vertex,curveVertex,,method,shape,vertex,TRUE,TRUE,
-point,point,,method,shape,2d_primitives,TRUE,TRUE,
-triangle,triangle,,method,shape,2d_primitives,TRUE,TRUE,
-quad,quad,,method,shape,2d_primitives,TRUE,TRUE,
-rect_mode,rectMode,,method,shape,attributes,TRUE,TRUE,
-rect,rect,,method,shape,2d_primitives,TRUE,TRUE,
-square,square,,method,shape,2d_primitives,TRUE,TRUE,
-ellipse_mode,ellipseMode,,method,shape,attributes,TRUE,TRUE,
-ellipse,ellipse,,method,shape,2d_primitives,TRUE,TRUE,
-arc,arc,,method,shape,2d_primitives,TRUE,TRUE,
-circle,circle,,method,shape,2d_primitives,TRUE,TRUE,
-sphere_detail,sphereDetail,,method,shape,3d_primitives,TRUE,TRUE,
-sphere,sphere,,method,shape,3d_primitives,TRUE,TRUE,
-bezier_point,bezierPoint,,method,shape,curves,TRUE,TRUE,
-bezier_tangent,bezierTangent,,method,shape,curves,TRUE,TRUE,
-bezier_detail,bezierDetail,,method,shape,curves,TRUE,TRUE,
-bezier,bezier,,method,shape,curves,TRUE,TRUE,
-curve_point,curvePoint,,method,shape,curves,TRUE,TRUE,
-curve_tangent,curveTangent,,method,shape,curves,TRUE,TRUE,
-curve_detail,curveDetail,,method,shape,curves,TRUE,TRUE,
-curve_tightness,curveTightness,,method,shape,curves,TRUE,TRUE,
-curve,curve,,method,shape,curves,TRUE,TRUE,
-image_mode,imageMode,,method,image,loading_displaying,TRUE,TRUE,
-shape_mode,shapeMode,,method,shape,loading_displaying,TRUE,TRUE,
-shape,shape,,method,shape,loading_displaying,TRUE,TRUE,
-text_align,textAlign,,method,typography,attributes,TRUE,TRUE,
-text_ascent,textAscent,,method,typography,metrics,TRUE,TRUE,
-text_descent,textDescent,,method,typography,metrics,TRUE,TRUE,
-text_font,textFont,,method,typography,loading_displaying,TRUE,TRUE,
-text_leading,textLeading,,method,typography,attributes,TRUE,TRUE,
-text_mode,textMode,,method,typography,attributes,TRUE,TRUE,
-text_size,textSize,,method,typography,attributes,TRUE,TRUE,
-text_width,textWidth,@_text_fix_str,method,typography,attributes,TRUE,TRUE,
-push_matrix,pushMatrix,,method,transform,,TRUE,TRUE,
-pop_matrix,popMatrix,,method,transform,,TRUE,TRUE,
-translate,translate,,method,transform,,TRUE,TRUE,
-rotate_x,rotateX,,method,transform,,TRUE,TRUE,
-rotate_y,rotateY,,method,transform,,TRUE,TRUE,
-rotate_z,rotateZ,,method,transform,,TRUE,TRUE,
-shear_x,shearX,,method,transform,,TRUE,TRUE,
-shear_y,shearY,,method,transform,,TRUE,TRUE,
-reset_matrix,resetMatrix,,method,transform,,TRUE,TRUE,
-apply_matrix,applyMatrix,,method,transform,,TRUE,TRUE,this and all of the matrix functions need to be re-implemented using numpy
-get_matrix,getMatrix,@ _get_matrix_wrapper,method,transform,,TRUE,TRUE,this and all of the matrix functions need to be re-implemented using numpy
-set_matrix,setMatrix,,method,transform,,TRUE,TRUE,this and all of the matrix functions need to be re-implemented using numpy
-print_matrix,printMatrix,,method,transform,,TRUE,TRUE,
-begin_camera,beginCamera,,method,lights_camera,camera,TRUE,TRUE,
-end_camera,endCamera,,method,lights_camera,camera,TRUE,TRUE,
-camera,camera,,method,lights_camera,camera,TRUE,TRUE,
-print_camera,printCamera,,method,lights_camera,camera,TRUE,TRUE,
-ortho,ortho,,method,lights_camera,camera,TRUE,TRUE,
-perspective,perspective,,method,lights_camera,camera,TRUE,TRUE,
-frustum,frustum,,method,lights_camera,camera,TRUE,TRUE,
-print_projection,printProjection,,method,lights_camera,camera,TRUE,TRUE,
-screen_x,screenX,,method,lights_camera,coordinates,TRUE,TRUE,
-screen_y,screenY,,method,lights_camera,coordinates,TRUE,TRUE,
-screen_z,screenZ,,method,lights_camera,coordinates,TRUE,TRUE,
-model_x,modelX,,method,lights_camera,coordinates,TRUE,TRUE,
-model_y,modelY,,method,lights_camera,coordinates,TRUE,TRUE,
-model_z,modelZ,,method,lights_camera,coordinates,TRUE,TRUE,
-push_style,pushStyle,,method,structure,,TRUE,TRUE,
-pop_style,popStyle,,method,structure,,TRUE,TRUE,
-style,style,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-stroke_weight,strokeWeight,,method,shape,attributes,TRUE,TRUE,
-stroke_join,strokeJoin,,method,shape,attributes,TRUE,TRUE,
-stroke_cap,strokeCap,,method,shape,attributes,TRUE,TRUE,
-no_stroke,noStroke,,method,color,setting,TRUE,TRUE,
-stroke,stroke,,method,color,setting,TRUE,TRUE,
-no_tint,noTint,,method,image,loading_displaying,TRUE,TRUE,
-tint,tint,,method,image,loading_displaying,TRUE,TRUE,
-no_fill,noFill,,method,color,setting,TRUE,TRUE,
-ambient,ambient,,method,lights_camera,material_properties,TRUE,TRUE,
-specular,specular,,method,lights_camera,material_properties,TRUE,TRUE,
-shininess,shininess,,method,lights_camera,material_properties,TRUE,TRUE,
-emissive,emissive,,method,lights_camera,material_properties,TRUE,TRUE,
-lights,lights,,method,lights_camera,lights,TRUE,TRUE,
-no_lights,noLights,,method,lights_camera,lights,TRUE,TRUE,
-ambient_light,ambientLight,,method,lights_camera,lights,TRUE,TRUE,
-directional_light,directionalLight,,method,lights_camera,lights,TRUE,TRUE,
-point_light,pointLight,,method,lights_camera,lights,TRUE,TRUE,
-spot_light,spotLight,,method,lights_camera,lights,TRUE,TRUE,
-light_falloff,lightFalloff,,method,lights_camera,lights,TRUE,TRUE,
-light_specular,lightSpecular,,method,lights_camera,lights,TRUE,TRUE,
-background,background,@_auto_convert_to_py5image,method,color,setting,TRUE,TRUE,
-color_mode,colorMode,,method,color,setting,TRUE,TRUE,
-green,green,,method,color,creating_reading,TRUE,TRUE,
-blue,blue,,method,color,creating_reading,TRUE,TRUE,
-hue,hue,,method,color,creating_reading,TRUE,TRUE,
-saturation,saturation,,method,color,creating_reading,TRUE,TRUE,
-brightness,brightness,,method,color,creating_reading,TRUE,TRUE,
-show_depth_warning,showDepthWarning,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
-show_depth_warning_xyz,showDepthWarningXYZ,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
-show_method_warning,showMethodWarning,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
-show_variation_warning,showVariationWarning,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
-show_missing_warning,showMissingWarning,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
-check_alpha,checkAlpha,,method,,,FALSE,FALSE,
-blend,blend,@_auto_convert_to_py5image,method,image,pixels,TRUE,TRUE,
-cursor,cursor,@_auto_convert_to_py5image,method,environment,,TRUE,TRUE,
-get_extension,getExtension,,static method,,,FALSE,FALSE,public methods that shouldn't be available to users
-list_files,listFiles,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-normal,normal,,method,lights_camera,lights,TRUE,TRUE,
-month,month,,static method,input,time_date,TRUE,TRUE,
-day,day,,static method,input,time_date,TRUE,TRUE,
-hour,hour,,static method,input,time_date,TRUE,TRUE,
-minute,minute,,static method,input,time_date,TRUE,TRUE,
-year,year,,static method,input,time_date,TRUE,TRUE,
-red,red,,method,color,creating_reading,TRUE,TRUE,
-set_size,setSize,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-push,push,,method,structure,,TRUE,TRUE,
-pop,pop,,method,structure,,TRUE,TRUE,
-link,link,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-use_py5_methods,usePy5Methods,,method,,,FALSE,FALSE,public methods that shouldn't be available to users
-get_frame_rate,getFrameRate,,method,environment,,TRUE,TRUE,this replaces the frame_rate variable which conflicts with the frame_rate function
-is_key_pressed,isKeyPressed,,method,input,keyboard,TRUE,TRUE,"this replaces the key_pressed variable which conflicts with the key_pressed function. note that this is a method, not a dynamic field, so you need to use the () at the end."
-is_mouse_pressed,isMousePressed,,method,input,mouse,TRUE,TRUE,"this replaces the mouse_pressed variable which conflicts with the mouse_pressed function. note that this is a method, not a dynamic field, so you need to use the () at the end."
-load_np_pixels,,,method,image,pixels,FALSE,TRUE,like loadPixels but for np_pixels; implemented in pixels.py mixin
-update_np_pixels,,,method,image,pixels,FALSE,TRUE,like updatePixels but for np_pixels; implemented in the pixels.py mixin
-set_np_pixels,,,method,image,pixels,FALSE,TRUE,replaces data in the np_pixels array; implemented in the pixels.py mixin
-np_pixels,,,dynamic variable,image,pixels,FALSE,TRUE,numpy array containing pixel data
-load_json,,,static method,input,files,FALSE,TRUE,implemented in mixin file data.py
-save_json,,,static method,input,files,FALSE,TRUE,implemented in mixin file data.py
-parse_json,,,static method,input,files,FALSE,TRUE,implemented in mixin file data.py
-hot_reload_draw,,,method,structure,,FALSE,TRUE,"implemented in sketch.py, replaces draw method"
-profile_functions,,,method,structure,,FALSE,TRUE,"implemented in sketch.py, use line profiler"
-profile_draw,,,method,structure,,FALSE,TRUE,"implemented in sketch.py, use line profiler on draw method"
-print_line_profiler_stats,,,method,structure,,FALSE,TRUE,"implemented in sketch.py, print line profiler stats"
-exiting,,,method,,,FALSE,FALSE,method implemented by user
-launch_thread,,,method,structure,threading,FALSE,TRUE,implemented in mixin file threads.py
-launch_promise_thread,,,method,structure,threading,FALSE,TRUE,implemented in mixin file threads.py
-launch_repeating_thread,,,method,structure,threading,FALSE,TRUE,implemented in mixin file threads.py
-has_thread,,,method,structure,threading,FALSE,TRUE,implemented in mixin file threads.py
-stop_thread,,,method,structure,threading,FALSE,TRUE,implemented in mixin file threads.py
-stop_all_threads,,,method,structure,threading,FALSE,TRUE,implemented in mixin file threads.py
-list_threads,,,method,structure,threading,FALSE,TRUE,implemented in mixin file threads.py
-HIDDEN,HIDDEN,,static field,,,TRUE,TRUE,hidden version of default renderer
-points,points,,method,shape,2d_primitives,TRUE,TRUE,implemented by me in Py5GraphicsHelper
-lines,lines,,method,shape,2d_primitives,TRUE,TRUE,implemented by me in Py5GraphicsHelper
-vertices,vertices,,method,shape,vertex,TRUE,TRUE,implemented by me in Py5GraphicsHelper
-bezier_vertices,bezierVertices,,method,shape,vertex,TRUE,TRUE,implemented by me in Py5GraphicsHelper
-curve_vertices,curveVertices,,method,shape,vertex,TRUE,TRUE,implemented by me in Py5GraphicsHelper
-quadratic_vertices,quadraticVertices,,method,shape,vertex,TRUE,TRUE,implemented by me in Py5GraphicsHelper
-is_ready,,,dynamic variable,structure,,FALSE,TRUE,property to determine sketch state
-is_running,,,dynamic variable,structure,,FALSE,TRUE,property to determine sketch state
-is_dead,,,dynamic variable,structure,,FALSE,TRUE,property to determine sketch state
-is_dead_from_error,,,dynamic variable,structure,,FALSE,TRUE,property to determine sketch state
-get_success,getSuccess,,method,,,FALSE,FALSE,used to determine if sketch had an error
-noise_mode,,,method,math,random,FALSE,TRUE,implemented in math.py and used to switch between noise algorithms
-SIMPLEX_NOISE,,,static field,,,FALSE,TRUE,static constants for noise_mode
-PERLIN_NOISE,,,static field,,,FALSE,TRUE,static constants for noise_mode
+py5_name,processing_name,decorator,type,category,subcategory,implementation,comments
+X,X,,static field,constants,,JAVA,
+Y,Y,,static field,constants,,JAVA,
+Z,Z,,static field,constants,,JAVA,
+JAVA2D,JAVA2D,,static field,constants,,JAVA,
+P2D,P2D,,static field,constants,,JAVA,
+P3D,P3D,,static field,constants,,JAVA,
+OPENGL,OPENGL,,static field,constants,,JAVA,
+FX2D,FX2D,,static field,constants,,JAVA,
+PDF,PDF,,static field,constants,,JAVA,
+SVG,SVG,,static field,constants,,JAVA,
+DXF,DXF,,static field,constants,,JAVA,
+OTHER,OTHER,,static field,constants,,JAVA,
+WINDOWS,WINDOWS,,static field,constants,,JAVA,
+MACOS,MACOS,,static field,constants,,JAVA,
+LINUX,LINUX,,static field,constants,,JAVA,
+MACOSX,MACOSX,,static field,constants,,SKIP,deprecated
+platformNames,platformNames,,static field,constants,,SKIP,
+EPSILON,EPSILON,,static field,constants,,JAVA,
+MAX_FLOAT,MAX_FLOAT,,static field,constants,,JAVA,
+MIN_FLOAT,MIN_FLOAT,,static field,constants,,JAVA,
+MAX_INT,MAX_INT,,static field,constants,,JAVA,
+MIN_INT,MIN_INT,,static field,constants,,JAVA,
+VERTEX,VERTEX,,static field,constants,,JAVA,
+BEZIER_VERTEX,BEZIER_VERTEX,,static field,constants,,JAVA,
+QUADRATIC_VERTEX,QUADRATIC_VERTEX,,static field,constants,,JAVA,
+CURVE_VERTEX,CURVE_VERTEX,,static field,constants,,JAVA,
+BREAK,BREAK,,static field,constants,,JAVA,
+QUAD_BEZIER_VERTEX,QUAD_BEZIER_VERTEX,,static field,constants,,JAVA,
+PI,PI,,static field,constants,,JAVA,
+HALF_PI,HALF_PI,,static field,constants,,JAVA,
+THIRD_PI,THIRD_PI,,static field,constants,,JAVA,
+QUARTER_PI,QUARTER_PI,,static field,constants,,JAVA,
+TWO_PI,TWO_PI,,static field,constants,,JAVA,
+TAU,TAU,,static field,constants,,JAVA,
+DEG_TO_RAD,DEG_TO_RAD,,static field,constants,,JAVA,
+RAD_TO_DEG,RAD_TO_DEG,,static field,constants,,JAVA,
+WHITESPACE,WHITESPACE,,static field,constants,,JAVA,
+RGB,RGB,,static field,constants,,JAVA,
+ARGB,ARGB,,static field,constants,,JAVA,
+HSB,HSB,,static field,constants,,JAVA,
+ALPHA,ALPHA,,static field,constants,,JAVA,
+TIFF,TIFF,,static field,constants,,JAVA,
+TARGA,TARGA,,static field,constants,,JAVA,
+JPEG,JPEG,,static field,constants,,JAVA,
+GIF,GIF,,static field,constants,,JAVA,
+BLUR,BLUR,,static field,constants,,JAVA,
+GRAY,GRAY,,static field,constants,,JAVA,
+INVERT,INVERT,,static field,constants,,JAVA,
+OPAQUE,OPAQUE,,static field,constants,,JAVA,
+POSTERIZE,POSTERIZE,,static field,constants,,JAVA,
+THRESHOLD,THRESHOLD,,static field,constants,,JAVA,
+ERODE,ERODE,,static field,constants,,JAVA,
+DILATE,DILATE,,static field,constants,,JAVA,
+REPLACE,REPLACE,,static field,constants,,JAVA,
+BLEND,BLEND,,static field,constants,,JAVA,
+ADD,ADD,,static field,constants,,JAVA,
+SUBTRACT,SUBTRACT,,static field,constants,,JAVA,
+LIGHTEST,LIGHTEST,,static field,constants,,JAVA,
+DARKEST,DARKEST,,static field,constants,,JAVA,
+DIFFERENCE,DIFFERENCE,,static field,constants,,JAVA,
+EXCLUSION,EXCLUSION,,static field,constants,,JAVA,
+MULTIPLY,MULTIPLY,,static field,constants,,JAVA,
+SCREEN,SCREEN,,static field,constants,,JAVA,
+OVERLAY,OVERLAY,,static field,constants,,JAVA,
+HARD_LIGHT,HARD_LIGHT,,static field,constants,,JAVA,
+SOFT_LIGHT,SOFT_LIGHT,,static field,constants,,JAVA,
+DODGE,DODGE,,static field,constants,,JAVA,
+BURN,BURN,,static field,constants,,JAVA,
+CHATTER,CHATTER,,static field,constants,,JAVA,
+COMPLAINT,COMPLAINT,,static field,constants,,JAVA,
+PROBLEM,PROBLEM,,static field,constants,,JAVA,
+PROJECTION,PROJECTION,,static field,constants,,JAVA,
+MODELVIEW,MODELVIEW,,static field,constants,,JAVA,
+CUSTOM,CUSTOM,,static field,constants,,JAVA,
+ORTHOGRAPHIC,ORTHOGRAPHIC,,static field,constants,,JAVA,
+PERSPECTIVE,PERSPECTIVE,,static field,constants,,JAVA,
+GROUP,GROUP,,static field,constants,,JAVA,
+POINT,POINT,,static field,constants,,JAVA,
+POINTS,POINTS,,static field,constants,,JAVA,
+LINE,LINE,,static field,constants,,JAVA,
+LINES,LINES,,static field,constants,,JAVA,
+LINE_STRIP,LINE_STRIP,,static field,constants,,JAVA,
+LINE_LOOP,LINE_LOOP,,static field,constants,,JAVA,
+TRIANGLE,TRIANGLE,,static field,constants,,JAVA,
+TRIANGLES,TRIANGLES,,static field,constants,,JAVA,
+TRIANGLE_STRIP,TRIANGLE_STRIP,,static field,constants,,JAVA,
+TRIANGLE_FAN,TRIANGLE_FAN,,static field,constants,,JAVA,
+QUAD,QUAD,,static field,constants,,JAVA,
+QUADS,QUADS,,static field,constants,,JAVA,
+QUAD_STRIP,QUAD_STRIP,,static field,constants,,JAVA,
+POLYGON,POLYGON,,static field,constants,,JAVA,
+PATH,PATH,,static field,constants,,JAVA,
+RECT,RECT,,static field,constants,,JAVA,
+ELLIPSE,ELLIPSE,,static field,constants,,JAVA,
+ARC,ARC,,static field,constants,,JAVA,
+SPHERE,SPHERE,,static field,constants,,JAVA,
+BOX,BOX,,static field,constants,,JAVA,
+OPEN,OPEN,,static field,constants,,JAVA,
+CLOSE,CLOSE,,static field,constants,,JAVA,
+CORNER,CORNER,,static field,constants,,JAVA,
+CORNERS,CORNERS,,static field,constants,,JAVA,
+RADIUS,RADIUS,,static field,constants,,JAVA,
+CENTER,CENTER,,static field,constants,,JAVA,
+DIAMETER,DIAMETER,,static field,constants,,JAVA,
+CHORD,CHORD,,static field,constants,,JAVA,
+PIE,PIE,,static field,constants,,JAVA,
+BASELINE,BASELINE,,static field,constants,,JAVA,
+TOP,TOP,,static field,constants,,JAVA,
+BOTTOM,BOTTOM,,static field,constants,,JAVA,
+NORMAL,NORMAL,,static field,constants,,JAVA,
+IMAGE,IMAGE,,static field,constants,,JAVA,
+CLAMP,CLAMP,,static field,constants,,JAVA,
+REPEAT,REPEAT,,static field,constants,,JAVA,
+MODEL,MODEL,,static field,constants,,JAVA,
+SHAPE,SHAPE,,static field,constants,,JAVA,
+SQUARE,SQUARE,,static field,constants,,JAVA,
+ROUND,ROUND,,static field,constants,,JAVA,
+PROJECT,PROJECT,,static field,constants,,JAVA,
+MITER,MITER,,static field,constants,,JAVA,
+BEVEL,BEVEL,,static field,constants,,JAVA,
+AMBIENT,AMBIENT,,static field,constants,,JAVA,
+DIRECTIONAL,DIRECTIONAL,,static field,constants,,JAVA,
+SPOT,SPOT,,static field,constants,,JAVA,
+BACKSPACE,BACKSPACE,,static field,constants,,JAVA,
+TAB,TAB,,static field,constants,,JAVA,
+ENTER,ENTER,,static field,constants,,JAVA,
+RETURN,RETURN,,static field,constants,,JAVA,
+ESC,ESC,,static field,constants,,JAVA,
+DELETE,DELETE,,static field,constants,,JAVA,
+CODED,CODED,,static field,constants,,JAVA,
+UP,UP,,static field,constants,,JAVA,
+DOWN,DOWN,,static field,constants,,JAVA,
+LEFT,LEFT,,static field,constants,,JAVA,
+RIGHT,RIGHT,,static field,constants,,JAVA,
+ALT,ALT,,static field,constants,,JAVA,
+CONTROL,CONTROL,,static field,constants,,JAVA,
+SHIFT,SHIFT,,static field,constants,,JAVA,
+PORTRAIT,PORTRAIT,,static field,constants,,JAVA,
+LANDSCAPE,LANDSCAPE,,static field,constants,,JAVA,
+SPAN,SPAN,,static field,constants,,JAVA,
+ARROW,ARROW,,static field,constants,,JAVA,
+CROSS,CROSS,,static field,constants,,JAVA,
+HAND,HAND,,static field,constants,,JAVA,
+MOVE,MOVE,,static field,constants,,JAVA,
+TEXT,TEXT,,static field,constants,,JAVA,
+WAIT,WAIT,,static field,constants,,JAVA,
+ENABLE_NATIVE_FONTS,ENABLE_NATIVE_FONTS,,static field,constants,,JAVA,
+DISABLE_NATIVE_FONTS,DISABLE_NATIVE_FONTS,,static field,constants,,JAVA,
+DISABLE_DEPTH_TEST,DISABLE_DEPTH_TEST,,static field,constants,,JAVA,
+ENABLE_DEPTH_TEST,ENABLE_DEPTH_TEST,,static field,constants,,JAVA,
+ENABLE_DEPTH_SORT,ENABLE_DEPTH_SORT,,static field,constants,,JAVA,
+DISABLE_DEPTH_SORT,DISABLE_DEPTH_SORT,,static field,constants,,JAVA,
+DISABLE_OPENGL_ERRORS,DISABLE_OPENGL_ERRORS,,static field,constants,,JAVA,
+ENABLE_OPENGL_ERRORS,ENABLE_OPENGL_ERRORS,,static field,constants,,JAVA,
+DISABLE_DEPTH_MASK,DISABLE_DEPTH_MASK,,static field,constants,,JAVA,
+ENABLE_DEPTH_MASK,ENABLE_DEPTH_MASK,,static field,constants,,JAVA,
+DISABLE_OPTIMIZED_STROKE,DISABLE_OPTIMIZED_STROKE,,static field,constants,,JAVA,
+ENABLE_OPTIMIZED_STROKE,ENABLE_OPTIMIZED_STROKE,,static field,constants,,JAVA,
+ENABLE_STROKE_PERSPECTIVE,ENABLE_STROKE_PERSPECTIVE,,static field,constants,,JAVA,
+DISABLE_STROKE_PERSPECTIVE,DISABLE_STROKE_PERSPECTIVE,,static field,constants,,JAVA,
+DISABLE_TEXTURE_MIPMAPS,DISABLE_TEXTURE_MIPMAPS,,static field,constants,,JAVA,
+ENABLE_TEXTURE_MIPMAPS,ENABLE_TEXTURE_MIPMAPS,,static field,constants,,JAVA,
+ENABLE_STROKE_PURE,ENABLE_STROKE_PURE,,static field,constants,,JAVA,
+DISABLE_STROKE_PURE,DISABLE_STROKE_PURE,,static field,constants,,JAVA,
+ENABLE_BUFFER_READING,ENABLE_BUFFER_READING,,static field,constants,,JAVA,
+DISABLE_BUFFER_READING,DISABLE_BUFFER_READING,,static field,constants,,JAVA,
+DISABLE_KEY_REPEAT,DISABLE_KEY_REPEAT,,static field,constants,,JAVA,
+ENABLE_KEY_REPEAT,ENABLE_KEY_REPEAT,,static field,constants,,JAVA,
+DISABLE_ASYNC_SAVEFRAME,DISABLE_ASYNC_SAVEFRAME,,static field,constants,,JAVA,
+ENABLE_ASYNC_SAVEFRAME,ENABLE_ASYNC_SAVEFRAME,,static field,constants,,JAVA,
+HINT_COUNT,HINT_COUNT,,static field,constants,,JAVA,
+java_version_name,javaVersionName,,dynamic variable,constants,,JAVA,
+java_platform,javaPlatform,,dynamic variable,constants,,JAVA,
+java_version,javaVersion,,dynamic variable,constants,,JAVA,
+platform,platform,,static field,constants,,SKIP,"use ""import sys; sys.platform"" instead"
+useNativeSelect,useNativeSelect,,static field,constants,,SKIP,
+g,g,,dynamic variable,,,SKIP,"internal pgraphics object, use get_graphics to access"
+display_width,displayWidth,,dynamic variable,environment,,JAVA,
+display_height,displayHeight,,dynamic variable,environment,,JAVA,
+recorder,recorder,,dynamic variable,,,SKIP,
+args,args,@_return_list_str,dynamic variable,structure,,JAVA,
+DEFAULT_WIDTH,DEFAULT_WIDTH,,static field,,,JAVA,
+DEFAULT_HEIGHT,DEFAULT_HEIGHT,,static field,,,JAVA,
+pixels,pixels,,dynamic variable,image,pixels,JAVA,
+width,width,,dynamic variable,environment,,JAVA,
+height,height,,dynamic variable,environment,,JAVA,
+pixel_width,pixelWidth,,dynamic variable,environment,,JAVA,
+pixel_height,pixelHeight,,dynamic variable,environment,,JAVA,
+mouse_x,mouseX,,dynamic variable,input,mouse,JAVA,
+mouse_y,mouseY,,dynamic variable,input,mouse,JAVA,
+pmouse_x,pmouseX,,dynamic variable,input,mouse,JAVA,
+pmouse_y,pmouseY,,dynamic variable,input,mouse,JAVA,
+first_mouse,firstMouse,,dynamic variable,,,SKIP,deprecated
+mouse_button,mouseButton,,dynamic variable,input,mouse,JAVA,
+mouse_pressed,mousePressed,,method,input,mouse,SKIP,method implemented by user; boolean variable replaced with method is_mouse_pressed
+mouse_event,mouseEvent,,dynamic variable,,,SKIP,deprecated
+key,key,,dynamic variable,input,keyboard,JAVA,
+key_code,keyCode,,dynamic variable,input,keyboard,JAVA,
+key_pressed,keyPressed,,method,input,keyboard,SKIP,method implemented by user; boolean variable replaced with is_key_pressed
+key_event,keyEvent,,dynamic variable,,,SKIP,deprecated
+focused,focused,,dynamic variable,environment,,JAVA,
+frame_rate,frameRate,,method,environment,,JAVA,
+frame_count,frameCount,,dynamic variable,environment,,JAVA,
+finished,finished,,dynamic variable,structure,,JAVA,
+ARGS_EDITOR_LOCATION,ARGS_EDITOR_LOCATION,,static field,constants,,JAVA,
+ARGS_EXTERNAL,ARGS_EXTERNAL,,static field,constants,,JAVA,
+ARGS_LOCATION,ARGS_LOCATION,,static field,constants,,JAVA,
+ARGS_DISPLAY,ARGS_DISPLAY,,static field,constants,,JAVA,
+ARGS_DISABLE_AWT,ARGS_DISABLE_AWT,,static field,constants,,JAVA,
+ARGS_BGCOLOR,ARGS_BGCOLOR,,static field,constants,,JAVA,
+ARGS_FULL_SCREEN,ARGS_FULL_SCREEN,,static field,constants,,JAVA,
+ARGS_WINDOW_COLOR,ARGS_WINDOW_COLOR,,static field,constants,,JAVA,
+ARGS_PRESENT,ARGS_PRESENT,,static field,constants,,JAVA,
+ARGS_STOP_COLOR,ARGS_STOP_COLOR,,static field,constants,,JAVA,
+ARGS_HIDE_STOP,ARGS_HIDE_STOP,,static field,constants,,JAVA,
+ARGS_SKETCH_FOLDER,ARGS_SKETCH_FOLDER,,static field,constants,,JAVA,
+ARGS_DENSITY,ARGS_DENSITY,,static field,constants,,JAVA,
+EXTERNAL_STOP,EXTERNAL_STOP,,static field,constants,,JAVA,
+EXTERNAL_MOVE,EXTERNAL_MOVE,,static field,constants,,JAVA,
+pixel_density,pixelDensity,,method,environment,,JAVA,
+wait,wait,,method,,,SKIP,public methods that shouldn't be available to users
+equals,equals,,method,,,SKIP,user should use python instead
+to_string,toString,,method,,,SKIP,public methods that shouldn't be available to users
+hash_code,hashCode,,method,,,SKIP,public methods that shouldn't be available to users
+get_class,getClass,,method,,,SKIP,public methods that shouldn't be available to users
+notify,notify,,method,,,SKIP,public methods that shouldn't be available to users
+notify_all,notifyAll,,method,,,SKIP,public methods that shouldn't be available to users
+text,text,@_text_fix_str,method,typography,loading_displaying,JAVA,
+println,println,,method,output,text_area,SKIP,user should use python instead
+main,main,,method,,,SKIP,public methods that shouldn't be available to users
+exit_sketch,exit,,method,structure,,JAVA,renamed because of conflict with builtin python function
+get,get,@_return_py5image,method,image,pixels,JAVA,
+method,method,,method,,,SKIP,
+append,append,,method,data,array_functions,SKIP,user should use python instead
+abs,abs,,method,math,calculation,SKIP,user should use numpy instead
+sin,sin,,static method,math,trigonometry,PYTHON,implemented in mixin file math.py
+cos,cos,,static method,math,trigonometry,PYTHON,implemented in mixin file math.py
+tan,tan,,static method,math,trigonometry,PYTHON,implemented in mixin file math.py
+atan2,atan2,,static method,math,trigonometry,PYTHON,implemented in mixin file math.py
+sqrt,sqrt,,static method,math,calculation,PYTHON,implemented in mixin file math.py
+log,log,,static method,math,calculation,PYTHON,implemented in mixin file math.py
+pow,pow,,static method,math,calculation,SKIP,user should use builtin or numpy instead
+exp,exp,,static method,math,calculation,PYTHON,implemented in mixin file math.py
+min,min,,method,math,calculation,SKIP,user should use numpy instead
+max,max,,method,math,calculation,SKIP,user should use numpy instead
+arraycopy,arraycopy,,method,,,SKIP,user should use python instead
+clear,clear,,method,color,setting,JAVA,
+str,str,,method,,,SKIP,conflict with builtin python function
+concat,concat,,method,data,array_functions,SKIP,user should use python instead
+split,split,,method,data,string_functions,SKIP,user should use python instead
+join,join,,method,data,string_functions,SKIP,user should use python instead
+trim,trim,,method,data,string_functions,SKIP,user should use python instead
+size,size,,method,environment,,JAVA,
+fill,fill,,method,color,setting,JAVA,
+apply_filter,filter,,method,image,pixels,JAVA,filter method has name conflict with python builtin function; replaced with apply_filter method
+second,second,,static method,input,time_date,JAVA,
+match,match,,static method,data,string_functions,SKIP,user should use python instead
+set,set,,method,image,pixels,SKIP,conflict with builtin python function
+remap,map,,static method,math,calculation,PYTHON,renamed to remap to avoid conflict with builtin function; implemented in python for performance
+setup,setup,,method,structure,,SKIP,method implemented by user
+debug,debug,,static method,,,SKIP,user should use python instead
+start,start,,method,structure,,JAVA,
+millis,millis,,method,input,time_date,JAVA,
+stop,stop,,method,structure,,JAVA,
+resume,resume,,method,structure,,JAVA,
+delay,delay,,method,environment,,SKIP,user should use python instead
+print,print,,method,output,text_area,SKIP,conflict with builtin python function
+save,save,,method,output,image,PYTHON,implemented in pixels.py mixin
+flush,flush,,method,,,SKIP,methods that are not part of the processing framework
+copy,copy,@_auto_convert_to_py5image;@_return_py5image,method,image,pixels,JAVA,
+mask,mask,,method,pimage,method,SKIP,why is this method in PApplet? It is not documented and cannot actually work correctly
+nf,nf,,method,data,string_functions,SKIP,user should use python instead
+expand,expand,,method,data,array_functions,SKIP,user should use python instead
+box,box,,method,shape,3d_primitives,JAVA,
+loop,loop,,method,structure,,JAVA,
+reverse,reverse,,method,data,array_functions,SKIP,user should use python instead
+line,line,,method,shape,2d_primitives,JAVA,
+thread,thread,,method,structure,,SKIP,use launch_thread insead
+parse_boolean,parseBoolean,,method,,,SKIP,methods that are not part of the processing framework
+parse_int,parseInt,,method,,,SKIP,methods that are not part of the processing framework
+parse_float,parseFloat,,method,,,SKIP,methods that are not part of the processing framework
+parse_byte,parseByte,,method,,,SKIP,methods that are not part of the processing framework
+mag,mag,,static method,math,calculation,PYTHON,implemented in mixin file math.py
+scale,scale,,method,transform,,JAVA,
+exec,exec,,method,,,SKIP,conflict with builtin python function
+sort,sort,,method,data,array_functions,SKIP,conflict with builtin python function
+rotate,rotate,,method,transform,,JAVA,
+asin,asin,,static method,math,trigonometry,PYTHON,implemented in mixin file math.py
+acos,acos,,static method,math,trigonometry,PYTHON,implemented in mixin file math.py
+atan,atan,,static method,math,trigonometry,PYTHON,implemented in mixin file math.py
+ceil,ceil,,static method,math,calculation,PYTHON,implementation in mixin file math.py makes call to numpy
+floor,floor,,static method,math,calculation,PYTHON,implementation in mixin file math.py makes call to numpy
+round,round,,static method,math,calculation,SKIP,user should use numpy or builtin method instead
+random,random,,method,math,random,PYTHON,implementation uses numpy for performance reasons
+settings,settings,,method,environment,,SKIP,method implemented by user
+draw,draw,,method,structure,,SKIP,method implemented by user
+pre_draw,preDraw,,method,structure,,SKIP,method implemented by user
+post_draw,postDraw,,method,structure,,SKIP,method implemented by user
+mouse_released,mouseReleased,,method,input,mouse,SKIP,method implemented by user
+mouse_clicked,mouseClicked,,method,input,mouse,SKIP,method implemented by user
+mouse_dragged,mouseDragged,,method,input,mouse,SKIP,method implemented by user
+mouse_moved,mouseMoved,,method,input,mouse,SKIP,method implemented by user
+mouse_entered,mouseEntered,,method,input,mouse,SKIP,method implemented by user
+mouse_exited,mouseExited,,method,input,mouse,SKIP,method implemented by user
+mouse_wheel,mouseWheel,,method,input,mouse,SKIP,method implemented by user
+key_released,keyReleased,,method,input,keyboard,SKIP,method implemented by user
+key_typed,keyTyped,,method,input,keyboard,SKIP,method implemented by user
+exit_actual,exitActual,,method,structure,,SKIP,replaced with exiting()
+no_loop,noLoop,,method,structure,,JAVA,
+load_pixels,loadPixels,,method,image,pixels,JAVA,
+update_pixels,updatePixels,,method,image,pixels,JAVA,
+sketch_path,sketchPath,,method,environment,,JAVA,
+redraw,redraw,,method,structure,,JAVA,
+exit_called,exitCalled,,method,,,SKIP,methods that are not part of the processing framework
+smooth,smooth,,method,environment,,JAVA,
+full_screen,fullScreen,,method,environment,,JAVA,
+get_surface,getSurface,@_return_py5surface,method,environment,,JAVA,
+surface,surface,,unknown,,,SKIP,use get_surface
+sketch_width,sketchWidth,,method,,,SKIP,methods that are not part of the processing framework
+sketch_height,sketchHeight,,method,,,SKIP,methods that are not part of the processing framework
+sketch_renderer,sketchRenderer,,method,,,SKIP,methods that are not part of the processing framework
+sketch_smooth,sketchSmooth,,method,,,SKIP,methods that are not part of the processing framework
+sketch_full_screen,sketchFullScreen,,method,,,SKIP,methods that are not part of the processing framework
+sketch_display,sketchDisplay,,method,,,SKIP,methods that are not part of the processing framework
+sketch_output_path,sketchOutputPath,,method,,,SKIP,methods that are not part of the processing framework
+sketch_output_stream,sketchOutputStream,,method,,,SKIP,methods that are not part of the processing framework
+sketch_window_color,sketchWindowColor,,method,,,SKIP,methods that are not part of the processing framework
+sketch_pixel_density,sketchPixelDensity,,method,,,SKIP,methods that are not part of the processing framework
+display_density,displayDensity,,method,environment,,JAVA,
+no_smooth,noSmooth,,method,environment,,JAVA,
+get_graphics,getGraphics,@_return_py5graphics,method,rendering,,JAVA,
+graphics,graphics,,unknown,,,SKIP,use get_graphics
+orientation,orientation,,method,,,SKIP,methods that are not part of the processing framework
+pause,pause,,method,structure,,JAVA,
+register_method,registerMethod,,method,,,SKIP,public methods that shouldn't be available to users
+unregister_method,unregisterMethod,,method,,,SKIP,public methods that shouldn't be available to users
+create_graphics,createGraphics,@_return_py5graphics,method,rendering,,JAVA,this needs to be reimplemented but I haven't decided what to do with it yet
+create_image,createImage,@_return_py5image,method,image,,JAVA,
+image,image,@_auto_convert_to_py5image,method,image,loading_displaying,JAVA,
+handle_draw,handleDraw,,method,,,SKIP,public methods that shouldn't be available to users
+alpha,alpha,,method,color,creating_reading,JAVA,
+is_looping,isLooping,,method,,,SKIP,methods that are not part of the processing framework
+looping,looping,,unknown,,,SKIP,methods that are not part of the processing framework
+post_event,postEvent,,method,,,SKIP,public methods that shouldn't be available to users
+focus_gained,focusGained,,method,,,SKIP,methods that are not part of the processing framework
+focus_lost,focusLost,,method,,,SKIP,methods that are not part of the processing framework
+launch,launch,,static method,input,files,SKIP,methods that should be re-implemented by me in Python
+shell,shell,,static method,,,SKIP,methods that should be re-implemented by me in Python
+die,die,,method,,,SKIP,public methods that shouldn't be available to users
+dispose,dispose,,method,,,SKIP,public methods that shouldn't be available to users
+save_frame,saveFrame,,method,output,image,PYTHON,"implemented in sketch.py, uses Pillow to save the frame"
+insert_frame,insertFrame,,method,,,SKIP,"not intended to be public, but there is the _insert_frame method that also lets you specify the number instead of frame_count"
+no_cursor,noCursor,,method,environment,,JAVA,
+print_array,printArray,,static method,output,text_area,SKIP,user should use python instead
+sq,sq,,static method,math,calculation,PYTHON,implemented in mixin file math.py
+constrain,constrain,,static method,math,calculation,PYTHON,implemented in mixin file math.py
+degrees,degrees,,static method,math,trigonometry,PYTHON,implemented in mixin file math.py
+radians,radians,,static method,math,trigonometry,PYTHON,implemented in mixin file math.py
+dist,dist,,static method,math,calculation,PYTHON,implemented in mixin file math.py
+lerp,lerp,,static method,math,calculation,PYTHON,implemented in mixin file math.py
+norm,norm,,static method,math,calculation,PYTHON,implemented in mixin file math.py
+random_gaussian,randomGaussian,,method,math,random,PYTHON,implementation uses numpy for performance reasons
+random_seed,randomSeed,,method,math,random,PYTHON,implementation uses numpy for performance reasons
+noise,noise,,method,math,random,PYTHON,implementation uses python noise library for performance and increased functionality
+noise_detail,noiseDetail,,method,math,random,PYTHON,implementation uses python noise library for performance and increased functionality
+noise_seed,noiseSeed,,method,math,random,PYTHON,implementation uses python noise library for performance and increased functionality
+load_image,loadImage,,method,image,loading_displaying,PYTHON,
+request_image,requestImage,,method,image,loading_displaying,PYTHON,
+convert_image,,,method,image,loading_displaying,PYTHON,
+create_image_from_numpy,,,method,image,loading_displaying,PYTHON,
+load_xml,loadXML,,method,input,files,SKIP,methods that should be re-implemented by me in Python
+parse_xml,parseXML,,method,input,files,SKIP,methods that should be re-implemented by me in Python
+save_xml,saveXML,,method,output,files,SKIP,methods that should be re-implemented by me in Python
+parse_json_object,parseJSONObject,,method,input,files,SKIP,"use load_json, save_json, parse_json"
+load_json_object,loadJSONObject,,method,input,files,SKIP,"use load_json, save_json, parse_json"
+save_json_object,saveJSONObject,,method,output,files,SKIP,"use load_json, save_json, parse_json"
+parse_json_array,parseJSONArray,,method,input,files,SKIP,"use load_json, save_json, parse_json"
+load_json_array,loadJSONArray,,method,input,files,SKIP,"use load_json, save_json, parse_json"
+save_json_array,saveJSONArray,,method,output,files,SKIP,"use load_json, save_json, parse_json"
+load_table,loadTable,,method,input,files,SKIP,methods that should be re-implemented by me in Python
+save_table,saveTable,,method,output,files,SKIP,methods that should be re-implemented by me in Python
+load_font,loadFont,@_load_py5font,method,typography,loading_displaying,JAVA,
+create_font,createFont,@_load_py5font,method,typography,loading_displaying,JAVA,
+select_input,selectInput,,method,input,files,SKIP,this should be available to users but the callback makes it complicated and I will do it later
+select_output,selectOutput,,method,output,files,SKIP,this should be available to users but the callback makes it complicated and I will do it later
+select_folder,selectFolder,,method,input,files,SKIP,this should be available to users but the callback makes it complicated and I will do it later
+select_callback,selectCallback,,static method,,,SKIP,
+list_paths,listPaths,,method,,,SKIP,methods that should be re-implemented by me in Python
+check_extension,checkExtension,,static method,,,SKIP,methods that should be re-implemented by me in Python
+create_reader,createReader,,method,input,files,SKIP,methods that should be re-implemented by me in Python
+create_writer,createWriter,,method,output,files,SKIP,methods that should be re-implemented by me in Python
+create_input,createInput,,method,input,files,SKIP,methods that should be re-implemented by me in Python
+create_input_raw,createInputRaw,,method,,,SKIP,methods that should be re-implemented by me in Python
+load_bytes,loadBytes,,method,input,files,SKIP,methods that should be re-implemented by me in Python
+load_strings,loadStrings,,method,input,files,SKIP,methods that should be re-implemented by me in Python
+create_output,createOutput,,method,output,files,SKIP,methods that should be re-implemented by me in Python
+save_stream,saveStream,,method,output,files,SKIP,methods that should be re-implemented by me in Python
+save_bytes,saveBytes,,method,output,files,SKIP,methods that should be re-implemented by me in Python
+save_strings,saveStrings,,method,output,files,SKIP,methods that should be re-implemented by me in Python
+sketch_file,sketchFile,,method,,,SKIP,methods that should be re-implemented by me in Python
+save_path,savePath,,method,,,SKIP,methods that should be re-implemented by me in Python
+save_file,saveFile,,method,,,SKIP,methods that should be re-implemented by me in Python
+desktop_file,desktopFile,,static method,,,SKIP,methods that should be re-implemented by me in Python
+desktop_path,desktopPath,,static method,,,SKIP,methods that should be re-implemented by me in Python
+data_path,dataPath,,method,,,SKIP,methods that should be re-implemented by me in Python
+data_file,dataFile,,method,,,SKIP,methods that should be re-implemented by me in Python
+create_path,createPath,,method,,,SKIP,methods that should be re-implemented by me in Python
+url_encode,urlEncode,,static method,,,SKIP,methods that should be re-implemented by me in Python
+url_decode,urlDecode,,static method,,,SKIP,methods that should be re-implemented by me in Python
+array_copy,arrayCopy,,method,data,array_functions,SKIP,user should use python instead
+shorten,shorten,,method,data,array_functions,SKIP,user should use python instead
+splice,splice,,method,data,array_functions,SKIP,user should use python instead
+subset,subset,,method,data,array_functions,SKIP,user should use python instead
+split_tokens,splitTokens,,method,data,string_functions,SKIP,user should use python instead
+match_all,matchAll,,static method,data,string_functions,SKIP,user should use python instead
+parse_char,parseChar,,method,,,SKIP,user should use python instead
+nfc,nfc,,method,data,string_functions,SKIP,user should use python instead
+nfs,nfs,,method,data,string_functions,SKIP,user should use python instead
+nfp,nfp,,method,data,string_functions,SKIP,user should use python instead
+hex,hex,,method,data,conversion,SKIP,user should use python instead
+unhex,unhex,,static method,data,conversion,SKIP,user should use python instead
+binary,binary,,method,data,conversion,SKIP,user should use python instead
+unbinary,unbinary,,static method,data,conversion,SKIP,user should use python instead
+color,color,,method,color,creating_reading,JAVA,
+lerp_color,lerpColor,,method,color,creating_reading,JAVA,
+blend_color,blendColor,,static method,color,creating_reading,SKIP,methods that are not part of the processing framework
+frame_moved,frameMoved,,method,,,SKIP,methods that are not part of the processing framework
+frame_resized,frameResized,,method,,,SKIP,methods that are not part of the processing framework
+run_sketch,runSketch,,static method,structure,,PYTHON,my implementation of run_sketch calls Processing's runSketch method after doing some setup stuff
+hide_menu_bar,hideMenuBar,,static method,,,SKIP,public methods that shouldn't be available to users
+begin_record,beginRecord,@_return_py5graphics,method,output,files,JAVA,
+end_record,endRecord,,method,output,files,JAVA,
+begin_raw,beginRaw,@_return_py5graphics,method,output,files,JAVA,
+end_raw,endRaw,,method,output,files,JAVA,
+begin_pgl,beginPGL,,method,,,SKIP,methods that are not part of the processing framework
+end_pgl,endPGL,,method,,,SKIP,methods that are not part of the processing framework
+hint,hint,,method,rendering,,JAVA,
+begin_shape,beginShape,,method,shape,vertex,JAVA,
+edge,edge,,method,,,SKIP,
+attrib_position,attribPosition,,method,,,SKIP,methods that are not part of the processing framework
+attrib_normal,attribNormal,,method,,,SKIP,methods that are not part of the processing framework
+attrib_color,attribColor,,method,,,SKIP,methods that are not part of the processing framework
+attrib,attrib,,method,,,SKIP,methods that are not part of the processing framework
+texture_mode,textureMode,,method,image,textures,JAVA,
+texture_wrap,textureWrap,,method,image,textures,JAVA,
+texture,texture,@_auto_convert_to_py5image,method,image,textures,JAVA,
+no_texture,noTexture,,method,image,textures,JAVA,
+vertex,vertex,,method,shape,vertex,JAVA,
+begin_contour,beginContour,,method,shape,vertex,JAVA,
+end_contour,endContour,,method,shape,vertex,JAVA,
+end_shape,endShape,,method,shape,vertex,JAVA,
+load_shape,loadShape,@_load_py5shape,method,shape,,JAVA,
+create_shape,createShape,@_return_py5shape,method,shape,,JAVA,
+load_shader,loadShader,@_load_py5shader,method,rendering,shaders,JAVA,
+shader,shader,,method,rendering,shaders,JAVA,
+reset_shader,resetShader,,method,rendering,shaders,JAVA,
+clip,clip,,method,rendering,,JAVA,
+no_clip,noClip,,method,rendering,,JAVA,
+blend_mode,blendMode,,method,rendering,,JAVA,
+bezier_vertex,bezierVertex,,method,shape,vertex,JAVA,
+quadratic_vertex,quadraticVertex,,method,shape,vertex,JAVA,
+curve_vertex,curveVertex,,method,shape,vertex,JAVA,
+point,point,,method,shape,2d_primitives,JAVA,
+triangle,triangle,,method,shape,2d_primitives,JAVA,
+quad,quad,,method,shape,2d_primitives,JAVA,
+rect_mode,rectMode,,method,shape,attributes,JAVA,
+rect,rect,,method,shape,2d_primitives,JAVA,
+square,square,,method,shape,2d_primitives,JAVA,
+ellipse_mode,ellipseMode,,method,shape,attributes,JAVA,
+ellipse,ellipse,,method,shape,2d_primitives,JAVA,
+arc,arc,,method,shape,2d_primitives,JAVA,
+circle,circle,,method,shape,2d_primitives,JAVA,
+sphere_detail,sphereDetail,,method,shape,3d_primitives,JAVA,
+sphere,sphere,,method,shape,3d_primitives,JAVA,
+bezier_point,bezierPoint,,method,shape,curves,JAVA,
+bezier_tangent,bezierTangent,,method,shape,curves,JAVA,
+bezier_detail,bezierDetail,,method,shape,curves,JAVA,
+bezier,bezier,,method,shape,curves,JAVA,
+curve_point,curvePoint,,method,shape,curves,JAVA,
+curve_tangent,curveTangent,,method,shape,curves,JAVA,
+curve_detail,curveDetail,,method,shape,curves,JAVA,
+curve_tightness,curveTightness,,method,shape,curves,JAVA,
+curve,curve,,method,shape,curves,JAVA,
+image_mode,imageMode,,method,image,loading_displaying,JAVA,
+shape_mode,shapeMode,,method,shape,loading_displaying,JAVA,
+shape,shape,,method,shape,loading_displaying,JAVA,
+text_align,textAlign,,method,typography,attributes,JAVA,
+text_ascent,textAscent,,method,typography,metrics,JAVA,
+text_descent,textDescent,,method,typography,metrics,JAVA,
+text_font,textFont,,method,typography,loading_displaying,JAVA,
+text_leading,textLeading,,method,typography,attributes,JAVA,
+text_mode,textMode,,method,typography,attributes,JAVA,
+text_size,textSize,,method,typography,attributes,JAVA,
+text_width,textWidth,@_text_fix_str,method,typography,attributes,JAVA,
+push_matrix,pushMatrix,,method,transform,,JAVA,
+pop_matrix,popMatrix,,method,transform,,JAVA,
+translate,translate,,method,transform,,JAVA,
+rotate_x,rotateX,,method,transform,,JAVA,
+rotate_y,rotateY,,method,transform,,JAVA,
+rotate_z,rotateZ,,method,transform,,JAVA,
+shear_x,shearX,,method,transform,,JAVA,
+shear_y,shearY,,method,transform,,JAVA,
+reset_matrix,resetMatrix,,method,transform,,JAVA,
+apply_matrix,applyMatrix,,method,transform,,JAVA,this and all of the matrix functions need to be re-implemented using numpy
+get_matrix,getMatrix,@ _get_matrix_wrapper,method,transform,,JAVA,this and all of the matrix functions need to be re-implemented using numpy
+set_matrix,setMatrix,,method,transform,,JAVA,this and all of the matrix functions need to be re-implemented using numpy
+print_matrix,printMatrix,,method,transform,,JAVA,
+begin_camera,beginCamera,,method,lights_camera,camera,JAVA,
+end_camera,endCamera,,method,lights_camera,camera,JAVA,
+camera,camera,,method,lights_camera,camera,JAVA,
+print_camera,printCamera,,method,lights_camera,camera,JAVA,
+ortho,ortho,,method,lights_camera,camera,JAVA,
+perspective,perspective,,method,lights_camera,camera,JAVA,
+frustum,frustum,,method,lights_camera,camera,JAVA,
+print_projection,printProjection,,method,lights_camera,camera,JAVA,
+screen_x,screenX,,method,lights_camera,coordinates,JAVA,
+screen_y,screenY,,method,lights_camera,coordinates,JAVA,
+screen_z,screenZ,,method,lights_camera,coordinates,JAVA,
+model_x,modelX,,method,lights_camera,coordinates,JAVA,
+model_y,modelY,,method,lights_camera,coordinates,JAVA,
+model_z,modelZ,,method,lights_camera,coordinates,JAVA,
+push_style,pushStyle,,method,structure,,JAVA,
+pop_style,popStyle,,method,structure,,JAVA,
+style,style,,method,,,SKIP,public methods that shouldn't be available to users
+stroke_weight,strokeWeight,,method,shape,attributes,JAVA,
+stroke_join,strokeJoin,,method,shape,attributes,JAVA,
+stroke_cap,strokeCap,,method,shape,attributes,JAVA,
+no_stroke,noStroke,,method,color,setting,JAVA,
+stroke,stroke,,method,color,setting,JAVA,
+no_tint,noTint,,method,image,loading_displaying,JAVA,
+tint,tint,,method,image,loading_displaying,JAVA,
+no_fill,noFill,,method,color,setting,JAVA,
+ambient,ambient,,method,lights_camera,material_properties,JAVA,
+specular,specular,,method,lights_camera,material_properties,JAVA,
+shininess,shininess,,method,lights_camera,material_properties,JAVA,
+emissive,emissive,,method,lights_camera,material_properties,JAVA,
+lights,lights,,method,lights_camera,lights,JAVA,
+no_lights,noLights,,method,lights_camera,lights,JAVA,
+ambient_light,ambientLight,,method,lights_camera,lights,JAVA,
+directional_light,directionalLight,,method,lights_camera,lights,JAVA,
+point_light,pointLight,,method,lights_camera,lights,JAVA,
+spot_light,spotLight,,method,lights_camera,lights,JAVA,
+light_falloff,lightFalloff,,method,lights_camera,lights,JAVA,
+light_specular,lightSpecular,,method,lights_camera,lights,JAVA,
+background,background,@_auto_convert_to_py5image,method,color,setting,JAVA,
+color_mode,colorMode,,method,color,setting,JAVA,
+green,green,,method,color,creating_reading,JAVA,
+blue,blue,,method,color,creating_reading,JAVA,
+hue,hue,,method,color,creating_reading,JAVA,
+saturation,saturation,,method,color,creating_reading,JAVA,
+brightness,brightness,,method,color,creating_reading,JAVA,
+show_depth_warning,showDepthWarning,,static method,,,SKIP,public methods that shouldn't be available to users
+show_depth_warning_xyz,showDepthWarningXYZ,,static method,,,SKIP,public methods that shouldn't be available to users
+show_method_warning,showMethodWarning,,static method,,,SKIP,public methods that shouldn't be available to users
+show_variation_warning,showVariationWarning,,static method,,,SKIP,public methods that shouldn't be available to users
+show_missing_warning,showMissingWarning,,static method,,,SKIP,public methods that shouldn't be available to users
+check_alpha,checkAlpha,,method,,,SKIP,
+blend,blend,@_auto_convert_to_py5image,method,image,pixels,JAVA,
+cursor,cursor,@_auto_convert_to_py5image,method,environment,,JAVA,
+get_extension,getExtension,,static method,,,SKIP,public methods that shouldn't be available to users
+list_files,listFiles,,method,,,SKIP,public methods that shouldn't be available to users
+normal,normal,,method,lights_camera,lights,JAVA,
+month,month,,static method,input,time_date,JAVA,
+day,day,,static method,input,time_date,JAVA,
+hour,hour,,static method,input,time_date,JAVA,
+minute,minute,,static method,input,time_date,JAVA,
+year,year,,static method,input,time_date,JAVA,
+red,red,,method,color,creating_reading,JAVA,
+set_size,setSize,,method,,,SKIP,public methods that shouldn't be available to users
+push,push,,method,structure,,JAVA,
+pop,pop,,method,structure,,JAVA,
+link,link,,method,,,SKIP,public methods that shouldn't be available to users
+use_py5_methods,usePy5Methods,,method,,,SKIP,public methods that shouldn't be available to users
+get_frame_rate,getFrameRate,,method,environment,,JAVA,this replaces the frame_rate variable which conflicts with the frame_rate function
+is_key_pressed,isKeyPressed,,method,input,keyboard,JAVA,"this replaces the key_pressed variable which conflicts with the key_pressed function. note that this is a method, not a dynamic field, so you need to use the () at the end."
+is_mouse_pressed,isMousePressed,,method,input,mouse,JAVA,"this replaces the mouse_pressed variable which conflicts with the mouse_pressed function. note that this is a method, not a dynamic field, so you need to use the () at the end."
+load_np_pixels,,,method,image,pixels,PYTHON,like loadPixels but for np_pixels; implemented in pixels.py mixin
+update_np_pixels,,,method,image,pixels,PYTHON,like updatePixels but for np_pixels; implemented in the pixels.py mixin
+set_np_pixels,,,method,image,pixels,PYTHON,replaces data in the np_pixels array; implemented in the pixels.py mixin
+np_pixels,,,dynamic variable,image,pixels,PYTHON,numpy array containing pixel data
+load_json,,,static method,input,files,PYTHON,implemented in mixin file data.py
+save_json,,,static method,input,files,PYTHON,implemented in mixin file data.py
+parse_json,,,static method,input,files,PYTHON,implemented in mixin file data.py
+hot_reload_draw,,,method,structure,,PYTHON,"implemented in sketch.py, replaces draw method"
+profile_functions,,,method,structure,,PYTHON,"implemented in sketch.py, use line profiler"
+profile_draw,,,method,structure,,PYTHON,"implemented in sketch.py, use line profiler on draw method"
+print_line_profiler_stats,,,method,structure,,PYTHON,"implemented in sketch.py, print line profiler stats"
+exiting,,,method,,,SKIP,method implemented by user
+launch_thread,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
+launch_promise_thread,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
+launch_repeating_thread,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
+has_thread,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
+stop_thread,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
+stop_all_threads,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
+list_threads,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
+HIDDEN,HIDDEN,,static field,,,JAVA,hidden version of default renderer
+points,points,,method,shape,2d_primitives,JAVA,implemented by me in Py5GraphicsHelper
+lines,lines,,method,shape,2d_primitives,JAVA,implemented by me in Py5GraphicsHelper
+vertices,vertices,,method,shape,vertex,JAVA,implemented by me in Py5GraphicsHelper
+bezier_vertices,bezierVertices,,method,shape,vertex,JAVA,implemented by me in Py5GraphicsHelper
+curve_vertices,curveVertices,,method,shape,vertex,JAVA,implemented by me in Py5GraphicsHelper
+quadratic_vertices,quadraticVertices,,method,shape,vertex,JAVA,implemented by me in Py5GraphicsHelper
+is_ready,,,dynamic variable,structure,,PYTHON,property to determine sketch state
+is_running,,,dynamic variable,structure,,PYTHON,property to determine sketch state
+is_dead,,,dynamic variable,structure,,PYTHON,property to determine sketch state
+is_dead_from_error,,,dynamic variable,structure,,PYTHON,property to determine sketch state
+get_success,getSuccess,,method,,,SKIP,used to determine if sketch had an error
+noise_mode,,,method,math,random,PYTHON,implemented in math.py and used to switch between noise algorithms
+SIMPLEX_NOISE,,,static field,,,PYTHON,static constants for noise_mode
+PERLIN_NOISE,,,static field,,,PYTHON,static constants for noise_mode

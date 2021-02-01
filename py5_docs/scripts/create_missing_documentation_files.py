@@ -51,7 +51,7 @@ for pclass in PY5_CLASS_LOOKUP.keys():
     filename = 'py5applet.csv' if pclass == 'PApplet' else pclass.lower() + '.csv'
     class_data = pd.read_csv(class_resource_data / filename)
     class_data = class_data.fillna('').set_index('processing_name')
-    class_data_info[pclass] = class_data.query("available_in_py5==True")
+    class_data_info[pclass] = class_data.query("implementation!='SKIP'")
     if pclass == 'PApplet':
         papplet_category_data = class_data_info[pclass].set_index('py5_name')[['category', 'subcategory']]
 
