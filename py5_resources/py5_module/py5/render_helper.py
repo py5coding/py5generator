@@ -46,7 +46,7 @@ class RenderHelperSketch(Sketch):
 def render_frame(draw: Callable, width: int, height: int,
                  renderer: str = Sketch.HIDDEN, *,
                  draw_args: Tuple = None, draw_kwargs: Dict = None) -> Image:
-    """missing docstring"""
+    """$module_Py5Functions_render_frame"""
     ahs = RenderHelperSketch(None, draw, width, height, renderer,
                                 draw_args=draw_args, draw_kwargs=draw_kwargs)
     ahs.run_sketch(block=True)
@@ -60,7 +60,7 @@ def render_frame_sequence(draw: Callable, width: int, height: int,
                           limit: int = 1, setup: Callable = None,
                           setup_args: Tuple = None, setup_kwargs: Dict = None,
                           draw_args: Tuple = None, draw_kwargs: Dict = None) -> List[PIL_Image]:
-    """missing docstring"""
+    """$module_Py5Functions_render_frame_sequence"""
     ahs = RenderHelperSketch(setup, draw, width, height, renderer, limit=limit,
                                 setup_args=setup_args, setup_kwargs=setup_kwargs,
                                 draw_args=draw_args, draw_kwargs=draw_kwargs)
@@ -71,7 +71,7 @@ def render_frame_sequence(draw: Callable, width: int, height: int,
 
 
 def render(width: int, height: int, renderer: str = Sketch.HIDDEN) -> Image:
-    """missing docstring"""
+    """$module_Py5Functions_render"""
     def decorator(draw):
         @functools.wraps(draw)
         def run_render_frame(*draw_args, **draw_kwargs):
@@ -84,7 +84,7 @@ def render(width: int, height: int, renderer: str = Sketch.HIDDEN) -> Image:
 def render_sequence(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
                     limit: int = 1, setup: Callable = None,
                     setup_args: Tuple = None, setup_kwargs: Dict = None) -> List[PIL_Image]:
-    """missing docstring"""
+    """$module_Py5Functions_render_sequence"""
     def decorator(draw):
         @functools.wraps(draw)
         def run_render_frames(*draw_args, **draw_kwargs):

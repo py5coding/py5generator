@@ -4,5 +4,13 @@ type = function
 category = structure
 subcategory = None
 
+@@ signatures
+render(width: int, height: int, renderer: str = Sketch.HIDDEN) -> Image
+
+@@ variables
+height: int - missing variable description
+renderer: str = Sketch.HIDDEN - missing variable description
+width: int - missing variable description
+
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.

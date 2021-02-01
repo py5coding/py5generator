@@ -82,9 +82,8 @@ EXTRA_METHOD_SIGNATURES = {
     ('Py5Functions', 'reset_py5'): [([], 'None')],
     ('Py5Functions', 'prune_tracebacks'): [(['prune: bool'], 'None')],
     ('Py5Functions', 'set_stackprinter_style'): [(['style: str'], 'None')],
-    # ('Py5Functions', ''): [([], )],
-    # ('Py5Functions', ''): [([], )],
-    # ('Py5Functions', ''): [([], )],
-    # ('Py5Functions', ''): [([], )],
-    # ('Py5Functions', ''): [([], )],
+    ('Py5Functions', 'render_frame'): [(['draw: Callable', 'width: int', 'height: int', 'renderer: str = Sketch.HIDDEN', 'draw_args: Tuple = None', 'draw_kwargs: Dict = None'], 'Image')],
+    ('Py5Functions', 'render'): [(['width: int', 'height: int', 'renderer: str = Sketch.HIDDEN'], 'Image')],
+    ('Py5Functions', 'render_frame_sequence'): [(['draw: Callable', 'width: int', 'height: int', 'renderer: str = Sketch.HIDDEN', 'limit: int = 1', 'setup: Callable = None', 'setup_args: Tuple = None', 'setup_kwargs: Dict = None', 'draw_args: Tuple = None', 'draw_kwargs: Dict = None'], 'List[PIL_Image]')],
+    ('Py5Functions', 'render_sequence'): [(['width: int', 'height: int', 'renderer: str = Sketch.HIDDEN', 'limit: int = 1', 'setup: Callable = None', 'setup_args: Tuple = None', 'setup_kwargs: Dict = None'], 'List[PIL_Image]')],
 }
