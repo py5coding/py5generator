@@ -275,10 +275,6 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         result = image_conversion._convert(obj)
         if isinstance(result, (Path, str)):
             return self.load_image(result, dst=dst)
-        elif isinstance(result, Path):
-            ret = self.load_image(result, dst=dst)
-            os.remove(result)
-            return ret
         elif isinstance(result, NumpyImageArray):
             return self.create_image_from_numpy(result, dst=dst)
         else:
