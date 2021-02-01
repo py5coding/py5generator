@@ -255,6 +255,8 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
             continue
         elif stem.startswith('Sketch'):
             slug = stem[7:].lower()
+        elif stem.startswith('Py5Functions'):
+            slug = stem[13:].lower()
         else:
             slug = stem.lower()
 
@@ -290,7 +292,7 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
             if stem != 'Sketch':
                 rstfiles['sketch'].add((name, slug, first_sentence, CLASS_CATEGORY_LOOKUP[name]))
         else:
-            if stem.startswith('Sketch'):
+            if stem.startswith('Sketch') or stem.startswith('Py5Functions'):
                 rstfiles['sketch'].add(
                     (name, slug, first_sentence,
                      (doc.meta['category'].replace('None', ''), doc.meta['subcategory'].replace('None', ''))
