@@ -110,24 +110,24 @@ def run_sketch(block: bool = None,
 
 
 def get_current_sketch() -> Sketch:
-    """missing docstring"""
+    """$module_Py5Functions_get_current_sketch"""
     return _py5sketch
 
 
 def reset_py5() -> None:
-    """missing docstring"""
+    """$module_Py5Functions_reset_py5"""
     global _py5sketch
     _py5sketch = Sketch()
 
 
-def prune_tracebacks(prune: bool):
-    """missing docstring"""
+def prune_tracebacks(prune: bool) -> None:
+    """$module_Py5Functions_prune_tracebacks"""
     from . import methods
     methods._prune_tracebacks = prune
 
 
-def set_stackprinter_style(style: str):
-    """missing docstring"""
+def set_stackprinter_style(style: str) -> None:
+    """$module_Py5Functions_set_stackprinter_style"""
     from . import methods
     methods._stackprinter_style = style
 
