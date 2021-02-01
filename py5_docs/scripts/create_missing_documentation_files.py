@@ -41,19 +41,20 @@ PY5_CLASS_LOOKUP = {
     'PShader': 'Py5Shader',
     'PShape': 'Py5Shape',
     'PSurface': 'Py5Surface',
+    'Py5Functions': 'Py5Functions',
 }
 
 # read the class datafiles so I know what methods and fields are relevant
 class_data_info = dict()
 class_resource_data = Path('py5_resources', 'data')
-papplet_category_data = None
+category_lookup_data = dict()
 for pclass in PY5_CLASS_LOOKUP.keys():
     filename = 'py5applet.csv' if pclass == 'PApplet' else pclass.lower() + '.csv'
     class_data = pd.read_csv(class_resource_data / filename)
     class_data = class_data.fillna('').set_index('processing_name')
     class_data_info[pclass] = class_data.query("implementation!='SKIP'")
-    if pclass == 'PApplet':
-        papplet_category_data = class_data_info[pclass].set_index('py5_name')[['category', 'subcategory']]
+    if pclass in ['PApplet', 'Py5Functions']:
+        category_lookup_data[pclass] = class_data_info[pclass].set_index('py5_name')[['category', 'subcategory']]
 
 # go through the class data info and for each relevant method and field and 
 # identify the new files that must be created
@@ -87,6 +88,9 @@ for num, new_file_data in enumerate(new_xml_files):
     elif item_type == 'class':
         doc_type = 'class'
         name = py5_name
+    elif item_type == 'function':
+        doc_type = 'function'
+        name = py5_name + '()'
     else:
         doc_type = 'method'
         name = py5_name + '()'
@@ -94,9 +98,9 @@ for num, new_file_data in enumerate(new_xml_files):
     print(f"creating {new_docfile}")
     with open(new_docfile, 'w') as f:
         extra = f'pclass = {pclass}\nprocessing_name = {processing_name}\n' if processing_name else ''
-        if pclass == 'PApplet' and py5_name in papplet_category_data.index:
-            category = papplet_category_data.loc[py5_name, 'category'] or 'None'
-            subcategory = papplet_category_data.loc[py5_name, 'subcategory'] or 'None'
+        if pclass in category_lookup_data and py5_name in category_lookup_data[pclass].index:
+            category = category_lookup_data[pclass].loc[py5_name, 'category'] or 'None'
+            subcategory = category_lookup_data[pclass].loc[py5_name, 'subcategory'] or 'None'
             extra += f'category = {category}\nsubcategory = {subcategory}\n'
         f.write(NEW_TEMPLATE.format(name, doc_type, extra))
 
