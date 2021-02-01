@@ -81,7 +81,7 @@ def prepare_docstrings(method_signatures_lookup):
         first_sentence = m.group() if m else description
         description = '\n'.join([textwrap.fill(d, 80) for d in description.split('\n')])
         first_sentence = textwrap.fill(first_sentence, 80)
-        if item_type == 'method':
+        if item_type in ['method', 'function']:
             signatures = doc.signatures
             variables = doc.variables
             if tuple_key not in method_signatures_lookup:

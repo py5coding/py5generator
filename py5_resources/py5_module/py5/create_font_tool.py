@@ -60,7 +60,7 @@ class CreateFontTool(Sketch):
 
 def create_font_file(font_name: str, font_size: int,
                      filename: str = None, characters: str = None, pause: bool = True):
-    """missing docstring"""
+    """$module_Py5Functions_create_font_file"""
     vlw_creator = CreateFontTool(font_name, font_size,
                                  filename=filename, characters=characters,
                                  pause=pause)

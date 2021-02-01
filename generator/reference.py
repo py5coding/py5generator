@@ -76,5 +76,6 @@ EXTRA_DIR_NAMES = {
 }
 
 EXTRA_METHOD_SIGNATURES = {
-    ('Sketch', 'run_sketch'): [(['block: bool = None', 'py5_options: List = None', 'sketch_args: List = None'], 'None')]
+    ('Sketch', 'run_sketch'): [(['block: bool = None', 'py5_options: List = None', 'sketch_args: List = None'], 'None')],
+    ('Py5Functions', 'create_font_file'): [(['font_name: str', 'font_size: int', 'filename: str = None', 'characters: str = None', 'pause: bool = True'], 'None')],
 }
