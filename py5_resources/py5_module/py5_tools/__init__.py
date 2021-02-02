@@ -22,4 +22,4 @@ from .libraries import *  # noqa
 from .run import *  # noqa
 from .utilities import *  # noqa
 
-__version__ = '0.3a5_dev0'
+__version__ = '0.3a5.dev0'
