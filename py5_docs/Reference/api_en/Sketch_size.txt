@@ -13,8 +13,8 @@ size(width: int, height: int, renderer: str, path: str, /) -> None
 
 @@ variables
 height: int - height of the display window in units of pixels
-path: str - missing variable description
-renderer: str - missing variable description
+path: str - filename to save rendering engine output to
+renderer: str - rendering engine to use
 width: int - width of the display window in units of pixels
 
 @@ description
