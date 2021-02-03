@@ -22,6 +22,7 @@ from pathlib import Path
 import uuid
 import tempfile
 from dataclasses import dataclass
+from typing import Callable
 
 import numpy as np
 from PIL import Image
@@ -48,7 +49,8 @@ def _convert(obj):
     return obj
 
 
-def register_image_conversion(precondition, convert_function):
+def register_image_conversion(precondition: Callable, convert_function: Callable) -> None:
+    """$module_Py5Functions_register_image_conversion"""
     pimage_functions.append((precondition, convert_function))
 
 

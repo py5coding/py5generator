@@ -105,4 +105,7 @@ EXTRA_METHOD_SIGNATURES = {
         (['width: int', 'height: int', 'renderer: str = Sketch.HIDDEN', '*', 'limit: int = 1',
           'setup: Callable = None', 'setup_args: Tuple = None', 'setup_kwargs: Dict = None'], 'List[PIL_Image]')
     ],
+    ('Py5Functions', 'register_image_conversion'): [
+        (['precondition: Callable', 'convert_function: Callable'], 'None')
+    ]
 }

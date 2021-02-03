@@ -8,3 +8,4 @@ render_frame,,,function,structure,,PYTHON,render_helper
 render_frame_sequence,,,function,structure,,PYTHON,render_helper
 render,,,function,structure,,PYTHON,render_helper
 render_sequence,,,function,structure,,PYTHON,render_helper
+register_image_conversion,,,function,image,,PYTHON,image_conversion
