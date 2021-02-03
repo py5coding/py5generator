@@ -10,9 +10,8 @@ processing_name = list
 list() -> List[str]
 
 @@ description
-Gets a list of the fonts installed on the system. The data is returned as a String array. This list provides the names of each font for input into ``create_font()``, which allows Processing to dynamically format fonts.
+Gets a list of the fonts installed on the system. The data is returned as a list of strings. This list provides the names of each font for input into ``create_font()``, which allows py5 to dynamically format fonts.
 
 @@ example
-size(200, 200)
 font_list = Py5Font.list()
-print_array(font_list)
+print(font_list)
