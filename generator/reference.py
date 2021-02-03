@@ -107,5 +107,5 @@ EXTRA_METHOD_SIGNATURES = {
     ],
     ('Py5Functions', 'register_image_conversion'): [
         (['precondition: Callable', 'convert_function: Callable'], 'None')
-    ]
+    ],
 }
