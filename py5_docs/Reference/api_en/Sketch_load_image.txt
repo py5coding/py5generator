@@ -5,10 +5,10 @@ category = image
 subcategory = loading_displaying
 
 @@ signatures
-load_image(filename: Union[str, Path], dst: Py5Image) -> Py5Image
+load_image(filename: Union[str, Path], dst: Py5Image = None) -> Py5Image
 
 @@ variables
-dst: Py5Image - missing variable description
+dst: Py5Image = None - missing variable description
 filename: Union[str, Path] - missing variable description
 
 @@ description

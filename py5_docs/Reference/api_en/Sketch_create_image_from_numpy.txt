@@ -5,10 +5,10 @@ category = image
 subcategory = loading_displaying
 
 @@ signatures
-create_image_from_numpy(numpy_image: NumpyImageArray, dst: Py5Image) -> Py5Image
+create_image_from_numpy(numpy_image: NumpyImageArray, dst: Py5Image = None) -> Py5Image
 
 @@ variables
-dst: Py5Image - missing variable description
+dst: Py5Image = None - missing variable description
 numpy_image: NumpyImageArray - missing variable description
 
 @@ description

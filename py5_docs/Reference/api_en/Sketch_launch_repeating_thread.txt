@@ -5,15 +5,15 @@ category = structure
 subcategory = threading
 
 @@ signatures
-launch_repeating_thread(f: Callable, name: str, time_delay: float, daemon: bool, args: Tuple, kwargs: Dict) -> str
+launch_repeating_thread(f: Callable, name: str = None, time_delay: float = 0, daemon: bool = True, args: Tuple = None, kwargs: Dict = None) -> str
 
 @@ variables
-args: Tuple - missing variable description
-daemon: bool - missing variable description
+args: Tuple = None - missing variable description
+daemon: bool = True - missing variable description
 f: Callable - missing variable description
-kwargs: Dict - missing variable description
-name: str - missing variable description
-time_delay: float - missing variable description
+kwargs: Dict = None - missing variable description
+name: str = None - missing variable description
+time_delay: float = 0 - missing variable description
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.

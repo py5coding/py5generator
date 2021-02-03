@@ -282,7 +282,7 @@ class CodeBuilder:
                 self.dynamic_variable_names.add(fname)
             else:
                 split_args = COMMA_REGEX.split(args) if args else []
-                split_args = [a.replace('*', '').split('=')[0].strip() for a in split_args]
+                split_args = [a.replace('*', '').strip() for a in split_args]
                 if (class_name, fname) not in overloaded:
                     self.method_signatures[(class_name, fname)].append((split_args, rettypestr))
                 moduleobj = self._class_name if arg0 == 'cls' else self._instance_name

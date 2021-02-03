@@ -5,10 +5,10 @@ category = image
 subcategory = loading_displaying
 
 @@ signatures
-convert_image(obj: Any, dst: Py5Image) -> Py5Image
+convert_image(obj: Any, dst: Py5Image = None) -> Py5Image
 
 @@ variables
-dst: Py5Image - missing variable description
+dst: Py5Image = None - missing variable description
 obj: Any - missing variable description
 
 @@ description
