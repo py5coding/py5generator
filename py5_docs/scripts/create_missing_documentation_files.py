@@ -42,6 +42,7 @@ PY5_CLASS_LOOKUP = {
     'PShape': 'Py5Shape',
     'PSurface': 'Py5Surface',
     'Py5Functions': 'Py5Functions',
+    'Py5Magics': 'Py5Magics',
 }
 
 # read the class datafiles so I know what methods and fields are relevant
@@ -53,7 +54,7 @@ for pclass in PY5_CLASS_LOOKUP.keys():
     class_data = pd.read_csv(class_resource_data / filename)
     class_data = class_data.fillna('').set_index('processing_name')
     class_data_info[pclass] = class_data.query("implementation!='SKIP'")
-    if pclass in ['PApplet', 'Py5Functions']:
+    if pclass in ['PApplet', 'Py5Functions', 'Py5Magics']:
         category_lookup_data[pclass] = class_data_info[pclass].set_index('py5_name')[['category', 'subcategory']]
 
 # go through the class data info and for each relevant method and field and 
@@ -91,6 +92,12 @@ for num, new_file_data in enumerate(new_xml_files):
     elif item_type == 'function':
         doc_type = 'function'
         name = py5_name + '()'
+    elif item_type == 'cell magic':
+        doc_type = 'cell magic'
+        name = '%%' + py5_name
+    elif item_type == 'line magic':
+        doc_type = 'line magic'
+        name = '%' + py5_name
     else:
         doc_type = 'method'
         name = py5_name + '()'

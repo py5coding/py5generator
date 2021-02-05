@@ -1,0 +1,9 @@
+py5_name,processing_name,decorator,type,category,subcategory,implementation,comments
+py5drawpdf,,,cell magic,,,PYTHON,magics
+py5drawdxf,,,cell magic,,,PYTHON,magics
+py5drawsvg,,,cell magic,,,PYTHON,magics
+py5draw,,,cell magic,,,PYTHON,magics
+py5screenshot,,,line magic,,,PYTHON,magics
+py5saveframes,,,line magic,,,PYTHON,magics
+py5animatedgif,,,line magic,,,PYTHON,magics
+py5captureframes,,,line magic,,,PYTHON,magics
