@@ -4,6 +4,14 @@ type = cell magic
 category = None
 subcategory = None
 
+@@ arguments
+'width', type=int, help='width of PNG image'
+'height', type=int, help='height of PNG image'
+'-f', '--filename', dest='filename', help='save image to file'
+'-v', '--var', dest='variable', help='assign image to variable'
+'-r', '--renderer', type=str, dest='renderer', default='HIDDEN', help='processing renderer to use for sketch'
+'--unsafe', dest='unsafe', action='store_true', help="allow new variables to enter the global namespace, creating a potentially unsafe situation"
+
 @@ description
 Create a PNG image with py5 and embed result in the notebook.
 

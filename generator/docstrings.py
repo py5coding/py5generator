@@ -82,8 +82,10 @@ def prepare_docstrings(method_signatures_lookup):
         description = '\n'.join([textwrap.fill(d, 80) for d in description.split('\n')])
         first_sentence = textwrap.fill(first_sentence, 80)
         if item_type in ['line magic', 'cell magic']:
-            # TODO: build description by generating usage and argument info with argparse
+            arg_decorators = '\n'.join(f'@argument({arg})' for arg in doc.arguments)
+            docstrings[(tuple_key[0], f'{tuple_key[1]}_arguments')] = arg_decorators
             # TODO: add extra stuff to the docstrings dict for magic argument parameters
+            # TODO: build description by generating usage and argument info with argparse
             # TODO: need special magic template
             docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence, description)
         if item_type in ['method', 'function']:
@@ -147,7 +149,7 @@ def prepare_docstrings(method_signatures_lookup):
 
 class DocstringFinder:
 
-    INDENTING = {'class': 8, 'module': 4, 'classdoc': 4}
+    INDENTING = {'class': 8, 'module': 4, 'classdoc': 4, 'arguments': 4}
 
     def __init__(self, method_signatures_lookup):
         self._data = prepare_docstrings(method_signatures_lookup)

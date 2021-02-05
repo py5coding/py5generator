@@ -204,14 +204,9 @@ class Py5Magics(Magics):
             display(SVG(svg))
 
     @magic_arguments()
-    @argument('width', type=int, help='width of PNG image')
-    @argument('height', type=int, help='height of PNG image')
-    @argument('-f', '--filename', dest='filename', help='save image to file')
-    @argument('-v', '--var', dest='variable', help='assign image to variable')
-    @argument('-r', '--renderer', type=str, dest='renderer', default='HIDDEN',
-              help='processing renderer to use for sketch')
-    @argument('--unsafe', dest='unsafe', action='store_true',
-              help="allow new variables to enter the global namespace, creating a potentially unsafe situation")
+    @argument(""" DELETE
+    $arguments_Py5Magics_py5draw_arguments
+    """) # DELETE
     @kwds(formatter_class=CellMagicHelpFormatter)
     @cell_magic
     def py5draw(self, line, cell):

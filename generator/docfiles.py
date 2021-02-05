@@ -35,6 +35,7 @@ class Documentation:
         self.examples = []
         self.signatures = []
         self.variables = {}
+        self.arguments = []
         self.description = ''
         if filename:
             if not isinstance(filename, Path):
@@ -42,7 +43,7 @@ class Documentation:
             with open(filename, 'r') as f:
                 content = f.read()
             if filename.suffix == '.txt':
-                self.meta, self.signatures, self.variables, self.examples, self.description = self._from_txt(content)
+                self.meta, self.signatures, self.variables, self.arguments, self.examples, self.description = self._from_txt(content)
             elif filename.suffix == '.xml':
                 self.meta, self.examples, self.description = self._from_xml(content)
             else:
@@ -63,6 +64,10 @@ class Documentation:
                 f.write('\n@@ variables\n')
                 for var, desc in sorted(self.variables.items()):
                     f.write(f'{var} - {desc}\n')
+            if self.arguments:
+                f.write('\n@@ arguments\n')
+                for argument in self.arguments:
+                    f.write(f'{argument}\n')
             f.write('\n@@ description\n')
             f.write(f'{self.description}\n')
             for image, code in self.examples:
@@ -100,6 +105,7 @@ class Documentation:
         meta = {}
         signatures = []
         variables = {}
+        arguments = []
         examples = []
         description = ''
         for kind, content in DOC_REGEX.findall(text):
@@ -110,6 +116,8 @@ class Documentation:
             elif kind == 'variables':
                 var_desc = [var.split('-', 1) for var in content.strip().split('\n')]
                 variables.update({k.strip(): v.strip() for k, v in var_desc})
+            elif kind == 'arguments':
+                arguments.extend(content.strip().split('\n'))
             elif kind == 'example':
                 if m := CODE_REGEX.match(content.strip()):
                     examples.append(m.groups())
@@ -117,4 +125,4 @@ class Documentation:
                     examples.append((None, content.strip()))
             elif kind == 'description':
                 description = content.strip()
-        return meta, signatures, variables, examples, description
+        return meta, signatures, variables, arguments, examples, description
