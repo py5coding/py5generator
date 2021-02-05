@@ -40,9 +40,9 @@ class CodeCopier:
 
         if content.find('# *** FORMAT PARAMS ***') >= 0:
             content = content.replace('# *** FORMAT PARAMS ***\n', '')
-            content = re.sub(r'^.*DELETE$', '',
-                             content.format(**self.format_params),
-                             flags=re.MULTILINE | re.UNICODE)
+            content = content.format(**self.format_params)
+
+        content = re.sub(r'^.*DELETE$', '', content, flags=re.MULTILINE | re.UNICODE)
         content = Template(content).substitute(self.docstring_dict)
         if content.find('# *** SKIP AUTOPEP8 ***') >= 0:
             content = content.replace('# *** SKIP AUTOPEP8 ***\n', '')
