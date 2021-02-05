@@ -86,7 +86,9 @@ def prepare_docstrings(method_signatures_lookup):
             docstrings[(tuple_key[0], f'{tuple_key[1]}_arguments')] = arg_decorators
             # TODO: add extra stuff to the docstrings dict for magic argument parameters
             # TODO: build description by generating usage and argument info with argparse
+            # learn from https://github.com/ipython/ipython/blob/master/IPython/core/magic_arguments.py
             # TODO: need special magic template
+            # TODO: rename this file since it isn't just docstrings anymore
             docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence, description)
         if item_type in ['method', 'function']:
             signatures = doc.signatures

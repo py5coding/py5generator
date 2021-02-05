@@ -20,8 +20,6 @@
 import re
 from pathlib import Path
 
-import xmltodict
-
 
 DOC_REGEX = re.compile(r'(?<=@@ )(\w+)\s(.*?)(?=@@|$)', re.DOTALL)
 META_REGEX = re.compile(r'(\w*)\s*=\s*(.*)')
@@ -40,12 +38,9 @@ class Documentation:
         if filename:
             if not isinstance(filename, Path):
                 filename = Path(filename)
-            with open(filename, 'r') as f:
-                content = f.read()
             if filename.suffix == '.txt':
-                self.meta, self.signatures, self.variables, self.arguments, self.examples, self.description = self._from_txt(content)
-            elif filename.suffix == '.xml':
-                self.meta, self.examples, self.description = self._from_xml(content)
+                with open(filename, 'r') as f:
+                    self.parse(f.read())
             else:
                 raise RuntimeError(f'unable to read {filename}')
 
@@ -76,53 +71,21 @@ class Documentation:
                     f.write(f'image = {image}\n\n')
                 f.write(f'{code}\n')
 
-    def _from_xml(self, content):
-        xml = xmltodict.parse(content)['root']
-        meta = {}
-        examples = []
-        description = ''
-        for key in xml.keys():
-            if key == 'description':
-                description = xml['description']
-            elif key == 'example':
-                example = xml['example']
-                if isinstance(example, list):
-                    examples = [(x.get('image'), x['code']) for x in example]
-                else:
-                    examples = [(example.get('image'), example['code'])]
-            else:
-                meta[key] = xml[key]
-        # clean up the type metadata
-        if meta['name'].endswith('()'):
-            meta['type'] = 'method'
-        elif meta['name'][0].isupper():
-            meta['type'] = 'class'
-        else:
-            meta['type'] = 'field'
-        return meta, examples, description
-
-    def _from_txt(self, text):
-        meta = {}
-        signatures = []
-        variables = {}
-        arguments = []
-        examples = []
-        description = ''
+    def parse(self, text):
         for kind, content in DOC_REGEX.findall(text):
             if kind == 'meta':
-                meta = dict(META_REGEX.findall(content))
+                self.meta = dict(META_REGEX.findall(content))
             elif kind == 'signatures':
-                signatures.extend(content.strip().split('\n'))
+                self.signatures.extend(content.strip().split('\n'))
             elif kind == 'variables':
                 var_desc = [var.split('-', 1) for var in content.strip().split('\n')]
-                variables.update({k.strip(): v.strip() for k, v in var_desc})
+                self.variables.update({k.strip(): v.strip() for k, v in var_desc})
             elif kind == 'arguments':
-                arguments.extend(content.strip().split('\n'))
+                self.arguments.extend(content.strip().split('\n'))
             elif kind == 'example':
                 if m := CODE_REGEX.match(content.strip()):
-                    examples.append(m.groups())
+                    self.examples.append(m.groups())
                 else:
-                    examples.append((None, content.strip()))
+                    self.examples.append((None, content.strip()))
             elif kind == 'description':
-                description = content.strip()
-        return meta, signatures, variables, arguments, examples, description
+                self.description = content.strip()
