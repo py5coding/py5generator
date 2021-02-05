@@ -49,6 +49,7 @@ setup(
     install_requires=INSTALL_REQUIRES,
     description='Processing for CPython',
     long_description=README,
+    long_description_content_type='text/x-rst',
     author='Jim Schmitz',
     author_email='jim@ixora.io',
     entry_points={
