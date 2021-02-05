@@ -81,6 +81,11 @@ def prepare_docstrings(method_signatures_lookup):
         first_sentence = m.group() if m else description
         description = '\n'.join([textwrap.fill(d, 80) for d in description.split('\n')])
         first_sentence = textwrap.fill(first_sentence, 80)
+        if item_type in ['line magic', 'cell magic']:
+            # TODO: build description by generating usage and argument info with argparse
+            # TODO: add extra stuff to the docstrings dict for magic argument parameters
+            # TODO: need special magic template
+            docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence, description)
         if item_type in ['method', 'function']:
             signatures = doc.signatures
             variables = doc.variables

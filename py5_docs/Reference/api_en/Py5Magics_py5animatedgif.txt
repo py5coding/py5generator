@@ -1,0 +1,16 @@
+@@ meta
+name = %py5animatedgif
+type = line magic
+category = None
+subcategory = None
+
+@@ description
+Create an animated GIF using the currently running sketch.
+
+Use the -w argument to wait before starting.
+
+The below example will create a 10 frame animated GIF saved to '/tmp/animated.gif'. The frames will be recorded 1 second apart after waiting 3 seconds. The animated GIF will display the frames with a 0.5 second delay between each one and will loop indefinitely.
+
+```
+    %py5animatedgif /tmp/animated.gif 10 1 0.5 -w 3
+```

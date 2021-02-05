@@ -25,11 +25,17 @@ import tempfile
 
 from IPython.display import display, SVG, Image
 from IPython.core.magic import Magics, magics_class, cell_magic, line_magic
-from IPython.core.magic_arguments import magic_arguments, argument, parse_argstring
+from IPython.core.magic_arguments import MagicHelpFormatter, parse_argstring, argument, magic_arguments, kwds
 
 import PIL
 
 from .run import run_single_frame_sketch
+
+
+class CellMagicHelpFormatter(MagicHelpFormatter):
+
+    def add_usage(self, usage, actions, groups, prefix="::\n\n  %%"):
+        super(MagicHelpFormatter, self).add_usage(usage, actions, groups, prefix)
 
 
 def wait(wait_time, sketch):
@@ -144,39 +150,10 @@ class Py5Magics(Magics):
     @argument('filename', type=str, help='filename for PDF output')
     @argument('--unsafe', dest='unsafe', action='store_true',
               help="allow new variables to enter the global namespace, creating a potentially unsafe situation")
+    @kwds(formatter_class=CellMagicHelpFormatter)
     @cell_magic
     def py5drawpdf(self, line, cell):
-        """Create a PDF with py5.
-
-        For users who are familiar with Processing and py5 programming, you can
-        pretend the code in this cell will be executed in a sketch with no
-        `draw()` function and your code in the `setup()` function. It will use
-        the PDF renderer.
-
-        The below example will create a red square on a gray background:
-
-        ```
-            %%py5drawpdf 500 250 /tmp/test.pdf
-            py5.background(128)
-            py5.fill(255, 0, 0)
-            py5.rect(80, 100, 50, 50)
-        ```
-
-        As this is creating a PDF, you cannot do operations on the
-        `pixels` or `np_pixels` arrays. Use `%%py5draw` instead.
-
-        Code used in this cell can reference functions and variables defined in
-        other cells. By default, variables and functions created in this cell
-        will be local to only this cell because to do otherwise would be unsafe.
-        If you understand the risks, you can use the `global` keyword to add a
-        single function or variable to the notebook namespace or the --unsafe
-        argument to add everything to the notebook namespace. Either option may
-        be very useful to you, but be aware that using py5 objects in a
-        different notebook cell or reusing them in another sketch can result in
-        nasty errors and bizzare consequences. Any and all problems resulting
-        from using these features are solely your responsibility and not the py5
-        library maintainers.
-        """
+        """$class_Py5Magics_py5drawpdf"""
         args = parse_argstring(self.py5drawpdf, line)
         pdf = run_single_frame_sketch('PDF', cell, args.width, args.height,
                                       self.shell.user_ns, not args.unsafe)
@@ -192,40 +169,10 @@ class Py5Magics(Magics):
     @argument('filename', type=str, help='filename for DXF output')
     @argument('--unsafe', dest='unsafe', action='store_true',
               help="allow new variables to enter the global namespace, creating a potentially unsafe situation")
+    @kwds(formatter_class=CellMagicHelpFormatter)
     @cell_magic
     def py5drawdxf(self, line, cell):
-        """Create a DXF file with py5.
-
-        For users who are familiar with Processing and py5 programming, you can
-        pretend the code in this cell will be executed in a sketch with no
-        `draw()` function and your code in the `setup()` function. It will use
-        the DXF renderer.
-
-        The below example will create a rotated cube:
-
-        ```
-           %%py5drawdxf 200 200 /tmp/test.dxf
-            py5.translate(py5.width / 2, py5.height / 2)
-            py5.rotate_x(0.4)
-            py5.rotate_y(0.8)
-            py5.box(80)
-        ```
-
-        As this is creating a DXF file, your code will be limited to the
-        capabilities of that renderer.
-
-        Code used in this cell can reference functions and variables defined in
-        other cells. By default, variables and functions created in this cell
-        will be local to only this cell because to do otherwise would be unsafe.
-        If you understand the risks, you can use the `global` keyword to add a
-        single function or variable to the notebook namespace or the --unsafe
-        argument to add everything to the notebook namespace. Either option may
-        be very useful to you, but be aware that using py5 objects in a
-        different notebook cell or reusing them in another sketch can result in
-        nasty errors and bizzare consequences. Any and all problems resulting
-        from using these features are solely your responsibility and not the py5
-        library maintainers.
-        """
+        """$class_Py5Magics_py5drawdxf"""
         args = parse_argstring(self.py5drawdxf, line)
         dxf = run_single_frame_sketch('DXF', cell, args.width, args.height,
                                       self.shell.user_ns, not args.unsafe)
@@ -241,39 +188,10 @@ class Py5Magics(Magics):
     @argument('-f', '--filename', type=str, dest='filename', help='save SVG drawing to file')
     @argument('--unsafe', dest='unsafe', action='store_true',
               help="allow new variables to enter the global namespace, creating a potentially unsafe situation")
+    @kwds(formatter_class=CellMagicHelpFormatter)
     @cell_magic
     def py5drawsvg(self, line, cell):
-        """Create a SVG drawing with py5 and embed result in the notebook.
-
-        For users who are familiar with Processing and py5 programming, you can
-        pretend the code in this cell will be executed in a sketch with no
-        `draw()` function and your code in the `setup()` function. It will use
-        the SVG renderer.
-
-        The below example will create a red square on a gray background:
-
-        ```
-            %%py5drawsvg 500 250
-            py5.background(128)
-            py5.fill(255, 0, 0)
-            py5.rect(80, 100, 50, 50)
-        ```
-
-        As this is creating a SVG drawing, you cannot do operations on the
-        `pixels` or `np_pixels` arrays. Use `%%py5draw` instead.
-
-        Code used in this cell can reference functions and variables defined in
-        other cells. By default, variables and functions created in this cell
-        will be local to only this cell because to do otherwise would be unsafe.
-        If you understand the risks, you can use the `global` keyword to add a
-        single function or variable to the notebook namespace or the --unsafe
-        argument to add everything to the notebook namespace. Either option may
-        be very useful to you, but be aware that using py5 objects in a
-        different notebook cell or reusing them in another sketch can result in
-        nasty errors and bizzare consequences. Any and all problems resulting
-        from using these features are solely your responsibility and not the py5
-        library maintainers.
-        """
+        """$class_Py5Magics_py5drawsvg"""
         args = parse_argstring(self.py5drawsvg, line)
         svg = run_single_frame_sketch('SVG', cell, args.width, args.height,
                                       self.shell.user_ns, not args.unsafe)
@@ -294,36 +212,10 @@ class Py5Magics(Magics):
               help='processing renderer to use for sketch')
     @argument('--unsafe', dest='unsafe', action='store_true',
               help="allow new variables to enter the global namespace, creating a potentially unsafe situation")
+    @kwds(formatter_class=CellMagicHelpFormatter)
     @cell_magic
     def py5draw(self, line, cell):
-        """Create a PNG image with py5 and embed result in the notebook.
-
-        For users who are familiar with Processing and py5 programming, you can
-        pretend the code in this cell will be executed in a sketch with no
-        `draw()` function and your code in the `setup()` function. By default it
-        will use the default Processing renderer.
-
-        The below example will create a red square on a gray background:
-
-        ```
-            %%py5draw 500 250
-            py5.background(128)
-            py5.fill(255, 0, 0)
-            py5.rect(80, 100, 50, 50)
-        ```
-
-        Code used in this cell can reference functions and variables defined in
-        other cells. By default, variables and functions created in this cell
-        will be local to only this cell because to do otherwise would be unsafe.
-        If you understand the risks, you can use the `global` keyword to add a
-        single function or variable to the notebook namespace or the --unsafe
-        argument to add everything to the notebook namespace. Either option may
-        be very useful to you, but be aware that using py5 objects in a
-        different notebook cell or reusing them in another sketch can result in
-        nasty errors and bizzare consequences. Any and all problems resulting
-        from using these features are solely your responsibility and not the py5
-        library maintainers.
-        """
+        """$class_Py5Magics_py5draw"""
         args = parse_argstring(self.py5draw, line)
 
         if args.renderer == 'SVG':
@@ -358,24 +250,7 @@ class Py5Magics(Magics):
     @argument('-w', '--wait', type=float, dest='wait', default=0.0,
               help='wait time in seconds before taking screenshot')
     def py5screenshot(self, line):
-        """Take a screenshot of the current running sketch.
-
-        Use the -w argument to wait before taking the screenshot.
-
-        The returned image is a `PIL.Image` object. It can be assigned to a
-        variable or embedded in the notebook.
-
-        Below is an example demonstrating how to take a screenshot after a two
-        second delay and assign it to the `img` variable. The image is then
-        saved to a file. When run from a notebook, the image is embedded in the
-        output.
-
-        ```
-            img = %py5screenshot -w 2
-            img.save('image.png')
-            img
-        ```
-        """
+        """$class_Py5Magics_py5screenshot"""
         args = parse_argstring(self.py5screenshot, line)
         import py5
         sketch = py5.get_current_sketch()
@@ -413,23 +288,7 @@ class Py5Magics(Magics):
     @argument('-l', '--limit', type=int, dest='limit', default=0,
               help='limit the number of frames to save (default 0 means no limit)')
     def py5saveframes(self, line):
-        """Save the current running sketch's frames to a directory.
-
-        Use the -w argument to wait before starting.
-
-        The below example will save the next 50 frames to the `/tmp/frames`
-        directory after a 3 second delay. The filenames will be saved with the
-        default name 'frame_####.png' with numbering that starts at 0.
-
-        ```
-            %py5saveframes /tmp/frames -w 3 -s 0 --limit 50
-        ```
-
-        If a limit is given, this line magic will wait to return a list of the
-        filenames. Otherwise, it will return right away as the frames are saved
-        in the background. It will keep doing so as long as the sketch continues
-        to run.
-        """
+        """$class_Py5Magics_py5saveframes"""
         args = parse_argstring(self.py5saveframes, line)
         import py5
         sketch = py5.get_current_sketch()
@@ -472,19 +331,7 @@ class Py5Magics(Magics):
               help='number of times for the GIF to loop (default of 0 loops indefinitely)')
     @argument('--optimize', action='store_true', help='optimize GIF palette')
     def py5animatedgif(self, line):
-        """Create an animated GIF using the currently running sketch.
-
-        Use the -w argument to wait before starting.
-
-        The below example will create a 10 frame animated GIF saved to
-        '/tmp/animated.gif'. The frames will be recorded 1 second apart after
-        waiting 3 seconds. The animated GIF will display the frames with a 0.5
-        second delay between each one and will loop indefinitely.
-
-        ```
-            %py5animatedgif /tmp/animated.gif 10 1 0.5 -w 3
-        ```
-        """
+        """$class_Py5Magics_py5animatedgif"""
         args = parse_argstring(self.py5animatedgif, line)
         import py5
         sketch = py5.get_current_sketch()
@@ -527,19 +374,7 @@ class Py5Magics(Magics):
     @argument('-p', '--period', type=float, dest='period', default=0.0,
               help='time in seconds between Sketch snapshots (default 0 means no delay)')
     def py5captureframes(self, line):
-        """Capture frames from the currently running sketch.
-
-        Use the -w argument to wait before starting.
-
-        The below example will capture 10 frames from the currently running
-        sketch. The frames will be recorded 1 second apart after waiting 3
-        seconds. The results are returned in a Python list of PIL Image objects
-        and assigned to the variable `frames`.
-
-        ```
-            frames = %py5captureframes 10 -w 3 -p 1
-        ```
-        """
+        """$class_Py5Magics_py5captureframes"""
         args = parse_argstring(self.py5captureframes, line)
         import py5
         sketch = py5.get_current_sketch()
