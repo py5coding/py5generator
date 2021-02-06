@@ -2,7 +2,7 @@
 name = %py5screenshot
 type = line magic
 category = magics
-subcategory = None
+subcategory = line magics
 
 @@ arguments
 '-w', '--wait', type=float, dest='wait', default=0.0
@@ -11,7 +11,7 @@ wait time in seconds before taking screenshot
 @@ description
 Take a screenshot of the current running sketch.
 
-Use the -w argument to wait before taking the screenshot.
+Use the ``-w`` argument to wait before taking the screenshot.
 
 The returned image is a ``PIL.Image`` object. It can be assigned to a variable or embedded in the notebook.
 

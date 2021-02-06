@@ -2,7 +2,7 @@
 name = %py5captureframes
 type = line magic
 category = magics
-subcategory = None
+subcategory = line magics
 
 @@ arguments
 'count', type=int
@@ -17,10 +17,9 @@ time in seconds between Sketch snapshots (default 0 means no delay)
 @@ description
 Capture frames from the currently running sketch.
 
-Use the -w argument to wait before starting.
+Use the ``-w`` argument to wait before starting.
 
-The below example will capture 10 frames from the currently running sketch. The frames will be recorded 1 second apart after waiting 3 seconds. The results are returned in a Python list of PIL Image objects and assigned to the variable `frames`.
-
-```
-    frames = %py5captureframes 10 -w 3 -p 1
-```
+@@ example
+py5.run_sketch()
+# capture 10 frames from the currently running sketch
+frames = %py5captureframes 10 -w 3 -p 1

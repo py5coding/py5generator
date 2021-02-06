@@ -2,7 +2,7 @@
 name = %%py5draw
 type = cell magic
 category = magics
-subcategory = None
+subcategory = cell magics
 
 @@ arguments
 'width', type=int
