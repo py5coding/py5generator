@@ -4,6 +4,10 @@ type = line magic
 category = None
 subcategory = None
 
+@@ arguments
+'-w', '--wait', type=float, dest='wait', default=0.0
+wait time in seconds before taking screenshot
+
 @@ description
 Take a screenshot of the current running sketch.
 

@@ -4,6 +4,25 @@ type = line magic
 category = None
 subcategory = None
 
+@@ arguments
+'dirname', type=str
+directory to save the frames
+
+'-f', '--filename', type=str, dest='filename', default='frame_####.png'
+filename to save frames to
+
+'-w', '--wait', dest='wait', type=float, default=0.0
+wait time in seconds before starting to save frames
+
+'-p', '--period', dest='period', type=float, default=0.0
+time in seconds between Sketch snapshots (default 0 means no delay)
+
+'-s', '--start', dest='start', type=int
+frame starting number instead of sketch frame_count
+
+'-l', '--limit', type=int, dest='limit', default=0
+limit the number of frames to save (default 0 means no limit)
+
 @@ description
 Save the current running sketch's frames to a directory.
 

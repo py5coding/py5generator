@@ -236,8 +236,9 @@ class Py5Magics(Magics):
 
     @line_magic
     @magic_arguments()
-    @argument('-w', '--wait', type=float, dest='wait', default=0.0,
-              help='wait time in seconds before taking screenshot')
+    @argument(""" DELETE
+    $arguments_Py5Magics_py5screenshot_arguments
+    """) # DELETE
     def py5screenshot(self, line):
         """$class_Py5Magics_py5screenshot"""
         args = parse_argstring(self.py5screenshot, line)
@@ -265,17 +266,9 @@ class Py5Magics(Magics):
 
     @line_magic
     @magic_arguments()
-    @argument('dirname', type=str, help='directory to save the frames')
-    @argument('-f', '--filename', type=str, dest='filename', default='frame_####.png',
-              help='filename to save frames to')
-    @argument('-w', '--wait', dest='wait', type=float, default=0.0,
-              help='wait time in seconds before starting to save frames')
-    @argument('-p', '--period', dest='period', type=float, default=0.0,
-              help='time in seconds between Sketch snapshots (default 0 means no delay)')
-    @argument('-s', '--start', dest='start', type=int,
-              help='frame starting number instead of sketch frame_count')
-    @argument('-l', '--limit', type=int, dest='limit', default=0,
-              help='limit the number of frames to save (default 0 means no limit)')
+    @argument(""" DELETE
+    $arguments_Py5Magics_py5saveframes_arguments
+    """) # DELETE
     def py5saveframes(self, line):
         """$class_Py5Magics_py5saveframes"""
         args = parse_argstring(self.py5saveframes, line)
