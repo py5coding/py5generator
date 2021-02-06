@@ -4,6 +4,19 @@ type = cell magic
 category = None
 subcategory = None
 
+@@ arguments
+'width', type=int
+width of SVG drawing
+
+'height', type=int
+height of SVG drawing
+
+'-f', '--filename', type=str, dest='filename'
+save SVG drawing to file
+
+'--unsafe', dest='unsafe', action='store_true'
+allow new variables to enter the global namespace, creating a potentially unsafe situation
+
 @@ description
 Create a SVG drawing with py5 and embed result in the notebook.
 

@@ -145,11 +145,9 @@ class Py5Magics(Magics):
         return re.match('^[a-zA-Z_]\w*' + chr(36), varname)
 
     @magic_arguments()
-    @argument('width', type=int, help='width of PDF output')
-    @argument('height', type=int, help='height of PDF output')
-    @argument('filename', type=str, help='filename for PDF output')
-    @argument('--unsafe', dest='unsafe', action='store_true',
-              help="allow new variables to enter the global namespace, creating a potentially unsafe situation")
+    @argument(""" DELETE
+    $arguments_Py5Magics_py5drawpdf_arguments
+    """) # DELETE
     @kwds(formatter_class=CellMagicHelpFormatter)
     @cell_magic
     def py5drawpdf(self, line, cell):
@@ -164,11 +162,9 @@ class Py5Magics(Magics):
             print(f'PDF written to {filename}')
 
     @magic_arguments()
-    @argument('width', type=int, help='width of DXF output')
-    @argument('height', type=int, help='height of DXF output')
-    @argument('filename', type=str, help='filename for DXF output')
-    @argument('--unsafe', dest='unsafe', action='store_true',
-              help="allow new variables to enter the global namespace, creating a potentially unsafe situation")
+    @argument(""" DELETE
+    $arguments_Py5Magics_py5drawdxf_arguments
+    """) # DELETE
     @kwds(formatter_class=CellMagicHelpFormatter)
     @cell_magic
     def py5drawdxf(self, line, cell):
@@ -183,11 +179,9 @@ class Py5Magics(Magics):
             print(f'DXF written to {filename}')
 
     @magic_arguments()
-    @argument('width', type=int, help='width of SVG drawing')
-    @argument('height', type=int, help='height of SVG drawing')
-    @argument('-f', '--filename', type=str, dest='filename', help='save SVG drawing to file')
-    @argument('--unsafe', dest='unsafe', action='store_true',
-              help="allow new variables to enter the global namespace, creating a potentially unsafe situation")
+    @argument(""" DELETE
+    $arguments_Py5Magics_py5drawsvg_arguments
+    """) # DELETE
     @kwds(formatter_class=CellMagicHelpFormatter)
     @cell_magic
     def py5drawsvg(self, line, cell):

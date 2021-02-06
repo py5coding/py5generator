@@ -4,6 +4,19 @@ type = cell magic
 category = None
 subcategory = None
 
+@@ arguments
+'width', type=int
+width of DXF output
+
+'height', type=int
+height of DXF output
+
+'filename', type=str
+filename for DXF output
+
+'--unsafe', dest='unsafe', action='store_true'
+allow new variables to enter the global namespace, creating a potentially unsafe situation
+
 @@ description
 Create a DXF file with py5.
 
