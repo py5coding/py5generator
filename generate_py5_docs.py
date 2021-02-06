@@ -273,10 +273,9 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
         stem = docfile.stem
         if stem == 'Sketch':
             continue
-        elif stem.startswith('Sketch'):
-            slug = stem[7:].lower()
-        elif stem.startswith('Py5Functions'):
-            slug = stem[13:].lower()
+        group = stem.split('_', 1)[0]
+        if group in ['Sketch', 'Py5Functions', 'Py5Magics']:
+            slug = stem[len(group)+1:].lower()
         else:
             slug = stem.lower()
 
@@ -294,6 +293,10 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
             doc_rst = CLASS_DOC_TEMPLATE.format(
                 name, slug, now_nikola, first_sentence, examples,
                 description, underlying_java_ref, stem.lower(), now_pretty)
+        elif item_type in ['line magic', 'cell magic']:
+            # TODO: need to generate proper docs for line and cell magics
+            # doc_rst = something
+            continue
         else:
             signatures = format_signatures(doc.signatures)
             parameters = format_parameters(doc.variables)
@@ -310,19 +313,19 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
                 f.write(doc_rst)
         if item_type == 'class':
             if stem != 'Sketch':
-                rstfiles['sketch'].add((name, slug, first_sentence, CLASS_CATEGORY_LOOKUP[name]))
+                rstfiles['Sketch'].add((name, slug, first_sentence, CLASS_CATEGORY_LOOKUP[name]))
         else:
-            if stem.startswith('Sketch') or stem.startswith('Py5Functions'):
-                rstfiles['sketch'].add(
+            if group in ['Sketch', 'Py5Functions', 'Py5Magics']:
+                rstfiles['Sketch'].add(
                     (name, slug, first_sentence,
                      (doc.meta['category'].replace('None', ''), doc.meta['subcategory'].replace('None', ''))
                     )
                 )
             else:
-                rstfiles[stem.split('_', 1)[0].lower()].add((name, slug, first_sentence))
+                rstfiles[group].add((name, slug, first_sentence))
 
     for group, data in rstfiles.items():
-        if group == 'sketch':
+        if group == 'Sketch':
             organized_data = groupby(sorted(data, key=lambda x: x[3]), key=lambda x: x[3])
             prev_category = ('_', '_')
             columns = [StringIO() for _ in range(3)]
@@ -338,9 +341,9 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
                 columns[column_num].write('\n')
                 for (name, stem, first_sentence, _) in sorted(contents):
                     columns[column_num].write(f'* `{name} <{stem}/>`_\n')
-            write_main_ref_columns(dest_dir / 'include' / f'{group}_include.rst', columns)
+            write_main_ref_columns(dest_dir / 'include' / f'{group.lower()}_include.rst', columns)
         else:
-            with open(dest_dir / 'include' / f'{group}_include.rst', 'w') as f:
+            with open(dest_dir / 'include' / f'{group.lower()}_include.rst', 'w') as f:
                 for name, stem, first_sentence in sorted(data):
                     f.write(f'* `{name} <../{stem}/>`_: {first_sentence}\n')
 
