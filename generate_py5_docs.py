@@ -98,6 +98,39 @@ Updated on {9}
 
 """
 
+MAGIC_TEMPLATE = """.. title: {0}
+.. slug: {1}
+.. date: {2}
+.. tags:
+.. category:
+.. link:
+.. description: py5 {0} documentation
+.. type: text
+
+{3}
+{4}
+Description
+===========
+
+{5}
+
+Usage
+=====
+
+.. code::
+
+    {6}
+Arguments
+=========
+
+.. code::
+
+{7}
+
+Updated on {8}
+
+"""
+
 CLASS_DOC_TEMPLATE = """.. title: {0}
 .. slug: {1}
 .. date: {2}
@@ -246,6 +279,7 @@ def magic_help_strings(program_name, argument_data):
 
     usage = parser.format_usage()
     arguments = parser.format_help()[len(usage):].strip()
+    usage = usage[7:]
 
     return usage, arguments
 
@@ -294,9 +328,11 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
                 name, slug, now_nikola, first_sentence, examples,
                 description, underlying_java_ref, stem.lower(), now_pretty)
         elif item_type in ['line magic', 'cell magic']:
-            # TODO: need to generate proper docs for line and cell magics
-            # doc_rst = something
-            continue
+            usage, arguments = magic_help_strings(name, doc.arguments)
+            arguments = textwrap.indent(arguments, prefix='    ')
+            doc_rst = MAGIC_TEMPLATE.format(
+                name, slug, now_nikola, first_sentence, examples,
+                description, usage, arguments, now_pretty)
         else:
             signatures = format_signatures(doc.signatures)
             parameters = format_parameters(doc.variables)
