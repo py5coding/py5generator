@@ -20,10 +20,10 @@
 import re
 import logging
 import textwrap
+import shlex
 from pathlib import Path
 
 from .docfiles import Documentation
-
 
 logger = logging.getLogger(__name__)
 
@@ -68,6 +68,18 @@ Notes
 """
 
 
+MAGIC_DOC_TEMPLATE = """Notes
+-----
+
+{0}
+"""
+
+
+def decorator_helper(datum):
+    arg_str, *help = datum.split('\n', maxsplit=1)
+    return arg_str + f", help={shlex.quote(help[0])}" if help else arg_str
+
+
 def prepare_docstrings(method_signatures_lookup):
     docstrings = {}
     for docfile in sorted(PY5_API_EN.glob('*.txt')):
@@ -82,15 +94,15 @@ def prepare_docstrings(method_signatures_lookup):
         description = '\n'.join([textwrap.fill(d, 80) for d in description.split('\n')])
         first_sentence = textwrap.fill(first_sentence, 80)
         if item_type in ['line magic', 'cell magic']:
-            arg_decorators = '\n'.join(f'@argument({arg})' for arg in doc.arguments)
+            arg_decorators = '\n'.join(f'@argument({decorator_helper(d)})' for d in doc.arguments)
             docstrings[(tuple_key[0], f'{tuple_key[1]}_arguments')] = arg_decorators
-            # TODO: add extra stuff to the docstrings dict for magic argument parameters
-            # TODO: build description by generating usage and argument info with argparse
-            # learn from https://github.com/ipython/ipython/blob/master/IPython/core/magic_arguments.py
-            # TODO: need special magic template
+            # TODO: move each magic's argument parameters to docfiles
             # TODO: rename this file since it isn't just docstrings anymore
-            docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence, description)
-        if item_type in ['method', 'function']:
+            # TODO: in generate_py5_docs, build description by generating usage and argument info with argparse
+            # learn from https://github.com/ipython/ipython/blob/master/IPython/core/magic_arguments.py
+            # and https://pymotw.com/3/argparse/index.html
+            docstring = MAGIC_DOC_TEMPLATE.format(description)
+        elif item_type in ['method', 'function']:
             signatures = doc.signatures
             variables = doc.variables
             if tuple_key not in method_signatures_lookup:
