@@ -13,12 +13,10 @@ Take a screenshot of the current running sketch.
 
 Use the -w argument to wait before taking the screenshot.
 
-The returned image is a `PIL.Image` object. It can be assigned to a variable or embedded in the notebook.
+The returned image is a ``PIL.Image`` object. It can be assigned to a variable or embedded in the notebook.
 
-Below is an example demonstrating how to take a screenshot after a two second delay and assign it to the `img` variable. The image is then saved to a file. When run from a notebook, the image is embedded in the output.
-
-```
-    img = %py5screenshot -w 2
-    img.save('image.png')
-    img
-```
+@@ example
+py5.run_sketch()
+# take a screenshot of the running sketch after a two second delay
+img = %py5screenshot -w 2
+img.save('image.png')
