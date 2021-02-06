@@ -1,7 +1,7 @@
 @@ meta
 name = %%py5draw
 type = cell magic
-category = None
+category = magics
 subcategory = None
 
 @@ arguments
