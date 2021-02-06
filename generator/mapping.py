@@ -96,10 +96,6 @@ def prepare_mapping(method_signatures_lookup):
         if item_type in ['line magic', 'cell magic']:
             arg_decorators = '\n'.join(f'@argument({decorator_helper(d)})' for d in doc.arguments)
             mapping[(tuple_key[0], f'{tuple_key[1]}_arguments')] = arg_decorators
-            # TODO: move each magic's argument parameters to docfiles
-            # TODO: in generate_py5_docs, build description by generating usage and argument info with argparse
-            # learn from https://github.com/ipython/ipython/blob/master/IPython/core/magic_arguments.py
-            # and https://pymotw.com/3/argparse/index.html
             docstring = MAGIC_DOC_TEMPLATE.format(description)
         elif item_type in ['method', 'function']:
             signatures = doc.signatures
@@ -171,23 +167,21 @@ class TemplateMapping:
         if item.startswith('classdoc'):
             kind, clsname = item.split('_', 1)
             if (clsname,) in self._data:
-                raw_docstring = self._data[(clsname,)]
+                raw_value = self._data[(clsname,)]
             else:
-                raw_docstring = 'missing docstring'
-                logger.warning(f'no docstring for class {clsname}')
+                raise RuntimeError(f'missing template mapping: {item}')
         else:
             kind, clsname, methodname = item.split('_', 2)
             if (clsname, methodname) in self._data:
-                raw_docstring = self._data[(clsname, methodname)]
+                raw_value = self._data[(clsname, methodname)]
             elif clsname in ['Py5Graphics', 'Py5Image'] and ('Sketch', methodname) in self._data:
-                raw_docstring = self._data[('Sketch', methodname)]
+                raw_value = self._data[('Sketch', methodname)]
             elif (clsname, methodname) == ('Py5Graphics', 'mask'):
-                raw_docstring = self._data[('Py5Image', methodname)]
+                raw_value = self._data[('Py5Image', methodname)]
             else:
-                raw_docstring = 'missing docstring'
-                logger.warning(f'missing docstring: {clsname}.{methodname}')
+                raise RuntimeError(f'missing template mapping: {item}')
 
-        doc = textwrap.indent(
-            raw_docstring,
+        value = textwrap.indent(
+            raw_value,
             prefix=(' ' * TemplateMapping.INDENTING.get(kind, 0))).strip()
-        return doc
+        return value
