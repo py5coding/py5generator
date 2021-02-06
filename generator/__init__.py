@@ -18,7 +18,7 @@
 #
 # *****************************************************************************
 from .util import CodeCopier  # noqa
-from .docstrings import TemplateMapping  # noqa
+from .mapping import TemplateMapping  # noqa
 from . import reference  # noqa
 from .codebuilder import CodeBuilder  # noqa
 from . import templates  # noqa
