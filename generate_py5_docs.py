@@ -221,6 +221,7 @@ def compare_files(old_filename, new_content):
     except FileNotFoundError:
         return False
 
+
 def write_category_heading(f, catname, subcategory=False):
     if catname in CATEGORY_LOOKUP:
         catname = CATEGORY_LOOKUP[catname]
@@ -228,6 +229,25 @@ def write_category_heading(f, catname, subcategory=False):
         catname = ' '.join([w.capitalize() for w in catname.split('_')])
     char = '-' if subcategory else '='
     f.write(f'\n{catname}\n{char * len(catname)}\n')
+
+
+def magic_help_strings(program_name, argument_data):
+    argument_args = []
+    for datum in argument_data:
+        arg_str, *help = datum.split('\n', maxsplit=1)
+        args, kwargs = eval(f"(lambda *args, **kwargs: (args, kwargs))({arg_str})")
+        if help:
+            kwargs['help'] = help[0]
+        argument_args.append((args, kwargs))
+
+    parser = argparse.ArgumentParser(prog=program_name, add_help=False)
+    for args, kwargs in argument_args:
+        parser.add_argument(*args, **kwargs)
+
+    usage = parser.format_usage()
+    arguments = parser.format_help()[len(usage):].strip()
+
+    return usage, arguments
 
 
 ###############################################################################
