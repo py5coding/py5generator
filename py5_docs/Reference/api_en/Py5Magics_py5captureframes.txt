@@ -4,6 +4,16 @@ type = line magic
 category = None
 subcategory = None
 
+@@ arguments
+'count', type=int
+number of Sketch snapshots to capture
+
+'-w', '--wait', type=float, dest='wait', default=0.0
+wait time in seconds before starting sketch frame capture
+
+'-p', '--period', type=float, dest='period', default=0.0
+time in seconds between Sketch snapshots (default 0 means no delay)
+
 @@ description
 Capture frames from the currently running sketch.
 

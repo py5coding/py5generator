@@ -303,15 +303,9 @@ class Py5Magics(Magics):
 
     @line_magic
     @magic_arguments()
-    @argument('filename', type=str, help='filename of GIF to create')
-    @argument('count', type=int, help='number of Sketch snapshots to create')
-    @argument('period', type=float, help='time in seconds between Sketch snapshots')
-    @argument('duration', type=float, help='time in seconds between frames in the GIF')
-    @argument('-w', '--wait', type=float, dest='wait', default=0.0,
-              help='wait time in seconds before starting sketch frame capture')
-    @argument('-l', '--loop', dest='loop', type=int, default=0,
-              help='number of times for the GIF to loop (default of 0 loops indefinitely)')
-    @argument('--optimize', action='store_true', help='optimize GIF palette')
+    @argument(""" DELETE
+    $arguments_Py5Magics_py5animatedgif_arguments
+    """) # DELETE
     def py5animatedgif(self, line):
         """$class_Py5Magics_py5animatedgif"""
         args = parse_argstring(self.py5animatedgif, line)
@@ -350,11 +344,9 @@ class Py5Magics(Magics):
 
     @line_magic
     @magic_arguments()
-    @argument('count', type=int, help='number of Sketch snapshots to capture')
-    @argument('-w', '--wait', type=float, dest='wait', default=0.0,
-              help='wait time in seconds before starting sketch frame capture')
-    @argument('-p', '--period', type=float, dest='period', default=0.0,
-              help='time in seconds between Sketch snapshots (default 0 means no delay)')
+    @argument(""" DELETE
+    $arguments_Py5Magics_py5captureframes_arguments
+    """) # DELETE
     def py5captureframes(self, line):
         """$class_Py5Magics_py5captureframes"""
         args = parse_argstring(self.py5captureframes, line)
