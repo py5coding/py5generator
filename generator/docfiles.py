@@ -61,8 +61,7 @@ class Documentation:
                     f.write(f'{var} - {desc}\n')
             if self.arguments:
                 f.write('\n@@ arguments\n')
-                for argument in self.arguments:
-                    f.write(f'{argument}\n')
+                f.write('\n\n'.join(self.arguments) + '\n')
             f.write('\n@@ description\n')
             f.write(f'{self.description}\n')
             for image, code in self.examples:
@@ -81,7 +80,7 @@ class Documentation:
                 var_desc = [var.split('-', 1) for var in content.strip().split('\n')]
                 self.variables.update({k.strip(): v.strip() for k, v in var_desc})
             elif kind == 'arguments':
-                self.arguments.extend(content.strip().split('\n'))
+                self.arguments.extend(content.strip().split('\n\n'))
             elif kind == 'example':
                 if m := CODE_REGEX.match(content.strip()):
                     self.examples.append(m.groups())
