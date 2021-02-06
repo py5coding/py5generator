@@ -80,8 +80,8 @@ def decorator_helper(datum):
     return arg_str + f", help={shlex.quote(help[0])}" if help else arg_str
 
 
-def prepare_docstrings(method_signatures_lookup):
-    docstrings = {}
+def prepare_mapping(method_signatures_lookup):
+    mapping = {}
     for docfile in sorted(PY5_API_EN.glob('*.txt')):
         key = docfile.stem
         tuple_key = tuple(key.split('_', maxsplit=1))
@@ -95,9 +95,8 @@ def prepare_docstrings(method_signatures_lookup):
         first_sentence = textwrap.fill(first_sentence, 80)
         if item_type in ['line magic', 'cell magic']:
             arg_decorators = '\n'.join(f'@argument({decorator_helper(d)})' for d in doc.arguments)
-            docstrings[(tuple_key[0], f'{tuple_key[1]}_arguments')] = arg_decorators
+            mapping[(tuple_key[0], f'{tuple_key[1]}_arguments')] = arg_decorators
             # TODO: move each magic's argument parameters to docfiles
-            # TODO: rename this file since it isn't just docstrings anymore
             # TODO: in generate_py5_docs, build description by generating usage and argument info with argparse
             # learn from https://github.com/ipython/ipython/blob/master/IPython/core/magic_arguments.py
             # and https://pymotw.com/3/argparse/index.html
@@ -156,17 +155,17 @@ def prepare_docstrings(method_signatures_lookup):
         # write the documentation information back to the original file
         doc.write(PY5_API_EN / docfile.name)
 
-        docstrings[tuple_key] = docstring
+        mapping[tuple_key] = docstring
 
-    return docstrings
+    return mapping
 
 
-class DocstringFinder:
+class TemplateMapping:
 
     INDENTING = {'class': 8, 'module': 4, 'classdoc': 4, 'arguments': 4}
 
     def __init__(self, method_signatures_lookup):
-        self._data = prepare_docstrings(method_signatures_lookup)
+        self._data = prepare_mapping(method_signatures_lookup)
 
     def __getitem__(self, item):
         if item.startswith('classdoc'):
@@ -190,5 +189,5 @@ class DocstringFinder:
 
         doc = textwrap.indent(
             raw_docstring,
-            prefix=(' ' * DocstringFinder.INDENTING.get(kind, 0))).strip()
+            prefix=(' ' * TemplateMapping.INDENTING.get(kind, 0))).strip()
         return doc
