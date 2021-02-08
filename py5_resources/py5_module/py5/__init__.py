@@ -83,11 +83,9 @@ def run_sketch(block: bool = None,
     if block is None:
         block = not _in_ipython_session
 
-    try:
-        {run_sketch_pre_run_code}
-    except NameError:
-        # these variables might have already been removed
-        pass
+    for dvar in reference.PY5_DYNAMIC_VARIABLES:
+        if dvar in globals():
+            globals().pop(dvar)
 
     function_dict = inspect.stack()[1].frame.f_locals
     methods = dict([(e, function_dict[e]) for e in reference.METHODS if e in function_dict and callable(function_dict[e])])

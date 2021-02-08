@@ -51,10 +51,6 @@ CLASS_PROPERTY_TEMPLATE = """
     {1}: {2} = property(fget=_get_{1})
 """
 
-MODULE_PROPERTY_PRE_RUN_TEMPLATE = """
-        global {0}
-        del {0}"""
-
 
 ###############################################################################
 # CLASS METHODS

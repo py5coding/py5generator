@@ -100,11 +100,6 @@ def generate_py5(repo_dir, build_dir):
         py5applet_builder.code_extra('Sketch', filename)
     py5applet_builder.code_extra('Sketch', Path('py5_resources', 'py5_module', 'py5', 'sketch.py'))
 
-    # code the extra pre-run steps so the dynamic variables work right
-    run_sketch_pre_run_steps = [
-        templ.MODULE_PROPERTY_PRE_RUN_TEMPLATE.format(n) for n in sorted(py5applet_builder.dynamic_variable_names)
-    ]
-
     def run_code_builder(name, clsname, class_name=None):
         logger.info(f'creating {name} code')
         class_name = class_name or clsname.split('.')[-1]
@@ -133,7 +128,6 @@ def generate_py5(repo_dir, build_dir):
     py5surface_class_members_code = ''.join(py5surface_builder.class_members)
     py5graphics_class_members_code = ''.join(py5graphics_builder.class_members)
     py5image_class_members_code = ''.join(py5image_builder.class_members)
-    run_sketch_pre_run_code = ''.join(run_sketch_pre_run_steps)
 
     # gather method_signatures info so they can be added to the docstrings
     method_signatures_lookup = {
@@ -152,7 +146,7 @@ def generate_py5(repo_dir, build_dir):
     py5_dir_str = str(sorted(py5_dir_names, key=lambda x: (x.lower(), x)))[1:-1].replace(', ', ',\n    ')
     # don't want import * to import the dynamic variables because they cannot be updated
     py5_all_str = str(sorted(py5_dir_names - py5applet_builder.dynamic_variable_names, key=lambda x: (x.lower(), x)))[1:-1].replace(', ', ',\n    ')
-    py5_dynamic_variables_str = str(sorted(py5applet_builder.dynamic_variable_names))
+    py5_dynamic_variables_str = str(sorted(py5applet_builder.dynamic_variable_names))[1:-1].replace(', ', ',\n    ')
 
     def build_signatures(v):
         return [f"({', '.join(params)}) -> {rettype}" for params, rettype in v]
@@ -169,7 +163,6 @@ def generate_py5(repo_dir, build_dir):
                          py5graphics_class_members_code=py5graphics_class_members_code,
                          py5image_class_members_code=py5image_class_members_code,
                          method_signatures_lookup_str=method_signatures_lookup_str,
-                         run_sketch_pre_run_code=run_sketch_pre_run_code,
                          py5_dir_str=py5_dir_str,
                          py5_all_str=py5_all_str,
                          py5_dynamic_variables_str=py5_dynamic_variables_str)

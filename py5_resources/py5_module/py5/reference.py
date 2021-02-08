@@ -23,6 +23,7 @@
 method_signatures_lookup_str = None  # DELETE
 py5_dir_str = None  # DELETE
 py5_all_str = None  # DELETE
+py5_dynamic_variables_str = None  # DELETE
 
 
 METHODS = [
@@ -57,4 +58,8 @@ PY5_DIR_STR = [
 
 PY5_ALL_STR = [
     {py5_all_str}
+]
+
+PY5_DYNAMIC_VARIABLES = [
+    {py5_dynamic_variables_str}
 ]
