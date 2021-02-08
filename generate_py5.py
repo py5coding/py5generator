@@ -55,6 +55,9 @@ def generate_py5(repo_dir, build_dir, skip_autopep8=False):
     repo_dir = Path(repo_dir)
     build_dir = Path(build_dir)
 
+    if skip_autopep8:
+        logger.warning('skipping autopep8 formatting')
+
     logger.info('generating py5 library...')
 
     logger.info('building classpath')
