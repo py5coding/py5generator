@@ -182,15 +182,14 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     # *** BEGIN METHODS ***
 
-    @property
-    def is_ready(self) -> bool:
+    def _get_is_ready(self) -> bool:
         """$class_Sketch_is_ready"""
         surface = self.get_surface()
         # if there is no surface yet, the sketch can be run.
         return surface._instance is None
+    is_ready: bool = property(fget=_get_is_ready)
 
-    @property
-    def is_running(self) -> bool:
+    def _get_is_running(self) -> bool:
         """$class_Sketch_is_running"""
         surface = self.get_surface()
         if surface._instance is None:
@@ -198,20 +197,21 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             return False
         else:
             return not surface.is_stopped()
+    is_running: bool = property(fget=_get_is_running)
 
-    @property
-    def is_dead(self) -> bool:
+    def _get_is_dead(self) -> bool:
         """$class_Sketch_is_dead"""
         surface = self.get_surface()
         if surface._instance is None:
             # Sketch has not been run yet
             return False
         return surface.is_stopped()
+    is_dead: bool = property(fget=_get_is_dead)
 
-    @property
-    def is_dead_from_error(self) -> bool:
+    def _get_is_dead_from_error(self) -> bool:
         """$class_Sketch_is_dead_from_error"""
         return self.is_dead and not self._instance.getSuccess()
+    is_dead_from_error: bool = property(fget=_get_is_dead_from_error)
 
     def hot_reload_draw(self, draw: Callable) -> None:
         """$class_Sketch_hot_reload_draw"""
