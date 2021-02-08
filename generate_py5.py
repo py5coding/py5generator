@@ -43,14 +43,14 @@ logger = logging.getLogger(__name__)
 parser = argparse.ArgumentParser(description="Generate py5 library using processing jars")
 parser.add_argument('processing_repo_dir', action='store', help='location of processing code (github repository)')
 parser.add_argument('processing_build_dir', action='store', help='location of build directory')
-
+parser.add_argument('--skip_autopep8', action='store_true', default=False, help='skip autopep8 formatting of output')
 
 ###############################################################################
 # MAIN
 ###############################################################################
 
 
-def generate_py5(repo_dir, build_dir):
+def generate_py5(repo_dir, build_dir, skip_autopep8=False):
     "Generate an installable py5 library using processing jars"
     repo_dir = Path(repo_dir)
     build_dir = Path(build_dir)
@@ -184,7 +184,7 @@ def generate_py5(repo_dir, build_dir):
 
     # as the code is copied, the code strings and docstrings will be assembled
     # CodeCopier is callable and is basically a custom version of `shutil.copy`
-    copier = CodeCopier(format_params, docstrings)
+    copier = CodeCopier(format_params, docstrings, skip_autopep8)
     try:
         shutil.copytree(Path('py5_resources', 'py5_module'), build_dir, copy_function=copier, dirs_exist_ok=True)
     except shutil.Error:
@@ -210,7 +210,7 @@ def generate_py5(repo_dir, build_dir):
 
 def main():
     args = parser.parse_args()
-    generate_py5(args.processing_repo_dir, args.processing_build_dir)
+    generate_py5(args.processing_repo_dir, args.processing_build_dir, args.skip_autopep8)
 
 
 if __name__ == '__main__':
