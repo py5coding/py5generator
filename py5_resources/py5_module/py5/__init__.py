@@ -75,7 +75,8 @@ _py5sketch = Sketch()
 
 def run_sketch(block: bool = None,
                py5_options: List = None,
-               sketch_args: List = None) -> None:
+               sketch_args: List = None, *,
+               _import_star = False) -> None:
     """$module_Sketch_run_sketch"""
     # Before running the sketch, delete the module fields that need to be kept
     # uptodate. This will allow the module `__getattr__` function return the
@@ -83,12 +84,8 @@ def run_sketch(block: bool = None,
     if block is None:
         block = not _in_ipython_session
 
-    for dvar in reference.PY5_DYNAMIC_VARIABLES:
-        if dvar in globals():
-            globals().pop(dvar)
-
-    function_dict = inspect.stack()[1].frame.f_locals
-    methods = dict([(e, function_dict[e]) for e in reference.METHODS if e in function_dict and callable(function_dict[e])])
+    caller_locals = inspect.stack()[1].frame.f_locals
+    methods = dict([(e, caller_locals[e]) for e in reference.METHODS if e in caller_locals and callable(caller_locals[e])])
 
     if not set(methods.keys()) & set(['settings', 'setup', 'draw']):
         print(("Unable to find settings, setup, or draw functions. "
@@ -103,6 +100,12 @@ def run_sketch(block: bool = None,
         return
     if _py5sketch.is_dead:
         _py5sketch = Sketch()
+
+    for dvar in reference.PY5_DYNAMIC_VARIABLES:
+        if _import_star:
+            caller_locals[dvar] = getattr(_py5sketch, '_get_' + dvar)
+        elif dvar in globals():
+            globals().pop(dvar)
 
     _py5sketch._run_sketch(methods, block, py5_options, sketch_args)
 

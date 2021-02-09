@@ -17,7 +17,7 @@ save image to file
 '-v', '--var', dest='variable'
 assign image to variable
 
-'-r', '--renderer', type=str, dest='renderer', default='HIDDEN=asdf'
+'-r', '--renderer', type=str, dest='renderer', default='HIDDEN'
 processing renderer to use for sketch
 
 '--unsafe', dest='unsafe', action='store_true'
