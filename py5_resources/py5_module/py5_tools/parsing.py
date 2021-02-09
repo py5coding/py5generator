@@ -69,14 +69,14 @@ class ReservedWordsValidation(ast.NodeVisitor):
 
 
 def check_reserved_words(code_ast: ast.Module):
-    import py5
-    reserved_words = [*py5.reference.PY5_ALL_STR, *py5.reference.PY5_DYNAMIC_VARIABLES]
+    import py5.reference as ref
+    reserved_words = [*ref.PY5_ALL_STR, *ref.PY5_DYNAMIC_VARIABLES]
     validator = ReservedWordsValidation(reserved_words)
     validator.visit(code_ast)
     return validator.problems
 
 
 def transform_py5_code(code_ast: ast.Module):
-    import py5
-    transformer = TransformDynamicVariablesToCalls(py5.reference.PY5_DYNAMIC_VARIABLES)
+    import py5.reference as ref
+    transformer = TransformDynamicVariablesToCalls(ref.PY5_DYNAMIC_VARIABLES)
     return ast.fix_missing_locations(transformer.visit(code_ast))
