@@ -75,9 +75,9 @@ class Documentation:
             if kind == 'meta':
                 self.meta = dict(META_REGEX.findall(content))
             elif kind == 'signatures':
-                self.signatures.extend(content.strip().split('\n'))
+                self.signatures.extend(content.strip().splitlines())
             elif kind == 'variables':
-                var_desc = [var.split('-', 1) for var in content.strip().split('\n')]
+                var_desc = [var.split('-', 1) for var in content.strip().splitlines()]
                 self.variables.update({k.strip(): v.strip() for k, v in var_desc})
             elif kind == 'arguments':
                 self.arguments.extend(content.strip().split('\n\n'))

@@ -91,7 +91,7 @@ def prepare_mapping(method_signatures_lookup):
         description = doc.description.strip()
         m = FIRST_SENTENCE_REGEX.match(description)
         first_sentence = m.group() if m else description
-        description = '\n'.join([textwrap.fill(d, 80) for d in description.split('\n')])
+        description = '\n'.join([textwrap.fill(d, 80) for d in description.splitlines()])
         first_sentence = textwrap.fill(first_sentence, 80)
         if item_type in ['line magic', 'cell magic']:
             arg_decorators = '\n'.join(f'@argument({decorator_helper(d)})' for d in doc.arguments)

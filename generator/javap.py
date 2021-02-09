@@ -45,7 +45,7 @@ def process_block(block, is_interface):
 
         paramnames = []
         if 'LocalVariableTable' in block:
-            var_table = block.split('LocalVariableTable:\n')[1].strip().split('\n')[1:]
+            var_table = block.split('LocalVariableTable:\n')[1].strip().splitlines()[1:]
             paramnames = [t[3] for t in [v.split() for v in var_table] if t[0] == '0']
             if not static:
                 paramnames = paramnames[1:]
