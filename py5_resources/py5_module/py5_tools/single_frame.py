@@ -24,10 +24,6 @@ import textwrap
 from . import utils
 
 
-# TODO: this code is only used by magics.py, but perhaps should be used to
-# execute reference documentation example code. at least rename the file to
-# something else.
-
 _CODE_FRAMEWORK = """
 import py5
 
@@ -43,8 +39,6 @@ if {1} and py5.is_dead_from_error:
 
 
 _STANDARD_CODE_TEMPLATE = """
-import py5
-
 def settings():
     py5.size({0}, {1}, py5.{2})
 
@@ -57,9 +51,7 @@ def setup():
 """
 
 
-_ALT_CODE_TEMPLATE = """
-import py5
-
+_SAVE_OUTPUT_CODE_TEMPLATE = """
 def settings():
     py5.size({0}, {1}, py5.{2}, "{3}")
 
@@ -72,8 +64,6 @@ def setup():
 
 
 _DXF_CODE_TEMPLATE = """
-import py5
-
 def settings():
     py5.size({0}, {1}, py5.P3D)
 
@@ -90,11 +80,11 @@ def setup():
 
 def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
     if renderer == 'SVG':
-        template = _ALT_CODE_TEMPLATE
+        template = _SAVE_OUTPUT_CODE_TEMPLATE
         suffix = '.svg'
         read_mode = 'r'
     elif renderer == 'PDF':
-        template = _ALT_CODE_TEMPLATE
+        template = _SAVE_OUTPUT_CODE_TEMPLATE
         suffix = '.pdf'
         read_mode = 'rb'
     elif renderer == 'DXF':

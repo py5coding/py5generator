@@ -29,7 +29,7 @@ from IPython.core.magic_arguments import MagicHelpFormatter, parse_argstring, ar
 
 import PIL
 
-from .run import run_single_frame_sketch
+from .single_frame import run_single_frame_sketch
 
 
 class CellMagicHelpFormatter(MagicHelpFormatter):

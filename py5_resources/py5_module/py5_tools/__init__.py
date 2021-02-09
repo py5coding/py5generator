@@ -19,7 +19,7 @@
 # *****************************************************************************
 from .jvm import *  # noqa
 from .libraries import *  # noqa
-from .run import *  # noqa
+from .single_frame import *  # noqa
 from .utilities import *  # noqa
 from .condensed import *  # noqa
 
