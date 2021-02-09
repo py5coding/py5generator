@@ -173,8 +173,10 @@ def run_sketch(sketch_path, classpath=None, new_process=False, exit_if_error=Fal
             jvm.add_jars(sketch_path.parent / 'jars')
 
         import py5
-        if not py5.get_current_sketch().is_ready:
-            py5.reset_py5()
+        if py5.get_current_sketch().is_running:
+            print('You must exit the currently running sketch before running another sketch.')
+            return None
+
         sys.path.extend([str(sketch_path.absolute().parent), os.getcwd()])
         py5_ns = dict()
         py5_ns.update(py5.__dict__)
@@ -210,8 +212,9 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
         read_mode = 'rb'
 
     import py5
-    if not py5.get_current_sketch().is_ready:
-        py5.reset_py5()
+    if py5.get_current_sketch().is_running:
+        print('You must exit the currently running sketch before running another sketch.')
+        return None
 
     if safe_exec:
         prepared_code = textwrap.indent(code, '    ')
@@ -236,8 +239,6 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
                 result = f.read()
         else:
             result = None
-
-    py5.reset_py5()
 
     if not safe_exec:
         del user_ns['_py5_user_ns']

@@ -112,12 +112,6 @@ def get_current_sketch() -> Sketch:
     return _py5sketch
 
 
-def reset_py5() -> None:
-    """$module_Py5Functions_reset_py5"""
-    global _py5sketch
-    _py5sketch = Sketch()
-
-
 def prune_tracebacks(prune: bool) -> None:
     """$module_Py5Functions_prune_tracebacks"""
     from . import methods
