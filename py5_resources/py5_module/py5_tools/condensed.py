@@ -122,7 +122,6 @@ def run_code(sketch_path, classpath=None, new_process=False, exit_if_error=False
 
         sketch_compiled = compile(parsing.transform_py5_code(sketch_ast), filename=sketch_path, mode='exec')
 
-        # TODO: I don't think this does anything
         sys.path.extend([str(sketch_path.absolute().parent), os.getcwd()])
         py5_ns = dict()
         py5_ns.update(py5.__dict__)
