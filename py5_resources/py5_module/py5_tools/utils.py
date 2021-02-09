@@ -17,10 +17,10 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-# *** FORMAT PARAMS ***
+import re
 
-py5_dynamic_variables_str = None  # DELETE
-
-UPDATE_DYNAMIC_VARIABLES = [
-    {py5_dynamic_variables_str}
-]
+def fix_triple_quote_str(code):
+    for m in re.finditer(r'\"\"\"[^\"]*\"\"\"', code):
+        code = code.replace(
+            m.group(), m.group().replace('\n    ', '\n'))
+    return code
