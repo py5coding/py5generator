@@ -30,6 +30,7 @@ from . import utils
 from . import parsing
 
 
+# TODO: this import_star parameter is awkward and won't work right in the py5 kernel
 _CODE_FRAMEWORK = """
 {0}
 

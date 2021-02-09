@@ -102,10 +102,10 @@ def run_sketch(block: bool = None,
         _py5sketch = Sketch()
 
     for dvar in reference.PY5_DYNAMIC_VARIABLES:
+        if dvar in globals():
+            globals().pop(dvar)
         if _import_star:
             caller_locals[dvar] = getattr(_py5sketch, '_get_' + dvar)
-        elif dvar in globals():
-            globals().pop(dvar)
 
     _py5sketch._run_sketch(methods, block, py5_options, sketch_args)
 
