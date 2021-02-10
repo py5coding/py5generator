@@ -82,10 +82,9 @@ for docfile in sorted(PY5_API_EN.glob('*.txt')):
             parsing_errors += 1
             print('=' * 40)
             print(f'parsing error in file {docfile}')
+            print(e)
             print('-' * 20)
             print(new_code)
-            print('-' * 20)
-            print(e)
 
     doc.examples = new_examples
     doc.write(docfile)
