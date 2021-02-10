@@ -30,7 +30,7 @@ from . import utils
 from . import parsing
 
 
-# TODO: this import_star parameter is awkward and won't work right in the py5 kernel
+# TODO: this import_star parameter is awkward and won't work the way I want in the py5 kernel
 _CODE_FRAMEWORK = """
 {0}
 
@@ -105,7 +105,7 @@ def run_code(sketch_path, classpath=None, new_process=False, exit_if_error=False
             jvm.add_jars(sketch_path.parent / 'jars')
 
         import py5
-        if py5.get_current_sketch().is_running:
+        if py5.is_running:
             print('You must exit the currently running sketch before running another sketch.')
             return None
 
