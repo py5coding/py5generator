@@ -40,7 +40,7 @@ logger = logging.getLogger(__name__)
 
 
 CONSTANT_REGEX = re.compile(r'^\s*([A-Z_]*)\s*=\s*(.*?)\s+# CODEBUILDER INCLUDE$', re.MULTILINE)
-METHOD_REGEX = re.compile(r'(@\w+)?\s*def (.*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):$', re.MULTILINE | re.DOTALL)
+METHOD_REGEX = re.compile(r'(@\w+)?\s*def (.*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):\s*(# @decorator)?$', re.MULTILINE | re.DOTALL)
 TYPEHINT_COMMA_REGEX = re.compile(r'(\[[\w\s,]+\])')
 COMMA_REGEX = re.compile(r',\s*(?!\s*\w+\])')
 
@@ -266,8 +266,8 @@ class CodeBuilder:
         overloaded = set()
         self.module_members.append(f'\n{"#" * 78}\n# module functions from {filename.name}\n{"#" * 78}\n')
         method_code = code.split('*** BEGIN METHODS ***')[1].strip()
-        for decorator, fname, arg0, args, rettypestr in METHOD_REGEX.findall(method_code):
-            if fname.startswith('_'):
+        for decorator, fname, arg0, args, rettypestr, fake_decorator in METHOD_REGEX.findall(method_code):
+            if fname.startswith('_') and not fake_decorator:
                 continue
             elif decorator == '@overload':
                 overloaded.add((class_name, fname))
@@ -280,6 +280,11 @@ class CodeBuilder:
                     templ.MODULE_PROPERTY_TEMPLATE.format(fname, rettypestr)
                 )
                 self.dynamic_variable_names.add(fname)
+            elif fake_decorator == '# @decorator' and fname.startswith('_get_'):
+                self.module_members.append(
+                    templ.MODULE_PROPERTY_TEMPLATE.format(fname[5:], rettypestr)
+                )
+                self.dynamic_variable_names.add(fname[5:])
             else:
                 split_args = COMMA_REGEX.split(args) if args else []
                 split_args = [a.replace('*', '').strip() for a in split_args]

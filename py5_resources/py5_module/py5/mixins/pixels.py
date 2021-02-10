@@ -60,7 +60,7 @@ class PixelMixin:
         self._java_bb.asIntBuffer().get(self._instance.pixels)
         self._instance.updatePixels()
 
-    def _get_np_pixels(self) -> np.ndarray:
+    def _get_np_pixels(self) -> np.ndarray:  # @decorator
         """$class_Sketch_np_pixels"""
         return self._np_pixels
     np_pixels: np.ndarray = property(fget=_get_np_pixels)
