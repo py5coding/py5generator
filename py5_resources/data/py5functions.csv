@@ -1,5 +1,6 @@
 py5_name,processing_name,decorator,type,category,subcategory,implementation,comments
 get_current_sketch,,,function,structure,,PYTHON,__init__
+reset_py5,,,function,structure,,PYTHON,__init__
 prune_tracebacks,,,function,structure,,PYTHON,__init__
 set_stackprinter_style,,,function,structure,,PYTHON,__init__
 create_font_file,,,function,typography,,PYTHON,create_font_tool

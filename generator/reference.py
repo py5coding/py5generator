@@ -66,7 +66,7 @@ JTYPE_CONVERSIONS = {
 }
 
 EXTRA_DIR_NAMES = {
-    'run_sketch', 'get_current_sketch',
+    'run_sketch', 'get_current_sketch', 'reset_py5',
     'JClass', 'Sketch', 'Py5Font', 'Py5Graphics', 'Py5Image',
     'Py5Surface', 'Py5Shader', 'Py5Shape',
     'prune_tracebacks', 'set_stackprinter_style',
@@ -86,6 +86,7 @@ EXTRA_METHOD_SIGNATURES = {
           'characters: str = None', 'pause: bool = True'], 'None')
     ],
     ('Py5Functions', 'get_current_sketch'): [([], 'Sketch')],
+    ('Py5Functions', 'reset_py5'): [([], 'bool')],
     ('Py5Functions', 'prune_tracebacks'): [(['prune: bool'], 'None')],
     ('Py5Functions', 'set_stackprinter_style'): [(['style: str'], 'None')],
     ('Py5Functions', 'render_frame'): [

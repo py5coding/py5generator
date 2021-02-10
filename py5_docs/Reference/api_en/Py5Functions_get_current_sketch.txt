@@ -8,4 +8,14 @@ subcategory = None
 get_current_sketch() -> Sketch
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Get the py5 module's current ``Sketch`` instance.
+
+When coding py5 in module mode, a Sketch instance is created on your behalf that is referenced within the py5 module itself. That Sketch is called the "current sketch." Use this method to access that Sketch instance directly.
+
+@@ example
+sketch = py5.get_current_sketch()
+assert sketch.is_ready
+py5.run_sketch()
+assert sketch.is_running
+py5.exit_sketch()
+assert sketch.is_dead
