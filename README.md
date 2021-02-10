@@ -2,7 +2,7 @@
 
 ![py5 PyPI Downloads](https://img.shields.io/pypi/dm/py5?label=py5%20PyPI%20downloads)
 
-py5 is a new version of Processing_ for Python 3.8+.
+py5 is a new version of [**Processing**][processing] for Python 3.8+.
 
 py5generator is a meta-programming project that creates py5.
 
