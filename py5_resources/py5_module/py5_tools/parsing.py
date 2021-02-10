@@ -70,8 +70,7 @@ class ReservedWordsValidation(ast.NodeVisitor):
 
 def check_reserved_words(code_ast: ast.Module):
     import py5.reference as ref
-    reserved_words = [*ref.PY5_ALL_STR, *ref.PY5_DYNAMIC_VARIABLES]
-    validator = ReservedWordsValidation(reserved_words)
+    validator = ReservedWordsValidation(ref.PY5_DIR_STR)
     validator.visit(code_ast)
     return validator.problems
 
