@@ -17,6 +17,7 @@
 #   with this program. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+import ast
 import shlex
 from io import StringIO
 from pathlib import Path
@@ -60,14 +61,33 @@ def convert_to_module_mode(code):
     return out.getvalue()
 
 
+parsing_errors = 0
 for docfile in sorted(PY5_API_EN.glob('*.txt')):
     doc = Documentation(docfile)
-    if doc.meta['type'] == 'function':
+
+    if doc.meta['type'] in ['function', 'magic']:
+        # skip these because I know I wrote them in module mode
         print(f'skipping {docfile}')
         continue
+
     new_examples = []
     for image, code in doc.examples:
         new_code = convert_to_module_mode(code)
         new_examples.append((image, new_code))
+
+        # quick check for parsing errors
+        try:
+            ast.parse(new_code)
+        except Exception as e:
+            parsing_errors += 1
+            print('=' * 40)
+            print(f'parsing error in file {docfile}')
+            print('-' * 20)
+            print(new_code)
+            print('-' * 20)
+            print(e)
+
     doc.examples = new_examples
     doc.write(docfile)
+
+print(f'there were {parsing_errors} parsing errors.')
