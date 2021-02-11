@@ -137,3 +137,6 @@ def generate_utilities_framework(output_dir=None, jars_dir=None):
     src_dir.mkdir(parents=True, exist_ok=True)
     with open(src_dir / 'Py5Utilities.java', 'w') as f:
         f.write(PY5_UTILITIES_CLASS)
+
+
+__all__ = ['generate_utilities_framework']

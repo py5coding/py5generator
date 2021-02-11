@@ -21,7 +21,6 @@ from .jvm import *  # noqa
 from .libraries import *  # noqa
 from .single_frame import *  # noqa
 from .utilities import *  # noqa
-from .condensed import *  # noqa
 
 
 __version__ = '0.3a6.dev0'

@@ -21,7 +21,7 @@ from pathlib import Path
 import tempfile
 import textwrap
 
-from . import utils
+from .util import fix_triple_quote_str
 
 
 _CODE_FRAMEWORK = """
@@ -103,7 +103,7 @@ def run_single_frame_sketch(renderer, code, width, height, user_ns, safe_exec):
 
     if safe_exec:
         prepared_code = textwrap.indent(code, '    ')
-        prepared_code = utils.fix_triple_quote_str(prepared_code)
+        prepared_code = fix_triple_quote_str(prepared_code)
     else:
         user_ns['_py5_user_ns'] = user_ns
         code = code.replace('"""', r'\"\"\"')

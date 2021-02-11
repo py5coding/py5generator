@@ -74,7 +74,7 @@ class Py5Cmd(cmd.Cmd):
         if line:
             try:
                 new_process = platform.system() != 'Windows'
-                p = py5_tools.run.run_sketch(line, new_process=new_process)
+                p = py5_tools.condensed.run_code(line, new_process=new_process)
                 self._running_sketches.append(p)
             except Exception as e:
                 print(e)
