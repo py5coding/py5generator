@@ -19,11 +19,14 @@
 # *****************************************************************************
 import ast
 import shlex
+import autopep8
 from io import StringIO
 from pathlib import Path
 
 from generator.docfiles import Documentation
 import py5.reference as ref
+from py5_tools import parsing
+
 
 PY5_API_EN = Path('py5_docs/Reference/api_en/')
 
@@ -32,7 +35,8 @@ def convert_to_module_mode(code):
     """convert imported mode code to module mode code.
 
     not guaranteed to work for all inputs. will not properly handle
-    multi-line strings.
+    multi-line strings. still, it works better than what I came up
+    with using tokenize.
     """
     tokens = shlex.shlex(code)
     tokens.whitespace = ''
@@ -61,25 +65,42 @@ def convert_to_module_mode(code):
     return out.getvalue()
 
 
-parsing_errors = 0
+py5_reserved_word_errors = 0
+ast_syntax_errors = 0
 for docfile in sorted(PY5_API_EN.glob('*.txt')):
     doc = Documentation(docfile)
 
+    # skip these because I know I wrote them correctly in module mode
     if doc.meta['type'] in ['function', 'magic']:
-        # skip these because I know I wrote them in module mode
         print(f'skipping {docfile}')
         continue
 
+    # convert and evaluate each example
     new_examples = []
     for image, code in doc.examples:
         new_code = convert_to_module_mode(code)
         new_examples.append((image, new_code))
 
-        # quick check for parsing errors
+        # check for parsing errors and other problems
         try:
+            # parse and check the original code, which is in imported mode
+            problems = parsing.check_reserved_words(ast.parse(code))
+            if problems:
+                py5_reserved_word_errors += 1
+                print('=' * 40)
+                print(f'py5 error in file {docfile}')
+                print(new_code)
+                print('-' * 20)
+                for p in problems:
+                    print(p.message(code))
+
+            # also try parsing the new code, since that will catch more errors
             ast.parse(new_code)
-        except Exception as e:
-            parsing_errors += 1
+
+            # use autopep8 to make output look good
+            # new_code = autopep8.fix_code(new_code, options={'aggressive': 2})
+        except SyntaxError as e:
+            ast_syntax_errors += 1
             print('=' * 40)
             print(f'parsing error in file {docfile}')
             print(e)
@@ -87,6 +108,8 @@ for docfile in sorted(PY5_API_EN.glob('*.txt')):
             print(new_code)
 
     doc.examples = new_examples
-    doc.write(docfile)
+    # doc.write(docfile)
 
-print(f'there were {parsing_errors} parsing errors.')
+print('=' * 40)
+print(f'there were {ast_syntax_errors} parsing errors.')
+print(f'there were {py5_reserved_word_errors} py5 reserved word errors.')
