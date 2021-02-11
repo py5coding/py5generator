@@ -26,7 +26,7 @@ import re
 import textwrap
 
 from . import jvm
-from . import utils
+from . import util
 from . import parsing
 
 
@@ -75,7 +75,7 @@ def prepare_code(code):
     if no_setup and no_draw:
         # put all of the remaining code into a setup function
         remaining_code = 'def setup():\n' + textwrap.indent(code, prefix='    ')
-        remaining_code = utils.fix_triple_quote_str(remaining_code)
+        remaining_code = util.fix_triple_quote_str(remaining_code)
     else:
         # remaining code has been modified with key lines moved from setup to settings
         remaining_code = code

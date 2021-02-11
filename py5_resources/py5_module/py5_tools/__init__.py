@@ -17,10 +17,13 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+from . import condensed  # noqa
 from .jvm import *  # noqa
 from .libraries import *  # noqa
-from .single_frame import *  # noqa
-from .utilities import *  # noqa
+from . import magics  # noqa
+from . import parsing  # noqa
+from . import single_frame  # noqa
+from . import utilities  # noqa
 
 
 __version__ = '0.3a6.dev0'
