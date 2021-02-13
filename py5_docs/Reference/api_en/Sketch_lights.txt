@@ -29,8 +29,12 @@ py5.sphere(30)
 @@ example
 image = Sketch_lights_1.png
 
-def setup():
+
+def settings():
     py5.size(100, 100, py5.P3D)
+
+
+def setup():
     py5.background(0)
     py5.no_stroke()
 

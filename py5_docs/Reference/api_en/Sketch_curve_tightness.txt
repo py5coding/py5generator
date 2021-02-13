@@ -18,8 +18,11 @@ Modifies the quality of forms created with ``curve()`` and ``curve_vertex()``. T
 @@ example
 # move the mouse left and right to see the curve change
 
-def setup():
+def settings():
     py5.size(100, 100)
+
+
+def setup():
     py5.no_fill()
 
 

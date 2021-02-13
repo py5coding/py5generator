@@ -18,7 +18,7 @@ renderer: str - rendering engine to use
 width: int - width of the display window in units of pixels
 
 @@ description
-Defines the dimension of the display window width and height in units of pixels. In a program that has the ``setup()`` function, the ``size()`` function must be the first line of code inside ``setup()``, and the ``setup()`` function must appear in the code tab with the same name as your sketch folder.
+Defines the dimension of the display window width and height in units of pixels. This must be called from the ``settings()`` function.
 
 The built-in variables ``width`` and ``height`` are set by the parameters passed to this function. For example, running ``size(640, 480)`` will assign 640 to the ``width`` variable and 480 to the height ``variable``. If ``size()`` is not used, the window will be given a default size of 100 x 100 pixels.
 
@@ -50,7 +50,7 @@ py5.background(153)
 py5.line(0, 0, py5.width, py5.height)
 
 @@ example
-def setup():
+def settings():
     py5.size(320, 240)
 
 
