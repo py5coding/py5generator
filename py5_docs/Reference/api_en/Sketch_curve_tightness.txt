@@ -24,7 +24,7 @@ def setup():
 
 def draw():
     py5.background(204)
-    t = map(py5.mouse_x, 0, py5.width, -5, 5)
+    t = py5.remap(py5.mouse_x, 0, py5.width, -5, 5)
     py5.curve_tightness(t)
     py5.begin_shape()
     py5.curve_vertex(10, 26)
