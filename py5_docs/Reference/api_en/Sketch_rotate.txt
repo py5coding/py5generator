@@ -26,6 +26,7 @@ Technically, ``rotate()`` multiplies the current transformation matrix by a rota
 @@ example
 image = Sketch_rotate_0.png
 
-py5.translate(py5.width//2, py5.height//2)
-py5.rotate(py5.PI/3.0)
-py5.rect(-26, -26, 52, 52)
+def setup():
+    py5.translate(py5.width//2, py5.height//2)
+    py5.rotate(py5.PI/3.0)
+    py5.rect(-26, -26, 52, 52)

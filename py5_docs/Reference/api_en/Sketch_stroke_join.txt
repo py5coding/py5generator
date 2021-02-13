@@ -18,35 +18,38 @@ Sets the style of the joints which connect line segments. These joints are eithe
 @@ example
 image = Sketch_stroke_join_0.png
 
-py5.no_fill()
-py5.stroke_weight(10.0)
-py5.stroke_join(py5.MITER)
-py5.begin_shape()
-py5.vertex(35, 20)
-py5.vertex(65, 50)
-py5.vertex(35, 80)
-py5.end_shape()
+def setup():
+    py5.no_fill()
+    py5.stroke_weight(10.0)
+    py5.stroke_join(py5.MITER)
+    py5.begin_shape()
+    py5.vertex(35, 20)
+    py5.vertex(65, 50)
+    py5.vertex(35, 80)
+    py5.end_shape()
 
 @@ example
 image = Sketch_stroke_join_1.png
 
-py5.no_fill()
-py5.stroke_weight(10.0)
-py5.stroke_join(py5.BEVEL)
-py5.begin_shape()
-py5.vertex(35, 20)
-py5.vertex(65, 50)
-py5.vertex(35, 80)
-py5.end_shape()
+def setup():
+    py5.no_fill()
+    py5.stroke_weight(10.0)
+    py5.stroke_join(py5.BEVEL)
+    py5.begin_shape()
+    py5.vertex(35, 20)
+    py5.vertex(65, 50)
+    py5.vertex(35, 80)
+    py5.end_shape()
 
 @@ example
 image = Sketch_stroke_join_2.png
 
-py5.no_fill()
-py5.stroke_weight(10.0)
-py5.stroke_join(py5.ROUND)
-py5.begin_shape()
-py5.vertex(35, 20)
-py5.vertex(65, 50)
-py5.vertex(35, 80)
-py5.end_shape()
+def setup():
+    py5.no_fill()
+    py5.stroke_weight(10.0)
+    py5.stroke_join(py5.ROUND)
+    py5.begin_shape()
+    py5.vertex(35, 20)
+    py5.vertex(65, 50)
+    py5.vertex(35, 80)
+    py5.end_shape()

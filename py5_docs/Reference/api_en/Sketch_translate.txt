@@ -23,25 +23,31 @@ Transformations are cumulative and apply to everything that happens after and su
 @@ example
 image = Sketch_translate_0.png
 
-py5.translate(30, 20)
-py5.rect(0, 0, 55, 55)
+def setup():
+    py5.translate(30, 20)
+    py5.rect(0, 0, 55, 55)
 
 @@ example
 image = Sketch_translate_1.png
 
-# translating in 3D requires P3D
-# as the parameter to size()
-py5.size(100, 100, py5.P3D)
-# translate 30 across, 20 down, and
-# 50 back, or "away" from_ the screen.
-py5.translate(30, 20, -50)
-py5.rect(0, 0, 55, 55)
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+
+def setup():
+    # translating in 3D requires P3D
+    # as the parameter to size()
+    # translate 30 across, 20 down, and
+    # 50 back, or "away" from_ the screen.
+    py5.translate(30, 20, -50)
+    py5.rect(0, 0, 55, 55)
 
 @@ example
 image = Sketch_translate_2.png
 
-py5.rect(0, 0, 55, 55)  # draw rect at original 0,0
-py5.translate(30, 20)
-py5.rect(0, 0, 55, 55)  # draw rect at new 0,0
-py5.translate(14, 14)
-py5.rect(0, 0, 55, 55)  # draw rect at new 0,0
+def setup():
+    py5.rect(0, 0, 55, 55)  # draw rect at original 0,0
+    py5.translate(30, 20)
+    py5.rect(0, 0, 55, 55)  # draw rect at new 0,0
+    py5.translate(14, 14)
+    py5.rect(0, 0, 55, 55)  # draw rect at new 0,0

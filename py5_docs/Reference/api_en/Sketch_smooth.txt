@@ -26,7 +26,6 @@ When ``smooth()`` is used with a ``Py5Graphics`` object, it should be run right 
 
 @@ example
 def settings():
-    py5.size(100, 100)
     py5.smooth(2)
 
 

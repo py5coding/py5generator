@@ -49,7 +49,6 @@ image = Py5Image_apply_filter_0.png
 def setup():
     global img1
     global img2
-    py5.size(100, 100)
     img1 = py5.load_image("apples.jpg")
     img2 = py5.load_image("apples.jpg")
     img1.apply_filter(py5.THRESHOLD, 0.3)

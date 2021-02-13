@@ -15,7 +15,6 @@ Replaces the current matrix of a shape with the identity matrix. The equivalent 
 @@ example
 def setup():
     global s
-    py5.size(100, 100)
     s = py5.load_shape("ohio.svg")
     s.rotate(py5.PI/6)
 

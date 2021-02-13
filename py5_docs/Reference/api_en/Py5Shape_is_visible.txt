@@ -19,7 +19,6 @@ image = Py5Shape_is_visible_0.png
 
 def setup():
     global s
-    py5.size(100, 100)
     # the file "bot.svg" must be in the data folder
     # of the current sketch to load successfully
     s = py5.load_shape("bot.svg")

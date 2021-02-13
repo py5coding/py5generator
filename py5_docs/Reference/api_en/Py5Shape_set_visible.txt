@@ -20,7 +20,6 @@ The default visibility of a shape is usually controlled by whatever program crea
 @@ example
 def setup():
     global s
-    py5.size(100, 100)
     # the file "bot.svg" must be in the data folder
     # of the current sketch to load successfully
     s = py5.load_shape("bot.svg")

@@ -29,23 +29,27 @@ In some cases, the ``arc()`` function isn't accurate enough for smooth drawing. 
 @@ example
 image = Sketch_arc_0.png
 
-py5.arc(50, 55, 50, 50, 0, py5.HALF_PI)
-py5.no_fill()
-py5.arc(50, 55, 60, 60, py5.HALF_PI, py5.PI)
-py5.arc(50, 55, 70, 70, py5.PI, py5.PI+py5.QUARTER_PI)
-py5.arc(50, 55, 80, 80, py5.PI+py5.QUARTER_PI, py5.TWO_PI)
+def setup():
+    py5.arc(50, 55, 50, 50, 0, py5.HALF_PI)
+    py5.no_fill()
+    py5.arc(50, 55, 60, 60, py5.HALF_PI, py5.PI)
+    py5.arc(50, 55, 70, 70, py5.PI, py5.PI+py5.QUARTER_PI)
+    py5.arc(50, 55, 80, 80, py5.PI+py5.QUARTER_PI, py5.TWO_PI)
 
 @@ example
 image = Sketch_arc_1.png
 
-py5.arc(50, 50, 80, 80, 0, py5.PI+py5.QUARTER_PI, py5.OPEN)
+def setup():
+    py5.arc(50, 50, 80, 80, 0, py5.PI+py5.QUARTER_PI, py5.OPEN)
 
 @@ example
 image = Sketch_arc_2.png
 
-py5.arc(50, 50, 80, 80, 0, py5.PI+py5.QUARTER_PI, py5.CHORD)
+def setup():
+    py5.arc(50, 50, 80, 80, 0, py5.PI+py5.QUARTER_PI, py5.CHORD)
 
 @@ example
 image = Sketch_arc_3.png
 
-py5.arc(50, 50, 80, 80, 0, py5.PI+py5.QUARTER_PI, py5.PIE)
+def setup():
+    py5.arc(50, 50, 80, 80, 0, py5.PI+py5.QUARTER_PI, py5.PIE)

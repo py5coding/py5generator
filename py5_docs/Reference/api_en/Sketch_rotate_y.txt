@@ -18,15 +18,23 @@ Rotates around the y-axis the amount specified by the ``angle`` parameter. Angle
 @@ example
 image = Sketch_rotate_y_0.png
 
-py5.size(100, 100, py5.P3D)
-py5.translate(py5.width//2, py5.height//2)
-py5.rotate_y(py5.PI/3.0)
-py5.rect(-26, -26, 52, 52)
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+
+def setup():
+    py5.translate(py5.width//2, py5.height//2)
+    py5.rotate_y(py5.PI/3.0)
+    py5.rect(-26, -26, 52, 52)
 
 @@ example
 image = Sketch_rotate_y_1.png
 
-py5.size(100, 100, py5.P3D)
-py5.translate(py5.width//2, py5.height//2)
-py5.rotate_y(py5.radians(60))
-py5.rect(-26, -26, 52, 52)
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+
+def setup():
+    py5.translate(py5.width//2, py5.height//2)
+    py5.rotate_y(py5.radians(60))
+    py5.rect(-26, -26, 52, 52)

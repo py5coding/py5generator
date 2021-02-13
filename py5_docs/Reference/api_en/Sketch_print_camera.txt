@@ -13,11 +13,15 @@ print_camera() -> None
 Prints the current camera matrix to the Console (the text window at the bottom of Processing).
 
 @@ example
-py5.size(100, 100, py5.P3D)
-py5.print_camera()
+def settings():
+    py5.size(100, 100, py5.P3D)
 
-# the program above prints this data:
-# 01.0000  00.0000  00.0000 -50.0000
-# 00.0000  01.0000  00.0000 -50.0000
-# 00.0000  00.0000  01.0000 -86.6025
-# 00.0000  00.0000  00.0000  01.0000
+
+def setup():
+    py5.print_camera()
+    
+    # the program above prints this data:
+    # 01.0000  00.0000  00.0000 -50.0000
+    # 00.0000  01.0000  00.0000 -50.0000
+    # 00.0000  00.0000  01.0000 -86.6025
+    # 00.0000  00.0000  00.0000  01.0000

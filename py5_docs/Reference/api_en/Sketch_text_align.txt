@@ -26,27 +26,29 @@ The vertical alignment is based on the value of ``text_ascent()``, which many fo
 @@ example
 image = Sketch_text_align_0.png
 
-py5.background(0)
-py5.text_size(16)
-py5.text_align(py5.RIGHT)
-py5.text("ABCD", 50, 30)
-py5.text_align(py5.CENTER)
-py5.text("EFGH", 50, 50)
-py5.text_align(py5.LEFT)
-py5.text("IJKL", 50, 70)
+def setup():
+    py5.background(0)
+    py5.text_size(16)
+    py5.text_align(py5.RIGHT)
+    py5.text("ABCD", 50, 30)
+    py5.text_align(py5.CENTER)
+    py5.text("EFGH", 50, 50)
+    py5.text_align(py5.LEFT)
+    py5.text("IJKL", 50, 70)
 
 @@ example
 image = Sketch_text_align_1.png
 
-py5.background(0)
-py5.stroke(153)
-py5.text_size(11)
-py5.text_align(py5.CENTER, py5.BOTTOM)
-py5.line(0, 30, py5.width, 30)
-py5.text("CENTER,BOTTOM", 50, 30)
-py5.text_align(py5.CENTER, py5.CENTER)
-py5.line(0, 50, py5.width, 50)
-py5.text("CENTER,CENTER", 50, 50)
-py5.text_align(py5.CENTER, py5.TOP)
-py5.line(0, 70, py5.width, 70)
-py5.text("CENTER,TOP", 50, 70)
+def setup():
+    py5.background(0)
+    py5.stroke(153)
+    py5.text_size(11)
+    py5.text_align(py5.CENTER, py5.BOTTOM)
+    py5.line(0, 30, py5.width, 30)
+    py5.text("CENTER,BOTTOM", 50, 30)
+    py5.text_align(py5.CENTER, py5.CENTER)
+    py5.line(0, 50, py5.width, 50)
+    py5.text("CENTER,CENTER", 50, 50)
+    py5.text_align(py5.CENTER, py5.TOP)
+    py5.line(0, 70, py5.width, 70)
+    py5.text("CENTER,TOP", 50, 70)

@@ -18,7 +18,8 @@ A sphere is a hollow ball made from tessellated triangles.
 @@ example
 image = Sketch_sphere_0.png
 
-py5.no_stroke()
-py5.lights()
-py5.translate(58, 48, 0)
-py5.sphere(28)
+def setup():
+    py5.no_stroke()
+    py5.lights()
+    py5.translate(58, 48, 0)
+    py5.sphere(28)

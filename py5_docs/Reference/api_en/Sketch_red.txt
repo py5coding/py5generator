@@ -23,11 +23,12 @@ r2 = c >> 16 & 0xFF  # very fast to calculate``
 @@ example
 image = Sketch_red_0.png
 
-c = py5.color(255, 204, 0)  # define color 'c'
-py5.fill(c)  # use color variable 'c' as fill color
-py5.rect(15, 20, 35, 60)  # draw left rectangle
-
-red_value = py5.red(c)  # get red in 'c'
-print(red_value)  # print "255.0"
-py5.fill(red_value, 0, 0)  # use 'red_value' in new fill
-py5.rect(50, 20, 35, 60)  # draw right rectangle
+def setup():
+    c = py5.color(255, 204, 0)  # define color 'c'
+    py5.fill(c)  # use color variable 'c' as fill color
+    py5.rect(15, 20, 35, 60)  # draw left rectangle
+    
+    red_value = py5.red(c)  # get red in 'c'
+    print(red_value)  # print "255.0"
+    py5.fill(red_value, 0, 0)  # use 'red_value' in new fill
+    py5.rect(50, 20, 35, 60)  # draw right rectangle

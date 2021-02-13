@@ -20,14 +20,18 @@ Sets the current normal vector. Used for drawing three dimensional shapes and su
 @@ example
 image = Sketch_normal_0.png
 
-py5.size(100, 100, py5.P3D)
-py5.no_stroke()
-py5.background(0)
-py5.point_light(150, 250, 150, 10, 30, 50)
-py5.begin_shape()
-py5.normal(0, 0, 1)
-py5.vertex(20, 20, -10)
-py5.vertex(80, 20, 10)
-py5.vertex(80, 80, -10)
-py5.vertex(20, 80, 10)
-py5.end_shape(py5.CLOSE)
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+
+def setup():
+    py5.no_stroke()
+    py5.background(0)
+    py5.point_light(150, 250, 150, 10, 30, 50)
+    py5.begin_shape()
+    py5.normal(0, 0, 1)
+    py5.vertex(20, 20, -10)
+    py5.vertex(80, 20, 10)
+    py5.vertex(80, 80, -10)
+    py5.vertex(20, 80, 10)
+    py5.end_shape(py5.CLOSE)

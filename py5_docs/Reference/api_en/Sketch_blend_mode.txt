@@ -38,18 +38,22 @@ REPLACE - the pixels entirely replace the others and don't utilize alpha (transp
 We recommend using ``blend_mode()`` and not the previous ``blend()`` function. However, unlike ``blend()``, the ``blend_mode()`` function does not support the following: HARD_LIGHT, SOFT_LIGHT, OVERLAY, DODGE, BURN. On older hardware, the LIGHTEST, DARKEST, and DIFFERENCE modes might not be available as well.
 
 @@ example
-py5.size(100, 100)
-py5.background(0)
-py5.blend_mode(py5.ADD)
-py5.stroke(102)
-py5.stroke_weight(30)
-py5.line(25, 25, 75, 75)
-py5.line(75, 25, 25, 75)
+def setup():
+    py5.background(0)
+    py5.blend_mode(py5.ADD)
+    py5.stroke(102)
+    py5.stroke_weight(30)
+    py5.line(25, 25, 75, 75)
+    py5.line(75, 25, 25, 75)
 
 @@ example
-py5.size(100, 100, py5.P2D)
-py5.blend_mode(py5.MULTIPLY)
-py5.stroke(51)
-py5.stroke_weight(30)
-py5.line(25, 25, 75, 75)
-py5.line(75, 25, 25, 75)
+def settings():
+    py5.size(100, 100, py5.P2D)
+
+
+def setup():
+    py5.blend_mode(py5.MULTIPLY)
+    py5.stroke(51)
+    py5.stroke_weight(30)
+    py5.line(25, 25, 75, 75)
+    py5.line(75, 25, 25, 75)

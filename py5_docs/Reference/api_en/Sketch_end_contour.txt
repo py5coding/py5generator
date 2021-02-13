@@ -17,20 +17,20 @@ These functions can only be used within a ``begin_shape()``/``end_shape()`` pair
 @@ example
 image = Sketch_end_contour_0.png
 
-py5.size(100, 100)
-py5.translate(50, 50)
-py5.stroke(255, 0, 0)
-py5.begin_shape()
-# exterior part of shape, clockwise winding
-py5.vertex(-40, -40)
-py5.vertex(40, -40)
-py5.vertex(40, 40)
-py5.vertex(-40, 40)
-# interior part of shape, counter-clockwise winding
-py5.begin_contour()
-py5.vertex(-20, -20)
-py5.vertex(-20, 20)
-py5.vertex(20, 20)
-py5.vertex(20, -20)
-py5.end_contour()
-py5.end_shape(py5.CLOSE)
+def setup():
+    py5.translate(50, 50)
+    py5.stroke(255, 0, 0)
+    py5.begin_shape()
+    # exterior part of shape, clockwise winding
+    py5.vertex(-40, -40)
+    py5.vertex(40, -40)
+    py5.vertex(40, 40)
+    py5.vertex(-40, 40)
+    # interior part of shape, counter-clockwise winding
+    py5.begin_contour()
+    py5.vertex(-20, -20)
+    py5.vertex(-20, 20)
+    py5.vertex(20, 20)
+    py5.vertex(20, -20)
+    py5.end_contour()
+    py5.end_shape(py5.CLOSE)

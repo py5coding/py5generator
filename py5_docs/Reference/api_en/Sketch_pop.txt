@@ -19,27 +19,29 @@ The ``push()`` and ``pop()`` functions were added with Processing 3.5. They can 
 @@ example
 image = Sketch_pop_0.png
 
-py5.fill(255)
-py5.rect(0, 0, 50, 50)  # white rectangle
-
-py5.push()
-py5.translate(30, 20)
-py5.fill(0)
-py5.rect(0, 0, 50, 50)  # black rectangle
-py5.pop()  # restore original settings
-
-py5.fill(100)
-py5.rect(15, 10, 50, 50)  # gray rectangle
+def setup():
+    py5.fill(255)
+    py5.rect(0, 0, 50, 50)  # white rectangle
+    
+    py5.push()
+    py5.translate(30, 20)
+    py5.fill(0)
+    py5.rect(0, 0, 50, 50)  # black rectangle
+    py5.pop()  # restore original settings
+    
+    py5.fill(100)
+    py5.rect(15, 10, 50, 50)  # gray rectangle
 
 @@ example
 image = Sketch_pop_1.png
 
-py5.ellipse(0, 50, 33, 33)  # left circle
-
-py5.push()
-py5.stroke_weight(10)
-py5.fill(204, 153, 0)
-py5.ellipse(50, 50, 33, 33)  # middle circle
-py5.pop()  # restore original settings
-
-py5.ellipse(100, 50, 33, 33)  # right circle
+def setup():
+    py5.ellipse(0, 50, 33, 33)  # left circle
+    
+    py5.push()
+    py5.stroke_weight(10)
+    py5.fill(204, 153, 0)
+    py5.ellipse(50, 50, 33, 33)  # middle circle
+    py5.pop()  # restore original settings
+    
+    py5.ellipse(100, 50, 33, 33)  # right circle

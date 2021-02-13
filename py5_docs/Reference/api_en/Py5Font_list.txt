@@ -12,6 +12,8 @@ list() -> List[str]
 @@ description
 Gets a list of the fonts installed on the system. The data is returned as a list of strings. This list provides the names of each font for input into ``create_font()``, which allows py5 to dynamically format fonts.
 
+This works outside of a running sketch.
+
 @@ example
-font_list = Py5Font.list()
+font_list = py5.Py5Font.list()
 print(font_list)

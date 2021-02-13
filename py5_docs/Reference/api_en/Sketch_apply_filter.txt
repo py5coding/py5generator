@@ -48,51 +48,58 @@ Increases the light areas. No parameter is used.
 @@ example
 image = Sketch_apply_filter_0.png
 
-img = py5.load_image("apples.jpg")
-py5.image(img, 0, 0)
-py5.apply_filter(py5.THRESHOLD)
+def setup():
+    img = py5.load_image("apples.jpg")
+    py5.image(img, 0, 0)
+    py5.apply_filter(py5.THRESHOLD)
 
 @@ example
 image = Sketch_apply_filter_1.png
 
-img = py5.load_image("apples.jpg")
-py5.image(img, 0, 0)
-py5.apply_filter(py5.GRAY)
+def setup():
+    img = py5.load_image("apples.jpg")
+    py5.image(img, 0, 0)
+    py5.apply_filter(py5.GRAY)
 
 @@ example
 image = Sketch_apply_filter_2.png
 
-img = py5.load_image("apples.jpg")
-py5.image(img, 0, 0)
-py5.apply_filter(py5.INVERT)
+def setup():
+    img = py5.load_image("apples.jpg")
+    py5.image(img, 0, 0)
+    py5.apply_filter(py5.INVERT)
 
 @@ example
 image = Sketch_apply_filter_3.png
 
-img = py5.load_image("apples.jpg")
-py5.image(img, 0, 0)
-py5.apply_filter(py5.POSTERIZE, 4)
+def setup():
+    img = py5.load_image("apples.jpg")
+    py5.image(img, 0, 0)
+    py5.apply_filter(py5.POSTERIZE, 4)
 
 @@ example
 image = Sketch_apply_filter_4.png
 
-img = py5.load_image("apples.jpg")
-py5.image(img, 0, 0)
-py5.apply_filter(py5.BLUR, 6)
+def setup():
+    img = py5.load_image("apples.jpg")
+    py5.image(img, 0, 0)
+    py5.apply_filter(py5.BLUR, 6)
 
 @@ example
 image = Sketch_apply_filter_5.png
 
-img = py5.load_image("apples.jpg")
-py5.image(img, 0, 0)
-py5.apply_filter(py5.ERODE)
+def setup():
+    img = py5.load_image("apples.jpg")
+    py5.image(img, 0, 0)
+    py5.apply_filter(py5.ERODE)
 
 @@ example
 image = Sketch_apply_filter_6.png
 
-img = py5.load_image("apples.jpg")
-py5.image(img, 0, 0)
-py5.apply_filter(py5.DILATE)
+def setup():
+    img = py5.load_image("apples.jpg")
+    py5.image(img, 0, 0)
+    py5.apply_filter(py5.DILATE)
 
 @@ example
 image = Sketch_apply_filter_7.png

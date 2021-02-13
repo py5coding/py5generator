@@ -20,13 +20,17 @@ When textures are in use, the fill color is ignored. Instead, use ``tint()`` to 
 @@ example
 image = Sketch_texture_0.png
 
-py5.size(100, 100, py5.P3D)
-py5.no_stroke()
-img = py5.load_image("laDefense.jpg")
-py5.begin_shape()
-py5.texture(img)
-py5.vertex(10, 20, 0, 0)
-py5.vertex(80, 5, 100, 0)
-py5.vertex(95, 90, 100, 100)
-py5.vertex(40, 95, 0, 100)
-py5.end_shape()
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+
+def setup():
+    py5.no_stroke()
+    img = py5.load_image("laDefense.jpg")
+    py5.begin_shape()
+    py5.texture(img)
+    py5.vertex(10, 20, 0, 0)
+    py5.vertex(80, 5, 100, 0)
+    py5.vertex(95, 90, 100, 100)
+    py5.vertex(40, 95, 0, 100)
+    py5.end_shape()

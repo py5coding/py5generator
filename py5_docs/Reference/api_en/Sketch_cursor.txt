@@ -29,10 +29,6 @@ With the P2D and P3D renderers, a generic set of cursors are used because the Op
 # move the mouse left and right across the image
 # to see the cursor change from_ a cross to a hand
 
-def settings():
-    py5.size(100, 100)
-
-
 def draw():
     if py5.mouse_x < 50:
         py5.cursor(py5.CROSS)

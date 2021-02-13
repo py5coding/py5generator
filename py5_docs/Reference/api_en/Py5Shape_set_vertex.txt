@@ -24,7 +24,6 @@ The ``set_vertex()`` method defines the coordinates of the vertex point located 
 @@ example
 def setup():
     global s
-    py5.size(100, 100)
     s = py5.create_shape()
     s.begin_shape()
     s.vertex(0, 0)

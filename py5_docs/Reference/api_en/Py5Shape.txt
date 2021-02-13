@@ -14,10 +14,6 @@ The ``Py5Shape`` object contains a group of methods that can operate on the shap
 To create a new shape, use the ``create_shape()`` function. Do not use the syntax ``new Py5Shape()``.
 
 @@ example
-def settings():
-    py5.size(100, 100)
-
-
 def setup():
     global s
     # the file "bot.svg" must be in the data folder
@@ -29,10 +25,6 @@ def draw():
     py5.shape(s, 10, 10, 80, 80)
 
 @@ example
-def settings():
-    py5.size(100, 100)
-
-
 def setup():
     global s  # the Py5Shape object
     # creating the Py5Shape as a square. the corner

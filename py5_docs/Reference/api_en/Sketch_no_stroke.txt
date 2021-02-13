@@ -15,5 +15,6 @@ Disables drawing the stroke (outline). If both ``no_stroke()`` and ``no_fill()``
 @@ example
 image = Sketch_no_stroke_0.png
 
-py5.no_stroke()
-py5.rect(30, 20, 55, 55)
+def setup():
+    py5.no_stroke()
+    py5.rect(30, 20, 55, 55)

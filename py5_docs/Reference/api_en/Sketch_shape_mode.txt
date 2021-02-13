@@ -20,7 +20,6 @@ image = Sketch_shape_mode_0.png
 
 def setup():
     global bot
-    py5.size(100, 100)
     bot = py5.load_shape("bot.svg")
 
 

@@ -18,7 +18,6 @@ image = Py5Image_0.png
 
 def setup():
     global photo
-    py5.size(100, 100)
     photo = py5.load_image("laDefense.jpg")
 
 

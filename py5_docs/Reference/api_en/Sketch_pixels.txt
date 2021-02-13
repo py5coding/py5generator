@@ -14,9 +14,10 @@ Before accessing this array, the data must loaded with the ``load_pixels()`` fun
 @@ example
 image = Sketch_pixels_0.png
 
-pink = py5.color(255, 102, 204)
-py5.load_pixels()
-for i in range(0, (py5.width*py5.height//2)-py5.width//2):
-    py5.pixels[i] = pink
-
-py5.update_pixels()
+def setup():
+    pink = py5.color(255, 102, 204)
+    py5.load_pixels()
+    for i in range(0, (py5.width*py5.height//2)-py5.width//2):
+        py5.pixels[i] = pink
+    
+    py5.update_pixels()

@@ -15,7 +15,6 @@ The ``get_vertex_count()`` method returns the number of vertices that make up a 
 @@ example
 def setup():
     global s
-    py5.size(100, 100)
     s = py5.create_shape()
     s.begin_shape()
     s.vertex(0, 0)

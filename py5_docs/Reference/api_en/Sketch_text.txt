@@ -45,25 +45,31 @@ Note that Processing now lets you call ``text()`` without first specifying a PFo
 @@ example
 image = Sketch_text_0.png
 
-py5.text_size(32)
-py5.text("word", 10, 30)
-py5.fill(0, 102, 153)
-py5.text("word", 10, 60)
-py5.fill(0, 102, 153, 51)
-py5.text("word", 10, 90)
+def setup():
+    py5.text_size(32)
+    py5.text("word", 10, 30)
+    py5.fill(0, 102, 153)
+    py5.text("word", 10, 60)
+    py5.fill(0, 102, 153, 51)
+    py5.text("word", 10, 90)
 
 @@ example
 image = Sketch_text_1.png
 
-py5.size(100, 100, py5.P3D)
-py5.text_size(32)
-py5.fill(0, 102, 153, 204)
-py5.text("word", 12, 45, -30)  # specify a z-axis value
-py5.text("word", 12, 60)  # default depth, no z-value specified
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+
+def setup():
+    py5.text_size(32)
+    py5.fill(0, 102, 153, 204)
+    py5.text("word", 12, 45, -30)  # specify a z-axis value
+    py5.text("word", 12, 60)  # default depth, no z-value specified
 
 @@ example
 image = Sketch_text_2.png
 
-s = "The quick brown fox jumps over the lazy dog."
-py5.fill(50)
-py5.text(s, 10, 10, 70, 80)  # text wraps within text box
+def setup():
+    s = "The quick brown fox jumps over the lazy dog."
+    py5.fill(50)
+    py5.text(s, 10, 10, 70, 80)  # text wraps within text box

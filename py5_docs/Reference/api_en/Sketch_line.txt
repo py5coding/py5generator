@@ -24,25 +24,31 @@ Draws a line (a direct path between two points) to the screen. The version of ``
 @@ example
 image = Sketch_line_0.png
 
-py5.line(30, 20, 85, 75)
+def setup():
+    py5.line(30, 20, 85, 75)
 
 @@ example
 image = Sketch_line_1.png
 
-py5.line(30, 20, 85, 20)
-py5.stroke(126)
-py5.line(85, 20, 85, 75)
-py5.stroke(255)
-py5.line(85, 75, 30, 75)
+def setup():
+    py5.line(30, 20, 85, 20)
+    py5.stroke(126)
+    py5.line(85, 20, 85, 75)
+    py5.stroke(255)
+    py5.line(85, 75, 30, 75)
 
 @@ example
 image = Sketch_line_2.png
 
-# drawing lines in 3D requires P3D
-# as a parameter to size()
-py5.size(100, 100, py5.P3D)
-py5.line(30, 20, 0, 85, 20, 15)
-py5.stroke(126)
-py5.line(85, 20, 15, 85, 75, 0)
-py5.stroke(255)
-py5.line(85, 75, 0, 30, 75, -50)
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+
+def setup():
+    # drawing lines in 3D requires P3D
+    # as a parameter to size()
+    py5.line(30, 20, 0, 85, 20, 15)
+    py5.stroke(126)
+    py5.line(85, 20, 15, 85, 75, 0)
+    py5.stroke(255)
+    py5.line(85, 75, 0, 30, 75, -50)

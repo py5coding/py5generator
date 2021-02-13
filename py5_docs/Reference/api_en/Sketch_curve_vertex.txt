@@ -21,12 +21,13 @@ Specifies vertex coordinates for curves. This function may only be used between 
 @@ example
 image = Sketch_curve_vertex_0.png
 
-py5.no_fill()
-py5.begin_shape()
-py5.curve_vertex(84,  91)
-py5.curve_vertex(84,  91)
-py5.curve_vertex(68,  19)
-py5.curve_vertex(21,  17)
-py5.curve_vertex(32, 100)
-py5.curve_vertex(32, 100)
-py5.end_shape()
+def setup():
+    py5.no_fill()
+    py5.begin_shape()
+    py5.curve_vertex(84,  91)
+    py5.curve_vertex(84,  91)
+    py5.curve_vertex(68,  19)
+    py5.curve_vertex(21,  17)
+    py5.curve_vertex(32, 100)
+    py5.curve_vertex(32, 100)
+    py5.end_shape()

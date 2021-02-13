@@ -23,7 +23,6 @@ image = Py5Shape_get_child_0.png
 def setup():
     global states
     global ohio
-    py5.size(100, 100)
     states = py5.load_shape("tristate.svg")
     ohio = states.get_child("OH")
     ohio.disable_style()

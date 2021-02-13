@@ -31,7 +31,6 @@ from pathlib import Path
 
 from generator.docfiles import Documentation
 import py5.reference as ref
-from py5_tools import parsing
 
 
 PY5_API_EN = Path('py5_docs/Reference/api_en/')
@@ -71,8 +70,46 @@ def convert_to_module_mode(code):
     return out.getvalue()
 
 
-py5_reserved_word_errors = 0
-ast_syntax_errors = 0
+def convert_to_module_mode2(code):
+    """convert functionless example code to something with a settings and a setup
+    """
+    lines = code.splitlines()
+    has_functions = any(code.find(f'def {f}():') >= 0 for f in ['settings', 'setup', 'draw'])
+
+    if has_functions:
+        # skip calls for the default size
+        new_code = '\n'.join(l for l in lines if l.find('py5.size(100, 100)') == -1)
+
+        return new_code
+    else:
+        settings_lines = []
+        setup_lines = []
+        # calls to settings, pixel_density, smooth, etc. need to go to settings
+        for line in lines:
+            if any(line.find(f'py5.{f}') >= 0 for f in ['size', 'full_screen', 'no_smooth', 'smooth', 'pixel_density']):
+                # skip calls for the default size
+                if line.find('py5.size(100, 100)') >= 0:
+                    continue
+                settings_lines.append(line)
+            else:
+                setup_lines.append(line)
+
+        out = StringIO()
+
+        def write_indented_function(fname, code_lines):
+            out.write(f"def {fname}():\n")
+            out.writelines(f'    {l}\n' for l in code_lines)
+            out.write('\n\n')
+
+        if settings_lines:
+            write_indented_function('settings', settings_lines)
+
+        if setup_lines:
+            write_indented_function('setup', setup_lines)
+
+        return out.getvalue().strip()
+
+
 problem_files = 0
 for docfile in sorted(PY5_API_EN.glob('*.txt')):
     doc = Documentation(docfile)
@@ -85,42 +122,27 @@ for docfile in sorted(PY5_API_EN.glob('*.txt')):
     # convert and evaluate each example
     new_examples = []
     for image, code in doc.examples:
-        new_code = convert_to_module_mode(code)
+        new_code = convert_to_module_mode2(code)
         new_examples.append((image, new_code))
 
         # check for parsing errors and other problems
-        py5_errors = []
-        parsing_errors = []
         try:
-            # parse and check the original code, which is in imported mode
-            problems = parsing.check_reserved_words(ast.parse(code))
-            if problems:
-                py5_reserved_word_errors += 1
-                py5_errors.extend([p.message(code) for p in problems])
-
-            # also try parsing the new code, since that will catch more errors
+            # try parsing the new code, since that will catch errors
             ast.parse(new_code)
 
             # use autopep8 to make output look good
             new_code = autopep8.fix_code(new_code, options={'aggressive': 2})
         except SyntaxError as e:
-            ast_syntax_errors += 1
-            parsing_errors.append(str(e))
-
-        if py5_errors or parsing_errors:
             problem_files += 1
             print('=' * 100)
             print(f'errors in file {docfile}')
             print('-' * 20)
             print(new_code)
-            for s in [*py5_errors, *parsing_errors]:
-                print('-' * 20)
-                print(s)
+            print('-' * 20)
+            print(e)
 
     doc.examples = new_examples
     doc.write(docfile)
 
 print('=' * 40)
-print(f'there were {ast_syntax_errors} parsing errors.')
-print(f'there were {py5_reserved_word_errors} py5 reserved word errors.')
 print(f'there are {problem_files} files that need attention.')

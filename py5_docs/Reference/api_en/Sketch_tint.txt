@@ -36,23 +36,26 @@ The ``tint()`` function is also used to control the coloring of textures in 3D.
 @@ example
 image = Sketch_tint_0.png
 
-img = py5.load_image("laDefense.jpg")
-py5.image(img, 0, 0)
-py5.tint(0, 153, 204)  # tint blue
-py5.image(img, 50, 0)
+def setup():
+    img = py5.load_image("laDefense.jpg")
+    py5.image(img, 0, 0)
+    py5.tint(0, 153, 204)  # tint blue
+    py5.image(img, 50, 0)
 
 @@ example
 image = Sketch_tint_1.png
 
-img = py5.load_image("laDefense.jpg")
-py5.image(img, 0, 0)
-py5.tint(0, 153, 204, 126)  # tint blue and set transparency
-py5.image(img, 50, 0)
+def setup():
+    img = py5.load_image("laDefense.jpg")
+    py5.image(img, 0, 0)
+    py5.tint(0, 153, 204, 126)  # tint blue and set transparency
+    py5.image(img, 50, 0)
 
 @@ example
 image = Sketch_tint_2.png
 
-img = py5.load_image("laDefense.jpg")
-py5.image(img, 0, 0)
-py5.tint(255, 126)  # apply transparency without changing color
-py5.image(img, 50, 0)
+def setup():
+    img = py5.load_image("laDefense.jpg")
+    py5.image(img, 0, 0)
+    py5.tint(255, 126)  # apply transparency without changing color
+    py5.image(img, 50, 0)

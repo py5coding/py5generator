@@ -21,7 +21,6 @@ To use variables as the arguments to ``pixel_density()`` function, place the ``p
 
 @@ example
 def settings():
-    py5.size(100, 100)
     py5.pixel_density(2)
 
 
@@ -36,7 +35,6 @@ def draw():
 
 @@ example
 def settings():
-    py5.size(100, 100)
     py5.pixel_density(py5.display_density())
 
 

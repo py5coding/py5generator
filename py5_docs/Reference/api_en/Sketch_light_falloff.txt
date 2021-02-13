@@ -25,14 +25,18 @@ Thinking about an ambient light with a falloff can be tricky. If you want a regi
 @@ example
 image = Sketch_light_falloff_0.png
 
-py5.size(100, 100, py5.P3D)
-py5.no_stroke()
-py5.background(0)
-py5.light_falloff(1.0, 0.001, 0.0)
-py5.point_light(150, 250, 150, 50, 50, 50)
-py5.begin_shape()
-py5.vertex(0, 0, 0)
-py5.vertex(100, 0, -100)
-py5.vertex(100, 100, -100)
-py5.vertex(0, 100, 0)
-py5.end_shape(py5.CLOSE)
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+
+def setup():
+    py5.no_stroke()
+    py5.background(0)
+    py5.light_falloff(1.0, 0.001, 0.0)
+    py5.point_light(150, 250, 150, 50, 50, 50)
+    py5.begin_shape()
+    py5.vertex(0, 0, 0)
+    py5.vertex(100, 0, -100)
+    py5.vertex(100, 100, -100)
+    py5.vertex(0, 100, 0)
+    py5.end_shape(py5.CLOSE)

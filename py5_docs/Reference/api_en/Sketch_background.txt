@@ -34,15 +34,18 @@ It is not possible to use the transparency ``alpha`` parameter with background c
 @@ example
 image = Sketch_background_0.png
 
-py5.background(51)
+def setup():
+    py5.background(51)
 
 @@ example
 image = Sketch_background_1.png
 
-py5.background(255, 204, 0)
+def setup():
+    py5.background(255, 204, 0)
 
 @@ example
 image = Sketch_background_2.png
 
-img = py5.load_image("laDefense.jpg")
-py5.background(img)
+def setup():
+    img = py5.load_image("laDefense.jpg")
+    py5.background(img)

@@ -20,7 +20,6 @@ The ``get_vertex()`` method returns a PVector with the coordinates of the vertex
 @@ example
 def setup():
     global s
-    py5.size(100, 100)
     s = py5.create_shape()
     s.begin_shape()
     s.vertex(0, 0)

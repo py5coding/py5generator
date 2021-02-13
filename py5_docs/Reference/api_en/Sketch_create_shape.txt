@@ -26,10 +26,6 @@ The  ``create_shape()`` function can also be used to make a complex shape made o
 After using ``create_shape()``, stroke and fill color can be set by calling methods like ``set_fill()`` and ``set_stroke()``, as seen in the examples above. The complete list of methods and fields for the PShape class are in the Processing Javadoc.
 
 @@ example
-def settings():
-    py5.size(100, 100)
-
-
 def setup():
     global s  # the Py5Shape object
     # creating the Py5Shape as a square. the
@@ -43,10 +39,6 @@ def draw():
     py5.shape(s, 25, 25)
 
 @@ example
-def settings():
-    py5.size(100, 100)
-
-
 def setup():
     global s  # the Py5Shape object
     # creating a custom Py5Shape as a square, by
@@ -88,10 +80,6 @@ def draw():
     py5.shape(s, 0, 0)
 
 @@ example
-def settings():
-    py5.size(100, 100)
-
-
 def setup():
     # create the shape group
     global alien

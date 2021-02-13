@@ -19,7 +19,6 @@ This method is used to start a custom shape created with the ``create_shape()`` 
 @@ example
 def setup():
     global s  # the Py5Shape object
-    py5.size(100, 100)
     s = py5.create_shape()
     s.begin_shape()
     s.fill(0, 0, 255)

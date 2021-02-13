@@ -32,7 +32,6 @@ image = Py5Image_copy_0.png
 
 def setup():
     global apples
-    py5.size(100, 100)
     apples = py5.load_image("apples.jpg")
     x = py5.width//2
     apples.copy(x, 0, x, py5.height, 0, 0, x, py5.height)

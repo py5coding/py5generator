@@ -14,7 +14,6 @@ To create a new graphics context, use the ``create_graphics()`` function. Do not
 @@ example
 def setup():
     global pg
-    py5.size(100, 100)
     pg = py5.create_graphics(40, 40)
 
 

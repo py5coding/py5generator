@@ -25,7 +25,6 @@ image = Py5Image_update_pixels_0.png
 def setup():
     global my_image
     global half_image
-    py5.size(100, 100)
     half_image = py5.width * py5.height//2
     my_image = py5.load_image("apples.jpg")
     my_image.load_pixels()
