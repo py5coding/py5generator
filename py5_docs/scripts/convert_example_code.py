@@ -67,11 +67,12 @@ def convert_to_module_mode(code):
 
 py5_reserved_word_errors = 0
 ast_syntax_errors = 0
+problem_files = 0
 for docfile in sorted(PY5_API_EN.glob('*.txt')):
     doc = Documentation(docfile)
 
     # skip these because I know I wrote them correctly in module mode
-    if doc.meta['type'] in ['function', 'magic']:
+    if doc.meta['type'] in ['function', 'line magic', 'cell magic']:
         print(f'skipping {docfile}')
         continue
 
@@ -82,34 +83,38 @@ for docfile in sorted(PY5_API_EN.glob('*.txt')):
         new_examples.append((image, new_code))
 
         # check for parsing errors and other problems
+        py5_errors = []
+        parsing_errors = []
         try:
             # parse and check the original code, which is in imported mode
             problems = parsing.check_reserved_words(ast.parse(code))
             if problems:
                 py5_reserved_word_errors += 1
-                print('=' * 40)
-                print(f'py5 error in file {docfile}')
-                print(new_code)
-                print('-' * 20)
-                for p in problems:
-                    print(p.message(code))
+                py5_errors.extend([p.message(code) for p in problems])
 
             # also try parsing the new code, since that will catch more errors
             ast.parse(new_code)
 
             # use autopep8 to make output look good
-            # new_code = autopep8.fix_code(new_code, options={'aggressive': 2})
+            new_code = autopep8.fix_code(new_code, options={'aggressive': 2})
         except SyntaxError as e:
             ast_syntax_errors += 1
-            print('=' * 40)
-            print(f'parsing error in file {docfile}')
-            print(e)
+            parsing_errors.append(str(e))
+
+        if py5_errors or parsing_errors:
+            problem_files += 1
+            print('=' * 100)
+            print(f'errors in file {docfile}')
             print('-' * 20)
             print(new_code)
+            for s in [*py5_errors, *parsing_errors]:
+                print('-' * 20)
+                print(s)
 
     doc.examples = new_examples
-    # doc.write(docfile)
+    doc.write(docfile)
 
 print('=' * 40)
 print(f'there were {ast_syntax_errors} parsing errors.')
 print(f'there were {py5_reserved_word_errors} py5 reserved word errors.')
+print(f'there are {problem_files} files that need attention.')
