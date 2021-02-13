@@ -45,30 +45,30 @@ The ``renderer`` parameter selects which rendering engine to use. For example, i
 As of Processing 3.0, to use variables as the parameters to ``size()`` function, place the ``size()`` function within the ``settings()`` function (instead of ``setup()``). There is more information about this on the ``settings()`` reference page.
 
 @@ example
-size(200, 100)
-background(153)
-line(0, 0, width, height)
+py5.size(200, 100)
+py5.background(153)
+py5.line(0, 0, py5.width, py5.height)
 
 @@ example
 def setup():
-    size(320, 240)
+    py5.size(320, 240)
 
 
 def draw():
-    background(153)
-    line(0, 0, width, height)
+    py5.background(153)
+    py5.line(0, 0, py5.width, py5.height)
 
 @@ example
-size(150, 200, P3D)  # specify P3D renderer
-background(153)
+py5.size(150, 200, py5.P3D)  # specify P3D renderer
+py5.background(153)
 
 # with P3D, we can use z (depth) values...
-line(0, 0, 0, width, height, -100)
-line(width, 0, 0, width, height, -100)
-line(0, height, 0, width, height, -100)
+py5.line(0, 0, 0, py5.width, py5.height, -100)
+py5.line(py5.width, 0, 0, py5.width, py5.height, -100)
+py5.line(0, py5.height, 0, py5.width, py5.height, -100)
 
 # ...and 3D-specific functions, like box()
-translate(width//2, height//2)
-rotate_x(PI/6)
-rotate_y(PI/6)
-box(35)
+py5.translate(py5.width//2, py5.height//2)
+py5.rotate_x(py5.PI/6)
+py5.rotate_y(py5.PI/6)
+py5.box(35)

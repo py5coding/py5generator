@@ -23,14 +23,14 @@ image = Py5Shape_get_child_0.png
 def setup():
     global states
     global ohio
-    size(100, 100)
-    states = load_shape("tristate.svg")
+    py5.size(100, 100)
+    states = py5.load_shape("tristate.svg")
     ohio = states.get_child("OH")
     ohio.disable_style()
 
 
 def draw():
-    background(0)
-    shape(states, -48, 5)
-    fill(102, 0, 0)
-    shape(ohio, -48, 5)
+    py5.background(0)
+    py5.shape(states, -48, 5)
+    py5.fill(102, 0, 0)
+    py5.shape(ohio, -48, 5)

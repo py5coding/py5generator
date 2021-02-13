@@ -12,7 +12,7 @@ System variable that stores the height of the display window. This value is set 
 @@ example
 image = Sketch_height_0.png
 
-no_stroke()
-background(0)
-rect(40, 0, 20, height)
-rect(60, 0, 20, height//2)
+py5.no_stroke()
+py5.background(0)
+py5.rect(40, 0, 20, py5.height)
+py5.rect(60, 0, 20, py5.height//2)

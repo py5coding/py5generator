@@ -18,12 +18,12 @@ This function returns the number "2" if the screen is a high-density screen (cal
 
 @@ example
 def setup():
-    size(100, 100)
-    pixel_density(display_density())
-    no_stroke()
+    py5.size(100, 100)
+    py5.pixel_density(py5.display_density())
+    py5.no_stroke()
 
 
 def draw():
-    background(0)
-    ellipse(30, 48, 36, 36)
-    ellipse(70, 48, 36, 36)
+    py5.background(0)
+    py5.ellipse(30, 48, 36, 36)
+    py5.ellipse(70, 48, 36, 36)

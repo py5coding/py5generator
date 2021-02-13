@@ -19,16 +19,16 @@ The ``end_shape()`` function is the companion to ``begin_shape()`` and may only 
 @@ example
 image = Sketch_end_shape_0.png
 
-no_fill()
+py5.no_fill()
 
-begin_shape()
-vertex(20, 20)
-vertex(45, 20)
-vertex(45, 80)
-end_shape(CLOSE)
+py5.begin_shape()
+py5.vertex(20, 20)
+py5.vertex(45, 20)
+py5.vertex(45, 80)
+py5.end_shape(py5.CLOSE)
 
-begin_shape()
-vertex(50, 20)
-vertex(75, 20)
-vertex(75, 80)
-end_shape()
+py5.begin_shape()
+py5.vertex(50, 20)
+py5.vertex(75, 20)
+py5.vertex(75, 80)
+py5.end_shape()

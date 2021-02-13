@@ -17,14 +17,14 @@ This class encapsulates a GLSL shader program, including a vertex and a fragment
 @@ example
 def setup():
     global blur
-    size(640, 360, P2D)
+    py5.size(640, 360, py5.P2D)
     # shaders files must be in the "data" folder to load correctly
-    blur = load_shader("blur.glsl")
-    stroke(0, 102, 153)
-    rect_mode(CENTER)
+    blur = py5.load_shader("blur.glsl")
+    py5.stroke(0, 102, 153)
+    py5.rect_mode(py5.CENTER)
 
 
 def draw():
-    apply_filter(blur)
-    rect(mouse_x-75, mouse_y, 150, 150)
-    ellipse(mouse_x+75, mouse_y, 150, 150)
+    py5.apply_filter(blur)
+    py5.rect(py5.mouse_x-75, py5.mouse_y, 150, 150)
+    py5.ellipse(py5.mouse_x+75, py5.mouse_y, 150, 150)

@@ -25,12 +25,12 @@ image = Py5Image_mask_0.png
 def setup():
     global photo
     global mask_image
-    size(100, 100)
-    photo = load_image("test.jpg")
-    mask_image = load_image("mask.jpg")
+    py5.size(100, 100)
+    photo = py5.load_image("test.jpg")
+    mask_image = py5.load_image("mask.jpg")
     photo.mask(mask_image)
 
 
 def draw():
-    image(photo, 0, 0)
-    image(photo, width/4, 0)
+    py5.image(photo, 0, 0)
+    py5.image(photo, py5.width/4, 0)

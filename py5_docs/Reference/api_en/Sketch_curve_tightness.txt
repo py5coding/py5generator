@@ -19,19 +19,19 @@ Modifies the quality of forms created with ``curve()`` and ``curve_vertex()``. T
 # move the mouse left and right to see the curve change
 
 def setup():
-    size(100, 100)
-    no_fill()
+    py5.size(100, 100)
+    py5.no_fill()
 
 
 def draw():
-    background(204)
-    t = map(mouse_x, 0, width, -5, 5)
-    curve_tightness(t)
-    begin_shape()
-    curve_vertex(10, 26)
-    curve_vertex(10, 26)
-    curve_vertex(83, 24)
-    curve_vertex(83, 61)
-    curve_vertex(25, 65)
-    curve_vertex(25, 65)
-    end_shape()
+    py5.background(204)
+    t = map(py5.mouse_x, 0, py5.width, -5, 5)
+    py5.curve_tightness(t)
+    py5.begin_shape()
+    py5.curve_vertex(10, 26)
+    py5.curve_vertex(10, 26)
+    py5.curve_vertex(83, 24)
+    py5.curve_vertex(83, 61)
+    py5.curve_vertex(25, 65)
+    py5.curve_vertex(25, 65)
+    py5.end_shape()

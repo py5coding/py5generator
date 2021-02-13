@@ -23,4 +23,4 @@ A triangle is a plane created by connecting three points. The first two argument
 @@ example
 image = Sketch_triangle_0.png
 
-triangle(30, 75, 58, 20, 86, 75)
+py5.triangle(30, 75, 58, 20, 86, 75)

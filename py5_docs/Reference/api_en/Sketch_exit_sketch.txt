@@ -18,7 +18,7 @@ For Java programmers, this is *not* the same as System.``exit()``. Further, Syst
 
 @@ example
 def draw():
-    line(mouse_x, mouse_y, 50, 50)
+    py5.line(py5.mouse_x, py5.mouse_y, 50, 50)
 
 
 def mouse_pressed():

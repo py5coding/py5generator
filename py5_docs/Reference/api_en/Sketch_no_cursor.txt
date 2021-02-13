@@ -15,7 +15,7 @@ Hides the cursor from view. Will not work when running the program in a web brow
 @@ example
 # press the mouse to hide the cursor
 def draw():
-    if mouse_pressed:
-        no_cursor()
+    if py5.is_mouse_pressed():
+        py5.no_cursor()
     else:
-        cursor(HAND)
+        py5.cursor(py5.HAND)

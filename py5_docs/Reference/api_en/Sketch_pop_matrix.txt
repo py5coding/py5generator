@@ -15,14 +15,14 @@ Pops the current transformation matrix off the matrix stack. Understanding pushi
 @@ example
 image = Sketch_pop_matrix_0.png
 
-fill(255)
-rect(0, 0, 50, 50)  # white rectangle
+py5.fill(255)
+py5.rect(0, 0, 50, 50)  # white rectangle
 
-push_matrix()
-translate(30, 20)
-fill(0)
-rect(0, 0, 50, 50)  # black rectangle
-pop_matrix()
+py5.push_matrix()
+py5.translate(30, 20)
+py5.fill(0)
+py5.rect(0, 0, 50, 50)  # black rectangle
+py5.pop_matrix()
 
-fill(100)
-rect(15, 10, 50, 50)  # gray rectangle
+py5.fill(100)
+py5.rect(15, 10, 50, 50)  # gray rectangle

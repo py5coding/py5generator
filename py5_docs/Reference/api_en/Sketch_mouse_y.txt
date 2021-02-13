@@ -13,5 +13,5 @@ Note that Processing can only track the mouse position when the pointer is over 
 
 @@ example
 def draw():
-    background(204)
-    line(20, mouse_y, 80, mouse_y)
+    py5.background(204)
+    py5.line(20, py5.mouse_y, 80, py5.mouse_y)

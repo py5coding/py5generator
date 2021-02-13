@@ -24,21 +24,21 @@ Specifies vertex coordinates for quadratic Bezier curves. Each call to ``quadrat
 @@ example
 image = Sketch_quadratic_vertex_0.png
 
-no_fill()
-stroke_weight(4)
-begin_shape()
-vertex(20, 20)
-quadratic_vertex(80, 20, 50, 50)
-end_shape()
+py5.no_fill()
+py5.stroke_weight(4)
+py5.begin_shape()
+py5.vertex(20, 20)
+py5.quadratic_vertex(80, 20, 50, 50)
+py5.end_shape()
 
 @@ example
 image = Sketch_quadratic_vertex_1.png
 
-no_fill()
-stroke_weight(4)
-begin_shape()
-vertex(20, 20)
-quadratic_vertex(80, 20, 50, 50)
-quadratic_vertex(20, 80, 80, 80)
-vertex(80, 60)
-end_shape()
+py5.no_fill()
+py5.stroke_weight(4)
+py5.begin_shape()
+py5.vertex(20, 20)
+py5.quadratic_vertex(80, 20, 50, 50)
+py5.quadratic_vertex(20, 80, 80, 80)
+py5.vertex(80, 60)
+py5.end_shape()

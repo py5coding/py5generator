@@ -14,16 +14,16 @@ Disables the clipping previously started by the ``clip()`` function.
 
 @@ example
 def setup():
-    size(200, 200)
-    image_mode(CENTER)
+    py5.size(200, 200)
+    py5.image_mode(py5.CENTER)
 
 
 def draw():
-    background(204)
-    if is_mouse_pressed():
-        clip(mouse_x, mouse_y, 100, 100)
+    py5.background(204)
+    if py5.is_mouse_pressed():
+        py5.clip(py5.mouse_x, py5.mouse_y, 100, 100)
     else:
-        no_clip()
+        py5.no_clip()
 
-    line(0, 0, width, height)
-    line(0, height, width, 0)
+    py5.line(0, 0, py5.width, py5.height)
+    py5.line(0, py5.height, py5.width, 0)

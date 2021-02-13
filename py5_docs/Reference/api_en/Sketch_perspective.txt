@@ -23,13 +23,13 @@ Sets a perspective projection applying foreshortening, making distant objects ap
 image = Sketch_perspective_0.png
 
 # re-creates the default perspective
-size(100, 100, P3D)
-no_fill()
-fov = PI/3.0
-camera_z = (height//2.0) / tan(fov/2.0)
-perspective(fov, float(width)/float(height),
+py5.size(100, 100, py5.P3D)
+py5.no_fill()
+fov = py5.PI/3.0
+camera_z = (py5.height//2.0) / py5.tan(fov/2.0)
+py5.perspective(fov, float(py5.width)/float(py5.height),
             camera_z/10.0, camera_z*10.0)
-translate(50, 50, 0)
-rotate_x(-PI/6)
-rotate_y(PI/3)
-box(45)
+py5.translate(50, 50, 0)
+py5.rotate_x(-py5.PI/6)
+py5.rotate_y(py5.PI/3)
+py5.box(45)

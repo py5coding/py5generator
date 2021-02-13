@@ -18,15 +18,15 @@ Rotates around the z-axis the amount specified by the ``angle`` parameter. Angle
 @@ example
 image = Sketch_rotate_z_0.png
 
-size(100, 100, P3D)
-translate(width//2, height//2)
-rotate_z(PI/3.0)
-rect(-26, -26, 52, 52)
+py5.size(100, 100, py5.P3D)
+py5.translate(py5.width//2, py5.height//2)
+py5.rotate_z(py5.PI/3.0)
+py5.rect(-26, -26, 52, 52)
 
 @@ example
 image = Sketch_rotate_z_1.png
 
-size(100, 100, P3D)
-translate(width//2, height//2)
-rotate_z(radians(60))
-rect(-26, -26, 52, 52)
+py5.size(100, 100, py5.P3D)
+py5.translate(py5.width//2, py5.height//2)
+py5.rotate_z(py5.radians(60))
+py5.rect(-26, -26, 52, 52)

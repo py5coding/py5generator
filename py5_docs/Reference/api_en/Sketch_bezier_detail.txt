@@ -19,12 +19,12 @@ Sets the resolution at which Beziers display. The default value is 20. This func
 # move the mouse left and right to see the detail change
 
 def setup():
-    size(100, 100, P3D)
-    no_fill()
+    py5.size(100, 100, py5.P3D)
+    py5.no_fill()
 
 
 def draw():
-    background(204)
-    d = int(map(mouse_x, 0, 100, 1, 20))
-    bezier_detail(d)
-    bezier(85, 20, 10, 10, 90, 90, 15, 80)
+    py5.background(204)
+    d = int(map(py5.mouse_x, 0, 100, 1, 20))
+    py5.bezier_detail(d)
+    py5.bezier(85, 20, 10, 10, 90, 90, 15, 80)

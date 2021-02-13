@@ -49,16 +49,16 @@ image = Py5Image_apply_filter_0.png
 def setup():
     global img1
     global img2
-    size(100, 100)
-    img1 = load_image("apples.jpg")
-    img2 = load_image("apples.jpg")
-    img1.apply_filter(THRESHOLD, 0.3)
-    img2.apply_filter(THRESHOLD, 0.7)
+    py5.size(100, 100)
+    img1 = py5.load_image("apples.jpg")
+    img2 = py5.load_image("apples.jpg")
+    img1.apply_filter(py5.THRESHOLD, 0.3)
+    img2.apply_filter(py5.THRESHOLD, 0.7)
 
 
 def draw():
-    image(img1, 0, 0)
-    image(img2, width//2, 0)
+    py5.image(img1, 0, 0)
+    py5.image(img2, py5.width//2, 0)
 
 @@ example
 image = Py5Image_apply_filter_1.png
@@ -66,14 +66,14 @@ image = Py5Image_apply_filter_1.png
 def setup():
     global img1
     global img2
-    img1 = load_image("apples.jpg")
-    img2 = load_image("apples.jpg")
-    img2.apply_filter(GRAY)
+    img1 = py5.load_image("apples.jpg")
+    img2 = py5.load_image("apples.jpg")
+    img2.apply_filter(py5.GRAY)
 
 
 def draw():
-    image(img1, 0, 0)
-    image(img2, width//2, 0)
+    py5.image(img1, 0, 0)
+    py5.image(img2, py5.width//2, 0)
 
 @@ example
 image = Py5Image_apply_filter_2.png
@@ -81,14 +81,14 @@ image = Py5Image_apply_filter_2.png
 def setup():
     global img1
     global img2
-    img1 = load_image("apples.jpg")
-    img2 = load_image("apples.jpg")
-    img2.apply_filter(INVERT)
+    img1 = py5.load_image("apples.jpg")
+    img2 = py5.load_image("apples.jpg")
+    img2.apply_filter(py5.INVERT)
 
 
 def draw():
-    image(img1, 0, 0)
-    image(img2, width//2, 0)
+    py5.image(img1, 0, 0)
+    py5.image(img2, py5.width//2, 0)
 
 @@ example
 image = Py5Image_apply_filter_3.png
@@ -96,14 +96,14 @@ image = Py5Image_apply_filter_3.png
 def setup():
     global img1
     global img2
-    img1 = load_image("apples.jpg")
-    img2 = load_image("apples.jpg")
-    img2.apply_filter(POSTERIZE, 4)
+    img1 = py5.load_image("apples.jpg")
+    img2 = py5.load_image("apples.jpg")
+    img2.apply_filter(py5.POSTERIZE, 4)
 
 
 def draw():
-    image(img1, 0, 0)
-    image(img2, width//2, 0)
+    py5.image(img1, 0, 0)
+    py5.image(img2, py5.width//2, 0)
 
 @@ example
 image = Py5Image_apply_filter_4.png
@@ -111,14 +111,14 @@ image = Py5Image_apply_filter_4.png
 def setup():
     global img1
     global img2
-    img1 = load_image("apples.jpg")
-    img2 = load_image("apples.jpg")
-    img2.apply_filter(BLUR, 6)
+    img1 = py5.load_image("apples.jpg")
+    img2 = py5.load_image("apples.jpg")
+    img2.apply_filter(py5.BLUR, 6)
 
 
 def draw():
-    image(img1, 0, 0)
-    image(img2, width//2, 0)
+    py5.image(img1, 0, 0)
+    py5.image(img2, py5.width//2, 0)
 
 @@ example
 image = Py5Image_apply_filter_5.png
@@ -126,14 +126,14 @@ image = Py5Image_apply_filter_5.png
 def setup():
     global img1
     global img2
-    img1 = load_image("apples.jpg")
-    img2 = load_image("apples.jpg")
-    img2.apply_filter(ERODE)
+    img1 = py5.load_image("apples.jpg")
+    img2 = py5.load_image("apples.jpg")
+    img2.apply_filter(py5.ERODE)
 
 
 def draw():
-    image(img1, 0, 0)
-    image(img2, width//2, 0)
+    py5.image(img1, 0, 0)
+    py5.image(img2, py5.width//2, 0)
 
 @@ example
 image = Py5Image_apply_filter_6.png
@@ -141,11 +141,11 @@ image = Py5Image_apply_filter_6.png
 def setup():
     global img1
     global img2
-    img1 = load_image("apples.jpg")
-    img2 = load_image("apples.jpg")
-    img2.apply_filter(DILATE)
+    img1 = py5.load_image("apples.jpg")
+    img2 = py5.load_image("apples.jpg")
+    img2.apply_filter(py5.DILATE)
 
 
 def draw():
-    image(img1, 0, 0)
-    image(img2, width//2, 0)
+    py5.image(img1, 0, 0)
+    py5.image(img2, py5.width//2, 0)

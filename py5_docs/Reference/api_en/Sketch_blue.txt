@@ -23,11 +23,11 @@ b2 = c & 0xFF  # very fast to calculate``
 @@ example
 image = Sketch_blue_0.png
 
-c = color(175, 100, 220)  # define color 'c'
-fill(c)  # use color variable 'c' as fill color
-rect(15, 20, 35, 60)  # draw left rectangle
+c = py5.color(175, 100, 220)  # define color 'c'
+py5.fill(c)  # use color variable 'c' as fill color
+py5.rect(15, 20, 35, 60)  # draw left rectangle
 
-blue_value = blue(c)  # get blue in 'c'
+blue_value = py5.blue(c)  # get blue in 'c'
 print(blue_value)  # prints "220.0"
-fill(0, 0, blue_value)  # use 'blue_value' in new fill
-rect(50, 20, 35, 60)  # draw right rectangle
+py5.fill(0, 0, blue_value)  # use 'blue_value' in new fill
+py5.rect(50, 20, 35, 60)  # draw right rectangle

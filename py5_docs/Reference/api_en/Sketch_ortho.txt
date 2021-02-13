@@ -25,10 +25,10 @@ Sets an orthographic projection and defines a parallel clipping volume. All obje
 @@ example
 image = Sketch_ortho_0.png
 
-size(100, 100, P3D)
-no_fill()
-ortho(-width//2, width//2, -height//2, height//2)  # same as ortho()
-translate(width//2, height//2, 0)
-rotate_x(-PI/6)
-rotate_y(PI/3)
-box(45)
+py5.size(100, 100, py5.P3D)
+py5.no_fill()
+py5.ortho(-py5.width//2, py5.width//2, -py5.height//2, py5.height//2)  # same as ortho()
+py5.translate(py5.width//2, py5.height//2, 0)
+py5.rotate_x(-py5.PI/6)
+py5.rotate_y(py5.PI/3)
+py5.box(45)

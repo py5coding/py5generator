@@ -15,12 +15,12 @@ Loads the pixel data of the current display window into the ``pixels[]`` array. 
 @@ example
 image = Sketch_load_pixels_0.png
 
-half_image = width*height//2
-my_image = load_image("apples.jpg")
-image(my_image, 0, 0)
+half_image = py5.width*py5.height//2
+my_image = py5.load_image("apples.jpg")
+py5.image(my_image, 0, 0)
 
-load_pixels()
+py5.load_pixels()
 for i in range(0, half_image):
-    pixels[i+half_image] = pixels[i]
+    py5.pixels[i+half_image] = py5.pixels[i]
 
-update_pixels()
+py5.update_pixels()

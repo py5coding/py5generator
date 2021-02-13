@@ -15,15 +15,15 @@ Returns descent of the current font at its current size. This information is use
 @@ example
 image = Sketch_text_descent_0.png
 
-base = height * 0.75
+base = py5.height * 0.75
 scalar = 0.8  # different for each font
 
-text_size(32)  # set initial text size
-a = text_descent() * scalar  # calc ascent
-line(0, base+a, width, base+a)
-text("dp", 0, base)  # draw text on baseline
+py5.text_size(32)  # set initial text size
+a = py5.text_descent() * scalar  # calc ascent
+py5.line(0, base+a, py5.width, base+a)
+py5.text("dp", 0, base)  # draw text on baseline
 
-text_size(64)  # increase text size
-a = text_descent() * scalar  # recalc ascent
-line(40, base+a, width, base+a)
-text("dp", 40, base)  # draw text on baseline
+py5.text_size(64)  # increase text size
+a = py5.text_descent() * scalar  # recalc ascent
+py5.line(40, base+a, py5.width, base+a)
+py5.text("dp", 40, base)  # draw text on baseline

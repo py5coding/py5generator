@@ -38,19 +38,19 @@ Multiplies the current matrix by the one specified through the parameters. This 
 @@ example
 image = Sketch_apply_matrix_0.png
 
-size(100, 100, P3D)
-no_fill()
-translate(50, 50, 0)
-rotate_y(PI/6)
-stroke(153)
-box(35)
+py5.size(100, 100, py5.P3D)
+py5.no_fill()
+py5.translate(50, 50, 0)
+py5.rotate_y(py5.PI/6)
+py5.stroke(153)
+py5.box(35)
 # set rotation angles
-ct = cos(PI/9.0)
-st = sin(PI/9.0)
+ct = py5.cos(py5.PI/9.0)
+st = py5.sin(py5.PI/9.0)
 # matrix for rotation around the Y axis
-apply_matrix(ct, 0.0,  st,  0.0,
+py5.apply_matrix(ct, 0.0,  st,  0.0,
              0.0, 1.0, 0.0,  0.0,
              -st, 0.0,  ct,  0.0,
              0.0, 0.0, 0.0,  1.0)
-stroke(255)
-box(50)
+py5.stroke(255)
+py5.box(50)

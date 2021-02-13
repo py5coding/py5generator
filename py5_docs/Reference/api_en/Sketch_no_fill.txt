@@ -15,6 +15,6 @@ Disables filling geometry. If both ``no_stroke()`` and ``no_fill()`` are called,
 @@ example
 image = Sketch_no_fill_0.png
 
-rect(15, 10, 55, 55)
-no_fill()
-rect(30, 20, 55, 55)
+py5.rect(15, 10, 55, 55)
+py5.no_fill()
+py5.rect(30, 20, 55, 55)

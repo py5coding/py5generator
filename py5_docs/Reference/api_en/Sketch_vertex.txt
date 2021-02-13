@@ -31,40 +31,40 @@ This function is also used to map a texture onto geometry. The ``texture()`` fun
 @@ example
 image = Sketch_vertex_0.png
 
-begin_shape(POINTS)
-vertex(30, 20)
-vertex(85, 20)
-vertex(85, 75)
-vertex(30, 75)
-end_shape()
+py5.begin_shape(py5.POINTS)
+py5.vertex(30, 20)
+py5.vertex(85, 20)
+py5.vertex(85, 75)
+py5.vertex(30, 75)
+py5.end_shape()
 
 @@ example
 image = Sketch_vertex_1.png
 
 # drawing vertices in 3D requires P3D
 # as a parameter to size()
-size(100, 100, P3D)
-begin_shape(POINTS)
-vertex(30, 20, -50)
-vertex(85, 20, -50)
-vertex(85, 75, -50)
-vertex(30, 75, -50)
-end_shape()
+py5.size(100, 100, py5.P3D)
+py5.begin_shape(py5.POINTS)
+py5.vertex(30, 20, -50)
+py5.vertex(85, 20, -50)
+py5.vertex(85, 75, -50)
+py5.vertex(30, 75, -50)
+py5.end_shape()
 
 @@ example
 image = Sketch_vertex_2.png
 
-size(100, 100, P3D)
-img = load_image("laDefense.jpg")
-no_stroke()
-begin_shape()
-texture(img)
+py5.size(100, 100, py5.P3D)
+img = py5.load_image("laDefense.jpg")
+py5.no_stroke()
+py5.begin_shape()
+py5.texture(img)
 # "laDefense.jpg" is 100x100 pixels in size so
 # the values 0 and 100 are used for the
 # parameters "u" and "v" to map it directly
 # to the vertex points
-vertex(10, 20, 0, 0)
-vertex(80, 5, 100, 0)
-vertex(95, 90, 100, 100)
-vertex(40, 95, 0, 100)
-end_shape()
+py5.vertex(10, 20, 0, 0)
+py5.vertex(80, 5, 100, 0)
+py5.vertex(95, 90, 100, 100)
+py5.vertex(40, 95, 0, 100)
+py5.end_shape()

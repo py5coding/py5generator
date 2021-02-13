@@ -20,4 +20,4 @@ Draws a square to the screen. A square is a four-sided shape with every angle at
 @@ example
 image = Sketch_square_0.png
 
-square(30, 20, 55)
+py5.square(30, 20, 55)

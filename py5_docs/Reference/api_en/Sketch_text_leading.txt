@@ -19,15 +19,15 @@ Sets the spacing between lines of text in units of pixels. This setting will be 
 image = Sketch_text_leading_0.png
 
 # text to display. the "\n" is a "new line" character
-lines = "L1\nL2\nL3"
-text_size(12)
-fill(0)  # set fill to black
+lines_of_text = "L1\nL2\nL3"
+py5.text_size(12)
+py5.fill(0)  # set fill to black
 
-text_leading(10)  # set leading to 10
-text(lines, 10, 25)
+py5.text_leading(10)  # set leading to 10
+py5.text(lines_of_text, 10, 25)
 
-text_leading(20)  # set leading to 20
-text(lines, 40, 25)
+py5.text_leading(20)  # set leading to 20
+py5.text(lines_of_text, 40, 25)
 
-text_leading(30)  # set leading to 30
-text(lines, 70, 25)
+py5.text_leading(30)  # set leading to 30
+py5.text(lines_of_text, 70, 25)

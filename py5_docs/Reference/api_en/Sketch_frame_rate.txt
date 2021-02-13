@@ -16,16 +16,17 @@ fps: float - number of desired frames per second
 Specifies the number of frames to be displayed every second. For example, the function call ``frame_rate(30)`` will attempt to refresh 30 times a second. If the processor is not fast enough to maintain the specified rate, the frame rate will not be achieved. Setting the frame rate within ``setup()`` is recommended. The default rate is 60 frames per second.
 
 @@ example
-def setup():
-    frame_rate(4)
-
-
 pos = 0
 
 
+def setup():
+    py5.frame_rate(4)
+
+
 def draw():
-    background(204)
-    pos++
-    line(pos, 20, pos, 80)
-    if pos > width:
+    py5.background(204)
+    global pos
+    pos += 1
+    py5.line(pos, 20, pos, 80)
+    if pos > py5.width:
         pos = 0

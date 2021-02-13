@@ -30,10 +30,10 @@ As of release 0149, this function ignores ``image_mode()``.
 @@ example
 image = Sketch_copy_0.png
 
-img = load_image("eames.jpg")
-image(img, 0, 0, width, height)
-copy(7, 22, 10, 10, 35, 25, 50, 50)
-stroke(255)
-no_fill()
+img = py5.load_image("eames.jpg")
+py5.image(img, 0, 0, py5.width, py5.height)
+py5.copy(7, 22, 10, 10, 35, 25, 50, 50)
+py5.stroke(255)
+py5.no_fill()
 # rectangle shows area being copied
-rect(7, 22, 10, 10)
+py5.rect(7, 22, 10, 10)

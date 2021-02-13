@@ -22,17 +22,17 @@ Evaluates the curve at point ``t`` for points ``a``, ``b``, ``c``, ``d``. The pa
 @@ example
 image = Sketch_curve_point_0.png
 
-no_fill()
-curve(5, 26, 5, 26, 73, 24, 73, 61)
-curve(5, 26, 73, 24, 73, 61, 15, 65)
-fill(255)
-ellipse_mode(CENTER)
+py5.no_fill()
+py5.curve(5, 26, 5, 26, 73, 24, 73, 61)
+py5.curve(5, 26, 73, 24, 73, 61, 15, 65)
+py5.fill(255)
+py5.ellipse_mode(py5.CENTER)
 steps = 6
 for i in range(0, steps + 1):
     t = i / float(steps)
-    x = curve_point(5, 5, 73, 73, t)
-    y = curve_point(26, 26, 24, 61, t)
-    ellipse(x, y, 5, 5)
-    x = curve_point(5, 73, 73, 15, t)
-    y = curve_point(26, 24, 61, 65, t)
-    ellipse(x, y, 5, 5)
+    x = py5.curve_point(5, 5, 73, 73, t)
+    y = py5.curve_point(26, 26, 24, 61, t)
+    py5.ellipse(x, y, 5, 5)
+    x = py5.curve_point(5, 73, 73, 15, t)
+    y = py5.curve_point(26, 24, 61, 65, t)
+    py5.ellipse(x, y, 5, 5)

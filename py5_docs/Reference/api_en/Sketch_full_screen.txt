@@ -31,14 +31,14 @@ x = 0
 
 
 def setup():
-    full_screen()
-    background(0)
-    no_stroke()
-    fill(102)
+    py5.full_screen()
+    py5.background(0)
+    py5.no_stroke()
+    py5.fill(102)
 
 
 def draw():
-    rect(x, height*0.2, 1, height*0.6)
+    py5.rect(x, py5.height*0.2, 1, py5.height*0.6)
     x = x + 2
 
 @@ example
@@ -50,14 +50,14 @@ x = 0
 
 
 def setup():
-    full_screen(2)
-    background(0)
-    no_stroke()
-    fill(102)
+    py5.full_screen(2)
+    py5.background(0)
+    py5.no_stroke()
+    py5.fill(102)
 
 
 def draw():
-    rect(x, height*0.2, 1, height*0.6)
+    py5.rect(x, py5.height*0.2, 1, py5.height*0.6)
     x = x + 2
 
 @@ example
@@ -67,14 +67,14 @@ x = 0
 
 
 def setup():
-    full_screen(P2D, 2)
-    background(0)
-    no_stroke()
-    fill(102)
+    py5.full_screen(py5.P2D, 2)
+    py5.background(0)
+    py5.no_stroke()
+    py5.fill(102)
 
 
 def draw():
-    rect(x, height*0.2, 1, height*0.6)
+    py5.rect(x, py5.height*0.2, 1, py5.height*0.6)
     x = x + 2
 
 @@ example
@@ -85,12 +85,12 @@ x = 0
 
 
 def setup():
-    full_screen(P2D, SPAN)
-    background(0)
-    no_stroke()
-    fill(102)
+    py5.full_screen(py5.P2D, py5.SPAN)
+    py5.background(0)
+    py5.no_stroke()
+    py5.fill(102)
 
 
 def draw():
-    rect(x, height*0.2, 1, height*0.6)
+    py5.rect(x, py5.height*0.2, 1, py5.height*0.6)
     x = x + 2

@@ -28,21 +28,21 @@ Adds a spot light. Lights need to be included in the ``draw()`` to remain persis
 @@ example
 image = Sketch_spot_light_0.png
 
-size(100, 100, P3D)
-background(0)
-no_stroke()
-spot_light(51, 102, 126, 80, 20, 40, -1, 0, 0, PI/2, 2)
-translate(20, 50, 0)
-sphere(30)
+py5.size(100, 100, py5.P3D)
+py5.background(0)
+py5.no_stroke()
+py5.spot_light(51, 102, 126, 80, 20, 40, -1, 0, 0, py5.PI/2, 2)
+py5.translate(20, 50, 0)
+py5.sphere(30)
 
 @@ example
 image = Sketch_spot_light_1.png
 
-size(100, 100, P3D)
+py5.size(100, 100, py5.P3D)
 concentration = 600  # try 1 -> 10000
-background(0)
-no_stroke()
-spot_light(51, 102, 126, 50, 50, 400,
-           0, 0, -1, PI/16, concentration)
-translate(80, 50, 0)
-sphere(30)
+py5.background(0)
+py5.no_stroke()
+py5.spot_light(51, 102, 126, 50, 50, 400,
+           0, 0, -1, py5.PI/16, concentration)
+py5.translate(80, 50, 0)
+py5.sphere(30)

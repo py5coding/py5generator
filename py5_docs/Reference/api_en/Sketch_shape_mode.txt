@@ -20,12 +20,12 @@ image = Sketch_shape_mode_0.png
 
 def setup():
     global bot
-    size(100, 100)
-    bot = load_shape("bot.svg")
+    py5.size(100, 100)
+    bot = py5.load_shape("bot.svg")
 
 
 def draw():
-    shape_mode(CENTER)
-    shape(bot, 35, 35, 50, 50)
-    shape_mode(CORNER)
-    shape(bot, 35, 35, 50, 50)
+    py5.shape_mode(py5.CENTER)
+    py5.shape(bot, 35, 35, 50, 50)
+    py5.shape_mode(py5.CORNER)
+    py5.shape(bot, 35, 35, 50, 50)

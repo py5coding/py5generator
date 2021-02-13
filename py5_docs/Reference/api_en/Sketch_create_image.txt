@@ -24,22 +24,22 @@ Advanced users please note that ``create_image()`` should be used instead of the
 @@ example
 image = Sketch_create_image_0.png
 
-img = create_image(66, 66, RGB)
+img = py5.create_image(66, 66, py5.RGB)
 img.load_pixels()
 for i in range(0, len(img.pixels)):
-    img.pixels[i] = color(0, 90, 102)
+    img.pixels[i] = py5.color(0, 90, 102)
 
 img.update_pixels()
-image(img, 17, 17)
+py5.image(img, 17, 17)
 
 @@ example
 image = Sketch_create_image_1.png
 
-img = create_image(66, 66, ARGB)
+img = py5.create_image(66, 66, py5.ARGB)
 img.load_pixels()
 for i in range(0, len(img.pixels)):
-    img.pixels[i] = color(0, 90, 102, i % img.width * 2)
+    img.pixels[i] = py5.color(0, 90, 102, i % img.width * 2)
 
 img.update_pixels()
-image(img, 17, 17)
-image(img, 34, 34)
+py5.image(img, 17, 17)
+py5.image(img, 34, 34)

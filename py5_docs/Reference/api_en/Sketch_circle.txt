@@ -20,4 +20,4 @@ Draws a circle to the screen. By default, the first two parameters set the locat
 @@ example
 image = Sketch_circle_0.png
 
-circle(56, 46, 55)
+py5.circle(56, 46, 55)

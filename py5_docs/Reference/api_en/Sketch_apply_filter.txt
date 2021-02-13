@@ -48,51 +48,51 @@ Increases the light areas. No parameter is used.
 @@ example
 image = Sketch_apply_filter_0.png
 
-img = load_image("apples.jpg")
-image(img, 0, 0)
-apply_filter(THRESHOLD)
+img = py5.load_image("apples.jpg")
+py5.image(img, 0, 0)
+py5.apply_filter(py5.THRESHOLD)
 
 @@ example
 image = Sketch_apply_filter_1.png
 
-img = load_image("apples.jpg")
-image(img, 0, 0)
-apply_filter(GRAY)
+img = py5.load_image("apples.jpg")
+py5.image(img, 0, 0)
+py5.apply_filter(py5.GRAY)
 
 @@ example
 image = Sketch_apply_filter_2.png
 
-img = load_image("apples.jpg")
-image(img, 0, 0)
-apply_filter(INVERT)
+img = py5.load_image("apples.jpg")
+py5.image(img, 0, 0)
+py5.apply_filter(py5.INVERT)
 
 @@ example
 image = Sketch_apply_filter_3.png
 
-img = load_image("apples.jpg")
-image(img, 0, 0)
-apply_filter(POSTERIZE, 4)
+img = py5.load_image("apples.jpg")
+py5.image(img, 0, 0)
+py5.apply_filter(py5.POSTERIZE, 4)
 
 @@ example
 image = Sketch_apply_filter_4.png
 
-img = load_image("apples.jpg")
-image(img, 0, 0)
-apply_filter(BLUR, 6)
+img = py5.load_image("apples.jpg")
+py5.image(img, 0, 0)
+py5.apply_filter(py5.BLUR, 6)
 
 @@ example
 image = Sketch_apply_filter_5.png
 
-img = load_image("apples.jpg")
-image(img, 0, 0)
-apply_filter(ERODE)
+img = py5.load_image("apples.jpg")
+py5.image(img, 0, 0)
+py5.apply_filter(py5.ERODE)
 
 @@ example
 image = Sketch_apply_filter_6.png
 
-img = load_image("apples.jpg")
-image(img, 0, 0)
-apply_filter(DILATE)
+img = py5.load_image("apples.jpg")
+py5.image(img, 0, 0)
+py5.apply_filter(py5.DILATE)
 
 @@ example
 image = Sketch_apply_filter_7.png
@@ -100,11 +100,11 @@ image = Sketch_apply_filter_7.png
 def setup():
     global blur
     global img
-    size(100, 100, P2D)
-    blur = load_shader("blur.glsl")
-    img = load_image("apples.jpg")
-    image(img, 0, 0)
+    py5.size(100, 100, py5.P2D)
+    blur = py5.load_shader("blur.glsl")
+    img = py5.load_image("apples.jpg")
+    py5.image(img, 0, 0)
 
 
 def draw():
-    apply_filter(blur)  # blurs more each time through draw()
+    py5.apply_filter(blur)  # blurs more each time through draw()

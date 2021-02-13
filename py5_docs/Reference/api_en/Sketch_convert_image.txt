@@ -25,4 +25,4 @@ from PIL import Image
 
 pil_image = Image.open('py5_logo.jpg')
 
-py5_image = convert_image(pil_image)
+py5_image = py5.convert_image(pil_image)

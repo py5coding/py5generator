@@ -18,9 +18,9 @@ image = Py5Image_load_pixels_0.png
 def setup():
     global my_image
     global half_image
-    size(100, 100)
-    half_image = width * height//2
-    my_image = load_image("apples.jpg")
+    py5.size(100, 100)
+    half_image = py5.width * py5.height//2
+    my_image = py5.load_image("apples.jpg")
     my_image.load_pixels()
     for i in range(0, half_image):
         my_image.pixels[i+half_image] = my_image.pixels[i]
@@ -29,4 +29,4 @@ def setup():
 
 
 def draw():
-    image(my_image, 0, 0)
+    py5.image(my_image, 0, 0)

@@ -22,12 +22,12 @@ Evaluates the Bezier at point t for points a, b, c, d. The parameter t varies be
 @@ example
 image = Sketch_bezier_point_0.png
 
-no_fill()
-bezier(85, 20, 10, 10, 90, 90, 15, 80)
-fill(255)
+py5.no_fill()
+py5.bezier(85, 20, 10, 10, 90, 90, 15, 80)
+py5.fill(255)
 steps = 10
 for i in range(0, steps + 1):
     t = i / float(steps)
-    x = bezier_point(85, 10, 90, 15, t)
-    y = bezier_point(20, 10, 90, 80, t)
-    ellipse(x, y, 5, 5)
+    x = py5.bezier_point(85, 10, 90, 15, t)
+    y = py5.bezier_point(20, 10, 90, 80, t)
+    py5.ellipse(x, y, 5, 5)

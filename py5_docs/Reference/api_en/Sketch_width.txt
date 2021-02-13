@@ -12,7 +12,7 @@ System variable that stores the width of the display window. This value is set b
 @@ example
 image = Sketch_width_0.png
 
-no_stroke()
-background(0)
-rect(0, 40, width, 20)
-rect(0, 60, width//2, 20)
+py5.no_stroke()
+py5.background(0)
+py5.rect(0, 40, py5.width, 20)
+py5.rect(0, 60, py5.width//2, 20)

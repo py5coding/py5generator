@@ -25,25 +25,25 @@ Transformations apply to everything that happens after and subsequent calls to t
 @@ example
 image = Sketch_scale_0.png
 
-rect(30, 20, 50, 50)
-scale(0.5)
-rect(30, 20, 50, 50)
+py5.rect(30, 20, 50, 50)
+py5.scale(0.5)
+py5.rect(30, 20, 50, 50)
 
 @@ example
 image = Sketch_scale_1.png
 
-rect(30, 20, 50, 50)
-scale(0.5, 1.3)
-rect(30, 20, 50, 50)
+py5.rect(30, 20, 50, 50)
+py5.scale(0.5, 1.3)
+py5.rect(30, 20, 50, 50)
 
 @@ example
 image = Sketch_scale_2.png
 
 # scaling in 3D requires P3D
 # as a parameter to size()
-size(100, 100, P3D)
-no_fill()
-translate(width//2+12, height//2)
-box(20, 20, 20)
-scale(2.5, 2.5, 2.5)
-box(20, 20, 20)
+py5.size(100, 100, py5.P3D)
+py5.no_fill()
+py5.translate(py5.width//2+12, py5.height//2)
+py5.box(20, 20, 20)
+py5.scale(2.5, 2.5, 2.5)
+py5.box(20, 20, 20)

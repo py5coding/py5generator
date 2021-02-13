@@ -20,15 +20,15 @@ Controls the detail used to render a sphere by adjusting the number of vertices 
 
 @@ example
 def setup():
-    size(100, 100, P3D)
+    py5.size(100, 100, py5.P3D)
 
 
 def draw():
-    background(200)
-    stroke(255, 50)
-    translate(50, 50, 0)
-    rotate_x(mouse_y * 0.05)
-    rotate_y(mouse_x * 0.05)
-    fill(mouse_x * 2, 0, 160)
-    sphere_detail(mouse_x / 4)
-    sphere(40)
+    py5.background(200)
+    py5.stroke(255, 50)
+    py5.translate(50, 50, 0)
+    py5.rotate_x(py5.mouse_y * 0.05)
+    py5.rotate_y(py5.mouse_x * 0.05)
+    py5.fill(py5.mouse_x * 2, 0, 160)
+    py5.sphere_detail(py5.mouse_x / 4)
+    py5.sphere(40)

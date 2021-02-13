@@ -27,18 +27,18 @@ Using ``point()`` with strokeWeight(1) or smaller may draw nothing to the screen
 @@ example
 image = Sketch_point_0.png
 
-no_smooth()
-point(30, 20)
-point(85, 20)
-point(85, 75)
-point(30, 75)
+py5.no_smooth()
+py5.point(30, 20)
+py5.point(85, 20)
+py5.point(85, 75)
+py5.point(30, 75)
 
 @@ example
 image = Sketch_point_1.png
 
-size(100, 100, P3D)
-no_smooth()
-point(30, 20, -50)
-point(85, 20, -50)
-point(85, 75, -50)
-point(30, 75, -50)
+py5.size(100, 100, py5.P3D)
+py5.no_smooth()
+py5.point(30, 20, -50)
+py5.point(85, 20, -50)
+py5.point(85, 75, -50)
+py5.point(30, 75, -50)

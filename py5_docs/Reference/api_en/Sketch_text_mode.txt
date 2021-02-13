@@ -19,11 +19,11 @@ The ``text_mode(SHAPE)`` option in ``P3D`` can be combined with ``begin_raw()`` 
 
 @@ example
 def setup():
-    size(500, 500, PDF, "TypeDemo.pdf")
-    text_mode(SHAPE)
-    text_size(180)
+    py5.size(500, 500, py5.PDF, "TypeDemo.pdf")
+    py5.text_mode(py5.SHAPE)
+    py5.text_size(180)
 
 
 def draw():
-    text("ABC", 75, 350)
+    py5.text("ABC", 75, 350)
     exit()  # quit the program

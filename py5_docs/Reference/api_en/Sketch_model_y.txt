@@ -21,38 +21,38 @@ In the example, the ``model_x()``, ``model_y()``, and ``model_z()`` functions re
 
 @@ example
 def setup():
-    size(500, 500, P3D)
-    no_fill()
+    py5.size(500, 500, py5.P3D)
+    py5.no_fill()
 
 
 def draw():
-    background(0)
+    py5.background(0)
 
-    push_matrix()
+    py5.push_matrix()
     # start at the middle of the screen
-    translate(width//2, height//2, -200)
+    py5.translate(py5.width//2, py5.height//2, -200)
     # some random rotation to make things interesting
-    rotate_y(1.0)  # yrot)
-    rotate_z(2.0)  # zrot)
+    py5.rotate_y(1.0)  # yrot)
+    py5.rotate_z(2.0)  # zrot)
     # rotate in X a little more each frame
-    rotate_x(frame_count / 100.0)
+    py5.rotate_x(py5.frame_count / 100.0)
     # offset from_ center
-    translate(0, 150, 0)
+    py5.translate(0, 150, 0)
 
     # draw a white box outline at (0, 0, 0)
-    stroke(255)
-    box(50)
+    py5.stroke(255)
+    py5.box(50)
 
     # the box was drawn at (0, 0, 0), store that location
-    x = model_x(0, 0, 0)
-    y = model_y(0, 0, 0)
-    z = model_z(0, 0, 0)
+    x = py5.model_x(0, 0, 0)
+    y = py5.model_y(0, 0, 0)
+    z = py5.model_z(0, 0, 0)
     # clear out all the transformations
-    pop_matrix()
+    py5.pop_matrix()
 
     # draw another box at the same (x, y, z) coordinate as the other
-    push_matrix()
-    translate(x, y, z)
-    stroke(255, 0, 0)
-    box(50)
-    pop_matrix()
+    py5.push_matrix()
+    py5.translate(x, y, z)
+    py5.stroke(255, 0, 0)
+    py5.box(50)
+    py5.pop_matrix()

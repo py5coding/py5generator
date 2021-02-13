@@ -23,9 +23,9 @@ Adds a point light. Lights need to be included in the ``draw()`` to remain persi
 @@ example
 image = Sketch_point_light_0.png
 
-size(100, 100, P3D)
-background(0)
-no_stroke()
-point_light(51, 102, 126, 35, 40, 36)
-translate(80, 50, 0)
-sphere(30)
+py5.size(100, 100, py5.P3D)
+py5.background(0)
+py5.no_stroke()
+py5.point_light(51, 102, 126, 35, 40, 36)
+py5.translate(80, 50, 0)
+py5.sphere(30)

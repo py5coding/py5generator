@@ -20,10 +20,10 @@ To make ``point()`` appear square, use ``stroke_cap(PROJECT)``. Using ``stroke_c
 @@ example
 image = Sketch_stroke_cap_0.png
 
-stroke_weight(12.0)
-stroke_cap(ROUND)
-line(20, 30, 80, 30)
-stroke_cap(SQUARE)
-line(20, 50, 80, 50)
-stroke_cap(PROJECT)
-line(20, 70, 80, 70)
+py5.stroke_weight(12.0)
+py5.stroke_cap(py5.ROUND)
+py5.line(20, 30, 80, 30)
+py5.stroke_cap(py5.SQUARE)
+py5.line(20, 50, 80, 50)
+py5.stroke_cap(py5.PROJECT)
+py5.line(20, 70, 80, 70)

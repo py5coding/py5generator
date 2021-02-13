@@ -14,25 +14,25 @@ By default, Processing loops through ``draw()`` continuously, executing the code
 
 @@ example
 def setup():
-    size(200, 200)
-    no_loop()  # draw() will not loop
+    py5.size(200, 200)
+    py5.no_loop()  # draw() will not loop
 
 
 x = 0
 
 
 def draw():
-    background(204)
+    py5.background(204)
     x = x + .1
-    if x > width:
+    if x > py5.width:
         x = 0
 
-    line(x, 0, x, height)
+    py5.line(x, 0, x, py5.height)
 
 
 def mouse_pressed():
-    loop()  # holding down the mouse activates looping
+    py5.loop()  # holding down the mouse activates looping
 
 
 def mouse_released():
-    no_loop()  # releasing the mouse stops looping draw()
+    py5.no_loop()  # releasing the mouse stops looping draw()

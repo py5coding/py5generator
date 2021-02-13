@@ -18,30 +18,32 @@ who: Py5Shape - any variable of type PShape
 Adds a child PShape to a parent PShape that is defined as a GROUP. In the example, the three shapes ``path``, ``rectangle``, and ``circle`` are added to a parent PShape variable named ``house`` that is a GROUP.
 
 @@ example
+def settings():
+    py5.size(200, 200)
+
+
 def setup():
     global house
-    size(200, 200)
-
     # make a group Py5Shape
-    house = create_shape(GROUP)
+    house = py5.create_shape(py5.GROUP)
 
     # make three shapes
-    path = create_shape()
+    path = py5.create_shape()
     path.begin_shape()
     path.vertex(-20, -20)
     path.vertex(0, -40)
     path.vertex(20, -20)
     path.end_shape()
-    rectangle = create_shape(RECT, -20, -20, 40, 40)
-    circle = create_shape(ELLIPSE, 0, 0, 20, 20)
+    rectangle = py5.create_shape(py5.RECT, -20, -20, 40, 40)
+    opening = py5.create_shape(py5.ELLIPSE, 0, 0, 20, 20)
 
     # add all three as children
     house.add_child(path)
     house.add_child(rectangle)
-    house.add_child(circle)
+    house.add_child(opening)
 
 
 def draw():
-    background(52)
-    translate(mouse_x, mouse_y)
-    shape(house)
+    py5.background(52)
+    py5.translate(py5.mouse_x, py5.mouse_y)
+    py5.shape(house)
