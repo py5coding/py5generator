@@ -17,6 +17,12 @@
 #   with this program. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+"""
+This code is no longer used but might be pillaged one day to help convert code
+to something usable by py5.
+
+This code was used once to convert the example code to module mode code.
+"""
 import ast
 import shlex
 import autopep8
