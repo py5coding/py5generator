@@ -20,8 +20,11 @@ The ``redraw()`` function does not work properly when called inside ``draw()``. 
 x = 0
 
 
-def setup():
+def settings():
     py5.size(200, 200)
+
+
+def setup():
     py5.no_loop()
 
 

@@ -18,8 +18,11 @@ Sets the way text draws to the screen, either as texture maps or as vector geome
 The ``text_mode(SHAPE)`` option in ``P3D`` can be combined with ``begin_raw()`` to write vector-accurate text to 2D and 3D output files, for instance ``DXF`` or ``PDF``. The ``SHAPE`` mode is not currently optimized for ``P3D``, so if recording shape data, use ``text_mode(MODEL)`` until you're ready to capture the geometry with ``begin_raw()``.
 
 @@ example
-def setup():
+def settings():
     py5.size(500, 500, py5.PDF, "TypeDemo.pdf")
+
+
+def setup():
     py5.text_mode(py5.SHAPE)
     py5.text_size(180)
 
