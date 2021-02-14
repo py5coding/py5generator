@@ -27,7 +27,7 @@ def draw():
     py5.background(0)
     py5.translate(py5.width//2, py5.height//2)
     py5.rotate(py5.remap(py5.mouse_x, 0, py5.width, -py5.PI, py5.PI))
-    if py5.is_mouse_pressed():
+    if py5.is_mouse_pressed:
         py5.texture_wrap(py5.REPEAT)
     else:
         py5.texture_wrap(py5.CLAMP)

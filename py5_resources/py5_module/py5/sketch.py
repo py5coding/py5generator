@@ -213,6 +213,16 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         return self.is_dead and not self._instance.getSuccess()
     is_dead_from_error: bool = property(fget=_get_is_dead_from_error)
 
+    def _get_is_mouse_pressed(self) -> bool:  # @decorator
+        """$class_Sketch_is_mouse_pressed"""
+        return self._instance.isMousePressed()
+    is_mouse_pressed: bool = property(fget=_get_is_mouse_pressed)
+
+    def _get_is_key_pressed(self) -> bool:  # @decorator
+        """$class_Sketch_is_key_pressed"""
+        return self._instance.isKeyPressed()
+    is_key_pressed: bool = property(fget=_get_is_key_pressed)
+
     def hot_reload_draw(self, draw: Callable) -> None:
         """$class_Sketch_hot_reload_draw"""
         self._py5_methods.set_functions(**dict(draw=draw))

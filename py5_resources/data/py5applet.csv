@@ -573,8 +573,10 @@ pop,pop,,method,structure,,JAVA,
 link,link,,method,,,SKIP,public methods that shouldn't be available to users
 use_py5_methods,usePy5Methods,,method,,,SKIP,public methods that shouldn't be available to users
 get_frame_rate,getFrameRate,,method,environment,,JAVA,this replaces the frame_rate variable which conflicts with the frame_rate function
-is_key_pressed,isKeyPressed,,method,input,keyboard,JAVA,"this replaces the key_pressed variable which conflicts with the key_pressed function. note that this is a method, not a dynamic field, so you need to use the () at the end."
-is_mouse_pressed,isMousePressed,,method,input,mouse,JAVA,"this replaces the mouse_pressed variable which conflicts with the mouse_pressed function. note that this is a method, not a dynamic field, so you need to use the () at the end."
+is_key_pressed,,,dynamic variable,input,keyboard,PYTHON,this replaces the key_pressed variable which conflicts with the key_pressed function.
+is_mouse_pressed,,,dynamic variable,input,mouse,PYTHON,this replaces the mouse_pressed variable which conflicts with the mouse_pressed function.
+is_key_pressed_function,isKeyPressed,,method,,,SKIP,used by the is_key_pressed property
+is_mouse_pressed_function,isMousePressed,,method,,,SKIP,used by the is_mouse_pressed_property
 load_np_pixels,,,method,image,pixels,PYTHON,like loadPixels but for np_pixels; implemented in pixels.py mixin
 update_np_pixels,,,method,image,pixels,PYTHON,like updatePixels but for np_pixels; implemented in the pixels.py mixin
 set_np_pixels,,,method,image,pixels,PYTHON,replaces data in the np_pixels array; implemented in the pixels.py mixin

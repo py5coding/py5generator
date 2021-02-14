@@ -26,7 +26,7 @@ def setup():
 
 def draw():
     py5.background(204)
-    if py5.is_mouse_pressed():
+    if py5.is_mouse_pressed:
         py5.clip(py5.mouse_x, py5.mouse_y, 100, 100)
     else:
         py5.no_clip()

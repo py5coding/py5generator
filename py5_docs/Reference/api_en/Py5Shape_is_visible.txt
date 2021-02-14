@@ -27,7 +27,7 @@ def setup():
 def draw():
     py5.background(204)
     py5.shape(s, 10, 10, 80, 80)  # draw shape
-    s.set_visible(py5.is_mouse_pressed())
+    s.set_visible(py5.is_mouse_pressed)
     if s.is_visible() == False:  # or use: "if (!s.isVisible)"
         py5.no_fill()
         py5.rect(10, 10, 80, 80)
