@@ -31,6 +31,7 @@ import com.jogamp.newt.event.WindowListener;
 import com.jogamp.newt.opengl.GLWindow;
 
 import processing.core.PApplet;
+import processing.core.PShape;
 import processing.event.MouseEvent;
 
 public class Py5Applet extends PApplet {
@@ -260,6 +261,19 @@ public class Py5Applet extends PApplet {
 
   public boolean isMousePressed() {
     return mousePressed;
+  }
+
+  /*
+   * This is to get around an issue with JPype method dispatching. It will
+   * always use the second method signature, even when p.length == 0.
+   */
+
+  public PShape createShape(int kind, float... p) {
+    if (p.length == 0) {
+      return super.createShape(kind);
+    } else {
+      return super.createShape(kind, p);
+    }
   }
 
   /*
