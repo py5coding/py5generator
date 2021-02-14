@@ -22,11 +22,12 @@ Updates the display window with the data in the ``pixels[]`` array. Use in conju
 @@ example
 image = Sketch_update_pixels_0.png
 
-img = load_image("rockies.jpg")
-image(img, 0, 0)
-half_image = img.width * img.height//2
-load_pixels()
-for i in range(0, half_image):
-    pixels[i+half_image] = pixels[i]
-
-update_pixels()
+def setup():
+    img = py5.load_image("rockies.jpg")
+    py5.image(img, 0, 0)
+    half_image = img.width * img.height//2
+    py5.load_pixels()
+    for i in range(0, half_image):
+        py5.pixels[i+half_image] = py5.pixels[i]
+    
+    py5.update_pixels()

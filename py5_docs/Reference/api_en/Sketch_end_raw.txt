@@ -14,15 +14,15 @@ Complement to ``begin_raw()``; they must always be used together. See the ``begi
 
 @@ example
 def setup():
-    size(400, 400)
-    begin_raw(PDF, "raw.pdf")
+    py5.size(400, 400)
+    py5.begin_raw(py5.PDF, "raw.pdf")
 
 
 def draw():
-    line(pmouse_x, pmouse_y, mouse_x, mouse_y)
+    py5.line(py5.pmouse_x, py5.pmouse_y, py5.mouse_x, py5.mouse_y)
 
 
 def key_pressed():
-    if key == ' ':
-        end_raw()
+    if py5.key == ' ':
+        py5.end_raw()
         exit()

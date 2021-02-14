@@ -23,19 +23,27 @@ Adds a directional light. Directional light comes from one direction: it is stro
 @@ example
 image = Sketch_directional_light_0.png
 
-size(100, 100, P3D)
-background(0)
-no_stroke()
-directional_light(51, 102, 126, -1, 0, 0)
-translate(20, 50, 0)
-sphere(30)
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+
+def setup():
+    py5.background(0)
+    py5.no_stroke()
+    py5.directional_light(51, 102, 126, -1, 0, 0)
+    py5.translate(20, 50, 0)
+    py5.sphere(30)
 
 @@ example
 image = Sketch_directional_light_1.png
 
-size(100, 100, P3D)
-background(0)
-no_stroke()
-directional_light(51, 102, 126, 0, -1, 0)
-translate(80, 50, 0)
-sphere(30)
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+
+def setup():
+    py5.background(0)
+    py5.no_stroke()
+    py5.directional_light(51, 102, 126, 0, -1, 0)
+    py5.translate(80, 50, 0)
+    py5.sphere(30)

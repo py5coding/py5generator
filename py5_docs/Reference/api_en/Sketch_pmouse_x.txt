@@ -16,6 +16,6 @@ If you want values relative to the previous frame, use ``pmouse_x`` and ``pmouse
 # move the mouse quickly to see the difference
 # between the current and previous position
 def draw():
-    background(204)
-    line(mouse_x, 20, pmouse_x, 80)
-    print(mouse_x + " : " + pmouse_x)
+    py5.background(204)
+    py5.line(py5.mouse_x, 20, py5.pmouse_x, 80)
+    print(py5.mouse_x + " : " + py5.pmouse_x)

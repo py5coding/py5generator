@@ -41,38 +41,40 @@ More about how colors are stored can be found in the reference for the color dat
 @@ example
 image = Sketch_color_0.png
 
-c = color(255, 204, 0)  # define color 'c'
-fill(c)  # use color variable 'c' as fill color
-no_stroke()  # don't draw a stroke around shapes
-rect(30, 20, 55, 55)  # draw rectangle
+def setup():
+    c = py5.color(255, 204, 0)  # define color 'c'
+    py5.fill(c)  # use color variable 'c' as fill color
+    py5.no_stroke()  # don't draw a stroke around shapes
+    py5.rect(30, 20, 55, 55)  # draw rectangle
 
 @@ example
 image = Sketch_color_1.png
 
-c = color(255, 204, 0)  # define color 'c'
-fill(c)  # use color variable 'c' as fill color
-no_stroke()  # don't draw a stroke around shapes
-ellipse(25, 25, 80, 80)  # draw left circle
-
-# using only one value with color()
-# generates a grayscale value.
-c = color(65)  # update 'c' with grayscale value
-fill(c)  # use updated 'c' as fill color
-ellipse(75, 75, 80, 80)  # draw right circle
+def setup():
+    c = py5.color(255, 204, 0)  # define color 'c'
+    py5.fill(c)  # use color variable 'c' as fill color
+    py5.no_stroke()  # don't draw a stroke around shapes
+    py5.ellipse(25, 25, 80, 80)  # draw left circle
+    
+    # using only one value with color()
+    # generates a grayscale value.
+    c = py5.color(65)  # update 'c' with grayscale value
+    py5.fill(c)  # use updated 'c' as fill color
+    py5.ellipse(75, 75, 80, 80)  # draw right circle
 
 @@ example
 image = Sketch_color_2.png
 
-color c  # declare color 'c'
-no_stroke()  # don't draw a stroke around shapes
-
-# if no color_mode is specified, then the
-# default of RGB with scale of 0-255 is used.
-c = color(50, 55, 100)  # create a color for 'c'
-fill(c)  # use color variable 'c' as fill color
-rect(0, 10, 45, 80)  # draw left rect
-
-color_mode(HSB, 100)  # use HSB with scale of 0-100
-c = color(50, 55, 100)  # update 'c' with new color
-fill(c)  # use updated 'c' as fill color
-rect(55, 10, 45, 80)  # draw right rect
+def setup():
+    py5.no_stroke()  # don't draw a stroke around shapes
+    
+    # if no color_mode is specified, then the
+    # default of RGB with scale of 0-255 is used.
+    c = py5.color(50, 55, 100)  # create a color for 'c'
+    py5.fill(c)  # use color variable 'c' as fill color
+    py5.rect(0, 10, 45, 80)  # draw left rect
+    
+    py5.color_mode(py5.HSB, 100)  # use HSB with scale of 0-100
+    c = py5.color(50, 55, 100)  # update 'c' with new color
+    py5.fill(c)  # use updated 'c' as fill color
+    py5.rect(55, 10, 45, 80)  # draw right rect

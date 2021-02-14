@@ -20,29 +20,37 @@ With ``IMAGE``, if an image is 100 x 200 pixels, mapping the image onto the enti
 @@ example
 image = Sketch_texture_mode_0.png
 
-size(100, 100, P3D)
-no_stroke()
-img = load_image("laDefense.jpg")
-texture_mode(IMAGE)
-begin_shape()
-texture(img)
-vertex(10, 20, 0, 0)
-vertex(80, 5, 100, 0)
-vertex(95, 90, 100, 100)
-vertex(40, 95, 0, 100)
-end_shape()
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+
+def setup():
+    py5.no_stroke()
+    img = py5.load_image("laDefense.jpg")
+    py5.texture_mode(py5.IMAGE)
+    py5.begin_shape()
+    py5.texture(img)
+    py5.vertex(10, 20, 0, 0)
+    py5.vertex(80, 5, 100, 0)
+    py5.vertex(95, 90, 100, 100)
+    py5.vertex(40, 95, 0, 100)
+    py5.end_shape()
 
 @@ example
 image = Sketch_texture_mode_1.png
 
-size(100, 100, P3D)
-no_stroke()
-img = load_image("laDefense.jpg")
-texture_mode(NORMAL)
-begin_shape()
-texture(img)
-vertex(10, 20, 0, 0)
-vertex(80, 5, 1, 0)
-vertex(95, 90, 1, 1)
-vertex(40, 95, 0, 1)
-end_shape()
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+
+def setup():
+    py5.no_stroke()
+    img = py5.load_image("laDefense.jpg")
+    py5.texture_mode(py5.NORMAL)
+    py5.begin_shape()
+    py5.texture(img)
+    py5.vertex(10, 20, 0, 0)
+    py5.vertex(80, 5, 1, 0)
+    py5.vertex(95, 90, 1, 1)
+    py5.vertex(40, 95, 0, 1)
+    py5.end_shape()

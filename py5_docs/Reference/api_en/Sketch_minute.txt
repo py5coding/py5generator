@@ -14,10 +14,10 @@ Processing communicates with the clock on your computer. The ``minute()`` functi
 
 @@ example
 def draw():
-    background(204)
-    s = second()  # values from_ 0 - 59
-    m = minute()  # values from_ 0 - 59
-    h = hour()    # values from_ 0 - 23
-    line(s, 0, s, 33)
-    line(m, 33, m, 66)
-    line(h, 66, h, 100)
+    py5.background(204)
+    s = py5.second()  # values from_ 0 - 59
+    m = py5.minute()  # values from_ 0 - 59
+    h = py5.hour()    # values from_ 0 - 23
+    py5.line(s, 0, s, 33)
+    py5.line(m, 33, m, 66)
+    py5.line(h, 66, h, 100)

@@ -17,51 +17,55 @@ When ``no_loop()`` is used, it's not possible to manipulate or access the screen
 Note that if the sketch is resized, ``redraw()`` will be called to update the sketch, even after ``no_loop()`` has been specified. Otherwise, the sketch would enter an odd state until ``loop()`` was called.
 
 @@ example
+def settings():
+    py5.size(200, 200)
+
+
 def setup():
-    size(200, 200)
-    no_loop()
+    py5.no_loop()
 
 
 def draw():
-    line(10, 10, 190, 190)
+    py5.line(10, 10, 190, 190)
 
 @@ example
-def setup():
-    size(200, 200)
-
-
 x = 0.0
 
 
-def draw():
-    background(204)
-    x = x + 0.1
-    if x > width:
-        x = 0
+def settings():
+    py5.size(200, 200)
 
-    line(x, 0, x, height)
+
+def draw():
+    py5.background(204)
+    global x
+    x = x + 0.1
+    if x > py5.width:
+        x = 0
+    py5.line(x, 0, x, py5.height)
 
 
 def mouse_pressed():
-    no_loop()
+    py5.no_loop()
 
 
 def mouse_released():
-    loop()
+    py5.loop()
 
 @@ example
 some_mode = False
 
 
 def setup():
-    no_loop()
+    py5.no_loop()
 
 
 def draw():
     if some_mode:
         # do something
+        pass
 
 
 def mouse_pressed():
     some_mode = True
-    redraw()  # or loop()
+    py5.redraw()  # or call loop()

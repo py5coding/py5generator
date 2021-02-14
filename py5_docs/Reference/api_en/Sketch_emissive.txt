@@ -24,11 +24,15 @@ Sets the emissive color of the material used for drawing shapes drawn to the scr
 @@ example
 image = Sketch_emissive_0.png
 
-size(100, 100, P3D)
-background(0)
-no_stroke()
-background(0)
-directional_light(204, 204, 204, .5, 0, -1)
-emissive(0, 26, 51)
-translate(70, 50, 0)
-sphere(30)
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+
+def setup():
+    py5.background(0)
+    py5.no_stroke()
+    py5.background(0)
+    py5.directional_light(204, 204, 204, .5, 0, -1)
+    py5.emissive(0, 26, 51)
+    py5.translate(70, 50, 0)
+    py5.sphere(30)

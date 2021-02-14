@@ -24,14 +24,15 @@ Calculates and returns the width of any character or text string.
 @@ example
 image = Sketch_text_width_0.png
 
-text_size(28)
-
-c = 't'
-cw = text_width(c)
-text(c, 0, 40)
-line(cw, 0, cw, 50)
-
-s = "Tokyo"
-sw = text_width(s)
-text(s, 0, 85)
-line(sw, 50, sw, 100)
+def setup():
+    py5.text_size(28)
+    
+    c = 't'
+    cw = py5.text_width(c)
+    py5.text(c, 0, 40)
+    py5.line(cw, 0, cw, 50)
+    
+    s = "Tokyo"
+    sw = py5.text_width(s)
+    py5.text(s, 0, 85)
+    py5.line(sw, 50, sw, 100)

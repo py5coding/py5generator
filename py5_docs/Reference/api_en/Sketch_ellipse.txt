@@ -21,4 +21,5 @@ Draws an ellipse (oval) to the screen. An ellipse with equal width and height is
 @@ example
 image = Sketch_ellipse_0.png
 
-ellipse(56, 46, 55, 55)
+def setup():
+    py5.ellipse(56, 46, 55, 55)

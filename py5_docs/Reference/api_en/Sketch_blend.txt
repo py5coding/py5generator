@@ -64,31 +64,35 @@ As of release 0149, this function ignores ``image_mode()``.
 @@ example
 image = Sketch_blend_0.png
 
-background(load_image("rockies.jpg"))
-img = load_image("bricks.jpg")
-image(img, 0, 0)
-blend(img, 0, 0, 33, 100, 67, 0, 33, 100, ADD)
+def setup():
+    py5.background(py5.load_image("rockies.jpg"))
+    img = py5.load_image("bricks.jpg")
+    py5.image(img, 0, 0)
+    py5.blend(img, 0, 0, 33, 100, 67, 0, 33, 100, py5.ADD)
 
 @@ example
 image = Sketch_blend_1.png
 
-background(load_image("rockies.jpg"))
-img = load_image("bricks.jpg")
-image(img, 0, 0)
-blend(img, 0, 0, 33, 100, 67, 0, 33, 100, SUBTRACT)
+def setup():
+    py5.background(py5.load_image("rockies.jpg"))
+    img = py5.load_image("bricks.jpg")
+    py5.image(img, 0, 0)
+    py5.blend(img, 0, 0, 33, 100, 67, 0, 33, 100, py5.SUBTRACT)
 
 @@ example
 image = Sketch_blend_2.png
 
-background(load_image("rockies.jpg"))
-img = load_image("bricks.jpg")
-image(img, 0, 0)
-blend(img, 0, 0, 33, 100, 67, 0, 33, 100, DARKEST)
+def setup():
+    py5.background(py5.load_image("rockies.jpg"))
+    img = py5.load_image("bricks.jpg")
+    py5.image(img, 0, 0)
+    py5.blend(img, 0, 0, 33, 100, 67, 0, 33, 100, py5.DARKEST)
 
 @@ example
 image = Sketch_blend_3.png
 
-background(load_image("rockies.jpg"))
-img = load_image("bricks.jpg")
-image(img, 0, 0)
-blend(img, 0, 0, 33, 100, 67, 0, 33, 100, LIGHTEST)
+def setup():
+    py5.background(py5.load_image("rockies.jpg"))
+    img = py5.load_image("bricks.jpg")
+    py5.image(img, 0, 0)
+    py5.blend(img, 0, 0, 33, 100, 67, 0, 33, 100, py5.LIGHTEST)

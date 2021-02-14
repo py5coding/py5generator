@@ -10,5 +10,9 @@ processing_name = displayWidth
 System variable that stores the width of the entire screen display. This is used to run a full-screen program on any display size.
 
 @@ example
-size(display_width, display_height)
-line(0, 0, width, height)
+def settings():
+    py5.size(py5.display_width, py5.display_height)
+
+
+def setup():
+    py5.line(0, 0, py5.width, py5.height)

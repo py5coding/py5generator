@@ -19,6 +19,8 @@
 # *****************************************************************************
 """
 This code is no longer used but might be pillaged one day to help convert Java example code.
+
+It was written to convert Processing's XML documentation data to py5's.
 """
 import re
 from pathlib import Path

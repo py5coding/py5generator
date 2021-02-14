@@ -27,17 +27,19 @@ Specifies vertex coordinates for Bezier curves. Each call to ``bezier_vertex()``
 @@ example
 image = Sketch_bezier_vertex_0.png
 
-no_fill()
-begin_shape()
-vertex(30, 20)
-bezier_vertex(80, 0, 80, 75, 30, 75)
-end_shape()
+def setup():
+    py5.no_fill()
+    py5.begin_shape()
+    py5.vertex(30, 20)
+    py5.bezier_vertex(80, 0, 80, 75, 30, 75)
+    py5.end_shape()
 
 @@ example
 image = Sketch_bezier_vertex_1.png
 
-begin_shape()
-vertex(30, 20)
-bezier_vertex(80, 0, 80, 75, 30, 75)
-bezier_vertex(50, 80, 60, 25, 30, 20)
-end_shape()
+def setup():
+    py5.begin_shape()
+    py5.vertex(30, 20)
+    py5.bezier_vertex(80, 0, 80, 75, 30, 75)
+    py5.bezier_vertex(50, 80, 60, 25, 30, 20)
+    py5.end_shape()

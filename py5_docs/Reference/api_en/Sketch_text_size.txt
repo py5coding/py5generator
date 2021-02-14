@@ -18,9 +18,10 @@ Sets the current font size. This size will be used in all subsequent calls to th
 @@ example
 image = Sketch_text_size_0.png
 
-background(0)
-fill(255)
-text_size(26)
-text("WORD", 10, 50)
-text_size(14)
-text("WORD", 10, 70)
+def setup():
+    py5.background(0)
+    py5.fill(255)
+    py5.text_size(26)
+    py5.text("WORD", 10, 50)
+    py5.text_size(14)
+    py5.text("WORD", 10, 70)

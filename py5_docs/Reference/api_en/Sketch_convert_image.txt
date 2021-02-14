@@ -23,6 +23,7 @@ The caller can optionally pass an existing Py5Image object to put the converted 
 @@ example
 from PIL import Image
 
-pil_image = Image.open('py5_logo.jpg')
 
-py5_image = convert_image(pil_image)
+def setup():
+    pil_image = Image.open('py5_logo.jpg')
+    py5_image = py5.convert_image(pil_image)

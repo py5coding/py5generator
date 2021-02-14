@@ -18,9 +18,8 @@ image = Py5Image_0.png
 
 def setup():
     global photo
-    size(100, 100)
-    photo = load_image("laDefense.jpg")
+    photo = py5.load_image("laDefense.jpg")
 
 
 def draw():
-    image(photo, 0, 0)
+    py5.image(photo, 0, 0)

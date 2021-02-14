@@ -34,11 +34,13 @@ To change the color of an image or a texture, use ``tint()``.
 @@ example
 image = Sketch_fill_0.png
 
-fill(153)
-rect(30, 20, 55, 55)
+def setup():
+    py5.fill(153)
+    py5.rect(30, 20, 55, 55)
 
 @@ example
 image = Sketch_fill_1.png
 
-fill(204, 102, 0)
-rect(30, 20, 55, 55)
+def setup():
+    py5.fill(204, 102, 0)
+    py5.rect(30, 20, 55, 55)

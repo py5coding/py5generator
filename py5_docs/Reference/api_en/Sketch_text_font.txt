@@ -21,9 +21,10 @@ Sets the current font that will be drawn with the ``text()`` function. Fonts mus
 @@ example
 image = Sketch_text_font_0.png
 
-# the font "andalemo.ttf" must be located in the
-# current sketch's "data" directory to load successfully
-mono = create_font("andalemo.ttf", 32)
-background(0)
-text_font(mono)
-text("word", 12, 60)
+def setup():
+    # the font "andalemo.ttf" must be located in the
+    # current sketch's "data" directory to load successfully
+    mono = py5.create_font("andalemo.ttf", 32)
+    py5.background(0)
+    py5.text_font(mono)
+    py5.text("word", 12, 60)

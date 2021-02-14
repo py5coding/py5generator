@@ -14,27 +14,27 @@ When a mouse button is pressed, the value of the system variable ``mouse_button`
 # the left and right mouse buttons to
 # change the value of the rectangle
 def draw():
-    if mouse_pressed & & (mouse_button == LEFT):
-        fill(0)
-    elif mouse_pressed & & (mouse_button == RIGHT):
-        fill(255)
+    if py5.is_mouse_pressed() and py5.mouse_button == py5.LEFT:
+        py5.fill(0)
+    elif py5.is_mouse_pressed() and py5.mouse_button == py5.RIGHT:
+        py5.fill(255)
     else:
-        fill(126)
+        py5.fill(126)
 
-    rect(25, 25, 50, 50)
+    py5.rect(25, 25, 50, 50)
 
 @@ example
 # click within the image and press
 # the left and right mouse buttons to
 # change the value of the rectangle
 def draw():
-    rect(25, 25, 50, 50)
+    py5.rect(25, 25, 50, 50)
 
 
 def mouse_pressed():
-    if mouse_button == LEFT:
-        fill(0)
-    mouse_button == RIGHT:
-        fill(255)
+    if py5.mouse_button == py5.LEFT:
+        py5.fill(0)
+    elif py5.mouse_button == py5.RIGHT:
+        py5.fill(255)
     else:
-        fill(126)
+        py5.fill(126)

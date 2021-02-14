@@ -20,51 +20,56 @@ With the P2D and P3D renderers, ``smooth(2)`` is the default, this is called "2x
 
 The default renderer uses ``smooth(3)`` by default. This is bicubic smoothing. The other option for the default renderer is ``smooth(2)``, which is bilinear smoothing.
 
-With Processing 3.0, ``smooth()`` is different than before. It was common to use ``smooth()`` and ``no_smooth()`` to turn on and off antialiasing within a sketch. Now, because of how the software has changed, ``smooth()`` can only be set once within a sketch. It can be used either at the top of a sketch without a ``setup()``, or after the ``size()`` function when used in a sketch with ``setup()``. The ``no_smooth()`` function also follows the same rules. 
+With Processing 3.0, ``smooth()`` is different than before. It was common to use ``smooth()`` and ``no_smooth()`` to turn on and off antialiasing within a sketch. Now, because of how the software has changed, ``smooth()`` can only be set once within a sketch. It must be called from the `settings()`` function. The ``no_smooth()`` function also follows the same rules. 
 
 When ``smooth()`` is used with a ``Py5Graphics`` object, it should be run right after the object is created with ``create_graphics()``, as shown in the Reference in the third example.
 
 @@ example
+def settings():
+    py5.smooth(2)
+
+
 def setup():
-    size(100, 100)
-    smooth(2)
-    no_stroke()
+    py5.no_stroke()
 
 
 def draw():
-    background(0)
-    ellipse(30, 48, 36, 36)
-    ellipse(70, 48, 36, 36)
+    py5.background(0)
+    py5.ellipse(30, 48, 36, 36)
+    py5.ellipse(70, 48, 36, 36)
 
 @@ example
 x = 0
 
-
-def setup():
-    full_screen(P2D, SPAN)
-    smooth(4)
+def settings():
+    py5.full_screen(py5.P2D, py5.SPAN)
+    py5.smooth(4)
 
 
 def draw():
-    background(0)
-    ellipse(x, height//2, height/4, height/4)
+    global x
+    py5.background(0)
+    py5.ellipse(x, py5.height//2, py5.height/4, py5.height/4)
     x += 1
 
 @@ example
 x = 0
 
+def settings():
+    py5.full_screen(py5.P2D)
+
 
 def setup():
     global pg
-    full_screen(P2D)
-    pg = create_graphics(width, height, P2D)
+    pg = py5.create_graphics(py5.width, py5.height, py5.P2D)
     pg.smooth(4)
 
 
 def draw():
+    global x
     pg.begin_draw()
     pg.background(0)
-    pg.ellipse(x, height//2, height/4, height/4)
+    pg.ellipse(x, py5.height//2, py5.height/4, py5.height/4)
     pg.end_draw()
-    image(pg, 0, 0)
+    py5.image(pg, 0, 0)
     x += 1

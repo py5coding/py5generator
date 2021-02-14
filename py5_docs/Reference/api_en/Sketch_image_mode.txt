@@ -28,33 +28,33 @@ image = Sketch_image_mode_0.png
 
 def setup():
     global img
-    img = load_image("laDefense.jpg")
+    img = py5.load_image("laDefense.jpg")
 
 
 def draw():
-    image_mode(CORNER)
-    image(img, 10, 10, 50, 50)  # draw image using CORNER mode
+    py5.image_mode(py5.CORNER)
+    py5.image(img, 10, 10, 50, 50)  # draw image using CORNER mode
 
 @@ example
 image = Sketch_image_mode_1.png
 
 def setup():
     global img
-    img = load_image("laDefense.jpg")
+    img = py5.load_image("laDefense.jpg")
 
 
 def draw():
-    image_mode(CORNERS)
-    image(img, 10, 10, 90, 40)  # draw image using CORNERS mode
+    py5.image_mode(py5.CORNERS)
+    py5.image(img, 10, 10, 90, 40)  # draw image using CORNERS mode
 
 @@ example
 image = Sketch_image_mode_2.png
 
 def setup():
     global img
-    img = load_image("laDefense.jpg")
+    img = py5.load_image("laDefense.jpg")
 
 
 def draw():
-    image_mode(CENTER)
-    image(img, 50, 50, 80, 80)  # draw image using CENTER mode
+    py5.image_mode(py5.CENTER)
+    py5.image(img, 50, 50, 80, 80)  # draw image using CENTER mode

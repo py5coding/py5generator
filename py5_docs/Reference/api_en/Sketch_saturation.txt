@@ -18,11 +18,12 @@ Extracts the saturation value from a color.
 @@ example
 image = Sketch_saturation_0.png
 
-no_stroke()
-color_mode(HSB, 255)
-c = color(0, 126, 255)
-fill(c)
-rect(15, 20, 35, 60)
-value = saturation(c)  # sets 'value' to 126
-fill(value)
-rect(50, 20, 35, 60)
+def setup():
+    py5.no_stroke()
+    py5.color_mode(py5.HSB, 255)
+    c = py5.color(0, 126, 255)
+    py5.fill(c)
+    py5.rect(15, 20, 35, 60)
+    value = py5.saturation(c)  # sets 'value' to 126
+    py5.fill(value)
+    py5.rect(50, 20, 35, 60)

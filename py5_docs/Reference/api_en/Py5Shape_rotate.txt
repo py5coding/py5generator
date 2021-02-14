@@ -24,13 +24,12 @@ Shapes are always rotated around the upper-left corner of their bounding box. Po
 @@ example
 def setup():
     global s
-    size(100, 100)
-    s = load_shape("ohio.svg")
+    s = py5.load_shape("ohio.svg")
 
 
 def draw():
-    background(204)
-    shape(s)
+    py5.background(204)
+    py5.shape(s)
 
 
 def mouse_pressed():

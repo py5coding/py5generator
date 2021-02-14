@@ -49,9 +49,9 @@ class ReservedWordError:
         out.append(lines[self.lineno - 1])
         out.append((' ' * self.col_offset) + '^')
         if self.ctx == 'Del':
-            out.append('Cannot delete py5 reserved word')
+            out.append('Deleting py5 reserved words is not allowed')
         elif self.ctx == 'Store':
-            out.append('Cannot modify py5 reserved word')
+            out.append('Assignments to py5 reserved words are not allowed')
         return '\n'.join(out)
 
 

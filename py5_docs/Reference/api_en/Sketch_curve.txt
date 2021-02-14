@@ -30,10 +30,11 @@ Draws a curved line on the screen. The first and second parameters specify the b
 @@ example
 image = Sketch_curve_0.png
 
-no_fill()
-stroke(255, 102, 0)
-curve(5, 26, 5, 26, 73, 24, 73, 61)
-stroke(0)
-curve(5, 26, 73, 24, 73, 61, 15, 65)
-stroke(255, 102, 0)
-curve(73, 24, 73, 61, 15, 65, 15, 65)
+def setup():
+    py5.no_fill()
+    py5.stroke(255, 102, 0)
+    py5.curve(5, 26, 5, 26, 73, 24, 73, 61)
+    py5.stroke(0)
+    py5.curve(5, 26, 73, 24, 73, 61, 15, 65)
+    py5.stroke(255, 102, 0)
+    py5.curve(73, 24, 73, 61, 15, 65, 15, 65)

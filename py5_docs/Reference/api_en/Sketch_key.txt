@@ -18,11 +18,10 @@ There are issues with how ``key_code`` behaves across different renderers and op
 # and press the 'b' key.
 
 def draw():
-    if key_pressed:
-        if key == 'b' | | key == 'b':
-            fill(0)
-
+    if py5.is_key_pressed():
+        if py5.key in ['b', 'B']:
+           py5.fill(0)
     else:
-        fill(255)
+        py5.fill(255)
 
-    rect(25, 25, 50, 50)
+    py5.rect(25, 25, 50, 50)

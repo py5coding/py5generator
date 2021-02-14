@@ -16,23 +16,21 @@ To create a new shape, use the ``create_shape()`` function. Do not use the synta
 @@ example
 def setup():
     global s
-    size(100, 100)
     # the file "bot.svg" must be in the data folder
     # of the current sketch to load successfully
-    s = load_shape("bot.svg")
+    s = py5.load_shape("bot.svg")
 
 
 def draw():
-    shape(s, 10, 10, 80, 80)
+    py5.shape(s, 10, 10, 80, 80)
 
 @@ example
 def setup():
-    global square  # the Py5Shape object
-    size(100, 100)
+    global s  # the Py5Shape object
     # creating the Py5Shape as a square. the corner
     # is 0,0 so that the center is at 40,40
-    square = create_shape(RECT, 0, 0, 80, 80)
+    s = py5.create_shape(py5.RECT, 0, 0, 80, 80)
 
 
 def draw():
-    shape(square, 10, 10)
+    py5.shape(s, 10, 10)

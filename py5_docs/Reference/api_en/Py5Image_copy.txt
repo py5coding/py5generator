@@ -32,11 +32,10 @@ image = Py5Image_copy_0.png
 
 def setup():
     global apples
-    size(100, 100)
-    apples = load_image("apples.jpg")
-    x = width//2
-    apples.copy(x, 0, x, height, 0, 0, x, height)
+    apples = py5.load_image("apples.jpg")
+    x = py5.width//2
+    apples.copy(x, 0, x, py5.height, 0, 0, x, py5.height)
 
 
 def draw():
-    image(apples, 0, 0)
+    py5.image(apples, 0, 0)

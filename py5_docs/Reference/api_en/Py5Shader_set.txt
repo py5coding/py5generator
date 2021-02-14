@@ -61,14 +61,14 @@ Sets the uniform variables inside the shader to modify the effect while the prog
 def setup():
     global tex
     global deform
-    size(640, 360, P2D)
-    tex = load_image("tex1.jpg")
-    deform = load_shader("deform.glsl")
-    deform.set("resolution", float(width), float(height))
+    py5.size(640, 360, py5.P2D)
+    tex = py5.load_image("tex1.jpg")
+    deform = py5.load_shader("deform.glsl")
+    deform.set("resolution", float(py5.width), float(py5.height))
 
 
 def draw():
-    deform.set("time", millis() / 1000.0)
-    deform.set("mouse", float(mouse_x), float(mouse_y))
-    shader(deform)
-    image(tex, 0, 0, width, height)
+    deform.set("time", py5.millis() / 1000.0)
+    deform.set("mouse", float(py5.mouse_x), float(py5.mouse_y))
+    py5.shader(deform)
+    py5.image(tex, 0, 0, py5.width, py5.height)
