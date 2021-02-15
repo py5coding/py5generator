@@ -26,7 +26,7 @@ import re
 import textwrap
 
 from . import jvm
-from . import util
+from .magics import util
 from . import parsing
 
 

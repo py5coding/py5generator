@@ -19,29 +19,15 @@
 # *****************************************************************************
 import time
 import re
-import io
 from pathlib import Path
 import tempfile
 
-from IPython.display import display, SVG, Image
-from IPython.core.magic import Magics, magics_class, cell_magic, line_magic
-from IPython.core.magic_arguments import MagicHelpFormatter, parse_argstring, argument, magic_arguments, kwds
+from IPython.core.magic import Magics, magics_class, line_magic
+from IPython.core.magic_arguments import parse_argstring, argument, magic_arguments
 
 import PIL
 
-from .single_frame import run_single_frame_sketch
-
-
-class CellMagicHelpFormatter(MagicHelpFormatter):
-
-    def add_usage(self, usage, actions, groups, prefix="::\n\n  %%"):
-        super(MagicHelpFormatter, self).add_usage(usage, actions, groups, prefix)
-
-
-def wait(wait_time, sketch):
-    end_time = time.time() + wait_time
-    while time.time() < end_time and sketch.is_running:
-        time.sleep(0.1)
+from .util import wait
 
 
 class BaseHook:
@@ -133,7 +119,7 @@ class GrabFramesHook(BaseHook):
 
 
 @magics_class
-class Py5Magics(Magics):
+class SketchHooks(Magics):
 
     def _filename_check(self, filename):
         filename = Path(filename)
@@ -143,96 +129,6 @@ class Py5Magics(Magics):
 
     def _variable_name_check(self, varname):
         return re.match('^[a-zA-Z_]\w*' + chr(36), varname)
-
-    @magic_arguments()
-    @argument(""" DELETE
-    $arguments_Py5Magics_py5drawpdf_arguments
-    """) # DELETE
-    @kwds(formatter_class=CellMagicHelpFormatter)
-    @cell_magic
-    def py5drawpdf(self, line, cell):
-        """$class_Py5Magics_py5drawpdf"""
-        args = parse_argstring(self.py5drawpdf, line)
-        pdf = run_single_frame_sketch('PDF', cell, args.width, args.height,
-                                      self.shell.user_ns, not args.unsafe)
-        if pdf:
-            filename = self._filename_check(args.filename)
-            with open(filename, 'wb') as f:
-                f.write(pdf)
-            print(f'PDF written to {filename}')
-
-    @magic_arguments()
-    @argument(""" DELETE
-    $arguments_Py5Magics_py5drawdxf_arguments
-    """) # DELETE
-    @kwds(formatter_class=CellMagicHelpFormatter)
-    @cell_magic
-    def py5drawdxf(self, line, cell):
-        """$class_Py5Magics_py5drawdxf"""
-        args = parse_argstring(self.py5drawdxf, line)
-        dxf = run_single_frame_sketch('DXF', cell, args.width, args.height,
-                                      self.shell.user_ns, not args.unsafe)
-        if dxf:
-            filename = self._filename_check(args.filename)
-            with open(filename, 'w') as f:
-                f.write(dxf)
-            print(f'DXF written to {filename}')
-
-    @magic_arguments()
-    @argument(""" DELETE
-    $arguments_Py5Magics_py5drawsvg_arguments
-    """) # DELETE
-    @kwds(formatter_class=CellMagicHelpFormatter)
-    @cell_magic
-    def py5drawsvg(self, line, cell):
-        """$class_Py5Magics_py5drawsvg"""
-        args = parse_argstring(self.py5drawsvg, line)
-        svg = run_single_frame_sketch('SVG', cell, args.width, args.height,
-                                      self.shell.user_ns, not args.unsafe)
-        if svg:
-            if args.filename:
-                filename = self._filename_check(args.filename)
-                with open(filename, 'w') as f:
-                    f.write(svg)
-                print(f'SVG drawing written to {filename}')
-            display(SVG(svg))
-
-    @magic_arguments()
-    @argument(""" DELETE
-    $arguments_Py5Magics_py5draw_arguments
-    """) # DELETE
-    @kwds(formatter_class=CellMagicHelpFormatter)
-    @cell_magic
-    def py5draw(self, line, cell):
-        """$class_Py5Magics_py5draw"""
-        args = parse_argstring(self.py5draw, line)
-
-        if args.renderer == 'SVG':
-            print('please use %%py5drawsvg for SVG drawings.')
-            return
-        if args.renderer == 'PDF':
-            print('please use %%py5drawpdf for PDFs.')
-            return
-        if args.renderer not in ['HIDDEN', 'JAVA2D', 'P2D', 'P3D']:
-            print(f'unknown renderer {args.renderer}')
-            return
-
-        png = run_single_frame_sketch(args.renderer, cell, args.width, args.height,
-                                      self.shell.user_ns, not args.unsafe)
-        if png:
-            if args.filename or args.variable:
-                pil_img = PIL.Image.open(io.BytesIO(png)).convert(mode='RGB')
-                if args.filename:
-                    filename = self._filename_check(args.filename)
-                    pil_img.save(filename)
-                    print(f'PNG file written to {filename}')
-                if args.variable:
-                    if self._variable_name_check(args.variable):
-                        self.shell.user_ns[args.variable] = pil_img
-                        print(f'PIL Image assigned to {args.variable}')
-                    else:
-                        print(f'Invalid variable name {args.variable}')
-            display(Image(png))
 
     @line_magic
     @magic_arguments()
@@ -372,7 +268,3 @@ class Py5Magics(Magics):
 
         elif hook.is_terminated and hook.exception:
             print('error running magic:', hook.exception)
-
-
-def load_ipython_extension(ipython):
-    ipython.register_magics(Py5Magics)

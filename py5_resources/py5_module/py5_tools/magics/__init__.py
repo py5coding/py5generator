@@ -17,13 +17,10 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from . import condensed  # noqa
-from .jvm import *  # noqa
-from .libraries import *  # noqa
-from . import magics  # noqa
-from . import parsing  # noqa
-from . import utilities  # noqa
-from . import testing  # noqa
+from .drawing import DrawingMagics
+from .sketchhooks import SketchHooks
 
 
-__version__ = '0.3a6.dev0'
+def load_ipython_extension(ipython):
+    ipython.register_magics(DrawingMagics)
+    ipython.register_magics(SketchHooks)

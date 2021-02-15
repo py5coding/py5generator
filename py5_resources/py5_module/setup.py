@@ -40,7 +40,7 @@ INSTALL_REQUIRES = [
 setup(
     name='py5',
     version=VERSION,
-    packages=['py5', 'py5.mixins', 'py5_tools', 'py5_tools.tools'],
+    packages=['py5', 'py5.mixins', 'py5_tools', 'py5_tools.tools', 'py5_tools.magics'],
     py_modules=['setup'],
     package_data={
         "py5": ['jars/*.jar', 'jars/*/*.jar', '*.pyi', 'py.typed']
