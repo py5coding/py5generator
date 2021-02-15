@@ -17,14 +17,39 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from . import condensed  # noqa
-from .jvm import *  # noqa
-from .libraries import *  # noqa
-from . import magics  # noqa
-from . import parsing  # noqa
-from . import single_frame  # noqa
-from . import utilities  # noqa
-from . import testing  # noqa
+from pathlib import Path
 
 
-__version__ = '0.3a6.dev0'
+_DRAW_WRAPPER_CODE_TEMPLATE = """
+if _PY5_HAS_DRAW_:
+    draw_ = draw
+
+def draw():
+    if _PY5_HAS_DRAW_:
+        draw_()
+
+    if _PY5_SAVE_FRAME_:
+        py5.save_frame("{0}", use_thread=False)
+    py5.exit_sketch()
+"""
+
+
+_RUN_SKETCH_CODE = """
+py5.run_sketch(block=True)
+if py5.is_dead_from_error:
+    py5.exit_sketch()
+"""
+
+
+def run_code(code: str, image: Path) -> bool:
+    import py5
+    ns = dict(py5=py5)
+
+    exec(code, ns)
+    ns['_PY5_HAS_DRAW_'] = 'draw' in ns
+    ns['_PY5_SAVE_FRAME_'] = image is not None
+
+    exec(_DRAW_WRAPPER_CODE_TEMPLATE.format(image), ns)
+    exec(_RUN_SKETCH_CODE, ns)
+
+    return not py5.is_dead_from_error
