@@ -28,7 +28,7 @@ def setup():
     py5.fill(255)
     steps = 10
     for i in range(0, steps + 1):
-        t = i / float(steps)
+        t = i / steps
         x = py5.bezier_point(85, 10, 90, 15, t)
         y = py5.bezier_point(20, 10, 90, 80, t)
         py5.ellipse(x, y, 5, 5)

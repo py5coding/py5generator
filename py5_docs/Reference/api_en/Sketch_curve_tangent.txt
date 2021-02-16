@@ -27,7 +27,7 @@ def setup():
     py5.curve(5, 26, 73, 24, 73, 61, 15, 65)
     steps = 6
     for i in range(0, steps + 1):
-        t = i / float(steps)
+        t = i / steps
         x = py5.curve_point(5, 73, 73, 15, t)
         y = py5.curve_point(26, 24, 61, 65, t)
         #ellipse(x, y, 5, 5)
