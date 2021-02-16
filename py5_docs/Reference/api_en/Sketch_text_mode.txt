@@ -29,4 +29,4 @@ def setup():
 
 def draw():
     py5.text("ABC", 75, 350)
-    exit()  # quit the program
+    py5.exit_sketch()  # quit the program

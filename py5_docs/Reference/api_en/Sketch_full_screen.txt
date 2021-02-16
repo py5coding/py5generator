@@ -41,6 +41,7 @@ def setup():
 
 
 def draw():
+    global x
     py5.rect(x, py5.height*0.2, 1, py5.height*0.6)
     x = x + 2
 
@@ -63,6 +64,7 @@ def setup():
 
 
 def draw():
+    global x
     py5.rect(x, py5.height*0.2, 1, py5.height*0.6)
     x = x + 2
 
@@ -83,6 +85,7 @@ def setup():
 
 
 def draw():
+    global x
     py5.rect(x, py5.height*0.2, 1, py5.height*0.6)
     x = x + 2
 
@@ -104,5 +107,6 @@ def setup():
 
 
 def draw():
+    global x
     py5.rect(x, py5.height*0.2, 1, py5.height*0.6)
     x = x + 2

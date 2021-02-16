@@ -33,9 +33,12 @@ def draw():
     py5.shape(s, 10, 10, 80, 80)
 
 @@ example
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+
 def setup():
     global s
-    py5.size(100, 100, py5.P3D)
     # the file "bot.obj" must be in the data folder
     # of the current sketch to load successfully
     s = py5.load_shape("bot.obj")

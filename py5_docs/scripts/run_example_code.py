@@ -29,7 +29,7 @@ PY5_API_EN = Path('py5_docs/Reference/api_en/').absolute()
 DOC_DATA = Path('py5_docs/Reference/data')
 DEST_DIR = Path('/tmp/examples/')
 
-ONLY_RUN_EXAMPLES_WITH_IMAGES = True
+ONLY_RUN_EXAMPLES_WITH_IMAGES = False
 
 
 # set the current working dir and put supporting files in data subdirectory

@@ -17,10 +17,13 @@ kind: int - type of shader, either POINTS, LINES, or TRIANGLES
 Restores the default shaders. Code that runs after ``reset_shader()`` will not be affected by previously defined shaders.
 
 @@ example
+def settings():
+    py5.size(640, 360, py5.P2D)
+
+
 def setup():
     global edges
     global img
-    py5.size(640, 360, py5.P2D)
     img = py5.load_image("leaves.jpg")
     edges = py5.load_shader("edges.glsl")
 

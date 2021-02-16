@@ -13,6 +13,10 @@ end_draw() -> None
 Finalizes the rendering of a PGraphics object so that it can be shown on screen.
 
 @@ example
+def settings():
+    py5.size(200, 200, py5.P2D)
+
+
 def setup():
     global pg
     pg = py5.create_graphics(80, 80, py5.P2D)
@@ -21,7 +25,6 @@ def setup():
     pg.stroke(255)
     pg.line(20, 20, 80, 80)
     pg.end_draw()
-    py5.no_loop()
 
 
 def draw():

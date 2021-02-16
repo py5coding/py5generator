@@ -30,5 +30,5 @@ def draw():
     py5.rotate_x(py5.mouse_y * 0.05)
     py5.rotate_y(py5.mouse_x * 0.05)
     py5.fill(py5.mouse_x * 2, 0, 160)
-    py5.sphere_detail(py5.mouse_x / 4)
+    py5.sphere_detail(py5.mouse_x // 4)
     py5.sphere(40)

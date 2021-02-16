@@ -13,8 +13,11 @@ no_clip() -> None
 Disables the clipping previously started by the ``clip()`` function.
 
 @@ example
-def setup():
+def settings():
     py5.size(200, 200)
+
+
+def setup():
     py5.image_mode(py5.CENTER)
 
 

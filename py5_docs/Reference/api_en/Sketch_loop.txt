@@ -13,15 +13,19 @@ loop() -> None
 By default, Processing loops through ``draw()`` continuously, executing the code within it. However, the ``draw()`` loop may be stopped by calling ``no_loop()``. In that case, the ``draw()`` loop can be resumed with ``loop()``.
 
 @@ example
-def setup():
-    py5.size(200, 200)
-    py5.no_loop()  # draw() will not loop
-
-
 x = 0
 
 
+def settings():
+    py5.size(200, 200)
+
+
+def setup():
+    py5.no_loop()  # draw() will not loop
+
+
 def draw():
+    global x
     py5.background(204)
     x = x + .1
     if x > py5.width:
