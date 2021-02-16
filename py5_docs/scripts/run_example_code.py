@@ -42,7 +42,7 @@ os.chdir(DEST_DIR)
 
 
 try:
-    for docfile in list(sorted(PY5_API_EN.glob('*.txt')))[:50]:
+    for docfile in sorted(PY5_API_EN.glob('*.txt')):
         doc = Documentation(docfile)
         if doc.meta['type'] in ['function', 'line magic', 'cell magic']:
             # skip these for now, but I should probably include them later
@@ -51,6 +51,8 @@ try:
         for image, code in doc.examples:
             if ONLY_RUN_EXAMPLES_WITH_IMAGES and image is None:
                 continue
+
+            print(docfile.name, image)
 
             save_path = DEST_DIR / image if image else None
             success = py5_tools.testing.run_code(code, save_path)

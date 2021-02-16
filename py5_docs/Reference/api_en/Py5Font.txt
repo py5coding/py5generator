@@ -17,6 +17,6 @@ image = Py5Font_0.png
 def setup():
     # the font must be located in the sketch's
     # "data" directory to load successfully
-    font = py5.create_font("LetterGothicStd.ttf", 32)
+    font = py5.create_font("FreeSans.ttf", 32)
     py5.text_font(font)
     py5.text("word", 10, 50)

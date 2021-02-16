@@ -104,10 +104,13 @@ def setup():
 @@ example
 image = Sketch_apply_filter_7.png
 
+def settings():
+    py5.size(100, 100, py5.P2D)
+
+
 def setup():
     global blur
     global img
-    py5.size(100, 100, py5.P2D)
     blur = py5.load_shader("blur.glsl")
     img = py5.load_image("apples.jpg")
     py5.image(img, 0, 0)
