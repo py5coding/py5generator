@@ -24,7 +24,6 @@ def settings():
 
 def setup():
     py5.no_fill()
-    py5.no_loop()
 
 
 def draw():
