@@ -26,12 +26,13 @@ def settings():
 
 def setup():
     global s
-    s = py5.load_shape("ohio.svg")
+    s = py5.load_shape("bot.svg")
 
 
 def draw():
     py5.background(204)
-    py5.shape(s)
+    py5.scale(0.2)
+    py5.shape(s, py5.width // 2, py5.height // 2)
 
 
 def mouse_pressed():
