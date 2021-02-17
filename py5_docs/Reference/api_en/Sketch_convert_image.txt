@@ -25,5 +25,6 @@ from PIL import Image
 
 
 def setup():
-    pil_image = Image.open('py5_logo.jpg')
+    pil_image = Image.open('apples.jpg')
     py5_image = py5.convert_image(pil_image)
+    py5.image(py5_image, 0, 0)
