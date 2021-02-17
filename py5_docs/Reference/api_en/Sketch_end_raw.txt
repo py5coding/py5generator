@@ -10,11 +10,11 @@ processing_name = endRaw
 end_raw() -> None
 
 @@ description
-Complement to ``begin_raw()``; they must always be used together. See the ``begin_raw()`` reference for details.
+Complement to :doc:`begin_raw()`; they must always be used together. See the :doc:`begin_raw()` reference for details.
 
 @@ example
 def settings():
-    py5.size(400, 400, py5.PDF)
+    py5.size(400, 400, py5.P2D)
 
 
 def setup():
