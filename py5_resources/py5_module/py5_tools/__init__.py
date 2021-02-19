@@ -17,7 +17,11 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+"""
+Utilities and accessory tools for py5. 
+"""
 from . import imported  # noqa
+from .imported import set_imported_mode  # noqa
 from .jvm import *  # noqa
 from .libraries import *  # noqa
 from . import magics  # noqa

@@ -59,10 +59,9 @@ except ModuleNotFoundError:
     pass
 
 
-_PY5_USE_IMPORTED_MODE = False
-
-
 __version__ = '0.3a6.dev0'
+
+_PY5_USE_IMPORTED_MODE = py5_tools.imported.get_imported_mode()
 
 logger = logging.getLogger(__name__)
 
@@ -78,12 +77,8 @@ _py5sketch = Sketch()
 
 def run_sketch(block: bool = None,
                py5_options: List = None,
-               sketch_args: List = None, *,
-               _import_star = _PY5_USE_IMPORTED_MODE) -> None:
+               sketch_args: List = None) -> None:
     """$module_Sketch_run_sketch"""
-    # Before running the sketch, delete the module fields that need to be kept
-    # uptodate. This will allow the module `__getattr__` function return the
-    # proper values.
     if block is None:
         block = not _in_ipython_session
 
@@ -104,7 +99,7 @@ def run_sketch(block: bool = None,
     if _py5sketch.is_dead:
         _py5sketch = Sketch()
 
-    _prepare_dynamic_variables(_import_star, caller_locals)
+    _prepare_dynamic_variables(caller_locals)
 
     _py5sketch._run_sketch(methods, block, py5_options, sketch_args)
 
@@ -121,7 +116,7 @@ def reset_py5() -> bool:
         _py5sketch = Sketch()
         if _PY5_USE_IMPORTED_MODE:
             caller_locals = inspect.stack()[1].frame.f_locals
-            _prepare_dynamic_variables(True, caller_locals)
+            _prepare_dynamic_variables(caller_locals)
         return True
     else:
         return False
@@ -155,12 +150,21 @@ if _PY5_USE_IMPORTED_MODE:
     __all__.extend(reference.PY5_DYNAMIC_VARIABLES)
 
 
-def _prepare_dynamic_variables(_import_star, caller_locals):
+def _prepare_dynamic_variables(caller_locals):
+    """prepare the dynamic variables for sketch execution.
+
+    Before running the sketch, delete the module fields like `mouse_x` that need
+    to be kept current as the sketch runs. This will allow the module's
+    `__getattr__` function return the proper values.
+
+    When running in imported mode, place variables in the the caller's local
+    namespace that link to the Sketch's dynamic variable property objects.
+    """
     for dvar in reference.PY5_DYNAMIC_VARIABLES:
         if dvar in globals():
             globals().pop(dvar)
-        if _import_star:
+        if _PY5_USE_IMPORTED_MODE:
             caller_locals[dvar] = getattr(_py5sketch, '_get_' + dvar)
 
 
-_prepare_dynamic_variables(_PY5_USE_IMPORTED_MODE, locals())
+_prepare_dynamic_variables(locals())

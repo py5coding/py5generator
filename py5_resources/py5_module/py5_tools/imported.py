@@ -30,11 +30,22 @@ from .magics import util
 from . import parsing
 
 
-# TODO: this import_star parameter is awkward and won't work the way I want in the py5 kernel
+_imported_mode = False
+
+
+def set_imported_mode(imported_mode: bool):
+    global _imported_mode
+    _imported_mode = imported_mode
+
+
+def get_imported_mode() -> bool:
+    return _imported_mode
+
+
 _CODE_FRAMEWORK = """
 {0}
 
-run_sketch(block=True, _import_star=True)
+run_sketch(block=True)
 if {1} and is_dead_from_error:
     exit_sketch()
 """
