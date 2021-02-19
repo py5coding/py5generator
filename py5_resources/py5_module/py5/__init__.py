@@ -50,7 +50,6 @@ from .sketch import Sketch, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Sha
 from .render_helper import render_frame, render_frame_sequence, render, render_sequence  # noqa
 from .create_font_tool import create_font_file  # noqa
 from .image_conversion import register_image_conversion, NumpyImageArray  # noqa
-from . import reference
 from . import java_conversion  # noqa
 try:
     from py5_tools.magics import load_ipython_extension  # noqa
@@ -142,12 +141,12 @@ def __getattr__(name):
 
 
 def __dir__():
-    return reference.PY5_DIR_STR
+    return py5_tools.reference.PY5_DIR_STR
 
 
-__all__ = reference.PY5_ALL_STR
+__all__ = py5_tools.reference.PY5_ALL_STR
 if _PY5_USE_IMPORTED_MODE:
-    __all__.extend(reference.PY5_DYNAMIC_VARIABLES)
+    __all__.extend(py5_tools.reference.PY5_DYNAMIC_VARIABLES)
 
 
 def _prepare_dynamic_variables(caller_locals):
@@ -160,7 +159,7 @@ def _prepare_dynamic_variables(caller_locals):
     When running in imported mode, place variables in the the caller's local
     namespace that link to the Sketch's dynamic variable property objects.
     """
-    for dvar in reference.PY5_DYNAMIC_VARIABLES:
+    for dvar in py5_tools.reference.PY5_DYNAMIC_VARIABLES:
         if dvar in globals():
             globals().pop(dvar)
         if _PY5_USE_IMPORTED_MODE:

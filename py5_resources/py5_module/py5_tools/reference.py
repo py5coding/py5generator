@@ -20,31 +20,19 @@
 # *** FORMAT PARAMS ***
 # *** SKIP AUTOPEP8 ***
 
-method_signatures_lookup_str = None  # DELETE
+py5_dir_str = None  # DELETE
+py5_all_str = None  # DELETE
+py5_dynamic_variables_str = None  # DELETE
 
 
-METHODS = [
-    'settings', 'setup', 'draw', 'pre_draw', 'post_draw',
-    'key_pressed', 'key_typed', 'key_released',
-    'mouse_clicked', 'mouse_dragged', 'mouse_moved', 'mouse_entered',
-    'mouse_exited', 'mouse_pressed', 'mouse_released', 'mouse_wheel',
-    'exiting'
+PY5_DIR_STR = [
+    {py5_dir_str}
 ]
 
-FILE_CLASS_LOOKUP = dict([
-    (('font.py',), 'Py5Font'),
-    (('graphics.py',), 'Py5Graphics'),
-    (('image.py',), 'Py5Image'),
-    (('shader.py',), 'Py5Shader'),
-    (('shape.py',), 'Py5Shape'),
-    (('sketch.py',), 'Sketch'),
-    (('surface.py',), 'Py5Surface'),
-    (('mixins', 'data.py'), 'Sketch'),
-    (('mixins', 'math.py'), 'Sketch'),
-    (('mixins', 'pixels.py'), 'Sketch'),
-    (('mixins', 'threads.py'), 'Sketch'),
-])
+PY5_ALL_STR = [
+    {py5_all_str}
+]
 
-METHOD_SIGNATURES_LOOKUP = dict([
-    {method_signatures_lookup_str}
-])
+PY5_DYNAMIC_VARIABLES = [
+    {py5_dynamic_variables_str}
+]

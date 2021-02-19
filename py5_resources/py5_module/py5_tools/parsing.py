@@ -17,18 +17,17 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-# *** FORMAT PARAMS ***
 import ast
 
 
-py5_dynamic_variables_str = None  # DELETE
+from . import reference as ref
 
 
 class TransformDynamicVariablesToCalls(ast.NodeTransformer):
 
     def __init__(self):
         super().__init__()
-        self._dynamic_variables = [{py5_dynamic_variables_str}]
+        self._dynamic_variables = ref.PY5_DYNAMIC_VARIABLES
 
     def visit_Name(self, node: ast.Name):
         if node.id in self._dynamic_variables:
@@ -72,7 +71,6 @@ class ReservedWordsValidation(ast.NodeVisitor):
 
 
 def check_reserved_words(code_ast: ast.Module):
-    import py5.reference as ref
     validator = ReservedWordsValidation(ref.PY5_DIR_STR)
     validator.visit(code_ast)
     return validator.problems
