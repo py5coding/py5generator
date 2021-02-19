@@ -19,7 +19,7 @@
 # *****************************************************************************
 import argparse
 
-from py5_tools import condensed
+from py5_tools import imported
 
 
 parser = argparse.ArgumentParser(description="Execute py5 sketch",
@@ -31,7 +31,7 @@ parser.add_argument('-c', '--classpath', action='store', dest='classpath',
 
 def main():
     args = parser.parse_args()
-    condensed.run_code(args.sketch_path, classpath=args.classpath)
+    imported.run_code(args.sketch_path, classpath=args.classpath)
 
 
 if __name__ == '__main__':

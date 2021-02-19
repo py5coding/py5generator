@@ -17,7 +17,7 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from . import condensed  # noqa
+from . import imported  # noqa
 from .jvm import *  # noqa
 from .libraries import *  # noqa
 from . import magics  # noqa
