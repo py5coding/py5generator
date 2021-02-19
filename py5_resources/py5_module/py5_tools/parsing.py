@@ -17,15 +17,18 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+# *** FORMAT PARAMS ***
 import ast
+
+
+py5_dynamic_variables_str = None  # DELETE
 
 
 class TransformDynamicVariablesToCalls(ast.NodeTransformer):
 
-    def __init__(self, dynamic_variables):
+    def __init__(self):
         super().__init__()
-        import py5
-        self._dynamic_variables = dynamic_variables
+        self._dynamic_variables = [{py5_dynamic_variables_str}]
 
     def visit_Name(self, node: ast.Name):
         if node.id in self._dynamic_variables:
@@ -76,6 +79,5 @@ def check_reserved_words(code_ast: ast.Module):
 
 
 def transform_py5_code(code_ast: ast.Module):
-    import py5.reference as ref
-    transformer = TransformDynamicVariablesToCalls(ref.PY5_DYNAMIC_VARIABLES)
+    transformer = TransformDynamicVariablesToCalls()
     return ast.fix_missing_locations(transformer.visit(code_ast))
