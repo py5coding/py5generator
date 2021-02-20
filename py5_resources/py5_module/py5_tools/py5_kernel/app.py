@@ -18,12 +18,19 @@
 #
 # *****************************************************************************
 from ipykernel.kernelapp import IPKernelApp
+from traitlets import Type, List, Unicode
 
 
 class Py5App(IPKernelApp):
+    name = 'py5-kernel'
 
-    exec_lines = [
+    kernel_class = Type('py5_tools.py5_kernel.kernel.Py5Kernel',
+                        klass='ipykernel.kernelbase.Kernel').tag(config=True)
+
+    exec_lines = List(Unicode(), [
         'import py5_tools',
         'py5_tools.set_imported_mode(True)',
         'from py5 import *',
-    ]
+    ]).tag(config=True)
+
+    extensions = List(Unicode(), ['py5_tools.magics']).tag(config=True)

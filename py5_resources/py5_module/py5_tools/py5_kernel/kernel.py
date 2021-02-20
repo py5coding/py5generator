@@ -19,7 +19,7 @@
 # *****************************************************************************
 from ipykernel.ipkernel import IPythonKernel
 from IPython.core.interactiveshell import InteractiveShell
-from traitlets import Type
+from traitlets import Type, Instance, List
 
 from .shell import Py5Shell
 
@@ -36,9 +36,14 @@ _PY5_HELP_LINKS = [
 
 
 class Py5Kernel(IPythonKernel):
-    shell = None
+    shell = Instance('IPython.core.interactiveshell.InteractiveShellABC',
+                     allow_none=True)
     shell_class = Type(Py5Shell)
-    help_links = [*IPythonKernel.help_links.default(), *_PY5_HELP_LINKS]
+
+    help_links = List([*IPythonKernel.help_links.default(),
+                       *_PY5_HELP_LINKS]).tag(config=True)
+
     implementation = 'py5'
-    implementation_version = 'current version'
-    # TODO: language_info = ???  # I can set the pygments lexer here
+    implementation_version = '0.3a6.dev0'
+    # TODO: set this to modify the 'pygments_lexer' key
+    # language_info = {}

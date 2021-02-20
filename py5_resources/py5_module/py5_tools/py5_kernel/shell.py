@@ -18,9 +18,17 @@
 #
 # *****************************************************************************
 from ipykernel.zmqshell import ZMQInteractiveShell
+from IPython.core.interactiveshell import InteractiveShellABC
+from traitlets import Unicode, List
 
 from ..parsing import TransformDynamicVariablesToCalls
 
+
 class Py5Shell(ZMQInteractiveShell):
 
-    ast_transformers = [TransformDynamicVariablesToCalls()]
+    ast_transformers = List([TransformDynamicVariablesToCalls()]).tag(config=True)
+
+    banner2 = Unicode("Activating py5 imported mode").tag(config=True)
+
+
+InteractiveShellABC.register(Py5Shell)
