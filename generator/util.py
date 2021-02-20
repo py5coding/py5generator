@@ -20,6 +20,8 @@
 import re
 import logging
 from string import Template
+from pathlib import Path
+import shutil
 import autopep8
 
 
@@ -36,22 +38,25 @@ class CodeCopier:
     def __call__(self, src, dest, *, follow_symlinks=True):
         logger.info(f'copying {src} to {dest}')
 
-        with open(src, 'r') as f:
-            content = f.read()
-
-        if content.find('# *** FORMAT PARAMS ***') >= 0:
-            content = content.replace('# *** FORMAT PARAMS ***\n', '')
-            content = content.format(**self.format_params)
-
-        content = re.sub(r'^.*DELETE$', '', content, flags=re.MULTILINE)
-        content = re.sub(r'\s*# @decorator$', '', content, flags=re.MULTILINE)
-        content = Template(content).substitute(self.docstring_dict)
-        if self.skip_autopep8 or content.find('# *** SKIP AUTOPEP8 ***') >= 0:
-            content = content.replace('# *** SKIP AUTOPEP8 ***\n', '')
+        if Path(src).suffix != '.py':
+            shutil.copy(src, dest)
         else:
-            content = autopep8.fix_code(content, options={'aggressive': 2})
+            with open(src, 'r') as f:
+                content = f.read()
 
-        with open(dest, 'w') as f:
-            f.write(content)
+            if content.find('# *** FORMAT PARAMS ***') >= 0:
+                content = content.replace('# *** FORMAT PARAMS ***\n', '')
+                content = content.format(**self.format_params)
+
+            content = re.sub(r'^.*DELETE$', '', content, flags=re.MULTILINE)
+            content = re.sub(r'\s*# @decorator$', '', content, flags=re.MULTILINE)
+            content = Template(content).substitute(self.docstring_dict)
+            if self.skip_autopep8 or content.find('# *** SKIP AUTOPEP8 ***') >= 0:
+                content = content.replace('# *** SKIP AUTOPEP8 ***\n', '')
+            else:
+                content = autopep8.fix_code(content, options={'aggressive': 2})
+
+            with open(dest, 'w') as f:
+                f.write(content)
 
         return dest
