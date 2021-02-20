@@ -17,10 +17,12 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import argparse
-import json
 import os
 import sys
+import shutil
+from pathlib import Path
+import argparse
+import json
 
 from jupyter_client.kernelspec import KernelSpecManager
 from IPython.utils.tempdir import TemporaryDirectory
@@ -36,10 +38,12 @@ kernel_json = {
 def install_py5_kernel_spec(user=True, prefix=None):
     with TemporaryDirectory() as td:
         os.chmod(td, 0o755)  # Starts off as 700, not user readable
-        with open(os.path.join(td, 'kernel.json'), 'w') as f:
+        with open(Path(td) / 'kernel.json', 'w') as f:
             json.dump(kernel_json, f, sort_keys=True)
         # Copy any resources
-
+        for file in (Path(__file__).parent / 'resources').glob('*'):
+            print(file)
+            shutil.copy(file, Path(td) / file.name)
         print('Installing Jupyter kernel spec')
         KernelSpecManager().install_kernel_spec(
             td, 'py5', user=user, prefix=prefix)

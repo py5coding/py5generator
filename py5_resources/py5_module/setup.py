@@ -18,7 +18,6 @@
 #
 # *****************************************************************************
 import os
-from pathlib import Path
 from setuptools import setup
 
 with open('README.rst') as f:
@@ -52,7 +51,8 @@ setup(
     packages=packages,
     py_modules=['setup'],
     package_data={
-        "py5": ['jars/*.jar', 'jars/*/*.jar', '*.pyi', 'py.typed']
+        "py5": ['jars/*.jar', 'jars/*/*.jar'],
+        "py5_tools": ['py5_kernel/resources/*.png'],
     },
     python_requires='>3.8',
     install_requires=INSTALL_REQUIRES,
