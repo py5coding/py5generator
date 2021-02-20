@@ -18,7 +18,6 @@
 #
 # *****************************************************************************
 from ipykernel.ipkernel import IPythonKernel
-from IPython.core.interactiveshell import InteractiveShell
 from traitlets import Type, Instance, List
 
 from .shell import Py5Shell
