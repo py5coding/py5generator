@@ -17,6 +17,6 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from .app import Py5App
+from .kernel import Py5App
 
 Py5App.launch_instance()

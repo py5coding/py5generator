@@ -29,7 +29,7 @@ from IPython.utils.tempdir import TemporaryDirectory
 
 
 kernel_json = {
-    "argv": [sys.executable, "-m", "py5_tools.py5_kernel", "-f", "{connection_file}"],
+    "argv": [sys.executable, "-m", "py5_tools.kernel", "-f", "{connection_file}"],
     "display_name": "py5",
     "language": "python",
 }
@@ -40,11 +40,12 @@ def install_py5_kernel_spec(user=True, prefix=None):
         os.chmod(td, 0o755)  # Starts off as 700, not user readable
         with open(Path(td) / 'kernel.json', 'w') as f:
             json.dump(kernel_json, f, sort_keys=True)
+
         # Copy any resources
         for file in (Path(__file__).parent / 'resources').glob('*'):
-            print(file)
             shutil.copy(file, Path(td) / file.name)
-        print('Installing Jupyter kernel spec')
+
+        print('Installing py5 Jupyter kernel spec')
         KernelSpecManager().install_kernel_spec(
             td, 'py5', user=user, prefix=prefix)
 

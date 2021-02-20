@@ -18,9 +18,14 @@
 #
 # *****************************************************************************
 from ipykernel.ipkernel import IPythonKernel
-from traitlets import Type, Instance, List
+from ipykernel.zmqshell import ZMQInteractiveShell
+from IPython.core.interactiveshell import InteractiveShellABC
+from ipykernel.kernelapp import IPKernelApp
 
-from .shell import Py5Shell
+from traitlets import Type, Instance, Unicode, List
+
+from ..parsing import TransformDynamicVariablesToCalls
+
 
 _PY5_HELP_LINKS = [
     {
@@ -32,6 +37,16 @@ _PY5_HELP_LINKS = [
         'url': 'http://py5.ixora.io/tutorials/'
     },
 ]
+
+
+class Py5Shell(ZMQInteractiveShell):
+
+    ast_transformers = List([TransformDynamicVariablesToCalls()]).tag(config=True)
+
+    banner2 = Unicode("Activating py5 imported mode").tag(config=True)
+
+
+InteractiveShellABC.register(Py5Shell)
 
 
 class Py5Kernel(IPythonKernel):
@@ -46,3 +61,18 @@ class Py5Kernel(IPythonKernel):
     implementation_version = '0.3a6.dev0'
     # TODO: set this to modify the 'pygments_lexer' key
     # language_info = {}
+
+
+class Py5App(IPKernelApp):
+    name = 'py5-kernel'
+
+    kernel_class = Type('py5_tools.kernel.Py5Kernel',
+                        klass='ipykernel.kernelbase.Kernel').tag(config=True)
+
+    exec_lines = List(Unicode(), [
+        'import py5_tools',
+        'py5_tools.set_imported_mode(True)',
+        'from py5 import *',
+    ]).tag(config=True)
+
+    extensions = List(Unicode(), ['py5_tools.magics']).tag(config=True)
