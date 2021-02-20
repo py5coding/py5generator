@@ -18,7 +18,5 @@
 #
 # *****************************************************************************
 from .app import Py5App
-from . import Py5Kernel
 
-# Py5App.launch_instance(kernel_class=Py5Kernel)
 Py5App.launch_instance()
