@@ -52,7 +52,7 @@ setup(
     py_modules=['setup'],
     package_data={
         "py5": ['jars/*.jar', 'jars/*/*.jar'],
-        "py5_tools": ['py5_kernel/resources/*.png'],
+        "py5_tools": ['kernel/resources/*.png'],
     },
     python_requires='>3.8',
     install_requires=INSTALL_REQUIRES,
