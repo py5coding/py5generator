@@ -23,6 +23,9 @@ import ast
 from . import reference as ref
 
 
+# TODO: only transform `mouse_x` to `mouse_x()`, but don't transform
+# `mouse_x()` to `mouse_x()()`
+# TODO: can I make tab complete not suggest `mouse_x()` when in imported mode?
 class TransformDynamicVariablesToCalls(ast.NodeTransformer):
 
     def __init__(self):
@@ -57,6 +60,7 @@ class ReservedWordError:
         return '\n'.join(out)
 
 
+# TODO: when used from IPython this should raise an InputRejected error.
 class ReservedWordsValidation(ast.NodeVisitor):
 
     def __init__(self, reserved_words):
