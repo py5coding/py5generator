@@ -17,6 +17,7 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+import os
 from pathlib import Path
 from setuptools import setup
 
@@ -37,10 +38,18 @@ INSTALL_REQUIRES = [
     'stackprinter>=0.2.4',
 ]
 
+pjoin = os.path.join
+here = os.path.abspath(os.path.dirname(__file__))
+
+packages = []
+for d, _, _ in [*os.walk(pjoin(here, 'py5')), *os.walk(pjoin(here, 'py5_tools'))]:
+    if os.path.exists(pjoin(d, '__init__.py')):
+        packages.append(d[len(here)+1:].replace(os.path.sep, '.'))
+
 setup(
     name='py5',
     version=VERSION,
-    packages=['py5', 'py5.mixins', 'py5_tools', 'py5_tools.tools', 'py5_tools.magics'],
+    packages=packages,
     py_modules=['setup'],
     package_data={
         "py5": ['jars/*.jar', 'jars/*/*.jar', '*.pyi', 'py.typed']
