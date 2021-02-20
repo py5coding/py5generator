@@ -19,15 +19,26 @@
 # *****************************************************************************
 from ipykernel.ipkernel import IPythonKernel
 from IPython.core.interactiveshell import InteractiveShell
-from  traitlets import Type, List
+from traitlets import Type
 
 from .shell import Py5Shell
+
+_PY5_HELP_LINKS = [
+    {
+        'text': 'py5 Reference',
+        'url': 'http://py5.ixora.io/reference/'
+    },
+    {
+        'text': 'py5 Tutorials',
+        'url': 'http://py5.ixora.io/tutorials/'
+    },
+]
 
 
 class Py5Kernel(IPythonKernel):
     shell = None
     shell_class = Type(Py5Shell)
-    # TODO: help_links (append my documentation)
+    help_links = [*IPythonKernel.help_links.default(), *_PY5_HELP_LINKS]
     implementation = 'py5'
     implementation_version = 'current version'
     # TODO: language_info = ???  # I can set the pygments lexer here
