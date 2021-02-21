@@ -23,14 +23,22 @@ import ast
 from . import reference as ref
 
 
-# TODO: only transform `mouse_x` to `mouse_x()`, but don't transform
-# `mouse_x()` to `mouse_x()()`
-# TODO: can I make tab complete not suggest `mouse_x()` when in imported mode?
 class TransformDynamicVariablesToCalls(ast.NodeTransformer):
 
     def __init__(self):
         super().__init__()
         self._dynamic_variables = ref.PY5_DYNAMIC_VARIABLES
+
+    def visit_Call(self, node: ast.Call):
+        # this makes sure that code like `mouse_x()` does not get transformed
+        # to `mouse_x()()`.
+        if isinstance(node.func, ast.Name) and node.func.id in self._dynamic_variables:
+            # don't visit the node because that would allow `visit_Name` to
+            # transform the call to `mouse_x()()`.
+            return node
+        else:
+            self.generic_visit(node)
+            return node
 
     def visit_Name(self, node: ast.Name):
         if node.id in self._dynamic_variables:
@@ -60,7 +68,7 @@ class ReservedWordError:
         return '\n'.join(out)
 
 
-# TODO: when used from IPython this should raise an InputRejected error.
+# TODO: when used from IPython this should raise an InputRejected error?
 class ReservedWordsValidation(ast.NodeVisitor):
 
     def __init__(self, reserved_words):
