@@ -59,8 +59,6 @@ class Py5Kernel(IPythonKernel):
 
     implementation = 'py5'
     implementation_version = '0.3a6.dev0'
-    # TODO: set this to modify the 'pygments_lexer' key
-    # language_info = {}
 
 
 class Py5App(IPKernelApp):
