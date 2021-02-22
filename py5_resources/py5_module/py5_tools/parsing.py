@@ -17,10 +17,16 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+import sys
 import ast
 
-
 from . import reference as ref
+
+try:
+    from IPython.core.error import InputRejected
+except ImportError:
+    class InputRejected(Exception):
+        pass
 
 
 class TransformDynamicVariablesToCalls(ast.NodeTransformer):
@@ -42,50 +48,57 @@ class TransformDynamicVariablesToCalls(ast.NodeTransformer):
 
     def visit_Name(self, node: ast.Name):
         if node.id in self._dynamic_variables:
-            return ast.Call(func=node, args=[], keywords=[])
+            if isinstance(node.ctx, ast.Load):
+                return ast.Call(func=node, args=[], keywords=[])
+            else:
+                # TODO: if node.ctx is Store or Del, should it intervene?
+                # no need to call generic_visit
+                return node
         else:
+            # no need to call generic_visit
             return node
 
 
-class ReservedWordError:
+class ReservedWordsValidation(ast.NodeTransformer):
 
-    def __init__(self, node: ast.Name):
-        self.py5_name = node.id
-        self.ctx = type(node.ctx).__name__
-        self.lineno = node.lineno
-        self.col_offset = node.col_offset
-
-    def message(self, code):
-        lines = code.splitlines()
-        out = []
-        out.append('Syntax Error on line ' + str(self.lineno) + ':')
-        out.append(lines[self.lineno - 1])
-        out.append((' ' * self.col_offset) + '^')
-        if self.ctx == 'Del':
-            out.append('Deleting py5 reserved words is not allowed')
-        elif self.ctx == 'Store':
-            out.append('Assignments to py5 reserved words are not allowed')
-        return '\n'.join(out)
-
-
-# TODO: when used from IPython this should raise an InputRejected error?
-class ReservedWordsValidation(ast.NodeVisitor):
-
-    def __init__(self, reserved_words):
+    def __init__(self, code=None, report_immediately=True):
         super().__init__()
-        self._reserved_words = reserved_words
-        self.problems = []
+        self._code = code
+        self._report_immediately = report_immediately
+        self._reserved_words = ref.PY5_DIR_STR
+        self._problems = []
 
     def visit_Name(self, node: ast.Name):
         if node.id in self._reserved_words and isinstance(node.ctx, (ast.Store, ast.Del)):
-            self.problems.append(ReservedWordError(node))
+            problem = self._format_problem_message(node)
+            if self._report_immediately:
+                # TODO: throwing this error would be better but Jupyter spits out a nasty ast stack trace
+                # raise InputRejected(problem)
+                sys.stdout.write(problem + '\n')
+            self._problems.append(problem)
         self.generic_visit(node)
+        return node
+
+    def _format_problem_message(self, node: ast.Name):
+        out = []
+
+        if isinstance(node.ctx, ast.Del):
+            out.append(f'Deleting py5 reserved word "{node.id}" on line {node.lineno} is discouraged and may causes errors in your sketch.')
+        elif isinstance(node.ctx, ast.Store):
+            out.append(f'Assignment to py5 reserved word "{node.id}" on line {node.lineno} is discouraged and may causes errors in your sketch.')
+
+        if self._code:
+            lines = self._code.splitlines()
+            out.append(lines[node.lineno - 1])
+            out.append((' ' * node.col_offset) + '^')
+
+        return '\n'.join(out)
 
 
-def check_reserved_words(code_ast: ast.Module):
-    validator = ReservedWordsValidation(ref.PY5_DIR_STR)
+def check_reserved_words(code, code_ast):
+    validator = ReservedWordsValidation(code, report_immediately=False)
     validator.visit(code_ast)
-    return validator.problems
+    return validator._problems
 
 
 def transform_py5_code(code_ast: ast.Module):

@@ -24,7 +24,7 @@ from ipykernel.kernelapp import IPKernelApp
 
 from traitlets import Type, Instance, Unicode, List
 
-from ..parsing import TransformDynamicVariablesToCalls
+from ..parsing import TransformDynamicVariablesToCalls, ReservedWordsValidation
 
 
 _PY5_HELP_LINKS = [
@@ -41,7 +41,7 @@ _PY5_HELP_LINKS = [
 
 class Py5Shell(ZMQInteractiveShell):
 
-    ast_transformers = List([TransformDynamicVariablesToCalls()]).tag(config=True)
+    ast_transformers = List([TransformDynamicVariablesToCalls(), ReservedWordsValidation()]).tag(config=True)
 
     banner2 = Unicode("Activating py5 imported mode").tag(config=True)
 

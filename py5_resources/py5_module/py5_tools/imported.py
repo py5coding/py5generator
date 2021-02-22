@@ -115,8 +115,9 @@ def run_code(sketch_path, classpath=None, new_process=False, exit_if_error=False
                 jvm.add_classpath(classpath)
             jvm.add_jars(sketch_path.parent / 'jars')
 
+        set_imported_mode(True)
         import py5
-        if py5.is_running:
+        if py5.is_running():
             print('You must exit the currently running sketch before running another sketch.')
             return None
 
@@ -124,12 +125,15 @@ def run_code(sketch_path, classpath=None, new_process=False, exit_if_error=False
             sketch_code = _CODE_FRAMEWORK.format(f.read(), exit_if_error)
 
         sketch_ast = ast.parse(sketch_code, mode='exec')
-        problems = parsing.check_reserved_words(sketch_ast)
+        problems = parsing.check_reserved_words(sketch_code, sketch_ast)
         if problems:
-            msg = 'Syntax Errors in Sketch code'
+            if len(problems) == 1:
+                msg = 'There is a problem with your Sketch code'
+            else:
+                msg = f'There are {len(problems)} problems with your Sketch code'
             print(msg)
-            print('=' * len(msg) + '\n')
-            print('\n\n'.join(p.message(sketch_code) for p in problems))
+            print('=' * len(msg))
+            print('\n'.join(problems))
             return
 
         sketch_compiled = compile(parsing.transform_py5_code(sketch_ast), filename=sketch_path, mode='exec')
