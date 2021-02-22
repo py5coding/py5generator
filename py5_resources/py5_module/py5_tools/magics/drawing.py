@@ -30,6 +30,7 @@ from IPython.core.magic_arguments import parse_argstring, argument, magic_argume
 import PIL
 
 from .util import fix_triple_quote_str, CellMagicHelpFormatter
+from .. import imported
 
 
 _CODE_FRAMEWORK = """
@@ -43,6 +44,18 @@ with open('{0}', 'r') as f:
 py5.run_sketch(block=True)
 if {1} and py5.is_dead_from_error:
     py5.exit_sketch()
+"""
+
+
+_CODE_FRAMEWORK_IMPORTED_MODE = """
+{2}
+
+with open('{0}', 'r') as f:
+    eval(compile(f.read(), '{0}', 'exec'))
+
+run_sketch(block=True)
+if {1} and is_dead_from_error:
+    exit_sketch()
 """
 
 
@@ -109,6 +122,12 @@ def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
         print('You must exit the currently running sketch before running another sketch.')
         return None
 
+    if imported.get_imported_mode():
+        template = template.replace('py5.', '')
+        code_framework = _CODE_FRAMEWORK_IMPORTED_MODE
+    else:
+        code_framework = _CODE_FRAMEWORK
+
     if safe_exec:
         prepared_code = textwrap.indent(code, '    ')
         prepared_code = fix_triple_quote_str(prepared_code)
@@ -126,7 +145,7 @@ def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
                 width, height, renderer, temp_out.as_posix(), prepared_code)
             f.write(code)
 
-        exec(_CODE_FRAMEWORK.format(temp_py.as_posix(), True, ''), user_ns)
+        exec(code_framework.format(temp_py.as_posix(), True, ''), user_ns)
 
         if temp_out.exists():
             with open(temp_out, read_mode) as f:
