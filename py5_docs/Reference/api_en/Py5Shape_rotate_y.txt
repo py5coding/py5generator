@@ -13,7 +13,7 @@ rotate_y(angle: float, /) -> None
 angle: float - angle of rotation specified in radians
 
 @@ description
-Rotates the shape around the y-axis the amount specified by the ``angle`` parameter. Angles should be specified in radians (values from 0 to TWO_PI) or converted from degrees to radians with the ``radians()`` method.
+Rotates the shape around the y-axis the amount specified by the ``angle`` parameter. Angles should be specified in radians (values from 0 to ``TWO_PI``) or converted from degrees to radians with the ``radians()`` method.
 
 Shapes are always rotated around the upper-left corner of their bounding box. Positive numbers rotate objects in a clockwise direction. Subsequent calls to the method accumulates the effect. For example, calling ``rotate_y(HALF_PI)`` and then ``rotate_y(HALF_PI)`` is the same as ``rotate_y(PI)``. This transformation is applied directly to the shape, it's not refreshed each time ``draw()`` is run. 
 

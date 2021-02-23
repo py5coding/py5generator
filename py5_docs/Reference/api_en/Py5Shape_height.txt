@@ -7,7 +7,7 @@ pclass = PShape
 processing_name = height
 
 @@ description
-The height of the PShape document.
+The height of the ``Py5Shape`` document.
 
 @@ example
 def setup():

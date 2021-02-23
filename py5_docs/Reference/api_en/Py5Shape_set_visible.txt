@@ -10,7 +10,7 @@ processing_name = setVisible
 set_visible(visible: bool, /) -> None
 
 @@ variables
-visible: bool - "false" makes the shape invisible and "true" makes it visible
+visible: bool - ``False`` makes the shape invisible and ``True`` makes it visible
 
 @@ description
 Sets the shape to be visible or invisible. This is determined by the value of the ``visible`` parameter.

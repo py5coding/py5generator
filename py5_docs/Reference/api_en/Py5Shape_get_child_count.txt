@@ -10,7 +10,7 @@ processing_name = getChildCount
 get_child_count() -> int
 
 @@ description
-Returns the number of children within the PShape.
+Returns the number of children within the ``Py5Shape``.
 
 @@ example
 def setup():

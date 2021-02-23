@@ -13,7 +13,7 @@ set_vertex(index: int, x: float, y: float, z: float, /) -> None
 
 @@ variables
 index: int - the location of the vertex
-vec: NDArray[(Any,), Float] - the PVector to define the x, y, z coordinates
+vec: NDArray[(Any,), Float] - the numpy array to define the x, y, z coordinates
 x: float - the x value for the vertex
 y: float - the y value for the vertex
 z: float - the z value for the vertex

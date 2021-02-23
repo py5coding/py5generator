@@ -7,7 +7,7 @@ pclass = PShape
 processing_name = width
 
 @@ description
-The width of the PShape document.
+The width of the ``Py5Shape`` document.
 
 @@ example
 def setup():
