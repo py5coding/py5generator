@@ -29,6 +29,12 @@ except ImportError:
         pass
 
 
+class Py5InputRejected(InputRejected):
+
+    def _render_traceback_(self):
+        return str(self).splitlines()
+
+
 class TransformDynamicVariablesToCalls(ast.NodeTransformer):
 
     def __init__(self):
@@ -72,8 +78,10 @@ class ReservedWordsValidation(ast.NodeTransformer):
         if node.id in self._reserved_words and isinstance(node.ctx, (ast.Store, ast.Del)):
             problem = self._format_problem_message(node)
             if self._report_immediately:
-                # TODO: throwing this error would be better but Jupyter spits out a nasty ast stack trace
-                # raise InputRejected(problem)
+                # TODO: throwing an exception would cause the IPython kernel to
+                # reject the input but I need syntax highlighting to work before
+                # it makes sense to do this
+                # raise Py5InputRejected(problem)
                 sys.stdout.write(problem + '\n')
             self._problems.append(problem)
         self.generic_visit(node)
