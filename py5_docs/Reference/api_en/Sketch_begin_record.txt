@@ -12,7 +12,7 @@ begin_record(renderer: str, filename: str, /) -> Py5Graphics
 
 @@ variables
 filename: str - filename for output
-recorder: Py5Graphics - missing variable description
+recorder: Py5Graphics - Py5Graphics object to record drawing commands to
 renderer: str - PDF or SVG
 
 @@ description
