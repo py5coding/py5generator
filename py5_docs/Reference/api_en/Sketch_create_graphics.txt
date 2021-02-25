@@ -22,7 +22,7 @@ Creates and returns a new ``Py5Graphics`` object. Use this class if you need to 
 
 It's important to consider the renderer used with ``create_graphics()`` in relation to the main renderer specified in ``size()``. For example, it's only possible to use P2D or P3D with ``create_graphics()`` when one of them is defined in ``size()``. Unlike Processing 1.0, P2D and P3D use OpenGL for drawing, and when using an OpenGL renderer it's necessary for the main drawing surface to be OpenGL-based. If P2D or P3D are used as the renderer in ``size()``, then any of the options can be used with ``create_graphics()``. If the default renderer is used in ``size()``, then only the default, PDF, or SVG can be used with ``create_graphics()``.
 
-It's important to run all drawing functions between the ``begin_draw()`` and ``end_draw()``. As the exception to this rule, ``smooth()`` should be run on the PGraphics object before ``begin_draw()``. See the reference for ``smooth()`` for more detail. 
+It's important to run all drawing functions between the ``begin_draw()`` and ``end_draw()``. As the exception to this rule, ``smooth()`` should be run on the Py5Graphics object before ``begin_draw()``. See the reference for ``smooth()`` for more detail. 
 
 The ``create_graphics()`` function should almost never be used inside ``draw()`` because of the memory and time needed to set up the graphics. One-time or occasional use during ``draw()`` might be acceptable, but code that calls ``create_graphics()`` at 60 frames per second might run out of memory or freeze your sketch.
 

@@ -16,7 +16,7 @@ c: float - width of the rectangle, by default
 d: float - height of the rectangle, by default
 
 @@ description
-Limits the rendering to the boundaries of a rectangle defined by the parameters. The boundaries are drawn based on the state of the ``image_mode()`` fuction, either CORNER, CORNERS, or CENTER.
+Limits the rendering to the boundaries of a rectangle defined by the parameters. The boundaries are drawn based on the state of the ``image_mode()`` fuction, either ``CORNER``, ``CORNERS``, or ``CENTER``.
 
 @@ example
 def settings():

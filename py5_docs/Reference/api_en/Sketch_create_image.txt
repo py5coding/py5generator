@@ -15,11 +15,11 @@ h: int - height in pixels
 w: int - width in pixels
 
 @@ description
-Creates a new PImage (the datatype for storing images). This provides a fresh buffer of pixels to play with. Set the size of the buffer with the ``width`` and ``height`` parameters. The ``format`` parameter defines how the pixels are stored. See the PImage reference for more information.
+Creates a new Py5Image (the datatype for storing images). This provides a fresh buffer of pixels to play with. Set the size of the buffer with the ``width`` and ``height`` parameters. The ``format`` parameter defines how the pixels are stored. See the :doc:`Py5Image` reference for more information.
  
 Be sure to include all three parameters, specifying only the width and height (but no format) will produce a strange error.
  
-Advanced users please note that ``create_image()`` should be used instead of the syntax ``new Py5Image()``.
+Advanced users please note that ``create_image()`` should be used instead of the syntax ``Py5Image()``.
 
 @@ example
 image = Sketch_create_image_0.png
