@@ -2,12 +2,7 @@
 name = Py5Shader
 category = Rendering
 subcategory = Shaders
-usage = Web & Application
-returns = None
-related = None
-availability = 1.0
 type = class
-partof = PDE
 pclass = PShader
 processing_name = PShader
 
