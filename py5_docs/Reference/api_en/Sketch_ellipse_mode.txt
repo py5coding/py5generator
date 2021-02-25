@@ -23,7 +23,7 @@ The default mode is ``ellipse_mode(CENTER)``, which interprets the first two par
 
 ``ellipse_mode(CORNERS)`` interprets the first two parameters of ``ellipse()`` as the location of one corner of the ellipse's bounding box, and the third and fourth parameters as the location of the opposite corner.
 
-The parameter must be written in ALL CAPS because Processing is a case-sensitive language.
+The parameter must be written in ALL CAPS because Python is a case-sensitive language.
 
 @@ example
 image = Sketch_ellipse_mode_0.png
