@@ -40,7 +40,7 @@ Draws text to the screen. Displays the information specified in the first parame
 
 The ``x2`` and ``y2`` parameters define a rectangular area to display within and may only be used with string data. When these parameters are specified, they are interpreted based on the current ``rect_mode()`` setting. Text that does not fit completely within the rectangle specified will not be drawn to the screen.
 
-Note that Processing now lets you call ``text()`` without first specifying a Py5Font with ``text_font()``. In that case, a generic sans-serif font will be used instead. (See the third example above.)
+Note that Processing now lets you call ``text()`` without first specifying a Py5Font with ``text_font()``. In that case, a generic sans-serif font will be used instead. (See the third example.)
 
 @@ example
 image = Sketch_text_0.png
