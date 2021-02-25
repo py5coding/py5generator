@@ -18,7 +18,7 @@ background(v1: float, v2: float, v3: float, alpha: float, /) -> None
 @@ variables
 alpha: float - opacity of the background
 gray: float - specifies a value between white and black
-image: Py5Image - PImage to set as background (must be same size as the sketch window)
+image: Py5Image - Py5Image to set as background (must be same size as the sketch window)
 rgb: int - any value of the color datatype
 v1: float - red or hue value (depending on the current color mode)
 v2: float - green or saturation value (depending on the current color mode)

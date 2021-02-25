@@ -13,7 +13,7 @@ cursor(img: Py5Image, x: int, y: int, /) -> None
 cursor(kind: int, /) -> None
 
 @@ variables
-img: Py5Image - any variable of type PImage
+img: Py5Image - any variable of type Py5Image
 kind: int - either ARROW, CROSS, HAND, MOVE, TEXT, or WAIT
 x: int - the horizontal active spot of the cursor
 y: int - the vertical active spot of the cursor

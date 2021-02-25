@@ -10,7 +10,7 @@ processing_name = beginDraw
 begin_draw() -> None
 
 @@ description
-Sets the default properties for a PGraphics object. It should be called before anything is drawn into the object.
+Sets the default properties for a Py5Graphics object. It should be called before anything is drawn into the object.
 
 @@ example
 def settings():

@@ -10,7 +10,7 @@ processing_name = texture
 texture(image: Py5Image, /) -> None
 
 @@ variables
-image: Py5Image - reference to a PImage object
+image: Py5Image - reference to a Py5Image object
 
 @@ description
 Sets a texture to be applied to vertex points. The ``texture()`` function must be called between ``begin_shape()`` and ``end_shape()`` and before any calls to ``vertex()``. This function only works with the P2D and P3D renderers.

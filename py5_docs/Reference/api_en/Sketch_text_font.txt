@@ -12,7 +12,7 @@ text_font(which: Py5Font, size: float, /) -> None
 
 @@ variables
 size: float - the size of the letters in units of pixels
-which: Py5Font - any variable of the type PFont
+which: Py5Font - any variable of the type Py5Font
 
 @@ description
 Sets the current font that will be drawn with the ``text()`` function. Fonts must be created for Processing with ``create_font()`` or loaded with ``load_font()`` before they can be used. The font set through ``text_font()`` will be used in all subsequent calls to the ``text()`` function. If no ``size`` parameter is specified, the font size defaults to the original size (the size in which it was created with the "Create Font..." tool) overriding any previous calls to ``text_font()`` or ``text_size()``.
