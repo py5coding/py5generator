@@ -10,7 +10,7 @@ processing_name = printProjection
 print_projection() -> None
 
 @@ description
-Prints the current projection matrix to the Console (the text window at the bottom of Processing).
+Prints the current projection matrix to standard output.
 
 @@ example
 def settings():

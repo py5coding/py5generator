@@ -10,7 +10,7 @@ processing_name = pushMatrix
 push_matrix() -> None
 
 @@ description
-Pushes the current transformation matrix onto the matrix stack. Understanding ``push_matrix()`` and ``pop_matrix()`` requires understanding the concept of a matrix stack. The ``push_matrix()`` function saves the current coordinate system to the stack and ``pop_matrix()`` restores the prior coordinate system. ``push_matrix()`` and ``pop_matrix()`` are used in conjuction with the other transformation functions and may be embedded to control the scope of the transformations.
+Pushes the current transformation matrix onto the matrix stack. Understanding ``push_matrix()`` and ``pop_matrix()`` requires understanding the concept of a matrix stack. The ``push_matrix()`` function saves the current coordinate system to the stack and :doc:`pop_matrix` restores the prior coordinate system. ``push_matrix()`` and ``pop_matrix()`` are used in conjuction with the other transformation functions and may be embedded to control the scope of the transformations.
 
 @@ example
 image = Sketch_push_matrix_0.png

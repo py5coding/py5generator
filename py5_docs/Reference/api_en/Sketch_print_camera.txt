@@ -10,7 +10,7 @@ processing_name = printCamera
 print_camera() -> None
 
 @@ description
-Prints the current camera matrix to the Console (the text window at the bottom of Processing).
+Prints the current camera matrix to standard output.
 
 @@ example
 def settings():

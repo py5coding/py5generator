@@ -10,9 +10,9 @@ processing_name = pop
 pop() -> None
 
 @@ description
-The ``pop()`` function restores the previous drawing style settings and transformations after ``push()`` has changed them. Note that these functions are always used together. They allow you to change the style and transformation settings and later return to what you had. When a new state is started with ``push()``, it builds on the current style and transform information.
+The ``pop()`` function restores the previous drawing style settings and transformations after :doc:`push` has changed them. Note that these functions are always used together. They allow you to change the style and transformation settings and later return to what you had. When a new state is started with ``push()``, it builds on the current style and transform information.
 
-``push()`` stores information related to the current transformation state and style settings controlled by the following functions: ``rotate()``, ``translate()``, ``scale()``, ``fill()``, ``stroke()``, ``tint()``, ``stroke_weight()``, ``stroke_cap()``, ``stroke_join()``, ``image_mode()``, ``rect_mode()``, ``ellipse_mode()``, ``color_mode()``, ``text_align()``, ``text_font()``, ``text_mode()``, ``text_size()``, ``text_leading()``.
+``push()`` stores information related to the current transformation state and style settings controlled by the following functions: ``rotate()``, ``translate()``, ``scale()``, ``fill()``, ``stroke()``, ``tint()``, ``stroke_weight()``, ``stroke_cap()``, ``stroke_join()``, ``image_mode()``, ``rect_mode()``, ``ellipse_mode()``, ``color_mode()``, ``text_align()``, ``text_font()``, ``text_mode()``, ``text_size()``, and ``text_leading()``.
 
 The ``push()`` and ``pop()`` functions were added with Processing 3.5. They can be used in place of ``push_matrix()``, ``pop_matrix()``, ``push_styles()``, and ``pop_styles()``. The difference is that ``push()`` and ``pop()`` control both the transformations (rotate, scale, translate) and the drawing styles at the same time.
 

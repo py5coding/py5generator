@@ -10,7 +10,7 @@ processing_name = printMatrix
 print_matrix() -> None
 
 @@ description
-Prints the current matrix to the Console (the text window at the bottom of Processing).
+Prints the current matrix to standard output.
 
 @@ example
 def settings():

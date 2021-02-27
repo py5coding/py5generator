@@ -10,7 +10,7 @@ processing_name = noCursor
 no_cursor() -> None
 
 @@ description
-Hides the cursor from view. Will not work when running the program in a web browser or in full screen (Present) mode.
+Hides the cursor from view. Will not work when running the program in full screen (Present) mode.
 
 @@ example
 # press the mouse to hide the cursor
