@@ -17,4 +17,18 @@ Run the sketch. Code in the ``settings``, ``setup``, and ``draw`` functions will
 
 Use the ``block`` parameter to specify if the call to ``run_sketch`` should return immediately or block until the sketch exits. If the ``block`` parameter is not specified, py5 will first attempt to determine if the sketch is running in a Jupyter Notebook or an IPython shell. If it is, ``block`` will default to ``False``, and ``True`` otherwise.
 
-A list of strings passed to ``py5_options`` will be passed to the Processing PApplet class as arguments to specify characteristics such as the window's location on the screen. A list of strings passed to ``sketch_args`` will be available to a running sketch using :doc:`args`. For example, if you launch a sketch with ``py5.run_sketch(py5_options=['--location=400,300', '--display=1'], sketch_args=['py5 is awesome'])``, the sketch window will appear at location (400, 300) on your second monitor and ``py5.args`` will equal ``['py5 is awesome']``.
+A list of strings passed to ``py5_options`` will be passed to the Processing PApplet class as arguments to specify characteristics such as the window's location on the screen. A list of strings passed to ``sketch_args`` will be available to a running sketch using :doc:`args`. See the third example for an example of how this can be used.
+
+@@ example
+py5.run_sketch(block=True)
+print("this message will not be printed until after the sketch exits")
+
+@@ example
+py5.run_sketch(block=False)
+print("this message will be printed immediately, while the sketch is running")
+
+@@ example
+# run the sketch with the window at position 400, 300 on display #1
+py5.run_sketch(block=False, py5_options=['--location=400,300', '--display=1'], sketch_args=['py5 is awesome'])
+# this will print 'py5 is awesome'
+print(py5.args[0])
