@@ -42,7 +42,7 @@ Blends a region of pixels from one image into another (or in itself again) with 
 
 All modes use the alpha information (highest byte) of source image pixels as the blending factor. If the source and destination regions are different sizes, the image will be automatically resized to match the destination size. If the ``src`` parameter is not used, the display window is used as the source image.
 
-As of Processing release 0149, this function ignores ``image_mode()``.
+This function ignores ``image_mode()``.
 
 @@ example
 image = Sketch_blend_0.png

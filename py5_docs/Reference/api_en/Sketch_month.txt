@@ -10,7 +10,7 @@ processing_name = month
 month() -> int
 
 @@ description
-Processing communicates with the clock on your computer. The ``month()`` function returns the current month as a value from 1 - 12.
+Py5 communicates with the clock on your computer. The ``month()`` function returns the current month as a value from 1 - 12.
 
 @@ example
 def setup():
