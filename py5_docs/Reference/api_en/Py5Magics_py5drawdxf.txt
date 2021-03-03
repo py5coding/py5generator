@@ -20,7 +20,7 @@ allow new variables to enter the global namespace
 @@ description
 Create a DXF file with py5.
 
-For users who are familiar with Processing and py5 programming, you can pretend the code in this cell will be executed in a sketch with no ``draw()`` function and your code in the ``setup()`` function. It will use the DXF renderer.
+For users who are familiar with Processing and py5 programming, you can pretend the code in this cell will be executed in a sketch with no ``draw()`` function and your code in the ``setup()`` function. It will use the ``DXF`` renderer.
 
 As this is creating a DXF file, your code will be limited to the capabilities of that renderer.
 
