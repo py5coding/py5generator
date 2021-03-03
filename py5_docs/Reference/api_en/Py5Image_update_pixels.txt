@@ -17,7 +17,7 @@ x: int - x-coordinate of the upper-left corner
 y: int - y-coordinate of the upper-left corner
 
 @@ description
-Updates the image with the data in its ``pixels[]`` array. Use in conjunction with ``load_pixels()``. If you're only reading pixels from the array, there's no need to call ``update_pixels()``.
+Updates the image with the data in its :doc:`py5image_pixels` array. Use in conjunction with :doc:`py5image_load_pixels`. If you're only reading pixels from the array, there's no need to call ``update_pixels()``.
 
 @@ example
 image = Py5Image_update_pixels_0.png
