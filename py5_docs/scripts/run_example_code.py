@@ -18,8 +18,11 @@
 #
 # *****************************************************************************
 import os
+import io
 import shutil
 from pathlib import Path
+
+from PIL import Image
 
 import py5_tools
 
@@ -31,6 +34,11 @@ DEST_DIR = Path('/tmp/examples/')
 
 ONLY_RUN_EXAMPLES_WITH_IMAGES = False
 
+MAGIC_RENDERER_MAP = {
+    'py5drawdxf': 'DXF',
+    'py5drawpdf': 'PDF',
+    'py5drawsvg': 'SVG', 
+}
 
 # set the current working dir and put supporting files in data subdirectory
 cwd = os.getcwd()
@@ -44,7 +52,7 @@ os.chdir(DEST_DIR)
 try:
     for docfile in sorted(PY5_API_EN.glob('*.txt')):
         doc = Documentation(docfile)
-        if doc.meta['type'] in ['function', 'line magic', 'cell magic']:
+        if doc.meta['type'] in ['function', 'line magic']:
             # skip these for now, but I should probably include them later
             continue
 
@@ -54,14 +62,24 @@ try:
 
             print(docfile.name, image)
 
-            save_path = DEST_DIR / image if image else None
-            success = py5_tools.testing.run_code(code, save_path)
-            if not success:
-                print('-' * 20)
-                print(f'error in file: {docfile.name} output: {image}')
-                print('-' * 20)
-                print(code)
-                print('=' * 60)
-                break
+            if doc.meta['type'] == 'cell magic':
+                magic_line, magic_cell = code.split('\n', maxsplit=1)
+                magic, line = magic_line.split(' ', maxsplit=1)
+                renderer = MAGIC_RENDERER_MAP.get(magic[2:], 'JAVA2D')
+                # TODO: what if the -r parameter is used? could want P2D or P3D renderers
+                width, height = (int(x) for x in line.split(maxsplit=2)[:2])
+                result = py5_tools.magics.drawing._run_sketch(renderer, magic_cell, width, height, dict(), True)
+                if image:
+                    Image.open(io.BytesIO(result)).convert(mode='RGB').save(DEST_DIR / image)
+            else:
+                save_path = DEST_DIR / image if image else None
+                success = py5_tools.testing.run_code(code, save_path)
+                if not success:
+                    print('-' * 20)
+                    print(f'error in file: {docfile.name} output: {image}')
+                    print('-' * 20)
+                    print(code)
+                    print('=' * 60)
+                    break
 finally:
     os.chdir(cwd)
