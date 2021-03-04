@@ -13,7 +13,7 @@ curve_detail(detail: int, /) -> None
 detail: int - resolution of the curves
 
 @@ description
-Sets the resolution at which curves display. The default value is 20. This function is only useful when using the P3D renderer as the default P2D renderer does not use this information.
+Sets the resolution at which curves display. The default value is 20. This function is only useful when using the ``P3D`` renderer as the default ``P2D`` renderer does not use this information.
 
 @@ example
 image = Sketch_curve_detail_0.png

@@ -10,7 +10,7 @@ processing_name = endRecord
 end_record() -> None
 
 @@ description
-Stops the recording process started by ``begin_record()`` and closes the file.
+Stops the recording process started by :doc:`begin_record` and closes the file.
 
 @@ example
 def settings():
