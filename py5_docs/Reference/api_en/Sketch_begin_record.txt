@@ -16,11 +16,11 @@ recorder: Py5Graphics - Py5Graphics object to record drawing commands to
 renderer: str - PDF or SVG
 
 @@ description
-Opens a new file and all subsequent drawing functions are echoed to this file as well as the display window. The ``begin_record()`` function requires two parameters, the first is the renderer and the second is the file name. This function is always used with ``end_record()`` to stop the recording process and close the file.
+Opens a new file and all subsequent drawing functions are echoed to this file as well as the display window. The ``begin_record()`` function requires two parameters, the first is the renderer and the second is the file name. This function is always used with :doc:`end_record` to stop the recording process and close the file.
 
-Note that ``begin_record()`` will only pick up any settings that happen after it has been called. For instance, if you call ``text_font()`` before ``begin_record()``, then that font will not be set for the file that you're recording to.
+Note that ``begin_record()`` will only pick up any settings that happen after it has been called. For instance, if you call :doc:`text_font` before ``begin_record()``, then that font will not be set for the file that you're recording to.
 
-``begin_record()`` works only with the PDF and SVG renderers.
+``begin_record()`` works only with the ``PDF`` and ``SVG`` renderers.
 
 @@ example
 def settings():
