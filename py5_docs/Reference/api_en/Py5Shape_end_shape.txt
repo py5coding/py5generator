@@ -14,7 +14,7 @@ end_shape(mode: int, /) -> None
 mode: int - missing variable description
 
 @@ description
-This method is used to complete a custom shape created with the ``create_shape()`` function. It's always and only used with ``create_shape()``.
+This method is used to complete a custom shape created with the :doc:`create_shape` function. It's always and only used with :doc:`create_shape`.
 
 @@ example
 def setup():
