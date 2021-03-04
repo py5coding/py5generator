@@ -28,7 +28,7 @@ Code used in this cell can reference functions and variables defined in other ce
 
 @@ example
 %%py5drawdxf 200 200 /tmp/test.dxf
-py5.translate(py5.width / 2, py5.height / 2)
+py5.translate(py5.width//2, py5.height//2)
 py5.rotate_x(0.4)
 py5.rotate_y(0.8)
 py5.box(80)
