@@ -10,7 +10,7 @@ processing_name = noClip
 no_clip() -> None
 
 @@ description
-Disables the clipping previously started by the ``clip()`` function.
+Disables the clipping previously started by the :doc:`clip` function.
 
 @@ example
 def settings():

@@ -1,5 +1,5 @@
 @@ meta
-name = np_pixels
+name = np_pixels[]
 type = field
 category = image
 subcategory = pixels
