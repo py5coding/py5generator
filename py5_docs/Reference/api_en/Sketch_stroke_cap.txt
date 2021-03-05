@@ -15,7 +15,7 @@ cap: int - either SQUARE, PROJECT, or ROUND
 @@ description
 Sets the style for rendering line endings. These ends are either squared, extended, or rounded, each of which specified with the corresponding parameters: ``SQUARE``, ``PROJECT``, and ``ROUND``. The default cap is ``ROUND``.
 
-To make ``point()`` appear square, use ``stroke_cap(PROJECT)``. Using ``stroke_cap(SQUARE)`` (no cap) causes points to become invisible.
+To make :doc:`point` appear square, use ``stroke_cap(PROJECT)``. Using ``stroke_cap(SQUARE)`` (no cap) causes points to become invisible.
 
 @@ example
 image = Sketch_stroke_cap_0.png

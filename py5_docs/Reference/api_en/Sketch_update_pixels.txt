@@ -17,7 +17,7 @@ y1: int - y-coordinate of the upper-left corner
 y2: int - height of the region
 
 @@ description
-Updates the display window with the data in the ``pixels[]`` array. Use in conjunction with ``load_pixels()``. If you're only reading pixels from the array, there's no need to call ``update_pixels()`` — updating is only necessary to apply changes.
+Updates the display window with the data in the :doc:`pixels` array. Use in conjunction with :doc:`load_pixels`. If you're only reading pixels from the array, there's no need to call ``update_pixels()`` — updating is only necessary to apply changes.
 
 @@ example
 image = Sketch_update_pixels_0.png
