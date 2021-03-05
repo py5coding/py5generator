@@ -36,7 +36,7 @@ def draw_counter(s: py5.Sketch):
     s.fill(255, 0, 0)
     s.text_size(20)
     s.text_align(s.CENTER, s.CENTER)
-    s.text(f'frame number {s.frame_count}', s.width / 2, s.height / 2)
+    s.text(f'frame number {s.frame_count}', s.width/2, s.height/2)
 
 frames = draw_counter()
 
@@ -52,7 +52,7 @@ def setup_counter(s: py5.Sketch, color=(0,)):
                      setup_kwargs=dict(color=(255, 0, 0)))
 def draw_counter(s: py5.Sketch, message_prefix):
     s.background(255)
-    s.text(f'{message_prefix} {s.frame_count}', s.width / 2, s.height / 2)
+    s.text(f'{message_prefix} {s.frame_count}', s.width/2, s.height/2)
 
 
 frames = draw_counter('sequential numbers:')

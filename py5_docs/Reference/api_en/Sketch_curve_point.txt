@@ -29,7 +29,7 @@ def setup():
     py5.fill(255)
     py5.ellipse_mode(py5.CENTER)
     steps = 6
-    for i in range(0, steps + 1):
+    for i in range(0, steps+1):
         t = i / steps
         x = py5.curve_point(5, 5, 73, 73, t)
         y = py5.curve_point(26, 26, 24, 61, t)

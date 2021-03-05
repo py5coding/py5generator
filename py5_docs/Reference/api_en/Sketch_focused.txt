@@ -11,7 +11,7 @@ Confirms if a py5 program is "focused," meaning that it is active and will accep
 
 @@ example
 def setup():
-    if py5.focused:  # or "if (py5.focused == true)"
+    if py5.focused:
         py5.ellipse(25, 25, 50, 50)
     else:
         py5.line(0, 0, 100, 100)

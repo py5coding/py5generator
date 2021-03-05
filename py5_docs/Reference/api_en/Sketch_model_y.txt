@@ -38,7 +38,7 @@ def draw():
     py5.rotate_y(1.0)  # yrot)
     py5.rotate_z(2.0)  # zrot)
     # rotate in X a little more each frame
-    py5.rotate_x(py5.frame_count / 100.0)
+    py5.rotate_x(py5.frame_count/100.0)
     # offset from_ center
     py5.translate(0, 150, 0)
 

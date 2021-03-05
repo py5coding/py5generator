@@ -31,8 +31,8 @@ def setup():
     py5.no_fill()
     fov = py5.PI/3.0
     camera_z = (py5.height//2.0) / py5.tan(fov/2.0)
-    py5.perspective(fov, py5.width / py5.height,
-                camera_z/10.0, camera_z*10.0)
+    py5.perspective(fov, py5.width/py5.height,
+                    camera_z/10.0, camera_z*10.0)
     py5.translate(50, 50, 0)
     py5.rotate_x(-py5.PI/6)
     py5.rotate_y(py5.PI/3)

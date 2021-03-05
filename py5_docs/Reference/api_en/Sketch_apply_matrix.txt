@@ -52,9 +52,9 @@ def setup():
     ct = py5.cos(py5.PI/9.0)
     st = py5.sin(py5.PI/9.0)
     # matrix for rotation around the Y axis
-    py5.apply_matrix(ct, 0.0,  st,  0.0,
-                 0.0, 1.0, 0.0,  0.0,
-                 -st, 0.0,  ct,  0.0,
-                 0.0, 0.0, 0.0,  1.0)
+    py5.apply_matrix(ct, 0.0, st, 0.0,
+                     0.0, 1.0, 0.0, 0.0,
+                     -st, 0.0, ct, 0.0,
+                     0.0, 0.0, 0.0, 1.0)
     py5.stroke(255)
     py5.box(50)
