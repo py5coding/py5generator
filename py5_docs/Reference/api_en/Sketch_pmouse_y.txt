@@ -9,7 +9,7 @@ processing_name = pmouseY
 @@ description
 The system variable ``pmouse_y`` always contains the vertical position of the mouse in the frame previous to the current frame.
 
-For more detail on how ``pmouse_y`` is updated inside of mouse events and ``draw()``, see the reference for ``pmouse_x``.
+For more detail on how ``pmouse_y`` is updated inside of mouse events and ``draw()``, see the reference for :doc:`pmouse_x`.
 
 @@ example
 # move the mouse quickly to see the difference
