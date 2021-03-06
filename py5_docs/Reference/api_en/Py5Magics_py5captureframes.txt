@@ -9,13 +9,13 @@ subcategory = line magics
 number of Sketch snapshots to capture
 
 '-w', '--wait', type=float, dest='wait', default=0.0
-wait time in seconds before starting sketch frame capture
+wait time in seconds before starting Sketch frame capture
 
 '-p', '--period', type=float, dest='period', default=0.0
 time in seconds between Sketch snapshots (default 0 means no delay)
 
 @@ description
-Capture frames from the currently running sketch.
+Capture frames from the currently running Sketch.
 
 Use the ``-w`` argument to wait before starting.
 

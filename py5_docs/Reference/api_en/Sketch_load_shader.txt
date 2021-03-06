@@ -15,7 +15,7 @@ frag_filename: str - name of fragment shader file
 vert_filename: str - name of vertex shader file
 
 @@ description
-Loads a shader into a ``Py5Shader`` object. The shader file must be loaded in the sketch's "data" directory to load correctly. Shaders are compatible with the ``P2D`` and ``P3D`` renderers, but not with the default renderer.
+Loads a shader into a ``Py5Shader`` object. The shader file must be loaded in the Sketch's "data" directory to load correctly. Shaders are compatible with the ``P2D`` and ``P3D`` renderers, but not with the default renderer.
 
 Alternatively, the file maybe be loaded from anywhere on the local computer using an absolute path (something that starts with / on Unix and Linux, or a drive letter on Windows), or the filename parameter can be a URL for a file found on a network.
 

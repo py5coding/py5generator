@@ -24,7 +24,7 @@ It's important to consider the renderer used with ``create_graphics()`` in relat
 
 It's important to run all drawing functions between the :doc:`py5graphics_begin_draw` and :doc:`py5graphics_end_draw`. As the exception to this rule, :doc:`smooth` should be run on the Py5Graphics object before :doc:`py5graphics_begin_draw`. See the reference for :doc:`smooth` for more detail. 
 
-The ``create_graphics()`` function should almost never be used inside ``draw()`` because of the memory and time needed to set up the graphics. One-time or occasional use during ``draw()`` might be acceptable, but code that calls ``create_graphics()`` at 60 frames per second might run out of memory or freeze your sketch.
+The ``create_graphics()`` function should almost never be used inside ``draw()`` because of the memory and time needed to set up the graphics. One-time or occasional use during ``draw()`` might be acceptable, but code that calls ``create_graphics()`` at 60 frames per second might run out of memory or freeze your Sketch.
 
 Unlike the main drawing surface which is completely opaque, surfaces created with ``create_graphics()`` can have transparency. This makes it possible to draw into a graphics and maintain the alpha channel. By using :doc:`save` to write a ``PNG`` or ``TGA`` file, the transparency of the graphics object will be honored.
 

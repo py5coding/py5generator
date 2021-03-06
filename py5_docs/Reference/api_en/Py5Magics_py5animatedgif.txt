@@ -18,7 +18,7 @@ time in seconds between Sketch snapshots
 time in seconds between frames in the GIF
 
 '-w', '--wait', type=float, dest='wait', default=0.0
-wait time in seconds before starting sketch frame capture
+wait time in seconds before starting Sketch frame capture
 
 '-l', '--loop', dest='loop', type=int, default=0
 number of times for the GIF to loop (default of 0 loops indefinitely)
@@ -27,7 +27,7 @@ number of times for the GIF to loop (default of 0 loops indefinitely)
 optimize GIF palette
 
 @@ description
-Create an animated GIF using the currently running sketch.
+Create an animated GIF using the currently running Sketch.
 
 Use the ``-w`` argument to wait before starting.
 

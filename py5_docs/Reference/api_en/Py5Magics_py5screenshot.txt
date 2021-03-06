@@ -9,7 +9,7 @@ subcategory = line magics
 wait time in seconds before taking screenshot
 
 @@ description
-Take a screenshot of the current running sketch.
+Take a screenshot of the current running Sketch.
 
 Use the ``-w`` argument to wait before taking the screenshot.
 

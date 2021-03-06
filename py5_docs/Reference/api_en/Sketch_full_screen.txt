@@ -13,13 +13,13 @@ full_screen(renderer: str, /) -> None
 full_screen(renderer: str, display: int, /) -> None
 
 @@ variables
-display: int - the screen to run the sketch on (1, 2, 3, etc. or on multiple screens using SPAN)
+display: int - the screen to run the Sketch on (1, 2, 3, etc. or on multiple screens using SPAN)
 renderer: str - the renderer to use, e.g. P2D, P3D, JAVA2D (default)
 
 @@ description
-Open a sketch using the full size of the computer's display. This function must be called in ``settings()``. The :doc:`size` and ``full_screen()`` functions cannot both be used in the same program.
+Open a Sketch using the full size of the computer's display. This function must be called in ``settings()``. The :doc:`size` and ``full_screen()`` functions cannot both be used in the same program.
 
-When ``full_screen()`` is used without a parameter on a computer with multiple monitors, it will (probably) draw the sketch to the primary display. When it is used with a single parameter, this number defines the screen to display to program on (e.g. 1, 2, 3...). When used with two parameters, the first defines the renderer to use (e.g. P2D) and the second defines the screen. The ``SPAN`` parameter can be used in place of a screen number to draw the sketch as a full-screen window across all of the attached displays if there are more than one.
+When ``full_screen()`` is used without a parameter on a computer with multiple monitors, it will (probably) draw the Sketch to the primary display. When it is used with a single parameter, this number defines the screen to display to program on (e.g. 1, 2, 3...). When used with two parameters, the first defines the renderer to use (e.g. P2D) and the second defines the screen. The ``SPAN`` parameter can be used in place of a screen number to draw the Sketch as a full-screen window across all of the attached displays if there are more than one.
 
 @@ example
 # run the code at the full dimensions of the screen currently

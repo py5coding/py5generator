@@ -18,17 +18,17 @@ wait time in seconds before starting to save frames
 time in seconds between Sketch snapshots (default 0 means no delay)
 
 '-s', '--start', dest='start', type=int
-frame starting number instead of sketch frame_count
+frame starting number instead of Sketch frame_count
 
 '-l', '--limit', type=int, dest='limit', default=0
 limit the number of frames to save (default 0 means no limit)
 
 @@ description
-Save the current running sketch's frames to a directory.
+Save the current running Sketch's frames to a directory.
 
 Use the ``-w`` argument to wait before starting.
 
-If a limit is given, this line magic will wait to return a list of the filenames. Otherwise, it will return right away as the frames are saved in the background. It will keep doing so as long as the sketch continues to run.
+If a limit is given, this line magic will wait to return a list of the filenames. Otherwise, it will return right away as the frames are saved in the background. It will keep doing so as long as the Sketch continues to run.
 
 @@ example
 py5.run_sketch()

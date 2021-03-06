@@ -10,7 +10,7 @@ processing_name = noSmooth
 no_smooth() -> None
 
 @@ description
-Draws all geometry and fonts with jagged (aliased) edges and images with hard edges between the pixels when enlarged rather than interpolating pixels.  Note that :doc:`smooth` is active by default, so it is necessary to call ``no_smooth()`` to disable smoothing of geometry, fonts, and images. The ``no_smooth()`` function can only be run once for each sketch and must be called in ``settings()``.
+Draws all geometry and fonts with jagged (aliased) edges and images with hard edges between the pixels when enlarged rather than interpolating pixels.  Note that :doc:`smooth` is active by default, so it is necessary to call ``no_smooth()`` to disable smoothing of geometry, fonts, and images. The ``no_smooth()`` function can only be run once for each Sketch and must be called in ``settings()``.
 
 @@ example
 def settings():
