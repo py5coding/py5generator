@@ -8,7 +8,46 @@ processing_name = setVisible
 set_visible(visible: bool, /) -> None
 
 @@ variables
-visible: bool - missing variable description
+visible: bool - desired surface visiblity
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Set the Sketch window's visiblity. The animation will continue to run but the window will not be visible.
+
+@@ example
+
+def draw():
+    py5.rect(py5.random(py5.width), py5.random(py5.height), 10, 10)
+    print(py5.frame_count)
+
+py5.run_sketch()
+surface = py5.get_surface()
+
+# hide the sketch.
+surface.set_visible(False)
+# the sketch is no longer visible but there is still output
+
+# after waiting a bit, make the sketch visible again
+surface.set_visible(True)
+
+
+@@ example
+
+# this sketch will hide itself and reappear elsewhere on your display.
+
+def setup():
+    global surface
+    global visible
+    surface = py5.get_surface()
+    visible = True
+
+
+def draw():
+    global visible
+    if py5.frame_count % 250 == 0:
+        if visible:
+            surface.set_location(int(py5.random(py5.display_width)),
+                                 int(py5.random(py5.display_height)))
+            visible = True
+        else:
+            visible = False
+        surface.set_visible(visible)

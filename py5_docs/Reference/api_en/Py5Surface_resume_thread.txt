@@ -8,4 +8,22 @@ processing_name = resumeThread
 resume_thread() -> None
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Resume a paused Sketch. The Sketch window will resume operating as it did before :doc:`py5surface_pause_thread` was called.
+
+The :doc:`frame_count` will continue incrementing after the Sketch is resumed.
+
+@@ example
+
+def draw():
+    py5.rect(py5.random(py5.width), py5.random(py5.height), 10, 10)
+    print(py5.frame_count)
+
+py5.run_sketch()
+surface = py5.get_surface()
+
+# pause the sketch.
+surface.pause_thread()
+# the sketch is no longer running and there is no output
+
+# after waiting a bit, resume the sketch
+surface.resume_thread()

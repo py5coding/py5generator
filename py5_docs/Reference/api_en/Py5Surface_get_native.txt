@@ -8,4 +8,14 @@ processing_name = getNative
 get_native() -> Any
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Get the Sketch's Java native window object. Here there be dragons! The returned object will be a Java object you can interact with through py5's Python-Java bridge, jpype. The type of the native window will depend on your operating system and the Sketch's renderer, and is subject to change in future releases of Processing.
+
+This method may be useful to you if you research the Java libraries Processing uses to display animations. Any errors will result in Java Exceptions.
+
+@@ example
+
+py5.run_sketch()
+surface = py5.get_surface()
+native = surface.get_native()
+# output will depend on your operating system and the sketch's renderer
+print(type(native))
