@@ -8,7 +8,32 @@ processing_name = setIcon
 set_icon(icon: Py5Image, /) -> None
 
 @@ variables
-icon: Py5Image - missing variable description
+icon: Py5Image - image to use as the window icon
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Set the Sketch window icon. This will typically appear in the window's title bar. The default window icon is the same as Processing's.
+
+This method will not work for the ``P2D`` or ``P3D`` renderers. Setting the icon for those renderers is a bit tricky; see the second example to learn how to do that.
+
+@@ example
+def setup():
+    surface = py5.get_surface()
+    surface.set_title("py5 window")
+    surface.set_always_on_top(True)
+    surface.set_icon(py5.load_image("logo-32x32.png"))
+
+
+@@ example
+def settings():
+    py5.size(200, 200, py5.P2D)
+
+
+def draw():
+    py5.square(py5.random(py5.width), py5.random(py5.height), 10)
+
+
+# run this before calling run_sketch()
+PJOGL = py5.JClass("processing.opengl.PJOGL")
+PJOGL.setIcon("data/logo-32x32.png")
+
+py5.run_sketch()

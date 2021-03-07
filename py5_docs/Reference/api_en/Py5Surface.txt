@@ -5,4 +5,4 @@ pclass = PSurface
 processing_name = PSurface
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+The Py5Surface object is the actual window py5 draws animations to. You can use this to interact with the window and change some of its characteristics, such as the window title or location.

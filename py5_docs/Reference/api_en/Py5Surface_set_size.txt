@@ -8,8 +8,20 @@ processing_name = setSize
 set_size(width: int, height: int, /) -> None
 
 @@ variables
-height: int - missing variable description
-width: int - missing variable description
+height: int - new window height
+width: int - new window width
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Set a new width and height for the Sketch window. You do not need to call :doc:`py5surface_set_resizable` before calling this.
+
+Changing the window size will clear the drawing canvas. If your Sketch uses this, the :doc:`width` and :doc:`height` variables will change.
+
+@@ example
+def draw():
+    py5.square(py5.random(py5.width), py5.random(py5.height), 10)
+
+py5.run_sketch()
+
+# while the sketch is running, get the surface and change the size
+surface = py5.get_surface()
+surface.set_size(400, 400)

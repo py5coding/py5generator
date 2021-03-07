@@ -8,7 +8,14 @@ processing_name = setAlwaysOnTop
 set_always_on_top(always: bool, /) -> None
 
 @@ variables
-always: bool - missing variable description
+always: bool - should the Sketch window always be on top of other windows
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Set the Sketch window to always be on top of other windows. By default, the Sketch window can be covered by other windows. Setting this to ``True`` will keep that from happening.
+
+@@ example
+def setup():
+    surface = py5.get_surface()
+    surface.set_title("py5 window")
+    surface.set_always_on_top(True)
+    surface.set_icon(py5.load_image("logo-32x32.png"))

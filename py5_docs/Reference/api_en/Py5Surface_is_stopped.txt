@@ -13,7 +13,6 @@ Determine if the surface is currently running an animation. A Sketch that has ca
 The output of this method is independent of :doc:`py5surface_pause_thread` and :doc:`py5surface_resume_thread`.
 
 @@ example
-
 def draw():
     py5.rect(py5.mouse_x, py5.mouse_y, 10, 10)
 
@@ -23,7 +22,6 @@ surface = py5.get_surface()
 print(surface.is_stopped())
 
 @@ example
-
 def setup():
     py5.fill(255, 0, 0)
     py5.rect(50, 50, 10, 10)
@@ -34,7 +32,6 @@ surface = py5.get_surface()
 print(surface.is_stopped())
 
 @@ example
-
 def draw():
     py5.rect(py5.mouse_x, py5.mouse_y, 10, 10)
 

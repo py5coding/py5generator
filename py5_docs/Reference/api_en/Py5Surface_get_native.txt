@@ -13,7 +13,6 @@ Get the Sketch's Java native window object. Here there be dragons! The returned 
 This method may be useful to you if you research the Java libraries Processing uses to display animations. Any errors will result in Java Exceptions.
 
 @@ example
-
 py5.run_sketch()
 surface = py5.get_surface()
 native = surface.get_native()
