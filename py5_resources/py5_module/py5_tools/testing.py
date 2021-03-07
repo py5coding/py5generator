@@ -40,6 +40,12 @@ if py5.is_dead_from_error:
     py5.exit_sketch()
 """
 
+_EXIT_SKETCH = """
+import time
+time.sleep(1)
+py5.exit_sketch()
+time.sleep(1)
+"""
 
 def run_code(code: str, image: Path) -> bool:
     import py5
@@ -49,7 +55,10 @@ def run_code(code: str, image: Path) -> bool:
     ns['_PY5_HAS_DRAW_'] = 'draw' in ns
     ns['_PY5_SAVE_FRAME_'] = image is not None
 
-    exec(_DRAW_WRAPPER_CODE_TEMPLATE.format(image), ns)
-    exec(_RUN_SKETCH_CODE, ns)
+    if code.find("py5.run_sketch") >= 0:
+        exec(_EXIT_SKETCH, ns)
+    else:
+        exec(_DRAW_WRAPPER_CODE_TEMPLATE.format(image), ns)
+        exec(_RUN_SKETCH_CODE, ns)
 
     return not py5.is_dead_from_error
