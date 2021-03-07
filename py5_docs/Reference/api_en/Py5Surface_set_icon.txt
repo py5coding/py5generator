@@ -20,20 +20,21 @@ def setup():
     surface = py5.get_surface()
     surface.set_title("py5 window")
     surface.set_always_on_top(True)
-    surface.set_icon(py5.load_image("logo-32x32.png"))
-
+    surface.set_icon(py5.load_image("logo-64x64.png"))
 
 @@ example
 def settings():
     py5.size(200, 200, py5.P2D)
 
 
-def draw():
-    py5.square(py5.random(py5.width), py5.random(py5.height), 10)
+def setup():
+    surface = py5.get_surface()
+    surface.set_title("py5 window")
+    surface.set_always_on_top(True)
 
 
 # run this before calling run_sketch()
 PJOGL = py5.JClass("processing.opengl.PJOGL")
-PJOGL.setIcon("data/logo-32x32.png")
+PJOGL.setIcon("data/logo-64x64.png")
 
 py5.run_sketch()

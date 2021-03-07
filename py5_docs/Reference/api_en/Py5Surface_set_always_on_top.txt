@@ -18,4 +18,4 @@ def setup():
     surface = py5.get_surface()
     surface.set_title("py5 window")
     surface.set_always_on_top(True)
-    surface.set_icon(py5.load_image("logo-32x32.png"))
+    surface.set_icon(py5.load_image("logo-64x64.png"))
