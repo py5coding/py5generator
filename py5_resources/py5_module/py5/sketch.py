@@ -49,7 +49,7 @@ from . import reference
 
 sketch_class_members_code = None  # DELETE
 
-_Py5Applet = jpype.JClass('py5.core.Py5Applet')
+_Sketch = jpype.JClass('py5.core.Sketch')
 
 try:
     __IPYTHON__  # type: ignore
@@ -76,11 +76,10 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
     """$classdoc_Sketch
     """
 
-    _cls = _Py5Applet
+    _cls = _Sketch
 
     def __init__(self, *args, **kwargs):
-        self._py5applet = _Py5Applet()
-        super().__init__(instance=self._py5applet)
+        super().__init__(instance=_Sketch())
         self._methods_to_profile = []
         self._pre_hooks_to_add = []
         self._post_hooks_to_add = []
@@ -91,7 +90,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         # attempt to instantiate Py5Utilities
         self.utils = None
         try:
-            self.utils = jpype.JClass('py5.utils.Py5Utilities')(self._py5applet)
+            self.utils = jpype.JClass('py5.utils.Py5Utilities')(self._instance)
         except Exception:
             pass
 
@@ -120,7 +119,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         self._py5_methods.profile_functions(self._methods_to_profile)
         self._py5_methods.add_pre_hooks(self._pre_hooks_to_add)
         self._py5_methods.add_post_hooks(self._post_hooks_to_add)
-        self._py5applet.usePy5Methods(self._py5_methods)
+        self._instance.usePy5Methods(self._py5_methods)
 
         if not py5_options: py5_options = []
         if not sketch_args: sketch_args = []
@@ -129,9 +128,9 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         args = py5_options + [''] + sketch_args
 
         try:
-            _Py5Applet.runSketch(args, self._py5applet)
+            _Sketch.runSketch(args, self._instance)
         except Exception:
-            logger.exception('exception thrown by Py5Applet.runSketch')
+            logger.exception('Java exception thrown by Sketch.runSketch')
 
         if block:
             # wait for the sketch to finish

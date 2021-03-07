@@ -34,7 +34,7 @@ The documentation for this field or method has not yet been written. If you know
 PY5_API_EN = Path('py5_docs/Reference/api_en/')
 
 PY5_CLASS_LOOKUP = {
-    'PApplet': 'Sketch',
+    'Sketch': 'Sketch',
     'PFont': 'Py5Font',
     'PGraphics': 'Py5Graphics',
     'PImage': 'Py5Image',
@@ -50,11 +50,11 @@ class_data_info = dict()
 class_resource_data = Path('py5_resources', 'data')
 category_lookup_data = dict()
 for pclass in PY5_CLASS_LOOKUP.keys():
-    filename = 'py5applet.csv' if pclass == 'PApplet' else pclass.lower() + '.csv'
+    filename = pclass.lower() + '.csv'
     class_data = pd.read_csv(class_resource_data / filename)
     class_data = class_data.fillna('').set_index('processing_name')
     class_data_info[pclass] = class_data.query("implementation!='SKIP'")
-    if pclass in ['PApplet', 'Py5Functions', 'Py5Magics']:
+    if pclass in ['Sketch', 'Py5Functions', 'Py5Magics']:
         category_lookup_data[pclass] = class_data_info[pclass].set_index('py5_name')[['category', 'subcategory']]
 
 # go through the class data info and for each relevant method and field and 
@@ -72,7 +72,7 @@ for pclass, class_data in class_data_info.items():
             continue
 
         # check if usable alternate docfiles exist
-        if processing_name and pclass in ['PApplet', 'PGraphics', 'PImage']:
+        if processing_name and pclass in ['Sketch', 'PGraphics', 'PImage']:
             alt_docfiles = [PY5_API_EN / f'{x}_{py5_name}.txt' for x in ['Sketch', 'Py5Graphics', 'Py5Image']]
             if any(f.exists() for f in alt_docfiles):
                 continue

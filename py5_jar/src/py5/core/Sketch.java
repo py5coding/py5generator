@@ -34,7 +34,7 @@ import processing.core.PApplet;
 import processing.core.PShape;
 import processing.event.MouseEvent;
 
-public class Py5Applet extends PApplet {
+public class Sketch extends PApplet {
 
   protected Py5Methods py5Methods;
   protected Set<String> py5RegisteredEvents;

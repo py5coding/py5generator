@@ -88,20 +88,20 @@ def generate_py5(repo_dir, build_dir, skip_autopep8=False):
     javap.classpath = f'{py5_jar_path}:{core_jar_path}'
 
     logger.info('creating Sketch code')
-    py5applet_data = pd.read_csv(Path('py5_resources', 'data', 'py5applet.csv')).fillna('').set_index('processing_name')
+    sketch_data = pd.read_csv(Path('py5_resources', 'data', 'sketch.csv')).fillna('').set_index('processing_name')
 
     # these CodeBuilder objects write the code fragments for the methods and fields.
-    py5applet_builder = CodeBuilder('py5.core.Py5Applet', 'Sketch', py5applet_data)
-    py5applet_builder.code_module_members('_py5sketch')
-    py5applet_builder.run_builder()
+    sketch_builder = CodeBuilder('py5.core.Sketch', 'Sketch', sketch_data)
+    sketch_builder.code_module_members('_py5sketch')
+    sketch_builder.run_builder()
 
     # add the methods in the mixin classes as functions in the __init__.py module
     mixin_dir = Path('py5_resources', 'py5_module', 'py5', 'mixins')
     for filename in mixin_dir.glob('*.py'):
         if filename.stem == '__init__':
             continue
-        py5applet_builder.code_extra('Sketch', filename)
-    py5applet_builder.code_extra('Sketch', Path('py5_resources', 'py5_module', 'py5', 'sketch.py'))
+        sketch_builder.code_extra('Sketch', filename)
+    sketch_builder.code_extra('Sketch', Path('py5_resources', 'py5_module', 'py5', 'sketch.py'))
 
     def run_code_builder(name, clsname, class_name=None):
         logger.info(f'creating {name} code')
@@ -123,8 +123,8 @@ def generate_py5(repo_dir, build_dir, skip_autopep8=False):
     # this assembles the code fragments from the builders so it can be
     # inserted into the code templates to complete the py5 module.
     logger.info('joining code fragments')
-    sketch_class_members_code = ''.join(py5applet_builder.class_members)
-    sketch_module_members_code = ''.join(py5applet_builder.module_members)
+    sketch_class_members_code = ''.join(sketch_builder.class_members)
+    sketch_module_members_code = ''.join(sketch_builder.module_members)
     py5shader_class_members_code = ''.join(py5shader_builder.class_members)
     py5shape_class_members_code = ''.join(py5shape_builder.class_members)
     py5font_class_members_code = ''.join(py5font_builder.class_members)
@@ -134,7 +134,7 @@ def generate_py5(repo_dir, build_dir, skip_autopep8=False):
 
     # gather method_signatures info so they can be added to the docstrings
     method_signatures_lookup = {
-        **py5applet_builder.method_signatures,
+        **sketch_builder.method_signatures,
         **py5shader_builder.method_signatures,
         **py5shape_builder.method_signatures,
         **py5font_builder.method_signatures,
@@ -145,11 +145,11 @@ def generate_py5(repo_dir, build_dir, skip_autopep8=False):
     }
 
     # code the result of the module's __dir__ function and __all__ variable
-    py5_dir_names = py5applet_builder.all_names | ref.EXTRA_DIR_NAMES
+    py5_dir_names = sketch_builder.all_names | ref.EXTRA_DIR_NAMES
     py5_dir_str = str(sorted(py5_dir_names, key=lambda x: (x.lower(), x)))[1:-1].replace(', ', ',\n    ')
     # don't want import * to import the dynamic variables because they cannot be updated
-    py5_all_str = str(sorted(py5_dir_names - py5applet_builder.dynamic_variable_names, key=lambda x: (x.lower(), x)))[1:-1].replace(', ', ',\n    ')
-    py5_dynamic_variables_str = str(sorted(py5applet_builder.dynamic_variable_names))[1:-1].replace(', ', ',\n    ')
+    py5_all_str = str(sorted(py5_dir_names - sketch_builder.dynamic_variable_names, key=lambda x: (x.lower(), x)))[1:-1].replace(', ', ',\n    ')
+    py5_dynamic_variables_str = str(sorted(sketch_builder.dynamic_variable_names))[1:-1].replace(', ', ',\n    ')
 
     def build_signatures(v):
         return [f"({', '.join(params)}) -> {rettype}" for params, rettype in v]

@@ -11,7 +11,7 @@ set_title(title: str, /) -> None
 title: str - new window title
 
 @@ description
-Set the Sketch window's title. This will typically appear at the window's title bar. The default window title is "Py5Applet".
+Set the Sketch window's title. This will typically appear at the window's title bar. The default window title is "Sketch".
 
 @@ example
 def setup():
