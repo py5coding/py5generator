@@ -15,7 +15,7 @@ When coding py5 in module mode, a Sketch instance is created on your behalf that
 @@ example
 sketch = py5.get_current_sketch()
 assert sketch.is_ready
-py5.run_sketch()
+py5.run_sketch(block=False)
 assert sketch.is_running
 py5.exit_sketch()
 assert sketch.is_dead

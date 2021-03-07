@@ -13,5 +13,5 @@ get_surface() -> Py5Surface
 Get the Py5Surface object used for the Sketch.
 
 @@ example
-py5.run_sketch()
+py5.run_sketch(block=False)
 surface = py5.get_surface()

@@ -37,4 +37,4 @@ def setup():
 PJOGL = py5.JClass("processing.opengl.PJOGL")
 PJOGL.setIcon("data/logo-64x64.png")
 
-py5.run_sketch()
+py5.run_sketch(block=False)

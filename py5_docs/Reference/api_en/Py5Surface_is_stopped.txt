@@ -16,7 +16,7 @@ The output of this method is independent of :doc:`py5surface_pause_thread` and :
 def draw():
     py5.rect(py5.mouse_x, py5.mouse_y, 10, 10)
 
-py5.run_sketch()
+py5.run_sketch(block=False)
 surface = py5.get_surface()
 # this will print False
 print(surface.is_stopped())
@@ -26,7 +26,7 @@ def setup():
     py5.fill(255, 0, 0)
     py5.rect(50, 50, 10, 10)
 
-py5.run_sketch()
+py5.run_sketch(block=False)
 surface = py5.get_surface()
 # this will print True
 print(surface.is_stopped())
@@ -35,7 +35,7 @@ print(surface.is_stopped())
 def draw():
     py5.rect(py5.mouse_x, py5.mouse_y, 10, 10)
 
-py5.run_sketch()
+py5.run_sketch(block=False)
 surface = py5.get_surface()
 # this will print False
 print(surface.is_stopped())
