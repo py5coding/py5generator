@@ -20,15 +20,13 @@
 from typing import overload, Union
 
 import numpy as np
-from numpy.random import MT19937
-from numpy.random import RandomState, SeedSequence
 
 import noise
 
 
 class MathMixin:
 
-    _rs = RandomState(MT19937(SeedSequence()))
+    _rng = np.random.default_rng()
 
     SIMPLEX_NOISE = 1  # CODEBUILDER INCLUDE
     PERLIN_NOISE = 2  # CODEBUILDER INCLUDE
@@ -151,6 +149,16 @@ class MathMixin:
         """$class_Sketch_log"""
         return np.log(value)
 
+    @classmethod
+    def random_seed(cls, seed: int) -> None:
+        """$class_Sketch_random_seed"""
+        cls._rng = np.random.default_rng(seed)
+
+    @overload
+    def random(cls) -> float:
+        """$class_Sketch_random"""
+        pass
+
     @overload
     def random(cls, high: float) -> float:
         """$class_Sketch_random"""
@@ -162,29 +170,85 @@ class MathMixin:
         pass
 
     @classmethod
-    def random_seed(cls, seed: int) -> None:
-        """$class_Sketch_random_seed"""
-        cls._rs = RandomState(MT19937(SeedSequence(seed)))
-
-    @classmethod
     def random(cls, *args: float) -> float:
         """$class_Sketch_random"""
-        if len(args) == 1:
+        if len(args) == 0:
+            return cls._rng.uniform()
+        elif len(args) == 1:
             high = args[0]
             if isinstance(high, (int, float)):
-                return high * cls._rs.rand()
+                return cls._rng.uniform(0, high)
         elif len(args) == 2:
             low, high = args
             if isinstance(low, (int, float)) and isinstance(high, (int, float)):
-                return low + (high - low) * cls._rs.rand()
+                return cls._rng.uniform(low, high)
 
         types = ','.join([type(a).__name__ for a in args])
         raise TypeError(f'No matching overloads found for Sketch.random({types})')
 
+    @overload
+    def random_int(cls) -> int:
+        """$class_Sketch_random_int"""
+        pass
+
+    @overload
+    def random_int(cls, high: int) -> int:
+        """$class_Sketch_random_int"""
+        pass
+
+    @overload
+    def random_int(cls, low: int, high: int) -> int:
+        """$class_Sketch_random_int"""
+        pass
+
     @classmethod
+    def random_int(cls, *args: int) -> int:
+        """$class_Sketch_random_int"""
+        if len(args) == 0:
+            return cls._rng.integers(0, 1, endpoint=True)
+        elif len(args) == 1:
+            high = args[0]
+            if isinstance(high, int):
+                return cls._rng.integers(0, high, endpoint=True)
+        elif len(args) == 2:
+            low, high = args
+            if isinstance(low, int) and isinstance(high, int):
+                return cls._rng.integers(low, high, endpoint=True)
+
+        types = ','.join([type(a).__name__ for a in args])
+        raise TypeError(f'No matching overloads found for Sketch.random_int({types})')
+
+    @overload
     def random_gaussian(cls) -> float:
         """$class_Sketch_random_gaussian"""
-        return cls._rs.randn()
+        pass
+
+    @overload
+    def random_gaussian(cls, loc: float) -> float:
+        """$class_Sketch_random_gaussian"""
+        pass
+
+    @overload
+    def random_gaussian(cls, loc: float, scale: float) -> float:
+        """$class_Sketch_random_gaussian"""
+        pass
+
+    @classmethod
+    def random_gaussian(cls, *args: float) -> float:
+        """$class_Sketch_random_gaussian"""
+        if len(args) == 0:
+            return cls._rng.normal()
+        elif len(args) == 1:
+            loc = args[0]
+            if isinstance(loc, int):
+                return cls._rng.normal(loc)
+        elif len(args) == 2:
+            loc, scale = args
+            if isinstance(loc, (int, float)) and isinstance(scale, (int, float)):
+                return cls._rng.normal(loc, scale)
+
+        types = ','.join([type(a).__name__ for a in args])
+        raise TypeError(f'No matching overloads found for Sketch.random_gaussian({types})')
 
     @overload
     def noise(cls, x, **kwargs) -> float:

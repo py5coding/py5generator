@@ -1,17 +1,17 @@
 @@ meta
-name = random_gaussian()
+name = random_int()
 type = method
 category = math
 subcategory = random
 
 @@ signatures
-random_gaussian() -> float
-random_gaussian(loc: float) -> float
-random_gaussian(loc: float, scale: float) -> float
+random_int() -> int
+random_int(high: int) -> int
+random_int(low: int, high: int) -> int
 
 @@ variables
-loc: float - missing variable description
-scale: float - missing variable description
+high: int - missing variable description
+low: int - missing variable description
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.

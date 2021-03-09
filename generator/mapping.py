@@ -112,7 +112,7 @@ def prepare_mapping(method_signatures_lookup):
                     if sig not in signatures:
                         logger.warning(f'new signature: {tuple_key[0]}.{tuple_key[1]}, {sig}')
                         signatures.append(sig)
-                    for p in [p.replace('*', '') for p in params if p not in ['/', '*']]:
+                    for p in [p.replace('*', '') for p in params if p and p not in ['/', '*']]:
                         found_variables.add(p)
                         if p not in variables:
                             logger.warning(f'new variable: {tuple_key[0]}.{tuple_key[1]}, {p}')

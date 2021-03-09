@@ -5,6 +5,7 @@ category = math
 subcategory = random
 
 @@ signatures
+random() -> float
 random(high: float) -> float
 random(low: float, high: float) -> float
 
