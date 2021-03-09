@@ -33,8 +33,8 @@ def draw():
     global visible
     if py5.frame_count % 250 == 0:
         if visible:
-            surface.set_location(int(py5.random(py5.display_width)),
-                                 int(py5.random(py5.display_height)))
+            surface.set_location(py5.random_int(py5.display_width),
+                                 py5.random_int(py5.display_height))
             visible = True
         else:
             visible = False
