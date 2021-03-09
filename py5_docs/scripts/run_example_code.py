@@ -56,6 +56,9 @@ try:
             # skip these for now, but I should probably include them later
             continue
 
+        # if doc.meta.get('subcategory') != 'trigonometry':
+        #     continue
+
         for image, code in doc.examples:
             if ONLY_RUN_EXAMPLES_WITH_IMAGES and image is None:
                 continue

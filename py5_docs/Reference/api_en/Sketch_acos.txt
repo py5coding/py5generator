@@ -8,7 +8,25 @@ subcategory = trigonometry
 acos(value: float) -> float
 
 @@ variables
-value: float - missing variable description
+value: float - value in the range of -1 to 1 whose arc cosine is to be returned
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+The inverse of :doc:`cos`, returns the arc cosine of a value. This function expects the values in the range of -1 to 1 and values are returned in the range ``0`` to ``PI``.
+
+This function makes a call to the numpy ``acos()`` function.
+
+@@ example
+def setup():
+    a = py5.PI
+    c = py5.cos(a)
+    a_c = py5.acos(c)
+    # prints "3.1415927 : -1.0 : 3.14159261"
+    print(round(a, 8), ':', round(c, 8), ':', round(a_c, 8))
+
+@@ example
+def setup():
+    a = py5.PI + py5.PI/4
+    c = py5.cos(a)
+    a_c = py5.acos(c)
+    # prints "3.92699087 : -0.70710674 : 2.35619443"
+    print(round(a, 8), ':', round(c, 8), ':', round(a_c, 8))
