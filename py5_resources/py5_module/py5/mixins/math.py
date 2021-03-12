@@ -118,6 +118,16 @@ class MathMixin:
         """$class_Sketch_lerp"""
         return amt * (stop - start) + start
 
+    @overload
+    def mag(cls, a: float, b: float) -> float:
+        """$class_Sketch_mag"""
+        pass
+
+    @overload
+    def mag(cls, a: float, b: float, c: float) -> float:
+        """$class_Sketch_mag"""
+        pass
+
     @classmethod
     def mag(cls, *args: float) -> float:
         """$class_Sketch_mag"""
