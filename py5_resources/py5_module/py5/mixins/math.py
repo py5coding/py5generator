@@ -96,13 +96,22 @@ class MathMixin:
         """$class_Sketch_remap"""
         return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1))
 
+    @overload
+    def dist(cls, x1: float, y1: float, x2: float, y2: float) -> float:
+        """$class_Sketch_dist"""
+        pass
+
+    @overload
+    def dist(cls, x1: float, y1: float, z1: float, x2: float, y2: float, z2: float) -> float:
+        """$class_Sketch_dist"""
+        pass
+
     @classmethod
     def dist(cls, *args: float) -> float:
         """$class_Sketch_dist"""
-        p1 = args[:(len(args) // 2)]
-        p2 = args[(len(args) // 2):]
-        assert len(p1) == len(p2)
-        return sum([(a - b)**2 for a, b in zip(p1, p2)])**0.5
+        if len(args) % 2 == 1:
+            raise RuntimeError(f'Cannot apply dist function to arguments {args}')
+        return sum([(a - b)**2 for a, b in zip(args[:(len(args) // 2)], args[(len(args) // 2):])])**0.5
 
     @classmethod
     def lerp(cls, start: float, stop: float, amt: float) -> float:
