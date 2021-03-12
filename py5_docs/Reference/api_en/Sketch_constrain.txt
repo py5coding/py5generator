@@ -8,9 +8,15 @@ subcategory = calculation
 constrain(amt: float, low: float, high: float) -> float
 
 @@ variables
-amt: float - missing variable description
-high: float - missing variable description
-low: float - missing variable description
+amt: float - the value to constrain
+high: float - minimum limit
+low: float - maximum limit
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Constrains a value to not exceed a maximum and minimum value.
+
+@@ example
+def draw():
+    py5.background(204)
+    mx = py5.constrain(py5.mouse_x, 30, 70)
+    py5.rect(mx-10, 40, 20, 20)
