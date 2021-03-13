@@ -8,7 +8,14 @@ subcategory = calculation
 exp(value: float) -> float
 
 @@ variables
-value: float - missing variable description
+value: float - exponent to raise
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Returns Euler's number e (2.71828...) raised to the power of the ``n`` parameter. This function is the compliment to :doc:`log`.
+
+This function makes a call to the numpy ``exp()`` function.
+
+@@ example
+def setup():
+    v1 = py5.exp(1.0)
+    print(v1)  # Prints "2.718281828459045"
