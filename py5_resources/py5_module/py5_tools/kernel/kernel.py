@@ -17,6 +17,8 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+import sys
+
 from ipykernel.ipkernel import IPythonKernel
 from ipykernel.zmqshell import ZMQInteractiveShell
 from IPython.core.interactiveshell import InteractiveShellABC
@@ -38,16 +40,17 @@ _PY5_HELP_LINKS = [
     },
 ]
 
-_KERNEL_STARTUP = """
-import sys
-if sys.platform == 'darwin':
-    get_ipython().run_line_magic('gui', 'osx')
-del sys
+_MACOSX_PRE_STARTUP = """
+get_ipython().run_line_magic('gui', 'osx')
+"""
 
+_DEFAULT_STARTUP = """
 import py5_tools
 py5_tools.set_imported_mode(True)
 from py5 import *
 """
+
+_KERNEL_STARTUP = (_MACOSX_PRE_STARTUP if sys.platform == 'darwin' else "") + _DEFAULT_STARTUP
 
 
 class Py5Shell(ZMQInteractiveShell):
