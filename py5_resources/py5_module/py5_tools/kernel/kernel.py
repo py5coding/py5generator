@@ -38,6 +38,17 @@ _PY5_HELP_LINKS = [
     },
 ]
 
+_KERNEL_STARTUP = """
+import sys
+if sys.platform == 'darwin':
+    get_ipython().run_line_magic('gui', 'osx')
+del sys
+
+import py5_tools
+py5_tools.set_imported_mode(True)
+from py5 import *
+"""
+
 
 class Py5Shell(ZMQInteractiveShell):
 
@@ -68,9 +79,7 @@ class Py5App(IPKernelApp):
                         klass='ipykernel.kernelbase.Kernel').tag(config=True)
 
     exec_lines = List(Unicode(), [
-        'import py5_tools',
-        'py5_tools.set_imported_mode(True)',
-        'from py5 import *',
+        _KERNEL_STARTUP
     ]).tag(config=True)
 
     extensions = List(Unicode(), ['py5_tools.magics']).tag(config=True)
