@@ -362,6 +362,7 @@ lerp,lerp,,static method,math,calculation,PYTHON,implemented in mixin file math.
 norm,norm,,static method,math,calculation,PYTHON,implemented in mixin file math.py
 random_gaussian,randomGaussian,,method,math,random,PYTHON,implementation uses numpy for performance reasons
 random_int,,,method,math,random,PYTHON,implementation uses numpy for performance reasons
+random_choice,,,method,math,random,PYTHON,implementation uses numpy for performance reasons
 random_seed,randomSeed,,method,math,random,PYTHON,implementation uses numpy for performance reasons
 noise,noise,,method,math,random,PYTHON,implementation uses python noise library for performance and increased functionality
 noise_detail,noiseDetail,,method,math,random,PYTHON,implementation uses python noise library for performance and increased functionality

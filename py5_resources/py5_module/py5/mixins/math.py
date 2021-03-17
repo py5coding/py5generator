@@ -17,7 +17,7 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from typing import overload, Union
+from typing import overload, Union, Any, List
 
 import numpy as np
 
@@ -236,6 +236,11 @@ class MathMixin:
 
         types = ','.join([type(a).__name__ for a in args])
         raise TypeError(f'No matching overloads found for Sketch.random_int({types})')
+
+    @classmethod
+    def random_choice(cls, objects: List[Any]) -> Any:
+        """$class_Sketch_random_choice"""
+        return cls._rng.choice(objects)
 
     @overload
     def random_gaussian(cls) -> float:

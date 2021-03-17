@@ -1,0 +1,22 @@
+@@ meta
+name = random_choice()
+type = method
+category = math
+subcategory = random
+
+@@ signatures
+random_choice(objects: List[Any]) -> Any
+
+@@ variables
+objects: List[Any] - list of objects to choose from
+
+@@ description
+Select a random item from a list. The list items can be of any type. This function's randomness can be influenced by :doc:`random_seed`.
+
+This function makes calls to numpy to select the random items.
+
+@@ example
+def setup():
+    words = ["apple", "bear", "cat", "dog"]
+    word = py5.random_choice(words)
+    print(word)  # Prints one of the four words
