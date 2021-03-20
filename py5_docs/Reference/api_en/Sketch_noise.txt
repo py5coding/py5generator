@@ -11,11 +11,21 @@ noise(x, y, z, **kwargs) -> float
 noise(x, y, z, w, **kwargs) -> float
 
 @@ variables
-kwargs - missing variable description
-w - missing variable description
+kwargs - keyword arguments to override existing noise detail or noise seed settings
+w - w-coordinate in noise space
 x - x-coordinate in noise space
 y - y-coordinate in noise space
 z - z-coordinate in noise space
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Generate pseudo-random noise values for specific coodinates. Noise functions are random sequence generators that produce a more natural, harmonic succession of numbers compared to the :doc:`random` function. Several well-known noise algorithms were developed by Ken Perlin and have been used in graphical applications to generate procedural textures, shapes, terrains, and other seemingly organic forms.
+
+In contrast to the :doc:`random` function, noise is defined in an n-dimensional space, in which each coordinate corresponds to a fixed pseudo-random value (fixed only for the lifespan of the program). Py5 can generate Perlin Noise and Simplex Noise. Perlin Noise can be generated in 1, 2, or 3 dimensions and Simplex Noise can be generated in 2, 3, or 4 dimensions. By default, py5 will generate noise using the Simplex Noise algorithm. The noise value can be animated by moving through the noise space, as demonstrated in the examples. Any dimension can also be interpreted as time.
+
+The actual noise structure is similar to that of an audio signal, in respect to the function's use of frequencies. Similar to the concept of harmonics in physics, both noise algorithms are computed over several octaves which are added together for the final result.
+
+The nature of the noise values returned can be adjusted with :doc:`noise_mode`, :doc:`noise_seed`, and :doc:`noise_detail`.
+
+Another way to adjust the character of the resulting sequence is the scale of the input coordinates. As the function works within an infinite space, the value of the coordinates doesn't matter as such; only the distance between successive coordinates is important (such as when using :doc:`noise` within a loop). As a general rule, the smaller the difference between coordinates, the smoother the resulting noise sequence. Steps of 0.005-0.03 work best for most applications, but this will differ depending on the use case and the noise settings.
+
+Py5's noise functionality is provided by the Python noise library. The noise library provides more advanced features than what is documented here. To use the more advanced features, import that library directly.

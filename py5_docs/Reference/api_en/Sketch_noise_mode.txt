@@ -8,7 +8,11 @@ subcategory = random
 noise_mode(mode: int) -> None
 
 @@ variables
-mode: int - missing variable description
+mode: int - kind of noise to generate, either PERLIN_NOISE or SIMPLEX_NOISE
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Sets the kind of noise that the :doc:`noise` function will generate. This can be either Perlin Noise or Simplex Noise. By default, py5 will generate noise using the Simplex Noise algorithm.
+
+Perlin Noise can be generated in 1, 2, or 3 dimensions and Simplex Noise can be generated in 2, 3, or 4 dimensions.
+
+Py5's noise functionality is provided by the Python noise library. The noise library provides more advanced features than what is documented here. To use the more advanced features, import that library directly.

@@ -11,4 +11,20 @@ noise_seed(seed: float) -> None
 seed: float - seed value
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Sets the seed value for :doc:`noise`. By default, :doc:`noise` produces different results each time the program is run. Set the seed parameter to a constant to return the same pseudo-random numbers each time the software is run.
+
+Py5's noise functionality is provided by the Python noise library. The noise library provides more advanced features than what is documented here. To use the more advanced features, import that library directly.
+
+@@ example
+xoff = 0.0
+
+def setup():
+    py5.noise_seed(42)
+    py5.stroke(0, 25)
+
+
+def draw():
+    global xoff
+    xoff += .01
+    n = py5.noise(xoff) * py5.width
+    py5.line(n, 0, n, py5.height)
