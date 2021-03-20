@@ -4,3 +4,6 @@
 *.pyc
 __pycache__/
 temp/
+build/
+dist/
+
