@@ -16,15 +16,11 @@ Sets the seed value for :doc:`noise`. By default, :doc:`noise` produces differen
 Py5's noise functionality is provided by the Python noise library. The noise library provides more advanced features than what is documented here. To use the more advanced features, import that library directly.
 
 @@ example
-xoff = 0.0
-
 def setup():
     py5.noise_seed(42)
-    py5.stroke(0, 25)
+    py5.stroke(0, 10)
 
 
 def draw():
-    global xoff
-    xoff += .01
-    n = py5.noise(xoff) * py5.width
+    n = py5.remap(py5.noise(py5.frame_count / 100), -1, 1, 0, 1) * py5.width
     py5.line(n, 0, n, py5.height)

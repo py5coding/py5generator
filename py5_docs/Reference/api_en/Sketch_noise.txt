@@ -33,3 +33,13 @@ The nature of the noise values returned can be adjusted with :doc:`noise_mode`, 
 Another way to adjust the character of the resulting sequence is the scale of the input coordinates. As the function works within an infinite space, the value of the coordinates doesn't matter as such; only the distance between successive coordinates is important (such as when using :doc:`noise` within a loop). As a general rule, the smaller the difference between coordinates, the smoother the resulting noise sequence. Steps of 0.005-0.03 work best for most applications, but this will differ depending on the use case and the noise settings.
 
 Py5's noise functionality is provided by the Python noise library. The noise library provides more advanced features than what is documented here. To use the more advanced features, import that library directly.
+
+@@ example
+def setup():
+    py5.noise_seed(42)
+    py5.stroke(0, 10)
+
+
+def draw():
+    n = py5.remap(py5.noise(py5.frame_count / 100), -1, 1, 0, 1) * py5.width
+    py5.line(n, 0, n, py5.height)
