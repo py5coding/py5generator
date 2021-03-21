@@ -34,7 +34,6 @@ def setup():
 image = Sketch_random_gaussian_1.png
 
 def setup():
-    py5.size(100, 100)
     py5.stroke(0)
     py5.background(204)
     py5.translate(py5.width/2, py5.width/2)
