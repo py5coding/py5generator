@@ -26,6 +26,22 @@ Py5's noise functionality is provided by the Python noise library. The noise lib
 @@ example
 image = Sketch_noise_detail_0.png
 
+def setup():
+    py5.noise_mode(py5.PERLIN_NOISE)
+    py5.noise_seed(42)
+    draw_noise_line(1, 0.25 * py5.height)
+    draw_noise_line(2, 0.50 * py5.height)
+    draw_noise_line(4, 0.75 * py5.height)
+
+
+def draw_noise_line(octaves, y):
+    py5.noise_detail(octaves=octaves)
+    for i in range(py5.width):
+        py5.point(i, y + 25 * py5.noise(i / 50))
+
+@@ example
+image = Sketch_noise_detail_1.png
+
 import numpy as np
 
 
@@ -42,7 +58,7 @@ def draw():
     py5.set_np_pixels(py5.remap(py5.noise(x, y), -1, 1, 0, 255).astype(np.uint8), bands='L')
 
 @@ example
-image = Sketch_noise_detail_1.png
+image = Sketch_noise_detail_2.png
 
 import numpy as np
 
