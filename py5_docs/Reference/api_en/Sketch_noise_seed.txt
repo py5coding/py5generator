@@ -11,7 +11,7 @@ noise_seed(seed: float) -> None
 seed: float - seed value
 
 @@ description
-Sets the seed value for :doc:`noise`. By default, :doc:`noise` produces different results each time the program is run. Set the seed parameter to a constant to return the same pseudo-random numbers each time the software is run.
+Sets the seed value for :doc:`noise`. By default, :doc:`noise` produces different results each time the program is run. Set the seed parameter to a constant to return the same pseudo-random numbers each time the Sketch is run.
 
 Py5's noise functionality is provided by the Python noise library. The noise library provides more advanced features than what is documented here. To use the more advanced features, import that library directly.
 

@@ -275,22 +275,22 @@ class MathMixin:
         raise TypeError(f'No matching overloads found for Sketch.random_gaussian({types})')
 
     @overload
-    def noise(cls, x, **kwargs) -> float:
+    def noise(cls, x: float, **kwargs) -> float:
         """$class_Sketch_noise"""
         pass
 
     @overload
-    def noise(cls, x, y, **kwargs) -> float:
+    def noise(cls, x: float, y: float, **kwargs) -> float:
         """$class_Sketch_noise"""
         pass
 
     @overload
-    def noise(cls, x, y, z, **kwargs) -> float:
+    def noise(cls, x: float, y: float, z: float, **kwargs) -> float:
         """$class_Sketch_noise"""
         pass
 
     @overload
-    def noise(cls, x, y, z, w, **kwargs) -> float:
+    def noise(cls, x: float, y: float, z: float, w: float, **kwargs) -> float:
         """$class_Sketch_noise"""
         pass
 
@@ -309,11 +309,11 @@ class MathMixin:
         noisef = lambda *x, **_: x[0]
         if cls._NOISE_MODE == cls.PERLIN_NOISE:
             if not len_args in [1, 2, 3]:
-                raise RuntimeError('Sorry, this noise function can only generate 1D, 2D, or 3D Perlin noise.')
+                raise RuntimeError('Sorry, Perlin noise can only be generated in 1, 2, or 3 dimensions.')
             noisef = {1: noise.pnoise1, 2: noise.pnoise2, 3: noise.pnoise3}[len_args]
         elif cls._NOISE_MODE == cls.SIMPLEX_NOISE:
             if not len_args in [1, 2, 3, 4]:
-                raise RuntimeError('Sorry, this noise function can only generate 1D, 2D, 3D, or 4D Simplex noise.')
+                raise RuntimeError('Sorry, Simplex noise can only be generated in 1, 2, 3, or 4 dimensions.')
             noisef = {1: noise.snoise2, 2: noise.snoise2, 3: noise.snoise3, 4: noise.snoise4}[len_args]
             if len_args == 1:
                 args = args[0], 0
