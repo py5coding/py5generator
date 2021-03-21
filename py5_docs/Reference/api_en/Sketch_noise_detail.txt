@@ -17,7 +17,7 @@ Adjusts the character and level of detail produced by the :doc:`noise` function.
 
 By default, noise is computed over 4 octaves. Each octave has half the amplitude and twice the frequency of its predecessor. The decrease in amplitude can be adjusted with the `persistence` parameter. The increase in frequency can be adjusted with the `lacunarity` parameter.
 
-For example, a `persistence` parameter of 0.75 means each octave will now have 75% impact (25% less) of the previous lower octave. While any number between 0.0 and 1.0 is valid, note that values greater than 0.5 may result in :doc:`noise` returning values greater than 1.0. A `lacunarity` parameter of 4 means that each octave will have 4 times the frequency of the previous lower octave, providing noise at a finer-grained scale than what the default value of 2 would provide.
+For example, a `persistence` parameter of 0.75 means each octave will now have 75% impact (25% less) of the previous lower octave. A `lacunarity` parameter of 4 means that each octave will have 4 times the frequency of the previous lower octave, providing noise at a finer-grained scale than what the default value of 2 would provide.
 
 By changing these parameters, the signal created by the :doc:`noise` function can be adapted to fit very specific needs and characteristics.
 

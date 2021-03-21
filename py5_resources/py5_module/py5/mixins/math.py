@@ -31,7 +31,7 @@ class MathMixin:
     SIMPLEX_NOISE = 1  # CODEBUILDER INCLUDE
     PERLIN_NOISE = 2  # CODEBUILDER INCLUDE
     _NOISE_MODE = SIMPLEX_NOISE
-    _NOISE_SEED = _rng.uniform(0, 1024)
+    _NOISE_SEED = _rng.integers(0, 1024)
     _NOISE_OCTAVES = 4
     _NOISE_PERSISTENCE = 0.5
     _NOISE_LACUNARITY = 2.0
@@ -341,6 +341,7 @@ class MathMixin:
             cls._NOISE_LACUNARITY = lacunarity
 
     @classmethod
-    def noise_seed(cls, seed: float) -> None:
+    def noise_seed(cls, seed: int) -> None:
         """$class_Sketch_noise_seed"""
+        # NOTE: perlin noise requires integer seeds
         cls._NOISE_SEED = seed

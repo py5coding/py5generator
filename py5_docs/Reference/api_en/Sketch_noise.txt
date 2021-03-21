@@ -22,6 +22,8 @@ Generate pseudo-random noise values for specific coodinates. Noise functions are
 
 In contrast to the :doc:`random` function, noise is defined in an n-dimensional space, in which each coordinate corresponds to a fixed pseudo-random value (fixed only for the lifespan of the program). Py5 can generate Perlin Noise and Simplex Noise. By default, py5 will generate noise using the Simplex Noise algorithm. The noise value can be animated by moving through the noise space, as demonstrated in the examples. Any dimension can also be interpreted as time.
 
+The generated noise values for both Perlin Noise and Simplex noise will be between -1 and 1. This contrasts with Processing's noise function, which typically returns values between 0 and 1.
+
 Perlin Noise can be generated in 1, 2, or 3 dimensions and Simplex Noise can be generated in 1, 2, 3, or 4 dimensions. Technically Simplex Noise cannot be generated in only 1 dimension, but as a convenience, py5 will add a second dimension for you (with a value of 0) if only one dimension is used.
 
 The actual noise structure is similar to that of an audio signal, in respect to the function's use of frequencies. Similar to the concept of harmonics in physics, both noise algorithms are computed over several octaves which are added together for the final result.

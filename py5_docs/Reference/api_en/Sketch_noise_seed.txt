@@ -5,10 +5,10 @@ category = math
 subcategory = random
 
 @@ signatures
-noise_seed(seed: float) -> None
+noise_seed(seed: int) -> None
 
 @@ variables
-seed: float - seed value
+seed: int - seed value
 
 @@ description
 Sets the seed value for :doc:`noise`. By default, :doc:`noise` produces different results each time the program is run. Set the seed parameter to a constant to return the same pseudo-random numbers each time the Sketch is run.
