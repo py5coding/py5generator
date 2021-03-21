@@ -26,18 +26,17 @@ import noise
 
 class MathMixin:
 
-    _rng = np.random.default_rng()
-
     SIMPLEX_NOISE = 1  # CODEBUILDER INCLUDE
     PERLIN_NOISE = 2  # CODEBUILDER INCLUDE
-    _NOISE_MODE = SIMPLEX_NOISE
-    _NOISE_SEED = _rng.integers(0, 1024)
-    _NOISE_OCTAVES = 4
-    _NOISE_PERSISTENCE = 0.5
-    _NOISE_LACUNARITY = 2.0
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self._NOISE_MODE = self.SIMPLEX_NOISE
+        self._NOISE_SEED = np.random.randint(1024)
+        self._NOISE_OCTAVES = 4
+        self._NOISE_PERSISTENCE = 0.5
+        self._NOISE_LACUNARITY = 2.0
+        self._rng = np.random.default_rng()
 
     # *** BEGIN METHODS ***
 
@@ -168,150 +167,144 @@ class MathMixin:
         """$class_Sketch_log"""
         return np.log(value)
 
-    @classmethod
-    def random_seed(cls, seed: int) -> None:
+    def random_seed(self, seed: int) -> None:
         """$class_Sketch_random_seed"""
-        cls._rng = np.random.default_rng(seed)
+        self._rng = np.random.default_rng(seed)
 
     @overload
-    def random(cls) -> float:
+    def random(self) -> float:
         """$class_Sketch_random"""
         pass
 
     @overload
-    def random(cls, high: float) -> float:
+    def random(self, high: float) -> float:
         """$class_Sketch_random"""
         pass
 
     @overload
-    def random(cls, low: float, high: float) -> float:
+    def random(self, low: float, high: float) -> float:
         """$class_Sketch_random"""
         pass
 
-    @classmethod
-    def random(cls, *args: float) -> float:
+    def random(self, *args: float) -> float:
         """$class_Sketch_random"""
         if len(args) == 0:
-            return cls._rng.uniform()
+            return self._rng.uniform()
         elif len(args) == 1:
             high = args[0]
             if isinstance(high, (int, float)):
-                return cls._rng.uniform(0, high)
+                return self._rng.uniform(0, high)
         elif len(args) == 2:
             low, high = args
             if isinstance(low, (int, float)) and isinstance(high, (int, float)):
-                return cls._rng.uniform(low, high)
+                return self._rng.uniform(low, high)
 
         types = ','.join([type(a).__name__ for a in args])
         raise TypeError(f'No matching overloads found for Sketch.random({types})')
 
     @overload
-    def random_int(cls) -> int:
+    def random_int(self) -> int:
         """$class_Sketch_random_int"""
         pass
 
     @overload
-    def random_int(cls, high: int) -> int:
+    def random_int(self, high: int) -> int:
         """$class_Sketch_random_int"""
         pass
 
     @overload
-    def random_int(cls, low: int, high: int) -> int:
+    def random_int(self, low: int, high: int) -> int:
         """$class_Sketch_random_int"""
         pass
 
-    @classmethod
-    def random_int(cls, *args: int) -> int:
+    def random_int(self, *args: int) -> int:
         """$class_Sketch_random_int"""
         if len(args) == 0:
-            return cls._rng.integers(0, 1, endpoint=True)
+            return self._rng.integers(0, 1, endpoint=True)
         elif len(args) == 1:
             high = args[0]
             if isinstance(high, int):
-                return cls._rng.integers(0, high, endpoint=True)
+                return self._rng.integers(0, high, endpoint=True)
         elif len(args) == 2:
             low, high = args
             if isinstance(low, int) and isinstance(high, int):
-                return cls._rng.integers(low, high, endpoint=True)
+                return self._rng.integers(low, high, endpoint=True)
 
         types = ','.join([type(a).__name__ for a in args])
         raise TypeError(f'No matching overloads found for Sketch.random_int({types})')
 
-    @classmethod
-    def random_choice(cls, objects: List[Any]) -> Any:
+    def random_choice(self, objects: List[Any]) -> Any:
         """$class_Sketch_random_choice"""
-        return cls._rng.choice(objects)
+        return self._rng.choice(objects)
 
     @overload
-    def random_gaussian(cls) -> float:
+    def random_gaussian(self) -> float:
         """$class_Sketch_random_gaussian"""
         pass
 
     @overload
-    def random_gaussian(cls, loc: float) -> float:
+    def random_gaussian(self, loc: float) -> float:
         """$class_Sketch_random_gaussian"""
         pass
 
     @overload
-    def random_gaussian(cls, loc: float, scale: float) -> float:
+    def random_gaussian(self, loc: float, scale: float) -> float:
         """$class_Sketch_random_gaussian"""
         pass
 
-    @classmethod
-    def random_gaussian(cls, *args: float) -> float:
+    def random_gaussian(self, *args: float) -> float:
         """$class_Sketch_random_gaussian"""
         if len(args) == 0:
-            return cls._rng.normal()
+            return self._rng.normal()
         elif len(args) == 1:
             loc = args[0]
             if isinstance(loc, int):
-                return cls._rng.normal(loc)
+                return self._rng.normal(loc)
         elif len(args) == 2:
             loc, scale = args
             if isinstance(loc, (int, float)) and isinstance(scale, (int, float)):
-                return cls._rng.normal(loc, scale)
+                return self._rng.normal(loc, scale)
 
         types = ','.join([type(a).__name__ for a in args])
         raise TypeError(f'No matching overloads found for Sketch.random_gaussian({types})')
 
     @overload
-    def noise(cls, x: float, **kwargs) -> float:
+    def noise(self, x: float, **kwargs) -> float:
         """$class_Sketch_noise"""
         pass
 
     @overload
-    def noise(cls, x: float, y: float, **kwargs) -> float:
+    def noise(self, x: float, y: float, **kwargs) -> float:
         """$class_Sketch_noise"""
         pass
 
     @overload
-    def noise(cls, x: float, y: float, z: float, **kwargs) -> float:
+    def noise(self, x: float, y: float, z: float, **kwargs) -> float:
         """$class_Sketch_noise"""
         pass
 
     @overload
-    def noise(cls, x: float, y: float, z: float, w: float, **kwargs) -> float:
+    def noise(self, x: float, y: float, z: float, w: float, **kwargs) -> float:
         """$class_Sketch_noise"""
         pass
 
-    @classmethod
-    def noise(cls, *args, **kwargs) -> float:
+    def noise(self, *args, **kwargs) -> float:
         """$class_Sketch_noise"""
         len_args = len(args)
         noise_args = {
-            'octaves': cls._NOISE_OCTAVES,
-            'persistence': cls._NOISE_PERSISTENCE,
-            'lacunarity': cls._NOISE_LACUNARITY,
-            'base': cls._NOISE_SEED,
+            'octaves': self._NOISE_OCTAVES,
+            'persistence': self._NOISE_PERSISTENCE,
+            'lacunarity': self._NOISE_LACUNARITY,
+            'base': self._NOISE_SEED,
             # this will override other parameters if specified by the user
             **kwargs
         }
         noisef = lambda *x, **_: x[0]
-        if cls._NOISE_MODE == cls.PERLIN_NOISE:
+        if self._NOISE_MODE == self.PERLIN_NOISE:
             if not len_args in [1, 2, 3]:
                 raise RuntimeError('Sorry, Perlin noise can only be generated in 1, 2, or 3 dimensions.')
             noisef = {1: noise.pnoise1, 2: noise.pnoise2, 3: noise.pnoise3}[len_args]
-        elif cls._NOISE_MODE == cls.SIMPLEX_NOISE:
+        elif self._NOISE_MODE == self.SIMPLEX_NOISE:
             if not len_args in [1, 2, 3, 4]:
                 raise RuntimeError('Sorry, Simplex noise can only be generated in 1, 2, 3, or 4 dimensions.')
             noisef = {1: noise.snoise2, 2: noise.snoise2, 3: noise.snoise3, 4: noise.snoise4}[len_args]
@@ -323,25 +316,22 @@ class MathMixin:
             noisef = np.vectorize(noisef)
         return noisef(*args, **noise_args)
 
-    @classmethod
-    def noise_mode(cls, mode: int) -> None:
+    def noise_mode(self, mode: int) -> None:
         """$class_Sketch_noise_mode"""
-        if mode in [cls.PERLIN_NOISE, cls.SIMPLEX_NOISE]:
-            cls._NOISE_MODE = mode
+        if mode in [self.PERLIN_NOISE, self.SIMPLEX_NOISE]:
+            self._NOISE_MODE = mode
 
-    @classmethod
-    def noise_detail(cls, octaves: float = None, persistence: float = None,
+    def noise_detail(self, octaves: float = None, persistence: float = None,
                      lacunarity: float = None) -> None:
         """$class_Sketch_noise_detail"""
         if octaves:
-            cls._NOISE_OCTAVES = octaves
+            self._NOISE_OCTAVES = octaves
         if persistence:
-            cls._NOISE_PERSISTENCE = persistence
+            self._NOISE_PERSISTENCE = persistence
         if lacunarity:
-            cls._NOISE_LACUNARITY = lacunarity
+            self._NOISE_LACUNARITY = lacunarity
 
-    @classmethod
-    def noise_seed(cls, seed: int) -> None:
+    def noise_seed(self, seed: int) -> None:
         """$class_Sketch_noise_seed"""
         # NOTE: perlin noise requires integer seeds
-        cls._NOISE_SEED = seed
+        self._NOISE_SEED = seed
