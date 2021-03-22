@@ -28,6 +28,7 @@ This function makes calls to numpy to generate the random values.
 image = Sketch_random_0.png
 
 def setup():
+    py5.random_seed(42)
     for i in range(100):
         s = py5.random()
         py5.stroke(255*s)

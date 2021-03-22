@@ -42,6 +42,7 @@ def draw_noise_line(octaves, y):
 @@ example
 image = Sketch_noise_detail_1.png
 
+# Simplex Noise demo
 import numpy as np
 
 
@@ -55,11 +56,13 @@ def setup():
 
 
 def draw():
-    py5.set_np_pixels(py5.remap(py5.noise(x, y), -1, 1, 0, 255).astype(np.uint8), bands='L')
+    new_pixels = py5.remap(py5.noise(x, y), -1, 1, 0, 255).astype(np.uint8)
+    py5.set_np_pixels(new_pixels, bands='L')
 
 @@ example
 image = Sketch_noise_detail_2.png
 
+# Perlin Noise demo
 import numpy as np
 
 
@@ -73,4 +76,5 @@ def setup():
 
 
 def draw():
-    py5.set_np_pixels(py5.remap(py5.noise(x, y), -1, 1, 0, 255).astype(np.uint8), bands='L')
+    new_pixels = py5.remap(py5.noise(x, y), -1, 1, 0, 255).astype(np.uint8)
+    py5.set_np_pixels(new_pixels, bands='L')

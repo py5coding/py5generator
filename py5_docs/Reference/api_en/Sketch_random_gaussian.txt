@@ -26,6 +26,7 @@ This function makes calls to numpy to generate the random values.
 image = Sketch_random_gaussian_0.png
 
 def setup():
+    py5.random_seed(42)
     for y in range(100):
         x = 15 * py5.random_gaussian()
         py5.line(50, y, 50 + x, y)
@@ -34,6 +35,7 @@ def setup():
 image = Sketch_random_gaussian_1.png
 
 def setup():
+    py5.random_seed(42)
     py5.stroke(0)
     py5.background(204)
     py5.translate(py5.width/2, py5.width/2)
