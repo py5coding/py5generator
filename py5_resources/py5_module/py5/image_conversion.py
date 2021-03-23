@@ -120,7 +120,7 @@ try:
             return pillow_image_to_ndarray_converter(img)
 
     register_image_conversion(svg_file_to_ndarray_precondition, svg_file_to_ndarray_converter)
-except ModuleNotFoundError:
+except Exception:
     pass
 
 
@@ -136,7 +136,7 @@ try:
         return temp_png
 
     register_image_conversion(cairocffi_surface_to_tempfile_precondition, cairocffi_surface_to_tempfile_converter)
-except ModuleNotFoundError:
+except Exception:
     pass
 
 
@@ -152,7 +152,7 @@ try:
         return temp_png
 
     register_image_conversion(cairo_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
-except ModuleNotFoundError:
+except Exception:
     pass
 
 
@@ -169,5 +169,5 @@ try:
         return NumpyImageArray(np.asarray(canvas.buffer_rgba()), 'RGBA')
 
     register_image_conversion(figure_to_ndarray_precondition, figure_to_ndarray_converter)
-except ModuleNotFoundError:
+except Exception:
     pass
