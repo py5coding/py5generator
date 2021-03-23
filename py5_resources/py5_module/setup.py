@@ -23,7 +23,7 @@ from setuptools import setup
 with open('README.rst') as f:
     README = f.read()
 
-VERSION = '0.3a6'
+VERSION = '0.4a0.dev0'
 
 INSTALL_REQUIRES = [
     'jpype1>=1.2',
