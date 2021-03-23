@@ -19,5 +19,5 @@ To view the actual installed py5 library, look at the [py5 repository][py5_repo]
 The documentation website, [http://py5.ixora.io/](http://py5.ixora.io/), is a work in progress.
 
 [py5_repo]: https://github.com/hx2A/py5
-[processing]: https://github.com/processing/processing
+[processing]: https://github.com/processing/processing4
 [jpype]: https://github.com/jpype-project/jpype
