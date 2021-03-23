@@ -224,7 +224,9 @@ public class Sketch extends PApplet {
       // get the screen and display and explicitly destroy both
       // this is necessary for Windows but can cause a core dump on Linux for
       // OpenGL sketches that call `no_loop` when terminating via Escape key
-      if (platform == WINDOWS) {
+      // seems to also be necessary on MACOS to avoid occasional ugly
+      // exceptions, but at least there are no core dumps. ;)
+      if (platform == WINDOWS || platform == MACOS) {
         Screen screen = window.getScreen();
         Display display = screen.getDisplay();
         display.destroy();
@@ -264,8 +266,8 @@ public class Sketch extends PApplet {
   }
 
   /*
-   * This is to get around an issue with JPype method dispatching. It will
-   * always use the second method signature, even when p.length == 0.
+   * This is to get around an issue with JPype method dispatching. It will always
+   * use the second method signature, even when p.length == 0.
    */
 
   public PShape createShape(int kind, float... p) {
