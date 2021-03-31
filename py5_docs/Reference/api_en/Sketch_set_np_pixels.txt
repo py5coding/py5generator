@@ -8,8 +8,12 @@ subcategory = pixels
 set_np_pixels(array: np.ndarray, bands: str = 'ARGB') -> None
 
 @@ variables
-array: np.ndarray - missing variable description
-bands: str = 'ARGB' - missing variable description
+array: np.ndarray - properly sized numpy array to be copied to np_pixels[]
+bands: str = 'ARGB' - color channels in the array's third dimension
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Set the entire contents of :doc:`np_pixels` to the contents of another properly sized numpy array. The size of ``array``'s first and second dimensions must match the height and width of the Sketch window, respectively. 
+
+The ``bands`` parameter is used to interpret the ``array``'s color channel dimension (the array's third dimension). It can be can be one of `'L'` (single-channel grayscale), `'ARGB'`, `'RGB'`, or `'RGBA'`. If there is no alpha channel, ``array`` is assumed to have no transparency. If the ``bands`` parameter is `'L'`, ``array``'s third dimension is optional.
+
+This method makes calls to :doc:`load_np_pixels` and :doc:`update_np_pixels` so there is no need to call these explicitly.
