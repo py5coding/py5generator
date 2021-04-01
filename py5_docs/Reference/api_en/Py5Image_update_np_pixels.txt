@@ -8,4 +8,6 @@ type = method
 update_np_pixels() -> None
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Updates the image with the data in the :doc:`py5image_np_pixels` array. Use in conjunction with :doc:`py5image_load_np_pixels`. If you're only reading pixels from the array, there's no need to call ``update_np_pixels()`` — updating is only necessary to apply changes.
+
+The ``update_np_pixels()`` method is similar to :doc:`py5image_update_pixels` in that ``update_np_pixels()`` must be called after modifying :doc:`py5image_np_pixels` just as :doc:`py5image_update_pixels` must be called after modifying :doc:`py5image_pixels`.
