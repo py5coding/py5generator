@@ -11,4 +11,14 @@ This numpy array is very similar to the image arrays used by other popular Pytho
 
 Much like the :doc:`py5image_pixels` array, there are load and update methods that must be called before and after making changes to the data in ``np_pixels[]``. Before accessing ``np_pixels[]``, the data must be loaded with the :doc:`py5image_load_np_pixels` method. If this is not done, ``np_pixels`` will be equal to ``None`` and your code will likely result in Python exceptions. After ``np_pixels[]`` has been modified, the :doc:`py5image_update_np_pixels` method must be called to update the content of the display window.
 
-To set the entire contents of ``np_pixels[]`` to the contents of another equally sized numpy array, consider using :doc:`py5image_set_np_pixels`. 
+To set the entire contents of ``np_pixels[]`` to the contents of another equally sized numpy array, consider using :doc:`py5image_set_np_pixels`.
+
+@@ example
+image = Py5Image_np_pixels_0.png
+
+def setup():
+    tower = py5.load_image("tower.jpg")
+    tower.load_np_pixels()
+    tower.np_pixels[:, ::2, 1:] = [0, 0, 0]
+    tower.update_np_pixels()
+    py5.image(tower, 0, 0)

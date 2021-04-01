@@ -13,7 +13,7 @@ When the pixel density is set to higher than 1 with the :doc:`pixel_density` fun
 
 Much like the :doc:`pixels` array, there are load and update methods that must be called before and after making changes to the data in ``np_pixels[]``. Before accessing ``np_pixels[]``, the data must be loaded with the :doc:`load_np_pixels` method. If this is not done, ``np_pixels`` will be equal to ``None`` and your code will likely result in Python exceptions. After ``np_pixels[]`` has been modified, the :doc:`update_np_pixels` method must be called to update the content of the display window.
 
-To set the entire contents of ``np_pixels[]`` to the contents of another properly sized numpy array, consider using :doc:`set_np_pixels`. 
+To set the entire contents of ``np_pixels[]`` to the contents of another properly sized numpy array, consider using :doc:`set_np_pixels`.
 
 @@ example
 image = Sketch_np_pixels_0.png
