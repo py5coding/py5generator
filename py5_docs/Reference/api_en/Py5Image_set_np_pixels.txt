@@ -12,7 +12,7 @@ array: np.ndarray - properly sized numpy array to be copied to np_pixels[]
 bands: str = 'ARGB' - color channels in the array's third dimension
 
 @@ description
-Set the entire contents of :doc:`py5image_np_pixels` to the contents of another properly sized numpy array. The size of ``array``'s first and second dimensions must match the height and width of the image, respectively. 
+Set the entire contents of :doc:`py5image_np_pixels` to the contents of another properly sized and typed numpy array. The size of ``array``'s first and second dimensions must match the height and width of the image, respectively. 
 
 The ``bands`` parameter is used to interpret the ``array``'s color channel dimension (the array's third dimension). It can be can be one of ``'L'`` (single-channel grayscale), ``'ARGB'``, ``'RGB'``, or ``'RGBA'``. If there is no alpha channel, ``array`` is assumed to have no transparency. If the ``bands`` parameter is ``'L'``, ``array``'s third dimension is optional.
 

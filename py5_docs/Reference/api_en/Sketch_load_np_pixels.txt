@@ -13,3 +13,14 @@ Loads the pixel data of the current display window into the :doc:`np_pixels` arr
 The ``load_np_pixels()`` method is similar to :doc:`load_pixels` in that ``load_np_pixels()`` must be called before reading from or writing to :doc:`np_pixels` just as :doc:`load_pixels` must be called before reading from or writing to :doc:`pixels`.
 
 Note that ``load_np_pixels()`` will as a side effect call :doc:`load_pixels`, so if your code needs to read :doc:`np_pixels` and :doc:`pixels` simultaneously, there is no need for a separate call to :doc:`load_pixels`. However, be aware that modifying both :doc:`np_pixels` and :doc:`pixels` simultaneously will likely result in the updates to :doc:`pixels` being discarded.
+
+@@ example
+image = Sketch_load_np_pixels_0.png
+
+def setup():
+    my_image = py5.load_image("apples.jpg")
+    py5.image(my_image, 0, 0)
+    
+    py5.load_np_pixels()
+    py5.np_pixels[50:100, :, :] = py5.np_pixels[:50, :, :]
+    py5.update_np_pixels()
