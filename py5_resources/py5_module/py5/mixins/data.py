@@ -18,8 +18,10 @@
 #
 # *****************************************************************************
 import json
+import re
 from pathlib import Path
 from typing import Any, Union, Dict
+import requests
 
 
 class DataMixin:
@@ -29,16 +31,35 @@ class DataMixin:
 
     # *** BEGIN METHODS ***
 
-    @classmethod
-    def load_json(cls, filename: Union[str, Path], **kwargs: Dict[str, Any]) -> Any:
+    def load_json(self, filename: Union[str, Path], **kwargs: Dict[str, Any]) -> Any:
         """$class_Sketch_load_json"""
-        with open(filename, 'r') as f:
-            return json.load(f, **kwargs)
+        if isinstance(filename, str) and re.match(r'https?://', filename):
+            response = requests.get(filename)
+            if response.status_code == 200:
+                return response.json()
+            else:
+                raise RuntimeError('Unable to download JSON URL: ' + response.reason)
+        else:
+            path = Path(filename)
+            if not path.is_absolute():
+                cwd = self.sketch_path()
+                if (cwd / 'data' / filename).exists():
+                    path = cwd / 'data' / filename
+                else:
+                    path = cwd / filename
+            if path.exists():
+                with open(path, 'r') as f:
+                    return json.load(f, **kwargs)
+            else:
+                raise RuntimeError('Unable to find JSON file ' + str(filename))
 
-    @classmethod
-    def save_json(cls, json_data: Any, filename: Union[str, Path], **kwargs: Dict[str, Any]) -> None:
+    def save_json(self, json_data: Any, filename: Union[str, Path], **kwargs: Dict[str, Any]) -> None:
         """$class_Sketch_save_json"""
-        with open(filename, 'w') as f:
+        path = Path(filename)
+        if not path.is_absolute():
+            cwd = self.sketch_path()
+            path = cwd / filename
+        with open(path, 'w') as f:
             json.dump(json_data, f, **kwargs)
 
     @classmethod
