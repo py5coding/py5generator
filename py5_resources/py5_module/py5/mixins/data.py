@@ -30,27 +30,27 @@ class DataMixin:
         super().__init__(*args, **kwargs)
 
     # *** BEGIN METHODS ***
-    def load_json(self, data_path: Union[str, Path], **kwargs: Dict[str, Any]) -> Any:
+    def load_json(self, json_path: Union[str, Path], **kwargs: Dict[str, Any]) -> Any:
         """$class_Sketch_load_json"""
-        if isinstance(data_path, str) and re.match(r'https?://', data_path):
-            response = requests.get(data_path, **kwargs)
+        if isinstance(json_path, str) and re.match(r'https?://', json_path):
+            response = requests.get(json_path, **kwargs)
             if response.status_code == 200:
                 return response.json()
             else:
                 raise RuntimeError('Unable to download JSON URL: ' + response.reason)
         else:
-            path = Path(data_path)
+            path = Path(json_path)
             if not path.is_absolute():
                 cwd = self.sketch_path()
-                if (cwd / 'data' / data_path).exists():
-                    path = cwd / 'data' / data_path
+                if (cwd / 'data' / json_path).exists():
+                    path = cwd / 'data' / json_path
                 else:
-                    path = cwd / data_path
+                    path = cwd / json_path
             if path.exists():
                 with open(path, 'r') as f:
                     return json.load(f, **kwargs)
             else:
-                raise RuntimeError('Unable to find JSON file ' + str(data_path))
+                raise RuntimeError('Unable to find JSON file ' + str(json_path))
 
     def save_json(self, json_data: Any, filename: Union[str, Path], **kwargs: Dict[str, Any]) -> None:
         """$class_Sketch_save_json"""
