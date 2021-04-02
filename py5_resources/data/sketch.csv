@@ -310,7 +310,7 @@ exit_actual,exitActual,,method,structure,,SKIP,replaced with exiting()
 no_loop,noLoop,,method,structure,,JAVA,
 load_pixels,loadPixels,,method,image,pixels,JAVA,
 update_pixels,updatePixels,,method,image,pixels,JAVA,
-sketch_path,sketchPath,,method,environment,,JAVA,
+sketch_path,sketchPath,,method,environment,,PYTHON,
 redraw,redraw,,method,structure,,JAVA,
 exit_called,exitCalled,,method,,,SKIP,methods that are not part of the processing framework
 smooth,smooth,,method,environment,,JAVA,

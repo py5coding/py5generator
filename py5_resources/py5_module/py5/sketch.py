@@ -181,6 +181,24 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     # *** BEGIN METHODS ***
 
+    @overload
+    def sketch_path(self) -> Path:
+        """$class_Sketch_sketch_path"""
+        pass
+
+    @overload
+    def sketch_path(self, where: str, /) -> Path:
+        """$class_Sketch_sketch_path"""
+        pass
+
+    def sketch_path(self, *args) -> Path:
+        """$class_Sketch_sketch_path"""
+        if len(args) <= 1:
+            return Path(str(self._instance.sketchPath(*args)))
+        else:
+            # this exception will be replaced with a more informative one by the custom exception handler
+            raise TypeError('The parameters are invalid for method sketch_path')
+
     def _get_is_ready(self) -> bool:  # @decorator
         """$class_Sketch_is_ready"""
         surface = self.get_surface()
