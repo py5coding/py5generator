@@ -8,8 +8,8 @@ subcategory = files
 parse_json(serialized_json: Any, kwargs: Dict[str, Any]) -> Any
 
 @@ variables
-kwargs: Dict[str, Any] - missing variable description
-serialized_json: Any - missing variable description
+kwargs: Dict[str, Any] - keyword arguments
+serialized_json: Any - json data object that has been serialized as a string
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
