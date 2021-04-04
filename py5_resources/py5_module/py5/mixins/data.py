@@ -32,7 +32,7 @@ class DataMixin:
     # *** BEGIN METHODS ***
     def load_json(self, json_path: Union[str, Path], **kwargs: Dict[str, Any]) -> Any:
         """$class_Sketch_load_json"""
-        if isinstance(json_path, str) and re.match(r'https?://', json_path):
+        if isinstance(json_path, str) and re.match(r'https?://', json_path.lower()):
             response = requests.get(json_path, **kwargs)
             if response.status_code == 200:
                 return response.json()
