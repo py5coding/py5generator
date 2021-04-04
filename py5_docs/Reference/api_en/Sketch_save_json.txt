@@ -16,3 +16,15 @@ kwargs: Dict[str, Any] - keyword arguments
 Save JSON data to a file. If ``filename`` is not an absolute path, it will be saved relative to the current working directory (:doc:`sketch_path`).
 
 The JSON data is saved using the Python json library with the ``dump`` method, and the ``kwargs`` parameter is passed along to that method.
+
+@@ example
+data = dict(mouse_x=[], mouse_y=[])
+
+def draw():
+    py5.point(py5.mouse_x, py5.mouse_y)
+    if py5.frame_count % 60 == 0:
+        data['mouse_x'].append(py5.mouse_x)
+        data['mouse_y'].append(py5.mouse_y)
+    if py5.frame_count == 600:
+        py5.save_json(data, 'data/mouse_positions.json')
+        py5.exit_sketch()
