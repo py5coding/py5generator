@@ -8,9 +8,11 @@ subcategory = files
 save_json(json_data: Any, filename: Union[str, Path], kwargs: Dict[str, Any]) -> None
 
 @@ variables
-filename: Union[str, Path] - filename to save json data object to
+filename: Union[str, Path] - filename to save JSON data object to
 json_data: Any - json data object
 kwargs: Dict[str, Any] - keyword arguments
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Save JSON data to a file. If ``filename`` is not an absolute path, it will be saved relative to the current working directory (:doc:`sketch_path`).
+
+The JSON data is saved using the Python json library with the ``dump`` method, and the ``kwargs`` parameter is passed along to that method.
