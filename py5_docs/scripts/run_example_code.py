@@ -56,7 +56,7 @@ try:
             # skip these for now, but I should probably include them later
             continue
 
-        if doc.meta.get('subcategory') != 'random':
+        if doc.meta.get('category') != 'input' or doc.meta.get('subcategory') != 'files':
             continue
 
         for image, code in doc.examples:
