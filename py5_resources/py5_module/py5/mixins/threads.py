@@ -124,7 +124,7 @@ class ThreadsMixin:
         return args, kwargs
 
     def _launch_py5thread(self, name, py5thread, daemon):
-        if isinstance(py5thread, Py5RepeatingThread) and self.has_thread(name):
+        if self.has_thread(name):
             self.stop_thread(name, wait=True)
 
         t = threading.Thread(name=name, target=py5thread, daemon=daemon)
@@ -178,7 +178,6 @@ class ThreadsMixin:
             py5thread.stop()
             if wait:
                 t.join()
-            del self._py5threads[name]
 
     def stop_all_threads(self, wait: bool = False) -> None:
         """$class_Sketch_stop_all_threads"""

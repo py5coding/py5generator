@@ -56,7 +56,7 @@ try:
             # skip these for now, but I should probably include them later
             continue
 
-        if doc.meta.get('category') != 'input' or doc.meta.get('subcategory') != 'files':
+        if doc.meta.get('category') != 'structure' or doc.meta.get('subcategory') != 'threading':
             continue
 
         for image, code in doc.examples:
