@@ -8,7 +8,9 @@ subcategory = threading
 stop_all_threads(wait: bool = False) -> None
 
 @@ variables
-wait: bool = False - missing variable description
+wait: bool = False - wait for thread to exit before returning
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Stop all running threads. The ``wait`` parameter determines if the method call will return right away or wait for the threads to exit.
+
+When the Sketch shuts down, ``stop_all_threads(wait=False)`` is called for you. If you would rather the Sketch waited for threads to exit, create an ``exiting`` method and make a call to ``stop_all_threads(wait=True)``.

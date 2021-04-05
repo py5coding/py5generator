@@ -8,8 +8,12 @@ subcategory = threading
 stop_thread(name: str, wait: bool = False) -> None
 
 @@ variables
-name: str - missing variable description
-wait: bool = False - missing variable description
+name: str - name of thread
+wait: bool = False - wait for thread to exit before returning
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Stop a thread of a given name. The ``wait`` parameter determines if the method call will return right away or wait for the thread to exit.
+
+This won't do anything useful if the thread was launched with either :doc:`launch_thread` or :doc:`launch_promise_thread` and the ``wait`` parameter is ``False``. Non-repeating threads are executed once and will stop when they complete execution. Setting the ``wait`` parameter to ``True`` will merely block until the thread exits on its own. Killing off a running thread in Python is complicated and py5 cannot do that for you. If you want a thread to perform some action repeatedly and be interuptable, use :doc:`launch_repeating_thread` instead.
+
+Use :doc:`has_thread` to determine if a thread of a given name exists and :doc:`list_threads` to get a list of all thread names. Use :doc:`stop_all_threads` to stop all threads.
