@@ -139,9 +139,14 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
                 while not surface.is_stopped():
                     time.sleep(0.25)
 
-            # wait no more than 1 second for any shutdown tasks to complete
+            # Wait no more than 1 second for any shutdown tasks to complete.
+            # This will not wait for the user's `exiting` method, as it has
+            # already been called. It will not wait for any threads to exit, as
+            # that code calls `stop_all_threads(wait=False)` in its shutdown
+            # procedure. Bottom line, this currently doesn't do very much but
+            # might if a mixin had more complex shutdown steps.
             time_waited = 0
-            while time_waited < 1.0:
+            while time_waited < 1.0 and not hasattr(self, '_shutdown_complete'):
                 pause = 0.01
                 time_waited += pause
                 time.sleep(pause)
