@@ -12,3 +12,23 @@ name: str - name of thread
 
 @@ description
 Determine if a thread of a given name exists and is currently running. You can get the list of all currently running threads with :doc:`list_threads`.
+
+@@ example
+import time
+
+
+def slow_thread():
+    print('starting slow thread')
+    time.sleep(7)
+    print('finishing slow thread')
+
+
+def setup():
+    py5.launch_thread(slow_thread, name='slow thread')
+
+
+def draw():
+    if py5.has_thread('slow thread'):
+        py5.background(0, 255, 0)
+    else:
+        py5.background(255, 0, 0)

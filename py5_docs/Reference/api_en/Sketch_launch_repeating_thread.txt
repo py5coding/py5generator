@@ -27,3 +27,18 @@ Use the ``args`` and ``kwargs`` parameters to pass positional and keyword argume
 Use the ``daemon`` parameter to make the launched thread a daemon that will run without blocking Python from exiting. This parameter defaults to ``True``, meaning that function execution can be interupted if the Python process exits. Note that if the Python process continues running after the Sketch exits, which is typically the case when using a Jupyter Notebook, this parameter won't have any effect unless if you try to restart the Notebook kernel. Generally speaking, setting this parameter to ``False`` causes problems but it is available for those who really need it. See :doc:`stop_all_threads` for a better approach to exit threads.
 
 The new thread is a Python thread, so all the usual caveats about the Global Interpreter Lock (GIL) apply here.
+
+@@ example
+def pick_color():
+    global color
+    color = py5.random_int(255), py5.random_int(255), py5.random_int(255)
+
+
+def setup():
+    py5.launch_repeating_thread(pick_color, name='pick_color', time_delay=1)
+
+
+def draw():
+    py5.background(*color)
+    if py5.frame_count == 500:
+        py5.stop_thread('pick_color')
