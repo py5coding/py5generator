@@ -41,5 +41,4 @@ def setup():
 def draw():
     py5.background(0)
     if promise.is_ready:
-        py5.text(promise.result['msg'], 20, 50)
-        py5.no_loop()
+        py5.text(promise.result['msg'][:(py5.frame_count // 25)], 20, 50)
