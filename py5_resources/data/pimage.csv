@@ -215,7 +215,7 @@ modified_y2,modifiedY2,,unknown,SKIP,
 load_pixels,loadPixels,,method,JAVA,
 update_pixels,updatePixels,,method,JAVA,
 set_loaded,setLoaded,,method,SKIP,
-check_alpha,checkAlpha,,method,JAVA,made public in Processing 4a2
+check_alpha,checkAlpha,,method,SKIP,made public in Processing 4a2 but actually useful
 blend_color,blendColor,,static method,SKIP,methods that are not part of the processing framework
 blend,blend,,method,JAVA,
 load_tiff,loadTIFF,,static method,SKIP,
