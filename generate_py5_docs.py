@@ -308,7 +308,7 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
         if stem == 'Sketch':
             continue
         group = stem.split('_', 1)[0]
-        if group in ['Sketch', 'Py5Functions', 'Py5Magics']:
+        if group in ['Sketch', 'Py5Functions', 'Py5Tools', 'Py5Magics']:
             slug = stem[len(group)+1:].lower()
         else:
             slug = stem.lower()
@@ -351,7 +351,7 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
             if stem != 'Sketch':
                 rstfiles['Sketch'].add((name, slug, first_sentence, CLASS_CATEGORY_LOOKUP[name]))
         else:
-            if group in ['Sketch', 'Py5Functions', 'Py5Magics']:
+            if group in ['Sketch', 'Py5Functions', 'Py5Tools', 'Py5Magics']:
                 rstfiles['Sketch'].add(
                     (name, slug, first_sentence,
                      (doc.meta['category'].replace('None', ''), doc.meta['subcategory'].replace('None', ''))

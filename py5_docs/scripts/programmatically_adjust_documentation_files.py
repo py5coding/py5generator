@@ -44,7 +44,7 @@ for docfile in sorted(PY5_API_EN.glob('*.txt')):
     if stem == 'Sketch':
         continue
     group = stem.split('_', 1)[0]
-    if group in ['Sketch', 'Py5Functions', 'Py5Magics']:
+    if group in ['Sketch', 'Py5Functions', 'Py5Tools', 'Py5Magics']:
         slug = stem[len(group)+1:].lower()
     else:
         slug = stem.lower()

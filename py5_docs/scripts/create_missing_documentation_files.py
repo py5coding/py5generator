@@ -42,6 +42,7 @@ PY5_CLASS_LOOKUP = {
     'PShape': 'Py5Shape',
     'PSurface': 'Py5Surface',
     'Py5Functions': 'Py5Functions',
+    'Py5Tools': 'Py5Tools',
     'Py5Magics': 'Py5Magics',
 }
 
@@ -54,7 +55,7 @@ for pclass in PY5_CLASS_LOOKUP.keys():
     class_data = pd.read_csv(class_resource_data / filename)
     class_data = class_data.fillna('').set_index('processing_name')
     class_data_info[pclass] = class_data.query("implementation!='SKIP'")
-    if pclass in ['Sketch', 'Py5Functions', 'Py5Magics']:
+    if pclass in ['Sketch', 'Py5Functions', 'Py5Tools', 'Py5Magics']:
         category_lookup_data[pclass] = class_data_info[pclass].set_index('py5_name')[['category', 'subcategory']]
 
 # go through the class data info and for each relevant method and field and 

@@ -108,4 +108,28 @@ EXTRA_METHOD_SIGNATURES = {
     ('Py5Functions', 'register_image_conversion'): [
         (['precondition: Callable', 'convert_function: Callable'], 'None')
     ],
+    ('Py5Tools', 'is_jvm_running'): [
+        ([], 'bool')
+    ],
+    ('Py5Tools', 'check_jvm_running'): [
+        ([], 'None')
+    ],
+    ('Py5Tools', 'set_options'): [
+        (['*options: List[str]'], 'None')
+    ],
+    ('Py5Tools', 'add_options'): [
+        (['*options: List[str]'], 'None')
+    ],
+    ('Py5Tools', 'get_classpath'): [
+        ([], 'str')
+    ],
+    ('Py5Tools', 'add_classpath'): [
+        (['classpath: Union[Path, str]'], 'None')
+    ],
+    ('Py5Tools', 'add_jars'): [
+        (['classpath: Union[Path, str]'], 'None')
+    ],
+    ('Py5Tools', 'start_jvm'): [
+        ([], 'None')
+    ],
 }
