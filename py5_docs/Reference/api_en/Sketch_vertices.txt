@@ -10,7 +10,20 @@ subcategory = vertex
 vertices(coordinates: NDArray[(Any, Any), Float], /) -> None
 
 @@ variables
-coordinates: NDArray[(Any, Any), Float] - missing variable description
+coordinates: NDArray[(Any, Any), Float] - array of vertex coordinates
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Create a collection of vertices. The purpose of this method is to provide an alternative to repeatedly calling :doc:`vertex` in a loop. For a large number of vertices, the performance of ``vertices()`` will be much faster.
+
+The ``coordinates`` parameter should be a numpy array with one row for each vertex. There should be two or three columns for 2D or 3D points, respectively.
+
+@@ example
+image = Sketch_vertices_0.png
+
+import numpy as np
+
+def setup():
+    random_triangle_vertices = 100 * np.random.rand(25, 2)
+    py5.begin_shape(py5.TRIANGLES)
+    py5.vertices(random_triangle_vertices)
+    py5.end_shape()
