@@ -43,7 +43,7 @@ if not py5_tools.is_jvm_running():
     py5_tools.add_jars(str(base_path / 'jars'))
     # if the cwd has a jars subdirectory, add that next
     py5_tools.add_jars(Path('jars'))
-    py5_tools.start_jvm()
+    py5_tools._start_jvm()
 
 from .methods import register_exception_msg  # noqa
 from .sketch import Sketch, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Shape, Py5Font, Py5Promise, _in_ipython_session  # noqa

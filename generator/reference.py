@@ -111,12 +111,6 @@ EXTRA_METHOD_SIGNATURES = {
     ('Py5Tools', 'is_jvm_running'): [
         ([], 'bool')
     ],
-    ('Py5Tools', 'check_jvm_running'): [
-        ([], 'None')
-    ],
-    ('Py5Tools', 'set_options'): [
-        (['*options: List[str]'], 'None')
-    ],
     ('Py5Tools', 'add_options'): [
         (['*options: List[str]'], 'None')
     ],
@@ -127,9 +121,6 @@ EXTRA_METHOD_SIGNATURES = {
         (['classpath: Union[Path, str]'], 'None')
     ],
     ('Py5Tools', 'add_jars'): [
-        (['classpath: Union[Path, str]'], 'None')
-    ],
-    ('Py5Tools', 'start_jvm'): [
-        ([], 'None')
+        (['path: Union[Path, str]'], 'None')
     ],
 }

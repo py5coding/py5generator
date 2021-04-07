@@ -1,9 +1,6 @@
 py5_name,processing_name,decorator,type,category,subcategory,implementation,comments
 is_jvm_running,,,function,jvm,,PYTHON,jvm
-check_jvm_running,,,function,jvm,,PYTHON,jvm
-set_options,,,function,jvm,,PYTHON,jvm
 add_options,,,function,jvm,,PYTHON,jvm
 get_classpath,,,function,jvm,,PYTHON,jvm
 add_classpath,,,function,jvm,,PYTHON,jvm
 add_jars,,,function,jvm,,PYTHON,jvm
-start_jvm,,,function,jvm,,PYTHON,jvm

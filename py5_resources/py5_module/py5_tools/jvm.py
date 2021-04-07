@@ -33,22 +33,14 @@ def is_jvm_running() -> bool:
     return jpype.isJVMStarted()
 
 
-def check_jvm_running() -> None:
-    """$module_Py5Tools_check_jvm_running"""
+def _check_jvm_running() -> None:
     if jpype.isJVMStarted():
         raise RuntimeError("the jvm is already running")
 
 
-def set_options(*options: List[str]) -> None:
-    """$module_Py5Tools_set_options"""
-    check_jvm_running()
-    global _options
-    _options = list(options)
-
-
 def add_options(*options: List[str]) -> None:
     """$module_Py5Tools_add_options"""
-    check_jvm_running()
+    _check_jvm_running()
     _options.extend(options)
 
 
@@ -59,7 +51,7 @@ def get_classpath() -> str:
 
 def add_classpath(classpath: Union[Path, str]) -> None:
     """$module_Py5Tools_add_classpath"""
-    check_jvm_running()
+    _check_jvm_running()
     if not isinstance(classpath, Path):
         classpath = Path(classpath)
     jpype.addClassPath(classpath.absolute())
@@ -67,7 +59,7 @@ def add_classpath(classpath: Union[Path, str]) -> None:
 
 def add_jars(path: Union[Path, str]) -> None:
     """$module_Py5Tools_add_jars"""
-    check_jvm_running()
+    _check_jvm_running()
     if not isinstance(path, Path):
         path = Path(path)
     if path.exists():
@@ -75,15 +67,11 @@ def add_jars(path: Union[Path, str]) -> None:
             jpype.addClassPath(jarfile.absolute())
 
 
-def start_jvm() -> None:
-    """$module_Py5Tools_start_jvm"""
+def _start_jvm() -> None:
     for c in _classpath:
         print(f'adding {c}')
         jpype.addClassPath(c)
     jpype.startJVM(*_options, convertStrings=False)
 
 
-__all__ = ['is_jvm_running', 'check_jvm_running',
-           'set_options', 'add_options',
-           'get_classpath', 'add_classpath',
-           'add_jars', 'start_jvm']
+__all__ = ['is_jvm_running', 'add_options', 'get_classpath', 'add_classpath', 'add_jars']

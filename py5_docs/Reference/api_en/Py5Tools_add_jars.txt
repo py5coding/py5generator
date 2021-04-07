@@ -5,10 +5,14 @@ category = jvm
 subcategory = None
 
 @@ signatures
-add_jars(classpath: Union[Path, str]) -> None
+add_jars(path: Union[Path, str]) -> None
 
 @@ variables
-classpath: Union[Path, str] - missing variable description
+path: Union[Path, str] - path to directory containing jar files
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Add all of the Java jar files contained in a directory and its subdirectories to the classpath.
+
+When ``import py5`` is executed, ``add_jars('jars')`` is called for you to automatically add jar files contained in a subdirectory called jars. This is similar to functionality provided by the Processing IDE.
+
+After the JVM has started, the classpath cannot be changed. This function will throw a ``RuntimeError`` if it is called after the JVM has already started. Use :doc:`is_jvm_running` to first determine if the JVM is running.

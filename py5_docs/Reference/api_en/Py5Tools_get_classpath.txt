@@ -8,4 +8,4 @@ subcategory = None
 get_classpath() -> str
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Get the Java classpath. If the JVM has not yet started, this will be the classpath the JVM will use when it does start. It will also be possible to change that classpath with :doc:`add_classpath` and :doc:`add_jars`. After the JVM has started, the classpath cannot be changed and the aformentioned functions will throw ``RuntimeError``s. Use :doc:`is_jvm_running` to first determine if the JVM is running.
