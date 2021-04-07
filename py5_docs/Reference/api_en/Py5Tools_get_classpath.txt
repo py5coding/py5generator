@@ -8,7 +8,7 @@ subcategory = None
 get_classpath() -> str
 
 @@ description
-Get the Java classpath. If the JVM has not yet started, this will be the classpath the JVM will use when it does start. It will also be possible to change that classpath with :doc:`add_classpath` and :doc:`add_jars`. After the JVM has started, the classpath cannot be changed and the aformentioned functions will throw ``RuntimeError``s. Use :doc:`is_jvm_running` to first determine if the JVM is running.
+Get the Java classpath. If the JVM has not yet started, this will be the classpath the JVM will use when it does start. It will also be possible to change that classpath with :doc:`add_classpath` and :doc:`add_jars`. After the JVM has started, the classpath cannot be changed and the aformentioned functions would throw a ``RuntimeError``. Use :doc:`is_jvm_running` to first determine if the JVM is running.
 
 @@ example
 import py5_tools
