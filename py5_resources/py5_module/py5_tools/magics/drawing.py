@@ -36,25 +36,21 @@ from .. import imported
 _CODE_FRAMEWORK = """
 import py5
 
-{2}
-
 with open('{0}', 'r') as f:
     eval(compile(f.read(), '{0}', 'exec'))
 
 py5.run_sketch(block=True)
-if {1} and py5.is_dead_from_error:
+if py5.is_dead_from_error:
     py5.exit_sketch()
 """
 
 
 _CODE_FRAMEWORK_IMPORTED_MODE = """
-{2}
-
 with open('{0}', 'r') as f:
     eval(compile(f.read(), '{0}', 'exec'))
 
 run_sketch(block=True)
-if {1} and is_dead_from_error:
+if is_dead_from_error:
     exit_sketch()
 """
 
@@ -145,7 +141,7 @@ def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
                 width, height, renderer, temp_out.as_posix(), prepared_code)
             f.write(code)
 
-        exec(code_framework.format(temp_py.as_posix(), True, ''), user_ns)
+        exec(code_framework.format(temp_py.as_posix()), user_ns)
 
         if temp_out.exists():
             with open(temp_out, read_mode) as f:
