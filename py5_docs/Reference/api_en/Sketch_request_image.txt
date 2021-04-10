@@ -5,10 +5,27 @@ category = image
 subcategory = loading_displaying
 
 @@ signatures
-request_image(filename: Union[str, Path]) -> Py5Promise
+request_image(image_path: Union[str, Path]) -> Py5Promise
 
 @@ variables
-filename: Union[str, Path] - missing variable description
+image_path: Union[str, Path] - url or file path for image file
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Use a Py5Promise object to load an image into a variable of type ``Py5Image``. This method provides a convenient alternative to combining :doc:`launch_promise_thread` with :doc:`load_image` to load image data.
+
+Consider using ``request_image()`` to load image data from within a Sketch's ``draw()`` function. Using :doc:`load_image` in the ``draw()`` function would slow down the Sketch animation.
+
+The returned Py5Promise object has an ``is_ready`` property that will be ``True`` when the ``result`` property contains the value function ``f`` returned. Before then, the ``result`` property will be ``None``.
+
+@@ example
+def draw():
+    global img_promise
+    if py5.frame_count == 1:
+        # the request should only be made once
+        img_promise = py5.request_image('http://py5.ixora.io/images/examples/apples.jpg')
+
+    py5.background(0)
+    if img_promise.is_ready:
+        py5.image(img_promise.result, 10, 10)
+    else:
+        print('not ready')
