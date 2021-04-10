@@ -313,12 +313,12 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             # could be Py5Image or something comparable
             return result
 
-    def load_image(self, filename: Union[str, Path], dst: Py5Image = None) -> Py5Image:
+    def load_image(self, image_path: Union[str, Path], dst: Py5Image = None) -> Py5Image:
         """$class_Sketch_load_image"""
         try:
-            pimg = self._instance.loadImage(str(filename))
+            pimg = self._instance.loadImage(str(image_path))
         except JException as e:
-            msg = 'cannot load image file ' + str(filename)
+            msg = 'cannot load image file ' + str(image_path)
             if e.message() == 'None':
                 msg += '. error message: either the file cannot be found or the file does not contain valid image data.'
             else:
@@ -333,12 +333,12 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
                 else:
                     return Py5Image(pimg)
             else:
-                raise RuntimeError('cannot load image file ' + str(filename) + '. error message: either the file cannot be found or the file does not contain valid image data.')
+                raise RuntimeError('cannot load image file ' + str(image_path) + '. error message: either the file cannot be found or the file does not contain valid image data.')
         raise RuntimeError(msg)
 
-    def request_image(self, filename: Union[str, Path]) -> Py5Promise:
+    def request_image(self, image_path: Union[str, Path]) -> Py5Promise:
         """$class_Sketch_request_image"""
-        return self.launch_promise_thread(self.load_image, args=(filename,))
+        return self.launch_promise_thread(self.load_image, args=(image_path,))
 
 
 {sketch_class_members_code}
