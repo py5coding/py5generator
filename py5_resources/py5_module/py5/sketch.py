@@ -112,8 +112,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
     def _run_sketch(self,
                     methods: Dict[str, Callable],
                     block: bool,
-                    py5_options: List = None,
-                    sketch_args: List = None) -> None:
+                    py5_options: List[str] = None,
+                    sketch_args: List[str] = None) -> None:
         self._py5_methods = Py5Methods(self)
         self._py5_methods.set_functions(**methods)
         self._py5_methods.profile_functions(self._methods_to_profile)

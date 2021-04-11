@@ -5,12 +5,12 @@ category = structure
 subcategory = None
 
 @@ signatures
-run_sketch(block: bool = None, py5_options: List = None, sketch_args: List = None) -> None
+run_sketch(block: bool = None, py5_options: List[str] = None, sketch_args: List[str] = None) -> None
 
 @@ variables
 block: bool = None - method returns immediately (False) or blocks until Sketch exits (True)
-py5_options: List = None - command line arguments to pass to Processing as arguments
-sketch_args: List = None - command line arguments that become Sketch arguments
+py5_options: List[str] = None - command line arguments to pass to Processing as arguments
+sketch_args: List[str] = None - command line arguments that become Sketch arguments
 
 @@ description
 Run the Sketch. Code in the ``settings``, ``setup``, and ``draw`` functions will be used to actualize your Sketch.

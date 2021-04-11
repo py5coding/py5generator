@@ -76,8 +76,8 @@ _py5sketch = Sketch()
 
 
 def run_sketch(block: bool = None,
-               py5_options: List = None,
-               sketch_args: List = None) -> None:
+               py5_options: List[str] = None,
+               sketch_args: List[str] = None) -> None:
     """$module_Sketch_run_sketch"""
     if block is None:
         block = not _in_ipython_session
