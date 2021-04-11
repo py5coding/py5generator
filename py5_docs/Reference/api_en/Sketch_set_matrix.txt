@@ -11,8 +11,27 @@ set_matrix(source: NDArray[(2, 3), Float], /) -> None
 set_matrix(source: NDArray[(4, 4), Float], /) -> None
 
 @@ variables
-source: NDArray[(2, 3), Float] - missing variable description
-source: NDArray[(4, 4), Float] - missing variable description
+source: NDArray[(2, 3), Float] - transformation matrix data
+source: NDArray[(4, 4), Float] - transformation matrix data
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Set the current matrix to the one specified through the parameter ``source``. Inside the Processing code it will call :doc:`reset_matrix` followed by :doc:`apply_matrix`. This will be very slow because :doc:`apply_matrix` will try to calculate the inverse of the transform, so avoid it whenever possible.
+
+@@ example
+image = Sketch_set_matrix_0.png
+
+import numpy as np
+
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+
+def setup():
+    py5.no_fill()
+    matrix = np.array([[0.866025, 0, 0.5, 0],
+                       [0, 1, 0, 0],
+                       [-0.5, 0, 0.866025, -86.6025],
+                       [0, 0, 0, 1]], dtype=np.float64)
+    py5.set_matrix(matrix)
+    py5.stroke(153)
+    py5.box(50)
