@@ -10,4 +10,10 @@ subcategory = None
 get_graphics() -> Py5Graphics
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Get the :doc:`py5graphics` object used by the Sketch. Internally, all of Processing's drawing functionality comes from interaction with PGraphics objects, and this will provide direct access to the PGraphics object used by the Sketch.
+
+@@ example
+def setup():
+    py5.rect(10, 10, 50, 50)
+    g = py5.get_graphics()
+    print(type(g))
