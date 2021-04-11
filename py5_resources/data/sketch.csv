@@ -260,10 +260,10 @@ set,set,,method,image,pixels,SKIP,conflict with builtin python function
 remap,map,,static method,math,calculation,PYTHON,renamed to remap to avoid conflict with builtin function; implemented in python for performance
 setup,setup,,method,structure,,SKIP,method implemented by user
 debug,debug,,static method,,,SKIP,user should use python instead
-start,start,,method,structure,,JAVA,
+start,start,,method,structure,,SKIP,
 millis,millis,,method,input,time_date,JAVA,
-stop,stop,,method,structure,,JAVA,
-resume,resume,,method,structure,,JAVA,
+stop,stop,,method,structure,,SKIP,
+resume,resume,,method,structure,,SKIP,
 delay,delay,,method,environment,,SKIP,user should use python instead
 print,print,,method,output,text_area,SKIP,conflict with builtin python function
 save,save,,method,output,image,PYTHON,implemented in pixels.py mixin
@@ -332,7 +332,7 @@ no_smooth,noSmooth,,method,environment,,JAVA,
 get_graphics,getGraphics,@_return_py5graphics,method,rendering,,JAVA,
 graphics,graphics,,unknown,,,SKIP,use get_graphics
 orientation,orientation,,method,,,SKIP,methods that are not part of the processing framework
-pause,pause,,method,structure,,JAVA,
+pause,pause,,method,structure,,SKIP,
 register_method,registerMethod,,method,,,SKIP,public methods that shouldn't be available to users
 unregister_method,unregisterMethod,,method,,,SKIP,public methods that shouldn't be available to users
 create_graphics,createGraphics,@_return_py5graphics,method,rendering,,JAVA,this needs to be reimplemented but I haven't decided what to do with it yet
