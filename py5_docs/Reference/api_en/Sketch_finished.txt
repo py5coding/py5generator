@@ -7,4 +7,18 @@ category = structure
 subcategory = None
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Boolean variable reflecting if the Sketch has stopped permanently.
+
+@@ example
+import time
+
+def draw():
+    py5.rect(py5.random_int(py5.width), py5.random_int(py5.height), 10, 10)
+
+
+py5.run_sketch()
+print('sketch has stopped:', py5.finished)
+time.sleep(10)
+
+py5.exit_sketch()
+print('sketch has stopped:', py5.finished)
