@@ -81,7 +81,7 @@ class PixelMixin:
             self._np_pixels[:, :, 1:] = array[:, :, :3]
         self.update_np_pixels()
 
-    def save(self, filename: Union[str, Path], format: str = None, drop_alpha: bool = True, use_thread: bool = True, **params) -> None:
+    def save(self, filename: Union[str, Path], *, format: str = None, drop_alpha: bool = True, use_thread: bool = True, **params) -> None:
         """$class_Sketch_save"""
         filename = Path(str(self._instance.savePath(str(filename))))
         self.load_np_pixels()

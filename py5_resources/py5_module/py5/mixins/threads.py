@@ -139,21 +139,21 @@ class ThreadsMixin:
 
     # *** BEGIN METHODS ***
 
-    def launch_thread(self, f: Callable, name: str = None, daemon: bool = True,
-                      args: Tuple = None, kwargs: Dict = None) -> str:
+    def launch_thread(self, f: Callable, name: str = None, *, 
+                      daemon: bool = True, args: Tuple = None, kwargs: Dict = None) -> str:
         """$class_Sketch_launch_thread"""
         args, kwargs = self._check_param_types(args, kwargs)
         return self._launch_py5thread(name, Py5Thread(self, f, args, kwargs), daemon)
 
-    def launch_promise_thread(self, f: Callable, name: str = None, daemon: bool = True,
-                              args: Tuple = None, kwargs: Dict = None) -> Py5Promise:
+    def launch_promise_thread(self, f: Callable, name: str = None, *,
+                              daemon: bool = True, args: Tuple = None, kwargs: Dict = None) -> Py5Promise:
         """$class_Sketch_launch_promise_thread"""
         args, kwargs = self._check_param_types(args, kwargs)
         promise = Py5Promise()
         self._launch_py5thread(name, Py5PromiseThread(self, f, promise, args, kwargs), daemon)
         return promise
 
-    def launch_repeating_thread(self, f: Callable, name: str = None,
+    def launch_repeating_thread(self, f: Callable, name: str = None, *,
                                 time_delay: float = 0, daemon: bool = True,
                                 args: Tuple = None, kwargs: Dict = None) -> str:
         """$class_Sketch_launch_repeating_thread"""
