@@ -65,7 +65,7 @@ def _auto_convert_to_py5image(f):
     def decorated(self_, *args):
         args_index = args[0]
         if isinstance(args_index, NumpyImageArray):
-            args = self_.create_image_from_numpy(args_index), *args[1:]
+            args = self_.create_image_from_numpy(args_index.array, args_index.bands), *args[1:]
         elif not isinstance(args_index, (Py5Image, Py5Graphics)) and _convertable(args_index):
             args = self_.convert_image(args_index), *args[1:]
         return f(self_, *args)
@@ -287,9 +287,9 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
     # *** Py5Image methods ***
 
-    def create_image_from_numpy(self, numpy_image: NumpyImageArray, dst: Py5Image = None) -> Py5Image:
+    def create_image_from_numpy(self, array: np.array, bands: str = 'ARGB', dst: Py5Image = None) -> Py5Image:
         """$class_Sketch_create_image_from_numpy"""
-        height, width = numpy_image.array.shape[:2]
+        height, width = array.shape[:2]
 
         if dst:
             if width != dst.pixel_width or height != dst.pixel_height:
@@ -298,7 +298,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         else:
             py5_img = self.create_image(width, height, self.ARGB)
 
-        py5_img.set_np_pixels(numpy_image.array, numpy_image.bands)
+        py5_img.set_np_pixels(array, bands)
 
         return py5_img
 
@@ -308,7 +308,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         if isinstance(result, (Path, str)):
             return self.load_image(result, dst=dst)
         elif isinstance(result, NumpyImageArray):
-            return self.create_image_from_numpy(result, dst=dst)
+            return self.create_image_from_numpy(result.array, result.bands, dst=dst)
         else:
             # could be Py5Image or something comparable
             return result

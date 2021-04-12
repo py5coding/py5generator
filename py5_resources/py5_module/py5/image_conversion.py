@@ -83,6 +83,17 @@ class NumpyImageArray:
             raise RuntimeError("bands parameter must be one of 'RGBA', 'ARGB', 'RGB', or 'L'")
 
 
+def numpy_image_array_precondition(obj):
+    return isinstance(obj, NumpyImageArray)
+
+
+def numpy_image_array_converter(obj):
+    return obj
+
+
+register_image_conversion(numpy_image_array_precondition, numpy_image_array_converter)
+
+
 def pillow_image_to_ndarray_precondition(obj):
     return isinstance(obj, Image.Image)
 
