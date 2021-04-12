@@ -281,13 +281,13 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             what = what[:first] + numprefix + numstr + what[last:]
         return what
 
-    def save_frame(self, filename: Union[str, Path], format: str = None, drop_alpha: bool = True, use_thread: bool = True, **params) -> None:
+    def save_frame(self, filename: Union[str, Path], *, format: str = None, drop_alpha: bool = True, use_thread: bool = True, **params) -> None:
         """$class_Sketch_save_frame"""
         self.save(self._insert_frame(str(filename)), format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
 
     # *** Py5Image methods ***
 
-    def create_image_from_numpy(self, array: np.array, bands: str = 'ARGB', dst: Py5Image = None) -> Py5Image:
+    def create_image_from_numpy(self, array: np.array, bands: str = 'ARGB', *, dst: Py5Image = None) -> Py5Image:
         """$class_Sketch_create_image_from_numpy"""
         height, width = array.shape[:2]
 
@@ -302,7 +302,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
         return py5_img
 
-    def convert_image(self, obj: Any, dst: Py5Image = None) -> Py5Image:
+    def convert_image(self, obj: Any, *, dst: Py5Image = None) -> Py5Image:
         """$class_Sketch_convert_image"""
         result = image_conversion._convert(obj)
         if isinstance(result, (Path, str)):
@@ -313,7 +313,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             # could be Py5Image or something comparable
             return result
 
-    def load_image(self, image_path: Union[str, Path], dst: Py5Image = None) -> Py5Image:
+    def load_image(self, image_path: Union[str, Path], *, dst: Py5Image = None) -> Py5Image:
         """$class_Sketch_load_image"""
         try:
             pimg = self._instance.loadImage(str(image_path))
