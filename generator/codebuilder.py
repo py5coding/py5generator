@@ -287,7 +287,6 @@ class CodeBuilder:
                 self.dynamic_variable_names.add(fname[5:])
             else:
                 split_args = COMMA_REGEX.split(args) if args else []
-                split_args = [a.replace('*', '').strip() for a in split_args]
                 if (class_name, fname) not in overloaded:
                     self.method_signatures[(class_name, fname)].append((split_args, rettypestr))
                 moduleobj = self._class_name if arg0 == 'cls' else self._instance_name
@@ -299,7 +298,7 @@ class CodeBuilder:
                     else:
                         paramlist.append(paramname)
 
-                params = ', '.join(paramlist)
+                params = ', '.join(p for p in paramlist if p != '*')
                 self.module_members.append(
                     templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
                         self._class_name, fname, args, moduleobj, rettypestr, params, ''

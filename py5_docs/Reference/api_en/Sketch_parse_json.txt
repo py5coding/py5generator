@@ -5,7 +5,7 @@ category = input
 subcategory = files
 
 @@ signatures
-parse_json(serialized_json: Any, kwargs: Dict[str, Any]) -> Any
+parse_json(serialized_json: Any, **kwargs: Dict[str, Any]) -> Any
 
 @@ variables
 kwargs: Dict[str, Any] - keyword arguments

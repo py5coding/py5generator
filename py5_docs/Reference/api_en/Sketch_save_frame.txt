@@ -5,7 +5,7 @@ category = output
 subcategory = image
 
 @@ signatures
-save_frame(filename: Union[str, Path], format: str = None, drop_alpha: bool = True, use_thread: bool = True, params) -> None
+save_frame(filename: Union[str, Path], *, format: str = None, drop_alpha: bool = True, use_thread: bool = True, **params) -> None
 
 @@ variables
 drop_alpha: bool = True - remove the alpha channel when saving the image
