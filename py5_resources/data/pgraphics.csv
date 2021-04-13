@@ -414,7 +414,7 @@ style,style,,method,SKIP,public methods that shouldn't be available to users
 is3_d,is3D,,method,SKIP,
 is2_d,is2D,,method,SKIP,
 texture,texture,,method,JAVA,
-no_texture,noTexture,,method,JAVA,
+no_texture,noTexture,,method,SKIP,
 begin_contour,beginContour,,method,JAVA,
 end_contour,endContour,,method,JAVA,
 vertex,vertex,,method,JAVA,

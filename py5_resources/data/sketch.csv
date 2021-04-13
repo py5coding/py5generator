@@ -447,7 +447,7 @@ attrib,attrib,,method,,,SKIP,methods that are not part of the processing framewo
 texture_mode,textureMode,,method,image,textures,JAVA,
 texture_wrap,textureWrap,,method,image,textures,JAVA,
 texture,texture,@_auto_convert_to_py5image,method,image,textures,JAVA,
-no_texture,noTexture,,method,image,textures,JAVA,
+no_texture,noTexture,,method,image,textures,SKIP,
 vertex,vertex,,method,shape,vertex,JAVA,
 begin_contour,beginContour,,method,shape,vertex,JAVA,
 end_contour,endContour,,method,shape,vertex,JAVA,
