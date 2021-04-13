@@ -26,6 +26,9 @@ from PIL import Image
 import jpype
 
 
+_Sketch = jpype.JClass('py5.core.Sketch')
+
+
 class PixelMixin:
 
     def __init__(self, *args, **kwargs):
@@ -38,8 +41,8 @@ class PixelMixin:
         super()._replace_instance(new_instance)
 
     def _init_np_pixels(self):
-        width = self.pixel_width
-        height = self.pixel_height
+        width = self.pixel_width if hasattr(self, 'pixel_width') else self.width
+        height = self.pixel_height if hasattr(self, 'pixel_height') else self.height
         self._py_bb = bytearray(width * height * 4)
         self._java_bb = jpype.nio.convertToDirectBuffer(self._py_bb)
         self._np_pixels = np.asarray(self._py_bb, dtype=np.uint8).reshape(height, width, 4)
@@ -83,7 +86,8 @@ class PixelMixin:
 
     def save(self, filename: Union[str, Path], *, format: str = None, drop_alpha: bool = True, use_thread: bool = True, **params) -> None:
         """$class_Sketch_save"""
-        filename = Path(str(self._instance.savePath(str(filename))))
+        sketch_instance = self._instance if isinstance(self._instance, _Sketch) else self._instance.parent
+        filename = Path(str(sketch_instance.savePath(str(filename))))
         self.load_np_pixels()
         arr = self.np_pixels[:, :, 1:] if drop_alpha else np.roll(self.np_pixels, -1, axis=2)
 
