@@ -18,9 +18,6 @@ def settings():
 
 
 def setup():
-    global font1
-    global font2
-    global font3
     font_size = 32
     font1 = py5.create_font('DejaVu Sans', font_size)
     font2 = py5.load_font('DejaVu_Sans-32.vlw')
@@ -30,8 +27,6 @@ def setup():
     print(font2.get_glyph_count())
     print(font3.get_glyph_count())
 
-
-def draw():
     py5.text_font(font1)
     py5.text('py5', 10, 30)
 
