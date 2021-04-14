@@ -8,4 +8,21 @@ processing_name = ascent
 ascent() -> float
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Get the ascent of this font from the baseline. The value is based on a font of size 1. Multiply it by the font size to get the offset from the baseline.
+
+@@ example
+image = Py5Font_ascent_0.png
+
+def setup():
+    font_size = 45
+    font = py5.create_font('FreeSans', font_size)
+    py5.text_font(font)
+
+    baseline = py5.height / 2
+    ascent = baseline - font.ascent() * font_size
+    descent = baseline + font.descent() * font_size
+
+    py5.text("py5", 10, baseline)
+    py5.line(0, ascent, py5.width, ascent)
+    py5.line(0, baseline, py5.width, baseline)
+    py5.line(0, descent, py5.width, descent)

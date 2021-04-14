@@ -56,8 +56,10 @@ try:
             # skip these for now, but I should probably include them later
             continue
 
-        if doc.meta.get('category') != 'image' or doc.meta.get('subcategory') != 'loading_displaying':
+        if doc.meta.get('pclass') != 'PFont':
             continue
+        # if doc.meta.get('category') != 'image' or doc.meta.get('subcategory') != 'loading_displaying':
+        #     continue
 
         for image, code in doc.examples:
             if ONLY_RUN_EXAMPLES_WITH_IMAGES and image is None:

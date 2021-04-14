@@ -8,4 +8,19 @@ processing_name = isSmooth
 is_smooth() -> bool
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Boolean value reflecting if smoothing (anti-aliasing) was used when the font was created. By default, :doc:`create_font` will use smoothing.
+
+@@ example
+image = Py5Font_is_smooth_0.png
+
+def setup():
+    font1 = py5.create_font('FreeSans', 45)
+    font2 = py5.create_font('FreeSans', 45, False)
+
+    py5.text_font(font1)
+    print(font1.is_smooth())
+    py5.text('py5', 10, 40)
+
+    print(font2.is_smooth())
+    py5.text_font(font2)
+    py5.text('py5', 10, 90)

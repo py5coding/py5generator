@@ -8,4 +8,16 @@ processing_name = getSize
 get_size() -> int
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Get the font's size.
+
+@@ example
+image = Py5Font_get_size_0.png
+
+def setup():
+    font = py5.create_font('FreeSans', 15)
+    py5.text_font(font)
+
+    py5.text(font.get_name(), 5, 20)
+    py5.text(font.get_post_script_name(), 5, 40)
+    py5.text(font.get_size(), 5, 60)
+    py5.text(font.get_default_size(), 5, 80)
