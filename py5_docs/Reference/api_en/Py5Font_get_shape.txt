@@ -9,8 +9,35 @@ get_shape(ch: chr, /) -> Py5Shape
 get_shape(ch: chr, detail: float, /) -> Py5Shape
 
 @@ variables
-ch: chr - missing variable description
-detail: float - missing variable description
+ch: chr - single character
+detail: float - level of shape detail
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Get a single character as a :doc:`py5shape` object. Use the ``detail`` parameter to draw the shape with only straight line segments.
+
+Calling :doc:`py5shape_disable_style` on the returned :doc:`py5shape` object seems to be necessary for these to be drawable.
+
+This method only works on fonts loaded with :doc:`create_font`.
+
+@@ example
+image = Py5Font_get_shape_0.png
+
+def setup():
+    font = py5.create_font('DejaVu Sans', 32)
+    chr_p = font.get_shape('p')
+    chr_y = font.get_shape('y')
+    chr_5 = font.get_shape('5')
+
+    chr_p.disable_style()
+    chr_y.disable_style()
+    chr_5.disable_style()
+
+    py5.fill(0)
+    py5.no_stroke()
+
+    x = 25
+    py5.shape(chr_p, x, 40)
+    x += chr_p.get_width()
+    py5.shape(chr_y, x, 60)
+    x += chr_y.get_width()
+    py5.shape(chr_5, x, 80)
