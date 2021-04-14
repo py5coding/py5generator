@@ -15,7 +15,7 @@ image = Py5Font_ascent_0.png
 
 def setup():
     font_size = 45
-    font = py5.create_font('FreeSans', font_size)
+    font = py5.create_font('DejaVu Sans', font_size)
     py5.text_font(font)
 
     baseline = py5.height / 2

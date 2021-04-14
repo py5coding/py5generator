@@ -14,7 +14,7 @@ Get the font's size that will be used when :doc:`text_font` is called. When draw
 image = Py5Font_get_default_size_0.png
 
 def setup():
-    font = py5.create_font('FreeSans', 15)
+    font = py5.create_font('DejaVu Sans', 15)
     py5.text_font(font)
 
     py5.text(font.get_name(), 5, 20)

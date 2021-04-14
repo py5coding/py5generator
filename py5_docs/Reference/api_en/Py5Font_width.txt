@@ -20,7 +20,7 @@ image = Py5Font_width_0.png
 
 def setup():
     font_size = 45
-    font = py5.create_font('FreeSans', font_size, True, 'py5')
+    font = py5.create_font('DejaVu Sans', font_size, True, 'py5')
     py5.text_font(font)
 
     x = 10
