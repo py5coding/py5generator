@@ -79,7 +79,12 @@ try:
             else:
                 save_path = DEST_DIR / image if image else None
                 success = py5_tools.testing.run_code(code, save_path)
-                if not success:
+                if success:
+                    if save_path:
+                        img = Image.open(save_path)
+                        if img.size != (100, 100):
+                            img.crop((0, 0, 100, 100)).save(save_path)
+                else:
                     print('-' * 20)
                     print(f'error in file: {docfile.name} output: {image}')
                     print('-' * 20)
