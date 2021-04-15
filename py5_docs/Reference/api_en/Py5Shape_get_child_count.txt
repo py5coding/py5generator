@@ -14,7 +14,6 @@ Returns the number of children within the ``Py5Shape``.
 
 @@ example
 def setup():
-    global us_map
     us_map = py5.load_shape("us_map.svg")
     count = us_map.get_child_count()
     print(count)
