@@ -56,7 +56,7 @@ try:
             # skip these for now, but I should probably include them later
             continue
 
-        if doc.meta.get('pclass') != 'PFont':  #
+        if doc.meta.get('pclass') != 'PShape':  #
         # if doc.meta.get('category') != 'typography':
             continue
         # if doc.meta.get('category') != 'image' or doc.meta.get('subcategory') != 'loading_displaying':
