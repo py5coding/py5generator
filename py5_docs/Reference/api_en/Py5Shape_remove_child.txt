@@ -11,4 +11,18 @@ remove_child(idx: int, /) -> None
 idx: int - missing variable description
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Removes a child ``Py5Shape`` object from a parent ``Py5Shape`` object that is defined as a ``GROUP``.
+
+@@ example
+image = Py5Shape_remove_child_0.png
+
+def setup():
+    us_map = py5.load_shape("us_map.svg")
+    for child in us_map.get_children():
+        if child.get_name()[0] not in 'AEIOU':
+            us_map.remove_child(us_map.get_child_index(child))
+
+    py5.background(192)
+    py5.scale(0.1)
+    py5.translate(25, 225)
+    py5.shape(us_map, 0, 0)
