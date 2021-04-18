@@ -15,8 +15,6 @@ Returns a boolean value ``True`` if the image is set to be visible, ``False`` if
 The default visibility of a shape is usually controlled by whatever program created the SVG file. For instance, this parameter is controlled by showing or hiding the shape in the layers palette in Adobe Illustrator.
 
 @@ example
-image = Py5Shape_is_visible_0.png
-
 def setup():
     global s
     # the file "bot.svg" must be in the data folder
@@ -28,6 +26,6 @@ def draw():
     py5.background(204)
     py5.shape(s, 10, 10, 80, 80)  # draw shape
     s.set_visible(py5.is_mouse_pressed)
-    if s.is_visible() == False:  # or use: "if (!s.isVisible)"
+    if s.is_visible() == False:  # or use: "if not s.isVisible"
         py5.no_fill()
         py5.rect(10, 10, 80, 80)
