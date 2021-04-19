@@ -63,7 +63,7 @@ def settings():
 def setup():
 {4}
 
-    py5.save_frame("{3}", use_thread=False)
+    py5.get(0, 0, {0}, {1}).save("{3}", use_thread=False)
     py5.exit_sketch()
 """
 
