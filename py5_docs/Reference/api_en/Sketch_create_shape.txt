@@ -26,6 +26,8 @@ The  ``create_shape()`` function can also be used to make a complex shape made o
 After using ``create_shape()``, stroke and fill color can be set by calling methods like :doc:`py5shape_set_fill` and :doc:`py5shape_set_stroke`, as seen in the examples. The complete list of methods and fields for the :doc:`py5shape` class are in the py5 documentation.
 
 @@ example
+image = Sketch_create_shape_0.png
+
 def setup():
     global s  # the Py5Shape object
     # creating the Py5Shape as a square. the
@@ -39,6 +41,8 @@ def draw():
     py5.shape(s, 25, 25)
 
 @@ example
+image = Sketch_create_shape_1.png
+
 def setup():
     global s  # the Py5Shape object
     # creating a custom Py5Shape as a square, by
@@ -58,6 +62,8 @@ def draw():
     py5.shape(s, 25, 25)
 
 @@ example
+image = Sketch_create_shape_2.png
+
 def settings():
     py5.size(100, 100, py5.P2D)
 
@@ -80,6 +86,8 @@ def draw():
     py5.shape(s, 0, 0)
 
 @@ example
+image = Sketch_create_shape_3.png
+
 def setup():
     # create the shape group
     global alien
