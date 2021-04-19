@@ -8,4 +8,39 @@ processing_name = is2D
 is2d() -> bool
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Boolean value reflecting if the shape is or is not a 2D shape.
+
+If the shape is created in a Sketch using the ``P3D`` renderer, this will be ``False``, even if it only uses 2D coordinates.
+
+@@ example
+image = Py5Shape_is2d_0.png
+
+def setup():
+    s = py5.create_shape()
+    s.begin_shape()
+    s.vertex(30, 20)
+    s.vertex(85, 20)
+    s.vertex(85, 75)
+    s.vertex(30, 75)
+    s.end_shape(py5.CLOSE)
+
+    print(s.is2d(), s.is3d())
+    py5.shape(s)
+
+@@ example
+image = Py5Shape_is2d_1.png
+
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+def setup():
+    s = py5.create_shape()
+    s.begin_shape()
+    s.vertex(30, 20)
+    s.vertex(85, 20)
+    s.vertex(85, 75)
+    s.vertex(30, 75)
+    s.end_shape(py5.CLOSE)
+
+    print(s.is2d(), s.is3d())
+    py5.shape(s)

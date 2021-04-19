@@ -56,11 +56,11 @@ try:
             # skip these for now, but I should probably include them later
             continue
 
-        if doc.meta.get('pclass') != 'PShape':  #
+        # if doc.meta.get('pclass') != 'PShape':  #
         # if doc.meta.get('category') != 'typography':
-            continue
         # if doc.meta.get('category') != 'image' or doc.meta.get('subcategory') != 'loading_displaying':
-        #     continue
+        if doc.meta.get('name') not in ['create_shape()', 'is3d()', 'is2d()', 'contains()', 'Py5Shape']:
+            continue
 
         for image, code in doc.examples:
             if ONLY_RUN_EXAMPLES_WITH_IMAGES and image is None:
