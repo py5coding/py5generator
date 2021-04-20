@@ -8,7 +8,26 @@ processing_name = setName
 set_name(name: str, /) -> None
 
 @@ variables
-name: str - missing variable description
+name: str - name to be assigned to shape
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Assign a name to a ``Py5Shape`` object. This can be used to later find the shape in a ``GROUP`` shape.
+
+@@ example
+image = Py5Shape_set_name_0.png
+
+def setup():
+    s = py5.create_shape(py5.GROUP)
+    s1 = py5.create_shape(py5.RECT, 10, 10, 35, 35)
+    s1.set_name("rectangle1")
+    s.add_child(s1)
+    s2 = py5.create_shape(py5.RECT, 55, 10, 35, 35)
+    s2.set_name("rectangle2")
+    s.add_child(s2)
+    py5.shape(s)
+
+    s_child1 = s.get_child("rectangle1")
+    s_child1.set_fill(py5.color(255, 0, 0))
+    s_child2 = s.get_child("rectangle2")
+    s_child2.set_fill(py5.color(0, 255, 0))
+    py5.shape(s, 0, 45)

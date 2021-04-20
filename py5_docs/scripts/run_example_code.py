@@ -59,7 +59,7 @@ try:
         # if doc.meta.get('pclass') != 'PShape':  #
         # if doc.meta.get('category') != 'typography':
         # if doc.meta.get('category') != 'image' or doc.meta.get('subcategory') != 'loading_displaying':
-        if doc.meta.get('name') not in ['create_shape()', 'is3d()', 'is2d()', 'contains()', 'Py5Shape']:
+        if doc.meta.get('name') not in ['get_vertex_x()', 'get_vertex_y()', 'get_vertex_z()', 'get_width()', 'get_height()', 'get_depth()', 'set_name()']:
             continue
 
         for image, code in doc.examples:

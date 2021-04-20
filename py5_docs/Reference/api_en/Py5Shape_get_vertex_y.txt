@@ -8,7 +8,35 @@ processing_name = getVertexY
 get_vertex_y(index: int, /) -> float
 
 @@ variables
-index: int - missing variable description
+index: int - vertex index
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Get the value of the y coordinate for the vertex ``index``.
+
+@@ example
+image = Py5Shape_get_vertex_y_0.png
+
+def setup():
+    s1 = py5.create_shape()
+    s1.begin_shape()
+    s1.vertex(20, 80)
+    s1.vertex(80, 80)
+    s1.vertex(50, 20)
+    s1.end_shape(py5.CLOSE)
+    py5.shape(s1)
+    y_values = [s1.get_vertex_y(i) for i in range(s1.get_vertex_count())]
+    print(s1.get_height(), min(y_values), max(y_values))  # 80, 20, 80
+
+@@ example
+image = Py5Shape_get_vertex_y_1.png
+
+def settings():
+    py5.size(100, 100, py5.P3D)
+
+
+def setup():
+    py5.sphere_detail(8)
+    s1 = py5.create_shape(py5.SPHERE, 40)
+    y_values = [s1.get_vertex_y(i) for i in range(s1.get_vertex_count())]
+    py5.shape(s1, 50, 50)
+    print(s1.get_height(), min(y_values), max(y_values))  # 80, -40, 40
