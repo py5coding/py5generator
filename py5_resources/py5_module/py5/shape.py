@@ -44,7 +44,9 @@ def _return_list_py5shapes(f):
 def _return_py5shape(f):
     @functools.wraps(f)
     def decorated(self_, *args):
-        return Py5Shape(f(self_, *args))
+        result = f(self_, *args)
+        if result:
+            return Py5Shape(result)
     return decorated
 
 
