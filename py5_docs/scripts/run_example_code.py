@@ -59,7 +59,7 @@ try:
         # if doc.meta.get('pclass') != 'PShape':  #
         # if doc.meta.get('category') != 'typography':
         # if doc.meta.get('category') != 'image' or doc.meta.get('subcategory') != 'loading_displaying':
-        if doc.meta.get('name') not in ['get_vertex_x()', 'get_vertex_y()', 'get_vertex_z()', 'get_width()', 'get_height()', 'get_depth()', 'set_name()']:
+        if doc.meta.get('name') not in ['get_parent()', 'vertex()', 'texture_mode()']:
             continue
 
         for image, code in doc.examples:
