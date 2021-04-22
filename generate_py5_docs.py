@@ -24,6 +24,7 @@ import textwrap
 from io import StringIO
 from itertools import groupby
 from collections import defaultdict
+import json
 
 import requests
 import pandas as pd
@@ -161,7 +162,7 @@ Updated on {8}
 ###############################################################################
 
 
-def format_underlying_java_ref(stem, doc_type, processing_name):
+def format_underlying_java_ref(stem, doc_type, processing_name, valid_link_cache):
     out = ''
 
     if processing_name:
@@ -177,9 +178,15 @@ def format_underlying_java_ref(stem, doc_type, processing_name):
             link += '_'
         link = f'https://processing.org/reference/{link}.html'
 
+        if link in valid_link_cache:
+            valid = valid_link_cache[link]
+        else:
+            valid = requests.get(link).status_code == 200
+            valid_link_cache[link] = valid
+
         # test the link to make sure it is valid
         out = f'\n\nUnderlying Java {doc_type}: '
-        if requests.get(link).status_code == 200:
+        if valid:
             out += f'`{text} <{link}>`_'
         else:
             out += f'{text}'
@@ -298,6 +305,13 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
     (dest_dir / 'reference').mkdir(parents=True, exist_ok=True)
     (dest_dir / 'include').mkdir(parents=True, exist_ok=True)
 
+    # load valid link cache if it exists
+    valid_link_cache = dict()
+    valid_link_cache_file = py5_doc_ref_dir / 'valid_link_cache.json'
+    if valid_link_cache_file.exists():
+        with open(valid_link_cache_file, 'r') as f:
+            valid_link_cache = json.load(f)
+
     rstfiles = defaultdict(set)
     docfiles = sorted(py5_doc_ref_dir.glob('*.txt'))
     for num, docfile in enumerate(docfiles):
@@ -320,7 +334,7 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
         first_sentence = m.group() if m else description
 
         underlying_java_ref = format_underlying_java_ref(
-            stem, item_type, doc.meta.get('processing_name'))
+            stem, item_type, doc.meta.get('processing_name'), valid_link_cache)
         examples = format_examples(name, doc.examples)
 
         if item_type == 'class':
@@ -383,6 +397,9 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
                 for name, stem, first_sentence in sorted(data):
                     f.write(f'* `{name} <../{stem}/>`_: {first_sentence}\n')
 
+    # save the valid link cache
+    with open(valid_link_cache_file, 'w') as f:
+        json.dump(valid_link_cache, f)
 
 
 def main():
