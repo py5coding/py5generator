@@ -5,7 +5,7 @@ pclass = PShape
 processing_name = getVertexCodes
 
 @@ signatures
-get_vertex_codes() -> JArray(JInt)
+get_vertex_codes() -> NDArray[(Any,), Int]
 
 @@ description
 Get the vertex codes for a ``Py5Shape`` object. The vertex codes can be used to inspect a shape's geometry to determine what kind of vertices it has. Each can be one of ``BREAK``, ``VERTEX``, ``BEZIER_VERTEX``, ``QUADRATIC_VERTEX`` or ``CURVE_VERTEX``.

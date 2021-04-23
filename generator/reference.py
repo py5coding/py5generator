@@ -34,6 +34,7 @@ TYPE_OVERRIDES = {
     'java.lang.String[]': 'List[str]',
     'float[]': 'NDArray[(Any,), Float]',
     'float[][]': 'NDArray[(Any, Any), Float]',
+    'int[]': 'NDArray[(Any,), Int]',
 }
 
 JPYPE_CONVERSIONS = {

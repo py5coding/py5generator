@@ -20,7 +20,7 @@
 # *** FORMAT PARAMS ***
 import functools
 from typing import overload, List, Any  # noqa
-from nptyping import NDArray, Float  # noqa
+from nptyping import NDArray, Float, Int  # noqa
 
 import numpy as np  # noqa
 

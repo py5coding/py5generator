@@ -24,7 +24,7 @@ import logging
 from pathlib import Path
 import functools
 from typing import overload, Any, Callable, Union, Dict, List  # noqa
-from nptyping import NDArray, Float  # noqa
+from nptyping import NDArray, Float, Int  # noqa
 
 import jpype
 from jpype.types import JException, JArray, JInt  # noqa

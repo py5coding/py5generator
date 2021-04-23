@@ -24,7 +24,7 @@ import functools
 from pathlib import Path
 from typing import overload, List  # noqa
 import numpy as np
-from nptyping import NDArray, Float  # noqa
+from nptyping import NDArray, Float, Int  # noqa
 
 from jpype import JException
 from jpype.types import JBoolean, JInt, JFloat
