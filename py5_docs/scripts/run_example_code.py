@@ -59,7 +59,7 @@ try:
         # if doc.meta.get('pclass') != 'PShape':  #
         # if doc.meta.get('category') != 'typography':
         # if doc.meta.get('category') != 'image' or doc.meta.get('subcategory') != 'loading_displaying':
-        if doc.meta.get('pclass') != 'PShape' or doc.meta.get('name') not in ['tint()', 'no_tint()', 'get_tint()', 'set_tint()']:
+        if doc.meta.get('pclass') != 'PShape' or doc.meta.get('name') not in ['get_vertex_code_count()', 'get_vertex_codes()', 'get_vertex_code()']:
             continue
 
         for image, code in doc.examples:

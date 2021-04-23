@@ -23,6 +23,7 @@ from __future__ import annotations
 import functools
 from pathlib import Path
 from typing import overload, List  # noqa
+import numpy as np
 from nptyping import NDArray, Float  # noqa
 
 from jpype import JException
@@ -77,6 +78,14 @@ def _load_py5shape(f):
             if msg == 'None':
                 msg = 'shape file cannot be found'
         raise RuntimeError('cannot load shape ' + str(args[0]) + '. error message: ' + msg)
+    return decorated
+
+
+def _return_numpy_array(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        result = f(self_, *args)
+        return np.array(result) if result is not None else None
     return decorated
 
 
