@@ -8,7 +8,28 @@ processing_name = strokeCap
 stroke_cap(cap: int, /) -> None
 
 @@ variables
-cap: int - missing variable description
+cap: int - either SQUARE, PROJECT, or ROUND
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Sets the style for rendering line endings in a ``Py5Shape`` object. These ends are either squared, extended, or rounded, each of which specified with the corresponding parameters: ``SQUARE``, ``PROJECT``, and ``ROUND``. The default cap is ``ROUND``.
+
+This method can only be used within a :doc:`py5shape_begin_shape` and :doc:`py5shape_end_shape` pair.
+
+@@ example
+image = Py5Shape_stroke_cap_0.png
+
+def make_line(cap):
+    s = py5.create_shape()
+    s.begin_shape()
+    s.stroke_weight(12.0)
+    s.stroke_cap(cap)
+    s.vertex(20, 0)
+    s.vertex(80, 0)
+    s.end_shape()
+    return s
+
+
+def setup():
+    py5.shape(make_line(py5.ROUND), 0, 30)
+    py5.shape(make_line(py5.SQUARE), 0, 50)
+    py5.shape(make_line(py5.PROJECT), 0, 70)
