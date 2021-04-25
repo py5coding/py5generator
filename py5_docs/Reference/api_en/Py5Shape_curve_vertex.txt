@@ -9,9 +9,9 @@ curve_vertex(x: float, y: float, /) -> None
 curve_vertex(x: float, y: float, z: float, /) -> None
 
 @@ variables
-x: float - missing variable description
-y: float - missing variable description
-z: float - missing variable description
+x: float - the x-coordinate of the vertex
+y: float - the y-coordinate of the vertex
+z: float - the z-coordinate of the vertex
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
