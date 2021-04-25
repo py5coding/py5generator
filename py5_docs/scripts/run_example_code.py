@@ -59,7 +59,7 @@ try:
         # if doc.meta.get('pclass') != 'PShape':  #
         # if doc.meta.get('category') != 'typography':
         # if doc.meta.get('category') != 'image' or doc.meta.get('subcategory') != 'loading_displaying':
-        if doc.meta.get('pclass') != 'PShape' or doc.meta.get('name') not in ['set_path()', 'apply_matrix()']:
+        if doc.meta.get('pclass') != 'PShape' or doc.meta.get('name') not in ['begin_contour()', 'end_contour()']:
             continue
 
         for image, code in doc.examples:
