@@ -62,6 +62,3 @@ def setup():
     s.end_shape()
 
     py5.shape(s)
-
-
-

@@ -8,7 +8,7 @@ processing_name = noStroke
 no_stroke() -> None
 
 @@ description
-Disables the ``Py5Shape`` object's stroke (outline). If both ``no_stroke()`` and :doc:`no_fill` are called, nothing will be drawn to the screen.
+Disables the ``Py5Shape`` object's stroke (outline). If both ``no_stroke()`` and :doc:`py5shape_no_fill` are called, nothing will be drawn to the screen.
 
 This method can only be used within a :doc:`py5shape_begin_shape` and :doc:`py5shape_end_shape` pair.
 
