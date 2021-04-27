@@ -30,6 +30,7 @@ from jpype import JException
 from jpype.types import JBoolean, JInt, JFloat
 
 from .pmath import _get_pvector_wrapper  # noqa
+from .type_decorators import _ret_str  # noqa
 
 
 py5shape_class_members_code = None  # DELETE

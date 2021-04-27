@@ -25,6 +25,7 @@ import jpype
 from jpype import JException, JArray, JString  # noqa
 
 from .shape import Py5Shape, _return_py5shape  # noqa
+from .type_decorators import _ret_str  # noqa
 
 
 py5font_class_members_code = None  # DELETE
