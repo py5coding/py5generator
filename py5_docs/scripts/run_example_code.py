@@ -59,7 +59,7 @@ try:
         # if doc.meta.get('pclass') != 'PShape':  #
         # if doc.meta.get('category') != 'typography':
         # if doc.meta.get('category') != 'image' or doc.meta.get('subcategory') != 'loading_displaying':
-        if doc.meta.get('pclass') != 'PShape' or doc.meta.get('name') not in ['normal()']:
+        if doc.meta.get('pclass') != 'PShape' or doc.meta.get('name') not in ['get_normal()', 'get_normal_x()', 'get_normal_y()', 'get_normal_z()', 'get_ambient()', 'set_ambient()', 'get_emissive()', 'set_emissive()', 'get_shininess()', 'set_shininess()', 'set_specular()', 'get_specular()']:
             continue
 
         for image, code in doc.examples:
