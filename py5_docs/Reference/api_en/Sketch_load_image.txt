@@ -8,7 +8,7 @@ subcategory = loading_displaying
 load_image(image_path: Union[str, Path], *, dst: Py5Image = None) -> Py5Image
 
 @@ variables
-dst: Py5Image = None - missing variable description
+dst: Py5Image = None - existing Py5Image object to load image into
 image_path: Union[str, Path] - url or file path for image file
 
 @@ description

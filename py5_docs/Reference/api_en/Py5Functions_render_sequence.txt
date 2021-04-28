@@ -11,7 +11,7 @@ render_sequence(width: int, height: int, renderer: str = Sketch.HIDDEN, *, limit
 height: int - height of the display window in units of pixels
 limit: int = 1 - number of frames in the output sequence
 renderer: str = Sketch.HIDDEN - rendering engine to use
-setup: Callable = None - missing variable description
+setup: Callable = None - optional setup function
 setup_args: Tuple = None - additional positional arguments to pass to setup function
 setup_kwargs: Dict = None - additional keyword arguments to pass to setup function
 width: int - width of the display window in units of pixels

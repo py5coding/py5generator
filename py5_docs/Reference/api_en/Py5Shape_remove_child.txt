@@ -8,7 +8,7 @@ processing_name = removeChild
 remove_child(idx: int, /) -> None
 
 @@ variables
-idx: int - missing variable description
+idx: int - index value
 
 @@ description
 Removes a child ``Py5Shape`` object from a parent ``Py5Shape`` object that is defined as a ``GROUP``.

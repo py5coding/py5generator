@@ -11,7 +11,7 @@ end_shape() -> None
 end_shape(mode: int, /) -> None
 
 @@ variables
-mode: int - missing variable description
+mode: int - Either OPEN or CLOSE
 
 @@ description
 This method is used to complete a custom shape created with the :doc:`create_shape` function. It's always and only used with :doc:`create_shape`.

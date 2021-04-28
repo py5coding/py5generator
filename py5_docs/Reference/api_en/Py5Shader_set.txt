@@ -31,7 +31,7 @@ set(name: str, x: int, y: int, z: int, /) -> None
 set(name: str, x: int, y: int, z: int, w: int, /) -> None
 
 @@ variables
-boolvec: JArray(JBoolean) - missing variable description
+boolvec: JArray(JBoolean) - modifies all the components of an array/vector uniform variable
 mat: NDArray[(2, 3), Float] - numpy array of values
 mat: NDArray[(4, 4), Float] - numpy array of values
 name: str - the name of the uniform variable to modify

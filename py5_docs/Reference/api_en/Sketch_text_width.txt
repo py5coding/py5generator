@@ -13,9 +13,9 @@ text_width(str: str, /) -> float
 
 @@ variables
 c: chr - the character to measure
-chars: List[chr] - missing variable description
-length: int - missing variable description
-start: int - missing variable description
+chars: List[chr] - the character to measure
+length: int - number of characters to measure
+start: int - first character to measure
 str: str - the String of characters to measure
 
 @@ description
@@ -31,7 +31,7 @@ def setup():
     cw = py5.text_width(c)
     py5.text(c, 0, 40)
     py5.line(cw, 0, cw, 50)
-    
+
     s = "Tokyo"
     sw = py5.text_width(s)
     py5.text(s, 0, 85)

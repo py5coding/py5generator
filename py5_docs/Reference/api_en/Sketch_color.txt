@@ -17,9 +17,9 @@ color(v1: int, v2: int, v3: int, /) -> int
 color(v1: int, v2: int, v3: int, alpha: int, /) -> int
 
 @@ variables
-alpha: float - relative to current color range
-alpha: int - relative to current color range
-falpha: float - missing variable description
+alpha: float - alpha value relative to current color range
+alpha: int - alpha value relative to current color range
+falpha: float - alpha value relative to current color range
 fgray: float - number specifying value between white and black
 gray: int - number specifying value between white and black
 v1: float - red or hue values relative to the current color range
