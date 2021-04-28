@@ -8,7 +8,29 @@ processing_name = setStrokeJoin
 set_stroke_join(join: int, /) -> None
 
 @@ variables
-join: int - missing variable description
+join: int - either MITER, BEVEL, ROUND
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Sets the style of the joints which connect line segments in a ``Py5Shape`` object. These joints are either mitered, beveled, or rounded and specified with the corresponding parameters ``MITER``, ``BEVEL``, and ``ROUND``. The default joint is ``MITER``.
+
+This method differs from :doc:`py5shape_stroke_join` in that it is only to be used outside the :doc:`py5shape_begin_shape` and :doc:`py5shape_end_shape` methods.
+
+@@ example
+image = Py5Shape_set_stroke_join_0.png
+
+def setup():
+    s = py5.create_shape()
+    s.begin_shape()
+    s.no_fill()
+    s.stroke_weight(10.0)
+    s.stroke_join(py5.MITER)
+    s.vertex(10, 20)
+    s.vertex(40, 50)
+    s.vertex(10, 80)
+    s.end_shape()
+
+    py5.shape(s)
+    s.set_stroke_join(py5.BEVEL)
+    py5.shape(s, 25, 0)
+    s.set_stroke_join(py5.ROUND)
+    py5.shape(s, 50, 0)

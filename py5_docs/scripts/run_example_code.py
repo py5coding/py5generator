@@ -59,7 +59,7 @@ try:
         # if doc.meta.get('pclass') != 'PShape':  #
         # if doc.meta.get('category') != 'typography':
         # if doc.meta.get('category') != 'image' or doc.meta.get('subcategory') != 'loading_displaying':
-        if doc.meta.get('pclass') != 'PShape' or doc.meta.get('name') not in ['get_stroke_weight()', 'set_stroke_weight()', 'get_stroke()', 'get_fill()']:
+        if doc.meta.get('pclass') != 'PShape' or doc.meta.get('name') not in ['set_stroke_cap()', 'set_stroke_join()']:
             continue
 
         for image, code in doc.examples:
