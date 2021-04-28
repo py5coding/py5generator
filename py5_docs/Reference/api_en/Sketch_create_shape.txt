@@ -14,7 +14,7 @@ create_shape(type: int, /) -> Py5Shape
 @@ variables
 kind: int - either POINT, LINE, TRIANGLE, QUAD, RECT, ELLIPSE, ARC, BOX, SPHERE
 p: float - parameters that match the kind of shape
-type: int - missing variable description
+type: int - either GROUP, PATH, or GEOMETRY
 
 @@ description
 The ``create_shape()`` function is used to define a new shape. Once created, this shape can be drawn with the :doc:`shape` function. The basic way to use the function defines new primitive shapes. One of the following parameters are used as the first parameter: ``ELLIPSE``, ``RECT``, ``ARC``, ``TRIANGLE``, ``SPHERE``, ``BOX``, ``QUAD``, or ``LINE``. The parameters for each of these different shapes are the same as their corresponding functions: :doc:`ellipse`, :doc:`rect`, :doc:`arc`, :doc:`triangle`, :doc:`sphere`, :doc:`box`, :doc:`quad`, and :doc:`line`. The first example clarifies how this works.
