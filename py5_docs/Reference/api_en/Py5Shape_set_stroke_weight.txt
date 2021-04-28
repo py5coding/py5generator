@@ -9,8 +9,27 @@ set_stroke_weight(index: int, weight: float, /) -> None
 set_stroke_weight(weight: float, /) -> None
 
 @@ variables
-index: int - missing variable description
-weight: float - missing variable description
+index: int - vertex index
+weight: float - the weight (in pixels) of the stroke
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Sets the width of the stroke used for lines and points in a ``Py5Shape`` object. All widths are set in units of pixels. Attempting to set this for individual vertices may not work, depending on the renderer used and other factors.
+
+This method differs from :doc:`py5shape_stroke_weight` in that it is only to be used outside the :doc:`py5shape_begin_shape` and :doc:`py5shape_end_shape` methods.
+
+@@ example
+image = Py5Shape_set_stroke_weight_0.png
+
+def setup():
+    s = py5.create_shape()
+    s.begin_shape()
+    s.stroke_weight(1)
+    s.vertex(20, 0)
+    s.vertex(80, 0)
+    s.end_shape()
+
+    py5.shape(s, 0, 20)
+    s.set_stroke_weight(4)
+    py5.shape(s, 0, 40)
+    s.set_stroke_weight(10)
+    py5.shape(s, 0, 70)

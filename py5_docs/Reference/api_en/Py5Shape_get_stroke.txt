@@ -8,7 +8,21 @@ processing_name = getStroke
 get_stroke(index: int, /) -> int
 
 @@ variables
-index: int - missing variable description
+index: int - vertex index
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Gets the stroke color used for lines and points in a ``Py5Shape`` object. This method can get the stroke assigned to each vertex, but most likely the value will be the same for all vertices.
+
+This method can only be used for a complete ``Py5Shape`` object, and never within a :doc:`py5shape_begin_shape` and :doc:`py5shape_end_shape` pair.
+
+@@ example
+image = Py5Shape_get_stroke_0.png
+
+def setup():
+    py5.stroke_weight(4)
+    py5.stroke(200, 50, 50)
+    s = py5.create_shape(py5.RECT, 20, 20, 60, 60)
+    py5.shape(s)
+
+    stroke = s.get_stroke(0)
+    print(py5.red(stroke), py5.green(stroke), py5.blue(stroke)) # 200, 50, 50
