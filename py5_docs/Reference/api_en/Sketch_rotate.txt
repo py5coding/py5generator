@@ -12,9 +12,9 @@ rotate(angle: float, x: float, y: float, z: float, /) -> None
 
 @@ variables
 angle: float - angle of rotation specified in radians
-x: float - missing variable description
-y: float - missing variable description
-z: float - missing variable description
+x: float - x-coordinate of vector to rotate around
+y: float - y-coordinate of vector to rotate around
+z: float - z-coordinate of vector to rotate around
 
 @@ description
 Rotates the amount specified by the ``angle`` parameter. Angles must be specified in radians (values from ``0`` to ``TWO_PI``), or they can be converted from degrees to radians with the :doc:`radians` function. 

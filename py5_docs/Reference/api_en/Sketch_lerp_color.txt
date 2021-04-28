@@ -14,7 +14,7 @@ lerp_color(c1: int, c2: int, amt: float, mode: int, /) -> int
 amt: float - between 0.0 and 1.0
 c1: int - interpolate from this color
 c2: int - interpolate to this color
-mode: int - missing variable description
+mode: int - either RGB or HSB
 
 @@ description
 Calculates a color between two colors at a specific increment. The ``amt`` parameter is the amount to interpolate between the two values where 0.0 is equal to the first point, 0.1 is very near the first point, 0.5 is halfway in between, etc. 

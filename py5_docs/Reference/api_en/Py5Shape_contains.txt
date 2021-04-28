@@ -8,8 +8,8 @@ processing_name = contains
 contains(x: float, y: float, /) -> bool
 
 @@ variables
-x: float - x coordinate
-y: float - y coordinate
+x: float - x-coordinate
+y: float - y-coordinate
 
 @@ description
 Boolean value reflecting if the given coordinates are or are not contained within the ``Py5Shape`` object. This method will only work for a ``Py5Shape`` object that is a ``PATH`` shape or a ``GROUP`` of ``PATH`` shapes. Use :doc:`py5shape_get_family` to determine how a ``Py5Shape`` object was defined.
