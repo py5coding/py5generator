@@ -70,13 +70,14 @@ class RenderHelperGraphicsCanvas(Sketch):
     def setup(self):
         self.frame_rate(10000)  # performance boost :)
         self._g = self.create_graphics(self._width, self._height, self._renderer)
+        # this begin/end draw pair is necessary when using the opengl renderers
         self._g.begin_draw()
-        if self._setup:
-            self._setup(self._g, *self._setup_args, **self._setup_kwargs)
         self._g.end_draw()
 
     def draw(self):
         self._g.begin_draw()
+        if self.frame_count == 1 and self._setup:
+            self._setup(self._g, *self._setup_args, **self._setup_kwargs)
         self._draw(self._g, *self._draw_args, **self._draw_kwargs)
         self._g.end_draw()
         self._g.load_np_pixels()
