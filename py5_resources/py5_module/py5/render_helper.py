@@ -68,20 +68,21 @@ class RenderHelperGraphicsCanvas(Sketch):
         self.size(100, 100, self._renderer)
 
     def setup(self):
+        self.frame_rate(10000)  # performance boost :)
         self._g = self.create_graphics(self._width, self._height, self._renderer)
         self._g.begin_draw()
         if self._setup:
             self._setup(self._g, *self._setup_args, **self._setup_kwargs)
+        self._g.end_draw()
 
     def draw(self):
-        if self.frame_count > 1:
-            self._g.begin_draw()
+        self._g.begin_draw()
         self._draw(self._g, *self._draw_args, **self._draw_kwargs)
         self._g.end_draw()
         self._g.load_np_pixels()
         g_pixels = np.dstack((self._g.np_pixels[:, :, 1:], self._g.np_pixels[:, :, 0]))
         self.output.append(Image.fromarray(g_pixels))
-        if self.frame_count == self._limit:
+        if self.frame_count >= self._limit:
             self.exit_sketch()
 
 
