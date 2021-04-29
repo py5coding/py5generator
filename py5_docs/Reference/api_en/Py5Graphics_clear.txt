@@ -1,9 +1,9 @@
 @@ meta
 name = clear()
-category = color
-subcategory = setting
+category = PGraphics
+subcategory = Method
 type = method
-pclass = PApplet
+pclass = PGraphics
 processing_name = clear
 
 @@ signatures
