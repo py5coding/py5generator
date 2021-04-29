@@ -77,6 +77,7 @@ class RenderHelperGraphicsCanvas(Sketch):
     def draw(self):
         self._g.begin_draw()
         if self.frame_count == 1 and self._setup:
+            # call setup here so that _g can be drawn upon
             self._setup(self._g, *self._setup_args, **self._setup_kwargs)
         self._draw(self._g, *self._draw_args, **self._draw_kwargs)
         self._g.end_draw()

@@ -5,7 +5,7 @@ category = structure
 subcategory = None
 
 @@ signatures
-render_frame_sequence(draw: Callable, width: int, height: int, renderer: str = Sketch.HIDDEN, *, limit: int = 1, setup: Callable = None, setup_args: Tuple = None, setup_kwargs: Dict = None, draw_args: Tuple = None, draw_kwargs: Dict = None) -> List[PIL_Image]
+render_frame_sequence(draw: Callable, width: int, height: int, renderer: str = Sketch.HIDDEN, *, limit: int = 1, setup: Callable = None, setup_args: Tuple = None, setup_kwargs: Dict = None, draw_args: Tuple = None, draw_kwargs: Dict = None, use_py5graphics: bool = False) -> List[PIL_Image]
 
 @@ variables
 draw: Callable - function that executes py5 draw commands
@@ -17,16 +17,17 @@ renderer: str = Sketch.HIDDEN - rendering engine to use
 setup: Callable = None - function that executes py5 setup commands
 setup_args: Tuple = None - additional positional arguments to pass to setup function
 setup_kwargs: Dict = None - additional keyword arguments to pass to setup function
+use_py5graphics: bool = False - pass a py5graphics object instead of a sketch object
 width: int - width of the display window in units of pixels
 
 @@ description
 Helper function to render a sequence of frames using the passed ``draw`` function argument. The output is returned as a list of ``PIL.Image`` objects. Use the ``limit`` keyword argument to specify the number of frames to return.
 
-The passed function's first parameter must be a ``py5.Sketch`` object, and that object must be used for all of the function's py5 commands. The function can have additional positional and keyword arguments. To use them, pass the desired values to ``render_frame_sequence``'s ``draw_args`` and ``draw_kwargs`` arguments.
-
-Optionally, the caller can pass a ``setup`` function, along with corresponding ``setup_args`` and ``setup_kwargs`` arguments. This will be called once, just like it would for any other py5 Sketch. As with the passed ``draw`` function, the first parameter must be a ``py5.Sketch`` object.
+The passed ``draw`` function's first parameter must be either a ``py5.Sketch`` object or a ``py5.Py5Graphics`` object, depending on the parameter ``use_py5graphics``. That object must be used for all py5 commands. The function can have additional positional and keyword arguments. To use them, pass the desired values to ``render_frame_sequence``'s ``draw_args`` and ``draw_kwargs`` arguments.
 
 Currently, only the default and OpenGL renderers are supported.
+
+Optionally the caller can pass a ``setup`` function, along with corresponding ``setup_args`` and ``setup_kwargs`` arguments. This will be called once, just like it would for any other py5 Sketch. The type of the first parameter must also depend on the ``use_py5graphics`` parameter.
 
 This function facilitates the creation and execution of a py5 Sketch, and as a result makes it easy to run a Sketch inside of another Sketch. This is discouraged, and may fail catastrophically.
 

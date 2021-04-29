@@ -5,7 +5,7 @@ category = structure
 subcategory = None
 
 @@ signatures
-render_sequence(width: int, height: int, renderer: str = Sketch.HIDDEN, *, limit: int = 1, setup: Callable = None, setup_args: Tuple = None, setup_kwargs: Dict = None) -> List[PIL_Image]
+render_sequence(width: int, height: int, renderer: str = Sketch.HIDDEN, *, limit: int = 1, setup: Callable = None, setup_args: Tuple = None, setup_kwargs: Dict = None, use_py5graphics: bool = False) -> List[PIL_Image]
 
 @@ variables
 height: int - height of the display window in units of pixels
@@ -14,14 +14,15 @@ renderer: str = Sketch.HIDDEN - rendering engine to use
 setup: Callable = None - optional setup function
 setup_args: Tuple = None - additional positional arguments to pass to setup function
 setup_kwargs: Dict = None - additional keyword arguments to pass to setup function
+use_py5graphics: bool = False - pass a py5graphics object instead of a sketch object
 width: int - width of the display window in units of pixels
 
 @@ description
 Decorator function to render a sequence of frames using the decorated ``draw`` function. The output is returned as a list of ``PIL.Image`` objects. Use the ``limit`` keyword argument to specify the number of frames to return.
 
-The decorated function's first parameter must be a ``py5.Sketch`` object, and that object must be used for all of the function's py5 commands. The function can have additional positional and keyword arguments. To use them, pass the desired values when you call the decorated function as you would to any other Python function.
+The decorated function's first parameter must be either a ``py5.Sketch`` object or a ``py5.Py5Graphics`` object, depending on the parameter ``use_py5graphics``. That object must be used for all py5 commands. The function can have additional positional and keyword arguments. To use them, pass the desired values when you call the decorated function as you would to any other Python function.
 
-Optionally, the caller can pass the decorator a ``setup`` function, along with corresponding ``setup_args`` and ``setup_kwargs`` arguments. This will be called once, just like it would for any other py5 Sketch. As with the passed ``draw`` function, the first parameter must be a ``py5.Sketch`` object.
+Optionally, the caller can pass the decorator a ``setup`` function, along with corresponding ``setup_args`` and ``setup_kwargs`` arguments. This will be called once, just like it would for any other py5 Sketch. The type of the first parameter must also depend on the ``use_py5graphics`` parameter.
 
 Currently, only the default and OpenGL renderers are supported.
 

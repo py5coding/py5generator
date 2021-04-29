@@ -5,17 +5,18 @@ category = structure
 subcategory = None
 
 @@ signatures
-render(width: int, height: int, renderer: str = Sketch.HIDDEN) -> Image
+render(width: int, height: int, renderer: str = Sketch.HIDDEN, use_py5graphics: bool = False) -> Image
 
 @@ variables
 height: int - height of the display window in units of pixels
 renderer: str = Sketch.HIDDEN - rendering engine to use
+use_py5graphics: bool = False - pass a py5graphics object instead of a sketch object
 width: int - width of the display window in units of pixels
 
 @@ description
 Decorator function to render a single frame using the decorated ``draw`` function. The output is returned as a ``PIL.Image`` object.
 
-The decorated draw function's first parameter must be a ``py5.Sketch`` object, and that object must be used for all of the function's py5 commands. The function can have additional positional and keyword arguments. To use them, pass the desired values when you call the decorated function as you would to any other Python function.
+The decorated draw function's first parameter must be either a ``py5.Sketch`` object or a ``py5.Py5Graphics`` object, depending on the parameter ``use_py5graphics``. That object must be used for all of the function's py5 commands. The function can have additional positional and keyword arguments. To use them, pass the desired values when you call the decorated function as you would to any other Python function.
 
 Currently, only the default and OpenGL renderers are supported.
 
