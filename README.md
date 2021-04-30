@@ -1,6 +1,6 @@
-# py5
-
 ![py5 logo](py5_docs/images/logo.png)
+
+# py5
 
 ![py5 PyPI Downloads](https://img.shields.io/pypi/dm/py5?label=py5%20PyPI%20downloads)
 
