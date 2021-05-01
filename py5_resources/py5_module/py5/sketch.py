@@ -94,7 +94,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         except Exception:
             pass
 
-    def run_sketch(self, block: bool = None,
+    def run_sketch(self, block: bool = None, *,
                    py5_options: List = None, sketch_args: List = None) -> None:
         """$class_Sketch_run_sketch"""
         if block is None:

@@ -75,17 +75,18 @@ _py5sketch = Sketch()
 {sketch_module_members_code}
 
 
-def run_sketch(block: bool = None,
+def run_sketch(block: bool = None, *,
                py5_options: List[str] = None,
-               sketch_args: List[str] = None) -> None:
+               sketch_args: List[str] = None,
+               sketch_functions: Dict[str, Callable] = None) -> None:
     """$module_Sketch_run_sketch"""
     if block is None:
         block = not _in_ipython_session
 
-    caller_locals = inspect.stack()[1].frame.f_locals
-    methods = dict([(e, caller_locals[e]) for e in reference.METHODS if e in caller_locals and callable(caller_locals[e])])
+    sketch_functions = sketch_functions or inspect.stack()[1].frame.f_locals
+    functions = dict([(e, sketch_functions[e]) for e in reference.METHODS if e in sketch_functions and callable(sketch_functions[e])])
 
-    if not set(methods.keys()) & set(['settings', 'setup', 'draw']):
+    if not set(functions.keys()) & set(['settings', 'setup', 'draw']):
         print(("Unable to find settings, setup, or draw functions. "
                "Your sketch will be a small boring gray square. "
                "If that isn't what you intended, you need to make sure "
@@ -99,9 +100,9 @@ def run_sketch(block: bool = None,
     if _py5sketch.is_dead:
         _py5sketch = Sketch()
 
-    _prepare_dynamic_variables(caller_locals)
+    _prepare_dynamic_variables(sketch_functions)
 
-    _py5sketch._run_sketch(methods, block, py5_options, sketch_args)
+    _py5sketch._run_sketch(functions, block, py5_options, sketch_args)
 
 
 def get_current_sketch() -> Sketch:
