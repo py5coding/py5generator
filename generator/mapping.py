@@ -174,7 +174,7 @@ class TemplateMapping:
             kind, clsname, methodname = item.split('_', 2)
             if (clsname, methodname) in self._data:
                 raw_value = self._data[(clsname, methodname)]
-            elif clsname in ['Py5Graphics', 'Py5Image'] and ('Sketch', methodname) in self._data:
+            elif clsname in ['Py5Graphics'] and ('Sketch', methodname) in self._data:
                 raw_value = self._data[('Sketch', methodname)]
             elif (clsname, methodname) == ('Py5Graphics', 'mask'):
                 raw_value = self._data[('Py5Image', methodname)]
