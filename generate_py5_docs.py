@@ -350,9 +350,15 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
         else:
             signatures = format_signatures(doc.signatures)
             parameters = format_parameters(doc.variables)
+            if group in ['Sketch', 'Py5Functions', 'Py5Magics']:
+                title = name
+            elif group == 'Py5Tools':
+                title = f"py5_tools.{name}"
+            else:
+                title = f"{group}.{name}"
 
             doc_rst = DOC_TEMPLATE.format(
-                name, slug, now_nikola, first_sentence, examples,
+                title, slug, now_nikola, first_sentence, examples,
                 description, underlying_java_ref, signatures, parameters, now_pretty)
 
         # only write new file if more changed than the timestamp
