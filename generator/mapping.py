@@ -30,6 +30,7 @@ logger = logging.getLogger(__name__)
 PY5_API_EN = Path('py5_docs/Reference/api_en/')
 
 FIRST_SENTENCE_REGEX = re.compile(r'^.*?\.(?=\s)')
+REST_DOC_LINK = re.compile(r':doc:`[\w_]+`')
 
 PARAMETERS_TEMPLATE = """
 
@@ -80,7 +81,37 @@ def decorator_helper(datum):
     return arg_str + f", help={shlex.quote(help[0])}" if help else arg_str
 
 
+def doclink_to_title_map():
+    out = dict()
+
+    for docfile in sorted(PY5_API_EN.glob('*.txt')):
+        doc = Documentation(docfile)
+        stem = docfile.stem
+        name = doc.meta['name']
+        item_type = doc.meta['type']
+        group = stem.split('_', 1)[0]
+
+        if group in ['Sketch', 'Py5Functions', 'Py5Tools', 'Py5Magics']:
+            slug = stem[len(group)+1:].lower()
+        else:
+            slug = stem.lower()
+
+        if (item_type == 'class' or
+            item_type in ['line magic', 'cell magic'] or
+                group in ['Sketch', 'Py5Functions', 'Py5Magics']):
+            title = name
+        elif group == 'Py5Tools':
+            title = f"py5_tools.{name}"
+        else:
+            title = f"{group}.{name}"
+
+        out[f":doc:`{slug}`"] = f"``{title}``"
+
+    return out
+
+
 def prepare_mapping(method_signatures_lookup):
+    title_map = doclink_to_title_map()
     mapping = {}
     for docfile in sorted(PY5_API_EN.glob('*.txt')):
         key = docfile.stem
@@ -89,6 +120,8 @@ def prepare_mapping(method_signatures_lookup):
         item_type = doc.meta['type']
         processing_name = doc.meta.get('processing_name')
         description = doc.description.strip()
+        for m in REST_DOC_LINK.findall(description):
+            description = description.replace(m, title_map[m])
         m = FIRST_SENTENCE_REGEX.match(description)
         first_sentence = m.group() if m else description
         description = '\n'.join([textwrap.fill(d, 80) for d in description.splitlines()])
