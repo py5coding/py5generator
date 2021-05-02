@@ -15,7 +15,7 @@ h: int - height in pixels
 w: int - width in pixels
 
 @@ description
-Creates a new Py5Image (the datatype for storing images). This provides a fresh buffer of pixels to play with. Set the size of the buffer with the ``w`` and ``h`` parameters. The ``format`` parameter defines how the pixels are stored. See the :doc:`Py5Image` reference for more information.
+Creates a new Py5Image (the datatype for storing images). This provides a fresh buffer of pixels to play with. Set the size of the buffer with the ``w`` and ``h`` parameters. The ``format`` parameter defines how the pixels are stored. See the :doc:`py5image` reference for more information.
  
 Be sure to include all three parameters, specifying only the width and height (but no format) will produce a strange error.
  
