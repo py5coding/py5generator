@@ -22,6 +22,7 @@ website_slugs = [f.stem for f in PY5_REF_DIR.glob("*.rst")]
 
 # TODOs
 # add language that links back to the Sketch doc page (but not for mask) and explains how it is different
+# fix new variable names and signature issues
 
 DESCRIPTION_REPLACEMENTS = {
     ('display window', 'Py5Graphics canvas'),
