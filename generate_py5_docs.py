@@ -51,6 +51,7 @@ FIRST_SENTENCE_REGEX = re.compile(r'^.*?\.(?=\s)')
 REF_COLUMN_STARTS = {
     'Sketch': [('lights_camera', 'camera'), ('shape', '')],
     'Py5Shape': [('object', 'organization'), ('transform', '')],
+    'Py5Graphics': [('lights_camera', 'camera'), ('shape', '')],
 }
 
 CLASS_CATEGORY_LOOKUP = {
@@ -380,8 +381,8 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
                      (doc.meta['category'].replace('None', ''), doc.meta['subcategory'].replace('None', ''))
                     )
                 )
-            elif group == 'Py5Shape':
-                rstfiles['Py5Shape'].add(
+            elif group in ['Py5Shape', 'Py5Graphics']:
+                rstfiles[group].add(
                     (name, slug, first_sentence,
                      (doc.meta['category'].replace('None', ''), doc.meta['subcategory'].replace('None', ''))
                     )
@@ -390,7 +391,7 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
                 rstfiles[group].add((name, slug, first_sentence))
 
     for group, data in rstfiles.items():
-        if group in ['Sketch', 'Py5Shape']:
+        if group in ['Sketch', 'Py5Shape', 'Py5Graphics']:
             organized_data = groupby(sorted(data, key=lambda x: x[3]), key=lambda x: x[3])
             prev_category = ('_', '_')
             columns = [StringIO() for _ in range(3)]
