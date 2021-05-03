@@ -3,6 +3,8 @@ name = get_fill()
 type = method
 pclass = PShape
 processing_name = getFill
+category = drawing
+subcategory = fill
 
 @@ signatures
 get_fill(index: int, /) -> int

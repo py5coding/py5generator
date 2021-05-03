@@ -3,6 +3,8 @@ name = no_tint()
 type = method
 pclass = PShape
 processing_name = noTint
+category = material
+subcategory = texture
 
 @@ signatures
 no_tint() -> None

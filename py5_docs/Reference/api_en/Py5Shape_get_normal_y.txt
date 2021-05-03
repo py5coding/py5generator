@@ -3,6 +3,8 @@ name = get_normal_y()
 type = method
 pclass = PShape
 processing_name = getNormalY
+category = vertices
+subcategory = None
 
 @@ signatures
 get_normal_y(index: int, /) -> float

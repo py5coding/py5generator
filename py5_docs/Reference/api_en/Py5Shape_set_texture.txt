@@ -3,6 +3,8 @@ name = set_texture()
 type = method
 pclass = PShape
 processing_name = setTexture
+category = material
+subcategory = texture
 
 @@ signatures
 set_texture(tex: Py5Image, /) -> None

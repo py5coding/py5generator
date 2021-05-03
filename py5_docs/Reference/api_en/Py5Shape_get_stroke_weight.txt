@@ -3,6 +3,8 @@ name = get_stroke_weight()
 type = method
 pclass = PShape
 processing_name = getStrokeWeight
+category = drawing
+subcategory = stroke
 
 @@ signatures
 get_stroke_weight(index: int, /) -> float

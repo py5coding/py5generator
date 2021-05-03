@@ -3,6 +3,8 @@ name = get_vertex_code_count()
 type = method
 pclass = PShape
 processing_name = getVertexCodeCount
+category = vertices
+subcategory = None
 
 @@ signatures
 get_vertex_code_count() -> int

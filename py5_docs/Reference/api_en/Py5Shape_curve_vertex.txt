@@ -3,6 +3,8 @@ name = curve_vertex()
 type = method
 pclass = PShape
 processing_name = curveVertex
+category = vertices
+subcategory = None
 
 @@ signatures
 curve_vertex(x: float, y: float, /) -> None

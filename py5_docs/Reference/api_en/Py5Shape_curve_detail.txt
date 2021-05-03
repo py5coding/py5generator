@@ -3,6 +3,8 @@ name = curve_detail()
 type = method
 pclass = PShape
 processing_name = curveDetail
+category = vertices
+subcategory = None
 
 @@ signatures
 curve_detail(detail: int, /) -> None

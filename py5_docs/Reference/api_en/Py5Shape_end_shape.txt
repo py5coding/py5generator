@@ -1,7 +1,7 @@
 @@ meta
 name = end_shape()
-category = PShape
-subcategory = Method
+category = drawing
+subcategory = None
 type = method
 pclass = PShape
 processing_name = endShape

@@ -3,6 +3,8 @@ name = stroke_weight()
 type = method
 pclass = PShape
 processing_name = strokeWeight
+category = drawing
+subcategory = stroke
 
 @@ signatures
 stroke_weight(weight: float, /) -> None

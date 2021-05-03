@@ -3,6 +3,8 @@ name = get_parent()
 type = method
 pclass = PShape
 processing_name = getParent
+category = object
+subcategory = organization
 
 @@ signatures
 get_parent() -> Py5Shape

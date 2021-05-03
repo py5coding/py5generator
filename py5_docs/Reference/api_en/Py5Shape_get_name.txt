@@ -3,6 +3,8 @@ name = get_name()
 type = method
 pclass = PShape
 processing_name = getName
+category = object
+subcategory = organization
 
 @@ signatures
 get_name() -> str

@@ -48,7 +48,10 @@ parser.add_argument('py5_doc_ref_dir', action='store', help='location to write p
 
 FIRST_SENTENCE_REGEX = re.compile(r'^.*?\.(?=\s)')
 
-MAIN_REF_COLUMN_STARTS = [('lights_camera', 'camera'), ('shape', '')]
+REF_COLUMN_STARTS = {
+    'Sketch': [('lights_camera', 'camera'), ('shape', '')],
+    'Py5Shape': [('object', 'organization'), ('transform', '')],
+}
 
 CLASS_CATEGORY_LOOKUP = {
     'Py5Graphics': ('rendering', ''),
@@ -377,17 +380,23 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
                      (doc.meta['category'].replace('None', ''), doc.meta['subcategory'].replace('None', ''))
                     )
                 )
+            elif group == 'Py5Shape':
+                rstfiles['Py5Shape'].add(
+                    (name, slug, first_sentence,
+                     (doc.meta['category'].replace('None', ''), doc.meta['subcategory'].replace('None', ''))
+                    )
+                )
             else:
                 rstfiles[group].add((name, slug, first_sentence))
 
     for group, data in rstfiles.items():
-        if group == 'Sketch':
+        if group in ['Sketch', 'Py5Shape']:
             organized_data = groupby(sorted(data, key=lambda x: x[3]), key=lambda x: x[3])
             prev_category = ('_', '_')
             columns = [StringIO() for _ in range(3)]
             column_num = 0
             for category, contents in organized_data:
-                if category in MAIN_REF_COLUMN_STARTS:
+                if category in REF_COLUMN_STARTS[group]:
                     column_num += 1
                 if category[0] != prev_category[0]:
                     write_category_heading(columns[column_num], category[0])
@@ -395,8 +404,9 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
                     write_category_heading(columns[column_num], category[1], subcategory=True)
                 prev_category = category
                 columns[column_num].write('\n')
+                dir_prefix = '' if group == 'Sketch' else '../'
                 for (name, stem, first_sentence, _) in sorted(contents):
-                    columns[column_num].write(f'* `{name} <{stem}/>`_\n')
+                    columns[column_num].write(f'* `{name} <{dir_prefix}{stem}/>`_\n')
             write_main_ref_columns(dest_dir / 'include' / f'{group.lower()}_include.rst', columns)
         else:
             with open(dest_dir / 'include' / f'{group.lower()}_include.rst', 'w') as f:

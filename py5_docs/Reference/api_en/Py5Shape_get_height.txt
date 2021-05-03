@@ -3,6 +3,8 @@ name = get_height()
 type = method
 pclass = PShape
 processing_name = getHeight
+category = object
+subcategory = properties
 
 @@ signatures
 get_height() -> float

@@ -1,7 +1,7 @@
 @@ meta
 name = set_fill()
-category = PShape
-subcategory = Method
+category = drawing
+subcategory = fill
 type = method
 pclass = PShape
 processing_name = setFill

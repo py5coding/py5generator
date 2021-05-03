@@ -3,6 +3,8 @@ name = is3d()
 type = method
 pclass = PShape
 processing_name = is3D
+category = object
+subcategory = properties
 
 @@ signatures
 is3d() -> bool

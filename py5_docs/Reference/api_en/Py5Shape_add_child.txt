@@ -1,7 +1,7 @@
 @@ meta
 name = add_child()
-category = PShape
-subcategory = Method
+category = object
+subcategory = organization
 type = method
 pclass = PShape
 processing_name = addChild

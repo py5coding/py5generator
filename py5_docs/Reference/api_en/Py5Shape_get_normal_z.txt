@@ -3,6 +3,8 @@ name = get_normal_z()
 type = method
 pclass = PShape
 processing_name = getNormalZ
+category = vertices
+subcategory = None
 
 @@ signatures
 get_normal_z(index: int, /) -> float

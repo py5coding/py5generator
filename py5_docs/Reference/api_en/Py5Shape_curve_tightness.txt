@@ -3,6 +3,8 @@ name = curve_tightness()
 type = method
 pclass = PShape
 processing_name = curveTightness
+category = vertices
+subcategory = None
 
 @@ signatures
 curve_tightness(tightness: float, /) -> None

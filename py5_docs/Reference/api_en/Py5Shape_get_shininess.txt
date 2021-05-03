@@ -3,6 +3,8 @@ name = get_shininess()
 type = method
 pclass = PShape
 processing_name = getShininess
+category = material
+subcategory = properties
 
 @@ signatures
 get_shininess(index: int, /) -> float

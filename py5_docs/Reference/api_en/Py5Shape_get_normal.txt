@@ -3,6 +3,8 @@ name = get_normal()
 type = method
 pclass = PShape
 processing_name = getNormal
+category = vertices
+subcategory = None
 
 @@ signatures
 get_normal(index: int, /) -> NDArray[(Any,), Float]

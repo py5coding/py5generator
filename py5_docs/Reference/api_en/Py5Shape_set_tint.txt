@@ -3,6 +3,8 @@ name = set_tint()
 type = method
 pclass = PShape
 processing_name = setTint
+category = material
+subcategory = texture
 
 @@ signatures
 set_tint(fill: int, /) -> None

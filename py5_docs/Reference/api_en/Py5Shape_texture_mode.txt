@@ -3,6 +3,8 @@ name = texture_mode()
 type = method
 pclass = PShape
 processing_name = textureMode
+category = material
+subcategory = texture
 
 @@ signatures
 texture_mode(mode: int, /) -> None

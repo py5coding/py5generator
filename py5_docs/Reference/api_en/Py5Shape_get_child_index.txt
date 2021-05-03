@@ -3,6 +3,8 @@ name = get_child_index()
 type = method
 pclass = PShape
 processing_name = getChildIndex
+category = object
+subcategory = organization
 
 @@ signatures
 get_child_index(who: Py5Shape, /) -> int

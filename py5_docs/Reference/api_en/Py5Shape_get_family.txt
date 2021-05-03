@@ -3,6 +3,8 @@ name = get_family()
 type = method
 pclass = PShape
 processing_name = getFamily
+category = object
+subcategory = organization
 
 @@ signatures
 get_family() -> int

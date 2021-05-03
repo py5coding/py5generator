@@ -3,6 +3,8 @@ name = vertex()
 type = method
 pclass = PShape
 processing_name = vertex
+category = vertices
+subcategory = None
 
 @@ signatures
 vertex(x: float, y: float, /) -> None

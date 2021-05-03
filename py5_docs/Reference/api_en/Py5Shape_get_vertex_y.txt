@@ -3,6 +3,8 @@ name = get_vertex_y()
 type = method
 pclass = PShape
 processing_name = getVertexY
+category = vertices
+subcategory = None
 
 @@ signatures
 get_vertex_y(index: int, /) -> float

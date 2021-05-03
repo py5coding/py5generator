@@ -1,7 +1,7 @@
 @@ meta
 name = is_visible()
-category = PShape
-subcategory = Method
+category = object
+subcategory = properties
 type = method
 pclass = PShape
 processing_name = isVisible

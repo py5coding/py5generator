@@ -3,6 +3,8 @@ name = set_ambient()
 type = method
 pclass = PShape
 processing_name = setAmbient
+category = material
+subcategory = properties
 
 @@ signatures
 set_ambient(ambient: int, /) -> None

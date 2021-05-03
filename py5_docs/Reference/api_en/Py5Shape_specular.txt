@@ -3,6 +3,8 @@ name = specular()
 type = method
 pclass = PShape
 processing_name = specular
+category = material
+subcategory = properties
 
 @@ signatures
 specular(gray: float, /) -> None

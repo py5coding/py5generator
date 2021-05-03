@@ -3,6 +3,8 @@ name = bezier_detail()
 type = method
 pclass = PShape
 processing_name = bezierDetail
+category = vertices
+subcategory = None
 
 @@ signatures
 bezier_detail(detail: int, /) -> None

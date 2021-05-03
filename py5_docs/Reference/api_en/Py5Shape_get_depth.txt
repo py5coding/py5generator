@@ -3,6 +3,8 @@ name = get_depth()
 type = method
 pclass = PShape
 processing_name = getDepth
+category = object
+subcategory = properties
 
 @@ signatures
 get_depth() -> float

@@ -3,6 +3,8 @@ name = no_fill()
 type = method
 pclass = PShape
 processing_name = noFill
+category = drawing
+subcategory = fill
 
 @@ signatures
 no_fill() -> None

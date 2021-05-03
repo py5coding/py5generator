@@ -3,6 +3,8 @@ name = quadratic_vertex()
 type = method
 pclass = PShape
 processing_name = quadraticVertex
+category = vertices
+subcategory = None
 
 @@ signatures
 quadratic_vertex(cx: float, cy: float, cz: float, x3: float, y3: float, z3: float, /) -> None

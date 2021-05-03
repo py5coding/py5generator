@@ -3,6 +3,8 @@ name = get_vertex_code()
 type = method
 pclass = PShape
 processing_name = getVertexCode
+category = vertices
+subcategory = None
 
 @@ signatures
 get_vertex_code(index: int, /) -> int

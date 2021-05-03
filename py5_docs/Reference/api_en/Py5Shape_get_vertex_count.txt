@@ -1,7 +1,7 @@
 @@ meta
 name = get_vertex_count()
-category = PShape
-subcategory = Method
+category = vertices
+subcategory = None
 type = method
 pclass = PShape
 processing_name = getVertexCount

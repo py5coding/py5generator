@@ -3,6 +3,8 @@ name = remove_child()
 type = method
 pclass = PShape
 processing_name = removeChild
+category = object
+subcategory = organization
 
 @@ signatures
 remove_child(idx: int, /) -> None

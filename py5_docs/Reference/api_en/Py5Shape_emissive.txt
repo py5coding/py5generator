@@ -3,6 +3,8 @@ name = emissive()
 type = method
 pclass = PShape
 processing_name = emissive
+category = material
+subcategory = properties
 
 @@ signatures
 emissive(gray: float, /) -> None

@@ -3,6 +3,8 @@ name = contains()
 type = method
 pclass = PShape
 processing_name = contains
+category = object
+subcategory = organization
 
 @@ signatures
 contains(x: float, y: float, /) -> bool

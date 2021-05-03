@@ -3,6 +3,8 @@ name = get_width()
 type = method
 pclass = PShape
 processing_name = getWidth
+category = object
+subcategory = properties
 
 @@ signatures
 get_width() -> float

@@ -3,6 +3,8 @@ name = set_texture_uv()
 type = method
 pclass = PShape
 processing_name = setTextureUV
+category = material
+subcategory = texture
 
 @@ signatures
 set_texture_uv(index: int, u: float, v: float, /) -> None

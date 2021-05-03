@@ -1,7 +1,7 @@
 @@ meta
 name = enable_style()
-category = PShape
-subcategory = Method
+category = drawing
+subcategory = None
 type = method
 pclass = PShape
 processing_name = enableStyle

@@ -3,6 +3,8 @@ name = set_emissive()
 type = method
 pclass = PShape
 processing_name = setEmissive
+category = material
+subcategory = properties
 
 @@ signatures
 set_emissive(emissive: int, /) -> None

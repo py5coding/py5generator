@@ -3,6 +3,8 @@ name = get_stroke()
 type = method
 pclass = PShape
 processing_name = getStroke
+category = drawing
+subcategory = stroke
 
 @@ signatures
 get_stroke(index: int, /) -> int

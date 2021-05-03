@@ -3,6 +3,8 @@ name = get_tint()
 type = method
 pclass = PShape
 processing_name = getTint
+category = material
+subcategory = texture
 
 @@ signatures
 get_tint(index: int, /) -> int

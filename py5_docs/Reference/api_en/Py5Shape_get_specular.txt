@@ -3,6 +3,8 @@ name = get_specular()
 type = method
 pclass = PShape
 processing_name = getSpecular
+category = material
+subcategory = properties
 
 @@ signatures
 get_specular(index: int, /) -> int

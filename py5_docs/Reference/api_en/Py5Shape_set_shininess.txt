@@ -3,6 +3,8 @@ name = set_shininess()
 type = method
 pclass = PShape
 processing_name = setShininess
+category = material
+subcategory = properties
 
 @@ signatures
 set_shininess(index: int, shine: float, /) -> None

@@ -3,6 +3,8 @@ name = end_contour()
 type = method
 pclass = PShape
 processing_name = endContour
+category = vertices
+subcategory = None
 
 @@ signatures
 end_contour() -> None

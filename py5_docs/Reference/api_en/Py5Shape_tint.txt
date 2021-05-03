@@ -3,6 +3,8 @@ name = tint()
 type = method
 pclass = PShape
 processing_name = tint
+category = material
+subcategory = texture
 
 @@ signatures
 tint(gray: float, /) -> None

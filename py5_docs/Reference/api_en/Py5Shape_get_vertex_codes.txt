@@ -3,6 +3,8 @@ name = get_vertex_codes()
 type = method
 pclass = PShape
 processing_name = getVertexCodes
+category = vertices
+subcategory = None
 
 @@ signatures
 get_vertex_codes() -> NDArray[(Any,), Int]

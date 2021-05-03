@@ -3,6 +3,8 @@ name = get_ambient()
 type = method
 pclass = PShape
 processing_name = getAmbient
+category = material
+subcategory = properties
 
 @@ signatures
 get_ambient(index: int, /) -> int

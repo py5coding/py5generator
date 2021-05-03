@@ -3,6 +3,8 @@ name = stroke()
 type = method
 pclass = PShape
 processing_name = stroke
+category = drawing
+subcategory = stroke
 
 @@ signatures
 stroke(gray: float, /) -> None

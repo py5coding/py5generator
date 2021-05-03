@@ -3,6 +3,8 @@ name = set_name()
 type = method
 pclass = PShape
 processing_name = setName
+category = object
+subcategory = organization
 
 @@ signatures
 set_name(name: str, /) -> None

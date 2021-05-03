@@ -3,6 +3,8 @@ name = begin_contour()
 type = method
 pclass = PShape
 processing_name = beginContour
+category = vertices
+subcategory = None
 
 @@ signatures
 begin_contour() -> None

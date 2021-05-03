@@ -3,6 +3,8 @@ name = get_emissive()
 type = method
 pclass = PShape
 processing_name = getEmissive
+category = material
+subcategory = properties
 
 @@ signatures
 get_emissive(index: int, /) -> int

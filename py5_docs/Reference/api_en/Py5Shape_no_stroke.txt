@@ -3,6 +3,8 @@ name = no_stroke()
 type = method
 pclass = PShape
 processing_name = noStroke
+category = drawing
+subcategory = stroke
 
 @@ signatures
 no_stroke() -> None

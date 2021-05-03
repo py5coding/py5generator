@@ -3,6 +3,8 @@ name = find_child()
 type = method
 pclass = PShape
 processing_name = findChild
+category = object
+subcategory = organization
 
 @@ signatures
 find_child(target: str, /) -> Py5Shape

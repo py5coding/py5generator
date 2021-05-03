@@ -3,6 +3,8 @@ name = normal()
 type = method
 pclass = PShape
 processing_name = normal
+category = vertices
+subcategory = None
 
 @@ signatures
 normal(nx: float, ny: float, nz: float, /) -> None

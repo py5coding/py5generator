@@ -3,6 +3,8 @@ name = set_specular()
 type = method
 pclass = PShape
 processing_name = setSpecular
+category = material
+subcategory = properties
 
 @@ signatures
 set_specular(index: int, specular: int, /) -> None

@@ -1,7 +1,7 @@
 @@ meta
 name = set_stroke()
-category = PShape
-subcategory = Method
+category = drawing
+subcategory = stroke
 type = method
 pclass = PShape
 processing_name = setStroke

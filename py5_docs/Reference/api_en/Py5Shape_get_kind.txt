@@ -3,6 +3,8 @@ name = get_kind()
 type = method
 pclass = PShape
 processing_name = getKind
+category = object
+subcategory = organization
 
 @@ signatures
 get_kind() -> int

@@ -1,7 +1,7 @@
 @@ meta
 name = translate()
-category = PShape
-subcategory = Method
+category = transform
+subcategory = None
 type = method
 pclass = PShape
 processing_name = translate

@@ -3,6 +3,8 @@ name = get_children()
 type = method
 pclass = PShape
 processing_name = getChildren
+category = object
+subcategory = organization
 
 @@ signatures
 get_children() -> List[Py5Shape]

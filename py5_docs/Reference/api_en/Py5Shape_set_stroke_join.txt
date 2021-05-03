@@ -3,6 +3,8 @@ name = set_stroke_join()
 type = method
 pclass = PShape
 processing_name = setStrokeJoin
+category = drawing
+subcategory = stroke
 
 @@ signatures
 set_stroke_join(join: int, /) -> None

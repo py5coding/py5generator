@@ -3,6 +3,8 @@ name = set_stroke_cap()
 type = method
 pclass = PShape
 processing_name = setStrokeCap
+category = drawing
+subcategory = stroke
 
 @@ signatures
 set_stroke_cap(cap: int, /) -> None

@@ -3,6 +3,8 @@ name = get_texture_u()
 type = method
 pclass = PShape
 processing_name = getTextureU
+category = material
+subcategory = texture
 
 @@ signatures
 get_texture_u(index: int, /) -> float

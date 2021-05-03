@@ -3,6 +3,8 @@ name = set_path()
 type = method
 pclass = PShape
 processing_name = setPath
+category = vertices
+subcategory = None
 
 @@ signatures
 set_path(vcount: int, verts: NDArray[(Any, Any), Float], /) -> None

@@ -3,6 +3,8 @@ name = ambient()
 type = method
 pclass = PShape
 processing_name = ambient
+category = material
+subcategory = properties
 
 @@ signatures
 ambient(gray: float, /) -> None
