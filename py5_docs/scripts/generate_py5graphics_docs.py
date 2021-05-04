@@ -21,7 +21,7 @@ website_slugs = [f.stem for f in PY5_REF_DIR.glob("*.rst")]
 
 EXTRA_DESCRIPTION = """
 
-This {0} is the same as :doc:`{1}` but applied to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`{1}`.
+This {0} is the same as :doc:`{1}` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`{1}`.
 """
 
 

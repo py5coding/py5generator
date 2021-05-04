@@ -1,0 +1,21 @@
+@@ meta
+name = set_matrix()
+type = method
+pclass = PGraphics
+processing_name = setMatrix
+category = transform
+subcategory = None
+
+@@ signatures
+set_matrix(source: NDArray[(2, 3), Float], /) -> None
+set_matrix(source: NDArray[(4, 4), Float], /) -> None
+
+@@ variables
+source: NDArray[(2, 3), Float] - transformation matrix data
+source: NDArray[(4, 4), Float] - transformation matrix data
+
+@@ description
+Set the current matrix to the one specified through the parameter ``source``. Inside the Processing code it will call :doc:`py5graphics_reset_matrix` followed by :doc:`py5graphics_apply_matrix`. This will be very slow because :doc:`py5graphics_apply_matrix` will try to calculate the inverse of the transform, so avoid it whenever possible.
+
+This method is the same as :doc:`set_matrix` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`set_matrix`.
+

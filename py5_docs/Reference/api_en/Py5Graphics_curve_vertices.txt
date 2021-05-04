@@ -1,0 +1,21 @@
+@@ meta
+name = curve_vertices()
+type = method
+pclass = PGraphics
+processing_name = curveVertices
+category = shape
+subcategory = vertex
+
+@@ signatures
+curve_vertices(coordinates: NDArray[(Any, Any), Float], /) -> None
+
+@@ variables
+coordinates: NDArray[(Any, Any), Float] - array of curve vertex coordinates
+
+@@ description
+Create a collection of curve vertices. The purpose of this method is to provide an alternative to repeatedly calling :doc:`py5graphics_curve_vertex` in a loop. For a large number of curve vertices, the performance of ``curve_vertices()`` will be much faster.
+
+The ``coordinates`` parameter should be a numpy array with one row for each curve vertex.  There should be two or three columns for 2D or 3D points, respectively.
+
+This method is the same as :doc:`curve_vertices` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`curve_vertices`.
+

@@ -1,0 +1,20 @@
+@@ meta
+name = reset_shader()
+category = rendering
+subcategory = shaders
+type = method
+pclass = PGraphics
+processing_name = resetShader
+
+@@ signatures
+reset_shader() -> None
+reset_shader(kind: int, /) -> None
+
+@@ variables
+kind: int - type of shader, either POINTS, LINES, or TRIANGLES
+
+@@ description
+Restores the default shaders. Code that runs after ``reset_shader()`` will not be affected by previously defined shaders.
+
+This method is the same as :doc:`reset_shader` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`reset_shader`.
+

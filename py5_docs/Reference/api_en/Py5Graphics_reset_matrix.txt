@@ -1,0 +1,16 @@
+@@ meta
+name = reset_matrix()
+category = transform
+subcategory = None
+type = method
+pclass = PGraphics
+processing_name = resetMatrix
+
+@@ signatures
+reset_matrix() -> None
+
+@@ description
+Replaces the current matrix with the identity matrix. The equivalent function in OpenGL is ``gl_load_identity()``.
+
+This method is the same as :doc:`reset_matrix` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`reset_matrix`.
+

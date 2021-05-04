@@ -1,0 +1,16 @@
+@@ meta
+name = print_camera()
+category = lights_camera
+subcategory = camera
+type = method
+pclass = PGraphics
+processing_name = printCamera
+
+@@ signatures
+print_camera() -> None
+
+@@ description
+Prints the current camera matrix to standard output.
+
+This method is the same as :doc:`print_camera` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`print_camera`.
+

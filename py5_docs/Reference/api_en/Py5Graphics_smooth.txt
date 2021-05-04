@@ -1,0 +1,28 @@
+@@ meta
+name = smooth()
+category = environment
+subcategory = None
+type = method
+pclass = PGraphics
+processing_name = smooth
+
+@@ signatures
+smooth() -> None
+smooth(level: int, /) -> None
+
+@@ variables
+level: int - either 2, 3, 4, or 8 depending on the renderer
+
+@@ description
+Draws all geometry with smooth (anti-aliased) edges. This behavior is the default, so ``smooth()`` only needs to be used when a program needs to set the smoothing in a different way. The ``level`` parameter increases the amount of smoothness. This is the level of over sampling applied to the graphics buffer.
+
+With the ``P2D`` and ``P3D`` renderers, ``smooth(2)`` is the default, this is called "2x anti-aliasing." The code ``smooth(4)`` is used for 4x anti-aliasing and ``smooth(8)`` is specified for "8x anti-aliasing." The maximum anti-aliasing level is determined by the hardware of the machine that is running the software, so ``smooth(4)`` and ``smooth(8)`` will not work with every computer.
+
+The default renderer uses ``smooth(3)`` by default. This is bicubic smoothing. The other option for the default renderer is ``smooth(2)``, which is bilinear smoothing.
+
+The ``smooth()`` function can only be set once within a Sketch. It must be called from the `settings()`` function. The :doc:`py5graphics_no_smooth` function also follows the same rules. 
+
+When ``smooth()`` is used with a ``Py5Graphics`` object, it should be run right after the object is created with :doc:`create_graphics`, as shown in the Reference in the third example.
+
+This method is the same as :doc:`smooth` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`smooth`.
+

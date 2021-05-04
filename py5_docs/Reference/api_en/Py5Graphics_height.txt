@@ -1,0 +1,13 @@
+@@ meta
+name = height
+category = environment
+subcategory = None
+type = field
+pclass = PGraphics
+processing_name = height
+
+@@ description
+System variable that stores the height of the Py5Graphics canvas. This value is set by the second parameter of the :doc:`size` function. For example, the function call ``size(320, 240)`` sets the ``height`` variable to the value 240. The value of ``height`` defaults to 100 if :doc:`size` is not used in a program.
+
+This field is the same as :doc:`height` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`height`.
+

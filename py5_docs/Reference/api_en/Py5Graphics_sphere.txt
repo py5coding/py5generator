@@ -1,0 +1,19 @@
+@@ meta
+name = sphere()
+category = shape
+subcategory = 3d_primitives
+type = method
+pclass = PGraphics
+processing_name = sphere
+
+@@ signatures
+sphere(r: float, /) -> None
+
+@@ variables
+r: float - the radius of the sphere
+
+@@ description
+A sphere is a hollow ball made from tessellated triangles.
+
+This method is the same as :doc:`sphere` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sphere`.
+

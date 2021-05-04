@@ -1,0 +1,25 @@
+@@ meta
+name = text_width()
+category = typography
+subcategory = attributes
+type = method
+pclass = PGraphics
+processing_name = textWidth
+
+@@ signatures
+text_width(c: chr, /) -> float
+text_width(chars: List[chr], start: int, length: int, /) -> float
+text_width(str: str, /) -> float
+
+@@ variables
+c: chr - the character to measure
+chars: List[chr] - the character to measure
+length: int - number of characters to measure
+start: int - first character to measure
+str: str - the String of characters to measure
+
+@@ description
+Calculates and returns the width of any character or text string.
+
+This method is the same as :doc:`text_width` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`text_width`.
+

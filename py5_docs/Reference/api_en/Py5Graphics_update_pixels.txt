@@ -1,0 +1,23 @@
+@@ meta
+name = update_pixels()
+category = image
+subcategory = pixels
+type = method
+pclass = PGraphics
+processing_name = updatePixels
+
+@@ signatures
+update_pixels() -> None
+update_pixels(x1: int, y1: int, x2: int, y2: int, /) -> None
+
+@@ variables
+x1: int - x-coordinate of the upper-left corner
+x2: int - width of the region
+y1: int - y-coordinate of the upper-left corner
+y2: int - height of the region
+
+@@ description
+Updates the Py5Graphics canvas with the data in the :doc:`py5graphics_pixels` array. Use in conjunction with :doc:`py5graphics_load_pixels`. If you're only reading pixels from the array, there's no need to call ``update_pixels()`` — updating is only necessary to apply changes.
+
+This method is the same as :doc:`update_pixels` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`update_pixels`.
+

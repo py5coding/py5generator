@@ -1,0 +1,19 @@
+@@ meta
+name = hue()
+category = color
+subcategory = creating_reading
+type = method
+pclass = PGraphics
+processing_name = hue
+
+@@ signatures
+hue(rgb: int, /) -> float
+
+@@ variables
+rgb: int - any value of the color datatype
+
+@@ description
+Extracts the hue value from a color.
+
+This method is the same as :doc:`hue` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`hue`.
+

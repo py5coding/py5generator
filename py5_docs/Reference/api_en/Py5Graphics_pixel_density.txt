@@ -1,0 +1,23 @@
+@@ meta
+name = pixel_density()
+category = environment
+subcategory = None
+type = method
+pclass = PGraphics
+processing_name = pixelDensity
+
+@@ signatures
+pixel_density(density: int, /) -> None
+
+@@ variables
+density: int - 1 or 2
+
+@@ description
+This function makes it possible for py5 to render using all of the pixels on high resolutions screens like Apple Retina displays and Windows High-DPI displays. This function can only be run once within a program and it must be called in ``settings()``.  The ``pixel_density()`` should only be used with hardcoded numbers (in almost all cases this number will be 2) or in combination with :doc:`display_density` as in the second example.
+
+When the pixel density is set to more than 1, it changes all of the pixel operations including the way :doc:`py5graphics_get`, :doc:`py5graphics_blend`, :doc:`py5graphics_copy`, :doc:`py5graphics_update_pixels`, and :doc:`py5graphics_update_np_pixels` all work. See the reference for :doc:`py5graphics_pixel_width` and :doc:`py5graphics_pixel_height` for more information. 
+
+To use variables as the arguments to ``pixel_density()`` function, place the ``pixel_density()`` function within the ``settings()`` function.
+
+This method is the same as :doc:`pixel_density` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`pixel_density`.
+

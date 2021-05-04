@@ -1,0 +1,25 @@
+@@ meta
+name = ambient_light()
+category = lights_camera
+subcategory = lights
+type = method
+pclass = PGraphics
+processing_name = ambientLight
+
+@@ signatures
+ambient_light(v1: float, v2: float, v3: float, /) -> None
+ambient_light(v1: float, v2: float, v3: float, x: float, y: float, z: float, /) -> None
+
+@@ variables
+v1: float - red or hue value (depending on current color mode)
+v2: float - green or saturation value (depending on current color mode)
+v3: float - blue or brightness value (depending on current color mode)
+x: float - x-coordinate of the light
+y: float - y-coordinate of the light
+z: float - z-coordinate of the light
+
+@@ description
+Adds an ambient light. Ambient light doesn't come from a specific direction, the rays of light have bounced around so much that objects are evenly lit from all sides. Ambient lights are almost always used in combination with other types of lights. Lights need to be included in the ``draw()`` to remain persistent in a looping program. Placing them in the ``setup()`` of a looping program will cause them to only have an effect the first time through the loop. The ``v1``, ``v2``, and ``v3`` parameters are interpreted as either ``RGB`` or ``HSB`` values, depending on the current color mode.
+
+This method is the same as :doc:`ambient_light` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`ambient_light`.
+

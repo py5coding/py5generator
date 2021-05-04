@@ -1,0 +1,16 @@
+@@ meta
+name = no_smooth()
+category = environment
+subcategory = None
+type = method
+pclass = PGraphics
+processing_name = noSmooth
+
+@@ signatures
+no_smooth() -> None
+
+@@ description
+Draws all geometry and fonts with jagged (aliased) edges and images with hard edges between the pixels when enlarged rather than interpolating pixels.  Note that :doc:`py5graphics_smooth` is active by default, so it is necessary to call ``no_smooth()`` to disable smoothing of geometry, fonts, and images. The ``no_smooth()`` function can only be run once for each Sketch and must be called in ``settings()``.
+
+This method is the same as :doc:`no_smooth` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`no_smooth`.
+
