@@ -24,4 +24,3 @@ When using :doc:`py5graphics_text` with width and height parameters, ``BASELINE`
 The vertical alignment is based on the value of :doc:`py5graphics_text_ascent`, which many fonts do not specify correctly. It may be necessary to use a hack and offset by a few pixels by hand so that the offset looks correct. To do this as less of a hack, use some percentage of :doc:`py5graphics_text_ascent` or :doc:`py5graphics_text_descent` so that the hack works even if you change the size of the font.
 
 This method is the same as :doc:`text_align` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`text_align`.
-

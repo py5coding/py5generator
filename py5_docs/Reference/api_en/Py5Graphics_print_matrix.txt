@@ -13,4 +13,3 @@ print_matrix() -> None
 Prints the current matrix to standard output.
 
 This method is the same as :doc:`print_matrix` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`print_matrix`.
-

@@ -36,4 +36,3 @@ source: NDArray[(4, 4), Float] - 3D transformation matrix
 Multiplies the current matrix by the one specified through the parameters. This is very slow because it will try to calculate the inverse of the transform, so avoid it whenever possible. The equivalent function in OpenGL is ``gl_mult_matrix()``.
 
 This method is the same as :doc:`apply_matrix` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`apply_matrix`.
-

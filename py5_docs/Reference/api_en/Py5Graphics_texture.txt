@@ -18,4 +18,3 @@ Sets a texture to be applied to vertex points. The ``texture()`` method must be 
 When textures are in use, the fill color is ignored. Instead, use :doc:`py5graphics_tint` to specify the color of the texture as it is applied to the shape.
 
 This method is the same as :doc:`texture` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`texture`.
-

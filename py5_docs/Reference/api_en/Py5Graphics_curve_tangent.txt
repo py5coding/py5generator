@@ -20,4 +20,3 @@ t: float - value between 0 and 1
 Calculates the tangent of a point on a curve. There's a good definition of *tangent* on Wikipedia.
 
 This method is the same as :doc:`curve_tangent` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`curve_tangent`.
-

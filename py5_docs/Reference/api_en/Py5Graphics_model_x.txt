@@ -20,4 +20,3 @@ Returns the three-dimensional X, Y, Z position in model space. This returns the 
 In the example, the ``model_x()``, :doc:`py5graphics_model_y`, and :doc:`py5graphics_model_z` functions record the location of a box in space after being placed using a series of translate and rotate commands. After :doc:`py5graphics_pop_matrix` is called, those transformations no longer apply, but the (x, y, z) coordinate returned by the model functions is used to place another box in the same location.
 
 This method is the same as :doc:`model_x` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`model_x`.
-

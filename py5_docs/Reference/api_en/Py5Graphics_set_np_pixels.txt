@@ -20,4 +20,3 @@ The ``bands`` parameter is used to interpret the ``array``'s color channel dimen
 This method makes calls to :doc:`py5graphics_load_np_pixels` and :doc:`py5graphics_update_np_pixels` so there is no need to call either explicitly.
 
 This method is the same as :doc:`set_np_pixels` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`set_np_pixels`.
-

@@ -26,4 +26,3 @@ The default mode is ``rect_mode(CORNER)``, which interprets the first two parame
 The parameter must be written in ALL CAPS because Python is a case-sensitive language.
 
 This method is the same as :doc:`rect_mode` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`rect_mode`.
-

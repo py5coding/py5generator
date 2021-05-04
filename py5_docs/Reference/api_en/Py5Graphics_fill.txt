@@ -32,4 +32,3 @@ The value for the "gray" parameter must be less than or equal to the current max
 To change the color of an image or a texture, use :doc:`py5graphics_tint`.
 
 This method is the same as :doc:`fill` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`fill`.
-

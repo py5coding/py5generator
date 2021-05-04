@@ -12,4 +12,3 @@ The ``pixels[]`` array contains the values for all the pixels in the Py5Graphics
 Before accessing this array, the data must loaded with the :doc:`py5graphics_load_pixels` function. Failure to do so may result in a Java ``NullPointerException``. Subsequent changes to the Py5Graphics canvas will not be reflected in ``pixels`` until :doc:`py5graphics_load_pixels` is called again. After ``pixels`` has been modified, the :doc:`py5graphics_update_pixels` function must be run to update the content of the Py5Graphics canvas.
 
 This field is the same as :doc:`pixels` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`pixels`.
-

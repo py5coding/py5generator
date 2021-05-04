@@ -22,4 +22,3 @@ str: str - the String of characters to measure
 Calculates and returns the width of any character or text string.
 
 This method is the same as :doc:`text_width` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`text_width`.
-

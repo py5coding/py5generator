@@ -19,4 +19,3 @@ z: float - 3D z-coordinate to be mapped
 Takes a three-dimensional X, Y, Z position and returns the Y value for where it will appear on a (two-dimensional) screen.
 
 This method is the same as :doc:`screen_y` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`screen_y`.
-

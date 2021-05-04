@@ -17,4 +17,3 @@ Much like the :doc:`py5graphics_pixels` array, there are load and update methods
 To set the entire contents of ``np_pixels[]`` to the contents of another properly sized numpy array, consider using :doc:`py5graphics_set_np_pixels`.
 
 This field is the same as :doc:`np_pixels` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`np_pixels`.
-

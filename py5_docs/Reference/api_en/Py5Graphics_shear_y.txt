@@ -18,4 +18,3 @@ Shears a shape around the y-axis the amount specified by the ``angle`` parameter
 Technically, ``shear_y()`` multiplies the current transformation matrix by a rotation matrix. This function can be further controlled by the :doc:`py5graphics_push_matrix` and :doc:`py5graphics_pop_matrix` functions.
 
 This method is the same as :doc:`shear_y` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`shear_y`.
-

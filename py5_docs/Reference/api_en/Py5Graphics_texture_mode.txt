@@ -18,4 +18,3 @@ Sets the coordinate space for texture mapping. The default mode is ``IMAGE``, wh
 With ``IMAGE``, if an image is 100 x 200 pixels, mapping the image onto the entire size of a quad would require the points (0,0) (100,0) (100,200) (0,200). The same mapping in ``NORMAL`` is (0,0) (1,0) (1,1) (0,1).
 
 This method is the same as :doc:`texture_mode` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`texture_mode`.
-

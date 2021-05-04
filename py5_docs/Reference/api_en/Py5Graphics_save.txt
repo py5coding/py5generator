@@ -23,4 +23,3 @@ Use the ``drop_alpha`` parameter to drop the alpha channel from the image. This 
 The ``use_thread`` parameter will save the image in a separate Python thread. This improves performance by returning before the image has actually been written to the file.
 
 This method is the same as :doc:`save` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`save`.
-

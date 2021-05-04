@@ -30,4 +30,3 @@ To draw a rounded rectangle, add a fifth parameter, which is used as the radius 
 To use a different radius value for each corner, include eight parameters. When using eight parameters, the latter four set the radius of the arc at each corner separately, starting with the top-left corner and moving clockwise around the rectangle.
 
 This method is the same as :doc:`rect` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`rect`.
-

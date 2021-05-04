@@ -17,4 +17,3 @@ The ``push()`` function saves the current drawing style settings and transformat
 The ``push()`` and :doc:`py5graphics_pop` functions can be used in place of :doc:`py5graphics_push_matrix`, :doc:`py5graphics_pop_matrix`, ``push_styles()``, and ``pop_styles()``. The difference is that ``push()`` and :doc:`py5graphics_pop` control both the transformations (rotate, scale, translate) and the drawing styles at the same time.
 
 This method is the same as :doc:`push` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`push`.
-

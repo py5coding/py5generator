@@ -18,4 +18,3 @@ shader: Py5Shader - name of shader file
 Applies the shader specified by the parameters. It's compatible with the ``P2D`` and ``P3D`` renderers, but not with the default renderer.
 
 This method is the same as :doc:`shader` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`shader`.
-

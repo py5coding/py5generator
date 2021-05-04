@@ -16,4 +16,3 @@ rgb: int - any value of the color datatype
 Extracts the hue value from a color.
 
 This method is the same as :doc:`hue` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`hue`.
-

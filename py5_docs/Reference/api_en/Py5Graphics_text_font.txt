@@ -20,4 +20,3 @@ Sets the current font that will be drawn with the :doc:`py5graphics_text` functi
 When fonts are rendered as an image texture (as is the case with the ``P2D`` and ``P3D`` renderers as well as with :doc:`load_font` and vlw files), you should create fonts at the sizes that will be used most commonly. Using ``text_font()`` without the size parameter will result in the cleanest type.
 
 This method is the same as :doc:`text_font` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`text_font`.
-

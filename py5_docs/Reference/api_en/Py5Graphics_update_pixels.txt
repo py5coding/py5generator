@@ -8,16 +8,17 @@ processing_name = updatePixels
 
 @@ signatures
 update_pixels() -> None
-update_pixels(x1: int, y1: int, x2: int, y2: int, /) -> None
+update_pixels(x: int, y: int, w: int, h: int, /) -> None
 
 @@ variables
-x1: int - x-coordinate of the upper-left corner
-x2: int - width of the region
-y1: int - y-coordinate of the upper-left corner
-y2: int - height of the region
+h: int - height of pixel rectangle to update
+w: int - width of pixel rectangle to update
+x: int - x-coordinate of the upper left hand corner of rectangle to update
+y: int - y-coordinate of the upper left hand corner of rectangle to update
 
 @@ description
 Updates the Py5Graphics canvas with the data in the :doc:`py5graphics_pixels` array. Use in conjunction with :doc:`py5graphics_load_pixels`. If you're only reading pixels from the array, there's no need to call ``update_pixels()`` — updating is only necessary to apply changes.
 
-This method is the same as :doc:`update_pixels` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`update_pixels`.
+Use the ``update_pixels(x, y, w, h)`` syntax to update only a subset of the pixel array. This can be faster if only some of the pixels have been changed.
 
+This method is the same as :doc:`update_pixels` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`update_pixels`.

@@ -31,4 +31,3 @@ The presets options are:
 * DILATE: Increases the light areas. No parameter is used.
 
 This method is the same as :doc:`apply_filter` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`apply_filter`.
-

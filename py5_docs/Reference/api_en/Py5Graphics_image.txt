@@ -32,4 +32,3 @@ Use the ``u1``, ``u2``, ``v1``, and ``v2`` parameters to use only a subset of th
 The color of an image may be modified with the :doc:`py5graphics_tint` function. This function will maintain transparency for GIF and PNG images.
 
 This method is the same as :doc:`image` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`image`.
-

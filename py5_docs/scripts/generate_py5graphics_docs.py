@@ -25,9 +25,6 @@ This {0} is the same as :doc:`{1}` but linked to a ``Py5Graphics`` object. To se
 """
 
 
-# TODOs
-# fix new variable names and signature issues
-
 DESCRIPTION_REPLACEMENTS = {
     ('display window', 'Py5Graphics canvas'),
 }

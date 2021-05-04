@@ -20,4 +20,3 @@ When the pixel density is set to more than 1, it changes all of the pixel operat
 To use variables as the arguments to ``pixel_density()`` function, place the ``pixel_density()`` function within the ``settings()`` function.
 
 This method is the same as :doc:`pixel_density` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`pixel_density`.
-

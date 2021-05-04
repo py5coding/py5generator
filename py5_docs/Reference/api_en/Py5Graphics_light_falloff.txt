@@ -20,4 +20,3 @@ Sets the falloff rates for point lights, spot lights, and ambient lights. Like :
 Thinking about an ambient light with a falloff can be tricky. If you want a region of your scene to be lit ambiently with one color and another region to be lit ambiently with another color, you could use an ambient light with location and falloff. You can think of it as a point light that doesn't care which direction a surface is facing.
 
 This method is the same as :doc:`light_falloff` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`light_falloff`.
-

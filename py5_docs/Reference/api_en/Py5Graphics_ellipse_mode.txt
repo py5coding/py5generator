@@ -26,4 +26,3 @@ The default mode is ``ellipse_mode(CENTER)``, which interprets the first two par
 The parameter must be written in ALL CAPS because Python is a case-sensitive language.
 
 This method is the same as :doc:`ellipse_mode` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`ellipse_mode`.
-
