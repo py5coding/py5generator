@@ -13,7 +13,7 @@ blend_mode(mode: int, /) -> None
 mode: int - the blending mode to use
 
 @@ description
-Blends the pixels in the Py5Graphics canvas according to a defined mode. There is a choice of the following modes to blend the source pixels (A) with the ones of pixels already in the Py5Graphics canvas (B). Each pixel's final color is the result of applying one of the blend modes with each channel of (A) and (B) independently. The red channel is compared with red, green with green, and blue with blue.
+Blends the pixels in the Py5Graphics drawing surface according to a defined mode. There is a choice of the following modes to blend the source pixels (A) with the ones of pixels already in the Py5Graphics drawing surface (B). Each pixel's final color is the result of applying one of the blend modes with each channel of (A) and (B) independently. The red channel is compared with red, green with green, and blue with blue.
 
 * BLEND: linear interpolation of colors: ``C = A*factor + B``. This is the default.
 * ADD: additive blending with white clip: ``C = min(A*factor + B, 255)``

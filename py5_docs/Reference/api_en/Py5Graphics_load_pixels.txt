@@ -10,6 +10,6 @@ processing_name = loadPixels
 load_pixels() -> None
 
 @@ description
-Loads the pixel data of the current Py5Graphics canvas into the :doc:`py5graphics_pixels` array. This function must always be called before reading from or writing to :doc:`py5graphics_pixels`. Subsequent changes to the Py5Graphics canvas will not be reflected in :doc:`py5graphics_pixels` until ``load_pixels()`` is called again.
+Loads the pixel data of the current Py5Graphics drawing surface into the :doc:`py5graphics_pixels` array. This function must always be called before reading from or writing to :doc:`py5graphics_pixels`. Subsequent changes to the Py5Graphics drawing surface will not be reflected in :doc:`py5graphics_pixels` until ``load_pixels()`` is called again.
 
 This method is the same as :doc:`load_pixels` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`load_pixels`.

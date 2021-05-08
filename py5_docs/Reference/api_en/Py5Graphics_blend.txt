@@ -40,7 +40,7 @@ Blends a region of pixels from one image into another (or in itself again) with 
 * DODGE: Lightens light tones and increases contrast, ignores darks. Called "Color Dodge" in Illustrator and Photoshop.
 * BURN: Darker areas are applied, increasing contrast, ignores lights. Called "Color Burn" in Illustrator and Photoshop.
 
-All modes use the alpha information (highest byte) of source image pixels as the blending factor. If the source and destination regions are different sizes, the image will be automatically resized to match the destination size. If the ``src`` parameter is not used, the Py5Graphics canvas is used as the source image.
+All modes use the alpha information (highest byte) of source image pixels as the blending factor. If the source and destination regions are different sizes, the image will be automatically resized to match the destination size. If the ``src`` parameter is not used, the Py5Graphics drawing surface is used as the source image.
 
 This function ignores :doc:`py5graphics_image_mode`.
 
