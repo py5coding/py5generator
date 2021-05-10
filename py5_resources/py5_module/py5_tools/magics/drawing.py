@@ -39,7 +39,7 @@ import py5
 with open('{0}', 'r') as f:
     eval(compile(f.read(), '{0}', 'exec'))
 
-py5.run_sketch(block=True)
+py5.run_sketch(block=True, sketch_functions=dict(settings=_py5_settings, setup=_py5_setup))
 if py5.is_dead_from_error:
     py5.exit_sketch()
 """
@@ -49,18 +49,18 @@ _CODE_FRAMEWORK_IMPORTED_MODE = """
 with open('{0}', 'r') as f:
     eval(compile(f.read(), '{0}', 'exec'))
 
-run_sketch(block=True)
+run_sketch(block=True, sketch_functions=dict(settings=_py5_settings, setup=_py5_setup))
 if is_dead_from_error:
     exit_sketch()
 """
 
 
 _STANDARD_CODE_TEMPLATE = """
-def settings():
+def _py5_settings():
     py5.size({0}, {1}, py5.{2})
 
 
-def setup():
+def _py5_setup():
 {4}
 
     py5.get(0, 0, {0}, {1}).save("{3}", use_thread=False)
@@ -69,11 +69,11 @@ def setup():
 
 
 _SAVE_OUTPUT_CODE_TEMPLATE = """
-def settings():
+def _py5_settings():
     py5.size({0}, {1}, py5.{2}, "{3}")
 
 
-def setup():
+def _py5_setup():
 {4}
 
     py5.exit_sketch()
@@ -81,11 +81,11 @@ def setup():
 
 
 _DXF_CODE_TEMPLATE = """
-def settings():
+def _py5_settings():
     py5.size({0}, {1}, py5.P3D)
 
 
-def setup():
+def _py5_setup():
     py5.begin_raw(py5.DXF, "{3}")
 
 {4}
