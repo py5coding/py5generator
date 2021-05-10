@@ -59,7 +59,8 @@ try:
         # if doc.meta.get('pclass') != 'PShape':  #
         # if doc.meta.get('category') != 'typography':
         # if doc.meta.get('category') != 'image' or doc.meta.get('subcategory') != 'loading_displaying':
-        if doc.meta.get('pclass') != 'PGraphics' or doc.meta.get('name') not in ['load_np_pixels()', 'set_np_pixels()', 'update_np_pixels()', 'np_pixels[]']:
+        if doc.meta.get('pclass') != 'PGraphics' or doc.meta.get('name') not in ['load_np_pixels()', 'set_np_pixels()', 'update_np_pixels()',
+                                                                                 'np_pixels[]', 'load_pixels()', 'update_pixels()', 'pixels[]']:
             continue
 
         for image, code in doc.examples:
