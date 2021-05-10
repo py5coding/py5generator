@@ -9,8 +9,22 @@ pclass = PGraphics
 update_np_pixels() -> None
 
 @@ description
-Updates the Py5Graphics drawing surface with the data in the :doc:`py5graphics_np_pixels` array. Use in conjunction with :doc:`py5graphics_load_np_pixels`. If you're only reading pixels from the array, there's no need to call ``update_np_pixels()`` — updating is only necessary to apply changes.
+Updates the Py5Graphics drawing surface with the data in the :doc:`py5graphics_np_pixels` array. Use in conjunction with :doc:`py5graphics_load_np_pixels`. If you're only reading pixels from the array, there's no need to call ``update_np_pixels()`` — updating is only necessary to apply changes. Working with :doc:`py5graphics_np_pixels` can only be done after :doc:`py5graphics_begin_draw` but will still work after :doc:`py5graphics_end_draw`.
 
 The ``update_np_pixels()`` method is similar to :doc:`py5graphics_update_pixels` in that ``update_np_pixels()`` must be called after modifying :doc:`py5graphics_np_pixels` just as :doc:`py5graphics_update_pixels` must be called after modifying :doc:`py5graphics_pixels`.
 
-This method is the same as :doc:`update_np_pixels` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`update_np_pixels`.
+This method is the same as :doc:`update_np_pixels` but linked to a ``Py5Graphics`` object.
+
+@@ example
+image = Py5Graphics_update_np_pixels_0.png
+
+def setup():
+    g = py5.create_graphics(80, 80)
+    g.begin_draw()
+    g.background(255)
+    g.rect(10, 10, 60, 60)
+    g.load_np_pixels()
+    g.np_pixels[:, 40:, 1:] = [255, 0, 0]
+    g.update_np_pixels()
+    g.end_draw()
+    py5.image(g, 10, 10)
