@@ -114,7 +114,8 @@ def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
         read_mode = 'rb'
 
     import py5
-    if py5.is_running:
+    is_running = py5.is_running
+    if (isinstance(is_running, bool) and is_running) or (callable(is_running) and is_running()) :
         print('You must exit the currently running sketch before running another sketch.')
         return None
 
