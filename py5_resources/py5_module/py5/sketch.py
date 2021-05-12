@@ -120,15 +120,19 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
                     py5_options: List[str] = None,
                     sketch_args: List[str] = None) -> None:
         if _in_jupyter_zmq_shell:
-            zmq_display_pub = _ipython_shell.display_pub
-            zmq_parent_header = zmq_display_pub.parent_header
-        else:
-            zmq_display_pub = None
-            zmq_parent_header = None
+            display_pub = _ipython_shell.display_pub
+            parent_header = display_pub.parent_header
 
-        self._py5_methods = Py5Methods(self, _in_jupyter_zmq_shell,
-                                       _zmq_display_pub=zmq_display_pub,
-                                       _zmq_parent_header=zmq_parent_header)
+            def zmq_shell_send_stream(name, text):
+                content = dict(name=name, text=text)
+                msg = display_pub.session.msg('stream', content, parent=parent_header)
+                display_pub.session.send(display_pub.pub_socket, msg, ident=b'stream')
+
+            _stream_redirect = zmq_shell_send_stream
+        else:
+            _stream_redirect = None
+
+        self._py5_methods = Py5Methods(self, _stream_redirect=_stream_redirect)
         self._py5_methods.set_functions(**methods)
         self._py5_methods.profile_functions(self._methods_to_profile)
         self._py5_methods.add_pre_hooks(self._pre_hooks_to_add)

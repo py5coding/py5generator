@@ -111,12 +111,9 @@ def handle_exception(exc_type, exc_value, exc_tb):
 @JImplements('py5.core.Py5Methods')
 class Py5Methods:
 
-    def __init__(self, sketch, _in_jupyter_zmq_shell,
-                 _zmq_display_pub=None, _zmq_parent_header=None):
+    def __init__(self, sketch, _stream_redirect=None):
         self._sketch = sketch
-        self._in_jupyter_zmq_shell = _in_jupyter_zmq_shell
-        self._zmq_display_pub = _zmq_display_pub
-        self._zmq_parent_header = _zmq_parent_header
+        self._stream_redirect = _stream_redirect
 
         self._functions = dict()
         self._pre_hooks = defaultdict(dict)
@@ -182,29 +179,24 @@ class Py5Methods:
 
     @JOverride
     def run_method(self, method_name, params):
-        if self._in_jupyter_zmq_shell:
-            return self._zmq_shell_run_method(method_name, params)
+        if self._stream_redirect:
+            return self._stream_redirect_run_method(method_name, params)
         else:
             return self._run_method(method_name, params)
 
-    def _zmq_shell_run_method(self, method_name, params):
-        stdout = StringIO()
-        stderr = StringIO()
+    def _stream_redirect_run_method(self, method_name, params):
+        stdout, stderr = StringIO(), StringIO()
 
         with redirect_stdout(stdout), redirect_stderr(stderr):
             retval = self._run_method(method_name, params)
 
         stdout_val = stdout.getvalue()
         if stdout_val:
-            content = dict(name='stdout', text=stdout_val)
-            msg = self._zmq_display_pub.session.msg('stream', content, parent=self._zmq_parent_header)
-            self._zmq_display_pub.session.send(self._zmq_display_pub.pub_socket, msg, ident=b'stream')
+            self._stream_redirect('stdout', stdout_val)
 
         stderr_val = stderr.getvalue()
         if stderr_val:
-            content = dict(name='stderr', text=stderr_val)
-            msg = self._zmq_display_pub.session.msg('stream', content, parent=self._zmq_parent_header)
-            self._zmq_display_pub.session.send(self._zmq_display_pub.pub_socket, msg, ident=b'stream')
+            self._stream_redirect('stderr', stderr_val)
 
         return retval
 
