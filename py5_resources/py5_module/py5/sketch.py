@@ -55,9 +55,11 @@ try:
     __IPYTHON__  # type: ignore
     _in_ipython_session = True
     from ipykernel.zmqshell import ZMQInteractiveShell
-    _in_jupyter_zmq_shell = isinstance(get_ipython(), ZMQInteractiveShell)  # type: ignore
+    _ipython_shell = get_ipython()  # type: ignore
+    _in_jupyter_zmq_shell = isinstance(_ipython_shell, ZMQInteractiveShell)
 except NameError:
     _in_ipython_session = False
+    _ipython_shell = None
     _in_jupyter_zmq_shell = False
 
 logger = logging.getLogger(__name__)
@@ -117,7 +119,16 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
                     block: bool,
                     py5_options: List[str] = None,
                     sketch_args: List[str] = None) -> None:
-        self._py5_methods = Py5Methods(self, _in_jupyter_zmq_shell)
+        if _in_jupyter_zmq_shell:
+            zmq_display_pub = _ipython_shell.display_pub
+            zmq_parent_header = zmq_display_pub.parent_header
+        else:
+            zmq_display_pub = None
+            zmq_parent_header = None
+
+        self._py5_methods = Py5Methods(self, _in_jupyter_zmq_shell,
+                                       _zmq_display_pub=zmq_display_pub,
+                                       _zmq_parent_header=zmq_parent_header)
         self._py5_methods.set_functions(**methods)
         self._py5_methods.profile_functions(self._methods_to_profile)
         self._py5_methods.add_pre_hooks(self._pre_hooks_to_add)

@@ -111,9 +111,13 @@ def handle_exception(exc_type, exc_value, exc_tb):
 @JImplements('py5.core.Py5Methods')
 class Py5Methods:
 
-    def __init__(self, sketch, _in_jupyter_zmq_shell):
+    def __init__(self, sketch, _in_jupyter_zmq_shell,
+                 _zmq_display_pub=None, _zmq_parent_header=None):
         self._sketch = sketch
         self._in_jupyter_zmq_shell = _in_jupyter_zmq_shell
+        self._zmq_display_pub = _zmq_display_pub
+        self._zmq_parent_header = _zmq_parent_header
+
         self._functions = dict()
         self._pre_hooks = defaultdict(dict)
         self._post_hooks = defaultdict(dict)
@@ -190,13 +194,17 @@ class Py5Methods:
         with redirect_stdout(stdout), redirect_stderr(stderr):
             retval = self._run_method(method_name, params)
 
-        if stdout.getvalue():
-            print("captured stdout:")
-            print(stdout.getvalue())
+        stdout_val = stdout.getvalue()
+        if stdout_val:
+            content = dict(name='stdout', text=stdout_val)
+            msg = self._zmq_display_pub.session.msg('stream', content, parent=self._zmq_parent_header)
+            self._zmq_display_pub.session.send(self._zmq_display_pub.pub_socket, msg, ident=b'stream')
 
-        if stderr.getvalue():
-            print("captured stderr:")
-            print(stderr.getvalue(), file=sys.stderr, flush=True)
+        stderr_val = stderr.getvalue()
+        if stderr_val:
+            content = dict(name='stderr', text=stderr_val)
+            msg = self._zmq_display_pub.session.msg('stream', content, parent=self._zmq_parent_header)
+            self._zmq_display_pub.session.send(self._zmq_display_pub.pub_socket, msg, ident=b'stream')
 
         return retval
 
