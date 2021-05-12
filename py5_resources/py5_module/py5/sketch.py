@@ -54,8 +54,11 @@ _Sketch = jpype.JClass('py5.core.Sketch')
 try:
     __IPYTHON__  # type: ignore
     _in_ipython_session = True
+    from ipykernel.zmqshell import ZMQInteractiveShell
+    _in_jupyter_zmq_shell = isinstance(get_ipython(), ZMQInteractiveShell)  # type: ignore
 except NameError:
     _in_ipython_session = False
+    _in_jupyter_zmq_shell = False
 
 logger = logging.getLogger(__name__)
 
@@ -114,7 +117,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
                     block: bool,
                     py5_options: List[str] = None,
                     sketch_args: List[str] = None) -> None:
-        self._py5_methods = Py5Methods(self)
+        self._py5_methods = Py5Methods(self, _in_jupyter_zmq_shell)
         self._py5_methods.set_functions(**methods)
         self._py5_methods.profile_functions(self._methods_to_profile)
         self._py5_methods.add_pre_hooks(self._pre_hooks_to_add)

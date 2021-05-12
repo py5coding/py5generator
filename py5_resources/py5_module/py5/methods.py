@@ -21,6 +21,8 @@ import sys
 import logging
 from pathlib import Path
 from collections import defaultdict
+from io import StringIO
+from contextlib import redirect_stderr, redirect_stdout
 from typing import Union
 import line_profiler
 
@@ -80,7 +82,7 @@ def handle_exception(exc_type, exc_value, exc_tb):
                 f_code = tb.tb_frame.f_code
                 if f_code.co_filename.startswith(_module_install_dir):
                     py5info.append((Path(f_code.co_filename[(len(_module_install_dir) + 1):]).parts,
-                                   f_code.co_name))
+                                    f_code.co_name))
                     if trim_tb is None:
                         trim_tb = prev_tb
                 prev_tb = tb
@@ -109,8 +111,9 @@ def handle_exception(exc_type, exc_value, exc_tb):
 @JImplements('py5.core.Py5Methods')
 class Py5Methods:
 
-    def __init__(self, sketch):
+    def __init__(self, sketch, _in_jupyter_zmq_shell):
         self._sketch = sketch
+        self._in_jupyter_zmq_shell = _in_jupyter_zmq_shell
         self._functions = dict()
         self._pre_hooks = defaultdict(dict)
         self._post_hooks = defaultdict(dict)
@@ -175,6 +178,29 @@ class Py5Methods:
 
     @JOverride
     def run_method(self, method_name, params):
+        if self._in_jupyter_zmq_shell:
+            return self._zmq_shell_run_method(method_name, params)
+        else:
+            return self._run_method(method_name, params)
+
+    def _zmq_shell_run_method(self, method_name, params):
+        stdout = StringIO()
+        stderr = StringIO()
+
+        with redirect_stdout(stdout), redirect_stderr(stderr):
+            retval = self._run_method(method_name, params)
+
+        if stdout.getvalue():
+            print("captured stdout:")
+            print(stdout.getvalue())
+
+        if stderr.getvalue():
+            print("captured stderr:")
+            print(stderr.getvalue(), file=sys.stderr, flush=True)
+
+        return retval
+
+    def _run_method(self, method_name, params):
         try:
             if method_name in self._functions:
                 # first run the pre-hooks, if any
