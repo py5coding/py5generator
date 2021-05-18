@@ -30,6 +30,9 @@ import com.jogamp.newt.event.MouseListener;
 import com.jogamp.newt.event.WindowListener;
 import com.jogamp.newt.opengl.GLWindow;
 
+import jogamp.newt.driver.macosx.WindowDriver;
+import jogamp.opengl.macosx.cgl.MacOSXOnscreenCGLDrawable;
+
 import processing.core.PApplet;
 import processing.core.PShape;
 import processing.event.MouseEvent;
@@ -205,6 +208,12 @@ public class Sketch extends PApplet {
       GLWindow window = (GLWindow) nativeWindow;
       for (int i = 0; i < window.getGLEventListenerCount(); i++) {
         window.disposeGLEventListener(window.getGLEventListener(i), true);
+      }
+      // this helps but does not completely fix https://github.com/hx2A/py5generator/issues/7
+      if (platform == MACOS && !success) {
+        final MacOSXOnscreenCGLDrawable drawable = (MacOSXOnscreenCGLDrawable) window.getDelegatedDrawable();
+        WindowDriver driver = (WindowDriver) drawable.getNativeSurface();
+        driver.shutdownAll();
       }
     }
     if (nativeWindow instanceof Window) {
