@@ -28,6 +28,7 @@ from . import magics  # noqa
 from . import parsing  # noqa
 from . import utilities  # noqa
 from . import testing  # noqa
+from . import translators  # noqa
 
 
 __version__ = '0.4a2.dev0'
