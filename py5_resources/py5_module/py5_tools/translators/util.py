@@ -29,12 +29,12 @@ def batch_translate_dir(translator, src: Union[str, Path], dest: Union[str, Path
 
     count = 0
     for src_file in src.glob('**/*' + ext):
-        # try:
+        try:
             dest_file = dest / src_file.relative_to(src).with_suffix('.py')
             translator(src_file, dest_file)
             print("translated " + str(src_file.relative_to(src)))
             count += 1
-        # except:
-            # print("error translating " + str(src_file.relative_to(src)))
+        except:
+            print("error translating " + str(src_file.relative_to(src)))
 
     print("batch translate complete. translated", count, "files written to output directory", str(dest))
