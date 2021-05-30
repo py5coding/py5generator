@@ -18,10 +18,10 @@
 #
 # *****************************************************************************
 from pathlib import Path
-from typing import Union
+from typing import Union, Callable
 
 
-def batch_translate_dir(translator, src: Union[str, Path], dest: Union[str, Path], ext='.pyde'):
+def batch_translate_dir(translator: Callable, src: Union[str, Path], dest: Union[str, Path], ext='.pyde'):
     src = Path(src)
     dest = Path(dest)
 
