@@ -17,4 +17,4 @@
 #   with this program. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from . import processingpy2imported
+from . import processingpy2imported  # noqa
