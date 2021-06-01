@@ -122,12 +122,13 @@ class GrabFramesHook(BaseHook):
 
 
 class SketchPortalHook(BaseHook):
-    def __init__(self, displayer, frame_rate, time_limit, quality):
+    def __init__(self, displayer, frame_rate, time_limit, quality, scale):
         super().__init__('py5sketch_portal_hook')
         self.displayer = displayer
         self.period = 1 / frame_rate
         self.time_limit = time_limit
         self.quality = quality
+        self.scale = scale
         self.last_frame_time = 0
         self.start_time = time.time()
         self.first_display = True
@@ -141,7 +142,7 @@ class SketchPortalHook(BaseHook):
                 return
 
             sketch.load_np_pixels()
-            self.displayer(sketch.np_pixels[:, :, 1:], self.first_display, self.display_id, self.quality)
+            self.displayer(sketch.np_pixels[:, :, 1:], self.first_display, self.display_id, self.quality, self.scale)
             self.first_display = False
             self.last_frame_time = time.time()
         except Exception as e:
@@ -169,13 +170,16 @@ class SketchHooks(Magics):
         return zmq_shell_send_stream
 
     def _make_zmq_image_display(self, display_pub, parent_header):
-        def zmq_shell_send_image(frame, init_display, display_id, quality):
+        def zmq_shell_send_image(frame, init_display, display_id, quality, scale):
             msg_type = 'display_data' if init_display else 'update_display_data'
             height, width, _ = frame.shape
+            img = PIL.Image.fromarray(frame)
+            if scale != 1.0:
+                img = img.resize(tuple(int(scale * x) for x in img.size))
             b = BytesIO()
-            PIL.Image.fromarray(frame).save(b, format='JPEG', quality=quality)
+            img.save(b, format='JPEG', quality=quality)
             data = {'image/jpeg': base64.b64encode(b.getvalue()).decode('ascii')}
-            metadata = {'image/jpeg': {'height': height, 'width': width}}
+            metadata = {'image/jpeg': {'height': img.size[0], 'width': img.size[1]}}
             content = dict(data=data, metadata=metadata, transient=dict(display_id=display_id))
             msg = display_pub.session.msg(msg_type, content, parent=parent_header)
             display_pub.session.send(display_pub.pub_socket, msg, ident=bytes(msg_type, encoding='utf8'))
@@ -362,8 +366,13 @@ class SketchHooks(Magics):
 
         if args.quality < 1 or args.quality > 100:
             zmq_streamer('stderr', 'The quality parameter must be between 1 (worst) and 100 (best).')
+            return
+
+        if args.scale <= 0:
+            zmq_streamer('stderr', 'The scale parameter must be greater than zero.')
+            return
 
         wait(args.wait, sketch)
 
-        hook = SketchPortalHook(zmq_displayer, args.frame_rate, args.time_limit, args.quality)
+        hook = SketchPortalHook(zmq_displayer, args.frame_rate, args.time_limit, args.quality, args.scale)
         sketch._add_post_hook('draw', hook.hook_name, hook)

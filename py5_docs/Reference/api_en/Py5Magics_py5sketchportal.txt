@@ -9,7 +9,10 @@ subcategory = line magics
 frames per second for Sketch portal
 
 '-q', '--quality', type=int, dest='quality', default=75
-stream quality between 1 (worst) and 100 (best).
+stream quality between 1 (worst) and 100 (best)
+
+'-s', '--scale', type=float, dest='scale', default=1.0
+scale factor to adjust the height and width of the portal
 
 '-t', '--time_limit', type=float, dest='time_limit', default=0.0
 time limit in seconds for Sketch portal; set to 0 (default) for no limit
@@ -24,7 +27,7 @@ This magic is intended to be used when a real display is not available, such as 
 
 This can be called before :doc:`run_sketch` if the current Sketch is in the :doc:`is_ready` state.
 
-Use the ``-w`` argument to wait before starting and ``-t`` to set a time limit (seconds). Use ``-f`` to set the stream's frame rate (frames per second), which need not be the same as the Sketch's actual draw frame rate. The ``-q`` argument sets the JPEG quality factor for the stream, which must be between 1 (worst) and 100 (best). If the portal is flickering try adjusting the quality below the default setting of 75.
+Use the ``-w`` argument to wait before starting and ``-t`` to set a time limit (seconds). Use ``-f`` to set the stream's frame rate (frames per second), which need not be the same as the Sketch's actual draw frame rate. The ``-s`` argument is a scaling factor that can adjust the portal height and width. The ``-q`` argument sets the JPEG quality factor (default 75) for the stream, which must be between 1 (worst) and 100 (best). If the portal is flickering, try lowering the frame rate, quality, or scale.
 
 To stop a Sketch portal, wait for the time limit to expire or call :doc:`exit_sketch`. If you delete the cell with the ``%py5sketchportal`` call, the portal will no longer be visible but the Sketch will still be streaming frames to the notebook client, wasting resources. A Sketch can only have one open portal, so opening a new portal with different options will replace an existing portal.
 
