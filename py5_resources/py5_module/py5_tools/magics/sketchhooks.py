@@ -21,6 +21,8 @@ import time
 import re
 from pathlib import Path
 import tempfile
+import base64
+from io import BytesIO
 
 from IPython.core.magic import Magics, magics_class, line_magic
 from IPython.core.magic_arguments import parse_argstring, argument, magic_arguments
@@ -119,9 +121,9 @@ class GrabFramesHook(BaseHook):
 
 
 class StreamFramesHook(BaseHook):
-    def __init__(self, shell, period, count):
+    def __init__(self, displayer, period, count):
         super().__init__('py5stream_frames_hook')
-        self.shell = shell
+        self.displayer = displayer
         self.period = period
         self.count = count
         self.i = 0
@@ -132,7 +134,7 @@ class StreamFramesHook(BaseHook):
             if time.time() - self.last_frame_time < self.period:
                 return
             sketch.load_np_pixels()
-            # self.frames.append(sketch.np_pixels[:, :, 1:].copy())
+            self.displayer(sketch.np_pixels[:, :, 1:], self.i, 'asdf')
             self.i += 1
             self.last_frame_time = time.time()
             if self.i == self.count:
@@ -160,6 +162,20 @@ class SketchHooks(Magics):
             display_pub.session.send(display_pub.pub_socket, msg, ident=b'stream')
 
         return zmq_shell_send_stream
+
+    def _make_zmq_png_display(self, display_pub, parent_header):
+        def zmq_shell_send_png(frame, i, display_id):
+            msg_type = 'display_data' if i == 0 else 'update_display_data'
+            height, width, _ = frame.shape
+            b = BytesIO()
+            PIL.Image.fromarray(frame).save(b, format='PNG')
+            data = {'image/png': base64.b64encode(b.getvalue()).decode('ascii')}
+            metadata = {'image/png': {'height': height, 'width': width}}
+            content = dict(data=data, metadata=metadata, transient=dict(display_id=display_id))
+            msg = display_pub.session.msg(msg_type, content, parent=parent_header)
+            display_pub.session.send(display_pub.pub_socket, msg, ident=bytes(msg_type, encoding='utf8'))
+
+        return zmq_shell_send_png
 
     @line_magic
     @magic_arguments()
@@ -329,6 +345,7 @@ class SketchHooks(Magics):
         display_pub = self.shell.display_pub
         parent_header = display_pub.parent_header
         zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+        zmq_displayer = self._make_zmq_png_display(display_pub, parent_header)
 
         if not sketch.is_running:
             zmq_streamer('stderr', 'The current sketch is not running.')
@@ -336,16 +353,5 @@ class SketchHooks(Magics):
 
         wait(args.wait, sketch)
 
-        hook = StreamFramesHook(self.shell, args.period, args.count)
+        hook = StreamFramesHook(zmq_displayer, args.period, args.count)
         sketch._add_post_hook('draw', hook.hook_name, hook)
-
-        while not hook.is_ready and not hook.is_terminated:
-            time.sleep(0.05)
-            zmq_streamer('stdout', f'streaming frame {hook.i}/{args.count}\r')
-        zmq_streamer('stdout', f'streaming frame {hook.i}/{args.count}')
-
-        if hook.is_ready:
-            pass
-            # return [PIL.Image.fromarray(arr, mode='RGB') for arr in hook.frames]
-        elif hook.is_terminated and hook.exception:
-            zmq_streamer('stderr', 'error running magic: ' + str(hook.exception))
