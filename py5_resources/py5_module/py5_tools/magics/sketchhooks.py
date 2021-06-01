@@ -121,9 +121,9 @@ class GrabFramesHook(BaseHook):
             self.hook_error(sketch, e)
 
 
-class StreamFramesHook(BaseHook):
+class SketchPortalHook(BaseHook):
     def __init__(self, displayer, frame_rate, time_limit):
-        super().__init__('py5stream_frames_hook')
+        super().__init__('py5sketch_portal_hook')
         self.displayer = displayer
         self.period = 1 / frame_rate
         self.time_limit = time_limit
@@ -338,11 +338,11 @@ class SketchHooks(Magics):
     @line_magic
     @magic_arguments()
     @argument(""" DELETE
-    $arguments_Py5Magics_py5streamframes_arguments
+    $arguments_Py5Magics_py5sketchportal_arguments
     """) # DELETE
-    def py5streamframes(self, line):
-        """$class_Py5Magics_py5streamframes"""
-        args = parse_argstring(self.py5streamframes, line)
+    def py5sketchportal(self, line):
+        """$class_Py5Magics_py5sketchportal"""
+        args = parse_argstring(self.py5sketchportal, line)
         import py5
         sketch = py5.get_current_sketch()
 
@@ -350,10 +350,6 @@ class SketchHooks(Magics):
         parent_header = display_pub.parent_header
         zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
         zmq_displayer = self._make_zmq_image_display(display_pub, parent_header)
-
-        # if not sketch.is_running:
-        #     zmq_streamer('stderr', 'The current sketch is not running.')
-        #     return
 
         if args.frame_rate <= 0:
             zmq_streamer('stderr', 'The frame_rate parameter must be greater than zero.')
@@ -365,5 +361,5 @@ class SketchHooks(Magics):
 
         wait(args.wait, sketch)
 
-        hook = StreamFramesHook(zmq_displayer, args.frame_rate, args.time_limit)
+        hook = SketchPortalHook(zmq_displayer, args.frame_rate, args.time_limit)
         sketch._add_post_hook('draw', hook.hook_name, hook)
