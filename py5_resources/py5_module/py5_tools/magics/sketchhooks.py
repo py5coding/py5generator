@@ -134,7 +134,7 @@ class StreamFramesHook(BaseHook):
             if time.time() - self.last_frame_time < self.period:
                 return
             sketch.load_np_pixels()
-            self.displayer(sketch.np_pixels[:, :, 1:], self.i, 'asdf')
+            self.displayer(sketch.np_pixels[:, :, 1:], self.i, 'asdf')  # TODO: random display_id
             self.i += 1
             self.last_frame_time = time.time()
             if self.i == self.count:
@@ -163,19 +163,19 @@ class SketchHooks(Magics):
 
         return zmq_shell_send_stream
 
-    def _make_zmq_png_display(self, display_pub, parent_header):
-        def zmq_shell_send_png(frame, i, display_id):
+    def _make_zmq_image_display(self, display_pub, parent_header):
+        def zmq_shell_send_image(frame, i, display_id):
             msg_type = 'display_data' if i == 0 else 'update_display_data'
             height, width, _ = frame.shape
             b = BytesIO()
-            PIL.Image.fromarray(frame).save(b, format='PNG')
-            data = {'image/png': base64.b64encode(b.getvalue()).decode('ascii')}
-            metadata = {'image/png': {'height': height, 'width': width}}
+            PIL.Image.fromarray(frame).save(b, format='JPEG')
+            data = {'image/jpeg': base64.b64encode(b.getvalue()).decode('ascii')}
+            metadata = {'image/jpeg': {'height': height, 'width': width}}
             content = dict(data=data, metadata=metadata, transient=dict(display_id=display_id))
             msg = display_pub.session.msg(msg_type, content, parent=parent_header)
             display_pub.session.send(display_pub.pub_socket, msg, ident=bytes(msg_type, encoding='utf8'))
 
-        return zmq_shell_send_png
+        return zmq_shell_send_image
 
     @line_magic
     @magic_arguments()
@@ -345,7 +345,7 @@ class SketchHooks(Magics):
         display_pub = self.shell.display_pub
         parent_header = display_pub.parent_header
         zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
-        zmq_displayer = self._make_zmq_png_display(display_pub, parent_header)
+        zmq_displayer = self._make_zmq_image_display(display_pub, parent_header)
 
         if not sketch.is_running:
             zmq_streamer('stderr', 'The current sketch is not running.')
