@@ -122,11 +122,12 @@ class GrabFramesHook(BaseHook):
 
 
 class SketchPortalHook(BaseHook):
-    def __init__(self, displayer, frame_rate, time_limit):
+    def __init__(self, displayer, frame_rate, time_limit, quality):
         super().__init__('py5sketch_portal_hook')
         self.displayer = displayer
         self.period = 1 / frame_rate
         self.time_limit = time_limit
+        self.quality = quality
         self.last_frame_time = 0
         self.start_time = time.time()
         self.first_display = True
@@ -140,7 +141,7 @@ class SketchPortalHook(BaseHook):
                 return
 
             sketch.load_np_pixels()
-            self.displayer(sketch.np_pixels[:, :, 1:], self.first_display, self.display_id)
+            self.displayer(sketch.np_pixels[:, :, 1:], self.first_display, self.display_id, self.quality)
             self.first_display = False
             self.last_frame_time = time.time()
         except Exception as e:
@@ -168,11 +169,11 @@ class SketchHooks(Magics):
         return zmq_shell_send_stream
 
     def _make_zmq_image_display(self, display_pub, parent_header):
-        def zmq_shell_send_image(frame, init_display, display_id):
+        def zmq_shell_send_image(frame, init_display, display_id, quality):
             msg_type = 'display_data' if init_display else 'update_display_data'
             height, width, _ = frame.shape
             b = BytesIO()
-            PIL.Image.fromarray(frame).save(b, format='JPEG')
+            PIL.Image.fromarray(frame).save(b, format='JPEG', quality=quality)
             data = {'image/jpeg': base64.b64encode(b.getvalue()).decode('ascii')}
             metadata = {'image/jpeg': {'height': height, 'width': width}}
             content = dict(data=data, metadata=metadata, transient=dict(display_id=display_id))
@@ -359,7 +360,10 @@ class SketchHooks(Magics):
             zmq_streamer('stderr', 'The time_limit parameter must be greater than or equal to zero.')
             return
 
+        if args.quality < 1 or args.quality > 100:
+            zmq_streamer('stderr', 'The quality parameter must be between 1 (worst) and 100 (best).')
+
         wait(args.wait, sketch)
 
-        hook = SketchPortalHook(zmq_displayer, args.frame_rate, args.time_limit)
+        hook = SketchPortalHook(zmq_displayer, args.frame_rate, args.time_limit, args.quality)
         sketch._add_post_hook('draw', hook.hook_name, hook)
