@@ -23,6 +23,7 @@ from pathlib import Path
 import tempfile
 import base64
 from io import BytesIO
+import uuid
 
 from IPython.core.magic import Magics, magics_class, line_magic
 from IPython.core.magic_arguments import parse_argstring, argument, magic_arguments
@@ -121,24 +122,27 @@ class GrabFramesHook(BaseHook):
 
 
 class StreamFramesHook(BaseHook):
-    def __init__(self, displayer, period, count):
+    def __init__(self, displayer, frame_rate, time_limit):
         super().__init__('py5stream_frames_hook')
         self.displayer = displayer
-        self.period = period
-        self.count = count
-        self.i = 0
+        self.period = 1 / frame_rate
+        self.time_limit = time_limit
         self.last_frame_time = 0
+        self.start_time = time.time()
+        self.first_display = True
+        self.display_id = str(uuid.uuid4())
 
     def __call__(self, sketch):
         try:
+            if self.time_limit and time.time() > self.start_time + self.time_limit:
+                self.hook_finished(sketch)
             if time.time() - self.last_frame_time < self.period:
                 return
+
             sketch.load_np_pixels()
-            self.displayer(sketch.np_pixels[:, :, 1:], self.i, 'asdf')  # TODO: random display_id
-            self.i += 1
+            self.displayer(sketch.np_pixels[:, :, 1:], self.first_display, self.display_id)
+            self.first_display = False
             self.last_frame_time = time.time()
-            if self.i == self.count:
-                self.hook_finished(sketch)
         except Exception as e:
             self.hook_error(sketch, e)
 
@@ -164,8 +168,8 @@ class SketchHooks(Magics):
         return zmq_shell_send_stream
 
     def _make_zmq_image_display(self, display_pub, parent_header):
-        def zmq_shell_send_image(frame, i, display_id):
-            msg_type = 'display_data' if i == 0 else 'update_display_data'
+        def zmq_shell_send_image(frame, init_display, display_id):
+            msg_type = 'display_data' if init_display else 'update_display_data'
             height, width, _ = frame.shape
             b = BytesIO()
             PIL.Image.fromarray(frame).save(b, format='JPEG')
@@ -347,11 +351,19 @@ class SketchHooks(Magics):
         zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
         zmq_displayer = self._make_zmq_image_display(display_pub, parent_header)
 
-        if not sketch.is_running:
-            zmq_streamer('stderr', 'The current sketch is not running.')
+        # if not sketch.is_running:
+        #     zmq_streamer('stderr', 'The current sketch is not running.')
+        #     return
+
+        if args.frame_rate <= 0:
+            zmq_streamer('stderr', 'The frame_rate parameter must be greater than zero.')
+            return
+
+        if args.time_limit < 0:
+            zmq_streamer('stderr', 'The time_limit parameter must be greater than or equal to zero.')
             return
 
         wait(args.wait, sketch)
 
-        hook = StreamFramesHook(zmq_displayer, args.period, args.count)
+        hook = StreamFramesHook(zmq_displayer, args.frame_rate, args.time_limit)
         sketch._add_post_hook('draw', hook.hook_name, hook)

@@ -5,21 +5,21 @@ category = magics
 subcategory = line magics
 
 @@ arguments
-'count', type=int
-number of Sketch snapshots to stream
+'-f', '--frame_rate', type=float, dest='frame_rate', default=10.0
+frames per second of Sketch stream
+
+'-t', '--time_limit', type=float, dest='time_limit', default=0.0
+time limit in seconds for Sketch stream; set to 0 (default) for no limit
 
 '-w', '--wait', type=float, dest='wait', default=0.0
 wait time in seconds before starting Sketch frame stream
 
-'-p', '--period', type=float, dest='period', default=1.0
-time in seconds between Sketch stream snapshots (0 means no delay)
-
 @@ description
-Stream frames from the currently running Sketch.
+Continuously stream frames from the currently running Sketch into the notebook. Each frame will appear embedded in the notebook, with each new frame replacing the previous frame.
 
-Use the ``-w`` argument to wait before starting.
+Use the ``-w`` argument to wait before starting and '-t' to set a time limit. Use '-f' to set the stream's framerate, which need not be the same as the Sketch's actual draw framerate.
 
 @@ example
 py5.run_sketch()
-# stream 10 frames from the currently running sketch
-frames = %py5streamframes 10 -w 3 -p 1
+# stream frames from the currently running sketch for 5 seconds
+%py5streamframes -f 10 -t 5
