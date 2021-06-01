@@ -29,7 +29,7 @@ from IPython.core.magic_arguments import parse_argstring, argument, magic_argume
 
 import PIL
 
-from .util import fix_triple_quote_str, CellMagicHelpFormatter
+from .util import fix_triple_quote_str, CellMagicHelpFormatter, ZMQHelper
 from .. import imported
 
 
@@ -95,7 +95,7 @@ def _py5_setup():
 """
 
 
-def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
+def _run_sketch(renderer, zmq_streamer, code, width, height, user_ns, safe_exec):
     if renderer == 'SVG':
         template = _SAVE_OUTPUT_CODE_TEMPLATE
         suffix = '.svg'
@@ -116,7 +116,7 @@ def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
     import py5
     is_running = py5.is_running
     if (isinstance(is_running, bool) and is_running) or (callable(is_running) and is_running()) :
-        print('You must exit the currently running sketch before running another sketch.')
+        zmq_streamer('stderr', 'You must exit the currently running sketch before running another sketch.')
         return None
 
     if imported.get_imported_mode():
@@ -157,7 +157,7 @@ def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
 
 
 @magics_class
-class DrawingMagics(Magics):
+class DrawingMagics(Magics, ZMQHelper):
 
     def _filename_check(self, filename):
         filename = Path(filename)
@@ -177,13 +177,18 @@ class DrawingMagics(Magics):
     def py5drawpdf(self, line, cell):
         """$class_Py5Magics_py5drawpdf"""
         args = parse_argstring(self.py5drawpdf, line)
-        pdf = _run_sketch('PDF', cell, args.width, args.height,
+
+        display_pub = self.shell.display_pub
+        parent_header = display_pub.parent_header
+        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+
+        pdf = _run_sketch('PDF', zmq_streamer, cell, args.width, args.height,
                           self.shell.user_ns, not args.unsafe)
         if pdf:
             filename = self._filename_check(args.filename)
             with open(filename, 'wb') as f:
                 f.write(pdf)
-            print(f'PDF written to {filename}')
+            zmq_streamer('stdout', f'PDF written to {filename}')
 
     @magic_arguments()
     @argument(""" DELETE
@@ -194,13 +199,18 @@ class DrawingMagics(Magics):
     def py5drawdxf(self, line, cell):
         """$class_Py5Magics_py5drawdxf"""
         args = parse_argstring(self.py5drawdxf, line)
-        dxf = _run_sketch('DXF', cell, args.width, args.height,
+
+        display_pub = self.shell.display_pub
+        parent_header = display_pub.parent_header
+        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+
+        dxf = _run_sketch('DXF', zmq_streamer, cell, args.width, args.height,
                           self.shell.user_ns, not args.unsafe)
         if dxf:
             filename = self._filename_check(args.filename)
             with open(filename, 'w') as f:
                 f.write(dxf)
-            print(f'DXF written to {filename}')
+            zmq_streamer('stdout', f'DXF written to {filename}')
 
     @magic_arguments()
     @argument(""" DELETE
@@ -211,14 +221,19 @@ class DrawingMagics(Magics):
     def py5drawsvg(self, line, cell):
         """$class_Py5Magics_py5drawsvg"""
         args = parse_argstring(self.py5drawsvg, line)
-        svg = _run_sketch('SVG', cell, args.width, args.height,
+
+        display_pub = self.shell.display_pub
+        parent_header = display_pub.parent_header
+        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+
+        svg = _run_sketch('SVG', zmq_streamer, cell, args.width, args.height,
                           self.shell.user_ns, not args.unsafe)
         if svg:
             if args.filename:
                 filename = self._filename_check(args.filename)
                 with open(filename, 'w') as f:
                     f.write(svg)
-                print(f'SVG drawing written to {filename}')
+                zmq_streamer('stdout', f'SVG drawing written to {filename}')
             display(SVG(svg))
 
     @magic_arguments()
@@ -231,17 +246,21 @@ class DrawingMagics(Magics):
         """$class_Py5Magics_py5draw"""
         args = parse_argstring(self.py5draw, line)
 
+        display_pub = self.shell.display_pub
+        parent_header = display_pub.parent_header
+        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+
         if args.renderer == 'SVG':
-            print('please use %%py5drawsvg for SVG drawings.')
+            zmq_streamer('stderr', 'please use %%py5drawsvg for SVG drawings.')
             return
         if args.renderer == 'PDF':
-            print('please use %%py5drawpdf for PDFs.')
+            zmq_streamer('stderr', 'please use %%py5drawpdf for PDFs.')
             return
         if args.renderer not in ['HIDDEN', 'JAVA2D', 'P2D', 'P3D']:
-            print(f'unknown renderer {args.renderer}')
+            zmq_streamer('stderr', f'unknown renderer {args.renderer}')
             return
 
-        png = _run_sketch(args.renderer, cell, args.width, args.height,
+        png = _run_sketch(args.renderer, zmq_streamer, cell, args.width, args.height,
                           self.shell.user_ns, not args.unsafe)
         if png:
             if args.filename or args.variable:
@@ -249,11 +268,11 @@ class DrawingMagics(Magics):
                 if args.filename:
                     filename = self._filename_check(args.filename)
                     pil_img.save(filename)
-                    print(f'PNG file written to {filename}')
+                    zmq_streamer('stdout', f'PNG file written to {filename}')
                 if args.variable:
                     if self._variable_name_check(args.variable):
                         self.shell.user_ns[args.variable] = pil_img
-                        print(f'PIL Image assigned to {args.variable}')
+                        zmq_streamer('stdout', f'PIL Image assigned to {args.variable}')
                     else:
-                        print(f'Invalid variable name {args.variable}')
+                        zmq_streamer('stderr', f'Invalid variable name {args.variable}')
             display(Image(png))
