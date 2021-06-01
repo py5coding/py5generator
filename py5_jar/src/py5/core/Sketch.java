@@ -35,6 +35,7 @@ import jogamp.opengl.macosx.cgl.MacOSXOnscreenCGLDrawable;
 
 import processing.core.PApplet;
 import processing.core.PShape;
+import processing.core.PSurface;
 import processing.event.MouseEvent;
 
 public class Sketch extends PApplet {
@@ -79,6 +80,15 @@ public class Sketch extends PApplet {
   @Override
   public void setup() {
     if (success) {
+      // This is an ugly OSX hack to make sure the Sketch window opens above
+      // all other windows. It alleviates the symptoms of bug #5 but is not a
+      // proper fix. When it does get a proper fix, this needs to be removed.
+      if (platform == MACOS && sketchRenderer().equals(JAVA2D)) {
+        PSurface surface = getSurface();
+        surface.setAlwaysOnTop(true);
+        surface.setAlwaysOnTop(false);
+      }
+
       if (py5RegisteredEvents.contains("setup")) {
         success = py5Methods.run_method("setup");
       } else {
