@@ -118,6 +118,29 @@ class GrabFramesHook(BaseHook):
             self.hook_error(sketch, e)
 
 
+class StreamFramesHook(BaseHook):
+    def __init__(self, shell, period, count):
+        super().__init__('py5stream_frames_hook')
+        self.shell = shell
+        self.period = period
+        self.count = count
+        self.i = 0
+        self.last_frame_time = 0
+
+    def __call__(self, sketch):
+        try:
+            if time.time() - self.last_frame_time < self.period:
+                return
+            sketch.load_np_pixels()
+            # self.frames.append(sketch.np_pixels[:, :, 1:].copy())
+            self.i += 1
+            self.last_frame_time = time.time()
+            if self.i == self.count:
+                self.hook_finished(sketch)
+        except Exception as e:
+            self.hook_error(sketch, e)
+
+
 @magics_class
 class SketchHooks(Magics):
 
@@ -130,6 +153,14 @@ class SketchHooks(Magics):
     def _variable_name_check(self, varname):
         return re.match('^[a-zA-Z_]\w*' + chr(36), varname)
 
+    def _make_zmq_streamer(self, display_pub, parent_header):
+        def zmq_shell_send_stream(name, text):
+            content = dict(name=name, text=text)
+            msg = display_pub.session.msg('stream', content, parent=parent_header)
+            display_pub.session.send(display_pub.pub_socket, msg, ident=b'stream')
+
+        return zmq_shell_send_stream
+
     @line_magic
     @magic_arguments()
     @argument(""" DELETE
@@ -141,8 +172,12 @@ class SketchHooks(Magics):
         import py5
         sketch = py5.get_current_sketch()
 
+        display_pub = self.shell.display_pub
+        parent_header = display_pub.parent_header
+        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+
         if not sketch.is_running:
-            print('The current sketch is not running.')
+            zmq_streamer('stderr', 'The current sketch is not running.')
             return
 
         wait(args.wait, sketch)
@@ -158,7 +193,7 @@ class SketchHooks(Magics):
             if hook.is_ready:
                 return PIL.Image.open(temp_png)
             elif hook.is_terminated and hook.exception:
-                print('error running magic:', hook.exception)
+                zmq_streamer('stderr', 'error running magic: ' + str(hook.exception))
 
     @line_magic
     @magic_arguments()
@@ -171,14 +206,18 @@ class SketchHooks(Magics):
         import py5
         sketch = py5.get_current_sketch()
 
+        display_pub = self.shell.display_pub
+        parent_header = display_pub.parent_header
+        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+
         if not sketch.is_running:
-            print('The current sketch is not running.')
+            zmq_streamer('stderr', 'The current sketch is not running.')
             return
 
         dirname = Path(args.dirname)
         if not dirname.exists():
             dirname.mkdir(parents=True)
-        print(f'writing frames to {str(args.dirname)}...')
+        zmq_streamer('stdout', f'writing frames to {str(args.dirname)}...')
 
         wait(args.wait, sketch)
 
@@ -188,14 +227,14 @@ class SketchHooks(Magics):
         if args.limit:
             while not hook.is_ready and not hook.is_terminated:
                 time.sleep(0.02)
-                print(f'saving frame {len(hook.filenames)}/{args.limit}', end='\r')
-            print(f'saving frame {len(hook.filenames)}/{args.limit}')
+                zmq_streamer('stdout', f'saving frame {len(hook.filenames)}/{args.limit}\r')
+            zmq_streamer('stdout', f'saving frame {len(hook.filenames)}/{args.limit}')
 
             if hook.is_ready:
                 return hook.filenames
 
         if hook.is_terminated and hook.exception:
-            print('error running magic:', hook.exception)
+            zmq_streamer('stderr', 'error running magic: ' + str(hook.exception))
 
     @line_magic
     @magic_arguments()
@@ -208,8 +247,12 @@ class SketchHooks(Magics):
         import py5
         sketch = py5.get_current_sketch()
 
+        display_pub = self.shell.display_pub
+        parent_header = display_pub.parent_header
+        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+
         if not sketch.is_running:
-            print('The current sketch is not running.')
+            zmq_streamer('stderr', 'The current sketch is not running.')
             return
 
         filename = Path(args.filename)
@@ -221,8 +264,8 @@ class SketchHooks(Magics):
 
         while not hook.is_ready and not hook.is_terminated:
             time.sleep(0.05)
-            print(f'collecting frame {len(hook.frames)}/{args.count}', end='\r')
-        print(f'collecting frame {len(hook.frames)}/{args.count}')
+            zmq_streamer('stdout', f'collecting frame {len(hook.frames)}/{args.count}\r')
+        zmq_streamer('stdout', f'collecting frame {len(hook.frames)}/{args.count}')
 
         if hook.is_ready:
             if not filename.parent.exists():
@@ -236,7 +279,7 @@ class SketchHooks(Magics):
             return str(filename)
 
         elif hook.is_terminated and hook.exception:
-            print('error running magic:', hook.exception)
+            zmq_streamer('stderr', 'error running magic: ' + str(hook.exception))
 
     @line_magic
     @magic_arguments()
@@ -249,8 +292,12 @@ class SketchHooks(Magics):
         import py5
         sketch = py5.get_current_sketch()
 
+        display_pub = self.shell.display_pub
+        parent_header = display_pub.parent_header
+        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+
         if not sketch.is_running:
-            print('The current sketch is not running.')
+            zmq_streamer('stdout', 'The current sketch is not running.')
             return
 
         wait(args.wait, sketch)
@@ -260,11 +307,45 @@ class SketchHooks(Magics):
 
         while not hook.is_ready and not hook.is_terminated:
             time.sleep(0.05)
-            print(f'collecting frame {len(hook.frames)}/{args.count}', end='\r')
-        print(f'collecting frame {len(hook.frames)}/{args.count}')
+            zmq_streamer('stdout', f'collecting frame {len(hook.frames)}/{args.count}\r')
+        zmq_streamer('stdout', f'collecting frame {len(hook.frames)}/{args.count}')
 
         if hook.is_ready:
             return [PIL.Image.fromarray(arr, mode='RGB') for arr in hook.frames]
-
         elif hook.is_terminated and hook.exception:
-            print('error running magic:', hook.exception)
+            zmq_streamer('stderr', 'error running magic: ' + str(hook.exception))
+
+    @line_magic
+    @magic_arguments()
+    @argument(""" DELETE
+    $arguments_Py5Magics_py5streamframes_arguments
+    """) # DELETE
+    def py5streamframes(self, line):
+        """$class_Py5Magics_py5streamframes"""
+        args = parse_argstring(self.py5streamframes, line)
+        import py5
+        sketch = py5.get_current_sketch()
+
+        display_pub = self.shell.display_pub
+        parent_header = display_pub.parent_header
+        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+
+        if not sketch.is_running:
+            zmq_streamer('stderr', 'The current sketch is not running.')
+            return
+
+        wait(args.wait, sketch)
+
+        hook = StreamFramesHook(self.shell, args.period, args.count)
+        sketch._add_post_hook('draw', hook.hook_name, hook)
+
+        while not hook.is_ready and not hook.is_terminated:
+            time.sleep(0.05)
+            zmq_streamer('stdout', f'streaming frame {hook.i}/{args.count}\r')
+        zmq_streamer('stdout', f'streaming frame {hook.i}/{args.count}')
+
+        if hook.is_ready:
+            pass
+            # return [PIL.Image.fromarray(arr, mode='RGB') for arr in hook.frames]
+        elif hook.is_terminated and hook.exception:
+            zmq_streamer('stderr', 'error running magic: ' + str(hook.exception))

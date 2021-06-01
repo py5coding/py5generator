@@ -1,0 +1,25 @@
+@@ meta
+name = %py5streamframes
+type = line magic
+category = magics
+subcategory = line magics
+
+@@ arguments
+'count', type=int
+number of Sketch snapshots to stream
+
+'-w', '--wait', type=float, dest='wait', default=0.0
+wait time in seconds before starting Sketch frame stream
+
+'-p', '--period', type=float, dest='period', default=1.0
+time in seconds between Sketch stream snapshots (0 means no delay)
+
+@@ description
+Stream frames from the currently running Sketch.
+
+Use the ``-w`` argument to wait before starting.
+
+@@ example
+py5.run_sketch()
+# stream 10 frames from the currently running sketch
+frames = %py5streamframes 10 -w 3 -p 1
