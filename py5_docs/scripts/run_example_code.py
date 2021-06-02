@@ -75,7 +75,8 @@ try:
                 renderer = MAGIC_RENDERER_MAP.get(magic[2:], 'JAVA2D')
                 # TODO: what if the -r parameter is used? could want P2D or P3D renderers
                 width, height = (int(x) for x in line.split(maxsplit=2)[:2])
-                result = py5_tools.magics.drawing._run_sketch(renderer, magic_cell, width, height, dict(), True)
+                fake_zmq_streamer = lambda _, x: print(x)
+                result = py5_tools.magics.drawing._run_sketch(renderer, fake_zmq_streamer, magic_cell, width, height, dict(), True)
                 if image:
                     Image.open(io.BytesIO(result)).convert(mode='RGB').save(DEST_DIR / image)
             else:
