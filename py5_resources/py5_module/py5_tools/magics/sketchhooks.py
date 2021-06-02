@@ -28,7 +28,7 @@ from IPython.core.magic_arguments import parse_argstring, argument, magic_argume
 
 import PIL
 
-from .util import wait, ZMQHelper
+from .util import wait, make_zmq_streamer, make_zmq_image_display
 
 
 class BaseHook:
@@ -148,7 +148,7 @@ class SketchPortalHook(BaseHook):
 
 
 @magics_class
-class SketchHooks(Magics, ZMQHelper):
+class SketchHooks(Magics):
 
     def _filename_check(self, filename):
         filename = Path(filename)
@@ -169,10 +169,7 @@ class SketchHooks(Magics, ZMQHelper):
         args = parse_argstring(self.py5screenshot, line)
         import py5
         sketch = py5.get_current_sketch()
-
-        display_pub = self.shell.display_pub
-        parent_header = display_pub.parent_header
-        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+        zmq_streamer = make_zmq_streamer(self.shell)
 
         if not sketch.is_running:
             zmq_streamer('stderr', 'The current sketch is not running.')
@@ -203,10 +200,7 @@ class SketchHooks(Magics, ZMQHelper):
         args = parse_argstring(self.py5saveframes, line)
         import py5
         sketch = py5.get_current_sketch()
-
-        display_pub = self.shell.display_pub
-        parent_header = display_pub.parent_header
-        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+        zmq_streamer = make_zmq_streamer(self.shell)
 
         if not sketch.is_running:
             zmq_streamer('stderr', 'The current sketch is not running.')
@@ -244,10 +238,7 @@ class SketchHooks(Magics, ZMQHelper):
         args = parse_argstring(self.py5animatedgif, line)
         import py5
         sketch = py5.get_current_sketch()
-
-        display_pub = self.shell.display_pub
-        parent_header = display_pub.parent_header
-        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+        zmq_streamer = make_zmq_streamer(self.shell)
 
         if not sketch.is_running:
             zmq_streamer('stderr', 'The current sketch is not running.')
@@ -289,10 +280,7 @@ class SketchHooks(Magics, ZMQHelper):
         args = parse_argstring(self.py5captureframes, line)
         import py5
         sketch = py5.get_current_sketch()
-
-        display_pub = self.shell.display_pub
-        parent_header = display_pub.parent_header
-        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+        zmq_streamer = make_zmq_streamer(self.shell)
 
         if not sketch.is_running:
             zmq_streamer('stdout', 'The current sketch is not running.')
@@ -323,11 +311,8 @@ class SketchHooks(Magics, ZMQHelper):
         args = parse_argstring(self.py5sketchportal, line)
         import py5
         sketch = py5.get_current_sketch()
-
-        display_pub = self.shell.display_pub
-        parent_header = display_pub.parent_header
-        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
-        zmq_displayer = self._make_zmq_image_display(display_pub, parent_header)
+        zmq_streamer = make_zmq_streamer(self.shell)
+        zmq_displayer = make_zmq_image_display(self.shell)
 
         if args.frame_rate <= 0:
             zmq_streamer('stderr', 'The frame_rate parameter must be greater than zero.')

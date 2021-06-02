@@ -32,32 +32,36 @@ class CellMagicHelpFormatter(MagicHelpFormatter):
         super(MagicHelpFormatter, self).add_usage(usage, actions, groups, prefix)
 
 
-class ZMQHelper():
+def make_zmq_streamer(shell):
+    display_pub = shell.display_pub
+    parent_header = display_pub.parent_header
 
-    def _make_zmq_streamer(self, display_pub, parent_header):
-        def zmq_shell_send_stream(name, text):
-            content = dict(name=name, text=text)
-            msg = display_pub.session.msg('stream', content, parent=parent_header)
-            display_pub.session.send(display_pub.pub_socket, msg, ident=b'stream')
+    def zmq_shell_send_stream(name, text):
+        content = dict(name=name, text=text)
+        msg = display_pub.session.msg('stream', content, parent=parent_header)
+        display_pub.session.send(display_pub.pub_socket, msg, ident=b'stream')
 
-        return zmq_shell_send_stream
+    return zmq_shell_send_stream
 
-    def _make_zmq_image_display(self, display_pub, parent_header):
-        def zmq_shell_send_image(frame, init_display, display_id, quality, scale):
-            msg_type = 'display_data' if init_display else 'update_display_data'
-            height, width, _ = frame.shape
-            img = PIL.Image.fromarray(frame)
-            if scale != 1.0:
-                img = img.resize(tuple(int(scale * x) for x in img.size))
-            b = BytesIO()
-            img.save(b, format='JPEG', quality=quality)
-            data = {'image/jpeg': base64.b64encode(b.getvalue()).decode('ascii')}
-            metadata = {'image/jpeg': {'height': img.size[0], 'width': img.size[1]}}
-            content = dict(data=data, metadata=metadata, transient=dict(display_id=display_id))
-            msg = display_pub.session.msg(msg_type, content, parent=parent_header)
-            display_pub.session.send(display_pub.pub_socket, msg, ident=bytes(msg_type, encoding='utf8'))
+def make_zmq_image_display(shell):
+    display_pub = shell.display_pub
+    parent_header = display_pub.parent_header
 
-        return zmq_shell_send_image
+    def zmq_shell_send_image(frame, init_display, display_id, quality, scale):
+        msg_type = 'display_data' if init_display else 'update_display_data'
+        height, width, _ = frame.shape
+        img = PIL.Image.fromarray(frame)
+        if scale != 1.0:
+            img = img.resize(tuple(int(scale * x) for x in img.size))
+        b = BytesIO()
+        img.save(b, format='JPEG', quality=quality)
+        data = {'image/jpeg': base64.b64encode(b.getvalue()).decode('ascii')}
+        metadata = {'image/jpeg': {'height': img.size[0], 'width': img.size[1]}}
+        content = dict(data=data, metadata=metadata, transient=dict(display_id=display_id))
+        msg = display_pub.session.msg(msg_type, content, parent=parent_header)
+        display_pub.session.send(display_pub.pub_socket, msg, ident=bytes(msg_type, encoding='utf8'))
+
+    return zmq_shell_send_image
 
 
 def fix_triple_quote_str(code):
@@ -73,4 +77,4 @@ def wait(wait_time, sketch):
         time.sleep(0.1)
 
 
-__all__ = ['CellMagicHelpFormatter', 'ZMQHelper', 'fix_triple_quote_str', 'wait']
+__all__ = ['CellMagicHelpFormatter', '_make_zmq_streamer', 'make_zmq_image_display', 'fix_triple_quote_str', 'wait']

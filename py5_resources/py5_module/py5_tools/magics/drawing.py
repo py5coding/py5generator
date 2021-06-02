@@ -29,7 +29,7 @@ from IPython.core.magic_arguments import parse_argstring, argument, magic_argume
 
 import PIL
 
-from .util import fix_triple_quote_str, CellMagicHelpFormatter, ZMQHelper
+from .util import fix_triple_quote_str, make_zmq_streamer, CellMagicHelpFormatter
 from .. import imported
 
 
@@ -157,7 +157,7 @@ def _run_sketch(renderer, zmq_streamer, code, width, height, user_ns, safe_exec)
 
 
 @magics_class
-class DrawingMagics(Magics, ZMQHelper):
+class DrawingMagics(Magics):
 
     def _filename_check(self, filename):
         filename = Path(filename)
@@ -177,10 +177,7 @@ class DrawingMagics(Magics, ZMQHelper):
     def py5drawpdf(self, line, cell):
         """$class_Py5Magics_py5drawpdf"""
         args = parse_argstring(self.py5drawpdf, line)
-
-        display_pub = self.shell.display_pub
-        parent_header = display_pub.parent_header
-        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+        zmq_streamer = make_zmq_streamer(self.shell)
 
         pdf = _run_sketch('PDF', zmq_streamer, cell, args.width, args.height,
                           self.shell.user_ns, not args.unsafe)
@@ -199,10 +196,7 @@ class DrawingMagics(Magics, ZMQHelper):
     def py5drawdxf(self, line, cell):
         """$class_Py5Magics_py5drawdxf"""
         args = parse_argstring(self.py5drawdxf, line)
-
-        display_pub = self.shell.display_pub
-        parent_header = display_pub.parent_header
-        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+        zmq_streamer = make_zmq_streamer(self.shell)
 
         dxf = _run_sketch('DXF', zmq_streamer, cell, args.width, args.height,
                           self.shell.user_ns, not args.unsafe)
@@ -221,10 +215,7 @@ class DrawingMagics(Magics, ZMQHelper):
     def py5drawsvg(self, line, cell):
         """$class_Py5Magics_py5drawsvg"""
         args = parse_argstring(self.py5drawsvg, line)
-
-        display_pub = self.shell.display_pub
-        parent_header = display_pub.parent_header
-        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+        zmq_streamer = make_zmq_streamer(self.shell)
 
         svg = _run_sketch('SVG', zmq_streamer, cell, args.width, args.height,
                           self.shell.user_ns, not args.unsafe)
@@ -245,10 +236,7 @@ class DrawingMagics(Magics, ZMQHelper):
     def py5draw(self, line, cell):
         """$class_Py5Magics_py5draw"""
         args = parse_argstring(self.py5draw, line)
-
-        display_pub = self.shell.display_pub
-        parent_header = display_pub.parent_header
-        zmq_streamer = self._make_zmq_streamer(display_pub, parent_header)
+        zmq_streamer = make_zmq_streamer(self.shell)
 
         if args.renderer == 'SVG':
             zmq_streamer('stderr', 'please use %%py5drawsvg for SVG drawings.')
