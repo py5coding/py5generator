@@ -17,22 +17,39 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import time
 import io
-import base64
 
 from ipykernel.zmqshell import ZMQInteractiveShell
 import ipywidgets as widgets
-from IPython.display import display, clear_output
+from IPython.display import display
 
 import PIL
 
 from .hooks import SketchPortalHook
+from ..magics.util import wait
+
+class Displayer:
+
+    def __init__(self, scale, quality, image_widget):
+        self.scale = scale
+        self.quality = quality
+        if image_widget is None:
+            image_widget = widgets.Image()
+            display(image_widget)
+        self.image_widget = image_widget
+
+    def __call__(self, frame):
+        img = PIL.Image.fromarray(frame)
+        if self.scale != 1.0:
+            img = img.resize(tuple(int(self.scale * x) for x in img.size))
+        b = io.BytesIO()
+        img.save(b, format='JPEG', quality=self.quality)
+        self.image_widget.value = b.getvalue()
 
 
 def sketch_widget(*, frame_rate: float = 10.0, time_limit: float = 0.0,
                   quality: int = 75, scale: float = 1.0,
-                  output_widget = None, sketch = None):
+                  image_widget = None, sketch = None):
     try:
         __IPYTHON__  # type: ignore
         in_ipython_session = True
@@ -56,21 +73,6 @@ def sketch_widget(*, frame_rate: float = 10.0, time_limit: float = 0.0,
     if not sketch.is_running:
         raise RuntimeError(f'The {prefix} sketch is not running.')
 
-    if output_widget is None:
-        output_widget = widgets.Output(layout=dict(width=f'{sketch.width}px', height=f'{sketch.height}px'))
-        display(output_widget)
-
-    def displayer(frame):
-        img = PIL.Image.fromarray(frame)
-        if scale != 1.0:
-            img = img.resize(tuple(int(scale * x) for x in img.size))
-        b = io.BytesIO()
-        img.save(b, format='JPEG', quality=quality)
-        data = {'image/jpeg': base64.b64encode(b.getvalue()).decode('ascii')}
-        with output_widget:
-            clear_output(wait=True)
-            display(data, raw=True)
-
     if frame_rate <= 0:
         raise RuntimeError('The frame_rate parameter must be greater than zero.')
 
@@ -83,7 +85,6 @@ def sketch_widget(*, frame_rate: float = 10.0, time_limit: float = 0.0,
     if scale <= 0:
         raise RuntimeError('The scale parameter must be greater than zero.')
 
+    displayer = Displayer(scale, quality, image_widget)
     hook = SketchPortalHook(displayer, frame_rate, time_limit)
     sketch._add_post_hook('draw', hook.hook_name, hook)
-
-    time.sleep(5)
