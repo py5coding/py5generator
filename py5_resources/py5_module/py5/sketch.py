@@ -100,7 +100,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             pass
 
     def run_sketch(self, block: bool = None, *,
-                   py5_options: List = None, sketch_args: List = None) -> None:
+                   py5_options: List = None, sketch_args: List = None,
+                   stream_redirect: Callable = None) -> None:
         """$class_Sketch_run_sketch"""
         if block is None:
             block = not _in_ipython_session
@@ -112,14 +113,15 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             )
 
         methods = dict([(e, getattr(self, e)) for e in reference.METHODS if hasattr(self, e) and callable(getattr(self, e))])
-        self._run_sketch(methods, block, py5_options, sketch_args)
+        self._run_sketch(methods, block, py5_options, sketch_args, stream_redirect)
 
     def _run_sketch(self,
                     methods: Dict[str, Callable],
                     block: bool,
                     py5_options: List[str] = None,
-                    sketch_args: List[str] = None) -> None:
-        if _in_jupyter_zmq_shell:
+                    sketch_args: List[str] = None,
+                    stream_redirect: Callable = None) -> None:
+        if stream_redirect is None and _in_jupyter_zmq_shell:
             display_pub = _ipython_shell.display_pub
             parent_header = display_pub.parent_header
 
@@ -128,11 +130,9 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
                 msg = display_pub.session.msg('stream', content, parent=parent_header)
                 display_pub.session.send(display_pub.pub_socket, msg, ident=b'stream')
 
-            _stream_redirect = zmq_shell_send_stream
-        else:
-            _stream_redirect = None
+            stream_redirect = zmq_shell_send_stream
 
-        self._py5_methods = Py5Methods(self, _stream_redirect=_stream_redirect)
+        self._py5_methods = Py5Methods(self, _stream_redirect=stream_redirect)
         self._py5_methods.set_functions(**methods)
         self._py5_methods.profile_functions(self._methods_to_profile)
         self._py5_methods.add_pre_hooks(self._pre_hooks_to_add)

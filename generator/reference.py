@@ -81,6 +81,7 @@ EXTRA_METHOD_SIGNATURES = {
     ('Sketch', 'run_sketch'): [
         (['block: bool = None', '*',
           'py5_options: List[str] = None', 'sketch_args: List[str] = None',
+          'stream_redirect: Callable = None',
           'sketch_functions: Dict[str, Callable] = None'], 'None')
     ],
     ('Py5Functions', 'create_font_file'): [

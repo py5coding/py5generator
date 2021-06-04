@@ -78,6 +78,7 @@ _py5sketch = Sketch()
 def run_sketch(block: bool = None, *,
                py5_options: List[str] = None,
                sketch_args: List[str] = None,
+               stream_redirect: Callable = None,
                sketch_functions: Dict[str, Callable] = None) -> None:
     """$module_Sketch_run_sketch"""
     if block is None:
@@ -102,7 +103,7 @@ def run_sketch(block: bool = None, *,
 
     _prepare_dynamic_variables(sketch_functions)
 
-    _py5sketch._run_sketch(functions, block, py5_options, sketch_args)
+    _py5sketch._run_sketch(functions, block, py5_options, sketch_args, stream_redirect)
 
 
 def get_current_sketch() -> Sketch:
