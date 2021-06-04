@@ -19,11 +19,8 @@
 # *****************************************************************************
 import time
 import re
-import base64
-from io import BytesIO
 
 from IPython.core.magic_arguments import MagicHelpFormatter
-import PIL
 
 
 class CellMagicHelpFormatter(MagicHelpFormatter):

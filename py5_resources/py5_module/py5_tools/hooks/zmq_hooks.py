@@ -42,7 +42,7 @@ def sketch_widget(*, frame_rate: float = 10.0, time_limit: float = 0.0,
     if not in_ipython_session:
         raise RuntimeError('The sketch_widget() function can only be used with IPython and ZMQInteractiveShell (such as Jupyter Lab)')
     if not in_jupyter_zmq_shell:
-        raise RuntimeError('The sketch_widget() function can only be used with ZMQInteractiveShell')
+        raise RuntimeError('The sketch_widget() function can only be used with ZMQInteractiveShell (such as Jupyter Lab)')
 
     if sketch is None:
         import py5
@@ -52,19 +52,15 @@ def sketch_widget(*, frame_rate: float = 10.0, time_limit: float = 0.0,
         prefix = ''
 
     if not sketch.is_running:
-        raise RuntimeError(f'The {prefix} sketch is not running.')
-
+        raise RuntimeError(f'The {prefix} sketch is not running')
     if frame_rate <= 0:
-        raise RuntimeError('The frame_rate parameter must be greater than zero.')
-
+        raise RuntimeError('The frame_rate parameter must be greater than zero')
     if time_limit < 0:
-        raise RuntimeError('The time_limit parameter must be greater than or equal to zero.')
-
+        raise RuntimeError('The time_limit parameter must be greater than or equal to zero')
     if quality < 1 or quality > 100:
-        raise RuntimeError('The quality parameter must be between 1 (worst) and 100 (best).')
-
+        raise RuntimeError('The quality parameter must be between 1 (worst) and 100 (best)')
     if scale <= 0:
-        raise RuntimeError('The scale parameter must be greater than zero.')
+        raise RuntimeError('The scale parameter must be greater than zero')
 
     if image_widget is None:
         image_widget = widgets.Image()
