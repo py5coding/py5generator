@@ -18,9 +18,7 @@
 #
 # *****************************************************************************
 from .drawing import DrawingMagics
-from .sketchhooks import SketchHooks
 
 
 def load_ipython_extension(ipython):
     ipython.register_magics(DrawingMagics)
-    ipython.register_magics(SketchHooks)

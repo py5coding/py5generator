@@ -17,18 +17,7 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-"""
-Utilities and accessory tools for py5. 
-"""
-from . import imported  # noqa
-from .imported import set_imported_mode  # noqa
-from .jvm import *  # noqa
-from .libraries import *  # noqa
-from .hooks import *  # noqa
-from . import magics  # noqa
-from . import parsing  # noqa
-from . import utilities  # noqa
-from . import testing  # noqa
-
-
-__version__ = '0.4a2.dev0'
+def sketch_widget(*, frame_rate: float = 10.0, time_limit: float = 0.0,
+                  quality: int = 75, scale: float = 1.0,
+                  output_widget = None, sketch = None):
+    raise RuntimeError('The sketch_widget() function can only be used with IPython and ZMQInteractiveShell')

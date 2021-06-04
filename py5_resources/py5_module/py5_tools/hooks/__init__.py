@@ -17,18 +17,8 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-"""
-Utilities and accessory tools for py5. 
-"""
-from . import imported  # noqa
-from .imported import set_imported_mode  # noqa
-from .jvm import *  # noqa
-from .libraries import *  # noqa
-from .hooks import *  # noqa
-from . import magics  # noqa
-from . import parsing  # noqa
-from . import utilities  # noqa
-from . import testing  # noqa
-
-
-__version__ = '0.4a2.dev0'
+from .frame_hooks import *
+try:
+    from .zmq_hooks import *
+except:
+    from .zmq_hooks_fail import *
