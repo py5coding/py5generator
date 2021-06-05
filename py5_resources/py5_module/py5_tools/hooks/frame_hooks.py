@@ -20,7 +20,7 @@
 import time
 from pathlib import Path
 import tempfile
-from typing import TypeVar
+from typing import TypeVar, List
 
 import PIL
 
@@ -30,7 +30,7 @@ from .hooks import ScreenshotHook, SaveFramesHook, GrabFramesHook
 Sketch = TypeVar('Sketch')
 
 
-def screenshot(*, sketch: Sketch = None):
+def screenshot(*, sketch: Sketch = None) -> PIL.Image:
     """$module_Py5Tools_screenshot"""
     if sketch is None:
         import py5
@@ -58,7 +58,7 @@ def screenshot(*, sketch: Sketch = None):
 
 def save_frames(dirname: str, *, filename: str = 'frame_####.png',
                 period: float = 0.0, start: int = None, limit: int = 0,
-                sketch: Sketch = None):
+                sketch: Sketch = None) -> List[str]:
     """$module_Py5Tools_save_frames"""
     if sketch is None:
         import py5
@@ -91,7 +91,7 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
 
 
 def animated_gif(filename: str, count: int, period: float, duration: float, *,
-                 loop: int = 0, optimize: bool = True, sketch: Sketch = None):
+                 loop: int = 0, optimize: bool = True, sketch: Sketch = None) -> str:
     """$module_Py5Tools_animated_gif"""
     if sketch is None:
         import py5
@@ -128,7 +128,7 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
         raise RuntimeError('error running magic: ' + str(hook.exception))
 
 
-def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None):
+def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None) -> List[PIL.Image]:
     """$module_Py5Tools_capture_frames"""
     if sketch is None:
         import py5

@@ -4,5 +4,16 @@ type = function
 category = sketch_hooks
 subcategory = None
 
+@@ signatures
+sketch_portal(*, frame_rate: float = 10.0, time_limit: float = 0.0, scale: float = 1.0, quality: int = 75, portal_widget: Py5SketchPortal = None, sketch: Sketch = None) -> None
+
+@@ variables
+frame_rate: float = 10.0 - missing variable description
+portal_widget: Py5SketchPortal = None - missing variable description
+quality: int = 75 - missing variable description
+scale: float = 1.0 - missing variable description
+sketch: Sketch = None - missing variable description
+time_limit: float = 0.0 - missing variable description
+
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.

@@ -128,4 +128,24 @@ EXTRA_METHOD_SIGNATURES = {
     ('Py5Tools', 'add_jars'): [
         (['path: Union[Path, str]'], 'None')
     ],
+    ('Py5Tools', 'screenshot'): [
+        (['*', 'sketch: Sketch = None'], 'PIL.Image')
+    ],
+    ('Py5Tools', 'save_frames'): [
+        (['dirname: str', '*', "filename: str = 'frame_####.png'",
+          'period: float = 0.0', 'start: int = None', 'limit: int = 0',
+          'sketch: Sketch = None'], 'List[str]')
+    ],
+    ('Py5Tools', 'animated_gif'): [
+        (['filename: str', 'count: int', 'period: float', 'duration: float', '*',
+          'loop: int = 0', 'optimize: bool = True', 'sketch: Sketch = None'], 'str')
+    ],
+    ('Py5Tools', 'capture_frames'): [
+        (['count: float', '*', 'period: float = 0.0', 'sketch: Sketch = None'], 'List[PIL.Image]')
+    ],
+    ('Py5Tools', 'sketch_portal'): [
+        (['*', 'frame_rate: float = 10.0', 'time_limit: float = 0.0',
+          'scale: float = 1.0', 'quality: int = 75',
+          'portal_widget: Py5SketchPortal = None', 'sketch: Sketch = None'], 'None')
+    ],
 }

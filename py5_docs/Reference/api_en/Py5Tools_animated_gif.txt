@@ -4,5 +4,17 @@ type = function
 category = sketch_hooks
 subcategory = None
 
+@@ signatures
+animated_gif(filename: str, count: int, period: float, duration: float, *, loop: int = 0, optimize: bool = True, sketch: Sketch = None) -> str
+
+@@ variables
+count: int - missing variable description
+duration: float - missing variable description
+filename: str - missing variable description
+loop: int = 0 - missing variable description
+optimize: bool = True - missing variable description
+period: float - missing variable description
+sketch: Sketch = None - missing variable description
+
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
