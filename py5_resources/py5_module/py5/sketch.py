@@ -18,6 +18,7 @@
 #
 # *****************************************************************************
 # *** FORMAT PARAMS ***
+import sys
 import time
 import os
 import logging
@@ -122,15 +123,19 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
                     sketch_args: List[str] = None,
                     stream_redirect: Callable = None) -> None:
         if stream_redirect is None and _in_jupyter_zmq_shell:
-            display_pub = _ipython_shell.display_pub
-            parent_header = display_pub.parent_header
+            import ipywidgets as widgets
+            from IPython.display import display
 
-            def zmq_shell_send_stream(name, text):
-                content = dict(name=name, text=text)
-                msg = display_pub.session.msg('stream', content, parent=parent_header)
-                display_pub.session.send(display_pub.pub_socket, msg, ident=b'stream')
+            out = widgets.Output(layout=dict(max_height='200px', overflow='auto'))
+            display(out)
 
-            stream_redirect = zmq_shell_send_stream
+            def widget_stream(name, text):
+                if name == 'stdout':
+                    out.append_stdout(text)
+                elif name == 'stderr':
+                    out.append_stderr(text)
+
+            stream_redirect = widget_stream
 
         self._py5_methods = Py5Methods(self, _stream_redirect=stream_redirect)
         self._py5_methods.set_functions(**methods)
