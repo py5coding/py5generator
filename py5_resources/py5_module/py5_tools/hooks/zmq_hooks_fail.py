@@ -17,6 +17,10 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+class Py5SketchPortal:
+    pass
+
+
 def sketch_widget(*, frame_rate: float = 10.0, time_limit: float = 0.0,
                   quality: int = 75, scale: float = 1.0,
                   output_widget = None, sketch = None):

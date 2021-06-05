@@ -28,9 +28,13 @@ import PIL
 from .hooks import SketchPortalHook
 
 
+class Py5SketchPortal(widgets.Image):
+    pass
+
+
 def sketch_widget(*, frame_rate: float = 10.0, time_limit: float = 0.0,
                   quality: int = 75, scale: float = 1.0,
-                  image_widget = None, sketch = None):
+                  portal_widget: Py5SketchPortal = None, sketch = None):
     try:
         __IPYTHON__  # type: ignore
         in_ipython_session = True
@@ -62,9 +66,9 @@ def sketch_widget(*, frame_rate: float = 10.0, time_limit: float = 0.0,
     if scale <= 0:
         raise RuntimeError('The scale parameter must be greater than zero')
 
-    if image_widget is None:
-        image_widget = widgets.Image()
-        display(image_widget)
+    if portal_widget is None:
+        portal_widget = Py5SketchPortal()
+        display(portal_widget)
 
     def displayer(frame):
         img = PIL.Image.fromarray(frame)
@@ -72,7 +76,7 @@ def sketch_widget(*, frame_rate: float = 10.0, time_limit: float = 0.0,
             img = img.resize(tuple(int(scale * x) for x in img.size))
         b = io.BytesIO()
         img.save(b, format='JPEG', quality=quality)
-        image_widget.value = b.getvalue()
+        portal_widget.value = b.getvalue()
 
     hook = SketchPortalHook(displayer, frame_rate, time_limit)
     sketch._add_post_hook('draw', hook.hook_name, hook)
