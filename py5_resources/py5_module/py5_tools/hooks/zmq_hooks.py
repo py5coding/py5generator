@@ -37,7 +37,7 @@ class Py5SketchPortal(widgets.Image):
 
 
 def sketch_portal(*, frame_rate: float = 10.0, time_limit: float = 0.0,
-                  quality: int = 75, scale: float = 1.0,
+                  scale: float = 1.0, quality: int = 75,
                   portal_widget: Py5SketchPortal = None, sketch: Sketch = None):
     try:
         __IPYTHON__  # type: ignore

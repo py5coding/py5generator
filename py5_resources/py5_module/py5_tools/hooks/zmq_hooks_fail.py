@@ -28,6 +28,6 @@ class Py5SketchPortal:
 
 
 def sketch_portal(*, frame_rate: float = 10.0, time_limit: float = 0.0,
-                  quality: int = 75, scale: float = 1.0,
-                  output_widget = None, sketch: Sketch = None):
+                  scale: float = 1.0, quality: int = 75,
+                  portal_widget: Py5SketchPortal = None, sketch: Sketch = None):
     raise RuntimeError('The sketch_widget() function can only be used with IPython and ZMQInteractiveShell (such as Jupyter Lab)')
