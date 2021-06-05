@@ -18,6 +18,7 @@
 #
 # *****************************************************************************
 import io
+from typing import TypeVar
 
 from ipykernel.zmqshell import ZMQInteractiveShell
 import ipywidgets as widgets
@@ -28,13 +29,16 @@ import PIL
 from .hooks import SketchPortalHook
 
 
+Sketch = TypeVar('Sketch')
+
+
 class Py5SketchPortal(widgets.Image):
     pass
 
 
-def sketch_widget(*, frame_rate: float = 10.0, time_limit: float = 0.0,
+def sketch_portal(*, frame_rate: float = 10.0, time_limit: float = 0.0,
                   quality: int = 75, scale: float = 1.0,
-                  portal_widget: Py5SketchPortal = None, sketch = None):
+                  portal_widget: Py5SketchPortal = None, sketch: Sketch = None):
     try:
         __IPYTHON__  # type: ignore
         in_ipython_session = True

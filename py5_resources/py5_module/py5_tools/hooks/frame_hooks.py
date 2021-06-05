@@ -17,16 +17,20 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+import time
 from pathlib import Path
 import tempfile
-import time
+from typing import TypeVar
 
 import PIL
 
 from .hooks import ScreenshotHook, SaveFramesHook, GrabFramesHook
 
 
-def screenshot(*, sketch = None):
+Sketch = TypeVar('Sketch')
+
+
+def screenshot(*, sketch: Sketch = None):
     if sketch is None:
         import py5
         sketch = py5.get_current_sketch()
@@ -53,7 +57,7 @@ def screenshot(*, sketch = None):
 
 def save_frames(dirname: str, *, filename: str = 'frame_####.png',
                 period: float = 0.0, start: int = None, limit: int = 0,
-                sketch = None):
+                sketch: Sketch = None):
     if sketch is None:
         import py5
         sketch = py5.get_current_sketch()
@@ -85,7 +89,7 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
 
 
 def animated_gif(filename: str, count: int, period: float, duration: float, *,
-                 loop: int = 0, optimize: bool = True, sketch=None):
+                 loop: int = 0, optimize: bool = True, sketch: Sketch = None):
     if sketch is None:
         import py5
         sketch = py5.get_current_sketch()
@@ -121,7 +125,7 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
         raise RuntimeError('error running magic: ' + str(hook.exception))
 
 
-def capture_frames(count: float, *, period: float = 0.0, sketch=None):
+def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None):
     if sketch is None:
         import py5
         sketch = py5.get_current_sketch()
