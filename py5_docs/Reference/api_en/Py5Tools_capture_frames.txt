@@ -8,9 +8,18 @@ subcategory = None
 capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None) -> List[PIL.Image]
 
 @@ variables
-count: float - missing variable description
-period: float = 0.0 - missing variable description
-sketch: Sketch = None - missing variable description
+count: float - number of Sketch snapshots to capture
+period: float = 0.0 - time in seconds between Sketch snapshots (default 0 means no delay)
+sketch: Sketch = None - running Sketch
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Capture frames from a running Sketch.
+
+By default the Sketch will be the currently running Sketch, as returned by :doc:`get_current_sketch`. Use the ``sketch`` parameter to specify a different running Sketch, such as a Sketch created using Class mode.
+
+@@ example
+import py5_tools
+
+py5.run_sketch()
+# capture 10 frames from the currently running sketch
+frames = py5_tools.capture_frames(10, period=1)

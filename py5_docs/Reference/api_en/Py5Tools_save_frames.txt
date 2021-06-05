@@ -8,12 +8,23 @@ subcategory = None
 save_frames(dirname: str, *, filename: str = 'frame_####.png', period: float = 0.0, start: int = None, limit: int = 0, sketch: Sketch = None) -> List[str]
 
 @@ variables
-dirname: str - missing variable description
-filename: str = 'frame_####.png' - missing variable description
-limit: int = 0 - missing variable description
-period: float = 0.0 - missing variable description
-sketch: Sketch = None - missing variable description
-start: int = None - missing variable description
+dirname: str - directory to save the frames
+filename: str = 'frame_####.png' - filename template to use for saved frames
+limit: int = 0 - limit the number of frames to save (default 0 means no limit)
+period: float = 0.0 - time in seconds between Sketch snapshots (default 0 means no delay)
+sketch: Sketch = None - running Sketch
+start: int = None - frame starting number instead of Sketch frame_count
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Save a running Sketch's frames to a directory.
+
+By default the Sketch will be the currently running Sketch, as returned by :doc:`get_current_sketch`. Use the ``sketch`` parameter to specify a different running Sketch, such as a Sketch created using Class mode.
+
+If the ``limit`` parameter is used, this function will wait to return a list of the filenames. If not, it will return right away as the frames are saved in the background. It will keep doing so as long as the Sketch continues to run.
+
+@@ example
+import py5_tools
+
+py5.run_sketch()
+# save the next 50 frames to the `/tmp/frames` directory
+frames = py5_tools.save_frames('/tmp/frames', limit=50, start=0)

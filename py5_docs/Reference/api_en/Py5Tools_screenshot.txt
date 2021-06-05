@@ -8,7 +8,21 @@ subcategory = None
 screenshot(*, sketch: Sketch = None) -> PIL.Image
 
 @@ variables
-sketch: Sketch = None - missing variable description
+sketch: Sketch = None - running Sketch
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Take a screenshot of a running Sketch.
+
+By default the Sketch will be the currently running Sketch, as returned by :doc:`get_current_sketch`. Use the ``sketch`` parameter to specify a different running Sketch, such as a Sketch created using Class mode.
+
+The returned image is a ``PIL.Image`` object. It can be assigned to a variable or embedded in the notebook.
+
+@@ example
+import time
+import py5_tools
+
+py5.run_sketch()
+# take a screenshot of the running sketch after a two second delay
+time.sleep(2)
+img = py5_tools.screenshot()
+img.save('image.png')
