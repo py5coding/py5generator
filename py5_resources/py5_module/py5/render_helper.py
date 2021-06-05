@@ -4,12 +4,13 @@ from typing import Callable, Tuple, Dict, List, NewType
 import numpy as np
 
 import PIL
+import PIL.ImageFile
 from PIL import Image
 
 from .sketch import Sketch
 
 
-PIL_Image = NewType('PIL_Image', PIL.Image)
+PIL_ImageFile = NewType('PIL_ImageFile', PIL.ImageFile.ImageFile)
 
 
 class RenderHelperSketch(Sketch):
@@ -91,7 +92,7 @@ class RenderHelperGraphicsCanvas(Sketch):
 def render_frame(draw: Callable, width: int, height: int,
                  renderer: str = Sketch.HIDDEN, *,
                  draw_args: Tuple = None, draw_kwargs: Dict = None,
-                 use_py5graphics=False) -> Image:
+                 use_py5graphics=False) -> PIL.ImageFile.ImageFile:
     """$module_Py5Functions_render_frame"""
     HelperClass = RenderHelperGraphicsCanvas if use_py5graphics else RenderHelperSketch
     ahs = HelperClass(None, draw, width, height, renderer,
@@ -107,7 +108,7 @@ def render_frame_sequence(draw: Callable, width: int, height: int,
                           limit: int = 1, setup: Callable = None,
                           setup_args: Tuple = None, setup_kwargs: Dict = None,
                           draw_args: Tuple = None, draw_kwargs: Dict = None,
-                          use_py5graphics=False) -> List[PIL_Image]:
+                          use_py5graphics=False) -> List[PIL_ImageFile]:
     """$module_Py5Functions_render_frame_sequence"""
     HelperClass = RenderHelperGraphicsCanvas if use_py5graphics else RenderHelperSketch
     ahs = HelperClass(setup, draw, width, height, renderer, limit=limit,
@@ -120,7 +121,7 @@ def render_frame_sequence(draw: Callable, width: int, height: int,
 
 
 def render(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
-           use_py5graphics=False) -> Image:
+           use_py5graphics=False) -> PIL.ImageFile.ImageFile:
     """$module_Py5Functions_render"""
     def decorator(draw):
         @functools.wraps(draw)
@@ -135,7 +136,7 @@ def render(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
 def render_sequence(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
                     limit: int = 1, setup: Callable = None,
                     setup_args: Tuple = None, setup_kwargs: Dict = None,
-                    use_py5graphics=False) -> List[PIL_Image]:
+                    use_py5graphics=False) -> List[PIL_ImageFile]:
     """$module_Py5Functions_render_sequence"""
     def decorator(draw):
         @functools.wraps(draw)

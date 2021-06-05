@@ -20,17 +20,19 @@
 import time
 from pathlib import Path
 import tempfile
-from typing import TypeVar, List
+from typing import NewType, List
 
 import PIL
+import PIL.ImageFile
 
 from .hooks import ScreenshotHook, SaveFramesHook, GrabFramesHook
 
 
-Sketch = TypeVar('Sketch')
+Sketch = 'Sketch'
+PIL_ImageFile = NewType('PIL_ImageFile', PIL.ImageFile.ImageFile)
 
 
-def screenshot(*, sketch: Sketch = None) -> PIL.Image:
+def screenshot(*, sketch: Sketch = None) -> PIL.ImageFile.ImageFile:
     """$module_Py5Tools_screenshot"""
     if sketch is None:
         import py5
@@ -128,7 +130,7 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
         raise RuntimeError('error running magic: ' + str(hook.exception))
 
 
-def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None) -> List[PIL.Image]:
+def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None) -> List[PIL_ImageFile]:
     """$module_Py5Tools_capture_frames"""
     if sketch is None:
         import py5

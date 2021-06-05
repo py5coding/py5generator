@@ -18,7 +18,6 @@
 #
 # *****************************************************************************
 import io
-from typing import TypeVar
 
 from ipykernel.zmqshell import ZMQInteractiveShell
 import ipywidgets as widgets
@@ -29,7 +28,7 @@ import PIL
 from .hooks import SketchPortalHook
 
 
-Sketch = TypeVar('Sketch')
+Sketch = 'Sketch'
 
 
 class Py5SketchPortal(widgets.Image):

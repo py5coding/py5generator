@@ -17,10 +17,7 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from typing import TypeVar
-
-
-Sketch = TypeVar('Sketch')
+Sketch = 'Sketch'
 
 
 class Py5SketchPortal:
