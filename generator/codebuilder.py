@@ -267,6 +267,8 @@ class CodeBuilder:
         self.module_members.append(f'\n{"#" * 78}\n# module functions from {filename.name}\n{"#" * 78}\n')
         method_code = code.split('*** BEGIN METHODS ***')[1].strip()
         for decorator, fname, arg0, args, rettypestr, fake_decorator in METHOD_REGEX.findall(method_code):
+            if not rettypestr:
+                raise RuntimeError(f"missing return typehint for method {fname} in file {filename}")
             if fname.startswith('_') and not fake_decorator:
                 continue
             elif decorator == '@overload':
