@@ -192,6 +192,10 @@ class Py5Methods:
             return False
 
     @JOverride
+    def py5_println(self, text):
+        self._sketch.println(text)
+
+    @JOverride
     def shutdown(self):
         try:
             self._sketch._shutdown()

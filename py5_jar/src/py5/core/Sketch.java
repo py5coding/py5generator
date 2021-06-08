@@ -32,11 +32,14 @@ import com.jogamp.newt.opengl.GLWindow;
 
 import jogamp.newt.driver.macosx.WindowDriver;
 import jogamp.opengl.macosx.cgl.MacOSXOnscreenCGLDrawable;
-
+import processing.awt.PGraphicsJava2D;
 import processing.core.PApplet;
+import processing.core.PMatrix2D;
 import processing.core.PShape;
 import processing.core.PSurface;
 import processing.event.MouseEvent;
+import processing.javafx.PGraphicsFX2D;
+import processing.opengl.PGraphicsOpenGL;
 
 public class Sketch extends PApplet {
 
@@ -63,6 +66,10 @@ public class Sketch extends PApplet {
 
   public boolean getSuccess() {
     return success;
+  }
+
+  public void py5Println(String text) {
+    py5Methods.py5_println(text);
   }
 
   @Override
@@ -219,7 +226,8 @@ public class Sketch extends PApplet {
       for (int i = 0; i < window.getGLEventListenerCount(); i++) {
         window.disposeGLEventListener(window.getGLEventListener(i), true);
       }
-      // this helps but does not completely fix https://github.com/hx2A/py5generator/issues/7
+      // this helps but does not completely fix
+      // https://github.com/hx2A/py5generator/issues/7
       if (platform == MACOS && !success) {
         final MacOSXOnscreenCGLDrawable drawable = (MacOSXOnscreenCGLDrawable) window.getDelegatedDrawable();
         WindowDriver driver = (WindowDriver) drawable.getNativeSurface();
@@ -337,4 +345,36 @@ public class Sketch extends PApplet {
     Py5GraphicsHelper.quadraticVertices(g, coordinates);
   }
 
+  /*
+   * Override 3 print functions to direct the output through py5
+   */
+
+  @Override
+  public void printMatrix() {
+    if (g instanceof PGraphicsJava2D) {
+      py5Println(PrintUtils.toString(((PGraphicsJava2D) g).getMatrix((PMatrix2D) null)));
+    } else if (g instanceof PGraphicsOpenGL) {
+      py5Println(PrintUtils.toString(((PGraphicsOpenGL) g).modelview));
+    } else if (g instanceof PGraphicsFX2D) {
+      py5Println(PrintUtils.toString(((PGraphicsFX2D) g).getMatrix((PMatrix2D) null)));
+    }
+  }
+
+  @Override
+  public void printCamera() {
+    if (g instanceof PGraphicsOpenGL) {
+      py5Println(PrintUtils.toString(((PGraphicsOpenGL) g).camera));
+    } else {
+      py5Println("print_camera() is not available with this renderer.");
+    }
+  }
+
+  @Override
+  public void printProjection() {
+    if (g instanceof PGraphicsOpenGL) {
+      py5Println(PrintUtils.toString(((PGraphicsOpenGL) g).projection));
+    } else {
+      py5Println("print_projection() is not available with this renderer.");
+    }
+  }
 }
