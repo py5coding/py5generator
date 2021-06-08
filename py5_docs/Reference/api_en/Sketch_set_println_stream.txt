@@ -8,7 +8,30 @@ subcategory = text_area
 set_println_stream(println_stream: Any) -> None
 
 @@ variables
-println_stream: Any - missing variable description
+println_stream: Any - println stream object to be used by println method
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Customize where the output of :doc:`println` goes.
+
+When running a Sketch asynchronously through Jupyter Notebook, any ``print`` statements using Python's builtin function will always appear in the output of the currently active cell. This will rarely be desirable, as the active cell will keep changing as the user executes code elsewhere in the notebook. The :doc:`println` method was created to provide users with print functionality in a Sketch without having to cope with output moving from one cell to the next. Use ``set_println_stream`` to change how the output is handled. For example, output can go to an IPython Widget, as shown in the example.
+
+@@ example
+import ipywidgets as widgets
+from IPython.display import display
+
+
+class WidgetPrintlnStream:
+
+    def init(self):
+        self.out = widgets.Output(layout=dict(
+            max_height='200px', overflow='auto'))
+        display(self.out)
+
+    def print(self, text, end='\n', stderr=False):
+        if stderr:
+            self.out.append_stderr(text + end)
+        else:
+            self.out.append_stdout(text + end)
+
+
+py5.set_println_stream(WidgetPrintlnStream())
