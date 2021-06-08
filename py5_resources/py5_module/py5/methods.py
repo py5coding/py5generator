@@ -18,7 +18,6 @@
 #
 # *****************************************************************************
 import sys
-import logging
 from pathlib import Path
 from collections import defaultdict
 from io import StringIO
@@ -35,9 +34,6 @@ from . import custom_exceptions
 
 _JavaNullPointerException = JClass('java.lang.NullPointerException')
 
-logger = logging.getLogger(__name__)
-
-
 # *** stacktrace configuration ***
 # set stackprinter color style. Default is plaintext. Other choices are darkbg,
 # darkbg2, darkbg3, lightbg, lightbg2, lightbg3.
@@ -52,7 +48,7 @@ _EXCEPTION_MSGS = {
 }
 
 
-def _exception_msg(exc_type_name, exc_msg, py5info):
+def _exception_msg(println, exc_type_name, exc_msg, py5info):
     try:
         msg = _EXCEPTION_MSGS.get(exc_type_name, exc_msg)
         if isinstance(msg, str):
@@ -60,10 +56,10 @@ def _exception_msg(exc_type_name, exc_msg, py5info):
         elif callable(msg):
             return msg(exc_type_name, exc_msg, py5info)
         else:
-            logger.error(f'unknown exception msg type for {exc_type_name}: {type(msg).__name__}')
+            println(f'unknown exception msg type for {exc_type_name}: {type(msg).__name__}', stderr=True)
             return exc_msg
     except Exception as e:
-        logger.error(f'error generating exception msg for {exc_type_name}: {e}')
+        println(f'error generating exception msg for {exc_type_name}: {e}', stderr=True)
         return exc_msg
 
 
@@ -71,7 +67,7 @@ def register_exception_msg(exc_type_name: str, msg: Union[str, callable]):
     _EXCEPTION_MSGS[exc_type_name] = msg
 
 
-def handle_exception(exc_type, exc_value, exc_tb):
+def handle_exception(println, exc_type, exc_value, exc_tb):
     py5info = []
     try:
         if _prune_tracebacks and hasattr(exc_tb, 'tb_next'):
@@ -90,7 +86,7 @@ def handle_exception(exc_type, exc_value, exc_tb):
             if trim_tb:
                 trim_tb.tb_next = None
     except Exception as e:
-        logger.critical(f'Exception thrown while examining error traceback: {str(e)}')
+        println(f'Exception thrown while examining error traceback: {str(e)}', stderr=True)
 
     errmsg = stackprinter.format(
         thing=(exc_type, exc_value, exc_tb.tb_next),
@@ -101,9 +97,9 @@ def handle_exception(exc_type, exc_value, exc_tb):
 
     if _prune_tracebacks:
         errmsg = errmsg.replace(str(exc_value),
-                                _exception_msg(exc_type.__name__, str(exc_value), py5info))
+                                _exception_msg(println, exc_type.__name__, str(exc_value), py5info))
 
-    logger.critical(errmsg)
+    println(errmsg, stderr=True)
 
     sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
 
@@ -217,17 +213,15 @@ class Py5Methods:
                         hook(self._sketch)
             return True
         except Exception:
-            handle_exception(*sys.exc_info())
+            handle_exception(self._sketch.println, *sys.exc_info())
             self._sketch._terminate_sketch()
             return False
 
     @JOverride
     def shutdown(self):
-        logger.info('shutdown initiated')
         try:
             self._sketch._shutdown()
             self._is_terminated = True
             self.terminate_hooks()
-            logger.info('shutdown complete')
         except Exception:
-            logger.exception('exception in sketch shutdown sequence')
+            self._sketch.println('exception in sketch shutdown sequence', stderr=True)
