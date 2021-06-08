@@ -20,8 +20,6 @@
 import sys
 from pathlib import Path
 from collections import defaultdict
-from io import StringIO
-from contextlib import redirect_stderr, redirect_stdout
 from typing import Union
 import line_profiler
 
@@ -107,10 +105,8 @@ def handle_exception(println, exc_type, exc_value, exc_tb):
 @JImplements('py5.core.Py5Methods')
 class Py5Methods:
 
-    def __init__(self, sketch, _stream_redirect=None):
+    def __init__(self, sketch):
         self._sketch = sketch
-        self._stream_redirect = _stream_redirect
-
         self._functions = dict()
         self._pre_hooks = defaultdict(dict)
         self._post_hooks = defaultdict(dict)
@@ -175,28 +171,6 @@ class Py5Methods:
 
     @JOverride
     def run_method(self, method_name, params):
-        if self._stream_redirect:
-            return self._stream_redirect_run_method(method_name, params)
-        else:
-            return self._run_method(method_name, params)
-
-    def _stream_redirect_run_method(self, method_name, params):
-        stdout, stderr = StringIO(), StringIO()
-
-        with redirect_stdout(stdout), redirect_stderr(stderr):
-            retval = self._run_method(method_name, params)
-
-        stdout_val = stdout.getvalue()
-        if stdout_val:
-            self._stream_redirect('stdout', stdout_val)
-
-        stderr_val = stderr.getvalue()
-        if stderr_val:
-            self._stream_redirect('stderr', stderr_val)
-
-        return retval
-
-    def _run_method(self, method_name, params):
         try:
             if method_name in self._functions:
                 # first run the pre-hooks, if any

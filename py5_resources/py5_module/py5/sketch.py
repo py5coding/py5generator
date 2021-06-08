@@ -98,8 +98,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintStream, Py5Bas
             pass
 
     def run_sketch(self, block: bool = None, *,
-                   py5_options: List = None, sketch_args: List = None,
-                   stream_redirect: Callable = None) -> None:
+                   py5_options: List = None, sketch_args: List = None) -> None:
         """$class_Sketch_run_sketch"""
         if block is None:
             block = not _in_ipython_session
@@ -111,32 +110,16 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintStream, Py5Bas
             )
 
         methods = dict([(e, getattr(self, e)) for e in reference.METHODS if hasattr(self, e) and callable(getattr(self, e))])
-        self._run_sketch(methods, block, py5_options, sketch_args, stream_redirect)
+        self._run_sketch(methods, block, py5_options, sketch_args)
 
     def _run_sketch(self,
                     methods: Dict[str, Callable],
                     block: bool,
                     py5_options: List[str] = None,
-                    sketch_args: List[str] = None,
-                    stream_redirect: Callable = None) -> None:
-        # if stream_redirect is None and _in_jupyter_zmq_shell:
-        #     import ipywidgets as widgets
-        #     from IPython.display import display
-
-        #     out = widgets.Output(layout=dict(max_height='200px', overflow='auto'))
-        #     display(out)
-
-        #     def widget_stream(name, text):
-        #         if name == 'stdout':
-        #             out.append_stdout(text)
-        #         elif name == 'stderr':
-        #             out.append_stderr(text)
-
-        #     stream_redirect = widget_stream
-
+                    sketch_args: List[str] = None) -> None:
         self._init_print_stream()
 
-        self._py5_methods = Py5Methods(self, _stream_redirect=stream_redirect)
+        self._py5_methods = Py5Methods(self)
         self._py5_methods.set_functions(**methods)
         self._py5_methods.profile_functions(self._methods_to_profile)
         self._py5_methods.add_pre_hooks(self._pre_hooks_to_add)
