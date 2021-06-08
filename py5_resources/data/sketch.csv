@@ -227,7 +227,8 @@ get_class,getClass,,method,,,SKIP,public methods that shouldn't be available to 
 notify,notify,,method,,,SKIP,public methods that shouldn't be available to users
 notify_all,notifyAll,,method,,,SKIP,public methods that shouldn't be available to users
 text,text,@_text_fix_str,method,typography,loading_displaying,JAVA,
-println,println,,method,output,text_area,SKIP,user should use python instead
+println,println,,method,output,text_area,PYTHON,override to provide special print tools for managing print output from a running sketch
+set_print_stream,,,method,output,text_area,PYTHON,special print tools for managing print output from a running sketch
 main,main,,method,,,SKIP,public methods that shouldn't be available to users
 exit_sketch,exit,,method,structure,,JAVA,renamed because of conflict with builtin python function
 get,get,@_return_py5image,method,image,pixels,JAVA,

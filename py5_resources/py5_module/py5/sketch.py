@@ -18,10 +18,8 @@
 #
 # *****************************************************************************
 # *** FORMAT PARAMS ***
-import sys
 import time
 import os
-import logging
 from pathlib import Path
 import functools
 from typing import overload, Any, Callable, Union, Dict, List  # noqa
@@ -34,7 +32,7 @@ import numpy as np  # noqa
 
 from .methods import Py5Methods
 from .base import Py5Base
-from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin
+from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintStream, _DefaultPrintStream, _DisplayPubPrintStream
 from .mixins.threads import Py5Promise  # noqa
 from .image import Py5Image, _return_py5image  # noqa
 from .shape import Py5Shape, _return_py5shape, _load_py5shape  # noqa
@@ -63,8 +61,6 @@ except NameError:
     _ipython_shell = None
     _in_jupyter_zmq_shell = False
 
-logger = logging.getLogger(__name__)
-
 
 def _auto_convert_to_py5image(f):
     @functools.wraps(f)
@@ -78,7 +74,7 @@ def _auto_convert_to_py5image(f):
     return decorated
 
 
-class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
+class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintStream, Py5Base):
     """$classdoc_Sketch
     """
 
@@ -92,6 +88,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_methods = None
+        self.set_print_stream(_DisplayPubPrintStream() if _in_jupyter_zmq_shell else _DefaultPrintStream())
 
         # attempt to instantiate Py5Utilities
         self.utils = None
@@ -122,20 +119,22 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
                     py5_options: List[str] = None,
                     sketch_args: List[str] = None,
                     stream_redirect: Callable = None) -> None:
-        if stream_redirect is None and _in_jupyter_zmq_shell:
-            import ipywidgets as widgets
-            from IPython.display import display
+        # if stream_redirect is None and _in_jupyter_zmq_shell:
+        #     import ipywidgets as widgets
+        #     from IPython.display import display
 
-            out = widgets.Output(layout=dict(max_height='200px', overflow='auto'))
-            display(out)
+        #     out = widgets.Output(layout=dict(max_height='200px', overflow='auto'))
+        #     display(out)
 
-            def widget_stream(name, text):
-                if name == 'stdout':
-                    out.append_stdout(text)
-                elif name == 'stderr':
-                    out.append_stderr(text)
+        #     def widget_stream(name, text):
+        #         if name == 'stdout':
+        #             out.append_stdout(text)
+        #         elif name == 'stderr':
+        #             out.append_stderr(text)
 
-            stream_redirect = widget_stream
+        #     stream_redirect = widget_stream
+
+        self._init_print_stream()
 
         self._py5_methods = Py5Methods(self, _stream_redirect=stream_redirect)
         self._py5_methods.set_functions(**methods)
@@ -153,7 +152,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         try:
             _Sketch.runSketch(args, self._instance)
         except Exception:
-            logger.exception('Java exception thrown by Sketch.runSketch')
+            self.println('Java exception thrown by Sketch.runSketch', stderr=True)
 
         if block:
             # wait for the sketch to finish
