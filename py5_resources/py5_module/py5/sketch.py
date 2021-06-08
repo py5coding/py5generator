@@ -32,7 +32,7 @@ import numpy as np  # noqa
 
 from .methods import Py5Methods
 from .base import Py5Base
-from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintStream, _DefaultPrintStream, _DisplayPubPrintStream
+from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, _DefaultPrintlnStream, _DisplayPubPrintlnStream
 from .mixins.threads import Py5Promise  # noqa
 from .image import Py5Image, _return_py5image  # noqa
 from .shape import Py5Shape, _return_py5shape, _load_py5shape  # noqa
@@ -74,7 +74,7 @@ def _auto_convert_to_py5image(f):
     return decorated
 
 
-class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintStream, Py5Base):
+class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5Base):
     """$classdoc_Sketch
     """
 
@@ -88,7 +88,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintStream, Py5Bas
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_methods = None
-        self.set_print_stream(_DisplayPubPrintStream() if _in_jupyter_zmq_shell else _DefaultPrintStream())
+        self.set_println_stream(_DisplayPubPrintlnStream() if _in_jupyter_zmq_shell else _DefaultPrintlnStream())
 
         # attempt to instantiate Py5Utilities
         self.utils = None
@@ -117,7 +117,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintStream, Py5Bas
                     block: bool,
                     py5_options: List[str] = None,
                     sketch_args: List[str] = None) -> None:
-        self._init_print_stream()
+        self._init_println_stream()
 
         self._py5_methods = Py5Methods(self)
         self._py5_methods.set_functions(**methods)

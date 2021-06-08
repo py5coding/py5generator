@@ -21,7 +21,7 @@ import sys
 from typing import Any
 
 
-class _DefaultPrintStream:
+class _DefaultPrintlnStream:
 
     def init(self):
         pass
@@ -34,7 +34,7 @@ try:
     _ipython_shell = get_ipython()  # type: ignore
 
 
-    class _DisplayPubPrintStream:
+    class _DisplayPubPrintlnStream:
 
         def init(self):
             self.display_pub = _ipython_shell.display_pub
@@ -48,7 +48,7 @@ try:
             self.display_pub.session.send(self.display_pub.pub_socket, msg, ident=b'stream')
 
 except:
-    _DisplayPubPrintStream = _DefaultPrintStream
+    _DisplayPubPrintlnStream = _DefaultPrintlnStream
 
 
 try:
@@ -56,7 +56,7 @@ try:
     from IPython.display import display
 
 
-    class _WidgetPrintStream:
+    class _WidgetPrintlnStream:
 
         def init(self):
             self.out = widgets.Output(layout=dict(
@@ -70,23 +70,25 @@ try:
                 self.out.append_stdout(text + end)
 
 except:
-    _WidgetPrintStream = _DefaultPrintStream
+    _WidgetPrintlnStream = _DefaultPrintlnStream
 
 
-class PrintStream:
+class PrintlnStream:
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._print_stream = None
+        self._println_stream = None
 
-    def _init_print_stream(self):
-        self._print_stream.init()
+    def _init_println_stream(self):
+        self._println_stream.init()
 
     # *** BEGIN METHODS ***
 
-    def set_print_stream(self, print_stream: Any) -> None:
-        self._print_stream = print_stream
+    def set_println_stream(self, println_stream: Any) -> None:
+        """$class_Sketch_set_println_stream"""
+        self._println_stream = println_stream
 
-    def println(self, *args, end: str = '\n', stderr: bool = False) -> None:
-        self._print_stream.print(' '.join(str(x)
-                                 for x in args), end=end, stderr=stderr)
+    def println(self, *args, sep: str = ' ', end: str = '\n', stderr: bool = False) -> None:
+        """$class_Sketch_println"""
+        self._println_stream.print(sep.join(str(x)
+                                   for x in args), end=end, stderr=stderr)

@@ -5,11 +5,12 @@ category = None
 subcategory = None
 
 @@ signatures
-println(*args, end: str = '\n', stderr: bool = False) -> None
+println(*args, sep: str = ' ', end: str = '\n', stderr: bool = False) -> None
 
 @@ variables
 args - missing variable description
-end: str = '\n' - missing variable description
+end: str = '\n' - terminator character
+sep: str = ' ' - missing variable description
 stderr: bool = False - missing variable description
 
 @@ description
