@@ -28,7 +28,7 @@ import inspect
 from typing import overload, Any, Callable, Union, Dict, List, Tuple  # noqa
 from nptyping import NDArray, Float, Int  # noqa
 
-import json  # noqa
+# import json  # noqa
 import numpy as np  # noqa
 from PIL import Image  # noqa
 from jpype import JClass  # noqa
