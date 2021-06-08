@@ -25,7 +25,7 @@ public interface Py5Methods {
 
   public boolean run_method(String method_name, Object... params);
 
-  public void py5_println(String text);
+  public void py5_println(String text, boolean stderr);
 
   public void shutdown();
 

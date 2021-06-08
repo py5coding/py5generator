@@ -69,7 +69,11 @@ public class Sketch extends PApplet {
   }
 
   public void py5Println(String text) {
-    py5Methods.py5_println(text);
+    py5Methods.py5_println(text, false);
+  }
+
+  public void py5Println(String text, boolean stderr) {
+    py5Methods.py5_println(text, stderr);
   }
 
   @Override
