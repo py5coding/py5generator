@@ -13,7 +13,7 @@ println_stream: Any - println stream object to be used by println method
 @@ description
 Customize where the output of :doc:`println` goes.
 
-When running a Sketch asynchronously through Jupyter Notebook, any ``print`` statements using Python's builtin function will always appear in the output of the currently active cell. This will rarely be desirable, as the active cell will keep changing as the user executes code elsewhere in the notebook. The :doc:`println` method was created to provide users with print functionality in a Sketch without having to cope with output moving from one cell to the next. Use ``set_println_stream`` to change how the output is handled. For example, output can go to an IPython Widget, as shown in the example.
+When running a Sketch asynchronously through Jupyter Notebook, any ``print`` statements using Python's builtin function will always appear in the output of the currently active cell. This will rarely be desirable, as the active cell will keep changing as the user executes code elsewhere in the notebook. The :doc:`println` method was created to provide users with print functionality in a Sketch without having to cope with output moving from one cell to the next. Use ``set_println_stream`` to change how the output is handled. The ``println_stream`` object must provide ``init()`` and ``print()`` methods, as shown in the example. The example demonstrates how to configure py5 to output text to an IPython Widget.
 
 @@ example
 import ipywidgets as widgets

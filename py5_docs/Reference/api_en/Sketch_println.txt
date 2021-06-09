@@ -1,16 +1,16 @@
 @@ meta
 name = println()
 type = method
-category = None
-subcategory = None
+category = output
+subcategory = text_area
 
 @@ signatures
 println(*args, sep: str = ' ', end: str = '\n', stderr: bool = False) -> None
 
 @@ variables
 args - values to be printed
-end: str = '\n' - string appended after the last value
-sep: str = ' ' - string inserted between values
+end: str = '\n' - string appended after the last value, defaults to newline character
+sep: str = ' ' - string inserted between values, defaults to a space
 stderr: bool = False - use stderr instead of stdout
 
 @@ description
