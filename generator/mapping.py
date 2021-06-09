@@ -168,7 +168,7 @@ def prepare_mapping(method_signatures_lookup):
                 signatures_txt = '\n'.join(sorted([f' * {s}' for s in signatures]))
                 extras += SIGNATURES_TEMPLATE.format(signatures_txt)
             if variables:
-                variables_txt = [f'{k}\n    {v}\n' for k, v in variables.items()]
+                variables_txt = [f'{k}\n    {v}\n'.replace('\\', '\\\\') for k, v in variables.items()]
                 extras += PARAMETERS_TEMPLATE.format('\n'.join(sorted(variables_txt)))[:-1]
             docstring = METHOD_DOC_TEMPLATE.format(first_sentence + extras, description)
         else:

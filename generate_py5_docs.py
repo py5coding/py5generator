@@ -234,6 +234,7 @@ def format_parameters(variables):
         for var, desc in variables.items():
             if ':' in var:
                 varname, vartype = var.split(':')
+                vartype = vartype.replace('\\', '\\\\')
                 out += f'* **{varname}**: `{vartype.strip()}` - {desc}\n'
             else:
                 out += f'* **{var}**: - {desc}\n'
