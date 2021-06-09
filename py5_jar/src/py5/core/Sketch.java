@@ -242,10 +242,10 @@ public class Sketch extends PApplet {
       }
       // this helps but does not completely fix
       // https://github.com/hx2A/py5generator/issues/7
-      if (platform == MACOS && !success) {
+      if (platform == MACOS) {
         final MacOSXOnscreenCGLDrawable drawable = (MacOSXOnscreenCGLDrawable) window.getDelegatedDrawable();
         WindowDriver driver = (WindowDriver) drawable.getNativeSurface();
-        driver.shutdownAll();
+        driver.destroy();
       }
     }
     if (nativeWindow instanceof Window) {
