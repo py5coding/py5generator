@@ -209,6 +209,16 @@ public class Sketch extends PApplet {
     }
   }
 
+  // Support the Processing Video library. The passed movie parameter will be a
+  // processing.video.Movie object but that won't compile right now because the
+  // Processing Video library is not yet a part of py5. Interestingly, jype is
+  // able to sort out the actual object type.
+  public void movieEvent(Object movie) {
+    if (success && py5RegisteredEvents.contains("movie_event")) {
+      success = py5Methods.run_method("movie_event", movie);
+    }
+  }
+
   @Override
   public void exitActual() {
     // TODO: This function needs to be re-written by someone who knows something
