@@ -35,7 +35,7 @@ class Py5SketchPortal(widgets.Image):
     pass
 
 
-def sketch_portal(*, frame_rate: float = 10.0, time_limit: float = 0.0,
+def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = None,
                   scale: float = 1.0, quality: int = 75,
                   portal_widget: Py5SketchPortal = None, sketch: Sketch = None,
                   hook_post_draw: bool = False) -> None:
@@ -62,8 +62,8 @@ def sketch_portal(*, frame_rate: float = 10.0, time_limit: float = 0.0,
 
     if not sketch.is_running:
         raise RuntimeError(f'The {prefix} sketch is not running')
-    if frame_rate <= 0:
-        raise RuntimeError('The frame_rate parameter must be greater than zero')
+    if throttle_frame_rate is not None and throttle_frame_rate <= 0:
+        raise RuntimeError('The throttle_frame_rate parameter must be None or greater than zero')
     if time_limit < 0:
         raise RuntimeError('The time_limit parameter must be greater than or equal to zero')
     if quality < 1 or quality > 100:
@@ -83,6 +83,6 @@ def sketch_portal(*, frame_rate: float = 10.0, time_limit: float = 0.0,
         img.save(b, format='JPEG', quality=quality)
         portal_widget.value = b.getvalue()
 
-    hook = SketchPortalHook(displayer, frame_rate, time_limit)
+    hook = SketchPortalHook(displayer, throttle_frame_rate, time_limit)
 
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)

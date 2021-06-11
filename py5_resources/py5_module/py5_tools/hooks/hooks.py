@@ -109,10 +109,10 @@ class GrabFramesHook(BaseHook):
 
 
 class SketchPortalHook(BaseHook):
-    def __init__(self, displayer, frame_rate, time_limit):
+    def __init__(self, displayer, throttle_frame_rate, time_limit):
         super().__init__('py5sketch_portal_hook')
         self.displayer = displayer
-        self.period = 1 / frame_rate
+        self.period = 1 / throttle_frame_rate if throttle_frame_rate else 0
         self.time_limit = time_limit
         self.last_frame_time = 0
         self.start_time = time.time()
@@ -121,7 +121,7 @@ class SketchPortalHook(BaseHook):
         try:
             if self.time_limit and time.time() > self.start_time + self.time_limit:
                 self.hook_finished(sketch)
-            if time.time() - self.last_frame_time < self.period:
+            if time.time() < self.last_frame_time + self.period:
                 return
             sketch.load_np_pixels()
             self.displayer(sketch.np_pixels[:, :, 1:])

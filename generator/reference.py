@@ -145,7 +145,7 @@ EXTRA_METHOD_SIGNATURES = {
           'hook_post_draw: bool = False'], 'List[PIL.Image]')
     ],
     ('Py5Tools', 'sketch_portal'): [
-        (['*', 'frame_rate: float = 10.0', 'time_limit: float = 0.0',
+        (['*', 'time_limit: float = 0.0', 'throttle_frame_rate: float = None',
           'scale: float = 1.0', 'quality: int = 75',
           'portal_widget: Py5SketchPortal = None', 'sketch: Sketch = None',
           'hook_post_draw: bool = False'], 'None')
