@@ -37,7 +37,8 @@ class Py5SketchPortal(widgets.Image):
 
 def sketch_portal(*, frame_rate: float = 10.0, time_limit: float = 0.0,
                   scale: float = 1.0, quality: int = 75,
-                  portal_widget: Py5SketchPortal = None, sketch: Sketch = None) -> None:
+                  portal_widget: Py5SketchPortal = None, sketch: Sketch = None,
+                  hook_post_draw: bool = False) -> None:
     """$module_Py5Tools_sketch_portal"""
     try:
         __IPYTHON__  # type: ignore
@@ -83,4 +84,5 @@ def sketch_portal(*, frame_rate: float = 10.0, time_limit: float = 0.0,
         portal_widget.value = b.getvalue()
 
     hook = SketchPortalHook(displayer, frame_rate, time_limit)
-    sketch._add_post_hook('draw', hook.hook_name, hook)
+
+    sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)

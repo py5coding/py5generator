@@ -32,7 +32,7 @@ Sketch = 'Sketch'
 PIL_ImageFile = NewType('PIL_ImageFile', PIL.ImageFile.ImageFile)
 
 
-def screenshot(*, sketch: Sketch = None) -> PIL.ImageFile.ImageFile:
+def screenshot(*, sketch: Sketch = None, hook_post_draw: bool = False) -> PIL.ImageFile.ImageFile:
     """$module_Py5Tools_screenshot"""
     if sketch is None:
         import py5
@@ -47,7 +47,7 @@ def screenshot(*, sketch: Sketch = None) -> PIL.ImageFile.ImageFile:
     with tempfile.TemporaryDirectory() as tempdir:
         temp_png = Path(tempdir) / 'output.png'
         hook = ScreenshotHook(temp_png)
-        sketch._add_post_hook('draw', hook.hook_name, hook)
+        sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
         while not hook.is_ready and not hook.is_terminated:
             time.sleep(0.005)
@@ -60,7 +60,7 @@ def screenshot(*, sketch: Sketch = None) -> PIL.ImageFile.ImageFile:
 
 def save_frames(dirname: str, *, filename: str = 'frame_####.png',
                 period: float = 0.0, start: int = None, limit: int = 0,
-                sketch: Sketch = None) -> List[str]:
+                sketch: Sketch = None, hook_post_draw: bool = False) -> List[str]:
     """$module_Py5Tools_save_frames"""
     if sketch is None:
         import py5
@@ -77,7 +77,7 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
         dirname.mkdir(parents=True)
 
     hook = SaveFramesHook(dirname, filename, period, start, limit)
-    sketch._add_post_hook('draw', hook.hook_name, hook)
+    sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
     if limit:
         while not hook.is_ready and not hook.is_terminated:
@@ -93,7 +93,8 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
 
 
 def animated_gif(filename: str, count: int, period: float, duration: float, *,
-                 loop: int = 0, optimize: bool = True, sketch: Sketch = None) -> str:
+                 loop: int = 0, optimize: bool = True, sketch: Sketch = None,
+                 hook_post_draw: bool = False) -> str:
     """$module_Py5Tools_animated_gif"""
     if sketch is None:
         import py5
@@ -108,7 +109,7 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
     filename = Path(filename)
 
     hook = GrabFramesHook(period, count)
-    sketch._add_post_hook('draw', hook.hook_name, hook)
+    sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
     while not hook.is_ready and not hook.is_terminated:
         time.sleep(0.05)
@@ -130,7 +131,8 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
         raise RuntimeError('error running magic: ' + str(hook.exception))
 
 
-def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None) -> List[PIL_ImageFile]:
+def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None,
+                   hook_post_draw: bool = False) -> List[PIL_ImageFile]:
     """$module_Py5Tools_capture_frames"""
     if sketch is None:
         import py5
@@ -143,7 +145,7 @@ def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None) 
         raise RuntimeError(f'The {prefix} sketch is not running.')
 
     hook = GrabFramesHook(period, count)
-    sketch._add_post_hook('draw', hook.hook_name, hook)
+    sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
     while not hook.is_ready and not hook.is_terminated:
         time.sleep(0.05)
