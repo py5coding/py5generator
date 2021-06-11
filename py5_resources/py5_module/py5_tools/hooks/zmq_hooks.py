@@ -21,7 +21,6 @@ import io
 
 from ipykernel.zmqshell import ZMQInteractiveShell
 import ipywidgets as widgets
-from IPython.display import display
 
 import PIL
 
@@ -73,7 +72,6 @@ def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = None,
 
     if portal_widget is None:
         portal_widget = Py5SketchPortal()
-        display(portal_widget)
 
     def displayer(frame):
         img = PIL.Image.fromarray(frame)
@@ -86,3 +84,5 @@ def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = None,
     hook = SketchPortalHook(displayer, throttle_frame_rate, time_limit)
 
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
+
+    return portal_widget

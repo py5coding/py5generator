@@ -17,7 +17,7 @@ throttle_frame_rate: float = None - throttle portal frame rate below Sketch's fr
 time_limit: float = 0.0 - time limit in seconds for Sketch portal; set to 0 (default) for no limit
 
 @@ description
-Opens a portal to continuously stream frames from a running Sketch into a Jupyter notebook. Each frame will appear embedded in the notebook, with each new frame replacing the previous frame.
+Creates a portal widget to continuously stream frames from a running Sketch into a Jupyter notebook. Each frame will appear embedded in the notebook, with each new frame replacing the previous frame.
 
 By default the Sketch will be the currently running Sketch, as returned by :doc:`get_current_sketch`. Use the ``sketch`` parameter to specify a different running Sketch, such as a Sketch created using Class mode.
 
@@ -40,4 +40,6 @@ import py5_tools
 
 py5.run_sketch()
 # stream frames from the currently running sketch for 5 seconds
-py5_tools.sketch_portal(time_limit=5)
+portal = py5_tools.sketch_portal(time_limit=5)
+
+portal
