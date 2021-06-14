@@ -1,8 +1,8 @@
-![py5 logo](py5_docs/images/logo.png) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hx2A/py5examples/HEAD?urlpath=lab)
+![py5 logo](py5_docs/images/logo.png)
 
 # py5
 
-![py5 PyPI Downloads](https://img.shields.io/pypi/dm/py5?label=py5%20PyPI%20downloads)
+![py5 PyPI Downloads](https://img.shields.io/pypi/dm/py5?label=py5%20PyPI%20downloads) [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hx2A/py5examples/HEAD?urlpath=lab)
 
 py5 is a new version of [**Processing**][processing] for Python 3.8+. It makes the Java [**Processing**][processing] jars available to the CPython interpreter using [**JPype**][jpype].
 
