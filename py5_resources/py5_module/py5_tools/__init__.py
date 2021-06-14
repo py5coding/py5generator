@@ -31,4 +31,4 @@ from . import utilities  # noqa
 from . import testing  # noqa
 
 
-__version__ = '0.4a2'
+__version__ = '0.4a3.dev0'
