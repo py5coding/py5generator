@@ -134,8 +134,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
         try:
             _Sketch.runSketch(args, self._instance)
-        except Exception:
-            self.println('Java exception thrown by Sketch.runSketch', stderr=True)
+        except Exception as e:
+            self.println('Java exception thrown by Sketch.runSketch:\n' + str(e), stderr=True)
 
         if block:
             # wait for the sketch to finish
