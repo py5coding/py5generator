@@ -19,6 +19,6 @@ pip install py5
 The documentation website, [http://py5.ixora.io/](http://py5.ixora.io/), is very much a work in progress. See the [py5 examples repository][py5_examples_repo] for some working examples.
 
 [py5_repo]: https://github.com/hx2A/py5
-[py5_examples_epo]: https://github.com/hx2A/py5examples
+[py5_examples_repo]: https://github.com/hx2A/py5examples
 [processing]: https://github.com/processing/processing4
 [jpype]: https://github.com/jpype-project/jpype
