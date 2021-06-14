@@ -11,4 +11,4 @@ The `py5 documentation website
 .. _Processing: https://github.com/processing/processing4
 .. _JPype: https://github.com/jpype-project/jpype
 .. _py5generator: https://github.com/hx2A/py5generator
-.. _py5examples: _https://github.com/hx2A/py5examples
+.. _py5examples: https://github.com/hx2A/py5examples
