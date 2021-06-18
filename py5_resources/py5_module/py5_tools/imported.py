@@ -53,45 +53,22 @@ if {1} and is_dead_from_error:
 
 SETTINGS_REGEX = re.compile(r'^def settings\(\):', flags=re.MULTILINE)
 SETUP_REGEX = re.compile(r'^def setup\(\):', flags=re.MULTILINE)
-SETUP_CODE_REGEX = re.compile(r'^def setup\(\):.*?(?=^\w|\Z)', flags=re.MULTILINE | re.DOTALL)
 DRAW_REGEX = re.compile(r'^def draw\(\):', flags=re.MULTILINE)
-CODE_REGEXES = {f: re.compile(r'^\s*(' + f + r'\([^\)]*\))', flags=re.MULTILINE)
-                for f in ['size', 'full_screen', 'smooth', 'no_smooth', 'pixel_density']}
 
 
-# TODO: this is ugly and should be done with ast instead
 def prepare_code(code):
     "transform functionless or setttings-less py5 code into code that runs"
-    if SETTINGS_REGEX.search(code):
-        return False, code
+    no_settings =  SETTINGS_REGEX.search(code) is None
     no_setup = SETUP_REGEX.search(code) is None
     no_draw = DRAW_REGEX.search(code) is None
 
-    # get just the setup function if it is defined
-    code2 = code if no_setup else SETUP_CODE_REGEX.search(code).group()
-    # find the key lines in the relevant code
-    matches = [m for m in [r.search(code2) for r in CODE_REGEXES.values()] if m]
-
-    # if anything was found, build the settings function
-    if matches:
-        lines = [(m.start(), m.group(1)) for m in matches]
-        settings = 'def settings():\n'
-        for start, line in sorted(lines):
-            settings += f'    {line}\n'
-            # replace the original line so it doesn't get called in setup
-            code = code.replace(line, f'pass  # moved to settings(): {line}')
-    else:
-        settings = ''
-
-    if no_setup and no_draw:
+    if no_settings and no_setup and no_draw:
         # put all of the remaining code into a setup function
-        remaining_code = 'def setup():\n' + textwrap.indent(code, prefix='    ')
-        remaining_code = util.fix_triple_quote_str(remaining_code)
+        new_code = 'def setup():\n' + textwrap.indent(code, prefix='    ')
+        new_code = util.fix_triple_quote_str(new_code)
+        return True, new_code
     else:
-        # remaining code has been modified with key lines moved from setup to settings
-        remaining_code = code
-
-    return True, f'{settings.strip()}\n\n{remaining_code.strip()}\n'
+        return False, code
 
 
 def run_code(sketch_path, classpath=None, new_process=False, exit_if_error=False):
