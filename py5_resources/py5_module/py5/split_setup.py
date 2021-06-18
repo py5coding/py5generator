@@ -23,15 +23,21 @@ import inspect
 
 COMMENT_LINE = re.compile(r'^\s+#.*' + chr(36), flags=re.MULTILINE)
 DOCSTRING = re.compile(r'^\s+"""[^"]*"""', flags=re.MULTILINE | re.DOTALL)
-
 MODULE_MODE_METHOD_LINE = re.compile(r'^\s+py5\.(\w+)\([^\)]*\)')
 IMPORTED_MODE_METHOD_LINE = re.compile(r'^\s+(\w+)\([^\)]*\)')
 
-FAUX_SETTINGS_TEMPLATE = "def settings():\n"
-FAUX_SETUP_TEMPLATE = "def setup():\n"
-
 
 def transform(functions, sketch_locals, *, mode):
+    """if appropriate, transform setup() into settings() and (maybe) setup()
+
+    This mimics the Processing functionality to allow users to put calls to
+    size() in the setup() method instead of settings(), where truthfully it
+    belongs. The Processing IDE will do some code transformation before Sketch
+    execution to adjust the code and make it seem like the call to size() can
+    be in setup(). This does the same thing.
+
+    This only works for module mode and imported mode.
+    """
     # return if there is nothing to do
     if 'settings' in functions or 'setup' not in functions:
         return functions
@@ -61,17 +67,21 @@ def transform(functions, sketch_locals, *, mode):
     # build the fake code
     lines, lineno = inspect.getsourcelines(setup)
     filename = inspect.getfile(setup)
-    fake_settings_code = (lineno - 1) * '\n' + FAUX_SETTINGS_TEMPLATE + ''.join(lines[1:cutoff])
-    fake_setup_code = (lineno - 1) * '\n' + FAUX_SETUP_TEMPLATE + (cutoff - 1) * '\n' + ''.join(lines[cutoff:])
+    fake_settings_code = (lineno - 1) * '\n' + "def settings():\n" + ''.join(lines[1:cutoff])
+    fake_setup_code = (lineno - 1) * '\n' + "def setup():\n" + (cutoff - 1) * '\n' + ''.join(lines[cutoff:])
     
-    # if the fake settings code is empty, there's no need to change anything
-    if len(COMMENT_LINE.sub('', fake_settings_code).strip().split('\n')) > 1:
-        # compile the fake code
-        exec(compile(fake_settings_code, filename=filename, mode='exec'), sketch_locals, functions)
-        # if the fake setup code is empty, get rid of it. otherwise, compile it
-        if len(COMMENT_LINE.sub('', fake_setup_code).strip().split('\n')) == 1:
-            del functions['setup']
-        else:
-            exec(compile(fake_setup_code, filename=filename, mode='exec'), sketch_locals, functions)
+    try:
+        # if the fake settings code is empty, there's no need to change anything
+        if len(COMMENT_LINE.sub('', fake_settings_code).strip().split('\n')) > 1:
+            # compile the fake code
+            exec(compile(fake_settings_code, filename=filename, mode='exec'), sketch_locals, functions)
+            # if the fake setup code is empty, get rid of it. otherwise, compile it
+            if len(COMMENT_LINE.sub('', fake_setup_code).strip().split('\n')) == 1:
+                del functions['setup']
+            else:
+                exec(compile(fake_setup_code, filename=filename, mode='exec'), sketch_locals, functions)
+    except:
+        # don't change anything if an exception is thrown
+        pass
 
     return functions
