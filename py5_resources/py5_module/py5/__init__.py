@@ -49,7 +49,7 @@ from .sketch import Sketch, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Sha
 from .render_helper import render_frame, render_frame_sequence, render, render_sequence  # noqa
 from .create_font_tool import create_font_file  # noqa
 from .image_conversion import register_image_conversion, NumpyImageArray  # noqa
-from . import split_settings as _split_settings
+from . import split_setup as _split_setup
 from . import reference
 from . import java_conversion  # noqa
 try:
@@ -86,7 +86,7 @@ def run_sketch(block: bool = None, *,
         functions = dict([(e, sketch_functions[e]) for e in reference.METHODS if e in sketch_functions and callable(sketch_functions[e])])
     else:
         functions = dict([(e, caller_locals[e]) for e in reference.METHODS if e in caller_locals and callable(caller_locals[e])])
-    functions = _split_settings.split_setup(functions, caller_locals, mode = 'imported' if _PY5_USE_IMPORTED_MODE else 'module')
+    functions = _split_setup.transform(functions, caller_locals, mode = 'imported' if _PY5_USE_IMPORTED_MODE else 'module')
 
     if not set(functions.keys()) & set(['settings', 'setup', 'draw']):
         print(("Unable to find settings, setup, or draw functions. "

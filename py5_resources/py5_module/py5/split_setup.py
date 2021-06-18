@@ -31,7 +31,7 @@ FAUX_SETTINGS_TEMPLATE = "def settings():\n"
 FAUX_SETUP_TEMPLATE = "def setup():\n"
 
 
-def split_setup(functions, sketch_locals, *, mode):
+def transform(functions, sketch_locals, *, mode):
     # return if there is nothing to do
     if 'settings' in functions or 'setup' not in functions:
         return functions
