@@ -25,13 +25,10 @@ COMMENT_LINE = re.compile(r'^\s+#.*' + chr(36), flags=re.MULTILINE)
 DOCSTRING = re.compile(r'^\s+"""[^"]*"""', flags=re.MULTILINE | re.DOTALL)
 
 MODULE_MODE_METHOD_LINE = re.compile(r'^\s+py5\.(\w+)\([^\)]*\)')
-CLASS_MODE_METHOD_LINE = re.compile(r'^\s+self\.(\w+)\([^\)]*\)')
 IMPORTED_MODE_METHOD_LINE = re.compile(r'^\s+(\w+)\([^\)]*\)')
 
-FAUX_SETTINGS_FUNCTION_TEMPLATE = "def settings():\n"
-FAUX_SETUP_FUNCTION_TEMPLATE = "def setup():\n"
-FAUX_SETTINGS_METHOD_TEMPLATE = "def settings(self):\n"
-FAUX_SETUP_METHOD_TEMPLATE = "def setup(self):\n"
+FAUX_SETTINGS_TEMPLATE = "def settings():\n"
+FAUX_SETUP_TEMPLATE = "def setup():\n"
 
 
 def split_setup(functions, sketch_locals, *, mode):
@@ -41,19 +38,11 @@ def split_setup(functions, sketch_locals, *, mode):
 
     if mode == 'module':
         METHOD_LINE = MODULE_MODE_METHOD_LINE
-        FAUX_SETTINGS_TEMPLATE = FAUX_SETTINGS_FUNCTION_TEMPLATE
-        FAUX_SETUP_TEMPLATE = FAUX_SETUP_FUNCTION_TEMPLATE
-    elif mode == 'class':
-        METHOD_LINE = CLASS_MODE_METHOD_LINE
-        FAUX_SETTINGS_TEMPLATE = FAUX_SETTINGS_METHOD_TEMPLATE
-        FAUX_SETUP_TEMPLATE = FAUX_SETUP_METHOD_TEMPLATE
     elif mode == 'imported':
         METHOD_LINE = IMPORTED_MODE_METHOD_LINE
-        FAUX_SETTINGS_TEMPLATE = FAUX_SETTINGS_FUNCTION_TEMPLATE
-        FAUX_SETUP_TEMPLATE = FAUX_SETUP_FUNCTION_TEMPLATE
     else:
-        raise RuntimeError('unknown mode')
-    
+        raise RuntimeError('only module mode and imported mode are supported')
+
     setup = functions['setup']
     source_code = inspect.getsource(setup).strip()
 
