@@ -49,28 +49,28 @@ def transform(functions, sketch_locals, *, mode):
     else:
         raise RuntimeError('only module mode and imported mode are supported')
 
-    setup = functions['setup']
-    source_code = inspect.getsource(setup).strip()
-
-    # remove comments
-    source_code = COMMENT_LINE.sub('', source_code)
-    # remove docstrings
-    for docstring in DOCSTRING.findall(source_code):
-        source_code = source_code.replace(docstring, (len(docstring.split('\n')) - 1) * '\n')
-
-    # find the cutoff point
-    for i, line in enumerate(source_code.split('\n')):
-        if i > 0 and line.strip() and not ((m := METHOD_LINE.match(line)) and m.groups()[0] in ['size', 'full_screen', 'smooth', 'no_smooth', 'pixel_density']):
-            break
-    cutoff = i
-
-    # build the fake code
-    lines, lineno = inspect.getsourcelines(setup)
-    filename = inspect.getfile(setup)
-    fake_settings_code = (lineno - 1) * '\n' + "def settings():\n" + ''.join(lines[1:cutoff])
-    fake_setup_code = (lineno - 1) * '\n' + "def setup():\n" + (cutoff - 1) * '\n' + ''.join(lines[cutoff:])
-    
     try:
+        setup = functions['setup']
+        source_code = inspect.getsource(setup).strip()
+
+        # remove comments
+        source_code = COMMENT_LINE.sub('', source_code)
+        # remove docstrings
+        for docstring in DOCSTRING.findall(source_code):
+            source_code = source_code.replace(docstring, (len(docstring.split('\n')) - 1) * '\n')
+
+        # find the cutoff point
+        for i, line in enumerate(source_code.split('\n')):
+            if i > 0 and line.strip() and not ((m := METHOD_LINE.match(line)) and m.groups()[0] in ['size', 'full_screen', 'smooth', 'no_smooth', 'pixel_density']):
+                break
+        cutoff = i
+
+        # build the fake code
+        lines, lineno = inspect.getsourcelines(setup)
+        filename = inspect.getfile(setup)
+        fake_settings_code = (lineno - 1) * '\n' + "def settings():\n" + ''.join(lines[1:cutoff])
+        fake_setup_code = (lineno - 1) * '\n' + "def setup():\n" + (cutoff - 1) * '\n' + ''.join(lines[cutoff:])
+
         # if the fake settings code is empty, there's no need to change anything
         if len(COMMENT_LINE.sub('', fake_settings_code).strip().split('\n')) > 1:
             # compile the fake code
