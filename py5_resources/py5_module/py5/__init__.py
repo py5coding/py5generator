@@ -67,6 +67,7 @@ java_conversion.init_jpype_converters()
 
 sketch_module_members_code = None  # DELETE
 run_sketch_pre_run_code = None  # DELETE
+println = None # DELETE
 
 _py5sketch = Sketch()
 
@@ -86,7 +87,7 @@ def run_sketch(block: bool = None, *,
         functions = dict([(e, sketch_functions[e]) for e in reference.METHODS if e in sketch_functions and callable(sketch_functions[e])])
     else:
         functions = dict([(e, caller_locals[e]) for e in reference.METHODS if e in caller_locals and callable(caller_locals[e])])
-    functions = _split_setup.transform(functions, caller_locals, mode = 'imported' if _PY5_USE_IMPORTED_MODE else 'module')
+    functions = _split_setup.transform(functions, caller_locals, println, mode = 'imported' if _PY5_USE_IMPORTED_MODE else 'module')
 
     if not set(functions.keys()) & set(['settings', 'setup', 'draw']):
         print(("Unable to find settings, setup, or draw functions. "

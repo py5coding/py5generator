@@ -27,7 +27,7 @@ MODULE_MODE_METHOD_LINE = re.compile(r'^\s+py5\.(\w+)\([^\)]*\)')
 IMPORTED_MODE_METHOD_LINE = re.compile(r'^\s+(\w+)\([^\)]*\)')
 
 
-def transform(functions, sketch_locals, *, mode):
+def transform(functions, sketch_locals, println, *, mode):
     """if appropriate, transform setup() into settings() and (maybe) setup()
 
     This mimics the Processing functionality to allow users to put calls to
@@ -82,8 +82,9 @@ def transform(functions, sketch_locals, *, mode):
                 del functions['setup']
             else:
                 exec(compile(fake_setup_code, filename=filename, mode='exec'), sketch_locals, functions)
-    except:
-        # don't change anything if an exception is thrown
-        pass
+    except OSError as e:
+        println("Unable to obtain source code for setup(). Either make it obtainable or create a settings() function for calls to size(), fullscreen(), etc.", stderr=True)
+    except Exception as e:
+        println("Exception thrown while analyzing setup() function:", str(e), stderr=True)
 
     return functions
