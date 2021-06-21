@@ -27,11 +27,8 @@ Calling this method with the boolean parameter ``False`` will delete the assigne
 @@ example
 image = Py5Shape_set_tint_0.png
 
-def settings():
-    py5.size(100, 100, py5.P2D)
-
-
 def setup():
+    py5.size(100, 100, py5.P2D)
     img = py5.load_image("tower.jpg")
     s = py5.create_shape()
     s.begin_shape()
@@ -47,11 +44,8 @@ def setup():
     py5.shape(s)
 
 @@ example
-def settings():
-    py5.size(100, 100, py5.P2D)
-
-
 def setup():
+    py5.size(100, 100, py5.P2D)
     global s
     img = py5.load_image("tower.jpg")
     s = py5.create_shape()

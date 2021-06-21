@@ -42,11 +42,8 @@ def setup():
 @@ example
 image = Py5Shape_vertex_1.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     # drawing vertices in 3D requires P3D
     # as a parameter to size()
     s = py5.create_shape()
@@ -61,11 +58,8 @@ def setup():
 @@ example
 image = Py5Shape_vertex_2.png
 
-def settings():
-    py5.size(100, 100, py5.P2D)
-
-
 def setup():
+    py5.size(100, 100, py5.P2D)
     img = py5.load_image("tower.jpg")
     # call py5.texture_mode() here to inherit mode setting
     # py5.texture_mode(py5.NORMAL)

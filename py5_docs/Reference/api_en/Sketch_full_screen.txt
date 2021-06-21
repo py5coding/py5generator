@@ -28,11 +28,8 @@ When ``full_screen()`` is used without a parameter on a computer with multiple m
 x = 0
 
 
-def settings():
-    py5.full_screen()
-
-
 def setup():
+    py5.full_screen()
     py5.background(0)
     py5.no_stroke()
     py5.fill(102)
@@ -51,11 +48,8 @@ def draw():
 x = 0
 
 
-def settings():
-    py5.full_screen(2)
-
-
 def setup():
+    py5.full_screen(2)
     py5.background(0)
     py5.no_stroke()
     py5.fill(102)
@@ -72,11 +66,8 @@ def draw():
 x = 0
 
 
-def settings():
-    py5.full_screen(py5.P2D, 2)
-
-
 def setup():
+    py5.full_screen(py5.P2D, 2)
     py5.background(0)
     py5.no_stroke()
     py5.fill(102)
@@ -94,11 +85,8 @@ def draw():
 x = 0
 
 
-def settings():
-    py5.full_screen(py5.P2D, py5.SPAN)
-
-
 def setup():
+    py5.full_screen(py5.P2D, py5.SPAN)
     py5.background(0)
     py5.no_stroke()
     py5.fill(102)

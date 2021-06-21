@@ -58,11 +58,8 @@ z: int - third component of the variable to modify. The variable has to be decla
 Sets the uniform variables inside the shader to modify the effect while the program is running.
 
 @@ example
-def settings():
-    py5.size(640, 360, py5.P2D)
-
-
 def setup():
+    py5.size(640, 360, py5.P2D)
     global tex
     global deform
     tex = py5.load_image("tex1.jpg")

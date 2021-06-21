@@ -31,11 +31,8 @@ Works like glFrustum, except it wipes out the current perspective matrix rather 
 @@ example
 image = Sketch_frustum_0.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.no_fill()
     py5.background(204)
     py5.frustum(-10, 0, 0, 10, 10, 200)

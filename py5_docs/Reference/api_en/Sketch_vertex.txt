@@ -42,11 +42,8 @@ def setup():
 @@ example
 image = Sketch_vertex_1.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     # drawing vertices in 3D requires P3D
     # as a parameter to size()
     py5.begin_shape()
@@ -59,11 +56,8 @@ def setup():
 @@ example
 image = Sketch_vertex_2.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     img = py5.load_image("laDefense.jpg")
     py5.no_stroke()
     py5.begin_shape()

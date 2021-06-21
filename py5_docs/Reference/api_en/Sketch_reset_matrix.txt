@@ -13,11 +13,8 @@ reset_matrix() -> None
 Replaces the current matrix with the identity matrix. The equivalent function in OpenGL is ``gl_load_identity()``.
 
 @@ example
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.no_fill()
     py5.box(80)
     py5.print_matrix()
@@ -26,7 +23,7 @@ def setup():
     # 00.0000  01.0000  00.0000 -50.0000
     # 00.0000  00.0000  01.0000 -86.6025
     # 00.0000  00.0000  00.0000  01.0000
-    
+
     py5.reset_matrix()
     py5.box(80)
     py5.print_matrix()

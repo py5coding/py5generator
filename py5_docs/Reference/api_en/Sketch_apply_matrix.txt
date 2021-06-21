@@ -38,11 +38,8 @@ Multiplies the current matrix by the one specified through the parameters. This 
 @@ example
 image = Sketch_apply_matrix_0.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.no_fill()
     py5.translate(50, 50, 0)
     py5.rotate_y(py5.PI/6)

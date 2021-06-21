@@ -20,11 +20,8 @@ Sets the specular color for lights. Like :doc:`fill`, it affects only the elemen
 @@ example
 image = Sketch_light_specular_0.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.background(0)
     py5.no_stroke()
     py5.directional_light(102, 102, 102, 0, 0, -1)

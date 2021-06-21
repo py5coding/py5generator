@@ -36,10 +36,8 @@ The ``tint()`` function is also used to control the coloring of textures in 3D.
 @@ example
 image = Py5Shape_tint_0.png
 
-def settings():
-    py5.size(100, 100, py5.P2D)
-
 def setup():
+    py5.size(100, 100, py5.P2D)
     img = py5.load_image("tower.jpg")
     s = py5.create_shape()
     s.begin_shape()

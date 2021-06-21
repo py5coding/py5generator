@@ -27,11 +27,8 @@ Using ``point()`` with ``strokeWeight(1)`` or smaller may draw nothing to the sc
 @@ example
 image = Sketch_point_0.png
 
-def settings():
-    py5.no_smooth()
-
-
 def setup():
+    py5.no_smooth()
     py5.point(30, 20)
     py5.point(85, 20)
     py5.point(85, 75)
@@ -40,12 +37,9 @@ def setup():
 @@ example
 image = Sketch_point_1.png
 
-def settings():
+def setup():
     py5.size(100, 100, py5.P3D)
     py5.no_smooth()
-
-
-def setup():
     py5.point(30, 20, -50)
     py5.point(85, 20, -50)
     py5.point(85, 75, -50)

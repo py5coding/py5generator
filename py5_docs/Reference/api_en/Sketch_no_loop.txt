@@ -17,11 +17,8 @@ When ``no_loop()`` is used, it's not possible to manipulate or access the screen
 Note that if the Sketch is resized, :doc:`redraw` will be called to update the Sketch, even after ``no_loop()`` has been specified. Otherwise, the Sketch would enter an odd state until :doc:`loop` was called.
 
 @@ example
-def settings():
-    py5.size(200, 200)
-
-
 def setup():
+    py5.size(200, 200)
     py5.no_loop()
 
 
@@ -32,7 +29,7 @@ def draw():
 x = 0.0
 
 
-def settings():
+def setup():
     py5.size(200, 200)
 
 

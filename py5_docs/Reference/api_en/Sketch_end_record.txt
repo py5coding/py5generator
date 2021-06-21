@@ -13,11 +13,8 @@ end_record() -> None
 Stops the recording process started by :doc:`begin_record` and closes the file.
 
 @@ example
-def settings():
-    py5.size(400, 400)
-
-
 def setup():
+    py5.size(400, 400)
     py5.begin_record(py5.PDF, "everything.pdf")
 
 

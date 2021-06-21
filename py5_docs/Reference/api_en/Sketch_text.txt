@@ -56,11 +56,8 @@ def setup():
 @@ example
 image = Sketch_text_1.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.text_size(32)
     py5.fill(0, 102, 153, 204)
     py5.text("word", 12, 45, -30)  # specify a z-axis value

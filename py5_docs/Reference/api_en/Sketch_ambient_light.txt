@@ -24,11 +24,8 @@ Adds an ambient light. Ambient light doesn't come from a specific direction, the
 @@ example
 image = Sketch_ambient_light_0.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.background(0)
     py5.no_stroke()
     # the spheres are white by default so
@@ -42,11 +39,8 @@ def setup():
 @@ example
 image = Sketch_ambient_light_1.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.background(0)
     py5.no_stroke()
     py5.directional_light(126, 126, 126, 0, 0, -1)

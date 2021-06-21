@@ -38,11 +38,8 @@ def setup():
     py5.line(75, 25, 25, 75)
 
 @@ example
-def settings():
-    py5.size(100, 100, py5.P2D)
-
-
 def setup():
+    py5.size(100, 100, py5.P2D)
     py5.blend_mode(py5.MULTIPLY)
     py5.stroke(51)
     py5.stroke_weight(30)

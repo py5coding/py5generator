@@ -25,17 +25,14 @@ def setup():
     py5.rect(10, 10, 80, 80)
 
 @@ example
-def settings():
+def setup():
     py5.size(250, 100)
+    global promise
+    promise = py5.launch_promise_thread(load_data)
 
 
 def load_data():
     return py5.load_json('http://py5.ixora.io/secret_message.json')
-
-
-def setup():
-    global promise
-    promise = py5.launch_promise_thread(load_data)
 
 
 def draw():

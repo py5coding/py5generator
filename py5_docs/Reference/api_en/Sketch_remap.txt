@@ -26,11 +26,8 @@ In Processing this functionality is provided by ``map()`` but was renamed in py5
 @@ example
 image = Sketch_remap_0.png
 
-def settings():
-    py5.size(200, 200)
-
-
 def setup():
+    py5.size(200, 200)
     value = 0.5
     # remap 0.5 to be half of the width
     m = py5.remap(value, 0, 1, 0, py5.width)
@@ -43,11 +40,8 @@ def setup():
     print(m)  # Prints "-9.0"
 
 @@ example
-def settings():
-    py5.size(200, 200)
-
-
 def setup():
+    py5.size(200, 200)
     py5.no_stroke()
 
 

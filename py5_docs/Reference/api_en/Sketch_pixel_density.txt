@@ -20,11 +20,8 @@ When the pixel density is set to more than 1, it changes all of the pixel operat
 To use variables as the arguments to ``pixel_density()`` function, place the ``pixel_density()`` function within the ``settings()`` function.
 
 @@ example
-def settings():
-    py5.pixel_density(2)
-
-
 def setup():
+    py5.pixel_density(2)
     py5.no_stroke()
 
 
@@ -34,11 +31,8 @@ def draw():
     py5.ellipse(70, 48, 36, 36)
 
 @@ example
-def settings():
-    py5.pixel_density(py5.display_density())
-
-
 def setup():
+    py5.pixel_density(py5.display_density())
     # pulling the display's density dynamically
     py5.no_stroke()
 

@@ -20,11 +20,8 @@ Returns the three-dimensional X, Y, Z position in model space. This returns the 
 In the example, the :doc:`model_x`, ``model_y()``, and :doc:`model_z` functions record the location of a box in space after being placed using a series of translate and rotate commands. After :doc:`pop_matrix` is called, those transformations no longer apply, but the (x, y, z) coordinate returned by the model functions is used to place another box in the same location.
 
 @@ example
-def settings():
-    py5.size(500, 500, py5.P3D)
-
-
 def setup():
+    py5.size(500, 500, py5.P3D)
     py5.no_fill()
 
 

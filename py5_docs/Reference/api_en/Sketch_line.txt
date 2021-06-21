@@ -40,11 +40,8 @@ def setup():
 @@ example
 image = Sketch_line_2.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     # drawing lines in 3D requires P3D
     # as a parameter to size()
     py5.line(30, 20, 0, 85, 20, 15)

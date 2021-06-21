@@ -20,11 +20,8 @@ With ``IMAGE``, if an image is 100 x 200 pixels, mapping the image onto the enti
 @@ example
 image = Sketch_texture_mode_0.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.no_stroke()
     img = py5.load_image("laDefense.jpg")
     py5.texture_mode(py5.IMAGE)
@@ -39,11 +36,8 @@ def setup():
 @@ example
 image = Sketch_texture_mode_1.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.no_stroke()
     img = py5.load_image("laDefense.jpg")
     py5.texture_mode(py5.NORMAL)

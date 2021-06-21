@@ -21,11 +21,8 @@ SHAPE_VERTEX_CODES = {py5.Py5Shape.BREAK: 'BREAK',
                       py5.Py5Shape.VERTEX: 'VERTEX'}
 
 
-def settings():
-    py5.size(100, 100, py5.P2D)
-
-
 def setup():
+    py5.size(100, 100, py5.P2D)
     s = py5.create_shape()
     s.begin_shape()
     s.vertex(20, 20)

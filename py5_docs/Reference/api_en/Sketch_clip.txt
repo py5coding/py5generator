@@ -19,11 +19,8 @@ d: float - height of the rectangle, by default
 Limits the rendering to the boundaries of a rectangle defined by the parameters. The boundaries are drawn based on the state of the :doc:`image_mode` fuction, either ``CORNER``, ``CORNERS``, or ``CENTER``.
 
 @@ example
-def settings():
-    py5.size(200, 200)
-
-
 def setup():
+    py5.size(200, 200)
     py5.image_mode(py5.CENTER)
 
 

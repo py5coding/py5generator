@@ -28,17 +28,14 @@ Use the ``daemon`` parameter to make the launched thread a daemon that will run 
 The new thread is a Python thread, so all the usual caveats about the Global Interpreter Lock (GIL) apply here.
 
 @@ example
-def settings():
+def setup():
     py5.size(250, 100)
+    global promise
+    promise = py5.launch_promise_thread(load_data)
 
 
 def load_data():
     return py5.load_json('http://py5.ixora.io/secret_message.json')
-
-
-def setup():
-    global promise
-    promise = py5.launch_promise_thread(load_data)
 
 
 def draw():

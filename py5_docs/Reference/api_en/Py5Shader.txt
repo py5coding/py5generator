@@ -10,11 +10,8 @@ processing_name = PShader
 This class encapsulates a GLSL shader program, including a vertex and a fragment shader. It's compatible with the ``P2D`` and ``P3D`` renderers, but not with the default renderer. Use the :doc:`load_shader` function to load your shader code and create ``Py5Shader`` objects.
 
 @@ example
-def settings():
-    py5.size(640, 360, py5.P2D)
-
-
 def setup():
+    py5.size(640, 360, py5.P2D)
     global blur
     # shaders files must be in the "data" folder to load correctly
     blur = py5.load_shader("blur.glsl")

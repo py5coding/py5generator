@@ -20,11 +20,8 @@ Shapes are always rotated around the upper-left corner of their bounding box. Po
 This method requires a 3D renderer. You need to use ``P3D`` as a third parameter for the :doc:`size` function as shown in the example.
 
 @@ example
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     global s
     s = py5.load_shape("bot.svg")
 

@@ -22,11 +22,8 @@ Sets a perspective projection applying foreshortening, making distant objects ap
 @@ example
 image = Sketch_perspective_0.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     # re-creates the default perspective
     py5.no_fill()
     fov = py5.PI/3.0

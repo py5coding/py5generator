@@ -13,11 +13,8 @@ no_clip() -> None
 Disables the clipping previously started by the :doc:`clip` function.
 
 @@ example
-def settings():
-    py5.size(200, 200)
-
-
 def setup():
+    py5.size(200, 200)
     py5.image_mode(py5.CENTER)
 
 

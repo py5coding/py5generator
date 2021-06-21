@@ -19,7 +19,7 @@ z: float - 3D z-coordinate to be mapped
 Takes a three-dimensional X, Y, Z position and returns the Y value for where it will appear on a (two-dimensional) screen.
 
 @@ example
-def settings():
+def setup():
     py5.size(100, 100, py5.P3D)
 
 

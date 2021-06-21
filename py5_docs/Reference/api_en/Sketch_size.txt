@@ -39,16 +39,13 @@ The ``renderer`` parameter selects which rendering engine to use. For example, i
 * ``SVG``: The ``SVG`` renderer draws 2D graphics directly to an SVG file. This is great for importing into other vector programs or using for digital fabrication.
 
 @@ example
-def settings():
-    py5.size(200, 100)
-
-
 def setup():
+    py5.size(200, 100)
     py5.background(153)
     py5.line(0, 0, py5.width, py5.height)
 
 @@ example
-def settings():
+def setup():
     py5.size(320, 240)
 
 
@@ -57,18 +54,15 @@ def draw():
     py5.line(0, 0, py5.width, py5.height)
 
 @@ example
-def settings():
-    py5.size(150, 200, py5.P3D)  # specify P3D renderer
-
-
 def setup():
+    py5.size(150, 200, py5.P3D)  # specify P3D renderer
     py5.background(153)
-    
+
     # with P3D, we can use z (depth) values...
     py5.line(0, 0, 0, py5.width, py5.height, -100)
     py5.line(py5.width, 0, 0, py5.width, py5.height, -100)
     py5.line(0, py5.height, 0, py5.width, py5.height, -100)
-    
+
     # ...and 3D-specific functions, like box()
     py5.translate(py5.width//2, py5.height//2)
     py5.rotate_x(py5.PI/6)

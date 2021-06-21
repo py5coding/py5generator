@@ -23,11 +23,8 @@ def setup():
     surface.set_icon(py5.load_image("logo-64x64.png"))
 
 @@ example
-def settings():
-    py5.size(200, 200, py5.P2D)
-
-
 def setup():
+    py5.size(200, 200, py5.P2D)
     surface = py5.get_surface()
     surface.set_title("py5 window")
     surface.set_always_on_top(True)

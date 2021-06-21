@@ -27,11 +27,9 @@ This method is the same as :doc:`smooth` but linked to a ``Py5Graphics`` object.
 @@ example
 x = 0
 
-def settings():
-    py5.full_screen(py5.P2D)
-
 
 def setup():
+    py5.full_screen(py5.P2D)
     global pg
     pg = py5.create_graphics(py5.width, py5.height, py5.P2D)
     pg.smooth(4)

@@ -25,11 +25,8 @@ This method can only be used within a :doc:`py5shape_begin_shape` and :doc:`py5s
 @@ example
 image = Sketch_curve_vertex_0.png
 
-def settings():
-    py5.size(100, 100, py5.P2D)
-
-
 def setup():
+    py5.size(100, 100, py5.P2D)
     s = py5.create_shape()
     s.begin_shape()
     s.no_fill()

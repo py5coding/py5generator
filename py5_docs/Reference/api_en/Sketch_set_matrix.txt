@@ -22,11 +22,9 @@ image = Sketch_set_matrix_0.png
 
 import numpy as np
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
 
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.no_fill()
     matrix = np.array([[0.866025, 0, 0.5, 0],
                        [0, 1, 0, 0],

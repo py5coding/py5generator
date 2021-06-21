@@ -29,11 +29,8 @@ def setup():
 @@ example
 image = Py5Shape_get_width_1.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.sphere_detail(8)
     s1 = py5.create_shape(py5.SPHERE, 40)
     x_values = [s1.get_vertex_x(i) for i in range(s1.get_vertex_count())]

@@ -23,11 +23,8 @@ Note that ``begin_record()`` will only pick up any settings that happen after it
 ``begin_record()`` works only with the ``PDF`` and ``SVG`` renderers.
 
 @@ example
-def settings():
-    py5.size(400, 400)
-
-
 def setup():
+    py5.size(400, 400)
     py5.begin_record(py5.PDF, "everything.pdf")
 
 

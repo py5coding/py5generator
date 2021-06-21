@@ -30,11 +30,8 @@ def setup():
 @@ example
 image = Sketch_translate_1.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     # translating in 3D requires P3D
     # as the parameter to size()
     # translate 30 across, 20 down, and

@@ -18,11 +18,8 @@ Sets the resolution at which Beziers display. The default value is 20. This func
 @@ example
 # move the mouse left and right to see the detail change
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.no_fill()
 
 
