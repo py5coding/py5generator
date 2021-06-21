@@ -50,7 +50,7 @@ os.chdir(DEST_DIR)
 
 
 try:
-    for docfile in sorted(PY5_API_EN.glob('*.txt')):
+    for i, docfile in list(enumerate(sorted(PY5_API_EN.glob('*.txt'))))[:]:
         doc = Documentation(docfile)
         if doc.meta['type'] in ['function', 'line magic']:
             # skip these for now, but I should probably include them later
@@ -65,7 +65,7 @@ try:
             if ONLY_RUN_EXAMPLES_WITH_IMAGES and image is None:
                 continue
 
-            print(docfile.name, image)
+            print(i, docfile.name, image)
 
             if doc.meta['type'] == 'cell magic':
                 magic_line, magic_cell = code.split('\n', maxsplit=1)
