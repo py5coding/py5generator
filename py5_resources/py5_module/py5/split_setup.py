@@ -62,8 +62,10 @@ def transform(functions, sketch_locals, *, mode):
         # find the cutoff point
         for i, line in enumerate(source_code.split('\n')):
             if i > 0 and line.strip() and not ((m := METHOD_LINE.match(line)) and m.groups()[0] in ['size', 'full_screen', 'smooth', 'no_smooth', 'pixel_density']):
+                cutoff = i
                 break
-        cutoff = i
+        else:
+            cutoff = i + 1
 
         # build the fake code
         lines, lineno = inspect.getsourcelines(setup)
