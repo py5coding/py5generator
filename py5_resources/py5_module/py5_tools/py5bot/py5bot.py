@@ -18,17 +18,18 @@
 #
 # *****************************************************************************
 
-# TODO: don't pop open a window for JAVA2D renderer
-# TODO: new py5bot logo icon
-# TODO: error messages for both syntax / parsing errors and runtime py5 errors
+# TODO: don't pop open a window for JAVA2D renderer, use HIDDEN renderer instead
+# TODO: new py5bot logo icon, look at https://thenounproject.com/term/bot/ for inspiration
+# TODO: proper error messages for both syntax / parsing errors and runtime py5 errors
 # TODO: use split_setup in py5bot shell
+# TODO: use tempfile to get a tempdirectory. "/tmp/" won't work on Windows
 
 
 _PY5BOT_SETTINGS_FILENAME_ = '/tmp/py5bot_settings_code.py'
 _PY5BOT_SETUP_FILENAME_ = '/tmp/py5bot_setup_code.py'
 
 PY5BOT_CODE_INIT = """
-# *** PY5BOT_SETUP_CODE ***
+# *** PY5BOT_CODE_BYPASS ***
 
 import time as _PY5BOT_time
 import ast as _PY5BOT_ast

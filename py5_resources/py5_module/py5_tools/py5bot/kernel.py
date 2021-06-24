@@ -37,25 +37,37 @@ class Py5BotShell(Py5Shell):
     banner2 = Unicode("Activating py5bot").tag(config=True)
 
     def run_cell(self, raw_cell, store_history=False, silent=False, shell_futures=True):
-        if not raw_cell.strip().startswith('# *** PY5BOT_SETUP_CODE ***'):
-            # first check for assignments to or deletions of reserved words
-            sketch_ast = ast.parse(raw_cell, mode='exec')
-            problems = parsing.check_reserved_words(raw_cell, sketch_ast)
-            if problems:
-                msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your py5bot code'
-                msg += '\n' + '=' * len(msg) + '\n' + '\n'.join(problems)
-                print(msg, file=sys.stderr)
-                return super(Py5BotShell, self).run_cell(
-                    'None', store_history=store_history, silent=silent, shell_futures=shell_futures)
+        # check for special code that should bypass py5bot processing
+        if raw_cell.strip().startswith('# *** PY5BOT_CODE_BYPASS ***'):
+            return super(Py5BotShell, self).run_cell(
+                raw_cell, store_history=store_history, silent=silent, shell_futures=shell_futures)
 
-            # TODO: this should use split_setup code
-            py5bot_settings = raw_cell.split('\n', maxsplit=1)[0]
-            py5bot_setup = '\n'.join(raw_cell.splitlines()[1:])
-            py5bot.write_code(py5bot_settings, py5bot_setup)
-            raw_cell = py5bot.PY5BOT_CODE
+        # does the code parse? if not, let the IPython kernel display its error message
+        try:
+            sketch_ast = None
+            sketch_ast = ast.parse(raw_cell, mode='exec')
+        except:
+            pass
+
+        if sketch_ast is None:
+            return super(Py5BotShell, self).run_cell(
+                raw_cell, store_history=store_history, silent=silent, shell_futures=shell_futures)
+
+        # check for assignments to or deletions of reserved words
+        problems = parsing.check_reserved_words(raw_cell, sketch_ast)
+        if problems:
+            msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your py5bot code'
+            msg += '\n' + '=' * len(msg) + '\n' + '\n'.join(problems)
+            print(msg, file=sys.stderr)
+            return super(Py5BotShell, self).run_cell(
+                'None', store_history=store_history, silent=silent, shell_futures=shell_futures)
+
+        py5bot_settings = raw_cell.split('\n', maxsplit=1)[0]
+        py5bot_setup = '\n'.join(raw_cell.splitlines()[1:])
+        py5bot.write_code(py5bot_settings, py5bot_setup)
 
         return super(Py5BotShell, self).run_cell(
-            raw_cell, store_history=store_history, silent=silent, shell_futures=shell_futures)
+            py5bot.PY5BOT_CODE, store_history=store_history, silent=silent, shell_futures=shell_futures)
 
 InteractiveShellABC.register(Py5BotShell)
 
