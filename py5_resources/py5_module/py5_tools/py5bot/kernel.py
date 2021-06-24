@@ -37,7 +37,7 @@ class Py5BotShell(Py5Shell):
     banner2 = Unicode("Activating py5bot").tag(config=True)
 
     def run_cell(self, raw_cell, store_history=False, silent=False, shell_futures=True):
-        if not raw_cell.strip().startswith('# *** PY5BOT_CODE_INIT ***'):
+        if not raw_cell.strip().startswith('# *** PY5BOT_SETUP_CODE ***'):
             # first check for assignments to or deletions of reserved words
             sketch_ast = ast.parse(raw_cell, mode='exec')
             problems = parsing.check_reserved_words(raw_cell, sketch_ast)

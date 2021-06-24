@@ -20,7 +20,7 @@
 
 # TODO: don't pop open a window for JAVA2D renderer
 # TODO: new py5bot logo icon
-# TODO: error messages
+# TODO: error messages for both syntax / parsing errors and runtime py5 errors
 # TODO: use split_setup in py5bot shell
 
 
@@ -28,12 +28,10 @@ _PY5BOT_SETTINGS_FILENAME_ = '/tmp/py5bot_settings_code.py'
 _PY5BOT_SETUP_FILENAME_ = '/tmp/py5bot_setup_code.py'
 
 PY5BOT_CODE_INIT = """
-# *** PY5BOT_CODE_INIT ***
+# *** PY5BOT_SETUP_CODE ***
 
-import time as _time
-import ast as _ast
-
-from PIL import Image as _Image
+import time as _PY5BOT_time
+import ast as _PY5BOT_ast
 
 import py5_tools
 py5_tools.set_imported_mode(True)
@@ -44,38 +42,39 @@ _PY5BOT_SETUP_FILENAME_ = '{1}'
 
 
 def settings():
-    settings_ast = _ast.parse(_PY5BOT_SETTINGS_, filename=_PY5BOT_SETTINGS_FILENAME_, mode='exec')
-    exec(compile(py5_tools.parsing.transform_py5_code(settings_ast), filename=_PY5BOT_SETTINGS_FILENAME_, mode='exec'))
+    exec(compile(py5_tools.parsing.transform_py5_code(_PY5BOT_SETTINGS_AST_), filename=_PY5BOT_SETTINGS_FILENAME_, mode='exec'))
 
 
 def setup():
-    global _PY5_OUTPUT_
-    _PY5_OUTPUT_ = None
+    global _PY5BOT_OUTPUT_
+    _PY5BOT_OUTPUT_ = None
 
-    setup_ast = _ast.parse(_PY5BOT_SETUP_, filename=_PY5BOT_SETUP_FILENAME_, mode='exec')
-    exec(compile(py5_tools.parsing.transform_py5_code(setup_ast), filename=_PY5BOT_SETUP_FILENAME_, mode='exec'))
+    exec(compile(py5_tools.parsing.transform_py5_code(_PY5BOT_SETUP_AST_), filename=_PY5BOT_SETUP_FILENAME_, mode='exec'))
 
+    from PIL import Image
     load_np_pixels()
     arr = np_pixels()[:, :, 1:]
-    _PY5_OUTPUT_ = _Image.fromarray(arr)
+    _PY5BOT_OUTPUT_ = Image.fromarray(arr)
+
     exit_sketch()
 """.format(_PY5BOT_SETTINGS_FILENAME_, _PY5BOT_SETUP_FILENAME_)
 
 
 PY5BOT_CODE = """
 with open(_PY5BOT_SETTINGS_FILENAME_, 'r') as f:
-    _PY5BOT_SETTINGS_ = f.read()
+    _PY5BOT_SETTINGS_AST_ = _PY5BOT_ast.parse(f.read(), filename=_PY5BOT_SETTINGS_FILENAME_, mode='exec')
 
 with open(_PY5BOT_SETUP_FILENAME_, 'r') as f:
-    _PY5BOT_SETUP_ = f.read()
+    _PY5BOT_SETUP_AST_ = _PY5BOT_ast.parse(f.read(), filename=_PY5BOT_SETUP_FILENAME_, mode='exec')
 
 run_sketch()
+
 while not is_dead:
-    _time.sleep(0.05)
+    _PY5BOT_time.sleep(0.05)
 if is_dead_from_error:
     exit_sketch()
 
-_PY5_OUTPUT_
+_PY5BOT_OUTPUT_
 """
 
 
