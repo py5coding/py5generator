@@ -20,7 +20,6 @@
 
 # TODO: don't pop open a window for JAVA2D renderer
 # TODO: new py5bot logo icon
-# TODO: use code in parsing to check for assignments to reserved words
 # TODO: error messages
 # TODO: use split_setup in py5bot shell
 

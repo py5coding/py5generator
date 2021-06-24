@@ -17,12 +17,16 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+import sys
+import ast
+
 from IPython.core.interactiveshell import InteractiveShellABC
 from ipykernel.kernelapp import IPKernelApp
 
 from traitlets import Type, Instance, Unicode, List
 
 from ..kernel.kernel import Py5Shell, Py5Kernel
+from .. import parsing
 from . import py5bot
 
 first_run = True
@@ -34,6 +38,16 @@ class Py5BotShell(Py5Shell):
 
     def run_cell(self, raw_cell, store_history=False, silent=False, shell_futures=True):
         if not raw_cell.strip().startswith('# *** PY5BOT_CODE_INIT ***'):
+            # first check for assignments to or deletions of reserved words
+            sketch_ast = ast.parse(raw_cell, mode='exec')
+            problems = parsing.check_reserved_words(raw_cell, sketch_ast)
+            if problems:
+                msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your py5bot code'
+                msg += '\n' + '=' * len(msg) + '\n' + '\n'.join(problems)
+                print(msg, file=sys.stderr)
+                return super(Py5BotShell, self).run_cell(
+                    'None', store_history=store_history, silent=silent, shell_futures=shell_futures)
+
             # TODO: this should use split_setup code
             py5bot_settings = raw_cell.split('\n', maxsplit=1)[0]
             py5bot_setup = '\n'.join(raw_cell.splitlines()[1:])

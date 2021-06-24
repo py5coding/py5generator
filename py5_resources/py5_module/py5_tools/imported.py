@@ -104,13 +104,9 @@ def run_code(sketch_path, classpath=None, new_process=False, exit_if_error=False
         sketch_ast = ast.parse(sketch_code, mode='exec')
         problems = parsing.check_reserved_words(sketch_code, sketch_ast)
         if problems:
-            if len(problems) == 1:
-                msg = 'There is a problem with your Sketch code'
-            else:
-                msg = f'There are {len(problems)} problems with your Sketch code'
+            msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your Sketch code'
+            msg += '\n' + '=' * len(msg) + '\n' + '\n'.join(problems)
             print(msg)
-            print('=' * len(msg))
-            print('\n'.join(problems))
             return
 
         sketch_compiled = compile(parsing.transform_py5_code(sketch_ast), filename=sketch_path, mode='exec')
