@@ -34,6 +34,10 @@ first_run = True
 
 class Py5BotShell(Py5Shell):
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._py5bot_mgr = py5bot.Py5BotManager()
+
     banner2 = Unicode("Activating py5bot").tag(config=True)
 
     def run_cell(self, raw_cell, store_history=False, silent=False, shell_futures=True):
@@ -64,10 +68,12 @@ class Py5BotShell(Py5Shell):
 
         py5bot_settings = raw_cell.split('\n', maxsplit=1)[0]
         py5bot_setup = '\n'.join(raw_cell.splitlines()[1:])
-        py5bot.write_code(py5bot_settings, py5bot_setup)
+        self._py5bot_mgr.write_code(py5bot_settings, py5bot_setup)
+
+        code = ('' if self._py5bot_mgr.initialized else self._py5bot_mgr.init_code) + self._py5bot_mgr.run_cell_code
 
         return super(Py5BotShell, self).run_cell(
-            py5bot.PY5BOT_CODE, store_history=store_history, silent=silent, shell_futures=shell_futures)
+            code, store_history=store_history, silent=silent, shell_futures=shell_futures)
 
 InteractiveShellABC.register(Py5BotShell)
 
@@ -86,7 +92,3 @@ class Py5BotApp(IPKernelApp):
 
     kernel_class = Type('py5_tools.py5bot.Py5BotKernel',
                         klass='ipykernel.kernelbase.Kernel').tag(config=True)
-
-    exec_lines = List(Unicode(), [
-        py5bot.PY5BOT_CODE_INIT
-    ]).tag(config=True)

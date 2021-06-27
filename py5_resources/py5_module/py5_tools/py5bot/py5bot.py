@@ -17,15 +17,13 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+from pathlib import Path
+import tempfile
 
 # TODO: don't pop open a window for JAVA2D renderer, use HIDDEN renderer instead
 # TODO: proper error messages for both syntax / parsing errors and runtime py5 errors
 # TODO: use split_setup in py5bot shell
-# TODO: use tempfile to get a tempdirectory. "/tmp/" won't work on Windows
 
-
-_PY5BOT_SETTINGS_FILENAME_ = '/tmp/py5bot_settings_code.py'
-_PY5BOT_SETUP_FILENAME_ = '/tmp/py5bot_setup_code.py'
 
 PY5BOT_CODE_INIT = """
 # *** PY5BOT_CODE_BYPASS ***
@@ -37,19 +35,19 @@ import py5_tools
 py5_tools.set_imported_mode(True)
 from py5 import *
 
-_PY5BOT_SETTINGS_FILENAME_ = '{0}'
-_PY5BOT_SETUP_FILENAME_ = '{1}'
+
+_PY5BOT_OUTPUT_ = None
 
 
 def settings():
-    exec(compile(py5_tools.parsing.transform_py5_code(_PY5BOT_SETTINGS_AST_), filename=_PY5BOT_SETTINGS_FILENAME_, mode='exec'))
+    exec(compile(py5_tools.parsing.transform_py5_code(_PY5BOT_SETTINGS_AST_), filename='{0}', mode='exec'))
 
 
 def setup():
     global _PY5BOT_OUTPUT_
     _PY5BOT_OUTPUT_ = None
 
-    exec(compile(py5_tools.parsing.transform_py5_code(_PY5BOT_SETUP_AST_), filename=_PY5BOT_SETUP_FILENAME_, mode='exec'))
+    exec(compile(py5_tools.parsing.transform_py5_code(_PY5BOT_SETUP_AST_), filename='{1}', mode='exec'))
 
     from PIL import Image
     load_np_pixels()
@@ -57,15 +55,15 @@ def setup():
     _PY5BOT_OUTPUT_ = Image.fromarray(arr)
 
     exit_sketch()
-""".format(_PY5BOT_SETTINGS_FILENAME_, _PY5BOT_SETUP_FILENAME_)
+"""
 
 
 PY5BOT_CODE = """
-with open(_PY5BOT_SETTINGS_FILENAME_, 'r') as f:
-    _PY5BOT_SETTINGS_AST_ = _PY5BOT_ast.parse(f.read(), filename=_PY5BOT_SETTINGS_FILENAME_, mode='exec')
+with open('{0}', 'r') as f:
+    _PY5BOT_SETTINGS_AST_ = _PY5BOT_ast.parse(f.read(), filename='{0}', mode='exec')
 
-with open(_PY5BOT_SETUP_FILENAME_, 'r') as f:
-    _PY5BOT_SETUP_AST_ = _PY5BOT_ast.parse(f.read(), filename=_PY5BOT_SETUP_FILENAME_, mode='exec')
+with open('{1}', 'r') as f:
+    _PY5BOT_SETUP_AST_ = _PY5BOT_ast.parse(f.read(), filename='{1}', mode='exec')
 
 run_sketch()
 
@@ -78,9 +76,20 @@ _PY5BOT_OUTPUT_
 """
 
 
-def write_code(settings_code, setup_code):
-    with open(_PY5BOT_SETTINGS_FILENAME_, 'w') as f:
-        f.write(settings_code)
+class Py5BotManager:
 
-    with open(_PY5BOT_SETUP_FILENAME_, 'w') as f:
-        f.write(setup_code)
+    def __init__(self):
+        tempdir = Path(tempfile.TemporaryDirectory().name)
+        tempdir.mkdir(parents=True, exist_ok=True)
+        self.settings_filename = tempdir / 'py5bot_settings_code.py'
+        self.setup_filename = tempdir / 'py5bot_setup_code.py'
+        self.init_code = PY5BOT_CODE_INIT.format(self.settings_filename, self.setup_filename)
+        self.run_cell_code = PY5BOT_CODE.format(self.settings_filename, self.setup_filename)
+        self.initialized = False
+
+    def write_code(self, settings_code, setup_code):
+        with open(self.settings_filename, 'w') as f:
+            f.write(settings_code)
+
+        with open(self.setup_filename, 'w') as f:
+            f.write(setup_code)
