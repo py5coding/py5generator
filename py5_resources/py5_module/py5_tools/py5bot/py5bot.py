@@ -19,7 +19,6 @@
 # *****************************************************************************
 
 # TODO: don't pop open a window for JAVA2D renderer, use HIDDEN renderer instead
-# TODO: new py5bot logo icon, look at https://thenounproject.com/term/bot/ for inspiration
 # TODO: proper error messages for both syntax / parsing errors and runtime py5 errors
 # TODO: use split_setup in py5bot shell
 # TODO: use tempfile to get a tempdirectory. "/tmp/" won't work on Windows
