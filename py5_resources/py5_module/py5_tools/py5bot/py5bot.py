@@ -21,7 +21,6 @@ from pathlib import Path
 import tempfile
 
 # TODO: don't pop open a window for JAVA2D renderer, use HIDDEN renderer instead
-# TODO: proper error messages for both syntax / parsing errors and runtime py5 errors
 # TODO: use split_setup in py5bot shell
 
 
@@ -40,14 +39,14 @@ _PY5BOT_OUTPUT_ = None
 
 
 def settings():
-    exec(compile(py5_tools.parsing.transform_py5_code(_PY5BOT_SETTINGS_AST_), filename='{0}', mode='exec'))
+    exec(compile(_PY5BOT_SETTINGS_AST_, filename='{0}', mode='exec'))
 
 
 def setup():
     global _PY5BOT_OUTPUT_
     _PY5BOT_OUTPUT_ = None
 
-    exec(compile(py5_tools.parsing.transform_py5_code(_PY5BOT_SETUP_AST_), filename='{1}', mode='exec'))
+    exec(compile(_PY5BOT_SETUP_AST_, filename='{1}', mode='exec'))
 
     from PIL import Image
     load_np_pixels()
@@ -60,10 +59,14 @@ def setup():
 
 PY5BOT_CODE = """
 with open('{0}', 'r') as f:
-    _PY5BOT_SETTINGS_AST_ = _PY5BOT_ast.parse(f.read(), filename='{0}', mode='exec')
+    _PY5BOT_SETTINGS_AST_ = py5_tools.parsing.transform_py5_code(
+        _PY5BOT_ast.parse(f.read(), filename='{0}', mode='exec')
+    )
 
 with open('{1}', 'r') as f:
-    _PY5BOT_SETUP_AST_ = _PY5BOT_ast.parse(f.read(), filename='{1}', mode='exec')
+    _PY5BOT_SETUP_AST_ = py5_tools.parsing.transform_py5_code(
+        _PY5BOT_ast.parse(f.read(), filename='{1}', mode='exec')
+    )
 
 run_sketch()
 
@@ -81,8 +84,8 @@ class Py5BotManager:
     def __init__(self):
         tempdir = Path(tempfile.TemporaryDirectory().name)
         tempdir.mkdir(parents=True, exist_ok=True)
-        self.settings_filename = tempdir / 'py5bot_settings_code.py'
-        self.setup_filename = tempdir / 'py5bot_setup_code.py'
+        self.settings_filename = tempdir / '_PY5_STATIC_SETTINGS_CODE_.py'
+        self.setup_filename = tempdir / '_PY5_STATIC_SETUP_CODE_.py'
         self.init_code = PY5BOT_CODE_INIT.format(self.settings_filename, self.setup_filename)
         self.run_cell_code = PY5BOT_CODE.format(self.settings_filename, self.setup_filename)
         self.initialized = False
