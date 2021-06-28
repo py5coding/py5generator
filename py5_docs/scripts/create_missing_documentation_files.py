@@ -72,15 +72,7 @@ for pclass, class_data in class_data_info.items():
         if new_docfile.exists():
             continue
 
-        # check if usable alternate docfiles exist
-        if processing_name and pclass in ['Sketch', 'PGraphics', 'PImage']:
-            alt_docfiles = [PY5_API_EN / f'{x}_{py5_name}.txt' for x in ['Sketch', 'Py5Graphics', 'Py5Image']]
-            if any(f.exists() for f in alt_docfiles):
-                continue
-
-        # new documentation that I must write. skip pgraphics so I don't duplicate work
-        if pclass not in ['PGraphics', 'PImage']:
-            new_xml_files.append((pclass, py5_name, item_type, processing_name, new_docfile))
+        new_xml_files.append((pclass, py5_name, item_type, processing_name, new_docfile))
 
 for num, new_file_data in enumerate(new_xml_files):
     pclass, py5_name, item_type, processing_name, new_docfile = new_file_data
