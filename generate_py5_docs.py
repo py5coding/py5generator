@@ -417,7 +417,7 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
 
     # save the valid link cache
     with open(valid_link_cache_file, 'w') as f:
-        json.dump(valid_link_cache, f)
+        json.dump(valid_link_cache, f, indent=2)
 
 
 def main():
