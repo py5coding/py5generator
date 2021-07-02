@@ -39,4 +39,4 @@ def setup():
 def setup():
     for i in range(100):
         r = py5.random(-50, 50)
-        print(r)
+        py5.println(r)

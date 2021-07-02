@@ -30,4 +30,4 @@ def setup():
 
     py5.shape(s, 50, 50)
     specular = s.get_specular(0)
-    print(py5.red(specular), py5.green(specular), py5.blue(specular))
+    py5.println(py5.red(specular), py5.green(specular), py5.blue(specular))

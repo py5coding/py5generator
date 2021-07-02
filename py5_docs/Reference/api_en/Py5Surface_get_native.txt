@@ -17,4 +17,4 @@ py5.run_sketch(block=False)
 surface = py5.get_surface()
 native = surface.get_native()
 # output will depend on your operating system and the sketch's renderer
-print(type(native))
+py5.println(type(native))

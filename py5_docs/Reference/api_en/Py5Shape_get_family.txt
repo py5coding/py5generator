@@ -25,7 +25,7 @@ SHAPE_FAMILY_VALS = {py5.Py5Shape.GROUP: 'GROUP',
 def setup():
     s = py5.load_shape("bot.svg")
     for child in s.get_children():
-        print(SHAPE_FAMILY_VALS[child.get_family()])
+        py5.println(SHAPE_FAMILY_VALS[child.get_family()])
 
     py5.background(192)
     py5.scale(0.25)

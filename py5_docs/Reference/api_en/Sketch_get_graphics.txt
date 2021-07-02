@@ -16,4 +16,4 @@ Get the :doc:`py5graphics` object used by the Sketch. Internally, all of Process
 def setup():
     py5.rect(10, 10, 50, 50)
     g = py5.get_graphics()
-    print(type(g))
+    py5.println(type(g))

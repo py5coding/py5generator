@@ -18,4 +18,4 @@ This function makes a call to the numpy ``exp()`` function.
 @@ example
 def setup():
     v1 = py5.exp(1.0)
-    print(v1)  # Prints "2.718281828459045"
+    py5.println(v1)  # Prints "2.718281828459045"

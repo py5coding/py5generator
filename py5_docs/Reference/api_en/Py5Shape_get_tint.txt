@@ -37,4 +37,4 @@ def setup():
     for i in range(s.get_vertex_count()):
         tint = s.get_tint(i)
         r, g, b = py5.red(tint), py5.green(tint), py5.blue(tint)
-        print(f"vertex {i}: r = {r} g = {g} b = {b}")
+        py5.println(f"vertex {i}: r = {r} g = {g} b = {b}")

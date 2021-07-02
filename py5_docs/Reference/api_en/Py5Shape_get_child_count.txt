@@ -16,4 +16,4 @@ Returns the number of children within the ``Py5Shape`` object.
 def setup():
     us_map = py5.load_shape("us_map.svg")
     count = us_map.get_child_count()
-    print(count)
+    py5.println(count)

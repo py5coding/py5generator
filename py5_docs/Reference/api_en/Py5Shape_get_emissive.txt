@@ -30,4 +30,4 @@ def setup():
 
     py5.shape(s, 50, 50)
     emissive = s.get_emissive(0)
-    print(py5.red(emissive), py5.green(emissive), py5.blue(emissive))
+    py5.println(py5.red(emissive), py5.green(emissive), py5.blue(emissive))

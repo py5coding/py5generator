@@ -30,4 +30,4 @@ This function makes calls to numpy to generate the random integers.
 def setup():
     words = ["apple", "bear", "cat", "dog"]
     index = py5.random_int(len(words)-1)
-    print(words[index])  # Prints one of the four words
+    py5.println(words[index])  # Prints one of the four words

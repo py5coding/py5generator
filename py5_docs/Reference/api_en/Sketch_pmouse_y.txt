@@ -17,4 +17,4 @@ For more detail on how ``pmouse_y`` is updated inside of mouse events and ``draw
 def draw():
     py5.background(204)
     py5.line(20, py5.mouse_y, 80, py5.pmouse_y)
-    print(py5.mouse_y, ":", py5.pmouse_y)
+    py5.println(py5.mouse_y, ":", py5.pmouse_y)

@@ -18,9 +18,9 @@ import time
 
 
 def slow_thread():
-    print('starting slow thread')
+    py5.println('starting slow thread')
     time.sleep(7)
-    print('finishing slow thread')
+    py5.println('finishing slow thread')
 
 
 def setup():

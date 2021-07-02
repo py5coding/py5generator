@@ -26,6 +26,6 @@ def setup():
     py5.rect(15, 20, 35, 60)  # draw left rectangle
     
     blue_value = py5.blue(c)  # get blue in 'c'
-    print(blue_value)  # prints "220.0"
+    py5.println(blue_value)  # prints "220.0"
     py5.fill(0, 0, blue_value)  # use 'blue_value' in new fill
     py5.rect(50, 20, 35, 60)  # draw right rectangle

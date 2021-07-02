@@ -23,7 +23,7 @@ PY5SHAPE_KIND_VALS = {py5.Py5Shape.GROUP: 'GROUP',
 def setup():
     s = py5.load_shape("bot.svg")
     for child in s.get_children():
-        print(PY5SHAPE_KIND_VALS[child.get_kind()])
+        py5.println(PY5SHAPE_KIND_VALS[child.get_kind()])
 
     py5.background(192)
     py5.scale(0.25)

@@ -16,4 +16,4 @@ def setup():
 
 def draw():
     py5.line(0, 0, py5.width, py5.height)
-    print(py5.frame_count)
+    py5.println(py5.frame_count)

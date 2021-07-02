@@ -17,4 +17,4 @@ This method provides the same information as Processing's ``frameRate`` variable
 @@ example
 def draw():
     py5.rect(py5.mouse_x, py5.mouse_y, 10, 10)
-    print(py5.get_frame_rate())
+    py5.println(py5.get_frame_rate())

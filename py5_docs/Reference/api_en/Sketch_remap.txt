@@ -37,7 +37,7 @@ def setup():
 def setup():
     value = 110
     m = py5.remap(value, 0, 100, -20, -10)
-    print(m)  # Prints "-9.0"
+    py5.println(m)  # Prints "-9.0"
 
 @@ example
 def setup():

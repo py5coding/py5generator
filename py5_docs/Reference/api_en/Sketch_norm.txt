@@ -21,10 +21,10 @@ Numbers outside of the range are not clamped to 0 and 1, because out-of-range va
 def setup():
     value = 20
     n = py5.norm(value, 0, 50)
-    print(n)  # Prints "0.4"
+    py5.println(n)  # Prints "0.4"
 
 @@ example
 def setup():
     value = -10
     n = py5.norm(value, 0, 100)
-    print(n)  # Prints "-0.1"
+    py5.println(n)  # Prints "-0.1"

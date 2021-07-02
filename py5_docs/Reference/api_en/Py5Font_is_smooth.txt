@@ -18,9 +18,9 @@ def setup():
     font2 = py5.create_font('DejaVu Sans', 45, False)
 
     py5.text_font(font1)
-    print(font1.is_smooth())
+    py5.println(font1.is_smooth())
     py5.text('py5', 10, 40)
 
-    print(font2.is_smooth())
+    py5.println(font2.is_smooth())
     py5.text_font(font2)
     py5.text('py5', 10, 90)

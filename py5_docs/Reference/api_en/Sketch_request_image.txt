@@ -28,4 +28,4 @@ def draw():
     if img_promise.is_ready:
         py5.image(img_promise.result, 10, 10)
     else:
-        print('not ready')
+        py5.println('not ready')

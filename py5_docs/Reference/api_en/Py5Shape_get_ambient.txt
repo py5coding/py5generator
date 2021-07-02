@@ -31,4 +31,4 @@ def setup():
 
     py5.shape(s, 50, 50)
     ambient = s.get_ambient(0)
-    print(py5.red(ambient), py5.green(ambient), py5.blue(ambient))
+    py5.println(py5.red(ambient), py5.green(ambient), py5.blue(ambient))

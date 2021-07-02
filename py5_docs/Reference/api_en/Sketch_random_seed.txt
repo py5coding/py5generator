@@ -20,7 +20,7 @@ def setup():
     py5.random_seed(42)
     b = py5.random()
     # the values a and b will be the same
-    print(a, b)
+    py5.println(a, b)
 
 @@ example
 def setup():

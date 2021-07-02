@@ -13,15 +13,15 @@ Width of the display window in pixels. When ``pixel_density(2)`` is used to make
 def setup():
     py5.size(600, 400)
     py5.pixel_density(2)
-    print(py5.width, py5.height)
-    print(py5.pixel_width, py5.pixel_height)
+    py5.println(py5.width, py5.height)
+    py5.println(py5.pixel_width, py5.pixel_height)
 
 @@ example
 def setup():
     py5.size(600, 400)
     py5.pixel_density(2)  # double the pixel density
-    print(py5.width, py5.height)
-    print(py5.pixel_width, py5.pixel_height)
+    py5.println(py5.width, py5.height)
+    py5.println(py5.pixel_width, py5.pixel_height)
 
 
 def draw():

@@ -31,4 +31,4 @@ def setup():
         x += font.width(c) * font_size
         py5.line(x, 0, x, py5.height)
 
-    print(font.width('x'))
+    py5.println(font.width('x'))

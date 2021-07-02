@@ -11,4 +11,4 @@ Version name of Java currently being used by py5. Internally the py5 library is 
 
 @@ example
 def setup():
-    print(py5.java_version_name)
+    py5.println(py5.java_version_name)

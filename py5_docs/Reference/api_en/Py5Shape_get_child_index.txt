@@ -22,7 +22,7 @@ def setup():
     us_map = py5.load_shape("us_map.svg")
     for child in us_map.get_children():
         idx = us_map.get_child_index(child)
-        print(child.get_name(), idx)
+        py5.println(child.get_name(), idx)
 
     py5.background(192)
     py5.scale(0.1)

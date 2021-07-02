@@ -25,4 +25,4 @@ def setup():
     s = py5.create_shape(py5.RECT, 20, 20, 60, 60)
     py5.shape(s)
 
-    print(s.get_stroke_weight(0)) # 4.0
+    py5.println(s.get_stroke_weight(0)) # 4.0

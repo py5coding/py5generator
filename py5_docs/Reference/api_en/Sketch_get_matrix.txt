@@ -28,7 +28,7 @@ def setup():
     py5.rotate_y(py5.PI/6)
     global matrix
     matrix = py5.get_matrix()
-    print(matrix)
-    print(matrix.dtype)
+    py5.println(matrix)
+    py5.println(matrix.dtype)
     py5.stroke(153)
     py5.box(50)

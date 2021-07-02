@@ -11,4 +11,4 @@ Pixel density of the Py5Image object. This will always be equal to 1, even if th
 def setup():
     py5.pixel_density(2)
     img = py5.create_image(100, 100, py5.RGB)
-    print(img.pixel_density, img.pixel_width, img.pixel_height)  # prints 1, 100, 100
+    py5.println(img.pixel_density, img.pixel_width, img.pixel_height)  # prints 1, 100, 100

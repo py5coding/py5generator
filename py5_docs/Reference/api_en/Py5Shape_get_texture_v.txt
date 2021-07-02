@@ -35,4 +35,4 @@ def setup():
     for i in range(s.get_vertex_count()):
         u = s.get_texture_u(i)
         v = s.get_texture_v(i)
-        print(f"vertex {i}: u = {u} v = {v}")
+        py5.println(f"vertex {i}: u = {u} v = {v}")

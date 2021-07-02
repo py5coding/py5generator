@@ -26,7 +26,7 @@ def setup():
     s.vertex(30, 75)
     s.end_shape(py5.CLOSE)
 
-    print(s.is2d(), s.is3d())
+    py5.println(s.is2d(), s.is3d())
     py5.shape(s)
 
 @@ example
@@ -42,5 +42,5 @@ def setup():
     s.vertex(30, 75)
     s.end_shape(py5.CLOSE)
 
-    print(s.is2d(), s.is3d())
+    py5.println(s.is2d(), s.is3d())
     py5.shape(s)

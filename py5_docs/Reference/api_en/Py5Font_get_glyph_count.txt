@@ -20,9 +20,9 @@ def setup():
     font2 = py5.load_font('DejaVu_Sans-32.vlw')
     font3 = py5.create_font('DejaVu Sans', font_size, True, 'py5')
 
-    print(font1.get_glyph_count())
-    print(font2.get_glyph_count())
-    print(font3.get_glyph_count())
+    py5.println(font1.get_glyph_count())
+    py5.println(font2.get_glyph_count())
+    py5.println(font3.get_glyph_count())
 
     py5.text_font(font1)
     py5.text('py5', 10, 30)

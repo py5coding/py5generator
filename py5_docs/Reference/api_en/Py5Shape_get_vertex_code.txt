@@ -41,7 +41,7 @@ def setup():
     s.end_shape(py5.CLOSE)
     py5.shape(s)
 
-    print(s.get_vertex_count(), s.get_vertex_code_count())  # 8 9
+    py5.println(s.get_vertex_count(), s.get_vertex_code_count())  # 8 9
     # ['VERTEX', 'VERTEX', 'VERTEX', 'VERTEX', 'BREAK', 'VERTEX', 'VERTEX', 'VERTEX', 'VERTEX']
-    print([SHAPE_VERTEX_CODES[s.get_vertex_code(i)]
+    py5.println([SHAPE_VERTEX_CODES[s.get_vertex_code(i)]
           for i in range(s.get_vertex_code_count())])

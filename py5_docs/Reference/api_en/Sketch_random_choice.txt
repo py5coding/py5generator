@@ -19,4 +19,4 @@ This function makes calls to numpy to select the random items.
 def setup():
     words = ["apple", "bear", "cat", "dog"]
     word = py5.random_choice(words)
-    print(word)  # Prints one of the four words
+    py5.println(word)  # Prints one of the four words

@@ -18,11 +18,11 @@ This function makes a call to the numpy ``log()`` function. If the ``n`` paramet
 @@ example
 def setup():
   i = 12
-  print(py5.log(i))
-  print(log10(i))
+  py5.println(py5.log(i))
+  py5.println(log10(i))
 
   j = -5
-  print(py5.log(j))
+  py5.println(py5.log(j))
 
 # Calculates the base-10 logarithm of a number
 # use this if you don't want to use numpy's log10 function

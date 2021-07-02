@@ -18,4 +18,4 @@ py5_tools.add_classpath('path/to/jar/file/java_code.jar')
 
 import py5
 
-print(py5_tools.get_classpath())
+py5.println(py5_tools.get_classpath())

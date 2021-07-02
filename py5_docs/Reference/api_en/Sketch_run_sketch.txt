@@ -28,14 +28,14 @@ When running a Sketch asynchronously through Jupyter Notebook, any ``print`` sta
 
 @@ example
 py5.run_sketch(block=True)
-print("this message will not be printed until after the sketch exits")
+py5.println("this message will not be printed until after the sketch exits")
 
 @@ example
 py5.run_sketch(block=False)
-print("this message will be printed immediately, while the sketch is running")
+py5.println("this message will be printed immediately, while the sketch is running")
 
 @@ example
 # run the sketch with the window at position 400, 300 on display #1
 py5.run_sketch(block=False, py5_options=['--location=400,300', '--display=1'], sketch_args=['py5 is awesome'])
 # this will print 'py5 is awesome'
-print(py5.args[0])
+py5.println(py5.args[0])

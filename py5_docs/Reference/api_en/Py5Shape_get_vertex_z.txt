@@ -24,4 +24,4 @@ def setup():
     s1 = py5.create_shape(py5.SPHERE, 40)
     z_values = [s1.get_vertex_z(i) for i in range(s1.get_vertex_count())]
     py5.shape(s1, 50, 50)
-    print(s1.get_depth(), min(z_values), max(z_values))  # 80, -40, 40
+    py5.println(s1.get_depth(), min(z_values), max(z_values))  # 80, -40, 40

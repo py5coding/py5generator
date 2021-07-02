@@ -27,4 +27,4 @@ def setup():
     py5.shape(s)
 
     fill = s.get_fill(0)
-    print(py5.red(fill), py5.green(fill), py5.blue(fill)) # 200, 50, 50
+    py5.println(py5.red(fill), py5.green(fill), py5.blue(fill)) # 200, 50, 50

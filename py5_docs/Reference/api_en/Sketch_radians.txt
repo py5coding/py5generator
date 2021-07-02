@@ -20,4 +20,4 @@ def setup():
     deg = 45
     rad = py5.radians(deg)
     # prints "45 degrees is 0.7854 radians"
-    print(round(deg, 5), 'degrees is', round(rad, 5), 'radians')
+    py5.println(round(deg, 5), 'degrees is', round(rad, 5), 'radians')

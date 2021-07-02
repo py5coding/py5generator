@@ -24,7 +24,7 @@ def setup():
     s1.end_shape(py5.CLOSE)
     py5.shape(s1)
     y_values = [s1.get_vertex_y(i) for i in range(s1.get_vertex_count())]
-    print(s1.get_height(), min(y_values), max(y_values))  # 80, 20, 80
+    py5.println(s1.get_height(), min(y_values), max(y_values))  # 80, 20, 80
 
 @@ example
 image = Py5Shape_get_height_1.png
@@ -35,4 +35,4 @@ def setup():
     s1 = py5.create_shape(py5.SPHERE, 40)
     y_values = [s1.get_vertex_y(i) for i in range(s1.get_vertex_count())]
     py5.shape(s1, 50, 50)
-    print(s1.get_height(), min(y_values), max(y_values))  # 80, -40, 40
+    py5.println(s1.get_height(), min(y_values), max(y_values))  # 80, -40, 40

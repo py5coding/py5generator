@@ -21,7 +21,7 @@ def setup():
     c = py5.cos(a)
     a_c = py5.acos(c)
     # prints "3.1415927 : -1.0 : 3.14159261"
-    print(round(a, 8), ':', round(c, 8), ':', round(a_c, 8))
+    py5.println(round(a, 8), ':', round(c, 8), ':', round(a_c, 8))
 
 @@ example
 def setup():
@@ -29,4 +29,4 @@ def setup():
     c = py5.cos(a)
     a_c = py5.acos(c)
     # prints "3.92699087 : -0.70710674 : 2.35619443"
-    print(round(a, 8), ':', round(c, 8), ':', round(a_c, 8))
+    py5.println(round(a, 8), ':', round(c, 8), ':', round(a_c, 8))

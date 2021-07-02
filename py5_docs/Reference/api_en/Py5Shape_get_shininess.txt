@@ -31,4 +31,4 @@ def setup():
     s = py5.create_shape(py5.SPHERE, 30)
 
     py5.shape(s, 50, 50)
-    print(s.get_shininess(0))
+    py5.println(s.get_shininess(0))
