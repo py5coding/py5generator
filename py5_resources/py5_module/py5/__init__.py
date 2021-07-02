@@ -20,7 +20,7 @@
 # -*- coding: utf-8 -*-
 # *** FORMAT PARAMS ***
 """
-py5 makes Processing available to the CPython interpreter using JPype.
+py5 is a version of Processing for Python 3.8+. It makes the Processing Java libraries available to the CPython interpreter using JPype.
 """
 import sys
 from pathlib import Path
