@@ -5,14 +5,14 @@ category = output
 subcategory = image
 
 @@ signatures
-save(filename: Union[str, Path], *, format: str = None, drop_alpha: bool = True, use_thread: bool = True, **params) -> None
+save(filename: Union[str, Path], *, format: str = None, drop_alpha: bool = False, use_thread: bool = False, **params) -> None
 
 @@ variables
-drop_alpha: bool = True - remove the alpha channel when saving the image
+drop_alpha: bool = False - missing variable description
 filename: Union[str, Path] - output filename
 format: str = None - image format, if not determined from filename extension
 params - keyword arguments to pass to the PIL.Image save method
-use_thread: bool = True - write file in separate thread
+use_thread: bool = False - write file in separate thread
 
 @@ description
 Save image data to a file. This method uses the Python library Pillow to write the image, so it can save images in any format that that library supports.
