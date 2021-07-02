@@ -9,7 +9,7 @@ pclass = PGraphics
 load_np_pixels() -> None
 
 @@ description
-Loads the pixel data of the current Py5Graphics drawing surface into the :doc:`py5graphics_np_pixels` array. This method must always be called before reading from or writing to :doc:`py5graphics_np_pixels`. This must be used after :doc:`py5graphics_begin_draw` but can be used after :doc:`py5graphics_end_draw`. Subsequent changes to the Py5Graphics drawing surface will not be reflected in :doc:`py5graphics_np_pixels` until ``load_np_pixels()`` is called again.
+Loads the pixel data of the current Py5Graphics drawing surface into the :doc:`py5graphics_np_pixels` array. This method must always be called before reading from or writing to :doc:`py5graphics_np_pixels`. It should only be used between calls to :doc:`py5graphics_begin_draw` and :doc:`py5graphics_end_draw`. Subsequent changes to the Py5Graphics drawing surface will not be reflected in :doc:`py5graphics_np_pixels` until ``load_np_pixels()`` is called again.
 
 The ``load_np_pixels()`` method is similar to :doc:`py5graphics_load_pixels` in that ``load_np_pixels()`` must be called before reading from or writing to :doc:`py5graphics_np_pixels` just as :doc:`py5graphics_load_pixels` must be called before reading from or writing to :doc:`py5graphics_pixels`.
 
