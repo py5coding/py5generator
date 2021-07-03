@@ -53,7 +53,7 @@ class Py5BotShell(Py5Shell):
             self._py5bot_mgr.write_code(py5bot_settings, py5bot_setup)
 
             return super(Py5BotShell, self).run_cell(
-                self._py5bot_mgr.run_cell_code, store_history=False, silent=silent, shell_futures=shell_futures)
+                self._py5bot_mgr.run_code, store_history=False, silent=silent, shell_futures=shell_futures)
         else:
             print(result, file=sys.stderr)
 

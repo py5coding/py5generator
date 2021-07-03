@@ -114,13 +114,13 @@ def check_for_problems(code):
         m = re.search(r'^SyntaxError:', msg, flags=re.MULTILINE)
         if m:
             msg = msg[m.start(0):]
-        msg = 'py5bot encountered an error in your code:\n' + msg
+        msg = 'There is a problem with your code:\n' + msg
         return False, msg
 
     # check for assignments to or deletions of reserved words
     problems = parsing.check_reserved_words(code, sketch_ast)
     if problems:
-        msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your py5bot code.\n'
+        msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your code.\n'
         msg += '=' * len(msg) + '\n' + '\n'.join(problems)
         return False, msg
 
@@ -131,9 +131,9 @@ def check_for_problems(code):
     # check for calls to size, etc, that were not at the beginning of the code
     problems = split_setup.check_for_special_functions(py5bot_setup, 'imported')
     if problems:
-        msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your py5bot code.\n'
+        msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your code.\n'
         msg += 'The function ' + ('call' if len(problems) == 1 else 'calls') + ' to '
-        problems = [f'{name} (on line {i})' for i, name in problems]
+        problems = [f'{name} (on line {i + 1})' for i, name in problems]
         if len(problems) == 1:
             msg += problems[0]
         elif len(problems) == 2:
@@ -154,7 +154,7 @@ class Py5BotManager:
         self.settings_filename = tempdir / '_PY5_STATIC_SETTINGS_CODE_.py'
         self.setup_filename = tempdir / '_PY5_STATIC_SETUP_CODE_.py'
         self.startup_code = PY5BOT_CODE_STARTUP
-        self.run_cell_code = PY5BOT_CODE.format(self.settings_filename, self.setup_filename)
+        self.run_code = PY5BOT_CODE.format(self.settings_filename, self.setup_filename)
 
     def write_code(self, settings_code, setup_code):
         with open(self.settings_filename, 'w') as f:
