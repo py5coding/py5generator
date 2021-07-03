@@ -24,7 +24,7 @@ import tempfile
 # TODO: use split_setup in py5bot shell
 
 
-PY5BOT_CODE_INIT = """
+PY5BOT_CODE_STARTUP = """
 # *** PY5BOT_CODE_BYPASS ***
 
 import time as _PY5BOT_time
@@ -36,17 +36,37 @@ from py5 import *
 
 
 _PY5BOT_OUTPUT_ = None
+"""
 
 
+PY5BOT_CODE = """
 def settings():
-    exec(compile(_PY5BOT_SETTINGS_AST_, filename='{0}', mode='exec'))
+    with open('{0}', 'r') as f:
+        exec(
+            compile(
+                py5_tools.parsing.transform_py5_code(
+                    _PY5BOT_ast.parse(f.read(), filename='{0}', mode='exec'),
+                ),
+                filename='{0}',
+                mode='exec'
+            )
+        )
 
 
 def setup():
     global _PY5BOT_OUTPUT_
     _PY5BOT_OUTPUT_ = None
 
-    exec(compile(_PY5BOT_SETUP_AST_, filename='{1}', mode='exec'))
+    with open('{1}', 'r') as f:
+        exec(
+            compile(
+                py5_tools.parsing.transform_py5_code(
+                    _PY5BOT_ast.parse(f.read(), filename='{1}', mode='exec'),
+                ),
+                filename='{1}',
+                mode='exec'
+            )
+        )
 
     from PIL import Image
     load_np_pixels()
@@ -54,19 +74,7 @@ def setup():
     _PY5BOT_OUTPUT_ = Image.fromarray(arr)
 
     exit_sketch()
-"""
 
-
-PY5BOT_CODE = """
-with open('{0}', 'r') as f:
-    _PY5BOT_SETTINGS_AST_ = py5_tools.parsing.transform_py5_code(
-        _PY5BOT_ast.parse(f.read(), filename='{0}', mode='exec')
-    )
-
-with open('{1}', 'r') as f:
-    _PY5BOT_SETUP_AST_ = py5_tools.parsing.transform_py5_code(
-        _PY5BOT_ast.parse(f.read(), filename='{1}', mode='exec')
-    )
 
 run_sketch()
 
@@ -86,9 +94,8 @@ class Py5BotManager:
         tempdir.mkdir(parents=True, exist_ok=True)
         self.settings_filename = tempdir / '_PY5_STATIC_SETTINGS_CODE_.py'
         self.setup_filename = tempdir / '_PY5_STATIC_SETUP_CODE_.py'
-        self.init_code = PY5BOT_CODE_INIT.format(self.settings_filename, self.setup_filename)
+        self.startup_code = PY5BOT_CODE_STARTUP
         self.run_cell_code = PY5BOT_CODE.format(self.settings_filename, self.setup_filename)
-        self.initialized = False
 
     def write_code(self, settings_code, setup_code):
         with open(self.settings_filename, 'w') as f:

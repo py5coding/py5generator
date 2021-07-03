@@ -70,10 +70,8 @@ class Py5BotShell(Py5Shell):
         py5bot_setup = '\n'.join(raw_cell.splitlines()[1:])
         self._py5bot_mgr.write_code(py5bot_settings, py5bot_setup)
 
-        code = ('' if self._py5bot_mgr.initialized else self._py5bot_mgr.init_code) + self._py5bot_mgr.run_cell_code
-
         return super(Py5BotShell, self).run_cell(
-            code, store_history=store_history, silent=silent, shell_futures=shell_futures)
+            self._py5bot_mgr.run_cell_code, store_history=store_history, silent=silent, shell_futures=shell_futures)
 
 InteractiveShellABC.register(Py5BotShell)
 
@@ -92,3 +90,7 @@ class Py5BotApp(IPKernelApp):
 
     kernel_class = Type('py5_tools.py5bot.Py5BotKernel',
                         klass='ipykernel.kernelbase.Kernel').tag(config=True)
+
+    exec_lines = List(Unicode(), [
+        py5bot.PY5BOT_CODE_STARTUP
+    ]).tag(config=True)
