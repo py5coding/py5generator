@@ -44,12 +44,13 @@ size = _change_renderer(size)
 
 del _change_renderer
 del functools
-
-_PY5BOT_OUTPUT_ = None
 """
 
 
 PY5BOT_CODE = """
+_PY5BOT_OUTPUT_ = None
+
+
 def settings():
     with open('{0}', 'r') as f:
         exec(
@@ -65,7 +66,6 @@ def settings():
 
 def setup():
     global _PY5BOT_OUTPUT_
-    _PY5BOT_OUTPUT_ = None
 
     with open('{1}', 'r') as f:
         exec(
