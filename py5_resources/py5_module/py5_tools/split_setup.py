@@ -27,31 +27,53 @@ MODULE_MODE_METHOD_LINE = re.compile(r'^\s*py5\.(\w+)\([^\)]*\)')
 IMPORTED_MODE_METHOD_LINE = re.compile(r'^\s*(\w+)\([^\)]*\)')
 
 
-def find_cutoff(code, mode):
+def _get_method_line_regex(mode):
     if mode == 'module':
-        METHOD_LINE = MODULE_MODE_METHOD_LINE
+        return MODULE_MODE_METHOD_LINE
     elif mode == 'imported':
-        METHOD_LINE = IMPORTED_MODE_METHOD_LINE
+        return IMPORTED_MODE_METHOD_LINE
     else:
         raise RuntimeError('only module mode and imported mode are supported')
 
-    # remove comments
+
+def _remove_comments(code):
+    # remove # comments
     code = COMMENT_LINE.sub('', code)
     # remove docstrings
     for docstring in DOCSTRING.findall(code):
         code = code.replace(docstring, (len(docstring.split('\n')) - 1) * '\n')
 
+    return code
+
+
+def find_cutoff(code, mode):
+    method_line = _get_method_line_regex(mode)
+    code = _remove_comments(code)
+
     # find the cutoff point
     for i, line in enumerate(code.split('\n')):
         if line == 'def setup():':
             continue
-        if line.strip() and not ((m := METHOD_LINE.match(line)) and m.groups()[0] in ['size', 'full_screen', 'smooth', 'no_smooth', 'pixel_density']):
+        if line.strip() and not ((m := method_line.match(line)) and m.groups()[0] in ['size', 'full_screen', 'smooth', 'no_smooth', 'pixel_density']):
             cutoff = i
             break
     else:
         cutoff = i + 1
 
     return cutoff
+
+
+def check_for_special_functions(code, mode):
+    method_line = _get_method_line_regex(mode)
+    code = _remove_comments(code)
+
+    out = []
+    for i, line in enumerate(code.split('\n')):
+        m = method_line.match(line)
+        if m and m.groups()[0] in ['size', 'full_screen', 'smooth', 'no_smooth', 'pixel_density']:
+            out.append((i, m.groups()[0]))
+
+    return out
 
 
 def count_noncomment_lines(code):

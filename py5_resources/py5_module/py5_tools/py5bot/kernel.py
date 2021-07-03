@@ -61,8 +61,8 @@ class Py5BotShell(Py5Shell):
         # check for assignments to or deletions of reserved words
         problems = parsing.check_reserved_words(raw_cell, sketch_ast)
         if problems:
-            msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your py5bot code'
-            msg += '\n' + '=' * len(msg) + '\n' + '\n'.join(problems)
+            msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your py5bot code.\n'
+            msg += '=' * len(msg) + '\n' + '\n'.join(problems)
             print(msg, file=sys.stderr)
             return super(Py5BotShell, self).run_cell(
                 'None', store_history=store_history, silent=silent, shell_futures=shell_futures)
@@ -70,6 +70,23 @@ class Py5BotShell(Py5Shell):
         cutoff = split_setup.find_cutoff(raw_cell, 'imported')
         py5bot_settings = '\n'.join(raw_cell.splitlines()[:cutoff])
         py5bot_setup = '\n'.join(raw_cell.splitlines()[cutoff:])
+
+        problems = split_setup.check_for_special_functions(py5bot_setup, 'imported')
+        if problems:
+            msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your py5bot code.\n'
+            msg += 'The function ' + ('call' if len(problems) == 1 else 'calls') + ' to '
+            problems = [f'{name} (on line {i})' for i, name in problems]
+            if len(problems) == 1:
+                msg += problems[0]
+            elif len(problems) == 2:
+                msg += f'{problems[0]} and {problems[1]}'
+            else:
+                msg += ', and '.join(', '.join(problems).rsplit(', ', maxsplit=1))
+            msg += ' must be moved to the top of the code cell, before any other code.'
+            print(msg, file=sys.stderr)
+            return super(Py5BotShell, self).run_cell(
+                'None', store_history=store_history, silent=silent, shell_futures=shell_futures)
+
 
         if split_setup.count_noncomment_lines(py5bot_settings) == 0:
             py5bot_settings = 'size(100, 100, HIDDEN)'
