@@ -20,7 +20,6 @@
 from pathlib import Path
 import tempfile
 
-# TODO: don't pop open a window for JAVA2D renderer, use HIDDEN renderer instead
 # TODO: use split_setup in py5bot shell
 
 
@@ -29,11 +28,25 @@ PY5BOT_CODE_STARTUP = """
 
 import time as _PY5BOT_time
 import ast as _PY5BOT_ast
+import functools
 
 import py5_tools
 py5_tools.set_imported_mode(True)
 from py5 import *
 
+
+def _change_renderer(f):
+    @functools.wraps(f)
+    def decorated(*args):
+        if len(args) == 2:
+            args = *args, HIDDEN
+        f(*args)
+    return decorated
+
+size = _change_renderer(size)
+
+del _change_renderer
+del functools
 
 _PY5BOT_OUTPUT_ = None
 """
