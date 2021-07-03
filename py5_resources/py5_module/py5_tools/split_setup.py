@@ -55,7 +55,8 @@ def find_cutoff(code, mode):
 
 
 def count_noncomment_lines(code):
-    return len(COMMENT_LINE.sub('', code).strip().split('\n'))
+    stripped_code = COMMENT_LINE.sub('', code).strip()
+    return len(stripped_code.split('\n')) if stripped_code else 0
 
 
 def transform(functions, sketch_locals, println, *, mode):

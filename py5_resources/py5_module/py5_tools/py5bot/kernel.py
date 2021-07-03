@@ -27,6 +27,7 @@ from traitlets import Type, Instance, Unicode, List
 
 from ..kernel.kernel import Py5Shell, Py5Kernel
 from .. import parsing
+from .. import split_setup
 from . import py5bot
 
 first_run = True
@@ -66,8 +67,12 @@ class Py5BotShell(Py5Shell):
             return super(Py5BotShell, self).run_cell(
                 'None', store_history=store_history, silent=silent, shell_futures=shell_futures)
 
-        py5bot_settings = raw_cell.split('\n', maxsplit=1)[0]
-        py5bot_setup = '\n'.join(raw_cell.splitlines()[1:])
+        cutoff = split_setup.find_cutoff(raw_cell, 'imported')
+        py5bot_settings = '\n'.join(raw_cell.splitlines()[:cutoff])
+        py5bot_setup = '\n'.join(raw_cell.splitlines()[cutoff:])
+
+        if split_setup.count_noncomment_lines(py5bot_settings) == 0:
+            py5bot_settings = 'size(100, 100, HIDDEN)'
         self._py5bot_mgr.write_code(py5bot_settings, py5bot_setup)
 
         return super(Py5BotShell, self).run_cell(

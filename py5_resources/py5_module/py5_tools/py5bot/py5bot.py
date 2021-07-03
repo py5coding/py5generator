@@ -20,8 +20,6 @@
 from pathlib import Path
 import tempfile
 
-# TODO: use split_setup in py5bot shell
-
 
 PY5BOT_CODE_STARTUP = """
 # *** PY5BOT_CODE_BYPASS ***
