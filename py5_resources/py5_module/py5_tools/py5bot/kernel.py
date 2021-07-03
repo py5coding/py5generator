@@ -45,7 +45,7 @@ class Py5BotShell(Py5Shell):
             return super(Py5BotShell, self).run_cell(
                 raw_cell, store_history=store_history, silent=silent, shell_futures=shell_futures)
 
-        success, result = py5bot.check_for_problems(raw_cell)
+        success, result = py5bot.check_for_problems(raw_cell, "py5bot.py")
         if success:
             py5bot_settings, py5bot_setup = result
             if split_setup.count_noncomment_lines(py5bot_settings) == 0:
@@ -53,12 +53,12 @@ class Py5BotShell(Py5Shell):
             self._py5bot_mgr.write_code(py5bot_settings, py5bot_setup)
 
             return super(Py5BotShell, self).run_cell(
-                self._py5bot_mgr.run_code, store_history=False, silent=silent, shell_futures=shell_futures)
+                self._py5bot_mgr.run_code, store_history=store_history, silent=silent, shell_futures=shell_futures)
         else:
             print(result, file=sys.stderr)
 
             return super(Py5BotShell, self).run_cell(
-                'None', store_history=False, silent=silent, shell_futures=shell_futures)
+                'None', store_history=store_history, silent=silent, shell_futures=shell_futures)
 
 InteractiveShellABC.register(Py5BotShell)
 
