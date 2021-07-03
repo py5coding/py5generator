@@ -19,6 +19,13 @@
 # *****************************************************************************
 from pathlib import Path
 import tempfile
+import ast
+import re
+
+import stackprinter
+
+from .. import parsing
+from .. import split_setup
 
 
 PY5BOT_CODE_STARTUP = """
@@ -95,6 +102,48 @@ if is_dead_from_error:
 
 _PY5BOT_OUTPUT_
 """
+
+
+def check_for_problems(code):
+    # does the code parse? if not, return an error message
+    try:
+        sketch_ast = None
+        sketch_ast = ast.parse(code, filename="py5bot.py", mode='exec')
+    except Exception as e:
+        msg = stackprinter.format(e)
+        m = re.search(r'^SyntaxError:', msg, flags=re.MULTILINE)
+        if m:
+            msg = msg[m.start(0):]
+        msg = 'py5bot encountered an error in your code:\n' + msg
+        return False, msg
+
+    # check for assignments to or deletions of reserved words
+    problems = parsing.check_reserved_words(code, sketch_ast)
+    if problems:
+        msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your py5bot code.\n'
+        msg += '=' * len(msg) + '\n' + '\n'.join(problems)
+        return False, msg
+
+    cutoff = split_setup.find_cutoff(code, 'imported')
+    py5bot_settings = '\n'.join(code.splitlines()[:cutoff])
+    py5bot_setup = '\n'.join(code.splitlines()[cutoff:])
+
+    # check for calls to size, etc, that were not at the beginning of the code
+    problems = split_setup.check_for_special_functions(py5bot_setup, 'imported')
+    if problems:
+        msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your py5bot code.\n'
+        msg += 'The function ' + ('call' if len(problems) == 1 else 'calls') + ' to '
+        problems = [f'{name} (on line {i})' for i, name in problems]
+        if len(problems) == 1:
+            msg += problems[0]
+        elif len(problems) == 2:
+            msg += f'{problems[0]} and {problems[1]}'
+        else:
+            msg += ', and '.join(', '.join(problems).rsplit(', ', maxsplit=1))
+        msg += ' must be moved to the beginning of your code, before any other code.'
+        return False, msg
+
+    return True, (py5bot_settings, py5bot_setup)
 
 
 class Py5BotManager:
