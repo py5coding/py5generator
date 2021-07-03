@@ -97,5 +97,5 @@ class Py5BotApp(IPKernelApp):
                         klass='ipykernel.kernelbase.Kernel').tag(config=True)
 
     exec_lines = List(Unicode(), [
-        py5bot.PY5BOT_CODE_STARTUP
+        '# *** PY5BOT_CODE_BYPASS ***\n' + py5bot.PY5BOT_CODE_STARTUP
     ]).tag(config=True)

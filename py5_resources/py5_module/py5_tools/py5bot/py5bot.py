@@ -22,8 +22,6 @@ import tempfile
 
 
 PY5BOT_CODE_STARTUP = """
-# *** PY5BOT_CODE_BYPASS ***
-
 import time as _PY5BOT_time
 import ast as _PY5BOT_ast
 import functools
