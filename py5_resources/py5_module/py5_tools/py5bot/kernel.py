@@ -19,11 +19,14 @@
 # *****************************************************************************
 import sys
 import ast
+import re
 
 from IPython.core.interactiveshell import InteractiveShellABC
 from ipykernel.kernelapp import IPKernelApp
 
 from traitlets import Type, Instance, Unicode, List
+
+import stackprinter
 
 from ..kernel.kernel import Py5Shell, Py5Kernel
 from .. import parsing
@@ -47,16 +50,20 @@ class Py5BotShell(Py5Shell):
             return super(Py5BotShell, self).run_cell(
                 raw_cell, store_history=store_history, silent=silent, shell_futures=shell_futures)
 
-        # does the code parse? if not, let the IPython kernel display its error message
+        # does the code parse? if not, display an error message
         try:
             sketch_ast = None
-            sketch_ast = ast.parse(raw_cell, mode='exec')
-        except:
-            pass
+            sketch_ast = ast.parse(raw_cell, filename="py5bot.py", mode='exec')
+        except Exception as e:
+            msg = stackprinter.format(e)
+            m = re.search(r'^SyntaxError:', msg, flags=re.MULTILINE)
+            if m:
+                msg = msg[m.start(0):]
+            msg = 'py5bot encountered an error in your code:\n' + msg
+            print(msg, file=sys.stderr)
 
-        if sketch_ast is None:
             return super(Py5BotShell, self).run_cell(
-                raw_cell, store_history=store_history, silent=silent, shell_futures=shell_futures)
+                'None', store_history=False, silent=silent, shell_futures=shell_futures)
 
         # check for assignments to or deletions of reserved words
         problems = parsing.check_reserved_words(raw_cell, sketch_ast)
@@ -65,7 +72,7 @@ class Py5BotShell(Py5Shell):
             msg += '=' * len(msg) + '\n' + '\n'.join(problems)
             print(msg, file=sys.stderr)
             return super(Py5BotShell, self).run_cell(
-                'None', store_history=store_history, silent=silent, shell_futures=shell_futures)
+                'None', store_history=False, silent=silent, shell_futures=shell_futures)
 
         cutoff = split_setup.find_cutoff(raw_cell, 'imported')
         py5bot_settings = '\n'.join(raw_cell.splitlines()[:cutoff])
@@ -85,7 +92,7 @@ class Py5BotShell(Py5Shell):
             msg += ' must be moved to the top of the code cell, before any other code.'
             print(msg, file=sys.stderr)
             return super(Py5BotShell, self).run_cell(
-                'None', store_history=store_history, silent=silent, shell_futures=shell_futures)
+                'None', store_history=False, silent=silent, shell_futures=shell_futures)
 
 
         if split_setup.count_noncomment_lines(py5bot_settings) == 0:
