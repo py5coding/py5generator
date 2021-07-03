@@ -54,6 +54,10 @@ def find_cutoff(code, mode):
     return cutoff
 
 
+def count_noncomment_lines(code):
+    return len(COMMENT_LINE.sub('', code).strip().split('\n'))
+
+
 def transform(functions, sketch_locals, println, *, mode):
     """if appropriate, transform setup() into settings() and (maybe) setup()
 
@@ -80,11 +84,11 @@ def transform(functions, sketch_locals, println, *, mode):
         fake_setup_code = (lineno - 1) * '\n' + "def setup():\n" + (cutoff - 1) * '\n' + ''.join(lines[cutoff:])
 
         # if the fake settings code is empty, there's no need to change anything
-        if len(COMMENT_LINE.sub('', fake_settings_code).strip().split('\n')) > 1:
+        if count_noncomment_lines(fake_settings_code) > 1:
             # compile the fake code
             exec(compile(fake_settings_code, filename=filename, mode='exec'), sketch_locals, functions)
             # if the fake setup code is empty, get rid of it. otherwise, compile it
-            if len(COMMENT_LINE.sub('', fake_setup_code).strip().split('\n')) == 1:
+            if count_noncomment_lines(fake_setup_code) == 1:
                 del functions['setup']
             else:
                 exec(compile(fake_setup_code, filename=filename, mode='exec'), sketch_locals, functions)
