@@ -21,10 +21,37 @@ import re
 import inspect
 
 
-COMMENT_LINE = re.compile(r'^\s+#.*' + chr(36), flags=re.MULTILINE)
-DOCSTRING = re.compile(r'^\s+"""[^"]*"""', flags=re.MULTILINE | re.DOTALL)
-MODULE_MODE_METHOD_LINE = re.compile(r'^\s+py5\.(\w+)\([^\)]*\)')
-IMPORTED_MODE_METHOD_LINE = re.compile(r'^\s+(\w+)\([^\)]*\)')
+COMMENT_LINE = re.compile(r'^\s*#.*' + chr(36), flags=re.MULTILINE)
+DOCSTRING = re.compile(r'^\s*"""[^"]*"""', flags=re.MULTILINE | re.DOTALL)
+MODULE_MODE_METHOD_LINE = re.compile(r'^\s*py5\.(\w+)\([^\)]*\)')
+IMPORTED_MODE_METHOD_LINE = re.compile(r'^\s*(\w+)\([^\)]*\)')
+
+
+def find_cutoff(code, mode):
+    if mode == 'module':
+        METHOD_LINE = MODULE_MODE_METHOD_LINE
+    elif mode == 'imported':
+        METHOD_LINE = IMPORTED_MODE_METHOD_LINE
+    else:
+        raise RuntimeError('only module mode and imported mode are supported')
+
+    # remove comments
+    code = COMMENT_LINE.sub('', code)
+    # remove docstrings
+    for docstring in DOCSTRING.findall(code):
+        code = code.replace(docstring, (len(docstring.split('\n')) - 1) * '\n')
+
+    # find the cutoff point
+    for i, line in enumerate(code.split('\n')):
+        if line == 'def setup():':
+            continue
+        if line.strip() and not ((m := METHOD_LINE.match(line)) and m.groups()[0] in ['size', 'full_screen', 'smooth', 'no_smooth', 'pixel_density']):
+            cutoff = i
+            break
+    else:
+        cutoff = i + 1
+
+    return cutoff
 
 
 def transform(functions, sketch_locals, println, *, mode):
@@ -42,30 +69,9 @@ def transform(functions, sketch_locals, println, *, mode):
     if 'settings' in functions or 'setup' not in functions:
         return functions
 
-    if mode == 'module':
-        METHOD_LINE = MODULE_MODE_METHOD_LINE
-    elif mode == 'imported':
-        METHOD_LINE = IMPORTED_MODE_METHOD_LINE
-    else:
-        raise RuntimeError('only module mode and imported mode are supported')
-
     try:
         setup = functions['setup']
-        source_code = inspect.getsource(setup).strip()
-
-        # remove comments
-        source_code = COMMENT_LINE.sub('', source_code)
-        # remove docstrings
-        for docstring in DOCSTRING.findall(source_code):
-            source_code = source_code.replace(docstring, (len(docstring.split('\n')) - 1) * '\n')
-
-        # find the cutoff point
-        for i, line in enumerate(source_code.split('\n')):
-            if i > 0 and line.strip() and not ((m := METHOD_LINE.match(line)) and m.groups()[0] in ['size', 'full_screen', 'smooth', 'no_smooth', 'pixel_density']):
-                cutoff = i
-                break
-        else:
-            cutoff = i + 1
+        cutoff = find_cutoff(inspect.getsource(setup).strip(), mode)
 
         # build the fake code
         lines, lineno = inspect.getsourcelines(setup)
