@@ -24,7 +24,8 @@ from pathlib import Path
 
 from PIL import Image
 
-import py5_tools
+import py5_tools.testing
+import py5_tools.magics
 
 from generator.docfiles import Documentation
 

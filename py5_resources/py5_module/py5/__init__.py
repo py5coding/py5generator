@@ -28,7 +28,6 @@ import inspect
 from typing import overload, Any, Callable, Union, Dict, List, Tuple  # noqa
 from nptyping import NDArray, Float, Int  # noqa
 
-# import json  # noqa
 import numpy as np  # noqa
 from PIL import Image  # noqa
 from jpype import JClass  # noqa
@@ -61,7 +60,7 @@ except ModuleNotFoundError:
 
 __version__ = '0.4a3.dev0'
 
-_PY5_USE_IMPORTED_MODE = py5_tools.imported.get_imported_mode()
+_PY5_USE_IMPORTED_MODE = py5_tools.get_imported_mode()
 
 java_conversion.init_jpype_converters()
 

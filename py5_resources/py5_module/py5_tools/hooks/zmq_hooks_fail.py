@@ -29,3 +29,6 @@ def sketch_portal(*, frame_rate: float = 10.0, time_limit: float = 0.0,
                   portal_widget: Py5SketchPortal = None, sketch: Sketch = None) -> None:
     """$module_Py5Tools_sketch_portal"""
     raise RuntimeError('The sketch_widget() function can only be used with IPython and ZMQInteractiveShell (such as Jupyter Lab)')
+
+
+__all__ = ['sketch_portal']

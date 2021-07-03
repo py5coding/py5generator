@@ -32,6 +32,7 @@ import functools
 
 import py5_tools
 py5_tools.set_imported_mode(True)
+import py5_tools.parsing as _PY5BOT_parsing
 from py5 import *
 
 
@@ -57,7 +58,7 @@ def settings():
     with open('{0}', 'r') as f:
         exec(
             compile(
-                py5_tools.parsing.transform_py5_code(
+                _PY5BOT_parsing.transform_py5_code(
                     _PY5BOT_ast.parse(f.read(), filename='{0}', mode='exec'),
                 ),
                 filename='{0}',
@@ -73,7 +74,7 @@ def setup():
     with open('{1}', 'r') as f:
         exec(
             compile(
-                py5_tools.parsing.transform_py5_code(
+                _PY5BOT_parsing.transform_py5_code(
                     _PY5BOT_ast.parse(f.read(), filename='{1}', mode='exec'),
                 ),
                 filename='{1}',
