@@ -29,7 +29,7 @@ import numpy as np  # noqa
 from jpype import JClass
 
 from .base import Py5Base
-from .mixins import PixelMixin
+from .mixins import PixelPy5GraphicsMixin
 from .font import Py5Font  # noqa
 from .shader import Py5Shader, _return_py5shader, _load_py5shader  # noqa
 from .shape import Py5Shape, _return_py5shape, _load_py5shape  # noqa
@@ -53,7 +53,7 @@ def _return_py5graphics(f):
 _Py5GraphicsHelper = JClass('py5.core.Py5GraphicsHelper')
 
 
-class Py5Graphics(PixelMixin, Py5Base):
+class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
     """$classdoc_Py5Graphics
     """
 

@@ -99,3 +99,53 @@ class PixelMixin:
             t.start()
         else:
             Image.fromarray(arr).save(filename, format=format, **params)
+
+    # *** END METHODS ***
+
+
+class PixelPy5GraphicsMixin(PixelMixin):
+
+    def load_np_pixels(self) -> None:
+        """$class_Py5Graphics_load_np_pixels"""
+        return super().load_np_pixels()
+
+    def update_np_pixels(self) -> None:
+        """$class_Py5Graphics_update_np_pixels"""
+        return super().update_np_pixels()
+
+    def _get_np_pixels(self) -> np.ndarray:  # @decorator
+        """$class_Py5Graphics_np_pixels"""
+        return super()._get_np_pixels()
+    np_pixels: np.ndarray = property(fget=_get_np_pixels)
+
+    def set_np_pixels(self, array: np.ndarray, bands: str = 'ARGB') -> None:
+        """$class_Py5Graphics_set_np_pixels"""
+        return super().set_np_pixels(array, bands)
+
+    def save(self, filename: Union[str, Path], *, format: str = None, drop_alpha: bool = False, use_thread: bool = False, **params) -> None:
+        """$class_Py5Graphics_save"""
+        return super().save(filename, format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
+
+
+class PixelPy5ImageMixin(PixelMixin):
+
+    def load_np_pixels(self) -> None:
+        """$class_Py5Image_load_np_pixels"""
+        return super().load_np_pixels()
+
+    def update_np_pixels(self) -> None:
+        """$class_Py5Image_update_np_pixels"""
+        return super().update_np_pixels()
+
+    def _get_np_pixels(self) -> np.ndarray:  # @decorator
+        """$class_Py5Image_np_pixels"""
+        return super()._get_np_pixels()
+    np_pixels: np.ndarray = property(fget=_get_np_pixels)
+
+    def set_np_pixels(self, array: np.ndarray, bands: str = 'ARGB') -> None:
+        """$class_Py5Image_set_np_pixels"""
+        return super().set_np_pixels(array, bands)
+
+    def save(self, filename: Union[str, Path], *, format: str = None, drop_alpha: bool = False, use_thread: bool = False, **params) -> None:
+        """$class_Py5Image_save"""
+        return super().save(filename, format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
