@@ -307,6 +307,7 @@ mouse_exited,mouseExited,,method,input,mouse,SKIP,method implemented by user
 mouse_wheel,mouseWheel,,method,input,mouse,SKIP,method implemented by user
 key_released,keyReleased,,method,input,keyboard,SKIP,method implemented by user
 key_typed,keyTyped,,method,input,keyboard,SKIP,method implemented by user
+movie_event,movieEvent,,method,,,SKIP,method implemented by user
 exit_actual,exitActual,,method,structure,,SKIP,replaced with exiting()
 no_loop,noLoop,,method,structure,,JAVA,
 load_pixels,loadPixels,,method,image,pixels,JAVA,
@@ -614,3 +615,4 @@ get_success,getSuccess,,method,,,SKIP,used to determine if sketch had an error
 noise_mode,,,method,math,random,PYTHON,implemented in math.py and used to switch between noise algorithms
 SIMPLEX_NOISE,,,static field,,,PYTHON,static constants for noise_mode
 PERLIN_NOISE,,,static field,,,PYTHON,static constants for noise_mode
+py5_println,py5Println,,method,,,SKIP,"special print method for Java extensions to use py5's println method, which works well with Jupyter Notebooks"
