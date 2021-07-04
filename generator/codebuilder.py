@@ -266,6 +266,8 @@ class CodeBuilder:
         overloaded = set()
         self.module_members.append(f'\n{"#" * 78}\n# module functions from {filename.name}\n{"#" * 78}\n')
         method_code = code.split('*** BEGIN METHODS ***')[1].strip()
+        if end_methods_indx := method_code.find('*** END METHODS ***') >= 0:
+            method_code = method_code[:end_methods_indx].strip()
         for decorator, fname, arg0, args, rettypestr, fake_decorator in METHOD_REGEX.findall(method_code):
             if fname.startswith('_') and not fake_decorator:
                 continue
