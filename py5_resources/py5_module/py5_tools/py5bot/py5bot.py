@@ -29,7 +29,6 @@ from .. import split_setup
 
 
 PY5BOT_CODE_STARTUP = """
-import time as _PY5BOT_time
 import ast as _PY5BOT_ast
 import functools
 
@@ -87,16 +86,12 @@ def setup():
 
     from PIL import Image
     load_np_pixels()
-    arr = np_pixels()[:, :, 1:]
-    _PY5BOT_OUTPUT_ = Image.fromarray(arr)
+    _PY5BOT_OUTPUT_ = Image.fromarray(np_pixels()[:, :, 1:])
 
     exit_sketch()
 
 
-run_sketch()
-
-while not is_dead:
-    _PY5BOT_time.sleep(0.05)
+run_sketch(block=True)
 if is_dead_from_error:
     exit_sketch()
 
@@ -149,10 +144,10 @@ def check_for_problems(code, filename):
 class Py5BotManager:
 
     def __init__(self):
-        tempdir = Path(tempfile.TemporaryDirectory().name)
-        tempdir.mkdir(parents=True, exist_ok=True)
-        self.settings_filename = tempdir / '_PY5_STATIC_SETTINGS_CODE_.py'
-        self.setup_filename = tempdir / '_PY5_STATIC_SETUP_CODE_.py'
+        self.tempdir = Path(tempfile.TemporaryDirectory().name)
+        self.tempdir.mkdir(parents=True, exist_ok=True)
+        self.settings_filename = self.tempdir / '_PY5_STATIC_SETTINGS_CODE_.py'
+        self.setup_filename = self.tempdir / '_PY5_STATIC_SETUP_CODE_.py'
         self.startup_code = PY5BOT_CODE_STARTUP
         self.run_code = PY5BOT_CODE.format(self.settings_filename, self.setup_filename)
 
