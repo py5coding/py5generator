@@ -17,15 +17,21 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from pathlib import Path
-import tempfile
+import sys
 import ast
 import re
+from pathlib import Path
+import tempfile
+
+from IPython.display import display
+from IPython.core.magic import Magics, magics_class, cell_magic
+from IPython.core.magic_arguments import kwds
 
 import stackprinter
 
 from .. import parsing
 from .. import split_setup
+from ..magics.util import CellMagicHelpFormatter
 
 
 PY5BOT_CODE_STARTUP = """
@@ -33,11 +39,12 @@ import py5_tools
 py5_tools.set_imported_mode(True)
 from py5 import *
 
-import sys as _PY5BOT_sys
+import py5_tools.parsing as _PY5BOT_parsing
 import ast as _PY5BOT_ast
+
+import sys as _PY5BOT_sys
 import functools as _PY5BOT_functools
 
-import py5_tools.parsing as _PY5BOT_parsing
 
 _PY5_VALIDATE_RENDERER = \"\"\"
 def _PY5BOT_size_validate_renderer(f):
@@ -47,17 +54,18 @@ def _PY5BOT_size_validate_renderer(f):
             args = *args, HIDDEN
         if len(args) >= 3 and isinstance(args2 := args[2], str) and args2 not in [HIDDEN, JAVA2D, P2D, P3D]:
             name = {SVG: 'SVG', PDF: 'PDF', DXF: 'DXF'}.get(args2, args2)
-            print(f'sorry, the {name} renderer is not supported by py5bot.', file=_PY5BOT_sys.stderr)
+            print(f'sorry, py5bot does not support the {name} renderer.', file=_PY5BOT_sys.stderr)
             args = *args[:2], HIDDEN, *args[3:]
         f(*args)
     return validate_renderer
 \"\"\"
 
-exec(compile(_PY5_VALIDATE_RENDERER, filename='py5bot.py', mode='exec'), globals(), locals())
+exec(compile(_PY5_VALIDATE_RENDERER, filename='<py5bot>', mode='exec'), globals(), locals())
 size = _PY5BOT_size_validate_renderer(size)
 
-del _PY5BOT_size_validate_renderer
 del _PY5BOT_functools
+del _PY5_VALIDATE_RENDERER
+del _PY5BOT_size_validate_renderer
 """
 
 
@@ -65,7 +73,7 @@ PY5BOT_CODE = """
 _PY5BOT_OUTPUT_ = None
 
 
-def settings():
+def _py5bot_settings():
     with open('{0}', 'r') as f:
         exec(
             compile(
@@ -78,7 +86,7 @@ def settings():
         )
 
 
-def setup():
+def _py5bot_setup():
     global _PY5BOT_OUTPUT_
 
     with open('{1}', 'r') as f:
@@ -99,7 +107,7 @@ def setup():
     exit_sketch()
 
 
-run_sketch(block=True)
+run_sketch(sketch_functions=dict(settings=_py5bot_settings, setup=_py5bot_setup), block=True)
 if is_dead_from_error:
     exit_sketch()
 
@@ -166,3 +174,28 @@ class Py5BotManager:
         with open(self.setup_filename, 'w') as f:
             f.write('\n' * (orig_line_count - len(setup_code.splitlines())))
             f.write(setup_code)
+
+
+@magics_class
+class Py5BotMagics(Magics):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._py5bot_mgr = Py5BotManager()
+
+    @kwds(formatter_class=CellMagicHelpFormatter)
+    @cell_magic
+    def py5bot(self, line, cell):
+        """class_Py5Magics_py5bot"""  # TODO: add dollar sign
+        success, result = check_for_problems(cell, "<py5bot>")
+        if success:
+            py5bot_settings, py5bot_setup = result
+            if split_setup.count_noncomment_lines(py5bot_settings) == 0:
+                py5bot_settings = 'size(100, 100, HIDDEN)'
+            self._py5bot_mgr.write_code(py5bot_settings, py5bot_setup, len(cell.splitlines()))
+
+            ns = dict()
+            exec(self._py5bot_mgr.startup_code + self._py5bot_mgr.run_code, ns)
+            display(ns['_PY5BOT_OUTPUT_'])
+        else:
+            print(result, file=sys.stderr)

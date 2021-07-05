@@ -18,3 +18,8 @@
 #
 # *****************************************************************************
 from .kernel import Py5BotKernel  # noqa
+from .py5bot import Py5BotMagics
+
+
+def load_ipython_extension(ipython):
+    ipython.register_magics(Py5BotMagics)

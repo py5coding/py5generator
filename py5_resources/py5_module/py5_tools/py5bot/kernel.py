@@ -19,19 +19,20 @@
 # *****************************************************************************
 import sys
 
+from ipykernel.zmqshell import ZMQInteractiveShell
 from IPython.core.interactiveshell import InteractiveShellABC
 from ipykernel.kernelapp import IPKernelApp
 
 from traitlets import Type, Instance, Unicode, List
 
-from ..kernel.kernel import Py5Shell, Py5Kernel
+from ..kernel.kernel import Py5Kernel
 from .. import split_setup
 from . import py5bot
 
 first_run = True
 
 
-class Py5BotShell(Py5Shell):
+class Py5BotShell(ZMQInteractiveShell):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -45,7 +46,7 @@ class Py5BotShell(Py5Shell):
             return super(Py5BotShell, self).run_cell(
                 raw_cell, store_history=store_history, silent=silent, shell_futures=shell_futures)
 
-        success, result = py5bot.check_for_problems(raw_cell, "py5bot.py")
+        success, result = py5bot.check_for_problems(raw_cell, "<py5bot>")
         if success:
             py5bot_settings, py5bot_setup = result
             if split_setup.count_noncomment_lines(py5bot_settings) == 0:
