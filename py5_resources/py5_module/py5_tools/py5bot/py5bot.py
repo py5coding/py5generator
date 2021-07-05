@@ -29,6 +29,7 @@ from .. import split_setup
 
 
 PY5BOT_CODE_STARTUP = """
+import sys as _PY5BOT_sys
 import ast as _PY5BOT_ast
 import functools
 
@@ -43,6 +44,10 @@ def _change_renderer(f):
     def decorated(*args):
         if len(args) == 2:
             args = *args, HIDDEN
+        if len(args) >= 3 and args[2] not in [HIDDEN, JAVA2D, P2D, P3D]:
+            name = {SVG: 'SVG', PDF: 'PDF', DXF: 'DXF'}.get(args[2], args[2])
+            print(f'sorry, the {name} renderer is not supported by py5bot.', file=_PY5BOT_sys.stderr)
+            args = *args[:2], HIDDEN, *args[3:]
         f(*args)
     return decorated
 
