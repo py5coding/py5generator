@@ -18,7 +18,10 @@
 #
 # *****************************************************************************
 import re
+import ast
 import inspect
+
+import py5_tools.parsing as parsing
 
 
 COMMENT_LINE = re.compile(r'^\s+#.*' + chr(36), flags=re.MULTILINE)
@@ -75,15 +78,27 @@ def transform(functions, sketch_globals, sketch_locals, println, *, mode):
 
         # if the fake settings code is empty, there's no need to change anything
         if len(COMMENT_LINE.sub('', fake_settings_code).strip().split('\n')) > 1:
+            # parse the fake settings code and transform it if using imported mode
+            fake_settings_ast = ast.parse(fake_settings_code, filename=filename, mode='exec')
+            if mode == 'imported':
+                fake_settings_ast = parsing.transform_py5_code(fake_settings_ast)
             # compile the fake code
-            exec(compile(fake_settings_code, filename=filename, mode='exec'), sketch_globals, sketch_locals)
+            exec(compile(fake_settings_ast, filename=filename, mode='exec'), sketch_globals, sketch_locals)
+            # extract the results and cleanup
             functions['settings'] = sketch_locals['_PY5_FAUX_SETTINGS']
             del sketch_globals['_PY5_FAUX_SETTINGS']
+
             # if the fake setup code is empty, get rid of it. otherwise, compile it
             if len(COMMENT_LINE.sub('', fake_setup_code).strip().split('\n')) == 1:
                 del functions['setup']
             else:
-                exec(compile(fake_setup_code, filename=filename, mode='exec'), sketch_globals, sketch_locals)
+                # parse the fake setup code and transform it if using imported mode
+                fake_setup_ast = ast.parse(fake_setup_code, filename=filename, mode='exec')
+                if mode == 'imported':
+                    fake_setup_ast = parsing.transform_py5_code(fake_setup_ast)
+                # compile the fake code
+                exec(compile(fake_setup_ast, filename=filename, mode='exec'), sketch_globals, sketch_locals)
+                # extract the results and cleanup
                 functions['setup'] = sketch_locals['_PY5_FAUX_SETUP']
                 del sketch_globals['_PY5_FAUX_SETUP']
 
