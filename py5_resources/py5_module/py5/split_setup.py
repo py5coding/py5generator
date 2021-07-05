@@ -73,8 +73,8 @@ def transform(functions, sketch_globals, sketch_locals, println, *, mode):
         # build the fake code
         lines, lineno = inspect.getsourcelines(setup)
         filename = inspect.getfile(setup)
-        fake_settings_code = (lineno - 1) * '\n' + "def _PY5_FAUX_SETTINGS():\n" + ''.join(lines[1:cutoff])
-        fake_setup_code = (lineno - 1) * '\n' + "def _PY5_FAUX_SETUP():\n" + (cutoff - 1) * '\n' + ''.join(lines[cutoff:])
+        fake_settings_code = (lineno - 1) * '\n' + "def _py5_faux_settings():\n" + ''.join(lines[1:cutoff])
+        fake_setup_code = (lineno - 1) * '\n' + "def _py5_faux_setup():\n" + (cutoff - 1) * '\n' + ''.join(lines[cutoff:])
 
         # if the fake settings code is empty, there's no need to change anything
         if len(COMMENT_LINE.sub('', fake_settings_code).strip().split('\n')) > 1:
@@ -85,8 +85,8 @@ def transform(functions, sketch_globals, sketch_locals, println, *, mode):
             # compile the fake code
             exec(compile(fake_settings_ast, filename=filename, mode='exec'), sketch_globals, sketch_locals)
             # extract the results and cleanup
-            functions['settings'] = sketch_locals['_PY5_FAUX_SETTINGS']
-            del sketch_globals['_PY5_FAUX_SETTINGS']
+            functions['settings'] = sketch_locals['_py5_faux_settings']
+            del sketch_globals['_py5_faux_settings']
 
             # if the fake setup code is empty, get rid of it. otherwise, compile it
             if len(COMMENT_LINE.sub('', fake_setup_code).strip().split('\n')) == 1:
@@ -99,8 +99,8 @@ def transform(functions, sketch_globals, sketch_locals, println, *, mode):
                 # compile the fake code
                 exec(compile(fake_setup_ast, filename=filename, mode='exec'), sketch_globals, sketch_locals)
                 # extract the results and cleanup
-                functions['setup'] = sketch_locals['_PY5_FAUX_SETUP']
-                del sketch_globals['_PY5_FAUX_SETUP']
+                functions['setup'] = sketch_locals['_py5_faux_setup']
+                del sketch_globals['_py5_faux_setup']
 
     except OSError as e:
         println("Unable to obtain source code for setup(). Either make it obtainable or create a settings() function for calls to size(), fullscreen(), etc.", stderr=True)
