@@ -81,7 +81,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     _cls = _Sketch
 
     def __init__(self, *args, **kwargs):
-        super().__init__(instance=_Sketch())
+        super().__init__(instance=_Sketch(str(Path(__file__).parent.parent / 'py5_tools/kernel/resources/logo-64x64.png')))
         self._methods_to_profile = []
         self._pre_hooks_to_add = []
         self._post_hooks_to_add = []

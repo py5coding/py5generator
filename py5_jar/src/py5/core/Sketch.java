@@ -40,16 +40,23 @@ import processing.core.PSurface;
 import processing.event.MouseEvent;
 import processing.javafx.PGraphicsFX2D;
 import processing.opengl.PGraphicsOpenGL;
+import processing.opengl.PJOGL;
 
 public class Sketch extends PApplet {
 
   protected Py5Methods py5Methods;
   protected Set<String> py5RegisteredEvents;
   protected boolean success = false;
+  protected String py5IconPath;
 
   public static final char CODED = PApplet.CODED;
 
   public static final String HIDDEN = "py5.core.graphics.HiddenPy5GraphicsJava2D";
+
+  public Sketch(String py5IconPath) {
+    super();
+    this.py5IconPath = py5IconPath;
+  }
 
   /*
    * The below methods are how Java makes calls to the Python implementations of
@@ -78,6 +85,11 @@ public class Sketch extends PApplet {
 
   @Override
   public void settings() {
+    try {
+      PJOGL.setIcon(py5IconPath);
+    } catch (Exception e) {
+    }
+
     if (success) {
       if (py5RegisteredEvents.contains("settings")) {
         success = py5Methods.run_method("settings");
@@ -91,13 +103,19 @@ public class Sketch extends PApplet {
   @Override
   public void setup() {
     if (success) {
+      PSurface surface = getSurface();
       // This is an ugly OSX hack to make sure the Sketch window opens above
       // all other windows. It alleviates the symptoms of bug #5 but is not a
       // proper fix. When it does get a proper fix, this needs to be removed.
       if (platform == MACOS && sketchRenderer().equals(JAVA2D)) {
-        PSurface surface = getSurface();
         surface.setAlwaysOnTop(true);
         surface.setAlwaysOnTop(false);
+      }
+      if (!(g instanceof PGraphicsOpenGL)) {
+        try {
+          surface.setIcon(loadImage(py5IconPath));
+        } catch (Exception e) {
+        }
       }
 
       if (py5RegisteredEvents.contains("setup")) {
