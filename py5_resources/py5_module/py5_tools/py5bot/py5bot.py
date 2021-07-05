@@ -38,22 +38,24 @@ py5_tools.set_imported_mode(True)
 import py5_tools.parsing as _PY5BOT_parsing
 from py5 import *
 
-
-def _change_renderer(f):
+_PY5_VALIDATE_RENDERER = \"\"\"
+def _size_validate_renderer(f):
     @functools.wraps(f)
-    def decorated(*args):
+    def validate_renderer(*args):
         if len(args) == 2:
             args = *args, HIDDEN
-        if len(args) >= 3 and args[2] not in [HIDDEN, JAVA2D, P2D, P3D]:
-            name = {SVG: 'SVG', PDF: 'PDF', DXF: 'DXF'}.get(args[2], args[2])
+        if len(args) >= 3 and isinstance(args2 := args[2], str) and args2 not in [HIDDEN, JAVA2D, P2D, P3D]:
+            name = {SVG: 'SVG', PDF: 'PDF', DXF: 'DXF'}.get(args2, args2)
             print(f'sorry, the {name} renderer is not supported by py5bot.', file=_PY5BOT_sys.stderr)
             args = *args[:2], HIDDEN, *args[3:]
         f(*args)
-    return decorated
+    return validate_renderer
+\"\"\"
 
-size = _change_renderer(size)
+exec(compile(_PY5_VALIDATE_RENDERER, filename='py5bot.py', mode='exec'), globals(), locals())
+size = _size_validate_renderer(size)
 
-del _change_renderer
+del _size_validate_renderer
 del functools
 """
 

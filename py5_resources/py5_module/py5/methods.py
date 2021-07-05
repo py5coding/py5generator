@@ -41,7 +41,7 @@ _prune_tracebacks = True
 _MODULE_INSTALL_DIR = str(Path(__file__).parent)
 _PY5TOOLS_MODULE_INSTALL_DIR = str(Path(py5_tools.__file__).parent)
 
-_PY5_STATIC_CODE_FILENAME_REGEX = re.compile(r'File "[^\"]*?_PY5_STATIC_(SETUP|SETTINGS)_CODE_\.py", line \d+, in .*')
+_PY5_STATIC_CODE_FILENAME_REGEX = re.compile(r'File "[^\"]*?_PY5_STATIC_(SETUP|SETTINGS|FRAMEWORK)_CODE_\.py", line \d+, in .*')
 
 _EXCEPTION_MSGS = {
     **custom_exceptions.CUSTOM_EXCEPTION_MSGS,
