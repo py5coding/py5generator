@@ -29,18 +29,19 @@ from .. import split_setup
 
 
 PY5BOT_CODE_STARTUP = """
-import sys as _PY5BOT_sys
-import ast as _PY5BOT_ast
-import functools
-
 import py5_tools
 py5_tools.set_imported_mode(True)
-import py5_tools.parsing as _PY5BOT_parsing
 from py5 import *
 
+import sys as _PY5BOT_sys
+import ast as _PY5BOT_ast
+import functools as _PY5BOT_functools
+
+import py5_tools.parsing as _PY5BOT_parsing
+
 _PY5_VALIDATE_RENDERER = \"\"\"
-def _size_validate_renderer(f):
-    @functools.wraps(f)
+def _PY5BOT_size_validate_renderer(f):
+    @_PY5BOT_functools.wraps(f)
     def validate_renderer(*args):
         if len(args) == 2:
             args = *args, HIDDEN
@@ -53,10 +54,10 @@ def _size_validate_renderer(f):
 \"\"\"
 
 exec(compile(_PY5_VALIDATE_RENDERER, filename='py5bot.py', mode='exec'), globals(), locals())
-size = _size_validate_renderer(size)
+size = _PY5BOT_size_validate_renderer(size)
 
-del _size_validate_renderer
-del functools
+del _PY5BOT_size_validate_renderer
+del _PY5BOT_functools
 """
 
 
