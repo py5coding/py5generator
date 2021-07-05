@@ -27,7 +27,7 @@ MODULE_MODE_METHOD_LINE = re.compile(r'^\s+py5\.(\w+)\([^\)]*\)')
 IMPORTED_MODE_METHOD_LINE = re.compile(r'^\s+(\w+)\([^\)]*\)')
 
 
-def transform(functions, sketch_locals, println, *, mode):
+def transform(functions, sketch_globals, sketch_locals, println, *, mode):
     """if appropriate, transform setup() into settings() and (maybe) setup()
 
     This mimics the Processing functionality to allow users to put calls to
@@ -70,18 +70,23 @@ def transform(functions, sketch_locals, println, *, mode):
         # build the fake code
         lines, lineno = inspect.getsourcelines(setup)
         filename = inspect.getfile(setup)
-        fake_settings_code = (lineno - 1) * '\n' + "def settings():\n" + ''.join(lines[1:cutoff])
-        fake_setup_code = (lineno - 1) * '\n' + "def setup():\n" + (cutoff - 1) * '\n' + ''.join(lines[cutoff:])
+        fake_settings_code = (lineno - 1) * '\n' + "def _PY5_FAUX_SETTINGS():\n" + ''.join(lines[1:cutoff])
+        fake_setup_code = (lineno - 1) * '\n' + "def _PY5_FAUX_SETUP():\n" + (cutoff - 1) * '\n' + ''.join(lines[cutoff:])
 
         # if the fake settings code is empty, there's no need to change anything
         if len(COMMENT_LINE.sub('', fake_settings_code).strip().split('\n')) > 1:
             # compile the fake code
-            exec(compile(fake_settings_code, filename=filename, mode='exec'), sketch_locals, functions)
+            exec(compile(fake_settings_code, filename=filename, mode='exec'), sketch_globals, sketch_locals)
+            functions['settings'] = sketch_locals['_PY5_FAUX_SETTINGS']
+            del sketch_globals['_PY5_FAUX_SETTINGS']
             # if the fake setup code is empty, get rid of it. otherwise, compile it
             if len(COMMENT_LINE.sub('', fake_setup_code).strip().split('\n')) == 1:
                 del functions['setup']
             else:
-                exec(compile(fake_setup_code, filename=filename, mode='exec'), sketch_locals, functions)
+                exec(compile(fake_setup_code, filename=filename, mode='exec'), sketch_globals, sketch_locals)
+                functions['setup'] = sketch_locals['_PY5_FAUX_SETUP']
+                del sketch_globals['_PY5_FAUX_SETUP']
+
     except OSError as e:
         println("Unable to obtain source code for setup(). Either make it obtainable or create a settings() function for calls to size(), fullscreen(), etc.", stderr=True)
     except Exception as e:
