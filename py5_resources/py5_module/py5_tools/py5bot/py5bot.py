@@ -151,9 +151,10 @@ class Py5BotManager:
         self.startup_code = PY5BOT_CODE_STARTUP
         self.run_code = PY5BOT_CODE.format(self.settings_filename, self.setup_filename)
 
-    def write_code(self, settings_code, setup_code):
+    def write_code(self, settings_code, setup_code, orig_line_count):
         with open(self.settings_filename, 'w') as f:
             f.write(settings_code)
 
         with open(self.setup_filename, 'w') as f:
+            f.write('\n' * (orig_line_count - len(setup_code.splitlines())))
             f.write(setup_code)
