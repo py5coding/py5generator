@@ -53,8 +53,7 @@ public class Sketch extends PApplet {
 
   public static final String HIDDEN = "py5.core.graphics.HiddenPy5GraphicsJava2D";
 
-  public Sketch(String py5IconPath) {
-    super();
+  public void setPy5IconPath(String py5IconPath) {
     this.py5IconPath = py5IconPath;
   }
 
@@ -85,9 +84,11 @@ public class Sketch extends PApplet {
 
   @Override
   public void settings() {
-    try {
-      PJOGL.setIcon(py5IconPath);
-    } catch (Exception e) {
+    if (py5IconPath != null) {
+      try {
+        PJOGL.setIcon(py5IconPath);
+      } catch (Exception e) {
+      }
     }
 
     if (success) {
@@ -111,7 +112,7 @@ public class Sketch extends PApplet {
         surface.setAlwaysOnTop(true);
         surface.setAlwaysOnTop(false);
       }
-      if (!(g instanceof PGraphicsOpenGL)) {
+      if (py5IconPath != null && !(g instanceof PGraphicsOpenGL)) {
         try {
           surface.setIcon(loadImage(py5IconPath));
         } catch (Exception e) {
