@@ -110,7 +110,7 @@ def transform(functions, sketch_globals, sketch_locals, println, *, mode):
         fake_setup_code = (lineno - 1) * '\n' + "def _py5_faux_setup():\n" + (cutoff - 1) * '\n' + ''.join(lines[cutoff:])
 
         # if the fake settings code is empty, there's no need to change anything
-        if len(COMMENT_LINE.sub('', fake_settings_code).strip().split('\n')) > 1:
+        if count_noncomment_lines(fake_settings_code) > 1:
             # parse the fake settings code and transform it if using imported mode
             fake_settings_ast = ast.parse(fake_settings_code, filename=filename, mode='exec')
             if mode == 'imported':
