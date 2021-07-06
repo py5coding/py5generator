@@ -29,8 +29,6 @@ from ..kernel.kernel import Py5Kernel
 from .. import split_setup
 from . import py5bot
 
-first_run = True
-
 
 class Py5BotShell(ZMQInteractiveShell):
 
