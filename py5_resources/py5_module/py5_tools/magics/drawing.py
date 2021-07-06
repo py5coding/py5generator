@@ -31,7 +31,7 @@ from IPython.core.magic_arguments import parse_argstring, argument, magic_argume
 import stackprinter
 import PIL
 
-from .util import CellMagicHelpFormatter
+from .util import CellMagicHelpFormatter, filename_check, variable_name_check
 from .. import imported
 from .. import parsing
 
@@ -208,15 +208,6 @@ def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
 @magics_class
 class DrawingMagics(Magics):
 
-    def _filename_check(self, filename):
-        filename = Path(filename)
-        if not filename.parent.exists():
-            filename.parent.mkdir(parents=True)
-        return filename
-
-    def _variable_name_check(self, varname):
-        return re.match('^[a-zA-Z_]\w*' + chr(36), varname)
-
     @magic_arguments()
     @argument(""" DELETE
     $arguments_Py5Magics_py5drawpdf_arguments
@@ -230,7 +221,7 @@ class DrawingMagics(Magics):
         pdf = _run_sketch('PDF', cell, args.width, args.height,
                           self.shell.user_ns, not args.unsafe)
         if pdf:
-            filename = self._filename_check(args.filename)
+            filename = filename_check(args.filename)
             with open(filename, 'wb') as f:
                 f.write(pdf)
             print(f'PDF written to {filename}')
@@ -248,7 +239,7 @@ class DrawingMagics(Magics):
         dxf = _run_sketch('DXF', cell, args.width, args.height,
                           self.shell.user_ns, not args.unsafe)
         if dxf:
-            filename = self._filename_check(args.filename)
+            filename = filename_check(args.filename)
             with open(filename, 'w') as f:
                 f.write(dxf)
             print(f'DXF written to {filename}')
@@ -267,7 +258,7 @@ class DrawingMagics(Magics):
                           self.shell.user_ns, not args.unsafe)
         if svg:
             if args.filename:
-                filename = self._filename_check(args.filename)
+                filename = filename_check(args.filename)
                 with open(filename, 'w') as f:
                     f.write(svg)
                 print(f'SVG drawing written to {filename}')
@@ -299,11 +290,11 @@ class DrawingMagics(Magics):
             if args.filename or args.variable:
                 pil_img = PIL.Image.open(io.BytesIO(png)).convert(mode='RGB')
                 if args.filename:
-                    filename = self._filename_check(args.filename)
+                    filename = filename_check(args.filename)
                     pil_img.save(filename)
                     print(f'PNG file written to {filename}')
                 if args.variable:
-                    if self._variable_name_check(args.variable):
+                    if variable_name_check(args.variable):
                         self.shell.user_ns[args.variable] = pil_img
                         print(f'PIL Image assigned to {args.variable}')
                     else:
