@@ -44,10 +44,7 @@ import ast as _PY5BOT_ast
 
 
 _CODE_FRAMEWORK_IMPORTED_BEGIN = """
-import py5_tools
-py5_tools.set_imported_mode(True)
 from py5 import *
-
 import py5_tools.parsing as _PY5BOT_parsing
 import ast as _PY5BOT_ast
 """
@@ -104,6 +101,7 @@ def _py5_setup():
                 filename='{4}',
                 mode='exec'
             ),
+            globals(),
             _py5_user_ns
         )
 
@@ -128,6 +126,7 @@ def _py5_setup():
                 filename='{4}',
                 mode='exec'
             ),
+            globals(),
             _py5_user_ns
         )
 
@@ -184,8 +183,6 @@ def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
     else:
         code_framework = _CODE_FRAMEWORK_BEGIN + '\n'.join([l for l in template.splitlines() if l.find('# TRANSFORM') == -1])
 
-    user_ns['_py5_user_ns'] = {} if safe_exec else user_ns
-
     with tempfile.TemporaryDirectory() as tempdir:
         temp_py = Path(tempdir) / '_PY5_STATIC_SETUP_CODE_.py'
         temp_out = Path(tempdir) / ('output' + suffix)
@@ -193,6 +190,7 @@ def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
         with open(temp_py, 'w') as f:
             f.write(code)
 
+        user_ns['_py5_user_ns'] = {} if safe_exec else user_ns
         exec(code_framework.format(width, height, renderer, temp_out.as_posix(), temp_py.as_posix()), user_ns)
 
         if temp_out.exists():
