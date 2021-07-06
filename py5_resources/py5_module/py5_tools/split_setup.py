@@ -21,10 +21,64 @@ import re
 import inspect
 
 
-COMMENT_LINE = re.compile(r'^\s+#.*' + chr(36), flags=re.MULTILINE)
-DOCSTRING = re.compile(r'^\s+"""[^"]*"""', flags=re.MULTILINE | re.DOTALL)
-MODULE_MODE_METHOD_LINE = re.compile(r'^\s+py5\.(\w+)\([^\)]*\)')
-IMPORTED_MODE_METHOD_LINE = re.compile(r'^\s+(\w+)\([^\)]*\)')
+COMMENT_LINE = re.compile(r'^\s*#.*' + chr(36), flags=re.MULTILINE)
+DOCSTRING = re.compile(r'^\s*"""[^"]*"""', flags=re.MULTILINE | re.DOTALL)
+MODULE_MODE_METHOD_LINE = re.compile(r'^\s*py5\.(\w+)\([^\)]*\)')
+IMPORTED_MODE_METHOD_LINE = re.compile(r'^\s*(\w+)\([^\)]*\)')
+
+
+def _get_method_line_regex(mode):
+    if mode == 'module':
+        return MODULE_MODE_METHOD_LINE
+    elif mode == 'imported':
+        return IMPORTED_MODE_METHOD_LINE
+    else:
+        raise RuntimeError('only module mode and imported mode are supported')
+
+
+def _remove_comments(code):
+    # remove # comments
+    code = COMMENT_LINE.sub('', code)
+    # remove docstrings
+    for docstring in DOCSTRING.findall(code):
+        code = code.replace(docstring, (len(docstring.split('\n')) - 1) * '\n')
+
+    return code
+
+
+def find_cutoff(code, mode):
+    method_line = _get_method_line_regex(mode)
+    code = _remove_comments(code)
+
+    # find the cutoff point
+    for i, line in enumerate(code.split('\n')):
+        if line == 'def setup():':
+            continue
+        if line.strip() and not ((m := method_line.match(line)) and m.groups()[0] in ['size', 'full_screen', 'smooth', 'no_smooth', 'pixel_density']):
+            cutoff = i
+            break
+    else:
+        cutoff = i + 1
+
+    return cutoff
+
+
+def check_for_special_functions(code, mode):
+    method_line = _get_method_line_regex(mode)
+    code = _remove_comments(code)
+
+    out = []
+    for i, line in enumerate(code.split('\n')):
+        m = method_line.match(line)
+        if m and m.groups()[0] in ['size', 'full_screen', 'smooth', 'no_smooth', 'pixel_density']:
+            out.append((i, m.groups()[0]))
+
+    return out
+
+
+def count_noncomment_lines(code):
+    stripped_code = COMMENT_LINE.sub('', code).strip()
+    return len(stripped_code.split('\n')) if stripped_code else 0
 
 
 def transform(functions, sketch_locals, println, *, mode):
@@ -42,30 +96,9 @@ def transform(functions, sketch_locals, println, *, mode):
     if 'settings' in functions or 'setup' not in functions:
         return functions
 
-    if mode == 'module':
-        METHOD_LINE = MODULE_MODE_METHOD_LINE
-    elif mode == 'imported':
-        METHOD_LINE = IMPORTED_MODE_METHOD_LINE
-    else:
-        raise RuntimeError('only module mode and imported mode are supported')
-
     try:
         setup = functions['setup']
-        source_code = inspect.getsource(setup).strip()
-
-        # remove comments
-        source_code = COMMENT_LINE.sub('', source_code)
-        # remove docstrings
-        for docstring in DOCSTRING.findall(source_code):
-            source_code = source_code.replace(docstring, (len(docstring.split('\n')) - 1) * '\n')
-
-        # find the cutoff point
-        for i, line in enumerate(source_code.split('\n')):
-            if i > 0 and line.strip() and not ((m := METHOD_LINE.match(line)) and m.groups()[0] in ['size', 'full_screen', 'smooth', 'no_smooth', 'pixel_density']):
-                cutoff = i
-                break
-        else:
-            cutoff = i + 1
+        cutoff = find_cutoff(inspect.getsource(setup).strip(), mode)
 
         # build the fake code
         lines, lineno = inspect.getsourcelines(setup)
@@ -74,11 +107,11 @@ def transform(functions, sketch_locals, println, *, mode):
         fake_setup_code = (lineno - 1) * '\n' + "def setup():\n" + (cutoff - 1) * '\n' + ''.join(lines[cutoff:])
 
         # if the fake settings code is empty, there's no need to change anything
-        if len(COMMENT_LINE.sub('', fake_settings_code).strip().split('\n')) > 1:
+        if count_noncomment_lines(fake_settings_code) > 1:
             # compile the fake code
             exec(compile(fake_settings_code, filename=filename, mode='exec'), sketch_locals, functions)
             # if the fake setup code is empty, get rid of it. otherwise, compile it
-            if len(COMMENT_LINE.sub('', fake_setup_code).strip().split('\n')) == 1:
+            if count_noncomment_lines(fake_setup_code) == 1:
                 del functions['setup']
             else:
                 exec(compile(fake_setup_code, filename=filename, mode='exec'), sketch_locals, functions)

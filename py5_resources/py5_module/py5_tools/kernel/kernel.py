@@ -85,4 +85,4 @@ class Py5App(IPKernelApp):
         _KERNEL_STARTUP
     ]).tag(config=True)
 
-    extensions = List(Unicode(), ['py5_tools.magics']).tag(config=True)
+    extensions = List(Unicode(), ['py5_tools.magics', 'py5_tools.py5bot']).tag(config=True)

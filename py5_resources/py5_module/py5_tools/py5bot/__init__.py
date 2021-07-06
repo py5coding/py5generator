@@ -17,22 +17,9 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import argparse
-
-import py5_tools.utilities
-
-
-parser = argparse.ArgumentParser(description="Generate Py5Utilities framework")
-parser.add_argument('-o', '--output', action='store', dest='output_dir',
-                    help='output destination (defaults to current directory)')
-parser.add_argument('-j', '--jars', action='store', dest='jars_dir',
-                    help='jar directory (defaults to jars subdirectory)')
+from .kernel import Py5BotKernel  # noqa
+from .py5bot import Py5BotMagics
 
 
-def main():
-    args = parser.parse_args()
-    py5_tools.utilities.generate_utilities_framework(args.output_dir, args.jars_dir)
-
-
-if __name__ == '__main__':
-    main()
+def load_ipython_extension(ipython):
+    ipython.register_magics(Py5BotMagics)

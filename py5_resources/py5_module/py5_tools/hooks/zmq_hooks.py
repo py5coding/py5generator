@@ -89,3 +89,6 @@ def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = None,
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
     return portal_widget
+
+
+__all__ = ['sketch_portal']

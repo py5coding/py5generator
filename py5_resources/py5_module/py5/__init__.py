@@ -28,7 +28,6 @@ import inspect
 from typing import overload, Any, Callable, Union, Dict, List, Tuple  # noqa
 from nptyping import NDArray, Float, Int  # noqa
 
-# import json  # noqa
 import numpy as np  # noqa
 from PIL import Image  # noqa
 from jpype import JClass  # noqa
@@ -49,7 +48,7 @@ from .sketch import Sketch, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Sha
 from .render_helper import render_frame, render_frame_sequence, render, render_sequence  # noqa
 from .create_font_tool import create_font_file  # noqa
 from .image_conversion import register_image_conversion, NumpyImageArray  # noqa
-from . import split_setup as _split_setup
+from py5_tools import split_setup as _split_setup
 from . import reference
 from . import java_conversion  # noqa
 try:
@@ -61,7 +60,7 @@ except ModuleNotFoundError:
 
 __version__ = '0.4a3.dev0'
 
-_PY5_USE_IMPORTED_MODE = py5_tools.imported.get_imported_mode()
+_PY5_USE_IMPORTED_MODE = py5_tools.get_imported_mode()
 
 java_conversion.init_jpype_converters()
 

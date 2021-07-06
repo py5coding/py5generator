@@ -18,7 +18,7 @@ save SVG drawing to file
 allow new variables to enter the global namespace
 
 @@ description
-Create a SVG drawing with py5 and embed result in the notebook.
+Create a SVG drawing with py5 and embed the result in the notebook.
 
 For users who are familiar with Processing and py5 programming, you can pretend the code in this cell will be executed in a Sketch with no ``draw()`` function and your code in the ``setup()`` function. It will use the ``SVG`` renderer.
 

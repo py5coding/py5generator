@@ -24,7 +24,9 @@ from pathlib import Path
 
 from PIL import Image
 
-import py5_tools
+import py5_tools.testing
+import py5_tools.magics
+import py5_tools.imported
 
 from generator.docfiles import Documentation
 
@@ -59,7 +61,8 @@ try:
         # if doc.meta.get('category') != 'image' or doc.meta.get('subcategory') != 'loading_displaying':
         # if doc.meta.get('pclass') != 'PGraphics' or doc.meta.get('name') not in ['load_np_pixels()', 'set_np_pixels()', 'update_np_pixels()',
         #                                                                          'np_pixels[]', 'load_pixels()', 'update_pixels()', 'pixels[]']:
-        #     continue
+        if doc.meta['type'] != 'cell magic':
+            continue
 
         for image, code in doc.examples:
             if ONLY_RUN_EXAMPLES_WITH_IMAGES and image is None:
@@ -68,14 +71,20 @@ try:
             print(i, docfile.name, image)
 
             if doc.meta['type'] == 'cell magic':
-                magic_line, magic_cell = code.split('\n', maxsplit=1)
-                magic, line = magic_line.split(' ', maxsplit=1)
-                renderer = MAGIC_RENDERER_MAP.get(magic[2:], 'JAVA2D')
-                # TODO: what if the -r parameter is used? could want P2D or P3D renderers
-                width, height = (int(x) for x in line.split(maxsplit=2)[:2])
-                result = py5_tools.magics.drawing._run_sketch(renderer, magic_cell, width, height, dict(), True)
-                if image:
-                    Image.open(io.BytesIO(result)).convert(mode='RGB').save(DEST_DIR / image)
+                if doc.meta['name'] == '%%py5bot':
+                    _, code = code.split('\n', maxsplit=1)
+                    if image:
+                        code += f"\n\nsave('{DEST_DIR / image}')\n"
+                    py5_tools.imported._run_static_code(code, '', None, True, True)
+                else:
+                    magic_line, magic_cell = code.split('\n', maxsplit=1)
+                    magic, line = magic_line.split(' ', maxsplit=1)
+                    renderer = MAGIC_RENDERER_MAP.get(magic[2:], 'JAVA2D')
+                    # TODO: what if the -r parameter is used? could want P2D or P3D renderers
+                    width, height = (int(x) for x in line.split(maxsplit=2)[:2])
+                    result = py5_tools.magics.drawing._run_sketch(renderer, magic_cell, width, height, dict(), True)
+                    if image:
+                        Image.open(io.BytesIO(result)).convert(mode='RGB').save(DEST_DIR / image)
             else:
                 save_path = DEST_DIR / image if image else None
                 success = py5_tools.testing.run_code(code, save_path)
