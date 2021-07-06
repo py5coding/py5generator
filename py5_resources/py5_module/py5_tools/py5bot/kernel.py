@@ -42,9 +42,9 @@ class Py5BotShell(ZMQInteractiveShell):
 
     def run_cell(self, raw_cell, store_history=False, silent=False, shell_futures=True):
         # check for special code that should bypass py5bot processing
-        if raw_cell.strip().startswith('# *** PY5BOT_CODE_BYPASS ***'):
+        if raw_cell.strip().startswith('%%python\n'):
             return super(Py5BotShell, self).run_cell(
-                raw_cell, store_history=store_history, silent=silent, shell_futures=shell_futures)
+                raw_cell.replace('%%python\n', ''), store_history=store_history, silent=silent, shell_futures=shell_futures)
 
         success, result = py5bot.check_for_problems(raw_cell, "<py5bot>")
         if success:
@@ -80,5 +80,5 @@ class Py5BotApp(IPKernelApp):
                         klass='ipykernel.kernelbase.Kernel').tag(config=True)
 
     exec_lines = List(Unicode(), [
-        '# *** PY5BOT_CODE_BYPASS ***\n' + py5bot.PY5BOT_CODE_STARTUP
+        '%%python\n' + py5bot.PY5BOT_CODE_STARTUP
     ]).tag(config=True)
