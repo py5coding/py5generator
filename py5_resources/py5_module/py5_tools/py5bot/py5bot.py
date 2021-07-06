@@ -61,7 +61,7 @@ def _PY5BOT_size_validate_renderer(f):
 \"\"\"
 
 exec(compile(_PY5_VALIDATE_RENDERER, filename='<py5bot>', mode='exec'), globals(), locals())
-size = _PY5BOT_size_validate_renderer(size)
+_PY5BOT_altered_size = _PY5BOT_size_validate_renderer(size)
 
 del _PY5BOT_functools
 del _PY5_VALIDATE_RENDERER
@@ -72,8 +72,9 @@ del _PY5BOT_size_validate_renderer
 PY5BOT_CODE = """
 _PY5BOT_OUTPUT_ = None
 
-
 def _py5bot_settings():
+    size = _PY5BOT_altered_size
+
     with open('{0}', 'r') as f:
         exec(
             compile(
@@ -185,7 +186,7 @@ class Py5BotMagics(Magics):
     @kwds(formatter_class=CellMagicHelpFormatter)
     @cell_magic
     def py5bot(self, line, cell):
-        """class_Py5Magics_py5bot"""  # TODO: add dollar sign
+        """$class_Py5Magics_py5bot"""
         success, result = check_for_problems(cell, "<py5bot>")
         if success:
             py5bot_settings, py5bot_setup = result
@@ -193,8 +194,9 @@ class Py5BotMagics(Magics):
                 py5bot_settings = 'size(100, 100, HIDDEN)'
             self._py5bot_mgr.write_code(py5bot_settings, py5bot_setup, len(cell.splitlines()))
 
-            ns = dict()
+            ns = self.shell.user_ns
             exec(self._py5bot_mgr.startup_code + self._py5bot_mgr.run_code, ns)
             display(ns['_PY5BOT_OUTPUT_'])
+            del ns['_PY5BOT_OUTPUT_']
         else:
             print(result, file=sys.stderr)
