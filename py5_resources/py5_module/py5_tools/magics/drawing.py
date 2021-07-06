@@ -19,40 +19,49 @@
 # *****************************************************************************
 import sys
 import re
+import ast
 import io
 from pathlib import Path
 import tempfile
-import textwrap
 
 from IPython.display import display, SVG, Image
 from IPython.core.magic import Magics, magics_class, cell_magic
 from IPython.core.magic_arguments import parse_argstring, argument, magic_arguments, kwds
 
+import stackprinter
 import PIL
 
-from .util import fix_triple_quote_str, CellMagicHelpFormatter
+from .util import CellMagicHelpFormatter
 from .. import imported
+from .. import parsing
 
 
-_CODE_FRAMEWORK = """
+_CODE_FRAMEWORK_BEGIN = """
 import py5
-
-with open('{0}', 'r') as f:
-    eval(compile(f.read(), '{0}', 'exec'))
-
-py5.run_sketch(block=True, sketch_functions=dict(settings=_py5_settings, setup=_py5_setup))
-if py5.is_dead_from_error:
-    py5.exit_sketch()
+import py5_tools.parsing as _PY5BOT_parsing
+import ast as _PY5BOT_ast
 """
 
 
-_CODE_FRAMEWORK_IMPORTED_MODE = """
-with open('{0}', 'r') as f:
-    eval(compile(f.read(), '{0}', 'exec'))
+_CODE_FRAMEWORK_IMPORTED_BEGIN = """
+import py5_tools
+py5_tools.set_imported_mode(True)
+from py5 import *
 
-run_sketch(block=True, sketch_functions=dict(settings=_py5_settings, setup=_py5_setup))
-if is_dead_from_error:
-    exit_sketch()
+import py5_tools.parsing as _PY5BOT_parsing
+import ast as _PY5BOT_ast
+"""
+
+
+_CODE_TEMPLATE_END = """
+py5.run_sketch(block=True, sketch_functions=dict(settings=_py5_settings, setup=_py5_setup))
+if py5.is_dead_from_error:
+    py5.exit_sketch()
+
+del _PY5BOT_parsing
+del _PY5BOT_ast
+del _py5_settings
+del _py5_setup
 """
 
 
@@ -62,7 +71,18 @@ def _py5_settings():
 
 
 def _py5_setup():
-{4}
+    with open('{4}', 'r') as f:
+        exec(
+            compile(
+                _PY5BOT_parsing.transform_py5_code(  # TRANSFORM
+                    _PY5BOT_ast.parse(f.read(), filename='{4}', mode='exec'),
+                ),  # TRANSFORM
+                filename='{4}',
+                mode='exec'
+            ),
+            globals(),
+            _py5_user_ns
+        )
 
     py5.get(0, 0, {0}, {1}).save("{3}", use_thread=False)
     py5.exit_sketch()
@@ -75,7 +95,17 @@ def _py5_settings():
 
 
 def _py5_setup():
-{4}
+    with open('{4}', 'r') as f:
+        exec(
+            compile(
+                _PY5BOT_parsing.transform_py5_code(  # TRANSFORM
+                    _PY5BOT_ast.parse(f.read(), filename='{4}', mode='exec'),
+                ),  # TRANSFORM
+                filename='{4}',
+                mode='exec'
+            ),
+            _py5_user_ns
+        )
 
     py5.exit_sketch()
 """
@@ -89,7 +119,17 @@ def _py5_settings():
 def _py5_setup():
     py5.begin_raw(py5.DXF, "{3}")
 
-{4}
+    with open('{4}', 'r') as f:
+        exec(
+            compile(
+                _PY5BOT_parsing.transform_py5_code(  # TRANSFORM
+                    _PY5BOT_ast.parse(f.read(), filename='{4}', mode='exec'),
+                ),  # TRANSFORM
+                filename='{4}',
+                mode='exec'
+            ),
+            _py5_user_ns
+        )
 
     py5.end_raw()
     py5.exit_sketch()
@@ -98,19 +138,19 @@ def _py5_setup():
 
 def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
     if renderer == 'SVG':
-        template = _SAVE_OUTPUT_CODE_TEMPLATE
+        template = _SAVE_OUTPUT_CODE_TEMPLATE + _CODE_TEMPLATE_END
         suffix = '.svg'
         read_mode = 'r'
     elif renderer == 'PDF':
-        template = _SAVE_OUTPUT_CODE_TEMPLATE
+        template = _SAVE_OUTPUT_CODE_TEMPLATE + _CODE_TEMPLATE_END
         suffix = '.pdf'
         read_mode = 'rb'
     elif renderer == 'DXF':
-        template = _DXF_CODE_TEMPLATE
+        template = _DXF_CODE_TEMPLATE + _CODE_TEMPLATE_END
         suffix = '.dxf'
         read_mode = 'r'
     else:
-        template = _STANDARD_CODE_TEMPLATE
+        template = _STANDARD_CODE_TEMPLATE + _CODE_TEMPLATE_END
         suffix = '.png'
         read_mode = 'rb'
 
@@ -120,30 +160,40 @@ def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
         print('You must exit the currently running sketch before running another sketch.', file=sys.stderr)
         return None
 
-    if imported.get_imported_mode():
-        template = template.replace('py5.', '')
-        code_framework = _CODE_FRAMEWORK_IMPORTED_MODE
-    else:
-        code_framework = _CODE_FRAMEWORK
+    # does the code parse? if not, return an error message
+    try:
+        sketch_ast = ast.parse(code, filename='<py5magic>', mode='exec')
+    except Exception as e:
+        msg = stackprinter.format(e)
+        m = re.search(r'^SyntaxError:', msg, flags=re.MULTILINE)
+        if m:
+            msg = msg[m.start(0):]
+        print('There is a problem with your code:\n' + msg, file=sys.stderr)
+        return None
 
-    if safe_exec:
-        prepared_code = textwrap.indent(code, '    ')
-        prepared_code = fix_triple_quote_str(prepared_code)
+    if imported.get_imported_mode():
+        # check for assignments to or deletions of reserved words
+        problems = parsing.check_reserved_words(code, sketch_ast)
+        if problems:
+            msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your code.\n'
+            msg += '=' * len(msg) + '\n' + '\n'.join(problems)
+            print(msg, file=sys.stderr)
+            return None
+
+        code_framework = _CODE_FRAMEWORK_IMPORTED_BEGIN + template.replace('py5.', '')
     else:
-        user_ns['_py5_user_ns'] = user_ns
-        code = code.replace('"""', r'\"\"\"')
-        prepared_code = f'    exec("""{code}""", _py5_user_ns)'
+        code_framework = _CODE_FRAMEWORK_BEGIN + '\n'.join([l for l in template.splitlines() if l.find('# TRANSFORM') == -1])
+
+    user_ns['_py5_user_ns'] = {} if safe_exec else user_ns
 
     with tempfile.TemporaryDirectory() as tempdir:
-        temp_py = Path(tempdir) / 'py5_code.py'
+        temp_py = Path(tempdir) / '_PY5_STATIC_SETUP_CODE_.py'
         temp_out = Path(tempdir) / ('output' + suffix)
 
         with open(temp_py, 'w') as f:
-            code = template.format(
-                width, height, renderer, temp_out.as_posix(), prepared_code)
             f.write(code)
 
-        exec(code_framework.format(temp_py.as_posix()), user_ns)
+        exec(code_framework.format(width, height, renderer, temp_out.as_posix(), temp_py.as_posix()), user_ns)
 
         if temp_out.exists():
             with open(temp_out, read_mode) as f:

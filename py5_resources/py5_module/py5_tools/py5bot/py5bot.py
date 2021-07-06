@@ -118,7 +118,6 @@ _PY5BOT_OUTPUT_
 def check_for_problems(code, filename):
     # does the code parse? if not, return an error message
     try:
-        sketch_ast = None
         sketch_ast = ast.parse(code, filename=filename, mode='exec')
     except Exception as e:
         msg = stackprinter.format(e)
