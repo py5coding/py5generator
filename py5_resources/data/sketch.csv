@@ -616,3 +616,4 @@ noise_mode,,,method,math,random,PYTHON,implemented in math.py and used to switch
 SIMPLEX_NOISE,,,static field,,,PYTHON,static constants for noise_mode
 PERLIN_NOISE,,,static field,,,PYTHON,static constants for noise_mode
 py5_println,py5Println,,method,,,SKIP,"special print method for Java extensions to use py5's println method, which works well with Jupyter Notebooks"
+set_py5_icon_path,setPy5IconPath,,method,,,SKIP,used to set the path to the py5 window and taskbar icon

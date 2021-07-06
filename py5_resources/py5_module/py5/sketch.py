@@ -89,6 +89,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_methods = None
         self.set_println_stream(_DisplayPubPrintlnStream() if _in_jupyter_zmq_shell else _DefaultPrintlnStream())
+        self._instance.setPy5IconPath(str(Path(__file__).parent.parent / 'py5_tools/kernel/resources/logo-64x64.png'))
 
         # attempt to instantiate Py5Utilities
         self.utils = None
@@ -96,6 +97,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             self.utils = jpype.JClass('py5.utils.Py5Utilities')(self._instance)
         except Exception:
             pass
+
 
     def run_sketch(self, block: bool = None, *,
                    py5_options: List = None, sketch_args: List = None) -> None:
