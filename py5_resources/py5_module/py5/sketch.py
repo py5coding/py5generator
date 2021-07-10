@@ -143,7 +143,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             # wait for the sketch to finish
             surface = self.get_surface()
             if surface._instance is not None:
-                while not surface.is_stopped():
+                while not surface.is_stopped() and not hasattr(self, '_shutdown_initiated'):
                     time.sleep(0.25)
 
             # Wait no more than 1 second for any shutdown tasks to complete.
@@ -164,7 +164,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     def _terminate_sketch(self):
         surface = self.get_surface()
         if surface._instance is not None:
-            surface.stop_thread()
+            surface.pause_thread()
+            self._shutdown_initiated = True
         self._shutdown()
 
     def _add_pre_hook(self, method_name, hook_name, function):
@@ -225,7 +226,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             # Sketch has not been run yet
             return False
         else:
-            return not surface.is_stopped()
+            return not surface.is_stopped() and not hasattr(self, '_shutdown_initiated')
     is_running: bool = property(fget=_get_is_running)
 
     def _get_is_dead(self) -> bool:  # @decorator
@@ -234,7 +235,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         if surface._instance is None:
             # Sketch has not been run yet
             return False
-        return surface.is_stopped()
+        return surface.is_stopped() or hasattr(self, '_shutdown_initiated')
     is_dead: bool = property(fget=_get_is_dead)
 
     def _get_is_dead_from_error(self) -> bool:  # @decorator
