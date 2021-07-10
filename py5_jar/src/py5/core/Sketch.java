@@ -47,6 +47,7 @@ public class Sketch extends PApplet {
   protected Py5Methods py5Methods;
   protected Set<String> py5RegisteredEvents;
   protected boolean success = false;
+  protected int exitActualCallCount = 0;
   protected String py5IconPath;
 
   public static final char CODED = PApplet.CODED;
@@ -255,7 +256,7 @@ public class Sketch extends PApplet {
   @Override
   public void exitActual() {
     py5Println("called exitActual");
-
+    exitActualCallCount += 1;
     // TODO: This function needs to be re-written by someone who knows something
     // about cross platform Java GUI programming.
 
@@ -277,7 +278,7 @@ public class Sketch extends PApplet {
       }
       // this helps but does not completely fix
       // https://github.com/hx2A/py5generator/issues/7
-      if (platform == MACOS) {
+      if (platform == MACOS && exitActualCallCount == 1) {
         final MacOSXOnscreenCGLDrawable drawable = (MacOSXOnscreenCGLDrawable) window.getDelegatedDrawable();
         WindowDriver driver = (WindowDriver) drawable.getNativeSurface();
         driver.destroy();
