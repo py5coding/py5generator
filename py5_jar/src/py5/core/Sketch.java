@@ -242,6 +242,10 @@ public class Sketch extends PApplet {
   @Override
   public void exit() {
     py5Println("called exit");
+    if (platform == MACOS && !looping) {
+      py5Println("restarting loop");
+      loop();
+    }
     super.exit();
     py5Println("finished exit");
   }
