@@ -162,10 +162,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         super()._shutdown()
 
     def _terminate_sketch(self):
-        surface = self.get_surface()
-        if surface._instance is not None:
-            surface.pause_thread()
-            self._shutdown_initiated = True
+        self._instance.noLoop()
+        self._shutdown_initiated = True
         self._shutdown()
 
     def _add_pre_hook(self, method_name, hook_name, function):
