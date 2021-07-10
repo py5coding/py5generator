@@ -239,7 +239,23 @@ public class Sketch extends PApplet {
   }
 
   @Override
+  public void exit() {
+    py5Println("called exit");
+    super.exit();
+    py5Println("finished exit");
+  }
+
+  @Override
+  public void dispose() {
+    py5Println("called dispose");
+    super.dispose();
+    py5Println("finished dispose");
+  }
+
+  @Override
   public void exitActual() {
+    py5Println("called exitActual");
+
     // TODO: This function needs to be re-written by someone who knows something
     // about cross platform Java GUI programming.
 
@@ -305,6 +321,8 @@ public class Sketch extends PApplet {
     } else {
       surface.setVisible(false);
     }
+
+    py5Println("finished exitActual");
   }
 
   /*
