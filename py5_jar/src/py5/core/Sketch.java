@@ -242,7 +242,7 @@ public class Sketch extends PApplet {
   @Override
   public void exit() {
     py5Println("called exit");
-    if (platform == MACOS && !looping) {
+    if (platform == MACOS && g.isGL() && !isLooping()) {
       py5Println("restarting loop");
       loop();
     }
@@ -260,6 +260,7 @@ public class Sketch extends PApplet {
   @Override
   public void exitActual() {
     py5Println("called exitActual");
+    // prevent an endless loop on OSX
     exitActualCallCount += 1;
     // TODO: This function needs to be re-written by someone who knows something
     // about cross platform Java GUI programming.
@@ -327,6 +328,7 @@ public class Sketch extends PApplet {
       surface.setVisible(false);
     }
 
+    exitActualCallCount -= 1;
     py5Println("finished exitActual");
   }
 
