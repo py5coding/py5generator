@@ -106,10 +106,10 @@ public class Sketch extends PApplet {
   public void setup() {
     if (success) {
       PSurface surface = getSurface();
-      // This is an ugly OSX hack to make sure the Sketch window opens above
-      // all other windows. It alleviates the symptoms of bug #5 but is not a
+      // This is an ugly hack to make sure the Sketch window opens above all
+      // other windows. It alleviates the symptoms of bug #5 but is not a
       // proper fix. When it does get a proper fix, this needs to be removed.
-      if (platform == MACOS && sketchRenderer().equals(JAVA2D)) {
+      if ((platform == MACOS && sketchRenderer().equals(JAVA2D)) || platform == WINDOWS) {
         surface.setAlwaysOnTop(true);
         surface.setAlwaysOnTop(false);
       }
