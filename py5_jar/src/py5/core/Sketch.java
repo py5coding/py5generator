@@ -241,29 +241,19 @@ public class Sketch extends PApplet {
 
   @Override
   public void exit() {
-    py5Println("called exit");
     if (platform == MACOS && g.isGL() && !isLooping()) {
-      py5Println("restarting loop");
       loop();
     }
     super.exit();
-    py5Println("finished exit");
-  }
-
-  @Override
-  public void dispose() {
-    py5Println("called dispose");
-    super.dispose();
-    py5Println("finished dispose");
   }
 
   @Override
   public void exitActual() {
-    py5Println("called exitActual");
-    // prevent an endless loop on OSX
-    exitActualCallCount += 1;
     // TODO: This function needs to be re-written by someone who knows something
     // about cross platform Java GUI programming.
+
+    // prevent an endless loop on OSX
+    exitActualCallCount += 1;
 
     // call exiting even if success == false. user might need to do shutdown
     // activities
@@ -281,8 +271,6 @@ public class Sketch extends PApplet {
       for (int i = 0; i < window.getGLEventListenerCount(); i++) {
         window.disposeGLEventListener(window.getGLEventListener(i), true);
       }
-      // this helps but does not completely fix
-      // https://github.com/hx2A/py5generator/issues/7
       if (platform == MACOS && exitActualCallCount == 1) {
         final MacOSXOnscreenCGLDrawable drawable = (MacOSXOnscreenCGLDrawable) window.getDelegatedDrawable();
         WindowDriver driver = (WindowDriver) drawable.getNativeSurface();
@@ -329,7 +317,6 @@ public class Sketch extends PApplet {
     }
 
     exitActualCallCount -= 1;
-    py5Println("finished exitActual");
   }
 
   /*
