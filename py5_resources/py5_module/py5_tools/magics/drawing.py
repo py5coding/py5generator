@@ -228,24 +228,6 @@ class DrawingMagics(Magics):
 
     @magic_arguments()
     @argument(""" DELETE
-    $arguments_Py5Magics_py5drawdxf_arguments
-    """)  # DELETE
-    @kwds(formatter_class=CellMagicHelpFormatter)
-    @cell_magic
-    def py5drawdxf(self, line, cell):
-        """$class_Py5Magics_py5drawdxf"""
-        args = parse_argstring(self.py5drawdxf, line)
-
-        dxf = _run_sketch('DXF', cell, args.width, args.height,
-                          self.shell.user_ns, not args.unsafe)
-        if dxf:
-            filename = filename_check(args.filename)
-            with open(filename, 'w') as f:
-                f.write(dxf)
-            print(f'DXF written to {filename}')
-
-    @magic_arguments()
-    @argument(""" DELETE
     $arguments_Py5Magics_py5drawsvg_arguments
     """)  # DELETE
     @kwds(formatter_class=CellMagicHelpFormatter)
@@ -274,8 +256,14 @@ class DrawingMagics(Magics):
         """$class_Py5Magics_py5draw"""
         args = parse_argstring(self.py5draw, line)
 
+        if sys.platform == 'darwin' and args.renderer in ['P2D', 'P3D', 'DXF']:
+            print(f'Renderer {args.renderer} not yet supported on OSX.', file=sys.stderr)
+            return
         if args.renderer == 'SVG':
             print('please use %%py5drawsvg for SVG drawings.', file=sys.stderr)
+            return
+        if args.renderer == 'DXF':
+            print('please use %%py5drawdxf for DXF output.', file=sys.stderr)
             return
         if args.renderer == 'PDF':
             print('please use %%py5drawpdf for PDFs.', file=sys.stderr)
@@ -300,3 +288,25 @@ class DrawingMagics(Magics):
                     else:
                         print(f'Invalid variable name {args.variable}', file=sys.stderr)
             display(Image(png))
+
+
+@magics_class
+class DXFDrawingMagic(Magics):
+
+    @magic_arguments()
+    @argument(""" DELETE
+    $arguments_Py5Magics_py5drawdxf_arguments
+    """)  # DELETE
+    @kwds(formatter_class=CellMagicHelpFormatter)
+    @cell_magic
+    def py5drawdxf(self, line, cell):
+        """$class_Py5Magics_py5drawdxf"""
+        args = parse_argstring(self.py5drawdxf, line)
+
+        dxf = _run_sketch('DXF', cell, args.width, args.height,
+                          self.shell.user_ns, not args.unsafe)
+        if dxf:
+            filename = filename_check(args.filename)
+            with open(filename, 'w') as f:
+                f.write(dxf)
+            print(f'DXF written to {filename}')
