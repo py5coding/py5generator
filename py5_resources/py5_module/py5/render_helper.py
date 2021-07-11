@@ -1,3 +1,4 @@
+import sys
 import functools
 from typing import Callable, Tuple, Dict, List, NewType
 
@@ -17,8 +18,6 @@ class RenderHelperSketch(Sketch):
     def __init__(self, setup, draw, width, height, renderer, *, limit=1,
                  setup_args=None, setup_kwargs=None, draw_args=None, draw_kwargs=None):
         super().__init__()
-        if renderer not in [Sketch.HIDDEN, Sketch.JAVA2D, Sketch.P2D, Sketch.P3D]:
-            raise RuntimeError(f'Processing Renderer {renderer} not yet supported')
         self._setup = setup
         self._draw = draw
         self._width = width
@@ -50,8 +49,6 @@ class RenderHelperGraphicsCanvas(Sketch):
     def __init__(self, setup, draw, width, height, renderer, *, limit=1,
                  setup_args=None, setup_kwargs=None, draw_args=None, draw_kwargs=None):
         super().__init__()
-        if renderer not in [Sketch.HIDDEN, Sketch.JAVA2D, Sketch.P2D, Sketch.P3D]:
-            raise RuntimeError(f'Processing Renderer {renderer} not yet supported')
         self._setup = setup
         self._draw = draw
         self._width = width
@@ -89,11 +86,24 @@ class RenderHelperGraphicsCanvas(Sketch):
             self.exit_sketch()
 
 
+def _check_allowed_renderer(renderer):
+    renderer_name = {Sketch.SVG: 'SVG', Sketch.PDF: 'PDF', Sketch.DXF: 'DXF', Sketch.P2D: 'P2D', Sketch.P3D: 'P3D'}.get(renderer, renderer)
+    renderers = [Sketch.HIDDEN, Sketch.JAVA2D] if sys.platform == 'darwin' else [Sketch.HIDDEN, Sketch.JAVA2D, Sketch.P2D, Sketch.P3D]
+    if renderer not in renderers:
+        return f'Renderer {renderer_name} is not yet supported' + (' on OSX.' if sys.platform == 'darwin' else '.')
+    else:
+        return None
+
+
 def render_frame(draw: Callable, width: int, height: int,
                  renderer: str = Sketch.HIDDEN, *,
                  draw_args: Tuple = None, draw_kwargs: Dict = None,
                  use_py5graphics=False) -> PIL.ImageFile.ImageFile:
     """$module_Py5Functions_render_frame"""
+    if msg :=_check_allowed_renderer(renderer):
+        print(msg, file=sys.stderr)
+        return None
+
     HelperClass = RenderHelperGraphicsCanvas if use_py5graphics else RenderHelperSketch
     ahs = HelperClass(None, draw, width, height, renderer,
                       draw_args=draw_args, draw_kwargs=draw_kwargs)
@@ -110,6 +120,10 @@ def render_frame_sequence(draw: Callable, width: int, height: int,
                           draw_args: Tuple = None, draw_kwargs: Dict = None,
                           use_py5graphics=False) -> List[PIL_ImageFile]:
     """$module_Py5Functions_render_frame_sequence"""
+    if msg :=_check_allowed_renderer(renderer):
+        print(msg, file=sys.stderr)
+        return None
+
     HelperClass = RenderHelperGraphicsCanvas if use_py5graphics else RenderHelperSketch
     ahs = HelperClass(setup, draw, width, height, renderer, limit=limit,
                       setup_args=setup_args, setup_kwargs=setup_kwargs,
@@ -123,6 +137,9 @@ def render_frame_sequence(draw: Callable, width: int, height: int,
 def render(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
            use_py5graphics=False) -> PIL.ImageFile.ImageFile:
     """$module_Py5Functions_render"""
+    if msg :=_check_allowed_renderer(renderer):
+        raise RuntimeError(msg)
+
     def decorator(draw):
         @functools.wraps(draw)
         def run_render_frame(*draw_args, **draw_kwargs):
@@ -138,6 +155,9 @@ def render_sequence(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
                     setup_args: Tuple = None, setup_kwargs: Dict = None,
                     use_py5graphics=False) -> List[PIL_ImageFile]:
     """$module_Py5Functions_render_sequence"""
+    if msg :=_check_allowed_renderer(renderer):
+        raise RuntimeError(msg)
+
     def decorator(draw):
         @functools.wraps(draw)
         def run_render_frames(*draw_args, **draw_kwargs):
