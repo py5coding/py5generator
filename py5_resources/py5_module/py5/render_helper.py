@@ -90,7 +90,7 @@ def _check_allowed_renderer(renderer):
     renderer_name = {Sketch.SVG: 'SVG', Sketch.PDF: 'PDF', Sketch.DXF: 'DXF', Sketch.P2D: 'P2D', Sketch.P3D: 'P3D'}.get(renderer, renderer)
     renderers = [Sketch.HIDDEN, Sketch.JAVA2D] if sys.platform == 'darwin' else [Sketch.HIDDEN, Sketch.JAVA2D, Sketch.P2D, Sketch.P3D]
     if renderer not in renderers:
-        return f'Renderer {renderer_name} is not yet supported' + (' on OSX.' if sys.platform == 'darwin' else '.')
+        return f'sorry, render helper tools do not support the {renderer_name} renderer' + (' on OSX.' if sys.platform == 'darwin' else '.')
     else:
         return None
 

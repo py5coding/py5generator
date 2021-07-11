@@ -257,7 +257,7 @@ class DrawingMagics(Magics):
         args = parse_argstring(self.py5draw, line)
 
         if sys.platform == 'darwin' and args.renderer in ['P2D', 'P3D', 'DXF']:
-            print(f'Renderer {args.renderer} not yet supported on OSX.', file=sys.stderr)
+            print(f'sorry, py5 magics do not support the {args.renderer} renderer on OSX.', file=sys.stderr)
             return
         if args.renderer == 'SVG':
             print('please use %%py5drawsvg for SVG drawings.', file=sys.stderr)
