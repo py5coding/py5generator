@@ -20,6 +20,7 @@
 # *** FORMAT PARAMS ***
 import time
 import os
+import sys
 from pathlib import Path
 import functools
 from typing import overload, Any, Callable, Union, Dict, List  # noqa
@@ -102,9 +103,6 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     def run_sketch(self, block: bool = None, *,
                    py5_options: List = None, sketch_args: List = None) -> None:
         """$class_Sketch_run_sketch"""
-        if block is None:
-            block = not _in_ipython_session
-
         if not hasattr(self, '_instance'):
             raise RuntimeError(
                 ('py5 internal problem: did you create a class with an `__init__()` '
@@ -139,7 +137,11 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         except Exception as e:
             self.println('Java exception thrown by Sketch.runSketch:\n' + str(e), stderr=True)
 
-        if block:
+        if sys.platform == 'darwin' and _in_ipython_session and block and self._instance.g.isGL():
+            self.println("On OSX, blocking is not allowed in Jupyter when using the P2D or P3D renderers", stderr=True)
+            block = False
+
+        if block or (block is None and not _in_ipython_session):
             # wait for the sketch to finish
             surface = self.get_surface()
             if surface._instance is not None:

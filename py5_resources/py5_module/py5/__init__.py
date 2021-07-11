@@ -78,9 +78,6 @@ def run_sketch(block: bool = None, *,
                sketch_args: List[str] = None,
                sketch_functions: Dict[str, Callable] = None) -> None:
     """$module_Sketch_run_sketch"""
-    if block is None:
-        block = not _in_ipython_session
-
     caller_globals = inspect.stack()[1].frame.f_globals
     caller_locals = inspect.stack()[1].frame.f_locals
     if sketch_functions:
