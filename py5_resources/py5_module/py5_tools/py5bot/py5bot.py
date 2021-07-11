@@ -42,19 +42,21 @@ from py5 import *
 import py5_tools.parsing as _PY5BOT_parsing
 import ast as _PY5BOT_ast
 
-import sys as _PY5BOT_sys
-import functools as _PY5BOT_functools
-
 
 _PY5_VALIDATE_RENDERER = \"\"\"
 def _PY5BOT_size_validate_renderer(f):
-    @_PY5BOT_functools.wraps(f)
+    import sys
+    import functools
+
+    @functools.wraps(f)
     def validate_renderer(*args):
         if len(args) == 2:
             args = *args, HIDDEN
-        if len(args) >= 3 and isinstance(args2 := args[2], str) and args2 not in [HIDDEN, JAVA2D, P2D, P3D]:
-            name = {SVG: 'SVG', PDF: 'PDF', DXF: 'DXF'}.get(args2, args2)
-            print(f'sorry, py5bot does not support the {name} renderer.', file=_PY5BOT_sys.stderr)
+        elif len(args) >= 3 and isinstance(renderer := args[2], str):
+            renderer_name = {SVG: 'SVG', PDF: 'PDF', DXF: 'DXF', P2D: 'P2D', P3D: 'P3D'}.get(renderer, renderer)
+            renderers = [HIDDEN, JAVA2D] if sys.platform == 'darwin' else [HIDDEN, JAVA2D, P2D, P3D]
+            if renderer not in renderers:
+                print(f'sorry, py5bot does not support the {renderer_name} renderer' + (' on OSX.' if sys.platform == 'darwin' else '.'), file=sys.stderr)
             args = *args[:2], HIDDEN, *args[3:]
         f(*args)
     return validate_renderer
@@ -63,7 +65,6 @@ def _PY5BOT_size_validate_renderer(f):
 exec(compile(_PY5_VALIDATE_RENDERER, filename='<py5bot>', mode='exec'), globals(), locals())
 _PY5BOT_altered_size = _PY5BOT_size_validate_renderer(size)
 
-del _PY5BOT_functools
 del _PY5_VALIDATE_RENDERER
 del _PY5BOT_size_validate_renderer
 """
