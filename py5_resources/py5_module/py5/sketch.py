@@ -137,9 +137,10 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         except Exception as e:
             self.println('Java exception thrown by Sketch.runSketch:\n' + str(e), stderr=True)
 
-        if sys.platform == 'darwin' and _in_ipython_session and block and self._instance.g.isGL():
-            self.println("On OSX, blocking is not allowed in Jupyter when using the P2D or P3D renderers", stderr=True)
-            block = False
+        if sys.platform == 'darwin' and _in_ipython_session and block:
+            if (renderer := self._instance.getRendererName()) in ['JAVA2D', 'P2D', 'P3D', 'FX2D']:
+                self.println("On OSX, blocking is not allowed in Jupyter when using the", renderer, "renderer.", stderr=True)
+                block = False
 
         if block or (block is None and not _in_ipython_session):
             # wait for the sketch to finish

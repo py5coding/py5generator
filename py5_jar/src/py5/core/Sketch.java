@@ -83,6 +83,29 @@ public class Sketch extends PApplet {
     py5Methods.py5_println(text, stderr);
   }
 
+  public String getRendererName() {
+    switch (sketchRenderer()) {
+      case JAVA2D:
+        return "JAVA2D";
+      case P2D:
+        return "P2D";
+      case P3D:
+        return "P3D";
+      case HIDDEN:
+        return "HIDDEN";
+      case FX2D:
+        return "FX2D";
+      case PDF:
+        return "PDF";
+      case SVG:
+        return "SVG";
+      case DXF:
+        return "DXF";
+      default:
+        return null;
+    }
+  }
+
   @Override
   public void settings() {
     if (py5IconPath != null) {
