@@ -90,9 +90,17 @@ def _check_allowed_renderer(renderer):
     renderer_name = {Sketch.SVG: 'SVG', Sketch.PDF: 'PDF', Sketch.DXF: 'DXF', Sketch.P2D: 'P2D', Sketch.P3D: 'P3D'}.get(renderer, renderer)
     renderers = [Sketch.HIDDEN, Sketch.JAVA2D] if sys.platform == 'darwin' else [Sketch.HIDDEN, Sketch.JAVA2D, Sketch.P2D, Sketch.P3D]
     if renderer not in renderers:
-        return f'sorry, render helper tools do not support the {renderer_name} renderer' + (' on OSX.' if sys.platform == 'darwin' else '.')
+        return f'sorry, the render helper tools do not support the {renderer_name} renderer' + (' on OSX.' if sys.platform == 'darwin' else '.')
     else:
         return None
+
+
+def _osx_renderer_check(renderer):
+    if sys.platform == 'darwin' and renderer == Sketch.JAVA2D:
+        print('sorry, the render helper tools do not support the JAVA2D renderer on OSX. Using the HIDDEN renderer instead.')
+        return Sketch.HIDDEN
+    else:
+        return renderer
 
 
 def render_frame(draw: Callable, width: int, height: int,
@@ -103,6 +111,7 @@ def render_frame(draw: Callable, width: int, height: int,
     if msg :=_check_allowed_renderer(renderer):
         print(msg, file=sys.stderr)
         return None
+    renderer = _osx_renderer_check(renderer)
 
     HelperClass = RenderHelperGraphicsCanvas if use_py5graphics else RenderHelperSketch
     ahs = HelperClass(None, draw, width, height, renderer,
@@ -123,6 +132,7 @@ def render_frame_sequence(draw: Callable, width: int, height: int,
     if msg :=_check_allowed_renderer(renderer):
         print(msg, file=sys.stderr)
         return None
+    renderer = _osx_renderer_check(renderer)
 
     HelperClass = RenderHelperGraphicsCanvas if use_py5graphics else RenderHelperSketch
     ahs = HelperClass(setup, draw, width, height, renderer, limit=limit,
@@ -139,6 +149,7 @@ def render(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
     """$module_Py5Functions_render"""
     if msg :=_check_allowed_renderer(renderer):
         raise RuntimeError(msg)
+    renderer = _osx_renderer_check(renderer)
 
     def decorator(draw):
         @functools.wraps(draw)
@@ -157,6 +168,7 @@ def render_sequence(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
     """$module_Py5Functions_render_sequence"""
     if msg :=_check_allowed_renderer(renderer):
         raise RuntimeError(msg)
+    renderer = _osx_renderer_check(renderer)
 
     def decorator(draw):
         @functools.wraps(draw)
