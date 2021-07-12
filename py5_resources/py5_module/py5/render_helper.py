@@ -97,7 +97,7 @@ def _check_allowed_renderer(renderer):
 
 def _osx_renderer_check(renderer):
     if sys.platform == 'darwin' and renderer == Sketch.JAVA2D:
-        print('The render helper tools do not support the JAVA2D renderer on OSX. Switching to the HIDDEN renderer instead.')
+        print('The render helper tools do not support the JAVA2D renderer on OSX. Switching to the default option instead.')
         return Sketch.HIDDEN
     else:
         return renderer
