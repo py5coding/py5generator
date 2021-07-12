@@ -48,6 +48,7 @@ _DEFAULT_STARTUP = """
 import py5_tools
 py5_tools.set_imported_mode(True)
 from py5 import *
+from py5_tools import sketch_portal
 """
 
 _KERNEL_STARTUP = (_MACOSX_PRE_STARTUP if sys.platform == 'darwin' else "") + _DEFAULT_STARTUP
