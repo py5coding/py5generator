@@ -57,6 +57,9 @@ try:
     from ipykernel.zmqshell import ZMQInteractiveShell
     _ipython_shell = get_ipython()  # type: ignore
     _in_jupyter_zmq_shell = isinstance(_ipython_shell, ZMQInteractiveShell)
+    if sys.platform == 'darwin' and _ipython_shell.active_eventloop != 'osx':
+        print("Importing py5 on OSX but the necessary Jupyter OSX event loop not been activated. I'll activate it for you, but next time, execute `%gui osx` before importing this library.")
+        _ipython_shell.run_line_magic('gui', 'osx')
 except NameError:
     _in_ipython_session = False
     _ipython_shell = None
