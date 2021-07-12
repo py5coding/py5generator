@@ -56,7 +56,7 @@ def _PY5BOT_size_validate_renderer(f):
             renderers = [HIDDEN, JAVA2D] if sys.platform == 'darwin' else [HIDDEN, JAVA2D, P2D, P3D]
             if renderer not in renderers:
                 renderer_name = {SVG: 'SVG', PDF: 'PDF', DXF: 'DXF', P2D: 'P2D', P3D: 'P3D'}.get(renderer, renderer)
-                print(f'sorry, py5bot does not support the {renderer_name} renderer' + (' on OSX.' if sys.platform == 'darwin' else '.'), file=sys.stderr)
+                print(f'Sorry, py5bot does not support the {renderer_name} renderer' + (' on OSX.' if sys.platform == 'darwin' else '.'), file=sys.stderr)
                 args = *args[:2], HIDDEN, *args[3:]
             if sys.platform == 'darwin':
                 args = *args[:2], HIDDEN, *args[3:]

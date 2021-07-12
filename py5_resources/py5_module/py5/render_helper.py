@@ -90,14 +90,14 @@ def _check_allowed_renderer(renderer):
     renderer_name = {Sketch.SVG: 'SVG', Sketch.PDF: 'PDF', Sketch.DXF: 'DXF', Sketch.P2D: 'P2D', Sketch.P3D: 'P3D'}.get(renderer, renderer)
     renderers = [Sketch.HIDDEN, Sketch.JAVA2D] if sys.platform == 'darwin' else [Sketch.HIDDEN, Sketch.JAVA2D, Sketch.P2D, Sketch.P3D]
     if renderer not in renderers:
-        return f'sorry, the render helper tools do not support the {renderer_name} renderer' + (' on OSX.' if sys.platform == 'darwin' else '.')
+        return f'Sorry, the render helper tools do not support the {renderer_name} renderer' + (' on OSX.' if sys.platform == 'darwin' else '.')
     else:
         return None
 
 
 def _osx_renderer_check(renderer):
     if sys.platform == 'darwin' and renderer == Sketch.JAVA2D:
-        print('the render helper tools do not support the JAVA2D renderer on OSX. Switching to the HIDDEN renderer instead.')
+        print('The render helper tools do not support the JAVA2D renderer on OSX. Switching to the HIDDEN renderer instead.')
         return Sketch.HIDDEN
     else:
         return renderer

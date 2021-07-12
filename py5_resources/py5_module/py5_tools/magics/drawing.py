@@ -258,7 +258,7 @@ class DrawingMagics(Magics):
 
         if sys.platform == 'darwin':
             if args.renderer in ['P2D', 'P3D', 'DXF']:
-                print(f'sorry, py5 magics do not support the {args.renderer} renderer on OSX.', file=sys.stderr)
+                print(f'Sorry, py5 magics do not support the {args.renderer} renderer on OSX.', file=sys.stderr)
                 return
             if args.renderer == 'JAVA2D':
                 args.renderer = 'HIDDEN'
