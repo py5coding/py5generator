@@ -26,6 +26,9 @@ with open('README.rst') as f:
 VERSION = '0.4a3.dev0'
 
 INSTALL_REQUIRES = [
+    'ipykernel>=5.5',
+    'ipython>=7.22',
+    'ipywidgets>=7.6',
     'jpype1>=1.2',
     'line_profiler>=2.1.2',
     'noise>=1.2',
@@ -35,6 +38,7 @@ INSTALL_REQUIRES = [
     'pillow>=8.1',
     'requests>=2.25',
     'stackprinter>=0.2.4',
+    'traitlets>=5.0',
 ]
 
 pjoin = os.path.join
