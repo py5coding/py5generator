@@ -36,7 +36,7 @@ class Py5SketchPortal(widgets.Image):
 
 def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = None,
                   scale: float = 1.0, quality: int = 75,
-                  portal_widget: Py5SketchPortal = None, sketch: Sketch = None,
+                  portal: Py5SketchPortal = None, sketch: Sketch = None,
                   hook_post_draw: bool = False) -> None:
     """$module_Py5Tools_sketch_portal"""
     try:
@@ -70,11 +70,11 @@ def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = None,
     if scale <= 0:
         raise RuntimeError('The scale parameter must be greater than zero')
 
-    if portal_widget is None:
-        portal_widget = Py5SketchPortal()
-        portal_widget.layout.width = f'{int(scale * sketch.width)}px'
-        portal_widget.layout.height = f'{int(scale * sketch.height)}px'
-        portal_widget.layout.border = '1px solid gray'
+    if portal is None:
+        portal = Py5SketchPortal()
+        portal.layout.width = f'{int(scale * sketch.width)}px'
+        portal.layout.height = f'{int(scale * sketch.height)}px'
+        portal.layout.border = '1px solid gray'
 
     def displayer(frame):
         img = PIL.Image.fromarray(frame)
@@ -82,13 +82,16 @@ def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = None,
             img = img.resize(tuple(int(scale * x) for x in img.size))
         b = io.BytesIO()
         img.save(b, format='JPEG', quality=quality)
-        portal_widget.value = b.getvalue()
+        portal.value = b.getvalue()
 
     hook = SketchPortalHook(displayer, throttle_frame_rate, time_limit)
 
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
-    return portal_widget
+    exit_button = widgets.Button(description='exit_sketch()')
+    exit_button.on_click(lambda x: sketch.exit_sketch())
+
+    return widgets.VBox([portal, exit_button])
 
 
 __all__ = ['sketch_portal']
