@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="py5 jar" default="dist">
+<project name="py5 jar" default="clean">
 
     <description>
         compile and build the py5 jar file.
     </description>
 
-    <property name="src" location="src"/>
-    <property name="build" location="build"/>
-    <property name="dist" location="dist"/>
+    <property name="project.src" location="src"/>
+    <property name="project.bin" location="bin"/>
+    <property name="project.dist" location="dist"/>
+
+    <target name="project.run">
+        <antcall target="compile"></antcall>
+        <antcall target="dist"></antcall>
+    </target>
 
     <target name="compile" description="compile the source">
-        <mkdir dir="${build}"/>
-        <javac source="11" target="11" debug="true" includeantruntime="false" srcdir="${src}" destdir="${build}">
+        <mkdir dir="${project.bin}"/>
+        <javac source="11" target="11" debug="true" includeantruntime="false" srcdir="${project.src}" destdir="${project.bin}">
             <classpath>
                 <fileset dir="${processing_dir}/core/library/">
                         <include name="**/*.jar"/>
                 </fileset>
             </classpath>
+            <compilerarg value="-Xlint"/>
         </javac>
     </target>
 
     <target name="dist" depends="compile" description="make the jar">
-        <mkdir dir="${dist}"/>
-        <jar destfile="${dist}/py5.jar" basedir="${build}"/>
+        <mkdir dir="${project.dist}"/>
+        <jar destfile="${project.dist}/py5.jar" basedir="${project.bin}"/>
     </target>
 
-    <target name="clean">
-        <delete dir="${build}"/>
-        <delete dir="${dist}"/>
+    <target name="clean" depends="project.run">
+        <delete dir="${project.bin}"/>
     </target>
 
 </project>
