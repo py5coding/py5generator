@@ -39,36 +39,31 @@ import py5_tools
 py5_tools.set_imported_mode(True)
 from py5 import *
 
-import py5_tools.parsing as _PY5BOT_parsing
+import sys
+import functools
 import ast as _PY5BOT_ast
 
+import py5_tools.parsing as _PY5BOT_parsing
 
-_PY5_VALIDATE_RENDERER = \"\"\"
-def _PY5BOT_size_validate_renderer(f):
-    import sys
-    import functools
 
-    @functools.wraps(f)
-    def validate_renderer(*args):
-        if len(args) == 2:
-            args = *args, HIDDEN
-        elif len(args) >= 3 and isinstance(renderer := args[2], str):
-            renderers = [HIDDEN, JAVA2D] if sys.platform == 'darwin' else [HIDDEN, JAVA2D, P2D, P3D]
-            if renderer not in renderers:
-                renderer_name = {SVG: 'SVG', PDF: 'PDF', DXF: 'DXF', P2D: 'P2D', P3D: 'P3D'}.get(renderer, renderer)
-                print(f'Sorry, py5bot does not support the {renderer_name} renderer' + (' on OSX.' if sys.platform == 'darwin' else '.'), file=sys.stderr)
-                args = *args[:2], HIDDEN, *args[3:]
-            if sys.platform == 'darwin':
-                args = *args[:2], HIDDEN, *args[3:]
-        f(*args)
-    return validate_renderer
-\"\"\"
+@functools.wraps(size)
+def _PY5BOT_altered_size(*args):
+    if len(args) == 2:
+        args = *args, HIDDEN
+    elif len(args) >= 3 and isinstance(renderer := args[2], str):
+        renderers = [HIDDEN, JAVA2D] if sys.platform == 'darwin' else [HIDDEN, JAVA2D, P2D, P3D]
+        if renderer not in renderers:
+            renderer_name = {SVG: 'SVG', PDF: 'PDF', DXF: 'DXF', P2D: 'P2D', P3D: 'P3D'}.get(renderer, renderer)
+            print(f'Sorry, py5bot does not support the {renderer_name} renderer' + (' on OSX.' if sys.platform == 'darwin' else '.'), file=sys.stderr)
+            args = *args[:2], HIDDEN, *args[3:]
+        if sys.platform == 'darwin':
+            args = *args[:2], HIDDEN, *args[3:]
+    size(*args)
+return validate_renderer
 
-exec(compile(_PY5_VALIDATE_RENDERER, filename='<py5bot>', mode='exec'), globals(), locals())
-_PY5BOT_altered_size = _PY5BOT_size_validate_renderer(size)
 
-del _PY5_VALIDATE_RENDERER
-del _PY5BOT_size_validate_renderer
+del sys
+del functools
 """
 
 
