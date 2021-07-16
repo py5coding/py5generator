@@ -29,12 +29,12 @@ from ..kernel.kernel import Py5Kernel
 from .. import split_setup
 from . import py5bot
 
-from ..parsing import TransformDynamicVariablesToCalls
+from ..parsing import TransformDynamicVariablesToCalls, ReservedWordsValidation
 
 
 class Py5BotShell(ZMQInteractiveShell):
 
-    ast_transformers = List([TransformDynamicVariablesToCalls()]).tag(config=True)
+    ast_transformers = List([TransformDynamicVariablesToCalls(), ReservedWordsValidation()]).tag(config=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

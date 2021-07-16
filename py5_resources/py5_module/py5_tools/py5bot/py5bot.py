@@ -71,7 +71,7 @@ PY5BOT_CODE = """
 _PY5BOT_OUTPUT_ = None
 
 def _py5bot_settings():
-    size = _PY5BOT_altered_size
+    exec("size = _PY5BOT_altered_size")
 
     with open('{0}', 'r') as f:
         exec(
