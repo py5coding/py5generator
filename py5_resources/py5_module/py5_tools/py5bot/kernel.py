@@ -29,8 +29,12 @@ from ..kernel.kernel import Py5Kernel
 from .. import split_setup
 from . import py5bot
 
+from ..parsing import TransformDynamicVariablesToCalls
+
 
 class Py5BotShell(ZMQInteractiveShell):
+
+    ast_transformers = List([TransformDynamicVariablesToCalls()]).tag(config=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
