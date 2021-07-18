@@ -18,7 +18,7 @@ This cell magic uses the same rendering mechanism as the py5bot kernel. For user
 
 This magic is similar to :doc:`py5draw` in that both can be used to create a static Sketch. One key difference is that ``%%py5bot`` requires the user to begin the code with a call to :doc:`size`, while :doc:`py5draw` calls :doc:`size` for you based on the magic's arguments. 
 
-This magic supports the default renderer and the ``P2D`` and ``P3D`` renderers. Note that both of the OpenGL renderers will briefly open a window on your screen. This magic is only available when using the py5 kernel and coding in imported mode.
+This magic supports the default renderer and the ``P2D`` and ``P3D`` renderers. Note that both of the OpenGL renderers will briefly open a window on your screen. This magic is only available when using the py5 kernel and coding in imported mode. The ``P2D`` and ``P3D`` renderers are not available when the py5 kernel is hosted on an OSX computer.
 
 Code used in this cell can reference functions and variables defined in other cells. By default, variables and functions created in this cell will be local to only this cell because to do otherwise would be unsafe. If you understand the risks, you can use the ``global`` keyword to add a single function or variable to the notebook namespace.
 
