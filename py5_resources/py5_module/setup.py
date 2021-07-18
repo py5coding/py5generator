@@ -26,7 +26,7 @@ with open('README.rst') as f:
 VERSION = '0.4a3.dev0'
 
 INSTALL_REQUIRES = [
-    'ipykernel>=5.5',
+    'ipykernel>=5.3',
     'ipython>=7.22',
     'ipywidgets>=7.6',
     'jpype1>=1.2',
