@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="py5 jar" default="clean">
+<project name="py5 jar" default="cleanup">
 
     <description>
         compile and build the py5 jar file.
@@ -31,8 +31,13 @@
         <jar destfile="${project.dist}/py5.jar" basedir="${project.bin}"/>
     </target>
 
-    <target name="clean" depends="project.run">
+    <target name="cleanup" depends="project.run">
         <delete dir="${project.bin}"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="${project.bin}"/>
+        <delete dir="${project.dist}"/>
     </target>
 
 </project>
