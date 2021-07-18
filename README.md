@@ -32,6 +32,8 @@ If you have Java 11 installed on your computer, you can install py5 using pip:
 pip install py5
 ```
 
+[Detailed installation instructions](http://py5.ixora.io/install/) are available on the documentation website. There are some [Special Notes for Mac Users](http://py5.ixora.io/tutorials/mac-users/) that you should read if you use OSX.
+
 There are currently four basic ways to use py5. They are:
 
 * **module mode**, as shown above
@@ -40,8 +42,6 @@ There are currently four basic ways to use py5. They are:
 * **static mode**: functionless code to create static images. This mode is supported by the py5bot Jupyter notebook kernel and the `%%py5bot` IPython magic.
 
 py5generator is a meta-programming project that creates the py5 library. To view the actual installed py5 library code, look at the [py5 repository][py5_repo]. All py5 library development is done through py5generator.
-
-[Detailed installation instructions](http://py5.ixora.io/install/) are available on the documentation website. There are some [Special Notes for Mac Users](http://py5.ixora.io/tutorials/mac-users/) that you should read if you use OSX.
 
 The documentation website, [http://py5.ixora.io/](http://py5.ixora.io/), is very much a work in progress. The [reference documentation](http://py5.ixora.io/reference/) is solid but the how-to's and tutorials need a lot of work. See the [py5 examples repository][py5_examples_repo] for some working examples.
 
