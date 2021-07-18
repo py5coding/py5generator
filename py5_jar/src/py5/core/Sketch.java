@@ -32,13 +32,11 @@ import com.jogamp.newt.opengl.GLWindow;
 
 import jogamp.newt.driver.macosx.WindowDriver;
 import jogamp.opengl.macosx.cgl.MacOSXOnscreenCGLDrawable;
-import processing.awt.PGraphicsJava2D;
 import processing.core.PApplet;
 import processing.core.PMatrix2D;
 import processing.core.PShape;
 import processing.core.PSurface;
 import processing.event.MouseEvent;
-import processing.javafx.PGraphicsFX2D;
 import processing.opengl.PGraphicsOpenGL;
 import processing.opengl.PJOGL;
 
@@ -419,12 +417,10 @@ public class Sketch extends PApplet {
 
   @Override
   public void printMatrix() {
-    if (g instanceof PGraphicsJava2D) {
-      py5Println(PrintUtils.toString(((PGraphicsJava2D) g).getMatrix((PMatrix2D) null)));
-    } else if (g instanceof PGraphicsOpenGL) {
+    if (g instanceof PGraphicsOpenGL) {
       py5Println(PrintUtils.toString(((PGraphicsOpenGL) g).modelview));
-    } else if (g instanceof PGraphicsFX2D) {
-      py5Println(PrintUtils.toString(((PGraphicsFX2D) g).getMatrix((PMatrix2D) null)));
+    } else {
+      py5Println(PrintUtils.toString(g.getMatrix((PMatrix2D) null)));
     }
   }
 
