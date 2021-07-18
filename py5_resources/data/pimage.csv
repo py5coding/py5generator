@@ -199,6 +199,7 @@ save,save,,method,PYTHON,implemented in pixels.py mixin
 copy,copy,,method,JAVA,
 mask,mask,,method,JAVA,
 resize,resize,,method,SKIP,
+get_image,getImage,,method,SKIP,
 get_native,getNative,,method,SKIP,
 native,native,,unknown,SKIP,
 is_modified,isModified,,method,SKIP,
