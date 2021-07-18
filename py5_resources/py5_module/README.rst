@@ -3,7 +3,8 @@ py5
 
 .. image:: https://img.shields.io/pypi/dm/py5?label=py5%20PyPI%20downloads
 
-.. image:: https://mybinder.org/v2/gh/hx2A/py5examples/HEAD?urlpath=lab
+.. image:: https://mybinder.org/badge_logo.svg
+    :target: https://mybinder.org/v2/gh/hx2A/py5examples/HEAD?urlpath=lab
 
 py5 is a new version of Processing_ for Python 3.8+. It makes the Processing_ Java libraries available to the CPython interpreter using JPype_. It can do just about everything Processing_ can do, except with Python instead of Java code.
 
