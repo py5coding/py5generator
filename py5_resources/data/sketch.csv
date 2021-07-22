@@ -253,7 +253,7 @@ split,split,,method,data,string_functions,SKIP,user should use python instead
 join,join,,method,data,string_functions,SKIP,user should use python instead
 trim,trim,,method,data,string_functions,SKIP,user should use python instead
 size,size,,method,environment,,JAVA,
-fill,fill,,method,color,setting,JAVA,
+fill,fill,@_convert_hex_color(),method,color,setting,JAVA,
 apply_filter,filter,,method,image,pixels,JAVA,filter method has name conflict with python builtin function; replaced with apply_filter method
 second,second,,static method,input,time_date,JAVA,
 match,match,,static method,data,string_functions,SKIP,user should use python instead
