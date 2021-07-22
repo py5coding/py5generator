@@ -50,12 +50,11 @@ def _convert_hex_color(indices=[0]):
         @functools.wraps(f)
         def decorated(self_, *args):
             args = list(args)
-            for i, arg in enumerate(args):
-                if i in indices:
-                    if isinstance(arg, str) and HEX_COLOR_REGEX.match(arg.upper()):
-                        args[i] = JInt(int("0xFF" + arg[1:], base=16))
-                    elif isinstance(arg, int) and 0x7FFFFFFF < arg <= 0xFFFFFFFF:
-                        args[i] = JInt(arg)
+            for i, arg in [(i, args[i]) for i in indices if i < len(args)]:
+                if isinstance(arg, str) and HEX_COLOR_REGEX.match(arg.upper()):
+                    args[i] = JInt(int("0xFF" + arg[1:], base=16))
+                elif isinstance(arg, int) and 0x7FFFFFFF < arg <= 0xFFFFFFFF:
+                    args[i] = JInt(arg)
             return f(self_, *args)
         return decorated
     return _hex_color
