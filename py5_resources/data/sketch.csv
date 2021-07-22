@@ -427,7 +427,7 @@ unhex,unhex,,static method,data,conversion,SKIP,user should use python instead
 binary,binary,,method,data,conversion,SKIP,user should use python instead
 unbinary,unbinary,,static method,data,conversion,SKIP,user should use python instead
 color,color,,method,color,creating_reading,JAVA,
-lerp_color,lerpColor,,method,color,creating_reading,JAVA,
+lerp_color,lerpColor,"@_convert_hex_color(indices=[0, 1])",method,color,creating_reading,JAVA,
 blend_color,blendColor,,static method,color,creating_reading,SKIP,methods that are not part of the processing framework
 frame_moved,frameMoved,,method,,,SKIP,methods that are not part of the processing framework
 frame_resized,frameResized,,method,,,SKIP,methods that are not part of the processing framework
@@ -547,7 +547,7 @@ point_light,pointLight,,method,lights_camera,lights,JAVA,
 spot_light,spotLight,,method,lights_camera,lights,JAVA,
 light_falloff,lightFalloff,,method,lights_camera,lights,JAVA,
 light_specular,lightSpecular,,method,lights_camera,lights,JAVA,
-background,background,@_auto_convert_to_py5image,method,color,setting,JAVA,
+background,background,@_auto_convert_to_py5image;@_convert_hex_color(),method,color,setting,JAVA,
 color_mode,colorMode,,method,color,setting,JAVA,
 green,green,,method,color,creating_reading,JAVA,
 blue,blue,,method,color,creating_reading,JAVA,
