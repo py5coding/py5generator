@@ -9,3 +9,4 @@ save_frames,,,function,sketch_hooks,,PYTHON,hooks
 animated_gif,,,function,sketch_hooks,,PYTHON,hooks
 capture_frames,,,function,sketch_hooks,,PYTHON,hooks
 sketch_portal,,,function,sketch_hooks,,PYTHON,hooks
+get_jvm_debug_info,,,function,jvm,,PYTHON,jvm

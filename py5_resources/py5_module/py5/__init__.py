@@ -41,7 +41,20 @@ if not py5_tools.is_jvm_running():
     py5_tools.add_jars(str(base_path / 'jars'))
     # if the cwd has a jars subdirectory, add that next
     py5_tools.add_jars(Path('jars'))
-    py5_tools.jvm._start_jvm()
+    try:
+        py5_tools.jvm._start_jvm()
+        started_jvm = True
+    except:
+        started_jvm = False
+
+    debug_info = py5_tools.get_jvm_debug_info()
+    java_version = debug_info['jvm version'][0]
+    if not started_jvm or java_version < 11:
+        print("py5 is unable to start a Java 11 Virtual Machine.", file=sys.stderr)
+        print("This library requires Java 11 to be installed and a properly set JAVA_HOME environment variable.", file=sys.stderr)
+        print("Here is some debug info about your installation that might help you identify the source of this problem.", file=sys.stderr)
+        print(debug_info, file=sys.stderr)
+        raise RuntimeError("py5 is unable to start Java 11 Virtual Machine")
 
 from .methods import register_exception_msg  # noqa
 from .sketch import Sketch, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Shape, Py5Font, Py5Promise, _in_ipython_session  # noqa

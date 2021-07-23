@@ -127,6 +127,9 @@ EXTRA_METHOD_SIGNATURES = {
     ('Py5Tools', 'add_jars'): [
         (['path: Union[Path, str]'], 'None')
     ],
+    ('Py5Tools', 'get_jvm_debug_info'): [
+        ([], 'Dict[str, Any]')
+    ],
     ('Py5Tools', 'screenshot'): [
         (['*', 'sketch: Sketch = None', 'hook_post_draw: bool = False'], 'PIL.Image')
     ],
