@@ -45,16 +45,34 @@ def _ret_str(f):
     return decorated
 
 
+def _hex_converter(arg):
+    if isinstance(arg, str) and HEX_COLOR_REGEX.match(arg.upper()):
+        return JInt(int("0xFF" + arg[1:], base=16))
+    elif isinstance(arg, int) and 0x7FFFFFFF < arg <= 0xFFFFFFFF:
+        return JInt(arg)
+    return None
+
+
 def _convert_hex_color(indices=[0]):
     def _hex_color(f):
         @functools.wraps(f)
         def decorated(self_, *args):
             args = list(args)
             for i, arg in [(i, args[i]) for i in indices if i < len(args)]:
-                if isinstance(arg, str) and HEX_COLOR_REGEX.match(arg.upper()):
-                    args[i] = JInt(int("0xFF" + arg[1:], base=16))
-                elif isinstance(arg, int) and 0x7FFFFFFF < arg <= 0xFFFFFFFF:
-                    args[i] = JInt(arg)
+                if (new_arg := _hex_converter(arg)) is not None:
+                    args[i] = new_arg
             return f(self_, *args)
         return decorated
     return _hex_color
+
+
+def _convert_hex_color2(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        args = list(args)
+        if len(args) == 1 and (new_arg := _hex_converter(args[0])):
+            args[0] = new_arg
+        elif len(args) == 2 and (new_arg := _hex_converter(args[1])):
+            args[1] = new_arg
+        return f(self_, *args)
+    return decorated
