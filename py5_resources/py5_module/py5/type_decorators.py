@@ -20,6 +20,7 @@
 import re
 import functools
 
+import numpy as np
 from jpype.types import JString, JInt
 
 
@@ -48,7 +49,7 @@ def _ret_str(f):
 def _hex_converter(arg):
     if isinstance(arg, str) and HEX_COLOR_REGEX.match(arg.upper()):
         return JInt(int("0xFF" + arg[1:], base=16))
-    elif isinstance(arg, int) and 0x7FFFFFFF < arg <= 0xFFFFFFFF:
+    elif isinstance(arg, (int, np.integer)) and 0x7FFFFFFF < arg <= 0xFFFFFFFF:
         return JInt(arg)
     return None
 

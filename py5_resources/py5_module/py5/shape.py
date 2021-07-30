@@ -58,7 +58,7 @@ def _py5shape_type_fixer(f):
         def fix_type(arg):
             if isinstance(arg, bool):
                 return JBoolean(arg)
-            elif isinstance(arg, int):
+            elif isinstance(arg, (int, np.integer)):
                 return JInt(arg)
             elif isinstance(arg, float):
                 return JFloat(arg)
