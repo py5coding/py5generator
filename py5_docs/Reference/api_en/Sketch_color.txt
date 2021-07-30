@@ -76,3 +76,16 @@ def setup():
     c = py5.color(50, 55, 100)  # update 'c' with new color
     py5.fill(c)  # use updated 'c' as fill color
     py5.rect(55, 10, 45, 80)  # draw right rect
+
+@@ example
+image = Sketch_color_3.png
+
+def setup():
+    c = 0xFFFFCC00  # define color 'c' using hex notation
+    py5.fill(c)  # use color variable 'c' as fill color
+    py5.no_stroke()  # don't draw a stroke around shapes
+    py5.ellipse(25, 25, 80, 80)  # draw left circle
+    
+    c = "#00CCFF"  # define color 'c' using web color notation
+    py5.fill(c)  # use updated 'c' as fill color
+    py5.ellipse(75, 75, 80, 80)  # draw right circle

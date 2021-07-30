@@ -21,7 +21,7 @@ The ``green()`` function is easy to use and understand, but it is slower than a 
 image = Sketch_green_0.png
 
 def setup():
-    c = py5.color(20, 75, 200)  # define color 'c'
+    c = "#144BC8"  # define color 'c'
     py5.fill(c)  # use color variable 'c' as fill color
     py5.rect(15, 20, 35, 60)  # draw left rectangle
     
