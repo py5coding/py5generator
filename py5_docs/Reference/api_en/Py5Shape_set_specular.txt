@@ -32,7 +32,7 @@ def setup():
     py5.no_stroke()
     s = py5.create_shape(py5.SPHERE, 20)
 
-    s.set_specular(py5.color(255, 255, 255))
+    s.set_specular("#FFFFFF")
     py5.shape(s, 50, 25)
-    s.set_specular(py5.color(204, 102, 0))
+    s.set_specular("#CC6600")
     py5.shape(s, 50, 75)

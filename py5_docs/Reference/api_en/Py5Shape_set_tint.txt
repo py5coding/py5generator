@@ -39,8 +39,8 @@ def setup():
     s.vertex(80, 20, 100, 0)
     s.end_shape(py5.CLOSE)
 
-    s.set_tint(0, py5.color(0, 0, 255))
-    s.set_tint(2, py5.color(255, 0, 0))
+    s.set_tint(0, "#0000FF")
+    s.set_tint(2, "#FF0000")
     py5.shape(s)
 
 @@ example
@@ -63,6 +63,6 @@ def draw():
     if py5.frame_count == 50:
         s.set_tint(False)
     if py5.frame_count == 100:
-        s.set_tint(py5.color(255, 0, 0))
+        s.set_tint("#FF0000")
 
     py5.shape(s)

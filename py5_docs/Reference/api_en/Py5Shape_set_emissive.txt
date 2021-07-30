@@ -31,7 +31,7 @@ def setup():
     py5.no_stroke()
     s = py5.create_shape(py5.SPHERE, 20)
 
-    s.set_emissive(py5.color(0, 50, 100))
+    s.set_emissive("#003264")
     py5.shape(s, 50, 25)
-    s.set_emissive(py5.color(100, 50, 0))
+    s.set_emissive("#643200")
     py5.shape(s, 50, 75)
