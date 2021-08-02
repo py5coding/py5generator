@@ -21,7 +21,7 @@ The ``blue()`` function is easy to use and understand, but it is slower than a t
 image = Sketch_blue_0.png
 
 def setup():
-    c = py5.color(175, 100, 220)  # define color 'c'
+    c = "#AF64DC"  # define color 'c'
     py5.fill(c)  # use color variable 'c' as fill color
     py5.rect(15, 20, 35, 60)  # draw left rectangle
     

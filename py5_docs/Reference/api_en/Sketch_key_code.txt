@@ -20,7 +20,7 @@ There are issues with how ``key_code`` behaves across different renderers and op
 If you are using ``P2D`` or ``P3D`` as your renderer, use the ``NEWT`` KeyEvent constants.
 
 @@ example
-fill_val = py5.color(126)
+fill_val = 128
 
 
 def draw():

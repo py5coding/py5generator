@@ -24,8 +24,8 @@ image = Py5Shape_curve_detail_0.png
 
 def setup():
     py5.size(100, 100, py5.P2D)
-    py5.shape(draw_curves(30, 2, py5.color(255, 0, 0)))
-    py5.shape(draw_curves(70, 20, py5.color(0, 0, 255)))
+    py5.shape(draw_curves(30, 2, "#FF0000"))
+    py5.shape(draw_curves(70, 20, "#0000FF"))
 
 
 def draw_curves(y, detail, color):

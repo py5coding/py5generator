@@ -24,8 +24,8 @@ image = Py5Shape_curve_tightness_0.png
 
 def setup():
     py5.size(100, 100, py5.P2D)
-    py5.shape(draw_curves(30, 0, py5.color(255, 0, 0)))
-    py5.shape(draw_curves(70, 0.9, py5.color(0, 0, 255)))
+    py5.shape(draw_curves(30, 0, "#FF0000"))
+    py5.shape(draw_curves(70, 0.9, "#0000FF"))
 
 
 def draw_curves(y, tightness, color):

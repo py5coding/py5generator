@@ -21,7 +21,7 @@ The ``red()`` function is easy to use and understand, but it is slower than a te
 image = Sketch_red_0.png
 
 def setup():
-    c = py5.color(255, 204, 0)  # define color 'c'
+    c = "#FFCC00"  # define color 'c'
     py5.fill(c)  # use color variable 'c' as fill color
     py5.rect(15, 20, 35, 60)  # draw left rectangle
     

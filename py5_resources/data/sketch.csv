@@ -253,7 +253,7 @@ split,split,,method,data,string_functions,SKIP,user should use python instead
 join,join,,method,data,string_functions,SKIP,user should use python instead
 trim,trim,,method,data,string_functions,SKIP,user should use python instead
 size,size,,method,environment,,JAVA,
-fill,fill,,method,color,setting,JAVA,
+fill,fill,@_convert_hex_color(),method,color,setting,JAVA,
 apply_filter,filter,,method,image,pixels,JAVA,filter method has name conflict with python builtin function; replaced with apply_filter method
 second,second,,static method,input,time_date,JAVA,
 match,match,,static method,data,string_functions,SKIP,user should use python instead
@@ -341,7 +341,7 @@ create_graphics,createGraphics,@_return_py5graphics,method,rendering,,JAVA,this 
 create_image,createImage,@_return_py5image,method,image,,JAVA,
 image,image,@_auto_convert_to_py5image,method,image,loading_displaying,JAVA,
 handle_draw,handleDraw,,method,,,SKIP,public methods that shouldn't be available to users
-alpha,alpha,,method,color,creating_reading,JAVA,
+alpha,alpha,@_convert_hex_color(),method,color,creating_reading,JAVA,
 is_looping,isLooping,,method,,,SKIP,methods that are not part of the processing framework
 looping,looping,,unknown,,,SKIP,methods that are not part of the processing framework
 post_event,postEvent,,method,,,SKIP,public methods that shouldn't be available to users
@@ -426,8 +426,8 @@ hex,hex,,method,data,conversion,SKIP,user should use python instead
 unhex,unhex,,static method,data,conversion,SKIP,user should use python instead
 binary,binary,,method,data,conversion,SKIP,user should use python instead
 unbinary,unbinary,,static method,data,conversion,SKIP,user should use python instead
-color,color,,method,color,creating_reading,JAVA,
-lerp_color,lerpColor,,method,color,creating_reading,JAVA,
+color,color,@_convert_hex_color(),method,color,creating_reading,JAVA,
+lerp_color,lerpColor,"@_convert_hex_color(indices=[0, 1])",method,color,creating_reading,JAVA,
 blend_color,blendColor,,static method,color,creating_reading,SKIP,methods that are not part of the processing framework
 frame_moved,frameMoved,,method,,,SKIP,methods that are not part of the processing framework
 frame_resized,frameResized,,method,,,SKIP,methods that are not part of the processing framework
@@ -531,14 +531,14 @@ stroke_weight,strokeWeight,,method,shape,attributes,JAVA,
 stroke_join,strokeJoin,,method,shape,attributes,JAVA,
 stroke_cap,strokeCap,,method,shape,attributes,JAVA,
 no_stroke,noStroke,,method,color,setting,JAVA,
-stroke,stroke,,method,color,setting,JAVA,
+stroke,stroke,@_convert_hex_color(),method,color,setting,JAVA,
 no_tint,noTint,,method,image,loading_displaying,JAVA,
-tint,tint,,method,image,loading_displaying,JAVA,
+tint,tint,@_convert_hex_color(),method,image,loading_displaying,JAVA,
 no_fill,noFill,,method,color,setting,JAVA,
-ambient,ambient,,method,lights_camera,material_properties,JAVA,
-specular,specular,,method,lights_camera,material_properties,JAVA,
+ambient,ambient,@_convert_hex_color(),method,lights_camera,material_properties,JAVA,
+specular,specular,@_convert_hex_color(),method,lights_camera,material_properties,JAVA,
 shininess,shininess,,method,lights_camera,material_properties,JAVA,
-emissive,emissive,,method,lights_camera,material_properties,JAVA,
+emissive,emissive,@_convert_hex_color(),method,lights_camera,material_properties,JAVA,
 lights,lights,,method,lights_camera,lights,JAVA,
 no_lights,noLights,,method,lights_camera,lights,JAVA,
 ambient_light,ambientLight,,method,lights_camera,lights,JAVA,
@@ -547,13 +547,13 @@ point_light,pointLight,,method,lights_camera,lights,JAVA,
 spot_light,spotLight,,method,lights_camera,lights,JAVA,
 light_falloff,lightFalloff,,method,lights_camera,lights,JAVA,
 light_specular,lightSpecular,,method,lights_camera,lights,JAVA,
-background,background,@_auto_convert_to_py5image,method,color,setting,JAVA,
+background,background,@_auto_convert_to_py5image;@_convert_hex_color(),method,color,setting,JAVA,
 color_mode,colorMode,,method,color,setting,JAVA,
-green,green,,method,color,creating_reading,JAVA,
-blue,blue,,method,color,creating_reading,JAVA,
-hue,hue,,method,color,creating_reading,JAVA,
-saturation,saturation,,method,color,creating_reading,JAVA,
-brightness,brightness,,method,color,creating_reading,JAVA,
+green,green,@_convert_hex_color(),method,color,creating_reading,JAVA,
+blue,blue,@_convert_hex_color(),method,color,creating_reading,JAVA,
+hue,hue,@_convert_hex_color(),method,color,creating_reading,JAVA,
+saturation,saturation,@_convert_hex_color(),method,color,creating_reading,JAVA,
+brightness,brightness,@_convert_hex_color(),method,color,creating_reading,JAVA,
 show_depth_warning,showDepthWarning,,static method,,,SKIP,public methods that shouldn't be available to users
 show_depth_warning_xyz,showDepthWarningXYZ,,static method,,,SKIP,public methods that shouldn't be available to users
 show_method_warning,showMethodWarning,,static method,,,SKIP,public methods that shouldn't be available to users
@@ -570,7 +570,7 @@ day,day,,static method,input,time_date,JAVA,
 hour,hour,,static method,input,time_date,JAVA,
 minute,minute,,static method,input,time_date,JAVA,
 year,year,,static method,input,time_date,JAVA,
-red,red,,method,color,creating_reading,JAVA,
+red,red,@_convert_hex_color(),method,color,creating_reading,JAVA,
 set_size,setSize,,method,,,SKIP,public methods that shouldn't be available to users
 push,push,,method,structure,,JAVA,
 pop,pop,,method,structure,,JAVA,

@@ -27,8 +27,8 @@ image = Sketch_lerp_color_0.png
 def setup():
     py5.stroke(255)
     py5.background(51)
-    from_ = py5.color(204, 102, 0)
-    to = py5.color(0, 102, 153)
+    from_ = "#CC6600"
+    to = "#006699"
     inter_a = py5.lerp_color(from_, to, .33)
     inter_b = py5.lerp_color(from_, to, .66)
     py5.fill(from_)
