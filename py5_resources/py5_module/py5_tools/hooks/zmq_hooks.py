@@ -34,7 +34,7 @@ class Py5SketchPortal(widgets.Image):
     pass
 
 
-def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = None,
+def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = 30,
                   scale: float = 1.0, quality: int = 75,
                   portal: Py5SketchPortal = None, sketch: Sketch = None,
                   hook_post_draw: bool = False) -> None:
