@@ -25,6 +25,8 @@ import numpy as np
 from PIL import Image
 import jpype
 
+from ..type_decorators import PixelArray
+
 
 _Sketch = jpype.JClass('py5.core.Sketch')
 
@@ -35,6 +37,7 @@ class PixelMixin:
         super().__init__(*args, **kwargs)
         self._instance = kwargs['instance']
         self._np_pixels = None
+        self.pixels2 = PixelArray(self._instance)
 
     def _replace_instance(self, new_instance):
         self._instance = new_instance
