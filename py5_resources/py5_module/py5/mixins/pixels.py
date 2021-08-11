@@ -50,12 +50,13 @@ class PixelArray:
         if (newval := _hex_converter(val)) is not None:
             val = newval
 
-        try:
-            val = jpype.JInt(val)
-        except Exception:
-            raise RuntimeError("Cannot parse " + str(val) + " as a color") from None
-
-        self.instance.pixels[index] = val
+        if isinstance(val, (int, np.integer)):
+            try:
+                self.instance.pixels[index] = val
+            except:
+                raise RuntimeError('Cannot parse "' + str(val) + '" as a color') from None
+        else:
+            raise RuntimeError('Cannot parse "' + str(val) + '" as a color')
 
 
 class PixelMixin:
