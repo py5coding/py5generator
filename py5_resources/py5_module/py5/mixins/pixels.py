@@ -57,7 +57,7 @@ class PixelMixin:
         super().__init__(*args, **kwargs)
         self._instance = kwargs['instance']
         self._np_pixels = None
-        self.pixels2 = PixelArray(self._instance)
+        self.pixels = PixelArray(self._instance)
 
     def _replace_instance(self, new_instance):
         self._instance = new_instance

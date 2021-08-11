@@ -75,6 +75,7 @@ EXTRA_DIR_NAMES = {
     'register_image_conversion', 'NumpyImageArray',
     '__version__', 'utils',
     'render_frame', 'render_frame_sequence', 'render', 'render_sequence',
+    'pixels',
 }
 
 EXTRA_METHOD_SIGNATURES = {
