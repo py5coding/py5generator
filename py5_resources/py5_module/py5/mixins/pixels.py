@@ -25,10 +25,30 @@ import numpy as np
 from PIL import Image
 import jpype
 
-from ..type_decorators import PixelArray
+from ..type_decorators import _hex_converter
 
 
 _Sketch = jpype.JClass('py5.core.Sketch')
+
+
+class PixelArray:
+
+    def __init__(self, instance):
+        self.instance = instance
+
+    def __getitem__(self, index):
+        if self.instance.pixels is None:
+            raise RuntimeError("Cannot get pixel colors because load_pixels() has not been called")
+
+        return self.instance.pixels[index]
+
+    def __setitem__(self, index, val):
+        if self.instance.pixels is None:
+            raise RuntimeError("Cannot set pixel colors because load_pixels() has not been called")
+
+        if (newval := _hex_converter(val)) is not None:
+            val = newval
+        self.instance.pixels[index] = newval
 
 
 class PixelMixin:
