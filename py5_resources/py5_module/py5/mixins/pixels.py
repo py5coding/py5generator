@@ -49,7 +49,13 @@ class PixelArray:
 
         if (newval := _hex_converter(val)) is not None:
             val = newval
-        self.instance.pixels[index] = newval
+
+        try:
+            val = jpype.JInt(val)
+        except Exception:
+            raise RuntimeError("Cannot parse " + str(val) + " as a color") from None
+
+        self.instance.pixels[index] = val
 
 
 class PixelMixin:
