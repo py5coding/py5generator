@@ -32,6 +32,7 @@ _Sketch = jpype.JClass('py5.core.Sketch')
 
 
 class PixelArray:
+    """$module_Sketch_pixels"""
 
     def __init__(self, instance):
         self.instance = instance
