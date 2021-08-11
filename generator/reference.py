@@ -75,7 +75,6 @@ EXTRA_DIR_NAMES = {
     'register_image_conversion', 'NumpyImageArray',
     '__version__', 'utils',
     'render_frame', 'render_frame_sequence', 'render', 'render_sequence',
-    'pixels',
 }
 
 EXTRA_METHOD_SIGNATURES = {
@@ -154,4 +153,8 @@ EXTRA_METHOD_SIGNATURES = {
           'portal_widget: Py5SketchPortal = None', 'sketch: Sketch = None',
           'hook_post_draw: bool = False'], 'None')
     ],
+}
+
+PY5_PYTHON_DYNAMIC_VARIABLES = {
+    'pixels',
 }

@@ -174,11 +174,14 @@ def _prepare_dynamic_variables(caller_locals):
     When running in imported mode, place variables in the the caller's local
     namespace that link to the Sketch's dynamic variable property objects.
     """
-    for dvar in py5_tools.reference.PY5_DYNAMIC_VARIABLES:
+    for dvar in py5_tools.reference.PY5_DYNAMIC_VARIABLES + py5_tools.reference.PY5_PYTHON_DYNAMIC_VARIABLES:
         if dvar in globals():
             globals().pop(dvar)
         if _PY5_USE_IMPORTED_MODE:
-            caller_locals[dvar] = getattr(_py5sketch, '_get_' + dvar)
+            if dvar in py5_tools.reference.PY5_DYNAMIC_VARIABLES:
+                caller_locals[dvar] = getattr(_py5sketch, '_get_' + dvar)
+            else:
+                caller_locals[dvar] = getattr(_py5sketch, dvar)
 
 
 _prepare_dynamic_variables(locals())

@@ -145,11 +145,12 @@ def generate_py5(repo_dir, build_dir, skip_autopep8=False):
     }
 
     # code the result of the module's __dir__ function and __all__ variable
-    py5_dir_names = sketch_builder.all_names | ref.EXTRA_DIR_NAMES
+    py5_dir_names = sketch_builder.all_names | ref.EXTRA_DIR_NAMES | ref.PY5_PYTHON_DYNAMIC_VARIABLES
     py5_dir_str = str(sorted(py5_dir_names, key=lambda x: (x.lower(), x)))[1:-1].replace(', ', ',\n    ')
     # don't want import * to import the dynamic variables because they cannot be updated
     py5_all_str = str(sorted(py5_dir_names - sketch_builder.dynamic_variable_names, key=lambda x: (x.lower(), x)))[1:-1].replace(', ', ',\n    ')
     py5_dynamic_variables_str = str(sorted(sketch_builder.dynamic_variable_names))[1:-1].replace(', ', ',\n    ')
+    py5_python_dynamic_variables_str = str(sorted(ref.PY5_PYTHON_DYNAMIC_VARIABLES))[1:-1].replace(', ', ',\n    ')
 
     def build_signatures(v):
         return [f"({', '.join(params)}) -> {rettype}" for params, rettype in v]
@@ -168,7 +169,9 @@ def generate_py5(repo_dir, build_dir, skip_autopep8=False):
                          method_signatures_lookup_str=method_signatures_lookup_str,
                          py5_dir_str=py5_dir_str,
                          py5_all_str=py5_all_str,
-                         py5_dynamic_variables_str=py5_dynamic_variables_str)
+                         py5_dynamic_variables_str=py5_dynamic_variables_str,
+                         py5_python_dynamic_variables_str=py5_python_dynamic_variables_str,
+                         )
 
     # build complete py5 module in destination directory
     logger.info(f'building py5 in {build_dir}')
