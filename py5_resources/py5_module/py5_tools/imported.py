@@ -109,7 +109,7 @@ def run_code(sketch_path, classpath=None, new_process=False, exit_if_error=False
         code = f.read()
 
     if is_static_mode(code):
-         _run_static_code(code, sketch_path, classpath, new_process, exit_if_error)
+        _run_static_code(code, sketch_path, classpath, new_process, exit_if_error)
     else:
         _run_code(sketch_path, classpath, new_process, exit_if_error)
 
@@ -122,7 +122,7 @@ def _run_static_code(code, sketch_path, classpath, new_process, exit_if_error):
         py5bot_mgr.write_code(py5bot_settings, py5bot_setup, len(code.splitlines()))
         new_sketch_path = py5bot_mgr.tempdir / '_PY5_STATIC_FRAMEWORK_CODE_.py'
         with open(new_sketch_path, 'w') as f:
-            f.write(_STATIC_CODE_FRAMEWORK.format(py5bot_mgr.settings_filename, py5bot_mgr.setup_filename))
+            f.write(_STATIC_CODE_FRAMEWORK.format(py5bot_mgr.settings_filename.as_posix(), py5bot_mgr.setup_filename.as_posix()))
         _run_code(new_sketch_path, classpath, new_process, exit_if_error)
     else:
         print(result, file=sys.stderr)
