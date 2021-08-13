@@ -15,7 +15,7 @@ Before accessing this array, the data must loaded with the :doc:`load_pixels` fu
 image = Sketch_pixels_0.png
 
 def setup():
-    pink = py5.color(255, 102, 204)
+    pink = "#F6C"
     py5.load_pixels()
     for i in range(0, (py5.width*py5.height//2) - py5.width//2):
         py5.pixels[i] = pink
