@@ -137,7 +137,7 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error):
 
         set_imported_mode(True)
         import py5
-        if py5.is_running():
+        if (py5.is_running() if callable(py5.is_running) else py5.is_running):
             print('You must exit the currently running sketch before running another sketch.')
             return None
 
