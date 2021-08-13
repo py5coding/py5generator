@@ -35,26 +35,26 @@ class PixelArray:
     """$module_Sketch_pixels"""
 
     def __init__(self, instance):
-        self.instance = instance
+        self._instance = instance
 
     def __getitem__(self, index):
-        if self.instance.pixels is None:
+        if self._instance.pixels is None:
             raise RuntimeError("Cannot get pixel colors because load_pixels() has not been called")
 
-        return self.instance.pixels[index]
+        return self._instance.pixels[index]
 
     def __setitem__(self, index, val):
-        if self.instance.pixels is None:
+        if self._instance.pixels is None:
             raise RuntimeError("Cannot set pixel colors because load_pixels() has not been called")
 
         if (newval := _hex_converter(val)) is not None:
             val = newval
 
     def __len__(self):
-        if self.instance.pixels is None:
+        if self._instance.pixels is None:
             raise RuntimeError("Cannot get pixel length because load_pixels() has not been called")
 
-        return len(self.instance.pixels)
+        return len(self._instance.pixels)
 
 
 class PixelMixin:
