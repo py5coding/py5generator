@@ -56,11 +56,6 @@ class PixelArray:
 
         return len(self.instance.pixels)
 
-        try:
-            self.instance.pixels[index] = val
-        except:
-            raise RuntimeError('Cannot parse "' + str(val) + '" as a color') from None
-
 
 class PixelMixin:
 
