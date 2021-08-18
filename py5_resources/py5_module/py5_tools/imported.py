@@ -24,6 +24,12 @@ from multiprocessing import Process
 from pathlib import Path
 import re
 
+import jpype
+if sys.platform == 'darwin':
+    from PyObjCTools import AppHelper
+else:
+    AppHelper = None
+
 from . import jvm
 from .py5bot import py5bot
 from . import parsing
@@ -76,6 +82,10 @@ def setup():
         )
 """
 
+_STATIC_CODE_FRAMEWORK_OSX_EXTRA = """
+def draw():
+    pass
+"""
 
 _CODE_FRAMEWORK = """
 {0}
@@ -121,8 +131,11 @@ def _run_static_code(code, sketch_path, classpath, new_process, exit_if_error):
         py5bot_settings, py5bot_setup = result
         py5bot_mgr.write_code(py5bot_settings, py5bot_setup, len(code.splitlines()))
         new_sketch_path = py5bot_mgr.tempdir / '_PY5_STATIC_FRAMEWORK_CODE_.py'
+        new_sketch_code = _STATIC_CODE_FRAMEWORK.format(py5bot_mgr.settings_filename.as_posix(), py5bot_mgr.setup_filename.as_posix())
+        if sys.platform == 'darwin':
+            new_sketch_code += _STATIC_CODE_FRAMEWORK_OSX_EXTRA
         with open(new_sketch_path, 'w') as f:
-            f.write(_STATIC_CODE_FRAMEWORK.format(py5bot_mgr.settings_filename.as_posix(), py5bot_mgr.setup_filename.as_posix()))
+            f.write(new_sketch_code)
         _run_code(new_sketch_path, classpath, new_process, exit_if_error)
     else:
         print(result, file=sys.stderr)
@@ -157,7 +170,21 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error):
         sys.path.extend([str(sketch_path.absolute().parent), os.getcwd()])
         py5_ns = dict()
         py5_ns.update(py5.__dict__)
-        exec(sketch_compiled, py5_ns)
+
+        def exec_compiled_code():
+            exec(sketch_compiled, py5_ns)
+
+        if sys.platform == 'darwin':
+            def launch_exec_compiled_code():
+                exec_compiled_code()
+                os._exit(0)
+
+            proxy = jpype.JProxy('java.lang.Runnable', {'run': launch_exec_compiled_code})
+            run_sketch_thread = jpype.JClass('java.lang.Thread')(proxy)
+            run_sketch_thread.start()
+            AppHelper.runEventLoop()
+        else:
+            exec_compiled_code()
 
     if new_process:
         p = Process(target=_run_sketch, args=(sketch_path, classpath, exit_if_error))
