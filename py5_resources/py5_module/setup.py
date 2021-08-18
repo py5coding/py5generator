@@ -36,7 +36,7 @@ INSTALL_REQUIRES = [
     'numpy>=1.19',
     'pandas>=1.0',
     'pillow>=8.1',
-    'pyobjc>=7.3;sys_platform=="darwin"'
+    'pyobjc>=7.3;sys_platform=="darwin"',
     'requests>=2.25',
     'stackprinter>=0.2.4',
     'traitlets>=5.0',
