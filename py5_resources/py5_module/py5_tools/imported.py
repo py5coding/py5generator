@@ -177,12 +177,12 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error):
         if sys.platform == 'darwin':
             def launch_exec_compiled_code():
                 exec_compiled_code()
-                os._exit(0)
+                AppHelper.stopEventLoop()
 
             proxy = jpype.JProxy('java.lang.Runnable', {'run': launch_exec_compiled_code})
             run_sketch_thread = jpype.JClass('java.lang.Thread')(proxy)
             run_sketch_thread.start()
-            AppHelper.runEventLoop()
+            AppHelper.runConsoleEventLoop()
         else:
             exec_compiled_code()
 
