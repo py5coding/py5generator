@@ -47,6 +47,7 @@ public class Sketch extends PApplet {
   protected boolean success = false;
   protected int exitActualCallCount = 0;
   protected String py5IconPath;
+  protected int[] pixelCapture = null;
 
   public static final char CODED = PApplet.CODED;
 
@@ -130,10 +131,11 @@ public class Sketch extends PApplet {
       // This is an ugly hack to make sure the Sketch window opens above all
       // other windows. It alleviates the symptoms of bug #5 but is not a
       // proper fix. When it does get a proper fix, this needs to be removed.
-      if ((platform == MACOS && sketchRenderer().equals(JAVA2D)) || platform == WINDOWS) {
+      if ((platform == MACOS || platform == WINDOWS) && sketchRenderer().equals(JAVA2D)) {
         surface.setAlwaysOnTop(true);
         surface.setAlwaysOnTop(false);
       }
+
       if (py5IconPath != null && !(g instanceof PGraphicsOpenGL)) {
         try {
           surface.setIcon(loadImage(py5IconPath));
@@ -147,17 +149,29 @@ public class Sketch extends PApplet {
         // parent method doesn't do anything but that might change
         super.setup();
       }
+
+      if (platform == WINDOWS && (sketchRenderer().equals(P2D) || sketchRenderer().equals(P3D))) {
+        capturePixels(true);
+      }
     }
   }
 
   @Override
   public void draw() {
+    if (pixelCapture != null) {
+      restorePixels();
+    }
+
     if (success) {
       if (py5RegisteredEvents.contains("draw")) {
         success = py5Methods.run_method("draw");
       } else {
         super.draw();
       }
+    }
+
+    if (frameCount == 1 && platform == WINDOWS && (sketchRenderer().equals(P2D) || sketchRenderer().equals(P3D))) {
+      capturePixels(false);
     }
   }
 
@@ -440,5 +454,24 @@ public class Sketch extends PApplet {
     } else {
       py5Println("print_projection() is not available with this renderer.");
     }
+  }
+
+  /*
+   * Capture and restore pixel functions, used as a workaround for a Windows
+   * problem. It alleviates the symptoms of bug #5 but is not a proper fix.
+   */
+
+   protected void capturePixels(boolean alwaysOnTop) {
+    surface.setAlwaysOnTop(alwaysOnTop);
+    loadPixels();
+    pixelCapture = new int[pixels.length];
+    System.arraycopy(pixels, 0, pixelCapture, 0, pixels.length);
+  }
+
+  protected void restorePixels() {
+    loadPixels();
+    System.arraycopy(pixelCapture, 0, pixels, 0, pixels.length);
+    pixelCapture = null;
+    updatePixels();
   }
 }
