@@ -29,7 +29,7 @@ dependencies:
   - xmltodict=0.12.*
   - pip:
     - bump2version==1.0.1
-    - jpype1==1.2.*
+    - jpype1==1.3.*
     - nptyping==1.4.*
     - rstcheck==3.3.*
     - stackprinter==0.2.*

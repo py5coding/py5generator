@@ -31,6 +31,7 @@ from nptyping import NDArray, Float, Int  # noqa
 import numpy as np  # noqa
 from PIL import Image  # noqa
 from jpype import JClass  # noqa
+import jpype.imports  # noqa
 from jpype.types import JArray, JString, JFloat, JInt, JChar  # noqa
 
 import py5_tools
