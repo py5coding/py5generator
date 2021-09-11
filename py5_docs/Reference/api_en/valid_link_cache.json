@@ -480,5 +480,6 @@
   "https://processing.org/reference/PGraphics_pixelDensity.html": false,
   "https://processing.org/reference/PImage_pixelDensity.html": false,
   "https://processing.org/reference/PImage_pixelHeight.html": false,
-  "https://processing.org/reference/PImage_pixelWidth.html": false
+  "https://processing.org/reference/PImage_pixelWidth.html": false,
+  "https://processing.org/reference/PApplet.html": false
 }

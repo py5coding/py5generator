@@ -1,0 +1,6 @@
+@@ meta
+name = IPython Magics
+type = class
+
+@@ description
+IPython magics
