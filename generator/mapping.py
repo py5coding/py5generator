@@ -90,11 +90,7 @@ def doclink_to_title_map():
         name = doc.meta['name']
         item_type = doc.meta['type']
         group = stem.split('_', 1)[0]
-
-        if group in ['Sketch', 'Py5Functions', 'Py5Tools', 'Py5Magics']:
-            slug = stem[len(group)+1:].lower()
-        else:
-            slug = stem.lower()
+        slug = stem.lower()
 
         if (item_type == 'class' or
             item_type in ['line magic', 'cell magic'] or
