@@ -133,7 +133,7 @@ Description
 
 This class provides the following methods and fields:
 
-.. include:: ../include/{5}_include.rst
+.. include:: include_{5}.rst
 
 Updated on {6}
 
@@ -286,7 +286,7 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
 
     # create the destination directories
     (dest_dir / 'reference').mkdir(parents=True, exist_ok=True)
-    (dest_dir / 'include').mkdir(parents=True, exist_ok=True)
+    # (dest_dir / 'include').mkdir(parents=True, exist_ok=True)
 
     # load valid link cache if it exists
     valid_link_cache = dict()
@@ -394,9 +394,9 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
                 dir_prefix = '' #  if group == 'Sketch' else '../'
                 for (name, stem, first_sentence, _) in sorted(contents):
                     columns[column_num].write(f'* `{name} <{dir_prefix}{stem}.html>`_\n')
-            write_main_ref_columns(dest_dir / 'include' / f'{group.lower()}_include.rst', columns)
+            write_main_ref_columns(dest_dir / 'reference' / f'include_{group.lower()}.rst', columns)
         else:
-            with open(dest_dir / 'include' / f'{group.lower()}_include.rst', 'w') as f:
+            with open(dest_dir / 'reference' / f'include_{group.lower()}.rst', 'w') as f:
                 for name, stem, first_sentence in sorted(data):
                     f.write(f'* `{name} <{stem}.html>`_: {first_sentence}\n')
 
