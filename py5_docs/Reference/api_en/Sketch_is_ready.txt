@@ -5,7 +5,7 @@ category = structure
 subcategory = None
 
 @@ description
-Boolean value reflecting if the Sketch is in the ready state. This will be ``True`` before :doc:`run_sketch` is called. It will be ``False`` while the Sketch is running and after it has exited.
+Boolean value reflecting if the Sketch is in the ready state. This will be ``True`` before :doc:`sketch_run_sketch` is called. It will be ``False`` while the Sketch is running and after it has exited.
 
 @@ example
 import time

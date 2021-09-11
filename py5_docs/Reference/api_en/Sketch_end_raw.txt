@@ -10,7 +10,7 @@ processing_name = endRaw
 end_raw() -> None
 
 @@ description
-Complement to :doc:`begin_raw`; they must always be used together. See the :doc:`begin_raw` reference for details.
+Complement to :doc:`sketch_begin_raw`; they must always be used together. See the :doc:`sketch_begin_raw` reference for details.
 
 @@ example
 def setup():

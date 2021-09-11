@@ -20,7 +20,7 @@ This method makes its own calls to :doc:`py5image_load_np_pixels` and :doc:`py5i
 
 This method exists because setting the array contents with the code ``img.np_pixels = array`` will cause an error, while the correct syntax, ``img.np_pixels[:] = array``, might also be unintuitive for beginners.
 
-Note that the :doc:`convert_image` method can also be used to convert a numpy array into a new Py5Image object.
+Note that the :doc:`sketch_convert_image` method can also be used to convert a numpy array into a new Py5Image object.
 
 @@ example
 import numpy as np

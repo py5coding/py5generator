@@ -13,7 +13,7 @@ shininess(shine: float, /) -> None
 shine: float - degree of shininess
 
 @@ description
-Sets the amount of gloss in the surface of shapes. Use in combination with :doc:`ambient`, :doc:`specular`, and :doc:`emissive` to set the material properties of shapes.
+Sets the amount of gloss in the surface of shapes. Use in combination with :doc:`sketch_ambient`, :doc:`sketch_specular`, and :doc:`sketch_emissive` to set the material properties of shapes.
 
 @@ example
 image = Sketch_shininess_0.png

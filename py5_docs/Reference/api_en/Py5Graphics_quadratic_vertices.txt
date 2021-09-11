@@ -17,4 +17,4 @@ Create a collection of quadratic vertices. The purpose of this method is to prov
 
 The ``coordinates`` parameter should be a numpy array with one row for each quadratic vertex. The first few columns are for the control point and the next few columns are for the anchor point. There should be four or six columns for 2D or 3D points, respectively.
 
-This method is the same as :doc:`quadratic_vertices` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`quadratic_vertices`.
+This method is the same as :doc:`sketch_quadratic_vertices` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_quadratic_vertices`.

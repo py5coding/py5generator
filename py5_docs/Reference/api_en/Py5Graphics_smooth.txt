@@ -20,9 +20,9 @@ With the ``P2D`` and ``P3D`` renderers, ``smooth(2)`` is the default, this is ca
 
 The default renderer uses ``smooth(3)`` by default. This is bicubic smoothing. The other option for the default renderer is ``smooth(2)``, which is bilinear smoothing.
 
-The ``smooth()`` method can only be run once for a ``Py5Graphics`` object and it must be called right after the object is created with :doc:`create_graphics` and before :doc:`py5graphics_begin_draw`.
+The ``smooth()`` method can only be run once for a ``Py5Graphics`` object and it must be called right after the object is created with :doc:`sketch_create_graphics` and before :doc:`py5graphics_begin_draw`.
 
-This method is the same as :doc:`smooth` but linked to a ``Py5Graphics`` object.
+This method is the same as :doc:`sketch_smooth` but linked to a ``Py5Graphics`` object.
 
 @@ example
 x = 0

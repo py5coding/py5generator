@@ -8,9 +8,9 @@ subcategory = pixels
 update_np_pixels() -> None
 
 @@ description
-Updates the display window with the data in the :doc:`np_pixels` array. Use in conjunction with :doc:`load_np_pixels`. If you're only reading pixels from the array, there's no need to call ``update_np_pixels()`` — updating is only necessary to apply changes.
+Updates the display window with the data in the :doc:`sketch_np_pixels` array. Use in conjunction with :doc:`sketch_load_np_pixels`. If you're only reading pixels from the array, there's no need to call ``update_np_pixels()`` — updating is only necessary to apply changes.
 
-The ``update_np_pixels()`` method is similar to :doc:`update_pixels` in that ``update_np_pixels()`` must be called after modifying :doc:`np_pixels` just as :doc:`update_pixels` must be called after modifying :doc:`pixels`.
+The ``update_np_pixels()`` method is similar to :doc:`sketch_update_pixels` in that ``update_np_pixels()`` must be called after modifying :doc:`sketch_np_pixels` just as :doc:`sketch_update_pixels` must be called after modifying :doc:`sketch_pixels`.
 
 @@ example
 image = Sketch_update_np_pixels_0.png

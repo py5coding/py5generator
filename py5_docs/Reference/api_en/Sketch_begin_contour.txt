@@ -10,9 +10,9 @@ processing_name = beginContour
 begin_contour() -> None
 
 @@ description
-Use the ``begin_contour()`` and :doc:`end_contour` methods to create negative shapes within shapes such as the center of the letter 'O'. The ``begin_contour()`` method begins recording vertices for the shape and :doc:`end_contour` stops recording. The vertices that define a negative shape must "wind" in the opposite direction from the exterior shape. First draw vertices for the exterior shape in clockwise order, then for internal shapes, draw vertices counterclockwise.
+Use the ``begin_contour()`` and :doc:`sketch_end_contour` methods to create negative shapes within shapes such as the center of the letter 'O'. The ``begin_contour()`` method begins recording vertices for the shape and :doc:`sketch_end_contour` stops recording. The vertices that define a negative shape must "wind" in the opposite direction from the exterior shape. First draw vertices for the exterior shape in clockwise order, then for internal shapes, draw vertices counterclockwise.
 
-These methods can only be used within a :doc:`begin_shape` & :doc:`end_shape` pair and transformations such as :doc:`translate`, :doc:`rotate`, and :doc:`scale` do not work within a ``begin_contour()`` & :doc:`end_contour` pair. It is also not possible to use other shapes, such as :doc:`ellipse` or :doc:`rect` within.
+These methods can only be used within a :doc:`sketch_begin_shape` & :doc:`sketch_end_shape` pair and transformations such as :doc:`sketch_translate`, :doc:`sketch_rotate`, and :doc:`sketch_scale` do not work within a ``begin_contour()`` & :doc:`sketch_end_contour` pair. It is also not possible to use other shapes, such as :doc:`sketch_ellipse` or :doc:`sketch_rect` within.
 
 @@ example
 image = Sketch_begin_contour_0.png

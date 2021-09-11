@@ -10,7 +10,7 @@ processing_name = noStroke
 no_stroke() -> None
 
 @@ description
-Disables drawing the stroke (outline). If both ``no_stroke()`` and :doc:`no_fill` are called, nothing will be drawn to the screen.
+Disables drawing the stroke (outline). If both ``no_stroke()`` and :doc:`sketch_no_fill` are called, nothing will be drawn to the screen.
 
 @@ example
 image = Sketch_no_stroke_0.png

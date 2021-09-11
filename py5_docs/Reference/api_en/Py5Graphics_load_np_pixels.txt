@@ -15,7 +15,7 @@ The ``load_np_pixels()`` method is similar to :doc:`py5graphics_load_pixels` in 
 
 Note that ``load_np_pixels()`` will as a side effect call :doc:`py5graphics_load_pixels`, so if your code needs to read :doc:`py5graphics_np_pixels` and :doc:`py5graphics_pixels` simultaneously, there is no need for a separate call to :doc:`py5graphics_load_pixels`. However, be aware that modifying both :doc:`py5graphics_np_pixels` and :doc:`py5graphics_pixels` simultaneously will likely result in the updates to :doc:`py5graphics_pixels` being discarded.
 
-This method is the same as :doc:`load_np_pixels` but linked to a ``Py5Graphics`` object.
+This method is the same as :doc:`sketch_load_np_pixels` but linked to a ``Py5Graphics`` object.
 
 @@ example
 image = Py5Graphics_load_np_pixels_0.png

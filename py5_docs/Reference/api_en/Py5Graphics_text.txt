@@ -42,4 +42,4 @@ The ``x2`` and ``y2`` parameters define a rectangular area to display within and
 
 Note that py5 lets you call ``text()`` without first specifying a Py5Font with :doc:`py5graphics_text_font`. In that case, a generic sans-serif font will be used instead.
 
-This method is the same as :doc:`text` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`text`.
+This method is the same as :doc:`sketch_text` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_text`.

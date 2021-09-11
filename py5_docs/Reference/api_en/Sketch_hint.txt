@@ -18,7 +18,7 @@ This function is used to enable or disable special features that control how gra
 Hints used by the Default Renderer
 ----------------------------------
 
-* ``ENABLE_STROKE_PURE``: Fixes a problem with shapes that have a stroke and are rendered using small steps (for instance, using :doc:`vertex` with points that are close to one another), or are drawn at small sizes.
+* ``ENABLE_STROKE_PURE``: Fixes a problem with shapes that have a stroke and are rendered using small steps (for instance, using :doc:`sketch_vertex` with points that are close to one another), or are drawn at small sizes.
 
 Hints for use with ``P2D`` and ``P3D``
 --------------------------------------

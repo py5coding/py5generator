@@ -12,4 +12,4 @@ text_ascent() -> float
 @@ description
 Returns ascent of the current font at its current size. This information is useful for determining the height of the font above the baseline.
 
-This method is the same as :doc:`text_ascent` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`text_ascent`.
+This method is the same as :doc:`sketch_text_ascent` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_text_ascent`.

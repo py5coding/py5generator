@@ -10,7 +10,7 @@ resume_thread() -> None
 @@ description
 Resume a paused Sketch. The Sketch window will resume operating as it did before :doc:`py5surface_pause_thread` was called.
 
-The :doc:`frame_count` will continue incrementing after the Sketch is resumed.
+The :doc:`sketch_frame_count` will continue incrementing after the Sketch is resumed.
 
 @@ example
 def draw():

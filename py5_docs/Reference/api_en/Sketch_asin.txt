@@ -11,7 +11,7 @@ asin(value: float) -> float
 value: float - value in the range of -1 to 1 whose arc sine is to be returned
 
 @@ description
-The inverse of :doc:`sin`, returns the arc sine of a value. This function expects the values in the range of -1 to 1 and values are returned in the range ``-HALF_PI`` to ``HALF_PI``.
+The inverse of :doc:`sketch_sin`, returns the arc sine of a value. This function expects the values in the range of -1 to 1 and values are returned in the range ``-HALF_PI`` to ``HALF_PI``.
 
 This function makes a call to the numpy ``asin()`` function.
 

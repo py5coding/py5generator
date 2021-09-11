@@ -13,7 +13,7 @@ curve_vertices(coordinates: NDArray[(Any, Any), Float], /) -> None
 coordinates: NDArray[(Any, Any), Float] - array of curve vertex coordinates
 
 @@ description
-Create a collection of curve vertices. The purpose of this method is to provide an alternative to repeatedly calling :doc:`curve_vertex` in a loop. For a large number of curve vertices, the performance of ``curve_vertices()`` will be much faster.
+Create a collection of curve vertices. The purpose of this method is to provide an alternative to repeatedly calling :doc:`sketch_curve_vertex` in a loop. For a large number of curve vertices, the performance of ``curve_vertices()`` will be much faster.
 
 The ``coordinates`` parameter should be a numpy array with one row for each curve vertex.  There should be two or three columns for 2D or 3D points, respectively.
 

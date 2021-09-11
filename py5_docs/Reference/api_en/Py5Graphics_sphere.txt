@@ -15,4 +15,4 @@ r: float - the radius of the sphere
 @@ description
 A sphere is a hollow ball made from tessellated triangles.
 
-This method is the same as :doc:`sphere` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sphere`.
+This method is the same as :doc:`sketch_sphere` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_sphere`.

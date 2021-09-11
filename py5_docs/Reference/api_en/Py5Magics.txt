@@ -4,3 +4,5 @@ type = class
 
 @@ description
 IPython magics
+
+TODO: write more

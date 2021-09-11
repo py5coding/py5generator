@@ -8,7 +8,7 @@ processing_name = getDefaultSize
 get_default_size() -> int
 
 @@ description
-Get the font's size that will be used when :doc:`text_font` is called. When drawing with 2x pixel density, bitmap fonts in OpenGL need to be created at double the requested size. This ensures that they're shown at half on displays (so folks don't have to change their sketch code).
+Get the font's size that will be used when :doc:`sketch_text_font` is called. When drawing with 2x pixel density, bitmap fonts in OpenGL need to be created at double the requested size. This ensures that they're shown at half on displays (so folks don't have to change their sketch code).
 
 @@ example
 image = Py5Font_get_default_size_0.png

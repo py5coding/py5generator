@@ -17,4 +17,4 @@ Draw a collection of lines to the Py5Graphics drawing surface. The purpose of th
 
 The ``coordinates`` parameter should be a numpy array with one row for each line. The first few columns are for the first point of each line and the next few columns are for the second point of each line. There will be four or six columns for 2D or 3D points, respectively.
 
-This method is the same as :doc:`lines` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`lines`.
+This method is the same as :doc:`sketch_lines` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_lines`.

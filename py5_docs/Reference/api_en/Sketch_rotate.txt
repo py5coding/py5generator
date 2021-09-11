@@ -17,11 +17,11 @@ y: float - y-coordinate of vector to rotate around
 z: float - z-coordinate of vector to rotate around
 
 @@ description
-Rotates the amount specified by the ``angle`` parameter. Angles must be specified in radians (values from ``0`` to ``TWO_PI``), or they can be converted from degrees to radians with the :doc:`radians` function. 
+Rotates the amount specified by the ``angle`` parameter. Angles must be specified in radians (values from ``0`` to ``TWO_PI``), or they can be converted from degrees to radians with the :doc:`sketch_radians` function. 
  
 The coordinates are always rotated around their relative position to the origin. Positive numbers rotate objects in a clockwise direction and negative numbers rotate in the couterclockwise direction. Transformations apply to everything that happens afterward, and subsequent calls to the function compound the effect. For example, calling ``rotate(PI/2.0)`` once and then calling ``rotate(PI/2.0)`` a second time is the same as a single ``rotate(PI)``. All tranformations are reset when ``draw()`` begins again. 
  
-Technically, ``rotate()`` multiplies the current transformation matrix by a rotation matrix. This function can be further controlled by :doc:`push_matrix` and :doc:`pop_matrix`.
+Technically, ``rotate()`` multiplies the current transformation matrix by a rotation matrix. This function can be further controlled by :doc:`sketch_push_matrix` and :doc:`sketch_pop_matrix`.
 
 @@ example
 image = Sketch_rotate_0.png

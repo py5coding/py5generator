@@ -33,4 +33,4 @@ The value for the gray parameter must be less than or equal to the current maxim
 
 When drawing in 2D with the default renderer, you may need ``hint(ENABLE_STROKE_PURE)`` to improve drawing quality (at the expense of performance). See the :doc:`py5graphics_hint` documentation for more details.
 
-This method is the same as :doc:`stroke` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`stroke`.
+This method is the same as :doc:`sketch_stroke` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_stroke`.

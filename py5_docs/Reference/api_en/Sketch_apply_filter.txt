@@ -17,7 +17,7 @@ param: float - unique for each, see above
 shader: Py5Shader - the fragment shader to apply
 
 @@ description
-Filters the display window using a preset filter or with a custom shader. Using a shader with ``apply_filter()`` is much faster than without. Shaders require the ``P2D`` or ``P3D`` renderer in :doc:`size`.
+Filters the display window using a preset filter or with a custom shader. Using a shader with ``apply_filter()`` is much faster than without. Shaders require the ``P2D`` or ``P3D`` renderer in :doc:`sketch_size`.
 
 The presets options are:
 

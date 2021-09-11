@@ -21,4 +21,4 @@ If you want a background to show up in your files, use ``rect(0, 0, width, heigh
 
 Using ``hint(ENABLE_DEPTH_SORT)`` can improve the appearance of 3D geometry drawn to 2D file formats.
 
-This method is the same as :doc:`begin_raw` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`begin_raw`.
+This method is the same as :doc:`sketch_begin_raw` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_begin_raw`.

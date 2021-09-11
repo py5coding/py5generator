@@ -28,4 +28,4 @@ Note that the near value must be greater than zero (as the point of the frustum 
 
 Works like glFrustum, except it wipes out the current perspective matrix rather than multiplying itself with it.
 
-This method is the same as :doc:`frustum` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`frustum`.
+This method is the same as :doc:`sketch_frustum` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_frustum`.
