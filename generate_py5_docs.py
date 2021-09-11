@@ -286,7 +286,6 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
 
     # create the destination directories
     (dest_dir / 'reference').mkdir(parents=True, exist_ok=True)
-    # (dest_dir / 'include').mkdir(parents=True, exist_ok=True)
 
     # load valid link cache if it exists
     valid_link_cache = dict()
@@ -302,14 +301,8 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
         name = doc.meta['name']
         item_type = doc.meta['type']
         stem = docfile.stem
-        # if stem == 'Sketch':
-        #     continue
         group = stem.split('_', 1)[0]
         slug = stem.lower()
-        # if group in ['Sketch', 'Py5Functions', 'Py5Tools', 'Py5Magics']:
-        #     slug = stem[len(group)+1:].lower()
-        # else:
-        #     slug = stem.lower()
 
         print(f'{num + 1} / {len(docfiles)} generating rst doc for {stem}')
 
@@ -356,12 +349,8 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
                 f.write(doc_rst)
 
         # collect data for the include files
-        if item_type == 'class':
-            pass
-            # if stem != 'Sketch':
-            #     rstfiles['Sketch'].add((name, slug, first_sentence, CLASS_CATEGORY_LOOKUP[name]))
-        else:
-            if group in ['Sketch']:  # , 'Py5Functions', 'Py5Tools', 'Py5Magics']:
+        if item_type != 'class':
+            if group in ['Sketch']:
                 rstfiles['Sketch'].add(
                     (name, slug, first_sentence,
                      (doc.meta['category'].replace('None', ''), doc.meta['subcategory'].replace('None', ''))
@@ -391,9 +380,8 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
                     write_category_heading(columns[column_num], category[1], subcategory=True)
                 prev_category = category
                 columns[column_num].write('\n')
-                dir_prefix = '' #  if group == 'Sketch' else '../'
                 for (name, stem, first_sentence, _) in sorted(contents):
-                    columns[column_num].write(f'* `{name} <{dir_prefix}{stem}.html>`_\n')
+                    columns[column_num].write(f'* `{name} <{stem}.html>`_\n')
             write_main_ref_columns(dest_dir / 'reference' / f'include_{group.lower()}.rst', columns)
         else:
             with open(dest_dir / 'reference' / f'include_{group.lower()}.rst', 'w') as f:
