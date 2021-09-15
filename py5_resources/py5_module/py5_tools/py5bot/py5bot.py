@@ -57,7 +57,7 @@ def _PY5BOT_altered_size(*args):
         args = *args, HIDDEN
     elif len(args) >= 3 and isinstance(renderer := args[2], str):
         if renderer == SVG:
-            if len(args) == 4 and isinstance(args[3], str):
+            if len(args) >= 4 and isinstance(args[3], str):
                 _PY5BOT_SVG_OUTPUT_FILENAME = args[3]
             else:
                 print('If you want to use the SVG renderer, the 4th parameter to size() must be a filename to save the SVG to.')
