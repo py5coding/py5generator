@@ -131,11 +131,11 @@ Description
 
 {3}{4}
 
-This class provides the following methods and fields:
+The following {5} are provided:
 
-.. include:: include_{5}.rst
+.. include:: include_{6}.rst
 
-Updated on {6}
+Updated on {7}
 
 """
 
@@ -153,7 +153,7 @@ def format_underlying_java_ref(stem, doc_type, processing_name, valid_link_cache
         link = processing_name
 
         processing_classname = PROCESSING_CLASSNAME_LOOKUP.get(stem.split('_')[0])
-        if doc_type != 'class' and processing_classname:
+        if doc_type not in ['class', 'pseudoclass'] and processing_classname:
             text = processing_classname + '.'
             link = f'{processing_classname}_{link}'
         text += processing_name
@@ -314,11 +314,13 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
             stem, item_type, doc.meta.get('processing_name'), valid_link_cache)
         examples = format_examples(name, doc.examples)
 
-        if item_type == 'class':
+        if item_type in ['class', 'pseudoclass']:
             title = f'{name}\n{"=" * len(name)}'
+            provides_description = doc.meta.get('provides_description', 'methods and fields')
             doc_rst = CLASS_DOC_TEMPLATE.format(
                 title, first_sentence, examples,
-                description, underlying_java_ref, stem.lower(), now_pretty)
+                description, underlying_java_ref, provides_description,
+                stem.lower(), now_pretty)
         elif item_type in ['line magic', 'cell magic']:
             usage, arguments = magic_help_strings(name, doc.arguments)
             arguments = textwrap.indent(arguments, prefix='    ')
@@ -349,7 +351,7 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
                 f.write(doc_rst)
 
         # collect data for the include files
-        if item_type != 'class':
+        if item_type not in ['class', 'pseudoclass']:
             if group in ['Sketch']:
                 rstfiles['Sketch'].add(
                     (name, slug, first_sentence,
