@@ -11,9 +11,9 @@ request_image(image_path: Union[str, Path]) -> Py5Promise
 image_path: Union[str, Path] - url or file path for image file
 
 @@ description
-Use a Py5Promise object to load an image into a variable of type ``Py5Image``. This method provides a convenient alternative to combining :doc:`launch_promise_thread` with :doc:`load_image` to load image data.
+Use a Py5Promise object to load an image into a variable of type ``Py5Image``. This method provides a convenient alternative to combining :doc:`sketch_launch_promise_thread` with :doc:`sketch_load_image` to load image data.
 
-Consider using ``request_image()`` to load image data from within a Sketch's ``draw()`` function. Using :doc:`load_image` in the ``draw()`` function would slow down the Sketch animation.
+Consider using ``request_image()`` to load image data from within a Sketch's ``draw()`` function. Using :doc:`sketch_load_image` in the ``draw()`` function would slow down the Sketch animation.
 
 The returned Py5Promise object has an ``is_ready`` property that will be ``True`` when the ``result`` property contains the value function ``f`` returned. Before then, the ``result`` property will be ``None``.
 

@@ -82,81 +82,60 @@ CATEGORY_LOOKUP = {
     'creating_reading': 'Creating / Reading',
 }
 
-DOC_TEMPLATE = """.. title: {0}
-.. slug: {1}
-.. date: {2}
-.. tags:
-.. category:
-.. link:
-.. description: py5 {0} documentation
-.. type: text
+DOC_TEMPLATE = """{0}
 
-{3}
-{4}
+{1}
+{2}
 Description
-===========
+-----------
 
-{5}{6}
-{7}
-{8}
-Updated on {9}
+{3}{4}
+{5}
+{6}
+Updated on {7}
 
 """
 
-MAGIC_TEMPLATE = """.. title: {0}
-.. slug: {1}
-.. date: {2}
-.. tags:
-.. category:
-.. link:
-.. description: py5 {0} documentation
-.. type: text
+MAGIC_TEMPLATE = """{0}
+
+{1}
+{2}
+Description
+-----------
 
 {3}
-{4}
-Description
-===========
+
+Usage
+-----
+
+.. code::
+
+    {4}
+Arguments
+---------
+
+.. code::
 
 {5}
 
-Usage
-=====
-
-.. code::
-
-    {6}
-Arguments
-=========
-
-.. code::
-
-{7}
-
-Updated on {8}
+Updated on {6}
 
 """
 
-CLASS_DOC_TEMPLATE = """.. title: {0}
-.. slug: {1}
-.. date: {2}
-.. tags:
-.. category:
-.. link:
-.. description: py5 {0} documentation
-.. type: text
+CLASS_DOC_TEMPLATE = """{0}
 
-{3}
-{4}
+{1}
+{2}
 Description
-===========
+-----------
 
-{5}{6}
+{3}{4}
 
-This class provides the following methods and fields:
+The following {5} are provided:
 
-.. include:: include/{7}_include.rst
+.. include:: include_{6}.rst
 
-Updated on {8}
+Updated on {7}
 
 """
 
@@ -174,7 +153,7 @@ def format_underlying_java_ref(stem, doc_type, processing_name, valid_link_cache
         link = processing_name
 
         processing_classname = PROCESSING_CLASSNAME_LOOKUP.get(stem.split('_')[0])
-        if doc_type != 'class' and processing_classname:
+        if doc_type not in ['class', 'pseudoclass'] and processing_classname:
             text = processing_classname + '.'
             link = f'{processing_classname}_{link}'
         text += processing_name
@@ -188,7 +167,6 @@ def format_underlying_java_ref(stem, doc_type, processing_name, valid_link_cache
             valid = requests.get(link).status_code == 200
             valid_link_cache[link] = valid
 
-        # test the link to make sure it is valid
         out = f'\n\nUnderlying Java {doc_type}: '
         if valid:
             out += f'`{text} <{link}>`_'
@@ -202,7 +180,7 @@ def format_examples(name, examples):
     out = ''
 
     if examples:
-        out += '\nExamples\n========\n\n'
+        out += '\nExamples\n--------\n\n'
         out += '.. raw:: html\n\n    <div class="example-table">\n\n'
         for img, code in examples:
             out += '.. raw:: html\n\n    <div class="example-row"><div class="example-cell-image">\n\n'
@@ -220,7 +198,7 @@ def format_signatures(signatures):
     out = ''
 
     if signatures:
-        out += '\nSyntax\n======\n\n.. code:: python\n\n'
+        out += '\nSyntax\n------\n\n.. code:: python\n\n'
         out += textwrap.indent('\n'.join(signatures), '    ')
 
     return out
@@ -230,7 +208,7 @@ def format_parameters(variables):
     out = ''
 
     if variables:
-        out += '\nParameters\n==========\n\n'
+        out += '\nParameters\n----------\n\n'
         for var, desc in variables.items():
             if ':' in var:
                 varname, vartype = var.split(':')
@@ -272,7 +250,7 @@ def write_category_heading(f, catname, subcategory=False):
         catname = CATEGORY_LOOKUP[catname]
     else:
         catname = ' '.join([w.capitalize() for w in catname.split('_')])
-    char = '-' if subcategory else '='
+    char = '^' if subcategory else '~'
     f.write(f'\n{catname}\n{char * len(catname)}\n')
 
 
@@ -308,7 +286,6 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
 
     # create the destination directories
     (dest_dir / 'reference').mkdir(parents=True, exist_ok=True)
-    (dest_dir / 'include').mkdir(parents=True, exist_ok=True)
 
     # load valid link cache if it exists
     valid_link_cache = dict()
@@ -324,13 +301,8 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
         name = doc.meta['name']
         item_type = doc.meta['type']
         stem = docfile.stem
-        if stem == 'Sketch':
-            continue
         group = stem.split('_', 1)[0]
-        if group in ['Sketch', 'Py5Functions', 'Py5Tools', 'Py5Magics']:
-            slug = stem[len(group)+1:].lower()
-        else:
-            slug = stem.lower()
+        slug = stem.lower()
 
         print(f'{num + 1} / {len(docfiles)} generating rst doc for {stem}')
 
@@ -342,15 +314,19 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
             stem, item_type, doc.meta.get('processing_name'), valid_link_cache)
         examples = format_examples(name, doc.examples)
 
-        if item_type == 'class':
+        if item_type in ['class', 'pseudoclass']:
+            title = f'{name}\n{"=" * len(name)}'
+            provides_description = doc.meta.get('provides_description', 'methods and fields')
             doc_rst = CLASS_DOC_TEMPLATE.format(
-                name, slug, now_nikola, first_sentence, examples,
-                description, underlying_java_ref, stem.lower(), now_pretty)
+                title, first_sentence, examples,
+                description, underlying_java_ref, provides_description,
+                stem.lower(), now_pretty)
         elif item_type in ['line magic', 'cell magic']:
             usage, arguments = magic_help_strings(name, doc.arguments)
             arguments = textwrap.indent(arguments, prefix='    ')
+            title = f'{name}\n{"=" * len(name)}'
             doc_rst = MAGIC_TEMPLATE.format(
-                name, slug, now_nikola, first_sentence, examples,
+                title, first_sentence, examples,
                 description, usage, arguments, now_pretty)
         else:
             signatures = format_signatures(doc.signatures)
@@ -362,8 +338,9 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
             else:
                 title = f"{group}.{name}"
 
+            title = f'{title}\n{"=" * len(title)}'
             doc_rst = DOC_TEMPLATE.format(
-                title, slug, now_nikola, first_sentence, examples,
+                title, first_sentence, examples,
                 description, underlying_java_ref, signatures, parameters, now_pretty)
 
         # only write new file if more changed than the timestamp
@@ -372,11 +349,10 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
             print('writing file', dest_filename)
             with open(dest_filename, 'w') as f:
                 f.write(doc_rst)
-        if item_type == 'class':
-            if stem != 'Sketch':
-                rstfiles['Sketch'].add((name, slug, first_sentence, CLASS_CATEGORY_LOOKUP[name]))
-        else:
-            if group in ['Sketch', 'Py5Functions', 'Py5Tools', 'Py5Magics']:
+
+        # collect data for the include files
+        if item_type not in ['class', 'pseudoclass']:
+            if group in ['Sketch']:
                 rstfiles['Sketch'].add(
                     (name, slug, first_sentence,
                      (doc.meta['category'].replace('None', ''), doc.meta['subcategory'].replace('None', ''))
@@ -406,14 +382,13 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
                     write_category_heading(columns[column_num], category[1], subcategory=True)
                 prev_category = category
                 columns[column_num].write('\n')
-                dir_prefix = '' if group == 'Sketch' else '../'
                 for (name, stem, first_sentence, _) in sorted(contents):
-                    columns[column_num].write(f'* `{name} <{dir_prefix}{stem}/>`_\n')
-            write_main_ref_columns(dest_dir / 'include' / f'{group.lower()}_include.rst', columns)
+                    columns[column_num].write(f'* `{name} <{stem}.html>`_\n')
+            write_main_ref_columns(dest_dir / 'reference' / f'include_{group.lower()}.rst', columns)
         else:
-            with open(dest_dir / 'include' / f'{group.lower()}_include.rst', 'w') as f:
+            with open(dest_dir / 'reference' / f'include_{group.lower()}.rst', 'w') as f:
                 for name, stem, first_sentence in sorted(data):
-                    f.write(f'* `{name} <../{stem}/>`_: {first_sentence}\n')
+                    f.write(f'* `{name} <{stem}.html>`_: {first_sentence}\n')
 
     # save the valid link cache
     with open(valid_link_cache_file, 'w') as f:

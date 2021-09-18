@@ -21,7 +21,7 @@ Updates the Py5Graphics drawing surface with the data in the :doc:`py5graphics_p
 
 Use the ``update_pixels(x, y, w, h)`` syntax to update only a subset of the pixel array. This can be faster if only some of the pixels have been changed.
 
-This method is the same as :doc:`update_pixels` but linked to a ``Py5Graphics`` object.
+This method is the same as :doc:`sketch_update_pixels` but linked to a ``Py5Graphics`` object.
 
 @@ example
 image = Py5Graphics_update_pixels_0.png

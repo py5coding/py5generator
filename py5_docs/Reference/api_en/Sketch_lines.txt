@@ -13,7 +13,7 @@ lines(coordinates: NDArray[(Any, Any), Float], /) -> None
 coordinates: NDArray[(Any, Any), Float] - array of line coordinates
 
 @@ description
-Draw a collection of lines to the screen. The purpose of this method is to provide an alternative to repeatedly calling :doc:`line` in a loop. For a large number of lines, the performance of ``lines()`` will be much faster.
+Draw a collection of lines to the screen. The purpose of this method is to provide an alternative to repeatedly calling :doc:`sketch_line` in a loop. For a large number of lines, the performance of ``lines()`` will be much faster.
 
 The ``coordinates`` parameter should be a numpy array with one row for each line. The first few columns are for the first point of each line and the next few columns are for the second point of each line. There will be four or six columns for 2D or 3D points, respectively.
 

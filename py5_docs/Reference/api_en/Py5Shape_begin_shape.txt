@@ -14,7 +14,7 @@ begin_shape(kind: int, /) -> None
 kind: int - Either POINTS, LINES, TRIANGLES, TRIANGLE_FAN, TRIANGLE_STRIP, QUADS, or QUAD_STRIP
 
 @@ description
-This method is used to start a custom shape created with the :doc:`create_shape` function. It's always and only used with :doc:`create_shape`.
+This method is used to start a custom shape created with the :doc:`sketch_create_shape` function. It's always and only used with :doc:`sketch_create_shape`.
 
 @@ example
 def setup():

@@ -25,4 +25,4 @@ Changes the way py5 interprets color data. By default, the parameters for :doc:`
 
 After changing the range of values for colors with code like ``color_mode(HSB, 360, 100, 100)``, those ranges remain in use until they are explicitly changed again. For example, after running ``color_mode(HSB, 360, 100, 100)`` and then changing back to ``color_mode(RGB)``, the range for R will be 0 to 360 and the range for G and B will be 0 to 100. To avoid this, be explicit about the ranges when changing the color mode. For instance, instead of ``color_mode(RGB)``, write ``color_mode(RGB, 255, 255, 255)``.
 
-This method is the same as :doc:`color_mode` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`color_mode`.
+This method is the same as :doc:`sketch_color_mode` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_color_mode`.

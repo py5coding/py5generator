@@ -10,9 +10,9 @@ processing_name = beginCamera
 begin_camera() -> None
 
 @@ description
-The ``begin_camera()`` and :doc:`end_camera` functions enable advanced customization of the camera space. The functions are useful if you want to more control over camera movement, however for most users, the :doc:`camera` function will be sufficient. The camera functions will replace any transformations (such as :doc:`rotate` or :doc:`translate`) that occur before them in ``draw()``, but they will not automatically replace the camera transform itself. For this reason, camera functions should be placed at the beginning of ``draw()`` (so that transformations happen afterwards), and the :doc:`camera` function can be used after ``begin_camera()`` if you want to reset the camera before applying transformations.
+The ``begin_camera()`` and :doc:`sketch_end_camera` functions enable advanced customization of the camera space. The functions are useful if you want to more control over camera movement, however for most users, the :doc:`sketch_camera` function will be sufficient. The camera functions will replace any transformations (such as :doc:`sketch_rotate` or :doc:`sketch_translate`) that occur before them in ``draw()``, but they will not automatically replace the camera transform itself. For this reason, camera functions should be placed at the beginning of ``draw()`` (so that transformations happen afterwards), and the :doc:`sketch_camera` function can be used after ``begin_camera()`` if you want to reset the camera before applying transformations.
 
-This function sets the matrix mode to the camera matrix so calls such as :doc:`translate`, :doc:`rotate`, :doc:`apply_matrix` and :doc:`reset_matrix` affect the camera. ``begin_camera()`` should always be used with a following :doc:`end_camera` and pairs of ``begin_camera()`` and :doc:`end_camera` cannot be nested.
+This function sets the matrix mode to the camera matrix so calls such as :doc:`sketch_translate`, :doc:`sketch_rotate`, :doc:`sketch_apply_matrix` and :doc:`sketch_reset_matrix` affect the camera. ``begin_camera()`` should always be used with a following :doc:`sketch_end_camera` and pairs of ``begin_camera()`` and :doc:`sketch_end_camera` cannot be nested.
 
 @@ example
 image = Sketch_begin_camera_0.png

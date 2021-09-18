@@ -11,7 +11,7 @@ exp(value: float) -> float
 value: float - exponent to raise
 
 @@ description
-Returns Euler's number e (2.71828...) raised to the power of the ``n`` parameter. This function is the compliment to :doc:`log`.
+Returns Euler's number e (2.71828...) raised to the power of the ``n`` parameter. This function is the compliment to :doc:`sketch_log`.
 
 This function makes a call to the numpy ``exp()`` function.
 

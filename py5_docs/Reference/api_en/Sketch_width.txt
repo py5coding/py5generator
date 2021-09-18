@@ -7,7 +7,7 @@ pclass = PApplet
 processing_name = width
 
 @@ description
-System variable that stores the width of the display window. This value is set by the first parameter of the :doc:`size` function. For example, the function call ``size(320, 240)`` sets the ``width`` variable to the value 320. The value of ``width`` defaults to 100 if :doc:`size` is not used in a program.
+System variable that stores the width of the display window. This value is set by the first parameter of the :doc:`sketch_size` function. For example, the function call ``size(320, 240)`` sets the ``width`` variable to the value 320. The value of ``width`` defaults to 100 if :doc:`sketch_size` is not used in a program.
 
 @@ example
 image = Sketch_width_0.png

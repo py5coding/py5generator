@@ -28,4 +28,4 @@ Drawing a vertex in 3D using the ``z`` parameter requires the ``P3D`` renderer.
 
 This method is also used to map a texture onto geometry. The :doc:`py5graphics_texture` function declares the texture to apply to the geometry and the ``u`` and ``v`` coordinates define the mapping of this texture to the form. By default, the coordinates used for ``u`` and ``v`` are specified in relation to the image's size in pixels, but this relation can be changed with the :doc:`py5graphics_texture_mode` method.
 
-This method is the same as :doc:`vertex` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`vertex`.
+This method is the same as :doc:`sketch_vertex` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_vertex`.

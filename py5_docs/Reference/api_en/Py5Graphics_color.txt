@@ -38,4 +38,4 @@ Note that if only one value is provided to ``color()``, it will be interpreted a
 
 Note that when using hexadecimal notation, it is not necessary to use ``color()``, as in: ``c = 0x006699``
 
-This method is the same as :doc:`color` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`color`.
+This method is the same as :doc:`sketch_color` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_color`.

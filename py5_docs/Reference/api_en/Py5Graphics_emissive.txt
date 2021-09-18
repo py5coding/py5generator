@@ -21,4 +21,4 @@ v3: float - blue or brightness value (depending on current color mode)
 @@ description
 Sets the emissive color of the material used for drawing shapes drawn to the screen. Use in combination with :doc:`py5graphics_ambient`, :doc:`py5graphics_specular`, and :doc:`py5graphics_shininess` to set the material properties of shapes.
 
-This method is the same as :doc:`emissive` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`emissive`.
+This method is the same as :doc:`sketch_emissive` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_emissive`.

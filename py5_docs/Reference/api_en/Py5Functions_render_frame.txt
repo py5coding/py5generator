@@ -27,7 +27,7 @@ The rendered frame can have transparent pixels if and only if the ``use_py5graph
 
 This function facilitates the creation and execution of a py5 Sketch, and as a result makes it easy to run a Sketch inside of another Sketch. This is discouraged, and may fail catastrophically.
 
-This function is available in decorator form as :doc:`render`.
+This function is available in decorator form as :doc:`py5functions_render`.
 
 @@ example
 def draw_message(s: py5.Sketch):

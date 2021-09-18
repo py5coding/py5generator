@@ -28,4 +28,4 @@ Blends the pixels in the Py5Graphics drawing surface according to a defined mode
 
 We recommend using ``blend_mode()`` and not the previous :doc:`py5graphics_blend` function. However, unlike :doc:`py5graphics_blend`, the ``blend_mode()`` function does not support the following: ``HARD_LIGHT``, ``SOFT_LIGHT``, ``OVERLAY``, ``DODGE``, ``BURN``. On older hardware, the ``LIGHTEST``, ``DARKEST``, and ``DIFFERENCE`` modes might not be available as well.
 
-This method is the same as :doc:`blend_mode` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`blend_mode`.
+This method is the same as :doc:`sketch_blend_mode` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_blend_mode`.

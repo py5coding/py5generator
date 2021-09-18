@@ -10,7 +10,7 @@ processing_name = noFill
 no_fill() -> None
 
 @@ description
-Disables filling geometry. If both :doc:`no_stroke` and ``no_fill()`` are called, nothing will be drawn to the screen.
+Disables filling geometry. If both :doc:`sketch_no_stroke` and ``no_fill()`` are called, nothing will be drawn to the screen.
 
 @@ example
 image = Sketch_no_fill_0.png

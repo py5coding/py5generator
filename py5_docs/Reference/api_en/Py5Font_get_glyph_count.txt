@@ -8,7 +8,7 @@ processing_name = getGlyphCount
 get_glyph_count() -> int
 
 @@ description
-Get the number of glyphs contained in the font. This will be 0 if the font is a "lazy font" that creates glyphs as they are needed by the Sketch. This will be the case if the font was created with :doc:`create_font` without using the ``charset`` parameter.
+Get the number of glyphs contained in the font. This will be 0 if the font is a "lazy font" that creates glyphs as they are needed by the Sketch. This will be the case if the font was created with :doc:`sketch_create_font` without using the ``charset`` parameter.
 
 @@ example
 image = Py5Font_get_glyph_count_0.png

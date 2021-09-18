@@ -12,4 +12,4 @@ no_clip() -> None
 @@ description
 Disables the clipping previously started by the :doc:`py5graphics_clip` function.
 
-This method is the same as :doc:`no_clip` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`no_clip`.
+This method is the same as :doc:`sketch_no_clip` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_no_clip`.

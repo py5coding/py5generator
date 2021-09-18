@@ -90,13 +90,9 @@ def doclink_to_title_map():
         name = doc.meta['name']
         item_type = doc.meta['type']
         group = stem.split('_', 1)[0]
+        slug = stem.lower()
 
-        if group in ['Sketch', 'Py5Functions', 'Py5Tools', 'Py5Magics']:
-            slug = stem[len(group)+1:].lower()
-        else:
-            slug = stem.lower()
-
-        if (item_type == 'class' or
+        if (item_type in ['class', 'pseudoclass'] or
             item_type in ['line magic', 'cell magic'] or
                 group in ['Sketch', 'Py5Functions', 'Py5Magics']):
             title = name
@@ -191,7 +187,7 @@ def prepare_mapping(method_signatures_lookup):
 
 class TemplateMapping:
 
-    INDENTING = {'class': 8, 'module': 4, 'classdoc': 4, 'arguments': 4}
+    INDENTING = {'class': 8, 'pseudoclass': 0, 'module': 4, 'classdoc': 4, 'arguments': 4}
 
     def __init__(self, method_signatures_lookup):
         self._data = prepare_mapping(method_signatures_lookup)

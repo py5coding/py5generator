@@ -33,7 +33,7 @@ Optionally the caller can pass a ``setup`` function, along with corresponding ``
 
 This function facilitates the creation and execution of a py5 Sketch, and as a result makes it easy to run a Sketch inside of another Sketch. This is discouraged, and may fail catastrophically.
 
-This function is available in decorator form as :doc:`render_sequence`.
+This function is available in decorator form as :doc:`py5functions_render_sequence`.
 
 @@ example
 def draw_counter(s: py5.Sketch):
