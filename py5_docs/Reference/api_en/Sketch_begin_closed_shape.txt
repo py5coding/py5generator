@@ -1,0 +1,17 @@
+@@ meta
+name = begin_closed_shape()
+category = shape
+subcategory = vertex
+type = method
+pclass = PApplet
+processing_name = beginShape
+
+@@ signatures
+begin_closed_shape() -> None
+begin_closed_shape(kind: int, /) -> None
+
+@@ variables
+kind: int - Either POINTS, LINES, TRIANGLES, TRIANGLE_FAN, TRIANGLE_STRIP, QUADS, or QUAD_STRIP
+
+@@ description
+TODO: write description, test, add examples
