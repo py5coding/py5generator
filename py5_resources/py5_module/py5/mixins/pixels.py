@@ -25,7 +25,7 @@ import numpy as np
 from PIL import Image
 import jpype
 
-from ..type_decorators import _hex_converter
+from ..decorators import _hex_converter
 
 
 _Sketch = jpype.JClass('py5.core.Sketch')

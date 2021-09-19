@@ -80,3 +80,25 @@ def _convert_hex_color2(f):
             args[1] = new_arg
         return f(self_, *args)
     return decorated
+
+
+class _Py5ContextManager:
+
+    def __init__(self, out, exit_function):
+        self._out = out
+        self._exit_function = exit_function
+
+    def __enter__(self):
+        return self._out
+
+    def __exit__(self, *exc):
+        self._exit_function()
+
+
+def _context_wrapper(exit_functionname):
+    def _decorator(f):
+        @functools.wraps(f)
+        def decorated(self_, *args):
+            return _Py5ContextManager(f(self_, *args), getattr(self_, exit_functionname))
+        return decorated
+    return _decorator

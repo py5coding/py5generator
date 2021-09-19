@@ -34,7 +34,7 @@ from .font import Py5Font  # noqa
 from .shader import Py5Shader, _return_py5shader, _load_py5shader  # noqa
 from .shape import Py5Shape, _return_py5shape, _load_py5shape  # noqa
 from .image import Py5Image, _return_py5image  # noqa
-from .type_decorators import _text_fix_str, _convert_hex_color  # noqa
+from .decorators import _text_fix_str, _convert_hex_color  # noqa
 from .pmath import _get_matrix_wrapper  # noqa
 
 
