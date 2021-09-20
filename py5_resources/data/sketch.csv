@@ -452,7 +452,7 @@ texture_wrap,textureWrap,,method,image,textures,JAVA,
 texture,texture,@_auto_convert_to_py5image,method,image,textures,JAVA,
 no_texture,noTexture,,method,image,textures,SKIP,
 vertex,vertex,,method,shape,vertex,JAVA,
-begin_contour,beginContour,,method,shape,vertex,JAVA,
+begin_contour,beginContour,@_context_wrapper('end_contour'),method,shape,vertex,JAVA,
 end_contour,endContour,,method,shape,vertex,JAVA,
 end_shape,endShape,,method,shape,vertex,JAVA,
 load_shape,loadShape,@_load_py5shape,method,shape,,JAVA,
@@ -511,7 +511,7 @@ apply_matrix,applyMatrix,,method,transform,,JAVA,this and all of the matrix func
 get_matrix,getMatrix,@ _get_matrix_wrapper,method,transform,,JAVA,this and all of the matrix functions need to be re-implemented using numpy
 set_matrix,setMatrix,,method,transform,,JAVA,this and all of the matrix functions need to be re-implemented using numpy
 print_matrix,printMatrix,,method,transform,,JAVA,
-begin_camera,beginCamera,,method,lights_camera,camera,JAVA,
+begin_camera,beginCamera,@_context_wrapper('end_camera'),method,lights_camera,camera,JAVA,
 end_camera,endCamera,,method,lights_camera,camera,JAVA,
 camera,camera,,method,lights_camera,camera,JAVA,
 print_camera,printCamera,,method,lights_camera,camera,JAVA,
@@ -525,7 +525,7 @@ screen_z,screenZ,,method,lights_camera,coordinates,JAVA,
 model_x,modelX,,method,lights_camera,coordinates,JAVA,
 model_y,modelY,,method,lights_camera,coordinates,JAVA,
 model_z,modelZ,,method,lights_camera,coordinates,JAVA,
-push_style,pushStyle,,method,structure,,JAVA,
+push_style,pushStyle,@_context_wrapper('pop_style'),method,structure,,JAVA,
 pop_style,popStyle,,method,structure,,JAVA,
 style,style,,method,,,SKIP,public methods that shouldn't be available to users
 stroke_weight,strokeWeight,,method,shape,attributes,JAVA,
@@ -573,7 +573,7 @@ minute,minute,,static method,input,time_date,JAVA,
 year,year,,static method,input,time_date,JAVA,
 red,red,@_convert_hex_color(),method,color,creating_reading,JAVA,
 set_size,setSize,,method,,,SKIP,public methods that shouldn't be available to users
-push,push,,method,structure,,JAVA,
+push,push,@_context_wrapper('pop'),method,structure,,JAVA,
 pop,pop,,method,structure,,JAVA,
 link,link,,method,,,SKIP,public methods that shouldn't be available to users
 use_py5_methods,usePy5Methods,,method,,,SKIP,public methods that shouldn't be available to users
