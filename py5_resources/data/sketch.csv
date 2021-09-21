@@ -433,9 +433,9 @@ frame_moved,frameMoved,,method,,,SKIP,methods that are not part of the processin
 frame_resized,frameResized,,method,,,SKIP,methods that are not part of the processing framework
 run_sketch,runSketch,,static method,structure,,PYTHON,my implementation of run_sketch calls Processing's runSketch method after doing some setup stuff
 hide_menu_bar,hideMenuBar,,static method,,,SKIP,public methods that shouldn't be available to users
-begin_record,beginRecord,@_return_py5graphics,method,output,files,JAVA,
+begin_record,beginRecord,@_context_wrapper('end_record');@_return_py5graphics,method,output,files,JAVA,
 end_record,endRecord,,method,output,files,JAVA,
-begin_raw,beginRaw,@_return_py5graphics,method,output,files,JAVA,
+begin_raw,beginRaw,@_context_wrapper('end_raw');@_return_py5graphics,method,output,files,JAVA,
 end_raw,endRaw,,method,output,files,JAVA,
 begin_pgl,beginPGL,,method,,,SKIP,methods that are not part of the processing framework
 end_pgl,endPGL,,method,,,SKIP,methods that are not part of the processing framework

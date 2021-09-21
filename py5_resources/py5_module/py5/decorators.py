@@ -102,6 +102,10 @@ def _context_wrapper(exit_function_name, exit_attr_args=()):
             exit_args = tuple(getattr(self_, arg) for arg in exit_attr_args)
             exit_function = getattr(self_, exit_function_name)
             out = f(self_, *args)
-            return _Py5ContextManager(exit_function, exit_args=exit_args)
+            if out is None:
+                return _Py5ContextManager(exit_function, exit_args=exit_args)
+            elif hasattr(out, '_activate_context_manager'):
+                out._activate_context_manager(exit_function, exit_args)
+            return out
         return decorated
     return _decorator

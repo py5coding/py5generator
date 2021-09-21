@@ -61,6 +61,18 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
         self._instance = pgraphics
         super().__init__(instance=pgraphics)
 
+    def _activate_context_manager(self, exit_function, exit_args):
+        self._context_manager_exit_function = exit_function
+        self._context_manager_exit_args = exit_args
+
+    def __enter__(self):
+        if not (hasattr(self, '_context_manager_exit_function') and hasattr(self, '_context_manager_exit_args')):
+            raise RuntimeError('Cannot use this Py5Graphics object as a context manager')
+        return self
+
+    def __exit__(self, *exc):
+        self._context_manager_exit_function(*self._context_manager_exit_args)
+
     def points(self, coordinates):
         _Py5GraphicsHelper.points(self._instance, coordinates)
 
