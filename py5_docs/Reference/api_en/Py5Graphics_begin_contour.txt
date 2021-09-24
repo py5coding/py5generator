@@ -19,21 +19,23 @@ This method can be used as a context manager to ensure that :doc:`py5graphics_en
 This method is the same as :doc:`sketch_begin_contour` but linked to a ``Py5Graphics`` object.
 
 @@ example
-def setup():
-    py5.size(200, 200, py5.P2D)
+image = Py5Graphics_begin_contour_0.png
 
-    g = py5.create_graphics(100, 100, py5.P2D)
+def setup():
+    py5.size(100, 100, py5.P2D)
+
+    g = py5.create_graphics(60, 60, py5.P2D)
     with g.begin_draw():
         with g.begin_closed_shape():
-            g.vertex(20, 20)
-            g.vertex(80, 20)
-            g.vertex(80, 80)
-            g.vertex(20, 80)
+            g.vertex(10, 10)
+            g.vertex(50, 10)
+            g.vertex(50, 50)
+            g.vertex(10, 50)
             with g.begin_contour():
+                g.vertex(20, 20)
+                g.vertex(20, 40)
                 g.vertex(40, 40)
-                g.vertex(40, 60)
-                g.vertex(60, 60)
-                g.vertex(60, 40)
+                g.vertex(40, 20)
 
-    py5.image(g, 50, 50)
-    py5.image(g, 80, 80)
+    py5.image(g, 0, 0)
+    py5.image(g, 25, 25)

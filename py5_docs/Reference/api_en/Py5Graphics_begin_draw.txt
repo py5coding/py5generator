@@ -10,19 +10,44 @@ processing_name = beginDraw
 begin_draw() -> None
 
 @@ description
-Sets the default properties for a ``Py5Graphics`` object. It should be called before anything is drawn into the object.
+Sets the default properties for a ``Py5Graphics`` object. It should be called before anything is drawn into the object. After the drawing commands have concluded, call :doc:`py5graphics_end_draw` to finalize the ``Py5Graphics`` object.
+
+This method can be used as a context manager to ensure that :doc:`py5graphics_end_draw` always gets called, as shown in the second example.
 
 @@ example
+image = Py5Graphics_begin_draw_0.png
+
 def setup():
-    py5.size(200, 200, py5.P2D)
-    global pg
-    pg = py5.create_graphics(80, 80, py5.P2D)
-    pg.begin_draw()
-    pg.background(102)
-    pg.stroke(255)
-    pg.line(20, 20, 80, 80)
-    pg.end_draw()
+    py5.size(100, 100, py5.P2D)
 
+    g = py5.create_graphics(60, 60, py5.P2D)
+    g.begin_draw()
+    g.translate(30, 30)
+    g.begin_shape()
+    g.vertex(-10, -10)
+    g.vertex(10, -10)
+    g.vertex(10, 10)
+    g.vertex(-10, 10)
+    g.end_shape(py5.CLOSE)
+    g.end_draw()
 
-def draw():
-    py5.image(pg, 10, 10)
+    py5.image(g, 0, 0)
+    py5.image(g, 25, 25)
+
+@@ example
+image = Py5Graphics_begin_draw_1.png
+
+def setup():
+    py5.size(100, 100, py5.P2D)
+
+    g = py5.create_graphics(60, 60, py5.P2D)
+    with g.begin_draw():
+        g.translate(30, 30)
+        with g.begin_closed_shape():
+            g.vertex(-10, -10)
+            g.vertex(10, -10)
+            g.vertex(10, 10)
+            g.vertex(-10, 10)
+
+    py5.image(g, 0, 0)
+    py5.image(g, 25, 25)
