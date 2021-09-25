@@ -34,7 +34,7 @@ from .font import Py5Font  # noqa
 from .shader import Py5Shader, _return_py5shader, _load_py5shader  # noqa
 from .shape import Py5Shape, _return_py5shape, _load_py5shape  # noqa
 from .image import Py5Image, _return_py5image  # noqa
-from .type_decorators import _text_fix_str, _convert_hex_color  # noqa
+from .decorators import _text_fix_str, _convert_hex_color, _context_wrapper  # noqa
 from .pmath import _get_matrix_wrapper  # noqa
 
 
@@ -60,6 +60,18 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
     def __init__(self, pgraphics):
         self._instance = pgraphics
         super().__init__(instance=pgraphics)
+
+    def _activate_context_manager(self, exit_function, exit_args):
+        self._context_manager_exit_function = exit_function
+        self._context_manager_exit_args = exit_args
+
+    def __enter__(self):
+        if not (hasattr(self, '_context_manager_exit_function') and hasattr(self, '_context_manager_exit_args')):
+            raise RuntimeError('Cannot use this Py5Graphics object as a context manager')
+        return self
+
+    def __exit__(self, *exc):
+        self._context_manager_exit_function(*self._context_manager_exit_args)
 
     def points(self, coordinates):
         _Py5GraphicsHelper.points(self._instance, coordinates)

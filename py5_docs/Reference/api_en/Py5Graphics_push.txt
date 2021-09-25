@@ -16,4 +16,32 @@ The ``push()`` function saves the current drawing style settings and transformat
 
 The ``push()`` and :doc:`py5graphics_pop` functions can be used in place of :doc:`py5graphics_push_matrix`, :doc:`py5graphics_pop_matrix`, :doc:`py5graphics_push_style`, and :doc:`py5graphics_pop_style`. The difference is that ``push()`` and :doc:`py5graphics_pop` control both the transformations (rotate, scale, translate) and the drawing styles at the same time.
 
+This method can be used as a context manager to ensure that :doc:`py5graphics_pop` always gets called, as shown in the example.
+
 This method is the same as :doc:`sketch_push` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_push`.
+
+@@ example
+image = Py5Graphics_push_0.png
+
+def setup():
+    py5.size(100, 100, py5.P2D)
+
+    g = py5.create_graphics(60, 60, py5.P2D)
+    with g.begin_draw():
+        g.translate(30, 30)
+        with g.push():
+            g.stroke("#F00")
+            g.scale(2)
+            with g.begin_closed_shape():
+                g.vertex(-10, -10)
+                g.vertex(10, -10)
+                g.vertex(10, 10)
+                g.vertex(-10, 10)
+        with g.begin_closed_shape():
+            g.vertex(-10, -10)
+            g.vertex(10, -10)
+            g.vertex(10, 10)
+            g.vertex(-10, 10)
+
+    py5.image(g, 0, 0)
+    py5.image(g, 25, 25)
