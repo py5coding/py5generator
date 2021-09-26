@@ -24,6 +24,7 @@ py5 is a version of Processing for Python 3.8+. It makes the Processing Java lib
 """
 import sys
 from pathlib import Path
+from io import BytesIO
 import inspect
 from typing import overload, Any, Callable, Union, Dict, List, Tuple  # noqa
 from nptyping import NDArray, Float, Int  # noqa

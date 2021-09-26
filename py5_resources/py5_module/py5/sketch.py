@@ -21,6 +21,7 @@
 import time
 import os
 import sys
+from io import BytesIO
 from pathlib import Path
 import functools
 from typing import overload, Any, Callable, Union, Dict, List  # noqa
@@ -293,9 +294,11 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             what = what[:first] + numprefix + numstr + what[last:]
         return what
 
-    def save_frame(self, filename: Union[str, Path], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
+    def save_frame(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
         """$class_Sketch_save_frame"""
-        self.save(self._insert_frame(str(filename)), format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
+        if not isinstance(filename, BytesIO):
+            filename = self._insert_frame(str(filename))
+        self.save(filename, format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
 
     # *** Py5Image methods ***
 

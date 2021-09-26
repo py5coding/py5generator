@@ -19,6 +19,7 @@
 # *****************************************************************************
 import threading
 from pathlib import Path
+from io import BytesIO
 from typing import overload, List, Union  # noqa
 
 import numpy as np
@@ -113,10 +114,11 @@ class PixelMixin:
             self._np_pixels[:, :, 1:] = array[:, :, :3]
         self.update_np_pixels()
 
-    def save(self, filename: Union[str, Path], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
+    def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
         """$class_Sketch_save"""
         sketch_instance = self._instance if isinstance(self._instance, _Sketch) else self._instance.parent
-        filename = Path(str(sketch_instance.savePath(str(filename))))
+        if not isinstance(filename, BytesIO):
+            filename = Path(str(sketch_instance.savePath(str(filename))))
         self.load_np_pixels()
         arr = self.np_pixels[:, :, 1:] if drop_alpha else np.roll(self.np_pixels, -1, axis=2)
 
@@ -151,7 +153,7 @@ class PixelPy5GraphicsMixin(PixelMixin):
         """$class_Py5Graphics_set_np_pixels"""
         return super().set_np_pixels(array, bands)
 
-    def save(self, filename: Union[str, Path], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
+    def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
         """$class_Py5Graphics_save"""
         return super().save(filename, format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
 
@@ -175,6 +177,6 @@ class PixelPy5ImageMixin(PixelMixin):
         """$class_Py5Image_set_np_pixels"""
         return super().set_np_pixels(array, bands)
 
-    def save(self, filename: Union[str, Path], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
+    def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
         """$class_Py5Image_save"""
         return super().save(filename, format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
