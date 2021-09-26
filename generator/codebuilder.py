@@ -42,7 +42,7 @@ logger = logging.getLogger(__name__)
 CONSTANT_REGEX = re.compile(r'^\s*([A-Z_]*)\s*=\s*(.*?)\s+# CODEBUILDER INCLUDE$', re.MULTILINE)
 METHOD_REGEX = re.compile(r'(@\w+)?\s*def (.*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):\s*(# @decorator)?$', re.MULTILINE | re.DOTALL)
 TYPEHINT_COMMA_REGEX = re.compile(r'(\[[\w\s,]+\])')
-COMMA_REGEX = re.compile(r',\s*(?!\s*\w+\])')
+COMMA_REGEX = re.compile(r',\s*(?![\s\w,]+\])')
 
 SNAKE_CASE_1 = re.compile('(.)([A-Z][a-z]+)')
 SNAKE_CASE_2 = re.compile('([a-z0-9])([A-Z])')
