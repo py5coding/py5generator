@@ -71,18 +71,21 @@ def find_cutoff(code, mode):
 
 def find_leading_global_statements_cutoff(code):
     code = _remove_comments(code)
+    found_global_statement = False
 
     # find the cutoff point
     for i, line in enumerate(code.split('\n')):
         if line == 'def setup():':
             continue
+        if line.strip() and GLOBAL_STATEMENT_LINE.match(line):
+            found_global_statement = True
         if line.strip() and not GLOBAL_STATEMENT_LINE.match(line):
             cutoff = i
             break
     else:
         cutoff = i + 1
 
-    return cutoff
+    return cutoff if found_global_statement else 0
 
 
 def check_for_special_functions(code, mode):
@@ -121,7 +124,7 @@ def transform(functions, sketch_globals, sketch_locals, println, *, mode):
     try:
         setup = functions['setup']
         code = inspect.getsource(setup).strip()
-        global_cutoff = find_leading_global_statements_cutoff(code)
+        global_cutoff = find_leading_global_statements_cutoff(code) or 1
         cutoff = find_cutoff(code, mode)
 
         # build the fake code
