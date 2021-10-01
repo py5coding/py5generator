@@ -128,8 +128,8 @@ def _run_static_code(code, sketch_path, classpath, new_process, exit_if_error):
     py5bot_mgr = py5bot.Py5BotManager()
     success, result = py5bot.check_for_problems(code, sketch_path)
     if success:
-        py5bot_settings, py5bot_setup = result
-        py5bot_mgr.write_code(py5bot_settings, py5bot_setup, len(code.splitlines()))
+        py5bot_globals, py5bot_settings, py5bot_setup = result
+        py5bot_mgr.write_code(py5bot_globals, py5bot_settings, py5bot_setup, len(code.splitlines()))
         new_sketch_path = py5bot_mgr.tempdir / '_PY5_STATIC_FRAMEWORK_CODE_.py'
         new_sketch_code = _STATIC_CODE_FRAMEWORK.format(py5bot_mgr.settings_filename.as_posix(), py5bot_mgr.setup_filename.as_posix())
         if sys.platform == 'darwin':
