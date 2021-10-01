@@ -54,6 +54,7 @@ import py5_tools
 py5_tools.set_imported_mode(True)
 import py5_tools.parsing as _PY5BOT_parsing
 from py5 import *
+_PY5_NS_ = locals().copy()
 
 
 def settings():
@@ -65,7 +66,8 @@ def settings():
                 ),
                 filename='{0}',
                 mode='exec'
-            )
+            ),
+            _PY5_NS_
         )
 
 
@@ -78,7 +80,8 @@ def setup():
                 ),
                 filename='{1}',
                 mode='exec'
-            )
+            ),
+            _PY5_NS_
         )
 """
 

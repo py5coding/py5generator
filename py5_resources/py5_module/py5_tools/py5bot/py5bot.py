@@ -79,6 +79,8 @@ del functools
 
 PY5BOT_CODE = """
 _PY5BOT_OUTPUT_ = None
+_PY5_NS_ = locals().copy()
+
 
 def _py5bot_settings():
     exec("size = _PY5BOT_altered_size")
@@ -91,7 +93,8 @@ def _py5bot_settings():
                 ),
                 filename='{0}',
                 mode='exec'
-            )
+            ),
+            _PY5_NS_
         )
 
 
@@ -106,7 +109,8 @@ def _py5bot_setup():
                 ),
                 filename='{1}',
                 mode='exec'
-            )
+            ),
+            _PY5_NS_
         )
 
     if get_current_sketch()._instance.sketchRenderer() == SVG:

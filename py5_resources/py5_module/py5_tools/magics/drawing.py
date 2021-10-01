@@ -77,7 +77,6 @@ def _py5_setup():
                 filename='{4}',
                 mode='exec'
             ),
-            globals(),
             _py5_user_ns
         )
 
@@ -101,7 +100,6 @@ def _py5_setup():
                 filename='{4}',
                 mode='exec'
             ),
-            globals(),
             _py5_user_ns
         )
 
@@ -126,7 +124,6 @@ def _py5_setup():
                 filename='{4}',
                 mode='exec'
             ),
-            globals(),
             _py5_user_ns
         )
 
@@ -190,7 +187,7 @@ def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
         with open(temp_py, 'w') as f:
             f.write(code)
 
-        user_ns['_py5_user_ns'] = {} if safe_exec else user_ns
+        user_ns['_py5_user_ns'] = user_ns.copy() if safe_exec else user_ns
         exec(code_framework.format(width, height, renderer, temp_out.as_posix(), temp_py.as_posix()), user_ns)
 
         if temp_out.exists():
