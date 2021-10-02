@@ -49,17 +49,12 @@ import py5_tools.parsing as _PY5BOT_parsing
 
 @functools.wraps(size)
 def _PY5BOT_altered_size(*args):
-    global _PY5BOT_SVG_OUTPUT_FILENAME
-    _PY5BOT_SVG_OUTPUT_FILENAME = None
-
     import sys
     if len(args) == 2:
         args = *args, HIDDEN
     elif len(args) >= 3 and isinstance(renderer := args[2], str):
         if renderer == SVG:
-            if len(args) >= 4 and isinstance(args[3], str):
-                _PY5BOT_SVG_OUTPUT_FILENAME = args[3]
-            else:
+            if not (len(args) >= 4 and isinstance(args[3], str)):
                 print('If you want to use the SVG renderer, the 4th parameter to size() must be a filename to save the SVG to.')
                 args = *args[:2], HIDDEN, *args[3:]
         else:
@@ -80,11 +75,10 @@ del functools
 PY5BOT_CODE = """
 _PY5BOT_OUTPUT_ = None
 _PY5_NS_ = locals().copy()
+_PY5_NS_['size'] = _PY5BOT_altered_size
 
 
 def _py5bot_settings():
-    exec("size = _PY5BOT_altered_size")
-
     with open('{0}', 'r') as f:
         exec(
             compile(
@@ -127,9 +121,12 @@ run_sketch(sketch_functions=dict(settings=_py5bot_settings, setup=_py5bot_setup)
 if is_dead_from_error:
     exit_sketch()
 
-if isinstance(_PY5BOT_OUTPUT_, _PY5BOT_SVG) and _PY5BOT_SVG_OUTPUT_FILENAME is not None:
-    with open(_PY5BOT_SVG_OUTPUT_FILENAME, 'r') as f:
-        _PY5BOT_OUTPUT_.data = f.read()
+if isinstance(_PY5BOT_OUTPUT_, _PY5BOT_SVG):
+    try:
+        with open(str(get_current_sketch()._instance.sketchOutputPath()), 'r') as f:
+            _PY5BOT_OUTPUT_.data = f.read()
+    except:
+        pass
 
 _PY5BOT_OUTPUT_
 """
