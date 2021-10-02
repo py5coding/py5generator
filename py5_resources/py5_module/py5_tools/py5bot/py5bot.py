@@ -53,14 +53,14 @@ def _PY5BOT_altered_size(*args):
     if len(args) == 2:
         args = *args, HIDDEN
     elif len(args) >= 3 and isinstance(renderer := args[2], str):
-        if renderer == SVG:
+        renderer_name = {SVG: 'SVG', PDF: 'PDF', DXF: 'DXF', P2D: 'P2D', P3D: 'P3D', HIDDEN: 'HIDDEN', JAVA2D: 'JAVA2D'}.get(renderer, renderer)
+        if renderer in [SVG, PDF]:
             if not (len(args) >= 4 and isinstance(args[3], str)):
-                print('If you want to use the SVG renderer, the 4th parameter to size() must be a filename to save the SVG to.')
+                print(f'If you want to use the {renderer_name} renderer, the 4th parameter to size() must be a filename to save the {renderer_name} to.')
                 args = *args[:2], HIDDEN, *args[3:]
         else:
             renderers = [HIDDEN, JAVA2D] if sys.platform == 'darwin' else [HIDDEN, JAVA2D, P2D, P3D]
             if renderer not in renderers:
-                renderer_name = {PDF: 'PDF', DXF: 'DXF', P2D: 'P2D', P3D: 'P3D'}.get(renderer, renderer)
                 print(f'Sorry, py5bot does not support the {renderer_name} renderer' + (' on OSX.' if sys.platform == 'darwin' else '.'), file=sys.stderr)
                 args = *args[:2], HIDDEN, *args[3:]
             if renderer == JAVA2D:
@@ -107,9 +107,10 @@ def _py5bot_setup():
             _PY5_NS_
         )
 
-    if get_current_sketch()._instance.sketchRenderer() == SVG:
+    sketch_renderer = get_current_sketch()._instance.sketchRenderer()
+    if sketch_renderer == SVG:
         _PY5BOT_OUTPUT_ = _PY5BOT_SVG()
-    else:
+    elif sketch_renderer != PDF:
         from PIL import Image
         load_np_pixels()
         _PY5BOT_OUTPUT_ = Image.fromarray(np_pixels()[:, :, 1:])
