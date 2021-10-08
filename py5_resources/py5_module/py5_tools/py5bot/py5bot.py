@@ -43,7 +43,7 @@ from IPython.display import SVG as _PY5BOT_SVG
 import py5_tools
 py5_tools.set_imported_mode(True)
 from py5 import *
-
+from py5 import _prepare_dynamic_variables as _PY5BOT_PREPARE_DYNAMIC_VARIABLES
 import py5_tools.parsing as _PY5BOT_parsing
 
 
@@ -74,8 +74,10 @@ del functools
 
 PY5BOT_CODE = """
 _PY5BOT_OUTPUT_ = None
+reset_py5()
 _PY5_NS_ = locals().copy()
 _PY5_NS_['size'] = _PY5BOT_altered_size
+_PY5BOT_PREPARE_DYNAMIC_VARIABLES(_PY5_NS_, _PY5_NS_)
 
 
 def _py5bot_settings():
@@ -128,6 +130,8 @@ if isinstance(_PY5BOT_OUTPUT_, _PY5BOT_SVG):
             _PY5BOT_OUTPUT_.data = f.read()
     except:
         pass
+
+del _PY5_NS_, _py5bot_settings, _py5bot_setup
 
 _PY5BOT_OUTPUT_
 """
@@ -246,7 +250,8 @@ class Py5BotMagics(Magics):
                 else:
                     print(f'Invalid variable name {args.variable}', file=sys.stderr)
 
-            display(png)
+            if png != None:
+                display(png)
             del ns['_PY5BOT_OUTPUT_']
         else:
             print(result, file=sys.stderr)

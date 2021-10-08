@@ -115,7 +115,7 @@ def run_sketch(block: bool = None, *,
     if _py5sketch.is_dead:
         _py5sketch = Sketch()
 
-    _prepare_dynamic_variables(caller_locals)
+    _prepare_dynamic_variables(caller_locals, caller_globals)
 
     _py5sketch._run_sketch(functions, block, py5_options, sketch_args)
 
@@ -132,7 +132,8 @@ def reset_py5() -> bool:
         _py5sketch = Sketch()
         if _PY5_USE_IMPORTED_MODE:
             caller_locals = inspect.stack()[1].frame.f_locals
-            _prepare_dynamic_variables(caller_locals)
+            caller_globals = inspect.stack()[1].frame.f_globals
+            _prepare_dynamic_variables(caller_locals, caller_globals)
         return True
     else:
         return False
@@ -166,7 +167,7 @@ if _PY5_USE_IMPORTED_MODE:
     __all__.extend(py5_tools.reference.PY5_DYNAMIC_VARIABLES)
 
 
-def _prepare_dynamic_variables(caller_locals):
+def _prepare_dynamic_variables(caller_locals, caller_globals):
     """prepare the dynamic variables for sketch execution.
 
     Before running the sketch, delete the module fields like `mouse_x` that need
@@ -177,8 +178,8 @@ def _prepare_dynamic_variables(caller_locals):
     namespace that link to the Sketch's dynamic variable property objects.
     """
     for dvar in py5_tools.reference.PY5_DYNAMIC_VARIABLES + py5_tools.reference.PY5_PYTHON_DYNAMIC_VARIABLES:
-        if dvar in globals():
-            globals().pop(dvar)
+        if dvar in caller_globals:
+            caller_globals.pop(dvar)
         if _PY5_USE_IMPORTED_MODE:
             if dvar in py5_tools.reference.PY5_DYNAMIC_VARIABLES:
                 caller_locals[dvar] = getattr(_py5sketch, '_get_' + dvar)
@@ -186,4 +187,4 @@ def _prepare_dynamic_variables(caller_locals):
                 caller_locals[dvar] = getattr(_py5sketch, dvar)
 
 
-_prepare_dynamic_variables(locals())
+_prepare_dynamic_variables(locals(), globals())
