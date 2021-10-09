@@ -36,8 +36,7 @@ class Py5Utilities {
 }
 """
 
-POM_TEMPLATE = """
-<?xml version="1.0" encoding="UTF-8"?>
+POM_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -62,51 +61,80 @@ POM_TEMPLATE = """
       <artifactId>py5-processing4</artifactId>
       <version>0.5a3.dev0</version>
       <scope>system</scope>
-      <systemPath>$${jarlocation}/core.jar</systemPath>
+      <systemPath>$${{jarlocation}}/core.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>py5</groupId>
       <artifactId>py5-jogl</artifactId>
       <version>0.5a3.dev0</version>
       <scope>system</scope>
-      <systemPath>$${jarlocation}/jogl-all.jar</systemPath>
+      <systemPath>$${{jarlocation}}/jogl-all.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>py5</groupId>
       <artifactId>py5</artifactId>
       <version>0.5a3.dev0</version>
       <scope>system</scope>
-      <systemPath>$${jarlocation}/py5.jar</systemPath>
+      <systemPath>$${{jarlocation}}/py5.jar</systemPath>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <id>copy</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <artifactItems>
+            <artifactItem>
+              <groupId>py5utils</groupId>
+              <artifactId>py5utils</artifactId>
+              <version>0.1</version>
+              <type>jar</type>
+              <overWrite>true</overWrite>
+              <outputDirectory>$${{project.basedir}}/../jars</outputDirectory>
+              <destFileName>py5utils.jar</destFileName>
+            </artifactItem>
+          </artifactItems>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>
 """
 
 
-def generate_utilities_framework(output_dir=None, jars_dir=None):
-    output_path = Path(output_dir or 'java')
-    build_path = Path(jars_dir or 'jars')
+def generate_utilities_framework(output_dir=None):
+    java_dir = Path(output_dir or '.') / 'java'
+    jars_dir = Path(output_dir or '.') / 'jars'
 
-    import py5
-    py5_classpath = (Path(py5.__file__).parent / 'jars').as_posix()
+    import py5_tools
+    py5_classpath = (Path(py5_tools.__file__).parent.parent / 'py5/jars').as_posix()
 
     if 'CONDA_PREFIX' in os.environ and py5_classpath.startswith(os.environ['CONDA_PREFIX']):
         py5_classpath = py5_classpath.replace(os.environ['CONDA_PREFIX'], '$${env.CONDA_PREFIX}')
 
-    template_params = {x: f'{chr(36)}{{project.{x}}}' for x in ['bin', 'dist', 'src']}
-    template_params['classpath'] = py5_classpath
-    template_params['jarlocation'] = '{jarlocation}'
+    java_dir.mkdir(parents=True, exist_ok=True)
+    jars_dir.mkdir(exist_ok=True)
 
-    output_path.mkdir(parents=True, exist_ok=True)
+    with open(java_dir / 'pom.xml', 'w') as f:
+        f.write(POM_TEMPLATE.format(classpath=py5_classpath))
 
-    with open(output_path / 'pom.xml', 'w') as f:
-        f.write(POM_TEMPLATE.format(**template_params))
-
-    src_dir = output_path / Path('src/main/java/py5/utils')
-    src_dir.mkdir(parents=True, exist_ok=True)
-    with open(src_dir / 'Py5Utilities.java', 'w') as f:
+    utils_filename = java_dir / Path('src/main/java/py5/utils/Py5Utilities.java')
+    utils_filename.parent.mkdir(parents=True, exist_ok=True)
+    with open(utils_filename, 'w') as f:
         f.write(PY5_UTILITIES_CLASS)
 
-    build_path.mkdir(parents=True, exist_ok=True)
 
 __all__ = ['generate_utilities_framework']
