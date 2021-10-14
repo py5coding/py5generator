@@ -20,7 +20,7 @@
 from pathlib import Path
 from io import StringIO
 import re
-from tokenize import generate_tokens, untokenize, NAME
+import shlex
 import autopep8
 from typing import Union
 import string
@@ -28,6 +28,7 @@ import string
 from . import util
 
 # TODO: don't forget about the docstrings!
+# TODO: refactor this, only translate_token is specific to this task, move rest to util
 
 CONSTANT_CHARACTERS = string.ascii_uppercase + string.digits + '_'
 
@@ -49,31 +50,48 @@ SNAKE_CASE_OVERRIDE = {
 }
 
 
-def _snake_case(name):
-    if all([c in CONSTANT_CHARACTERS for c in list(name)]):
-        return name
-    if re.match(r'0x[\da-fA-F]{2,}', name):
-        return name
-    elif (stem := name.replace('()', '')) in PY5_CLASS_LOOKUP:
-        return name.replace(stem, PY5_CLASS_LOOKUP[stem])
-    elif name in SNAKE_CASE_OVERRIDE:
-        return SNAKE_CASE_OVERRIDE[name]
+def translate_token(token):
+    if all([c in CONSTANT_CHARACTERS for c in list(token)]):
+        return token
+    if re.match(r'0x[\da-fA-F]{2,}', token):
+        return token
+    elif (stem := token.replace('()', '')) in PY5_CLASS_LOOKUP:
+        return token.replace(stem, PY5_CLASS_LOOKUP[stem])
+    elif token in SNAKE_CASE_OVERRIDE:
+        return SNAKE_CASE_OVERRIDE[token]
     else:
-        name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
-        name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', name)
-        return name.lower()
+        token = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', token)
+        token = re.sub('([a-z0-9])([A-Z])', r'\1_\2', token)
+        return token.lower()
 
 
 def translate_code(code):
-    result = []
-    tokens = generate_tokens(StringIO(code).readline)
-    for toknum, tokval, _, _, _ in tokens:
-        if toknum == NAME:
-            result.append((toknum, _snake_case(tokval)))
-        else:
-            result.append((toknum, tokval))
+    tokens = shlex.shlex(code)
+    tokens.whitespace = ''
+    tokens.wordchars += '.'
+    tokens.commenters = ''
+    tokens.quotes = ''
 
-    return autopep8.fix_code(autopep8.fix_2to3(untokenize(result)), options=dict(aggressive=2))
+    out = StringIO()
+    in_comment = False
+    in_quote = None
+    for token in tokens:
+        if token in ["'", '"'] and not in_comment:
+            if not in_quote:
+                in_quote = token
+            elif in_quote and token == in_quote:
+                in_quote = None
+        elif token == '#':
+            in_comment = True
+        elif token == '\n':
+            in_comment = False
+            in_quote = None
+        elif not (in_comment or in_quote):
+            token = translate_token(token)
+
+        out.write(token)
+
+    return autopep8.fix_code(out.getvalue(), options=dict(aggressive=2))
 
 
 def translate_file(src: Union[str, Path], dest: Union[str, Path]):
@@ -90,5 +108,11 @@ def translate_file(src: Union[str, Path], dest: Union[str, Path]):
         f.write(new_code)
 
 
-def batch_translate_dir(src: Union[str, Path], dest: Union[str, Path], ext='.pyde'):
+def translate_dir(src: Union[str, Path], dest: Union[str, Path], ext='.pyde'):
     util.batch_translate_dir(translate_file, src, dest, ext)
+
+
+__ALL__ = ['translate_token', 'translate_code', 'translate_file', 'translate_dir']
+
+def __dir__():
+    return __ALL__

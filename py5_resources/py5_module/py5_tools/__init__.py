@@ -24,6 +24,7 @@ from .imported import set_imported_mode, get_imported_mode  # noqa
 from .jvm import *  # noqa
 from .libraries import *  # noqa
 from .hooks import *  # noqa
+from . import translators  # noqa
 
 
 __version__ = '0.5a3.dev0'

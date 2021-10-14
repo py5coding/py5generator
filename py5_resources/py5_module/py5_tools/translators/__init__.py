@@ -18,3 +18,9 @@
 #
 # *****************************************************************************
 from . import processingpy2imported  # noqa
+
+
+__ALL__ = ['processingpy2imported']
+
+def __dir__():
+    return __ALL__
