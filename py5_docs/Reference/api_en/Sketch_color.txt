@@ -30,11 +30,11 @@ v3: float - blue or brightness values relative to the current color range
 v3: int - blue or brightness values relative to the current color range
 
 @@ description
-Creates colors for storing in variables of the ``color`` datatype (a 32 bit integer). The parameters are interpreted as ``RGB`` or ``HSB`` values depending on the current :doc:`color_mode`. The default mode is ``RGB`` values from 0 to 255 and, therefore, ``color(255, 204, 0)`` will return a bright yellow color (see the first example).
+Creates colors for storing in variables of the ``color`` datatype (a 32 bit integer). The parameters are interpreted as ``RGB`` or ``HSB`` values depending on the current :doc:`sketch_color_mode`. The default mode is ``RGB`` values from 0 to 255 and, therefore, ``color(255, 204, 0)`` will return a bright yellow color (see the first example).
 
 Note that if only one value is provided to ``color()``, it will be interpreted as a grayscale value. Add a second value, and it will be used for alpha transparency. When three values are specified, they are interpreted as either ``RGB`` or ``HSB`` values. Adding a fourth value applies alpha transparency.
 
-Note that when using hexadecimal notation, it is not necessary to use ``color()``, as in: ``c = 0x006699``
+Note that you can also use hexadecimal notation and web color notation to specify colors, as in ``c = 0xFFDDCC33`` or ``c = "#DDCC33"`` in place of ``c = color(221, 204, 51)``. Additionally, the ``color()`` method can accept both color notations as a parameter.
 
 @@ example
 image = Sketch_color_0.png
@@ -76,3 +76,16 @@ def setup():
     c = py5.color(50, 55, 100)  # update 'c' with new color
     py5.fill(c)  # use updated 'c' as fill color
     py5.rect(55, 10, 45, 80)  # draw right rect
+
+@@ example
+image = Sketch_color_3.png
+
+def setup():
+    c = 0xFFFFCC00  # define color 'c' using hex notation
+    py5.fill(c)  # use color variable 'c' as fill color
+    py5.no_stroke()  # don't draw a stroke around shapes
+    py5.ellipse(25, 25, 80, 80)  # draw left circle
+    
+    c = "#00CCFF"  # define color 'c' using web color notation
+    py5.fill(c)  # use updated 'c' as fill color
+    py5.ellipse(75, 75, 80, 80)  # draw right circle

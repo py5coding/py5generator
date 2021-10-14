@@ -171,10 +171,10 @@ DISABLE_ASYNC_SAVEFRAME,DISABLE_ASYNC_SAVEFRAME,,static field,SKIP,
 ENABLE_ASYNC_SAVEFRAME,ENABLE_ASYNC_SAVEFRAME,,static field,SKIP,
 HINT_COUNT,HINT_COUNT,,static field,SKIP,
 format,format,,dynamic variable,SKIP,
-pixels,pixels,,dynamic variable,JAVA,
-pixel_density,pixelDensity,,dynamic variable,SKIP,
-pixel_width,pixelWidth,,dynamic variable,SKIP,
-pixel_height,pixelHeight,,dynamic variable,SKIP,
+pixels,pixels,,dynamic variable,SKIP,
+pixel_density,pixelDensity,,dynamic variable,JAVA,"always be 1, but this should be included because py5graphics has it and it simplifies code if both classes have it"
+pixel_width,pixelWidth,,dynamic variable,JAVA,"always equal to width, but this should be included because py5graphics has it and it simplifies code if both classes have it"
+pixel_height,pixelHeight,,dynamic variable,JAVA,"always equal to height, but this should be included because py5graphics has it and it simplifies code if both classes have it"
 width,width,,dynamic variable,JAVA,
 height,height,,dynamic variable,JAVA,
 parent,parent,,dynamic variable,SKIP,
@@ -199,6 +199,7 @@ save,save,,method,PYTHON,implemented in pixels.py mixin
 copy,copy,,method,JAVA,
 mask,mask,,method,JAVA,
 resize,resize,,method,SKIP,
+get_image,getImage,,method,SKIP,
 get_native,getNative,,method,SKIP,
 native,native,,unknown,SKIP,
 is_modified,isModified,,method,SKIP,

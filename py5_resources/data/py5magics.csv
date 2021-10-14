@@ -3,7 +3,4 @@ py5drawpdf,,,cell magic,magics,cell magics,PYTHON,magics
 py5drawdxf,,,cell magic,magics,cell magics,PYTHON,magics
 py5drawsvg,,,cell magic,magics,cell magics,PYTHON,magics
 py5draw,,,cell magic,magics,cell magics,PYTHON,magics
-py5screenshot,,,line magic,magics,line magics,PYTHON,magics
-py5saveframes,,,line magic,magics,line magics,PYTHON,magics
-py5animatedgif,,,line magic,magics,line magics,PYTHON,magics
-py5captureframes,,,line magic,magics,line magics,PYTHON,magics
+py5bot,,,cell magic,magics,cell magics,PYTHON,magics

@@ -15,16 +15,16 @@ value: float - the incoming value to be converted
 @@ description
 Normalizes a number from another range into a value between 0 and 1. Identical to ``remap(value, low, high, 0, 1)``.
 
-Numbers outside of the range are not clamped to 0 and 1, because out-of-range values are often intentional and useful. (See the second example.) If that isn't what you want, try pairing this function with :doc:`constrain`.
+Numbers outside of the range are not clamped to 0 and 1, because out-of-range values are often intentional and useful. (See the second example.) If that isn't what you want, try pairing this function with :doc:`sketch_constrain`.
 
 @@ example
 def setup():
     value = 20
     n = py5.norm(value, 0, 50)
-    print(n)  # Prints "0.4"
+    py5.println(n)  # Prints "0.4"
 
 @@ example
 def setup():
     value = -10
     n = py5.norm(value, 0, 100)
-    print(n)  # Prints "-0.1"
+    py5.println(n)  # Prints "-0.1"

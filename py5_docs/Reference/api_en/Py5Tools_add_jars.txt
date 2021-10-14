@@ -15,7 +15,7 @@ Add all of the Java jar files contained in a directory and its subdirectories to
 
 When ``import py5`` is executed, ``add_jars('jars')`` is called for you to automatically add jar files contained in a subdirectory called jars. This is similar to functionality provided by the Processing IDE.
 
-After the JVM has started, the classpath cannot be changed. This function will throw a ``RuntimeError`` if it is called after the JVM has already started. Use :doc:`is_jvm_running` to first determine if the JVM is running.
+After the JVM has started, the classpath cannot be changed. This function will throw a ``RuntimeError`` if it is called after the JVM has already started. Use :doc:`py5tools_is_jvm_running` to first determine if the JVM is running.
 
 @@ example
 import py5_tools
@@ -25,4 +25,4 @@ py5_tools.add_classpath('path/to/jar/file/java_code.jar')
 
 import py5
 
-print(py5_tools.get_classpath())
+py5.println(py5_tools.get_classpath())

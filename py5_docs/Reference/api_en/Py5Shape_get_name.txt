@@ -18,7 +18,7 @@ image = Py5Shape_get_name_0.png
 def setup():
     us_map = py5.load_shape("us_map.svg")
     for child in us_map.get_children():
-        print(child.get_name())
+        py5.println(child.get_name())
 
     py5.background(192)
     py5.scale(0.1)

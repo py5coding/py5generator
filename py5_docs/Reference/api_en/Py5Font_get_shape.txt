@@ -17,7 +17,7 @@ Get a single character as a :doc:`py5shape` object. Use the ``detail`` parameter
 
 Calling :doc:`py5shape_disable_style` on the returned :doc:`py5shape` object seems to be necessary for these to be drawable.
 
-This method only works on fonts loaded with :doc:`create_font`.
+This method only works on fonts loaded with :doc:`sketch_create_font`.
 
 @@ example
 image = Py5Font_get_shape_0.png

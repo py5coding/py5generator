@@ -19,7 +19,7 @@ z1: float - z-coordinate of the first point
 z2: float - z-coordinate of the second point
 
 @@ description
-Draws a line (a direct path between two points) to the screen. The version of ``line()`` with four parameters draws the line in 2D.  To color a line, use the :doc:`stroke` function. A line cannot be filled, therefore the :doc:`fill` function will not affect the color of a line. 2D lines are drawn with a width of one pixel by default, but this can be changed with the :doc:`stroke_weight` function. The version with six parameters allows the line to be placed anywhere within XYZ space. Drawing this shape in 3D with the ``z`` parameter requires the ``P3D`` parameter in combination with :doc:`size` as shown in the third example.
+Draws a line (a direct path between two points) to the screen. The version of ``line()`` with four parameters draws the line in 2D.  To color a line, use the :doc:`sketch_stroke` function. A line cannot be filled, therefore the :doc:`sketch_fill` function will not affect the color of a line. 2D lines are drawn with a width of one pixel by default, but this can be changed with the :doc:`sketch_stroke_weight` function. The version with six parameters allows the line to be placed anywhere within XYZ space. Drawing this shape in 3D with the ``z`` parameter requires the ``P3D`` parameter in combination with :doc:`sketch_size` as shown in the third example.
 
 @@ example
 image = Sketch_line_0.png
@@ -40,11 +40,8 @@ def setup():
 @@ example
 image = Sketch_line_2.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     # drawing lines in 3D requires P3D
     # as a parameter to size()
     py5.line(30, 20, 0, 85, 20, 15)

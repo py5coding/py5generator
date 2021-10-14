@@ -20,4 +20,4 @@ def setup():
     rad = py5.PI/4
     deg = py5.degrees(rad)
     # prints "0.7854 radians is 45.0 degrees"
-    print(round(rad, 5), 'radians is', round(deg, 5), 'degrees')
+    py5.println(round(rad, 5), 'radians is', round(deg, 5), 'degrees')

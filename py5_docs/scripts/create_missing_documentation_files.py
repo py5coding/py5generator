@@ -60,7 +60,7 @@ for pclass in PY5_CLASS_LOOKUP.keys():
 
 # go through the class data info and for each relevant method and field and 
 # identify the new files that must be created
-new_xml_files = []
+new_doc_files = []
 for pclass, class_data in class_data_info.items():
     for processing_name, data in class_data.iterrows():
         py5_name = data['py5_name']
@@ -72,17 +72,9 @@ for pclass, class_data in class_data_info.items():
         if new_docfile.exists():
             continue
 
-        # check if usable alternate docfiles exist
-        if processing_name and pclass in ['Sketch', 'PGraphics', 'PImage']:
-            alt_docfiles = [PY5_API_EN / f'{x}_{py5_name}.txt' for x in ['Sketch', 'Py5Graphics', 'Py5Image']]
-            if any(f.exists() for f in alt_docfiles):
-                continue
+        new_doc_files.append((pclass, py5_name, item_type, processing_name, new_docfile))
 
-        # new documentation that I must write. skip pgraphics so I don't duplicate work
-        if pclass not in ['PGraphics', 'PImage']:
-            new_xml_files.append((pclass, py5_name, item_type, processing_name, new_docfile))
-
-for num, new_file_data in enumerate(new_xml_files):
+for num, new_file_data in enumerate(new_doc_files):
     pclass, py5_name, item_type, processing_name, new_docfile = new_file_data
     if item_type == 'dynamic variable':
         doc_type = 'field'
@@ -112,4 +104,4 @@ for num, new_file_data in enumerate(new_xml_files):
             extra += f'category = {category}\nsubcategory = {subcategory}\n'
         f.write(NEW_TEMPLATE.format(name, doc_type, extra))
 
-print(f'created {len(new_xml_files)} new files.')
+print(f'created {len(new_doc_files)} new files.')

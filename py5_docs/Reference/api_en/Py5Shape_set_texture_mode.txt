@@ -22,11 +22,8 @@ With ``IMAGE``, if an image is 100 x 200 pixels, mapping the image onto the enti
 @@ example
 image = Py5Shape_set_texture_mode_0.png
 
-def settings():
-    py5.size(100, 100, py5.P2D)
-
-
 def setup():
+    py5.size(100, 100, py5.P2D)
     img = py5.load_image("tower.jpg")
     s = py5.create_shape()
     s.begin_shape()

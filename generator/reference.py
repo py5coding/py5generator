@@ -127,4 +127,34 @@ EXTRA_METHOD_SIGNATURES = {
     ('Py5Tools', 'add_jars'): [
         (['path: Union[Path, str]'], 'None')
     ],
+    ('Py5Tools', 'get_jvm_debug_info'): [
+        ([], 'Dict[str, Any]')
+    ],
+    ('Py5Tools', 'screenshot'): [
+        (['*', 'sketch: Sketch = None', 'hook_post_draw: bool = False'], 'PIL.Image')
+    ],
+    ('Py5Tools', 'save_frames'): [
+        (['dirname: str', '*', "filename: str = 'frame_####.png'",
+          'period: float = 0.0', 'start: int = None', 'limit: int = 0',
+          'sketch: Sketch = None', 'hook_post_draw: bool = False'], 'List[str]')
+    ],
+    ('Py5Tools', 'animated_gif'): [
+        (['filename: str', 'count: int', 'period: float', 'duration: float', '*',
+          'loop: int = 0', 'optimize: bool = True', 'sketch: Sketch = None',
+          'hook_post_draw: bool = False'], 'str')
+    ],
+    ('Py5Tools', 'capture_frames'): [
+        (['count: float', '*', 'period: float = 0.0', 'sketch: Sketch = None',
+          'hook_post_draw: bool = False'], 'List[PIL.Image]')
+    ],
+    ('Py5Tools', 'sketch_portal'): [
+        (['*', 'time_limit: float = 0.0', 'throttle_frame_rate: float = 30',
+          'scale: float = 1.0', 'quality: int = 75',
+          'portal_widget: Py5SketchPortal = None', 'sketch: Sketch = None',
+          'hook_post_draw: bool = False'], 'None')
+    ],
+}
+
+PY5_PYTHON_DYNAMIC_VARIABLES = {
+    'pixels',
 }

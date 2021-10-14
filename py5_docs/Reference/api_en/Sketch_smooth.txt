@@ -20,14 +20,13 @@ With the ``P2D`` and ``P3D`` renderers, ``smooth(2)`` is the default, this is ca
 
 The default renderer uses ``smooth(3)`` by default. This is bicubic smoothing. The other option for the default renderer is ``smooth(2)``, which is bilinear smoothing.
 
-The ``smooth()`` function can only be set once within a Sketch. It must be called from the `settings()`` function. The :doc:`no_smooth` function also follows the same rules.
+The ``smooth()`` function can only be set once within a Sketch. It is intended to be called from the ``settings()`` function. The :doc:`sketch_no_smooth` function follows the same rules.
+
+When programming in module mode and imported mode, py5 will allow calls to ``smooth()`` from the ``setup()`` function if it is called at the beginning of ``setup()``. This allows the user to omit the ``settings()`` function, much like what can be done while programming in the Processing IDE. Py5 does this by inspecting the ``setup()`` function and attempting to split it into synthetic ``settings()`` and ``setup()`` functions if both were not created by the user and the real ``setup()`` function contains a call to ``smooth()``, or calls to :doc:`sketch_size`, :doc:`sketch_full_screen`, :doc:`sketch_no_smooth`, or :doc:`sketch_pixel_density`. Calls to those functions must be at the very beginning of ``setup()``, before any other Python code (but comments are ok). This feature is not available when programming in class mode.
 
 @@ example
-def settings():
-    py5.smooth(2)
-
-
 def setup():
+    py5.smooth(2)
     py5.no_stroke()
 
 
@@ -39,7 +38,7 @@ def draw():
 @@ example
 x = 0
 
-def settings():
+def setup():
     py5.full_screen(py5.P2D, py5.SPAN)
     py5.smooth(4)
 

@@ -14,9 +14,9 @@ Determine if the Java Virtual Machine (JVM) is or is not running. When the py5 l
 import py5_tools
 
 # this will be False
-print(py5_tools.is_jvm_running())
+py5.println(py5_tools.is_jvm_running())
 
 import py5
 
 # now it will be True
-print(py5_tools.is_jvm_running())
+py5.println(py5_tools.is_jvm_running())

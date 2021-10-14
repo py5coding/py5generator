@@ -20,4 +20,4 @@ z: float - z-coordinate of the light
 @@ description
 Adds a point light. The ``v1``, ``v2``, and ``v3`` parameters are interpreted as either RGB or HSB values, depending on the current color mode. The ``x``, ``y``, and ``z`` parameters set the position of the light.
 
-This method is the same as :doc:`point_light` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`point_light`.
+This method is the same as :doc:`sketch_point_light` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_point_light`.

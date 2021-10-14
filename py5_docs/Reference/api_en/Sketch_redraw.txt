@@ -14,17 +14,14 @@ Executes the code within ``draw()`` one time. This functions allows the program 
 
 In structuring a program, it only makes sense to call ``redraw()`` within events such as ``mouse_pressed()``. This is because ``redraw()`` does not run ``draw()`` immediately (it only sets a flag that indicates an update is needed). 
 
-The ``redraw()`` function does not work properly when called inside ``draw()``. To enable/disable animations, use :doc:`loop` and :doc:`no_loop`.
+The ``redraw()`` function does not work properly when called inside ``draw()``. To enable/disable animations, use :doc:`sketch_loop` and :doc:`sketch_no_loop`.
 
 @@ example
 x = 0
 
 
-def settings():
-    py5.size(200, 200)
-
-
 def setup():
+    py5.size(200, 200)
     py5.no_loop()
 
 

@@ -23,18 +23,23 @@ from setuptools import setup
 with open('README.rst') as f:
     README = f.read()
 
-VERSION = '0.4a2.dev0'
+VERSION = '0.5a3.dev0'
 
 INSTALL_REQUIRES = [
-    'jpype1>=1.2',
+    'ipykernel>=5.3',
+    'ipython>=7.22',
+    'ipywidgets>=7.6',
+    'jpype1>=1.3',
     'line_profiler>=2.1.2',
     'noise>=1.2',
     'nptyping>=1.4',
     'numpy>=1.19',
     'pandas>=1.0',
     'pillow>=8.1',
+    'pyobjc>=7.3;sys_platform=="darwin"',
     'requests>=2.25',
     'stackprinter>=0.2.4',
+    'traitlets>=5.0',
 ]
 
 pjoin = os.path.join
@@ -52,7 +57,7 @@ setup(
     py_modules=['setup'],
     package_data={
         "py5": ['jars/*.jar', 'jars/*/*.jar'],
-        "py5_tools": ['kernel/resources/*.png'],
+        "py5_tools": ['kernel/resources/*.png', 'py5bot/resources/*.png'],
     },
     python_requires='>3.8',
     install_requires=INSTALL_REQUIRES,

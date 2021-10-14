@@ -22,11 +22,8 @@ A box is an extruded rectangle. A box with equal dimensions on all sides is a cu
 @@ example
 image = Sketch_box_0.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.translate(58, 48, 0)
     py5.rotate_y(0.5)
     py5.no_fill()
@@ -35,11 +32,8 @@ def setup():
 @@ example
 image = Sketch_box_1.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.translate(58, 48, 0)
     py5.rotate_y(0.5)
     py5.no_fill()

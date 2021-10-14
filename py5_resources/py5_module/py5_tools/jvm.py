@@ -17,8 +17,10 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+import os
+
 from pathlib import Path
-from typing import Union, List  # noqa
+from typing import Any, Union, List, Dict  # noqa
 
 
 import jpype
@@ -67,6 +69,15 @@ def add_jars(path: Union[Path, str]) -> None:
             jpype.addClassPath(jarfile.absolute())
 
 
+def get_jvm_debug_info() -> Dict[str, Any]:
+    """$module_Py5Tools_get_jvm_debug_info"""
+    out = dict()
+    out['JAVA_HOME environment variable'] = os.environ.get('JAVA_HOME', '<not set>')
+    out['jvm version'] = jpype.getJVMVersion()
+    out['default jvm path'] = jpype.getDefaultJVMPath()
+    return out
+
+
 def _start_jvm() -> None:
     for c in _classpath:
         print(f'adding {c}')
@@ -74,4 +85,4 @@ def _start_jvm() -> None:
     jpype.startJVM(*_options, convertStrings=False)
 
 
-__all__ = ['is_jvm_running', 'add_options', 'get_classpath', 'add_classpath', 'add_jars']
+__all__ = ['is_jvm_running', 'add_options', 'get_classpath', 'add_classpath', 'add_jars', 'get_jvm_debug_info']

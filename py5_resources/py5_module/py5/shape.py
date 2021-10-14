@@ -30,7 +30,7 @@ from jpype import JException
 from jpype.types import JBoolean, JInt, JFloat
 
 from .pmath import _get_pvector_wrapper  # noqa
-from .type_decorators import _ret_str  # noqa
+from .decorators import _ret_str, _convert_hex_color, _convert_hex_color2, _context_wrapper  # noqa
 
 
 py5shape_class_members_code = None  # DELETE
@@ -58,7 +58,7 @@ def _py5shape_type_fixer(f):
         def fix_type(arg):
             if isinstance(arg, bool):
                 return JBoolean(arg)
-            elif isinstance(arg, int):
+            elif isinstance(arg, (int, np.integer)):
                 return JInt(arg)
             elif isinstance(arg, float):
                 return JFloat(arg)

@@ -17,4 +17,4 @@ Sets the style for rendering line endings. These ends are either squared, extend
 
 To make :doc:`py5graphics_point` appear square, use ``stroke_cap(PROJECT)``. Using ``stroke_cap(SQUARE)`` (no cap) causes points to become invisible.
 
-This method is the same as :doc:`stroke_cap` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`stroke_cap`.
+This method is the same as :doc:`sketch_stroke_cap` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_stroke_cap`.

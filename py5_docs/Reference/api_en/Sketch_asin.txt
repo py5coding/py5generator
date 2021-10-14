@@ -11,7 +11,7 @@ asin(value: float) -> float
 value: float - value in the range of -1 to 1 whose arc sine is to be returned
 
 @@ description
-The inverse of :doc:`sin`, returns the arc sine of a value. This function expects the values in the range of -1 to 1 and values are returned in the range ``-HALF_PI`` to ``HALF_PI``.
+The inverse of :doc:`sketch_sin`, returns the arc sine of a value. This function expects the values in the range of -1 to 1 and values are returned in the range ``-HALF_PI`` to ``HALF_PI``.
 
 This function makes a call to the numpy ``asin()`` function.
 
@@ -21,7 +21,7 @@ def setup():
     s = py5.sin(a)
     a_s = py5.asin(s)
     # prints "1.04719757 : 0.86602541 : 1.04719757"
-    print(round(a, 8), ':', round(s, 8), ':', round(a_s, 8))
+    py5.println(round(a, 8), ':', round(s, 8), ':', round(a_s, 8))
 
 @@ example
 def setup():
@@ -29,4 +29,4 @@ def setup():
     s = py5.sin(a)
     a_s = py5.asin(s)
     # prints "4.18879027 : -0.86602543 : -1.04719761"
-    print(round(a, 8), ':', round(s, 8), ':', round(a_s, 8))
+    py5.println(round(a, 8), ':', round(s, 8), ':', round(a_s, 8))

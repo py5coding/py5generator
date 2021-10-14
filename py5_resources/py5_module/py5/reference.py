@@ -28,7 +28,7 @@ METHODS = [
     'key_pressed', 'key_typed', 'key_released',
     'mouse_clicked', 'mouse_dragged', 'mouse_moved', 'mouse_entered',
     'mouse_exited', 'mouse_pressed', 'mouse_released', 'mouse_wheel',
-    'exiting'
+    'exiting', 'movie_event'
 ]
 
 FILE_CLASS_LOOKUP = dict([

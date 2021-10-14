@@ -27,4 +27,4 @@ Copies a region of pixels from the ``Py5Graphics`` object to another area of the
 
 This function ignores :doc:`py5graphics_image_mode`.
 
-This method is the same as :doc:`copy` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`copy`.
+This method is the same as :doc:`sketch_copy` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_copy`.

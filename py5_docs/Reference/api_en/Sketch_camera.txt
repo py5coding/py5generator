@@ -27,11 +27,8 @@ Sets the position of the camera through setting the eye position, the center of 
 @@ example
 image = Sketch_camera_0.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.no_fill()
     py5.background(204)
     py5.camera(70.0, 35.0, 120.0, 50.0, 50.0, 0.0, 0.0, 1.0, 0.0)

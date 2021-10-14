@@ -20,7 +20,7 @@ def setup():
     dimension = tower.width * tower.height
     tower.load_pixels()
     for i in range(0, dimension, 2):
-        tower.pixels[i] = py5.color(0, 0, 0)
+        tower.pixels[i] = "#000"
 
     tower.update_pixels()
 

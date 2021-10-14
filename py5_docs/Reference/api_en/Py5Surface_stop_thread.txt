@@ -19,8 +19,8 @@ def draw():
 py5.run_sketch(block=False)
 surface = py5.get_surface()
 # this will print False
-print(surface.is_stopped())
+py5.println(surface.is_stopped())
 
 surface.stop_thread()
 # now it will print True
-print(surface.is_stopped())
+py5.println(surface.is_stopped())

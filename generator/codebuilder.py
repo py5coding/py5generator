@@ -42,7 +42,7 @@ logger = logging.getLogger(__name__)
 CONSTANT_REGEX = re.compile(r'^\s*([A-Z_]*)\s*=\s*(.*?)\s+# CODEBUILDER INCLUDE$', re.MULTILINE)
 METHOD_REGEX = re.compile(r'(@\w+)?\s*def (.*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):\s*(# @decorator)?$', re.MULTILINE | re.DOTALL)
 TYPEHINT_COMMA_REGEX = re.compile(r'(\[[\w\s,]+\])')
-COMMA_REGEX = re.compile(r',\s*(?!\s*\w+\])')
+COMMA_REGEX = re.compile(r',\s*(?![\s\w,]+\])')
 
 SNAKE_CASE_1 = re.compile('(.)([A-Z][a-z]+)')
 SNAKE_CASE_2 = re.compile('([a-z0-9])([A-Z])')
@@ -147,65 +147,32 @@ class CodeBuilder:
         self.dynamic_variable_names.add(py5_name)
 
     def code_method(self, fname, method_data):
-        py5_name = self._py5_names[fname]
-        static = all([x['static'] for x in method_data.values()])
-        if static:
-            first_param, classobj, moduleobj, decorator = 'cls', 'cls._cls', self._class_name, '@classmethod'
-            if self._py5_decorators[fname]:
-                decorator = '@classmethod\n    ' + self._py5_decorators[fname]
-        else:
-            first_param, classobj, moduleobj, decorator = 'self', 'self._instance', self._instance_name, self._py5_decorators[fname]
-        # adjust decorator if there are multiple decorators
-        decorator = decorator.replace(';', '\n    ')
-        # if there is only one method signature, create the real method with typehints
-        if len(method_data) == 1:
-            sigstr, sigdata = list(method_data.items())[0]
-            params = sigstr.split(',')
-            rettype = sigdata['rettype']
-            paramnames = sigdata['paramnames']
-            if ref.PY5_SKIP_PARAM_TYPES.intersection(params) or rettype in ref.PY5_SKIP_RETURN_TYPES:
-                logger.warning(f'skipping method for {fname} {str(params)} {rettype}')
-                return
-            paramstrs, rettypestr = self._make_param_rettype_strs(fname, first_param, params, paramnames, rettype)
-            class_arguments = ', '.join([p.split(':')[0] for p in paramstrs[1:]])
-            module_arguments = class_arguments
+        # one processing method can map to more than one py5 method, each with a different decorator
+        py5_names = [x] if isinstance(x:=self._py5_names[fname], str) else x
+        py5_decorators = [x] if isinstance(x:=self._py5_decorators[fname], str) else x
 
-            if len(paramstrs) > 1:
-                if paramstrs[-1][0] == '*':
-                    paramstrs.insert(-1, '/')
-                else:
-                    paramstrs.append('/')
-
-            # create the class and module code
-            signature_options = [', '.join([s for s in paramstrs[1:] if s != '/'])]
-            self.class_members.append(
-                templ.CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
-                    self._class_name, py5_name, ', '.join(paramstrs), classobj,
-                    fname, decorator, rettypestr, class_arguments, signature_options
-                )
-            )
-            self.method_signatures[(self._class_name, py5_name)].append((paramstrs[1:], rettypestr))
-            if self._code_module:
-                self.module_members.append(
-                    templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
-                        self._class_name, py5_name, ', '.join(paramstrs[1:]),
-                        moduleobj, rettypestr, module_arguments
-                    )
-                )
-        else:
-            # loop through the method signatures and create the typehint methods
-            skipped_all = True
-            created_sigs = set()
-            signature_options = []
-            for sigstr, sigdata in sorted(method_data.items()):
+        for py5_name, py5_decorator in zip(py5_names, py5_decorators):
+            static = all([x['static'] for x in method_data.values()])
+            if static:
+                first_param, classobj, moduleobj, decorator = 'cls', 'cls._cls', self._class_name, '@classmethod'
+                if py5_decorator:
+                    decorator = '@classmethod\n    ' + py5_decorator
+            else:
+                first_param, classobj, moduleobj, decorator = 'self', 'self._instance', self._instance_name, py5_decorator
+            # adjust decorator if there are multiple decorators
+            decorator = decorator.replace(';', '\n    ')
+            # if there is only one method signature, create the real method with typehints
+            if len(method_data) == 1:
+                sigstr, sigdata = list(method_data.items())[0]
                 params = sigstr.split(',')
                 rettype = sigdata['rettype']
                 paramnames = sigdata['paramnames']
                 if ref.PY5_SKIP_PARAM_TYPES.intersection(params) or rettype in ref.PY5_SKIP_RETURN_TYPES:
-                    logger.warning(f'skipping typehint for {fname} {str(params)} {rettype}')
-                    continue
-                skipped_all = False
+                    logger.warning(f'skipping method for {fname} {str(params)} {rettype}')
+                    return
                 paramstrs, rettypestr = self._make_param_rettype_strs(fname, first_param, params, paramnames, rettype)
+                class_arguments = ', '.join([p.split(':')[0] for p in paramstrs[1:]])
+                module_arguments = class_arguments
 
                 if len(paramstrs) > 1:
                     if paramstrs[-1][0] == '*':
@@ -213,44 +180,81 @@ class CodeBuilder:
                     else:
                         paramstrs.append('/')
 
-                joined_paramstrs = ', '.join(paramstrs)
-                # has an identical signature already been added?
-                if (joined_paramstrs, rettypestr) in created_sigs:
-                    continue
-                # create the class and module typehints
-                signature_options.append(', '.join([s for s in paramstrs[1:] if s != '/']))
+                # create the class and module code
+                signature_options = [', '.join([s for s in paramstrs[1:] if s != '/'])]
                 self.class_members.append(
-                    templ.CLASS_METHOD_TYPEHINT_TEMPLATE.format(
-                        self._class_name, py5_name, joined_paramstrs, rettypestr
+                    templ.CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
+                        self._class_name, py5_name, ', '.join(paramstrs), classobj,
+                        fname, decorator, rettypestr, class_arguments, signature_options
                     )
                 )
                 self.method_signatures[(self._class_name, py5_name)].append((paramstrs[1:], rettypestr))
                 if self._code_module:
                     self.module_members.append(
-                        templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(
-                            self._class_name, py5_name, ', '.join(paramstrs[1:]), rettypestr
+                        templ.MODULE_FUNCTION_TEMPLATE_WITH_TYPEHINTS.format(
+                            self._class_name, py5_name, ', '.join(paramstrs[1:]),
+                            moduleobj, rettypestr, module_arguments
                         )
                     )
-                created_sigs.add((joined_paramstrs, rettypestr))
-            if skipped_all:
-                return
+            else:
+                # loop through the method signatures and create the typehint methods
+                skipped_all = True
+                created_sigs = set()
+                signature_options = []
+                for sigstr, sigdata in sorted(method_data.items()):
+                    params = sigstr.split(',')
+                    rettype = sigdata['rettype']
+                    paramnames = sigdata['paramnames']
+                    if ref.PY5_SKIP_PARAM_TYPES.intersection(params) or rettype in ref.PY5_SKIP_RETURN_TYPES:
+                        logger.warning(f'skipping typehint for {fname} {str(params)} {rettype}')
+                        continue
+                    skipped_all = False
+                    paramstrs, rettypestr = self._make_param_rettype_strs(fname, first_param, params, paramnames, rettype)
 
-            # now construct the real methods
-            arguments = '*args'
-            module_arguments = '*args'
-            self.class_members.append(
-                templ.CLASS_METHOD_TEMPLATE.format(
-                    self._class_name, py5_name, first_param, classobj, fname,
-                    decorator, arguments, signature_options
-                )
-            )
-            if self._code_module:
-                self.module_members.append(
-                    templ.MODULE_FUNCTION_TEMPLATE.format(
-                        self._class_name, py5_name, moduleobj, arguments, module_arguments
+                    if len(paramstrs) > 1:
+                        if paramstrs[-1][0] == '*':
+                            paramstrs.insert(-1, '/')
+                        else:
+                            paramstrs.append('/')
+
+                    joined_paramstrs = ', '.join(paramstrs)
+                    # has an identical signature already been added?
+                    if (joined_paramstrs, rettypestr) in created_sigs:
+                        continue
+                    # create the class and module typehints
+                    signature_options.append(', '.join([s for s in paramstrs[1:] if s != '/']))
+                    self.class_members.append(
+                        templ.CLASS_METHOD_TYPEHINT_TEMPLATE.format(
+                            self._class_name, py5_name, joined_paramstrs, rettypestr
+                        )
+                    )
+                    self.method_signatures[(self._class_name, py5_name)].append((paramstrs[1:], rettypestr))
+                    if self._code_module:
+                        self.module_members.append(
+                            templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(
+                                self._class_name, py5_name, ', '.join(paramstrs[1:]), rettypestr
+                            )
+                        )
+                    created_sigs.add((joined_paramstrs, rettypestr))
+                if skipped_all:
+                    return
+
+                # now construct the real methods
+                arguments = '*args'
+                module_arguments = '*args'
+                self.class_members.append(
+                    templ.CLASS_METHOD_TEMPLATE.format(
+                        self._class_name, py5_name, first_param, classobj, fname,
+                        decorator, arguments, signature_options
                     )
                 )
-        self.method_names.add(py5_name)
+                if self._code_module:
+                    self.module_members.append(
+                        templ.MODULE_FUNCTION_TEMPLATE.format(
+                            self._class_name, py5_name, moduleobj, arguments, module_arguments
+                        )
+                    )
+            self.method_names.add(py5_name)
 
     def code_extra(self, class_name, filename):
         if not self._code_module:
@@ -266,10 +270,14 @@ class CodeBuilder:
         overloaded = set()
         self.module_members.append(f'\n{"#" * 78}\n# module functions from {filename.name}\n{"#" * 78}\n')
         method_code = code.split('*** BEGIN METHODS ***')[1].strip()
+        if (end_methods_indx := method_code.find('*** END METHODS ***')) >= 0:
+            method_code = method_code[:end_methods_indx].strip()
         for decorator, fname, arg0, args, rettypestr, fake_decorator in METHOD_REGEX.findall(method_code):
             if fname.startswith('_') and not fake_decorator:
                 continue
-            elif decorator == '@overload':
+            if not rettypestr:
+                raise RuntimeError(f"missing return typehint for method {fname} in file {filename}")
+            if decorator == '@overload':
                 overloaded.add((class_name, fname))
                 self.module_members.append(
                     templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(self._class_name, fname, args, rettypestr)

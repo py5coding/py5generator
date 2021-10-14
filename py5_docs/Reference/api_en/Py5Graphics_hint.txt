@@ -15,6 +15,8 @@ which: int - hint to use when rendering Sketch
 @@ description
 This function is used to enable or disable special features that control how graphics are drawn. In the course of developing Processing, the developers had to make hard decisions about tradeoffs between performance and visual quality. They put significant effort into determining what makes most sense for the largest number of users, and then use functions like ``hint()`` to allow people to tune the settings for their particular Sketch. Implementing a ``hint()`` is a last resort that's used when a more elegant solution cannot be found. Some options might graduate to standard features instead of hints over time, or be added and removed between (major) releases.
 
+Like other :doc:`py5graphics` methods, ``hint()`` can only be used between calls to :doc:`py5graphics_begin_draw` and :doc:`py5graphics_end_draw`.
+
 Hints used by the Default Renderer
 ----------------------------------
 
@@ -36,4 +38,4 @@ Hints for use with ``P3D`` only
 * ``DISABLE_OPTIMIZED_STROKE``: Forces the ``P3D`` renderer to draw each shape (including its strokes) separately, instead of batching them into larger groups for better performance. One consequence of this is that 2D items drawn with ``P3D`` are correctly stacked on the screen, depending on the order in which they were drawn. Otherwise, glitches such as the stroke lines being drawn on top of the interior of all the shapes will occur. However, this hint can make rendering substantially slower, so it is recommended to use it only when drawing a small amount of shapes. For drawing two-dimensional scenes, use the ``P2D`` renderer instead, which doesn't need the hint to properly stack shapes and their strokes.
 * ``ENABLE_STROKE_PERSPECTIVE``: Enables stroke geometry (lines and points) to be affected by the perspective, meaning that they will look smaller as they move away from the camera.
 
-This method is the same as :doc:`hint` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`hint`.
+This method is the same as :doc:`sketch_hint` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_hint`.

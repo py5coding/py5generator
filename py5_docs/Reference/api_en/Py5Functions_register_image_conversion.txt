@@ -12,11 +12,11 @@ convert_function: Callable - function to convert object to relevant image data
 precondition: Callable - predicate determining if an object can be converted
 
 @@ description
-Register new image conversion functionality to be used by :doc:`convert_image`.  This will allow users to extend py5's capabilities and compatability within the Python ecosystem.
+Register new image conversion functionality to be used by :doc:`sketch_convert_image`.  This will allow users to extend py5's capabilities and compatability within the Python ecosystem.
 
 The ``precondition`` parameter must be function that accepts an object as a parameter and returns ``True`` if and only if the ``convert_function`` can successfully convert the object.
 
-The ``convert_function`` parameter must be a function that accepts an object as a parameter and returns either a filename that can be read by :doc:`load_image`, a ``py5.NumpyImageArray`` object, or a :doc:`py5image` object. View py5's source code for detailed information about ``py5.NumpyImageArray`` objects.
+The ``convert_function`` parameter must be a function that accepts an object as a parameter and returns either a filename that can be read by :doc:`sketch_load_image`, a ``py5.NumpyImageArray`` object, or a :doc:`py5image` object. View py5's source code for detailed information about ``py5.NumpyImageArray`` objects.
 
 @@ example
 import numpy as np
@@ -39,7 +39,7 @@ py5.register_image_conversion(precondition, convert_function)
 def setup():
     img1 = py5.convert_image((20, 30, 40))
     img2 = py5.convert_image((100, 20, 80))
-    print(type(img1))
-    print(type(img2))
+    py5.println(type(img1))
+    py5.println(type(img2))
     py5.image(img1, 30, 50)
     py5.image(img2, 10, 20)

@@ -22,11 +22,11 @@ y: float - y-coordinate of the vertex
 z: float - z-coordinate of the vertex
 
 @@ description
-Add a new vertex to a shape. All shapes are constructed by connecting a series of vertices. The ``vertex()`` method is used to specify the vertex coordinates for points, lines, triangles, quads, and polygons. It is used exclusively within the :doc:`begin_shape` and :doc:`end_shape` functions.
+Add a new vertex to a shape. All shapes are constructed by connecting a series of vertices. The ``vertex()`` method is used to specify the vertex coordinates for points, lines, triangles, quads, and polygons. It is used exclusively within the :doc:`sketch_begin_shape` and :doc:`sketch_end_shape` functions.
 
 Drawing a vertex in 3D using the ``z`` parameter requires the ``P3D`` renderer, as shown in the second example.
 
-This method is also used to map a texture onto geometry. The :doc:`texture` function declares the texture to apply to the geometry and the ``u`` and ``v`` coordinates define the mapping of this texture to the form. By default, the coordinates used for ``u`` and ``v`` are specified in relation to the image's size in pixels, but this relation can be changed with the Sketch's :doc:`texture_mode` method.
+This method is also used to map a texture onto geometry. The :doc:`sketch_texture` function declares the texture to apply to the geometry and the ``u`` and ``v`` coordinates define the mapping of this texture to the form. By default, the coordinates used for ``u`` and ``v`` are specified in relation to the image's size in pixels, but this relation can be changed with the Sketch's :doc:`sketch_texture_mode` method.
 
 @@ example
 image = Sketch_vertex_0.png
@@ -42,11 +42,8 @@ def setup():
 @@ example
 image = Sketch_vertex_1.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     # drawing vertices in 3D requires P3D
     # as a parameter to size()
     py5.begin_shape()
@@ -59,11 +56,8 @@ def setup():
 @@ example
 image = Sketch_vertex_2.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     img = py5.load_image("laDefense.jpg")
     py5.no_stroke()
     py5.begin_shape()

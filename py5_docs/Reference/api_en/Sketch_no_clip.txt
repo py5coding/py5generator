@@ -10,14 +10,11 @@ processing_name = noClip
 no_clip() -> None
 
 @@ description
-Disables the clipping previously started by the :doc:`clip` function.
+Disables the clipping previously started by the :doc:`sketch_clip` function.
 
 @@ example
-def settings():
-    py5.size(200, 200)
-
-
 def setup():
+    py5.size(200, 200)
     py5.image_mode(py5.CENTER)
 
 

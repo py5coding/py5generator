@@ -19,14 +19,43 @@
 # *****************************************************************************
 import threading
 from pathlib import Path
+from io import BytesIO
 from typing import overload, List, Union  # noqa
 
 import numpy as np
 from PIL import Image
 import jpype
 
+from ..decorators import _hex_converter
+
 
 _Sketch = jpype.JClass('py5.core.Sketch')
+
+
+class PixelArray:
+    """$module_Sketch_pixels"""
+
+    def __init__(self, instance):
+        self._instance = instance
+
+    def __getitem__(self, index):
+        if self._instance.pixels is None:
+            raise RuntimeError("Cannot get pixel colors because load_pixels() has not been called")
+
+        return self._instance.pixels[index]
+
+    def __setitem__(self, index, val):
+        if self._instance.pixels is None:
+            raise RuntimeError("Cannot set pixel colors because load_pixels() has not been called")
+
+        if (newval := _hex_converter(val)) is not None:
+            val = newval
+
+    def __len__(self):
+        if self._instance.pixels is None:
+            raise RuntimeError("Cannot get pixel length because load_pixels() has not been called")
+
+        return len(self._instance.pixels)
 
 
 class PixelMixin:
@@ -35,6 +64,7 @@ class PixelMixin:
         super().__init__(*args, **kwargs)
         self._instance = kwargs['instance']
         self._np_pixels = None
+        self.pixels = PixelArray(self._instance)
 
     def _replace_instance(self, new_instance):
         self._instance = new_instance
@@ -84,10 +114,11 @@ class PixelMixin:
             self._np_pixels[:, :, 1:] = array[:, :, :3]
         self.update_np_pixels()
 
-    def save(self, filename: Union[str, Path], *, format: str = None, drop_alpha: bool = True, use_thread: bool = True, **params) -> None:
+    def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
         """$class_Sketch_save"""
         sketch_instance = self._instance if isinstance(self._instance, _Sketch) else self._instance.parent
-        filename = Path(str(sketch_instance.savePath(str(filename))))
+        if not isinstance(filename, BytesIO):
+            filename = Path(str(sketch_instance.savePath(str(filename))))
         self.load_np_pixels()
         arr = self.np_pixels[:, :, 1:] if drop_alpha else np.roll(self.np_pixels, -1, axis=2)
 
@@ -99,3 +130,53 @@ class PixelMixin:
             t.start()
         else:
             Image.fromarray(arr).save(filename, format=format, **params)
+
+    # *** END METHODS ***
+
+
+class PixelPy5GraphicsMixin(PixelMixin):
+
+    def load_np_pixels(self) -> None:
+        """$class_Py5Graphics_load_np_pixels"""
+        return super().load_np_pixels()
+
+    def update_np_pixels(self) -> None:
+        """$class_Py5Graphics_update_np_pixels"""
+        return super().update_np_pixels()
+
+    def _get_np_pixels(self) -> np.ndarray:  # @decorator
+        """$class_Py5Graphics_np_pixels"""
+        return super()._get_np_pixels()
+    np_pixels: np.ndarray = property(fget=_get_np_pixels)
+
+    def set_np_pixels(self, array: np.ndarray, bands: str = 'ARGB') -> None:
+        """$class_Py5Graphics_set_np_pixels"""
+        return super().set_np_pixels(array, bands)
+
+    def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
+        """$class_Py5Graphics_save"""
+        return super().save(filename, format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
+
+
+class PixelPy5ImageMixin(PixelMixin):
+
+    def load_np_pixels(self) -> None:
+        """$class_Py5Image_load_np_pixels"""
+        return super().load_np_pixels()
+
+    def update_np_pixels(self) -> None:
+        """$class_Py5Image_update_np_pixels"""
+        return super().update_np_pixels()
+
+    def _get_np_pixels(self) -> np.ndarray:  # @decorator
+        """$class_Py5Image_np_pixels"""
+        return super()._get_np_pixels()
+    np_pixels: np.ndarray = property(fget=_get_np_pixels)
+
+    def set_np_pixels(self, array: np.ndarray, bands: str = 'ARGB') -> None:
+        """$class_Py5Image_set_np_pixels"""
+        return super().set_np_pixels(array, bands)
+
+    def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
+        """$class_Py5Image_save"""
+        return super().save(filename, format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)

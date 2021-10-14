@@ -24,4 +24,4 @@ Point appears round with the default ``stroke_cap(ROUND)`` and square with ``str
 
 Using ``point()`` with ``strokeWeight(1)`` or smaller may draw nothing to the Py5Graphics drawing surface, depending on the graphics settings of the computer. Workarounds include setting the pixel using the :doc:`py5graphics_pixels` or :doc:`py5graphics_np_pixels` arrays or drawing the point using either :doc:`py5graphics_circle` or :doc:`py5graphics_square`.
 
-This method is the same as :doc:`point` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`point`.
+This method is the same as :doc:`sketch_point` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_point`.

@@ -17,8 +17,8 @@ def draw():
 
 
 py5.run_sketch()
-print('sketch has stopped:', py5.finished)
+py5.println('sketch has stopped:', py5.finished)
 time.sleep(10)
 
 py5.exit_sketch()
-print('sketch has stopped:', py5.finished)
+py5.println('sketch has stopped:', py5.finished)

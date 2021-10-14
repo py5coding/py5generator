@@ -42,11 +42,8 @@ def create_strip(r, g, b):
     return s
 
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.background(0)
     py5.light_specular(255, 255, 255)
     py5.directional_light(204, 204, 204, 0, 0, -1)

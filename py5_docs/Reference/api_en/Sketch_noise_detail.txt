@@ -13,13 +13,13 @@ octaves: float = None - number of noise octaves
 persistence: float = None - change in noise amplitude from one octave to the next
 
 @@ description
-Adjusts the character and level of detail produced by the :doc:`noise` function. Similar to harmonics in physics, noise is computed over several octaves. Lower octaves contribute more to the output signal and as such define the overall intensity of the noise, whereas higher octaves create finer-grained details in the noise sequence.
+Adjusts the character and level of detail produced by the :doc:`sketch_noise` function. Similar to harmonics in physics, noise is computed over several octaves. Lower octaves contribute more to the output signal and as such define the overall intensity of the noise, whereas higher octaves create finer-grained details in the noise sequence.
 
 By default, noise is computed over 4 octaves. Each octave has half the amplitude and twice the frequency of its predecessor. The decrease in amplitude can be adjusted with the ``persistence`` parameter. The increase in frequency can be adjusted with the ``lacunarity`` parameter.
 
 For example, a ``persistence`` parameter of 0.75 means each octave will now have 75% impact (25% less) of the previous lower octave. A ``lacunarity`` parameter of 4 means that each octave will have 4 times the frequency of the previous lower octave, providing noise at a finer-grained scale than what the default value of 2 would provide.
 
-By changing these parameters, the signal created by the :doc:`noise` function can be adapted to fit very specific needs and characteristics.
+By changing these parameters, the signal created by the :doc:`sketch_noise` function can be adapted to fit very specific needs and characteristics.
 
 Py5's noise functionality is provided by the Python noise library. The noise library provides more advanced features than what is documented here. To use the more advanced features, import that library directly.
 

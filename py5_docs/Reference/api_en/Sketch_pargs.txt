@@ -1,0 +1,16 @@
+@@ meta
+name = pargs
+type = field
+pclass = PApplet
+processing_name = args
+category = structure
+subcategory = None
+
+@@ description
+List of strings passed to the Sketch through the call to :doc:`sketch_run_sketch`. Only passing strings is allowed, but you can convert string types to something else to make this more useful.
+
+@@ example
+def setup():
+    py5.background(py5.pargs[0])
+
+py5.run_sketch(sketch_args=["#FF0000"])

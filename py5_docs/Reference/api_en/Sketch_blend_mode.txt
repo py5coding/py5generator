@@ -21,12 +21,12 @@ Blends the pixels in the display window according to a defined mode. There is a 
 * DARKEST: only the darkest color succeeds: ``C = min(A*factor, B)``
 * LIGHTEST: only the lightest color succeeds: ``C = max(A*factor, B)``
 * DIFFERENCE: subtract colors from underlying image.
-* EXCLUSION: similar to ``DIFFERENCE``, but less extreme.
+* EXCLUSION: similar to DIFFERENCE, but less extreme.
 * MULTIPLY: multiply the colors, result will always be darker.
 * SCREEN: opposite multiply, uses inverse values of the colors.
 * REPLACE: the pixels entirely replace the others and don't utilize alpha (transparency) values
 
-We recommend using ``blend_mode()`` and not the previous :doc:`blend` function. However, unlike :doc:`blend`, the ``blend_mode()`` function does not support the following: ``HARD_LIGHT``, ``SOFT_LIGHT``, ``OVERLAY``, ``DODGE``, ``BURN``. On older hardware, the ``LIGHTEST``, ``DARKEST``, and ``DIFFERENCE`` modes might not be available as well.
+We recommend using ``blend_mode()`` and not the previous :doc:`sketch_blend` function. However, unlike :doc:`sketch_blend`, the ``blend_mode()`` function does not support the following: ``HARD_LIGHT``, ``SOFT_LIGHT``, ``OVERLAY``, ``DODGE``, ``BURN``. On older hardware, the ``LIGHTEST``, ``DARKEST``, and ``DIFFERENCE`` modes might not be available as well.
 
 @@ example
 def setup():
@@ -38,11 +38,8 @@ def setup():
     py5.line(75, 25, 25, 75)
 
 @@ example
-def settings():
-    py5.size(100, 100, py5.P2D)
-
-
 def setup():
+    py5.size(100, 100, py5.P2D)
     py5.blend_mode(py5.MULTIPLY)
     py5.stroke(51)
     py5.stroke_weight(30)

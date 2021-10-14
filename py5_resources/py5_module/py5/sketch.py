@@ -20,7 +20,8 @@
 # *** FORMAT PARAMS ***
 import time
 import os
-import logging
+import sys
+from io import BytesIO
 from pathlib import Path
 import functools
 from typing import overload, Any, Callable, Union, Dict, List  # noqa
@@ -33,7 +34,7 @@ import numpy as np  # noqa
 
 from .methods import Py5Methods
 from .base import Py5Base
-from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin
+from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, _DefaultPrintlnStream, _DisplayPubPrintlnStream
 from .mixins.threads import Py5Promise  # noqa
 from .image import Py5Image, _return_py5image  # noqa
 from .shape import Py5Shape, _return_py5shape, _load_py5shape  # noqa
@@ -41,7 +42,7 @@ from .surface import Py5Surface, _return_py5surface  # noqa
 from .shader import Py5Shader, _return_py5shader, _load_py5shader  # noqa
 from .font import Py5Font, _return_py5font, _load_py5font, _return_list_str  # noqa
 from .graphics import Py5Graphics, _return_py5graphics  # noqa
-from .type_decorators import _text_fix_str  # noqa
+from .decorators import _text_fix_str, _convert_hex_color, _context_wrapper  # noqa
 from .pmath import _get_matrix_wrapper  # noqa
 from . import image_conversion
 from .image_conversion import NumpyImageArray, _convertable
@@ -57,12 +58,13 @@ try:
     from ipykernel.zmqshell import ZMQInteractiveShell
     _ipython_shell = get_ipython()  # type: ignore
     _in_jupyter_zmq_shell = isinstance(_ipython_shell, ZMQInteractiveShell)
+    if sys.platform == 'darwin' and _ipython_shell.active_eventloop != 'osx':
+        print("Importing py5 on OSX but the necessary Jupyter OSX event loop not been activated. I'll activate it for you, but next time, execute `%gui osx` before importing this library.")
+        _ipython_shell.run_line_magic('gui', 'osx')
 except NameError:
     _in_ipython_session = False
     _ipython_shell = None
     _in_jupyter_zmq_shell = False
-
-logger = logging.getLogger(__name__)
 
 
 def _auto_convert_to_py5image(f):
@@ -77,7 +79,7 @@ def _auto_convert_to_py5image(f):
     return decorated
 
 
-class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
+class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5Base):
     """$classdoc_Sketch
     """
 
@@ -91,6 +93,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_methods = None
+        self.set_println_stream(_DisplayPubPrintlnStream() if _in_jupyter_zmq_shell else _DefaultPrintlnStream())
+        self._instance.setPy5IconPath(str(Path(__file__).parent.parent / 'py5_tools/kernel/resources/logo-64x64.png'))
 
         # attempt to instantiate Py5Utilities
         self.utils = None
@@ -99,12 +103,10 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         except Exception:
             pass
 
+
     def run_sketch(self, block: bool = None, *,
                    py5_options: List = None, sketch_args: List = None) -> None:
         """$class_Sketch_run_sketch"""
-        if block is None:
-            block = not _in_ipython_session
-
         if not hasattr(self, '_instance'):
             raise RuntimeError(
                 ('py5 internal problem: did you create a class with an `__init__()` '
@@ -119,20 +121,9 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
                     block: bool,
                     py5_options: List[str] = None,
                     sketch_args: List[str] = None) -> None:
-        if _in_jupyter_zmq_shell:
-            display_pub = _ipython_shell.display_pub
-            parent_header = display_pub.parent_header
+        self._init_println_stream()
 
-            def zmq_shell_send_stream(name, text):
-                content = dict(name=name, text=text)
-                msg = display_pub.session.msg('stream', content, parent=parent_header)
-                display_pub.session.send(display_pub.pub_socket, msg, ident=b'stream')
-
-            _stream_redirect = zmq_shell_send_stream
-        else:
-            _stream_redirect = None
-
-        self._py5_methods = Py5Methods(self, _stream_redirect=_stream_redirect)
+        self._py5_methods = Py5Methods(self)
         self._py5_methods.set_functions(**methods)
         self._py5_methods.profile_functions(self._methods_to_profile)
         self._py5_methods.add_pre_hooks(self._pre_hooks_to_add)
@@ -147,14 +138,19 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
 
         try:
             _Sketch.runSketch(args, self._instance)
-        except Exception:
-            logger.exception('Java exception thrown by Sketch.runSketch')
+        except Exception as e:
+            self.println('Java exception thrown by Sketch.runSketch:\n' + str(e), stderr=True)
 
-        if block:
+        if sys.platform == 'darwin' and _in_ipython_session and block:
+            if (renderer := self._instance.getRendererName()) in ['JAVA2D', 'P2D', 'P3D', 'FX2D']:
+                self.println("On OSX, blocking is not allowed in Jupyter when using the", renderer, "renderer.", stderr=True)
+                block = False
+
+        if block or (block is None and not _in_ipython_session):
             # wait for the sketch to finish
             surface = self.get_surface()
             if surface._instance is not None:
-                while not surface.is_stopped():
+                while not surface.is_stopped() and not hasattr(self, '_shutdown_initiated'):
                     time.sleep(0.25)
 
             # Wait no more than 1 second for any shutdown tasks to complete.
@@ -173,9 +169,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         super()._shutdown()
 
     def _terminate_sketch(self):
-        surface = self.get_surface()
-        if surface._instance is not None:
-            surface.stop_thread()
+        self._instance.noLoop()
+        self._shutdown_initiated = True
         self._shutdown()
 
     def _add_pre_hook(self, method_name, hook_name, function):
@@ -236,7 +231,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             # Sketch has not been run yet
             return False
         else:
-            return not surface.is_stopped()
+            return not surface.is_stopped() and not hasattr(self, '_shutdown_initiated')
     is_running: bool = property(fget=_get_is_running)
 
     def _get_is_dead(self) -> bool:  # @decorator
@@ -245,7 +240,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
         if surface._instance is None:
             # Sketch has not been run yet
             return False
-        return surface.is_stopped()
+        return surface.is_stopped() or hasattr(self, '_shutdown_initiated')
     is_dead: bool = property(fget=_get_is_dead)
 
     def _get_is_dead_from_error(self) -> bool:  # @decorator
@@ -299,9 +294,11 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, Py5Base):
             what = what[:first] + numprefix + numstr + what[last:]
         return what
 
-    def save_frame(self, filename: Union[str, Path], *, format: str = None, drop_alpha: bool = True, use_thread: bool = True, **params) -> None:
+    def save_frame(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
         """$class_Sketch_save_frame"""
-        self.save(self._insert_frame(str(filename)), format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
+        if not isinstance(filename, BytesIO):
+            filename = self._insert_frame(str(filename))
+        self.save(filename, format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
 
     # *** Py5Image methods ***
 

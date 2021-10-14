@@ -26,16 +26,14 @@ def setup():
     s.vertex(30, 75)
     s.end_shape(py5.CLOSE)
 
-    print(s.is2d(), s.is3d())
+    py5.println(s.is2d(), s.is3d())
     py5.shape(s)
 
 @@ example
 image = Py5Shape_is2d_1.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     s = py5.create_shape()
     s.begin_shape()
     s.vertex(30, 20)
@@ -44,5 +42,5 @@ def setup():
     s.vertex(30, 75)
     s.end_shape(py5.CLOSE)
 
-    print(s.is2d(), s.is3d())
+    py5.println(s.is2d(), s.is3d())
     py5.shape(s)

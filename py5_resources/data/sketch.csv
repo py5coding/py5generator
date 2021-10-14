@@ -179,10 +179,10 @@ g,g,,dynamic variable,,,SKIP,"internal pgraphics object, use get_graphics to acc
 display_width,displayWidth,,dynamic variable,environment,,JAVA,
 display_height,displayHeight,,dynamic variable,environment,,JAVA,
 recorder,recorder,,dynamic variable,,,SKIP,
-args,args,@_return_list_str,dynamic variable,structure,,JAVA,
+pargs,args,@_return_list_str,dynamic variable,structure,,JAVA,
 DEFAULT_WIDTH,DEFAULT_WIDTH,,static field,,,JAVA,
 DEFAULT_HEIGHT,DEFAULT_HEIGHT,,static field,,,JAVA,
-pixels,pixels,,dynamic variable,image,pixels,JAVA,
+pixels,pixels,,dynamic variable,image,pixels,SKIP,
 width,width,,dynamic variable,environment,,JAVA,
 height,height,,dynamic variable,environment,,JAVA,
 pixel_width,pixelWidth,,dynamic variable,environment,,JAVA,
@@ -227,7 +227,8 @@ get_class,getClass,,method,,,SKIP,public methods that shouldn't be available to 
 notify,notify,,method,,,SKIP,public methods that shouldn't be available to users
 notify_all,notifyAll,,method,,,SKIP,public methods that shouldn't be available to users
 text,text,@_text_fix_str,method,typography,loading_displaying,JAVA,
-println,println,,method,output,text_area,SKIP,user should use python instead
+println,println,,method,output,text_area,PYTHON,override to provide special print tools for managing print output from a running sketch
+set_println_stream,,,method,output,text_area,PYTHON,special print tools for managing print output from a running sketch
 main,main,,method,,,SKIP,public methods that shouldn't be available to users
 exit_sketch,exit,,method,structure,,JAVA,renamed because of conflict with builtin python function
 get,get,@_return_py5image,method,image,pixels,JAVA,
@@ -252,7 +253,7 @@ split,split,,method,data,string_functions,SKIP,user should use python instead
 join,join,,method,data,string_functions,SKIP,user should use python instead
 trim,trim,,method,data,string_functions,SKIP,user should use python instead
 size,size,,method,environment,,JAVA,
-fill,fill,,method,color,setting,JAVA,
+fill,fill,@_convert_hex_color(),method,color,setting,JAVA,
 apply_filter,filter,,method,image,pixels,JAVA,filter method has name conflict with python builtin function; replaced with apply_filter method
 second,second,,static method,input,time_date,JAVA,
 match,match,,static method,data,string_functions,SKIP,user should use python instead
@@ -306,6 +307,7 @@ mouse_exited,mouseExited,,method,input,mouse,SKIP,method implemented by user
 mouse_wheel,mouseWheel,,method,input,mouse,SKIP,method implemented by user
 key_released,keyReleased,,method,input,keyboard,SKIP,method implemented by user
 key_typed,keyTyped,,method,input,keyboard,SKIP,method implemented by user
+movie_event,movieEvent,,method,,,SKIP,method implemented by user
 exit_actual,exitActual,,method,structure,,SKIP,replaced with exiting()
 no_loop,noLoop,,method,structure,,JAVA,
 load_pixels,loadPixels,,method,image,pixels,JAVA,
@@ -339,7 +341,7 @@ create_graphics,createGraphics,@_return_py5graphics,method,rendering,,JAVA,this 
 create_image,createImage,@_return_py5image,method,image,,JAVA,
 image,image,@_auto_convert_to_py5image,method,image,loading_displaying,JAVA,
 handle_draw,handleDraw,,method,,,SKIP,public methods that shouldn't be available to users
-alpha,alpha,,method,color,creating_reading,JAVA,
+alpha,alpha,@_convert_hex_color(),method,color,creating_reading,JAVA,
 is_looping,isLooping,,method,,,SKIP,methods that are not part of the processing framework
 looping,looping,,unknown,,,SKIP,methods that are not part of the processing framework
 post_event,postEvent,,method,,,SKIP,public methods that shouldn't be available to users
@@ -424,21 +426,22 @@ hex,hex,,method,data,conversion,SKIP,user should use python instead
 unhex,unhex,,static method,data,conversion,SKIP,user should use python instead
 binary,binary,,method,data,conversion,SKIP,user should use python instead
 unbinary,unbinary,,static method,data,conversion,SKIP,user should use python instead
-color,color,,method,color,creating_reading,JAVA,
-lerp_color,lerpColor,,method,color,creating_reading,JAVA,
+color,color,@_convert_hex_color(),method,color,creating_reading,JAVA,
+lerp_color,lerpColor,"@_convert_hex_color(indices=[0, 1])",method,color,creating_reading,JAVA,
 blend_color,blendColor,,static method,color,creating_reading,SKIP,methods that are not part of the processing framework
 frame_moved,frameMoved,,method,,,SKIP,methods that are not part of the processing framework
 frame_resized,frameResized,,method,,,SKIP,methods that are not part of the processing framework
 run_sketch,runSketch,,static method,structure,,PYTHON,my implementation of run_sketch calls Processing's runSketch method after doing some setup stuff
 hide_menu_bar,hideMenuBar,,static method,,,SKIP,public methods that shouldn't be available to users
-begin_record,beginRecord,@_return_py5graphics,method,output,files,JAVA,
+begin_record,beginRecord,@_context_wrapper('end_record');@_return_py5graphics,method,output,files,JAVA,
 end_record,endRecord,,method,output,files,JAVA,
-begin_raw,beginRaw,@_return_py5graphics,method,output,files,JAVA,
+begin_raw,beginRaw,@_context_wrapper('end_raw');@_return_py5graphics,method,output,files,JAVA,
 end_raw,endRaw,,method,output,files,JAVA,
 begin_pgl,beginPGL,,method,,,SKIP,methods that are not part of the processing framework
 end_pgl,endPGL,,method,,,SKIP,methods that are not part of the processing framework
 hint,hint,,method,rendering,,JAVA,
-begin_shape,beginShape,,method,shape,vertex,JAVA,
+begin_shape,beginShape,@_context_wrapper('end_shape'),method,shape,vertex,JAVA,
+begin_closed_shape,beginShape,"@_context_wrapper('end_shape', exit_attr_args=('CLOSE',))",method,shape,vertex,JAVA,
 edge,edge,,method,,,SKIP,
 attrib_position,attribPosition,,method,,,SKIP,methods that are not part of the processing framework
 attrib_normal,attribNormal,,method,,,SKIP,methods that are not part of the processing framework
@@ -449,7 +452,7 @@ texture_wrap,textureWrap,,method,image,textures,JAVA,
 texture,texture,@_auto_convert_to_py5image,method,image,textures,JAVA,
 no_texture,noTexture,,method,image,textures,SKIP,
 vertex,vertex,,method,shape,vertex,JAVA,
-begin_contour,beginContour,,method,shape,vertex,JAVA,
+begin_contour,beginContour,@_context_wrapper('end_contour'),method,shape,vertex,JAVA,
 end_contour,endContour,,method,shape,vertex,JAVA,
 end_shape,endShape,,method,shape,vertex,JAVA,
 load_shape,loadShape,@_load_py5shape,method,shape,,JAVA,
@@ -495,7 +498,7 @@ text_leading,textLeading,,method,typography,attributes,JAVA,
 text_mode,textMode,,method,typography,attributes,JAVA,
 text_size,textSize,,method,typography,attributes,JAVA,
 text_width,textWidth,@_text_fix_str,method,typography,attributes,JAVA,
-push_matrix,pushMatrix,,method,transform,,JAVA,
+push_matrix,pushMatrix,@_context_wrapper('pop_matrix'),method,transform,,JAVA,
 pop_matrix,popMatrix,,method,transform,,JAVA,
 translate,translate,,method,transform,,JAVA,
 rotate_x,rotateX,,method,transform,,JAVA,
@@ -508,7 +511,7 @@ apply_matrix,applyMatrix,,method,transform,,JAVA,this and all of the matrix func
 get_matrix,getMatrix,@ _get_matrix_wrapper,method,transform,,JAVA,this and all of the matrix functions need to be re-implemented using numpy
 set_matrix,setMatrix,,method,transform,,JAVA,this and all of the matrix functions need to be re-implemented using numpy
 print_matrix,printMatrix,,method,transform,,JAVA,
-begin_camera,beginCamera,,method,lights_camera,camera,JAVA,
+begin_camera,beginCamera,@_context_wrapper('end_camera'),method,lights_camera,camera,JAVA,
 end_camera,endCamera,,method,lights_camera,camera,JAVA,
 camera,camera,,method,lights_camera,camera,JAVA,
 print_camera,printCamera,,method,lights_camera,camera,JAVA,
@@ -522,21 +525,21 @@ screen_z,screenZ,,method,lights_camera,coordinates,JAVA,
 model_x,modelX,,method,lights_camera,coordinates,JAVA,
 model_y,modelY,,method,lights_camera,coordinates,JAVA,
 model_z,modelZ,,method,lights_camera,coordinates,JAVA,
-push_style,pushStyle,,method,structure,,JAVA,
+push_style,pushStyle,@_context_wrapper('pop_style'),method,structure,,JAVA,
 pop_style,popStyle,,method,structure,,JAVA,
 style,style,,method,,,SKIP,public methods that shouldn't be available to users
 stroke_weight,strokeWeight,,method,shape,attributes,JAVA,
 stroke_join,strokeJoin,,method,shape,attributes,JAVA,
 stroke_cap,strokeCap,,method,shape,attributes,JAVA,
 no_stroke,noStroke,,method,color,setting,JAVA,
-stroke,stroke,,method,color,setting,JAVA,
+stroke,stroke,@_convert_hex_color(),method,color,setting,JAVA,
 no_tint,noTint,,method,image,loading_displaying,JAVA,
-tint,tint,,method,image,loading_displaying,JAVA,
+tint,tint,@_convert_hex_color(),method,image,loading_displaying,JAVA,
 no_fill,noFill,,method,color,setting,JAVA,
-ambient,ambient,,method,lights_camera,material_properties,JAVA,
-specular,specular,,method,lights_camera,material_properties,JAVA,
+ambient,ambient,@_convert_hex_color(),method,lights_camera,material_properties,JAVA,
+specular,specular,@_convert_hex_color(),method,lights_camera,material_properties,JAVA,
 shininess,shininess,,method,lights_camera,material_properties,JAVA,
-emissive,emissive,,method,lights_camera,material_properties,JAVA,
+emissive,emissive,@_convert_hex_color(),method,lights_camera,material_properties,JAVA,
 lights,lights,,method,lights_camera,lights,JAVA,
 no_lights,noLights,,method,lights_camera,lights,JAVA,
 ambient_light,ambientLight,,method,lights_camera,lights,JAVA,
@@ -545,13 +548,13 @@ point_light,pointLight,,method,lights_camera,lights,JAVA,
 spot_light,spotLight,,method,lights_camera,lights,JAVA,
 light_falloff,lightFalloff,,method,lights_camera,lights,JAVA,
 light_specular,lightSpecular,,method,lights_camera,lights,JAVA,
-background,background,@_auto_convert_to_py5image,method,color,setting,JAVA,
+background,background,@_auto_convert_to_py5image;@_convert_hex_color(),method,color,setting,JAVA,
 color_mode,colorMode,,method,color,setting,JAVA,
-green,green,,method,color,creating_reading,JAVA,
-blue,blue,,method,color,creating_reading,JAVA,
-hue,hue,,method,color,creating_reading,JAVA,
-saturation,saturation,,method,color,creating_reading,JAVA,
-brightness,brightness,,method,color,creating_reading,JAVA,
+green,green,@_convert_hex_color(),method,color,creating_reading,JAVA,
+blue,blue,@_convert_hex_color(),method,color,creating_reading,JAVA,
+hue,hue,@_convert_hex_color(),method,color,creating_reading,JAVA,
+saturation,saturation,@_convert_hex_color(),method,color,creating_reading,JAVA,
+brightness,brightness,@_convert_hex_color(),method,color,creating_reading,JAVA,
 show_depth_warning,showDepthWarning,,static method,,,SKIP,public methods that shouldn't be available to users
 show_depth_warning_xyz,showDepthWarningXYZ,,static method,,,SKIP,public methods that shouldn't be available to users
 show_method_warning,showMethodWarning,,static method,,,SKIP,public methods that shouldn't be available to users
@@ -568,9 +571,9 @@ day,day,,static method,input,time_date,JAVA,
 hour,hour,,static method,input,time_date,JAVA,
 minute,minute,,static method,input,time_date,JAVA,
 year,year,,static method,input,time_date,JAVA,
-red,red,,method,color,creating_reading,JAVA,
+red,red,@_convert_hex_color(),method,color,creating_reading,JAVA,
 set_size,setSize,,method,,,SKIP,public methods that shouldn't be available to users
-push,push,,method,structure,,JAVA,
+push,push,@_context_wrapper('pop'),method,structure,,JAVA,
 pop,pop,,method,structure,,JAVA,
 link,link,,method,,,SKIP,public methods that shouldn't be available to users
 use_py5_methods,usePy5Methods,,method,,,SKIP,public methods that shouldn't be available to users
@@ -613,3 +616,6 @@ get_success,getSuccess,,method,,,SKIP,used to determine if sketch had an error
 noise_mode,,,method,math,random,PYTHON,implemented in math.py and used to switch between noise algorithms
 SIMPLEX_NOISE,,,static field,,,PYTHON,static constants for noise_mode
 PERLIN_NOISE,,,static field,,,PYTHON,static constants for noise_mode
+py5_println,py5Println,,method,,,SKIP,"special print method for Java extensions to use py5's println method, which works well with Jupyter Notebooks"
+set_py5_icon_path,setPy5IconPath,,method,,,SKIP,used to set the path to the py5 window and taskbar icon
+get_renderer_name,getRendererName,,method,,,SKIP,used to map the renderer classpath to a user friendly name

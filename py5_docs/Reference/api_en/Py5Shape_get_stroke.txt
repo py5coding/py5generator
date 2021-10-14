@@ -27,4 +27,4 @@ def setup():
     py5.shape(s)
 
     stroke = s.get_stroke(0)
-    print(py5.red(stroke), py5.green(stroke), py5.blue(stroke)) # 200, 50, 50
+    py5.println(py5.red(stroke), py5.green(stroke), py5.blue(stroke)) # 200, 50, 50

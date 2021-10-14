@@ -15,16 +15,13 @@ v2: float - green or saturation value (depending on current color mode)
 v3: float - blue or brightness value (depending on current color mode)
 
 @@ description
-Sets the specular color for lights. Like :doc:`fill`, it affects only the elements which are created after it in the code. Specular refers to light which bounces off a surface in a preferred direction (rather than bouncing in all directions like a diffuse light) and is used for creating highlights. The specular quality of a light interacts with the specular material qualities set through the :doc:`specular` and :doc:`shininess` functions.
+Sets the specular color for lights. Like :doc:`sketch_fill`, it affects only the elements which are created after it in the code. Specular refers to light which bounces off a surface in a preferred direction (rather than bouncing in all directions like a diffuse light) and is used for creating highlights. The specular quality of a light interacts with the specular material qualities set through the :doc:`sketch_specular` and :doc:`sketch_shininess` functions.
 
 @@ example
 image = Sketch_light_specular_0.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.background(0)
     py5.no_stroke()
     py5.directional_light(102, 102, 102, 0, 0, -1)

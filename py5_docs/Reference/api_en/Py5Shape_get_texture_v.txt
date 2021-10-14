@@ -13,16 +13,13 @@ get_texture_v(index: int, /) -> float
 index: int - vertex index
 
 @@ description
-Get the vertical texture mapping coordinate for a particular vertex. Returned values will always range from 0 to 1, regardless of what the Sketch's :doc:`texture_mode` setting is.
+Get the vertical texture mapping coordinate for a particular vertex. Returned values will always range from 0 to 1, regardless of what the Sketch's :doc:`sketch_texture_mode` setting is.
 
 @@ example
 image = Py5Shape_get_texture_v_0.png
 
-def settings():
-    py5.size(100, 100, py5.P2D)
-
-
 def setup():
+    py5.size(100, 100, py5.P2D)
     img = py5.load_image("tower.jpg")
     s = py5.create_shape()
     s.begin_shape()
@@ -38,4 +35,4 @@ def setup():
     for i in range(s.get_vertex_count()):
         u = s.get_texture_u(i)
         v = s.get_texture_v(i)
-        print(f"vertex {i}: u = {u} v = {v}")
+        py5.println(f"vertex {i}: u = {u} v = {v}")

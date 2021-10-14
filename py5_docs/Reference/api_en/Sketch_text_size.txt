@@ -13,7 +13,7 @@ text_size(size: float, /) -> None
 size: float - the size of the letters in units of pixels
 
 @@ description
-Sets the current font size. This size will be used in all subsequent calls to the :doc:`text` function. Font size is measured in units of pixels.
+Sets the current font size. This size will be used in all subsequent calls to the :doc:`sketch_text` function. Font size is measured in units of pixels.
 
 @@ example
 image = Sketch_text_size_0.png

@@ -15,18 +15,16 @@ source: NDArray[(2, 3), Float] - transformation matrix data
 source: NDArray[(4, 4), Float] - transformation matrix data
 
 @@ description
-Set the current matrix to the one specified through the parameter ``source``. Inside the Processing code it will call :doc:`reset_matrix` followed by :doc:`apply_matrix`. This will be very slow because :doc:`apply_matrix` will try to calculate the inverse of the transform, so avoid it whenever possible.
+Set the current matrix to the one specified through the parameter ``source``. Inside the Processing code it will call :doc:`sketch_reset_matrix` followed by :doc:`sketch_apply_matrix`. This will be very slow because :doc:`sketch_apply_matrix` will try to calculate the inverse of the transform, so avoid it whenever possible.
 
 @@ example
 image = Sketch_set_matrix_0.png
 
 import numpy as np
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
 
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.no_fill()
     matrix = np.array([[0.866025, 0, 0.5, 0],
                        [0, 1, 0, 0],

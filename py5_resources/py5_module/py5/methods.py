@@ -18,25 +18,18 @@
 #
 # *****************************************************************************
 import sys
-import logging
+import re
 from pathlib import Path
 from collections import defaultdict
-from io import StringIO
-from contextlib import redirect_stderr, redirect_stdout
 from typing import Union
 import line_profiler
 
-from jpype import JImplements, JOverride, JString, JClass
+from jpype import JImplements, JOverride, JString
 
 import stackprinter
 
+import py5_tools
 from . import custom_exceptions
-
-
-_JavaNullPointerException = JClass('java.lang.NullPointerException')
-
-logger = logging.getLogger(__name__)
-
 
 # *** stacktrace configuration ***
 # set stackprinter color style. Default is plaintext. Other choices are darkbg,
@@ -44,15 +37,18 @@ logger = logging.getLogger(__name__)
 _stackprinter_style = 'plaintext'
 # prune tracebacks to only show only show stack levels in the user's py5 code.
 _prune_tracebacks = True
-_module_install_dir = str(Path(__file__).parent)
 
+_MODULE_INSTALL_DIR = str(Path(__file__).parent)
+_PY5TOOLS_MODULE_INSTALL_DIR = str(Path(py5_tools.__file__).parent)
+
+_PY5_STATIC_CODE_FILENAME_REGEX = re.compile(r'File "[^\"]*?_PY5_STATIC_(SETUP|SETTINGS|FRAMEWORK)_CODE_\.py", line \d+, in .*')
 
 _EXCEPTION_MSGS = {
     **custom_exceptions.CUSTOM_EXCEPTION_MSGS,
 }
 
 
-def _exception_msg(exc_type_name, exc_msg, py5info):
+def _exception_msg(println, exc_type_name, exc_msg, py5info):
     try:
         msg = _EXCEPTION_MSGS.get(exc_type_name, exc_msg)
         if isinstance(msg, str):
@@ -60,10 +56,10 @@ def _exception_msg(exc_type_name, exc_msg, py5info):
         elif callable(msg):
             return msg(exc_type_name, exc_msg, py5info)
         else:
-            logger.error(f'unknown exception msg type for {exc_type_name}: {type(msg).__name__}')
+            println(f'unknown exception msg type for {exc_type_name}: {type(msg).__name__}', stderr=True)
             return exc_msg
     except Exception as e:
-        logger.error(f'error generating exception msg for {exc_type_name}: {e}')
+        println(f'error generating exception msg for {exc_type_name}: {e}', stderr=True)
         return exc_msg
 
 
@@ -71,7 +67,7 @@ def register_exception_msg(exc_type_name: str, msg: Union[str, callable]):
     _EXCEPTION_MSGS[exc_type_name] = msg
 
 
-def handle_exception(exc_type, exc_value, exc_tb):
+def handle_exception(println, exc_type, exc_value, exc_tb):
     py5info = []
     try:
         if _prune_tracebacks and hasattr(exc_tb, 'tb_next'):
@@ -80,8 +76,13 @@ def handle_exception(exc_type, exc_value, exc_tb):
             tb = exc_tb.tb_next
             while hasattr(tb, 'tb_next') and hasattr(tb, 'tb_frame'):
                 f_code = tb.tb_frame.f_code
-                if f_code.co_filename.startswith(_module_install_dir):
-                    py5info.append((Path(f_code.co_filename[(len(_module_install_dir) + 1):]).parts,
+                if f_code.co_filename.startswith(_MODULE_INSTALL_DIR):
+                    py5info.append((Path(f_code.co_filename[(len(_MODULE_INSTALL_DIR) + 1):]).parts,
+                                    f_code.co_name))
+                    if trim_tb is None:
+                        trim_tb = prev_tb
+                elif f_code.co_filename.startswith(_PY5TOOLS_MODULE_INSTALL_DIR):
+                    py5info.append((Path(f_code.co_filename[(len(_PY5TOOLS_MODULE_INSTALL_DIR) + 1):]).parts,
                                     f_code.co_name))
                     if trim_tb is None:
                         trim_tb = prev_tb
@@ -90,20 +91,25 @@ def handle_exception(exc_type, exc_value, exc_tb):
             if trim_tb:
                 trim_tb.tb_next = None
     except Exception as e:
-        logger.critical(f'Exception thrown while examining error traceback: {str(e)}')
+        println(f'Exception thrown while examining error traceback: {str(e)}', stderr=True)
 
     errmsg = stackprinter.format(
         thing=(exc_type, exc_value, exc_tb.tb_next),
         show_vals='line',
         style=_stackprinter_style,
         suppressed_paths=[r"lib/python.*?/site-packages/numpy/",
-                          r"lib/python.*?/site-packages/py5/"])
+                          r"lib/python.*?/site-packages/py5/",
+                          r"lib/python.*?/site-packages/py5tools/"])
 
     if _prune_tracebacks:
         errmsg = errmsg.replace(str(exc_value),
-                                _exception_msg(exc_type.__name__, str(exc_value), py5info))
+                                _exception_msg(println, exc_type.__name__, str(exc_value), py5info))
 
-    logger.critical(errmsg)
+        m = _PY5_STATIC_CODE_FILENAME_REGEX.search(errmsg)
+        if m:
+            errmsg = "py5 encountered an error in your code:" + errmsg[m.span()[1]:]
+
+    println(errmsg, stderr=True)
 
     sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
 
@@ -111,10 +117,8 @@ def handle_exception(exc_type, exc_value, exc_tb):
 @JImplements('py5.core.Py5Methods')
 class Py5Methods:
 
-    def __init__(self, sketch, _stream_redirect=None):
+    def __init__(self, sketch):
         self._sketch = sketch
-        self._stream_redirect = _stream_redirect
-
         self._functions = dict()
         self._pre_hooks = defaultdict(dict)
         self._post_hooks = defaultdict(dict)
@@ -179,28 +183,6 @@ class Py5Methods:
 
     @JOverride
     def run_method(self, method_name, params):
-        if self._stream_redirect:
-            return self._stream_redirect_run_method(method_name, params)
-        else:
-            return self._run_method(method_name, params)
-
-    def _stream_redirect_run_method(self, method_name, params):
-        stdout, stderr = StringIO(), StringIO()
-
-        with redirect_stdout(stdout), redirect_stderr(stderr):
-            retval = self._run_method(method_name, params)
-
-        stdout_val = stdout.getvalue()
-        if stdout_val:
-            self._stream_redirect('stdout', stdout_val)
-
-        stderr_val = stderr.getvalue()
-        if stderr_val:
-            self._stream_redirect('stderr', stderr_val)
-
-        return retval
-
-    def _run_method(self, method_name, params):
         try:
             if method_name in self._functions:
                 # first run the pre-hooks, if any
@@ -217,17 +199,19 @@ class Py5Methods:
                         hook(self._sketch)
             return True
         except Exception:
-            handle_exception(*sys.exc_info())
+            handle_exception(self._sketch.println, *sys.exc_info())
             self._sketch._terminate_sketch()
             return False
 
     @JOverride
+    def py5_println(self, text, stderr):
+        self._sketch.println(text, stderr=stderr)
+
+    @JOverride
     def shutdown(self):
-        logger.info('shutdown initiated')
         try:
             self._sketch._shutdown()
             self._is_terminated = True
             self.terminate_hooks()
-            logger.info('shutdown complete')
         except Exception:
-            logger.exception('exception in sketch shutdown sequence')
+            self._sketch.println('exception in sketch shutdown sequence', stderr=True)

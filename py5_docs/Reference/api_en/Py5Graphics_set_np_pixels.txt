@@ -21,7 +21,7 @@ This method makes its own calls to :doc:`py5graphics_load_np_pixels` and :doc:`p
 
 This method exists because setting the array contents with the code ``g.np_pixels = array`` will cause an error, while the correct syntax, ``g.np_pixels[:] = array``, might also be unintuitive for beginners.
 
-This method is the same as :doc:`set_np_pixels` but linked to a ``Py5Graphics`` object.
+This method is the same as :doc:`sketch_set_np_pixels` but linked to a ``Py5Graphics`` object.
 
 @@ example
 image = Py5Graphics_set_np_pixels_0.png

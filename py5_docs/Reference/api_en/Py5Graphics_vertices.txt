@@ -17,4 +17,4 @@ Create a collection of vertices. The purpose of this method is to provide an alt
 
 The ``coordinates`` parameter should be a numpy array with one row for each vertex. There should be two or three columns for 2D or 3D points, respectively.
 
-This method is the same as :doc:`vertices` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`vertices`.
+This method is the same as :doc:`sketch_vertices` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_vertices`.

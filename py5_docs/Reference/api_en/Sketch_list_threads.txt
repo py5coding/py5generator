@@ -12,11 +12,11 @@ List the names of all of the currently running threads. The names of previously 
 
 @@ example
 def thread1():
-    print('thread 1')
+    py5.println('thread 1')
 
 
 def thread2():
-    print('thread 2')
+    py5.println('thread 2')
 
 
 def setup():
@@ -26,6 +26,6 @@ def setup():
 
 
 def draw():
-    print('running threads:', ', '.join(py5.list_threads()))
+    py5.println('running threads:', ', '.join(py5.list_threads()))
     if py5.frame_count == 50:
         py5.stop_all_threads()

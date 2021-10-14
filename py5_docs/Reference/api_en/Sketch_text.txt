@@ -36,11 +36,11 @@ y: float - y-coordinate of text
 z: float - z-coordinate of text
 
 @@ description
-Draws text to the screen. Displays the information specified in the first parameter on the screen in the position specified by the additional parameters. A default font will be used unless a font is set with the :doc:`text_font` function and a default size will be used unless a font is set with :doc:`text_size`. Change the color of the text with the :doc:`fill` function. The text displays in relation to the :doc:`text_align` function, which gives the option to draw to the left, right, and center of the coordinates.
+Draws text to the screen. Displays the information specified in the first parameter on the screen in the position specified by the additional parameters. A default font will be used unless a font is set with the :doc:`sketch_text_font` function and a default size will be used unless a font is set with :doc:`sketch_text_size`. Change the color of the text with the :doc:`sketch_fill` function. The text displays in relation to the :doc:`sketch_text_align` function, which gives the option to draw to the left, right, and center of the coordinates.
 
-The ``x2`` and ``y2`` parameters define a rectangular area to display within and may only be used with string data. When these parameters are specified, they are interpreted based on the current :doc:`rect_mode` setting. Text that does not fit completely within the rectangle specified will not be drawn to the screen.
+The ``x2`` and ``y2`` parameters define a rectangular area to display within and may only be used with string data. When these parameters are specified, they are interpreted based on the current :doc:`sketch_rect_mode` setting. Text that does not fit completely within the rectangle specified will not be drawn to the screen.
 
-Note that py5 lets you call ``text()`` without first specifying a Py5Font with :doc:`text_font`. In that case, a generic sans-serif font will be used instead. (See the third example.)
+Note that py5 lets you call ``text()`` without first specifying a Py5Font with :doc:`sketch_text_font`. In that case, a generic sans-serif font will be used instead. (See the third example.)
 
 @@ example
 image = Sketch_text_0.png
@@ -56,11 +56,8 @@ def setup():
 @@ example
 image = Sketch_text_1.png
 
-def settings():
-    py5.size(100, 100, py5.P3D)
-
-
 def setup():
+    py5.size(100, 100, py5.P3D)
     py5.text_size(32)
     py5.fill(0, 102, 153, 204)
     py5.text("word", 12, 45, -30)  # specify a z-axis value

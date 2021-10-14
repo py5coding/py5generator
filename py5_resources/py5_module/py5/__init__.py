@@ -20,19 +20,19 @@
 # -*- coding: utf-8 -*-
 # *** FORMAT PARAMS ***
 """
-py5 makes Processing available to the CPython interpreter using JPype.
+py5 is a version of Processing for Python 3.8+. It makes the Processing Java libraries available to the CPython interpreter using JPype.
 """
 import sys
 from pathlib import Path
-import logging
+from io import BytesIO
 import inspect
 from typing import overload, Any, Callable, Union, Dict, List, Tuple  # noqa
 from nptyping import NDArray, Float, Int  # noqa
 
-import json  # noqa
 import numpy as np  # noqa
 from PIL import Image  # noqa
 from jpype import JClass  # noqa
+import jpype.imports  # noqa
 from jpype.types import JArray, JString, JFloat, JInt, JChar  # noqa
 
 import py5_tools
@@ -43,13 +43,27 @@ if not py5_tools.is_jvm_running():
     py5_tools.add_jars(str(base_path / 'jars'))
     # if the cwd has a jars subdirectory, add that next
     py5_tools.add_jars(Path('jars'))
-    py5_tools.jvm._start_jvm()
+    try:
+        py5_tools.jvm._start_jvm()
+        started_jvm = True
+    except:
+        started_jvm = False
+
+    debug_info = py5_tools.get_jvm_debug_info()
+    java_version = debug_info['jvm version'][0]
+    if not started_jvm or java_version < 11:
+        print("py5 is unable to start a Java 11 Virtual Machine.", file=sys.stderr)
+        print("This library requires Java 11 to be installed and a properly set JAVA_HOME environment variable.", file=sys.stderr)
+        print("Here is some debug info about your installation that might help you identify the source of this problem.", file=sys.stderr)
+        print(debug_info, file=sys.stderr)
+        raise RuntimeError("py5 is unable to start Java 11 Virtual Machine")
 
 from .methods import register_exception_msg  # noqa
 from .sketch import Sketch, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Shape, Py5Font, Py5Promise, _in_ipython_session  # noqa
 from .render_helper import render_frame, render_frame_sequence, render, render_sequence  # noqa
 from .create_font_tool import create_font_file  # noqa
 from .image_conversion import register_image_conversion, NumpyImageArray  # noqa
+from py5_tools import split_setup as _split_setup
 from . import reference
 from . import java_conversion  # noqa
 try:
@@ -59,16 +73,15 @@ except ModuleNotFoundError:
     pass
 
 
-__version__ = '0.4a2.dev0'
+__version__ = '0.5a3.dev0'
 
-_PY5_USE_IMPORTED_MODE = py5_tools.imported.get_imported_mode()
-
-logger = logging.getLogger(__name__)
+_PY5_USE_IMPORTED_MODE = py5_tools.get_imported_mode()
 
 java_conversion.init_jpype_converters()
 
 sketch_module_members_code = None  # DELETE
 run_sketch_pre_run_code = None  # DELETE
+println = None # DELETE
 
 _py5sketch = Sketch()
 
@@ -80,11 +93,13 @@ def run_sketch(block: bool = None, *,
                sketch_args: List[str] = None,
                sketch_functions: Dict[str, Callable] = None) -> None:
     """$module_Sketch_run_sketch"""
-    if block is None:
-        block = not _in_ipython_session
-
-    sketch_functions = sketch_functions or inspect.stack()[1].frame.f_locals
-    functions = dict([(e, sketch_functions[e]) for e in reference.METHODS if e in sketch_functions and callable(sketch_functions[e])])
+    caller_globals = inspect.stack()[1].frame.f_globals
+    caller_locals = inspect.stack()[1].frame.f_locals
+    if sketch_functions:
+        functions = dict([(e, sketch_functions[e]) for e in reference.METHODS if e in sketch_functions and callable(sketch_functions[e])])
+    else:
+        functions = dict([(e, caller_locals[e]) for e in reference.METHODS if e in caller_locals and callable(caller_locals[e])])
+    functions = _split_setup.transform(functions, caller_globals, caller_locals, println, mode = 'imported' if _PY5_USE_IMPORTED_MODE else 'module')
 
     if not set(functions.keys()) & set(['settings', 'setup', 'draw']):
         print(("Unable to find settings, setup, or draw functions. "
@@ -100,7 +115,7 @@ def run_sketch(block: bool = None, *,
     if _py5sketch.is_dead:
         _py5sketch = Sketch()
 
-    _prepare_dynamic_variables(sketch_functions)
+    _prepare_dynamic_variables(caller_locals, caller_globals)
 
     _py5sketch._run_sketch(functions, block, py5_options, sketch_args)
 
@@ -117,7 +132,8 @@ def reset_py5() -> bool:
         _py5sketch = Sketch()
         if _PY5_USE_IMPORTED_MODE:
             caller_locals = inspect.stack()[1].frame.f_locals
-            _prepare_dynamic_variables(caller_locals)
+            caller_globals = inspect.stack()[1].frame.f_globals
+            _prepare_dynamic_variables(caller_locals, caller_globals)
         return True
     else:
         return False
@@ -151,7 +167,7 @@ if _PY5_USE_IMPORTED_MODE:
     __all__.extend(py5_tools.reference.PY5_DYNAMIC_VARIABLES)
 
 
-def _prepare_dynamic_variables(caller_locals):
+def _prepare_dynamic_variables(caller_locals, caller_globals):
     """prepare the dynamic variables for sketch execution.
 
     Before running the sketch, delete the module fields like `mouse_x` that need
@@ -161,11 +177,14 @@ def _prepare_dynamic_variables(caller_locals):
     When running in imported mode, place variables in the the caller's local
     namespace that link to the Sketch's dynamic variable property objects.
     """
-    for dvar in py5_tools.reference.PY5_DYNAMIC_VARIABLES:
-        if dvar in globals():
-            globals().pop(dvar)
+    for dvar in py5_tools.reference.PY5_DYNAMIC_VARIABLES + py5_tools.reference.PY5_PYTHON_DYNAMIC_VARIABLES:
+        if dvar in caller_globals:
+            caller_globals.pop(dvar)
         if _PY5_USE_IMPORTED_MODE:
-            caller_locals[dvar] = getattr(_py5sketch, '_get_' + dvar)
+            if dvar in py5_tools.reference.PY5_DYNAMIC_VARIABLES:
+                caller_locals[dvar] = getattr(_py5sketch, '_get_' + dvar)
+            else:
+                caller_locals[dvar] = getattr(_py5sketch, dvar)
 
 
-_prepare_dynamic_variables(locals())
+_prepare_dynamic_variables(locals(), globals())

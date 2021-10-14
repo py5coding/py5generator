@@ -10,14 +10,11 @@ processing_name = clear
 clear() -> None
 
 @@ description
-Clears the pixels within a buffer. Unlike the main graphics context (the display window), pixels in ``Py5Graphics`` objects created with :doc:`create_graphics` can be entirely or partially transparent. This function clears everything in a ``Py5Graphics`` object to make all of the pixels 100% transparent.
+Clears the pixels within a buffer. Unlike the main graphics context (the display window), pixels in ``Py5Graphics`` objects created with :doc:`sketch_create_graphics` can be entirely or partially transparent. This function clears everything in a ``Py5Graphics`` object to make all of the pixels 100% transparent.
 
 @@ example
-def settings():
-    py5.size(200, 200)
-
-
 def setup():
+    py5.size(200, 200)
     global pg
     pg = py5.create_graphics(py5.width, py5.height)
 

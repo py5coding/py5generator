@@ -10,14 +10,14 @@ pause_thread() -> None
 @@ description
 Pause a running Sketch. The Sketch window will be static and unresponsive. You can resume the Sketch with :doc:`py5surface_resume_thread`.
 
-The :doc:`frame_count` will not increment while the Sketch is paused.
+The :doc:`sketch_frame_count` will not increment while the Sketch is paused.
 
 Pausing a Sketch is not the same as stopping a Sketch, so this method will not change the results of :doc:`py5surface_is_stopped`.
 
 @@ example
 def draw():
     py5.rect(py5.random(py5.width), py5.random(py5.height), 10, 10)
-    print(py5.frame_count)
+    py5.println(py5.frame_count)
 
 py5.run_sketch(block=False)
 surface = py5.get_surface()

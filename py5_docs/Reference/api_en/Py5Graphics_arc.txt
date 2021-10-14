@@ -26,4 +26,4 @@ There are three ways to draw an arc; the rendering technique used is defined by 
 
 In some cases, the ``arc()`` function isn't accurate enough for smooth drawing. For example, the shape may jitter on screen when rotating slowly. If you're having an issue with how arcs are rendered, you'll need to draw the arc yourself with :doc:`py5graphics_begin_shape` & :doc:`py5graphics_end_shape` or a ``Py5Shape``.
 
-This method is the same as :doc:`arc` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`arc`.
+This method is the same as :doc:`sketch_arc` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_arc`.

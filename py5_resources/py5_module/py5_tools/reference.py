@@ -23,6 +23,7 @@
 py5_dir_str = None  # DELETE
 py5_all_str = None  # DELETE
 py5_dynamic_variables_str = None  # DELETE
+py5_python_dynamic_variables_str = None  # DELETE
 
 
 PY5_DIR_STR = [
@@ -35,4 +36,8 @@ PY5_ALL_STR = [
 
 PY5_DYNAMIC_VARIABLES = [
     {py5_dynamic_variables_str}
+]
+
+PY5_PYTHON_DYNAMIC_VARIABLES = [
+    {py5_python_dynamic_variables_str}
 ]

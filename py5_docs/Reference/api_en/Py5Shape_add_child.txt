@@ -18,11 +18,8 @@ who: Py5Shape - any variable of type Py5Shape
 Adds a child ``Py5Shape`` object to a parent ``Py5Shape`` object that is defined as a ``GROUP``. In the example, the three shapes ``path``, ``rectangle``, and ``circle`` are added to a parent ``Py5Shape`` variable named ``house`` that is a ``GROUP``.
 
 @@ example
-def settings():
-    py5.size(200, 200)
-
-
 def setup():
+    py5.size(200, 200)
     # make a group Py5Shape
     house = py5.create_shape(py5.GROUP)
 

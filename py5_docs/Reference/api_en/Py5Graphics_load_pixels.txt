@@ -12,7 +12,7 @@ load_pixels() -> None
 @@ description
 Loads the pixel data of the current Py5Graphics drawing surface into the :doc:`py5graphics_pixels` array. This function must always be called before reading from or writing to :doc:`py5graphics_pixels`. Subsequent changes to the Py5Graphics drawing surface will not be reflected in :doc:`py5graphics_pixels` until ``load_pixels()`` is called again.
 
-This method is the same as :doc:`load_pixels` but linked to a ``Py5Graphics`` object.
+This method is the same as :doc:`sketch_load_pixels` but linked to a ``Py5Graphics`` object.
 
 @@ example
 image = Py5Graphics_load_pixels_0.png
@@ -23,7 +23,7 @@ def setup():
     g.background(255, 0, 0)
     g.rect(10, 10, 40, 40)
     g.load_pixels()
-    yellow = py5.color(255, 255, 0)
+    yellow = "#FF0"
     for i in range(len(g.pixels) // 2):
         g.pixels[i] = yellow
     g.update_pixels()

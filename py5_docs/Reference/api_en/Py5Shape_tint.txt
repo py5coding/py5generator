@@ -25,21 +25,21 @@ z: float - blue or brightness value (depending on current color mode)
 @@ description
 Apply a color tint to a shape's texture map. The tint will be applied only to vertices after the call to ``tint()``. Use :doc:`py5shape_no_tint` to deactivate the tint.
 
-Images can be tinted to specified colors or made transparent by including an alpha value. To apply transparency to an image without affecting its color, use white as the tint color and specify an alpha value. For instance, ``tint(255, 128)`` will make an image 50% transparent (assuming the default alpha range of 0-255, which can be changed with :doc:`color_mode`).
+Images can be tinted to specified colors or made transparent by including an alpha value. To apply transparency to an image without affecting its color, use white as the tint color and specify an alpha value. For instance, ``tint(255, 128)`` will make an image 50% transparent (assuming the default alpha range of 0-255, which can be changed with :doc:`sketch_color_mode`).
 
-When using hexadecimal notation to specify a color, use "``0x``" before the values (e.g., ``0xFFCCFFAA``). The hexadecimal value must be specified with eight characters; the first two characters define the alpha component, and the remainder define the red, green, and blue components. 
+When using hexadecimal notation to specify a color, use "``0x``" before the values (e.g., ``0xFFCCFFAA``). The hexadecimal value must be specified with eight characters; the first two characters define the alpha component, and the remainder define the red, green, and blue components.
 
-The value for the gray parameter must be less than or equal to the current maximum value as specified by :doc:`color_mode`. The default maximum value is 255.
+When using web color notation to specify a color, create a four or seven character string beginning with the "``#``" character (e.g., ``"#FC3"`` or ``"#FFCC33"``). After the "``#``" character, the remainder of the string is similar to hexadecimal notation, but without an alpha component.
+
+The value for the gray parameter must be less than or equal to the current maximum value as specified by :doc:`sketch_color_mode`. The default maximum value is 255.
 
 The ``tint()`` function is also used to control the coloring of textures in 3D.
 
 @@ example
 image = Py5Shape_tint_0.png
 
-def settings():
-    py5.size(100, 100, py5.P2D)
-
 def setup():
+    py5.size(100, 100, py5.P2D)
     img = py5.load_image("tower.jpg")
     s = py5.create_shape()
     s.begin_shape()

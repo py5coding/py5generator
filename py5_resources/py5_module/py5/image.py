@@ -24,7 +24,7 @@ import functools
 from typing import overload, List, Union  # noqa
 
 from .base import Py5Base
-from .mixins import PixelMixin
+from .mixins import PixelPy5ImageMixin
 
 
 py5image_class_members_code = None  # DELETE
@@ -41,7 +41,7 @@ def _return_py5image(f):
     return decorated
 
 
-class Py5Image(PixelMixin, Py5Base):
+class Py5Image(PixelPy5ImageMixin, Py5Base):
     """$classdoc_Py5Image
     """
 
