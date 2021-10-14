@@ -18,17 +18,13 @@
 #
 # *****************************************************************************
 from pathlib import Path
-from io import StringIO
 import re
-import shlex
-import autopep8
 from typing import Union
 import string
 
 from . import util
 
 # TODO: don't forget about the docstrings!
-# TODO: refactor this, only translate_token is specific to this task, move rest to util
 
 CONSTANT_CHARACTERS = string.ascii_uppercase + string.digits + '_'
 
@@ -66,50 +62,15 @@ def translate_token(token):
 
 
 def translate_code(code):
-    tokens = shlex.shlex(code)
-    tokens.whitespace = ''
-    tokens.wordchars += '.'
-    tokens.commenters = ''
-    tokens.quotes = ''
-
-    out = StringIO()
-    in_comment = False
-    in_quote = None
-    for token in tokens:
-        if token in ["'", '"'] and not in_comment:
-            if not in_quote:
-                in_quote = token
-            elif in_quote and token == in_quote:
-                in_quote = None
-        elif token == '#':
-            in_comment = True
-        elif token == '\n':
-            in_comment = False
-            in_quote = None
-        elif not (in_comment or in_quote):
-            token = translate_token(token)
-
-        out.write(token)
-
-    return autopep8.fix_code(out.getvalue(), options=dict(aggressive=2))
+    util.translate_code(translate_token, code)
 
 
 def translate_file(src: Union[str, Path], dest: Union[str, Path]):
-    src = Path(src)
-    dest = Path(dest)
-
-    with open(src, 'r') as f:
-        new_code = translate_code(f.read())
-
-    if not dest.parent.exists():
-        dest.parent.mkdir(parents=True)
-
-    with open(dest, "w") as f:
-        f.write(new_code)
+    util.translate_file(translate_token, src, dest)
 
 
 def translate_dir(src: Union[str, Path], dest: Union[str, Path], ext='.pyde'):
-    util.batch_translate_dir(translate_file, src, dest, ext)
+    util.translate_dir(translate_token, src, dest, ext)
 
 
 __ALL__ = ['translate_token', 'translate_code', 'translate_file', 'translate_dir']
