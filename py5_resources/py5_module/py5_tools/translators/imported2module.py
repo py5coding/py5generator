@@ -18,58 +18,37 @@
 #
 # *****************************************************************************
 from pathlib import Path
-import re
 from typing import Union
-import string
+import re
+import os
 
 from . import util
-
-
-CONSTANT_CHARACTERS = string.ascii_uppercase + string.digits + '_'
-
-PY5_CLASS_LOOKUP = {
-    'PApplet': 'Sketch',
-    'PFont': 'Py5Font',
-    'PGraphics': 'Py5Graphics',
-    'PImage': 'Py5Image',
-    'PShader': 'Py5Shader',
-    'PShape': 'Py5Shape',
-    'PSurface': 'Py5Surface',
-}
-
-SNAKE_CASE_OVERRIDE = {
-    'None': 'None',
-    'True': 'True',
-    'False': 'False',
-    'println': 'print',
-}
+from .. import reference
 
 
 def translate_token(token):
-    if all([c in CONSTANT_CHARACTERS for c in list(token)]):
-        return token
-    if re.match(r'0x[\da-fA-F]{2,}', token):
-        return token
-    elif (stem := token.replace('()', '')) in PY5_CLASS_LOOKUP:
-        return token.replace(stem, PY5_CLASS_LOOKUP[stem])
-    elif token in SNAKE_CASE_OVERRIDE:
-        return SNAKE_CASE_OVERRIDE[token]
-    else:
-        token = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', token)
-        token = re.sub('([a-z0-9])([A-Z])', r'\1_\2', token)
-        return token.lower()
+    return 'py5.' + token if token in reference.PY5_DIR_STR else token
+
+
+def post_translate(code):
+    if not re.findall(r'^import py5' + chr(36), code, flags=re.MULTILINE):
+        code = 'import py5' + (3 * os.linesep) + code
+    if not re.findall(r'^run_sketch\([^)]*\)' + chr(36), code, flags=re.MULTILINE):
+        code += (3 * os.linesep) + 'py5.run_sketch()' + os.linesep
+
+    return code
 
 
 def translate_code(code):
-    util.translate_code(translate_token, code)
+    util.translate_code(translate_token, code, post_translate=post_translate)
 
 
 def translate_file(src: Union[str, Path], dest: Union[str, Path]):
-    util.translate_file(translate_token, src, dest)
+    util.translate_file(translate_token, src, dest, post_translate=post_translate)
 
 
-def translate_dir(src: Union[str, Path], dest: Union[str, Path], ext='.pyde'):
-    util.translate_dir(translate_token, src, dest, ext)
+def translate_dir(src: Union[str, Path], dest: Union[str, Path], ext='.py'):
+    util.translate_dir(translate_token, src, dest, ext, post_translate=post_translate)
 
 
 __ALL__ = ['translate_token', 'translate_code', 'translate_file', 'translate_dir']

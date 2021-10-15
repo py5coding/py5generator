@@ -71,6 +71,9 @@ setup(
             'run_sketch = py5_tools.tools.run_sketch:main',
             'py5cmd = py5_tools.tools.py5cmd:main',
             'py5utils = py5_tools.tools.py5utils:main',
+            'py5translate-module2imported = py5_tools.tools.py5translate_module2imported:main',
+            'py5translate-imported2module = py5_tools.tools.py5translate_imported2module:main',
+            'py5translate-processingpy2imported = py5_tools.tools.py5translate_processingpy2imported:main',
         ],
     },
     classifiers=[
