@@ -30,6 +30,8 @@ if sys.platform == 'darwin':
 else:
     AppHelper = None
 
+import stackprinter
+
 from . import jvm
 from .py5bot import py5bot
 from . import parsing
@@ -160,7 +162,25 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error):
         with open(sketch_path, 'r') as f:
             sketch_code = _CODE_FRAMEWORK.format(f.read(), exit_if_error)
 
-        sketch_ast = ast.parse(sketch_code, filename=sketch_path, mode='exec')
+        # does the code parse? if not, display an error message
+        try:
+            sketch_ast = ast.parse(sketch_code, filename=sketch_path, mode='exec')
+        except IndentationError as e:
+            msg = f'There is an indentation problem with your code on line {e.lineno}:\n'
+            arrow_msg = f'--> {e.lineno}    '
+            msg += f'{arrow_msg}{e.text}'
+            msg += ' ' * (len(arrow_msg) + e.offset - 1) + '^'
+            print(msg)
+            return
+        except Exception as e:
+            msg = stackprinter.format(e)
+            m = re.search(r'^SyntaxError:', msg, flags=re.MULTILINE)
+            if m:
+                msg = msg[m.start(0):]
+            msg = 'There is a problem with your code:\n' + msg
+            print(msg)
+            return
+
         problems = parsing.check_reserved_words(sketch_code, sketch_ast)
         if problems:
             msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your Sketch code'
