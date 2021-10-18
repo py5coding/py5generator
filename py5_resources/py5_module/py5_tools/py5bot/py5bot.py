@@ -142,10 +142,10 @@ def check_for_problems(code, filename):
     try:
         sketch_ast = ast.parse(code, filename=filename, mode='exec')
     except IndentationError as e:
-        msg = f'py5bot found an indentation problem with your code on line {e.lineno}:\n'
+        msg = f'There is an indentation problem with your code on line {e.lineno}:\n'
         arrow_msg = f'--> {e.lineno}    '
         msg += f'{arrow_msg}{e.text}'
-        msg += ' ' * (len(arrow_msg) + e.offset) + '^'
+        msg += ' ' * (len(arrow_msg) + e.offset - 1) + '^'
         return False, msg
     except Exception as e:
         msg = stackprinter.format(e)
