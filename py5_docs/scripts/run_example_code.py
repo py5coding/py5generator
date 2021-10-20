@@ -39,7 +39,7 @@ ONLY_RUN_EXAMPLES_WITH_IMAGES = False
 MAGIC_RENDERER_MAP = {
     'py5drawdxf': 'DXF',
     'py5drawpdf': 'PDF',
-    'py5drawsvg': 'SVG', 
+    'py5drawsvg': 'SVG',
 }
 
 # set the current working dir and put supporting files in data subdirectory
