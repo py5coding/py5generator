@@ -145,7 +145,7 @@ def check_for_problems(code, filename):
         msg = f'There is an indentation problem with your code on line {e.lineno}:\n'
         arrow_msg = f'--> {e.lineno}    '
         msg += f'{arrow_msg}{e.text}'
-        msg += ' ' * (len(arrow_msg) + e.offset - 1) + '^'
+        msg += ' ' * (len(arrow_msg) + e.offset) + '^'
         return False, msg
     except Exception as e:
         msg = stackprinter.format(e)

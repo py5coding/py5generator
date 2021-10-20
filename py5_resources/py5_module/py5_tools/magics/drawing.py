@@ -163,7 +163,7 @@ def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
         msg = f'There is an indentation problem with your code on line {e.lineno}:\n'
         arrow_msg = f'--> {e.lineno}    '
         msg += f'{arrow_msg}{e.text}'
-        msg += ' ' * (len(arrow_msg) + e.offset - 1) + '^'
+        msg += ' ' * (len(arrow_msg) + e.offset) + '^'
         print(msg)
         return None
     except Exception as e:

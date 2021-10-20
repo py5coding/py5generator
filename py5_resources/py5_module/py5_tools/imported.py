@@ -169,7 +169,7 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error):
             msg = f'There is an indentation problem with your code on line {e.lineno}:\n'
             arrow_msg = f'--> {e.lineno}    '
             msg += f'{arrow_msg}{e.text}'
-            msg += ' ' * (len(arrow_msg) + e.offset - 1) + '^'
+            msg += ' ' * (len(arrow_msg) + e.offset) + '^'
             print(msg)
             return
         except Exception as e:
