@@ -52,7 +52,7 @@ There are currently four basic ways to use py5. They are:
 The py5 library is created by the meta-programming project py5generator_. Therefore, the py5 code should not be changed manually. Any issues, etc, should be directed to the py5generator_ repository.
 
 The `py5 documentation website 
-<http://py5.ixora.io/>`_ provides basic tutorials and reference documentation. The website is very much a work in progress. The reference documentation is solid but the how-to's and tutorials need a lot of work.
+<https://py5.ixora.io/>`_ provides basic tutorials and reference documentation. The website is very much a work in progress. The reference documentation is solid but the how-to's and tutorials need a lot of work.
 
 .. _Processing: https://github.com/processing/processing4
 .. _JPype: https://github.com/jpype-project/jpype
