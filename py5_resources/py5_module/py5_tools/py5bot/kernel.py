@@ -72,7 +72,7 @@ class Py5BotKernel(Py5Kernel):
     shell_class = Type(Py5BotShell)
 
     implementation = 'py5bot'
-    implementation_version = '0.5a3.dev0'
+    implementation_version = '0.6.0-alpha.2'
 
 
 class Py5BotApp(IPKernelApp):

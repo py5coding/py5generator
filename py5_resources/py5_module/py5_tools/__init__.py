@@ -27,4 +27,4 @@ from .hooks import *  # noqa
 from . import translators  # noqa
 
 
-__version__ = '0.5a3.dev0'
+__version__ = '0.6.0-alpha.2'

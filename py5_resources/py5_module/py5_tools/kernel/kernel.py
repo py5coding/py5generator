@@ -73,7 +73,7 @@ class Py5Kernel(IPythonKernel):
                        *_PY5_HELP_LINKS]).tag(config=True)
 
     implementation = 'py5'
-    implementation_version = '0.5a3.dev0'
+    implementation_version = '0.6.0-alpha.2'
 
 
 class Py5App(IPKernelApp):
