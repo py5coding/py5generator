@@ -9,8 +9,8 @@ remap(value: float, start1: float, stop1: float, start2: float, stop2: float) ->
 
 @@ variables
 start1: float - lower bound of the value's current range
-start2: float - upper bound of the value's current range
-stop1: float - lower bound of the value's target range
+start2: float - lower bound of the value's target range
+stop1: float - upper bound of the value's current range
 stop2: float - upper bound of the value's target range
 value: float - the incoming value to be converted
 
