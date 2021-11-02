@@ -84,24 +84,24 @@ public class Sketch extends PApplet {
 
   public String getRendererName() {
     switch (sketchRenderer()) {
-      case JAVA2D:
-        return "JAVA2D";
-      case P2D:
-        return "P2D";
-      case P3D:
-        return "P3D";
-      case HIDDEN:
-        return "HIDDEN";
-      case FX2D:
-        return "FX2D";
-      case PDF:
-        return "PDF";
-      case SVG:
-        return "SVG";
-      case DXF:
-        return "DXF";
-      default:
-        return null;
+    case JAVA2D:
+      return "JAVA2D";
+    case P2D:
+      return "P2D";
+    case P3D:
+      return "P3D";
+    case HIDDEN:
+      return "HIDDEN";
+    case FX2D:
+      return "FX2D";
+    case PDF:
+      return "PDF";
+    case SVG:
+      return "SVG";
+    case DXF:
+      return "DXF";
+    default:
+      return null;
     }
   }
 
@@ -457,11 +457,39 @@ public class Sketch extends PApplet {
   }
 
   /*
+   * Vectorized Processing noise
+   */
+
+  public float[] noiseArray(float[] x) {
+    float[] out = new float[x.length];
+    for (int i = 0; i < x.length; ++i) {
+      out[i] = noise(x[i]);
+    }
+    return out;
+  }
+
+  public float[] noiseArray(float[] x, float[] y) {
+    float[] out = new float[x.length];
+    for (int i = 0; i < x.length; ++i) {
+      out[i] = noise(x[i], y[i]);
+    }
+    return out;
+  }
+
+  public float[] noiseArray(float[] x, float[] y, float[] z) {
+    float[] out = new float[x.length];
+    for (int i = 0; i < x.length; ++i) {
+      out[i] = noise(x[i], y[i], z[i]);
+    }
+    return out;
+  }
+
+  /*
    * Capture and restore pixel functions, used as a workaround for a Windows
    * problem. It alleviates the symptoms of bug #5 but is not a proper fix.
    */
 
-   protected void capturePixels(boolean alwaysOnTop) {
+  protected void capturePixels(boolean alwaysOnTop) {
     surface.setAlwaysOnTop(alwaysOnTop);
     loadPixels();
     pixelCapture = new int[pixels.length];

@@ -21,21 +21,12 @@ from typing import overload, Union, Any, List
 
 import numpy as np
 
-import noise
-
 
 class MathMixin:
 
-    SIMPLEX_NOISE = 1  # CODEBUILDER INCLUDE
-    PERLIN_NOISE = 2  # CODEBUILDER INCLUDE
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._NOISE_MODE = self.SIMPLEX_NOISE
-        self._NOISE_SEED = 0
-        self._NOISE_OCTAVES = 4
-        self._NOISE_PERSISTENCE = 0.5
-        self._NOISE_LACUNARITY = 2.0
+        self._instance = kwargs['instance']
         self._rng = np.random.default_rng()
 
     # *** BEGIN METHODS ***
@@ -269,69 +260,24 @@ class MathMixin:
         raise TypeError(f'No matching overloads found for Sketch.random_gaussian({types})')
 
     @overload
-    def noise(self, x: float, **kwargs) -> float:
+    def noise(self, x: float) -> float:
         """$class_Sketch_noise"""
         pass
 
     @overload
-    def noise(self, x: float, y: float, **kwargs) -> float:
+    def noise(self, x: float, y: float) -> float:
         """$class_Sketch_noise"""
         pass
 
     @overload
-    def noise(self, x: float, y: float, z: float, **kwargs) -> float:
+    def noise(self, x: float, y: float, z: float) -> float:
         """$class_Sketch_noise"""
         pass
 
-    @overload
-    def noise(self, x: float, y: float, z: float, w: float, **kwargs) -> float:
+    def noise(self, *args) -> float:
         """$class_Sketch_noise"""
-        pass
-
-    def noise(self, *args, **kwargs) -> float:
-        """$class_Sketch_noise"""
-        len_args = len(args)
-        noise_args = {
-            'octaves': self._NOISE_OCTAVES,
-            'persistence': self._NOISE_PERSISTENCE,
-            'lacunarity': self._NOISE_LACUNARITY,
-            'base': self._NOISE_SEED,
-            # this will override other parameters if specified by the user
-            **kwargs
-        }
-        noisef = lambda *x, **_: x[0]
-        if self._NOISE_MODE == self.PERLIN_NOISE:
-            if not len_args in [1, 2, 3]:
-                raise RuntimeError('Sorry, Perlin noise can only be generated in 1, 2, or 3 dimensions.')
-            noisef = {1: noise.pnoise1, 2: noise.pnoise2, 3: noise.pnoise3}[len_args]
-        elif self._NOISE_MODE == self.SIMPLEX_NOISE:
-            if not len_args in [1, 2, 3, 4]:
-                raise RuntimeError('Sorry, Simplex noise can only be generated in 1, 2, 3, or 4 dimensions.')
-            noisef = {1: noise.snoise2, 2: noise.snoise2, 3: noise.snoise3, 4: noise.snoise4}[len_args]
-            if len_args == 1:
-                args = args[0], 0
-            if len_args in [3, 4]:
-                del noise_args['base']
-        if any(isinstance(v, np.ndarray) for v in args):
-            noisef = np.vectorize(noisef)
-        return noisef(*args, **noise_args)
-
-    def noise_mode(self, mode: int) -> None:
-        """$class_Sketch_noise_mode"""
-        if mode in [self.PERLIN_NOISE, self.SIMPLEX_NOISE]:
-            self._NOISE_MODE = mode
-
-    def noise_detail(self, octaves: float = None, persistence: float = None,
-                     lacunarity: float = None) -> None:
-        """$class_Sketch_noise_detail"""
-        if octaves:
-            self._NOISE_OCTAVES = octaves
-        if persistence:
-            self._NOISE_PERSISTENCE = persistence
-        if lacunarity:
-            self._NOISE_LACUNARITY = lacunarity
-
-    def noise_seed(self, seed: int) -> None:
-        """$class_Sketch_noise_seed"""
-        # NOTE: perlin noise requires integer seeds
-        self._NOISE_SEED = seed
+        if any(isinstance(arg, np.ndarray) for arg in args):
+            arrays = np.broadcast_arrays(*args)
+            return np.array(self._instance.noiseArray(*[a.flatten() for a in arrays])).reshape(arrays[0].shape)
+        else:
+            return self._instance.noise(*args)

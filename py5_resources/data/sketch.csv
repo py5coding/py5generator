@@ -366,9 +366,10 @@ random_gaussian,randomGaussian,,method,math,random,PYTHON,implementation uses nu
 random_int,,,method,math,random,PYTHON,implementation uses numpy for performance reasons
 random_choice,,,method,math,random,PYTHON,implementation uses numpy for performance reasons
 random_seed,randomSeed,,method,math,random,PYTHON,implementation uses numpy for performance reasons
-noise,noise,,method,math,random,PYTHON,implementation uses python noise library for performance and increased functionality
-noise_detail,noiseDetail,,method,math,random,PYTHON,implementation uses python noise library for performance and increased functionality
-noise_seed,noiseSeed,,method,math,random,PYTHON,implementation uses python noise library for performance and increased functionality
+noise_array,noiseArray,,method,math,random,SKIP,vectorized noise for better performance
+noise,noise,,method,math,random,PYTHON,calls java but uses noiseArray when appropriate to support vectorization and better performance
+noise_detail,noiseDetail,,method,math,random,JAVA,
+noise_seed,noiseSeed,,method,math,random,JAVA,
 load_image,loadImage,,method,image,loading_displaying,PYTHON,
 request_image,requestImage,,method,image,loading_displaying,PYTHON,
 convert_image,,,method,image,loading_displaying,PYTHON,

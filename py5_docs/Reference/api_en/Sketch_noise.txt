@@ -5,14 +5,11 @@ category = math
 subcategory = random
 
 @@ signatures
-noise(x: float, **kwargs) -> float
-noise(x: float, y: float, **kwargs) -> float
-noise(x: float, y: float, z: float, **kwargs) -> float
-noise(x: float, y: float, z: float, w: float, **kwargs) -> float
+noise(x: float) -> float
+noise(x: float, y: float) -> float
+noise(x: float, y: float, z: float) -> float
 
 @@ variables
-kwargs - keyword arguments to override existing noise detail or noise seed settings
-w: float - w-coordinate in noise space
 x: float - x-coordinate in noise space
 y: float - y-coordinate in noise space
 z: float - z-coordinate in noise space
@@ -31,8 +28,6 @@ The actual noise structure is similar to that of an audio signal, in respect to 
 The nature of the noise values returned can be adjusted with :doc:`sketch_noise_mode`, :doc:`sketch_noise_seed`, and :doc:`sketch_noise_detail`.
 
 Another way to adjust the character of the resulting sequence is the scale of the input coordinates. As the function works within an infinite space, the value of the coordinates doesn't matter as such; only the distance between successive coordinates is important (such as when using ``noise()`` within a loop). As a general rule, the smaller the difference between coordinates, the smoother the resulting noise sequence. Steps of 0.005-0.03 work best for most applications, but this will differ depending on the use case and the noise settings.
-
-Py5's noise functionality is provided by the Python noise library. The noise library provides more advanced features than what is documented here. To use the more advanced features, import that library directly.
 
 Py5's ``noise()`` function can also accept numpy arrays as parameters. It will automatically vectorize the operations and use broadcasting when needed.
 
