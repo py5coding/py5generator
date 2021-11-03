@@ -25,7 +25,7 @@ Perlin Noise can be generated in 1, 2, or 3 dimensions and Simplex Noise can be 
 
 The actual noise structure is similar to that of an audio signal, in respect to the function's use of frequencies. Similar to the concept of harmonics in physics, both noise algorithms are computed over several octaves which are added together for the final result.
 
-The nature of the noise values returned can be adjusted with :doc:`sketch_noise_mode`, :doc:`sketch_noise_seed`, and :doc:`sketch_noise_detail`.
+The nature of the noise values returned can be adjusted with :doc:`sketch_noise_seed`, and :doc:`sketch_noise_detail`.
 
 Another way to adjust the character of the resulting sequence is the scale of the input coordinates. As the function works within an infinite space, the value of the coordinates doesn't matter as such; only the distance between successive coordinates is important (such as when using ``noise()`` within a loop). As a general rule, the smaller the difference between coordinates, the smoother the resulting noise sequence. Steps of 0.005-0.03 work best for most applications, but this will differ depending on the use case and the noise settings.
 
