@@ -370,8 +370,9 @@ noise_array,noiseArray,,method,math,random,SKIP,vectorized noise for better perf
 noise,noise,,method,math,random,PYTHON,calls java but uses noiseArray when appropriate to support vectorization and better performance
 noise_detail,noiseDetail,,method,math,random,JAVA,
 noise_seed,noiseSeed,,method,math,random,JAVA,
-os_noise,,,method,math,random,PYTHON,calls Java OpenSimplex2S
-os_noise_seed,,,method,math,random,PYTHON,
+os_noise,osNoise,,method,math,random,PYTHON,calls Java OpenSimplex2S
+os_noise_array,osNoiseArray,,method,math,random,SKIP,vectorized noise for better performance
+os_noise_seed,osNoiseSeed,,method,math,random,JAVA,
 load_image,loadImage,,method,image,loading_displaying,PYTHON,
 request_image,requestImage,,method,image,loading_displaying,PYTHON,
 convert_image,,,method,image,loading_displaying,PYTHON,

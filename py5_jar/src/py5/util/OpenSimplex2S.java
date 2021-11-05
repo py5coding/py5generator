@@ -323,34 +323,6 @@ public class OpenSimplex2S {
   }
 
   /*
-   * Extra py5 functions
-   */
-
-  public double[] noise2Array(double[] x, double[] y) {
-    double[] out = new double[x.length];
-    for (int i = 0; i < x.length; ++i) {
-      out[i] = noise2(x[i], y[i]);
-    }
-    return out;
-  }
-
-  public double[] noise3_ClassicArray(double[] x, double[] y, double[] z) {
-    double[] out = new double[x.length];
-    for (int i = 0; i < x.length; ++i) {
-      out[i] = noise3_Classic(x[i], y[i], y[i]);
-    }
-    return out;
-  }
-
-  public double[] noise4_ClassicArray(double[] x, double[] y, double[] z, double[] w) {
-    double[] out = new double[x.length];
-    for (int i = 0; i < x.length; ++i) {
-      out[i] = noise4_Classic(x[i], y[i], y[i], w[i]);
-    }
-    return out;
-  }
-
-  /*
    * Utility
    */
 

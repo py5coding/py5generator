@@ -39,6 +39,7 @@ import processing.core.PSurface;
 import processing.event.MouseEvent;
 import processing.opengl.PGraphicsOpenGL;
 import processing.opengl.PJOGL;
+import py5.util.OpenSimplex2S;
 
 public class Sketch extends PApplet {
 
@@ -48,6 +49,7 @@ public class Sketch extends PApplet {
   protected int exitActualCallCount = 0;
   protected String py5IconPath;
   protected int[] pixelCapture = null;
+  protected OpenSimplex2S osNoise = new OpenSimplex2S(0);
 
   public static final char CODED = PApplet.CODED;
 
@@ -480,6 +482,50 @@ public class Sketch extends PApplet {
     float[] out = new float[x.length];
     for (int i = 0; i < x.length; ++i) {
       out[i] = noise(x[i], y[i], z[i]);
+    }
+    return out;
+  }
+
+  /*
+   * Open Simplex noise
+   */
+
+  public void osNoiseSeed(long seed) {
+    osNoise = new OpenSimplex2S(seed);
+  }
+
+  public double osNoise(double x, double y) {
+    return osNoise.noise2(x, y);
+  }
+
+  public double osNoise(double x, double y, double z) {
+    return osNoise.noise3_Classic(x, y, z);
+  }
+
+  public double osNoise(double x, double y, double z, double w) {
+    return osNoise.noise4_Classic(x, y, z, w);
+  }
+
+  public double[] osNoiseArray(double[] x, double[] y) {
+    double[] out = new double[x.length];
+    for (int i = 0; i < x.length; ++i) {
+      out[i] = osNoise.noise2(x[i], y[i]);
+    }
+    return out;
+  }
+
+  public double[] osNoiseArray(double[] x, double[] y, double[] z) {
+    double[] out = new double[x.length];
+    for (int i = 0; i < x.length; ++i) {
+      out[i] = osNoise.noise3_Classic(x[i], y[i], y[i]);
+    }
+    return out;
+  }
+
+  public double[] osNoiseArray(double[] x, double[] y, double[] z, double[] w) {
+    double[] out = new double[x.length];
+    for (int i = 0; i < x.length; ++i) {
+      out[i] = osNoise.noise4_Classic(x[i], y[i], y[i], w[i]);
     }
     return out;
   }

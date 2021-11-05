@@ -5,7 +5,6 @@ category = math
 subcategory = random
 
 @@ signatures
-os_noise(x: float) -> float
 os_noise(x: float, y: float) -> float
 os_noise(x: float, y: float, z: float) -> float
 os_noise(x: float, y: float, z: float, w: float) -> float
