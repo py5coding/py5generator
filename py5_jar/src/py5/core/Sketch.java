@@ -494,38 +494,38 @@ public class Sketch extends PApplet {
     osNoise = new OpenSimplex2S(seed);
   }
 
-  public double osNoise(double x, double y) {
-    return osNoise.noise2(x, y);
+  public float osNoise(float x, float y) {
+    return (float) osNoise.noise2(x, y);
   }
 
-  public double osNoise(double x, double y, double z) {
-    return osNoise.noise3_Classic(x, y, z);
+  public float osNoise(float x, float y, float z) {
+    return (float) osNoise.noise3_Classic(x, y, z);
   }
 
-  public double osNoise(double x, double y, double z, double w) {
-    return osNoise.noise4_Classic(x, y, z, w);
+  public float osNoise(float x, float y, float z, float w) {
+    return (float) osNoise.noise4_Classic(x, y, z, w);
   }
 
-  public double[] osNoiseArray(double[] x, double[] y) {
-    double[] out = new double[x.length];
+  public float[] osNoiseArray(float[] x, float[] y) {
+    float[] out = new float[x.length];
     for (int i = 0; i < x.length; ++i) {
-      out[i] = osNoise.noise2(x[i], y[i]);
+      out[i] = (float) osNoise.noise2(x[i], y[i]);
     }
     return out;
   }
 
-  public double[] osNoiseArray(double[] x, double[] y, double[] z) {
-    double[] out = new double[x.length];
+  public float[] osNoiseArray(float[] x, float[] y, float[] z) {
+    float[] out = new float[x.length];
     for (int i = 0; i < x.length; ++i) {
-      out[i] = osNoise.noise3_Classic(x[i], y[i], y[i]);
+      out[i] = (float) osNoise.noise3_Classic(x[i], y[i], y[i]);
     }
     return out;
   }
 
-  public double[] osNoiseArray(double[] x, double[] y, double[] z, double[] w) {
-    double[] out = new double[x.length];
+  public float[] osNoiseArray(float[] x, float[] y, float[] z, float[] w) {
+    float[] out = new float[x.length];
     for (int i = 0; i < x.length; ++i) {
-      out[i] = osNoise.noise4_Classic(x[i], y[i], y[i], w[i]);
+      out[i] = (float) osNoise.noise4_Classic(x[i], y[i], y[i], w[i]);
     }
     return out;
   }
