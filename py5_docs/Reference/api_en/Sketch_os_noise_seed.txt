@@ -1,0 +1,14 @@
+@@ meta
+name = os_noise_seed()
+type = method
+category = math
+subcategory = random
+
+@@ signatures
+os_noise_seed(seed) -> None
+
+@@ variables
+seed - missing variable description
+
+@@ description
+The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.

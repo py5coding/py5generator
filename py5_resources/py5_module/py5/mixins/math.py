@@ -21,6 +21,9 @@ from typing import overload, Union, Any, List
 
 import numpy as np
 
+from jpype import JClass
+
+_OpenSimplex2S = JClass('py5.util.OpenSimplex2S')
 
 class MathMixin:
 
@@ -28,6 +31,7 @@ class MathMixin:
         super().__init__(*args, **kwargs)
         self._instance = kwargs['instance']
         self._rng = np.random.default_rng()
+        self._os_noise = _OpenSimplex2S(0)
 
     # *** BEGIN METHODS ***
 
@@ -281,3 +285,38 @@ class MathMixin:
             return np.array(self._instance.noiseArray(*[a.flatten() for a in arrays])).reshape(arrays[0].shape)
         else:
             return self._instance.noise(*args)
+
+    def os_noise_seed(self, seed) -> None:
+        """$class_Sketch_os_noise_seed"""
+        self._os_noise = _OpenSimplex2S(seed)
+
+    @overload
+    def os_noise(self, x: float) -> float:
+        """$class_Sketch_os_noise"""
+        pass
+
+    @overload
+    def os_noise(self, x: float, y: float) -> float:
+        """$class_Sketch_os_noise"""
+        pass
+
+    @overload
+    def os_noise(self, x: float, y: float, z: float) -> float:
+        """$class_Sketch_os_noise"""
+        pass
+
+    @overload
+    def os_noise(self, x: float, y: float, z: float, w: float) -> float:
+        """$class_Sketch_os_noise"""
+        pass
+
+    def os_noise(self, *args) -> float:
+        """$class_Sketch_os_noise"""
+        argcount = len(args)
+        if any(isinstance(arg, np.ndarray) for arg in args):
+            arrays = np.broadcast_arrays(*args)
+            fname = ['noise2Array', 'noise3_ClassicArray', 'noise4_ClassicArray'][len(args) - 2]
+            return np.array(getattr(self._os_noise, fname)(*[a.flatten() for a in arrays])).reshape(arrays[0].shape)
+        else:
+            fname = ['noise2', 'noise3_Classic', 'noise4_Classic'][len(args) - 2]
+            return getattr(self._os_noise, fname)(*args)
