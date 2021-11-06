@@ -10,10 +10,10 @@ os_noise(x: float, y: float, z: float) -> float
 os_noise(x: float, y: float, z: float, w: float) -> float
 
 @@ variables
-w: float - missing variable description
-x: float - missing variable description
-y: float - missing variable description
-z: float - missing variable description
+w: float - w-coordinate in noise space
+x: float - x-coordinate in noise space
+y: float - y-coordinate in noise space
+z: float - z-coordinate in noise space
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
