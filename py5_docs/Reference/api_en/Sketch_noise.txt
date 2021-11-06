@@ -5,9 +5,9 @@ category = math
 subcategory = random
 
 @@ signatures
-noise(x: float) -> float
-noise(x: float, y: float) -> float
-noise(x: float, y: float, z: float) -> float
+noise(x: float, /) -> float
+noise(x: float, y: float, /) -> float
+noise(x: float, y: float, z: float, /) -> float
 
 @@ variables
 x: float - x-coordinate in noise space

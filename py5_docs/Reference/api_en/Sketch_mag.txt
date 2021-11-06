@@ -5,8 +5,8 @@ category = math
 subcategory = calculation
 
 @@ signatures
-mag(a: float, b: float) -> float
-mag(a: float, b: float, c: float) -> float
+mag(a: float, b: float, /) -> float
+mag(a: float, b: float, c: float, /) -> float
 
 @@ variables
 a: float - first value

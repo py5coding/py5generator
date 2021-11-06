@@ -90,12 +90,12 @@ class MathMixin:
         return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1))
 
     @overload
-    def dist(cls, x1: float, y1: float, x2: float, y2: float) -> float:
+    def dist(cls, x1: float, y1: float, x2: float, y2: float, /) -> float:
         """$class_Sketch_dist"""
         pass
 
     @overload
-    def dist(cls, x1: float, y1: float, z1: float, x2: float, y2: float, z2: float) -> float:
+    def dist(cls, x1: float, y1: float, z1: float, x2: float, y2: float, z2: float, /) -> float:
         """$class_Sketch_dist"""
         pass
 
@@ -112,12 +112,12 @@ class MathMixin:
         return amt * (stop - start) + start
 
     @overload
-    def mag(cls, a: float, b: float) -> float:
+    def mag(cls, a: float, b: float, /) -> float:
         """$class_Sketch_mag"""
         pass
 
     @overload
-    def mag(cls, a: float, b: float, c: float) -> float:
+    def mag(cls, a: float, b: float, c: float, /) -> float:
         """$class_Sketch_mag"""
         pass
 
@@ -171,12 +171,12 @@ class MathMixin:
         pass
 
     @overload
-    def random(self, high: float) -> float:
+    def random(self, high: float, /) -> float:
         """$class_Sketch_random"""
         pass
 
     @overload
-    def random(self, low: float, high: float) -> float:
+    def random(self, low: float, high: float, /) -> float:
         """$class_Sketch_random"""
         pass
 
@@ -202,12 +202,12 @@ class MathMixin:
         pass
 
     @overload
-    def random_int(self, high: int) -> int:
+    def random_int(self, high: int, /) -> int:
         """$class_Sketch_random_int"""
         pass
 
     @overload
-    def random_int(self, low: int, high: int) -> int:
+    def random_int(self, low: int, high: int, /) -> int:
         """$class_Sketch_random_int"""
         pass
 
@@ -237,12 +237,12 @@ class MathMixin:
         pass
 
     @overload
-    def random_gaussian(self, loc: float) -> float:
+    def random_gaussian(self, loc: float, /) -> float:
         """$class_Sketch_random_gaussian"""
         pass
 
     @overload
-    def random_gaussian(self, loc: float, scale: float) -> float:
+    def random_gaussian(self, loc: float, scale: float, /) -> float:
         """$class_Sketch_random_gaussian"""
         pass
 
@@ -263,17 +263,17 @@ class MathMixin:
         raise TypeError(f'No matching overloads found for Sketch.random_gaussian({types})')
 
     @overload
-    def noise(self, x: float) -> float:
+    def noise(self, x: float, /) -> float:
         """$class_Sketch_noise"""
         pass
 
     @overload
-    def noise(self, x: float, y: float) -> float:
+    def noise(self, x: float, y: float, /) -> float:
         """$class_Sketch_noise"""
         pass
 
     @overload
-    def noise(self, x: float, y: float, z: float) -> float:
+    def noise(self, x: float, y: float, z: float, /) -> float:
         """$class_Sketch_noise"""
         pass
 
@@ -286,17 +286,17 @@ class MathMixin:
             return self._instance.noise(*args)
 
     @overload
-    def os_noise(self, x: float, y: float) -> float:
+    def os_noise(self, x: float, y: float, /) -> float:
         """$class_Sketch_os_noise"""
         pass
 
     @overload
-    def os_noise(self, x: float, y: float, z: float) -> float:
+    def os_noise(self, x: float, y: float, z: float, /) -> float:
         """$class_Sketch_os_noise"""
         pass
 
     @overload
-    def os_noise(self, x: float, y: float, z: float, w: float) -> float:
+    def os_noise(self, x: float, y: float, z: float, w: float, /) -> float:
         """$class_Sketch_os_noise"""
         pass
 

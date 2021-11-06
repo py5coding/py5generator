@@ -6,8 +6,8 @@ subcategory = random
 
 @@ signatures
 random_int() -> int
-random_int(high: int) -> int
-random_int(low: int, high: int) -> int
+random_int(high: int, /) -> int
+random_int(low: int, high: int, /) -> int
 
 @@ variables
 high: int - upper limit

@@ -6,8 +6,8 @@ subcategory = random
 
 @@ signatures
 random_gaussian() -> float
-random_gaussian(loc: float) -> float
-random_gaussian(loc: float, scale: float) -> float
+random_gaussian(loc: float, /) -> float
+random_gaussian(loc: float, scale: float, /) -> float
 
 @@ variables
 loc: float - average of randomly selected numbers
