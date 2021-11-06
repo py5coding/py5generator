@@ -49,7 +49,7 @@ public class Sketch extends PApplet {
   protected int exitActualCallCount = 0;
   protected String py5IconPath;
   protected int[] pixelCapture = null;
-  protected OpenSimplex2S osNoise = new OpenSimplex2S(0);
+  protected OpenSimplex2S osNoise = new OpenSimplex2S((long) (Math.random() * Long.MAX_VALUE));
 
   public static final char CODED = PApplet.CODED;
 
