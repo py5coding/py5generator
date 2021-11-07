@@ -16,7 +16,17 @@ y: float - y-coordinate in noise space
 z: float - z-coordinate in noise space
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Generate pseudo-random noise values for specific coodinates using the OpenSimplex 2 algorithm (smooth version / SuperSimplex). Noise functions are random sequence generators that produce a more natural, harmonic succession of numbers compared to the :doc:`sketch_random` method.
+
+In contrast to the :doc:`sketch_random` method, noise is defined in an n-dimensional space, in which each coordinate corresponds to a fixed pseudo-random value (fixed only for the lifespan of the program). The noise value can be animated by moving through the noise space, as demonstrated in the examples. Any dimension can also be interpreted as time. An easy way to animate the noise value is to pass the ``os_noise()`` method the :doc:`sketch_frame_count` divided by a scaling factor, as is done in a few of the examples.
+
+The generated noise values for this method will be between -1 and 1, and can be generated in 2, 3, or 4 dimensions. Py5 also provides the :doc:`sketch_noise` method, which generates noise using Processing's noise algorithm. That algorithm typically generates noise values between 0 and 1, and can be generated in 1, 2, or 3 dimensions. Be aware of both of these differences when modifying your code to switch from one to the other.
+
+The nature of the noise values returned can be adjusted with :doc:`sketch_os_noise_seed`.
+
+Another way to adjust the character of the resulting sequence is the scale of the input coordinates. As the method works within an infinite space, the value of the coordinates doesn't matter as such; only the distance between successive coordinates is important. As a general rule, the smaller the difference between coordinates, the smoother the resulting noise sequence. Steps of 0.005-0.03 work best for most applications, but this will differ depending on the use case and the noise settings.
+
+Py5's ``os_noise()`` method can also accept numpy arrays as parameters. It will use broadcasting when needed and calculate the values efficiently. Using numpy array parameters will be much faster and efficient than calling the ``os_noise()`` method repeatedly in a loop. See the examples to see how this can be done.
 
 @@ example
 image = Sketch_os_noise_0.png
