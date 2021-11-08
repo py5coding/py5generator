@@ -32,7 +32,6 @@ INSTALL_REQUIRES = [
     'ipywidgets>=7.6',
     'jpype1>=1.3',
     'line_profiler>=2.1.2',
-    'noise>=1.2',
     'nptyping>=1.4',
     'numpy>=1.19',
     'pandas>=1.0',
