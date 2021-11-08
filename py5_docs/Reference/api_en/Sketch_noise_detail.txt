@@ -3,6 +3,8 @@ name = noise_detail()
 type = method
 category = math
 subcategory = random
+pclass = PApplet
+processing_name = noiseDetail
 
 @@ signatures
 noise_detail(lod: int, /) -> None

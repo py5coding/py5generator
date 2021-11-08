@@ -481,5 +481,10 @@
   "https://processing.org/reference/PImage_pixelDensity.html": false,
   "https://processing.org/reference/PImage_pixelHeight.html": false,
   "https://processing.org/reference/PImage_pixelWidth.html": false,
-  "https://processing.org/reference/PApplet.html": false
+  "https://processing.org/reference/PApplet.html": false,
+  "https://processing.org/reference/noise_.html": true,
+  "https://processing.org/reference/noise_detail_.html": false,
+  "https://processing.org/reference/noise_seed_.html": false,
+  "https://processing.org/reference/noiseDetail_.html": true,
+  "https://processing.org/reference/noiseSeed_.html": true
 }

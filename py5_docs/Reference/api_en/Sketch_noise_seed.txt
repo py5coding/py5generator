@@ -3,6 +3,8 @@ name = noise_seed()
 type = method
 category = math
 subcategory = random
+pclass = PApplet
+processing_name = noiseSeed
 
 @@ signatures
 noise_seed(seed: int, /) -> None

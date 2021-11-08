@@ -3,6 +3,8 @@ name = noise()
 type = method
 category = math
 subcategory = random
+pclass = PApplet
+processing_name = noise
 
 @@ signatures
 noise(x: float, /) -> float
