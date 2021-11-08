@@ -37,9 +37,9 @@ pip install py5
 There are currently four basic ways to use py5. They are:
 
 * **module mode**, as shown above
-* **class mode**: create a Python class inherited from `py5.Sketch`, and support multiple Sketches running at the same time.
+* **class mode**: create a Python class inherited from `py5.Sketch`. This mode supports multiple Sketches running at the same time.
 * **imported mode**: simplified code that omits the `py5.` prefix. This mode is supported by the py5 Jupyter notebook kernel and the `run_sketch` command line utility.
-* **static mode**: functionless code to create static images. This mode is supported by the py5bot Jupyter notebook kernel and the `%%py5bot` IPython magic.
+* **static mode**: functionless code to create static images. This mode is supported by the py5bot Jupyter notebook kernel, the `%%py5bot` IPython magic, and the `run_sketch` command line utility.
 
 py5generator is a meta-programming project that creates the py5 library. To view the actual installed py5 library code, look at the [py5 repository][py5_repo]. All py5 library development is done through py5generator.
 
