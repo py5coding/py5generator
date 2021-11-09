@@ -39,6 +39,7 @@ import processing.core.PSurface;
 import processing.event.MouseEvent;
 import processing.opengl.PGraphicsOpenGL;
 import processing.opengl.PJOGL;
+import py5.util.OpenSimplex2S;
 
 public class Sketch extends PApplet {
 
@@ -48,6 +49,7 @@ public class Sketch extends PApplet {
   protected int exitActualCallCount = 0;
   protected String py5IconPath;
   protected int[] pixelCapture = null;
+  protected OpenSimplex2S osNoise = new OpenSimplex2S((long) (Math.random() * Long.MAX_VALUE));
 
   public static final char CODED = PApplet.CODED;
 
@@ -84,24 +86,24 @@ public class Sketch extends PApplet {
 
   public String getRendererName() {
     switch (sketchRenderer()) {
-      case JAVA2D:
-        return "JAVA2D";
-      case P2D:
-        return "P2D";
-      case P3D:
-        return "P3D";
-      case HIDDEN:
-        return "HIDDEN";
-      case FX2D:
-        return "FX2D";
-      case PDF:
-        return "PDF";
-      case SVG:
-        return "SVG";
-      case DXF:
-        return "DXF";
-      default:
-        return null;
+    case JAVA2D:
+      return "JAVA2D";
+    case P2D:
+      return "P2D";
+    case P3D:
+      return "P3D";
+    case HIDDEN:
+      return "HIDDEN";
+    case FX2D:
+      return "FX2D";
+    case PDF:
+      return "PDF";
+    case SVG:
+      return "SVG";
+    case DXF:
+      return "DXF";
+    default:
+      return null;
     }
   }
 
@@ -457,11 +459,83 @@ public class Sketch extends PApplet {
   }
 
   /*
+   * Vectorized Processing noise
+   */
+
+  public float[] noiseArray(float[] x) {
+    float[] out = new float[x.length];
+    for (int i = 0; i < x.length; ++i) {
+      out[i] = noise(x[i]);
+    }
+    return out;
+  }
+
+  public float[] noiseArray(float[] x, float[] y) {
+    float[] out = new float[x.length];
+    for (int i = 0; i < x.length; ++i) {
+      out[i] = noise(x[i], y[i]);
+    }
+    return out;
+  }
+
+  public float[] noiseArray(float[] x, float[] y, float[] z) {
+    float[] out = new float[x.length];
+    for (int i = 0; i < x.length; ++i) {
+      out[i] = noise(x[i], y[i], z[i]);
+    }
+    return out;
+  }
+
+  /*
+   * Open Simplex noise
+   */
+
+  public void osNoiseSeed(long seed) {
+    osNoise = new OpenSimplex2S(seed);
+  }
+
+  public float osNoise(float x, float y) {
+    return (float) osNoise.noise2(x, y);
+  }
+
+  public float osNoise(float x, float y, float z) {
+    return (float) osNoise.noise3_Classic(x, y, z);
+  }
+
+  public float osNoise(float x, float y, float z, float w) {
+    return (float) osNoise.noise4_Classic(x, y, z, w);
+  }
+
+  public float[] osNoiseArray(float[] x, float[] y) {
+    float[] out = new float[x.length];
+    for (int i = 0; i < x.length; ++i) {
+      out[i] = (float) osNoise.noise2(x[i], y[i]);
+    }
+    return out;
+  }
+
+  public float[] osNoiseArray(float[] x, float[] y, float[] z) {
+    float[] out = new float[x.length];
+    for (int i = 0; i < x.length; ++i) {
+      out[i] = (float) osNoise.noise3_Classic(x[i], y[i], y[i]);
+    }
+    return out;
+  }
+
+  public float[] osNoiseArray(float[] x, float[] y, float[] z, float[] w) {
+    float[] out = new float[x.length];
+    for (int i = 0; i < x.length; ++i) {
+      out[i] = (float) osNoise.noise4_Classic(x[i], y[i], y[i], w[i]);
+    }
+    return out;
+  }
+
+  /*
    * Capture and restore pixel functions, used as a workaround for a Windows
    * problem. It alleviates the symptoms of bug #5 but is not a proper fix.
    */
 
-   protected void capturePixels(boolean alwaysOnTop) {
+  protected void capturePixels(boolean alwaysOnTop) {
     surface.setAlwaysOnTop(alwaysOnTop);
     loadPixels();
     pixelCapture = new int[pixels.length];

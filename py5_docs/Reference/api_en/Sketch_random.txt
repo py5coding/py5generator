@@ -6,8 +6,8 @@ subcategory = random
 
 @@ signatures
 random() -> float
-random(high: float) -> float
-random(low: float, high: float) -> float
+random(high: float, /) -> float
+random(low: float, high: float, /) -> float
 
 @@ variables
 high: float - upper limit

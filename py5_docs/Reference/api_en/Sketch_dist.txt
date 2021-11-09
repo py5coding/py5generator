@@ -5,8 +5,8 @@ category = math
 subcategory = calculation
 
 @@ signatures
-dist(x1: float, y1: float, x2: float, y2: float) -> float
-dist(x1: float, y1: float, z1: float, x2: float, y2: float, z2: float) -> float
+dist(x1: float, y1: float, x2: float, y2: float, /) -> float
+dist(x1: float, y1: float, z1: float, x2: float, y2: float, z2: float, /) -> float
 
 @@ variables
 x1: float - x-coordinate of the first point

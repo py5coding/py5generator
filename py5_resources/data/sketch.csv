@@ -366,9 +366,13 @@ random_gaussian,randomGaussian,,method,math,random,PYTHON,implementation uses nu
 random_int,,,method,math,random,PYTHON,implementation uses numpy for performance reasons
 random_choice,,,method,math,random,PYTHON,implementation uses numpy for performance reasons
 random_seed,randomSeed,,method,math,random,PYTHON,implementation uses numpy for performance reasons
-noise,noise,,method,math,random,PYTHON,implementation uses python noise library for performance and increased functionality
-noise_detail,noiseDetail,,method,math,random,PYTHON,implementation uses python noise library for performance and increased functionality
-noise_seed,noiseSeed,,method,math,random,PYTHON,implementation uses python noise library for performance and increased functionality
+noise_array,noiseArray,,method,math,random,SKIP,vectorized noise for better performance
+noise,noise,,method,math,random,PYTHON,calls java but uses noiseArray when appropriate to support vectorization and better performance
+noise_detail,noiseDetail,,method,math,random,JAVA,
+noise_seed,noiseSeed,,method,math,random,JAVA,
+os_noise,osNoise,,method,math,random,PYTHON,calls Java OpenSimplex2S
+os_noise_array,osNoiseArray,,method,math,random,SKIP,vectorized noise for better performance
+os_noise_seed,osNoiseSeed,,method,math,random,JAVA,
 load_image,loadImage,,method,image,loading_displaying,PYTHON,
 request_image,requestImage,,method,image,loading_displaying,PYTHON,
 convert_image,,,method,image,loading_displaying,PYTHON,
@@ -613,9 +617,6 @@ is_running,,,dynamic variable,structure,,PYTHON,property to determine sketch sta
 is_dead,,,dynamic variable,structure,,PYTHON,property to determine sketch state
 is_dead_from_error,,,dynamic variable,structure,,PYTHON,property to determine sketch state
 get_success,getSuccess,,method,,,SKIP,used to determine if sketch had an error
-noise_mode,,,method,math,random,PYTHON,implemented in math.py and used to switch between noise algorithms
-SIMPLEX_NOISE,,,static field,,,PYTHON,static constants for noise_mode
-PERLIN_NOISE,,,static field,,,PYTHON,static constants for noise_mode
 py5_println,py5Println,,method,,,SKIP,"special print method for Java extensions to use py5's println method, which works well with Jupyter Notebooks"
 set_py5_icon_path,setPy5IconPath,,method,,,SKIP,used to set the path to the py5 window and taskbar icon
 get_renderer_name,getRendererName,,method,,,SKIP,used to map the renderer classpath to a user friendly name
