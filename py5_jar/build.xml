@@ -5,7 +5,7 @@
         compile and build the py5 jar file.
     </description>
 
-    <property name="project.src" location="src"/>
+    <property name="project.src" location="src/main/java/"/>
     <property name="project.bin" location="bin"/>
     <property name="project.dist" location="dist"/>
 
