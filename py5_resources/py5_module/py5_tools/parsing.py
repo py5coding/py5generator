@@ -107,7 +107,7 @@ class Py5CodeValidation(ast.NodeTransformer):
             elif isinstance(node.ctx, ast.Store):
                 out.append(f'Assignment to py5 reserved word "{node.id}" on line {node.lineno} is discouraged and may causes errors in your sketch.')
         elif isinstance(node, ast.Import):
-                out.append(f'"Import py5" found on line {node.lineno}. Do not import the py5 library, as this has already been done for you. Your code should be written without any "py5." prefixes.')
+                out.append(f'"import py5" found on line {node.lineno}. Do not import the py5 library, as this has already been done for you. Your code should be written without any "py5." prefixes.')
 
         if self._code:
             lines = self._code.splitlines()
