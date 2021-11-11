@@ -26,7 +26,7 @@ from ipykernel.kernelapp import IPKernelApp
 
 from traitlets import Type, Instance, Unicode, List
 
-from ..parsing import TransformDynamicVariablesToCalls, ReservedWordsValidation
+from ..parsing import TransformDynamicVariablesToCalls, Py5CodeValidation
 
 
 _PY5_HELP_LINKS = [
@@ -56,7 +56,7 @@ _KERNEL_STARTUP = (_MACOSX_PRE_STARTUP if sys.platform == 'darwin' else "") + _D
 
 class Py5Shell(ZMQInteractiveShell):
 
-    ast_transformers = List([TransformDynamicVariablesToCalls(), ReservedWordsValidation()]).tag(config=True)
+    ast_transformers = List([TransformDynamicVariablesToCalls(), Py5CodeValidation()]).tag(config=True)
 
     banner2 = Unicode("Activating py5 imported mode").tag(config=True)
 
