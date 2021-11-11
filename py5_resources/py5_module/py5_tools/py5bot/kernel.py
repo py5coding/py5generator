@@ -28,9 +28,13 @@ from traitlets import Type, Instance, Unicode, List
 from ..kernel.kernel import Py5Kernel
 from .. import split_setup
 from . import py5bot
+from ..parsing import TransformDynamicVariablesToCalls, Py5CodeValidation
 
 
 class Py5BotShell(ZMQInteractiveShell):
+
+    # needed to make sure code using the %%python bypass gets transformed
+    ast_transformers = List([TransformDynamicVariablesToCalls(), Py5CodeValidation()]).tag(config=True)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
