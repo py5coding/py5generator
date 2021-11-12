@@ -159,7 +159,7 @@ def prepare_mapping(method_signatures_lookup):
 
             extras = ''
             if processing_name:
-                extras += f'\n\nUnderlying Java {item_type}: {doc.meta["pclass"]}.{processing_name}'
+                extras += f'\n\nUnderlying Processing {item_type}: {doc.meta["pclass"]}.{processing_name}'
             if len(signatures) > 1:
                 signatures_txt = '\n'.join(sorted([f' * {s}' for s in signatures]))
                 extras += SIGNATURES_TEMPLATE.format(signatures_txt)
@@ -170,7 +170,7 @@ def prepare_mapping(method_signatures_lookup):
         else:
             extras = ''
             if processing_name:
-                extras += f'\n\nUnderlying Java {item_type}: {doc.meta["pclass"]}.{processing_name}'
+                extras += f'\n\nUnderlying Processing {item_type}: {doc.meta["pclass"]}.{processing_name}'
             docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence + extras, description)
 
         # sort to make everything neat and tidy

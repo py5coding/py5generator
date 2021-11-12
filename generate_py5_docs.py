@@ -167,7 +167,7 @@ def format_underlying_java_ref(stem, doc_type, processing_name, valid_link_cache
             valid = requests.get(link).status_code == 200
             valid_link_cache[link] = valid
 
-        out = f'\n\nUnderlying Java {doc_type}: '
+        out = f'\n\nUnderlying Processing {doc_type}: '
         if valid:
             out += f'`{text} <{link}>`_'
         else:
