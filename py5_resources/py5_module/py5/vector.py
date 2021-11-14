@@ -145,5 +145,4 @@ class Vector2D(Sequence):
 
     @classmethod
     def random(cls):
-        import random
-        return Vector2D.from_angle(random.random() * 2 * np.pi)
+        return Vector2D.from_angle(np.random.rand() * 2 * np.pi)
