@@ -33,7 +33,7 @@ class Vector(Sequence):
             dim = 3
         elif len(args) == 1 and isinstance(args[0], Iterable) and 2 <= len(args[0]) <= 3:
             dim = len(args[0])
-            #  if it is a numpy array, should it use the actual array and not a copy? perhaps I can make this optional?
+            #  TODO: if it is a numpy array, should it use the actual array and not a copy? perhaps I can make this optional?
             data[:dim] = args[0][:dim]
         elif 2 <= len(args) <= 3:
             dim = len(args)
@@ -94,49 +94,48 @@ class Vector(Sequence):
             return Vector(op(a._data, b._data), dim=max(a._dim, b._dim))
         else:
             a, b = (other, self._data[:self._dim]) if swap else (self._data[:self._dim], other)
-            return Vector(op(a, b))
+            result = op(a, b)
+            return Vector(result) if result.ndim == 1 and result.size in [2, 3] else result
 
     def __add__(self, other):
         return self._run_op(operator.add, other)
 
     def __radd__(self, other):
-        return self._run_op(operator.add, other)
+        return self._run_op(operator.add, other, swap=True)
 
     def __sub__(self, other):
-        return Vector(self._data - other)
+        return self._run_op(operator.sub, other)
 
     def __rsub__(self, other):
-        return Vector(other - self._data)
+        return self._run_op(operator.sub, other, swap=True)
 
     def __mul__(self, other):
-        return Vector(self._data * other)
+        return self._run_op(operator.mul, other)
 
     def __rmul__(self, other):
-        return Vector(self._data * other)
+        return self._run_op(operator.mul, other, swap=True)
 
     def __truediv__(self, other):
-        return Vector(self._data / other)
-
-    def __floordiv__(self, other):
-        return Vector(self._data // other)
+        return self._run_op(operator.truediv, other)
 
     def __rtruediv__(self, other):
-        return Vector(other / self._data)
+        return self._run_op(operator.truediv, other, swap=True)
+
+    def __floordiv__(self, other):
+        return self._run_op(operator.floordiv, other)
 
     def __rfloordiv__(self, other):
-        return Vector(other // self._data)
+        return self._run_op(operator.floordiv, other, swap=True)
 
     def __pow__(self, other):
-        return Vector(self._data ** other)
+        return self._run_op(operator.pow, other)
 
     def __matmul__(self, other):
         return self._run_op(operator.matmul, other)
-        # return Vector(self._data @ other)
 
     def __rmatmul__(self, other):
         # not actually used?
         return self._run_op(operator.matmul, other, swap=True)
-        # return Vector(other @ self._data)
 
     def __pos__(self):
         return self
