@@ -17,36 +17,154 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+import operator
 from collections.abc import Sequence, Iterable
 
 import numpy as np
 
 
-class Vector2D(Sequence):
+class Vector(Sequence):
 
-    def __init__(self, *args):
-        self._data = None
+    def __new__(cls, *args, **kwargs):
+        data = np.zeros(3, dtype=np.float32)
+        dim = None
 
         if len(args) == 0:
-            self._data = np.zeros(2, dtype=np.float32)
-        elif len(args) == 1:
-            arg = args[0]
-            if isinstance(arg, (float, int)):
-                self._data = np.array([arg, arg], dtype=np.float32)
-            if isinstance(arg, Iterable) and len(arg) == 2:
-                self._data = np.array(arg, dtype=np.float32)
-        elif len(args) == 2:
-            self._data = np.array(args, dtype=np.float32)
+            dim = 3
+        elif len(args) == 1 and isinstance(args[0], Iterable) and 2 <= len(args[0]) <= 3:
+            dim = len(args[0])
+            #  if it is a numpy array, should it use the actual array and not a copy? perhaps I can make this optional?
+            data[:dim] = args[0][:dim]
+        elif 2 <= len(args) <= 3:
+            dim = len(args)
+            data[:dim] = args[:dim]
+        else:
+            raise RuntimeError(f'Cannot create Vector instance with {str(args)}')
 
-        if self._data is None:
-            raise RuntimeError(
-                f'Cannot create Vector2D instance with {str(args)}')
+        if 'dim' in kwargs and dim != kwargs['dim']:
+            raise RuntimeError(f"Error: dim parameter is {kwargs['dim']} but vector values imply dimension of {dim}")
+
+        if dim == 2:
+            v = object.__new__(Vector2D)
+        elif dim == 3:
+            v = object.__new__(Vector3D)
+        else:
+            raise RuntimeError(f'why is dim == {dim}?')
+
+        v._data = data
+        v._dim = dim
+
+        return v
 
 #     def __getattr__(self, name: str):
 #         if name.startswith('__array_'):
 #             return getattr(self._data, name)
 #         else:
-#             raise AttributeError(f"Vector2D has no attribute '{name}'")
+#             raise AttributeError(f"Vector has no attribute '{name}'")
+
+    # required by Sequence
+    def __getitem__(self, key):
+        # TODO: what if key > dim?
+        return self._data[key]
+
+    # should this be here?
+    def __setitem__(self, key, val):
+        if key in [0, 1]:
+            self._data[key] = val
+        else:
+            raise RuntimeError('error')
+
+    # required by Sequence
+    def __len__(self):
+        return self._dim
+
+    # redundant, already provided by Sequence
+    def __iter__(self):
+        return self._data[:self._dim].__iter__()
+
+    def __str__(self):
+        return f"Vector{self._dim}D({str(self._data[:self._dim])[1:-1].strip().replace(' ', ', ')})"
+
+    def __repr__(self):
+        return str(self)
+
+    def _run_op(self, op, other, swap=False):
+        if isinstance(other, Vector):
+            a, b = (other, self) if swap else (self, other)
+            return Vector(op(a._data, b._data), dim=max(a._dim, b._dim))
+        else:
+            a, b = (other, self._data[:self._dim]) if swap else (self._data[:self._dim], other)
+            return Vector(op(a, b))
+
+    def __add__(self, other):
+        return self._run_op(operator.add, other)
+
+    def __radd__(self, other):
+        return self._run_op(operator.add, other)
+
+    def __sub__(self, other):
+        return Vector(self._data - other)
+
+    def __rsub__(self, other):
+        return Vector(other - self._data)
+
+    def __mul__(self, other):
+        return Vector(self._data * other)
+
+    def __rmul__(self, other):
+        return Vector(self._data * other)
+
+    def __truediv__(self, other):
+        return Vector(self._data / other)
+
+    def __floordiv__(self, other):
+        return Vector(self._data // other)
+
+    def __rtruediv__(self, other):
+        return Vector(other / self._data)
+
+    def __rfloordiv__(self, other):
+        return Vector(other // self._data)
+
+    def __pow__(self, other):
+        return Vector(self._data ** other)
+
+    def __matmul__(self, other):
+        return self._run_op(operator.matmul, other)
+        # return Vector(self._data @ other)
+
+    def __rmatmul__(self, other):
+        # not actually used?
+        return self._run_op(operator.matmul, other, swap=True)
+        # return Vector(other @ self._data)
+
+    def __pos__(self):
+        return self
+
+    def __neg__(self):
+        return Vector(-self._data)
+
+    def copy(self):
+        return Vector(self._data.copy())
+
+    def heading(self):
+        return np.arctan2(self._data[1], self._data[0])
+
+    # TODO: how to keep Vector3D from inheriting methods that only make sense for 2D vectors?
+    @classmethod
+    def from_angle(cls, angle, length=1):
+        return Vector(length * np.cos(angle), length * np.sin(angle))
+
+    @classmethod
+    def random2D(cls):
+        return Vector.from_angle(np.random.rand() * 2 * np.pi)
+
+
+class Vector2D(Vector):
+
+    def __new__(cls, *args, **kwargs):
+        # TODO reject dim kwargs
+        return super().__new__(cls, *args, dim=2)
 
     def _get_x(self):
         return self._data[0]
@@ -63,86 +181,31 @@ class Vector2D(Sequence):
     x = property(_get_x, _set_x, doc='x coordinate')
     y = property(_get_y, _set_y, doc='y coordinate')
 
-    # required by Sequence
-    def __getitem__(self, key):
-        return self._data[key]
 
-    # should this be here?
-    def __setitem__(self, key, val):
-        if key in [0, 1]:
-            self._data[key] = val
-        else:
-            raise RuntimeError('error')
+class Vector3D(Vector):
 
-    # required by Sequence
-    def __len__(self):
-        return self._data.__len__()
+    def __new__(cls, *args, **kwargs):
+        # TODO reject dim kwargs
+        return super().__new__(cls, *args, dim=3)
 
-    # redundant, already provided by Sequence
-    def __iter__(self):
-        return self._data.__iter__()
+    def _get_x(self):
+        return self._data[0]
 
-    def __str__(self):
-        return f"Vector2D({str(self._data)[1:-1].strip().replace(' ', ', ')})"
+    def _set_x(self, val):
+        self._data[0] = val
 
-    def __repr__(self):
-        return str(self)
+    def _get_y(self):
+        return self._data[1]
 
-    def __add__(self, other):
-        return Vector2D(self._data + other)
+    def _set_y(self, val):
+        self._data[1] = val
 
-    def __radd__(self, other):
-        return Vector2D(self._data + other)
+    def _get_z(self):
+        return self._data[2]
 
-    def __sub__(self, other):
-        return Vector2D(self._data - other)
+    def _set_z(self, val):
+        self._data[2] = val
 
-    def __rsub__(self, other):
-        return Vector2D(other - self._data)
-
-    def __mul__(self, other):
-        return Vector2D(self._data * other)
-
-    def __rmul__(self, other):
-        return Vector2D(self._data * other)
-
-    def __truediv__(self, other):
-        return Vector2D(self._data / other)
-
-    def __floordiv__(self, other):
-        return Vector2D(self._data // other)
-
-    def __rtruediv__(self, other):
-        return Vector2D(other / self._data)
-
-    def __rfloordiv__(self, other):
-        return Vector2D(other // self._data)
-
-    def __pow__(self, other):
-        return Vector2D(self._data ** other)
-
-    def __matmul__(self, other):
-        return Vector2D(self._data @ other)
-
-    def __rmatmul__(self, other):
-        return Vector2D(other @ self._data)
-
-    def __pos__(self):
-        return self
-
-    def __neg__(self):
-        return Vector2D(-self._data)
-
-    def copy(self):
-        return Vector2D(self._data.copy())
-
-    def heading(self):
-        return np.arctan2(self._data[1], self._data[0])
-
-    @classmethod
-    def from_angle(cls, angle, length=1):
-        return Vector2D(length * np.cos(angle), length * np.sin(angle))
-
-    @classmethod
-    def random(cls):
-        return Vector2D.from_angle(np.random.rand() * 2 * np.pi)
+    x = property(_get_x, _set_x, doc='x coordinate')
+    y = property(_get_y, _set_y, doc='y coordinate')
+    z = property(_get_z, _set_z, doc='z coordinate')
