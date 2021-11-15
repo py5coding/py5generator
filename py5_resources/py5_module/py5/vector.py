@@ -56,12 +56,6 @@ class Vector(Sequence):
 
         return v
 
-#     def __getattr__(self, name: str):
-#         if name.startswith('__array_'):
-#             return getattr(self._data, name)
-#         else:
-#             raise AttributeError(f"Vector has no attribute '{name}'")
-
     # required by Sequence
     def __getitem__(self, key):
         # TODO: what if key > dim?
@@ -134,7 +128,6 @@ class Vector(Sequence):
         return self._run_op(operator.matmul, other)
 
     def __rmatmul__(self, other):
-        # not actually used?
         return self._run_op(operator.matmul, other, swap=True)
 
     def __pos__(self):
@@ -161,8 +154,7 @@ class Vector(Sequence):
 
 class Vector2D(Vector):
 
-    def __new__(cls, *args, **kwargs):
-        # TODO reject dim kwargs
+    def __new__(cls, *args):
         return super().__new__(cls, *args, dim=2)
 
     def _get_x(self):
@@ -183,8 +175,7 @@ class Vector2D(Vector):
 
 class Vector3D(Vector):
 
-    def __new__(cls, *args, **kwargs):
-        # TODO reject dim kwargs
+    def __new__(cls, *args):
         return super().__new__(cls, *args, dim=3)
 
     def _get_x(self):
