@@ -169,10 +169,18 @@ class Vector(Sequence):
     def _set_y(self, val):
         self._data[1] = val
 
+    def _get_data(self):
+        return self._data[:self._dim]
+
+    def _get_dim(self):
+        return self._dim
+
     x = property(_get_x, _set_x, doc='x coordinate')
     y = property(_get_y, _set_y, doc='y coordinate')
+    data = property(_get_data, doc='numpy data array')
+    dim = property(_get_dim, doc='vector dimension')
 
-    # TODO: how to keep Vector3D from inheriting methods that only make sense for 2D vectors? Or should I move this to Vector2D?
+    # TODO: how to keep Vector3D from inheriting methods that only make sense for 2D vectors?
     @classmethod
     def from_angle(cls, angle, length=1):
         return Vector(length * np.cos(angle), length * np.sin(angle))
