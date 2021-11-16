@@ -27,7 +27,7 @@ import numpy as np
 class Vector(Sequence):
 
     def __new__(cls, *args, **kwargs):
-        # TODO: support other dtypes?
+        # TODO: support other dtypes? if a valid numpy array is passed in, should that be used instead?
         data = np.zeros(4, dtype=np.float32)
         dim = None
 
