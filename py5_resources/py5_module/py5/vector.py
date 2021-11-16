@@ -103,7 +103,7 @@ class Vector(Sequence):
         else:
             a, b = (other, self._data[:self._dim]) if swap else (self._data[:self._dim], other)
             result = op(a, b)
-            return Vector(result) if result.ndim == 1 and result.size in [2, 3] else result
+            return Vector(result) if result.ndim == 1 and 2 <= result.size <= 4 else result
 
     def __add__(self, other):
         return self._run_op(operator.add, other)
@@ -149,10 +149,10 @@ class Vector(Sequence):
         return self
 
     def __neg__(self):
-        return Vector(-self._data)
+        return Vector(-self._data[:self._dim])
 
     def copy(self):
-        return Vector(self._data.copy())
+        return Vector(self._data[:self._dim].copy())
 
     def heading(self):
         return np.arctan2(self._data[1], self._data[0])
