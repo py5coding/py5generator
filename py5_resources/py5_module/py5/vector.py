@@ -30,7 +30,7 @@ class Vector(Sequence):
         dim = None
 
         if len(args) == 0:
-            dim = 3
+            dim = kwargs.get('dim', 3)
         elif len(args) == 1 and isinstance(args[0], Iterable) and 2 <= len(args[0]) <= 4:
             dim = len(args[0])
             data[:dim] = args[0][:dim]
@@ -158,15 +158,6 @@ class Vector(Sequence):
     def heading(self):
         return np.arctan2(self._data[1], self._data[0])
 
-    # TODO: how to keep Vector3D from inheriting methods that only make sense for 2D vectors?
-    @classmethod
-    def from_angle(cls, angle, length=1):
-        return Vector(length * np.cos(angle), length * np.sin(angle))
-
-    @classmethod
-    def random2D(cls):
-        return Vector.from_angle(np.random.rand() * 2 * np.pi)
-
     def _get_x(self):
         return self._data[0]
 
@@ -181,6 +172,15 @@ class Vector(Sequence):
 
     x = property(_get_x, _set_x, doc='x coordinate')
     y = property(_get_y, _set_y, doc='y coordinate')
+
+    # TODO: how to keep Vector3D from inheriting methods that only make sense for 2D vectors? Or should I move this to Vector2D?
+    @classmethod
+    def from_angle(cls, angle, length=1):
+        return Vector(length * np.cos(angle), length * np.sin(angle))
+
+    @classmethod
+    def random2D(cls):
+        return Vector.from_angle(np.random.rand() * 2 * np.pi)
 
 
 class Vector2D(Vector):
