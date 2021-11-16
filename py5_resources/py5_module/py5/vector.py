@@ -27,6 +27,7 @@ import numpy as np
 class Vector(Sequence):
 
     def __new__(cls, *args, **kwargs):
+        # TODO: support other dtypes?
         data = np.zeros(4, dtype=np.float32)
         dim = None
 
@@ -63,7 +64,7 @@ class Vector(Sequence):
             if 2 <= len(name) <= 4:
                 return Vector(self._data[['xyzw'.index(c) for c in name]])
             else:
-                raise RuntimeError('Invalid swizzle')
+                raise RuntimeError('Invalid swizzle: length must be between 2 and 4 characters')
         else:
             raise AttributeError(f"'Vector' object has no attribute '{name}'")
 
@@ -71,9 +72,12 @@ class Vector(Sequence):
         if name.startswith('_') or not (hasattr(self, '_data') and hasattr(self, '_dim') and not (set(name) - set('xyzw'[:self._dim]))):
             super().__setattr__(name, val)
         elif len(name) == len(set(name)):
-            self._data[['xyzw'.index(c) for c in name]] = val
+            if not isinstance(val, Iterable) or len(val) in [1, len(name)]:
+                self._data[['xyzw'.index(c) for c in name]] = val
+            else:
+                raise RuntimeError(f'Mismatch: value length of {len(val)} cannot be assigned to swizzle of length {len(name)}')
         else:
-            raise RuntimeError('Invalid swizzle')
+            raise RuntimeError('Invalid swizzle: repeats are not allowed')
 
     def __getitem__(self, key):
         return self._data[key]
