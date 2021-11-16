@@ -33,7 +33,6 @@ class Vector(Sequence):
             dim = 3
         elif len(args) == 1 and isinstance(args[0], Iterable) and 2 <= len(args[0]) <= 3:
             dim = len(args[0])
-            #  TODO: if it is a numpy array, should it use the actual array and not a copy? perhaps I can make this optional?
             data[:dim] = args[0][:dim]
         elif 2 <= len(args) <= 3:
             dim = len(args)
@@ -53,8 +52,30 @@ class Vector(Sequence):
 
         v._data = data
         v._dim = dim
+        v._swizzle_lut = {c:i for i, c in enumerate('xyz'[:dim])}
 
         return v
+
+    def __getattr__(self, name):
+        if name.startswith('_'):
+            super().__getattr__(name)
+        else:
+            if 2 <= len(name) <= 4 and all(c in self._swizzle_lut for c in name):
+                return Vector([self._data[self._swizzle_lut[c]] for c in name])
+            else:
+                raise RuntimeError('Invalid swizzle')
+
+    def __setattr__(self, name, val):
+        if name.startswith('_'):
+            super().__setattr__(name, val)
+        else:
+            if hasattr(self, '_data') and hasattr(self, '_swizzle_lut') and all(c in self._swizzle_lut for c in name):
+                if len(name) == len(set(name)):
+                    self._data[[self._swizzle_lut[c] for c in name]] = val
+                else:
+                    raise RuntimeError('Invalid swizzle')
+            else:
+                super().__setattr__(name, val)
 
     # required by Sequence
     def __getitem__(self, key):
@@ -110,6 +131,7 @@ class Vector(Sequence):
         return self._run_op(operator.mul, other, swap=True)
 
     def __truediv__(self, other):
+        # TODO: what does dividing mean for vectors? Also 2D vectors will accumulate a 0 / 0 for z value
         return self._run_op(operator.truediv, other)
 
     def __rtruediv__(self, other):
