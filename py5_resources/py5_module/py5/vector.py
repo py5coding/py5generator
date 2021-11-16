@@ -98,7 +98,8 @@ class Vector(Sequence):
     def _run_op(self, op, other, swap=False):
         if isinstance(other, Vector):
             a, b = (other, self) if swap else (self, other)
-            return Vector(op(a._data, b._data), dim=max(a._dim, b._dim))
+            new_dim = max(a._dim, b._dim)
+            return Vector(op(a._data, b._data)[:new_dim], dim=new_dim)
         else:
             a, b = (other, self._data[:self._dim]) if swap else (self._data[:self._dim], other)
             result = op(a, b)
