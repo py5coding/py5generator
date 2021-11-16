@@ -55,24 +55,23 @@ class Vector(Sequence):
 
         v._data = data
         v._dim = dim
-        v._swizzle_lut = {c:i for i, c in enumerate('xyzw'[:dim])}
 
         return v
 
     def __getattr__(self, name):
-        if hasattr(self, '_data') and hasattr(self, '_swizzle_lut') and all(c in self._swizzle_lut for c in name):
+        if hasattr(self, '_data') and hasattr(self, '_dim') and not (set(name) - set('xyzw'[:self._dim])):
             if 2 <= len(name) <= 4:
-                return Vector([self._data[self._swizzle_lut[c]] for c in name])
+                return Vector(self._data[['xyzw'.index(c) for c in name]])
             else:
                 raise RuntimeError('Invalid swizzle')
         else:
             raise AttributeError(f"'Vector' object has no attribute '{name}'")
 
     def __setattr__(self, name, val):
-        if name.startswith('_') or not (hasattr(self, '_data') and hasattr(self, '_swizzle_lut') and all(c in self._swizzle_lut for c in name)):
+        if name.startswith('_') or not (hasattr(self, '_data') and hasattr(self, '_dim') and not (set(name) - set('xyzw'[:self._dim]))):
             super().__setattr__(name, val)
         elif len(name) == len(set(name)):
-            self._data[[self._swizzle_lut[c] for c in name]] = val
+            self._data[['xyzw'.index(c) for c in name]] = val
         else:
             raise RuntimeError('Invalid swizzle')
 
