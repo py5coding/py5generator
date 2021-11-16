@@ -19,6 +19,7 @@
 # *****************************************************************************
 import operator
 from collections.abc import Sequence, Iterable
+import re
 
 import numpy as np
 
@@ -92,7 +93,8 @@ class Vector(Sequence):
         return self._data[:self._dim].__iter__()
 
     def __str__(self):
-        return f"Vector{self._dim}D({str(self._data[:self._dim])[1:-1].strip().replace(' ', ', ')})"
+        vals = ', '.join(re.split(r'\s+', str(self._data[:self._dim])[1:-1].strip()))
+        return f'Vector{self._dim}D({vals})'
 
     def __repr__(self):
         return str(self)
