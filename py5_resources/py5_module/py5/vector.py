@@ -63,10 +63,13 @@ class Vector(Sequence):
         if name.startswith('_'):
             super().__getattr__(name)
         else:
-            if 2 <= len(name) <= 4 and all(c in self._swizzle_lut for c in name):
-                return Vector([self._data[self._swizzle_lut[c]] for c in name])
+            if hasattr(self, '_data') and hasattr(self, '_swizzle_lut') and all(c in self._swizzle_lut for c in name):
+                if 2 <= len(name) <= 4:
+                    return Vector([self._data[self._swizzle_lut[c]] for c in name])
+                else:
+                    raise RuntimeError('Invalid swizzle')
             else:
-                raise RuntimeError('Invalid swizzle')
+                raise AttributeError(f"'Vector' object has no attribute '{name}'")
 
     def __setattr__(self, name, val):
         if name.startswith('_'):
