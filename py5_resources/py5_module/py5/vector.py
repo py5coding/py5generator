@@ -26,15 +26,15 @@ import numpy as np
 class Vector(Sequence):
 
     def __new__(cls, *args, **kwargs):
-        data = np.zeros(3, dtype=np.float32)
+        data = np.zeros(4, dtype=np.float32)
         dim = None
 
         if len(args) == 0:
             dim = 3
-        elif len(args) == 1 and isinstance(args[0], Iterable) and 2 <= len(args[0]) <= 3:
+        elif len(args) == 1 and isinstance(args[0], Iterable) and 2 <= len(args[0]) <= 4:
             dim = len(args[0])
             data[:dim] = args[0][:dim]
-        elif 2 <= len(args) <= 3:
+        elif 2 <= len(args) <= 4:
             dim = len(args)
             data[:dim] = args[:dim]
         else:
@@ -47,12 +47,14 @@ class Vector(Sequence):
             v = object.__new__(Vector2D)
         elif dim == 3:
             v = object.__new__(Vector3D)
+        elif dim == 4:
+            v = object.__new__(Vector4D)
         else:
             raise RuntimeError(f'why is dim == {dim}?')
 
         v._data = data
         v._dim = dim
-        v._swizzle_lut = {c:i for i, c in enumerate('xyz'[:dim])}
+        v._swizzle_lut = {c:i for i, c in enumerate('xyzw'[:dim])}
 
         return v
 
@@ -77,23 +79,15 @@ class Vector(Sequence):
             else:
                 super().__setattr__(name, val)
 
-    # required by Sequence
     def __getitem__(self, key):
-        # TODO: what if key > dim?
         return self._data[key]
 
-    # should this be here?
     def __setitem__(self, key, val):
-        if key in [0, 1]:
-            self._data[key] = val
-        else:
-            raise RuntimeError('error')
+        self._data[key] = val
 
-    # required by Sequence
     def __len__(self):
         return self._dim
 
-    # redundant, already provided by Sequence
     def __iter__(self):
         return self._data[:self._dim].__iter__()
 
@@ -173,12 +167,6 @@ class Vector(Sequence):
     def random2D(cls):
         return Vector.from_angle(np.random.rand() * 2 * np.pi)
 
-
-class Vector2D(Vector):
-
-    def __new__(cls, *args):
-        return super().__new__(cls, *args, dim=2)
-
     def _get_x(self):
         return self._data[0]
 
@@ -193,6 +181,12 @@ class Vector2D(Vector):
 
     x = property(_get_x, _set_x, doc='x coordinate')
     y = property(_get_y, _set_y, doc='y coordinate')
+
+
+class Vector2D(Vector):
+
+    def __new__(cls, *args):
+        return super().__new__(cls, *args, dim=2)
 
 
 class Vector3D(Vector):
@@ -200,17 +194,19 @@ class Vector3D(Vector):
     def __new__(cls, *args):
         return super().__new__(cls, *args, dim=3)
 
-    def _get_x(self):
-        return self._data[0]
+    def _get_z(self):
+        return self._data[2]
 
-    def _set_x(self, val):
-        self._data[0] = val
+    def _set_z(self, val):
+        self._data[2] = val
 
-    def _get_y(self):
-        return self._data[1]
+    z = property(_get_z, _set_z, doc='z coordinate')
 
-    def _set_y(self, val):
-        self._data[1] = val
+
+class Vector4D(Vector):
+
+    def __new__(cls, *args):
+        return super().__new__(cls, *args, dim=4)
 
     def _get_z(self):
         return self._data[2]
@@ -218,6 +214,11 @@ class Vector3D(Vector):
     def _set_z(self, val):
         self._data[2] = val
 
-    x = property(_get_x, _set_x, doc='x coordinate')
-    y = property(_get_y, _set_y, doc='y coordinate')
+    def _get_w(self):
+        return self._data[3]
+
+    def _set_w(self, val):
+        self._data[3] = val
+
     z = property(_get_z, _set_z, doc='z coordinate')
+    w = property(_get_w, _set_w, doc='w coordinate')
