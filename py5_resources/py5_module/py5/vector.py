@@ -69,16 +69,12 @@ class Vector(Sequence):
             raise AttributeError(f"'Vector' object has no attribute '{name}'")
 
     def __setattr__(self, name, val):
-        if name.startswith('_'):
+        if name.startswith('_') or not (hasattr(self, '_data') and hasattr(self, '_swizzle_lut') and all(c in self._swizzle_lut for c in name)):
             super().__setattr__(name, val)
+        elif len(name) == len(set(name)):
+            self._data[[self._swizzle_lut[c] for c in name]] = val
         else:
-            if hasattr(self, '_data') and hasattr(self, '_swizzle_lut') and all(c in self._swizzle_lut for c in name):
-                if len(name) == len(set(name)):
-                    self._data[[self._swizzle_lut[c] for c in name]] = val
-                else:
-                    raise RuntimeError('Invalid swizzle')
-            else:
-                super().__setattr__(name, val)
+            raise RuntimeError('Invalid swizzle')
 
     def __getitem__(self, key):
         return self._data[key]
