@@ -114,8 +114,11 @@ class Vector(Sequence):
                 return Vector(op(a._data, b._data)[:new_dim], dim=new_dim)
         else:
             if inplace:
-                # TODO: need better error message when a numpy array does not broadcast correctly
-                op(self._data[:self._dim], other)
+                try:
+                    op(self._data[:self._dim], other)
+                except ValueError as e:
+                    other_type = 'numpy array' if isinstance(other, np.ndarray) else f'{type(other).__name__} object'
+                    raise RuntimeError(f'Unable to perform in-place {opname} on vector and {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
                 return self
             else:
                 a, b = (other, self._data[:self._dim]) if swap else (self._data[:self._dim], other)
