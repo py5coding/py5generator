@@ -98,9 +98,9 @@ class Vector(Sequence):
     def __repr__(self):
         return str(self)
 
-    def _run_op(self, op, other, opname, swap=False, inplace=False, not2vectors=False):
+    def _run_op(self, op, other, opname, swap=False, inplace=False, allow2vectors=False):
         if isinstance(other, Vector):
-            if not2vectors:
+            if not allow2vectors:
                 raise RuntimeError(f'Cannot perform {opname} operation on two vectors.')
             if inplace:
                 if other._dim > self._dim:
@@ -123,61 +123,61 @@ class Vector(Sequence):
                 return Vector(result) if result.ndim == 1 and 2 <= result.size <= 4 else result
 
     def __add__(self, other):
-        return self._run_op(operator.add, other, 'addition')
+        return self._run_op(operator.add, other, 'addition', allow2vectors=True)
 
     def __iadd__(self, other):
-        return self._run_op(operator.iadd, other, 'addition', inplace=True)
+        return self._run_op(operator.iadd, other, 'addition', inplace=True, allow2vectors=True)
 
     def __radd__(self, other):
-        return self._run_op(operator.add, other, 'addition', swap=True)
+        return self._run_op(operator.add, other, 'addition', swap=True, allow2vectors=True)
 
     def __sub__(self, other):
-        return self._run_op(operator.sub, other, 'subtraction')
+        return self._run_op(operator.sub, other, 'subtraction', allow2vectors=True)
 
     def __isub__(self, other):
-        return self._run_op(operator.isub, other, 'subtraction', inplace=True)
+        return self._run_op(operator.isub, other, 'subtraction', inplace=True, allow2vectors=True)
 
     def __rsub__(self, other):
-        return self._run_op(operator.sub, other, 'subtraction', swap=True)
+        return self._run_op(operator.sub, other, 'subtraction', swap=True, allow2vectors=True)
 
     def __mul__(self, other):
-        return self._run_op(operator.mul, other, 'multiplication', not2vectors=True)
+        return self._run_op(operator.mul, other, 'multiplication')
 
     def __imul__(self, other):
-        return self._run_op(operator.imul, other, 'multiplication', inplace=True, not2vectors=True)
+        return self._run_op(operator.imul, other, 'multiplication', inplace=True)
 
     def __rmul__(self, other):
-        return self._run_op(operator.mul, other, 'multiplication', swap=True, not2vectors=True)
+        return self._run_op(operator.mul, other, 'multiplication', swap=True)
 
     def __truediv__(self, other):
-        return self._run_op(operator.truediv, other, 'division', not2vectors=True)
+        return self._run_op(operator.truediv, other, 'division')
 
     def __itruediv__(self, other):
-        return self._run_op(operator.itruediv, other, 'division', inplace=True, not2vectors=True)
+        return self._run_op(operator.itruediv, other, 'division', inplace=True)
 
     def __rtruediv__(self, other):
-        return self._run_op(operator.truediv, other, 'division', swap=True, not2vectors=True)
+        return self._run_op(operator.truediv, other, 'division', swap=True)
 
     def __floordiv__(self, other):
-        return self._run_op(operator.floordiv, other, 'integer division', not2vectors=True)
+        return self._run_op(operator.floordiv, other, 'integer division')
 
     def __ifloordiv__(self, other):
-        return self._run_op(operator.ifloordiv, other, 'integer division', inplace=True, not2vectors=True)
+        return self._run_op(operator.ifloordiv, other, 'integer division', inplace=True)
 
     def __rfloordiv__(self, other):
-        return self._run_op(operator.floordiv, other, 'integer division', swap=True, not2vectors=True)
+        return self._run_op(operator.floordiv, other, 'integer division', swap=True)
 
     def __pow__(self, other):
-        return self._run_op(operator.pow, other, 'power', not2vectors=True)
+        return self._run_op(operator.pow, other, 'power')
 
     def __pow__(self, other):
-        return self._run_op(operator.ipow, other, 'power', inplace=True, not2vectors=True)
+        return self._run_op(operator.ipow, other, 'power', inplace=True)
 
     def __matmul__(self, other):
-        return self._run_op(operator.matmul, other, 'matrix multiplication', not2vectors=True)
+        return self._run_op(operator.matmul, other, 'matrix multiplication')
 
     def __rmatmul__(self, other):
-        return self._run_op(operator.matmul, other, 'matrix multiplication', swap=True, not2vectors=True)
+        return self._run_op(operator.matmul, other, 'matrix multiplication', swap=True)
 
     # TODO: what other operators can I add here? mod?
 
