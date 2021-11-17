@@ -98,61 +98,96 @@ class Vector(Sequence):
     def __repr__(self):
         return str(self)
 
-    def _run_op(self, op, other, swap=False):
+    def _run_op(self, op, other, opname, swap=False, inplace=False, not2vectors=False):
         if isinstance(other, Vector):
-            a, b = (other, self) if swap else (self, other)
-            new_dim = max(a._dim, b._dim)
-            return Vector(op(a._data, b._data)[:new_dim], dim=new_dim)
+            if not2vectors:
+                raise RuntimeError(f'Cannot perform {opname} operation on two vectors.')
+            if inplace:
+                if other._dim > self._dim:
+                    raise RuntimeError(f'Cannot perform in-place {opname} on vectors {self} and {other} because the first in-place vector has dimension {self._dim} and the other vector has higher dimension {other._dim}. It is possible to do {opname} on the two vectors, just not in-place. The result of this computation must create a new vector with dimension {other._dim}, so it cannot be done in-place.')
+                else:
+                    op(self._data[:other._dim], other._data[:other._dim])
+                    return self
+            else:
+                a, b = (other, self) if swap else (self, other)
+                new_dim = max(a._dim, b._dim)
+                return Vector(op(a._data, b._data)[:new_dim], dim=new_dim)
         else:
-            a, b = (other, self._data[:self._dim]) if swap else (self._data[:self._dim], other)
-            result = op(a, b)
-            return Vector(result) if result.ndim == 1 and 2 <= result.size <= 4 else result
+            if inplace:
+                # TODO: need better error message when a numpy array does not broadcast correctly
+                op(self._data[:self._dim], other)
+                return self
+            else:
+                a, b = (other, self._data[:self._dim]) if swap else (self._data[:self._dim], other)
+                result = op(a, b)
+                return Vector(result) if result.ndim == 1 and 2 <= result.size <= 4 else result
 
     def __add__(self, other):
-        return self._run_op(operator.add, other)
+        return self._run_op(operator.add, other, 'addition')
+
+    def __iadd__(self, other):
+        return self._run_op(operator.iadd, other, 'addition', inplace=True)
 
     def __radd__(self, other):
-        return self._run_op(operator.add, other, swap=True)
+        return self._run_op(operator.add, other, 'addition', swap=True)
 
     def __sub__(self, other):
-        return self._run_op(operator.sub, other)
+        return self._run_op(operator.sub, other, 'subtraction')
+
+    def __isub__(self, other):
+        return self._run_op(operator.isub, other, 'subtraction', inplace=True)
 
     def __rsub__(self, other):
-        return self._run_op(operator.sub, other, swap=True)
+        return self._run_op(operator.sub, other, 'subtraction', swap=True)
 
     def __mul__(self, other):
-        return self._run_op(operator.mul, other)
+        return self._run_op(operator.mul, other, 'multiplication', not2vectors=True)
+
+    def __imul__(self, other):
+        return self._run_op(operator.imul, other, 'multiplication', inplace=True, not2vectors=True)
 
     def __rmul__(self, other):
-        return self._run_op(operator.mul, other, swap=True)
+        return self._run_op(operator.mul, other, 'multiplication', swap=True, not2vectors=True)
 
     def __truediv__(self, other):
-        # TODO: what does dividing mean for vectors? Also 2D vectors will accumulate a 0 / 0 for z value
-        return self._run_op(operator.truediv, other)
+        return self._run_op(operator.truediv, other, 'division', not2vectors=True)
+
+    def __itruediv__(self, other):
+        return self._run_op(operator.itruediv, other, 'division', inplace=True, not2vectors=True)
 
     def __rtruediv__(self, other):
-        return self._run_op(operator.truediv, other, swap=True)
+        return self._run_op(operator.truediv, other, 'division', swap=True, not2vectors=True)
 
     def __floordiv__(self, other):
-        return self._run_op(operator.floordiv, other)
+        return self._run_op(operator.floordiv, other, 'integer division', not2vectors=True)
+
+    def __ifloordiv__(self, other):
+        return self._run_op(operator.ifloordiv, other, 'integer division', inplace=True, not2vectors=True)
 
     def __rfloordiv__(self, other):
-        return self._run_op(operator.floordiv, other, swap=True)
+        return self._run_op(operator.floordiv, other, 'integer division', swap=True, not2vectors=True)
 
     def __pow__(self, other):
-        return self._run_op(operator.pow, other)
+        return self._run_op(operator.pow, other, 'power', not2vectors=True)
+
+    def __pow__(self, other):
+        return self._run_op(operator.ipow, other, 'power', inplace=True, not2vectors=True)
 
     def __matmul__(self, other):
-        return self._run_op(operator.matmul, other)
+        return self._run_op(operator.matmul, other, 'matrix multiplication', not2vectors=True)
 
     def __rmatmul__(self, other):
-        return self._run_op(operator.matmul, other, swap=True)
+        return self._run_op(operator.matmul, other, 'matrix multiplication', swap=True, not2vectors=True)
+
+    # TODO: what other operators can I add here? mod?
 
     def __pos__(self):
         return self
 
     def __neg__(self):
         return Vector(-self._data[:self._dim])
+
+    # TODO: need to create a lot of helper functions
 
     def copy(self):
         return Vector(self._data[:self._dim].copy())
