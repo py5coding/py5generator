@@ -104,7 +104,7 @@ class Vector(Sequence):
                 raise RuntimeError(f'Cannot perform {opname} operation on two vectors.')
             if inplace:
                 if other._dim > self._dim:
-                    raise RuntimeError(f'Cannot perform in-place {opname} on vectors {self} and {other} because the first in-place vector has dimension {self._dim} and the other vector has higher dimension {other._dim}. It is possible to do {opname} on the two vectors, just not in-place. The result of this computation must create a new vector with dimension {other._dim}, so it cannot be done in-place.')
+                    raise RuntimeError(f'Cannot perform in-place {opname} on vectors {self} and {other} because the in-place vector has dimension {self._dim} and the other vector has higher dimension {other._dim}. It is possible to do {opname} on the two vectors, but since the result of this computation will create a new vector with dimension {other._dim}, it cannot be done in-place.')
                 else:
                     op(self._data[:other._dim], other._data[:other._dim])
                     return self
