@@ -28,8 +28,11 @@ class Vector(Sequence):
 
     def __new__(cls, *args, **kwargs):
         # TODO: support other dtypes? if a valid numpy array is passed in, should that be used instead?
+        # TODO: this should not always be 4, it should be whatever the dim is. Only add and subtract care about changing vector sizes.
         data = np.zeros(4, dtype=np.float32)
         dim = None
+
+        # TODO: should be able to pass in another Vector class, such as Vector(v, 0), to make a new vector that is larger
 
         if len(args) == 0:
             dim = kwargs.get('dim', 3)
@@ -173,7 +176,7 @@ class Vector(Sequence):
     def __pow__(self, other):
         return self._run_op(operator.pow, other, 'power')
 
-    def __pow__(self, other):
+    def __ipow__(self, other):
         return self._run_op(operator.ipow, other, 'power', inplace=True)
 
     def __matmul__(self, other):
