@@ -27,21 +27,19 @@ import numpy as np
 class Vector(Sequence):
 
     def __new__(cls, *args, **kwargs):
-        # TODO: support other dtypes? if a valid numpy array is passed in, should that be used instead?
-        # TODO: this should not always be 4, it should be whatever the dim is. Only add and subtract care about changing vector sizes.
-        data = np.zeros(4, dtype=np.float32)
-        dim = None
-
+        # TODO: support other dtypes?
+        # TODO: if a valid numpy array is passed in, should that be used instead? copying should be the default, but it would be good to have the option to turn it off
         # TODO: should be able to pass in another Vector class, such as Vector(v, 0), to make a new vector that is larger
 
         if len(args) == 0:
             dim = kwargs.get('dim', 3)
+            data = np.zeros(dim, dtype=np.float32)
         elif len(args) == 1 and isinstance(args[0], Iterable) and 2 <= len(args[0]) <= 4:
             dim = len(args[0])
-            data[:dim] = args[0][:dim]
+            data = np.array(args[0], dtype=np.float32)
         elif 2 <= len(args) <= 4:
             dim = len(args)
-            data[:dim] = args[:dim]
+            data = np.array(args, dtype=np.float32)
         else:
             raise RuntimeError(f'Cannot create Vector instance with {str(args)}')
 
@@ -92,10 +90,10 @@ class Vector(Sequence):
         return self._dim
 
     def __iter__(self):
-        return self._data[:self._dim].__iter__()
+        return self._data.__iter__()
 
     def __str__(self):
-        vals = ', '.join(re.split(r'\s+', str(self._data[:self._dim])[1:-1].strip()))
+        vals = ', '.join(re.split(r'\s+', str(self._data)[1:-1].strip()))
         return f'Vector{self._dim}D({vals})'
 
     def __repr__(self):
@@ -114,19 +112,28 @@ class Vector(Sequence):
             else:
                 a, b = (other, self) if swap else (self, other)
                 new_dim = max(a._dim, b._dim)
-                return Vector(op(a._data, b._data)[:new_dim], dim=new_dim)
+                if a._dim < new_dim:
+                    new_data = b._data.copy()
+                    new_data[:a._dim] = op(a._data, b._data[:a._dim])
+                    return Vector(new_data, dim=new_dim)
+                elif b._dim < new_dim:
+                    new_data = a._data.copy()
+                    new_data[:b._dim] = op(a._data[:b._dim], b._data)
+                    return Vector(new_data, dim=new_dim)
+                else:
+                    return Vector(op(a._data, b._data), dim=new_dim)
         else:
-            if inplace:
-                try:
-                    op(self._data[:self._dim], other)
-                except ValueError as e:
-                    other_type = 'numpy array' if isinstance(other, np.ndarray) else f'{type(other).__name__} object'
-                    raise RuntimeError(f'Unable to perform in-place {opname} on vector and {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
-                return self
-            else:
-                a, b = (other, self._data[:self._dim]) if swap else (self._data[:self._dim], other)
-                result = op(a, b)
-                return Vector(result) if result.ndim == 1 and 2 <= result.size <= 4 else result
+            try:
+                if inplace:
+                    op(self._data, other)
+                    return self
+                else:
+                    a, b = (other, self._data) if swap else (self._data, other)
+                    result = op(a, b)
+                    return Vector(result) if result.ndim == 1 and 2 <= result.size <= 4 else result
+            except ValueError as e:
+                other_type = 'numpy array' if isinstance(other, np.ndarray) else f'{type(other).__name__} object'
+                raise RuntimeError(f'Unable to perform {opname} on vector and {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
 
     def __add__(self, other):
         return self._run_op(operator.add, other, 'addition', allow2vectors=True)
@@ -191,12 +198,12 @@ class Vector(Sequence):
         return self
 
     def __neg__(self):
-        return Vector(-self._data[:self._dim])
+        return Vector(-self._data)
 
     # TODO: need to create a lot of helper functions
 
     def copy(self):
-        return Vector(self._data[:self._dim].copy())
+        return Vector(self._data.copy())
 
     def heading(self):
         return np.arctan2(self._data[1], self._data[0])
@@ -214,7 +221,7 @@ class Vector(Sequence):
         self._data[1] = val
 
     def _get_data(self):
-        return self._data[:self._dim]
+        return self._data
 
     def _get_dim(self):
         return self._dim
