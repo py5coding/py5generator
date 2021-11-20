@@ -180,6 +180,21 @@ class Vector(Sequence):
     def __rfloordiv__(self, other):
         return self._run_op(operator.floordiv, other, 'integer division', swap=True)
 
+    def __mod__(self, other):
+        return self._run_op(operator.mod, other, 'modular division')
+
+    def __imod__(self, other):
+        return self._run_op(operator.imod, other, 'modular division', inplace=True)
+
+    def __rmod__(self, other):
+        return self._run_op(operator.mod, other, 'modular division', swap=True)
+
+    def __divmod__(self, other):
+        return self._run_op(operator.floordiv, other, 'integer division'), self._run_op(operator.mod, other, 'modular division')
+
+    def __rdivmod__(self, other):
+        return self._run_op(operator.floordiv, other, 'integer division', swap=True), self._run_op(operator.mod, other, 'modular division', swap=True)
+
     def __pow__(self, other):
         return self._run_op(operator.pow, other, 'power')
 
@@ -192,13 +207,26 @@ class Vector(Sequence):
     def __rmatmul__(self, other):
         return self._run_op(operator.matmul, other, 'matrix multiplication', swap=True)
 
-    # TODO: what other operators can I add here? mod?
-
     def __pos__(self):
         return self
 
     def __neg__(self):
         return Vector(-self._data)
+
+    def __abs__(self):
+        return Vector(np.abs(self._data))
+
+    def __round__(self):
+        return Vector(np.round(self._data))
+
+    def __bool__(self):
+        return any(self._data != 0.0)
+
+    def __eq__(self, other):
+        return isinstance(other, type(self)) and all(self._data == other._data)
+
+    def __ne__(self, other):
+        return not isinstance(other, type(self)) or any(self._data != other._data)
 
     # TODO: need to create a lot of helper functions
 
