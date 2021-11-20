@@ -26,25 +26,30 @@ import numpy as np
 
 class Vector(Sequence):
 
-    def __new__(cls, *args, **kwargs):
-        # TODO: support other dtypes?
+    def __new__(cls, *args, dim=None, dtype=np.float_):
+        kwarg_dim = dim
+        kwarg_dtype = dtype
+
+        if not isinstance(dtype, type) or not np.issubdtype(dtype, np.floating):
+            raise RuntimeError('Error: dtype parameter is not a valid numpy float type (i.e., np.float32, np.float64, etc)')
+
         # TODO: if a valid numpy array is passed in, should that be used instead? copying should be the default, but it would be good to have the option to turn it off
         # TODO: should be able to pass in another Vector class, such as Vector(v, 0), to make a new vector that is larger
 
         if len(args) == 0:
-            dim = kwargs.get('dim', 3)
-            data = np.zeros(dim, dtype=np.float32)
+            dim = 3 if kwarg_dim is None else dim
+            data = np.zeros(dim, dtype=dtype)
         elif len(args) == 1 and isinstance(args[0], Iterable) and 2 <= len(args[0]) <= 4:
             dim = len(args[0])
-            data = np.array(args[0], dtype=np.float32)
+            data = np.array(args[0], dtype=dtype)
         elif 2 <= len(args) <= 4:
             dim = len(args)
-            data = np.array(args, dtype=np.float32)
+            data = np.array(args, dtype=dtype)
         else:
             raise RuntimeError(f'Cannot create Vector instance with {str(args)}')
 
-        if 'dim' in kwargs and dim != kwargs['dim']:
-            raise RuntimeError(f"Error: dim parameter is {kwargs['dim']} but vector values imply dimension of {dim}")
+        if  kwarg_dim is not None and dim != kwarg_dim:
+            raise RuntimeError(f"Error: dim parameter is {kwarg_dim} but vector values imply dimension of {dim}")
 
         if dim == 2:
             v = object.__new__(Vector2D)
@@ -57,6 +62,7 @@ class Vector(Sequence):
 
         v._data = data
         v._dim = dim
+        v._dtype = dtype
 
         return v
 
@@ -97,7 +103,7 @@ class Vector(Sequence):
         return f'Vector{self._dim}D({vals})'
 
     def __repr__(self):
-        return str(self)
+        return f'Vector{self._dim}D{repr(self._data)[5:]}'
 
     def _run_op(self, op, other, opname, swap=False, inplace=False, allow2vectors=False):
         if isinstance(other, Vector):
@@ -254,10 +260,14 @@ class Vector(Sequence):
     def _get_dim(self):
         return self._dim
 
+    def _get_dtype(self):
+        return self._dtype
+
     x = property(_get_x, _set_x, doc='x coordinate')
     y = property(_get_y, _set_y, doc='y coordinate')
     data = property(_get_data, doc='numpy data array')
     dim = property(_get_dim, doc='vector dimension')
+    dtype = property(_get_dtype, doc='vector dtype')
 
     # TODO: how to keep Vector3D from inheriting methods that only make sense for 2D vectors?
     @classmethod
