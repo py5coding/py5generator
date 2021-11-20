@@ -237,6 +237,9 @@ class Vector(Sequence):
 
     # TODO: need to create a lot of helper functions
 
+    def astype(self, dtype):
+        return Vector(self._data, dtype=dtype)
+
     def copy(self):
         return Vector(self._data.copy())
 
