@@ -285,14 +285,14 @@ class Vector(Sequence):
 
 class Vector2D(Vector):
 
-    def __new__(cls, *args):
-        return super().__new__(cls, *args, dim=2)
+    def __new__(cls, *args, dtype=np.float_):
+        return super().__new__(cls, *args, dim=2, dtype=dtype)
 
 
 class Vector3D(Vector):
 
-    def __new__(cls, *args):
-        return super().__new__(cls, *args, dim=3)
+    def __new__(cls, *args, dtype=np.float_):
+        return super().__new__(cls, *args, dim=3, dtype=dtype)
 
     def _get_z(self):
         return self._data[2]
@@ -305,8 +305,8 @@ class Vector3D(Vector):
 
 class Vector4D(Vector):
 
-    def __new__(cls, *args):
-        return super().__new__(cls, *args, dim=4)
+    def __new__(cls, *args, dtype=np.float_):
+        return super().__new__(cls, *args, dim=4, dtype=dtype)
 
     def _get_z(self):
         return self._data[2]
