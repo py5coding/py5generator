@@ -54,7 +54,6 @@ setup(
     name='py5',
     version=VERSION,
     packages=packages,
-    py_modules=['setup'],
     package_data={
         "py5": ['jars/*.jar', 'jars/*/*.jar'],
         "py5_tools": ['kernel/resources/*.png', 'py5bot/resources/*.png'],
