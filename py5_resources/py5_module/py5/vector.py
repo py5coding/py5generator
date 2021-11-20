@@ -34,6 +34,7 @@ class Vector(Sequence):
             raise RuntimeError('Error: dtype parameter is not a valid numpy float type (i.e., np.float32, np.float64, etc)')
 
         # TODO: if a valid numpy array is passed in, should that be used instead? copying should be the default, but it would be good to have the option to turn it off
+        # TODO: if a valid numpy array is passed in, get the dtype from that
         # TODO: should be able to pass in another Vector class, such as Vector(v, 0), to make a new vector that is larger
 
         if len(args) == 0:
