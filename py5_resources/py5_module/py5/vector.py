@@ -75,6 +75,7 @@ class Vector(Sequence):
             raise RuntimeError(f'why is dim == {dim}?')
 
         v._data = data
+        # TODO: get rid of these
         v._dim = dim
         v._dtype = dtype
 
@@ -132,15 +133,14 @@ class Vector(Sequence):
             else:
                 a, b = (other, self) if swap else (self, other)
                 new_dim = max(a._dim, b._dim)
+                new_dtype = max(a.dtype, b.dtype)  # this only works when both dtypes are floats
                 if a._dim < new_dim:
-                    # TODO: wrong type here
-                    new_data = b._data.copy()
-                    new_data[:a._dim] = op(a._data, b._data[:a._dim])
+                    new_data = np.array(b._data, dtype=new_dtype)
+                    new_data[:a._dim] = op(a._data, new_data[:a._dim])
                     return Vector(new_data, dim=new_dim, copy=False)
                 elif b._dim < new_dim:
-                    # TODO: and here
-                    new_data = a._data.copy()
-                    new_data[:b._dim] = op(a._data[:b._dim], b._data)
+                    new_data = np.array(a._data, dtype=new_dtype)
+                    new_data[:b._dim] = op(new_data[:b._dim], b._data)
                     return Vector(new_data, dim=new_dim, copy=False)
                 else:
                     return Vector(op(a._data, b._data), dim=new_dim, copy=False)
