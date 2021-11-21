@@ -26,31 +26,44 @@ import numpy as np
 
 class Vector(Sequence):
 
-    def __new__(cls, *args, dim=None, dtype=np.float_):
+    def __new__(cls, *args, dim=None, dtype=None, copy=True):
         kwarg_dim = dim
         kwarg_dtype = dtype
 
-        if not isinstance(dtype, type) or not np.issubdtype(dtype, np.floating):
+        dim = 3 if dim is None else dim
+        dtype = np.float_ if dtype is None else dtype
+
+        if not isinstance(dtype, (type, np.dtype)) or not np.issubdtype(dtype, np.floating):
             raise RuntimeError('Error: dtype parameter is not a valid numpy float type (i.e., np.float32, np.float64, etc)')
 
-        # TODO: if a valid numpy array is passed in, should that be used instead? copying should be the default, but it would be good to have the option to turn it off
-        # TODO: if a valid numpy array is passed in, get the dtype from that
         # TODO: should be able to pass in another Vector class, such as Vector(v, 0), to make a new vector that is larger
 
         if len(args) == 0:
-            dim = 3 if kwarg_dim is None else dim
             data = np.zeros(dim, dtype=dtype)
         elif len(args) == 1 and isinstance(args[0], Iterable) and 2 <= len(args[0]) <= 4:
-            dim = len(args[0])
-            data = np.array(args[0], dtype=dtype)
+            arg0 = args[0]
+            if isinstance(arg0, np.ndarray):
+                if copy:
+                    if arg0.dtype != dtype:
+                        data = arg0.astype(dtype)
+                    else:
+                        data = arg0.copy()
+                else:
+                    data = arg0
+            else:
+                data = np.array(arg0, dtype=dtype)
         elif 2 <= len(args) <= 4:
-            dim = len(args)
             data = np.array(args, dtype=dtype)
         else:
             raise RuntimeError(f'Cannot create Vector instance with {str(args)}')
 
+        dim = len(data)
+        dtype = data.dtype
+
         if  kwarg_dim is not None and dim != kwarg_dim:
             raise RuntimeError(f"Error: dim parameter is {kwarg_dim} but vector values imply dimension of {dim}")
+        if  kwarg_dtype is not None and dtype != kwarg_dtype:
+            raise RuntimeError(f"Error: dtype parameter is {kwarg_dtype} but vector values imply dtype of {dtype}")
 
         if dim == 2:
             v = object.__new__(Vector2D)
@@ -70,7 +83,7 @@ class Vector(Sequence):
     def __getattr__(self, name):
         if hasattr(self, '_data') and hasattr(self, '_dim') and not (set(name) - set('xyzw'[:self._dim])):
             if 2 <= len(name) <= 4:
-                return Vector(self._data[['xyzw'.index(c) for c in name]])
+                return Vector(self._data[['xyzw'.index(c) for c in name]], copy=True)
             else:
                 raise RuntimeError('Invalid swizzle: length must be between 2 and 4 characters')
         else:
@@ -120,15 +133,17 @@ class Vector(Sequence):
                 a, b = (other, self) if swap else (self, other)
                 new_dim = max(a._dim, b._dim)
                 if a._dim < new_dim:
+                    # TODO: wrong type here
                     new_data = b._data.copy()
                     new_data[:a._dim] = op(a._data, b._data[:a._dim])
-                    return Vector(new_data, dim=new_dim)
+                    return Vector(new_data, dim=new_dim, copy=False)
                 elif b._dim < new_dim:
+                    # TODO: and here
                     new_data = a._data.copy()
                     new_data[:b._dim] = op(a._data[:b._dim], b._data)
-                    return Vector(new_data, dim=new_dim)
+                    return Vector(new_data, dim=new_dim, copy=False)
                 else:
-                    return Vector(op(a._data, b._data), dim=new_dim)
+                    return Vector(op(a._data, b._data), dim=new_dim, copy=False)
         else:
             try:
                 if inplace:
@@ -137,7 +152,7 @@ class Vector(Sequence):
                 else:
                     a, b = (other, self._data) if swap else (self._data, other)
                     result = op(a, b)
-                    return Vector(result) if result.ndim == 1 and 2 <= result.size <= 4 else result
+                    return Vector(result, copy=False) if result.ndim == 1 and 2 <= result.size <= 4 else result
             except ValueError as e:
                 other_type = 'numpy array' if isinstance(other, np.ndarray) else f'{type(other).__name__} object'
                 raise RuntimeError(f'Unable to perform {opname} on vector and {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
@@ -218,13 +233,13 @@ class Vector(Sequence):
         return self
 
     def __neg__(self):
-        return Vector(-self._data)
+        return Vector(-self._data, copy=False)
 
     def __abs__(self):
-        return Vector(np.abs(self._data))
+        return Vector(np.abs(self._data), copy=False)
 
     def __round__(self):
-        return Vector(np.round(self._data))
+        return Vector(np.round(self._data), copy=False)
 
     def __bool__(self):
         return any(self._data != 0.0)
@@ -238,10 +253,10 @@ class Vector(Sequence):
     # TODO: need to create a lot of helper functions
 
     def astype(self, dtype):
-        return Vector(self._data, dtype=dtype)
+        return Vector(self._data, dtype=dtype, copy=True)
 
     def copy(self):
-        return Vector(self._data.copy())
+        return Vector(self._data, dtype=self._data.dtype, copy=True)
 
     def heading(self):
         return np.arctan2(self._data[1], self._data[0])
