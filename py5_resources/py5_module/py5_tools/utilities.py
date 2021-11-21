@@ -42,11 +42,11 @@ POM_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>py5utils</groupId>
-  <artifactId>py5utils</artifactId>
+  <groupId>py5</groupId>
+  <artifactId>py5utilities</artifactId>
   <version>0.1</version>
 
-  <name>py5utils</name>
+  <name>py5utilities</name>
   <url>https://py5.ixora.io/</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -97,13 +97,13 @@ POM_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
         <configuration>
           <artifactItems>
             <artifactItem>
-              <groupId>py5utils</groupId>
-              <artifactId>py5utils</artifactId>
+              <groupId>py5</groupId>
+              <artifactId>py5utilities</artifactId>
               <version>0.1</version>
               <type>jar</type>
               <overWrite>true</overWrite>
               <outputDirectory>$${{project.basedir}}/../jars</outputDirectory>
-              <destFileName>py5utils.jar</destFileName>
+              <destFileName>py5utilities.jar</destFileName>
             </artifactItem>
           </artifactItems>
         </configuration>
