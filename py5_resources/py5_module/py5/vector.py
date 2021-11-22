@@ -75,8 +75,6 @@ class Vector(Sequence):
             raise RuntimeError(f'why is dim == {dim}?')
 
         v._data = data
-        # TODO: get rid of these
-        v._dtype = dtype
 
         return v
 
@@ -279,7 +277,7 @@ class Vector(Sequence):
         return self._data.size
 
     def _get_dtype(self):
-        return self._dtype
+        return self._data.dtype
 
     x = property(_get_x, _set_x, doc='x coordinate')
     y = property(_get_y, _set_y, doc='y coordinate')
