@@ -76,13 +76,12 @@ class Vector(Sequence):
 
         v._data = data
         # TODO: get rid of these
-        v._dim = dim
         v._dtype = dtype
 
         return v
 
     def __getattr__(self, name):
-        if hasattr(self, '_data') and hasattr(self, '_dim') and not (set(name) - set('xyzw'[:self._dim])):
+        if hasattr(self, '_data') and not (set(name) - set('xyzw'[:self._data.size])):
             if 2 <= len(name) <= 4:
                 return Vector(self._data[['xyzw'.index(c) for c in name]], copy=True)
             else:
@@ -91,7 +90,7 @@ class Vector(Sequence):
             raise AttributeError(f"'Vector' object has no attribute '{name}'")
 
     def __setattr__(self, name, val):
-        if name.startswith('_') or not (hasattr(self, '_data') and hasattr(self, '_dim') and not (set(name) - set('xyzw'[:self._dim]))):
+        if name.startswith('_') or not (hasattr(self, '_data') and not (set(name) - set('xyzw'[:self._data.size]))):
             super().__setattr__(name, val)
         elif len(name) == len(set(name)):
             if not isinstance(val, Iterable) or len(val) in [1, len(name)]:
@@ -108,39 +107,39 @@ class Vector(Sequence):
         self._data[key] = val
 
     def __len__(self):
-        return self._dim
+        return self._data.size
 
     def __iter__(self):
         return self._data.__iter__()
 
     def __str__(self):
         vals = ', '.join(re.split(r'\s+', str(self._data)[1:-1].strip()))
-        return f'Vector{self._dim}D({vals})'
+        return f'Vector{self._data.size}D({vals})'
 
     def __repr__(self):
-        return f'Vector{self._dim}D{repr(self._data)[5:]}'
+        return f'Vector{self._data.size}D{repr(self._data)[5:]}'
 
     def _run_op(self, op, other, opname, swap=False, inplace=False, allow2vectors=False):
         if isinstance(other, Vector):
             if not allow2vectors:
                 raise RuntimeError(f'Cannot perform {opname} operation on two vectors.')
             if inplace:
-                if other._dim > self._dim:
-                    raise RuntimeError(f'Cannot perform in-place {opname} on vectors {self} and {other} because the in-place vector has dimension {self._dim} and the other vector has higher dimension {other._dim}. It is possible to do {opname} on the two vectors, but since the result of this computation will create a new vector with dimension {other._dim}, it cannot be done in-place.')
+                if other._data.size > self._data.size:
+                    raise RuntimeError(f'Cannot perform in-place {opname} on vectors {self} and {other} because the in-place vector has dimension {self._data.size} and the other vector has higher dimension {other._data.size}. It is possible to do {opname} on the two vectors, but since the result of this computation will create a new vector with dimension {other._data.size}, it cannot be done in-place.')
                 else:
-                    op(self._data[:other._dim], other._data[:other._dim])
+                    op(self._data[:other._data.size], other._data[:other._data.size])
                     return self
             else:
                 a, b = (other, self) if swap else (self, other)
-                new_dim = max(a._dim, b._dim)
+                new_dim = max(a._data.size, b._data.size)
                 new_dtype = max(a.dtype, b.dtype)  # this only works when both dtypes are floats
-                if a._dim < new_dim:
+                if a._data.size < new_dim:
                     new_data = np.array(b._data, dtype=new_dtype)
-                    new_data[:a._dim] = op(a._data, new_data[:a._dim])
+                    new_data[:a._data.size] = op(a._data, new_data[:a._data.size])
                     return Vector(new_data, dim=new_dim, copy=False)
-                elif b._dim < new_dim:
+                elif b._data.size < new_dim:
                     new_data = np.array(a._data, dtype=new_dtype)
-                    new_data[:b._dim] = op(new_data[:b._dim], b._data)
+                    new_data[:b._data.size] = op(new_data[:b._data.size], b._data)
                     return Vector(new_data, dim=new_dim, copy=False)
                 else:
                     return Vector(op(a._data, b._data), dim=new_dim, copy=False)
@@ -277,7 +276,7 @@ class Vector(Sequence):
         return self._data
 
     def _get_dim(self):
-        return self._dim
+        return self._data.size
 
     def _get_dtype(self):
         return self._dtype
