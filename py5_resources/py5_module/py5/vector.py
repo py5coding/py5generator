@@ -42,6 +42,8 @@ class Vector(Sequence):
             data = np.zeros(dim, dtype=dtype)
         elif len(args) == 1 and isinstance(args[0], Iterable) and 2 <= len(args[0]) <= 4:
             arg0 = args[0]
+            if isinstance(arg0, Vector):
+                arg0 = arg0._data
             if isinstance(arg0, np.ndarray):
                 if copy:
                     if arg0.dtype != dtype:
