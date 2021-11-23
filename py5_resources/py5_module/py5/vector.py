@@ -36,26 +36,48 @@ class Vector(Sequence):
         if not isinstance(dtype, (type, np.dtype)) or not np.issubdtype(dtype, np.floating):
             raise RuntimeError('Error: dtype parameter is not a valid numpy float type (i.e., np.float32, np.float64, etc)')
 
-        # TODO: should be able to pass in another Vector class, such as Vector(v, 0), to make a new vector that is larger
-
         if len(args) == 0:
             data = np.zeros(dim, dtype=dtype)
-        elif len(args) == 1 and isinstance(args[0], Iterable) and 2 <= len(args[0]) <= 4:
+        elif len(args) == 1 and isinstance(args[0], Iterable):
             arg0 = args[0]
-            if isinstance(arg0, Vector):
-                arg0 = arg0._data
-            if isinstance(arg0, np.ndarray):
-                if copy:
-                    if arg0.dtype != dtype:
-                        data = arg0.astype(dtype)
+            if not hasattr(arg0, '__len__'):
+                arg0 = list(arg0)
+            if 2 <= len(arg0) <= 4:
+                if isinstance(arg0, Vector):
+                    arg0 = arg0._data
+                if isinstance(arg0, np.ndarray):
+                    if copy:
+                        if arg0.dtype != dtype:
+                            data = arg0.astype(dtype)
+                        else:
+                            data = arg0.copy()
                     else:
-                        data = arg0.copy()
+                        data = arg0
                 else:
-                    data = arg0
+                    data = np.array(arg0, dtype=dtype)
             else:
-                data = np.array(arg0, dtype=dtype)
+                raise RuntimeError(f'Cannot create a Vector with {len(arg0)} values')
         elif 2 <= len(args) <= 4:
-            data = np.array(args, dtype=dtype)
+            dtype_ = None or kwarg_dtype
+            data_ = []
+            for i, item in enumerate(args):
+                if isinstance(item, (np.ndarray, Vector)):
+                    if np.issubdtype(item.dtype, np.floating) or np.issubdtype(item.dtype, np.integer):
+                        if kwarg_dtype is None:
+                            dtype_ = item.dtype if dtype_ is None else max(dtype_, item.dtype)
+                        data_.extend(item.tolist())
+                    else:
+                        raise RuntimeError(f'Argument {i} is a numpy array with dtype {item.dtype} and cannot be used in a Vector')
+                elif isinstance(item, Iterable):
+                    data_.extend(item)
+                elif isinstance(item, (int, float, np.integer, np.floating)):
+                    data_.append(item)
+                else:
+                    raise RuntimeError(f'Argument {i} has type {type(item)} and cannot be used used in a Vector')
+            if 2 <= len(data_) <= 4:
+                data = np.array(data_, dtype=dtype_ or dtype)
+            else:
+                raise RuntimeError(f'Cannot create a Vector with {len(data_)} values')
         else:
             raise RuntimeError(f'Cannot create Vector instance with {str(args)}')
 
@@ -83,7 +105,7 @@ class Vector(Sequence):
     def __getattr__(self, name):
         if hasattr(self, '_data') and not (set(name) - set('xyzw'[:self._data.size])):
             if 2 <= len(name) <= 4:
-                return Vector(self._data[['xyzw'.index(c) for c in name]], copy=True)
+                return Vector(self._data[['xyzw'.index(c) for c in name]], dtype=self._data.dtype, copy=True)
             else:
                 raise RuntimeError('Invalid swizzle: length must be between 2 and 4 characters')
         else:
@@ -256,6 +278,9 @@ class Vector(Sequence):
 
     def copy(self):
         return Vector(self._data, dtype=self._data.dtype, copy=True)
+
+    def tolist(self):
+        return self._data.tolist()
 
     def heading(self):
         return np.arctan2(self._data[1], self._data[0])
