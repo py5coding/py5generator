@@ -84,9 +84,9 @@ class Vector(Sequence):
         dim = len(data)
         dtype = data.dtype
 
-        if  kwarg_dim is not None and dim != kwarg_dim:
+        if kwarg_dim is not None and dim != kwarg_dim:
             raise RuntimeError(f"Error: dim parameter is {kwarg_dim} but vector values imply dimension of {dim}")
-        if  kwarg_dtype is not None and dtype != kwarg_dtype:
+        if kwarg_dtype is not None and dtype != kwarg_dtype:
             raise RuntimeError(f"Error: dtype parameter is {kwarg_dtype} but vector values imply dtype of {dtype}")
 
         if dim == 2:
@@ -154,7 +154,8 @@ class Vector(Sequence):
             else:
                 a, b = (other, self) if swap else (self, other)
                 new_dim = max(a._data.size, b._data.size)
-                new_dtype = max(a.dtype, b.dtype)  # this only works when both dtypes are floats
+                # this only works when both dtypes are floats
+                new_dtype = max(a.dtype, b.dtype)
                 if a._data.size < new_dim:
                     new_data = np.array(b._data, dtype=new_dtype)
                     new_data[:a._data.size] = op(a._data, new_data[:a._data.size])
@@ -282,9 +283,6 @@ class Vector(Sequence):
     def tolist(self):
         return self._data.tolist()
 
-    def heading(self):
-        return np.arctan2(self._data[1], self._data[0])
-
     def _get_x(self):
         return self._data[0]
 
@@ -312,6 +310,43 @@ class Vector(Sequence):
     dim = property(_get_dim, doc='vector dimension')
     dtype = property(_get_dtype, doc='vector dtype')
 
+    def mag_sq(self):
+        return np.sum(self._data**2)
+
+    def mag(self):
+        return np.sum(self._data**2)**0.5
+
+    def set_mag(self, mag):
+        self.normalize()
+        self._data *= mag
+        return self
+
+    def normalize(self):
+        mag = self.mag()
+        if mag > 0:
+            self._data /= mag
+            return self
+        else:
+            raise RuntimeError('Cannot normalize Vector of zeros')
+
+    def limit(self, max_mag):
+        mag_sq = self.mag_sq()
+        if mag_sq > max_mag * max_mag:
+            self._data *= max_mag / (mag_sq**0.5)
+        return self
+
+    def dist(self, other):
+        if isinstance(other, Vector):
+            if self._data.size == other._data.size:
+                other = other._data
+            else:
+                raise RuntimeError(f'Vector dimensions must be the same to calculate the distance between them')
+
+        if isinstance(other, np.ndarray):
+            return np.sqrt(np.sum((self._data - other)**2))
+        else:
+            raise RuntimeError(f'Do not know how to calculate distance between {type(self)} and {type(other)}')
+
     # TODO: how to keep Vector3D from inheriting methods that only make sense for 2D vectors?
     @classmethod
     def from_angle(cls, angle, length=1):
@@ -327,6 +362,9 @@ class Vector2D(Vector):
     def __new__(cls, *args, dtype=np.float_):
         return super().__new__(cls, *args, dim=2, dtype=dtype)
 
+    def heading(self):
+        return np.arctan2(self._data[1], self._data[0])
+
 
 class Vector3D(Vector):
 
@@ -340,6 +378,9 @@ class Vector3D(Vector):
         self._data[2] = val
 
     z = property(_get_z, _set_z, doc='z coordinate')
+
+    def heading(self):
+        return np.arctan2(self._data[1], self._data[0]), np.arctan2((self._data[1]**2 + self._data[0]**2)**0.5, self._data[2])
 
 
 class Vector4D(Vector):
