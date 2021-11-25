@@ -120,7 +120,7 @@ class Vector(Sequence):
             else:
                 raise RuntimeError(f'Mismatch: value length of {len(val)} cannot be assigned to swizzle of length {len(name)}')
         else:
-            raise RuntimeError('Invalid swizzle: repeats are not allowed')
+            raise RuntimeError('Invalid swizzle: repeats are not allowed in assignments')
 
     def __getitem__(self, key):
         return self._data[key]
