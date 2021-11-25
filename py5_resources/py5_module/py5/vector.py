@@ -73,7 +73,7 @@ class Vector(Sequence):
                 elif isinstance(item, (int, float, np.integer, np.floating)):
                     data_.append(item)
                 else:
-                    raise RuntimeError(f'Argument {i} has type {type(item)} and cannot be used used in a Vector')
+                    raise RuntimeError(f'Argument {i} has type {type(item).__name__} and cannot be used used in a Vector')
             if 2 <= len(data_) <= 4:
                 data = np.array(data_, dtype=dtype_ or dtype)
             else:
@@ -310,6 +310,24 @@ class Vector(Sequence):
     dim = property(_get_dim, doc='vector dimension')
     dtype = property(_get_dtype, doc='vector dtype')
 
+    def _run_calc(self, other, f, name):
+        if isinstance(other, Vector):
+            if self._data.size == other._data.size:
+                other = other._data
+            else:
+                raise RuntimeError(f'Vector dimensions must be the same to calculate the {name} two Vectors')
+
+        if isinstance(other, np.ndarray):
+            return f(self._data, other)
+        else:
+            raise RuntimeError(f'Do not know how to calculate {name} {type(self).__name__} and {type(other).__name__}')
+
+    def dist(self, other):
+        return self._run_calc(other, lambda a, b: np.sqrt(np.sum((a - b)**2)), 'distance between')
+
+    def dot(self, other):
+        return self._run_calc(other, lambda a, b: (a * b).sum(axis=-1), 'dot product for')
+
     def mag_sq(self):
         return np.sum(self._data**2)
 
@@ -334,18 +352,6 @@ class Vector(Sequence):
         if mag_sq > max_mag * max_mag:
             self._data *= max_mag / (mag_sq**0.5)
         return self
-
-    def dist(self, other):
-        if isinstance(other, Vector):
-            if self._data.size == other._data.size:
-                other = other._data
-            else:
-                raise RuntimeError(f'Vector dimensions must be the same to calculate the distance between them')
-
-        if isinstance(other, np.ndarray):
-            return np.sqrt(np.sum((self._data - other)**2))
-        else:
-            raise RuntimeError(f'Do not know how to calculate distance between {type(self)} and {type(other)}')
 
     # TODO: how to keep Vector3D from inheriting methods that only make sense for 2D vectors?
     @classmethod
