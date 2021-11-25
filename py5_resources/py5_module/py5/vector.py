@@ -365,6 +365,12 @@ class Vector2D(Vector):
     def heading(self):
         return np.arctan2(self._data[1], self._data[0])
 
+    def rotate(self, angle):
+        sin_angle = np.sin(angle)
+        cos_angle = np.cos(angle)
+        rot = np.array([[cos_angle, -sin_angle], [sin_angle, cos_angle]])
+        self._data[:] = rot @ self._data
+        return self
 
 class Vector3D(Vector):
 
@@ -381,6 +387,20 @@ class Vector3D(Vector):
 
     def heading(self):
         return np.arctan2(self._data[1], self._data[0]), np.arctan2((self._data[1]**2 + self._data[0]**2)**0.5, self._data[2])
+
+    def rotate(self, angle, dim):
+        sin_angle = np.sin(angle)
+        cos_angle = np.cos(angle)
+        if dim in [0, 'roll']:
+            rot = np.array([[1, 0, 0], [0, cos_angle, -sin_angle], [0, sin_angle, cos_angle]])
+        elif dim in [1, 'pitch']:
+            rot = np.array([[cos_angle, 0, sin_angle], [0, 1, 0], [-sin_angle, 0, cos_angle]])
+        elif dim in [2, 'yaw']:
+            rot = np.array([[cos_angle, -sin_angle, 0], [sin_angle, cos_angle, 0], [0, 0, 1]])
+        else:
+            raise RuntimeError("dim parameter must be 0, 1, or 2, or 'yaw', 'pitch', or 'roll'")
+        self._data[:] = rot @ self._data
+        return self
 
 
 class Vector4D(Vector):
