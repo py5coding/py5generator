@@ -386,7 +386,8 @@ class Vector3D(Vector):
     z = property(_get_z, _set_z, doc='z coordinate')
 
     def heading(self):
-        return np.arctan2(self._data[1], self._data[0]), np.arctan2((self._data[1]**2 + self._data[0]**2)**0.5, self._data[2])
+        return (np.arctan2(self._data[1], self._data[0]),
+                np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2]))
 
     def rotate(self, angle, dim):
         sin_angle = np.sin(angle)
@@ -422,3 +423,8 @@ class Vector4D(Vector):
 
     z = property(_get_z, _set_z, doc='z coordinate')
     w = property(_get_w, _set_w, doc='w coordinate')
+
+    def heading(self):
+        return (np.arctan2(self._data[1], self._data[0]),
+                np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2]),
+                np.arctan2((self._data[:3]**2).sum()**0.5, self._data[3]))
