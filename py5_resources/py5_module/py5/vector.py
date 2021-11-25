@@ -391,14 +391,14 @@ class Vector3D(Vector):
     def rotate(self, angle, dim):
         sin_angle = np.sin(angle)
         cos_angle = np.cos(angle)
-        if dim in [0, 'roll']:
+        if dim in [0, 'x']:
             rot = np.array([[1, 0, 0], [0, cos_angle, -sin_angle], [0, sin_angle, cos_angle]])
-        elif dim in [1, 'pitch']:
+        elif dim in [1, 'y']:
             rot = np.array([[cos_angle, 0, sin_angle], [0, 1, 0], [-sin_angle, 0, cos_angle]])
-        elif dim in [2, 'yaw']:
+        elif dim in [2, 'z']:
             rot = np.array([[cos_angle, -sin_angle, 0], [sin_angle, cos_angle, 0], [0, 0, 1]])
         else:
-            raise RuntimeError("dim parameter must be 0, 1, or 2, or 'yaw', 'pitch', or 'roll'")
+            raise RuntimeError("dim parameter must be 0, 1, or 2, or one of 'x', 'y', and 'z'")
         self._data[:] = rot @ self._data
         return self
 
