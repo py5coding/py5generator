@@ -272,8 +272,6 @@ class Vector(Sequence):
     def __ne__(self, other):
         return not isinstance(other, type(self)) or any(self._data != other._data)
 
-    # TODO: need to create a lot of helper functions
-
     def astype(self, dtype):
         return Vector(self._data, dtype=dtype, copy=True)
 
@@ -320,13 +318,26 @@ class Vector(Sequence):
         if isinstance(other, np.ndarray):
             return f(self._data, other)
         else:
-            raise RuntimeError(f'Do not know how to calculate {name} {type(self).__name__} and {type(other).__name__}')
+            raise RuntimeError(f'Do not know how to calculate the {name} {type(self).__name__} and {type(other).__name__}')
+
+    # TODO: need to create a lot of helper functions
+    # random 3D and 4D vectors, lerp, angle between, rotate around vector
 
     def dist(self, other):
         return self._run_calc(other, lambda a, b: np.sqrt(np.sum((a - b)**2)), 'distance between')
 
     def dot(self, other):
         return self._run_calc(other, lambda a, b: (a * b).sum(axis=-1), 'dot product for')
+
+    def cross(self, other):
+        if self._data.size == 2:
+            return self._run_calc(other, lambda a, b: a[0]*b[1]-a[1]*b[0], 'cross product for')
+        elif self._data.size == 3:
+            def _cross(a, b):
+                return np.array([a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]])
+            return self._run_calc(other, _cross, 'cross product for')
+        else:
+            raise RuntimeError(f'Do not know how to calculate the cross product for {type(self).__name__} and {type(other).__name__}')
 
     def mag_sq(self):
         return np.sum(self._data**2)
@@ -377,6 +388,7 @@ class Vector2D(Vector):
         rot = np.array([[cos_angle, -sin_angle], [sin_angle, cos_angle]])
         self._data[:] = rot @ self._data
         return self
+
 
 class Vector3D(Vector):
 
