@@ -320,8 +320,7 @@ class Vector(Sequence):
         else:
             raise RuntimeError(f'Do not know how to calculate the {name} {type(self).__name__} and {type(other).__name__}')
 
-    # TODO: need to create a lot of helper functions
-    # random 3D and 4D vectors, lerp, angle between, rotate around vector
+    # TODO: random 3D and 4D vectors, lerp, angle between, rotate around vector
 
     def dist(self, other):
         return self._run_calc(other, lambda a, b: np.sqrt(np.sum((a - b)**2)), 'distance between')
@@ -339,6 +338,7 @@ class Vector(Sequence):
         else:
             raise RuntimeError(f'Do not know how to calculate the cross product for {type(self).__name__} and {type(other).__name__}')
 
+    # TODO: these should be properties. also create norm property
     def mag_sq(self):
         return np.sum(self._data**2)
 
@@ -364,6 +364,17 @@ class Vector(Sequence):
             self._data *= max_mag / (mag_sq**0.5)
         return self
 
+    def heading(self):
+        if self._data.size == 2:
+            return np.arctan2(self._data[1], self._data[0])
+        elif self._data.size == 3:
+            return (np.arctan2(self._data[1], self._data[0]),
+                    np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2]))
+        else:
+            return (np.arctan2(self._data[1], self._data[0]),
+                    np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2]),
+                    np.arctan2((self._data[:3]**2).sum()**0.5, self._data[3]))
+
     # TODO: how to keep Vector3D from inheriting methods that only make sense for 2D vectors?
     @classmethod
     def from_angle(cls, angle, length=1):
@@ -378,9 +389,6 @@ class Vector2D(Vector):
 
     def __new__(cls, *args, dtype=np.float_):
         return super().__new__(cls, *args, dim=2, dtype=dtype)
-
-    def heading(self):
-        return np.arctan2(self._data[1], self._data[0])
 
     def rotate(self, angle):
         sin_angle = np.sin(angle)
@@ -402,10 +410,6 @@ class Vector3D(Vector):
         self._data[2] = val
 
     z = property(_get_z, _set_z, doc='z coordinate')
-
-    def heading(self):
-        return (np.arctan2(self._data[1], self._data[0]),
-                np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2]))
 
     def rotate(self, angle, dim):
         sin_angle = np.sin(angle)
@@ -441,8 +445,3 @@ class Vector4D(Vector):
 
     z = property(_get_z, _set_z, doc='z coordinate')
     w = property(_get_w, _set_w, doc='w coordinate')
-
-    def heading(self):
-        return (np.arctan2(self._data[1], self._data[0]),
-                np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2]),
-                np.arctan2((self._data[:3]**2).sum()**0.5, self._data[3]))
