@@ -275,8 +275,10 @@ class Vector(Sequence):
     def astype(self, dtype):
         return Vector(self._data, dtype=dtype, copy=True)
 
-    def copy(self):
+    def _get_copy(self):
         return Vector(self._data, dtype=self._data.dtype, copy=True)
+
+    copy = property(_get_copy, doc='copy of Vector')
 
     def tolist(self):
         return self._data.tolist()
@@ -363,7 +365,7 @@ class Vector(Sequence):
             raise RuntimeError('Cannot normalize Vector of zeros')
 
     def _get_norm(self):
-        return self.copy().normalize()
+        return self.copy.normalize()
 
     mag = property(_get_mag, set_mag, doc='vector magnitude')
     mag_sq = property(_get_mag_sq, set_mag_sq, doc='vector magnitude squared')
