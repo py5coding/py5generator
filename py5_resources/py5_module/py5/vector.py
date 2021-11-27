@@ -338,11 +338,7 @@ class Vector(Sequence):
         else:
             raise RuntimeError(f'Do not know how to calculate the cross product for {type(self).__name__} and {type(other).__name__}')
 
-    # TODO: these should be properties. also create norm property
-    def mag_sq(self):
-        return np.sum(self._data**2)
-
-    def mag(self):
+    def _get_mag(self):
         return np.sum(self._data**2)**0.5
 
     def set_mag(self, mag):
@@ -350,16 +346,31 @@ class Vector(Sequence):
         self._data *= mag
         return self
 
+    def _get_mag_sq(self):
+        return np.sum(self._data**2)
+
+    def set_mag_sq(self, mag_sq):
+        self.normalize()
+        self._data *= mag_sq**0.5
+        return self
+
     def normalize(self):
-        mag = self.mag()
+        mag = np.sum(self._data**2)**0.5
         if mag > 0:
             self._data /= mag
             return self
         else:
             raise RuntimeError('Cannot normalize Vector of zeros')
 
-    def limit(self, max_mag):
-        mag_sq = self.mag_sq()
+    def _get_norm(self):
+        return self.copy().normalize()
+
+    mag = property(_get_mag, set_mag, doc='vector magnitude')
+    mag_sq = property(_get_mag_sq, set_mag_sq, doc='vector magnitude squared')
+    norm = property(_get_norm, doc='normalized vector')
+
+    def set_limit(self, max_mag):
+        mag_sq = np.sum(self._data**2)
         if mag_sq > max_mag * max_mag:
             self._data *= max_mag / (mag_sq**0.5)
         return self
