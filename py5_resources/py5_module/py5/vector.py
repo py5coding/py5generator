@@ -310,7 +310,7 @@ class Vector(Sequence):
     dim = property(_get_dim, doc='vector dimension')
     dtype = property(_get_dtype, doc='vector dtype')
 
-    def _run_calc(self, other, f, name):
+    def _run_calc(self, other, calc, name, maybe_vector=False):
         if isinstance(other, Vector):
             if self._data.size == other._data.size:
                 other = other._data
@@ -318,25 +318,28 @@ class Vector(Sequence):
                 raise RuntimeError(f'Vector dimensions must be the same to calculate the {name} two Vectors')
 
         if isinstance(other, np.ndarray):
-            return f(self._data, other)
+            result = calc(self._data, other)
+            return Vector(result, copy=False) if maybe_vector and result.ndim == 1 and 2 <= result.size <= 4 else result
         else:
             raise RuntimeError(f'Do not know how to calculate the {name} {type(self).__name__} and {type(other).__name__}')
 
     # TODO: random 3D and 4D vectors, lerp, angle between, rotate around vector
 
     def dist(self, other):
-        return self._run_calc(other, lambda a, b: np.sqrt(np.sum((a - b)**2)), 'distance between')
+        return self._run_calc(other, lambda a, b: np.sqrt(np.sum((a - b)**2, axis=-1)), 'distance between')
 
     def dot(self, other):
         return self._run_calc(other, lambda a, b: (a * b).sum(axis=-1), 'dot product for')
 
     def cross(self, other):
         if self._data.size == 2:
-            return self._run_calc(other, lambda a, b: a[0]*b[1]-a[1]*b[0], 'cross product for')
+            return self._run_calc(other, lambda a, b: a[..., 0] * b[..., 1] - a[..., 1] * b[..., 0], 'cross product for')
         elif self._data.size == 3:
             def _cross(a, b):
-                return np.array([a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]])
-            return self._run_calc(other, _cross, 'cross product for')
+                return np.array([(a[..., 1] * b[..., 2] - a[..., 2] * b[..., 1]).T,
+                                 (a[..., 2] * b[..., 0] - a[..., 0] * b[..., 2]).T,
+                                 (a[..., 0] * b[..., 1] - a[..., 1] * b[..., 0]).T]).T
+            return self._run_calc(other, _cross, 'cross product for', maybe_vector=True)
         else:
             raise RuntimeError(f'Do not know how to calculate the cross product for {type(self).__name__} and {type(other).__name__}')
 
