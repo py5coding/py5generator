@@ -179,6 +179,8 @@ class Vector(Sequence):
                 other_type = 'numpy array' if isinstance(other, np.ndarray) else f'{type(other).__name__} object'
                 raise RuntimeError(f'Unable to perform {opname} on vector and {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
 
+    # TODO: support element-wise multiplication and division, require add and subtract to be the same size
+
     def __add__(self, other):
         return self._run_op(operator.add, other, 'addition', allow2vectors=True)
 
@@ -326,19 +328,19 @@ class Vector(Sequence):
     # TODO: random 3D and 4D vectors, lerp, angle between, rotate around vector
 
     def dist(self, other):
-        return self._run_calc(other, lambda a, b: np.sqrt(np.sum((a - b)**2, axis=-1)), 'distance between')
+        return self._run_calc(other, lambda s, o: np.sqrt(np.sum((s - o)**2, axis=-1)), 'distance between')
 
     def dot(self, other):
-        return self._run_calc(other, lambda a, b: (a * b).sum(axis=-1), 'dot product for')
+        return self._run_calc(other, lambda s, o: (s * o).sum(axis=-1), 'dot product for')
 
     def cross(self, other):
         if self._data.size == 2:
-            return self._run_calc(other, lambda a, b: a[..., 0] * b[..., 1] - a[..., 1] * b[..., 0], 'cross product for')
+            return self._run_calc(other, lambda s, o: s[..., 0] * o[..., 1] - s[..., 1] * o[..., 0], 'cross product for')
         elif self._data.size == 3:
-            def _cross(a, b):
-                return np.array([(a[..., 1] * b[..., 2] - a[..., 2] * b[..., 1]).T,
-                                 (a[..., 2] * b[..., 0] - a[..., 0] * b[..., 2]).T,
-                                 (a[..., 0] * b[..., 1] - a[..., 1] * b[..., 0]).T]).T
+            def _cross(s, o):
+                return np.array([(s[..., 1] * o[..., 2] - s[..., 2] * o[..., 1]).T,
+                                 (s[..., 2] * o[..., 0] - s[..., 0] * o[..., 2]).T,
+                                 (s[..., 0] * o[..., 1] - s[..., 1] * o[..., 0]).T]).T
             return self._run_calc(other, _cross, 'cross product for', maybe_vector=True)
         else:
             raise RuntimeError(f'Do not know how to calculate the cross product for {type(self).__name__} and {type(other).__name__}')
