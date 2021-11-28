@@ -177,7 +177,7 @@ class Vector(Sequence):
                     return Vector(result, copy=False) if result.ndim == 1 and 2 <= result.size <= 4 else result
             except ValueError as e:
                 other_type = 'numpy array' if isinstance(other, np.ndarray) else f'{type(other).__name__} object'
-                raise RuntimeError(f'Unable to perform {opname} on vector and {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
+                raise RuntimeError(f'Unable to perform {opname} on a Vector and a {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
 
     # TODO: support element-wise multiplication and division, require add and subtract to be the same size
 
@@ -313,6 +313,7 @@ class Vector(Sequence):
     dtype = property(_get_dtype, doc='vector dtype')
 
     def _run_calc(self, other, calc, name, maybe_vector=False):
+        other_type = 'numpy array' if isinstance(other, np.ndarray) else f'{type(other).__name__} object'
         if isinstance(other, Vector):
             if self._data.size == other._data.size:
                 other = other._data
@@ -320,8 +321,11 @@ class Vector(Sequence):
                 raise RuntimeError(f'Vector dimensions must be the same to calculate the {name} two Vectors')
 
         if isinstance(other, np.ndarray):
-            result = calc(self._data, other)
-            return Vector(result, copy=False) if maybe_vector and result.ndim == 1 and 2 <= result.size <= 4 else result
+            try:
+                result = calc(self._data, other)
+                return Vector(result, copy=False) if maybe_vector and result.ndim == 1 and 2 <= result.size <= 4 else result
+            except ValueError as e:
+                raise RuntimeError(f'Unable to calculate the {name} between a Vector and {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
         else:
             raise RuntimeError(f'Do not know how to calculate the {name} {type(self).__name__} and {type(other).__name__}')
 
