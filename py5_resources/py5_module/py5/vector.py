@@ -47,7 +47,7 @@ class Vector(Sequence):
                     arg0 = arg0._data
                 if isinstance(arg0, np.ndarray):
                     if copy:
-                        if arg0.dtype != dtype:
+                        if kwarg_dtype is not None and arg0.dtype != dtype:
                             data = arg0.astype(dtype)
                         else:
                             data = arg0.copy()
