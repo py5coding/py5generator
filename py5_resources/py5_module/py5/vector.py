@@ -402,12 +402,12 @@ class Vector(Sequence):
 
     # TODO: how to keep Vector3D from inheriting methods that only make sense for 2D vectors?
     @classmethod
-    def from_angle(cls, angle, length=1):
-        return Vector(length * np.cos(angle), length * np.sin(angle))
+    def from_angle(cls, angle, dtype=np.float_):
+        return Vector(np.cos(angle), np.sin(angle), dtype=dtype)
 
     @classmethod
-    def random2D(cls):
-        return Vector.from_angle(np.random.rand() * 2 * np.pi)
+    def random2D(cls, dtype=np.float_):
+        return Vector(np.cos(angle := np.random.rand() * 2 * np.pi), np.sin(angle), dtype=dtype)
 
     @classmethod
     def random3D(cls, dtype=np.float_):
