@@ -329,7 +329,7 @@ class Vector(Sequence):
         else:
             raise RuntimeError(f'Do not know how to calculate the {name} {type(self).__name__} and {type(other).__name__}')
 
-    # TODO: random 3D and 4D vectors, angle between, rotate around vector
+    # TODO: angle between, rotate around vector
 
     def lerp(self, other, amt):
         return self._run_calc(other, lambda s, o: s + (o - s) * amt, 'lerp of', maybe_vector=True)
@@ -408,6 +408,14 @@ class Vector(Sequence):
     @classmethod
     def random2D(cls):
         return Vector.from_angle(np.random.rand() * 2 * np.pi)
+
+    @classmethod
+    def random3D(cls, dtype=np.float_):
+        return Vector((v := np.random.randn(3).astype(dtype)) / (v**2).sum()**0.5, copy=False)
+
+    @classmethod
+    def random4D(cls, dtype=np.float_):
+        return Vector((v := np.random.randn(4).astype(dtype)) / (v**2).sum()**0.5, copy=False)
 
 
 class Vector2D(Vector):
