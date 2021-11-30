@@ -327,7 +327,7 @@ class Vector(Sequence):
         else:
             raise RuntimeError(f'Do not know how to calculate the {name} {type(self).__name__} and {type(other).__name__}')
 
-    # TODO: angle between, rotate around vector
+    # TODO: rotate around vector
 
     def lerp(self, other, amt):
         return self._run_calc(other, lambda s, o: s + (o - s) * amt, 'lerp of', maybe_vector=True)
@@ -337,6 +337,14 @@ class Vector(Sequence):
 
     def dot(self, other):
         return self._run_calc(other, lambda s, o: (s * o).sum(axis=-1), 'dot product for')
+
+    def angle_between(self, other):
+        def _angle_between(s, o):
+            # s is always a Vector's data, o may be a Vector or numpy array of any (hopefully broadcastable) size
+            s_n = s / np.sum(s**2)**0.5
+            o_n = o / np.sum(o**2, axis=-1)**0.5
+            return np.arccos((s_n * o_n).sum(axis=-1))
+        return self._run_calc(other, _angle_between, 'angle between')
 
     def cross(self, other):
         if self._data.size == 2:
