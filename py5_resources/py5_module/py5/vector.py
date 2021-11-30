@@ -85,9 +85,9 @@ class Vector(Sequence):
         dtype = data.dtype
 
         if kwarg_dim is not None and dim != kwarg_dim:
-            raise RuntimeError(f"Error: dim parameter is {kwarg_dim} but vector values imply dimension of {dim}")
+            raise RuntimeError(f"Error: dim parameter is {kwarg_dim} but Vector values imply dimension of {dim}")
         if kwarg_dtype is not None and dtype != kwarg_dtype:
-            raise RuntimeError(f"Error: dtype parameter is {kwarg_dtype} but vector values imply dtype of {dtype}")
+            raise RuntimeError(f"Error: dtype parameter is {kwarg_dtype} but Vector values imply dtype of {dtype}")
 
         if dim == 2:
             v = object.__new__(Vector2D)
@@ -144,10 +144,10 @@ class Vector(Sequence):
     def _run_op(self, op, other, opname, swap=False, inplace=False, allow2vectors=False):
         if isinstance(other, Vector):
             if not allow2vectors:
-                raise RuntimeError(f'Cannot perform {opname} operation on two vectors.')
+                raise RuntimeError(f"Cannot perform {opname} operation on two Vectors. If you want to do {opname} on the Vector's data elementwise, use the `.data` attribute to access the Vector's data as a numpy array.")
             if inplace:
                 if other._data.size > self._data.size:
-                    raise RuntimeError(f'Cannot perform in-place {opname} on vectors {self} and {other} because the in-place vector has dimension {self._data.size} and the other vector has higher dimension {other._data.size}. It is possible to do {opname} on the two vectors, but since the result of this computation will create a new vector with dimension {other._data.size}, it cannot be done in-place.')
+                    raise RuntimeError(f'Cannot perform in-place {opname} on Vectors {self} and {other} because the in-place Vector has dimension {self._data.size} and the other Vector has higher dimension {other._data.size}. It is possible to do {opname} on these two Vectors, but since the result of this computation will create a new Vector with dimension {other._data.size}, it cannot be done in-place.')
                 else:
                     op(self._data[:other._data.size], other._data[:other._data.size])
                     return self
@@ -178,8 +178,6 @@ class Vector(Sequence):
             except ValueError as e:
                 other_type = 'numpy array' if isinstance(other, np.ndarray) else f'{type(other).__name__} object'
                 raise RuntimeError(f'Unable to perform {opname} on a Vector and a {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
-
-    # TODO: support element-wise multiplication and division, require add and subtract to be the same size
 
     def __add__(self, other):
         return self._run_op(operator.add, other, 'addition', allow2vectors=True)
