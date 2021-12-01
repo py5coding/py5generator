@@ -330,8 +330,6 @@ class Vector(Sequence):
         else:
             raise RuntimeError(f'Do not know how to calculate the {name} {type(self).__name__} and {type(other).__name__}')
 
-    # TODO: rotate around vector
-
     def lerp(self, other, amt):
         return self._run_calc(other, lambda s, o: s + (o - s) * amt, 'lerp of', maybe_vector=True)
 
@@ -409,7 +407,7 @@ class Vector(Sequence):
                     np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2]),
                     np.arctan2((self._data[:3]**2).sum()**0.5, self._data[3]))
 
-    # TODO: how to keep Vector3D from inheriting methods that only make sense for 2D vectors?
+    # TODO: expand this for 3D and 4D
     @classmethod
     def from_heading(cls, angle, *, dtype=np.float_):
         return Vector(np.cos(angle), np.sin(angle), dtype=dtype)
@@ -469,6 +467,8 @@ class Vector3D(Vector):
             raise RuntimeError("dim parameter must be 0, 1, or 2, or one of 'x', 'y', and 'z'")
         self._data[:] = rot @ self._data
         return self
+
+    # TODO: rotate around vector method
 
     @classmethod
     def random(cls, *, dtype=np.float_):
