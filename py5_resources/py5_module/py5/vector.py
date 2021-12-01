@@ -411,7 +411,7 @@ class Vector(Sequence):
 
     # TODO: how to keep Vector3D from inheriting methods that only make sense for 2D vectors?
     @classmethod
-    def from_heading(cls, angle, dtype=np.float_):
+    def from_heading(cls, angle, *, dtype=np.float_):
         return Vector(np.cos(angle), np.sin(angle), dtype=dtype)
 
     @classmethod
