@@ -415,7 +415,7 @@ class Vector(Sequence):
         return Vector(np.cos(angle), np.sin(angle), dtype=dtype)
 
     @classmethod
-    def random(cls, dim=2, dtype=np.float_):
+    def random(cls, dim=2, *, dtype=np.float_):
         if dim == 2:
             return Vector(np.cos(angle := np.random.rand() * 2 * np.pi), np.sin(angle), dtype=dtype)
         elif dim == 3:
@@ -437,6 +437,10 @@ class Vector2D(Vector):
         rot = np.array([[cos_angle, -sin_angle], [sin_angle, cos_angle]])
         self._data[:] = rot @ self._data
         return self
+
+    @classmethod
+    def random(cls, *, dtype=np.float_):
+        return super().random(2, dtype=dtype)
 
 
 class Vector3D(Vector):
@@ -466,6 +470,10 @@ class Vector3D(Vector):
         self._data[:] = rot @ self._data
         return self
 
+    @classmethod
+    def random(cls, *, dtype=np.float_):
+        return super().random(3, dtype=dtype)
+
 
 class Vector4D(Vector):
 
@@ -486,3 +494,7 @@ class Vector4D(Vector):
 
     z = property(_get_z, _set_z, doc='z coordinate')
     w = property(_get_w, _set_w, doc='w coordinate')
+
+    @classmethod
+    def random(cls, *, dtype=np.float_):
+        return super().random(4, dtype=dtype)
