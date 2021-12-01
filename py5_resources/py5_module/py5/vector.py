@@ -411,20 +411,19 @@ class Vector(Sequence):
 
     # TODO: how to keep Vector3D from inheriting methods that only make sense for 2D vectors?
     @classmethod
-    def from_angle(cls, angle, dtype=np.float_):
+    def from_heading(cls, angle, dtype=np.float_):
         return Vector(np.cos(angle), np.sin(angle), dtype=dtype)
 
     @classmethod
-    def random2D(cls, dtype=np.float_):
-        return Vector(np.cos(angle := np.random.rand() * 2 * np.pi), np.sin(angle), dtype=dtype)
-
-    @classmethod
-    def random3D(cls, dtype=np.float_):
-        return Vector((v := np.random.randn(3).astype(dtype)) / (v**2).sum()**0.5, copy=False)
-
-    @classmethod
-    def random4D(cls, dtype=np.float_):
-        return Vector((v := np.random.randn(4).astype(dtype)) / (v**2).sum()**0.5, copy=False)
+    def random(cls, dim=2, dtype=np.float_):
+        if dim == 2:
+            return Vector(np.cos(angle := np.random.rand() * 2 * np.pi), np.sin(angle), dtype=dtype)
+        elif dim == 3:
+            return Vector((v := np.random.randn(3).astype(dtype)) / (v**2).sum()**0.5, copy=False)
+        elif dim == 4:
+            return Vector((v := np.random.randn(4).astype(dtype)) / (v**2).sum()**0.5, copy=False)
+        else:
+            raise RuntimeError(f'Cannot create a random Vector with dimension {dim}')
 
 
 class Vector2D(Vector):
