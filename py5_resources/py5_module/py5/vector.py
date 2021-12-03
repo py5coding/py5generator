@@ -406,8 +406,9 @@ class Vector(Sequence):
             return float(np.arctan2(self._data[1], self._data[0]))
         elif self._data.size == 3:
             # https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates
-            return (float(np.arctan2(self._data[1], self._data[0])),
-                    float(np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2])))
+            # https://www.youtube.com/watch?v=RkuBWEkBrZA
+            return (float(np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2])),
+                    float(np.arctan2(self._data[1], self._data[0])))
         else:
             # https://en.wikipedia.org/wiki/N-sphere#Spherical_coordinates
             return (float(np.arctan2((self._data[1:]**2).sum()**0.5, self._data[0])),
@@ -426,9 +427,9 @@ class Vector(Sequence):
             return Vector(np.cos(theta), np.sin(theta), dtype=dtype)
         elif len(args) == 2:
             theta, phi = args
-            x = np.cos(theta) * np.sin(phi)
-            y = np.sin(theta) * np.sin(phi)
-            z = np.cos(phi)
+            x = np.cos(phi) * np.sin(theta)
+            y = np.sin(phi) * np.sin(theta)
+            z = np.cos(theta)
             return Vector(x, y, z, dtype=dtype)
         elif len(args) == 3:
             phi1, phi2, phi3 = args
