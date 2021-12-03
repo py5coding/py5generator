@@ -407,10 +407,24 @@ class Vector(Sequence):
                     np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2]),
                     np.arctan2((self._data[:3]**2).sum()**0.5, self._data[3]))
 
-    # TODO: expand this for 3D and 4D
+    # TODO: expand this for 4D
     @classmethod
-    def from_heading(cls, angle, *, dtype=np.float_):
-        return Vector(np.cos(angle), np.sin(angle), dtype=dtype)
+    def from_heading(cls, *args, dtype=np.float_):
+        if len(args) == 1 and isinstance(args[0], Iterable):
+            args = args[0]
+
+        if len(args) == 1:
+            theta = args[0]
+            return Vector(np.cos(theta), np.sin(theta), dtype=dtype)
+        elif len(args) == 2:
+            theta, phi = args
+            x = np.cos(theta) * np.sin(phi)
+            y = np.sin(theta) * np.sin(phi)
+            z = np.cos(phi)
+            return Vector(x, y, z, dtype=dtype)
+        else:
+            raise RuntimeError(f'Cannot create a Vector from {len(args)} arguments')
+
 
     @classmethod
     def random(cls, dim=2, *, dtype=np.float_):
