@@ -403,13 +403,12 @@ class Vector(Sequence):
             return (np.arctan2(self._data[1], self._data[0]),
                     np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2]))
         else:
-            return (np.arctan2(self._data[1], self._data[0]),
-                    np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2]),
-                    np.arctan2((self._data[:3]**2).sum()**0.5, self._data[3]))
+            return (np.arctan2((self._data[1:]**2).sum()**0.5, self._data[0]),
+                    np.arctan2((self._data[2:]**2).sum()**0.5, self._data[1]),
+                    2 * np.arctan2(self._data[3], self._data[2] + (self._data[2:]**2).sum()**0.5))
 
     heading = property(_get_heading, doc='vector heading')
 
-    # TODO: expand this for 4D
     @classmethod
     def from_heading(cls, *args, dtype=np.float_):
         if len(args) == 1 and isinstance(args[0], Iterable):
@@ -424,6 +423,13 @@ class Vector(Sequence):
             y = np.sin(theta) * np.sin(phi)
             z = np.cos(phi)
             return Vector(x, y, z, dtype=dtype)
+        elif len(args) == 3:
+            phi1, phi2, phi3 = args
+            x1 = np.cos(phi1)
+            x2 = np.sin(phi1) * np.cos(phi2)
+            x3 = np.sin(phi1) * np.sin(phi2) * np.cos(phi3)
+            x4 = np.sin(phi1) * np.sin(phi2) * np.sin(phi3)
+            return Vector(x1, x2, x3, x4, dtype=dtype)
         else:
             raise RuntimeError(f'Cannot create a Vector from {len(args)} arguments')
 
