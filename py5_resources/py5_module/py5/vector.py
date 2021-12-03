@@ -360,7 +360,7 @@ class Vector(Sequence):
             raise RuntimeError(f'Do not know how to calculate the cross product for {type(self).__name__} and {type(other).__name__}')
 
     def _get_mag(self):
-        return np.sum(self._data**2)**0.5
+        return float(np.sum(self._data**2)**0.5)
 
     def set_mag(self, mag):
         self.normalize()
@@ -368,7 +368,7 @@ class Vector(Sequence):
         return self
 
     def _get_mag_sq(self):
-        return np.sum(self._data**2)
+        return float(np.sum(self._data**2))
 
     def set_mag_sq(self, mag_sq):
         self.normalize()
@@ -400,9 +400,11 @@ class Vector(Sequence):
         if self._data.size == 2:
             return np.arctan2(self._data[1], self._data[0])
         elif self._data.size == 3:
+            # https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates
             return (np.arctan2(self._data[1], self._data[0]),
                     np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2]))
         else:
+            # https://en.wikipedia.org/wiki/N-sphere#Spherical_coordinates
             return (np.arctan2((self._data[1:]**2).sum()**0.5, self._data[0]),
                     np.arctan2((self._data[2:]**2).sum()**0.5, self._data[1]),
                     2 * np.arctan2(self._data[3], self._data[2] + (self._data[2:]**2).sum()**0.5))
