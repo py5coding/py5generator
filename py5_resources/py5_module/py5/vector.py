@@ -396,7 +396,7 @@ class Vector(Sequence):
             self._data *= max_mag / (mag_sq**0.5)
         return self
 
-    def heading(self):
+    def _get_heading(self):
         if self._data.size == 2:
             return np.arctan2(self._data[1], self._data[0])
         elif self._data.size == 3:
@@ -406,6 +406,8 @@ class Vector(Sequence):
             return (np.arctan2(self._data[1], self._data[0]),
                     np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2]),
                     np.arctan2((self._data[:3]**2).sum()**0.5, self._data[3]))
+
+    heading = property(_get_heading, doc='vector heading')
 
     # TODO: expand this for 4D
     @classmethod
