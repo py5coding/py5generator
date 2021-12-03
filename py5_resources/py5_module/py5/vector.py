@@ -324,7 +324,12 @@ class Vector(Sequence):
         if isinstance(other, np.ndarray):
             try:
                 result = calc(self._data, other)
-                return Vector(result, copy=False) if maybe_vector and result.ndim == 1 and 2 <= result.size <= 4 else result
+                if result.ndim == 0:
+                    return float(result)
+                if maybe_vector and result.ndim == 1 and 2 <= result.size <= 4:
+                    return Vector(result, copy=False)
+                else:
+                    result
             except ValueError as e:
                 raise RuntimeError(f'Unable to calculate the {name} between a Vector and {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
         else:
@@ -398,16 +403,16 @@ class Vector(Sequence):
 
     def _get_heading(self):
         if self._data.size == 2:
-            return np.arctan2(self._data[1], self._data[0])
+            return float(np.arctan2(self._data[1], self._data[0]))
         elif self._data.size == 3:
             # https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates
-            return (np.arctan2(self._data[1], self._data[0]),
-                    np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2]))
+            return (float(np.arctan2(self._data[1], self._data[0])),
+                    float(np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2])))
         else:
             # https://en.wikipedia.org/wiki/N-sphere#Spherical_coordinates
-            return (np.arctan2((self._data[1:]**2).sum()**0.5, self._data[0]),
-                    np.arctan2((self._data[2:]**2).sum()**0.5, self._data[1]),
-                    2 * np.arctan2(self._data[3], self._data[2] + (self._data[2:]**2).sum()**0.5))
+            return (float(np.arctan2((self._data[1:]**2).sum()**0.5, self._data[0])),
+                    float(np.arctan2((self._data[2:]**2).sum()**0.5, self._data[1])),
+                    float(2 * np.arctan2(self._data[3], self._data[2] + (self._data[2:]**2).sum()**0.5)))
 
     heading = property(_get_heading, doc='vector heading')
 
