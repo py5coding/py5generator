@@ -427,16 +427,19 @@ class Vector(Sequence):
             return Vector(np.cos(theta), np.sin(theta), dtype=dtype)
         elif len(args) == 2:
             theta, phi = args
-            x = np.cos(phi) * np.sin(theta)
-            y = np.sin(phi) * np.sin(theta)
+            sin_theta = np.sin(theta)
+            x = np.cos(phi) * sin_theta
+            y = np.sin(phi) * sin_theta
             z = np.cos(theta)
             return Vector(x, y, z, dtype=dtype)
         elif len(args) == 3:
             phi1, phi2, phi3 = args
+            sin_phi1 = np.sin(phi1)
+            sin_phi2 = np.sin(phi2)
             x1 = np.cos(phi1)
-            x2 = np.sin(phi1) * np.cos(phi2)
-            x3 = np.sin(phi1) * np.sin(phi2) * np.cos(phi3)
-            x4 = np.sin(phi1) * np.sin(phi2) * np.sin(phi3)
+            x2 = sin_phi1 * np.cos(phi2)
+            x3 = sin_phi1 * sin_phi2 * np.cos(phi3)
+            x4 = sin_phi1 * sin_phi2 * np.sin(phi3)
             return Vector(x1, x2, x3, x4, dtype=dtype)
         else:
             raise RuntimeError(f'Cannot create a Vector from {len(args)} arguments')
