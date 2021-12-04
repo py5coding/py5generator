@@ -501,7 +501,20 @@ class Vector3D(Vector):
         self._data[:] = rot @ self._data
         return self
 
-    # TODO: rotate around vector method
+    def rotate_around(self, v, theta):
+        if not isinstance(v, Vector3D):
+            raise RuntimeError('Can only rotate around another 3D Vector')
+        u = v.norm
+        ux, uy, uz = u.x, u.y, u.z
+        sin, cos = np.sin(theta), np.cos(theta)
+        ncosp1 = 1 - cos
+        rot = np.array([
+            [cos + ux * ux * ncosp1,       ux * uy * ncosp1 - uz * sin,   ux * uz * ncosp1 + uy * sin],
+            [uy * ux * ncosp1 + uz * sin,  cos + uy * uy * ncosp1,        uy * uz * ncosp1 - ux * sin],
+            [uz * ux * ncosp1 - uy * sin,  uz * uy * ncosp1 + ux * sin,   cos + uz * uz * ncosp1]
+        ])
+        self._data[:] = rot @ self._data
+        return self
 
     @classmethod
     def random(cls, *, dtype=np.float_):
