@@ -364,6 +364,19 @@ class Vector(Sequence):
         else:
             raise RuntimeError(f'Do not know how to calculate the cross product for {type(self).__name__} and {type(other).__name__}')
 
+    def cross2(self, other):
+        if self._data.size == 2:
+            if isinstance(other, Vector3D):
+                other = other._data
+            maybe_vector = (isinstance(other, np.ndarray) and other.shape[-1] == 3)
+            return self._run_calc(other, np.cross, 'cross product for', maybe_vector=maybe_vector)
+        elif self._data.size == 3:
+            if isinstance(other, Vector2D):
+                other = other._data
+            return self._run_calc(other, np.cross, 'cross product for', maybe_vector=True)
+        else:
+            raise RuntimeError(f'Do not know how to calculate the cross product for {type(self).__name__} and {type(other).__name__}')
+
     def _get_mag(self):
         return float(np.sum(self._data**2)**0.5)
 
