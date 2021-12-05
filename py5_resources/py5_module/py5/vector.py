@@ -329,7 +329,7 @@ class Vector(Sequence):
                 if maybe_vector and result.ndim == 1 and 2 <= result.size <= 4:
                     return Vector(result, copy=False)
                 else:
-                    result
+                    return result
             except ValueError as e:
                 raise RuntimeError(f'Unable to calculate the {name} between a Vector and {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
         else:
