@@ -353,29 +353,17 @@ class Vector(Sequence):
         return self._run_calc(other, _angle_between, 'angle between')
 
     def cross(self, other):
-        if self._data.size == 2:
-            return self._run_calc(other, lambda s, o: s[..., 0] * o[..., 1] - s[..., 1] * o[..., 0], 'cross product for')
-        elif self._data.size == 3:
-            def _cross(s, o):
-                return np.array([(s[..., 1] * o[..., 2] - s[..., 2] * o[..., 1]).T,
-                                 (s[..., 2] * o[..., 0] - s[..., 0] * o[..., 2]).T,
-                                 (s[..., 0] * o[..., 1] - s[..., 1] * o[..., 0]).T]).T
-            return self._run_calc(other, _cross, 'cross product for', maybe_vector=True)
-        else:
-            raise RuntimeError(f'Do not know how to calculate the cross product for {type(self).__name__} and {type(other).__name__}')
-
-    def cross2(self, other):
-        if self._data.size == 2:
-            if isinstance(other, Vector3D):
+        if self._data.size == 4 or isinstance(other, Vector4D):
+            raise RuntimeError('Cannot calculate the cross product with a 4D Vector')
+        elif self._data.size == 2:
+            maybe_vector = isinstance(other, Vector3D)
+            if isinstance(other, Vector):  # TODO: take this out if I don't want to allow cross products with a 2D and 3D Vector, also won't need previous line
                 other = other._data
-            maybe_vector = (isinstance(other, np.ndarray) and other.shape[-1] == 3)
-            return self._run_calc(other, np.cross, 'cross product for', maybe_vector=maybe_vector)
-        elif self._data.size == 3:
-            if isinstance(other, Vector2D):
+            return self._run_calc(other, np.cross, 'cross product of', maybe_vector=maybe_vector)
+        else:  # self._data.size == 3:
+            if isinstance(other, Vector):
                 other = other._data
-            return self._run_calc(other, np.cross, 'cross product for', maybe_vector=True)
-        else:
-            raise RuntimeError(f'Do not know how to calculate the cross product for {type(self).__name__} and {type(other).__name__}')
+            return self._run_calc(other, np.cross, 'cross product of', maybe_vector=True)
 
     def _get_mag(self):
         return float(np.sum(self._data**2)**0.5)
