@@ -148,27 +148,14 @@ class Vector(Sequence):
         if isinstance(other, Vector):
             if not allow2vectors:
                 raise RuntimeError(f"Cannot perform {opname} operation on two Vectors. If you want to do {opname} on the Vector's data elementwise, use the `.data` attribute to access the Vector's data as a numpy array.")
-            if inplace:
-                if other._data.size > self._data.size:
-                    raise RuntimeError(f'Cannot perform in-place {opname} on Vectors {self} and {other} because the in-place Vector has dimension {self._data.size} and the other Vector has higher dimension {other._data.size}. It is possible to do {opname} on these two Vectors, but since the result of this computation will create a new Vector with dimension {other._data.size}, it cannot be done in-place.')
-                else:
-                    op(self._data[:other._data.size], other._data[:other._data.size])
-                    return self
+            elif self._data.size != other._data.size:
+                raise RuntimeError(f"Cannot perform {opname} operation on a {self._data.size}D Vector a {other._data.size}D Vector. The dimensions must be the same.")
+            elif inplace:
+                op(self._data[:other._data.size], other._data[:other._data.size])
+                return self
             else:
                 a, b = (other, self) if swap else (self, other)
-                new_dim = max(a._data.size, b._data.size)
-                # this only works when both dtypes are floats
-                new_dtype = max(a.dtype, b.dtype)
-                if a._data.size < new_dim:
-                    new_data = np.array(b._data, dtype=new_dtype)
-                    new_data[:a._data.size] = op(a._data, new_data[:a._data.size])
-                    return Vector(new_data, dim=new_dim, copy=False)
-                elif b._data.size < new_dim:
-                    new_data = np.array(a._data, dtype=new_dtype)
-                    new_data[:b._data.size] = op(new_data[:b._data.size], b._data)
-                    return Vector(new_data, dim=new_dim, copy=False)
-                else:
-                    return Vector(op(a._data, b._data), dim=new_dim, copy=False)
+                return Vector(op(a._data, b._data), dim=a._data.size, copy=False)
         else:
             try:
                 if inplace:
