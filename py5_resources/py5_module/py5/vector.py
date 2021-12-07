@@ -23,6 +23,7 @@ import re
 
 import numpy as np
 
+# TODO: rename to Py5Vector, etc
 # TODO: add typehints
 # https://www.python.org/dev/peps/pep-0484/#forward-references
 # TODO: add appropriate code to reference and pmath
