@@ -357,7 +357,7 @@ class Vector(Sequence):
             raise RuntimeError('Cannot calculate the cross product with a 4D Vector')
         elif self._data.size == 2:
             maybe_vector = isinstance(other, Vector3D)
-            if isinstance(other, Vector):  # TODO: take this out if I don't want to allow cross products with a 2D and 3D Vector, also won't need previous line
+            if isinstance(other, Vector):
                 other = other._data
             return self._run_calc(other, np.cross, 'cross product of', maybe_vector=maybe_vector)
         else:  # self._data.size == 3:
