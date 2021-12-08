@@ -17,19 +17,22 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+from __future__ import annotations
+
+from typing import Union
 import operator
 from collections.abc import Sequence, Iterable
 import re
 
 import numpy as np
 
-# TODO: add typehints
-# https://www.python.org/dev/peps/pep-0484/#forward-references
+from nptyping import NDArray
+
 # TODO: add appropriate code to reference and pmath
 
 class Py5Vector(Sequence):
 
-    def __new__(cls, *args, dim=None, dtype=None, copy=True):
+    def __new__(cls, *args, dim: int = None, dtype: type = None, copy: bool = True):
         kwarg_dim = dim
         kwarg_dtype = dtype
 
@@ -262,43 +265,43 @@ class Py5Vector(Sequence):
     def __ne__(self, other):
         return not isinstance(other, type(self)) or any(self._data != other._data)
 
-    def astype(self, dtype):
+    def astype(self, dtype) -> Py5Vector:
         return Py5Vector(self._data, dtype=dtype, copy=True)
 
-    def _get_copy(self):
+    def _get_copy(self) -> Py5Vector:
         return Py5Vector(self._data, dtype=self._data.dtype, copy=True)
 
     copy = property(_get_copy, doc='copy of Py5Vector')
 
-    def tolist(self):
+    def tolist(self) -> list[float]:
         return self._data.tolist()
 
-    def _get_x(self):
+    def _get_x(self) -> float:
         return self._data[0]
 
-    def _set_x(self, val):
+    def _set_x(self, val: float) -> None:
         self._data[0] = val
 
-    def _get_y(self):
+    def _get_y(self) -> float:
         return self._data[1]
 
-    def _set_y(self, val):
+    def _set_y(self, val: float) -> None:
         self._data[1] = val
 
-    def _get_data(self):
+    def _get_data(self) -> float:
         return self._data
 
-    def _get_dim(self):
+    def _get_dim(self) -> int:
         return self._data.size
 
-    def _get_dtype(self):
+    def _get_dtype(self) -> type:
         return self._data.dtype
 
-    x = property(_get_x, _set_x, doc='x coordinate')
-    y = property(_get_y, _set_y, doc='y coordinate')
-    data = property(_get_data, doc='numpy data array')
-    dim = property(_get_dim, doc='vector dimension')
-    dtype = property(_get_dtype, doc='vector dtype')
+    x: float = property(_get_x, _set_x, doc='x coordinate')
+    y: float = property(_get_y, _set_y, doc='y coordinate')
+    data: np.ndarray = property(_get_data, doc='numpy data array')
+    dim: int = property(_get_dim, doc='vector dimension')
+    dtype: type = property(_get_dtype, doc='vector dtype')
 
     def _run_calc(self, other, calc, name, maybe_vector=False):
         other_type = 'numpy array' if isinstance(other, np.ndarray) else f'{type(other).__name__} object'
@@ -322,16 +325,16 @@ class Py5Vector(Sequence):
         else:
             raise RuntimeError(f'Do not know how to calculate the {name} {type(self).__name__} and {type(other).__name__}')
 
-    def lerp(self, other, amt):
+    def lerp(self, other: Union[Py5Vector, NDArray], amt: Union[float, NDArray]) -> Union[Py5Vector, NDArray]:
         return self._run_calc(other, lambda s, o: s + (o - s) * amt, 'lerp of', maybe_vector=True)
 
-    def dist(self, other):
+    def dist(self, other: Union[Py5Vector, NDArray]):
         return self._run_calc(other, lambda s, o: np.sqrt(np.sum((s - o)**2, axis=-1)), 'distance between')
 
-    def dot(self, other):
+    def dot(self, other: Union[Py5Vector, NDArray]) -> Union[float, NDArray]:
         return self._run_calc(other, lambda s, o: (s * o).sum(axis=-1), 'dot product for')
 
-    def angle_between(self, other):
+    def angle_between(self, other: Union[Py5Vector, NDArray]) -> Union[Py5Vector, NDArray]:
         def _angle_between(s, o):
             # s is always a Py5Vector's data, o may be a Py5Vector or numpy array of any (hopefully broadcastable) size
             s_n = s / np.sum(s**2)**0.5
@@ -339,7 +342,7 @@ class Py5Vector(Sequence):
             return np.arccos((s_n * o_n).sum(axis=-1))
         return self._run_calc(other, _angle_between, 'angle between')
 
-    def cross(self, other):
+    def cross(self, other: Union[Py5Vector, NDArray]) -> Union[Py5Vector, NDArray]:
         if self._data.size == 4 or isinstance(other, Py5Vector4D):
             raise RuntimeError('Cannot calculate the cross product with a 4D Py5Vector')
         elif self._data.size == 2:
@@ -352,23 +355,23 @@ class Py5Vector(Sequence):
                 other = other._data
             return self._run_calc(other, np.cross, 'cross product of', maybe_vector=True)
 
-    def _get_mag(self):
+    def _get_mag(self) -> float:
         return float(np.sum(self._data**2)**0.5)
 
-    def set_mag(self, mag):
+    def set_mag(self, mag: float) -> Py5Vector:
         self.normalize()
         self._data *= mag
         return self
 
-    def _get_mag_sq(self):
+    def _get_mag_sq(self) -> float:
         return float(np.sum(self._data**2))
 
-    def set_mag_sq(self, mag_sq):
+    def set_mag_sq(self, mag_sq: float) -> Py5Vector:
         self.normalize()
         self._data *= mag_sq**0.5
         return self
 
-    def normalize(self):
+    def normalize(self) -> Py5Vector:
         mag = np.sum(self._data**2)**0.5
         if mag > 0:
             self._data /= mag
@@ -376,20 +379,20 @@ class Py5Vector(Sequence):
         else:
             raise RuntimeError('Cannot normalize Py5Vector of zeros')
 
-    def _get_norm(self):
+    def _get_norm(self) -> Py5Vector:
         return self.copy.normalize()
 
-    mag = property(_get_mag, set_mag, doc='vector magnitude')
-    mag_sq = property(_get_mag_sq, set_mag_sq, doc='vector magnitude squared')
-    norm = property(_get_norm, doc='normalized vector')
+    mag: float = property(_get_mag, set_mag, doc='vector magnitude')
+    mag_sq: float = property(_get_mag_sq, set_mag_sq, doc='vector magnitude squared')
+    norm: Py5Vector = property(_get_norm, doc='normalized vector')
 
-    def set_limit(self, max_mag):
+    def set_limit(self, max_mag: float) -> Py5Vector:
         mag_sq = np.sum(self._data**2)
         if mag_sq > max_mag * max_mag:
             self._data *= max_mag / (mag_sq**0.5)
         return self
 
-    def _get_heading(self):
+    def _get_heading(self) -> tuple[float]:
         if self._data.size == 2:
             return float(np.arctan2(self._data[1], self._data[0]))
         elif self._data.size == 3:
@@ -403,10 +406,10 @@ class Py5Vector(Sequence):
                     float(np.arctan2((self._data[2:]**2).sum()**0.5, self._data[1])),
                     float(2 * np.arctan2(self._data[3], self._data[2] + (self._data[2:]**2).sum()**0.5)))
 
-    heading = property(_get_heading, doc='vector heading')
+    heading: tuple[float] = property(_get_heading, doc='vector heading')
 
     @classmethod
-    def from_heading(cls, *args, dtype=np.float_):
+    def from_heading(cls, *args, dtype: int = np.float_) -> Py5Vector:
         if len(args) == 1 and isinstance(args[0], Iterable):
             args = args[0]
 
@@ -434,7 +437,7 @@ class Py5Vector(Sequence):
 
 
     @classmethod
-    def random(cls, dim=2, *, dtype=np.float_):
+    def random(cls, dim: int = 2, *, dtype: type = np.float_) -> Py5Vector:
         if dim == 2:
             return Py5Vector(np.cos(angle := np.random.rand() * 2 * np.pi), np.sin(angle), dtype=dtype)
         elif dim == 3:
@@ -447,10 +450,10 @@ class Py5Vector(Sequence):
 
 class Py5Vector2D(Py5Vector):
 
-    def __new__(cls, *args, dtype=np.float_):
+    def __new__(cls, *args, dtype: type = np.float_):
         return super().__new__(cls, *args, dim=2, dtype=dtype)
 
-    def rotate(self, angle):
+    def rotate(self, angle: float) -> Py5Vector2D:
         sin_angle = np.sin(angle)
         cos_angle = np.cos(angle)
         rot = np.array([[cos_angle, -sin_angle], [sin_angle, cos_angle]])
@@ -458,24 +461,24 @@ class Py5Vector2D(Py5Vector):
         return self
 
     @classmethod
-    def random(cls, *, dtype=np.float_):
+    def random(cls, *, dtype: type = np.float_) -> Py5Vector2D:
         return super().random(2, dtype=dtype)
 
 
 class Py5Vector3D(Py5Vector):
 
-    def __new__(cls, *args, dtype=np.float_):
+    def __new__(cls, *args, dtype: type = np.float_):
         return super().__new__(cls, *args, dim=3, dtype=dtype)
 
-    def _get_z(self):
+    def _get_z(self) -> float:
         return self._data[2]
 
-    def _set_z(self, val):
+    def _set_z(self, val: float) -> None:
         self._data[2] = val
 
-    z = property(_get_z, _set_z, doc='z coordinate')
+    z: float = property(_get_z, _set_z, doc='z coordinate')
 
-    def rotate(self, angle, dim):
+    def rotate(self, angle: float, dim: int) -> Py5Vector3D:
         sin_angle = np.sin(angle)
         cos_angle = np.cos(angle)
         if dim in [0, 'x']:
@@ -489,7 +492,7 @@ class Py5Vector3D(Py5Vector):
         self._data[:] = rot @ self._data
         return self
 
-    def rotate_around(self, v, theta):
+    def rotate_around(self, v: Py5Vector3D, theta: float) -> Py5Vector3D:
         if not isinstance(v, Py5Vector3D):
             raise RuntimeError('Can only rotate around another 3D Py5Vector')
         u = v.norm
@@ -505,30 +508,30 @@ class Py5Vector3D(Py5Vector):
         return self
 
     @classmethod
-    def random(cls, *, dtype=np.float_):
+    def random(cls, *, dtype: type = np.float_) -> Py5Vector3D:
         return super().random(3, dtype=dtype)
 
 
 class Py5Vector4D(Py5Vector):
 
-    def __new__(cls, *args, dtype=np.float_):
+    def __new__(cls, *args, dtype: type = np.float_):
         return super().__new__(cls, *args, dim=4, dtype=dtype)
 
-    def _get_z(self):
+    def _get_z(self) -> float:
         return self._data[2]
 
-    def _set_z(self, val):
+    def _set_z(self, val: float) -> None:
         self._data[2] = val
 
-    def _get_w(self):
+    def _get_w(self) -> float:
         return self._data[3]
 
-    def _set_w(self, val):
+    def _set_w(self, val: float) -> None:
         self._data[3] = val
 
-    z = property(_get_z, _set_z, doc='z coordinate')
-    w = property(_get_w, _set_w, doc='w coordinate')
+    z: float = property(_get_z, _set_z, doc='z coordinate')
+    w: float = property(_get_w, _set_w, doc='w coordinate')
 
     @classmethod
-    def random(cls, *, dtype=np.float_):
+    def random(cls, *, dtype: type = np.float_) -> Py5Vector4D:
         return super().random(4, dtype=dtype)
