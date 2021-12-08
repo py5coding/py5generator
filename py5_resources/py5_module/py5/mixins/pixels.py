@@ -51,6 +51,8 @@ class PixelArray:
         if (newval := _hex_converter(val)) is not None:
             val = newval
 
+        self._instance.pixels[index] = val
+
     def __len__(self):
         if self._instance.pixels is None:
             raise RuntimeError("Cannot get pixel length because load_pixels() has not been called")
