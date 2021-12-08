@@ -23,12 +23,11 @@ import re
 
 import numpy as np
 
-# TODO: rename to Py5Vector, etc
 # TODO: add typehints
 # https://www.python.org/dev/peps/pep-0484/#forward-references
 # TODO: add appropriate code to reference and pmath
 
-class Vector(Sequence):
+class Py5Vector(Sequence):
 
     def __new__(cls, *args, dim=None, dtype=None, copy=True):
         kwarg_dim = dim
@@ -47,7 +46,7 @@ class Vector(Sequence):
             if not hasattr(arg0, '__len__'):
                 arg0 = list(arg0)
             if 2 <= len(arg0) <= 4:
-                if isinstance(arg0, Vector):
+                if isinstance(arg0, Py5Vector):
                     arg0 = arg0._data
                 if isinstance(arg0, np.ndarray):
                     if copy:
@@ -60,45 +59,45 @@ class Vector(Sequence):
                 else:
                     data = np.array(arg0, dtype=dtype)
             else:
-                raise RuntimeError(f'Cannot create a Vector with {len(arg0)} values')
+                raise RuntimeError(f'Cannot create a Py5Vector with {len(arg0)} values')
         elif 2 <= len(args) <= 4:
             dtype_ = None or kwarg_dtype
             data_ = []
             for i, item in enumerate(args):
-                if isinstance(item, (np.ndarray, Vector)):
+                if isinstance(item, (np.ndarray, Py5Vector)):
                     if np.issubdtype(item.dtype, np.floating) or np.issubdtype(item.dtype, np.integer):
                         if kwarg_dtype is None:
                             dtype_ = item.dtype if dtype_ is None else max(dtype_, item.dtype)
                         data_.extend(item.tolist())
                     else:
-                        raise RuntimeError(f'Argument {i} is a numpy array with dtype {item.dtype} and cannot be used in a Vector')
+                        raise RuntimeError(f'Argument {i} is a numpy array with dtype {item.dtype} and cannot be used in a Py5Vector')
                 elif isinstance(item, Iterable):
                     data_.extend(item)
                 elif isinstance(item, (int, float, np.integer, np.floating)):
                     data_.append(item)
                 else:
-                    raise RuntimeError(f'Argument {i} has type {type(item).__name__} and cannot be used used in a Vector')
+                    raise RuntimeError(f'Argument {i} has type {type(item).__name__} and cannot be used used in a Py5Vector')
             if 2 <= len(data_) <= 4:
                 data = np.array(data_, dtype=dtype_ or dtype)
             else:
-                raise RuntimeError(f'Cannot create a Vector with {len(data_)} values')
+                raise RuntimeError(f'Cannot create a Py5Vector with {len(data_)} values')
         else:
-            raise RuntimeError(f'Cannot create Vector instance with {str(args)}')
+            raise RuntimeError(f'Cannot create Py5Vector instance with {str(args)}')
 
         dim = len(data)
         dtype = data.dtype
 
         if kwarg_dim is not None and dim != kwarg_dim:
-            raise RuntimeError(f"Error: dim parameter is {kwarg_dim} but Vector values imply dimension of {dim}")
+            raise RuntimeError(f"Error: dim parameter is {kwarg_dim} but Py5Vector values imply dimension of {dim}")
         if kwarg_dtype is not None and dtype != kwarg_dtype:
-            raise RuntimeError(f"Error: dtype parameter is {kwarg_dtype} but Vector values imply dtype of {dtype}")
+            raise RuntimeError(f"Error: dtype parameter is {kwarg_dtype} but Py5Vector values imply dtype of {dtype}")
 
         if dim == 2:
-            v = object.__new__(Vector2D)
+            v = object.__new__(Py5Vector2D)
         elif dim == 3:
-            v = object.__new__(Vector3D)
+            v = object.__new__(Py5Vector3D)
         elif dim == 4:
-            v = object.__new__(Vector4D)
+            v = object.__new__(Py5Vector4D)
         else:
             raise RuntimeError(f'why is dim == {dim}?')
 
@@ -109,11 +108,11 @@ class Vector(Sequence):
     def __getattr__(self, name):
         if hasattr(self, '_data') and not (set(name) - set('xyzw'[:self._data.size])):
             if 2 <= len(name) <= 4:
-                return Vector(self._data[['xyzw'.index(c) for c in name]], dtype=self._data.dtype, copy=True)
+                return Py5Vector(self._data[['xyzw'.index(c) for c in name]], dtype=self._data.dtype, copy=True)
             else:
                 raise RuntimeError('Invalid swizzle: length must be between 2 and 4 characters')
         else:
-            raise AttributeError(f"'Vector' object has no attribute '{name}'")
+            raise AttributeError(f"'Py5Vector' object has no attribute '{name}'")
 
     def __setattr__(self, name, val):
         if name.startswith('_') or not (hasattr(self, '_data') and not (set(name) - set('xyzw'[:self._data.size]))):
@@ -140,23 +139,23 @@ class Vector(Sequence):
 
     def __str__(self):
         vals = ', '.join(re.split(r'\s+', str(self._data)[1:-1].strip()))
-        return f'Vector{self._data.size}D({vals})'
+        return f'Py5Vector{self._data.size}D({vals})'
 
     def __repr__(self):
-        return f'Vector{self._data.size}D{repr(self._data)[5:]}'
+        return f'Py5Vector{self._data.size}D{repr(self._data)[5:]}'
 
     def _run_op(self, op, other, opname, swap=False, inplace=False, allow2vectors=False):
-        if isinstance(other, Vector):
+        if isinstance(other, Py5Vector):
             if not allow2vectors:
-                raise RuntimeError(f"Cannot perform {opname} operation on two Vectors. If you want to do {opname} on the Vector's data elementwise, use the `.data` attribute to access the Vector's data as a numpy array.")
+                raise RuntimeError(f"Cannot perform {opname} operation on two Py5Vectors. If you want to do {opname} on the Py5Vector's data elementwise, use the `.data` attribute to access the Py5Vector's data as a numpy array.")
             elif self._data.size != other._data.size:
-                raise RuntimeError(f"Cannot perform {opname} operation on a {self._data.size}D Vector a {other._data.size}D Vector. The dimensions must be the same.")
+                raise RuntimeError(f"Cannot perform {opname} operation on a {self._data.size}D Py5Vector a {other._data.size}D Py5Vector. The dimensions must be the same.")
             elif inplace:
                 op(self._data[:other._data.size], other._data[:other._data.size])
                 return self
             else:
                 a, b = (other, self) if swap else (self, other)
-                return Vector(op(a._data, b._data), dim=a._data.size, copy=False)
+                return Py5Vector(op(a._data, b._data), dim=a._data.size, copy=False)
         else:
             try:
                 if inplace:
@@ -165,10 +164,10 @@ class Vector(Sequence):
                 else:
                     a, b = (other, self._data) if swap else (self._data, other)
                     result = op(a, b)
-                    return Vector(result, copy=False) if result.ndim == 1 and 2 <= result.size <= 4 else result
+                    return Py5Vector(result, copy=False) if result.ndim == 1 and 2 <= result.size <= 4 else result
             except ValueError as e:
                 other_type = 'numpy array' if isinstance(other, np.ndarray) else f'{type(other).__name__} object'
-                raise RuntimeError(f'Unable to perform {opname} on a Vector and a {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
+                raise RuntimeError(f'Unable to perform {opname} on a Py5Vector and a {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
 
     def __add__(self, other):
         return self._run_op(operator.add, other, 'addition', allow2vectors=True)
@@ -246,13 +245,13 @@ class Vector(Sequence):
         return self
 
     def __neg__(self):
-        return Vector(-self._data, copy=False)
+        return Py5Vector(-self._data, copy=False)
 
     def __abs__(self):
-        return Vector(np.abs(self._data), copy=False)
+        return Py5Vector(np.abs(self._data), copy=False)
 
     def __round__(self):
-        return Vector(np.round(self._data), copy=False)
+        return Py5Vector(np.round(self._data), copy=False)
 
     def __bool__(self):
         return any(self._data != 0.0)
@@ -264,12 +263,12 @@ class Vector(Sequence):
         return not isinstance(other, type(self)) or any(self._data != other._data)
 
     def astype(self, dtype):
-        return Vector(self._data, dtype=dtype, copy=True)
+        return Py5Vector(self._data, dtype=dtype, copy=True)
 
     def _get_copy(self):
-        return Vector(self._data, dtype=self._data.dtype, copy=True)
+        return Py5Vector(self._data, dtype=self._data.dtype, copy=True)
 
-    copy = property(_get_copy, doc='copy of Vector')
+    copy = property(_get_copy, doc='copy of Py5Vector')
 
     def tolist(self):
         return self._data.tolist()
@@ -303,11 +302,11 @@ class Vector(Sequence):
 
     def _run_calc(self, other, calc, name, maybe_vector=False):
         other_type = 'numpy array' if isinstance(other, np.ndarray) else f'{type(other).__name__} object'
-        if isinstance(other, Vector):
+        if isinstance(other, Py5Vector):
             if self._data.size == other._data.size:
                 other = other._data
             else:
-                raise RuntimeError(f'Vector dimensions must be the same to calculate the {name} two Vectors')
+                raise RuntimeError(f'Py5Vector dimensions must be the same to calculate the {name} two Py5Vectors')
 
         if isinstance(other, np.ndarray):
             try:
@@ -315,11 +314,11 @@ class Vector(Sequence):
                 if result.ndim == 0:
                     return float(result)
                 if maybe_vector and result.ndim == 1 and 2 <= result.size <= 4:
-                    return Vector(result, copy=False)
+                    return Py5Vector(result, copy=False)
                 else:
                     return result
             except ValueError as e:
-                raise RuntimeError(f'Unable to calculate the {name} between a Vector and {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
+                raise RuntimeError(f'Unable to calculate the {name} between a Py5Vector and {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
         else:
             raise RuntimeError(f'Do not know how to calculate the {name} {type(self).__name__} and {type(other).__name__}')
 
@@ -334,22 +333,22 @@ class Vector(Sequence):
 
     def angle_between(self, other):
         def _angle_between(s, o):
-            # s is always a Vector's data, o may be a Vector or numpy array of any (hopefully broadcastable) size
+            # s is always a Py5Vector's data, o may be a Py5Vector or numpy array of any (hopefully broadcastable) size
             s_n = s / np.sum(s**2)**0.5
             o_n = o / np.sum(o**2, axis=-1)**0.5
             return np.arccos((s_n * o_n).sum(axis=-1))
         return self._run_calc(other, _angle_between, 'angle between')
 
     def cross(self, other):
-        if self._data.size == 4 or isinstance(other, Vector4D):
-            raise RuntimeError('Cannot calculate the cross product with a 4D Vector')
+        if self._data.size == 4 or isinstance(other, Py5Vector4D):
+            raise RuntimeError('Cannot calculate the cross product with a 4D Py5Vector')
         elif self._data.size == 2:
-            maybe_vector = isinstance(other, Vector3D)
-            if isinstance(other, Vector):
+            maybe_vector = isinstance(other, Py5Vector3D)
+            if isinstance(other, Py5Vector):
                 other = other._data
             return self._run_calc(other, np.cross, 'cross product of', maybe_vector=maybe_vector)
         else:  # self._data.size == 3:
-            if isinstance(other, Vector):
+            if isinstance(other, Py5Vector):
                 other = other._data
             return self._run_calc(other, np.cross, 'cross product of', maybe_vector=True)
 
@@ -375,7 +374,7 @@ class Vector(Sequence):
             self._data /= mag
             return self
         else:
-            raise RuntimeError('Cannot normalize Vector of zeros')
+            raise RuntimeError('Cannot normalize Py5Vector of zeros')
 
     def _get_norm(self):
         return self.copy.normalize()
@@ -413,14 +412,14 @@ class Vector(Sequence):
 
         if len(args) == 1:
             theta = args[0]
-            return Vector(np.cos(theta), np.sin(theta), dtype=dtype)
+            return Py5Vector(np.cos(theta), np.sin(theta), dtype=dtype)
         elif len(args) == 2:
             theta, phi = args
             sin_theta = np.sin(theta)
             x = np.cos(phi) * sin_theta
             y = np.sin(phi) * sin_theta
             z = np.cos(theta)
-            return Vector(x, y, z, dtype=dtype)
+            return Py5Vector(x, y, z, dtype=dtype)
         elif len(args) == 3:
             phi1, phi2, phi3 = args
             sin_phi1 = np.sin(phi1)
@@ -429,24 +428,24 @@ class Vector(Sequence):
             x2 = sin_phi1 * np.cos(phi2)
             x3 = sin_phi1 * sin_phi2 * np.cos(phi3)
             x4 = sin_phi1 * sin_phi2 * np.sin(phi3)
-            return Vector(x1, x2, x3, x4, dtype=dtype)
+            return Py5Vector(x1, x2, x3, x4, dtype=dtype)
         else:
-            raise RuntimeError(f'Cannot create a Vector from {len(args)} arguments')
+            raise RuntimeError(f'Cannot create a Py5Vector from {len(args)} arguments')
 
 
     @classmethod
     def random(cls, dim=2, *, dtype=np.float_):
         if dim == 2:
-            return Vector(np.cos(angle := np.random.rand() * 2 * np.pi), np.sin(angle), dtype=dtype)
+            return Py5Vector(np.cos(angle := np.random.rand() * 2 * np.pi), np.sin(angle), dtype=dtype)
         elif dim == 3:
-            return Vector((v := np.random.randn(3).astype(dtype)) / (v**2).sum()**0.5, copy=False)
+            return Py5Vector((v := np.random.randn(3).astype(dtype)) / (v**2).sum()**0.5, copy=False)
         elif dim == 4:
-            return Vector((v := np.random.randn(4).astype(dtype)) / (v**2).sum()**0.5, copy=False)
+            return Py5Vector((v := np.random.randn(4).astype(dtype)) / (v**2).sum()**0.5, copy=False)
         else:
-            raise RuntimeError(f'Cannot create a random Vector with dimension {dim}')
+            raise RuntimeError(f'Cannot create a random Py5Vector with dimension {dim}')
 
 
-class Vector2D(Vector):
+class Py5Vector2D(Py5Vector):
 
     def __new__(cls, *args, dtype=np.float_):
         return super().__new__(cls, *args, dim=2, dtype=dtype)
@@ -463,7 +462,7 @@ class Vector2D(Vector):
         return super().random(2, dtype=dtype)
 
 
-class Vector3D(Vector):
+class Py5Vector3D(Py5Vector):
 
     def __new__(cls, *args, dtype=np.float_):
         return super().__new__(cls, *args, dim=3, dtype=dtype)
@@ -491,8 +490,8 @@ class Vector3D(Vector):
         return self
 
     def rotate_around(self, v, theta):
-        if not isinstance(v, Vector3D):
-            raise RuntimeError('Can only rotate around another 3D Vector')
+        if not isinstance(v, Py5Vector3D):
+            raise RuntimeError('Can only rotate around another 3D Py5Vector')
         u = v.norm
         ux, uy, uz = u.x, u.y, u.z
         sin, cos = np.sin(theta), np.cos(theta)
@@ -510,7 +509,7 @@ class Vector3D(Vector):
         return super().random(3, dtype=dtype)
 
 
-class Vector4D(Vector):
+class Py5Vector4D(Py5Vector):
 
     def __new__(cls, *args, dtype=np.float_):
         return super().__new__(cls, *args, dim=4, dtype=dtype)
