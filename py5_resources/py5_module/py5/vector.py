@@ -29,6 +29,7 @@ import numpy as np
 from nptyping import NDArray
 
 # TODO: add appropriate code to reference and pmath
+# TODO: create documentation files. can signatures get updated automatically? need to add something to generate_py5 so that code builder (code_extra) looks at it
 
 class Py5Vector(Sequence):
 
@@ -299,7 +300,7 @@ class Py5Vector(Sequence):
 
     x: float = property(_get_x, _set_x, doc='x coordinate')
     y: float = property(_get_y, _set_y, doc='y coordinate')
-    data: np.ndarray = property(_get_data, doc='numpy data array')
+    data: NDArray = property(_get_data, doc='numpy data array')
     dim: int = property(_get_dim, doc='vector dimension')
     dtype: type = property(_get_dtype, doc='vector dtype')
 
