@@ -29,7 +29,8 @@ import numpy as np
 from nptyping import NDArray
 
 # TODO: add appropriate code to reference and pmath
-# TODO: can signatures get updated automatically? need to add something to generate_py5 so that code builder (code_extra) looks at it
+# TODO: fix generate py5 hack
+# TODO: improve code builder so code extra can get rotate and rotate_round
 
 class Py5Vector(Sequence):
 
@@ -266,6 +267,8 @@ class Py5Vector(Sequence):
     def __ne__(self, other):
         return not isinstance(other, type(self)) or any(self._data != other._data)
 
+    # *** BEGIN METHODS ***
+
     def astype(self, dtype) -> Py5Vector:
         return Py5Vector(self._data, dtype=dtype, copy=True)
 
@@ -328,21 +331,16 @@ class Py5Vector(Sequence):
     def lerp(self, other: Union[Py5Vector, NDArray], amt: Union[float, NDArray]) -> Union[Py5Vector, NDArray]:
         return self._run_calc(other, lambda s, o: s + (o - s) * amt, 'lerp of', maybe_vector=True)
 
-    def dist(self, other: Union[Py5Vector, NDArray]):
+    def dist(self, other: Union[Py5Vector, NDArray]) -> Union[Py5Vector, NDArray]:
         return self._run_calc(other, lambda s, o: np.sqrt(np.sum((s - o)**2, axis=-1)), 'distance between')
 
     def dot(self, other: Union[Py5Vector, NDArray]) -> Union[float, NDArray]:
         return self._run_calc(other, lambda s, o: (s * o).sum(axis=-1), 'dot product for')
 
     def angle_between(self, other: Union[Py5Vector, NDArray]) -> Union[Py5Vector, NDArray]:
-        def _angle_between(s, o):
-            # s is always a Py5Vector's data, o may be a Py5Vector or numpy array of any (hopefully broadcastable) size
-            s_n = s / np.sum(s**2)**0.5
-            o_n = o / np.sum(o**2, axis=-1)**0.5
-            return np.arccos((s_n * o_n).sum(axis=-1))
-        return self._run_calc(other, _angle_between, 'angle between')
+        return self._run_calc(other, lambda s, o: np.arccos(((s / np.sum(s**2)**0.5) * (o / np.sum(o**2, axis=-1)**0.5)).sum(axis=-1)), 'angle between')
 
-    def cross(self, other: Union[Py5Vector, NDArray]) -> Union[Py5Vector, NDArray]:
+    def cross(self, other: Union[Py5Vector, NDArray]) -> Union[float, Py5Vector, NDArray]:
         if self._data.size == 4 or isinstance(other, Py5Vector4D):
             raise RuntimeError('Cannot calculate the cross product with a 4D Py5Vector')
         elif self._data.size == 2:
@@ -446,6 +444,8 @@ class Py5Vector(Sequence):
             return Py5Vector((v := np.random.randn(4).astype(dtype)) / (v**2).sum()**0.5, copy=False)
         else:
             raise RuntimeError(f'Cannot create a random Py5Vector with dimension {dim}')
+
+    # *** END METHODS ***
 
 
 class Py5Vector2D(Py5Vector):
