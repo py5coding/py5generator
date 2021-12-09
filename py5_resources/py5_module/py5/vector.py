@@ -269,11 +269,6 @@ class Py5Vector(Sequence):
     def astype(self, dtype) -> Py5Vector:
         return Py5Vector(self._data, dtype=dtype, copy=True)
 
-    def _get_copy(self) -> Py5Vector:
-        return Py5Vector(self._data, dtype=self._data.dtype, copy=True)
-
-    copy = property(_get_copy, doc='copy of Py5Vector')
-
     def tolist(self) -> list[float]:
         return self._data.tolist()
 
@@ -292,6 +287,9 @@ class Py5Vector(Sequence):
     def _get_data(self) -> float:
         return self._data
 
+    def _get_copy(self) -> Py5Vector:
+        return Py5Vector(self._data, dtype=self._data.dtype, copy=True)
+
     def _get_dim(self) -> int:
         return self._data.size
 
@@ -301,6 +299,7 @@ class Py5Vector(Sequence):
     x: float = property(_get_x, _set_x, doc='x coordinate')
     y: float = property(_get_y, _set_y, doc='y coordinate')
     data: NDArray = property(_get_data, doc='numpy data array')
+    copy = property(_get_copy, doc='copy of Py5Vector')
     dim: int = property(_get_dim, doc='vector dimension')
     dtype: type = property(_get_dtype, doc='vector dtype')
 
