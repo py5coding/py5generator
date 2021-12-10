@@ -256,7 +256,7 @@ class CodeBuilder:
                     )
             self.method_names.add(py5_name)
 
-    def code_extra(self, class_name, filename):
+    def code_extra_module(self, class_name, filename):
         if not self._code_module:
             return
 
@@ -277,13 +277,14 @@ class CodeBuilder:
                 continue
             if not rettypestr:
                 raise RuntimeError(f"missing return typehint for method {fname} in file {filename}")
+
             if decorator == '@overload':
                 overloaded.add((class_name, fname))
                 self.module_members.append(
                     templ.MODULE_FUNCTION_TYPEHINT_TEMPLATE.format(self._class_name, fname, args, rettypestr)
                 )
                 self.method_signatures[(class_name, fname)].append((COMMA_REGEX.split(args), rettypestr))
-            elif decorator == '@property':
+            elif decorator == '@property':  # old way of coding properties before fake decorators
                 self.module_members.append(
                     templ.MODULE_PROPERTY_TEMPLATE.format(fname, rettypestr)
                 )
@@ -333,3 +334,29 @@ class CodeBuilder:
                 self.code_method(method_name, method_data)
             elif method_name not in self._all_known_fields_and_methods and not method_name.startswith('_'):
                 logger.warning(f'detected previously unknown method {method_name}')
+
+
+def find_signatures(class_name, filename):
+    method_signatures = defaultdict(list)
+
+    with open(filename) as f:
+        code = f.read()
+
+    overloaded = set()
+    method_code = code.split('*** BEGIN METHODS ***')[1].strip()
+    if (end_methods_indx := method_code.find('*** END METHODS ***')) >= 0:
+        method_code = method_code[:end_methods_indx].strip()
+
+    for decorator, fname, _, args, rettypestr, _ in METHOD_REGEX.findall(method_code):
+        if fname.startswith('_') or decorator == '@property':
+            continue
+        if not rettypestr:
+            raise RuntimeError(f"missing return typehint for method {fname} in file {filename}")
+
+        if decorator == '@overload':
+            method_signatures[(class_name, fname)].append((COMMA_REGEX.split(args), rettypestr))
+        elif (class_name, fname) not in overloaded:
+            split_args = COMMA_REGEX.split(args) if args else []
+            method_signatures[(class_name, fname)].append((split_args, rettypestr))
+
+    return method_signatures
