@@ -2,5 +2,12 @@
 name = rotate_around()
 type = method
 
+@@ signatures
+rotate_around(v: Py5Vector3D, theta: float) -> Py5Vector3D
+
+@@ variables
+theta: float - missing variable description
+v: Py5Vector3D - missing variable description
+
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.

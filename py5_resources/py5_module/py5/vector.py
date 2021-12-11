@@ -29,8 +29,7 @@ import numpy as np
 from nptyping import NDArray
 
 # TODO: add appropriate code to reference and pmath
-# TODO: fix generate py5 hack
-# TODO: improve code builder so code extra can get rotate and rotate_round
+# TODO: docstrings for properties?
 
 class Py5Vector(Sequence):
 
@@ -453,12 +452,16 @@ class Py5Vector2D(Py5Vector):
     def __new__(cls, *args, dtype: type = np.float_):
         return super().__new__(cls, *args, dim=2, dtype=dtype)
 
+    # *** BEGIN METHODS ***
+
     def rotate(self, angle: float) -> Py5Vector2D:
         sin_angle = np.sin(angle)
         cos_angle = np.cos(angle)
         rot = np.array([[cos_angle, -sin_angle], [sin_angle, cos_angle]])
         self._data[:] = rot @ self._data
         return self
+
+    # *** END METHODS ***
 
     @classmethod
     def random(cls, *, dtype: type = np.float_) -> Py5Vector2D:
@@ -477,6 +480,8 @@ class Py5Vector3D(Py5Vector):
         self._data[2] = val
 
     z: float = property(_get_z, _set_z, doc='z coordinate')
+
+    # *** BEGIN METHODS ***
 
     def rotate(self, angle: float, dim: int) -> Py5Vector3D:
         sin_angle = np.sin(angle)
@@ -506,6 +511,8 @@ class Py5Vector3D(Py5Vector):
         ])
         self._data[:] = rot @ self._data
         return self
+
+    # *** END METHODS ***
 
     @classmethod
     def random(cls, *, dtype: type = np.float_) -> Py5Vector3D:
