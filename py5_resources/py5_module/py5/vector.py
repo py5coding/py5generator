@@ -28,7 +28,6 @@ import numpy as np
 
 from nptyping import NDArray
 
-# TODO: add appropriate code to reference and pmath
 # TODO: docstrings for properties?
 
 class Py5Vector(Sequence):

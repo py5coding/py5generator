@@ -60,7 +60,7 @@ JTYPE_CONVERSIONS = {
     'processing.core.PShape': 'Py5Shape',
     'processing.core.PSurface': 'Py5Surface',
     'processing.core.PGraphics': 'Py5Graphics',
-    'processing.core.PVector': 'NDArray[(Any,), Float]',
+    'processing.core.PVector': 'Py5Vector',
     'processing.core.PMatrix': 'NDArray[(Any, Any), Float]',
     'processing.core.PMatrix2D': 'NDArray[(2, 3), Float]',
     'processing.core.PMatrix3D': 'NDArray[(4, 4), Float]',
