@@ -28,7 +28,7 @@ import numpy as np
 
 from nptyping import NDArray
 
-# TODO: docstrings for properties?
+# TODO: add docstring keys for methods and properties
 
 class Py5Vector(Sequence):
 

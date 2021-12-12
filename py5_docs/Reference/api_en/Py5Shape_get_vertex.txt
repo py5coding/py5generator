@@ -12,10 +12,10 @@ get_vertex(index: int, vec: Py5Vector, /) -> Py5Vector
 
 @@ variables
 index: int - vertex index
-vec: Py5Vector - missing variable description
+vec: Py5Vector - target object to place vertex coordinates into
 
 @@ description
-The ``get_vertex()`` method returns a numpy array with the coordinates of the vertex point located at the position defined by the ``index`` parameter. This method works when shapes are created as shown in the example, but won't work properly when a shape is defined explicitly (e.g. ``create_shape(RECT, 20, 20, 80, 80)``.
+The ``get_vertex()`` method returns a Py5Vector with the coordinates of the vertex point located at the position defined by the ``index`` parameter. This method works when shapes are created as shown in the example, but won't work properly when a shape is defined explicitly (e.g. ``create_shape(RECT, 20, 20, 80, 80)``.
 
 @@ example
 def setup():
