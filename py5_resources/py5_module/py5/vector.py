@@ -448,7 +448,7 @@ class Py5Vector(Sequence):
                     float(np.arctan2((self._data[2:]**2).sum()**0.5, self._data[1])),
                     float(2 * np.arctan2(self._data[3], self._data[2] + (self._data[2:]**2).sum()**0.5)))
 
-    heading: tuple[float] = property(_get_heading, doc='vector heading')
+    heading: tuple[float] = property(_get_heading, doc="""$class_Py5Vector_heading""")
 
     @classmethod
     def from_heading(cls, *args, dtype: int = np.float_) -> Py5Vector:
