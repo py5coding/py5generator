@@ -28,7 +28,7 @@ import numpy as np
 
 from nptyping import NDArray
 
-# TODO: add docstring keys for methods and properties
+# TODO: the docstring for random() is misleading
 
 class Py5Vector(Sequence):
 
@@ -268,41 +268,61 @@ class Py5Vector(Sequence):
     # *** BEGIN METHODS ***
 
     def astype(self, dtype) -> Py5Vector:
+        """$class_Py5Vector_astype
+        """
         return Py5Vector(self._data, dtype=dtype, copy=True)
 
     def tolist(self) -> list[float]:
+        """$class_Py5Vector_tolist
+        """
         return self._data.tolist()
 
     def _get_x(self) -> float:
+        """$class_Py5Vector_x
+        """
         return self._data[0]
 
     def _set_x(self, val: float) -> None:
+        """$class_Py5Vector_x
+        """
         self._data[0] = val
 
     def _get_y(self) -> float:
+        """$class_Py5Vector_y
+        """
         return self._data[1]
 
     def _set_y(self, val: float) -> None:
+        """$class_Py5Vector_y
+        """
         self._data[1] = val
 
     def _get_data(self) -> float:
+        """$class_Py5Vector_data
+        """
         return self._data
 
     def _get_copy(self) -> Py5Vector:
+        """$class_Py5Vector_copy
+        """
         return Py5Vector(self._data, dtype=self._data.dtype, copy=True)
 
     def _get_dim(self) -> int:
+        """$class_Py5Vector_dim
+        """
         return self._data.size
 
     def _get_dtype(self) -> type:
+        """$class_Py5Vector_dtype
+        """
         return self._data.dtype
 
-    x: float = property(_get_x, _set_x, doc='x coordinate')
-    y: float = property(_get_y, _set_y, doc='y coordinate')
-    data: NDArray = property(_get_data, doc='numpy data array')
-    copy = property(_get_copy, doc='copy of Py5Vector')
-    dim: int = property(_get_dim, doc='vector dimension')
-    dtype: type = property(_get_dtype, doc='vector dtype')
+    x: float = property(_get_x, _set_x, doc="""$class_Py5Vector_x""")
+    y: float = property(_get_y, _set_y, doc="""$class_Py5Vector_y""")
+    data: NDArray = property(_get_data, doc="""$class_Py5Vector_data""")
+    copy = property(_get_copy, doc="""$class_Py5Vector_copy""")
+    dim: int = property(_get_dim, doc="""$class_Py5Vector_dim""")
+    dtype: type = property(_get_dtype, doc="""$class_Py5Vector_dtype""")
 
     def _run_calc(self, other, calc, name, maybe_vector=False):
         other_type = 'numpy array' if isinstance(other, np.ndarray) else f'{type(other).__name__} object'
@@ -327,18 +347,28 @@ class Py5Vector(Sequence):
             raise RuntimeError(f'Do not know how to calculate the {name} {type(self).__name__} and {type(other).__name__}')
 
     def lerp(self, other: Union[Py5Vector, NDArray], amt: Union[float, NDArray]) -> Union[Py5Vector, NDArray]:
+        """$class_Py5Vector_lerp
+        """
         return self._run_calc(other, lambda s, o: s + (o - s) * amt, 'lerp of', maybe_vector=True)
 
     def dist(self, other: Union[Py5Vector, NDArray]) -> Union[Py5Vector, NDArray]:
+        """$class_Py5Vector_dist
+        """
         return self._run_calc(other, lambda s, o: np.sqrt(np.sum((s - o)**2, axis=-1)), 'distance between')
 
     def dot(self, other: Union[Py5Vector, NDArray]) -> Union[float, NDArray]:
+        """$class_Py5Vector_dot
+        """
         return self._run_calc(other, lambda s, o: (s * o).sum(axis=-1), 'dot product for')
 
     def angle_between(self, other: Union[Py5Vector, NDArray]) -> Union[Py5Vector, NDArray]:
+        """$class_Py5Vector_angle_between
+        """
         return self._run_calc(other, lambda s, o: np.arccos(((s / np.sum(s**2)**0.5) * (o / np.sum(o**2, axis=-1)**0.5)).sum(axis=-1)), 'angle between')
 
     def cross(self, other: Union[Py5Vector, NDArray]) -> Union[float, Py5Vector, NDArray]:
+        """$class_Py5Vector_cross
+        """
         if self._data.size == 4 or isinstance(other, Py5Vector4D):
             raise RuntimeError('Cannot calculate the cross product with a 4D Py5Vector')
         elif self._data.size == 2:
@@ -352,22 +382,32 @@ class Py5Vector(Sequence):
             return self._run_calc(other, np.cross, 'cross product of', maybe_vector=True)
 
     def _get_mag(self) -> float:
+        """$class_Py5Vector_mag
+        """
         return float(np.sum(self._data**2)**0.5)
 
     def set_mag(self, mag: float) -> Py5Vector:
+        """$class_Py5Vector_mag
+        """
         self.normalize()
         self._data *= mag
         return self
 
     def _get_mag_sq(self) -> float:
+        """$class_Py5Vector_mag_sq
+        """
         return float(np.sum(self._data**2))
 
     def set_mag_sq(self, mag_sq: float) -> Py5Vector:
+        """$class_Py5Vector_mag_sq
+        """
         self.normalize()
         self._data *= mag_sq**0.5
         return self
 
     def normalize(self) -> Py5Vector:
+        """$class_Py5Vector_normalize
+        """
         mag = np.sum(self._data**2)**0.5
         if mag > 0:
             self._data /= mag
@@ -376,19 +416,25 @@ class Py5Vector(Sequence):
             raise RuntimeError('Cannot normalize Py5Vector of zeros')
 
     def _get_norm(self) -> Py5Vector:
+        """$class_Py5Vector_norm
+        """
         return self.copy.normalize()
 
-    mag: float = property(_get_mag, set_mag, doc='vector magnitude')
-    mag_sq: float = property(_get_mag_sq, set_mag_sq, doc='vector magnitude squared')
-    norm: Py5Vector = property(_get_norm, doc='normalized vector')
+    mag: float = property(_get_mag, set_mag, doc="""$class_Py5Vector_mag""")
+    mag_sq: float = property(_get_mag_sq, set_mag_sq, doc="""$class_Py5Vector_mag_sq""")
+    norm: Py5Vector = property(_get_norm, doc="""$class_Py5Vector_norm""")
 
     def set_limit(self, max_mag: float) -> Py5Vector:
+        """$class_Py5Vector_set_limit
+        """
         mag_sq = np.sum(self._data**2)
         if mag_sq > max_mag * max_mag:
             self._data *= max_mag / (mag_sq**0.5)
         return self
 
     def _get_heading(self) -> tuple[float]:
+        """$class_Py5Vector_heading
+        """
         if self._data.size == 2:
             return float(np.arctan2(self._data[1], self._data[0]))
         elif self._data.size == 3:
@@ -406,6 +452,8 @@ class Py5Vector(Sequence):
 
     @classmethod
     def from_heading(cls, *args, dtype: int = np.float_) -> Py5Vector:
+        """$class_Py5Vector_from_heading
+        """
         if len(args) == 1 and isinstance(args[0], Iterable):
             args = args[0]
 
@@ -434,6 +482,8 @@ class Py5Vector(Sequence):
 
     @classmethod
     def random(cls, dim: int = 2, *, dtype: type = np.float_) -> Py5Vector:
+        """$class_Py5Vector_random
+        """
         if dim == 2:
             return Py5Vector(np.cos(angle := np.random.rand() * 2 * np.pi), np.sin(angle), dtype=dtype)
         elif dim == 3:
@@ -454,6 +504,8 @@ class Py5Vector2D(Py5Vector):
     # *** BEGIN METHODS ***
 
     def rotate(self, angle: float) -> Py5Vector2D:
+        """$class_Py5Vector_rotate
+        """
         sin_angle = np.sin(angle)
         cos_angle = np.cos(angle)
         rot = np.array([[cos_angle, -sin_angle], [sin_angle, cos_angle]])
@@ -464,6 +516,8 @@ class Py5Vector2D(Py5Vector):
 
     @classmethod
     def random(cls, *, dtype: type = np.float_) -> Py5Vector2D:
+        """$class_Py5Vector_random
+        """
         return super().random(2, dtype=dtype)
 
 
@@ -473,16 +527,22 @@ class Py5Vector3D(Py5Vector):
         return super().__new__(cls, *args, dim=3, dtype=dtype)
 
     def _get_z(self) -> float:
+        """$class_Py5Vector_z
+        """
         return self._data[2]
 
     def _set_z(self, val: float) -> None:
+        """$class_Py5Vector_z
+        """
         self._data[2] = val
 
-    z: float = property(_get_z, _set_z, doc='z coordinate')
+    z: float = property(_get_z, _set_z, doc="""$class_Py5Vector_z""")
 
     # *** BEGIN METHODS ***
 
     def rotate(self, angle: float, dim: int) -> Py5Vector3D:
+        """$class_Py5Vector_rotate
+        """
         sin_angle = np.sin(angle)
         cos_angle = np.cos(angle)
         if dim in [0, 'x']:
@@ -497,6 +557,8 @@ class Py5Vector3D(Py5Vector):
         return self
 
     def rotate_around(self, v: Py5Vector3D, theta: float) -> Py5Vector3D:
+        """$class_Py5Vector_rotate_around
+        """
         if not isinstance(v, Py5Vector3D):
             raise RuntimeError('Can only rotate around another 3D Py5Vector')
         u = v.norm
@@ -515,6 +577,8 @@ class Py5Vector3D(Py5Vector):
 
     @classmethod
     def random(cls, *, dtype: type = np.float_) -> Py5Vector3D:
+        """$class_Py5Vector_random
+        """
         return super().random(3, dtype=dtype)
 
 
@@ -524,20 +588,30 @@ class Py5Vector4D(Py5Vector):
         return super().__new__(cls, *args, dim=4, dtype=dtype)
 
     def _get_z(self) -> float:
+        """$class_Py5Vector_z
+        """
         return self._data[2]
 
     def _set_z(self, val: float) -> None:
+        """$class_Py5Vector_z
+        """
         self._data[2] = val
 
     def _get_w(self) -> float:
+        """$class_Py5Vector_w
+        """
         return self._data[3]
 
     def _set_w(self, val: float) -> None:
+        """$class_Py5Vector_w
+        """
         self._data[3] = val
 
-    z: float = property(_get_z, _set_z, doc='z coordinate')
-    w: float = property(_get_w, _set_w, doc='w coordinate')
+    z: float = property(_get_z, _set_z, doc="""$class_Py5Vector_z""")
+    w: float = property(_get_w, _set_w, doc="""$class_Py5Vector_w""")
 
     @classmethod
     def random(cls, *, dtype: type = np.float_) -> Py5Vector4D:
+        """$class_Py5Vector_random
+        """
         return super().random(4, dtype=dtype)
