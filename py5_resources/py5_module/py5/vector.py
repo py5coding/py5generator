@@ -28,7 +28,6 @@ import numpy as np
 
 from nptyping import NDArray
 
-# TODO: the docstring for random() is misleading
 
 class Py5Vector(Sequence):
 
@@ -479,9 +478,8 @@ class Py5Vector(Sequence):
         else:
             raise RuntimeError(f'Cannot create a Py5Vector from {len(args)} arguments')
 
-
     @classmethod
-    def random(cls, dim: int = 2, *, dtype: type = np.float_) -> Py5Vector:
+    def random(cls, dim: int, *, dtype: type = np.float_) -> Py5Vector:
         """$class_Py5Vector_random
         """
         if dim == 2:
@@ -515,10 +513,10 @@ class Py5Vector2D(Py5Vector):
     # *** END METHODS ***
 
     @classmethod
-    def random(cls, *, dtype: type = np.float_) -> Py5Vector2D:
+    def random(cls, dim: int = 2, *, dtype: type = np.float_) -> Py5Vector2D:
         """$class_Py5Vector_random
         """
-        return super().random(2, dtype=dtype)
+        return super().random(dim, dtype=dtype)
 
 
 class Py5Vector3D(Py5Vector):
@@ -576,10 +574,10 @@ class Py5Vector3D(Py5Vector):
     # *** END METHODS ***
 
     @classmethod
-    def random(cls, *, dtype: type = np.float_) -> Py5Vector3D:
+    def random(cls, dim: int = 3, *, dtype: type = np.float_) -> Py5Vector3D:
         """$class_Py5Vector_random
         """
-        return super().random(3, dtype=dtype)
+        return super().random(dim, dtype=dtype)
 
 
 class Py5Vector4D(Py5Vector):
@@ -611,7 +609,7 @@ class Py5Vector4D(Py5Vector):
     w: float = property(_get_w, _set_w, doc="""$class_Py5Vector_w""")
 
     @classmethod
-    def random(cls, *, dtype: type = np.float_) -> Py5Vector4D:
+    def random(cls, dim: int = 4, *, dtype: type = np.float_) -> Py5Vector4D:
         """$class_Py5Vector_random
         """
-        return super().random(4, dtype=dtype)
+        return super().random(dim, dtype=dtype)

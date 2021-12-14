@@ -3,10 +3,10 @@ name = random()
 type = method
 
 @@ signatures
-random(dim: int = 2, *, dtype: type = np.float_) -> Py5Vector
+random(dim: int, *, dtype: type = np.float_) -> Py5Vector
 
 @@ variables
-dim: int = 2 - missing variable description
+dim: int - missing variable description
 dtype: type = np.float_ - missing variable description
 
 @@ description
