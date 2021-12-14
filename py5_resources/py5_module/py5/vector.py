@@ -388,8 +388,13 @@ class Py5Vector(Sequence):
     def set_mag(self, mag: float) -> Py5Vector:
         """$class_Py5Vector_mag
         """
-        self.normalize()
-        self._data *= mag
+        if mag < 0:
+            raise RuntimeError('Cannot set magnitude to a negative number')
+        elif mag == 0:
+            self._data[:] = 0
+        else:
+            self.normalize()
+            self._data *= mag
         return self
 
     def _get_mag_sq(self) -> float:
@@ -400,8 +405,13 @@ class Py5Vector(Sequence):
     def set_mag_sq(self, mag_sq: float) -> Py5Vector:
         """$class_Py5Vector_mag_sq
         """
-        self.normalize()
-        self._data *= mag_sq**0.5
+        if mag_sq < 0:
+            raise RuntimeError('Cannot set squared magnitude to a negative number')
+        elif mag_sq == 0:
+            self._data[:] = 0
+        else:
+            self.normalize()
+            self._data *= mag_sq**0.5
         return self
 
     def normalize(self) -> Py5Vector:
@@ -426,9 +436,14 @@ class Py5Vector(Sequence):
     def set_limit(self, max_mag: float) -> Py5Vector:
         """$class_Py5Vector_set_limit
         """
-        mag_sq = np.sum(self._data**2)
-        if mag_sq > max_mag * max_mag:
-            self._data *= max_mag / (mag_sq**0.5)
+        if max_mag < 0:
+            raise RuntimeError('Cannot set limit to a negative number')
+        elif max_mag == 0:
+            self._data[:] = 0
+        else:
+            mag_sq = np.sum(self._data**2)
+            if mag_sq > max_mag * max_mag:
+                self._data *= max_mag / (mag_sq**0.5)
         return self
 
     def _get_heading(self) -> tuple[float]:
