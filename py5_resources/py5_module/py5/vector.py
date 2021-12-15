@@ -19,7 +19,7 @@
 # *****************************************************************************
 from __future__ import annotations
 
-from typing import Union
+from typing import Union, Tuple
 import operator
 from collections.abc import Sequence, Iterable
 import re
@@ -446,7 +446,7 @@ class Py5Vector(Sequence):
                 self._data *= max_mag / (mag_sq**0.5)
         return self
 
-    def _get_heading(self) -> tuple[float]:
+    def _get_heading(self) -> Union(float, Tuple[float]):
         """$class_Py5Vector_heading
         """
         if self._data.size == 2:
