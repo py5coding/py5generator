@@ -30,6 +30,8 @@ from nptyping import NDArray
 
 
 class Py5Vector(Sequence):
+    """$classdoc_Py5Vector
+    """
 
     def __new__(cls, *args, dim: int = None, dtype: type = None, copy: bool = True):
         kwarg_dim = dim
@@ -462,7 +464,41 @@ class Py5Vector(Sequence):
                     float(np.arctan2((self._data[2:]**2).sum()**0.5, self._data[1])),
                     float(2 * np.arctan2(self._data[3], self._data[2] + (self._data[2:]**2).sum()**0.5)))
 
-    heading: tuple[float] = property(_get_heading, doc="""$class_Py5Vector_heading""")
+    def set_heading(self, *args) -> Py5Vector:
+        """$class_Py5Vector_set_heading
+        """
+        if len(args) == 1 and isinstance(args[0], Iterable):
+            args = args[0]
+
+        mag = self._get_mag()
+        if len(args) == 1 and self._data.size == 2:
+            theta = args[0]
+            x = mag * np.cos(theta)
+            y = mag * np.sin(theta)
+            self._data[:] = [x, y]
+            return self
+        elif len(args) == 2 and self._data.size == 3:
+            theta, phi = args
+            sin_theta = np.sin(theta)
+            x = mag * np.cos(phi) * sin_theta
+            y = mag * np.sin(phi) * sin_theta
+            z = mag * np.cos(theta)
+            self._data[:] = [x, y, z]
+            return self
+        elif len(args) == 3 and self._data.size == 4:
+            phi1, phi2, phi3 = args
+            sin_phi1 = np.sin(phi1)
+            sin_phi2 = np.sin(phi2)
+            x1 = mag * np.cos(phi1)
+            x2 = mag * sin_phi1 * np.cos(phi2)
+            x3 = mag * sin_phi1 * sin_phi2 * np.cos(phi3)
+            x4 = mag * sin_phi1 * sin_phi2 * np.sin(phi3)
+            self._data[:] = [x1, x2, x3, x4]
+            return self
+        else:
+            raise RuntimeError(f'This Py5Vector has dimension {self._data.size} and requires {self._data.size - 1} values to set the heading, not {len(args)}')
+
+    heading: tuple[float] = property(_get_heading, set_heading, doc="""$class_Py5Vector_heading""")
 
     @classmethod
     def from_heading(cls, *args, dtype: int = np.float_) -> Py5Vector:
@@ -472,24 +508,11 @@ class Py5Vector(Sequence):
             args = args[0]
 
         if len(args) == 1:
-            theta = args[0]
-            return Py5Vector(np.cos(theta), np.sin(theta), dtype=dtype)
+            return Py5Vector(1, 0, dtype=dtype).set_heading(*args)
         elif len(args) == 2:
-            theta, phi = args
-            sin_theta = np.sin(theta)
-            x = np.cos(phi) * sin_theta
-            y = np.sin(phi) * sin_theta
-            z = np.cos(theta)
-            return Py5Vector(x, y, z, dtype=dtype)
+            return Py5Vector(1, 0, 0, dtype=dtype).set_heading(*args)
         elif len(args) == 3:
-            phi1, phi2, phi3 = args
-            sin_phi1 = np.sin(phi1)
-            sin_phi2 = np.sin(phi2)
-            x1 = np.cos(phi1)
-            x2 = sin_phi1 * np.cos(phi2)
-            x3 = sin_phi1 * sin_phi2 * np.cos(phi3)
-            x4 = sin_phi1 * sin_phi2 * np.sin(phi3)
-            return Py5Vector(x1, x2, x3, x4, dtype=dtype)
+            return Py5Vector(1, 0, 0, 0, dtype=dtype).set_heading(*args)
         else:
             raise RuntimeError(f'Cannot create a Py5Vector from {len(args)} arguments')
 
@@ -510,6 +533,8 @@ class Py5Vector(Sequence):
 
 
 class Py5Vector2D(Py5Vector):
+    """$classdoc_Py5Vector
+    """
 
     def __new__(cls, *args, dtype: type = np.float_):
         return super().__new__(cls, *args, dim=2, dtype=dtype)
@@ -535,6 +560,8 @@ class Py5Vector2D(Py5Vector):
 
 
 class Py5Vector3D(Py5Vector):
+    """$classdoc_Py5Vector
+    """
 
     def __new__(cls, *args, dtype: type = np.float_):
         return super().__new__(cls, *args, dim=3, dtype=dtype)
@@ -596,6 +623,8 @@ class Py5Vector3D(Py5Vector):
 
 
 class Py5Vector4D(Py5Vector):
+    """$classdoc_Py5Vector
+    """
 
     def __new__(cls, *args, dtype: type = np.float_):
         return super().__new__(cls, *args, dim=4, dtype=dtype)
