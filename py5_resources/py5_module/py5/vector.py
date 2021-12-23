@@ -245,6 +245,9 @@ class Py5Vector(Sequence):
     def __rmatmul__(self, other):
         return self._run_op(operator.matmul, other, 'matrix multiplication', swap=True)
 
+    def __imatmul__(self, other):
+        return self._run_op(operator.imatmul, other, 'matrix multiplication')
+
     def __pos__(self):
         return self
 
