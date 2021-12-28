@@ -457,12 +457,9 @@ class Py5Vector(Sequence):
         if self._data.size == 2:
             return float(np.arctan2(self._data[1], self._data[0]))
         elif self._data.size == 3:
-            # https://en.wikipedia.org/wiki/Spherical_coordinate_system#Cartesian_coordinates
-            # https://www.youtube.com/watch?v=RkuBWEkBrZA
             return (float(np.arctan2((self._data[:2]**2).sum()**0.5, self._data[2])),
                     float(np.arctan2(self._data[1], self._data[0])))
         else:
-            # https://en.wikipedia.org/wiki/N-sphere#Spherical_coordinates
             return (float(np.arctan2((self._data[1:]**2).sum()**0.5, self._data[0])),
                     float(np.arctan2((self._data[2:]**2).sum()**0.5, self._data[1])),
                     float(2 * np.arctan2(self._data[3], self._data[2] + (self._data[2:]**2).sum()**0.5)))
