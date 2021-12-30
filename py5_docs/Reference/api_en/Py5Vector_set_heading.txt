@@ -3,10 +3,10 @@ name = set_heading()
 type = method
 
 @@ signatures
-set_heading(*args) -> Py5Vector
+set_heading(*heading) -> Py5Vector
 
 @@ variables
-args - missing variable description
+heading - heading values in radians
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Align vector with the specified heading. Use 1, 2, or 3 heading values for vectors with 2, 3, or 4 dimensions.
