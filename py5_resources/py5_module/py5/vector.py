@@ -464,29 +464,29 @@ class Py5Vector(Sequence):
                     float(np.arctan2((self._data[2:]**2).sum()**0.5, self._data[1])),
                     float(2 * np.arctan2(self._data[3], self._data[2] + (self._data[2:]**2).sum()**0.5)))
 
-    def set_heading(self, *args) -> Py5Vector:
+    def set_heading(self, *heading) -> Py5Vector:
         """$class_Py5Vector_set_heading
         """
-        if len(args) == 1 and isinstance(args[0], Iterable):
-            args = args[0]
+        if len(heading) == 1 and isinstance(heading[0], Iterable):
+            heading = heading[0]
 
         mag = self._get_mag()
-        if len(args) == 1 and self._data.size == 2:
-            theta = args[0]
+        if len(heading) == 1 and self._data.size == 2:
+            theta = heading[0]
             x = mag * np.cos(theta)
             y = mag * np.sin(theta)
             self._data[:] = [x, y]
             return self
-        elif len(args) == 2 and self._data.size == 3:
-            theta, phi = args
+        elif len(heading) == 2 and self._data.size == 3:
+            theta, phi = heading
             sin_theta = np.sin(theta)
             x = mag * np.cos(phi) * sin_theta
             y = mag * np.sin(phi) * sin_theta
             z = mag * np.cos(theta)
             self._data[:] = [x, y, z]
             return self
-        elif len(args) == 3 and self._data.size == 4:
-            phi1, phi2, phi3 = args
+        elif len(heading) == 3 and self._data.size == 4:
+            phi1, phi2, phi3 = heading
             sin_phi1 = np.sin(phi1)
             sin_phi2 = np.sin(phi2)
             x1 = mag * np.cos(phi1)
@@ -496,25 +496,25 @@ class Py5Vector(Sequence):
             self._data[:] = [x1, x2, x3, x4]
             return self
         else:
-            raise RuntimeError(f'This Py5Vector has dimension {self._data.size} and requires {self._data.size - 1} values to set the heading, not {len(args)}')
+            raise RuntimeError(f'This Py5Vector has dimension {self._data.size} and requires {self._data.size - 1} values to set the heading, not {len(heading)}')
 
     heading: tuple[float] = property(_get_heading, set_heading, doc="""$class_Py5Vector_heading""")
 
     @classmethod
-    def from_heading(cls, *args, dtype: int = np.float_) -> Py5Vector:
+    def from_heading(cls, *heading, dtype: int = np.float_) -> Py5Vector:
         """$class_Py5Vector_from_heading
         """
-        if len(args) == 1 and isinstance(args[0], Iterable):
-            args = args[0]
+        if len(heading) == 1 and isinstance(heading[0], Iterable):
+            heading = heading[0]
 
-        if len(args) == 1:
-            return Py5Vector(1, 0, dtype=dtype).set_heading(*args)
-        elif len(args) == 2:
-            return Py5Vector(1, 0, 0, dtype=dtype).set_heading(*args)
-        elif len(args) == 3:
-            return Py5Vector(1, 0, 0, 0, dtype=dtype).set_heading(*args)
+        if len(heading) == 1:
+            return Py5Vector(1, 0, dtype=dtype).set_heading(*heading)
+        elif len(heading) == 2:
+            return Py5Vector(1, 0, 0, dtype=dtype).set_heading(*heading)
+        elif len(heading) == 3:
+            return Py5Vector(1, 0, 0, 0, dtype=dtype).set_heading(*heading)
         else:
-            raise RuntimeError(f'Cannot create a Py5Vector from {len(args)} arguments')
+            raise RuntimeError(f'Cannot create a Py5Vector from {len(heading)} arguments')
 
     @classmethod
     def random(cls, dim: int, *, dtype: type = np.float_) -> Py5Vector:
