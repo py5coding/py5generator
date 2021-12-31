@@ -10,4 +10,6 @@ amt: Union[float, NDArray] - missing variable description
 other: Union[Py5Vector, NDArray] - missing variable description
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Calculates a vector between two vectors at a specific increment. The two vectors must have the same dimension. The ``amt`` parameter is the amount to interpolate between the two values where 0.0 equal to the first point, 0.1 is very near the first point, 0.5 is half-way in between, etc.
+
+This method is similar to :doc:`sketch_lerp`, but for vectors instead of numbers.
