@@ -3,4 +3,10 @@ name = heading
 type = field
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+The vector's heading, measured in radians. The heading will be measured with 1, 2, or 3 numbers for 2D, 3D, or 4D vectors, respectively.
+
+For 2D vectors, the heading angle is the counter clockwise rotation of the vector relative to the positive x axis.
+
+For 3D vectors, the heading values follow the ISO convention for spherical coordinates. The first heading value, inclination, is the angle relative to the positive z axis. The second heading value, azimuth, is the counter clockwise rotation of the vector around the z axis relative to the positive x axis. Note that this is slightly different from p5's ``fromAngles()`` function, which also follows the ISO convention but measures angles relative to the top of the screen (negative y axis).
+
+For 4D vectors, the heading values follow the spherical coordinate system defined in Wikipedia's N-sphere article. The first heading value is the rotation around the zw plane relative to the positive x axis. The second heading value is the rotation around the xw plane relative to the positive y axis. The third heading value is the rotation around the xy plane relative to the positive z axis.

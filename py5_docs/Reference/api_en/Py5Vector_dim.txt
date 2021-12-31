@@ -3,4 +3,4 @@ name = dim
 type = field
 
 @@ description
-Vector dimension. This will be either 2, 3, or 4.
+The vector's dimension. This will be either 2, 3, or 4.
