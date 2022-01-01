@@ -6,7 +6,7 @@ type = method
 set_limit(max_mag: float) -> Py5Vector
 
 @@ variables
-max_mag: float - missing variable description
+max_mag: float - maximum vector magnitude
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Constrain the vector's magnitude to a specified value. If the vector's magnitude is already less than or equal to ``max_mag``, this method will have no effect. If the vector's magnitude is larger, it will be set to ``max_mag``.
