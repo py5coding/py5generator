@@ -6,10 +6,10 @@ type = method
 lerp(other: Union[Py5Vector, NDArray], amt: Union[float, NDArray]) -> Union[Py5Vector, NDArray]
 
 @@ variables
-amt: Union[float, NDArray] - missing variable description
-other: Union[Py5Vector, NDArray] - missing variable description
+amt: Union[float, NDArray] - float between 0.0 and 1.0
+other: Union[Py5Vector, NDArray] - other vector to interpolate between
 
 @@ description
-Calculates a vector between two vectors at a specific increment. The two vectors must have the same dimension. The ``amt`` parameter is the amount to interpolate between the two values where 0.0 equal to the first point, 0.1 is very near the first point, 0.5 is half-way in between, etc.
+Calculates a vector between two vectors at a specific increment. The two vectors must have the same dimension. The ``amt`` parameter is the amount to interpolate between the two values where 0.0 equal to the first point, 0.1 is very near the first point, 0.5 is half-way in between, etc. If the ``amt`` parameter is greater than 1.0 or less than 0.0, the interpolated vector will be outside of the range specified by the two vectors.
 
 This method is similar to :doc:`sketch_lerp`, but for vectors instead of numbers.
