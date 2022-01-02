@@ -4,11 +4,15 @@ type = method
 
 @@ signatures
 rotate(angle: float) -> Py5Vector2D
-rotate(angle: float, dim: int) -> Py5Vector3D
+rotate(angle: float, dim: Union[int, str]) -> Py5Vector3D
 
 @@ variables
-angle: float - missing variable description
-dim: int - missing variable description
+angle: float - angle of rotation, measured in radians
+dim: Union[int, str] - dimension to rotate around
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Rotate vector by a specified angle. This method is only applicable to 2D and 3D vectors. Use the ``angle`` parameter to specify the rotation angle. To rotate 3D vectors, you must use the ``dim`` parameter to specify which dimension to rotate around. The dimension can be specified with the values 1, 2, or 3, or by using the strings ``'x'``, ``'y'``, or ``'z'``.
+
+A 2D vector will be rotated in the counter-clockwise direction for positive ``angle`` values and in the clockwise direction for negative ``angle`` values.
+
+A 3D vector's rotation will follow the right-hand rule. Using your right hand, point your thumb in the direction of the axis to rotate around. Your fingers will curl in the direction of rotation when the ``angle`` parameter is positive.

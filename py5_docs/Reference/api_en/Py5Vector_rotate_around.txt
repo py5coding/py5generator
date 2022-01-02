@@ -3,11 +3,13 @@ name = rotate_around()
 type = method
 
 @@ signatures
-rotate_around(v: Py5Vector3D, theta: float) -> Py5Vector3D
+rotate_around(angle: float, v: Py5Vector3D) -> Py5Vector3D
 
 @@ variables
-theta: float - missing variable description
-v: Py5Vector3D - missing variable description
+angle: float - angle of rotation, measured in radians
+v: Py5Vector3D - 3D vector to rotate vector around
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Rotate around an arbitrary 3D vector. This method is only applicable to 3D vectors. Use the ``angle`` parameter to specify the rotation angle and the ``v`` parameter to specify the vector to rotate around. The ``v`` vector does not need to be aligned to any axis or normalized, but it must be a 3D vector and it cannot be a vector of zeros.
+
+The vector's rotation will follow the right-hand rule. Using your right hand, point your thumb in the direction of the vector to rotate around. Your fingers will curl in the direction of rotation when the ``angle`` parameter is positive.
