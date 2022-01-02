@@ -580,23 +580,23 @@ class Py5Vector3D(Py5Vector):
 
     # *** BEGIN METHODS ***
 
-    def rotate(self, angle: float, dim: int) -> Py5Vector3D:
+    def rotate(self, angle: float, dim: Union[int, str]) -> Py5Vector3D:
         """$class_Py5Vector_rotate
         """
         sin_angle = np.sin(angle)
         cos_angle = np.cos(angle)
-        if dim in [0, 'x']:
+        if dim in [1, 'x']:
             rot = np.array([[1, 0, 0], [0, cos_angle, -sin_angle], [0, sin_angle, cos_angle]])
-        elif dim in [1, 'y']:
+        elif dim in [2, 'y']:
             rot = np.array([[cos_angle, 0, sin_angle], [0, 1, 0], [-sin_angle, 0, cos_angle]])
-        elif dim in [2, 'z']:
+        elif dim in [3, 'z']:
             rot = np.array([[cos_angle, -sin_angle, 0], [sin_angle, cos_angle, 0], [0, 0, 1]])
         else:
-            raise RuntimeError("dim parameter must be 0, 1, or 2, or one of 'x', 'y', and 'z'")
+            raise RuntimeError("dim parameter must be 1, 2, or 3, or one of 'x', 'y', and 'z'")
         self._data[:] = rot @ self._data
         return self
 
-    def rotate_around(self, v: Py5Vector3D, angle: float) -> Py5Vector3D:
+    def rotate_around(self, angle: float, v: Py5Vector3D) -> Py5Vector3D:
         """$class_Py5Vector_rotate_around
         """
         if not isinstance(v, Py5Vector3D):
