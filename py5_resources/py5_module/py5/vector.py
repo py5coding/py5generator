@@ -596,14 +596,16 @@ class Py5Vector3D(Py5Vector):
         self._data[:] = rot @ self._data
         return self
 
-    def rotate_around(self, v: Py5Vector3D, theta: float) -> Py5Vector3D:
+    def rotate_around(self, v: Py5Vector3D, angle: float) -> Py5Vector3D:
         """$class_Py5Vector_rotate_around
         """
         if not isinstance(v, Py5Vector3D):
             raise RuntimeError('Can only rotate around another 3D Py5Vector')
+        if not v:
+            raise RuntimeError('Cannot rotate around a vector of zeros')
         u = v.norm
         ux, uy, uz = u.x, u.y, u.z
-        sin, cos = np.sin(theta), np.cos(theta)
+        sin, cos = np.sin(angle), np.cos(angle)
         ncosp1 = 1 - cos
         rot = np.array([
             [cos + ux * ux * ncosp1,       ux * uy * ncosp1 - uz * sin,   ux * uz * ncosp1 + uy * sin],
