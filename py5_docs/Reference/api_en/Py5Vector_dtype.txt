@@ -4,3 +4,14 @@ type = field
 
 @@ description
 Vector data type. This will be one of ``np.float16``, ``np.float32``, ``np.float64``, or ``np.float128``.
+
+@@ example
+import numpy as np
+
+v1 = py5.Py5Vector(1, 2, 3)
+v2 = v1.astype(np.float16)
+
+print(repr(v1.dtype))
+# dtype('float64')
+print(repr(v2.dtype))
+# dtype('float16')

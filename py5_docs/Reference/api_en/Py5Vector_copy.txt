@@ -4,3 +4,17 @@ type = field
 
 @@ description
 Create an identical copy of this Py5Vector instance.
+
+@@ example
+v1 = py5.Py5Vector(1, 2, 3)
+
+print(v1)
+# Py5Vector3D([1., 2., 3.])
+
+v2 = v1.copy
+v2 *= 10
+
+print(v1)
+# Py5Vector3D([1., 2., 3.])
+print(v2)
+# Py5Vector3D([10., 20., 30.])
