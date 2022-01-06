@@ -10,12 +10,8 @@ v1 = py5.Py5Vector(3, 4)
 
 print("magnitude =", v1.mag)
 # magnitude = 5.0
-print("magnitude squared =", v1.mag_sq)
-# magnitude squared = 25.0
 
-v1.normalize()
+v1.mag = 1.0
 
 print("magnitude =", v1.mag)
 # magnitude = 1.0
-print("magnitude squared =", v1.mag_sq)
-# magnitude squared = 1.0
