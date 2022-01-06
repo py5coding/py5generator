@@ -12,6 +12,18 @@ other: Union[Py5Vector, NDArray] - vector to measure angle between
 Measure the angle between two vectors.
 
 @@ example
+import numpy as np
+
+v1 = py5.Py5Vector(0, 40)
+v2 = py5.Py5Vector(10, 10)
+angle = v1.angle_between(v2)
+print(f'angle = {round(py5.degrees(angle))}°')
+# angle = 45°
+angle = np.arccos(v1.norm.dot(v2.norm))
+print(f'angle = {round(py5.degrees(angle))}°')
+# angle = 45°
+
+@@ example
 image = Py5Vector_angle_between_0.png
 
 def setup():
