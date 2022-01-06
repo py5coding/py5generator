@@ -4,3 +4,18 @@ type = field
 
 @@ description
 The vector's magnitude. Setting this property to a non-negative number will adjust the vector's magnitude to that value. Negative values will result in an error.
+
+@@ example
+v1 = py5.Py5Vector(3, 4)
+
+print("magnitude =", v1.mag)
+# magnitude = 5.0
+print("magnitude squared =", v1.mag_sq)
+# magnitude squared = 25.0
+
+v1.normalize()
+
+print("magnitude =", v1.mag)
+# magnitude = 1.0
+print("magnitude squared =", v1.mag_sq)
+# magnitude squared = 1.0
