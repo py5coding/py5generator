@@ -4,3 +4,16 @@ type = field
 
 @@ description
 The vector's z dimension value. This is the vector's 3rd dimension, and is only applicable to 3D and 4D vectors.
+
+@@ example
+v = py5.Py5Vector(1, 2, 3)
+
+print(v.x, v.y, v.z)
+# 1.0, 2.0, 3.0
+
+v.x = 0
+v.y += 10
+v.z += 100
+
+print(v.x, v.y, v.z)
+# 0.0, 12.0, 103.0

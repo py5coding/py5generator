@@ -4,3 +4,15 @@ type = field
 
 @@ description
 The vector's y dimension value. This is the vector's 2nd dimension.
+
+@@ example
+v = py5.Py5Vector(1, 2)
+
+print(v.x, v.y)
+# 1.0, 2.0
+
+v.x = 0
+v.y += 10
+
+print(v.x, v.y)
+# 0.0, 12.0
