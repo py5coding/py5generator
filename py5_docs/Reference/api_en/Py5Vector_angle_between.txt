@@ -27,10 +27,9 @@ print(f'angle = {round(py5.degrees(angle))}°')
 image = Py5Vector_angle_between_0.png
 
 def setup():
-    py5.size(100, 100, py5.P2D)
     py5.translate(20, 20)
     v1 = py5.Py5Vector(60, 0)
-    v2 = py5.Py5Vector(60, 60)
+    v2 = py5.Py5Vector(45, 45)
     py5.line(0, 0, v1.x, v1.y)
     py5.line(0, 0, v2.x, v2.y)
     angle_radians = v1.angle_between(v2)
