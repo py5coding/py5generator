@@ -43,6 +43,12 @@ class Py5Vector(Sequence):
         if not isinstance(dtype, (type, np.dtype)) or not np.issubdtype(dtype, np.floating):
             raise RuntimeError('Error: dtype parameter is not a valid numpy float type (i.e., np.float32, np.float64, etc)')
 
+        if copy == False:
+            if not (len(args) == 1 and isinstance(args[0], np.ndarray) and np.issubdtype(args[0].dtype, np.floating)):
+                raise RuntimeError('Error: when the copy parameter is False, please provide a single properly sized numpy array with a floating dtype for py5 to store vector data')
+            if kwarg_dtype is not None and args[0].dtype != kwarg_dtype:
+                raise RuntimeError("Error: when the copy parameter is False, the dtype parameter cannot differ from the provided numpy array's dtype")
+
         if len(args) == 0:
             data = np.zeros(dim, dtype=dtype)
         elif len(args) == 1 and isinstance(args[0], Iterable):
@@ -54,10 +60,7 @@ class Py5Vector(Sequence):
                     arg0 = arg0._data
                 if isinstance(arg0, np.ndarray):
                     if copy:
-                        if kwarg_dtype is not None and arg0.dtype != dtype:
-                            data = arg0.astype(dtype)
-                        else:
-                            data = arg0.copy()
+                        data = arg0.astype(dtype)
                     else:
                         data = arg0
                 else:
