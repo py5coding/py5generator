@@ -60,7 +60,7 @@ JTYPE_CONVERSIONS = {
     'processing.core.PShape': 'Py5Shape',
     'processing.core.PSurface': 'Py5Surface',
     'processing.core.PGraphics': 'Py5Graphics',
-    'processing.core.PVector': 'NDArray[(Any,), Float]',
+    'processing.core.PVector': 'Py5Vector',
     'processing.core.PMatrix': 'NDArray[(Any, Any), Float]',
     'processing.core.PMatrix2D': 'NDArray[(2, 3), Float]',
     'processing.core.PMatrix3D': 'NDArray[(4, 4), Float]',
@@ -75,6 +75,7 @@ EXTRA_DIR_NAMES = {
     'register_image_conversion', 'NumpyImageArray',
     '__version__', 'utils',
     'render_frame', 'render_frame_sequence', 'render', 'render_sequence',
+    'Py5Vector', 'Py5Vector2D', 'Py5Vector3D', 'Py5Vector4D',
 }
 
 EXTRA_METHOD_SIGNATURES = {

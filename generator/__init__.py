@@ -20,5 +20,5 @@
 from .util import CodeCopier  # noqa
 from .mapping import TemplateMapping  # noqa
 from . import reference  # noqa
-from .codebuilder import CodeBuilder  # noqa
+from .codebuilder import CodeBuilder, find_signatures  # noqa
 from . import templates  # noqa

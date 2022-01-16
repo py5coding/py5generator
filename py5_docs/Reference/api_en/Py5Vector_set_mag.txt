@@ -1,0 +1,23 @@
+@@ meta
+name = set_mag()
+type = method
+
+@@ signatures
+set_mag(mag: float) -> Py5Vector
+
+@@ variables
+mag: float - vector magnitude
+
+@@ description
+Set the vector's magnitude. Setting this to a non-negative number will adjust the vector's magnitude to that value. Negative values will result in an error.
+
+@@ example
+v1 = py5.Py5Vector(3, 4)
+
+print("magnitude =", v1.mag)
+# magnitude = 5.0
+
+v1.set_mag(1)
+
+print("magnitude =", v1.mag)
+# magnitude = 1.0

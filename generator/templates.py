@@ -48,7 +48,7 @@ CLASS_PROPERTY_TEMPLATE = """
         \"\"\"$class_{0}_{1}
         \"\"\"
         return self._instance.{3}
-    {1}: {2} = property(fget=_get_{1})
+    {1}: {2} = property(fget=_get_{1}, doc=\"\"\"$class_{0}_{1}\"\"\")
 """
 
 

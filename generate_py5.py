@@ -25,9 +25,8 @@ from pathlib import Path
 
 import pandas as pd
 
-from generator import CodeBuilder, TemplateMapping, CodeCopier
+from generator import CodeBuilder, TemplateMapping, CodeCopier, find_signatures
 from generator import reference as ref
-from generator import templates as templ
 from generator import javap
 
 
@@ -100,8 +99,8 @@ def generate_py5(repo_dir, build_dir, skip_autopep8=False):
     for filename in mixin_dir.glob('*.py'):
         if filename.stem == '__init__':
             continue
-        sketch_builder.code_extra('Sketch', filename)
-    sketch_builder.code_extra('Sketch', Path('py5_resources', 'py5_module', 'py5', 'sketch.py'))
+        sketch_builder.code_extra_module('Sketch', filename)
+    sketch_builder.code_extra_module('Sketch', Path('py5_resources', 'py5_module', 'py5', 'sketch.py'))
 
     def run_code_builder(name, clsname, class_name=None):
         logger.info(f'creating {name} code')
@@ -119,6 +118,9 @@ def generate_py5(repo_dir, build_dir, skip_autopep8=False):
     py5surface_builder = run_code_builder('Py5Surface', 'py5.core.Py5SurfaceDummy', class_name='PSurface')
     py5graphics_builder = run_code_builder('Py5Graphics', 'py5.core.Py5Graphics', class_name='PGraphics')
     py5image_builder = run_code_builder('Py5Image', 'processing.core.PImage')
+
+    logger.info(f'reading Py5Vector code')
+    py5vector_method_signatures = find_signatures('Py5Vector', Path('py5_resources/py5_module/py5/vector.py'))
 
     # this assembles the code fragments from the builders so it can be
     # inserted into the code templates to complete the py5 module.
@@ -141,6 +143,7 @@ def generate_py5(repo_dir, build_dir, skip_autopep8=False):
         **py5surface_builder.method_signatures,
         **py5graphics_builder.method_signatures,
         **py5image_builder.method_signatures,
+        **py5vector_method_signatures,
         **ref.EXTRA_METHOD_SIGNATURES,
     }
 

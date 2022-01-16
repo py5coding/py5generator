@@ -1,0 +1,22 @@
+@@ meta
+name = dist()
+type = method
+
+@@ signatures
+dist(other: Union[Py5Vector, NDArray]) -> Union[Py5Vector, NDArray]
+
+@@ variables
+other: Union[Py5Vector, NDArray] - vector to calculate the distance from
+
+@@ description
+Calculate the distance between two vectors.
+
+@@ example
+image = Py5Vector_dist_0.png
+
+def setup():
+    py5.background(128)
+    v1 = py5.Py5Vector(22.8, 31.4)
+    v2 = py5.Py5Vector(87.2, 72.4)
+    py5.line(v1.x, v1.y, v2.x, v2.y)
+    py5.text(f'dist = {v1.dist(v2):.2f}', 5, 15)

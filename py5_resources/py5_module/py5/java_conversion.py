@@ -21,7 +21,8 @@ import numpy as np
 from jpype import _jcustomizer
 
 from .sketch import Sketch, Py5Graphics, Py5Image, Py5Font, Py5Shape, Py5Shader
-from .pmath import _numpy_to_pvector_converter, _numpy_to_pmatrix_converter
+from .pmath import _py5vector_to_pvector_converter, _numpy_to_pvector_converter, _numpy_to_pmatrix_converter
+from .vector import Py5Vector
 
 
 def init_jpype_converters():
@@ -42,5 +43,6 @@ def init_jpype_converters():
     for javaname, cls_ in data:
         _jcustomizer.JConversion(javaname, cls_)(convert)
 
+    _jcustomizer.JConversion('processing.core.PVector', Py5Vector)(_py5vector_to_pvector_converter)
     _jcustomizer.JConversion('processing.core.PVector', np.ndarray)(_numpy_to_pvector_converter)
     _jcustomizer.JConversion('processing.core.PMatrix', np.ndarray)(_numpy_to_pmatrix_converter)

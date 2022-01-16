@@ -63,6 +63,7 @@ from .sketch import Sketch, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Sha
 from .render_helper import render_frame, render_frame_sequence, render, render_sequence  # noqa
 from .create_font_tool import create_font_file  # noqa
 from .image_conversion import register_image_conversion, NumpyImageArray  # noqa
+from .vector import Py5Vector, Py5Vector2D, Py5Vector3D, Py5Vector4D  # noqa
 from py5_tools import split_setup as _split_setup
 from . import reference
 from . import java_conversion  # noqa

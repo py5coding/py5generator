@@ -1,0 +1,18 @@
+@@ meta
+name = tolist()
+type = method
+
+@@ signatures
+tolist() -> list[float]
+
+@@ description
+Return the vector's values as a list. The length of the list will be equal to the vector's dimension.
+
+@@ example
+v1 = py5.Py5Vector(1, 2, 3)
+
+print(v1.tolist())
+# [1.0, 2.0, 3.0]
+
+print(type(v1.tolist()))
+# <class 'list'>

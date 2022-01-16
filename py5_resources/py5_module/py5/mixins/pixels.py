@@ -98,7 +98,7 @@ class PixelMixin:
     def _get_np_pixels(self) -> np.ndarray:  # @decorator
         """$class_Sketch_np_pixels"""
         return self._np_pixels
-    np_pixels: np.ndarray = property(fget=_get_np_pixels)
+    np_pixels: np.ndarray = property(fget=_get_np_pixels, doc="""$class_Sketch_np_pixels""")
 
     def set_np_pixels(self, array: np.ndarray, bands: str = 'ARGB') -> None:
         """$class_Sketch_set_np_pixels"""
@@ -149,7 +149,7 @@ class PixelPy5GraphicsMixin(PixelMixin):
     def _get_np_pixels(self) -> np.ndarray:  # @decorator
         """$class_Py5Graphics_np_pixels"""
         return super()._get_np_pixels()
-    np_pixels: np.ndarray = property(fget=_get_np_pixels)
+    np_pixels: np.ndarray = property(fget=_get_np_pixels, doc="""$class_Py5Graphics_np_pixels""")
 
     def set_np_pixels(self, array: np.ndarray, bands: str = 'ARGB') -> None:
         """$class_Py5Graphics_set_np_pixels"""
@@ -173,7 +173,7 @@ class PixelPy5ImageMixin(PixelMixin):
     def _get_np_pixels(self) -> np.ndarray:  # @decorator
         """$class_Py5Image_np_pixels"""
         return super()._get_np_pixels()
-    np_pixels: np.ndarray = property(fget=_get_np_pixels)
+    np_pixels: np.ndarray = property(fget=_get_np_pixels, doc="""$class_Py5Image_np_pixels""")
 
     def set_np_pixels(self, array: np.ndarray, bands: str = 'ARGB') -> None:
         """$class_Py5Image_set_np_pixels"""

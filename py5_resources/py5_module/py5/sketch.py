@@ -222,7 +222,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         surface = self.get_surface()
         # if there is no surface yet, the sketch can be run.
         return surface._instance is None
-    is_ready: bool = property(fget=_get_is_ready)
+    is_ready: bool = property(fget=_get_is_ready, doc="""$class_Sketch_is_ready""")
 
     def _get_is_running(self) -> bool:  # @decorator
         """$class_Sketch_is_running"""
@@ -232,7 +232,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             return False
         else:
             return not surface.is_stopped() and not hasattr(self, '_shutdown_initiated')
-    is_running: bool = property(fget=_get_is_running)
+    is_running: bool = property(fget=_get_is_running, doc="""$class_Sketch_is_running""")
 
     def _get_is_dead(self) -> bool:  # @decorator
         """$class_Sketch_is_dead"""
@@ -241,22 +241,22 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             # Sketch has not been run yet
             return False
         return surface.is_stopped() or hasattr(self, '_shutdown_initiated')
-    is_dead: bool = property(fget=_get_is_dead)
+    is_dead: bool = property(fget=_get_is_dead, doc="""$class_Sketch_is_dead""")
 
     def _get_is_dead_from_error(self) -> bool:  # @decorator
         """$class_Sketch_is_dead_from_error"""
         return self.is_dead and not self._instance.getSuccess()
-    is_dead_from_error: bool = property(fget=_get_is_dead_from_error)
+    is_dead_from_error: bool = property(fget=_get_is_dead_from_error, doc="""$class_Sketch_is_dead_from_error""")
 
     def _get_is_mouse_pressed(self) -> bool:  # @decorator
         """$class_Sketch_is_mouse_pressed"""
         return self._instance.isMousePressed()
-    is_mouse_pressed: bool = property(fget=_get_is_mouse_pressed)
+    is_mouse_pressed: bool = property(fget=_get_is_mouse_pressed, doc="""$class_Sketch_is_mouse_pressed""")
 
     def _get_is_key_pressed(self) -> bool:  # @decorator
         """$class_Sketch_is_key_pressed"""
         return self._instance.isKeyPressed()
-    is_key_pressed: bool = property(fget=_get_is_key_pressed)
+    is_key_pressed: bool = property(fget=_get_is_key_pressed, doc="""$class_Sketch_is_key_pressed""")
 
     def hot_reload_draw(self, draw: Callable) -> None:
         """$class_Sketch_hot_reload_draw"""

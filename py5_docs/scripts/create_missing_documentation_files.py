@@ -44,6 +44,7 @@ PY5_CLASS_LOOKUP = {
     'Py5Functions': 'Py5Functions',
     'Py5Tools': 'Py5Tools',
     'Py5Magics': 'Py5Magics',
+    'Py5Vector': 'Py5Vector',
 }
 
 # read the class datafiles so I know what methods and fields are relevant
