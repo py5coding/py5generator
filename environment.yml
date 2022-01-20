@@ -15,7 +15,6 @@ dependencies:
   - jupyterlab=3.0.*
   - line_profiler=3.1.*
   - matplotlib=3.3.*
-  - noise=1.2.*
   - numpy=1.20.*
   - openjdk=11.0.8
   - pandas=1.2.*
