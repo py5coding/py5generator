@@ -49,7 +49,7 @@ public class Sketch extends PApplet {
   protected int exitActualCallCount = 0;
   protected String py5IconPath;
   protected int[] pixelCapture = null;
-  protected OpenSimplex2S osNoise = new OpenSimplex2S((long) (Math.random() * Long.MAX_VALUE));
+  protected long osNoiseSeed = (long) (Math.random() * Long.MAX_VALUE);
 
   public static final char CODED = PApplet.CODED;
 
@@ -491,25 +491,25 @@ public class Sketch extends PApplet {
    */
 
   public void osNoiseSeed(long seed) {
-    osNoise = new OpenSimplex2S(seed);
+    osNoiseSeed = seed;
   }
 
   public float osNoise(float x, float y) {
-    return (float) osNoise.noise2(x, y);
+    return OpenSimplex2S.noise2(osNoiseSeed, x, y);
   }
 
   public float osNoise(float x, float y, float z) {
-    return (float) osNoise.noise3_Classic(x, y, z);
+    return OpenSimplex2S.noise3_Fallback(osNoiseSeed, x, y, z);
   }
 
   public float osNoise(float x, float y, float z, float w) {
-    return (float) osNoise.noise4_Classic(x, y, z, w);
+    return OpenSimplex2S.noise4_Fallback(osNoiseSeed, x, y, z, w);
   }
 
   public float[] osNoiseArray(float[] x, float[] y) {
     float[] out = new float[x.length];
     for (int i = 0; i < x.length; ++i) {
-      out[i] = (float) osNoise.noise2(x[i], y[i]);
+      out[i] = OpenSimplex2S.noise2(osNoiseSeed, x[i], y[i]);
     }
     return out;
   }
@@ -517,7 +517,7 @@ public class Sketch extends PApplet {
   public float[] osNoiseArray(float[] x, float[] y, float[] z) {
     float[] out = new float[x.length];
     for (int i = 0; i < x.length; ++i) {
-      out[i] = (float) osNoise.noise3_Classic(x[i], y[i], y[i]);
+      out[i] = OpenSimplex2S.noise3_Fallback(osNoiseSeed, x[i], y[i], y[i]);
     }
     return out;
   }
@@ -525,7 +525,7 @@ public class Sketch extends PApplet {
   public float[] osNoiseArray(float[] x, float[] y, float[] z, float[] w) {
     float[] out = new float[x.length];
     for (int i = 0; i < x.length; ++i) {
-      out[i] = (float) osNoise.noise4_Classic(x[i], y[i], y[i], w[i]);
+      out[i] = OpenSimplex2S.noise4_Fallback(osNoiseSeed, x[i], y[i], y[i], w[i]);
     }
     return out;
   }
