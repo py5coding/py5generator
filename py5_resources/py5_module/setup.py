@@ -23,7 +23,7 @@ from setuptools import setup
 with open('README.rst') as f:
     README = f.read()
 
-VERSION = '0.6.1-dev.0'
+VERSION = '0.7.0a0'
 
 INSTALL_REQUIRES = [
     'autopep8>=1.5',
