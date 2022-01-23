@@ -25,7 +25,7 @@ from typing import NewType, List
 import PIL
 import PIL.ImageFile
 
-from .hooks import ScreenshotHook, SaveFramesHook, GrabFramesHook, ProcessFramesDequeHook
+from .hooks import ScreenshotHook, SaveFramesHook, GrabFramesHook, ProcessFramesHook
 
 
 Sketch = 'Sketch'
@@ -125,7 +125,7 @@ def save_frames2(dirname: str, *, filename: str = 'frame_{0:04}.png',
     if not dirname.exists():
         dirname.mkdir(parents=True)
 
-    hook = ProcessFramesDequeHook(period, limit, Saver(dirname, filename))
+    hook = ProcessFramesHook(period, limit, Saver(dirname, filename))
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
     # TODO: on OSX, need to return here
