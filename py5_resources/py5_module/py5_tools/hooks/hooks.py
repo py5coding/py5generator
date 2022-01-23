@@ -18,6 +18,8 @@
 #
 # *****************************************************************************
 import time
+from collections import deque
+from threading import Thread
 
 
 class BaseHook:
@@ -103,6 +105,48 @@ class GrabFramesHook(BaseHook):
             self.frames.append(sketch.np_pixels[:, :, 1:].copy())
             self.last_frame_time = time.time()
             if len(self.frames) == self.count:
+                self.hook_finished(sketch)
+        except Exception as e:
+            self.hook_error(sketch, e)
+
+
+class FrameProcessor(Thread):
+
+    def __init__(self, frames, f):
+        super().__init__()
+        self.frames = frames
+        self.f = f
+        self.stop_processing = False
+
+    def run(self):
+        while not self.stop_processing:
+            if self.frames:
+                self.f(self.frames.pop())
+
+
+class ProcessFramesDequeHook(BaseHook):
+
+    def __init__(self, period, count, f):
+        super().__init__('py5grab_frames_hook')
+        self.period = period
+        self.count = count
+        self.grabbed_frames_count = 0
+        self.frames = deque()
+        self.processor = FrameProcessor(self.frames, f)
+        self.last_frame_time = 0
+        self.processor.start()
+
+    def __call__(self, sketch):
+        try:
+            if time.time() - self.last_frame_time < self.period:
+                return
+            if self.grabbed_frames_count < self.count:
+                sketch.load_np_pixels()
+                self.frames.appendleft(sketch.np_pixels[:, :, 1:].copy())
+                self.grabbed_frames_count += 1
+                self.last_frame_time = time.time()
+            if self.grabbed_frames_count == self.count and len(self.frames) == 0:
+                self.processor.stop_processing = True
                 self.hook_finished(sketch)
         except Exception as e:
             self.hook_error(sketch, e)

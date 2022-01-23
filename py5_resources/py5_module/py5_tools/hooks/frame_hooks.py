@@ -25,7 +25,7 @@ from typing import NewType, List
 import PIL
 import PIL.ImageFile
 
-from .hooks import ScreenshotHook, SaveFramesHook, GrabFramesHook
+from .hooks import ScreenshotHook, SaveFramesHook, GrabFramesHook, ProcessFramesDequeHook
 
 
 Sketch = 'Sketch'
@@ -79,6 +79,9 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
     hook = SaveFramesHook(dirname, filename, period, start, limit)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
+    # TODO: on OSX, need to return here
+    # return
+
     if limit:
         while not hook.is_ready and not hook.is_terminated:
             time.sleep(0.02)
@@ -87,6 +90,54 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
 
         if hook.is_ready:
             return hook.filenames
+
+    if hook.is_terminated and hook.exception:
+        raise RuntimeError('error running magic: ' + str(hook.exception))
+
+
+class Saver:
+
+    def __init__(self, dirname, filename):
+        self.dirname = dirname
+        self.filename = filename
+        self.num = 0
+
+    def __call__(self, frame):
+        PIL.Image.fromarray(frame).save(self.dirname / self.filename.format(self.num))
+        self.num += 1
+
+
+def save_frames2(dirname: str, *, filename: str = 'frame_{0:04}.png',
+                 period: float = 0.0, start: int = None, limit: int = 0,
+                 sketch: Sketch = None, hook_post_draw: bool = False) -> List[str]:
+    """$module_Py5Tools_save_frames"""
+    if sketch is None:
+        import py5
+        sketch = py5.get_current_sketch()
+        prefix = ' current'
+    else:
+        prefix = ''
+
+    if not sketch.is_running:
+        raise RuntimeError(f'The {prefix} sketch is not running.')
+
+    dirname = Path(dirname)
+    if not dirname.exists():
+        dirname.mkdir(parents=True)
+
+    hook = ProcessFramesDequeHook(period, limit, Saver(dirname, filename))
+    sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
+
+    # TODO: on OSX, need to return here
+    # return
+
+    if limit:
+        fmt = f'0{len(str(limit))}'
+        while not hook.is_ready and not hook.is_terminated:
+            time.sleep(0.02)
+            deque_len = len(hook.frames)
+            print(f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-deque_len:{fmt}} deque length: {deque_len:{fmt}}', end='\r')
+        print(f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-deque_len:{fmt}} deque length: {deque_len:{fmt}}')
 
     if hook.is_terminated and hook.exception:
         raise RuntimeError('error running magic: ' + str(hook.exception))
@@ -158,4 +209,4 @@ def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None,
         raise RuntimeError('error running magic: ' + str(hook.exception))
 
 
-__all__ = ['screenshot', 'save_frames', 'animated_gif', 'capture_frames']
+__all__ = ['screenshot', 'save_frames', 'save_frames2', 'animated_gif', 'capture_frames']
