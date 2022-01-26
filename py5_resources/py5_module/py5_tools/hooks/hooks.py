@@ -92,10 +92,10 @@ class SaveFramesHook(BaseHook):
 
 class GrabFramesHook(BaseHook):
 
-    def __init__(self, period, count):
+    def __init__(self, period, limit):
         super().__init__('py5grab_frames_hook')
         self.period = period
-        self.count = count
+        self.limit = limit
         self.frames = []
         self.last_frame_time = 0
 
@@ -106,17 +106,18 @@ class GrabFramesHook(BaseHook):
             sketch.load_np_pixels()
             self.frames.append(sketch.np_pixels[:, :, 1:].copy())
             self.last_frame_time = time.time()
-            if len(self.frames) == self.count:
+            if len(self.frames) == self.limit:
                 self.hook_finished(sketch)
         except Exception as e:
             self.hook_error(sketch, e)
 
 
-class Processor(Thread):
+class BlockProcessor(Thread):
 
-    def __init__(self, f, input_queue, processed_queue=None):
+    def __init__(self, f, f_end, input_queue, processed_queue):
         super().__init__()
         self.f = f
+        self.f_end = f_end
         self.input_queue = input_queue
         self.processed_queue = processed_queue
 
@@ -129,80 +130,54 @@ class Processor(Thread):
                 if self.processed_queue is not None:
                     self.processed_queue.appendleft(data)
 
+        if self.f_end:
+            self.f_end()
 
-class ProcessFramesHook(BaseHook):
+class QueuedBlockProcessingHook(BaseHook):
 
-    def __init__(self, period, count, f):
-        super().__init__('py5process_frames_hook')
+    def __init__(self, period, limit, block_size, f, f_end):
+        super().__init__('py5queued_block_processing_hook')
         self.period = period
-        self.count = count
-
-        self.frames = deque()
-        self.grabbed_frames_count = 0
-        self.last_frame_time = 0
-
-        self.processor = Processor(f, self.frames)
-        self.processor.start()
-
-    def __call__(self, sketch):
-        try:
-            if time.time() - self.last_frame_time < self.period:
-                return
-            if self.grabbed_frames_count < self.count:
-                sketch.load_np_pixels()
-                self.frames.appendleft(sketch.np_pixels[:, :, 1:].copy())
-                self.grabbed_frames_count += 1
-                self.last_frame_time = time.time()
-            if self.grabbed_frames_count == self.count and len(self.frames) == 0:
-                self.processor.stop_processing = True
-                self.hook_finished(sketch)
-        except Exception as e:
-            self.hook_error(sketch, e)
-
-
-class ProcessBlocksHook(BaseHook):
-
-    def __init__(self, period, count, block_size, f):
-        super().__init__('py5block_process_blocks_hook')
-        self.period = period
-        self.count = count
+        self.limit = limit
         self.block_size = block_size
 
         self.blocks = deque()
         self.used_blocks = deque()
-        self.block = None
+        self.current_block = None
         self.block_shape = None
         self.block_index = 0
         self.grabbed_frames_count = 0
         self.last_frame_time = 0
 
-        self.processor = Processor(f, self.blocks, self.used_blocks)
+        self.processor = BlockProcessor(f, f_end, self.blocks, self.used_blocks)
         self.processor.start()
 
     def __call__(self, sketch):
         try:
             if time.time() - self.last_frame_time < self.period:
                 return
-            if self.grabbed_frames_count < self.count:
-                if self.block is None:
-                    if self.block_shape is None:
-                        self.block_shape = self.block_size, *sketch.np_pixels.shape[1:3], 3
-                    if self.used_blocks:
-                        self.block = self.used_blocks.pop()
-                    else:
-                        self.block = np.empty(self.block_shape, np.uint8)
-
+            if self.grabbed_frames_count < self.limit:
                 sketch.load_np_pixels()
-                self.block[self.block_index] = sketch.np_pixels[:, :, 1:]
+
+                if self.current_block is None:
+                    if self.block_shape is None:
+                        self.block_shape = self.block_size, *sketch.np_pixels.shape[0:2], 3
+                    if self.used_blocks:
+                        self.current_block = self.used_blocks.pop()
+                    else:
+                        self.current_block = np.empty(self.block_shape, np.uint8)
+
+                self.current_block[self.block_index] = sketch.np_pixels[:, :, 1:]
                 self.block_index += 1
                 self.grabbed_frames_count += 1
                 self.last_frame_time = time.time()
 
-                if self.block_index == self.block_size or self.grabbed_frames_count == self.count:
-                    self.blocks.appendleft(self.block[:self.block_index])
-                    self.block = None
+                if self.block_index == self.current_block.shape[0] or self.grabbed_frames_count == self.limit:
+                    self.blocks.appendleft(self.current_block[:self.block_index])
+                    self.current_block = None
+                    self.block_index = 0
 
-            if self.grabbed_frames_count == self.count and len(self.blocks) == 0:
+            if self.grabbed_frames_count == self.limit and len(self.blocks) == 0:
                 self.processor.stop_processing = True
                 self.hook_finished(sketch)
         except Exception as e:

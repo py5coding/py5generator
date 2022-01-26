@@ -20,12 +20,12 @@
 import time
 from pathlib import Path
 import tempfile
-from typing import NewType, List
+from typing import Callable, NewType, List
 
 import PIL
 import PIL.ImageFile
 
-from .hooks import ScreenshotHook, SaveFramesHook, GrabFramesHook, ProcessFramesHook
+from .hooks import ScreenshotHook, SaveFramesHook, GrabFramesHook, QueuedBlockProcessingHook
 
 
 Sketch = 'Sketch'
@@ -80,7 +80,6 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
     # TODO: on OSX, need to return here
-    # return
 
     if limit:
         while not hook.is_ready and not hook.is_terminated:
@@ -95,22 +94,10 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
         raise RuntimeError('error running magic: ' + str(hook.exception))
 
 
-class Saver:
-
-    def __init__(self, dirname, filename):
-        self.dirname = dirname
-        self.filename = filename
-        self.num = 0
-
-    def __call__(self, frame):
-        PIL.Image.fromarray(frame).save(self.dirname / self.filename.format(self.num))
-        self.num += 1
-
-
-def save_frames2(dirname: str, *, filename: str = 'frame_{0:04}.png',
-                 period: float = 0.0, start: int = None, limit: int = 0,
-                 sketch: Sketch = None, hook_post_draw: bool = False) -> List[str]:
-    """$module_Py5Tools_save_frames"""
+def offline_block_processing(f: Callable, limit: int, *,
+                             period: float = 0.0, block_size: int = 1,
+                             f_end: Callable = None,
+                             sketch: Sketch = None, hook_post_draw: bool = False) -> List[str]:
     if sketch is None:
         import py5
         sketch = py5.get_current_sketch()
@@ -121,23 +108,18 @@ def save_frames2(dirname: str, *, filename: str = 'frame_{0:04}.png',
     if not sketch.is_running:
         raise RuntimeError(f'The {prefix} sketch is not running.')
 
-    dirname = Path(dirname)
-    if not dirname.exists():
-        dirname.mkdir(parents=True)
-
-    hook = ProcessFramesHook(period, limit, Saver(dirname, filename))
+    hook = QueuedBlockProcessingHook(period, limit, block_size, f, f_end)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
     # TODO: on OSX, need to return here
-    # return
 
     if limit:
         fmt = f'0{len(str(limit))}'
         while not hook.is_ready and not hook.is_terminated:
             time.sleep(0.02)
-            deque_len = len(hook.frames)
-            print(f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-deque_len:{fmt}} deque length: {deque_len:{fmt}}', end='\r')
-        print(f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-deque_len:{fmt}} deque length: {deque_len:{fmt}}')
+            deque_len = len(hook.blocks) * block_size
+            print(f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-deque_len:{fmt}} queued frames: {deque_len:{fmt}}', end='\r')
+        print(f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-deque_len:{fmt}} queued frames: {deque_len:{fmt}}')
 
     if hook.is_terminated and hook.exception:
         raise RuntimeError('error running magic: ' + str(hook.exception))
@@ -209,4 +191,4 @@ def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None,
         raise RuntimeError('error running magic: ' + str(hook.exception))
 
 
-__all__ = ['screenshot', 'save_frames', 'save_frames2', 'animated_gif', 'capture_frames']
+__all__ = ['screenshot', 'save_frames', 'offline_block_processing', 'animated_gif', 'capture_frames']
