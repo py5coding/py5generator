@@ -18,7 +18,7 @@
 #
 # *****************************************************************************
 import time
-from queue import Queue
+from queue import Queue, Empty
 from threading import Thread
 
 import numpy as np
@@ -126,29 +126,33 @@ class BlockProcessor(Thread):
     def run(self):
         while not self.stop_processing:
             if not self.input_queue.empty():
-                self.func(data := self.input_queue.get())
-                self.processed_queue.put(data)
+                try:
+                    self.func(data := self.input_queue.get(block=False))
+                    self.processed_queue.put(data)
+                except Empty:
+                    pass
+
 
         if self.complete_func:
             self.complete_func()
 
 class QueuedBlockProcessingHook(BaseHook):
 
-    def __init__(self, period, limit, block_size, func, complete_func=None):
+    def __init__(self, period, limit, batch_size, func, complete_func=None):
         super().__init__('py5queued_block_processing_hook')
         self.period = period
         self.limit = limit
-        self.block_size = block_size
+        self.batch_size = batch_size
 
-        self.blocks = Queue()
-        self.used_blocks = Queue()
+        self.arrays = Queue()
+        self.used_arrays = Queue()
         self.current_block = None
-        self.block_shape = None
-        self.block_index = 0
+        self.array_shape = None
+        self.array_index = 0
         self.grabbed_frames_count = 0
         self.last_frame_time = 0
 
-        self.processor = BlockProcessor(self.blocks, self.used_blocks, func, complete_func)
+        self.processor = BlockProcessor(self.arrays, self.used_arrays, func, complete_func)
         self.processor.start()
 
     def __call__(self, sketch):
@@ -159,24 +163,27 @@ class QueuedBlockProcessingHook(BaseHook):
                 sketch.load_np_pixels()
 
                 if self.current_block is None:
-                    if self.block_shape is None:
-                        self.block_shape = self.block_size, *sketch.np_pixels.shape[0:2], 3
-                    if not self.used_blocks.empty():
-                        self.current_block = self.used_blocks.get()
+                    if self.array_shape is None:
+                        self.array_shape = self.batch_size, *sketch.np_pixels.shape[0:2], 3
+                    if not self.used_arrays.empty():
+                        try:
+                            self.current_block = self.used_arrays.get(block=False)
+                        except Empty:
+                            self.current_block = np.empty(self.array_shape, np.uint8)
                     else:
-                        self.current_block = np.empty(self.block_shape, np.uint8)
+                        self.current_block = np.empty(self.array_shape, np.uint8)
 
-                self.current_block[self.block_index] = sketch.np_pixels[:, :, 1:]
-                self.block_index += 1
+                self.current_block[self.array_index] = sketch.np_pixels[:, :, 1:]
+                self.array_index += 1
                 self.grabbed_frames_count += 1
                 self.last_frame_time = time.time()
 
-                if self.block_index == self.current_block.shape[0] or self.grabbed_frames_count == self.limit:
-                    self.blocks.put(self.current_block[:self.block_index])
+                if self.array_index == self.current_block.shape[0] or self.grabbed_frames_count == self.limit:
+                    self.arrays.put(self.current_block[:self.array_index])
                     self.current_block = None
-                    self.block_index = 0
+                    self.array_index = 0
 
-            if self.grabbed_frames_count == self.limit and self.blocks.empty():
+            if self.grabbed_frames_count == self.limit and self.arrays.empty():
                 self.processor.stop_processing = True
                 self.hook_finished(sketch)
         except Exception as e:

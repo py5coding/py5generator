@@ -94,8 +94,8 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
         raise RuntimeError('error running magic: ' + str(hook.exception))
 
 
-def offline_block_processing(func: Callable, limit: int, *,
-                             period: float = 0.0, block_size: int = 1,
+def offline_frame_processing(func: Callable, limit: int, *,
+                             period: float = 0.0, batch_size: int = 1,
                              complete_func: Callable = None,
                              sketch: Sketch = None, hook_post_draw: bool = False) -> List[str]:
     if sketch is None:
@@ -108,7 +108,7 @@ def offline_block_processing(func: Callable, limit: int, *,
     if not sketch.is_running:
         raise RuntimeError(f'The {prefix} sketch is not running.')
 
-    hook = QueuedBlockProcessingHook(period, limit, block_size, func, complete_func)
+    hook = QueuedBlockProcessingHook(period, limit, batch_size, func, complete_func)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
     # TODO: on OSX, need to return here
@@ -117,7 +117,7 @@ def offline_block_processing(func: Callable, limit: int, *,
         fmt = f'0{len(str(limit))}'
         while not hook.is_ready and not hook.is_terminated:
             time.sleep(0.02)
-            deque_len = hook.blocks.qsize() * block_size
+            deque_len = hook.arrays.qsize() * batch_size
             print(f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-deque_len:{fmt}} queued frames: {deque_len:{fmt}}', end='\r')
         print(f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-deque_len:{fmt}} queued frames: {deque_len:{fmt}}')
 
@@ -191,4 +191,4 @@ def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None,
         raise RuntimeError('error running magic: ' + str(hook.exception))
 
 
-__all__ = ['screenshot', 'save_frames', 'offline_block_processing', 'animated_gif', 'capture_frames']
+__all__ = ['screenshot', 'save_frames', 'offline_frame_processing', 'animated_gif', 'capture_frames']
