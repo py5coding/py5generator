@@ -117,9 +117,9 @@ def offline_frame_processing(func: Callable, limit: int, *,
         fmt = f'0{len(str(limit))}'
         while not hook.is_ready and not hook.is_terminated:
             time.sleep(0.02)
-            deque_len = hook.arrays.qsize() * batch_size
-            print(f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-deque_len:{fmt}} queued frames: {deque_len:{fmt}}', end='\r')
-        print(f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-deque_len:{fmt}} queued frames: {deque_len:{fmt}}')
+            queued_count = hook.arrays.qsize() * batch_size + hook.array_index
+            print(f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-queued_count:{fmt}} queued frames: {queued_count:{fmt}}', end='\r')
+        print(f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-queued_count:{fmt}} queued frames: {queued_count:{fmt}}')
 
     if hook.is_terminated and hook.exception:
         raise RuntimeError('error running magic: ' + str(hook.exception))
