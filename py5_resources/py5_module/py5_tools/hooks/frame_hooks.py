@@ -117,7 +117,7 @@ def offline_block_processing(func: Callable, limit: int, *,
         fmt = f'0{len(str(limit))}'
         while not hook.is_ready and not hook.is_terminated:
             time.sleep(0.02)
-            deque_len = len(hook.blocks) * block_size
+            deque_len = hook.blocks.qsize() * block_size
             print(f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-deque_len:{fmt}} queued frames: {deque_len:{fmt}}', end='\r')
         print(f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-deque_len:{fmt}} queued frames: {deque_len:{fmt}}')
 

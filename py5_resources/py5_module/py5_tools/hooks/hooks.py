@@ -18,7 +18,7 @@
 #
 # *****************************************************************************
 import time
-from collections import deque
+from queue import Queue
 from threading import Thread
 
 import numpy as np
@@ -114,7 +114,7 @@ class GrabFramesHook(BaseHook):
 
 class BlockProcessor(Thread):
 
-    def __init__(self, func, complete_func, input_queue, processed_queue):
+    def __init__(self, input_queue, processed_queue, func, complete_func=None):
         super().__init__()
         self.func = func
         self.complete_func = complete_func
@@ -125,31 +125,30 @@ class BlockProcessor(Thread):
 
     def run(self):
         while not self.stop_processing:
-            if self.input_queue:
-                self.func(data := self.input_queue.pop())
-                if self.processed_queue is not None:
-                    self.processed_queue.appendleft(data)
+            if not self.input_queue.empty():
+                self.func(data := self.input_queue.get())
+                self.processed_queue.put(data)
 
         if self.complete_func:
             self.complete_func()
 
 class QueuedBlockProcessingHook(BaseHook):
 
-    def __init__(self, period, limit, block_size, func, complete_func):
+    def __init__(self, period, limit, block_size, func, complete_func=None):
         super().__init__('py5queued_block_processing_hook')
         self.period = period
         self.limit = limit
         self.block_size = block_size
 
-        self.blocks = deque()  # TODO: does this have to be a deque?
-        self.used_blocks = deque()
+        self.blocks = Queue()
+        self.used_blocks = Queue()
         self.current_block = None
         self.block_shape = None
         self.block_index = 0
         self.grabbed_frames_count = 0
         self.last_frame_time = 0
 
-        self.processor = BlockProcessor(func, complete_func, self.blocks, self.used_blocks)
+        self.processor = BlockProcessor(self.blocks, self.used_blocks, func, complete_func)
         self.processor.start()
 
     def __call__(self, sketch):
@@ -162,8 +161,8 @@ class QueuedBlockProcessingHook(BaseHook):
                 if self.current_block is None:
                     if self.block_shape is None:
                         self.block_shape = self.block_size, *sketch.np_pixels.shape[0:2], 3
-                    if self.used_blocks:
-                        self.current_block = self.used_blocks.pop()
+                    if not self.used_blocks.empty():
+                        self.current_block = self.used_blocks.get()
                     else:
                         self.current_block = np.empty(self.block_shape, np.uint8)
 
@@ -173,11 +172,11 @@ class QueuedBlockProcessingHook(BaseHook):
                 self.last_frame_time = time.time()
 
                 if self.block_index == self.current_block.shape[0] or self.grabbed_frames_count == self.limit:
-                    self.blocks.appendleft(self.current_block[:self.block_index])
+                    self.blocks.put(self.current_block[:self.block_index])
                     self.current_block = None
                     self.block_index = 0
 
-            if self.grabbed_frames_count == self.limit and len(self.blocks) == 0:
+            if self.grabbed_frames_count == self.limit and self.blocks.empty():
                 self.processor.stop_processing = True
                 self.hook_finished(sketch)
         except Exception as e:
