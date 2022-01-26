@@ -82,10 +82,11 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
     # TODO: on OSX, need to return here
 
     if limit:
+        msg = lambda : f'saving frame {len(hook.filenames)}/{limit}'
         while not hook.is_ready and not hook.is_terminated:
             time.sleep(0.02)
-            print(f'saving frame {len(hook.filenames)}/{limit}', end='\r')
-        print(f'saving frame {len(hook.filenames)}/{limit}')
+            print(msg(), end='\r')
+        print(msg())
 
         if hook.is_ready:
             return hook.filenames
@@ -114,12 +115,14 @@ def offline_frame_processing(func: Callable, limit: int, *,
     # TODO: on OSX, need to return here
 
     if limit:
+        queued_count = 0
         fmt = f'0{len(str(limit))}'
+        msg = lambda : f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-queued_count:{fmt}} queued frames: {queued_count:{fmt}}'
         while not hook.is_ready and not hook.is_terminated:
             time.sleep(0.02)
             queued_count = hook.arrays.qsize() * batch_size + hook.array_index
-            print(f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-queued_count:{fmt}} queued frames: {queued_count:{fmt}}', end='\r')
-        print(f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-queued_count:{fmt}} queued frames: {queued_count:{fmt}}')
+            print(msg(), end='\r')
+        print(msg())
 
     if hook.is_terminated and hook.exception:
         raise RuntimeError('error running magic: ' + str(hook.exception))
@@ -144,10 +147,11 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
     hook = GrabFramesHook(period, count)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
+    msg = lambda : f'collecting frame {len(hook.frames)}/{count}'
     while not hook.is_ready and not hook.is_terminated:
         time.sleep(0.05)
-        print(f'collecting frame {len(hook.frames)}/{count}', end='\r')
-    print(f'collecting frame {len(hook.frames)}/{count}')
+        print(msg(), end='\r')
+    print(msg())
 
     if hook.is_ready:
         if not filename.parent.exists():
@@ -180,10 +184,11 @@ def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None,
     hook = GrabFramesHook(period, count)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
+    msg = lambda : f'collecting frame {len(hook.frames)}/{count}'
     while not hook.is_ready and not hook.is_terminated:
         time.sleep(0.05)
-        print(f'collecting frame {len(hook.frames)}/{count}', end='\r')
-    print(f'collecting frame {len(hook.frames)}/{count}')
+        print(msg(), end='\r')
+    print(msg())
 
     if hook.is_ready:
         return [PIL.Image.fromarray(arr, mode='RGB') for arr in hook.frames]
