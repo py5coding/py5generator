@@ -94,9 +94,9 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
         raise RuntimeError('error running magic: ' + str(hook.exception))
 
 
-def offline_block_processing(f: Callable, limit: int, *,
+def offline_block_processing(func: Callable, limit: int, *,
                              period: float = 0.0, block_size: int = 1,
-                             f_end: Callable = None,
+                             complete_func: Callable = None,
                              sketch: Sketch = None, hook_post_draw: bool = False) -> List[str]:
     if sketch is None:
         import py5
@@ -108,7 +108,7 @@ def offline_block_processing(f: Callable, limit: int, *,
     if not sketch.is_running:
         raise RuntimeError(f'The {prefix} sketch is not running.')
 
-    hook = QueuedBlockProcessingHook(period, limit, block_size, f, f_end)
+    hook = QueuedBlockProcessingHook(period, limit, block_size, func, complete_func)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
     # TODO: on OSX, need to return here
