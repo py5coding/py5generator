@@ -114,10 +114,11 @@ class GrabFramesHook(BaseHook):
 
 class BlockProcessor(Thread):
 
-    def __init__(self, input_queue, processed_queue, func, complete_func=None):
+    def __init__(self, input_queue, processed_queue, func, complete_func=None, stop_processing_func=None):
         super().__init__()
         self.func = func
         self.complete_func = complete_func
+        self.stop_processing_func = stop_processing_func
         self.input_queue = input_queue
         self.processed_queue = processed_queue
 
@@ -132,18 +133,22 @@ class BlockProcessor(Thread):
                 except Empty:
                     pass
 
+                if self.stop_processing_func and self.stop_processing_func():
+                    self.stop_processing = True
 
         if self.complete_func:
             self.complete_func()
 
 class QueuedBlockProcessingHook(BaseHook):
 
-    def __init__(self, period, limit, batch_size, func, complete_func=None):
+    def __init__(self, period, limit, batch_size, func, complete_func=None, stop_processing_func=None):
         super().__init__('py5queued_block_processing_hook')
         self.period = period
         self.limit = limit
         self.batch_size = batch_size
+        self.stop_processing_func = stop_processing_func
 
+        self.continue_grabbing_frames = True
         self.arrays = Queue()
         self.used_arrays = Queue()
         self.current_block = None
@@ -153,14 +158,18 @@ class QueuedBlockProcessingHook(BaseHook):
         self.last_frame_time = 0
 
         # Can this support multiprocessing?
-        self.processor = BlockProcessor(self.arrays, self.used_arrays, func, complete_func)
+        self.processor = BlockProcessor(self.arrays, self.used_arrays, func, complete_func, stop_processing_func)
         self.processor.start()
 
     def __call__(self, sketch):
         try:
             if time.time() - self.last_frame_time < self.period:
                 return
-            if self.limit == 0 or self.grabbed_frames_count < self.limit:
+
+            if (self.limit > 0 and self.grabbed_frames_count == self.limit) or self.processor.stop_processing:
+                self.continue_grabbing_frames = False
+
+            if self.continue_grabbing_frames:
                 sketch.load_np_pixels()
 
                 if self.current_block is None:
@@ -179,12 +188,12 @@ class QueuedBlockProcessingHook(BaseHook):
                 self.grabbed_frames_count += 1
                 self.last_frame_time = time.time()
 
-                if self.array_index == self.current_block.shape[0] or self.grabbed_frames_count == self.limit:
+                if self.array_index == self.current_block.shape[0] or not self.continue_grabbing_frames:
                     self.arrays.put(self.current_block[:self.array_index])
                     self.current_block = None
                     self.array_index = 0
 
-            if self.grabbed_frames_count == self.limit and self.arrays.empty():
+            if not self.continue_grabbing_frames and self.arrays.empty():
                 self.processor.stop_processing = True
                 self.hook_finished(sketch)
         except Exception as e:
