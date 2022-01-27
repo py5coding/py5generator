@@ -20,7 +20,8 @@
 import time
 from pathlib import Path
 import tempfile
-from typing import Callable, NewType, List
+from typing import Callable, NewType, List, Any
+from nptyping import NDArray, UInt8
 
 import PIL
 import PIL.ImageFile
@@ -96,9 +97,9 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
 
 
 # TODO: queue limit, allow dropped frames
-def offline_frame_processing(func: Callable, *, limit: int = 0,
+def offline_frame_processing(func: Callable[[NDArray[(Any, Any, Any, 3), UInt8]], None], *, limit: int = 0,
                              period: float = 0.0, batch_size: int = 1,
-                             complete_func: Callable = None,
+                             complete_func: Callable[[], None] = None,
                              stop_processing_func: Callable[[], bool] = None,
                              sketch: Sketch = None, hook_post_draw: bool = False) -> List[str]:
     if sketch is None:
