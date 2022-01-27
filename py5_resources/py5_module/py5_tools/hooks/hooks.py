@@ -152,6 +152,7 @@ class QueuedBlockProcessingHook(BaseHook):
         self.grabbed_frames_count = 0
         self.last_frame_time = 0
 
+        # Can this support multiprocessing?
         self.processor = BlockProcessor(self.arrays, self.used_arrays, func, complete_func)
         self.processor.start()
 
@@ -159,7 +160,7 @@ class QueuedBlockProcessingHook(BaseHook):
         try:
             if time.time() - self.last_frame_time < self.period:
                 return
-            if self.grabbed_frames_count < self.limit:
+            if self.limit == 0 or self.grabbed_frames_count < self.limit:
                 sketch.load_np_pixels()
 
                 if self.current_block is None:

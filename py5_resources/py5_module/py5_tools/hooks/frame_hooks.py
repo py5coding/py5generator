@@ -95,7 +95,9 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
         raise RuntimeError('error running magic: ' + str(hook.exception))
 
 
-def offline_frame_processing(func: Callable, limit: int, *,
+# TODO: how about a stopping condition function, or a time limit?
+# TODO: queue limit, allow dropped frames
+def offline_frame_processing(func: Callable, *, limit: int = 0,
                              period: float = 0.0, batch_size: int = 1,
                              complete_func: Callable = None,
                              sketch: Sketch = None, hook_post_draw: bool = False) -> List[str]:
