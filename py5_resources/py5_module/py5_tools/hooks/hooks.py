@@ -114,14 +114,13 @@ class GrabFramesHook(BaseHook):
 
 class BatchProcessor(Thread):
 
-    def __init__(self, input_queue, processed_queue, func, complete_func=None, stop_processing_func=None, queue_limit=None):
+    def __init__(self, input_queue, processed_queue, func, complete_func=None, stop_processing_func=None):
         super().__init__()
         self.input_queue = input_queue
         self.processed_queue = processed_queue
         self.func = func
         self.complete_func = complete_func
         self.stop_processing_func = stop_processing_func
-        self.queue_limit = queue_limit
 
         self.stop_processing = False
         self.dropped_batches = 0
@@ -130,11 +129,6 @@ class BatchProcessor(Thread):
         while not self.stop_processing:
             if not self.input_queue.empty():
                 try:
-                    if self.queue_limit:
-                        while self.input_queue.qsize() > self.queue_limit:
-                            self.input_queue.get(block=False)
-                            self.dropped_batches += 1
-
                     self.func(data := self.input_queue.get(block=False))
                     self.processed_queue.put(data)
                 except Empty:
@@ -155,6 +149,7 @@ class QueuedBatchProcessingHook(BaseHook):
         self.period = period
         self.limit = limit
         self.batch_size = batch_size
+        self.queue_limit = queue_limit
 
         self.continue_grabbing_frames = True
         self.current_batch = None
@@ -166,7 +161,7 @@ class QueuedBatchProcessingHook(BaseHook):
 
         self.arrays = Queue()
         self.used_arrays = Queue()
-        self.processor = BatchProcessor(self.arrays, self.used_arrays, func, complete_func, stop_processing_func, queue_limit)
+        self.processor = BatchProcessor(self.arrays, self.used_arrays, func, complete_func, stop_processing_func)
         self.processor.start()
 
     def __call__(self, sketch):
@@ -194,11 +189,18 @@ class QueuedBatchProcessingHook(BaseHook):
                 self.last_frame_time = time.time()
 
                 if self.array_index == self.current_batch.shape[0] or not self.continue_grabbing_frames:
+                    # make room for the new batch if the queue has reached the its size limit
+                    if self.queue_limit:
+                        while self.arrays.qsize() >= self.queue_limit:
+                            try:
+                                self.arrays.get(block=False)
+                                self.dropped_batches += 1
+                            except Empty:
+                                pass
+
                     self.arrays.put(self.current_batch[:self.array_index])
                     self.current_batch = None
                     self.array_index = 0
-
-            self.dropped_batches = self.processor.dropped_batches
 
             if not self.continue_grabbing_frames and self.arrays.empty():
                 self.processor.stop_processing = True
