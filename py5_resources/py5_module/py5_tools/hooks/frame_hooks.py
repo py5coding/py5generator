@@ -26,7 +26,7 @@ from nptyping import NDArray, UInt8
 import PIL
 import PIL.ImageFile
 
-from .hooks import ScreenshotHook, SaveFramesHook, GrabFramesHook, QueuedBlockProcessingHook
+from .hooks import ScreenshotHook, SaveFramesHook, GrabFramesHook, QueuedBatchProcessingHook
 
 
 Sketch = 'Sketch'
@@ -96,12 +96,12 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
         raise RuntimeError('error running magic: ' + str(hook.exception))
 
 
-# TODO: queue limit, allow dropped frames
-def offline_frame_processing(func: Callable[[NDArray[(Any, Any, Any, 3), UInt8]], None], *, limit: int = 0,
-                             period: float = 0.0, batch_size: int = 1,
+def offline_frame_processing(func: Callable[[NDArray[(Any, Any, Any, 3), UInt8]], None], *, 
+                             limit: int = 0, period: float = 0.0, batch_size: int = 1,
                              complete_func: Callable[[], None] = None,
                              stop_processing_func: Callable[[], bool] = None,
-                             sketch: Sketch = None, hook_post_draw: bool = False) -> None:
+                             sketch: Sketch = None, hook_post_draw: bool = False,
+                             queue_limit: int = None) -> None:
     if sketch is None:
         import py5
         sketch = py5.get_current_sketch()
@@ -112,20 +112,28 @@ def offline_frame_processing(func: Callable[[NDArray[(Any, Any, Any, 3), UInt8]]
     if not sketch.is_running:
         raise RuntimeError(f'The {prefix} sketch is not running.')
 
-    hook = QueuedBlockProcessingHook(period, limit, batch_size, func,
+    hook = QueuedBatchProcessingHook(period, limit, batch_size, func,
                                      complete_func=complete_func,
-                                     stop_processing_func=stop_processing_func)
+                                     stop_processing_func=stop_processing_func,
+                                     queue_limit=queue_limit)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
     # TODO: on OSX, need to return here
 
     if limit:
-        queued_count = 0
         fmt = f'0{len(str(limit))}'
-        msg = lambda : f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit} processed frames: {hook.grabbed_frames_count-queued_count:{fmt}} queued frames: {queued_count:{fmt}}'
+        def msg():
+            queued_count = hook.arrays.qsize() * batch_size + hook.array_index
+            dropped_count = hook.dropped_batches * batch_size
+            out = f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit}'
+            out += f' processed frames: {hook.grabbed_frames_count-queued_count-dropped_count:{fmt}}'
+            out += f' queued frames: {queued_count:{fmt}}'
+            if queue_limit:
+                out += f' dropped frames: {dropped_count:{fmt}}'
+            return out
+
         while not hook.is_ready and not hook.is_terminated:
             time.sleep(0.02)
-            queued_count = hook.arrays.qsize() * batch_size + hook.array_index
             print(msg(), end='\r')
         print(msg())
 

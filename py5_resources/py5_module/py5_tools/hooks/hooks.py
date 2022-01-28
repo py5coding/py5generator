@@ -112,22 +112,29 @@ class GrabFramesHook(BaseHook):
             self.hook_error(sketch, e)
 
 
-class BlockProcessor(Thread):
+class BatchProcessor(Thread):
 
-    def __init__(self, input_queue, processed_queue, func, complete_func=None, stop_processing_func=None):
+    def __init__(self, input_queue, processed_queue, func, complete_func=None, stop_processing_func=None, queue_limit=None):
         super().__init__()
+        self.input_queue = input_queue
+        self.processed_queue = processed_queue
         self.func = func
         self.complete_func = complete_func
         self.stop_processing_func = stop_processing_func
-        self.input_queue = input_queue
-        self.processed_queue = processed_queue
+        self.queue_limit = queue_limit
 
         self.stop_processing = False
+        self.dropped_batches = 0
 
     def run(self):
         while not self.stop_processing:
             if not self.input_queue.empty():
                 try:
+                    if self.queue_limit:
+                        while self.input_queue.qsize() > self.queue_limit:
+                            self.input_queue.get(block=False)
+                            self.dropped_batches += 1
+
                     self.func(data := self.input_queue.get(block=False))
                     self.processed_queue.put(data)
                 except Empty:
@@ -140,25 +147,26 @@ class BlockProcessor(Thread):
             self.complete_func()
 
 
-class QueuedBlockProcessingHook(BaseHook):
+class QueuedBatchProcessingHook(BaseHook):
 
-    def __init__(self, period, limit, batch_size, func, complete_func=None, stop_processing_func=None):
+    def __init__(self, period, limit, batch_size, func,
+                 complete_func=None, stop_processing_func=None, queue_limit=0):
         super().__init__('py5queued_block_processing_hook')
         self.period = period
         self.limit = limit
         self.batch_size = batch_size
-        self.stop_processing_func = stop_processing_func
 
         self.continue_grabbing_frames = True
-        self.current_block = None
+        self.current_batch = None
         self.array_shape = None
         self.array_index = 0
         self.grabbed_frames_count = 0
         self.last_frame_time = 0
+        self.dropped_batches = 0
 
         self.arrays = Queue()
         self.used_arrays = Queue()
-        self.processor = BlockProcessor(self.arrays, self.used_arrays, func, complete_func, stop_processing_func)
+        self.processor = BatchProcessor(self.arrays, self.used_arrays, func, complete_func, stop_processing_func, queue_limit)
         self.processor.start()
 
     def __call__(self, sketch):
@@ -172,26 +180,28 @@ class QueuedBlockProcessingHook(BaseHook):
             if self.continue_grabbing_frames:
                 sketch.load_np_pixels()
 
-                if self.current_block is None:
+                if self.current_batch is None:
                     if self.array_shape is None:
                         self.array_shape = self.batch_size, *sketch.np_pixels.shape[0:2], 3
                     if not self.used_arrays.empty():
                         try:
-                            self.current_block = self.used_arrays.get(block=False)
+                            self.current_batch = self.used_arrays.get(block=False)
                         except Empty:
-                            self.current_block = np.empty(self.array_shape, np.uint8)
+                            self.current_batch = np.empty(self.array_shape, np.uint8)
                     else:
-                        self.current_block = np.empty(self.array_shape, np.uint8)
+                        self.current_batch = np.empty(self.array_shape, np.uint8)
 
-                self.current_block[self.array_index] = sketch.np_pixels[:, :, 1:]
+                self.current_batch[self.array_index] = sketch.np_pixels[:, :, 1:]
                 self.array_index += 1
                 self.grabbed_frames_count += 1
                 self.last_frame_time = time.time()
 
-                if self.array_index == self.current_block.shape[0] or not self.continue_grabbing_frames:
-                    self.arrays.put(self.current_block[:self.array_index])
-                    self.current_block = None
+                if self.array_index == self.current_batch.shape[0] or not self.continue_grabbing_frames:
+                    self.arrays.put(self.current_batch[:self.array_index])
+                    self.current_batch = None
                     self.array_index = 0
+
+            self.dropped_batches = self.processor.dropped_batches
 
             if not self.continue_grabbing_frames and self.arrays.empty():
                 self.processor.stop_processing = True
