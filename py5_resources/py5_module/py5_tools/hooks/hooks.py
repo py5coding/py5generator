@@ -139,6 +139,7 @@ class BlockProcessor(Thread):
         if self.complete_func:
             self.complete_func()
 
+
 class QueuedBlockProcessingHook(BaseHook):
 
     def __init__(self, period, limit, batch_size, func, complete_func=None, stop_processing_func=None):
@@ -149,15 +150,14 @@ class QueuedBlockProcessingHook(BaseHook):
         self.stop_processing_func = stop_processing_func
 
         self.continue_grabbing_frames = True
-        self.arrays = Queue()
-        self.used_arrays = Queue()
         self.current_block = None
         self.array_shape = None
         self.array_index = 0
         self.grabbed_frames_count = 0
         self.last_frame_time = 0
 
-        # Can this support multiprocessing?
+        self.arrays = Queue()
+        self.used_arrays = Queue()
         self.processor = BlockProcessor(self.arrays, self.used_arrays, func, complete_func, stop_processing_func)
         self.processor.start()
 

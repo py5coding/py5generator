@@ -101,7 +101,7 @@ def offline_frame_processing(func: Callable[[NDArray[(Any, Any, Any, 3), UInt8]]
                              period: float = 0.0, batch_size: int = 1,
                              complete_func: Callable[[], None] = None,
                              stop_processing_func: Callable[[], bool] = None,
-                             sketch: Sketch = None, hook_post_draw: bool = False) -> List[str]:
+                             sketch: Sketch = None, hook_post_draw: bool = False) -> None:
     if sketch is None:
         import py5
         sketch = py5.get_current_sketch()
@@ -112,7 +112,9 @@ def offline_frame_processing(func: Callable[[NDArray[(Any, Any, Any, 3), UInt8]]
     if not sketch.is_running:
         raise RuntimeError(f'The {prefix} sketch is not running.')
 
-    hook = QueuedBlockProcessingHook(period, limit, batch_size, func, complete_func, stop_processing_func)
+    hook = QueuedBlockProcessingHook(period, limit, batch_size, func,
+                                     complete_func=complete_func,
+                                     stop_processing_func=stop_processing_func)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
     # TODO: on OSX, need to return here
