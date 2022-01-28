@@ -183,12 +183,9 @@ class QueuedBatchProcessingHook(BaseHook):
                 if self.current_batch is None:
                     if self.array_shape is None:
                         self.array_shape = self.batch_size, *sketch.np_pixels.shape[0:2], 3
-                    if not self.used_arrays.empty():
-                        try:
-                            self.current_batch = self.used_arrays.get(block=False)
-                        except Empty:
-                            self.current_batch = np.empty(self.array_shape, np.uint8)
-                    else:
+                    try:
+                        self.current_batch = self.used_arrays.get(block=False)
+                    except Empty:
                         self.current_batch = np.empty(self.array_shape, np.uint8)
 
                 self.current_batch[self.array_index] = sketch.np_pixels[:, :, 1:]
