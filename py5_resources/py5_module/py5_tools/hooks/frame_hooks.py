@@ -102,6 +102,7 @@ def offline_frame_processing(func: Callable[[NDArray[(Any, Any, Any, 3), UInt8]]
                              stop_processing_func: Callable[[], bool] = None,
                              sketch: Sketch = None, hook_post_draw: bool = False,
                              queue_limit: int = None) -> None:
+    """$module_Py5Tools_offline_frame_processing"""
     if sketch is None:
         import py5
         sketch = py5.get_current_sketch()
