@@ -61,7 +61,7 @@ def translate_token(token):
 
 
 def translate_code(code):
-    util.translate_code(translate_token, code)
+    return util.translate_code(translate_token, code)
 
 
 def translate_file(src: Union[str, Path], dest: Union[str, Path]):
