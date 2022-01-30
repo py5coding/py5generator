@@ -8,15 +8,15 @@ subcategory = None
 offline_frame_processing(func: Callable[[NDArray[(Any, Any, Any, 3), UInt8]], None], *, limit: int = 0, period: float = 0.0, batch_size: int = 1, complete_func: Callable[[], None] = None, stop_processing_func: Callable[[], bool] = None, sketch: Sketch = None, hook_post_draw: bool = False, queue_limit: int = None) -> None
 
 @@ variables
-batch_size: int = 1 - missing variable description
-complete_func: Callable[[], None] = None - missing variable description
-func: Callable[[NDArray[(Any, Any, Any, 3), UInt8]], None] - missing variable description
-hook_post_draw: bool = False - missing variable description
-limit: int = 0 - missing variable description
-period: float = 0.0 - missing variable description
-queue_limit: int = None - missing variable description
-sketch: Sketch = None - missing variable description
-stop_processing_func: Callable[[], bool] = None - missing variable description
+batch_size: int = 1 - number of frames to include in each batch passed to the frame processing function
+complete_func: Callable[[], None] = None - function to call when frame processing is complete
+func: Callable[[NDArray[(Any, Any, Any, 3), UInt8]], None] - Sketch's frame(s) assembled into a numpy array
+hook_post_draw: bool = False - attach hook to Sketch's post_draw method instead of draw
+limit: int = 0 - total number of frames to pass to the frame processing function
+period: float = 0.0 - time in seconds between frames collected to be passed to the frame processing function (default 0 means no delay)
+queue_limit: int = None - maximum number of frames that can be on the queue waiting to be processed
+sketch: Sketch = None - running Sketch
+stop_processing_func: Callable[[], bool] = None - optional predicate function that determines if frame processing should terminate
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
