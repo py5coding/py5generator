@@ -124,10 +124,10 @@ def offline_frame_processing(func: Callable[[NDArray[(Any, Any, Any, 3), UInt8]]
     if limit:
         fmt = f'0{len(str(limit))}'
         def msg():
-            queued_count = hook.arrays.qsize() * batch_size + hook.array_index
+            queued_count = hook.arrays.qsize() * batch_size
             dropped_count = hook.dropped_batches * batch_size
             out = f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit}'
-            out += f' processed frames: {hook.grabbed_frames_count-queued_count-dropped_count:{fmt}}'
+            out += f' processed frames: {hook.grabbed_frames_count-hook.array_index-queued_count-dropped_count:{fmt}}'
             out += f' queued frames: {queued_count:{fmt}}'
             if queue_limit:
                 out += f' dropped frames: {dropped_count:{fmt}}'

@@ -191,7 +191,7 @@ class QueuedBatchProcessingHook(BaseHook):
                 if self.array_index == self.current_batch.shape[0] or not self.continue_grabbing_frames:
                     # make room for the new batch if the queue has reached the its size limit
                     if self.queue_limit:
-                        while self.arrays.qsize() >= self.queue_limit:
+                        while self.arrays.qsize() >= self.queue_limit // self.batch_size:
                             try:
                                 self.arrays.get(block=False)
                                 self.dropped_batches += 1
