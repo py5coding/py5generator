@@ -18,6 +18,10 @@
 #
 # *****************************************************************************
 import time
+from queue import Queue, Empty
+from threading import Thread
+
+import numpy as np
 
 
 class BaseHook:
@@ -88,10 +92,10 @@ class SaveFramesHook(BaseHook):
 
 class GrabFramesHook(BaseHook):
 
-    def __init__(self, period, count):
+    def __init__(self, period, limit):
         super().__init__('py5grab_frames_hook')
         self.period = period
-        self.count = count
+        self.limit = limit
         self.frames = []
         self.last_frame_time = 0
 
@@ -102,7 +106,104 @@ class GrabFramesHook(BaseHook):
             sketch.load_np_pixels()
             self.frames.append(sketch.np_pixels[:, :, 1:].copy())
             self.last_frame_time = time.time()
-            if len(self.frames) == self.count:
+            if len(self.frames) == self.limit:
+                self.hook_finished(sketch)
+        except Exception as e:
+            self.hook_error(sketch, e)
+
+
+class BatchProcessor(Thread):
+
+    def __init__(self, input_queue, processed_queue, func, complete_func=None, stop_processing_func=None):
+        super().__init__()
+        self.input_queue = input_queue
+        self.processed_queue = processed_queue
+        self.func = func
+        self.complete_func = complete_func
+        self.stop_processing_func = stop_processing_func
+
+        self.stop_processing = False
+        self.dropped_batches = 0
+
+    def run(self):
+        while not self.stop_processing:
+            if not self.input_queue.empty():
+                try:
+                    self.func(data := self.input_queue.get(block=False))
+                    self.processed_queue.put(data)
+                except Empty:
+                    pass
+
+                if self.stop_processing_func and self.stop_processing_func():
+                    self.stop_processing = True
+
+        if self.complete_func:
+            self.complete_func()
+
+
+class QueuedBatchProcessingHook(BaseHook):
+
+    def __init__(self, period, limit, batch_size, func,
+                 complete_func=None, stop_processing_func=None, queue_limit=0):
+        super().__init__('py5queued_block_processing_hook')
+        self.period = period
+        self.limit = limit
+        self.batch_size = batch_size
+        self.queue_limit = queue_limit
+
+        self.continue_grabbing_frames = True
+        self.current_batch = None
+        self.array_shape = None
+        self.array_index = 0
+        self.grabbed_frames_count = 0
+        self.last_frame_time = 0
+        self.dropped_batches = 0
+
+        self.arrays = Queue()
+        self.used_arrays = Queue()
+        self.processor = BatchProcessor(self.arrays, self.used_arrays, func, complete_func, stop_processing_func)
+        self.processor.start()
+
+    def __call__(self, sketch):
+        try:
+            if time.time() - self.last_frame_time < self.period:
+                return
+
+            if (self.limit > 0 and self.grabbed_frames_count == self.limit) or self.processor.stop_processing:
+                self.continue_grabbing_frames = False
+
+            if self.continue_grabbing_frames:
+                sketch.load_np_pixels()
+
+                if self.current_batch is None:
+                    if self.array_shape is None:
+                        self.array_shape = self.batch_size, *sketch.np_pixels.shape[0:2], 3
+                    try:
+                        self.current_batch = self.used_arrays.get(block=False)
+                    except Empty:
+                        self.current_batch = np.empty(self.array_shape, np.uint8)
+
+                self.current_batch[self.array_index] = sketch.np_pixels[:, :, 1:]
+                self.array_index += 1
+                self.grabbed_frames_count += 1
+                self.last_frame_time = time.time()
+
+                if self.array_index == self.current_batch.shape[0] or not self.continue_grabbing_frames:
+                    # make room for the new batch if the queue has reached the its size limit
+                    if self.queue_limit:
+                        while self.arrays.qsize() >= self.queue_limit // self.batch_size:
+                            try:
+                                self.arrays.get(block=False)
+                                self.dropped_batches += 1
+                            except Empty:
+                                pass
+
+                    self.arrays.put(self.current_batch[:self.array_index])
+                    self.current_batch = None
+                    self.array_index = 0
+
+            if not self.continue_grabbing_frames and self.arrays.empty():
+                self.processor.stop_processing = True
                 self.hook_finished(sketch)
         except Exception as e:
             self.hook_error(sketch, e)

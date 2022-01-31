@@ -20,12 +20,13 @@
 import time
 from pathlib import Path
 import tempfile
-from typing import NewType, List
+from typing import Callable, NewType, List, Any
+from nptyping import NDArray, UInt8
 
 import PIL
 import PIL.ImageFile
 
-from .hooks import ScreenshotHook, SaveFramesHook, GrabFramesHook
+from .hooks import ScreenshotHook, SaveFramesHook, GrabFramesHook, QueuedBatchProcessingHook
 
 
 Sketch = 'Sketch'
@@ -79,14 +80,63 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
     hook = SaveFramesHook(dirname, filename, period, start, limit)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
+    # TODO: on OSX, need to return here
+
     if limit:
+        msg = lambda : f'saving frame {len(hook.filenames)}/{limit}'
         while not hook.is_ready and not hook.is_terminated:
             time.sleep(0.02)
-            print(f'saving frame {len(hook.filenames)}/{limit}', end='\r')
-        print(f'saving frame {len(hook.filenames)}/{limit}')
+            print(msg(), end='\r')
+        print(msg())
 
         if hook.is_ready:
             return hook.filenames
+
+    if hook.is_terminated and hook.exception:
+        raise RuntimeError('error running magic: ' + str(hook.exception))
+
+
+def offline_frame_processing(func: Callable[[NDArray[(Any, Any, Any, 3), UInt8]], None], *, 
+                             limit: int = 0, period: float = 0.0, batch_size: int = 1,
+                             complete_func: Callable[[], None] = None,
+                             stop_processing_func: Callable[[], bool] = None,
+                             sketch: Sketch = None, hook_post_draw: bool = False,
+                             queue_limit: int = None) -> None:
+    """$module_Py5Tools_offline_frame_processing"""
+    if sketch is None:
+        import py5
+        sketch = py5.get_current_sketch()
+        prefix = ' current'
+    else:
+        prefix = ''
+
+    if not sketch.is_running:
+        raise RuntimeError(f'The {prefix} sketch is not running.')
+
+    hook = QueuedBatchProcessingHook(period, limit, batch_size, func,
+                                     complete_func=complete_func,
+                                     stop_processing_func=stop_processing_func,
+                                     queue_limit=queue_limit)
+    sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
+
+    # TODO: on OSX, need to return here
+
+    if limit:
+        fmt = f'0{len(str(limit))}'
+        def msg():
+            queued_count = hook.arrays.qsize() * batch_size
+            dropped_count = hook.dropped_batches * batch_size
+            out = f'grabbed frames: {hook.grabbed_frames_count:{fmt}}/{limit}'
+            out += f' processed frames: {hook.grabbed_frames_count-hook.array_index-queued_count-dropped_count:{fmt}}'
+            out += f' queued frames: {queued_count:{fmt}}'
+            if queue_limit:
+                out += f' dropped frames: {dropped_count:{fmt}}'
+            return out
+
+        while not hook.is_ready and not hook.is_terminated:
+            time.sleep(0.02)
+            print(msg(), end='\r')
+        print(msg())
 
     if hook.is_terminated and hook.exception:
         raise RuntimeError('error running magic: ' + str(hook.exception))
@@ -111,10 +161,11 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
     hook = GrabFramesHook(period, count)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
+    msg = lambda : f'collecting frame {len(hook.frames)}/{count}'
     while not hook.is_ready and not hook.is_terminated:
         time.sleep(0.05)
-        print(f'collecting frame {len(hook.frames)}/{count}', end='\r')
-    print(f'collecting frame {len(hook.frames)}/{count}')
+        print(msg(), end='\r')
+    print(msg())
 
     if hook.is_ready:
         if not filename.parent.exists():
@@ -147,10 +198,11 @@ def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None,
     hook = GrabFramesHook(period, count)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
+    msg = lambda : f'collecting frame {len(hook.frames)}/{count}'
     while not hook.is_ready and not hook.is_terminated:
         time.sleep(0.05)
-        print(f'collecting frame {len(hook.frames)}/{count}', end='\r')
-    print(f'collecting frame {len(hook.frames)}/{count}')
+        print(msg(), end='\r')
+    print(msg())
 
     if hook.is_ready:
         return [PIL.Image.fromarray(arr, mode='RGB') for arr in hook.frames]
@@ -158,4 +210,4 @@ def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None,
         raise RuntimeError('error running magic: ' + str(hook.exception))
 
 
-__all__ = ['screenshot', 'save_frames', 'animated_gif', 'capture_frames']
+__all__ = ['screenshot', 'save_frames', 'offline_frame_processing', 'animated_gif', 'capture_frames']

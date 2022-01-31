@@ -144,6 +144,14 @@ EXTRA_METHOD_SIGNATURES = {
           'loop: int = 0', 'optimize: bool = True', 'sketch: Sketch = None',
           'hook_post_draw: bool = False'], 'str')
     ],
+    ('Py5Tools', 'offline_frame_processing'): [
+        (['func: Callable[[NDArray[(Any, Any, Any, 3), UInt8]], None]', '*', 
+          'limit: int = 0', 'period: float = 0.0', 'batch_size: int = 1',
+          'complete_func: Callable[[], None] = None',
+          'stop_processing_func: Callable[[], bool] = None',
+          'sketch: Sketch = None', 'hook_post_draw: bool = False',
+          'queue_limit: int = None'], 'None')
+    ],
     ('Py5Tools', 'capture_frames'): [
         (['count: float', '*', 'period: float = 0.0', 'sketch: Sketch = None',
           'hook_post_draw: bool = False'], 'List[PIL.Image]')
