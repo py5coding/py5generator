@@ -51,12 +51,12 @@ if not py5_tools.is_jvm_running():
 
     debug_info = py5_tools.get_jvm_debug_info()
     java_version = debug_info['jvm version'][0]
-    if not started_jvm or java_version < 11:
-        print("py5 is unable to start a Java 11 Virtual Machine.", file=sys.stderr)
-        print("This library requires Java 11 to be installed and a properly set JAVA_HOME environment variable.", file=sys.stderr)
+    if not started_jvm or java_version < 17:
+        print("py5 is unable to start a Java 17 Virtual Machine.", file=sys.stderr)
+        print("This library requires Java 17 to be installed and a properly set JAVA_HOME environment variable.", file=sys.stderr)
         print("Here is some debug info about your installation that might help you identify the source of this problem.", file=sys.stderr)
         print(debug_info, file=sys.stderr)
-        raise RuntimeError("py5 is unable to start Java 11 Virtual Machine")
+        raise RuntimeError("py5 is unable to start Java 17 Virtual Machine")
 
 from .methods import register_exception_msg  # noqa
 from .sketch import Sketch, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Shape, Py5Font, Py5Promise, _in_ipython_session  # noqa

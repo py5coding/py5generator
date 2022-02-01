@@ -50,8 +50,8 @@ POM_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
   <url>https://py5.ixora.io/</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <jarlocation>{classpath}</jarlocation>
   </properties>
 

@@ -32,7 +32,7 @@ Here is a simple example of a working py5 Sketch:
 
 
 
-If you have Java 11 installed on your computer, you can install py5 using pip:
+If you have Java 17 installed on your computer, you can install py5 using pip:
 
 .. code::
 
