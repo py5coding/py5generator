@@ -40,8 +40,8 @@ logger = logging.getLogger(__name__)
 
 
 parser = argparse.ArgumentParser(description="Generate py5 library using processing jars")
-parser.add_argument('processing_repo_dir', action='store', help='location of processing code (github repository)')
-parser.add_argument('processing_build_dir', action='store', help='location of build directory')
+parser.add_argument('processing_app_dir', action='store', help='location of processing PDE directory (processing application)')
+parser.add_argument('py5_build_dir', action='store', help='location of build directory')
 parser.add_argument('--skip_autopep8', action='store_true', default=False, help='skip autopep8 formatting of output')
 
 ###############################################################################
@@ -49,9 +49,9 @@ parser.add_argument('--skip_autopep8', action='store_true', default=False, help=
 ###############################################################################
 
 
-def generate_py5(repo_dir, build_dir, skip_autopep8=False):
+def generate_py5(app_dir, build_dir, skip_autopep8=False):
     "Generate an installable py5 library using processing jars"
-    repo_dir = Path(repo_dir)
+    app_dir = Path(app_dir)
     build_dir = Path(build_dir)
 
     if skip_autopep8:
@@ -62,14 +62,14 @@ def generate_py5(repo_dir, build_dir, skip_autopep8=False):
     logger.info('building classpath')
 
     def find_jar(jar_name):
-        jars = list(repo_dir.glob(f'**/{jar_name}.jar'))
+        jars = list(app_dir.glob(f'**/{jar_name}.jar'))
         if len(jars) == 1:
             return jars[0]
         else:
             if jars:
-                msg = f'more than one {jar_name}.jar found in {repo_dir}'
+                msg = f'more than one {jar_name}.jar found in {app_dir}'
             else:
-                msg = f'{jar_name}.jar not found in {repo_dir}'
+                msg = f'{jar_name}.jar not found in {app_dir}'
             logger.critical(msg)
             raise RuntimeError(msg)
 
@@ -219,7 +219,7 @@ def generate_py5(repo_dir, build_dir, skip_autopep8=False):
 
 def main():
     args = parser.parse_args()
-    generate_py5(args.processing_repo_dir, args.processing_build_dir, args.skip_autopep8)
+    generate_py5(args.processing_app_dir, args.py5_build_dir, args.skip_autopep8)
 
 
 if __name__ == '__main__':
