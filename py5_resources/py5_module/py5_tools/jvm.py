@@ -18,13 +18,16 @@
 #
 # *****************************************************************************
 import os
-
+import subprocess
 from pathlib import Path
+
 from typing import Any, Union, List, Dict  # noqa
 
 
 import jpype
 
+
+_PY5_REQUIRED_JAVA_VERSION = 17
 
 _options = []
 _classpath = []
@@ -78,7 +81,41 @@ def get_jvm_debug_info() -> Dict[str, Any]:
     return out
 
 
+def _evaluate_java_version(path, n=1):
+    path = Path(path)
+    for _ in range(n):
+        try:
+            print(path)
+            if (java_path := path / 'bin/java').exists():
+                print(java_path)
+                stderr = subprocess.run(
+                    [str(java_path), "-XshowSettings:properties"], stderr=subprocess.PIPE
+                ).stderr.decode("utf-8").splitlines()
+                for l in stderr:
+                    if l.find('java.version =') >=0:
+                        return int(l.split('=')[1].split('.', maxsplit=1)[0])
+            path = path.parent
+        except Exception:
+            break
+
+    return 0
+
+
 def _start_jvm() -> None:
+    # TODO: what does it do if java is not installed?
+    default_path = jpype.getDefaultJVMPath()
+    if _evaluate_java_version(default_path, n=4) < _PY5_REQUIRED_JAVA_VERSION:
+        possible_jdks = []
+        if (dot_jdk := Path(os.environ['HOME'], '.jdk')).exists():
+            possible_jdks.extend(dot_jdk.glob('*'))
+        if (dot_jre := Path(os.environ['HOME'], '.jre')).exists():
+            possible_jdks.extend(dot_jre.glob('*'))
+
+        for d in possible_jdks:
+            if _evaluate_java_version(d) >= _PY5_REQUIRED_JAVA_VERSION:
+                os.environ['JAVA_HOME'] = str(d)
+                break
+
     for c in _classpath:
         print(f'adding {c}')
         jpype.addClassPath(c)
