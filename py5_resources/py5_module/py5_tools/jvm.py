@@ -18,6 +18,7 @@
 #
 # *****************************************************************************
 import os
+import sys
 import subprocess
 from pathlib import Path
 
@@ -100,10 +101,15 @@ def _evaluate_java_version(path, n=1):
 
 
 def _start_jvm() -> None:
-    # TODO: what does it do if java is not installed? this will either be None or throw an error
-    default_jvm_path = jpype.getDefaultJVMPath()
+    jpype_exception = None
+    default_jvm_path = None
 
-    if 'JAVA_HOME' not in os.environ and _evaluate_java_version(default_jvm_path, n=4) < _PY5_REQUIRED_JAVA_VERSION:
+    try:
+        default_jvm_path = jpype.getDefaultJVMPath()
+    except Exception as e:
+        jpype_exception = e
+
+    if 'JAVA_HOME' not in os.environ and (default_jvm_path is None or _evaluate_java_version(default_jvm_path, n=4) < _PY5_REQUIRED_JAVA_VERSION):
         possible_jdks = []
         if (dot_jdk := Path(os.environ['HOME'], '.jdk')).exists():
             possible_jdks.extend(dot_jdk.glob('*'))
@@ -113,12 +119,18 @@ def _start_jvm() -> None:
         for d in possible_jdks:
             if _evaluate_java_version(d) >= _PY5_REQUIRED_JAVA_VERSION:
                 os.environ['JAVA_HOME'] = str(d)
-                default_jvm_path = jpype.getDefaultJVMPath()
+                try:
+                    default_jvm_path = jpype.getDefaultJVMPath()
+                    jpype_exception = None
+                except Exception as e:
+                    jpype_exception = e
                 break
 
     for c in _classpath:
-        print(f'adding {c}')
         jpype.addClassPath(c)
+
+    if jpype_exception is not None:
+        raise jpype_exception
 
     jpype.startJVM(default_jvm_path, *_options, convertStrings=False)
 
