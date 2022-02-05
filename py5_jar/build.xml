@@ -16,7 +16,7 @@
 
     <target name="compile" description="compile the source">
         <mkdir dir="${project.bin}"/>
-        <javac source="11" target="11" debug="true" includeantruntime="false" srcdir="${project.src}" destdir="${project.bin}">
+        <javac source="17" target="17" debug="true" includeantruntime="false" srcdir="${project.src}" destdir="${project.bin}">
             <classpath>
                 <fileset dir="${processing_dir}/core/library/">
                         <include name="**/*.jar"/>

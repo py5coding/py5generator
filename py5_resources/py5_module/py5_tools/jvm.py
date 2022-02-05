@@ -18,13 +18,17 @@
 #
 # *****************************************************************************
 import os
-
+import sys
+import subprocess
 from pathlib import Path
+
 from typing import Any, Union, List, Dict  # noqa
 
 
 import jpype
 
+
+_PY5_REQUIRED_JAVA_VERSION = 17
 
 _options = []
 _classpath = []
@@ -78,11 +82,57 @@ def get_jvm_debug_info() -> Dict[str, Any]:
     return out
 
 
+def _evaluate_java_version(path, n=1):
+    path = Path(path)
+    for _ in range(n):
+        try:
+            if (java_path := path / 'bin/java').exists():
+                stderr = subprocess.run(
+                    [str(java_path), "-XshowSettings:properties"], stderr=subprocess.PIPE
+                ).stderr.decode("utf-8").splitlines()
+                for l in stderr:
+                    if l.find('java.version =') >=0:
+                        return int(l.split('=')[1].split('.', maxsplit=1)[0])
+            path = path.parent
+        except Exception:
+            break
+
+    return 0
+
+
 def _start_jvm() -> None:
+    jpype_exception = None
+    default_jvm_path = None
+
+    try:
+        default_jvm_path = jpype.getDefaultJVMPath()
+    except Exception as e:
+        jpype_exception = e
+
+    if 'JAVA_HOME' not in os.environ and (default_jvm_path is None or _evaluate_java_version(default_jvm_path, n=4) < _PY5_REQUIRED_JAVA_VERSION):
+        possible_jdks = []
+        if (dot_jdk := Path(os.environ['HOME'], '.jdk')).exists():
+            possible_jdks.extend(dot_jdk.glob('*'))
+        if (dot_jre := Path(os.environ['HOME'], '.jre')).exists():
+            possible_jdks.extend(dot_jre.glob('*'))
+
+        for d in possible_jdks:
+            if _evaluate_java_version(d) >= _PY5_REQUIRED_JAVA_VERSION:
+                os.environ['JAVA_HOME'] = str(d)
+                try:
+                    default_jvm_path = jpype.getDefaultJVMPath()
+                    jpype_exception = None
+                except Exception as e:
+                    jpype_exception = e
+                break
+
     for c in _classpath:
-        print(f'adding {c}')
         jpype.addClassPath(c)
-    jpype.startJVM(*_options, convertStrings=False)
+
+    if jpype_exception is not None:
+        raise jpype_exception
+
+    jpype.startJVM(default_jvm_path, *_options, convertStrings=False)
 
 
 __all__ = ['is_jvm_running', 'add_options', 'get_classpath', 'add_classpath', 'add_jars', 'get_jvm_debug_info']

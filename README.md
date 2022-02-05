@@ -26,7 +26,7 @@ def draw():
 py5.run_sketch()
 ```
 
-If you have Java 11 installed on your computer, you can install py5 using pip:
+If you have Java 17 installed on your computer, you can install py5 using pip:
 
 ```
 pip install py5
