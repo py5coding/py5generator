@@ -190,6 +190,20 @@ public class Sketch extends PApplet {
   }
 
   @Override
+  public void windowMoved() {
+    if (success && py5RegisteredEvents.contains("window_moved")) {
+      success = py5Methods.run_method("window_moved");
+    }
+  }
+
+  @Override
+  public void windowResized() {
+    if (success && py5RegisteredEvents.contains("window_resized")) {
+      success = py5Methods.run_method("window_resized");
+    }
+  }
+
+  @Override
   public void mousePressed() {
     if (success && py5RegisteredEvents.contains("mouse_pressed")) {
       success = py5Methods.run_method("mouse_pressed");
