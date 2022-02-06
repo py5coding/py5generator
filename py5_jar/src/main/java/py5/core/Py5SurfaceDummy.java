@@ -148,11 +148,6 @@ public class Py5SurfaceDummy implements PSurface {
   }
 
   @Override
-  public void setupExternalMessages() {
-
-  }
-
-  @Override
   public void showCursor() {
 
   }
