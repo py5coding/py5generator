@@ -1,0 +1,17 @@
+@@ meta
+name = window_size()
+type = method
+pclass = Sketch
+processing_name = windowSize
+category = environment
+subcategory = None
+
+@@ signatures
+window_size(new_width: int, new_height: int, /) -> None
+
+@@ variables
+new_height: int - missing variable description
+new_width: int - missing variable description
+
+@@ description
+The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
