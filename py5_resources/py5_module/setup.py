@@ -55,7 +55,7 @@ setup(
     version=VERSION,
     packages=packages,
     package_data={
-        "py5": ['jars/*.jar', 'jars/*/*.jar'],
+        "py5": ['jars/*.jar', 'jars/*/*.jar', 'natives/*/*.dll', 'natives/*/*.so', 'natives/*/*.dylib'],
         "py5_tools": ['kernel/resources/*.png', 'py5bot/resources/*.png'],
     },
     python_requires='>3.8',

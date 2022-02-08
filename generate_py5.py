@@ -200,7 +200,7 @@ def generate_py5(app_dir, build_dir, skip_autopep8=False):
         # for some reason on WSL this exception will be thrown but the files all get copied.
         logger.error('errors thrown in shutil.copytree, continuing and hoping for the best', exc_info=True)
 
-    # finally, add the jars
+    # add the jars
     def copy_jars(jar_dir, dest):
         dest.mkdir(parents=True, exist_ok=True)
         for jar in jar_dir.glob('*.jar'):
@@ -211,6 +211,11 @@ def generate_py5(app_dir, build_dir, skip_autopep8=False):
     copy_jars(dxf_jar_path.parent, build_dir / 'py5' / 'jars' / 'dxf')
     copy_jars(pdf_jar_path.parent, build_dir / 'py5' / 'jars' / 'pdf')
     shutil.copy(py5_jar_path, build_dir / 'py5' / 'jars')
+
+    # add the native libraries
+    shutil.copytree(core_jar_path.parent, build_dir / 'py5' / 'natives',
+        ignore=lambda _, names: [n for n in names if Path(n).suffix == '.jar'],
+        dirs_exist_ok=True)
 
     build_dir.touch()
 
