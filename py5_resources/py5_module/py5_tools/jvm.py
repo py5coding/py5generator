@@ -18,7 +18,6 @@
 #
 # *****************************************************************************
 import os
-import sys
 import subprocess
 from pathlib import Path
 
@@ -91,7 +90,7 @@ def _evaluate_java_version(path, n=1):
                     [str(java_path), "-XshowSettings:properties"], stderr=subprocess.PIPE
                 ).stderr.decode("utf-8").splitlines()
                 for l in stderr:
-                    if l.find('java.version =') >=0:
+                    if l.find('java.version =') >= 0:
                         return int(l.split('=')[1].split('.', maxsplit=1)[0])
             path = path.parent
         except Exception:
@@ -135,4 +134,5 @@ def _start_jvm() -> None:
     jpype.startJVM(default_jvm_path, *_options, convertStrings=False)
 
 
-__all__ = ['is_jvm_running', 'add_options', 'get_classpath', 'add_classpath', 'add_jars', 'get_jvm_debug_info']
+__all__ = ['is_jvm_running', 'add_options', 'get_classpath',
+           'add_classpath', 'add_jars', 'get_jvm_debug_info']
