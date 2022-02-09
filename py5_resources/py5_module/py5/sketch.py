@@ -95,6 +95,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self._py5_methods = None
         self.set_println_stream(_DisplayPubPrintlnStream() if _in_jupyter_zmq_shell else _DefaultPrintlnStream())
         self._instance.setPy5IconPath(str(Path(__file__).parent.parent / 'py5_tools/kernel/resources/logo-64x64.png'))
+        _Sketch.setJOGLProperties(str(Path(__file__).parent))
 
         # attempt to instantiate Py5Utilities
         self.utils = None

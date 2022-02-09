@@ -33,6 +33,7 @@ import com.jogamp.newt.opengl.GLWindow;
 import jogamp.newt.driver.macosx.WindowDriver;
 import jogamp.opengl.macosx.cgl.MacOSXOnscreenCGLDrawable;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PMatrix2D;
 import processing.core.PShape;
 import processing.core.PSurface;
@@ -57,6 +58,20 @@ public class Sketch extends PApplet {
 
   public void setPy5IconPath(String py5IconPath) {
     this.py5IconPath = py5IconPath;
+  }
+
+  public static void setJOGLProperties(String py5Path) {
+    if (System.getProperty("jogamp.gluegen.UseTempJarCache") == null) {
+      System.setProperty("jogamp.gluegen.UseTempJarCache", "false");
+    }
+
+    String variant = PConstants.platformNames[PApplet.platform] + "-" + System.getProperty("os.arch");
+    String joglPath = py5Path + "/natives/" + variant;
+    if (System.getProperty("java.library.path") == null) {
+      System.setProperty("java.library.path", joglPath);
+    } else if (!System.getProperty("java.library.path").contains(joglPath)) {
+      System.setProperty("java.library.path", System.getProperty("java.library.path") + ":" + joglPath);
+    }
   }
 
   /*
@@ -86,24 +101,24 @@ public class Sketch extends PApplet {
 
   public String getRendererName() {
     switch (sketchRenderer()) {
-    case JAVA2D:
-      return "JAVA2D";
-    case P2D:
-      return "P2D";
-    case P3D:
-      return "P3D";
-    case HIDDEN:
-      return "HIDDEN";
-    case FX2D:
-      return "FX2D";
-    case PDF:
-      return "PDF";
-    case SVG:
-      return "SVG";
-    case DXF:
-      return "DXF";
-    default:
-      return null;
+      case JAVA2D:
+        return "JAVA2D";
+      case P2D:
+        return "P2D";
+      case P3D:
+        return "P3D";
+      case HIDDEN:
+        return "HIDDEN";
+      case FX2D:
+        return "FX2D";
+      case PDF:
+        return "PDF";
+      case SVG:
+        return "SVG";
+      case DXF:
+        return "DXF";
+      default:
+        return null;
     }
   }
 
