@@ -486,5 +486,11 @@
   "https://processing.org/reference/noise_detail_.html": false,
   "https://processing.org/reference/noise_seed_.html": false,
   "https://processing.org/reference/noiseDetail_.html": true,
-  "https://processing.org/reference/noiseSeed_.html": true
+  "https://processing.org/reference/noiseSeed_.html": true,
+  "https://processing.org/reference/windowPosition_.html": false,
+  "https://processing.org/reference/windowResizable_.html": false,
+  "https://processing.org/reference/windowSize_.html": false,
+  "https://processing.org/reference/windowTitle_.html": false,
+  "https://processing.org/reference/windowX.html": false,
+  "https://processing.org/reference/windowY.html": false
 }

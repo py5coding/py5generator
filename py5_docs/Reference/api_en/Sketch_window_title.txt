@@ -10,7 +10,14 @@ subcategory = None
 window_title(title: str, /) -> None
 
 @@ variables
-title: str - missing variable description
+title: str - new window title
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Set the Sketch window's title. This will typically appear at the window's title bar. The default window title is "Sketch".
+
+This method provides the same funcationality as :doc:`py5surface_set_title` but without the need to interact directly with the :doc:`py5surface` object.
+
+@@ example
+def setup():
+    py5.size(200, 200)
+    py5.window_title("py5 window")
