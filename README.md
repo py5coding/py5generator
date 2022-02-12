@@ -1,6 +1,6 @@
-![py5 logo](py5_docs/images/logo.png)
-
 # py5
+
+![py5 logo](py5_docs/images/logo.png)
 
 [![py5 downloads](https://pepy.tech/badge/py5/month)](https://pepy.tech/project/py5)
 
@@ -12,7 +12,7 @@ The goal of py5 is to create a new version of Processing that is integrated into
 
 Here is a simple example of a working py5 Sketch, written in module mode:
 
-```
+```python3
 import py5
 
 
@@ -30,7 +30,7 @@ py5.run_sketch()
 
 If you have Java 17 installed on your computer, you can install py5 using pip:
 
-```
+```bash
 pip install py5
 ```
 
