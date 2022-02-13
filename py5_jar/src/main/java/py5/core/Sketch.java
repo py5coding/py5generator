@@ -67,10 +67,11 @@ public class Sketch extends PApplet {
 
     String variant = PConstants.platformNames[PApplet.platform] + "-" + System.getProperty("os.arch");
     String joglPath = py5Path + "/natives/" + variant;
-    if (System.getProperty("java.library.path") == null) {
+    String javaLibraryPath = System.getProperty("java.library.path");
+    if (javaLibraryPath == null) {
       System.setProperty("java.library.path", joglPath);
-    } else if (!System.getProperty("java.library.path").contains(joglPath)) {
-      System.setProperty("java.library.path", System.getProperty("java.library.path") + ":" + joglPath);
+    } else if (!javaLibraryPath.contains(joglPath)) {
+      System.setProperty("java.library.path", javaLibraryPath + ":" + joglPath);
     }
   }
 
