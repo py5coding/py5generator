@@ -97,7 +97,9 @@ class CodeBuilder:
         self._instance_name = None
 
         self._all_known_fields_and_methods = set(class_data.index)
-        self._included_fields_and_methods = set(class_data.query("implementation=='JAVA'").index)
+        self._included_constant_fields = set(class_data.query("implementation=='JAVA' and type=='static field'").index)
+        self._included_fields = set(class_data.query("implementation=='JAVA' and type=='dynamic variable'").index)
+        self._included_methods = set(class_data.query("implementation=='JAVA' and type in ['method', 'static method']").index)
 
         self.static_constant_names = set()
         self.dynamic_variable_names = set()
@@ -315,24 +317,32 @@ class CodeBuilder:
                 self.extra_names.add(fname)
 
     def run_builder(self):
-
         for field_name, field_value in sorted(self._constant_field_data.items()):
-            if field_name in self._included_fields_and_methods:
+            if field_name in self._included_constant_fields:
                 self.code_constant(field_name, field_value)
             elif field_name not in self._all_known_fields_and_methods and not field_name.startswith('_'):
                 logger.warning(f'detected previously unknown constant field {field_name}')
 
+        for missing_constant_field_name in self._included_constant_fields - self._constant_field_data.keys():
+            logger.warning(f'missing previously known constant field {missing_constant_field_name}')
+
         for field_name, field_type in sorted(self._field_data.items()):
-            if field_name in self._included_fields_and_methods:
+            if field_name in self._included_fields:
                 self.code_dynamic_variable(field_name, field_type)
             elif field_name not in self._all_known_fields_and_methods and not field_name.startswith('_'):
                 logger.warning(f'detected previously unknown dynamic field {field_name}')
 
+        for missing_field_name in self._included_fields - self._field_data.keys():
+            logger.warning(f'missing previously known dynamic field {missing_field_name}')
+
         for method_name, method_data in sorted(self._method_data.items()):
-            if method_name in self._included_fields_and_methods:
+            if method_name in self._included_methods:
                 self.code_method(method_name, method_data)
             elif method_name not in self._all_known_fields_and_methods and not method_name.startswith('_'):
                 logger.warning(f'detected previously unknown method {method_name}')
+
+        for missing_method_name in self._included_methods - self._method_data.keys():
+            logger.warning(f'missing previously known method {missing_method_name}')
 
 
 def find_signatures(class_name, filename):
