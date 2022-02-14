@@ -1,13 +1,13 @@
 @@ meta
-name = window_size()
+name = window_resize()
 type = method
 pclass = Sketch
-processing_name = windowSize
+processing_name = windowResize
 category = environment
 subcategory = None
 
 @@ signatures
-window_size(new_width: int, new_height: int, /) -> None
+window_resize(new_width: int, new_height: int, /) -> None
 
 @@ variables
 new_height: int - new window height
@@ -27,4 +27,4 @@ def draw():
 py5.run_sketch(block=False)
 
 # while the sketch is running, change the window size
-py5.window_size(400, 400)
+py5.window_resize(400, 400)

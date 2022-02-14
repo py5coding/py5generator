@@ -579,9 +579,9 @@ red,red,@_convert_hex_color(),method,color,creating_reading,JAVA,
 set_size,setSize,,method,,,SKIP,public methods that shouldn't be available to users
 window_x,windowX,,dynamic variable,environment,,JAVA,
 window_y,windowY,,dynamic variable,environment,,JAVA,
-window_position,windowPosition,,method,environment,,JAVA,
+window_move,windowMove,,method,environment,,JAVA,
 window_resizable,windowResizable,,method,environment,,JAVA,
-window_size,windowSize,,method,environment,,JAVA,
+window_resize,windowResize,,method,environment,,JAVA,
 window_title,windowTitle,,method,environment,,JAVA,
 post_window_moved,postWindowMoved,,method,environment,,SKIP,public internal methods that shouldn't be available to users
 post_window_resized,postWindowResized,,method,environment,,SKIP,public internal methods that shouldn't be available to users

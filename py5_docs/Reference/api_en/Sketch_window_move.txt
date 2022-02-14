@@ -1,13 +1,13 @@
 @@ meta
-name = window_position()
+name = window_move()
 type = method
 pclass = Sketch
-processing_name = windowPosition
+processing_name = windowMove
 category = environment
 subcategory = None
 
 @@ signatures
-window_position(x: int, y: int, /) -> None
+window_move(x: int, y: int, /) -> None
 
 @@ variables
 x: int - x-coordinate for window location
@@ -19,7 +19,7 @@ Set the Sketch's window location. Calling this repeatedly from the ``draw()`` fu
 @@ example
 py5.run_sketch(block=False)
 # move the sketch window to the upper left corner of the display
-py5.window_position(0, 0)
+py5.window_move(0, 0)
 
 @@ example
 # this sketch will hide itself and reappear elsewhere on your display.
@@ -36,6 +36,6 @@ def draw():
         # this negates the visible variable
         visible = not visible
         if visible:
-            py5.window_position(py5.random_int(py5.display_width),
-                                py5.random_int(py5.display_height))
+            py5.window_move(py5.random_int(py5.display_width),
+                            py5.random_int(py5.display_height))
         surface.set_visible(visible)
