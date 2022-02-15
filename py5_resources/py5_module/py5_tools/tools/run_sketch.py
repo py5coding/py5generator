@@ -28,9 +28,9 @@ parser.add_argument(action='store', dest='sketch_path',
 parser.add_argument('-c', '--classpath', action='store', dest='classpath',
                     help='extra directories to add to classpath')
 parser.add_argument('--py5_options', nargs='*', dest='py5_options',
-                    help='list of parameters to pass to Processing (do not use -- prefix)')
+                    help='list of parameters to pass to Processing (do not prefix anything with a "-")')
 parser.add_argument('--sketch_args', nargs='*', dest='sketch_args',
-                    help='list of parameters to pass to py5 (do not use -- prefix)')
+                    help='list of parameters to pass to py5 (do not prefix anything with a "-")')
 
 
 def main():
