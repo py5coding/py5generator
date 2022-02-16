@@ -585,6 +585,8 @@ window_resize,windowResize,,method,environment,,JAVA,
 window_title,windowTitle,,method,environment,,JAVA,
 post_window_moved,postWindowMoved,,method,environment,,SKIP,public internal methods that shouldn't be available to users
 post_window_resized,postWindowResized,,method,environment,,SKIP,public internal methods that shouldn't be available to users
+last_window_x,lastWindowX,,dynamic variable,,,SKIP,used to store the last window location so it can reopen in the same location
+last_window_y,lastWindowY,,dynamic variable,,,SKIP,used to store the last window location so it can reopen in the same location
 window_moved,windowMoved,,method,,,SKIP,method implemented by user
 window_resized,windowResized,,method,,,SKIP,method implemented by user
 push,push,@_context_wrapper('pop'),method,structure,,JAVA,

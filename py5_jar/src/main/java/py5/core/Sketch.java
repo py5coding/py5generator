@@ -51,6 +51,8 @@ public class Sketch extends PApplet {
   protected String py5IconPath;
   protected int[] pixelCapture = null;
   protected long osNoiseSeed = (long) (Math.random() * Long.MAX_VALUE);
+  public Integer lastWindowX;
+  public Integer lastWindowY;
 
   public static final char CODED = PApplet.CODED;
 
@@ -304,6 +306,15 @@ public class Sketch extends PApplet {
     if (success && py5RegisteredEvents.contains("movie_event")) {
       success = py5Methods.run_method("movie_event", movie);
     }
+  }
+
+  @Override
+  public void postWindowMoved(int newX, int newY) {
+    if (!sketchFullScreen()) {
+      lastWindowX = newX;
+      lastWindowY = newY;
+    }
+    super.postWindowMoved(newX, newY);
   }
 
   @Override

@@ -67,6 +67,10 @@ except NameError:
     _in_jupyter_zmq_shell = False
 
 
+_PY5_LAST_WINDOW_X = None
+_PY5_LAST_WINDOW_Y = None
+
+
 def _auto_convert_to_py5image(f):
     @functools.wraps(f)
     def decorated(self_, *args):
@@ -135,6 +139,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         if not sketch_args: sketch_args = []
         if not any([a.startswith('--sketch-path') for a in py5_options]):
             py5_options.append('--sketch-path=' + os.getcwd())
+        if not any([a.startswith('--location') for a in py5_options]) and _PY5_LAST_WINDOW_X is not None and _PY5_LAST_WINDOW_Y is not None:
+            py5_options.append('--location=' + str(_PY5_LAST_WINDOW_X) + ',' + str(_PY5_LAST_WINDOW_Y))
         args = py5_options + [''] + sketch_args
 
         try:
@@ -167,6 +173,11 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                 time.sleep(pause)
 
     def _shutdown(self):
+        global _PY5_LAST_WINDOW_X
+        global _PY5_LAST_WINDOW_Y
+        if self._instance.lastWindowX is not None and self._instance.lastWindowY is not None:
+            _PY5_LAST_WINDOW_X = int(self._instance.lastWindowX)
+            _PY5_LAST_WINDOW_Y = int(self._instance.lastWindowY)
         super()._shutdown()
 
     def _terminate_sketch(self):
