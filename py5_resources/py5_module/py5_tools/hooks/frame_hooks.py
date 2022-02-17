@@ -161,11 +161,11 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
     hook = GrabFramesHook(period, count)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
-    msg = lambda : f'collecting frame {len(hook.frames)}/{count}'
-    while not hook.is_ready and not hook.is_terminated:
-        time.sleep(0.05)
-        print(msg(), end='\r')
-    print(msg())
+    # msg = lambda : f'collecting frame {len(hook.frames)}/{count}'
+    # while not hook.is_ready and not hook.is_terminated:
+    #     time.sleep(0.05)
+    #     print(msg(), end='\r')
+    # print(msg())
 
     if hook.is_ready:
         if not filename.parent.exists():
@@ -198,11 +198,11 @@ def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None,
     hook = GrabFramesHook(period, count)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
-    msg = lambda : f'collecting frame {len(hook.frames)}/{count}'
-    while not hook.is_ready and not hook.is_terminated:
-        time.sleep(0.05)
-        print(msg(), end='\r')
-    print(msg())
+    # msg = lambda : f'collecting frame {len(hook.frames)}/{count}'
+    # while not hook.is_ready and not hook.is_terminated:
+    #     time.sleep(0.05)
+    #     print(msg(), end='\r')
+    # print(msg())
 
     if hook.is_ready:
         return [PIL.Image.fromarray(arr, mode='RGB') for arr in hook.frames]
