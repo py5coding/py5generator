@@ -33,7 +33,7 @@ from typing import Any
 class _DefaultPrintlnStream:
 
     def init(self):
-        pass
+        return self
 
     def print(self, text, end='\n', stderr=False):
         print(text, end=end, file=sys.stderr if stderr else sys.stdout)
@@ -48,6 +48,7 @@ try:
         def init(self):
             self.display_pub = _ipython_shell.display_pub
             self.parent_header = self.display_pub.parent_header
+            return self
 
         def print(self, text, end='\n', stderr=False):
             name = 'stderr' if stderr else 'stdout'
@@ -71,6 +72,7 @@ try:
             self.out = widgets.Output(layout=dict(
                 max_height='200px', overflow='auto'))
             display(self.out)
+            return self
 
         def print(self, text, end='\n', stderr=False):
             if stderr:
@@ -82,25 +84,6 @@ except:
     _WidgetPrintlnStream = _DefaultPrintlnStream
 
 
-class PrintlnStream:
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._println_stream = None
-
-    def _init_println_stream(self):
-        self._println_stream.init()
-
-    # *** BEGIN METHODS ***
-
-    def set_println_stream(self, println_stream: Any) -> None:
-        """$class_Sketch_set_println_stream"""
-        self._println_stream = println_stream
-
-    def println(self, *args, sep: str = ' ', end: str = '\n', stderr: bool = False) -> None:
-        """$class_Sketch_println"""
-        self._println_stream.print(sep.join(str(x)
-                                   for x in args), end=end, stderr=stderr)
 
 
 
@@ -112,16 +95,14 @@ class PrintlnStream:
 
 
 
-class BaseHook(PrintlnStream):
+class BaseHook:
 
     def __init__(self, hook_name):
         self.hook_name = hook_name
         self.is_ready = False
         self.exception = None
         self.is_terminated = False
-        # self.set_println_stream(_DisplayPubPrintlnStream() if _in_jupyter_zmq_shell else _DefaultPrintlnStream())
-        self.set_println_stream(_WidgetPrintlnStream())
-        self._init_println_stream()
+        self._msg_writer = _WidgetPrintlnStream().init()  # TODO: can't use this for ipython shell
         self._last_println_msg = 0
 
     def hook_finished(self, sketch):
@@ -132,13 +113,16 @@ class BaseHook(PrintlnStream):
         self.exception = e
         sketch._remove_post_hook('draw', self.hook_name)
         self.is_terminated = True
+        self.status_msg('exception thrown while running magic: ' + str(e), stderr=True)
 
     def sketch_terminated(self):
         self.is_terminated = True
 
-    def maybe_println_msg(self, msg, end='\n'):
-        if (now := time.time()) > self._last_println_msg + 0.1:
-            self.println(msg, end=end)
+    def status_msg(self, msg, stderr=False):
+        final_msg = self.is_ready or self.is_terminated
+        now = time.time()
+        if final_msg or now > self._last_println_msg + 0.1:
+            self._msg_writer.print(msg, end=('\n' if final_msg else '\r'), stderr=stderr)
             self._last_println_msg = now
 
 
@@ -183,6 +167,9 @@ class SaveFramesHook(BaseHook):
             self.last_frame_time = time.time()
             if len(self.filenames) == self.limit:
                 self.hook_finished(sketch)
+            # if len(self.filenames) == 5:
+            #     raise RuntimeError('asdf')
+            self.status_msg(f'saving frame {len(self.filenames)}/{self.limit}')
         except Exception as e:
             self.hook_error(sketch, e)
 
@@ -205,7 +192,7 @@ class GrabFramesHook(BaseHook):
             self.last_frame_time = time.time()
             if len(self.frames) == self.limit:
                 self.hook_finished(sketch)
-            self.maybe_println_msg(f'collecting frame {len(self.frames)}/{self.limit}', end='\r')
+            self.status_msg(f'collecting frame {len(self.frames)}/{self.limit}')
 
         except Exception as e:
             self.hook_error(sketch, e)
@@ -263,6 +250,17 @@ class QueuedBatchProcessingHook(BaseHook):
         self.processor = BatchProcessor(self.arrays, self.used_arrays, func, complete_func, stop_processing_func)
         self.processor.start()
 
+    def msg(self):
+        fmt = f'0{len(str(self.limit))}'
+        queued_count = self.arrays.qsize() * self.batch_size
+        dropped_count = self.dropped_batches * self.batch_size
+        out = f'grabbed frames: {self.grabbed_frames_count:{fmt}}/{self.limit}'
+        out += f' processed frames: {self.grabbed_frames_count-self.array_index-queued_count-dropped_count:{fmt}}'
+        out += f' queued frames: {queued_count:{fmt}}'
+        if self.queue_limit:
+            out += f' dropped frames: {dropped_count:{fmt}}'
+        return out
+
     def __call__(self, sketch):
         try:
             if time.time() - self.last_frame_time < self.period:
@@ -304,6 +302,9 @@ class QueuedBatchProcessingHook(BaseHook):
             if not self.continue_grabbing_frames and self.arrays.empty():
                 self.processor.stop_processing = True
                 self.hook_finished(sketch)
+
+            self.status_msg(self.msg())
+
         except Exception as e:
             self.hook_error(sketch, e)
 
