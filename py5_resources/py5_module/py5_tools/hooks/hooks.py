@@ -24,70 +24,7 @@ from threading import Thread
 import numpy as np
 
 from  .. import environ as _environ
-
-
-#### BAD, this is in two places
-
-import sys
-from typing import Any
-
-
-class _DefaultPrintlnStream:
-
-    def init(self):
-        return self
-
-    def print(self, text, end='\n', stderr=False):
-        print(text, end=end, file=sys.stderr if stderr else sys.stdout)
-
-
-class _DisplayPubPrintlnStream:
-
-    def init(self):
-        self.display_pub = _environ.Environment().ipython_shell.display_pub
-        self.parent_header = self.display_pub.parent_header
-        return self
-
-    def print(self, text, end='\n', stderr=False):
-        name = 'stderr' if stderr else 'stdout'
-
-        content = dict(name=name, text=text + end)
-        msg = self.display_pub.session.msg('stream', content, parent=self.parent_header)
-        self.display_pub.session.send(self.display_pub.pub_socket, msg, ident=b'stream')
-
-
-try:
-    import ipywidgets as widgets
-    from IPython.display import display
-
-
-    class _WidgetPrintlnStream:
-
-        def init(self):
-            self.out = widgets.Output(layout=dict(
-                max_height='200px', overflow='auto'))
-            display(self.out)
-            return self
-
-        def print(self, text, end='\n', stderr=False):
-            if stderr:
-                self.out.append_stderr(text + end)
-            else:
-                self.out.append_stdout(text + end)
-
-except:
-    _WidgetPrintlnStream = _DefaultPrintlnStream
-
-
-
-
-
-
-
-
-
-
-
+from ..printstreams import _WidgetPrintlnStream, _DefaultPrintlnStream
 
 
 class BaseHook:

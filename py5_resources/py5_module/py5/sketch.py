@@ -33,9 +33,10 @@ from jpype.types import JException, JArray, JInt  # noqa
 import numpy as np  # noqa
 
 import py5_tools.environ as _environ
+from py5_tools.printstreams import _DefaultPrintlnStream, _DisplayPubPrintlnStream
 from .methods import Py5Methods
 from .base import Py5Base
-from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, _DefaultPrintlnStream, _DisplayPubPrintlnStream
+from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream
 from .mixins.threads import Py5Promise  # noqa
 from .image import Py5Image, _return_py5image  # noqa
 from .shape import Py5Shape, _return_py5shape, _load_py5shape  # noqa
