@@ -26,6 +26,8 @@ import PIL
 
 from .hooks import SketchPortalHook
 
+from  .. import environ as _environ
+
 
 Sketch = 'Sketch'
 
@@ -39,17 +41,9 @@ def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = 30,
                   portal: Py5SketchPortal = None, sketch: Sketch = None,
                   hook_post_draw: bool = False) -> None:
     """$module_Py5Tools_sketch_portal"""
-    try:
-        __IPYTHON__  # type: ignore
-        in_ipython_session = True
-        in_jupyter_zmq_shell = isinstance(get_ipython(), ZMQInteractiveShell)  # type: ignore
-    except NameError:
-        in_ipython_session = False
-        in_jupyter_zmq_shell = False
-
-    if not in_ipython_session:
+    if not _environ.in_ipython_session:
         raise RuntimeError('The sketch_widget() function can only be used with IPython and ZMQInteractiveShell (such as Jupyter Lab)')
-    if not in_jupyter_zmq_shell:
+    if not _environ.in_jupyter_zmq_shell:
         raise RuntimeError('The sketch_widget() function can only be used with ZMQInteractiveShell (such as Jupyter Lab)')
 
     if sketch is None:

@@ -23,8 +23,10 @@ from threading import Thread
 
 import numpy as np
 
+from  .. import environ as _environ
 
-#### BAD
+
+#### BAD, this is in two places
 
 import sys
 from typing import Any
@@ -39,26 +41,19 @@ class _DefaultPrintlnStream:
         print(text, end=end, file=sys.stderr if stderr else sys.stdout)
 
 
-try:
-    _ipython_shell = get_ipython()  # type: ignore
+class _DisplayPubPrintlnStream:
 
+    def init(self):
+        self.display_pub = _environ.ipython_shell.display_pub
+        self.parent_header = self.display_pub.parent_header
+        return self
 
-    class _DisplayPubPrintlnStream:
+    def print(self, text, end='\n', stderr=False):
+        name = 'stderr' if stderr else 'stdout'
 
-        def init(self):
-            self.display_pub = _ipython_shell.display_pub
-            self.parent_header = self.display_pub.parent_header
-            return self
-
-        def print(self, text, end='\n', stderr=False):
-            name = 'stderr' if stderr else 'stdout'
-
-            content = dict(name=name, text=text + end)
-            msg = self.display_pub.session.msg('stream', content, parent=self.parent_header)
-            self.display_pub.session.send(self.display_pub.pub_socket, msg, ident=b'stream')
-
-except:
-    _DisplayPubPrintlnStream = _DefaultPrintlnStream
+        content = dict(name=name, text=text + end)
+        msg = self.display_pub.session.msg('stream', content, parent=self.parent_header)
+        self.display_pub.session.send(self.display_pub.pub_socket, msg, ident=b'stream')
 
 
 try:
@@ -102,7 +97,7 @@ class BaseHook:
         self.is_ready = False
         self.exception = None
         self.is_terminated = False
-        self._msg_writer = _WidgetPrintlnStream().init()  # TODO: can't use this for ipython shell
+        self._msg_writer = (_WidgetPrintlnStream if _environ.in_jupyter_zmq_shell else _DefaultPrintlnStream)().init()
         self._last_println_msg = 0
 
     def hook_finished(self, sketch):
