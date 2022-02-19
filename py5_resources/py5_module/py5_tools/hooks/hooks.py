@@ -101,6 +101,7 @@ class SaveFramesHook(BaseHook):
                 self.hook_finished(sketch)
             # if len(self.filenames) == 5:
             #     raise RuntimeError('asdf')
+            # TODO: if there is no limit, don't print /0
             self.status_msg(f'saving frame {len(self.filenames)}/{self.limit}')
         except Exception as e:
             self.hook_error(sketch, e)
@@ -124,6 +125,7 @@ class GrabFramesHook(BaseHook):
             self.last_frame_time = time.time()
             if len(self.frames) == self.limit:
                 self.hook_finished(sketch)
+            # TODO: if there is no limit, don't print /0
             self.status_msg(f'collecting frame {len(self.frames)}/{self.limit}')
 
         except Exception as e:
@@ -186,6 +188,7 @@ class QueuedBatchProcessingHook(BaseHook):
         fmt = f'0{len(str(self.limit))}'
         queued_count = self.arrays.qsize() * self.batch_size
         dropped_count = self.dropped_batches * self.batch_size
+        # TODO: if there is no limit, don't print /0
         out = f'grabbed frames: {self.grabbed_frames_count:{fmt}}/{self.limit}'
         out += f' processed frames: {self.grabbed_frames_count-self.array_index-queued_count-dropped_count:{fmt}}'
         out += f' queued frames: {queued_count:{fmt}}'

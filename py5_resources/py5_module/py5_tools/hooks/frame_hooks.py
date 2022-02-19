@@ -80,7 +80,7 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
     hook = SaveFramesHook(dirname, filename, period, start, limit)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
-    # TODO: on osx, return a promise instead. or do that for everyone?
+    # TODO: return a promise instead. or perhaps return nothing? does anyone need the filenames?
 
     if limit:
         while not hook.is_ready and not hook.is_terminated:
@@ -133,7 +133,7 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
     hook = GrabFramesHook(period, count)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
-    # TODO: on osx, return a promise instead. or do that for everyone?
+    # TODO: return a promise instead
 
     while not hook.is_ready and not hook.is_terminated:
         time.sleep(0.05)
@@ -166,7 +166,7 @@ def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None,
     hook = GrabFramesHook(period, count)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
-    # TODO: on osx, return a promise instead. or do that for everyone?
+    # TODO: return a promise instead
 
     while not hook.is_ready and not hook.is_terminated:
         time.sleep(0.05)
