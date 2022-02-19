@@ -44,7 +44,7 @@ class _DefaultPrintlnStream:
 class _DisplayPubPrintlnStream:
 
     def init(self):
-        self.display_pub = _environ.ipython_shell.display_pub
+        self.display_pub = _environ.Environment().ipython_shell.display_pub
         self.parent_header = self.display_pub.parent_header
         return self
 
@@ -97,7 +97,7 @@ class BaseHook:
         self.is_ready = False
         self.exception = None
         self.is_terminated = False
-        self._msg_writer = (_WidgetPrintlnStream if _environ.in_jupyter_zmq_shell else _DefaultPrintlnStream)().init()
+        self._msg_writer = (_WidgetPrintlnStream if _environ.Environment().in_jupyter_zmq_shell else _DefaultPrintlnStream)().init()
         self._last_println_msg = 0
 
     def hook_finished(self, sketch):

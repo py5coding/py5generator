@@ -19,6 +19,7 @@
 # *****************************************************************************
 import io
 
+# TODO: do I actually need this line of code? this should trigger the import failure but may not be necessary anymore
 from ipykernel.zmqshell import ZMQInteractiveShell
 import ipywidgets as widgets
 
@@ -41,9 +42,10 @@ def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = 30,
                   portal: Py5SketchPortal = None, sketch: Sketch = None,
                   hook_post_draw: bool = False) -> None:
     """$module_Py5Tools_sketch_portal"""
-    if not _environ.in_ipython_session:
+    environment = _environ.Environment()
+    if not environment.in_ipython_session:
         raise RuntimeError('The sketch_widget() function can only be used with IPython and ZMQInteractiveShell (such as Jupyter Lab)')
-    if not _environ.in_jupyter_zmq_shell:
+    if not environment.in_jupyter_zmq_shell:
         raise RuntimeError('The sketch_widget() function can only be used with ZMQInteractiveShell (such as Jupyter Lab)')
 
     if sketch is None:

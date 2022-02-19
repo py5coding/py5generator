@@ -17,28 +17,17 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import sys
 
+class Environment:
 
-in_ipython_session = None
-ipython_shell = None
-in_jupyter_zmq_shell = None
-
-
-# this examine() function delays the execution of this code until when
-# sketch.py gets imported, which for some reason is necessary to get the py5
-# kernel to work correctly
-
-def examine():
-    global in_ipython_session, ipython_shell, in_jupyter_zmq_shell
-
-    try:
-        __IPYTHON__  # type: ignore
-        in_ipython_session = True
-        from ipykernel.zmqshell import ZMQInteractiveShell
-        ipython_shell = get_ipython()  # type: ignore
-        in_jupyter_zmq_shell = isinstance(ipython_shell, ZMQInteractiveShell)
-    except NameError:
-        in_ipython_session = False
-        ipython_shell = None
-        in_jupyter_zmq_shell = False
+    def __init__(self):
+        try:
+            __IPYTHON__  # type: ignore
+            from ipykernel.zmqshell import ZMQInteractiveShell
+            self.in_ipython_session = True
+            self.ipython_shell = get_ipython()  # type: ignore
+            self.in_jupyter_zmq_shell = isinstance(self.ipython_shell, ZMQInteractiveShell)
+        except Exception:
+            self.in_ipython_session = False
+            self.ipython_shell = None
+            self.in_jupyter_zmq_shell = False

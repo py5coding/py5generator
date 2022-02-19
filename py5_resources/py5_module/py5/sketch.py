@@ -54,11 +54,14 @@ sketch_class_members_code = None  # DELETE
 _Sketch = jpype.JClass('py5.core.Sketch')
 
 
-_environ.examine()
-
-if sys.platform == 'darwin' and _environ.ipython_shell.active_eventloop != 'osx':
-    print("Importing py5 on OSX but the necessary Jupyter OSX event loop not been activated. I'll activate it for you, but next time, execute `%gui osx` before importing this library.")
-    ipython_shell.run_line_magic('gui', 'osx')
+try:
+    # be aware that __IPYTHON__ and get_ipython() are inserted into the user namespace late in the kernel startup process
+    __IPYTHON__  # type: ignore
+    if sys.platform == 'darwin' and get_ipython().active_eventloop != 'osx':  # type: ignore
+        print("Importing py5 on OSX but the necessary Jupyter OSX event loop not been activated. I'll activate it for you, but next time, execute `%gui osx` before importing this library.")
+        _ipython_shell.run_line_magic('gui', 'osx')
+except Exception:
+    pass
 
 
 _PY5_LAST_WINDOW_X = None
@@ -91,7 +94,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_methods = None
-        self.set_println_stream(_DisplayPubPrintlnStream() if _environ.in_jupyter_zmq_shell else _DefaultPrintlnStream())
+        self._environ = None
         self._instance.setPy5IconPath(str(Path(__file__).parent.parent / 'py5_tools/kernel/resources/logo-64x64.png'))
         _Sketch.setJOGLProperties(str(Path(__file__).parent))
 
@@ -120,6 +123,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                     block: bool,
                     py5_options: List[str] = None,
                     sketch_args: List[str] = None) -> None:
+        self._environ = _environ.Environment()
+        self.set_println_stream(_DisplayPubPrintlnStream() if self._environ.in_jupyter_zmq_shell else _DefaultPrintlnStream())
         self._init_println_stream()
 
         self._py5_methods = Py5Methods(self)
@@ -142,12 +147,12 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         except Exception as e:
             self.println('Java exception thrown by Sketch.runSketch:\n' + str(e), stderr=True)
 
-        if sys.platform == 'darwin' and _environ.in_ipython_session and block:
+        if sys.platform == 'darwin' and self._environ.in_ipython_session and block:
             if (renderer := self._instance.getRendererName()) in ['JAVA2D', 'P2D', 'P3D', 'FX2D']:
                 self.println("On OSX, blocking is not allowed in Jupyter when using the", renderer, "renderer.", stderr=True)
                 block = False
 
-        if block or (block is None and not _environ.in_ipython_session):
+        if block or (block is None and not self._environ.in_ipython_session):
             # wait for the sketch to finish
             surface = self.get_surface()
             if surface._instance is not None:
