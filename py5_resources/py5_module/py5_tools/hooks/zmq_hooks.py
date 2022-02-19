@@ -19,8 +19,6 @@
 # *****************************************************************************
 import io
 
-# TODO: do I actually need this line of code? this should trigger the import failure but may not be necessary anymore
-from ipykernel.zmqshell import ZMQInteractiveShell
 import ipywidgets as widgets
 
 import PIL
