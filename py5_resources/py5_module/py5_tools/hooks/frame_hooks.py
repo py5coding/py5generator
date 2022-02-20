@@ -76,7 +76,7 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
     if not sketch.is_running:
         raise RuntimeError(f'The {prefix} sketch is not running.')
     if block and sys.platform == 'darwin' and _environ.Environment().in_ipython_session:
-        raise RuntimeError('blocking is not allowed on OSX')
+        raise RuntimeError('Blocking is not allowed on OSX when run from IPython')
 
     dirname = Path(dirname)
     if not dirname.exists():
@@ -132,7 +132,7 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
     if not sketch.is_running:
         raise RuntimeError(f'The {prefix} sketch is not running.')
     if block and sys.platform == 'darwin' and _environ.Environment().in_ipython_session:
-        raise RuntimeError('blocking is not allowed on OSX')
+        raise RuntimeError('Blocking is not allowed on OSX when run from IPython')
 
     filename = Path(filename)
 
@@ -168,7 +168,7 @@ def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None,
     if not sketch.is_running:
         raise RuntimeError(f'The {prefix} sketch is not running.')
     if block and sys.platform == 'darwin' and _environ.Environment().in_ipython_session:
-        raise RuntimeError('blocking is not allowed on OSX')
+        raise RuntimeError('Blocking is not allowed on OSX when run from IPython')
 
     results = []
 
