@@ -109,10 +109,11 @@ class SaveFramesHook(BaseHook):
 
 class GrabFramesHook(BaseHook):
 
-    def __init__(self, period, limit):
+    def __init__(self, period, limit, complete_func):
         super().__init__('py5grab_frames_hook')
         self.period = period
         self.limit = limit
+        self.complete_func = complete_func
         self.frames = []
         self.last_frame_time = 0
 
@@ -127,6 +128,8 @@ class GrabFramesHook(BaseHook):
                 self.hook_finished(sketch)
             # TODO: if there is no limit, don't print /0
             self.status_msg(f'collecting frame {len(self.frames)}/{self.limit}')
+            if len(self.frames) == self.limit:
+                Thread(target=self.complete_func, args=(self,)).start()
 
         except Exception as e:
             self.hook_error(sketch, e)
