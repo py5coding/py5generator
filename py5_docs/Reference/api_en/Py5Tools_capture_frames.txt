@@ -3,11 +3,13 @@ name = capture_frames()
 type = function
 category = sketch_hooks
 subcategory = None
+bool = False - method returns immediately (False) or blocks until function returns (True)
 
 @@ signatures
-capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None, hook_post_draw: bool = False) -> List[PIL.Image]
+capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None, hook_post_draw: bool = False, block: bool = False) -> List[PIL.Image]
 
 @@ variables
+block: bool = False - method returns immediately (False) or blocks until function returns (True)
 count: float - number of Sketch snapshots to capture
 hook_post_draw: bool = False - attach hook to Sketch's post_draw method instead of draw
 period: float = 0.0 - time in seconds between Sketch snapshots (default 0 means no delay)

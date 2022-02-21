@@ -5,9 +5,10 @@ category = sketch_hooks
 subcategory = None
 
 @@ signatures
-save_frames(dirname: str, *, filename: str = 'frame_####.png', period: float = 0.0, start: int = None, limit: int = 0, sketch: Sketch = None, hook_post_draw: bool = False) -> List[str]
+save_frames(dirname: str, *, filename: str = 'frame_####.png', period: float = 0.0, start: int = None, limit: int = 0, sketch: Sketch = None, hook_post_draw: bool = False, block: bool = False) -> None
 
 @@ variables
+block: bool = False - method returns immediately (False) or blocks until function returns (True)
 dirname: str - directory to save the frames
 filename: str = 'frame_####.png' - filename template to use for saved frames
 hook_post_draw: bool = False - attach hook to Sketch's post_draw method instead of draw
