@@ -314,7 +314,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     # *** Py5Image methods ***
 
-    def create_image_from_numpy(self, array: np.array, bands: str = 'ARGB', *, dst: Py5Image = None) -> Py5Image:
+    def create_image_from_numpy(self, array: np.array[np.uint8], bands: str = 'ARGB', *, dst: Py5Image = None) -> Py5Image:
         """$class_Sketch_create_image_from_numpy"""
         height, width = array.shape[:2]
 
