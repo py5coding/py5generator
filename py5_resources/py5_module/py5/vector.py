@@ -26,8 +26,6 @@ import re
 
 import numpy as np
 
-from nptyping import NDArray
-
 
 class Py5Vector(Sequence):
     """$classdoc_Py5Vector
@@ -326,7 +324,7 @@ class Py5Vector(Sequence):
 
     x: float = property(_get_x, _set_x, doc="""$class_Py5Vector_x""")
     y: float = property(_get_y, _set_y, doc="""$class_Py5Vector_y""")
-    data: NDArray = property(_get_data, doc="""$class_Py5Vector_data""")
+    data: np.ndarray[np.floating] = property(_get_data, doc="""$class_Py5Vector_data""")
     copy = property(_get_copy, doc="""$class_Py5Vector_copy""")
     dim: int = property(_get_dim, doc="""$class_Py5Vector_dim""")
     dtype: type = property(_get_dtype, doc="""$class_Py5Vector_dtype""")
@@ -353,27 +351,27 @@ class Py5Vector(Sequence):
         else:
             raise RuntimeError(f'Do not know how to calculate the {name} {type(self).__name__} and {type(other).__name__}')
 
-    def lerp(self, other: Union[Py5Vector, NDArray], amt: Union[float, NDArray]) -> Union[Py5Vector, NDArray]:
+    def lerp(self, other: Union[Py5Vector, np.ndarray], amt: Union[float, np.ndarray]) -> Union[Py5Vector, np.ndarray[np.floating]]:
         """$class_Py5Vector_lerp
         """
         return self._run_calc(other, lambda s, o: s + (o - s) * amt, 'lerp of', maybe_vector=True)
 
-    def dist(self, other: Union[Py5Vector, NDArray]) -> Union[Py5Vector, NDArray]:
+    def dist(self, other: Union[Py5Vector, np.ndarray]) -> Union[Py5Vector, np.ndarray[np.floating]]:
         """$class_Py5Vector_dist
         """
         return self._run_calc(other, lambda s, o: np.sqrt(np.sum((s - o)**2, axis=-1)), 'distance between')
 
-    def dot(self, other: Union[Py5Vector, NDArray]) -> Union[float, NDArray]:
+    def dot(self, other: Union[Py5Vector, np.ndarray]) -> Union[float, np.ndarray[np.floating]]:
         """$class_Py5Vector_dot
         """
         return self._run_calc(other, lambda s, o: (s * o).sum(axis=-1), 'dot product for')
 
-    def angle_between(self, other: Union[Py5Vector, NDArray]) -> Union[Py5Vector, NDArray]:
+    def angle_between(self, other: Union[Py5Vector, np.ndarray]) -> Union[Py5Vector, np.ndarray[np.floating]]:
         """$class_Py5Vector_angle_between
         """
         return self._run_calc(other, lambda s, o: np.arccos(((s / np.sum(s**2)**0.5) * (o / np.sum(o**2, axis=-1)**0.5)).sum(axis=-1)), 'angle between')
 
-    def cross(self, other: Union[Py5Vector, NDArray]) -> Union[float, Py5Vector, NDArray]:
+    def cross(self, other: Union[Py5Vector, np.ndarray]) -> Union[float, Py5Vector, np.ndarray[np.floating]]:
         """$class_Py5Vector_cross
         """
         if self._data.size == 4 or isinstance(other, Py5Vector4D):

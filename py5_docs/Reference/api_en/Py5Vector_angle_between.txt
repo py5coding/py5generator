@@ -3,10 +3,10 @@ name = angle_between()
 type = method
 
 @@ signatures
-angle_between(other: Union[Py5Vector, NDArray]) -> Union[Py5Vector, NDArray]
+angle_between(other: Union[Py5Vector, np.ndarray]) -> Union[Py5Vector, np.ndarray[np.floating]]
 
 @@ variables
-other: Union[Py5Vector, NDArray] - vector to measure angle between
+other: Union[Py5Vector, np.ndarray] - vector to measure angle between
 
 @@ description
 Measure the angle between two vectors.

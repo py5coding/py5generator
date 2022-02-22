@@ -3,10 +3,10 @@ name = dist()
 type = method
 
 @@ signatures
-dist(other: Union[Py5Vector, NDArray]) -> Union[Py5Vector, NDArray]
+dist(other: Union[Py5Vector, np.ndarray]) -> Union[Py5Vector, np.ndarray[np.floating]]
 
 @@ variables
-other: Union[Py5Vector, NDArray] - vector to calculate the distance from
+other: Union[Py5Vector, np.ndarray] - vector to calculate the distance from
 
 @@ description
 Calculate the distance between two vectors.
