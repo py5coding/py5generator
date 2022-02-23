@@ -5,13 +5,13 @@ category = math
 subcategory = calculation
 
 @@ signatures
-mag(a: float, b: float, /) -> float
-mag(a: float, b: float, c: float, /) -> float
+mag(a: Union[float, np.array], b: Union[float, np.array], /) -> float
+mag(a: Union[float, np.array], b: Union[float, np.array], c: Union[float, np.array], /) -> float
 
 @@ variables
-a: float - first value
-b: float - second value
-c: float - third value
+a: Union[float, np.array] - first value
+b: Union[float, np.array] - second value
+c: Union[float, np.array] - third value
 
 @@ description
 Calculates the magnitude (or length) of a vector. A vector is a direction in space commonly used in computer graphics and linear algebra. Because it has no "start" position, the magnitude of a vector can be thought of as the distance from the coordinate ``(0, 0)`` to its ``(x, y)`` value. Therefore, ``mag()`` is a shortcut for writing ``dist(0, 0, x, y)``.

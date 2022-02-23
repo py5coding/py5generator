@@ -5,15 +5,15 @@ category = math
 subcategory = random
 
 @@ signatures
-os_noise(x: float, y: float, /) -> float
-os_noise(x: float, y: float, z: float, /) -> float
-os_noise(x: float, y: float, z: float, w: float, /) -> float
+os_noise(x: Union[float, np.array], y: Union[float, np.array], /) -> Union[float, np.array]
+os_noise(x: Union[float, np.array], y: Union[float, np.array], z: Union[float, np.array], /) -> Union[float, np.array]
+os_noise(x: Union[float, np.array], y: Union[float, np.array], z: Union[float, np.array], w: Union[float, np.array], /) -> Union[float, np.array]
 
 @@ variables
-w: float - w-coordinate in noise space
-x: float - x-coordinate in noise space
-y: float - y-coordinate in noise space
-z: float - z-coordinate in noise space
+w: Union[float, np.array] - w-coordinate in noise space
+x: Union[float, np.array] - x-coordinate in noise space
+y: Union[float, np.array] - y-coordinate in noise space
+z: Union[float, np.array] - z-coordinate in noise space
 
 @@ description
 Generate pseudo-random noise values for specific coodinates using the OpenSimplex 2 algorithm (smooth version / SuperSimplex). Noise functions are random sequence generators that produce a more natural, harmonic succession of numbers compared to the :doc:`sketch_random` method.

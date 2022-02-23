@@ -5,12 +5,12 @@ category = math
 subcategory = calculation
 
 @@ signatures
-norm(value: float, start: float, stop: float) -> float
+norm(value: Union[float, np.array], start: Union[float, np.array], stop: Union[float, np.array]) -> Union[float, np.array]
 
 @@ variables
-start: float - lower bound of the value's current range
-stop: float - upper bound of the value's current range
-value: float - the incoming value to be converted
+start: Union[float, np.array] - lower bound of the value's current range
+stop: Union[float, np.array] - upper bound of the value's current range
+value: Union[float, np.array] - the incoming value to be converted
 
 @@ description
 Normalizes a number from another range into a value between 0 and 1. Identical to ``remap(value, low, high, 0, 1)``.

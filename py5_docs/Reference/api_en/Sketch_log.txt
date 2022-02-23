@@ -5,10 +5,10 @@ category = math
 subcategory = calculation
 
 @@ signatures
-log(value: float) -> float
+log(value: Union[float, np.array]) -> Union[float, np.array]
 
 @@ variables
-value: float - number greater than 0.0
+value: Union[float, np.array] - number greater than 0.0
 
 @@ description
 Calculates the natural logarithm (the base-e logarithm) of a number. This function expects the ``n`` parameter to be a value greater than 0.0. This function is the compliment to :doc:`sketch_exp`.

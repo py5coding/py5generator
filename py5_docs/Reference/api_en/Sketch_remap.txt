@@ -5,14 +5,14 @@ category = math
 subcategory = calculation
 
 @@ signatures
-remap(value: float, start1: float, stop1: float, start2: float, stop2: float) -> float
+remap(value: Union[float, np.array], start1: Union[float, np.array], stop1: Union[float, np.array], start2: Union[float, np.array], stop2: Union[float, np.array]) -> Union[float, np.array]
 
 @@ variables
-start1: float - lower bound of the value's current range
-start2: float - lower bound of the value's target range
-stop1: float - upper bound of the value's current range
-stop2: float - upper bound of the value's target range
-value: float - the incoming value to be converted
+start1: Union[float, np.array] - lower bound of the value's current range
+start2: Union[float, np.array] - lower bound of the value's target range
+stop1: Union[float, np.array] - upper bound of the value's current range
+stop2: Union[float, np.array] - upper bound of the value's target range
+value: Union[float, np.array] - the incoming value to be converted
 
 @@ description
 Re-maps a number from one range to another.

@@ -5,10 +5,10 @@ category = math
 subcategory = calculation
 
 @@ signatures
-ceil(value: float) -> int
+ceil(value: Union[float, np.array]) -> Union[int, np.array]
 
 @@ variables
-value: float - number to round up
+value: Union[float, np.array] - number to round up
 
 @@ description
 Calculates the closest int value that is greater than or equal to the value of the parameter.

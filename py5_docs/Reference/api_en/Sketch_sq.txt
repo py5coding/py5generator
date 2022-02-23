@@ -5,10 +5,10 @@ category = math
 subcategory = calculation
 
 @@ signatures
-sq(value: float) -> float
+sq(value: Union[float, np.array]) -> Union[float, np.array]
 
 @@ variables
-value: float - number to square
+value: Union[float, np.array] - number to square
 
 @@ description
 Squares a number (multiplies a number by itself). The result is always a positive number, as multiplying two negative numbers always yields a positive result. For example, ``-1 * -1 = 1``.
