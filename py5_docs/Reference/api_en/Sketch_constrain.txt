@@ -5,12 +5,12 @@ category = math
 subcategory = calculation
 
 @@ signatures
-constrain(amt: Union[float, np.array], low: Union[float, np.array], high: Union[float, np.array]) -> Union[float, np.array]
+constrain(amt: Union[float, npt.NDArray], low: Union[float, npt.NDArray], high: Union[float, npt.NDArray]) -> Union[float, npt.NDArray]
 
 @@ variables
-amt: Union[float, np.array] - the value to constrain
-high: Union[float, np.array] - minimum limit
-low: Union[float, np.array] - maximum limit
+amt: Union[float, npt.NDArray] - the value to constrain
+high: Union[float, npt.NDArray] - minimum limit
+low: Union[float, npt.NDArray] - maximum limit
 
 @@ description
 Constrains a value to not exceed a maximum and minimum value.

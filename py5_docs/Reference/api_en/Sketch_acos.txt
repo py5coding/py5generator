@@ -5,10 +5,10 @@ category = math
 subcategory = trigonometry
 
 @@ signatures
-acos(value: Union[float, np.array]) -> Union[float, np.array]
+acos(value: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]
 
 @@ variables
-value: Union[float, np.array] - value in the range of -1 to 1 whose arc cosine is to be returned
+value: Union[float, npt.ArrayLike] - value in the range of -1 to 1 whose arc cosine is to be returned
 
 @@ description
 The inverse of :doc:`sketch_cos`, returns the arc cosine of a value. This function expects the values in the range of -1 to 1 and values are returned in the range ``0`` to ``PI``.

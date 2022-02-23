@@ -5,15 +5,15 @@ category = math
 subcategory = random
 
 @@ signatures
-os_noise(x: Union[float, np.array], y: Union[float, np.array], /) -> Union[float, np.array]
-os_noise(x: Union[float, np.array], y: Union[float, np.array], z: Union[float, np.array], /) -> Union[float, np.array]
-os_noise(x: Union[float, np.array], y: Union[float, np.array], z: Union[float, np.array], w: Union[float, np.array], /) -> Union[float, np.array]
+os_noise(x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]
+os_noise(x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], z: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]
+os_noise(x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], z: Union[float, npt.NDArray], w: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]
 
 @@ variables
-w: Union[float, np.array] - w-coordinate in noise space
-x: Union[float, np.array] - x-coordinate in noise space
-y: Union[float, np.array] - y-coordinate in noise space
-z: Union[float, np.array] - z-coordinate in noise space
+w: Union[float, npt.NDArray] - w-coordinate in noise space
+x: Union[float, npt.NDArray] - x-coordinate in noise space
+y: Union[float, npt.NDArray] - y-coordinate in noise space
+z: Union[float, npt.NDArray] - z-coordinate in noise space
 
 @@ description
 Generate pseudo-random noise values for specific coodinates using the OpenSimplex 2 algorithm (smooth version / SuperSimplex). Noise functions are random sequence generators that produce a more natural, harmonic succession of numbers compared to the :doc:`sketch_random` method.

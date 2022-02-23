@@ -5,10 +5,10 @@ category = math
 subcategory = calculation
 
 @@ signatures
-sqrt(value: Union[float, np.array]) -> Union[float, complex, np.array]
+sqrt(value: Union[float, npt.NDArray]) -> Union[float, complex, npt.NDArray]
 
 @@ variables
-value: Union[float, np.array] - value to calculate the square root of
+value: Union[float, npt.NDArray] - value to calculate the square root of
 
 @@ description
 Calculates the square root of a number. The square root of a positive number is always positive, even though there may be a valid negative root. The square root of a negative number is a complex number. In either case, the square root ``s`` of number ``a`` is such that ``s*s = a``. It is the opposite of squaring.

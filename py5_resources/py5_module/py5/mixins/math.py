@@ -20,6 +20,7 @@
 from typing import overload, Union, Any, List
 
 import numpy as np
+import numpy.typing as npt
 
 from jpype import JClass
 
@@ -35,129 +36,129 @@ class MathMixin:
     # *** BEGIN METHODS ***
 
     @classmethod
-    def sin(cls, angle: Union[float, np.array]) -> Union[float, np.array]:
+    def sin(cls, angle: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]:
         """$class_Sketch_sin"""
         return np.sin(angle)
 
     @classmethod
-    def cos(cls, angle: Union[float, np.array]) -> Union[float, np.array]:
+    def cos(cls, angle: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]:
         """$class_Sketch_cos"""
         return np.cos(angle)
 
     @classmethod
-    def tan(cls, angle: Union[float, np.array]) -> Union[float, np.array]:
+    def tan(cls, angle: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]:
         """$class_Sketch_tan"""
         return np.tan(angle)
 
     @classmethod
-    def asin(cls, value: Union[float, np.array]) -> Union[float, np.array]:
+    def asin(cls, value: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]:
         """$class_Sketch_asin"""
         return np.arcsin(value)
 
     @classmethod
-    def acos(cls, value: Union[float, np.array]) -> Union[float, np.array]:
+    def acos(cls, value: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]:
         """$class_Sketch_acos"""
         return np.arccos(value)
 
     @classmethod
-    def atan(cls, value: Union[float, np.array]) -> Union[float, np.array]:
+    def atan(cls, value: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]:
         """$class_Sketch_atan"""
         return np.arctan(value)
 
     @classmethod
-    def atan2(cls, y: Union[float, np.array], x: Union[float, np.array]) -> Union[float, np.array]:
+    def atan2(cls, y: Union[float, npt.ArrayLike], x: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]:
         """$class_Sketch_atan2"""
         return np.arctan2(y, x)
 
     @classmethod
-    def degrees(cls, radians: Union[float, np.array]) -> Union[float, np.array]:
+    def degrees(cls, radians: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]:
         """$class_Sketch_degrees"""
         return np.degrees(radians)
 
     @classmethod
-    def radians(cls, degrees: Union[float, np.array]) -> Union[float, np.array]:
+    def radians(cls, degrees: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]:
         """$class_Sketch_radians"""
         return np.radians(degrees)
 
     @classmethod
-    def constrain(cls, amt: Union[float, np.array], low: Union[float, np.array], high: Union[float, np.array]) -> Union[float, np.array]:
+    def constrain(cls, amt: Union[float, npt.NDArray], low: Union[float, npt.NDArray], high: Union[float, npt.NDArray]) -> Union[float, npt.NDArray]:
         """$class_Sketch_constrain"""
         return np.where(amt < low, low, np.where(amt > high, high, amt))
 
     @classmethod
-    def remap(cls, value: Union[float, np.array], start1: Union[float, np.array], stop1: Union[float, np.array], start2: Union[float, np.array], stop2: Union[float, np.array]) -> Union[float, np.array]:
+    def remap(cls, value: Union[float, npt.NDArray], start1: Union[float, npt.NDArray], stop1: Union[float, npt.NDArray], start2: Union[float, npt.NDArray], stop2: Union[float, npt.NDArray]) -> Union[float, npt.NDArray]:
         """$class_Sketch_remap"""
         return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1))
 
     @overload
-    def dist(cls, x1: Union[float, np.array], y1: Union[float, np.array], x2: Union[float, np.array], y2: Union[float, np.array], /) -> Union[float, np.array]:
+    def dist(cls, x1: Union[float, npt.NDArray], y1: Union[float, npt.NDArray], x2: Union[float, npt.NDArray], y2: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
         """$class_Sketch_dist"""
         pass
 
     @overload
-    def dist(cls, x1: Union[float, np.array], y1: Union[float, np.array], z1: Union[float, np.array], x2: Union[float, np.array], y2: Union[float, np.array], z2: Union[float, np.array], /) -> Union[float, np.array]:
+    def dist(cls, x1: Union[float, npt.NDArray], y1: Union[float, npt.NDArray], z1: Union[float, npt.NDArray], x2: Union[float, npt.NDArray], y2: Union[float, npt.NDArray], z2: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
         """$class_Sketch_dist"""
         pass
 
     @classmethod
-    def dist(cls, *args: Union[float, np.array]) -> float:
+    def dist(cls, *args: Union[float, npt.NDArray]) -> float:
         """$class_Sketch_dist"""
         if len(args) % 2 == 1:
             raise RuntimeError(f'Cannot apply dist function to arguments {args}')
         return sum([(a - b)**2 for a, b in zip(args[:(len(args) // 2)], args[(len(args) // 2):])])**0.5
 
     @classmethod
-    def lerp(cls, start: Union[float, np.array], stop: Union[float, np.array], amt: Union[float, np.array]) -> Union[float, np.array]:
+    def lerp(cls, start: Union[float, npt.NDArray], stop: Union[float, npt.NDArray], amt: Union[float, npt.NDArray]) -> Union[float, npt.NDArray]:
         """$class_Sketch_lerp"""
         return amt * (stop - start) + start
 
     @overload
-    def mag(cls, a: Union[float, np.array], b: Union[float, np.array], /) -> float:
+    def mag(cls, a: Union[float, npt.NDArray], b: Union[float, npt.NDArray], /) -> float:
         """$class_Sketch_mag"""
         pass
 
     @overload
-    def mag(cls, a: Union[float, np.array], b: Union[float, np.array], c: Union[float, np.array], /) -> float:
+    def mag(cls, a: Union[float, npt.NDArray], b: Union[float, npt.NDArray], c: Union[float, npt.NDArray], /) -> float:
         """$class_Sketch_mag"""
         pass
 
     @classmethod
-    def mag(cls, *args: Union[float, np.array]) -> float:
+    def mag(cls, *args: Union[float, npt.NDArray]) -> float:
         """$class_Sketch_mag"""
         return sum([x * x for x in args])**0.5
 
     @classmethod
-    def norm(cls, value: Union[float, np.array], start: Union[float, np.array], stop: Union[float, np.array]) -> Union[float, np.array]:
+    def norm(cls, value: Union[float, npt.NDArray], start: Union[float, npt.NDArray], stop: Union[float, npt.NDArray]) -> Union[float, npt.NDArray]:
         """$class_Sketch_norm"""
         return (value - start) / (stop - start)
 
     @classmethod
-    def sq(cls, value: Union[float, np.array]) -> Union[float, np.array]:
+    def sq(cls, value: Union[float, npt.NDArray]) -> Union[float, npt.NDArray]:
         """$class_Sketch_sq"""
         return value * value
 
     @classmethod
-    def sqrt(cls, value: Union[float, np.array]) -> Union[float, complex, np.array]:
+    def sqrt(cls, value: Union[float, npt.NDArray]) -> Union[float, complex, npt.NDArray]:
         """$class_Sketch_sqrt"""
         return value**0.5
 
     @classmethod
-    def floor(cls, value: Union[float, np.array]) -> Union[int, np.array]:
+    def floor(cls, value: Union[float, npt.ArrayLike]) -> Union[int, npt.NDArray]:
         """$class_Sketch_floor"""
         return np.floor(value).astype(np.int_)
 
     @classmethod
-    def ceil(cls, value: Union[float, np.array]) -> Union[int, np.array]:
+    def ceil(cls, value: Union[float, npt.ArrayLike]) -> Union[int, npt.NDArray]:
         """$class_Sketch_ceil"""
         return np.ceil(value).astype(np.int_)
 
     @classmethod
-    def exp(cls, value: Union[float, np.array]) -> Union[float, np.array]:
+    def exp(cls, value: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]:
         """$class_Sketch_exp"""
         return np.exp(value)
 
     @classmethod
-    def log(cls, value: Union[float, np.array]) -> Union[float, np.array]:
+    def log(cls, value: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]:
         """$class_Sketch_log"""
         return np.log(value)
 
@@ -263,21 +264,21 @@ class MathMixin:
         raise TypeError(f'No matching overloads found for Sketch.random_gaussian({types})')
 
     @overload
-    def noise(self, x: Union[float, np.array], /) -> Union[float, np.array]:
+    def noise(self, x: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
         """$class_Sketch_noise"""
         pass
 
     @overload
-    def noise(self, x: Union[float, np.array], y: Union[float, np.array], /) -> Union[float, np.array]:
+    def noise(self, x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
         """$class_Sketch_noise"""
         pass
 
     @overload
-    def noise(self, x: Union[float, np.array], y: Union[float, np.array], z: Union[float, np.array], /) -> Union[float, np.array]:
+    def noise(self, x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], z: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
         """$class_Sketch_noise"""
         pass
 
-    def noise(self, *args) -> Union[float, np.array]:
+    def noise(self, *args) -> Union[float, npt.NDArray]:
         """$class_Sketch_noise"""
         if any(isinstance(arg, np.ndarray) for arg in args):
             arrays = np.broadcast_arrays(*args)
@@ -286,21 +287,21 @@ class MathMixin:
             return self._instance.noise(*args)
 
     @overload
-    def os_noise(self, x: Union[float, np.array], y: Union[float, np.array], /) -> Union[float, np.array]:
+    def os_noise(self, x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
         """$class_Sketch_os_noise"""
         pass
 
     @overload
-    def os_noise(self, x: Union[float, np.array], y: Union[float, np.array], z: Union[float, np.array], /) -> Union[float, np.array]:
+    def os_noise(self, x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], z: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
         """$class_Sketch_os_noise"""
         pass
 
     @overload
-    def os_noise(self, x: Union[float, np.array], y: Union[float, np.array], z: Union[float, np.array], w: Union[float, np.array], /) -> Union[float, np.array]:
+    def os_noise(self, x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], z: Union[float, npt.NDArray], w: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
         """$class_Sketch_os_noise"""
         pass
 
-    def os_noise(self, *args) -> Union[float, np.array]:
+    def os_noise(self, *args) -> Union[float, npt.NDArray]:
         """$class_Sketch_os_noise"""
         if any(isinstance(arg, np.ndarray) for arg in args):
             arrays = np.broadcast_arrays(*args)

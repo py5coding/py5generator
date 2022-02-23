@@ -5,10 +5,10 @@ category = math
 subcategory = calculation
 
 @@ signatures
-floor(value: Union[float, np.array]) -> Union[int, np.array]
+floor(value: Union[float, npt.ArrayLike]) -> Union[int, npt.NDArray]
 
 @@ variables
-value: Union[float, np.array] - number to round down
+value: Union[float, npt.ArrayLike] - number to round down
 
 @@ description
 Calculates the closest int value that is less than or equal to the value of the parameter.
