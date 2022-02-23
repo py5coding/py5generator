@@ -41,7 +41,7 @@ logger = logging.getLogger(__name__)
 
 CONSTANT_REGEX = re.compile(r'^\s*([A-Z_]*)\s*=\s*(.*?)\s+# CODEBUILDER INCLUDE$', re.MULTILINE)
 METHOD_REGEX = re.compile(r'(@\w+)?\s*def (.*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):\s*(# @decorator)?$', re.MULTILINE | re.DOTALL)
-TYPEHINT_COMMA_REGEX = re.compile(r'(\[[\w\s,]+\])')
+TYPEHINT_UNION_COMMA_REMOVER_REGEX = re.compile(r'(\[[\w\s,\.]+\])')
 COMMA_REGEX = re.compile(r',\s*(?![\s\w,\.]+\])')
 
 SNAKE_CASE_1 = re.compile('(.)([A-Z][a-z]+)')
@@ -301,7 +301,8 @@ class CodeBuilder:
                     self.method_signatures[(class_name, fname)].append((split_args, rettypestr))
                 moduleobj = self._class_name if arg0 == 'cls' else self._instance_name
                 paramlist = []
-                for arg in TYPEHINT_COMMA_REGEX.sub('', args).split(','):
+                # remove commas in Union typehints so that args can be split by , to get all of the variable names
+                for arg in TYPEHINT_UNION_COMMA_REMOVER_REGEX.sub('', args).split(','):
                     paramname = arg.split(':')[0].strip()
                     if '=' in arg:
                         paramlist.append(f'{paramname}={paramname}')
