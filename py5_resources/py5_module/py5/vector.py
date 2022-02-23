@@ -25,6 +25,7 @@ from collections.abc import Sequence, Iterable
 import re
 
 import numpy as np
+import numpy.typing as npt
 
 
 class Py5Vector(Sequence):
@@ -324,7 +325,7 @@ class Py5Vector(Sequence):
 
     x: float = property(_get_x, _set_x, doc="""$class_Py5Vector_x""")
     y: float = property(_get_y, _set_y, doc="""$class_Py5Vector_y""")
-    data: np.ndarray[np.floating] = property(_get_data, doc="""$class_Py5Vector_data""")
+    data: npt.NDArray[np.floating] = property(_get_data, doc="""$class_Py5Vector_data""")
     copy = property(_get_copy, doc="""$class_Py5Vector_copy""")
     dim: int = property(_get_dim, doc="""$class_Py5Vector_dim""")
     dtype: type = property(_get_dtype, doc="""$class_Py5Vector_dtype""")

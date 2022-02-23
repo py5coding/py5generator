@@ -137,6 +137,8 @@ class PixelMixin:
     # *** END METHODS ***
 
 
+# NOTE: changes to the below method signatures will not update the reference docs automatically
+
 class PixelPy5GraphicsMixin(PixelMixin):
 
     def load_np_pixels(self) -> None:
@@ -147,12 +149,12 @@ class PixelPy5GraphicsMixin(PixelMixin):
         """$class_Py5Graphics_update_np_pixels"""
         return super().update_np_pixels()
 
-    def _get_np_pixels(self) -> np.ndarray:  # @decorator
+    def _get_np_pixels(self) -> npt.NDArray[np.uint8]:  # @decorator
         """$class_Py5Graphics_np_pixels"""
         return super()._get_np_pixels()
-    np_pixels: np.ndarray = property(fget=_get_np_pixels, doc="""$class_Py5Graphics_np_pixels""")
+    np_pixels: npt.NDArray[np.uint8] = property(fget=_get_np_pixels, doc="""$class_Py5Graphics_np_pixels""")
 
-    def set_np_pixels(self, array: np.ndarray, bands: str = 'ARGB') -> None:
+    def set_np_pixels(self, array: npt.NDArray[np.uint8], bands: str = 'ARGB') -> None:
         """$class_Py5Graphics_set_np_pixels"""
         return super().set_np_pixels(array, bands)
 
@@ -171,12 +173,12 @@ class PixelPy5ImageMixin(PixelMixin):
         """$class_Py5Image_update_np_pixels"""
         return super().update_np_pixels()
 
-    def _get_np_pixels(self) -> np.ndarray:  # @decorator
+    def _get_np_pixels(self) -> npt.NDArray[np.uint8]:  # @decorator
         """$class_Py5Image_np_pixels"""
         return super()._get_np_pixels()
-    np_pixels: np.ndarray = property(fget=_get_np_pixels, doc="""$class_Py5Image_np_pixels""")
+    np_pixels: npt.NDArray[np.uint8] = property(fget=_get_np_pixels, doc="""$class_Py5Image_np_pixels""")
 
-    def set_np_pixels(self, array: np.ndarray, bands: str = 'ARGB') -> None:
+    def set_np_pixels(self, array: npt.NDArray[np.uint8], bands: str = 'ARGB') -> None:
         """$class_Py5Image_set_np_pixels"""
         return super().set_np_pixels(array, bands)
 
