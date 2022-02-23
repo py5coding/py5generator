@@ -23,6 +23,7 @@ from io import BytesIO
 from typing import overload, List, Union  # noqa
 
 import numpy as np
+import numpy.typing as npt
 from PIL import Image
 import jpype
 
@@ -95,12 +96,12 @@ class PixelMixin:
         self._java_bb.asIntBuffer().get(self._instance.pixels)
         self._instance.updatePixels()
 
-    def _get_np_pixels(self) -> np.ndarray[np.uint8]:  # @decorator
+    def _get_np_pixels(self) -> npt.NDArray[np.uint8]:  # @decorator
         """$class_Sketch_np_pixels"""
         return self._np_pixels
-    np_pixels: np.ndarray[np.uint8] = property(fget=_get_np_pixels, doc="""$class_Sketch_np_pixels""")
+    np_pixels: npt.NDArray[np.uint8] = property(fget=_get_np_pixels, doc="""$class_Sketch_np_pixels""")
 
-    def set_np_pixels(self, array: np.ndarray[np.uint8], bands: str = 'ARGB') -> None:
+    def set_np_pixels(self, array: npt.NDArray[np.uint8], bands: str = 'ARGB') -> None:
         """$class_Sketch_set_np_pixels"""
         self.load_np_pixels()
         if bands == 'L':

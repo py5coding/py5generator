@@ -30,6 +30,7 @@ from typing import overload, Any, Callable, Union, Dict, List, Tuple  # noqa
 from nptyping import NDArray, Float, Int  # noqa
 
 import numpy as np  # noqa
+import numpy.typing as npt  # noqa
 from PIL import Image  # noqa
 from jpype import JClass  # noqa
 import jpype.imports  # noqa

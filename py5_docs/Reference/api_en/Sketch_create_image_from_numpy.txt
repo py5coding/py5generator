@@ -5,10 +5,10 @@ category = image
 subcategory = loading_displaying
 
 @@ signatures
-create_image_from_numpy(array: np.array[np.uint8], bands: str = 'ARGB', *, dst: Py5Image = None) -> Py5Image
+create_image_from_numpy(array: npt.NDArray[np.uint8], bands: str = 'ARGB', *, dst: Py5Image = None) -> Py5Image
 
 @@ variables
-array: np.array[np.uint8] - numpy image array
+array: npt.NDArray[np.uint8] - numpy image array
 bands: str = 'ARGB' - color channels in array
 dst: Py5Image = None - existing Py5Image object to put the image data into
 

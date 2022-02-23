@@ -30,7 +30,8 @@ from nptyping import NDArray, Float, Int  # noqa
 import jpype
 from jpype.types import JException, JArray, JInt  # noqa
 
-import numpy as np  # noqa
+import numpy as np
+import numpy.typing as npt
 
 import py5_tools.environ as _environ
 from py5_tools.printstreams import _DefaultPrintlnStream, _DisplayPubPrintlnStream
@@ -314,7 +315,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     # *** Py5Image methods ***
 
-    def create_image_from_numpy(self, array: np.array[np.uint8], bands: str = 'ARGB', *, dst: Py5Image = None) -> Py5Image:
+    def create_image_from_numpy(self, array: npt.NDArray[np.uint8], bands: str = 'ARGB', *, dst: Py5Image = None) -> Py5Image:
         """$class_Sketch_create_image_from_numpy"""
         height, width = array.shape[:2]
 
