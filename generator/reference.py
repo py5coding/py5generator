@@ -32,9 +32,12 @@ TYPE_OVERRIDES = {
     'processing.core.PShape[]': 'List[Py5Shape]',
     'char[]': 'List[chr]',
     'java.lang.String[]': 'List[str]',
-    'float[]': 'NDArray[(Any,), Float]',
-    'float[][]': 'NDArray[(Any, Any), Float]',
-    'int[]': 'NDArray[(Any,), Int]',
+    # 'float[]': 'NDArray[(Any,), Float]',
+    'float[]': 'npt.NDArray[np.floating]',
+    # 'float[][]': 'NDArray[(Any, Any), Float]',
+    'float[][]': 'npt.NDArray[np.floating]',
+    # 'int[]': 'NDArray[(Any,), Int]',
+    'int[]': 'npt.NDArray[np.integer]',
 }
 
 JPYPE_CONVERSIONS = {
@@ -61,9 +64,12 @@ JTYPE_CONVERSIONS = {
     'processing.core.PSurface': 'Py5Surface',
     'processing.core.PGraphics': 'Py5Graphics',
     'processing.core.PVector': 'Py5Vector',
-    'processing.core.PMatrix': 'NDArray[(Any, Any), Float]',
-    'processing.core.PMatrix2D': 'NDArray[(2, 3), Float]',
-    'processing.core.PMatrix3D': 'NDArray[(4, 4), Float]',
+    # 'processing.core.PMatrix': 'NDArray[(Any, Any), Float]',
+    # 'processing.core.PMatrix2D': 'NDArray[(2, 3), Float]',
+    # 'processing.core.PMatrix3D': 'NDArray[(4, 4), Float]',
+    'processing.core.PMatrix': 'npt.NDArray[np.floating]',
+    'processing.core.PMatrix2D': 'npt.NDArray[np.floating]',
+    'processing.core.PMatrix3D': 'npt.NDArray[np.floating]',
 }
 
 EXTRA_DIR_NAMES = {
@@ -146,7 +152,7 @@ EXTRA_METHOD_SIGNATURES = {
           'hook_post_draw: bool = False', 'block: bool = False'], 'None')
     ],
     ('Py5Tools', 'offline_frame_processing'): [
-        (['func: Callable[[NDArray[(Any, Any, Any, 3), UInt8]], None]', '*', 
+        (['func: Callable[[npt.NDArray[np.uint8]], None]', '*', 
           'limit: int = 0', 'period: float = 0.0', 'batch_size: int = 1',
           'complete_func: Callable[[], None] = None',
           'stop_processing_func: Callable[[], bool] = None',

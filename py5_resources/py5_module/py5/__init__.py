@@ -27,7 +27,6 @@ from pathlib import Path
 from io import BytesIO
 import inspect
 from typing import overload, Any, Callable, Union, Dict, List, Tuple  # noqa
-from nptyping import NDArray, Float, Int  # noqa
 
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa

@@ -20,9 +20,9 @@
 # *** FORMAT PARAMS ***
 import functools
 from typing import overload, List, Any  # noqa
-from nptyping import NDArray, Float, Int  # noqa
 
 import numpy as np  # noqa
+import numpy.typing as npt  # noqa
 
 from .base import Py5Base
 from .image import Py5Image  # noqa
