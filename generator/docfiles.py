@@ -53,7 +53,7 @@ class Documentation:
             f.write('\n'.join(f'{m[0]} = {m[1]}' for m in self.meta.items()) + '\n')
             if self.signatures:
                 f.write('\n@@ signatures\n')
-                for signature in sorted(self.signatures):
+                for signature in sorted(set(self.signatures)):
                     f.write(f'{signature}\n')
             if self.variables:
                 f.write('\n@@ variables\n')

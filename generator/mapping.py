@@ -174,7 +174,7 @@ def prepare_mapping(method_signatures_lookup):
             docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence + extras, description)
 
         # sort to make everything neat and tidy
-        doc.signatures = list(sorted(doc.signatures))
+        doc.signatures = list(sorted(set(doc.signatures)))
         doc.variables = dict(sorted(doc.variables.items()))
 
         # write the documentation information back to the original file
