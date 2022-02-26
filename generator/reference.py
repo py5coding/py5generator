@@ -32,11 +32,8 @@ TYPE_OVERRIDES = {
     'processing.core.PShape[]': 'List[Py5Shape]',
     'char[]': 'List[chr]',
     'java.lang.String[]': 'List[str]',
-    # 'float[]': 'NDArray[(Any,), Float]',
     'float[]': 'npt.NDArray[np.floating]',
-    # 'float[][]': 'NDArray[(Any, Any), Float]',
     'float[][]': 'npt.NDArray[np.floating]',
-    # 'int[]': 'NDArray[(Any,), Int]',
     'int[]': 'npt.NDArray[np.integer]',
 }
 
@@ -64,9 +61,6 @@ JTYPE_CONVERSIONS = {
     'processing.core.PSurface': 'Py5Surface',
     'processing.core.PGraphics': 'Py5Graphics',
     'processing.core.PVector': 'Py5Vector',
-    # 'processing.core.PMatrix': 'NDArray[(Any, Any), Float]',
-    # 'processing.core.PMatrix2D': 'NDArray[(2, 3), Float]',
-    # 'processing.core.PMatrix3D': 'NDArray[(4, 4), Float]',
     'processing.core.PMatrix': 'npt.NDArray[np.floating]',
     'processing.core.PMatrix2D': 'npt.NDArray[np.floating]',
     'processing.core.PMatrix3D': 'npt.NDArray[np.floating]',
