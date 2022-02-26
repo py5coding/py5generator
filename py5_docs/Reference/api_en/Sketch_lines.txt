@@ -7,10 +7,10 @@ category = shape
 subcategory = 2d_primitives
 
 @@ signatures
-lines(coordinates: NDArray[(Any, Any), Float], /) -> None
+lines(coordinates: npt.NDArray[np.floating], /) -> None
 
 @@ variables
-coordinates: NDArray[(Any, Any), Float] - array of line coordinates
+coordinates: npt.NDArray[np.floating] - 2D array of line coordinates with 4 or 6 columns for 2D or 3D points, respectively
 
 @@ description
 Draw a collection of lines to the screen. The purpose of this method is to provide an alternative to repeatedly calling :doc:`sketch_line` in a loop. For a large number of lines, the performance of ``lines()`` will be much faster.

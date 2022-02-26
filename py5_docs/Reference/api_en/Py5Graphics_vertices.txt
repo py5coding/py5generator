@@ -7,10 +7,10 @@ category = shape
 subcategory = vertex
 
 @@ signatures
-vertices(coordinates: NDArray[(Any, Any), Float], /) -> None
+vertices(coordinates: npt.NDArray[np.floating], /) -> None
 
 @@ variables
-coordinates: NDArray[(Any, Any), Float] - array of vertex coordinates
+coordinates: npt.NDArray[np.floating] - 2D array of vertex coordinates with 2 or 3 columns for 2D or 3D points, respectively
 
 @@ description
 Create a collection of vertices. The purpose of this method is to provide an alternative to repeatedly calling :doc:`py5graphics_vertex` in a loop. For a large number of vertices, the performance of ``vertices()`` will be much faster.
