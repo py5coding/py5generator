@@ -21,7 +21,7 @@ from __future__ import annotations
 
 import sys
 import functools
-from typing import Callable, Tuple, Dict, NewType
+from typing import Callable, Tuple, Dict
 
 import numpy as np
 
@@ -30,9 +30,6 @@ import PIL.ImageFile
 from PIL import Image
 
 from .sketch import Sketch
-
-
-PIL_ImageFile = NewType('PIL_ImageFile', PIL.ImageFile.ImageFile)
 
 
 class RenderHelperSketch(Sketch):
@@ -148,7 +145,7 @@ def render_frame_sequence(draw: Callable, width: int, height: int,
                           limit: int = 1, setup: Callable = None,
                           setup_args: Tuple = None, setup_kwargs: Dict = None,
                           draw_args: Tuple = None, draw_kwargs: Dict = None,
-                          use_py5graphics=False) -> list[PIL_ImageFile]:
+                          use_py5graphics=False) -> list[PIL.ImageFile.ImageFile]:
     """$module_Py5Functions_render_frame_sequence"""
     if msg :=_check_allowed_renderer(renderer):
         print(msg, file=sys.stderr)
@@ -185,7 +182,7 @@ def render(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
 def render_sequence(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
                     limit: int = 1, setup: Callable = None,
                     setup_args: Tuple = None, setup_kwargs: Dict = None,
-                    use_py5graphics=False) -> list[PIL_ImageFile]:
+                    use_py5graphics=False) -> list[PIL.ImageFile.ImageFile]:
     """$module_Py5Functions_render_sequence"""
     if msg :=_check_allowed_renderer(renderer):
         raise RuntimeError(msg)

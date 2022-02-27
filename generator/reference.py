@@ -103,12 +103,12 @@ EXTRA_METHOD_SIGNATURES = {
         (['draw: Callable', 'width: int', 'height: int', 'renderer: str = Sketch.HIDDEN', '*',
           'limit: int = 1', 'setup: Callable = None', 'setup_args: Tuple = None',
           'setup_kwargs: Dict = None', 'draw_args: Tuple = None',
-          'draw_kwargs: Dict = None', 'use_py5graphics: bool = False'], 'list[PIL_Image]')
+          'draw_kwargs: Dict = None', 'use_py5graphics: bool = False'], 'list[PIL.ImageFile.ImageFile]')
     ],
     ('Py5Functions', 'render_sequence'): [
         (['width: int', 'height: int', 'renderer: str = Sketch.HIDDEN', '*', 'limit: int = 1',
           'setup: Callable = None', 'setup_args: Tuple = None',
-          'setup_kwargs: Dict = None', 'use_py5graphics: bool = False'], 'list[PIL_Image]')
+          'setup_kwargs: Dict = None', 'use_py5graphics: bool = False'], 'list[PIL.ImageFile.ImageFile]')
     ],
     ('Py5Functions', 'register_image_conversion'): [
         (['precondition: Callable', 'convert_function: Callable'], 'None')

@@ -23,7 +23,7 @@ import sys
 import time
 from pathlib import Path
 import tempfile
-from typing import Callable, NewType, Any
+from typing import Callable, Any
 
 import numpy as np
 import numpy.typing as npt
@@ -36,7 +36,6 @@ from .. import environ as _environ
 
 
 Sketch = 'Sketch'
-PIL_ImageFile = NewType('PIL_ImageFile', PIL.ImageFile.ImageFile)
 
 
 def screenshot(*, sketch: Sketch = None, hook_post_draw: bool = False) -> PIL.ImageFile.ImageFile:
@@ -160,7 +159,7 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
 
 
 def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None,
-                   hook_post_draw: bool = False, block: bool = False) -> list[PIL_ImageFile]:
+                   hook_post_draw: bool = False, block: bool = False) -> list[PIL.ImageFile.ImageFile]:
     """$module_Py5Tools_capture_frames"""
     if sketch is None:
         import py5
