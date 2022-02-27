@@ -22,11 +22,13 @@
 """
 py5 is a version of Processing for Python 3.8+. It makes the Processing Java libraries available to the CPython interpreter using JPype.
 """
+from __future__ import annotations
+
 import sys
 from pathlib import Path
 from io import BytesIO
 import inspect
-from typing import overload, Any, Callable, Union, Dict, List, Tuple  # noqa
+from typing import overload, Any, Callable, Union, Dict, Tuple  # noqa
 
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa
@@ -90,8 +92,8 @@ _py5sketch = Sketch()
 
 
 def run_sketch(block: bool = None, *,
-               py5_options: List[str] = None,
-               sketch_args: List[str] = None,
+               py5_options: list[str] = None,
+               sketch_args: list[str] = None,
                sketch_functions: Dict[str, Callable] = None) -> None:
     """$module_Sketch_run_sketch"""
     caller_globals = inspect.stack()[1].frame.f_globals

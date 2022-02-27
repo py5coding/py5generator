@@ -17,11 +17,13 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+from __future__ import annotations
+
 import sys
 import time
 from pathlib import Path
 import tempfile
-from typing import Callable, NewType, List, Any
+from typing import Callable, NewType, Any
 
 import numpy as np
 import numpy.typing as npt
@@ -158,7 +160,7 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
 
 
 def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None,
-                   hook_post_draw: bool = False, block: bool = False) -> List[PIL_ImageFile]:
+                   hook_post_draw: bool = False, block: bool = False) -> list[PIL_ImageFile]:
     """$module_Py5Tools_capture_frames"""
     if sketch is None:
         import py5

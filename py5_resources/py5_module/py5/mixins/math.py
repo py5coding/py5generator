@@ -17,7 +17,9 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from typing import overload, Union, Any, List
+from __future__ import annotations
+
+from typing import overload, Union, Any
 
 import numpy as np
 import numpy.typing as npt
@@ -228,7 +230,7 @@ class MathMixin:
         types = ','.join([type(a).__name__ for a in args])
         raise TypeError(f'No matching overloads found for Sketch.random_int({types})')
 
-    def random_choice(self, objects: List[Any]) -> Any:
+    def random_choice(self, objects: list[Any]) -> Any:
         """$class_Sketch_random_choice"""
         return self._rng.choice(objects)
 

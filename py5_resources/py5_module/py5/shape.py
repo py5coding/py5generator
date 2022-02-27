@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import functools
 from pathlib import Path
-from typing import overload, List  # noqa
+from typing import overload  # noqa
 import numpy as np
 import numpy.typing as npt  # noqa
 

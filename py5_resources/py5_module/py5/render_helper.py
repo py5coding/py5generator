@@ -1,6 +1,27 @@
+# *****************************************************************************
+#
+#   Part of the py5 library
+#   Copyright (C) 2020-2022 Jim Schmitz
+#
+#   This library is free software: you can redistribute it and/or modify it
+#   under the terms of the GNU Lesser General Public License as published by
+#   the Free Software Foundation, either version 2.1 of the License, or (at
+#   your option) any later version.
+#
+#   This library is distributed in the hope that it will be useful, but
+#   WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+#   General Public License for more details.
+#
+#   You should have received a copy of the GNU Lesser General Public License
+#   along with this library. If not, see <https://www.gnu.org/licenses/>.
+#
+# *****************************************************************************
+from __future__ import annotations
+
 import sys
 import functools
-from typing import Callable, Tuple, Dict, List, NewType
+from typing import Callable, Tuple, Dict, NewType
 
 import numpy as np
 
@@ -127,7 +148,7 @@ def render_frame_sequence(draw: Callable, width: int, height: int,
                           limit: int = 1, setup: Callable = None,
                           setup_args: Tuple = None, setup_kwargs: Dict = None,
                           draw_args: Tuple = None, draw_kwargs: Dict = None,
-                          use_py5graphics=False) -> List[PIL_ImageFile]:
+                          use_py5graphics=False) -> list[PIL_ImageFile]:
     """$module_Py5Functions_render_frame_sequence"""
     if msg :=_check_allowed_renderer(renderer):
         print(msg, file=sys.stderr)
@@ -164,7 +185,7 @@ def render(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
 def render_sequence(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
                     limit: int = 1, setup: Callable = None,
                     setup_args: Tuple = None, setup_kwargs: Dict = None,
-                    use_py5graphics=False) -> List[PIL_ImageFile]:
+                    use_py5graphics=False) -> list[PIL_ImageFile]:
     """$module_Py5Functions_render_sequence"""
     if msg :=_check_allowed_renderer(renderer):
         raise RuntimeError(msg)

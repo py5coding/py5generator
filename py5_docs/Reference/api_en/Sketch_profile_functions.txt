@@ -5,10 +5,10 @@ category = structure
 subcategory = None
 
 @@ signatures
-profile_functions(function_names: List[str]) -> None
+profile_functions(function_names: list[str]) -> None
 
 @@ variables
-function_names: List[str] - names of py5 functions to be profiled
+function_names: list[str] - names of py5 functions to be profiled
 
 @@ description
 Profile the execution times of the Sketch's functions with a line profiler. This uses the Python library lineprofiler to provide line by line performance data. The collected stats will include the number of times each line of code was executed (Hits) and the total amount of time spent on each line (Time). This information can be used to target the performance tuning efforts for a slow Sketch.

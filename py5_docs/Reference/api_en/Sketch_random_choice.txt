@@ -5,10 +5,10 @@ category = math
 subcategory = random
 
 @@ signatures
-random_choice(objects: List[Any]) -> Any
+random_choice(objects: list[Any]) -> Any
 
 @@ variables
-objects: List[Any] - list of objects to choose from
+objects: list[Any] - list of objects to choose from
 
 @@ description
 Select a random item from a list. The list items can be of any type. This function's randomness can be influenced by :doc:`sketch_random_seed`.

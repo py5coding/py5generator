@@ -5,10 +5,10 @@ category = jvm
 subcategory = None
 
 @@ signatures
-add_options(*options: List[str]) -> None
+add_options(*options: list[str]) -> None
 
 @@ variables
-options: List[str] - list of desired JVM options
+options: list[str] - list of desired JVM options
 
 @@ description
 Provide JVM options to use when the JVM starts. This is useful to set the JVM memory size, for example.

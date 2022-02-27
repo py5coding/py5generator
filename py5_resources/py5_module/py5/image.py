@@ -21,7 +21,7 @@
 from __future__ import annotations
 
 import functools
-from typing import overload, List, Union  # noqa
+from typing import overload, Union  # noqa
 
 from .base import Py5Base
 from .mixins import PixelPy5ImageMixin

@@ -21,7 +21,7 @@
 from __future__ import annotations
 
 import functools
-from typing import overload, List  # noqa
+from typing import overload  # noqa
 
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa

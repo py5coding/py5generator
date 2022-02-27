@@ -19,7 +19,7 @@
 # *****************************************************************************
 # *** FORMAT PARAMS ***
 import functools
-from typing import overload, List, Any  # noqa
+from typing import overload, Any  # noqa
 
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa

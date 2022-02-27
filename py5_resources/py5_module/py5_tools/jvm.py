@@ -17,11 +17,13 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+from __future__ import annotations
+
 import os
 import subprocess
 from pathlib import Path
 
-from typing import Any, Union, List, Dict  # noqa
+from typing import Any, Union, Dict  # noqa
 
 
 import jpype
@@ -43,7 +45,7 @@ def _check_jvm_running() -> None:
         raise RuntimeError("the jvm is already running")
 
 
-def add_options(*options: List[str]) -> None:
+def add_options(*options: list[str]) -> None:
     """$module_Py5Tools_add_options"""
     _check_jvm_running()
     _options.extend(options)

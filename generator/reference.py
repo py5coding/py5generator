@@ -29,9 +29,9 @@ PY5_SKIP_RETURN_TYPES = set()
 
 TYPE_OVERRIDES = {
     # this is correct, see _return_list_py5shapes
-    'processing.core.PShape[]': 'List[Py5Shape]',
-    'char[]': 'List[chr]',
-    'java.lang.String[]': 'List[str]',
+    'processing.core.PShape[]': 'list[Py5Shape]',
+    'char[]': 'list[chr]',
+    'java.lang.String[]': 'list[str]',
     'float[]': 'npt.NDArray[np.floating]',
     'float[][]': 'npt.NDArray[np.floating]',
     'int[]': 'npt.NDArray[np.integer]',
@@ -81,7 +81,7 @@ EXTRA_DIR_NAMES = {
 EXTRA_METHOD_SIGNATURES = {
     ('Sketch', 'run_sketch'): [
         (['block: bool = None', '*',
-          'py5_options: List[str] = None', 'sketch_args: List[str] = None',
+          'py5_options: list[str] = None', 'sketch_args: list[str] = None',
           'sketch_functions: Dict[str, Callable] = None'], 'None')
     ],
     ('Py5Functions', 'create_font_file'): [
@@ -103,12 +103,12 @@ EXTRA_METHOD_SIGNATURES = {
         (['draw: Callable', 'width: int', 'height: int', 'renderer: str = Sketch.HIDDEN', '*',
           'limit: int = 1', 'setup: Callable = None', 'setup_args: Tuple = None',
           'setup_kwargs: Dict = None', 'draw_args: Tuple = None',
-          'draw_kwargs: Dict = None', 'use_py5graphics: bool = False'], 'List[PIL_Image]')
+          'draw_kwargs: Dict = None', 'use_py5graphics: bool = False'], 'list[PIL_Image]')
     ],
     ('Py5Functions', 'render_sequence'): [
         (['width: int', 'height: int', 'renderer: str = Sketch.HIDDEN', '*', 'limit: int = 1',
           'setup: Callable = None', 'setup_args: Tuple = None',
-          'setup_kwargs: Dict = None', 'use_py5graphics: bool = False'], 'List[PIL_Image]')
+          'setup_kwargs: Dict = None', 'use_py5graphics: bool = False'], 'list[PIL_Image]')
     ],
     ('Py5Functions', 'register_image_conversion'): [
         (['precondition: Callable', 'convert_function: Callable'], 'None')
@@ -117,7 +117,7 @@ EXTRA_METHOD_SIGNATURES = {
         ([], 'bool')
     ],
     ('Py5Tools', 'add_options'): [
-        (['*options: List[str]'], 'None')
+        (['*options: list[str]'], 'None')
     ],
     ('Py5Tools', 'get_classpath'): [
         ([], 'str')
@@ -155,7 +155,7 @@ EXTRA_METHOD_SIGNATURES = {
     ],
     ('Py5Tools', 'capture_frames'): [
         (['count: float', '*', 'period: float = 0.0', 'sketch: Sketch = None',
-          'hook_post_draw: bool = False', 'block: bool = False'], 'List[PIL.Image]')
+          'hook_post_draw: bool = False', 'block: bool = False'], 'list[PIL.Image]')
     ],
     ('Py5Tools', 'sketch_portal'): [
         (['*', 'time_limit: float = 0.0', 'throttle_frame_rate: float = 30',

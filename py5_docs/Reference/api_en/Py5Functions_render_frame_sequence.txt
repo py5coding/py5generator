@@ -5,7 +5,7 @@ category = structure
 subcategory = None
 
 @@ signatures
-render_frame_sequence(draw: Callable, width: int, height: int, renderer: str = Sketch.HIDDEN, *, limit: int = 1, setup: Callable = None, setup_args: Tuple = None, setup_kwargs: Dict = None, draw_args: Tuple = None, draw_kwargs: Dict = None, use_py5graphics: bool = False) -> List[PIL_Image]
+render_frame_sequence(draw: Callable, width: int, height: int, renderer: str = Sketch.HIDDEN, *, limit: int = 1, setup: Callable = None, setup_args: Tuple = None, setup_kwargs: Dict = None, draw_args: Tuple = None, draw_kwargs: Dict = None, use_py5graphics: bool = False) -> list[PIL_Image]
 
 @@ variables
 draw: Callable - function that executes py5 draw commands

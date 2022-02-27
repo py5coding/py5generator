@@ -20,7 +20,7 @@
 import threading
 from pathlib import Path
 from io import BytesIO
-from typing import overload, List, Union  # noqa
+from typing import overload, Union  # noqa
 
 import numpy as np
 import numpy.typing as npt
