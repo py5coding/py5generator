@@ -17,6 +17,8 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+from __future__ import annotations
+
 import threading
 from pathlib import Path
 from io import BytesIO
