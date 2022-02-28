@@ -28,7 +28,7 @@ import sys
 from pathlib import Path
 from io import BytesIO
 import inspect
-from typing import overload, Any, Callable, Union, Dict, Tuple  # noqa
+from typing import overload, Any, Callable, Union, Dict  # noqa
 
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa
