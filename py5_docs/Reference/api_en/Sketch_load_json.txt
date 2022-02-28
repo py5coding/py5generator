@@ -5,11 +5,11 @@ category = input
 subcategory = files
 
 @@ signatures
-load_json(json_path: Union[str, Path], **kwargs: Dict[str, Any]) -> Any
+load_json(json_path: Union[str, Path], **kwargs: dict[str, Any]) -> Any
 
 @@ variables
 json_path: Union[str, Path] - url or file path for JSON data file
-kwargs: Dict[str, Any] - keyword arguments
+kwargs: dict[str, Any] - keyword arguments
 
 @@ description
 Load a JSON data file from a file or URL. When loading a file, the path can be in the data directory, relative to the current working directory (:doc:`sketch_sketch_path`), or an absolute path. When loading from a URL, the ``json_path`` parameter must start with ``http://`` or ``https://``.

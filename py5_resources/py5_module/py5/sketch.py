@@ -26,7 +26,7 @@ import sys
 from io import BytesIO
 from pathlib import Path
 import functools
-from typing import overload, Any, Callable, Union, Dict  # noqa
+from typing import overload, Any, Callable, Union  # noqa
 
 import jpype
 from jpype.types import JException, JArray, JInt  # noqa
@@ -122,7 +122,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self._run_sketch(methods, block, py5_options, sketch_args)
 
     def _run_sketch(self,
-                    methods: Dict[str, Callable],
+                    methods: dict[str, Callable],
                     block: bool,
                     py5_options: list[str] = None,
                     sketch_args: list[str] = None) -> None:

@@ -82,7 +82,7 @@ EXTRA_METHOD_SIGNATURES = {
     ('Sketch', 'run_sketch'): [
         (['block: bool = None', '*',
           'py5_options: list[str] = None', 'sketch_args: list[str] = None',
-          'sketch_functions: Dict[str, Callable] = None'], 'None')
+          'sketch_functions: dict[str, Callable] = None'], 'None')
     ],
     ('Py5Functions', 'create_font_file'): [
         (['font_name: str', 'font_size: int', 'filename: str = None',
@@ -94,7 +94,7 @@ EXTRA_METHOD_SIGNATURES = {
     ('Py5Functions', 'set_stackprinter_style'): [(['style: str'], 'None')],
     ('Py5Functions', 'render_frame'): [
         (['draw: Callable', 'width: int', 'height: int', 'renderer: str = Sketch.HIDDEN', '*',
-          'draw_args: tuple = None', 'draw_kwargs: Dict = None', 'use_py5graphics: bool = False'], 'Image')
+          'draw_args: tuple = None', 'draw_kwargs: dict = None', 'use_py5graphics: bool = False'], 'Image')
     ],
     ('Py5Functions', 'render'): [
         (['width: int', 'height: int', 'renderer: str = Sketch.HIDDEN', 'use_py5graphics: bool = False'], 'Image')
@@ -102,13 +102,13 @@ EXTRA_METHOD_SIGNATURES = {
     ('Py5Functions', 'render_frame_sequence'): [
         (['draw: Callable', 'width: int', 'height: int', 'renderer: str = Sketch.HIDDEN', '*',
           'limit: int = 1', 'setup: Callable = None', 'setup_args: tuple = None',
-          'setup_kwargs: Dict = None', 'draw_args: tuple = None',
-          'draw_kwargs: Dict = None', 'use_py5graphics: bool = False'], 'list[PIL.ImageFile.ImageFile]')
+          'setup_kwargs: dict = None', 'draw_args: tuple = None',
+          'draw_kwargs: dict = None', 'use_py5graphics: bool = False'], 'list[PIL.ImageFile.ImageFile]')
     ],
     ('Py5Functions', 'render_sequence'): [
         (['width: int', 'height: int', 'renderer: str = Sketch.HIDDEN', '*', 'limit: int = 1',
           'setup: Callable = None', 'setup_args: tuple = None',
-          'setup_kwargs: Dict = None', 'use_py5graphics: bool = False'], 'list[PIL.ImageFile.ImageFile]')
+          'setup_kwargs: dict = None', 'use_py5graphics: bool = False'], 'list[PIL.ImageFile.ImageFile]')
     ],
     ('Py5Functions', 'register_image_conversion'): [
         (['precondition: Callable', 'convert_function: Callable'], 'None')
@@ -129,7 +129,7 @@ EXTRA_METHOD_SIGNATURES = {
         (['path: Union[Path, str]'], 'None')
     ],
     ('Py5Tools', 'get_jvm_debug_info'): [
-        ([], 'Dict[str, Any]')
+        ([], 'dict[str, Any]')
     ],
     ('Py5Tools', 'screenshot'): [
         (['*', 'sketch: Sketch = None', 'hook_post_draw: bool = False'], 'PIL.Image')

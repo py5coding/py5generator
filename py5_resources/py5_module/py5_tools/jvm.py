@@ -23,7 +23,7 @@ import os
 import subprocess
 from pathlib import Path
 
-from typing import Any, Union, Dict  # noqa
+from typing import Any, Union  # noqa
 
 
 import jpype
@@ -74,7 +74,7 @@ def add_jars(path: Union[Path, str]) -> None:
             jpype.addClassPath(jarfile.absolute())
 
 
-def get_jvm_debug_info() -> Dict[str, Any]:
+def get_jvm_debug_info() -> dict[str, Any]:
     """$module_Py5Tools_get_jvm_debug_info"""
     out = dict()
     out['JAVA_HOME environment variable'] = os.environ.get('JAVA_HOME', '<not set>')

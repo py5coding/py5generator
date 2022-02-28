@@ -17,11 +17,13 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+from __future__ import annotations
+
 import sys
 import time
 import threading
 from collections.abc import Iterable
-from typing import Callable, Dict, Any
+from typing import Callable, Any
 
 from .. import methods
 
@@ -140,13 +142,13 @@ class ThreadsMixin:
     # *** BEGIN METHODS ***
 
     def launch_thread(self, f: Callable, name: str = None, *, 
-                      daemon: bool = True, args: tuple = None, kwargs: Dict = None) -> str:
+                      daemon: bool = True, args: tuple = None, kwargs: dict = None) -> str:
         """$class_Sketch_launch_thread"""
         args, kwargs = self._check_param_types(args, kwargs)
         return self._launch_py5thread(name, Py5Thread(self, f, args, kwargs), daemon)
 
     def launch_promise_thread(self, f: Callable, name: str = None, *,
-                              daemon: bool = True, args: tuple = None, kwargs: Dict = None) -> Py5Promise:
+                              daemon: bool = True, args: tuple = None, kwargs: dict = None) -> Py5Promise:
         """$class_Sketch_launch_promise_thread"""
         args, kwargs = self._check_param_types(args, kwargs)
         promise = Py5Promise()
@@ -155,7 +157,7 @@ class ThreadsMixin:
 
     def launch_repeating_thread(self, f: Callable, name: str = None, *,
                                 time_delay: float = 0, daemon: bool = True,
-                                args: tuple = None, kwargs: Dict = None) -> str:
+                                args: tuple = None, kwargs: dict = None) -> str:
         """$class_Sketch_launch_repeating_thread"""
         args, kwargs = self._check_param_types(args, kwargs)
         return self._launch_py5thread(name, Py5RepeatingThread(self, f, time_delay, args, kwargs), daemon)

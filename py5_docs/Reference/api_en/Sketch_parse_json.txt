@@ -5,10 +5,10 @@ category = input
 subcategory = files
 
 @@ signatures
-parse_json(serialized_json: Any, **kwargs: Dict[str, Any]) -> Any
+parse_json(serialized_json: Any, **kwargs: dict[str, Any]) -> Any
 
 @@ variables
-kwargs: Dict[str, Any] - keyword arguments
+kwargs: dict[str, Any] - keyword arguments
 serialized_json: Any - JSON data object that has been serialized as a string
 
 @@ description

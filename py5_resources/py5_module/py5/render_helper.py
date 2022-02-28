@@ -21,7 +21,7 @@ from __future__ import annotations
 
 import sys
 import functools
-from typing import Callable, Dict
+from typing import Callable
 
 import numpy as np
 
@@ -123,7 +123,7 @@ def _osx_renderer_check(renderer):
 
 def render_frame(draw: Callable, width: int, height: int,
                  renderer: str = Sketch.HIDDEN, *,
-                 draw_args: tuple = None, draw_kwargs: Dict = None,
+                 draw_args: tuple = None, draw_kwargs: dict = None,
                  use_py5graphics=False) -> PIL.ImageFile.ImageFile:
     """$module_Py5Functions_render_frame"""
     if msg :=_check_allowed_renderer(renderer):
@@ -143,8 +143,8 @@ def render_frame(draw: Callable, width: int, height: int,
 def render_frame_sequence(draw: Callable, width: int, height: int,
                           renderer: str = Sketch.HIDDEN, *,
                           limit: int = 1, setup: Callable = None,
-                          setup_args: tuple = None, setup_kwargs: Dict = None,
-                          draw_args: tuple = None, draw_kwargs: Dict = None,
+                          setup_args: tuple = None, setup_kwargs: dict = None,
+                          draw_args: tuple = None, draw_kwargs: dict = None,
                           use_py5graphics=False) -> list[PIL.ImageFile.ImageFile]:
     """$module_Py5Functions_render_frame_sequence"""
     if msg :=_check_allowed_renderer(renderer):
@@ -181,7 +181,7 @@ def render(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
 
 def render_sequence(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
                     limit: int = 1, setup: Callable = None,
-                    setup_args: tuple = None, setup_kwargs: Dict = None,
+                    setup_args: tuple = None, setup_kwargs: dict = None,
                     use_py5graphics=False) -> list[PIL.ImageFile.ImageFile]:
     """$module_Py5Functions_render_sequence"""
     if msg :=_check_allowed_renderer(renderer):

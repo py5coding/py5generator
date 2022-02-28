@@ -5,12 +5,12 @@ category = input
 subcategory = files
 
 @@ signatures
-save_json(json_data: Any, filename: Union[str, Path], **kwargs: Dict[str, Any]) -> None
+save_json(json_data: Any, filename: Union[str, Path], **kwargs: dict[str, Any]) -> None
 
 @@ variables
 filename: Union[str, Path] - filename to save JSON data object to
 json_data: Any - json data object
-kwargs: Dict[str, Any] - keyword arguments
+kwargs: dict[str, Any] - keyword arguments
 
 @@ description
 Save JSON data to a file. If ``filename`` is not an absolute path, it will be saved relative to the current working directory (:doc:`sketch_sketch_path`).

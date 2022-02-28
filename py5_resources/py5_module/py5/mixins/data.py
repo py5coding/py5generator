@@ -17,10 +17,12 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+from __future__ import annotations
+
 import json
 import re
 from pathlib import Path
-from typing import Any, Union, Dict, overload
+from typing import Any, Union, overload
 import requests
 
 
@@ -30,7 +32,7 @@ class DataMixin:
         super().__init__(*args, **kwargs)
 
     # *** BEGIN METHODS ***
-    def load_json(self, json_path: Union[str, Path], **kwargs: Dict[str, Any]) -> Any:
+    def load_json(self, json_path: Union[str, Path], **kwargs: dict[str, Any]) -> Any:
         """$class_Sketch_load_json"""
         if isinstance(json_path, str) and re.match(r'https?://', json_path.lower()):
             response = requests.get(json_path, **kwargs)
@@ -52,7 +54,7 @@ class DataMixin:
             else:
                 raise RuntimeError('Unable to find JSON file ' + str(json_path))
 
-    def save_json(self, json_data: Any, filename: Union[str, Path], **kwargs: Dict[str, Any]) -> None:
+    def save_json(self, json_data: Any, filename: Union[str, Path], **kwargs: dict[str, Any]) -> None:
         """$class_Sketch_save_json"""
         path = Path(filename)
         if not path.is_absolute():
@@ -62,6 +64,6 @@ class DataMixin:
             json.dump(json_data, f, **kwargs)
 
     @classmethod
-    def parse_json(cls, serialized_json: Any, **kwargs: Dict[str, Any]) -> Any:
+    def parse_json(cls, serialized_json: Any, **kwargs: dict[str, Any]) -> Any:
         """$class_Sketch_parse_json"""
         return json.loads(serialized_json, **kwargs)

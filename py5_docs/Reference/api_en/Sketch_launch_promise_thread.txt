@@ -5,13 +5,13 @@ category = structure
 subcategory = threading
 
 @@ signatures
-launch_promise_thread(f: Callable, name: str = None, *, daemon: bool = True, args: tuple = None, kwargs: Dict = None) -> Py5Promise
+launch_promise_thread(f: Callable, name: str = None, *, daemon: bool = True, args: tuple = None, kwargs: dict = None) -> Py5Promise
 
 @@ variables
 args: tuple = None - positional arguments to pass to the given function
 daemon: bool = True - if the thread should be a daemon thread
 f: Callable - function to call in the launched thread
-kwargs: Dict = None - keyword arguments to pass to the given function
+kwargs: dict = None - keyword arguments to pass to the given function
 name: str = None - name of thread to be created
 
 @@ description
