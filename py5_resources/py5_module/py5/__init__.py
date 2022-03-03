@@ -40,7 +40,7 @@ from jpype.types import JArray, JString, JFloat, JInt, JChar  # noqa
 import py5_tools
 
 if not py5_tools.is_jvm_running():
-    base_path = Path(getattr(sys, '_MEIPASS', Path(__file__).absolute().parent))
+    base_path = Path(getattr(sys, '_MEIPASS')) / 'py5' if hasattr(sys, '_MEIPASS') else Path(__file__).absolute().parent
     # add py5 jars to the classpath first
     py5_tools.add_jars(str(base_path / 'jars'))
     # if the cwd has a jars subdirectory, add that next
