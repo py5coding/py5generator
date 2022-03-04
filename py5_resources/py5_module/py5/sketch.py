@@ -23,6 +23,7 @@ from __future__ import annotations
 import time
 import os
 import sys
+import warnings
 from io import BytesIO
 from pathlib import Path
 import functools
@@ -98,7 +99,11 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_methods = None
         self._environ = None
-        self._instance.setPy5IconPath(str(Path(__file__).parent.parent / 'py5_tools/kernel/resources/logo-64x64.png'))
+        iconPath = Path(__file__).parent.parent / 'py5_tools/kernel/resources/logo-64x64.png'
+        if iconPath.exists():
+            self._instance.setPy5IconPath(str(iconPath))
+        elif hasattr(sys, '_MEIPASS'):
+            warnings.warn("py5 logo image cannot be found. You are running this Sketch with pyinstaller and the image is missing from the packaging. I'm going to nag you until you fix it :)")
         _Sketch.setJOGLProperties(str(Path(__file__).parent))
 
         # attempt to instantiate Py5Utilities
