@@ -20,6 +20,7 @@
 from __future__ import annotations
 
 import os
+import sys
 import subprocess
 from pathlib import Path
 
@@ -104,6 +105,10 @@ def _evaluate_java_version(path, n=1):
 def _start_jvm() -> None:
     jpype_exception = None
     default_jvm_path = None
+
+    if hasattr(sys, '_MEIPASS'):
+        if (pyinstaller_java_home := Path(getattr(sys, '_MEIPASS')) / 'JAVA_HOME').exists():
+            os.environ['JAVA_HOME'] = str(pyinstaller_java_home)
 
     try:
         default_jvm_path = jpype.getDefaultJVMPath()
