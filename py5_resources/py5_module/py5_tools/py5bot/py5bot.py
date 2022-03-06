@@ -162,12 +162,11 @@ def check_for_problems(code, filename):
         msg += '=' * len(msg) + '\n' + '\n'.join(problems)
         return False, msg
 
-    global_cutoff = split_setup.find_leading_global_statements_cutoff(code)
-    cutoff = split_setup.find_cutoff(code, 'imported')
+    cutoff1, cutoff2 = split_setup.find_cutoffs(code, 'imported')
     lines = code.splitlines()
-    py5bot_globals = '\n'.join(lines[:global_cutoff])
-    py5bot_settings = '\n'.join(lines[global_cutoff:cutoff])
-    py5bot_setup = '\n'.join(lines[cutoff:])
+    py5bot_globals = '\n'.join(lines[:cutoff1])
+    py5bot_settings = '\n'.join(lines[cutoff1:cutoff2])
+    py5bot_setup = '\n'.join(lines[cutoff2:])
 
     # check for calls to size, etc, that were not at the beginning of the code
     problems = split_setup.check_for_special_functions(py5bot_setup, 'imported')
