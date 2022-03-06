@@ -173,7 +173,7 @@ def check_for_problems(code, filename):
     if problems:
         msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your code.\n'
         msg += 'The function ' + ('call' if len(problems) == 1 else 'calls') + ' to '
-        problems = [f'{name} (on line {i + 1})' for i, name in problems]
+        problems = [f'{name} (on line {i + cutoff2 + 1})' for i, name in problems]
         if len(problems) == 1:
             msg += problems[0]
         elif len(problems) == 2:
