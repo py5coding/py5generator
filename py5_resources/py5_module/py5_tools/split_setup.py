@@ -55,22 +55,28 @@ def find_cutoffs(code, mode):
     method_line = _get_method_line_regex(mode)
     code = _remove_comments(code)
 
+    def_statement = False
     leading_global_statements = []
     settings_statements = []
     other_statements = []
 
     for i, line in enumerate(code.split('\n')):
-        if not line.strip() or line == 'def setup():':
+        if not line.strip():
             continue
+        if line == 'def setup():':
+            def_statement = True
+            continue
+
         if GLOBAL_STATEMENT_LINE.match(line) and not settings_statements and not other_statements:
             leading_global_statements.append(i)
             continue
+
         if ((m := method_line.match(line)) and m.groups()[0] in ['size', 'full_screen', 'smooth', 'no_smooth', 'pixel_density']):
             settings_statements.append(i)
         else:
             other_statements.append(i)
 
-    cutoff1 = max(leading_global_statements) + 1 if leading_global_statements else 0
+    cutoff1 = max(leading_global_statements) + 1 if leading_global_statements else int(def_statement)
     cutoff2 = (min(other_statements) if other_statements else max(settings_statements) + 1) if settings_statements else cutoff1
 
     return cutoff1, cutoff2
