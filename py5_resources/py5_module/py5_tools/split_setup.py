@@ -70,8 +70,8 @@ def find_cutoffs(code, mode):
         else:
             other_statements.append(i)
 
-    cutoff1 = max(leading_global_statements) if leading_global_statements else 0
-    cutoff2 = min(other_statements) if other_statements else max(settings_statements) + 1 if settings_statements else cutoff1
+    cutoff1 = max(leading_global_statements) + 1 if leading_global_statements else 0
+    cutoff2 = (min(other_statements) if other_statements else max(settings_statements) + 1) if settings_statements else cutoff1
 
     return cutoff1, cutoff2
 
@@ -113,7 +113,6 @@ def transform(functions, sketch_globals, sketch_locals, println, *, mode):
         setup = functions['setup']
         code = inspect.getsource(setup).strip()
         cutoff1, cutoff2 = find_cutoffs(code, mode)
-        cutoff1 += 1
 
         # build the fake code
         lines, lineno = inspect.getsourcelines(setup)
