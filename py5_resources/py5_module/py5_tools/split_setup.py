@@ -42,7 +42,8 @@ def _get_method_line_regex(mode):
 
 def _remove_comments(code):
     # remove # comments
-    code = COMMENT_LINE.sub('', code)
+    code = ''.join(['\n' if COMMENT_LINE.match(l) else l for l in code.splitlines(keepends=True)])
+
     # remove docstrings
     for docstring in DOCSTRING.findall(code):
         code = code.replace(docstring, (len(docstring.split('\n')) - 1) * '\n')
