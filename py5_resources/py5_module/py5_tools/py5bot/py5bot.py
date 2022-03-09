@@ -224,12 +224,12 @@ class Py5BotMagics(Magics):
         """$class_Py5Magics_py5bot"""
         args = parse_argstring(self.py5bot, line)
 
-        success, result = check_for_problems('\n' + cell, "<py5bot>")
+        success, result = check_for_problems(cell, "<py5bot>")
         if success:
             py5bot_globals, py5bot_settings, py5bot_setup = result
             if split_setup.count_noncomment_lines(py5bot_settings) == 0:
                 py5bot_settings = 'size(100, 100, HIDDEN)'
-            self._py5bot_mgr.write_code(py5bot_globals, py5bot_settings, py5bot_setup)
+            self._py5bot_mgr.write_code('\n' + py5bot_globals, py5bot_settings, py5bot_setup)
 
             ns = self.shell.user_ns
             exec(self._py5bot_mgr.startup_code + self._py5bot_mgr.run_code, ns)
