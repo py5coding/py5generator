@@ -53,7 +53,7 @@ class Py5BotShell(ZMQInteractiveShell):
             py5bot_globals, py5bot_settings, py5bot_setup = result
             if split_setup.count_noncomment_lines(py5bot_settings) == 0:
                 py5bot_settings = 'size(100, 100, HIDDEN)'
-            self._py5bot_mgr.write_code(py5bot_globals, py5bot_settings, py5bot_setup, len(raw_cell.splitlines()))
+            self._py5bot_mgr.write_code(py5bot_globals, py5bot_settings, py5bot_setup)
 
             return super(Py5BotShell, self).run_cell(
                 self._py5bot_mgr.run_code, store_history=store_history, silent=silent, shell_futures=shell_futures)

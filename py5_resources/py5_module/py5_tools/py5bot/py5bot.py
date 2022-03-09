@@ -163,10 +163,10 @@ def check_for_problems(code, filename):
         return False, msg
 
     cutoff1, cutoff2 = split_setup.find_cutoffs(code, 'imported')
-    lines = code.splitlines()
-    py5bot_globals = '\n'.join(lines[:cutoff1])
-    py5bot_settings = '\n'.join(lines[cutoff1:cutoff2])
-    py5bot_setup = '\n'.join(lines[cutoff2:])
+    lines = code.splitlines(keepends=True)
+    py5bot_globals = ''.join(lines[:cutoff1])
+    py5bot_settings = ''.join(lines[cutoff1:cutoff2])
+    py5bot_setup = ''.join(lines[cutoff2:])
 
     # check for calls to size, etc, that were not at the beginning of the code
     problems = split_setup.check_for_special_functions(py5bot_setup, 'imported')
@@ -196,17 +196,14 @@ class Py5BotManager:
         self.startup_code = PY5BOT_CODE_STARTUP
         self.run_code = PY5BOT_CODE.format(self.settings_filename.as_posix(), self.setup_filename.as_posix())
 
-    def write_code(self, global_code, settings_code, setup_code, orig_line_count):
+    def write_code(self, global_code, settings_code, setup_code):
         with open(self.settings_filename, 'w') as f:
-            f.write('\n' * len(global_code.splitlines()))
+            f.write('\n' * sum(c == '\n' for c in global_code))
             f.write(settings_code)
 
         with open(self.setup_filename, 'w') as f:
             f.write(global_code)
-            blank_line_count = orig_line_count - len(setup_code.splitlines()) - len(global_code.splitlines())
-            if global_code and global_code[-1] != '\n':
-                blank_line_count += 1
-            f.write('\n' * blank_line_count)
+            f.write('\n' * sum(c == '\n' for c in settings_code))
             f.write(setup_code)
 
 
@@ -227,12 +224,12 @@ class Py5BotMagics(Magics):
         """$class_Py5Magics_py5bot"""
         args = parse_argstring(self.py5bot, line)
 
-        success, result = check_for_problems(cell, "<py5bot>")
+        success, result = check_for_problems('\n' + cell, "<py5bot>")
         if success:
             py5bot_globals, py5bot_settings, py5bot_setup = result
             if split_setup.count_noncomment_lines(py5bot_settings) == 0:
                 py5bot_settings = 'size(100, 100, HIDDEN)'
-            self._py5bot_mgr.write_code(py5bot_globals, py5bot_settings, py5bot_setup, len(cell.splitlines()))
+            self._py5bot_mgr.write_code(py5bot_globals, py5bot_settings, py5bot_setup)
 
             ns = self.shell.user_ns
             exec(self._py5bot_mgr.startup_code + self._py5bot_mgr.run_code, ns)
