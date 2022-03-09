@@ -90,8 +90,8 @@ def check_for_special_functions(code, mode):
 
 
 def count_noncomment_lines(code):
-    stripped_code = COMMENT_LINE.sub('', code).strip()
-    return len(stripped_code.split('\n')) if stripped_code else 0
+    stripped_code = _remove_comments(code).strip()
+    return len(stripped_code.splitlines()) if stripped_code else 0
 
 
 def transform(functions, sketch_globals, sketch_locals, println, *, mode):
