@@ -23,6 +23,7 @@ from __future__ import annotations
 import time
 import os
 import sys
+import platform
 import warnings
 from io import BytesIO
 from pathlib import Path
@@ -155,7 +156,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         except Exception as e:
             self.println('Java exception thrown by Sketch.runSketch:\n' + str(e), stderr=True)
 
-        if sys.platform == 'darwin' and self._environ.in_ipython_session and block:
+        if platform.system() == 'Darwin' and self._environ.in_ipython_session and block:
             if (renderer := self._instance.getRendererName()) in ['JAVA2D', 'P2D', 'P3D', 'FX2D']:
                 self.println("On OSX, blocking is not allowed in Jupyter when using the", renderer, "renderer.", stderr=True)
                 block = False
