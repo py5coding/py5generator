@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import os
 import sys
+import platform
 import subprocess
 from pathlib import Path
 
@@ -88,7 +89,7 @@ def _evaluate_java_version(path, n=1):
     path = Path(path)
     for _ in range(n):
         try:
-            if (java_path := path / 'bin/java').exists():
+            if (java_path := path / 'bin' / ('java.exe' if platform.system() == 'Windows' else 'java')).exists():
                 stderr = subprocess.run(
                     [str(java_path), "-XshowSettings:properties"], stderr=subprocess.PIPE
                 ).stderr.decode("utf-8").splitlines()
@@ -117,9 +118,9 @@ def _start_jvm() -> None:
 
     if 'JAVA_HOME' not in os.environ and (default_jvm_path is None or _evaluate_java_version(default_jvm_path, n=4) < _PY5_REQUIRED_JAVA_VERSION):
         possible_jdks = []
-        if (dot_jdk := Path(os.environ['HOME'], '.jdk')).exists():
+        if (dot_jdk := Path(Path.home(), '.jdk')).exists():
             possible_jdks.extend(dot_jdk.glob('*'))
-        if (dot_jre := Path(os.environ['HOME'], '.jre')).exists():
+        if (dot_jre := Path(Path.home(), '.jre')).exists():
             possible_jdks.extend(dot_jre.glob('*'))
 
         for d in possible_jdks:
