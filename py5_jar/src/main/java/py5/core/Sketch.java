@@ -19,6 +19,7 @@
 ******************************************************************************/
 package py5.core;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -68,12 +69,12 @@ public class Sketch extends PApplet {
     }
 
     String variant = PConstants.platformNames[PApplet.platform] + "-" + System.getProperty("os.arch");
-    String joglPath = py5Path + "/natives/" + variant;
+    String joglPath = py5Path + File.separator + "natives" + File.separator + variant;
     String javaLibraryPath = System.getProperty("java.library.path");
     if (javaLibraryPath == null) {
       System.setProperty("java.library.path", joglPath);
     } else if (!javaLibraryPath.contains(joglPath)) {
-      System.setProperty("java.library.path", javaLibraryPath + ":" + joglPath);
+      System.setProperty("java.library.path", javaLibraryPath + File.pathSeparator + joglPath);
     }
   }
 
