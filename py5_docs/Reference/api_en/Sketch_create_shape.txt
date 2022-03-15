@@ -65,8 +65,8 @@ def draw():
 image = Sketch_create_shape_2.png
 
 def setup():
-    py5.size(100, 100, py5.P2D)
     global s
+    py5.size(100, 100, py5.P2D)
     s = py5.create_shape()
     s.begin_shape(py5.TRIANGLE_STRIP)
     s.vertex(30, 75)
