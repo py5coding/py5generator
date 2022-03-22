@@ -34,8 +34,8 @@ def draw():
 
 @@ example
 def setup():
-    py5.size(100, 100, py5.P3D)
     global s
+    py5.size(100, 100, py5.P3D)
     # the file "teapot.obj" must be in the data folder
     # of the current sketch to load successfully
     s = py5.load_shape("teapot.obj")

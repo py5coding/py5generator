@@ -29,8 +29,8 @@ The new thread is a Python thread, so all the usual caveats about the Global Int
 
 @@ example
 def setup():
-    py5.size(250, 100)
     global promise
+    py5.size(250, 100)
     promise = py5.launch_promise_thread(load_data)
 
 

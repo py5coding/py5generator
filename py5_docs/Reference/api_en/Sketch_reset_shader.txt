@@ -18,9 +18,9 @@ Restores the default shaders. Code that runs after ``reset_shader()`` will not b
 
 @@ example
 def setup():
-    py5.size(640, 360, py5.P2D)
     global edges
     global img
+    py5.size(640, 360, py5.P2D)
     img = py5.load_image("leaves.jpg")
     edges = py5.load_shader("edges.glsl")
 

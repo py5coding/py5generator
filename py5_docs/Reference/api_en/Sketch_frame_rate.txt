@@ -24,8 +24,8 @@ def setup():
 
 
 def draw():
-    py5.background(204)
     global pos
+    py5.background(204)
     pos += 1
     py5.line(pos, 20, pos, 80)
     if pos > py5.width:

@@ -20,11 +20,11 @@ Get the current matrix as a numpy array. Use the ``target`` parameter to put the
 image = Sketch_get_matrix_0.png
 
 def setup():
+    global matrix
     py5.size(100, 100, py5.P3D)
     py5.no_fill()
     py5.translate(50, 50, 0)
     py5.rotate_y(py5.PI/6)
-    global matrix
     matrix = py5.get_matrix()
     py5.println(matrix)
     py5.println(matrix.dtype)

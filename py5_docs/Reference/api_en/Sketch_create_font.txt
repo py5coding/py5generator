@@ -26,8 +26,8 @@ This function allows py5 to work with the font natively in the default renderer,
 
 @@ example
 def setup():
-    py5.size(200, 200)
     global my_font
+    py5.size(200, 200)
     # uncomment the following two lines to see the available fonts
     # string[] font_list = py5.Py5Font.list()
     # print_array(font_list)

@@ -30,8 +30,8 @@ Unlike the main drawing surface which is completely opaque, surfaces created wit
 
 @@ example
 def setup():
-    py5.size(200, 200)
     global pg
+    py5.size(200, 200)
     pg = py5.create_graphics(100, 100)
 
 

@@ -14,8 +14,8 @@ Clears the pixels within a buffer. Unlike the main graphics context (the display
 
 @@ example
 def setup():
-    py5.size(200, 200)
     global pg
+    py5.size(200, 200)
     pg = py5.create_graphics(py5.width, py5.height)
 
 

@@ -29,8 +29,8 @@ x = 0
 
 
 def setup():
-    py5.full_screen(py5.P2D)
     global pg
+    py5.full_screen(py5.P2D)
     pg = py5.create_graphics(py5.width, py5.height, py5.P2D)
     pg.smooth(4)
 

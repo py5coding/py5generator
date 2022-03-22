@@ -21,8 +21,8 @@ The ``set_stroke()`` method defines the outline color of a ``Py5Shape``. This me
 
 @@ example
 def setup():
-    py5.size(640, 360, py5.P2D)
     global c
+    py5.size(640, 360, py5.P2D)
     c = py5.create_shape(py5.RECT, -20, -20, 40, 40)
     c.set_stroke("#FFFFFF")
 
