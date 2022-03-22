@@ -16,4 +16,4 @@ This works outside of a running Sketch.
 
 @@ example
 font_list = py5.Py5Font.list()
-py5.println(font_list)
+print(font_list)
