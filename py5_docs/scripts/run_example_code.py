@@ -54,7 +54,7 @@ os.chdir(DEST_DIR)
 try:
     for i, docfile in list(enumerate(sorted(PY5_API_EN.glob('*.txt'))))[:]:
         doc = Documentation(docfile)
-        if doc.meta['type'] in ['function', 'line magic']:
+        if doc.meta['type'] in ['function', 'line magic', 'pseudoclass']:
             # skip these for now, but I should probably include them later
             continue
 
@@ -76,7 +76,7 @@ try:
                     _, code = code.split('\n', maxsplit=1)
                     if image:
                         code += f"\n\nsave('{DEST_DIR / image}')\n"
-                    py5_tools.imported._run_static_code(code, '', None, True, True)
+                    py5_tools.imported._run_static_code(code, '', None, True, True, py5_options=None, sketch_args=None)
                 else:
                     magic_line, magic_cell = code.split('\n', maxsplit=1)
                     magic, line = magic_line.split(' ', maxsplit=1)
