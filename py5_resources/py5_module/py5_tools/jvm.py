@@ -119,9 +119,9 @@ def _start_jvm() -> None:
     if 'JAVA_HOME' not in os.environ and (default_jvm_path is None or _evaluate_java_version(default_jvm_path, n=4) < _PY5_REQUIRED_JAVA_VERSION):
         possible_jdks = []
         if (dot_jdk := Path(Path.home(), '.jdk')).exists():
-            possible_jdks.extend(dot_jdk.glob('*'))
+            possible_jdks.extend(dot_jdk.glob('*/Contents/Home/' if platform.system() == 'Darwin' else '*'))
         if (dot_jre := Path(Path.home(), '.jre')).exists():
-            possible_jdks.extend(dot_jre.glob('*'))
+            possible_jdks.extend(dot_jre.glob('*/Contents/Home/' if platform.system() == 'Darwin' else '*'))
 
         for d in possible_jdks:
             if _evaluate_java_version(d) >= _PY5_REQUIRED_JAVA_VERSION:
