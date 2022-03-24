@@ -76,7 +76,7 @@ except ModuleNotFoundError:
     pass
 
 
-__version__ = '0.7.1.dev1'
+__version__ = '0.7.1a6'
 
 _PY5_USE_IMPORTED_MODE = py5_tools.get_imported_mode()
 

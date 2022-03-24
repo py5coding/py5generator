@@ -23,7 +23,7 @@ from setuptools import setup
 with open('README.rst') as f:
     README = f.read()
 
-VERSION = '0.7.1.dev1'
+VERSION = '0.7.1a6'
 
 INSTALL_REQUIRES = [
     'autopep8>=1.5',
@@ -64,6 +64,7 @@ setup(
     long_description_content_type='text/x-rst',
     author='Jim Schmitz',
     author_email='jim@ixora.io',
+    url='https://github.com/hx2A/py5generator',
     entry_points={
         'console_scripts': [
             'run_sketch = py5_tools.tools.run_sketch:main',
