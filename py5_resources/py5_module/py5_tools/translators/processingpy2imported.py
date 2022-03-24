@@ -35,6 +35,7 @@ PY5_CLASS_LOOKUP = {
     'PShader': 'Py5Shader',
     'PShape': 'Py5Shape',
     'PSurface': 'Py5Surface',
+    'PVector': 'Py5Vector',
 }
 
 SNAKE_CASE_OVERRIDE = {
