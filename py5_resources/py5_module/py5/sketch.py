@@ -62,8 +62,8 @@ _Sketch = jpype.JClass('py5.core.Sketch')
 try:
     # be aware that __IPYTHON__ and get_ipython() are inserted into the user namespace late in the kernel startup process
     __IPYTHON__  # type: ignore
-    if sys.platform == 'darwin' and get_ipython().active_eventloop != 'osx':  # type: ignore
-        print("Importing py5 on OSX but the necessary Jupyter OSX event loop not been activated. I'll activate it for you, but next time, execute `%gui osx` before importing this library.")
+    if sys.platform == 'darwin' and (_ipython_shell := get_ipython()).active_eventloop != 'osx':  # type: ignore
+        print("Importing py5 on OSX but the necessary Jupyter OSX event loop has not been activated. I'll activate it for you, but next time, execute `%gui osx` before importing this library.")
         _ipython_shell.run_line_magic('gui', 'osx')
 except Exception:
     pass
