@@ -73,7 +73,7 @@ def generate_py5(app_dir, build_dir, skip_autopep8=False):
             logger.critical(msg)
             raise RuntimeError(msg)
 
-    core_jar_path = find_jar('core')
+    core_jar_path = find_jar('library/core')
     svg_jar_path = find_jar('svg')
     dxf_jar_path = find_jar('dxf')
     pdf_jar_path = find_jar('pdf')

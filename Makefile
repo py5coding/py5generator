@@ -18,7 +18,7 @@ all: install_py5
 
 py5_jar: $(py5_jar_file)
 $(py5_jar_file): $(py5_java_src)
-	ant -f py5_jar/build.xml -Dprocessing_dir=$(realpath $(processing_dir))
+	ant -f py5_jar/build.xml -Dprocessing_dir=$(shell realpath $(processing_dir))
 
 generate_py5: $(py5_build_dir)
 $(py5_build_dir): $(py5_jar_file) $(py5_py_src) $(py5_generator) $(generator_src) $(py5_txt_docs)
