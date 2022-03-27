@@ -160,6 +160,10 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                     if not self._environ.in_ipython_session:
                         while not self.is_dead:
                             time.sleep(0.05)
+                        if self.is_dead_from_error:
+                            surface = self.get_surface()
+                            while not surface.is_stopped():
+                                time.sleep(0.05)
                         AppHelper.stopEventLoop()
 
                 if block == False and not self._environ.in_ipython_session:
