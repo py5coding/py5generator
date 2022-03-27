@@ -152,7 +152,22 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         args = py5_options + [''] + sketch_args
 
         try:
-            _Sketch.runSketch(args, self._instance)
+            if platform.system() == 'Darwin':
+                from PyObjCTools import AppHelper
+
+                def run():
+                    _Sketch.runSketch(args, self._instance)
+                    if not self._environ.in_ipython_session:
+                        while not self.is_dead:
+                            time.sleep(0.05)
+                        AppHelper.stopEventLoop()
+
+                proxy = jpype.JProxy('java.lang.Runnable', dict(run=run))
+                jpype.JClass('java.lang.Thread')(proxy).start()
+                if not self._environ.in_ipython_session:
+                    AppHelper.runConsoleEventLoop()
+            else:
+                _Sketch.runSketch(args, self._instance)
         except Exception as e:
             self.println('Java exception thrown by Sketch.runSketch:\n' + str(e), stderr=True)
 
