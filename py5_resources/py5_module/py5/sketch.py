@@ -162,6 +162,9 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                             time.sleep(0.05)
                         AppHelper.stopEventLoop()
 
+                if block == False and not self._environ.in_ipython_session:
+                    self.println("On OSX, blocking is manditory when Sketch is not run through Jupyter. This applies to all renderers.", stderr=True)
+
                 proxy = jpype.JProxy('java.lang.Runnable', dict(run=run))
                 jpype.JClass('java.lang.Thread')(proxy).start()
                 if not self._environ.in_ipython_session:
@@ -173,7 +176,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
         if platform.system() == 'Darwin' and self._environ.in_ipython_session and block:
             if (renderer := self._instance.getRendererName()) in ['JAVA2D', 'P2D', 'P3D', 'FX2D']:
-                self.println("On OSX, blocking is not allowed in Jupyter when using the", renderer, "renderer.", stderr=True)
+                self.println("On OSX, blocking is not allowed when Sketch using the", renderer, "renderer is run though Jupyter.", stderr=True)
                 block = False
 
         if block or (block is None and not self._environ.in_ipython_session):
