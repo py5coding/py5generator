@@ -94,7 +94,8 @@ _py5sketch = Sketch()
 def run_sketch(block: bool = None, *,
                py5_options: list[str] = None,
                sketch_args: list[str] = None,
-               sketch_functions: dict[str, Callable] = None) -> None:
+               sketch_functions: dict[str, Callable] = None,
+               _osx_alt_run_method: bool = True) -> None:
     """$module_Sketch_run_sketch"""
     caller_globals = inspect.stack()[1].frame.f_globals
     caller_locals = inspect.stack()[1].frame.f_locals
@@ -120,7 +121,7 @@ def run_sketch(block: bool = None, *,
 
     _prepare_dynamic_variables(caller_locals, caller_globals)
 
-    _py5sketch._run_sketch(functions, block, py5_options, sketch_args)
+    _py5sketch._run_sketch(functions, block, py5_options, sketch_args, _osx_alt_run_method)
 
 
 def get_current_sketch() -> Sketch:

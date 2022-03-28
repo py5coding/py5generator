@@ -116,7 +116,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
 
     def run_sketch(self, block: bool = None, *,
-                   py5_options: list = None, sketch_args: list = None) -> None:
+                   py5_options: list = None, sketch_args: list = None,
+                   _osx_alt_run_method: bool = True) -> None:
         """$class_Sketch_run_sketch"""
         if not hasattr(self, '_instance'):
             raise RuntimeError(
@@ -125,13 +126,14 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             )
 
         methods = dict([(e, getattr(self, e)) for e in reference.METHODS if hasattr(self, e) and callable(getattr(self, e))])
-        self._run_sketch(methods, block, py5_options, sketch_args)
+        self._run_sketch(methods, block, py5_options, sketch_args, _osx_alt_run_method)
 
     def _run_sketch(self,
                     methods: dict[str, Callable],
                     block: bool,
                     py5_options: list[str] = None,
-                    sketch_args: list[str] = None) -> None:
+                    sketch_args: list[str] = None,
+                    _osx_alt_run_method: bool = True) -> None:
         self._environ = _environ.Environment()
         self.set_println_stream(_DisplayPubPrintlnStream() if self._environ.in_jupyter_zmq_shell else _DefaultPrintlnStream())
         self._init_println_stream()
@@ -152,7 +154,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         args = py5_options + [''] + sketch_args
 
         try:
-            if platform.system() == 'Darwin':
+            if _osx_alt_run_method and platform.system() == 'Darwin':
                 from PyObjCTools import AppHelper
 
                 def run():
