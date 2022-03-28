@@ -69,6 +69,9 @@ public class Sketch extends PApplet {
     }
 
     String variant = PConstants.platformNames[PApplet.platform] + "-" + System.getProperty("os.arch");
+    if (variant.equals("macos-aarch64") && !System.getProperty("processing.natives.TestAppleSilicon", "false").equals("true")) {
+      variant = "macos-x86_64";
+    }
     String joglPath = py5Path + File.separator + "natives" + File.separator + variant;
     String javaLibraryPath = System.getProperty("java.library.path");
     if (javaLibraryPath == null) {
