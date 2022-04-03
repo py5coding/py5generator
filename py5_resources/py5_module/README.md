@@ -1,10 +1,10 @@
 # py5
 
-![py5 logo](py5_docs/images/logo.png)
-
 [![py5 downloads](https://pepy.tech/badge/py5/month)](https://pepy.tech/project/py5)
 
 [![Downloads](https://pepy.tech/badge/py5/week)](https://pepy.tech/project/py5)
+
+[![mybinder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hx2A/py5examples/HEAD?urlpath=lab)
 
 py5 is a new version of [**Processing**][processing] for Python 3.8+. It makes the Java [**Processing**][processing] jars available to the CPython interpreter using [**JPype**][jpype]. It can do just about everything [**Processing**][processing] can do, except with Python instead of Java code.
 
@@ -30,10 +30,6 @@ def draw():
 py5.run_sketch()
 ```
 
-That creates a Sketch that looks like this:
-
-![py5 example sketch](py5_docs/images/example.gif)
-
 ## Installation
 
 If you have Java 17 installed on your computer, you can install py5 using pip:
@@ -55,7 +51,7 @@ There are currently four basic ways to use py5. They are:
 
 The documentation website, [https://py5.ixora.io/](https://py5.ixora.io/), is a work in progress. The reference documentation is solid but the how-to's and tutorials are a work in progress.
 
-py5generator is a meta-programming project that creates the py5 library. To view the actual installed py5 library code, look at the [py5 repository][py5_repo]. All py5 library development is done through py5generator.
+[py5generator][py5_generator_repo] is a meta-programming project that creates the py5 library. To view the actual installed py5 library code, look at the [py5 repository][py5_repo]. All py5 library development is done through py5generator.
 
 ## Get In Touch
 
@@ -66,5 +62,6 @@ Have a comment or question? We'd love to hear from you! The best ways to reach o
 * [processing foundation discourse](https://discourse.processing.org/)
 
 [py5_repo]: https://github.com/hx2A/py5
+[py5_generator_repo]: https://github.com/hx2A/py5generator
 [processing]: https://github.com/processing/processing4
 [jpype]: https://github.com/jpype-project/jpype
