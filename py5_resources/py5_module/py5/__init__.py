@@ -47,7 +47,7 @@ if not py5_tools.is_jvm_running():
     # if the cwd has a jars subdirectory, add that next
     py5_tools.add_jars(Path('jars'))
     # if the PY5_CLASSPATH environment variable exists, add those jars
-    if (py5_classpath := os.environ.get('PY5_CLASSPATH')):
+    if (py5_classpath := os.environ.get('PY5_JARS')):
         py5_tools.add_jars(Path(py5_classpath))
 
     try:
