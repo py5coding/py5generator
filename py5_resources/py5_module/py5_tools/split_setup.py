@@ -51,7 +51,7 @@ def _remove_comments(code):
     return code
 
 
-def find_cutoffs(code, mode):
+def find_cutoffs(code, mode, static_mode=False):
     method_line = _get_method_line_regex(mode)
     code = _remove_comments(code)
 
@@ -63,7 +63,7 @@ def find_cutoffs(code, mode):
     for i, line in enumerate(code.split('\n')):
         if not line.strip():
             continue
-        if line == 'def setup():':
+        if not static_mode and line == 'def setup():':
             def_statement = True
             continue
 

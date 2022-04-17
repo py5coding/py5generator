@@ -138,6 +138,12 @@ _PY5BOT_OUTPUT_
 
 
 def check_for_problems(code, filename):
+    # if the code contains a setup() or a draw() function, the user could be confused about static mode
+    if (ms := re.findall(r"^def (setup|draw)\([^\)]*\):", code, flags=re.MULTILINE)):
+        msg = 'Your code contains ' + (f'a {ms[0]}() function.' if len(ms) == 1 else 'setup() and draw() functions.')
+        msg += ' When using py5bot, your code is written in static mode, without defining a setup() function or a draw() function.'
+        return False, msg
+
     # does the code parse? if not, return an error message
     try:
         sketch_ast = ast.parse(code, filename=filename, mode='exec')
@@ -162,7 +168,7 @@ def check_for_problems(code, filename):
         msg += '=' * len(msg) + '\n' + '\n'.join(problems)
         return False, msg
 
-    cutoff1, cutoff2 = split_setup.find_cutoffs(code, 'imported')
+    cutoff1, cutoff2 = split_setup.find_cutoffs(code, 'imported', static_mode=True)
     lines = code.splitlines(keepends=True)
     py5bot_globals = ''.join(lines[:cutoff1])
     py5bot_settings = ''.join(lines[cutoff1:cutoff2])
