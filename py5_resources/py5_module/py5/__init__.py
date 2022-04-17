@@ -24,6 +24,7 @@ py5 is a version of Processing for Python 3.8+. It makes the Processing Java lib
 """
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
 from io import BytesIO
@@ -45,6 +46,10 @@ if not py5_tools.is_jvm_running():
     py5_tools.add_jars(str(base_path / 'jars'))
     # if the cwd has a jars subdirectory, add that next
     py5_tools.add_jars(Path('jars'))
+    # if the PY5_CLASSPATH environment variable exists, add those jars
+    if (py5_classpath := os.environ.get('PY5_CLASSPATH')):
+        py5_tools.add_jars(Path(py5_classpath))
+
     try:
         py5_tools.jvm._start_jvm()
         started_jvm = True
