@@ -33,6 +33,7 @@ import PIL.ImageFile
 
 from .hooks import ScreenshotHook, SaveFramesHook, GrabFramesHook, QueuedBatchProcessingHook
 from .. import environ as _environ
+from .. import imported as _imported
 
 
 Sketch = 'Sketch'
@@ -43,12 +44,15 @@ def screenshot(*, sketch: Sketch = None, hook_post_draw: bool = False) -> PIL.Im
     if sketch is None:
         import py5
         sketch = py5.get_current_sketch()
-        prefix = ' current'
+        using_current_sketch = True
     else:
-        prefix = ''
+        using_current_sketch = False
 
-    if not sketch.is_running:
-        raise RuntimeError(f'The {prefix} sketch is not running.')
+    if sketch.is_dead:
+        msg =  f'The {"current " if using_current_sketch else ""}Sketch is dead. The screenshot() function cannot be used on a Sketch in the dead state.'
+        if using_current_sketch:
+            msg += f' Call {"" if _imported.get_imported_mode() else "py5."}reset_py5() to reset py5 to the ready state.'
+        raise RuntimeError(msg)
 
     with tempfile.TemporaryDirectory() as tempdir:
         temp_png = Path(tempdir) / 'output.png'
@@ -72,12 +76,16 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
     if sketch is None:
         import py5
         sketch = py5.get_current_sketch()
-        prefix = ' current'
+        using_current_sketch = True
     else:
-        prefix = ''
+        using_current_sketch = False
 
-    if not sketch.is_running:
-        raise RuntimeError(f'The {prefix} sketch is not running.')
+    if sketch.is_dead:
+        msg =  f'The {"current " if using_current_sketch else ""}Sketch is dead. The save_frames() function cannot be used on a Sketch in the dead state.'
+        if using_current_sketch:
+            msg += f' Call {"" if _imported.get_imported_mode() else "py5."}reset_py5() to reset py5 to the ready state.'
+        raise RuntimeError(msg)
+
     if block and sys.platform == 'darwin' and _environ.Environment().in_ipython_session:
         raise RuntimeError('Blocking is not allowed on OSX when run from IPython')
 
@@ -103,12 +111,15 @@ def offline_frame_processing(func: Callable[[npt.NDArray[np.uint8]], None], *,
     if sketch is None:
         import py5
         sketch = py5.get_current_sketch()
-        prefix = ' current'
+        using_current_sketch = True
     else:
-        prefix = ''
+        using_current_sketch = False
 
-    if not sketch.is_running:
-        raise RuntimeError(f'The {prefix} sketch is not running.')
+    if sketch.is_dead:
+        msg =  f'The {"current " if using_current_sketch else ""}Sketch is dead. The offline_frame_processing() function cannot be used on a Sketch in the dead state.'
+        if using_current_sketch:
+            msg += f' Call {"" if _imported.get_imported_mode() else "py5."}reset_py5() to reset py5 to the ready state.'
+        raise RuntimeError(msg)
 
     hook = QueuedBatchProcessingHook(period, limit, batch_size, func,
                                      complete_func=complete_func,
@@ -128,12 +139,16 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
     if sketch is None:
         import py5
         sketch = py5.get_current_sketch()
-        prefix = ' current'
+        using_current_sketch = True
     else:
-        prefix = ''
+        using_current_sketch = False
 
-    if not sketch.is_running:
-        raise RuntimeError(f'The {prefix} sketch is not running.')
+    if sketch.is_dead:
+        msg =  f'The {"current " if using_current_sketch else ""}Sketch is dead. The animated_gif() function cannot be used on a Sketch in the dead state.'
+        if using_current_sketch:
+            msg += f' Call {"" if _imported.get_imported_mode() else "py5."}reset_py5() to reset py5 to the ready state.'
+        raise RuntimeError(msg)
+
     if block and sys.platform == 'darwin' and _environ.Environment().in_ipython_session:
         raise RuntimeError('Blocking is not allowed on OSX when run from IPython')
 
@@ -164,12 +179,16 @@ def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None,
     if sketch is None:
         import py5
         sketch = py5.get_current_sketch()
-        prefix = ' current'
+        using_current_sketch = True
     else:
-        prefix = ''
+        using_current_sketch = False
 
-    if not sketch.is_running:
-        raise RuntimeError(f'The {prefix} sketch is not running.')
+    if sketch.is_dead:
+        msg =  f'The {"current " if using_current_sketch else ""}Sketch is dead. The capture_frames() function cannot be used on a Sketch in the dead state.'
+        if using_current_sketch:
+            msg += f' Call {"" if _imported.get_imported_mode() else "py5."}reset_py5() to reset py5 to the ready state.'
+        raise RuntimeError(msg)
+
     if block and sys.platform == 'darwin' and _environ.Environment().in_ipython_session:
         raise RuntimeError('Blocking is not allowed on OSX when run from IPython')
 
