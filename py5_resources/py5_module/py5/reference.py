@@ -22,15 +22,28 @@
 
 method_signatures_lookup_str = None  # DELETE
 
-
-METHODS = [
-    'settings', 'setup', 'draw', 'pre_draw', 'post_draw',
-    'key_pressed', 'key_typed', 'key_released',
-    'mouse_clicked', 'mouse_dragged', 'mouse_moved', 'mouse_entered',
-    'mouse_exited', 'mouse_pressed', 'mouse_released', 'mouse_wheel',
-    'window_moved', 'window_resized',
-    'exiting', 'movie_event'
-]
+METHODS = dict(
+    settings=[0],
+    setup=[0],
+    draw=[0],
+    pre_draw=[0],
+    post_draw=[0],
+    key_pressed=[0, 1],
+    key_typed=[0, 1],
+    key_released=[0, 1],
+    mouse_clicked=[0, 1],
+    mouse_dragged=[0, 1],
+    mouse_moved=[0, 1],
+    mouse_entered=[0, 1],
+    mouse_exited=[0, 1],
+    mouse_pressed=[0, 1],
+    mouse_released=[0, 1],
+    mouse_wheel=[1],
+    window_moved=[0],
+    window_resized=[0],
+    exiting=[0],
+    movie_event=[1],
+)
 
 FILE_CLASS_LOOKUP = dict([
     (('font.py',), 'Py5Font'),

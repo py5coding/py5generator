@@ -104,10 +104,7 @@ def run_sketch(block: bool = None, *,
     """$module_Sketch_run_sketch"""
     caller_globals = inspect.stack()[1].frame.f_globals
     caller_locals = inspect.stack()[1].frame.f_locals
-    if sketch_functions:
-        functions = dict([(e, sketch_functions[e]) for e in reference.METHODS if e in sketch_functions and callable(sketch_functions[e])])
-    else:
-        functions = dict([(e, caller_locals[e]) for e in reference.METHODS if e in caller_locals and callable(caller_locals[e])])
+    functions = methods._extract_py5_user_functions(sketch_functions if sketch_functions else caller_locals)
     functions = _split_setup.transform(functions, caller_globals, caller_locals, println, mode = 'imported' if _PY5_USE_IMPORTED_MODE else 'module')
 
     if not set(functions.keys()) & set(['settings', 'setup', 'draw']):

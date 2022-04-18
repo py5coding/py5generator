@@ -29,6 +29,7 @@ from jpype import JImplements, JOverride, JString
 import stackprinter
 
 import py5_tools
+from . import reference
 from . import custom_exceptions
 
 # *** stacktrace configuration ***
@@ -113,6 +114,16 @@ def handle_exception(println, exc_type, exc_value, exc_tb):
     println(errmsg, stderr=True)
 
     sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
+
+
+def _extract_py5_user_functions(d: dict, classmode=False):
+    out = dict()
+    for name, param_count in reference.METHODS.items():
+        if name not in d or not callable(d[name]):
+            continue
+        out[name] = d[name]
+
+    return out
 
 
 @JImplements('py5.core.Py5Methods')

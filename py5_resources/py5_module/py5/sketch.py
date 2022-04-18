@@ -38,7 +38,7 @@ import numpy.typing as npt
 
 import py5_tools.environ as _environ
 from py5_tools.printstreams import _DefaultPrintlnStream, _DisplayPubPrintlnStream
-from .methods import Py5Methods
+from .methods import Py5Methods, _extract_py5_user_functions
 from .base import Py5Base
 from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream
 from .mixins.threads import Py5Promise  # noqa
@@ -125,7 +125,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                  'method without a call to `super().__init__()`?')
             )
 
-        methods = dict([(e, getattr(self, e)) for e in reference.METHODS if hasattr(self, e) and callable(getattr(self, e))])
+        methods = _extract_py5_user_functions(dict([(e, getattr(self, e)) for e in reference.METHODS.keys() if hasattr(self, e)]), classmode=True)
         self._run_sketch(methods, block, py5_options, sketch_args, _osx_alt_run_method)
 
     def _run_sketch(self,
