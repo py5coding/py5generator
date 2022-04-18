@@ -22,6 +22,7 @@ import re
 from pathlib import Path
 from collections import defaultdict
 from typing import Union
+import inspect
 import line_profiler
 
 from jpype import JImplements, JOverride, JString
@@ -116,11 +117,17 @@ def handle_exception(println, exc_type, exc_value, exc_tb):
     sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
 
 
-def _extract_py5_user_functions(d: dict, classmode=False):
+def _extract_py5_user_functions(d: dict):
     out = dict()
-    for name, param_count in reference.METHODS.items():
+    for name, allowed_parg_count in reference.METHODS.items():
         if name not in d or not callable(d[name]):
             continue
+
+        sig = inspect.signature(d[name])
+        pargs_count = len([p for p in sig.parameters.values() if p.kind in [inspect.Parameter.POSITIONAL_ONLY, inspect.Parameter.POSITIONAL_OR_KEYWORD]])
+        if pargs_count != len(sig.parameters) or pargs_count not in allowed_parg_count:
+            continue
+
         out[name] = d[name]
 
     return out
