@@ -38,7 +38,7 @@ import numpy.typing as npt
 
 import py5_tools.environ as _environ
 from py5_tools.printstreams import _DefaultPrintlnStream, _DisplayPubPrintlnStream
-from .methods import Py5Methods, _extract_py5_user_functions
+from .methods import Py5Methods, _extract_py5_user_function_data
 from .base import Py5Base
 from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream
 from .mixins.threads import Py5Promise  # noqa
@@ -125,11 +125,12 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                  'method without a call to `super().__init__()`?')
             )
 
-        methods = _extract_py5_user_functions(dict([(e, getattr(self, e)) for e in reference.METHODS.keys() if hasattr(self, e)]))
-        self._run_sketch(methods, block, py5_options, sketch_args, _osx_alt_run_method)
+        methods, method_param_counts = _extract_py5_user_function_data(dict([(e, getattr(self, e)) for e in reference.METHODS.keys() if hasattr(self, e)]))
+        self._run_sketch(methods, method_param_counts, block, py5_options, sketch_args, _osx_alt_run_method)
 
     def _run_sketch(self,
                     methods: dict[str, Callable],
+                    method_param_counts: dict[str, int],
                     block: bool,
                     py5_options: list[str] = None,
                     sketch_args: list[str] = None,
@@ -139,7 +140,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self._init_println_stream()
 
         self._py5_methods = Py5Methods(self)
-        self._py5_methods.set_functions(**methods)
+        self._py5_methods.set_functions(methods, method_param_counts)
         self._py5_methods.profile_functions(self._methods_to_profile)
         self._py5_methods.add_pre_hooks(self._pre_hooks_to_add)
         self._py5_methods.add_post_hooks(self._post_hooks_to_add)
@@ -304,7 +305,11 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def hot_reload_draw(self, draw: Callable) -> None:
         """$class_Sketch_hot_reload_draw"""
-        self._py5_methods.set_functions(**dict(draw=draw))
+        methods, method_param_counts = _extract_py5_user_function_data(dict(draw=draw))
+        if 'draw' in methods:
+            self._py5_methods.set_functions(methods, method_param_counts)
+        else:
+            self.println("The new draw() function must take no parameters")
 
     def profile_functions(self, function_names: list[str]) -> None:
         """$class_Sketch_profile_functions"""

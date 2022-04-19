@@ -117,8 +117,9 @@ def handle_exception(println, exc_type, exc_value, exc_tb):
     sys.last_type, sys.last_value, sys.last_traceback = exc_type, exc_value, exc_tb
 
 
-def _extract_py5_user_functions(d: dict):
-    out = dict()
+def _extract_py5_user_function_data(d: dict):
+    functions = dict()
+    function_param_counts = dict()
     for name, allowed_parg_count in reference.METHODS.items():
         if name not in d or not callable(d[name]):
             continue
@@ -128,9 +129,10 @@ def _extract_py5_user_functions(d: dict):
         if pargs_count != len(sig.parameters) or pargs_count not in allowed_parg_count:
             continue
 
-        out[name] = d[name]
+        functions[name] = d[name]
+        function_param_counts[name] = pargs_count
 
-    return out
+    return functions, function_param_counts
 
 
 @JImplements('py5.core.Py5Methods')
@@ -139,13 +141,19 @@ class Py5Methods:
     def __init__(self, sketch):
         self._sketch = sketch
         self._functions = dict()
+        self._function_param_counts = dict()
         self._pre_hooks = defaultdict(dict)
         self._post_hooks = defaultdict(dict)
         self._profiler = line_profiler.LineProfiler()
         self._is_terminated = False
 
-    def set_functions(self, **kwargs):
-        self._functions.update(kwargs)
+    def set_functions(self, functions, function_param_counts):
+        for name, f in functions.items():
+            self._functions[name] = f
+            if name == 'settings':
+                self._function_param_counts['settings'] = function_param_counts.get('settings', function_param_counts.get('setup'))
+            else:
+                self._function_param_counts[name] = function_param_counts[name]
 
     def profile_functions(self, function_names):
         for fname in function_names:
