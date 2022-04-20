@@ -206,7 +206,7 @@ class Py5Methods:
 
     @JOverride
     def get_function_list(self):
-        return [JString(s) for s in self._functions.keys()]
+        return [JString(f'{name}:{self._function_param_counts[name]}') for name in self._functions.keys()]
 
     @JOverride
     def run_method(self, method_name, params):

@@ -20,7 +20,9 @@
 package py5.core;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import com.jogamp.newt.Window;
@@ -38,6 +40,8 @@ import processing.core.PConstants;
 import processing.core.PMatrix2D;
 import processing.core.PShape;
 import processing.core.PSurface;
+import processing.event.Event;
+import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 import processing.opengl.PGraphicsOpenGL;
 import processing.opengl.PJOGL;
@@ -47,6 +51,7 @@ public class Sketch extends PApplet {
 
   protected Py5Methods py5Methods;
   protected Set<String> py5RegisteredEvents;
+  protected Map<String, Integer> py5RegisteredEventParamCounts;
   protected boolean success = false;
   protected int exitActualCallCount = 0;
   protected String py5IconPath;
@@ -69,7 +74,8 @@ public class Sketch extends PApplet {
     }
 
     String variant = PConstants.platformNames[PApplet.platform] + "-" + System.getProperty("os.arch");
-    if (variant.equals("macos-aarch64") && !System.getProperty("processing.natives.TestAppleSilicon", "false").equals("true")) {
+    if (variant.equals("macos-aarch64")
+        && !System.getProperty("processing.natives.TestAppleSilicon", "false").equals("true")) {
       variant = "macos-x86_64";
     }
     String joglPath = py5Path + File.separator + "natives" + File.separator + variant;
@@ -89,8 +95,12 @@ public class Sketch extends PApplet {
   public void usePy5Methods(Py5Methods py5Methods) {
     this.py5Methods = py5Methods;
     this.py5RegisteredEvents = new HashSet<String>();
-    for (String f : py5Methods.get_function_list())
-      this.py5RegisteredEvents.add(f);
+    this.py5RegisteredEventParamCounts = new HashMap<String, Integer>();
+    for (String f : py5Methods.get_function_list()) {
+      String[] nameParamCountPairs = f.split(":");
+      this.py5RegisteredEvents.add(nameParamCountPairs[0]);
+      this.py5RegisteredEventParamCounts.put(nameParamCountPairs[0], Integer.parseInt(nameParamCountPairs[1]));
+    }
     this.success = true;
   }
 
@@ -225,86 +235,71 @@ public class Sketch extends PApplet {
     }
   }
 
-  @Override
-  public void mousePressed() {
-    if (success && py5RegisteredEvents.contains("mouse_pressed")) {
-      success = py5Methods.run_method("mouse_pressed");
+  protected void handleInputEvent(String eventName, Event event) {
+    if (success && py5RegisteredEvents.contains(eventName)) {
+      success = py5RegisteredEventParamCounts.get(eventName) == 0 ? py5Methods.run_method(eventName)
+          : py5Methods.run_method(eventName, event);
     }
   }
 
   @Override
-  public void mouseReleased() {
-    if (success && py5RegisteredEvents.contains("mouse_released")) {
-      success = py5Methods.run_method("mouse_released");
-    }
+  public void mousePressed(MouseEvent event) {
+    handleInputEvent("mouse_pressed", event);
   }
 
   @Override
-  public void mouseClicked() {
-    if (success && py5RegisteredEvents.contains("mouse_clicked")) {
-      success = py5Methods.run_method("mouse_clicked");
-    }
+  public void mouseReleased(MouseEvent event) {
+    handleInputEvent("mouse_released", event);
   }
 
   @Override
-  public void mouseDragged() {
-    if (success && py5RegisteredEvents.contains("mouse_dragged")) {
-      success = py5Methods.run_method("mouse_dragged");
-    }
+  public void mouseClicked(MouseEvent event) {
+    handleInputEvent("mouse_clicked", event);
   }
 
   @Override
-  public void mouseMoved() {
-    if (success && py5RegisteredEvents.contains("mouse_moved")) {
-      success = py5Methods.run_method("mouse_moved");
-    }
+  public void mouseDragged(MouseEvent event) {
+    handleInputEvent("mouse_dragged", event);
   }
 
   @Override
-  public void mouseEntered() {
-    if (success && py5RegisteredEvents.contains("mouse_entered")) {
-      success = py5Methods.run_method("mouse_entered");
-    }
+  public void mouseMoved(MouseEvent event) {
+    handleInputEvent("mouse_moved", event);
   }
 
   @Override
-  public void mouseExited() {
-    if (success && py5RegisteredEvents.contains("mouse_exited")) {
-      success = py5Methods.run_method("mouse_exited");
-    }
+  public void mouseEntered(MouseEvent event) {
+    handleInputEvent("mouse_entered", event);
+  }
+
+  @Override
+  public void mouseExited(MouseEvent event) {
+    handleInputEvent("mouse_exited", event);
   }
 
   @Override
   public void mouseWheel(MouseEvent event) {
-    if (success && py5RegisteredEvents.contains("mouse_wheel")) {
-      success = py5Methods.run_method("mouse_wheel", event);
-    }
+    handleInputEvent("mouse_wheel", event);
   }
 
   @Override
-  public void keyPressed() {
-    if (success && py5RegisteredEvents.contains("key_pressed")) {
-      success = py5Methods.run_method("key_pressed");
-    }
+  public void keyPressed(KeyEvent event) {
+    handleInputEvent("key_pressed", event);
   }
 
   @Override
-  public void keyReleased() {
-    if (success && py5RegisteredEvents.contains("key_released")) {
-      success = py5Methods.run_method("key_released");
-    }
+  public void keyReleased(KeyEvent event) {
+    handleInputEvent("key_released", event);
   }
 
   @Override
-  public void keyTyped() {
-    if (success && py5RegisteredEvents.contains("key_typed")) {
-      success = py5Methods.run_method("key_typed");
-    }
+  public void keyTyped(KeyEvent event) {
+    handleInputEvent("key_typed", event);
   }
 
   // Support the Processing Video library. The passed movie parameter will be a
   // processing.video.Movie object but that won't compile right now because the
-  // Processing Video library is not yet a part of py5. Interestingly, jype is
+  // Processing Video library is not yet a part of py5. Interestingly, jpype is
   // able to sort out the actual object type.
   public void movieEvent(Object movie) {
     if (success && py5RegisteredEvents.contains("movie_event")) {
