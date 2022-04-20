@@ -1,0 +1,30 @@
+py5_name,processing_name,decorator,type,implementation,comments
+SHIFT,SHIFT,,static field,JAVA,
+CTRL,CTRL,,static field,JAVA,
+META,META,,static field,JAVA,
+ALT,ALT,,static field,JAVA,
+KEY,KEY,,static field,SKIP,not necessary because there is no Py5Events class
+MOUSE,MOUSE,,static field,SKIP,not necessary because there is no Py5Events class
+TOUCH,TOUCH,,static field,SKIP,not necessary because there is no Py5Events class
+get_flavor,getFlavor,,method,SKIP,not necessary because there is no Py5Events class
+get_native,getNative,,method,JAVA,
+get_millis,getMillis,,method,JAVA,
+get_action,getAction,,method,JAVA,
+get_modifiers,getModifiers,,method,JAVA,
+is_shift_down,isShiftDown,,method,JAVA,
+is_control_down,isControlDown,,method,JAVA,
+is_meta_down,isMetaDown,,method,JAVA,
+is_alt_down,isAltDown,,method,JAVA,
+PRESS,PRESS,,static field,JAVA,
+RELEASE,RELEASE,,static field,JAVA,
+CLICK,CLICK,,static field,JAVA,
+DRAG,DRAG,,static field,JAVA,
+MOVE,MOVE,,static field,JAVA,
+ENTER,ENTER,,static field,JAVA,
+EXIT,EXIT,,static field,JAVA,
+WHEEL,WHEEL,,static field,JAVA,
+get_x,getX,,method,JAVA,
+get_y,getY,,method,JAVA,
+get_button,getButton,,method,JAVA,
+get_count,getCount,,method,JAVA,
+to_string,toString,,method,SKIP,

@@ -118,6 +118,8 @@ def generate_py5(app_dir, build_dir, skip_autopep8=False):
     py5surface_builder = run_code_builder('Py5Surface', 'py5.core.Py5SurfaceDummy', class_name='PSurface')
     py5graphics_builder = run_code_builder('Py5Graphics', 'py5.core.Py5Graphics', class_name='PGraphics')
     py5image_builder = run_code_builder('Py5Image', 'processing.core.PImage')
+    py5keyevent_builder = run_code_builder('Py5KeyEvent', 'processing.event.KeyEvent')
+    py5mouseevent_builder = run_code_builder('Py5MouseEvent', 'processing.event.MouseEvent')
 
     logger.info(f'reading Py5Vector code')
     py5vector_method_signatures = find_signatures('Py5Vector', Path('py5_resources/py5_module/py5/vector.py'))
@@ -133,6 +135,8 @@ def generate_py5(app_dir, build_dir, skip_autopep8=False):
     py5surface_class_members_code = ''.join(py5surface_builder.class_members)
     py5graphics_class_members_code = ''.join(py5graphics_builder.class_members)
     py5image_class_members_code = ''.join(py5image_builder.class_members)
+    py5keyevent_class_members_code = ''.join(py5keyevent_builder.class_members)
+    py5mouseevent_class_members_code = ''.join(py5mouseevent_builder.class_members)
 
     # gather method_signatures info so they can be added to the docstrings
     method_signatures_lookup = {
@@ -143,6 +147,8 @@ def generate_py5(app_dir, build_dir, skip_autopep8=False):
         **py5surface_builder.method_signatures,
         **py5graphics_builder.method_signatures,
         **py5image_builder.method_signatures,
+        **py5keyevent_builder.method_signatures,
+        **py5mouseevent_builder.method_signatures,
         **py5vector_method_signatures,
         **ref.EXTRA_METHOD_SIGNATURES,
     }
@@ -169,6 +175,8 @@ def generate_py5(app_dir, build_dir, skip_autopep8=False):
                          py5surface_class_members_code=py5surface_class_members_code,
                          py5graphics_class_members_code=py5graphics_class_members_code,
                          py5image_class_members_code=py5image_class_members_code,
+                         py5keyevent_class_members_code=py5keyevent_class_members_code,
+                         py5mouseevent_class_members_code=py5mouseevent_class_members_code,
                          method_signatures_lookup_str=method_signatures_lookup_str,
                          py5_dir_str=py5_dir_str,
                          py5_all_str=py5_all_str,

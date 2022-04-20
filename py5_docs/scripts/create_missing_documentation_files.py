@@ -41,6 +41,8 @@ PY5_CLASS_LOOKUP = {
     'PShader': 'Py5Shader',
     'PShape': 'Py5Shape',
     'PSurface': 'Py5Surface',
+    'KeyEvent': 'Py5KeyEvent',
+    'MouseEvent': 'Py5MouseEvent',
     'Py5Functions': 'Py5Functions',
     'Py5Tools': 'Py5Tools',
     'Py5Magics': 'Py5Magics',
