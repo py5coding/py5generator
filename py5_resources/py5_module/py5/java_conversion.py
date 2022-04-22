@@ -18,7 +18,7 @@
 #
 # *****************************************************************************
 import numpy as np
-from jpype import JClass, _jcustomizer
+from jpype import JClass, JArray, _jcustomizer
 
 from .sketch import Sketch, Py5Graphics, Py5Image, Py5Font, Py5Shape, Py5Shader, Py5KeyEvent, Py5MouseEvent
 from .pmath import _py5vector_to_pvector_converter, _numpy_to_pvector_converter, _numpy_to_pmatrix_converter
@@ -64,11 +64,14 @@ def init_jpype_converters():
     _jcustomizer.JConversion('processing.core.PMatrix', np.ndarray)(_numpy_to_pmatrix_converter)
 
 
-def convert_processing_types(params):
+def convert_to_python_types(params):
     for p in params:
         for jclass, py5class in PROCESSING_TO_PY5_CLASS_MAP:
             if isinstance(p, jclass):
                 yield py5class(p)
                 break
         else:
-            yield p
+            if isinstance(p, JArray):
+                yield np.asarray(p)
+            else:
+                yield p

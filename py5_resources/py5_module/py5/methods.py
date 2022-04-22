@@ -218,8 +218,8 @@ class Py5Methods:
                         hook(self._sketch)
 
                 # now run the actual method
-                from .java_conversion import convert_processing_types
-                self._functions[method_name](*convert_processing_types(params))
+                from .java_conversion import convert_to_python_types
+                self._functions[method_name](*convert_to_python_types(params))
 
                 # finally, post-hooks
                 if method_name in self._post_hooks:
