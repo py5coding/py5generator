@@ -9,3 +9,21 @@ is_auto_repeat() -> bool
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+
+This method will only work if the Sketch is using an OpenGL renderer such as P2D or P3D.
+
+@@ example
+def setup():
+    py5.size(200, 200, py5.P2D)
+    py5.rect_mode(py5.CENTER)
+
+
+def draw():
+    py5.square(py5.random(py5.width), py5.random(py5.height), 10)
+
+
+def key_pressed(e):
+    if e.is_auto_repeat():
+        py5.println('key press is auto repeating')
+    else:
+        py5.println('key press is not auto repeating')
