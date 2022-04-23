@@ -9,3 +9,18 @@ get_native() -> Any
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+
+@@ example
+def setup():
+    py5.size(200, 200, py5.P2D)
+    py5.rect_mode(py5.CENTER)
+
+
+def draw():
+    py5.square(py5.random(py5.width), py5.random(py5.height), 10)
+
+
+def key_pressed(e):
+    native_event = e.get_native()
+    if native_event != None:
+        py5.println(native_event.getKeyChar())
