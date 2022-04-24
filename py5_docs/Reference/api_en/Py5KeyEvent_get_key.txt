@@ -23,4 +23,4 @@ def draw():
 def key_pressed(e):
     pressed_key = e.get_key()
     if pressed_key != py5.CODED:
-        print(f'the {pressed_key} key was pressed')
+        py5.println(f'the {pressed_key} key was pressed')
