@@ -31,4 +31,4 @@ def key_pressed(e):
         msgs.append('meta is down')
     if modifiers & e.ALT:
         msgs.append('alt is down')
-    py5.println('key pressed: ' + (','.join(msgs) if msgs else 'no modifiers'))
+    py5.println('key pressed: ' + (', '.join(msgs) if msgs else 'no modifiers'))
