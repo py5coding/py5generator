@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import functools
 
-from jpype.types import JChar
+from jpype.types import JInt, JChar
 
 py5keyevent_class_members_code = None  # DELETE
 py5mouseevent_class_members_code = None  # DELETE
@@ -34,6 +34,15 @@ def _convert_jchar_to_chr(f):
         result = f(self_, *args)
         if isinstance(result, JChar):
             result = chr(result)
+        return result
+    return decorated
+
+def _convert_jint_to_int(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        result = f(self_, *args)
+        if isinstance(result, JInt):
+            result = int(result)
         return result
     return decorated
 
