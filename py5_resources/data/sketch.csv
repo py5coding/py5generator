@@ -195,7 +195,7 @@ first_mouse,firstMouse,,dynamic variable,,,SKIP,deprecated
 mouse_button,mouseButton,,dynamic variable,input,mouse,JAVA,
 mouse_pressed,mousePressed,,method,input,mouse,SKIP,method implemented by user; boolean variable replaced with method is_mouse_pressed
 mouse_event,mouseEvent,,dynamic variable,,,SKIP,deprecated
-key,key,,dynamic variable,input,keyboard,JAVA,
+key,key,@_convert_jchar_to_chr,dynamic variable,input,keyboard,JAVA,
 key_code,keyCode,,dynamic variable,input,keyboard,JAVA,
 key_pressed,keyPressed,,method,input,keyboard,SKIP,method implemented by user; boolean variable replaced with is_key_pressed
 key_event,keyEvent,,dynamic variable,,,SKIP,deprecated

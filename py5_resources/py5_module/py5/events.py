@@ -20,9 +20,22 @@
 # *** FORMAT PARAMS ***
 from __future__ import annotations
 
+import functools
+
+from jpype.types import JChar
+
 py5keyevent_class_members_code = None  # DELETE
 py5mouseevent_class_members_code = None  # DELETE
 
+
+def _convert_jchar_to_chr(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        result = f(self_, *args)
+        if isinstance(result, JChar):
+            result = chr(result)
+        return result
+    return decorated
 
 class Py5KeyEvent:
     """$classdoc_Py5KeyEvent
