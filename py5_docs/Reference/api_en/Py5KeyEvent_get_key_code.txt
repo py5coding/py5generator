@@ -24,7 +24,6 @@ def key_pressed(e):
     msgs = []
     if e.get_key() == py5.CODED:
         key_code = e.get_key_code()
-        py5.println(type(key_code))
         if key_code == py5.UP:
             py5.println('UP')
         if key_code == py5.LEFT:
