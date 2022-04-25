@@ -8,9 +8,7 @@ processing_name = getMillis
 get_millis() -> int
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
-
-Event time in ms
+Return the event's timestamp. This will be measured in milliseconds.
 
 @@ example
 def setup():

@@ -8,7 +8,7 @@ processing_name = getAction
 get_action() -> int
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Return the key event's action. This value will always be implied by the triggered event function, but perhaps it might be useful to someone someday.
 
 @@ example
 def setup():
