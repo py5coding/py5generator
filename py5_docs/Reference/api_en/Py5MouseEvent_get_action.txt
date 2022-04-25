@@ -9,3 +9,44 @@ get_action() -> int
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+
+@@ example
+def setup():
+    py5.size(200, 200, py5.P2D)
+    py5.rect_mode(py5.CENTER)
+
+
+def draw():
+    py5.square(py5.random(py5.width), py5.random(py5.height), 10)
+
+
+def mouse_pressed(e):
+    py5.println('mouse pressed:', e.get_action() == e.PRESS)
+
+
+def mouse_released(e):
+    py5.println('mouse released:', e.get_action() == e.RELEASE)
+
+
+def mouse_clicked(e):
+    py5.println('mouse clicked:', e.get_action() == e.CLICK)
+
+
+def mouse_dragged(e):
+    py5.println('mouse dragged:', e.get_action() == e.DRAG)
+
+
+def mouse_moved(e):
+    py5.println('mouse moved:', e.get_action() == e.MOVE)
+
+
+def mouse_entered(e):
+    py5.println('mouse entered:', e.get_action() == e.ENTER)
+
+
+def mouse_exited(e):
+    py5.println('mouse exited:', e.get_action() == e.EXIT)
+
+
+def mouse_wheel(e):
+    py5.println('mouse wheel:', e.get_action() == e.WHEEL)
