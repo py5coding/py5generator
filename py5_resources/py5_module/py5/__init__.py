@@ -105,7 +105,7 @@ def run_sketch(block: bool = None, *,
     caller_globals = inspect.stack()[1].frame.f_globals
     caller_locals = inspect.stack()[1].frame.f_locals
     functions, function_param_counts = methods._extract_py5_user_function_data(sketch_functions if sketch_functions else caller_locals)
-    functions = _split_setup.transform(functions, caller_globals, caller_locals, println, mode = 'imported' if _PY5_USE_IMPORTED_MODE else 'module')
+    functions = _split_setup.transform(functions, caller_globals, caller_locals, println, mode='imported' if _PY5_USE_IMPORTED_MODE else 'module')
 
     if not set(functions.keys()) & set(['settings', 'setup', 'draw']):
         print(("Unable to find settings, setup, or draw functions. "
