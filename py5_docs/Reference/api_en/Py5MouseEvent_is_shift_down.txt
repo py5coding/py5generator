@@ -8,7 +8,7 @@ processing_name = isShiftDown
 is_shift_down() -> bool
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+Return boolean value reflecting if the Shift key is down. The Shift key is a modifier key and can be pressed at the same time as other keys.
 
 @@ example
 def setup():
