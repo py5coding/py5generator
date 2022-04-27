@@ -492,5 +492,22 @@
   "https://processing.org/reference/windowX.html": false,
   "https://processing.org/reference/windowY.html": false,
   "https://processing.org/reference/windowMove_.html": false,
-  "https://processing.org/reference/windowResize_.html": false
+  "https://processing.org/reference/windowResize_.html": false,
+  "https://processing.org/reference/KeyEvent.html": false,
+  "https://processing.org/reference/getAction_.html": false,
+  "https://processing.org/reference/getKey_.html": false,
+  "https://processing.org/reference/getKeyCode_.html": false,
+  "https://processing.org/reference/getMillis_.html": false,
+  "https://processing.org/reference/getModifiers_.html": false,
+  "https://processing.org/reference/getNative_.html": false,
+  "https://processing.org/reference/isAltDown_.html": false,
+  "https://processing.org/reference/isAutoRepeat_.html": false,
+  "https://processing.org/reference/isControlDown_.html": false,
+  "https://processing.org/reference/isMetaDown_.html": false,
+  "https://processing.org/reference/isShiftDown_.html": false,
+  "https://processing.org/reference/MouseEvent.html": false,
+  "https://processing.org/reference/getButton_.html": false,
+  "https://processing.org/reference/getCount_.html": false,
+  "https://processing.org/reference/getX_.html": false,
+  "https://processing.org/reference/getY_.html": false
 }
