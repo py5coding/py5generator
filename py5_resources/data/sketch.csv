@@ -246,7 +246,7 @@ exp,exp,,static method,math,calculation,PYTHON,implemented in mixin file math.py
 min,min,,method,math,calculation,SKIP,user should use numpy instead
 max,max,,method,math,calculation,SKIP,user should use numpy instead
 arraycopy,arraycopy,,method,,,SKIP,user should use python instead
-clear,clear,,method,color,setting,SKIP,"part of py5graphics, not sketch"
+clear,clear,,method,color,setting,JAVA,"part of py5graphics, added to sketch to be consistent with python processing. not a documented part of processing"
 str,str,,method,,,SKIP,conflict with builtin python function
 concat,concat,,method,data,array_functions,SKIP,user should use python instead
 split,split,,method,data,string_functions,SKIP,user should use python instead
