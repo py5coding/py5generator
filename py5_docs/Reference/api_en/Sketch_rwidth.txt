@@ -7,7 +7,7 @@ category = environment
 subcategory = None
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/hx2A/py5generator/tree/master/py5_docs/Reference/api_en/.
+The width of the scale invariant display window. This will be the value of the ``wide`` parameter used in the call to :doc:`sketch_window_ratio` that activates scale invariant drawing. This field should only be used in a scale invariant Sketch. See :doc:`sketch_window_ratio` for more information about how to activate this and why it is useful.
 
 @@ example
 def setup():
