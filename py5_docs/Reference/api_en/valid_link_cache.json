@@ -509,5 +509,13 @@
   "https://processing.org/reference/getButton_.html": false,
   "https://processing.org/reference/getCount_.html": false,
   "https://processing.org/reference/getX_.html": false,
-  "https://processing.org/reference/getY_.html": false
+  "https://processing.org/reference/getY_.html": false,
+  "https://processing.org/reference/ratioLeft.html": false,
+  "https://processing.org/reference/ratioScale.html": false,
+  "https://processing.org/reference/ratioTop.html": false,
+  "https://processing.org/reference/rheight.html": false,
+  "https://processing.org/reference/rmouseX.html": false,
+  "https://processing.org/reference/rmouseY.html": false,
+  "https://processing.org/reference/rwidth.html": false,
+  "https://processing.org/reference/windowRatio_.html": false
 }
