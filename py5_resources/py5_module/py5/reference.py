@@ -57,6 +57,8 @@ FILE_CLASS_LOOKUP = dict([
     (('mixins', 'math.py'), 'Sketch'),
     (('mixins', 'pixels.py'), 'Sketch'),
     (('mixins', 'threads.py'), 'Sketch'),
+    (('keyevent.py',), 'Py5KeyEvent'),
+    (('mouseevent.py',), 'Py5MouseEvent'),
 ])
 
 METHOD_SIGNATURES_LOOKUP = dict([
