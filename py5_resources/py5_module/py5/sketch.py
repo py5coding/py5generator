@@ -142,7 +142,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self._init_println_stream()
 
         self._py5_methods = Py5Methods(self)
-        self._py5_methods.set_functions(methods, method_param_counts)
+        self._py5_methods.add_functions(methods, method_param_counts)
         self._py5_methods.profile_functions(self._methods_to_profile)
         self._py5_methods.add_pre_hooks(self._pre_hooks_to_add)
         self._py5_methods.add_post_hooks(self._post_hooks_to_add)
@@ -309,7 +309,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         """$class_Sketch_hot_reload_draw"""
         methods, method_param_counts = _extract_py5_user_function_data(dict(draw=draw))
         if 'draw' in methods:
-            self._py5_methods.set_functions(methods, method_param_counts)
+            self._py5_methods.add_functions(methods, method_param_counts)
         else:
             self.println("The new draw() function must take no parameters")
 

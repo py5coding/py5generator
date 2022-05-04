@@ -148,6 +148,11 @@ class Py5Methods:
         self._is_terminated = False
 
     def set_functions(self, functions, function_param_counts):
+        self._function_param_counts = dict()
+        self._functions = dict()
+        self.add_functions(functions, function_param_counts)
+
+    def add_functions(self, functions, function_param_counts):
         for name, f in functions.items():
             self._functions[name] = f
             if name == 'settings':
