@@ -32,7 +32,7 @@ INSTALL_REQUIRES = [
     'ipywidgets>=7.6',
     'jpype1>=1.3',
     'line_profiler>=2.1.2',
-    'numpy>=1.21',
+    'numpy>=1.22',
     'pandas>=1.0',
     'pillow>=8.1',
     'pyobjc>=7.3;sys_platform=="darwin"',
