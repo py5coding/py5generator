@@ -23,16 +23,14 @@ import ipywidgets as widgets
 
 import PIL
 
+from py5jupyter import Py5SketchPortal
+
 from .hooks import SketchPortalHook
 
 from  .. import environ as _environ
 
 
 Sketch = 'Sketch'
-
-
-class Py5SketchPortal(widgets.Image):
-    pass
 
 
 def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = 30,
@@ -65,7 +63,7 @@ def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = 30,
         raise RuntimeError('The scale parameter must be greater than zero')
 
     if portal is None:
-        portal = Py5SketchPortal()
+        portal = Py5SketchPortal(sketch)
         portal.layout.width = f'{int(scale * sketch.width)}px'
         portal.layout.height = f'{int(scale * sketch.height)}px'
         portal.layout.border = '1px solid gray'
