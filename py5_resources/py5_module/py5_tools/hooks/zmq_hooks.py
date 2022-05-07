@@ -23,7 +23,7 @@ import ipywidgets as widgets
 
 import PIL
 
-from py5jupyter import Py5SketchPortal
+from py5jupyter.widgets import Py5SketchPortal
 
 from .hooks import SketchPortalHook
 
