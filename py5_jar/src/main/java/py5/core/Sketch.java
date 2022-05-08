@@ -303,12 +303,12 @@ public class Sketch extends PApplet {
     }
   }
 
-  public void fakeMouseEvent(long millis, int action, int modifiers, int x, int y, int button, int count) {
-    postEvent(new MouseEvent(null, millis, action, modifiers, x, y, button, count));
+  public void fakeMouseEvent(int action, int modifiers, int x, int y, int button, int count) {
+    postEvent(new MouseEvent(null, System.currentTimeMillis(), action, modifiers, x, y, button, count));
   }
 
-  public void fakeKeyEvent(long millis, int action, int modifiers, char key, int keyCode) {
-    postEvent(new KeyEvent(null, millis, action, modifiers, key, keyCode));
+  public void fakeKeyEvent(int action, int modifiers, char key, int keyCode) {
+    postEvent(new KeyEvent(null, System.currentTimeMillis(), action, modifiers, key, keyCode));
   }
 
   @Override
