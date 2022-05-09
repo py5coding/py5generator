@@ -45,6 +45,7 @@ import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 import processing.opengl.PGraphicsOpenGL;
 import processing.opengl.PJOGL;
+import py5.util.KeyEventUtilities;
 import py5.util.OpenSimplex2S;
 
 public class Sketch extends PApplet {
@@ -307,7 +308,21 @@ public class Sketch extends PApplet {
     postEvent(new MouseEvent(null, System.currentTimeMillis(), action, modifiers, x, y, button, count));
   }
 
-  public void fakeKeyEvent(int action, int modifiers, char key, int keyCode, boolean isAutoRepeat) {
+  public void fakeKeyEvent(int action, int modifiers, String input, boolean isAutoRepeat) {
+    char key = KeyEventUtilities.getASCIIKey(input);
+    int keyCode;
+
+    if (key > 0) {
+      keyCode = key;
+    } else {
+      key = PApplet.CODED;
+      keyCode = g.isGL() ? KeyEventUtilities.getJogampKeyCode(input) : KeyEventUtilities.getAWTKeyCode(input);
+      if (keyCode < 0) {
+        py5Println("py5 is unable to map '" + input
+            + "' to a proper key_code value. Please open an issue on github to report this bug.", true);
+      }
+    }
+
     postEvent(new KeyEvent(null, System.currentTimeMillis(), action, modifiers, key, keyCode, isAutoRepeat));
   }
 
