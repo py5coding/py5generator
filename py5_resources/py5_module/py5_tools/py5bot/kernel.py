@@ -42,11 +42,13 @@ class Py5BotShell(ZMQInteractiveShell):
 
     banner2 = Unicode("Activating py5bot").tag(config=True)
 
-    def run_cell(self, raw_cell, store_history=False, silent=False, shell_futures=True):
+    def run_cell(self, raw_cell, *args, **kwargs):
+        # TODO: deprecated
+        self.log.warning("This kernel is deprecated. Uninstall it with `jupyter kernelspec uninstall py5bot`, install the new py5jupyter package, and then install the kernel with `python -m py5jupyter.kernels.py5bot.install --sys-prefix`.")
+
         # check for special code that should bypass py5bot processing
         if raw_cell.strip().startswith('%%python\n'):
-            return super(Py5BotShell, self).run_cell(
-                raw_cell.replace('%%python\n', ''), store_history=store_history, silent=silent, shell_futures=shell_futures)
+            return super(Py5BotShell, self).run_cell(raw_cell.replace('%%python\n', ''), *args, **kwargs)
 
         success, result = py5bot.check_for_problems(raw_cell, "<py5bot>")
         if success:
@@ -55,13 +57,10 @@ class Py5BotShell(ZMQInteractiveShell):
                 py5bot_settings = 'size(100, 100, HIDDEN)'
             self._py5bot_mgr.write_code(py5bot_globals, py5bot_settings, py5bot_setup)
 
-            return super(Py5BotShell, self).run_cell(
-                self._py5bot_mgr.run_code, store_history=store_history, silent=silent, shell_futures=shell_futures)
+            return super(Py5BotShell, self).run_cell(self._py5bot_mgr.run_code, *args, **kwargs)
         else:
             print(result, file=sys.stderr)
-
-            return super(Py5BotShell, self).run_cell(
-                'None', store_history=store_history, silent=silent, shell_futures=shell_futures)
+            return super(Py5BotShell, self).run_cell('None', *args, **kwargs)
 
 InteractiveShellABC.register(Py5BotShell)
 

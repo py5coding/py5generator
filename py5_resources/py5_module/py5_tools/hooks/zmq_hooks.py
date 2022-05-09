@@ -18,16 +18,21 @@
 #
 # *****************************************************************************
 import io
+import warnings
 
 import ipywidgets as widgets
-
 import PIL
 
-from py5jupyter.widgets import Py5SketchPortal
+try:
+    from py5jupyter.widgets import Py5SketchPortal
+except ImportError:
+    # TODO: deprecated
+    class Py5SketchPortal(widgets.Image):
+        def __init__(self, sketch):
+            super().__init__()
 
 from .hooks import SketchPortalHook
-
-from  .. import environ as _environ
+from .. import environ as _environ
 
 
 Sketch = 'Sketch'
@@ -43,6 +48,9 @@ def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = 30,
         raise RuntimeError('The sketch_widget() function can only be used with IPython and ZMQInteractiveShell (such as Jupyter Lab)')
     if not environment.in_jupyter_zmq_shell:
         raise RuntimeError('The sketch_widget() function can only be used with ZMQInteractiveShell (such as Jupyter Lab)')
+    if issubclass(Py5SketchPortal, widgets.Image):
+        # TODO: deprecated
+        warnings.warn('Please install the py5jupyter package for interactive Py5SketchPortal functionality.')
 
     if sketch is None:
         import py5
