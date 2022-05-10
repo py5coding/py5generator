@@ -32,6 +32,8 @@ public class KeyEventUtilities {
   }
 
   private static class AWTKeyEvent extends java.awt.event.KeyEvent {
+    private static final long serialVersionUID = 1L;
+
     public AWTKeyEvent(Component source, int id, long when, int modifiers, int keyCode, char keyChar, int keyLocation) {
       super(source, id, when, modifiers, keyCode, keyChar, keyLocation);
     }
