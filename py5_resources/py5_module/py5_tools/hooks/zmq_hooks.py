@@ -60,6 +60,8 @@ def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = 30,
     else:
         prefix = ''
 
+    if not sketch._py5_methods.has_function('draw'):
+        raise RuntimeError('This tool cannot be used on a sketch that does not have a draw() method')
     if not sketch.is_running:
         raise RuntimeError(f'The {prefix} sketch is not running')
     if throttle_frame_rate is not None and throttle_frame_rate <= 0:

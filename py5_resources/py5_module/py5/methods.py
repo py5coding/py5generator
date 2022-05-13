@@ -160,6 +160,9 @@ class Py5Methods:
             else:
                 self._function_param_counts[name] = function_param_counts[name]
 
+    def has_function(self, function_name):
+        return function_name in self._functions
+
     def profile_functions(self, function_names):
         for fname in function_names:
             func = self._functions[fname]
