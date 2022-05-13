@@ -74,8 +74,8 @@ def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = 30,
     if portal is None:
         w, h = int(scale * sketch.width), int(scale * sketch.height)
         portal = Py5SketchPortal(sketch, w, h)
-        portal.layout.width = f'{w}px'
-        portal.layout.height = f'{h}px'
+        portal.layout.width = f'{w+2}px'
+        portal.layout.height = f'{h+2}px'
         portal.layout.border = '1px solid gray'
 
     def displayer(frame):
