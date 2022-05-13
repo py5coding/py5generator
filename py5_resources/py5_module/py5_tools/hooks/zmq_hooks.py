@@ -21,6 +21,7 @@ import io
 import warnings
 
 import ipywidgets as widgets
+import numpy as np
 import PIL
 
 try:
@@ -83,7 +84,9 @@ def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = 30,
             img = img.resize(tuple(int(scale * x) for x in img.size))
         b = io.BytesIO()
         img.save(b, format='JPEG', quality=quality)
-        portal.value = b.getvalue()
+        with portal.hold_sync():
+            portal.value = b.getvalue()
+            portal.random_number = np.random.rand()
 
     hook = SketchPortalHook(displayer, throttle_frame_rate, time_limit)
 
