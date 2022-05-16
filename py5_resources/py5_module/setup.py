@@ -49,7 +49,7 @@ for d, _, _ in [*os.walk(pjoin(here, 'py5')), *os.walk(pjoin(here, 'py5_tools'))
     if os.path.exists(pjoin(d, '__init__.py')):
         packages.append(d[len(here)+1:].replace(os.path.sep, '.'))
 
-setup(
+setup_args = dict(
     name='py5',
     version=VERSION,
     packages=packages,
@@ -72,6 +72,7 @@ setup(
         "Source Code": 'https://github.com/hx2A/py5',
     },
     platforms=["Windows", "Linux", "Mac OS-X"],
+    keywords=['Jupyter', 'Widgets', 'IPython', 'Processing'],
     entry_points={
         'console_scripts': [
             'run_sketch = py5_tools.tools.run_sketch:main',
@@ -95,3 +96,6 @@ setup(
         'Programming Language :: Java',
     ],
 )
+
+if __name__ == '__main__':
+    setup(**setup_args)
