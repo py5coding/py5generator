@@ -1,8 +1,8 @@
 # py5
 
-[![py5 downloads](https://pepy.tech/badge/py5/month)](https://pepy.tech/project/py5)
+[![py5 montly downloads](https://pepy.tech/badge/py5/month)](https://pepy.tech/project/py5)
 
-[![Downloads](https://pepy.tech/badge/py5/week)](https://pepy.tech/project/py5)
+[![py5 weekly downloads](https://pepy.tech/badge/py5/week)](https://pepy.tech/project/py5)
 
 [![mybinder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hx2A/py5examples/HEAD?urlpath=lab)
 
