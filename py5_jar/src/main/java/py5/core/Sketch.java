@@ -319,7 +319,9 @@ public class Sketch extends PApplet {
       keyCode = g.isGL() ? KeyEventUtilities.getJogampKeyCode(input) : KeyEventUtilities.getAWTKeyCode(input);
       if (keyCode < 0) {
         py5Println("py5 is unable to map '" + input
-            + "' to a proper key_code value. Please open an issue on github to report this bug.", true);
+            + "' to a proper key_code value. Your renderer is " + getRendererName() + " and your platform is "
+            + PConstants.platformNames[PApplet.platform]
+            + ". Please open an issue on github to report this bug.", true);
       }
     }
 
