@@ -83,18 +83,24 @@ public class KeyEventUtilities {
         return AWTKeyEvent.VK_SHIFT;
       case "Alt":
         return AWTKeyEvent.VK_ALT;
+      case "OS":
+        return AWTKeyEvent.VK_WINDOWS;
       case "Meta":
         return AWTKeyEvent.VK_META;
       case "CapsLock":
         return AWTKeyEvent.VK_CAPS_LOCK;
       case "NumLock":
         return AWTKeyEvent.VK_NUM_LOCK;
+      case "ScrollLock":
+        return AWTKeyEvent.VK_SCROLL_LOCK;
       case "Home":
         return AWTKeyEvent.VK_HOME;
       case "End":
         return AWTKeyEvent.VK_END;
       case "Insert":
         return AWTKeyEvent.VK_INSERT;
+      case "Pause":
+        return AWTKeyEvent.VK_PAUSE;
       case "ContextMenu":
         return AWTKeyEvent.VK_CONTEXT_MENU;
       default:
@@ -146,18 +152,24 @@ public class KeyEventUtilities {
         return KeyEvent.VK_SHIFT;
       case "Alt":
         return KeyEvent.VK_ALT;
+      case "OS":
+        return KeyEvent.VK_COMPOSE;  // note the difference from AWT
       case "Meta":
         return KeyEvent.VK_META;
       case "CapsLock":
         return KeyEvent.VK_CAPS_LOCK;
       case "NumLock":
         return KeyEvent.VK_NUM_LOCK;
+      case "ScrollLock":
+        return KeyEvent.VK_SCROLL_LOCK;
       case "Home":
         return KeyEvent.VK_HOME;
       case "End":
         return KeyEvent.VK_END;
       case "Insert":
         return KeyEvent.VK_INSERT;
+      case "Pause":
+        return KeyEvent.VK_PAUSE;
       case "ContextMenu":
         return KeyEvent.VK_CONTEXT_MENU;
       default:
