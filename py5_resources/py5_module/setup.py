@@ -59,6 +59,9 @@ setup_args = dict(
     },
     python_requires='>3.8',
     install_requires=INSTALL_REQUIRES,
+    extras_require={
+        'jupyter': ['py5jupyter>=0.1.2a0'],
+    },
     description='Processing for CPython',
     long_description=README,
     long_description_content_type='text/markdown',
