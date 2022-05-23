@@ -68,5 +68,3 @@ Have a comment or question? We'd love to hear from you! The best ways to reach o
 [py5_repo]: https://github.com/py5coding/py5
 [processing]: https://github.com/processing/processing4
 [jpype]: https://github.com/jpype-project/jpype
-
-
