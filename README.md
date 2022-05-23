@@ -61,10 +61,10 @@ py5generator is a meta-programming project that creates the py5 library. To view
 
 Have a comment or question? We'd love to hear from you! The best ways to reach out are:
 
-* github [discussions](https://github.com/hx2A/py5generator/discussions) and [issues](https://github.com/hx2A/py5generator/issues)
+* github [discussions](https://github.com/py5coding/py5generator/discussions) and [issues](https://github.com/py5coding/py5generator/issues)
 * twitter [@py5coding](https://twitter.com/py5coding)
 * [processing foundation discourse](https://discourse.processing.org/)
 
-[py5_repo]: https://github.com/hx2A/py5
+[py5_repo]: https://github.com/py5coding/py5
 [processing]: https://github.com/processing/processing4
 [jpype]: https://github.com/jpype-project/jpype

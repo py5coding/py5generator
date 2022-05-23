@@ -70,9 +70,9 @@ setup_args = dict(
     author_email='jim@ixora.io', 
     download_url='https://pypi.org/project/py5',
     project_urls={
-        "Bug Tracker": 'https://github.com/hx2A/py5generator/issues',
+        "Bug Tracker": 'https://github.com/py5coding/py5generator/issues',
         "Documentation": 'https://py5.ixora.io/',
-        "Source Code": 'https://github.com/hx2A/py5',
+        "Source Code": 'https://github.com/py5coding/py5',
     },
     platforms=["Windows", "Linux", "Mac OS-X"],
     keywords=['Jupyter', 'Widgets', 'IPython', 'Processing'],
