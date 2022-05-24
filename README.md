@@ -19,7 +19,7 @@ import py5
 
 
 def setup():
-    py5.size(200, 200)
+    py5.size(400, 400)
     py5.rect_mode(py5.CENTER)
 
 
