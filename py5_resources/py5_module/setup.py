@@ -23,7 +23,7 @@ from setuptools import setup
 with open('README.md') as f:
     README = f.read()
 
-VERSION = '0.7.3.dev0'
+VERSION = '0.8.0a2'
 
 INSTALL_REQUIRES = [
     'autopep8>=1.5',
@@ -60,7 +60,7 @@ setup_args = dict(
     python_requires='>3.8',
     install_requires=INSTALL_REQUIRES,
     extras_require={
-        'jupyter': ['py5jupyter>=0.1.2a0'],
+        'jupyter': ['py5jupyter>=0.1.2a1'],
     },
     description='Processing for CPython',
     long_description=README,
