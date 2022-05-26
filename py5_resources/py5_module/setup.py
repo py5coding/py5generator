@@ -23,7 +23,7 @@ from setuptools import setup
 with open('README.md') as f:
     README = f.read()
 
-VERSION = '0.8.0a2'
+VERSION = '0.8.1.dev0'
 
 INSTALL_REQUIRES = [
     'autopep8>=1.5',
