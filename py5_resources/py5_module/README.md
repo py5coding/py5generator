@@ -71,5 +71,5 @@ Have a comment or question? We'd love to hear from you! The best ways to reach o
 [jpype]: https://github.com/jpype-project/jpype
 
 [jupyter]: https://jupyter.org/
-[numpy]: https://www.numpy.org/
+[numpy]: https://numpy.org/
 [pillow]: https://python-pillow.org/
