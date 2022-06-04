@@ -4,11 +4,11 @@
 
 [![py5 weekly downloads](https://pepy.tech/badge/py5/week)](https://pepy.tech/project/py5)
 
-[![mybinder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/hx2A/py5examples/HEAD?urlpath=lab)
+[![mybinder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/py5coding/py5examples/HEAD?urlpath=lab)
 
-py5 is a new version of [**Processing**][processing] for Python 3.8+. It makes the Java [**Processing**][processing] jars available to the CPython interpreter using [**JPype**][jpype]. It can do just about everything [**Processing**][processing] can do, except with Python instead of Java code.
+py5 is a new version of [**Processing**][processing] for Python 3.8+. It makes the Java [**Processing**][processing] jars available to the CPython interpreter using [**JPype**][jpype]. It can do just about all of the 2D and 3D drawing [**Processing**][processing] can do, except with Python instead of Java code.
 
-The goal of py5 is to create a new version of Processing that is integrated into the Python ecosystem. Built into the library are thoughtful choices about how to best get py5 to work with other popular Python libraries such as [numpy](https://www.numpy.org/) or [Pillow](https://python-pillow.org/).
+The goal of py5 is to create a new version of Processing that is integrated into the Python ecosystem. Built into the library are thoughtful choices about how to best get py5 to work with other popular Python libraries and tools such as [Jupyter][jupyter], [numpy][numpy], and [Pillow][pillow].
 
 ## Simple Example
 
@@ -19,12 +19,16 @@ import py5
 
 
 def setup():
-    py5.size(200, 200)
+    py5.size(400, 400)
     py5.rect_mode(py5.CENTER)
 
 
 def draw():
     py5.square(py5.mouse_x, py5.mouse_y, 10)
+
+
+def mouse_clicked():
+    py5.fill(py5.random_int(255), py5.random_int(255), py5.random_int(255))
 
 
 py5.run_sketch()
@@ -57,11 +61,15 @@ The documentation website, [https://py5.ixora.io/](https://py5.ixora.io/), is a 
 
 Have a comment or question? We'd love to hear from you! The best ways to reach out are:
 
-* github [discussions](https://github.com/hx2A/py5generator/discussions) and [issues](https://github.com/hx2A/py5generator/issues)
+* github [discussions](https://github.com/py5coding/py5generator/discussions) and [issues](https://github.com/py5coding/py5generator/issues)
 * twitter [@py5coding](https://twitter.com/py5coding)
 * [processing foundation discourse](https://discourse.processing.org/)
 
-[py5_repo]: https://github.com/hx2A/py5
-[py5_generator_repo]: https://github.com/hx2A/py5generator
+[py5_repo]: https://github.com/py5coding/py5
+[py5_generator_repo]: https://github.com/py5coding/py5generator
 [processing]: https://github.com/processing/processing4
 [jpype]: https://github.com/jpype-project/jpype
+
+[jupyter]: https://jupyter.org/
+[numpy]: https://numpy.org/
+[pillow]: https://python-pillow.org/
