@@ -370,9 +370,13 @@ public class Sketch extends PApplet {
         window.disposeGLEventListener(window.getGLEventListener(i), true);
       }
       if (platform == MACOS && exitActualCallCount == 1) {
-        final MacOSXOnscreenCGLDrawable drawable = (MacOSXOnscreenCGLDrawable) window.getDelegatedDrawable();
-        WindowDriver driver = (WindowDriver) drawable.getNativeSurface();
-        driver.destroy();
+        try {
+          final MacOSXOnscreenCGLDrawable drawable = (MacOSXOnscreenCGLDrawable) window.getDelegatedDrawable();
+          WindowDriver driver = (WindowDriver) drawable.getNativeSurface();
+          driver.destroy();
+        } catch (NullPointerException e) {
+          // if a NullPointerException is thrown it is because the drawing surface has already been destroyed
+        }
       }
     }
     if (nativeWindow instanceof Window) {
