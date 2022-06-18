@@ -50,12 +50,20 @@ def _ret_str(f):
 
 
 def _hex_converter(arg):
-    if isinstance(arg, str) and HEX_COLOR_REGEX.match(arg.upper()):
-        return JInt(int("0xFF" + arg[1:], base=16))
-    elif isinstance(arg, str) and HEX_3DIGIT_COLOR_REGEX.match(arg.upper()):
-        return JInt(int("0xFF" + ''.join([c + c for c in arg[1:]]), base=16))
+    if isinstance(arg, str):
+        if HEX_COLOR_REGEX.match(arg.upper()):
+            return JInt(int("0xFF" + arg[1:], base=16))
+        elif HEX_3DIGIT_COLOR_REGEX.match(arg.upper()):
+            return JInt(int("0xFF" + ''.join([c + c for c in arg[1:]]), base=16))
+        else:
+            try:
+                import matplotlib.colors as mcolors
+                return JInt(int("0xFF" + mcolors.to_hex(arg)[1:], base=16))
+            except:
+                return None
     elif isinstance(arg, (int, np.integer)) and 0x7FFFFFFF < arg <= 0xFFFFFFFF:
         return JInt(arg)
+
     return None
 
 
