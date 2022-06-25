@@ -65,7 +65,7 @@ if not py5_tools.is_jvm_running():
         print(debug_info, file=sys.stderr)
         raise RuntimeError("py5 is unable to start Java 17 Virtual Machine")
 
-from .methods import register_exception_msg  # noqa
+from .methods import register_exception_msg, register_java_mode_key  # noqa
 from .sketch import Sketch, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Shape, Py5Font, Py5KeyEvent, Py5MouseEvent, Py5Promise  # noqa
 from .render_helper import render_frame, render_frame_sequence, render, render_sequence  # noqa
 from .create_font_tool import create_font_file  # noqa
