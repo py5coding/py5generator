@@ -105,6 +105,15 @@ public class Sketch extends PApplet {
     return success;
   }
 
+  public Object callFunction(String key, Object... params) {
+    Object retVal = py5Methods.call_function(key, params);
+    if (retVal instanceof RuntimeException) {
+      success = false;
+      throw ((RuntimeException) retVal);
+    }
+    return retVal;
+  }
+
   public void py5Println(String text) {
     py5Methods.py5_println(text, false);
   }
@@ -185,6 +194,10 @@ public class Sketch extends PApplet {
         capturePixels(true);
       }
     }
+
+    // TODO: lame test code, remove
+    double ans = (Double) callFunction("np.sin", 2.2);
+    py5Println("np.sin(2.2) = " + ans);
   }
 
   @Override

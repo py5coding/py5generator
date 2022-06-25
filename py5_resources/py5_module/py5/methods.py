@@ -25,13 +25,14 @@ from typing import Union
 import inspect
 import line_profiler
 
-from jpype import JImplements, JOverride, JString
+from jpype import JClass, JImplements, JOverride, JString
 
 import stackprinter
 
 import py5_tools
 from . import reference
 from . import custom_exceptions
+# from . import java_conversion
 
 # *** stacktrace configuration ***
 # set stackprinter color style. Default is plaintext. Other choices are darkbg,
@@ -238,6 +239,26 @@ class Py5Methods:
             handle_exception(self._sketch.println, *sys.exc_info())
             self._sketch._terminate_sketch()
             return False
+
+    @JOverride
+    def call_function(self, key, params):
+        # TODO: this is all wrong. either require function registration or get the right global dict from the calling stack
+        d = globals()
+        try:
+            key = str(key)
+            print(key, params)
+            for k in key.split('.'):
+                x = d[k]
+                if hasattr(x, '__dict__'):
+                    d = x.__dict__
+                else:
+                    break
+            # TODO: used in two places; import in constructor or something
+            from .java_conversion import convert_to_python_types
+            return x(*convert_to_python_types(params))
+        except Exception as e:
+            # TODO: get stack trace. this is terrible
+            return JClass('java.lang.RuntimeException')(str(e))
 
     @JOverride
     def py5_println(self, text, stderr):
