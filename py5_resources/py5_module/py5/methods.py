@@ -22,6 +22,7 @@ import re
 from pathlib import Path
 from collections import defaultdict
 from typing import Union
+from types import ModuleType
 import inspect
 import line_profiler
 
@@ -50,6 +51,8 @@ _EXCEPTION_MSGS = {
     **custom_exceptions.CUSTOM_EXCEPTION_MSGS,
 }
 
+_PY5_JAVA_MODE_KEYS = {}
+
 
 def _exception_msg(println, exc_type_name, exc_msg, py5info):
     try:
@@ -68,6 +71,10 @@ def _exception_msg(println, exc_type_name, exc_msg, py5info):
 
 def register_exception_msg(exc_type_name: str, msg: Union[str, callable]):
     _EXCEPTION_MSGS[exc_type_name] = msg
+
+
+def register_java_mode_key(key: str, value: Union[callable, ModuleType]):
+    _PY5_JAVA_MODE_KEYS[key] = value
 
 
 def handle_exception(println, exc_type, exc_value, exc_tb):
@@ -242,22 +249,31 @@ class Py5Methods:
 
     @JOverride
     def call_function(self, key, params):
-        # TODO: this is all wrong. either require function registration or get the right global dict from the calling stack
-        d = globals()
+        # TODO: where/when should I use handle_exception in here?
+        d = _PY5_JAVA_MODE_KEYS
         try:
-            key = str(key)
-            print(key, params)
-            for k in key.split('.'):
-                x = d[k]
-                if hasattr(x, '__dict__'):
-                    d = x.__dict__
+            *str_hierarchy, c = str(key).split('.')
+            for s in str_hierarchy:
+                if s in d:
+                    subd = d[s]
+                    if hasattr(subd, '__dict__'):
+                        d = subd.__dict__
+                    else:
+                        return JClass('java.lang.RuntimeException')(f'{s} in key {key} does map to object with __dict__')
                 else:
-                    break
-            # TODO: used in two places; import in constructor or something
-            from .java_conversion import convert_to_python_types
-            return x(*convert_to_python_types(params))
+                    return JClass('java.lang.RuntimeException')(f'{s} not found in key {key}')
+
+            func = d[c]
+            if callable(func):
+                # TODO: used in two places; import in constructor or something
+                from .java_conversion import convert_to_python_types
+                try:
+                    return func(*convert_to_python_types(params))
+                except Exception as e:
+                    return JClass('java.lang.RuntimeException')(str(e))
+            else:
+                return JClass('java.lang.RuntimeException')(f'object found with key {key} is not callable')
         except Exception as e:
-            # TODO: get stack trace. this is terrible
             return JClass('java.lang.RuntimeException')(str(e))
 
     @JOverride
