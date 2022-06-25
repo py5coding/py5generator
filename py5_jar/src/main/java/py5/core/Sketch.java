@@ -194,10 +194,6 @@ public class Sketch extends PApplet {
         capturePixels(true);
       }
     }
-
-    // TODO: lame test code, remove
-    double ans = (Double) callFunction("np.sin", 2.2);
-    py5Println("np.sin(2.2) = " + ans);
   }
 
   @Override
