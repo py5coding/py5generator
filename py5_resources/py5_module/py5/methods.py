@@ -250,6 +250,8 @@ class Py5Methods:
     @JOverride
     def call_function(self, key, params):
         # TODO: where/when should I use handle_exception in here?
+        # TODO: should give the user the ability to handle an exception and not halt the sketch?
+        # TODO: should halting the sketch be optional?
         d = _PY5_JAVA_MODE_KEYS
         try:
             *str_hierarchy, c = str(key).split('.')
