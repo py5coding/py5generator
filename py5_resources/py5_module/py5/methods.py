@@ -256,6 +256,7 @@ class Py5Methods:
         d = _PY5_JAVA_MODE_KEYS
         try:
             *str_hierarchy, c = str(key).split('.')
+
             for s in str_hierarchy:
                 if s in d:
                     subd = d[s]
@@ -268,19 +269,14 @@ class Py5Methods:
                 else:
                     return _JAVA_RUNTIMEEXCEPTION(f'{s} not found with key {key}')
 
-            if c in d:
-                func = d[c]
-            else:
+            if c not in d or not callable(func:=d[c]):
                 return _JAVA_RUNTIMEEXCEPTION(f'callable {c} not found with key {key}')
 
-            if callable(func):
-                try:
-                    return func(*self._convert_to_python_types(params))
-                except Exception as e:
-                    handle_exception(self._sketch.println, *sys.exc_info())
-                    return _JAVA_RUNTIMEEXCEPTION(str(e))
-            else:
-                return _JAVA_RUNTIMEEXCEPTION(f'object found with key {key} is not callable')
+            try:
+                return func(*self._convert_to_python_types(params))
+            except Exception as e:
+                handle_exception(self._sketch.println, *sys.exc_info())
+                return _JAVA_RUNTIMEEXCEPTION(str(e))
         except Exception as e:
             return _JAVA_RUNTIMEEXCEPTION(str(e))
 
