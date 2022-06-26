@@ -157,6 +157,9 @@ class Py5Methods:
         self._profiler = line_profiler.LineProfiler()
         self._is_terminated = False
 
+        from .java_conversion import convert_to_python_types
+        self._convert_to_python_types = convert_to_python_types
+
     def set_functions(self, functions, function_param_counts):
         self._function_param_counts = dict()
         self._functions = dict()
@@ -236,8 +239,7 @@ class Py5Methods:
                         hook(self._sketch)
 
                 # now run the actual method
-                from .java_conversion import convert_to_python_types
-                self._functions[method_name](*convert_to_python_types(params))
+                self._functions[method_name](*self._convert_to_python_types(params))
 
                 # finally, post-hooks
                 if method_name in self._post_hooks:
@@ -268,10 +270,8 @@ class Py5Methods:
 
             func = d[c]
             if callable(func):
-                # TODO: used in two places; import in constructor or something
-                from .java_conversion import convert_to_python_types
                 try:
-                    return func(*convert_to_python_types(params))
+                    return func(*self._convert_to_python_types(params))
                 except Exception as e:
                     handle_exception(self._sketch.println, *sys.exc_info())
                     return _JAVA_RUNTIMEEXCEPTION(str(e))
