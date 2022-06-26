@@ -51,6 +51,8 @@ _EXCEPTION_MSGS = {
     **custom_exceptions.CUSTOM_EXCEPTION_MSGS,
 }
 
+_JAVA_RUNTIMEEXCEPTION  = JClass('java.lang.RuntimeException')
+
 _PY5_JAVA_MODE_KEYS = {}
 
 
@@ -249,21 +251,20 @@ class Py5Methods:
 
     @JOverride
     def call_function(self, key, params):
-        # TODO: where/when should I use handle_exception in here?
-        # TODO: should give the user the ability to handle an exception and not halt the sketch?
-        # TODO: should halting the sketch be optional?
         d = _PY5_JAVA_MODE_KEYS
         try:
             *str_hierarchy, c = str(key).split('.')
             for s in str_hierarchy:
                 if s in d:
                     subd = d[s]
-                    if hasattr(subd, '__dict__'):
+                    if isinstance(subd, dict):
+                        d = subd
+                    elif hasattr(subd, '__dict__'):
                         d = subd.__dict__
                     else:
-                        return JClass('java.lang.RuntimeException')(f'{s} in key {key} does map to object with __dict__')
+                        return _JAVA_RUNTIMEEXCEPTION(f'{s} in key {key} does map to dict or object with __dict__ attribute')
                 else:
-                    return JClass('java.lang.RuntimeException')(f'{s} not found in key {key}')
+                    return _JAVA_RUNTIMEEXCEPTION(f'{s} not found in key {key}')
 
             func = d[c]
             if callable(func):
@@ -272,11 +273,12 @@ class Py5Methods:
                 try:
                     return func(*convert_to_python_types(params))
                 except Exception as e:
-                    return JClass('java.lang.RuntimeException')(str(e))
+                    handle_exception(self._sketch.println, *sys.exc_info())
+                    return _JAVA_RUNTIMEEXCEPTION(str(e))
             else:
-                return JClass('java.lang.RuntimeException')(f'object found with key {key} is not callable')
+                return _JAVA_RUNTIMEEXCEPTION(f'object found with key {key} is not callable')
         except Exception as e:
-            return JClass('java.lang.RuntimeException')(str(e))
+            return _JAVA_RUNTIMEEXCEPTION(str(e))
 
     @JOverride
     def py5_println(self, text, stderr):
