@@ -17,15 +17,15 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-"""
-Utilities and accessory tools for py5. 
-"""
-from .imported import set_imported_mode, get_imported_mode  # noqa
-from .jvm import *  # noqa
-from .libraries import *  # noqa
-from .hooks import *  # noqa
-from .config import *  # noqa
-from . import translators  # noqa
+from typing import Union
+from types import ModuleType
 
 
-__version__ = '0.8.1.dev0'
+_PY5_JAVA_MODE_KEYS = {}
+
+
+def register_java_mode_key(key: str, value: Union[callable, ModuleType]):
+    _PY5_JAVA_MODE_KEYS[key] = value
+
+
+__all__ = ['register_java_mode_key']

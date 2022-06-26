@@ -22,7 +22,6 @@ import re
 from pathlib import Path
 from collections import defaultdict
 from typing import Union
-from types import ModuleType
 import inspect
 import line_profiler
 
@@ -53,8 +52,6 @@ _EXCEPTION_MSGS = {
 
 _JAVA_RUNTIMEEXCEPTION  = JClass('java.lang.RuntimeException')
 
-_PY5_JAVA_MODE_KEYS = {}
-
 
 def _exception_msg(println, exc_type_name, exc_msg, py5info):
     try:
@@ -73,10 +70,6 @@ def _exception_msg(println, exc_type_name, exc_msg, py5info):
 
 def register_exception_msg(exc_type_name: str, msg: Union[str, callable]):
     _EXCEPTION_MSGS[exc_type_name] = msg
-
-
-def register_java_mode_key(key: str, value: Union[callable, ModuleType]):
-    _PY5_JAVA_MODE_KEYS[key] = value
 
 
 def handle_exception(println, exc_type, exc_value, exc_tb):
@@ -253,7 +246,7 @@ class Py5Methods:
 
     @JOverride
     def call_function(self, key, params):
-        d = _PY5_JAVA_MODE_KEYS
+        d = py5_tools.config._PY5_JAVA_MODE_KEYS
         try:
             *str_hierarchy, c = str(key).split('.')
 
