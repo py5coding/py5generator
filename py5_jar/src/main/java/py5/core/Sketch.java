@@ -108,10 +108,10 @@ public class Sketch extends PApplet {
   public Object callFunction(String key, Object... params) {
     Object retVal = py5Methods.call_function(key, params);
     if (retVal instanceof RuntimeException) {
-      success = false;
       throw ((RuntimeException) retVal);
+    } else {
+      return retVal;
     }
-    return retVal;
   }
 
   public void py5Println(String text) {
