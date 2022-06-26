@@ -138,8 +138,8 @@ def _extract_py5_user_function_data(d: dict):
     return functions, function_param_counts
 
 
-@JImplements('py5.core.Py5Methods')
-class Py5Methods:
+@JImplements('py5.core.Py5Bridge')
+class Py5Bridge:
 
     def __init__(self, sketch):
         self._sketch = sketch

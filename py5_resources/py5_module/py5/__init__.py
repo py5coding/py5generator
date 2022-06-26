@@ -65,7 +65,7 @@ if not py5_tools.is_jvm_running():
         print(debug_info, file=sys.stderr)
         raise RuntimeError("py5 is unable to start Java 17 Virtual Machine")
 
-from .methods import register_exception_msg  # noqa
+from .bridge import register_exception_msg  # noqa
 from .sketch import Sketch, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Shape, Py5Font, Py5KeyEvent, Py5MouseEvent, Py5Promise  # noqa
 from .render_helper import render_frame, render_frame_sequence, render, render_sequence  # noqa
 from .create_font_tool import create_font_file  # noqa
@@ -105,7 +105,7 @@ def run_sketch(block: bool = None, *,
     """$module_Sketch_run_sketch"""
     caller_globals = inspect.stack()[1].frame.f_globals
     caller_locals = inspect.stack()[1].frame.f_locals
-    functions, function_param_counts = methods._extract_py5_user_function_data(sketch_functions if sketch_functions else caller_locals)
+    functions, function_param_counts = bridge._extract_py5_user_function_data(sketch_functions if sketch_functions else caller_locals)
     functions = _split_setup.transform(functions, caller_globals, caller_locals, println, mode='imported' if _PY5_USE_IMPORTED_MODE else 'module')
 
     if not set(functions.keys()) & set(['settings', 'setup', 'draw']):
@@ -148,14 +148,14 @@ def reset_py5(jclassname: str = None) -> bool:
 
 def prune_tracebacks(prune: bool) -> None:
     """$module_Py5Functions_prune_tracebacks"""
-    from . import methods
-    methods._prune_tracebacks = prune
+    from . import bridge
+    bridge._prune_tracebacks = prune
 
 
 def set_stackprinter_style(style: str) -> None:
     """$module_Py5Functions_set_stackprinter_style"""
-    from . import methods
-    methods._stackprinter_style = style
+    from . import bridge
+    bridge._stackprinter_style = style
 
 
 def __getattr__(name):

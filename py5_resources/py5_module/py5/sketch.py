@@ -38,7 +38,7 @@ import numpy.typing as npt
 
 import py5_tools.environ as _environ
 from py5_tools.printstreams import _DefaultPrintlnStream, _DisplayPubPrintlnStream
-from .methods import Py5Methods, _extract_py5_user_function_data
+from .bridge import Py5Bridge, _extract_py5_user_function_data
 from .base import Py5Base
 from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream
 from .mixins.threads import Py5Promise  # noqa
@@ -146,12 +146,12 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self.set_println_stream(_DisplayPubPrintlnStream() if self._environ.in_jupyter_zmq_shell else _DefaultPrintlnStream())
         self._init_println_stream()
 
-        self._py5_methods = Py5Methods(self)
+        self._py5_methods = Py5Bridge(self)
         self._py5_methods.add_functions(methods, method_param_counts)
         self._py5_methods.profile_functions(self._methods_to_profile)
         self._py5_methods.add_pre_hooks(self._pre_hooks_to_add)
         self._py5_methods.add_post_hooks(self._post_hooks_to_add)
-        self._instance.usePy5Methods(self._py5_methods)
+        self._instance.buildPy5Bridge(self._py5_methods)
 
         if not py5_options: py5_options = []
         if not sketch_args: sketch_args = []

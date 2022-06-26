@@ -592,7 +592,7 @@ window_resized,windowResized,,method,,,SKIP,method implemented by user
 push,push,@_context_wrapper('pop'),method,structure,,JAVA,
 pop,pop,,method,structure,,JAVA,
 link,link,,method,,,SKIP,public methods that shouldn't be available to users
-use_py5_methods,usePy5Methods,,method,,,SKIP,public methods that shouldn't be available to users
+build_py5_bridge,buildPy5Bridge,,method,,,SKIP,public methods that shouldn't be available to users
 get_frame_rate,getFrameRate,,method,environment,,JAVA,this replaces the frame_rate variable which conflicts with the frame_rate function
 is_key_pressed,,,dynamic variable,input,keyboard,PYTHON,this replaces the key_pressed variable which conflicts with the key_pressed function.
 is_mouse_pressed,,,dynamic variable,input,mouse,PYTHON,this replaces the mouse_pressed variable which conflicts with the mouse_pressed function.
@@ -629,6 +629,7 @@ is_running,,,dynamic variable,structure,,PYTHON,property to determine sketch sta
 is_dead,,,dynamic variable,structure,,PYTHON,property to determine sketch state
 is_dead_from_error,,,dynamic variable,structure,,PYTHON,property to determine sketch state
 get_success,getSuccess,,method,,,SKIP,used to determine if sketch had an error
+call_function,callFunction,,method,,,SKIP,use for bridge to Python in java mode
 py5_println,py5Println,,method,,,SKIP,"special print method for Java extensions to use py5's println method, which works well with Jupyter Notebooks"
 set_py5_icon_path,setPy5IconPath,,method,,,SKIP,used to set the path to the py5 window and taskbar icon
 get_renderer_name,getRendererName,,method,,,SKIP,used to map the renderer classpath to a user friendly name

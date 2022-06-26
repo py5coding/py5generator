@@ -19,7 +19,7 @@
 ******************************************************************************/
 package py5.core;
 
-public interface Py5Methods {
+public interface Py5Bridge {
 
   public String[] get_function_list();
 

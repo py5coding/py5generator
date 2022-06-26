@@ -50,7 +50,7 @@ import py5.util.OpenSimplex2S;
 
 public class Sketch extends PApplet {
 
-  protected Py5Methods py5Methods;
+  protected Py5Bridge py5Bridge;
   protected Set<String> py5RegisteredEvents;
   protected Map<String, Integer> py5RegisteredEventParamCounts;
   protected boolean success = false;
@@ -89,11 +89,11 @@ public class Sketch extends PApplet {
    * the Processing methods.
    */
 
-  public void usePy5Methods(Py5Methods py5Methods) {
-    this.py5Methods = py5Methods;
+  public void buildPy5Bridge(Py5Bridge py5Bridge) {
+    this.py5Bridge = py5Bridge;
     this.py5RegisteredEvents = new HashSet<String>();
     this.py5RegisteredEventParamCounts = new HashMap<String, Integer>();
-    for (String f : py5Methods.get_function_list()) {
+    for (String f : py5Bridge.get_function_list()) {
       String[] nameParamCountPairs = f.split(":");
       this.py5RegisteredEvents.add(nameParamCountPairs[0]);
       this.py5RegisteredEventParamCounts.put(nameParamCountPairs[0], Integer.parseInt(nameParamCountPairs[1]));
@@ -106,7 +106,7 @@ public class Sketch extends PApplet {
   }
 
   public Object callFunction(String key, Object... params) {
-    Object retVal = py5Methods.call_function(key, params);
+    Object retVal = py5Bridge.call_function(key, params);
     if (retVal instanceof RuntimeException) {
       throw ((RuntimeException) retVal);
     } else {
@@ -115,11 +115,11 @@ public class Sketch extends PApplet {
   }
 
   public void py5Println(String text) {
-    py5Methods.py5_println(text, false);
+    py5Bridge.py5_println(text, false);
   }
 
   public void py5Println(String text, boolean stderr) {
-    py5Methods.py5_println(text, stderr);
+    py5Bridge.py5_println(text, stderr);
   }
 
   public String getRendererName() {
@@ -156,7 +156,7 @@ public class Sketch extends PApplet {
 
     if (success) {
       if (py5RegisteredEvents.contains("settings")) {
-        success = py5Methods.run_method("settings");
+        success = py5Bridge.run_method("settings");
       } else {
         // parent method doesn't do anything but that might change
         super.settings();
@@ -184,7 +184,7 @@ public class Sketch extends PApplet {
       }
 
       if (py5RegisteredEvents.contains("setup")) {
-        success = py5Methods.run_method("setup");
+        success = py5Bridge.run_method("setup");
       } else {
         // parent method doesn't do anything but that might change
         super.setup();
@@ -204,7 +204,7 @@ public class Sketch extends PApplet {
 
     if (success) {
       if (py5RegisteredEvents.contains("draw")) {
-        success = py5Methods.run_method("draw");
+        success = py5Bridge.run_method("draw");
       } else {
         super.draw();
       }
@@ -217,34 +217,34 @@ public class Sketch extends PApplet {
 
   public void preDraw() {
     if (success && py5RegisteredEvents.contains("pre_draw")) {
-      success = py5Methods.run_method("pre_draw");
+      success = py5Bridge.run_method("pre_draw");
     }
   }
 
   public void postDraw() {
     if (success && py5RegisteredEvents.contains("post_draw")) {
-      success = py5Methods.run_method("post_draw");
+      success = py5Bridge.run_method("post_draw");
     }
   }
 
   @Override
   public void windowMoved() {
     if (success && py5RegisteredEvents.contains("window_moved")) {
-      success = py5Methods.run_method("window_moved");
+      success = py5Bridge.run_method("window_moved");
     }
   }
 
   @Override
   public void windowResized() {
     if (success && py5RegisteredEvents.contains("window_resized")) {
-      success = py5Methods.run_method("window_resized");
+      success = py5Bridge.run_method("window_resized");
     }
   }
 
   protected void handleInputEvent(String eventName, Event event) {
     if (success && py5RegisteredEvents.contains(eventName)) {
-      success = py5RegisteredEventParamCounts.get(eventName) == 0 ? py5Methods.run_method(eventName)
-          : py5Methods.run_method(eventName, event);
+      success = py5RegisteredEventParamCounts.get(eventName) == 0 ? py5Bridge.run_method(eventName)
+          : py5Bridge.run_method(eventName, event);
     }
   }
 
@@ -309,7 +309,7 @@ public class Sketch extends PApplet {
   // able to sort out the actual object type.
   public void movieEvent(Object movie) {
     if (success && py5RegisteredEvents.contains("movie_event")) {
-      success = py5Methods.run_method("movie_event", movie);
+      success = py5Bridge.run_method("movie_event", movie);
     }
   }
 
@@ -365,12 +365,12 @@ public class Sketch extends PApplet {
     // call exiting even if success == false. user might need to do shutdown
     // activities
     if (py5RegisteredEvents.contains("exiting")) {
-      py5Methods.run_method("exiting");
+      py5Bridge.run_method("exiting");
       // if the exiting method was not successful we still need to run the below
       // shutdown code.
     }
 
-    py5Methods.shutdown();
+    py5Bridge.shutdown();
 
     final Object nativeWindow = surface.getNative();
     if (nativeWindow instanceof GLWindow) {
