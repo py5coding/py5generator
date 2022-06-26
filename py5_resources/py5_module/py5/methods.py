@@ -266,9 +266,13 @@ class Py5Methods:
                     else:
                         return _JAVA_RUNTIMEEXCEPTION(f'{s} in key {key} does map to dict or object with __dict__ attribute')
                 else:
-                    return _JAVA_RUNTIMEEXCEPTION(f'{s} not found in key {key}')
+                    return _JAVA_RUNTIMEEXCEPTION(f'{s} not found with key {key}')
 
-            func = d[c]
+            if c in d:
+                func = d[c]
+            else:
+                return _JAVA_RUNTIMEEXCEPTION(f'callable {c} not found with key {key}')
+
             if callable(func):
                 try:
                     return func(*self._convert_to_python_types(params))
