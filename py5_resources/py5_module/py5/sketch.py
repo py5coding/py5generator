@@ -31,7 +31,7 @@ import functools
 from typing import overload, Any, Callable, Union  # noqa
 
 import jpype
-from jpype.types import JException, JArray, JInt  # noqa
+from jpype.types import JClass, JException, JArray, JInt  # noqa
 
 import numpy as np
 import numpy.typing as npt
@@ -93,8 +93,14 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     _cls = _Sketch
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(instance=_Sketch())
+    def __init__(self, jclassname=None, *args, **kwargs):
+        if jclassname:
+            Sketch._cls = JClass(jclassname)
+        instance = Sketch._cls()
+        if not isinstance(instance, _Sketch):
+            raise RuntimeError('Java instance must inherit from py5.core.Sketch')
+
+        super().__init__(instance=instance)
         self._methods_to_profile = []
         self._pre_hooks_to_add = []
         self._post_hooks_to_add = []
@@ -107,7 +113,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             self._instance.setPy5IconPath(str(iconPath))
         elif hasattr(sys, '_MEIPASS'):
             warnings.warn("py5 logo image cannot be found. You are running this Sketch with pyinstaller and the image is missing from the packaging. I'm going to nag you until you fix it :)")
-        _Sketch.setJOGLProperties(str(Path(__file__).parent))
+        Sketch._cls.setJOGLProperties(str(Path(__file__).parent))
 
         # attempt to instantiate Py5Utilities
         self.utils = None
@@ -161,7 +167,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                 from PyObjCTools import AppHelper
 
                 def run():
-                    _Sketch.runSketch(args, self._instance)
+                    Sketch._cls.runSketch(args, self._instance)
                     if not self._environ.in_ipython_session:
                         while not self.is_dead:
                             time.sleep(0.05)
@@ -179,7 +185,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                 if not self._environ.in_ipython_session:
                     AppHelper.runConsoleEventLoop()
             else:
-                _Sketch.runSketch(args, self._instance)
+                Sketch._cls.runSketch(args, self._instance)
         except Exception as e:
             self.println('Java exception thrown by Sketch.runSketch:\n' + str(e), stderr=True)
 

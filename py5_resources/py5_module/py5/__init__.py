@@ -131,11 +131,11 @@ def get_current_sketch() -> Sketch:
     return _py5sketch
 
 
-def reset_py5() -> bool:
+def reset_py5(jclassname=None) -> bool:
     """$module_Py5Functions_reset_py5"""
     global _py5sketch
-    if _py5sketch.is_dead:
-        _py5sketch = Sketch()
+    if _py5sketch.is_dead or jclassname:
+        _py5sketch = Sketch(jclassname=jclassname)
         if _PY5_USE_IMPORTED_MODE:
             caller_locals = inspect.stack()[1].frame.f_locals
             caller_globals = inspect.stack()[1].frame.f_globals
