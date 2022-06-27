@@ -241,6 +241,21 @@ public class Sketch extends PApplet {
     }
   }
 
+  protected boolean handleInputEventOneParam(String eventName, Event event) {
+    if (success && py5RegisteredEvents.contains(eventName) && py5RegisteredEventParamCounts.get(eventName) == 1) {
+      py5Bridge.run_method(eventName, event);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  protected void handleInputEventNoParams(String eventName) {
+    if (success && py5RegisteredEvents.contains(eventName) && py5RegisteredEventParamCounts.get(eventName) == 0) {
+      py5Bridge.run_method(eventName);
+    }
+  }
+
   protected void handleInputEvent(String eventName, Event event) {
     if (success && py5RegisteredEvents.contains(eventName)) {
       success = py5RegisteredEventParamCounts.get(eventName) == 0 ? py5Bridge.run_method(eventName)
@@ -250,7 +265,14 @@ public class Sketch extends PApplet {
 
   @Override
   public void mousePressed(MouseEvent event) {
-    handleInputEvent("mouse_pressed", event);
+    if (!handleInputEventOneParam("mouse_pressed", event)) {
+      mousePressed();
+    }
+  }
+
+  @Override
+  public void mousePressed() {
+    handleInputEventNoParams("mouse_pressed");
   }
 
   @Override
