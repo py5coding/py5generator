@@ -277,37 +277,86 @@ public class Sketch extends PApplet {
 
   @Override
   public void mouseReleased(MouseEvent event) {
-    handleInputEvent("mouse_released", event);
+    if (!handleInputEventOneParam("mouse_released", event)) {
+      mouseReleased();
+    }
+  }
+
+  @Override
+  public void mouseReleased() {
+    handleInputEventNoParams("mouse_released");
   }
 
   @Override
   public void mouseClicked(MouseEvent event) {
-    handleInputEvent("mouse_clicked", event);
+    if (!handleInputEventOneParam("mouse_clicked", event)) {
+      mouseClicked();
+    }
+  }
+
+  @Override
+  public void mouseClicked() {
+    handleInputEventNoParams("mouse_clicked");
   }
 
   @Override
   public void mouseDragged(MouseEvent event) {
-    handleInputEvent("mouse_dragged", event);
+    if (!handleInputEventOneParam("mouse_dragged", event)) {
+      mouseDragged();
+    }
+  }
+
+  @Override
+  public void mouseDragged() {
+    handleInputEventNoParams("mouse_dragged");
   }
 
   @Override
   public void mouseMoved(MouseEvent event) {
-    handleInputEvent("mouse_moved", event);
+    if (!handleInputEventOneParam("mouse_moved", event)) {
+      mouseMoved();
+    }
+  }
+
+  @Override
+  public void mouseMoved() {
+    handleInputEventNoParams("mouse_moved");
   }
 
   @Override
   public void mouseEntered(MouseEvent event) {
-    handleInputEvent("mouse_entered", event);
+    if (!handleInputEventOneParam("mouse_entered", event)) {
+      mouseEntered();
+    }
+  }
+
+  @Override
+  public void mouseEntered() {
+    handleInputEventNoParams("mouse_entered");
   }
 
   @Override
   public void mouseExited(MouseEvent event) {
-    handleInputEvent("mouse_exited", event);
+    if (!handleInputEventOneParam("mouse_exited", event)) {
+      mouseExited();
+    }
+  }
+
+  @Override
+  public void mouseExited() {
+    handleInputEventNoParams("mouse_exited");
   }
 
   @Override
   public void mouseWheel(MouseEvent event) {
-    handleInputEvent("mouse_wheel", event);
+    if (!handleInputEventOneParam("mouse_wheel", event)) {
+      mouseWheel();
+    }
+  }
+
+  @Override
+  public void mouseWheel() {
+    handleInputEventNoParams("mouse_wheel");
   }
 
   @Override
