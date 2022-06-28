@@ -256,13 +256,6 @@ public class Sketch extends PApplet {
     }
   }
 
-  protected void handleInputEvent(String eventName, Event event) {
-    if (success && py5RegisteredEvents.contains(eventName)) {
-      success = py5RegisteredEventParamCounts.get(eventName) == 0 ? py5Bridge.run_method(eventName)
-          : py5Bridge.run_method(eventName, event);
-    }
-  }
-
   @Override
   public void mousePressed(MouseEvent event) {
     if (!handleInputEventOneParam("mouse_pressed", event)) {
@@ -361,17 +354,38 @@ public class Sketch extends PApplet {
 
   @Override
   public void keyPressed(KeyEvent event) {
-    handleInputEvent("key_pressed", event);
+    if (!handleInputEventOneParam("key_pressed", event)) {
+      keyPressed();
+    }
+  }
+
+  @Override
+  public void keyPressed() {
+    handleInputEventNoParams("key_pressed");
   }
 
   @Override
   public void keyReleased(KeyEvent event) {
-    handleInputEvent("key_released", event);
+    if (!handleInputEventOneParam("key_released", event)) {
+      keyReleased();
+    }
+  }
+
+  @Override
+  public void keyReleased() {
+    handleInputEventNoParams("key_released");
   }
 
   @Override
   public void keyTyped(KeyEvent event) {
-    handleInputEvent("key_typed", event);
+    if (!handleInputEventOneParam("key_typed", event)) {
+      keyTyped();
+    }
+  }
+
+  @Override
+  public void keyTyped() {
+    handleInputEventNoParams("key_typed");
   }
 
   // Support the Processing Video library. The passed movie parameter will be a
