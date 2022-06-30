@@ -41,8 +41,8 @@ JCONVERSION_CLASS_MAP = [
 ]
 
 PROCESSING_TO_PY5_CLASS_MAP = [
-    (JClass("processing.core.PImage"), Py5Image),
     (JClass("processing.core.PGraphics"), Py5Graphics),
+    (JClass("processing.core.PImage"), Py5Image),
     (JClass("processing.core.PFont"), Py5Font),
     (JClass("processing.core.PShape"), Py5Shape),
     (JClass("processing.opengl.PShader"), Py5Shader),
