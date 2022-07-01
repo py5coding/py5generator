@@ -28,7 +28,6 @@ import warnings
 from io import BytesIO
 from pathlib import Path
 import functools
-import weakref
 from typing import overload, Any, Callable, Union  # noqa
 
 import jpype
@@ -91,16 +90,17 @@ def _auto_convert_to_py5image(f):
 class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5Base):
     """$classdoc_Sketch
     """
-    _py5_object_cache = weakref.WeakSet()
+    _py5_object_cache = set()
     _cls = _Sketch
 
     def __new__(cls, *, _instance=None, _jclassname=None):
+        cls._py5_object_cache = set(s for s in cls._py5_object_cache if not s.is_dead)
         if _instance:
             for s in cls._py5_object_cache:
                 if _instance == s._instance:
                     return s
             else:
-                raise RuntimeError('failed to locate cached Sketch class for provided py5.core.Sketch instance cache')
+                raise RuntimeError('Failed to locate cached Sketch class for provided py5.core.Sketch instance')
         else:
             s = object.__new__(Sketch)
             cls._py5_object_cache.add(s)
@@ -108,8 +108,11 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def __init__(self, *, _instance=None, _jclassname=None):
         if _instance:
-            # this is a cached Sketch object, don't re-run __init__()
-            return
+            if _instance == getattr(self, '_instance', None):
+                # this is a cached Sketch object, don't re-run __init__()
+                return
+            else:
+                raise RuntimeError('Unexpected Situation: Passed py5.core.Sketch instance does not match existing py5.core.Sketch instance. What is going on?')
 
         Sketch._cls = JClass(_jclassname) if _jclassname else _Sketch
         instance = Sketch._cls()
@@ -128,7 +131,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         if iconPath.exists():
             self._instance.setPy5IconPath(str(iconPath))
         elif hasattr(sys, '_MEIPASS'):
-            warnings.warn("py5 logo image cannot be found. You are running this Sketch with pyinstaller and the image is missing from the packaging. I'm going to nag you until you fix it :)")
+            warnings.warn("py5 logo image cannot be found. You are running this Sketch with pyinstaller and the image is missing from the packaging. I'm going to nag you about this until you fix it.")
         Sketch._cls.setJOGLProperties(str(Path(__file__).parent))
 
         # attempt to instantiate Py5Utilities
