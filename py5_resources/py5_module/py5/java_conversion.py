@@ -20,7 +20,7 @@
 import numpy as np
 from jpype import JClass, JArray, _jcustomizer
 
-from .sketch import Sketch, Py5Graphics, Py5Image, Py5Font, Py5Shape, Py5Shader, Py5KeyEvent, Py5MouseEvent
+from .sketch import _Sketch, Sketch, Py5Graphics, Py5Image, Py5Font, Py5Shape, Py5Shader, Py5KeyEvent, Py5MouseEvent
 from .pmath import _py5vector_to_pvector_converter, _numpy_to_pvector_converter, _numpy_to_pmatrix_converter
 from .vector import Py5Vector
 
@@ -48,8 +48,6 @@ PROCESSING_TO_PY5_CLASS_MAP = [
     (JClass("processing.opengl.PShader"), Py5Shader),
     (JClass("processing.event.KeyEvent"), Py5KeyEvent),
     (JClass("processing.event.MouseEvent"), Py5MouseEvent),
-    # TODO: this won't work for Sketch. should it?
-    # (JClass("py5.core.Sketch"), Sketch),
 ]
 
 
@@ -73,7 +71,9 @@ def convert_to_python_types(params):
                 yield py5class(p)
                 break
         else:
-            if isinstance(p, JArray):
+            if isinstance(p, _Sketch):
+                yield Sketch(_instance=p)
+            elif isinstance(p, JArray):
                 yield np.asarray(p)
             else:
                 yield p

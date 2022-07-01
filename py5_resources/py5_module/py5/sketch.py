@@ -28,6 +28,7 @@ import warnings
 from io import BytesIO
 from pathlib import Path
 import functools
+import weakref
 from typing import overload, Any, Callable, Union  # noqa
 
 import jpype
@@ -90,10 +91,26 @@ def _auto_convert_to_py5image(f):
 class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5Base):
     """$classdoc_Sketch
     """
-
+    _py5_object_cache = weakref.WeakSet()
     _cls = _Sketch
 
-    def __init__(self, *, _jclassname=None):
+    def __new__(cls, *, _instance=None, _jclassname=None):
+        if _instance:
+            for s in cls._py5_object_cache:
+                if _instance == s._instance:
+                    return s
+            else:
+                raise RuntimeError('failed to locate cached Sketch class for provided py5.core.Sketch instance cache')
+        else:
+            s = object.__new__(Sketch)
+            cls._py5_object_cache.add(s)
+            return s
+
+    def __init__(self, *, _instance=None, _jclassname=None):
+        if _instance:
+            # this is a cached Sketch object, don't re-run __init__()
+            return
+
         Sketch._cls = JClass(_jclassname) if _jclassname else _Sketch
         instance = Sketch._cls()
         if not isinstance(instance, _Sketch):
