@@ -141,7 +141,6 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         except Exception:
             pass
 
-
     def run_sketch(self, block: bool = None, *,
                    py5_options: list = None, sketch_args: list = None,
                    _osx_alt_run_method: bool = True) -> None:
@@ -152,7 +151,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                  'method without a call to `super().__init__()`?')
             )
 
-        methods, method_param_counts = _extract_py5_user_function_data(dict([(e, getattr(self, e)) for e in reference.METHODS.keys() if hasattr(self, e)]))
+        methods, method_param_counts = _extract_py5_user_function_data(dict(
+            [(e, getattr(self, e)) for e in reference.METHODS.keys() if hasattr(self, e)]))
         self._run_sketch(methods, method_param_counts, block, py5_options, sketch_args, _osx_alt_run_method)
 
     def _run_sketch(self,
@@ -173,8 +173,10 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self._py5_methods.add_post_hooks(self._post_hooks_to_add)
         self._instance.buildPy5Bridge(self._py5_methods)
 
-        if not py5_options: py5_options = []
-        if not sketch_args: sketch_args = []
+        if not py5_options:
+            py5_options = []
+        if not sketch_args:
+            sketch_args = []
         if not any([a.startswith('--sketch-path') for a in py5_options]):
             py5_options.append('--sketch-path=' + os.getcwd())
         if not any([a.startswith('--location') for a in py5_options]) and _PY5_LAST_WINDOW_X is not None and _PY5_LAST_WINDOW_Y is not None:
