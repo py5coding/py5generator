@@ -23,6 +23,8 @@ from __future__ import annotations
 import functools
 from pathlib import Path
 from typing import overload  # noqa
+import weakref
+
 import numpy as np
 import numpy.typing as npt  # noqa
 
@@ -93,9 +95,17 @@ def _return_numpy_array(f):
 class Py5Shape:
     """$classdoc_Py5Shape
     """
+    _py5_object_cache = weakref.WeakSet()
 
-    def __init__(self, pshape):
-        self._instance = pshape
+    def __new__(cls, pshape):
+        for o in cls._py5_object_cache:
+            if pshape == o._instance:
+                return o
+        else:
+            o = object.__new__(Py5Shape)
+            o._instance = pshape
+            cls._py5_object_cache.add(o)
+            return o
 
 
 {py5shape_class_members_code}
