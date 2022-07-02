@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import functools
 from typing import overload, Union  # noqa
+import weakref
 
 from .base import Py5Base
 from .mixins import PixelPy5ImageMixin
@@ -44,8 +45,22 @@ def _return_py5image(f):
 class Py5Image(PixelPy5ImageMixin, Py5Base):
     """$classdoc_Py5Image
     """
+    _py5_object_cache = weakref.WeakSet()
+
+    def __new__(cls, pimage):
+        for o in cls._py5_object_cache:
+            if pimage == o._instance:
+                return o
+        else:
+            o = object.__new__(Py5Image)
+            cls._py5_object_cache.add(o)
+            return o
 
     def __init__(self, pimage):
+        if pimage == getattr(self, '_instance', None):
+            # this is a cached Py5Image object, don't re-run __init__()
+            return
+
         self._instance = pimage
         super().__init__(instance=pimage)
 
