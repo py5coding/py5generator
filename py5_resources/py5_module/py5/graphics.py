@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import functools
 from typing import overload  # noqa
+import weakref
 
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa
@@ -56,8 +57,22 @@ _Py5GraphicsHelper = JClass('py5.core.Py5GraphicsHelper')
 class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
     """$classdoc_Py5Graphics
     """
+    _py5_object_cache = weakref.WeakSet()
+
+    def __new__(cls, pgraphics):
+        for o in cls._py5_object_cache:
+            if pgraphics == o._instance:
+                return o
+        else:
+            o = object.__new__(Py5Graphics)
+            cls._py5_object_cache.add(o)
+            return o
 
     def __init__(self, pgraphics):
+        if pgraphics == getattr(self, '_instance', None):
+            # this is a cached Py5Graphics object, don't re-run __init__()
+            return
+
         self._instance = pgraphics
         super().__init__(instance=pgraphics)
 
