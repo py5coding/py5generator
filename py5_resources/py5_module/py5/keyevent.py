@@ -21,6 +21,7 @@
 from __future__ import annotations
 
 import functools
+import weakref
 
 from jpype.types import JInt, JChar
 
@@ -50,9 +51,17 @@ def _convert_jint_to_int(f):
 class Py5KeyEvent:
     """$classdoc_Py5KeyEvent
     """
+    _py5_object_cache = weakref.WeakSet()
 
-    def __init__(self, pkeyevent):
-        self._instance = pkeyevent
+    def __new__(cls, pkeyevent):
+        for o in cls._py5_object_cache:
+            if pkeyevent == o._instance:
+                return o
+        else:
+            o = object.__new__(Py5KeyEvent)
+            o._instance = pkeyevent
+            cls._py5_object_cache.add(o)
+            return o
 
 
 {py5keyevent_class_members_code}
