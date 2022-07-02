@@ -20,6 +20,7 @@
 # *** FORMAT PARAMS ***
 from __future__ import annotations
 
+import weakref
 
 py5mouseevent_class_members_code = None  # DELETE
 
@@ -27,9 +28,17 @@ py5mouseevent_class_members_code = None  # DELETE
 class Py5MouseEvent:
     """$classdoc_Py5MouseEvent
     """
+    _py5_object_cache = weakref.WeakSet()
 
-    def __init__(self, pmouseevent):
-        self._instance = pmouseevent
+    def __new__(cls, pmouseevent):
+        for o in cls._py5_object_cache:
+            if pmouseevent == o._instance:
+                return o
+        else:
+            o = object.__new__(Py5MouseEvent)
+            o._instance = pmouseevent
+            cls._py5_object_cache.add(o)
+            return o
 
 
 {py5mouseevent_class_members_code}
