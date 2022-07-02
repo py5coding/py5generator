@@ -175,7 +175,7 @@ java_platform,javaPlatform,,dynamic variable,constants,,JAVA,
 java_version,javaVersion,,dynamic variable,constants,,SKIP,
 platform,platform,,static field,constants,,SKIP,"use ""import sys; sys.platform"" instead"
 useNativeSelect,useNativeSelect,,static field,constants,,SKIP,
-g,g,,dynamic variable,,,SKIP,"internal pgraphics object, use get_graphics to access"
+g,g,@_return_py5graphics,dynamic variable,rendering,,JAVA,
 display_width,displayWidth,,dynamic variable,environment,,JAVA,
 display_height,displayHeight,,dynamic variable,environment,,JAVA,
 recorder,recorder,,dynamic variable,,,SKIP,

@@ -1,0 +1,15 @@
+@@ meta
+name = g
+type = field
+pclass = Sketch
+processing_name = g
+category = rendering
+subcategory = None
+
+@@ description
+The :doc:`py5graphics` object used by the Sketch. Internally, all of Processing's drawing functionality comes from interaction with PGraphics objects, and this will provide direct access to the PGraphics object used by the Sketch.
+
+@@ example
+def setup():
+    py5.g.rect(10, 10, 50, 50)
+    py5.println(type(py5.g))
