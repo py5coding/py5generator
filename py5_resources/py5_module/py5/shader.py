@@ -23,11 +23,11 @@ from __future__ import annotations
 
 import functools
 from typing import overload, Any  # noqa
+import weakref
 
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa
 
-from .base import Py5Base
 from .image import Py5Image  # noqa
 from jpype.types import JException, JArray, JBoolean, JInt, JFloat  # noqa
 from .pmath import _py5vector_to_pvector, _numpy_to_pvector, _numpy_to_pmatrix2d, _numpy_to_pmatrix3d  # noqa
@@ -85,13 +85,20 @@ def _py5shader_set_wrapper(f):
     return decorated
 
 
-class Py5Shader(Py5Base):
+class Py5Shader:
     """$classdoc_Py5Shader
     """
+    _py5_object_cache = weakref.WeakSet()
 
-    def __init__(self, pshader):
-        self._instance = pshader
-        super().__init__(instance=pshader)
+    def __new__(cls, pshader):
+        for o in cls._py5_object_cache:
+            if pshader == o._instance:
+                return o
+        else:
+            o = object.__new__(Py5Shader)
+            o._instance = pshader
+            cls._py5_object_cache.add(o)
+            return o
 
 
 {py5shader_class_members_code}
