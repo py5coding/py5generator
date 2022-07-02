@@ -20,6 +20,7 @@
 # *** FORMAT PARAMS ***
 import functools
 from typing import overload, Any  # noqa
+import weakref
 
 from .image import Py5Image  # noqa
 
@@ -37,9 +38,17 @@ def _return_py5surface(f):
 class Py5Surface:
     """$classdoc_Py5Surface
     """
+    _py5_object_cache = weakref.WeakSet()
 
-    def __init__(self, psurface):
-        self._instance = psurface
+    def __new__(cls, psurface):
+        for o in cls._py5_object_cache:
+            if psurface == o._instance:
+                return o
+        else:
+            o = object.__new__(Py5Surface)
+            o._instance = psurface
+            cls._py5_object_cache.add(o)
+            return o
 
 
 {py5surface_class_members_code}
