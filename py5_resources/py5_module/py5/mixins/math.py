@@ -235,9 +235,9 @@ class MathMixin:
         types = ','.join([type(a).__name__ for a in args])
         raise TypeError(f'No matching overloads found for Sketch.random_int({types})')
 
-    def random_choice(self, objects: list[Any]) -> Any:
+    def random_choice(self, objects: list[Any], size: int=1, replace: bool=True) -> Any:
         """$class_Sketch_random_choice"""
-        return self._rng.choice(objects)
+        return self._rng.choice(objects, size=size, replace=replace)
 
     @overload
     def random_gaussian(self) -> float:
