@@ -37,6 +37,11 @@ class MathMixin:
 
     # *** BEGIN METHODS ***
 
+    def _get_np_random(self) -> np.random.Generator:  # @decorator
+        """$class_Sketch_np_random"""
+        return self._rng
+    np_random: np.random.Generator = property(fget=_get_np_random, doc="""$class_Sketch_np_random""")
+
     @classmethod
     def sin(cls, angle: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]:
         """$class_Sketch_sin"""
