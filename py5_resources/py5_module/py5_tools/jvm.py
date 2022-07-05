@@ -55,7 +55,10 @@ def add_options(*options: list[str]) -> None:
 
 def get_classpath() -> str:
     """$module_Py5Tools_get_classpath"""
-    return jpype.getClassPath()
+    if jpype.isJVMStarted():
+        return jpype.getClassPath()
+    else:
+        return ':'.join(str(p) for p in _classpath)
 
 
 def add_classpath(classpath: Union[Path, str]) -> None:
@@ -63,7 +66,7 @@ def add_classpath(classpath: Union[Path, str]) -> None:
     _check_jvm_running()
     if not isinstance(classpath, Path):
         classpath = Path(classpath)
-    jpype.addClassPath(classpath.absolute())
+    _classpath.append(classpath.absolute())
 
 
 def add_jars(path: Union[Path, str]) -> None:
@@ -73,7 +76,7 @@ def add_jars(path: Union[Path, str]) -> None:
         path = Path(path)
     if path.exists():
         for jarfile in path.glob("**/*.[Jj][Aa][Rr]"):
-            jpype.addClassPath(jarfile.absolute())
+            _classpath.append(jarfile.absolute())
 
 
 def get_jvm_debug_info() -> dict[str, Any]:
