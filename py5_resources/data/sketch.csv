@@ -366,6 +366,7 @@ random_gaussian,randomGaussian,,method,math,random,PYTHON,implementation uses nu
 random_int,,,method,math,random,PYTHON,implementation uses numpy for performance reasons
 random_choice,,,method,math,random,PYTHON,implementation uses numpy for performance reasons
 random_seed,randomSeed,,method,math,random,PYTHON,implementation uses numpy for performance reasons
+np_random,,,dynamic variable,math,random,PYTHON,make numpy random number generator available to users
 noise_array,noiseArray,,method,math,random,SKIP,vectorized noise for better performance
 noise,noise,,method,math,random,PYTHON,calls java but uses noiseArray when appropriate to support vectorization and better performance
 noise_detail,noiseDetail,,method,math,random,JAVA,
