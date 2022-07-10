@@ -206,7 +206,7 @@ public class Sketch extends PApplet {
       if (py5RegisteredEvents.contains("draw")) {
         success = py5Bridge.run_method("draw");
       } else {
-        super.draw();
+        // super.draw();
       }
     }
 
