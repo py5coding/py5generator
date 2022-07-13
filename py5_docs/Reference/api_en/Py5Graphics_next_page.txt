@@ -1,7 +1,7 @@
 @@ meta
 name = next_page()
 type = method
-pclass = PGraphics
+pclass = PGraphicsPDF
 processing_name = nextPage
 
 @@ signatures
