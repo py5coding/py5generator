@@ -51,11 +51,11 @@ def _return_py5graphics(f):
     return decorated
 
 
-def _name_renderer(renderer_name):
+def _name_renderer(renderer_name, clsname):
     def _decorator(f):
         @functools.wraps(f)
         def decorated(self_, *args):
-            return f(self_, *args, renderer_name=renderer_name)
+            return f(self_, *args, renderer_name=renderer_name, clsname=clsname)
         return decorated
     return _decorator
 

@@ -85,29 +85,31 @@ CLASS_OPTIONAL_METHOD_TEMPLATE = """
     def {1}({2}, {6}, renderer_name=None):
         \"\"\"$class_{0}_{1}
         \"\"\"
-        if hasattr({3}, '{4}'):
+        try:
+            _JClass = JClass(clsname)
+        except:
+            _JClass = None
+
+        if _JClass and isinstance({3}, _JClass):
             return {3}.{4}(*args)
         else:
-            if renderer_name:
-                msg = "The '{1}()' method is only available when using the " + renderer_name + " renderer. Read this method's documentation for more information."
-            else:
-                msg = "This renderer does not have a '{1}()' method available for you to use. Read this method's documentation for more information."
-            raise AttributeError(msg)
+            raise AttributeError("The '{1}()' method is only available when using the " + renderer_name + " renderer. Read this method's documentation for more information.")
 """
 
 CLASS_OPTIONAL_METHOD_TEMPLATE_WITH_TYPEHINTS = """
     {5}
-    def {1}({2}, renderer_name=None) -> {6}:
+    def {1}({2}, renderer_name=None, clsname=None) -> {6}:
         \"\"\"$class_{0}_{1}
         \"\"\"
-        if hasattr({3}, '{4}'):
+        try:
+            _JClass = JClass(clsname)
+        except:
+            _JClass = None
+
+        if _JClass and isinstance({3}, _JClass):
             return {3}.{4}({7})
         else:
-            if renderer_name:
-                msg = "The '{1}()' method is only available when using the " + renderer_name + " renderer. Read this method's documentation for more information."
-            else:
-                msg = "This renderer does not have a '{1}()' method available for you to use. Read this method's documentation for more information."
-            raise AttributeError(msg)
+            raise AttributeError("The '{1}()' method is only available when using the " + renderer_name + " renderer. Read this method's documentation for more information.")
 """
 
 ###############################################################################
