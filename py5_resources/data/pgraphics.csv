@@ -469,3 +469,4 @@ vertices,,,method,PYTHON,implemented by me in Py5GraphicsHelper
 bezier_vertices,,,method,PYTHON,implemented by me in Py5GraphicsHelper
 curve_vertices,,,method,PYTHON,implemented by me in Py5GraphicsHelper
 quadratic_vertices,,,method,PYTHON,implemented by me in Py5GraphicsHelper
+next_page,nextPage,,optional method,JAVA,only for PGraphicsPDF

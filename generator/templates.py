@@ -80,6 +80,28 @@ CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS = """
         return {3}.{4}({7})
 """
 
+CLASS_OPTIONAL_METHOD_TEMPLATE = """
+    {5}
+    def {1}({2}, {6}):
+        \"\"\"$class_{0}_{1}
+        \"\"\"
+        if hasattr({3}, '{4}'):
+            return {3}.{4}(*args)
+        else:
+            raise AttributeError("This renderer does not have a '{1}()' method available for you to use. Check the documentation for more information.")
+"""
+
+CLASS_OPTIONAL_METHOD_TEMPLATE_WITH_TYPEHINTS = """
+    {5}
+    def {1}({2}) -> {6}:
+        \"\"\"$class_{0}_{1}
+        \"\"\"
+        if hasattr({3}, '{4}'):
+            return {3}.{4}({7})
+        else:
+            raise AttributeError("This renderer does not have a '{1}()' method available for you to use. Check the documentation for more information.")
+"""
+
 ###############################################################################
 # MODULE FUNCTIONS
 ###############################################################################
