@@ -51,6 +51,15 @@ def _return_py5graphics(f):
     return decorated
 
 
+def _name_renderer(renderer_name):
+    def _decorator(f):
+        @functools.wraps(f)
+        def decorated(self_, *args):
+            return f(self_, *args, renderer_name=renderer_name)
+        return decorated
+    return _decorator
+
+
 _Py5GraphicsHelper = JClass('py5.core.Py5GraphicsHelper')
 
 

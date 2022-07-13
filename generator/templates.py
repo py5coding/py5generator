@@ -82,24 +82,32 @@ CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS = """
 
 CLASS_OPTIONAL_METHOD_TEMPLATE = """
     {5}
-    def {1}({2}, {6}):
+    def {1}({2}, {6}, renderer_name=None):
         \"\"\"$class_{0}_{1}
         \"\"\"
         if hasattr({3}, '{4}'):
             return {3}.{4}(*args)
         else:
-            raise AttributeError("This renderer does not have a '{1}()' method available for you to use. Check the documentation for more information.")
+            if renderer_name:
+                msg = "The '{1}()' method is only available when using the " + renderer_name + " renderer. Read this method's documentation for more information."
+            else:
+                msg = "This renderer does not have a '{1}()' method available for you to use. Read this method's documentation for more information."
+            raise AttributeError(msg)
 """
 
 CLASS_OPTIONAL_METHOD_TEMPLATE_WITH_TYPEHINTS = """
     {5}
-    def {1}({2}) -> {6}:
+    def {1}({2}, renderer_name=None) -> {6}:
         \"\"\"$class_{0}_{1}
         \"\"\"
         if hasattr({3}, '{4}'):
             return {3}.{4}({7})
         else:
-            raise AttributeError("This renderer does not have a '{1}()' method available for you to use. Check the documentation for more information.")
+            if renderer_name:
+                msg = "The '{1}()' method is only available when using the " + renderer_name + " renderer. Read this method's documentation for more information."
+            else:
+                msg = "This renderer does not have a '{1}()' method available for you to use. Read this method's documentation for more information."
+            raise AttributeError(msg)
 """
 
 ###############################################################################
