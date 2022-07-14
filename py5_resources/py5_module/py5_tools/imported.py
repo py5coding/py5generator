@@ -137,6 +137,7 @@ def _run_static_code(code, sketch_path, classpath, new_process, exit_if_error, p
         py5bot_mgr.write_code(py5bot_globals, py5bot_settings, py5bot_setup)
         new_sketch_path = py5bot_mgr.tempdir / '_PY5_STATIC_FRAMEWORK_CODE_.py'
         new_sketch_code = _STATIC_CODE_FRAMEWORK.format(py5bot_mgr.settings_filename.as_posix(), py5bot_mgr.setup_filename.as_posix())
+        # TODO: do I still need this? I think this was fixed with #82 & #89
         if sys.platform == 'darwin':
             new_sketch_code += _STATIC_CODE_FRAMEWORK_OSX_EXTRA
         with open(new_sketch_path, 'w') as f:
