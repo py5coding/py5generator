@@ -55,7 +55,7 @@ def _name_renderer(renderer_name, clsname):
     def _decorator(f):
         @functools.wraps(f)
         def decorated(self_, *args):
-            return f(self_, *args, renderer_name=renderer_name, clsname=clsname)
+            return f(self_, *args, _renderer_name=renderer_name, _clsname=clsname)
         return decorated
     return _decorator
 
