@@ -86,6 +86,8 @@ def draw():
 """
 
 _CODE_FRAMEWORK = """
+__file__ = "{4}"
+
 {0}
 
 run_sketch(block=True, py5_options={2}, sketch_args={3})
@@ -120,7 +122,7 @@ def run_code(sketch_path, classpath=None, new_process=False, exit_if_error=False
     if is_static_mode(code):
         _run_static_code(code, sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args)
     else:
-        _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args)
+        _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args, sketch_path)
 
 
 def _run_static_code(code, sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args):
@@ -142,12 +144,12 @@ def _run_static_code(code, sketch_path, classpath, new_process, exit_if_error, p
             new_sketch_code += _STATIC_CODE_FRAMEWORK_OSX_EXTRA
         with open(new_sketch_path, 'w') as f:
             f.write(new_sketch_code)
-        _run_code(new_sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args)
+        _run_code(new_sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args, sketch_path)
     else:
         print(result, file=sys.stderr)
 
 
-def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args):
+def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args, original_sketch_path):
     def _run_sketch(sketch_path, classpath, exit_if_error):
         if not jvm.is_jvm_running():
             if classpath:
@@ -164,7 +166,7 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, s
         sketch_args_str = str(sketch_args)
 
         with open(sketch_path, 'r') as f:
-            sketch_code = _CODE_FRAMEWORK.format(f.read(), exit_if_error, py5_options_str, sketch_args_str)
+            sketch_code = _CODE_FRAMEWORK.format(f.read(), exit_if_error, py5_options_str, sketch_args_str, re.sub(r"""(\"|\')""", r'\\\1', str(original_sketch_path)))
 
         # does the code parse? if not, display an error message
         try:
