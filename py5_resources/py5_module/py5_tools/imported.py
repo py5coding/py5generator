@@ -31,10 +31,20 @@ from . import parsing
 
 
 _imported_mode = False
+_imported_mode_locked = False
+
+
+def _lock_imported_mode():
+    global _imported_mode_locked
+    _imported_mode_locked = True
 
 
 def set_imported_mode(imported_mode: bool):
     global _imported_mode
+    if _imported_mode == imported_mode:
+        return
+    if _imported_mode_locked:
+        raise RuntimeError('Attempting to set imported mode after importing py5. This would put py5 into a confused state. Throwing an exception to prevent you from having to debug that.')
     _imported_mode = imported_mode
 
 
