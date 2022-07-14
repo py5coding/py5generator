@@ -54,6 +54,11 @@ def _return_py5graphics(f):
 _Py5GraphicsHelper = JClass('py5.core.Py5GraphicsHelper')
 
 
+
+def next_page(self):
+    self._instance.nextPage()
+
+
 class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
     """$classdoc_Py5Graphics
     """
@@ -67,6 +72,15 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
             o = object.__new__(Py5Graphics)
             cls._py5_object_cache.add(o)
             return o
+
+    def __getattr__(self, name):
+        if name == 'next_page':
+            return functools.partial(next_page, self)
+        else:
+            raise AttributeError('No')
+
+    def __dir__(self):
+        return list(sorted([*self.__dict__.keys(), *Py5Graphics.__dict__.keys(), 'next_page']))
 
     def __init__(self, pgraphics):
         if pgraphics == getattr(self, '_instance', None):
