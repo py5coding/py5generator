@@ -82,7 +82,7 @@ CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS = """
 
 CLASS_OPTIONAL_METHOD_TEMPLATE = """
     {5}
-    def {1}({2}, {6}, renderer_name=None):
+    def {1}({2}, {6}, renderer_name=None, clsname=None):
         \"\"\"$class_{0}_{1}
         \"\"\"
         try:
