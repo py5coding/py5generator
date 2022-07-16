@@ -100,6 +100,7 @@ class CodeBuilder:
         self._included_constant_fields = set(class_data.query("implementation=='JAVA' and type=='static field'").index)
         self._included_fields = set(class_data.query("implementation=='JAVA' and type=='dynamic variable'").index)
         self._included_methods = set(class_data.query("implementation=='JAVA' and type in ['method', 'static method']").index)
+        self._optional_java_methods = set(class_data.query("implementation=='JAVA' and type=='optional method'").index)
 
         self.static_constant_names = set()
         self.dynamic_variable_names = set()
@@ -148,7 +149,9 @@ class CodeBuilder:
 
         self.dynamic_variable_names.add(py5_name)
 
-    def code_method(self, fname, method_data):
+    def code_method(self, fname, method_data,
+                    class_method_template=templ.CLASS_METHOD_TEMPLATE,
+                    class_method_template_with_typehints=templ.CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS):
         # one processing method can map to more than one py5 method, each with a different decorator
         py5_names = [x] if isinstance(x:=self._py5_names[fname], str) else x
         py5_decorators = [x] if isinstance(x:=self._py5_decorators[fname], str) else x
@@ -185,7 +188,7 @@ class CodeBuilder:
                 # create the class and module code
                 signature_options = [', '.join([s for s in paramstrs[1:] if s != '/'])]
                 self.class_members.append(
-                    templ.CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS.format(
+                    class_method_template_with_typehints.format(
                         self._class_name, py5_name, ', '.join(paramstrs), classobj,
                         fname, decorator, rettypestr, class_arguments, signature_options
                     )
@@ -245,7 +248,7 @@ class CodeBuilder:
                 arguments = '*args'
                 module_arguments = '*args'
                 self.class_members.append(
-                    templ.CLASS_METHOD_TEMPLATE.format(
+                    class_method_template.format(
                         self._class_name, py5_name, first_param, classobj, fname,
                         decorator, arguments, signature_options
                     )
@@ -345,6 +348,11 @@ class CodeBuilder:
         for missing_method_name in self._included_methods - self._method_data.keys():
             logger.warning(f'missing previously known method {missing_method_name}')
 
+        for method_name in self._optional_java_methods:
+            method_data = ref.OPTIONAL_METHOD_SIGNATURES[(self._class_name, method_name)]
+            self.code_method(method_name, method_data,
+                             class_method_template=templ.CLASS_OPTIONAL_METHOD_TEMPLATE,
+                             class_method_template_with_typehints=templ.CLASS_OPTIONAL_METHOD_TEMPLATE_WITH_TYPEHINTS)
 
 def find_signatures(class_name, filename):
     method_signatures = defaultdict(list)

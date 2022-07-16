@@ -166,6 +166,10 @@ EXTRA_METHOD_SIGNATURES = {
     ],
 }
 
+OPTIONAL_METHOD_SIGNATURES = {
+    ('Py5Graphics', 'nextPage'): {'': {'static': False, 'rettype': 'void', 'paramnames': []}},
+}
+
 PY5_PYTHON_DYNAMIC_VARIABLES = {
     'pixels',
 }

@@ -80,6 +80,38 @@ CLASS_METHOD_TEMPLATE_WITH_TYPEHINTS = """
         return {3}.{4}({7})
 """
 
+CLASS_OPTIONAL_METHOD_TEMPLATE = """
+    {5}
+    def {1}({2}, {6}, *, _renderer_name=None, _clsname=None):
+        \"\"\"$class_{0}_{1}
+        \"\"\"
+        try:
+            _JClass = JClass(_clsname)
+        except:
+            _JClass = None
+
+        if _JClass and isinstance({3}, _JClass):
+            return {3}.{4}(*args)
+        else:
+            raise AttributeError("The '{1}()' method is only available when using the " + _renderer_name + " renderer. Read this method's documentation for more information.")
+"""
+
+CLASS_OPTIONAL_METHOD_TEMPLATE_WITH_TYPEHINTS = """
+    {5}
+    def {1}({2}, *, _renderer_name=None, _clsname=None) -> {6}:
+        \"\"\"$class_{0}_{1}
+        \"\"\"
+        try:
+            _JClass = JClass(_clsname)
+        except:
+            _JClass = None
+
+        if _JClass and isinstance({3}, _JClass):
+            return {3}.{4}({7})
+        else:
+            raise AttributeError("The '{1}()' method is only available when using the " + _renderer_name + " renderer. Read this method's documentation for more information.")
+"""
+
 ###############################################################################
 # MODULE FUNCTIONS
 ###############################################################################

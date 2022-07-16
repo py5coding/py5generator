@@ -94,7 +94,7 @@ for num, new_file_data in enumerate(new_doc_files):
     elif item_type == 'line magic':
         doc_type = 'line magic'
         name = '%' + py5_name
-    else:
+    else:  # 'method', 'static method', and 'optional method'
         doc_type = 'method'
         name = py5_name + '()'
 
