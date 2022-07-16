@@ -36,6 +36,7 @@ from jpype.types import JClass, JException, JArray, JInt  # noqa
 import numpy as np
 import numpy.typing as npt
 
+import py5_tools
 import py5_tools.environ as _environ
 from py5_tools.printstreams import _DefaultPrintlnStream, _DisplayPubPrintlnStream
 from .bridge import Py5Bridge, _extract_py5_user_function_data
@@ -377,6 +378,11 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         if not isinstance(filename, BytesIO):
             filename = self._insert_frame(str(filename))
         self.save(filename, format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
+
+    def select_folder(self, prompt: str, callback: Callable) -> None:
+        """$class_Sketch_select_folder"""
+        py5_tools.config.register_java_mode_key("_py5_select_folder_callback", callback)
+        self._instance.py5SelectFolder(prompt)
 
     # *** Py5Image methods ***
 

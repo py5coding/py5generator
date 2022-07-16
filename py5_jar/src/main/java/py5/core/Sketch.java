@@ -533,6 +533,14 @@ public class Sketch extends PApplet {
     return mousePressed;
   }
 
+  public void py5SelectFolder(String prompt) {
+    selectFolder(prompt, "py5SelectFolderCallback");
+  }
+
+  public void py5SelectFolderCallback(File selection) {
+    callFunction("_py5_select_folder_callback", selection == null ? null : selection.getAbsolutePath());
+  }
+
   /*
    * This is to get around an issue with JPype method dispatching. It will always
    * use the second method signature, even when p.length == 0.
