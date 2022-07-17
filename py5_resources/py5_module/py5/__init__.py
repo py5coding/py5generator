@@ -110,20 +110,16 @@ def run_sketch(block: bool = None, *,
     functions, function_param_counts = bridge._extract_py5_user_function_data(sketch_functions if sketch_functions else caller_locals)
     functions = _split_setup.transform(functions, caller_globals, caller_locals, println, mode='imported' if _PY5_USE_IMPORTED_MODE else 'module')
 
-    function_names = set(functions.keys())
-    if not function_names & set(['settings', 'setup', 'draw']):
+    if not set(functions.keys()) & set(['settings', 'setup', 'draw']):
         warnings.warn(("Unable to find settings, setup, or draw functions. "
                        "Your sketch will be a small boring gray square. "
                        "If that isn't what you intended, you need to make sure "
                        "your implementation of those functions are available in "
                        "the local namespace that made the `run_sketch()` call."))
-    if 'draw' not in function_names and (event_functions := set(n for n in function_names if n.startswith('key_') or n.startswith('mouse_'))):
-        warnings.warn(('Found keyboard and/or mouse event functions but no draw function. '
-                       'Without a draw function, the event functions will never be called.'))
 
     global _py5sketch
     if _py5sketch.is_running:
-        print('Sketch is already running. To run a new sketch, exit the running sketch first.')
+        print('Sketch is already running. To run a new sketch, exit the running sketch first.', file=sys.stderr)
         return
     if _py5sketch.is_dead or _jclassname:
         _py5sketch = Sketch(_jclassname=_jclassname)
