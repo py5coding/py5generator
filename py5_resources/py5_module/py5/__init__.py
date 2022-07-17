@@ -30,6 +30,7 @@ from pathlib import Path
 from io import BytesIO
 import inspect
 from typing import overload, Any, Callable, Union  # noqa
+import warnings
 
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa
@@ -110,15 +111,15 @@ def run_sketch(block: bool = None, *,
     functions = _split_setup.transform(functions, caller_globals, caller_locals, println, mode='imported' if _PY5_USE_IMPORTED_MODE else 'module')
 
     if not set(functions.keys()) & set(['settings', 'setup', 'draw']):
-        print(("Unable to find settings, setup, or draw functions. "
-               "Your sketch will be a small boring gray square. "
-               "If that isn't what you intended, you need to make sure "
-               "your implementation of those functions are available in "
-               "the local namespace that made the `run_sketch()` call."))
+        warnings.warn(("Unable to find settings, setup, or draw functions. "
+                       "Your sketch will be a small boring gray square. "
+                       "If that isn't what you intended, you need to make sure "
+                       "your implementation of those functions are available in "
+                       "the local namespace that made the `run_sketch()` call."))
 
     global _py5sketch
     if _py5sketch.is_running:
-        print('Sketch is already running. To run a new sketch, exit the running sketch first.')
+        print('Sketch is already running. To run a new sketch, exit the running sketch first.', file=sys.stderr)
         return
     if _py5sketch.is_dead or _jclassname:
         _py5sketch = Sketch(_jclassname=_jclassname)
