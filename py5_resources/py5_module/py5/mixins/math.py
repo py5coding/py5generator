@@ -38,7 +38,8 @@ class MathMixin:
     # *** BEGIN METHODS ***
 
     @classmethod
-    def to_hex_color(cls, color: int) -> str:
+    def hex_color(cls, color: int) -> str:
+        """$class_Sketch_hex_color"""
         return '#' + hex(np.uint32(color & 0xFFFFFFFF))[2:].zfill(8).upper()
 
     @classmethod
