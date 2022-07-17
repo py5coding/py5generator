@@ -645,3 +645,4 @@ rmouse_y,rmouseY,,dynamic variable,input,mouse,JAVA,New in Processing 4.0b7
 rwidth,rwidth,,dynamic variable,environment,,JAVA,New in Processing 4.0b7
 fake_mouse_event,fakeMouseEvent,,method,,,SKIP,Used to fake mouse events
 fake_key_event,fakeKeyEvent,,method,,,SKIP,Used to fake key events
+hex_color,,,method,color,creating_reading,PYTHON,convert Processing color ints to something more readable
