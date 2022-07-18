@@ -62,6 +62,8 @@ try:
         # if doc.meta.get('pclass') != 'PGraphics' or doc.meta.get('name') not in ['load_np_pixels()', 'set_np_pixels()', 'update_np_pixels()',
         #                                                                          'np_pixels[]', 'load_pixels()', 'update_pixels()', 'pixels[]']:
         # if doc.meta['type'] != 'cell magic':
+        if doc.meta.get('name') != 'hex_color()':
+            continue
         if doc.meta.get('pclass') == 'PShape':
             continue
 

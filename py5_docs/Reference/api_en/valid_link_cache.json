@@ -517,5 +517,7 @@
   "https://processing.org/reference/rmouseX.html": false,
   "https://processing.org/reference/rmouseY.html": false,
   "https://processing.org/reference/rwidth.html": false,
-  "https://processing.org/reference/windowRatio_.html": false
+  "https://processing.org/reference/windowRatio_.html": false,
+  "https://processing.org/reference/PGraphics_nextPage_.html": false,
+  "https://processing.org/reference/g.html": false
 }
