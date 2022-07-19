@@ -19,6 +19,7 @@
 # *****************************************************************************
 # *** FORMAT PARAMS ***
 from __future__ import annotations
+from re import S
 
 import time
 import os
@@ -28,6 +29,7 @@ import warnings
 from io import BytesIO
 from pathlib import Path
 import functools
+import uuid
 from typing import overload, Any, Callable, Union  # noqa
 
 import jpype
@@ -381,8 +383,10 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def select_folder(self, prompt: str, callback: Callable) -> None:
         """$class_Sketch_select_folder"""
-        py5_tools.config.register_java_mode_key("_py5_select_folder_callback", callback)
-        self._instance.py5SelectFolder(prompt)
+        # TODO: what about defaultFolder? and should it default to Path.home()?
+        key = "_PY5_SELECT_FOLDER_CALLBACK_" + str(uuid.uuid4())
+        py5_tools.config.register_java_mode_key(key, callback, callback=True)
+        self._instance.py5SelectFolder(key, prompt)
 
     # *** Py5Image methods ***
 

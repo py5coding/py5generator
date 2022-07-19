@@ -533,12 +533,12 @@ public class Sketch extends PApplet {
     return mousePressed;
   }
 
-  public void py5SelectFolder(String prompt) {
-    py5SelectFolder(prompt, null);
+  public void py5SelectFolder(String key, String prompt) {
+    py5SelectFolder(key, prompt, null);
   }
 
-  public void py5SelectFolder(String prompt, File defaultFolder) {
-    SelectCallback sc = new SelectCallback(this, "_py5_select_folder_callback");
+  public void py5SelectFolder(String key, String prompt, File defaultFolder) {
+    SelectCallback sc = new SelectCallback(this, key);
     selectFolder(prompt, "callback", defaultFolder, sc);
   }
 

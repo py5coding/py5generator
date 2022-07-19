@@ -22,10 +22,13 @@ from types import ModuleType
 
 
 _PY5_JAVA_MODE_KEYS = {}
+_PY5_JAVA_MODE_CALLBACKS = set()
 
 
-def register_java_mode_key(key: str, value: Union[callable, ModuleType]):
+def register_java_mode_key(key: str, value: Union[callable, ModuleType], callback: bool = False):
     _PY5_JAVA_MODE_KEYS[key] = value
+    if callback:
+        _PY5_JAVA_MODE_CALLBACKS.add(key)
 
 
 __all__ = ['register_java_mode_key']
