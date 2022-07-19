@@ -534,11 +534,12 @@ public class Sketch extends PApplet {
   }
 
   public void py5SelectFolder(String prompt) {
-    selectFolder(prompt, "py5SelectFolderCallback");
+    py5SelectFolder(prompt, null);
   }
 
-  public void py5SelectFolderCallback(File selection) {
-    callFunction("_py5_select_folder_callback", selection == null ? null : selection.getAbsolutePath());
+  public void py5SelectFolder(String prompt, File defaultFolder) {
+    SelectCallback sc = new SelectCallback(this, "_py5_select_folder_callback");
+    selectFolder(prompt, "callback", defaultFolder, sc);
   }
 
   /*
@@ -714,5 +715,20 @@ public class Sketch extends PApplet {
     System.arraycopy(pixelCapture, 0, pixels, 0, pixels.length);
     pixelCapture = null;
     updatePixels();
+  }
+
+  public class SelectCallback {
+
+    protected Sketch sketch;
+    protected String callback;
+  
+    public SelectCallback(Sketch sketch, String callback) {
+      this.sketch = sketch;
+      this.callback = callback;
+    }
+  
+    public void callback(File selection) {
+      sketch.callFunction(callback, selection == null ? null : selection.getAbsolutePath());
+    }
   }
 }
