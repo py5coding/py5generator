@@ -7,10 +7,11 @@ category = input
 subcategory = files
 
 @@ signatures
-select_folder(prompt: str, callback: Callable) -> None
+select_folder(prompt: str, callback: Callable, default_folder: str = None) -> None
 
 @@ variables
 callback: Callable - missing variable description
+default_folder: str = None - missing variable description
 prompt: str - missing variable description
 
 @@ description

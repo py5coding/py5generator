@@ -381,12 +381,12 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             filename = self._insert_frame(str(filename))
         self.save(filename, format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
 
-    def select_folder(self, prompt: str, callback: Callable) -> None:
+    def select_folder(self, prompt: str, callback: Callable, default_folder: str = None) -> None:
         """$class_Sketch_select_folder"""
-        # TODO: what about defaultFolder? and should it default to Path.home()?
+        default_folder = default_folder or str(Path.home())
         key = "_PY5_SELECT_FOLDER_CALLBACK_" + str(uuid.uuid4())
         py5_tools.config.register_java_mode_key(key, callback, callback=True)
-        self._instance.py5SelectFolder(key, prompt)
+        self._instance.py5SelectFolder(key, prompt, default_folder)
 
     # *** Py5Image methods ***
 
