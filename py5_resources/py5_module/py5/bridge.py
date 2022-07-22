@@ -267,8 +267,8 @@ class Py5Bridge:
 
             try:
                 retval = func(*self._convert_to_python_types(params))
-                if key in py5_tools.config._PY5_JAVA_MODE_CALLBACKS:
-                    py5_tools.config._PY5_JAVA_MODE_CALLBACKS.remove(key)
+                if key in py5_tools.config._PY5_JAVA_MODE_CALLBACK_ONCE:
+                    py5_tools.config._PY5_JAVA_MODE_CALLBACK_ONCE.remove(key)
                     if key in py5_tools.config._PY5_JAVA_MODE_KEYS:
                         py5_tools.config._PY5_JAVA_MODE_KEYS.pop(key)
                 return retval
