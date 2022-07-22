@@ -535,17 +535,20 @@ public class Sketch extends PApplet {
 
   public void py5SelectFolder(String key, String prompt, String defaultFolder) {
     SelectCallback sc = new SelectCallback(this, key);
-    selectFolder(prompt, "callback", new File(defaultFolder), sc);
+    File defaultSelection = (defaultFolder == null) ? null : new File(defaultFolder);
+    selectFolder(prompt, "callback", defaultSelection, sc);
   }
 
   public void py5SelectInput(String key, String prompt, String defaultFile) {
     SelectCallback sc = new SelectCallback(this, key);
-    selectInput(prompt, "callback", new File(defaultFile), sc);
+    File defaultSelection = (defaultFile == null) ? null : new File(defaultFile);
+    selectInput(prompt, "callback", defaultSelection, sc);
   }
 
   public void py5SelectOutput(String key, String prompt, String defaultFile) {
     SelectCallback sc = new SelectCallback(this, key);
-    selectOutput(prompt, "callback", new File(defaultFile), sc);
+    File defaultSelection = (defaultFile == null) ? null : new File(defaultFile);
+    selectOutput(prompt, "callback", defaultSelection, sc);
   }
 
   /*

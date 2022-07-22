@@ -394,7 +394,6 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self._generic_select(self._instance.py5SelectOutput, 'select_output', prompt, callback, default_file)
 
     def _generic_select(self, py5f: Callable, name: str, prompt: str, callback: Callable, default_folder: str = None) -> None:
-        default_folder = default_folder or str(Path.home())
         key = "_PY5_SELECT_CALLBACK_" + str(uuid.uuid4())
         py5_tools.config.register_java_mode_key(key, callback, callback_once=True)
 
