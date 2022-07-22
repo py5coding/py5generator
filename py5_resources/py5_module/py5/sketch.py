@@ -386,7 +386,17 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         default_folder = default_folder or str(Path.home())
         key = "_PY5_SELECT_FOLDER_CALLBACK_" + str(uuid.uuid4())
         py5_tools.config.register_java_mode_key(key, callback, callback=True)
-        self._instance.py5SelectFolder(key, prompt, default_folder)
+
+        if platform.system() == 'Darwin':
+            if self._environ.in_ipython_session:
+                raise RuntimeError("Sorry, py5's select_folder() method doesn't work on OSX when the Sketch is run through Jupyter.")
+            else:
+                def _run():
+                    self._instance.py5SelectFolder(key, prompt, default_folder)
+                proxy = jpype.JProxy('java.lang.Runnable', dict(run=_run))
+                jpype.JClass('java.lang.Thread')(proxy).start()
+        else:
+            self._instance.py5SelectFolder(key, prompt, default_folder)
 
     # *** Py5Image methods ***
 
