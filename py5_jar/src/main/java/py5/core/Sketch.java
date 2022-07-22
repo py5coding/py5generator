@@ -538,6 +538,16 @@ public class Sketch extends PApplet {
     selectFolder(prompt, "callback", new File(defaultFolder), sc);
   }
 
+  public void py5SelectInput(String key, String prompt, String defaultFile) {
+    SelectCallback sc = new SelectCallback(this, key);
+    selectInput(prompt, "callback", new File(defaultFile), sc);
+  }
+
+  public void py5SelectOutput(String key, String prompt, String defaultFile) {
+    SelectCallback sc = new SelectCallback(this, key);
+    selectOutput(prompt, "callback", new File(defaultFile), sc);
+  }
+
   /*
    * This is to get around an issue with JPype method dispatching. It will always
    * use the second method signature, even when p.length == 0.

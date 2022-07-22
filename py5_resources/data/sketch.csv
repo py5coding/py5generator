@@ -391,9 +391,12 @@ load_table,loadTable,,method,input,files,SKIP,methods that should be re-implemen
 save_table,saveTable,,method,output,files,SKIP,methods that should be re-implemented by me in Python
 load_font,loadFont,@_load_py5font,method,typography,loading_displaying,JAVA,
 create_font,createFont,@_load_py5font,method,typography,loading_displaying,JAVA,
-select_input,selectInput,,method,input,files,SKIP,this should be available to users but the callback makes it complicated and I will do it later
-select_output,selectOutput,,method,output,files,SKIP,this should be available to users but the callback makes it complicated and I will do it later
+select_input,selectInput,,method,input,files,PYTHON,implemented in Python because of the callback
+select_output,selectOutput,,method,output,files,PYTHON,implemented in Python because of the callback
 select_folder,selectFolder,,method,input,files,PYTHON,implemented in Python because of the callback
+py5_select_folder,py5SelectFolder,,method,,,SKIP,used by select_folder
+py5_select_input,py5SelectInput,,method,,,SKIP,used by select_input
+py5_select_output,py5SelectOutput,,method,,,SKIP,used by select_output
 select_callback,selectCallback,,static method,,,SKIP,
 list_paths,listPaths,,method,,,SKIP,methods that should be re-implemented by me in Python
 check_extension,checkExtension,,static method,,,SKIP,methods that should be re-implemented by me in Python

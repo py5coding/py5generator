@@ -1,0 +1,18 @@
+@@ meta
+name = select_input()
+type = method
+pclass = Sketch
+processing_name = selectInput
+category = input
+subcategory = files
+
+@@ signatures
+select_input(prompt: str, callback: Callable, default_file: str = None) -> None
+
+@@ variables
+callback: Callable - missing variable description
+default_file: str = None - missing variable description
+prompt: str - missing variable description
+
+@@ description
+The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.

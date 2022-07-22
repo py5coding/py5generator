@@ -383,20 +383,31 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def select_folder(self, prompt: str, callback: Callable, default_folder: str = None) -> None:
         """$class_Sketch_select_folder"""
+        self._generic_select(self._instance.py5SelectFolder, 'select_folder', prompt, callback, default_folder)
+
+    def select_input(self, prompt: str, callback: Callable, default_file: str = None) -> None:
+        """$class_Sketch_select_folder"""
+        self._generic_select(self._instance.py5SelectInput, 'select_input', prompt, callback, default_file)
+
+    def select_output(self, prompt: str, callback: Callable, default_file: str = None) -> None:
+        """$class_Sketch_select_folder"""
+        self._generic_select(self._instance.py5SelectOutput, 'select_output', prompt, callback, default_file)
+
+    def _generic_select(self, py5f: Callable, name: str, prompt: str, callback: Callable, default_folder: str = None) -> None:
         default_folder = default_folder or str(Path.home())
-        key = "_PY5_SELECT_FOLDER_CALLBACK_" + str(uuid.uuid4())
+        key = "_PY5_SELECT_CALLBACK_" + str(uuid.uuid4())
         py5_tools.config.register_java_mode_key(key, callback, callback=True)
 
         if platform.system() == 'Darwin':
             if self._environ.in_ipython_session:
-                raise RuntimeError("Sorry, py5's select_folder() method doesn't work on OSX when the Sketch is run through Jupyter.")
+                raise RuntimeError("Sorry, py5's " + name + "() method doesn't work on OSX when the Sketch is run through Jupyter. However, there are some IPython widgets you can use instead.")
             else:
                 def _run():
-                    self._instance.py5SelectFolder(key, prompt, default_folder)
+                    py5f(key, prompt, default_folder)
                 proxy = jpype.JProxy('java.lang.Runnable', dict(run=_run))
                 jpype.JClass('java.lang.Thread')(proxy).start()
         else:
-            self._instance.py5SelectFolder(key, prompt, default_folder)
+            py5f(key, prompt, default_folder)
 
     # *** Py5Image methods ***
 
