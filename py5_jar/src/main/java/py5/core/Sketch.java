@@ -66,9 +66,7 @@ public class Sketch extends PApplet {
   public static final String HIDDEN = "py5.core.graphics.HiddenPy5GraphicsJava2D";
 
   public Sketch() {
-    if (PApplet.platform == PConstants.LINUX) {
-      Sketch.useNativeSelect = false;
-    }
+    Sketch.useNativeSelect = platform == MACOS;
   }
 
   public void setPy5IconPath(String py5IconPath) {
