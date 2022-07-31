@@ -65,6 +65,12 @@ public class Sketch extends PApplet {
 
   public static final String HIDDEN = "py5.core.graphics.HiddenPy5GraphicsJava2D";
 
+  public Sketch() {
+    if (PApplet.platform == PConstants.LINUX) {
+      Sketch.useNativeSelect = false;
+    }
+  }
+
   public void setPy5IconPath(String py5IconPath) {
     this.py5IconPath = py5IconPath;
   }
@@ -393,7 +399,8 @@ public class Sketch extends PApplet {
   // Processing Video library is not a part of py5. Nevertheless, jpype is able
   // to sort out the actual object type, so it doesn't actually matter.
   public void movieEvent(Object movie) {
-    if (success && py5RegisteredEvents.contains("movie_event") && py5RegisteredEventParamCounts.get("movie_event") == 1) {
+    if (success && py5RegisteredEvents.contains("movie_event")
+        && py5RegisteredEventParamCounts.get("movie_event") == 1) {
       success = py5Bridge.run_method("movie_event", movie);
     }
   }
@@ -469,7 +476,8 @@ public class Sketch extends PApplet {
           WindowDriver driver = (WindowDriver) drawable.getNativeSurface();
           driver.destroy();
         } catch (NullPointerException e) {
-          // if a NullPointerException is thrown it is because the drawing surface has already been destroyed
+          // if a NullPointerException is thrown it is because the drawing surface has
+          // already been destroyed
         }
       }
     }
@@ -730,12 +738,12 @@ public class Sketch extends PApplet {
 
     protected Sketch sketch;
     protected String callback;
-  
+
     public SelectCallback(Sketch sketch, String callback) {
       this.sketch = sketch;
       this.callback = callback;
     }
-  
+
     public void callback(File selection) {
       sketch.callFunction(callback, selection == null ? null : selection.getAbsolutePath());
     }
