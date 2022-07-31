@@ -50,6 +50,8 @@ PROCESSING_TO_PY5_CLASS_MAP = [
     (JClass("processing.event.MouseEvent"), Py5MouseEvent),
 ]
 
+_String = JClass("java.lang.String")
+
 
 def init_jpype_converters():
 
@@ -71,7 +73,9 @@ def convert_to_python_types(params):
                 yield py5class(p)
                 break
         else:
-            if isinstance(p, _Sketch):
+            if isinstance(p, _String):
+                yield str(p)
+            elif isinstance(p, _Sketch):
                 yield Sketch(_instance=p)
             elif isinstance(p, JArray):
                 yield np.asarray(p)

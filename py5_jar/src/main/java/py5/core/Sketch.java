@@ -65,6 +65,10 @@ public class Sketch extends PApplet {
 
   public static final String HIDDEN = "py5.core.graphics.HiddenPy5GraphicsJava2D";
 
+  public Sketch() {
+    Sketch.useNativeSelect = platform == MACOS;
+  }
+
   public void setPy5IconPath(String py5IconPath) {
     this.py5IconPath = py5IconPath;
   }
@@ -103,6 +107,10 @@ public class Sketch extends PApplet {
 
   public boolean getSuccess() {
     return success;
+  }
+
+  public void setSuccess(boolean success) {
+    this.success = success;
   }
 
   public Object callFunction(String key, Object... params) {
@@ -393,7 +401,8 @@ public class Sketch extends PApplet {
   // Processing Video library is not a part of py5. Nevertheless, jpype is able
   // to sort out the actual object type, so it doesn't actually matter.
   public void movieEvent(Object movie) {
-    if (success && py5RegisteredEvents.contains("movie_event") && py5RegisteredEventParamCounts.get("movie_event") == 1) {
+    if (success && py5RegisteredEvents.contains("movie_event")
+        && py5RegisteredEventParamCounts.get("movie_event") == 1) {
       success = py5Bridge.run_method("movie_event", movie);
     }
   }
@@ -469,7 +478,8 @@ public class Sketch extends PApplet {
           WindowDriver driver = (WindowDriver) drawable.getNativeSurface();
           driver.destroy();
         } catch (NullPointerException e) {
-          // if a NullPointerException is thrown it is because the drawing surface has already been destroyed
+          // if a NullPointerException is thrown it is because the drawing surface has
+          // already been destroyed
         }
       }
     }
@@ -531,6 +541,24 @@ public class Sketch extends PApplet {
 
   public boolean isMousePressed() {
     return mousePressed;
+  }
+
+  public void py5SelectFolder(String key, String prompt, String defaultFolder) {
+    SelectCallback sc = new SelectCallback(this, key);
+    File defaultSelection = (defaultFolder == null) ? null : new File(defaultFolder);
+    selectFolder(prompt, "callback", defaultSelection, sc);
+  }
+
+  public void py5SelectInput(String key, String prompt, String defaultFile) {
+    SelectCallback sc = new SelectCallback(this, key);
+    File defaultSelection = (defaultFile == null) ? null : new File(defaultFile);
+    selectInput(prompt, "callback", defaultSelection, sc);
+  }
+
+  public void py5SelectOutput(String key, String prompt, String defaultFile) {
+    SelectCallback sc = new SelectCallback(this, key);
+    File defaultSelection = (defaultFile == null) ? null : new File(defaultFile);
+    selectOutput(prompt, "callback", defaultSelection, sc);
   }
 
   /*
@@ -706,5 +734,24 @@ public class Sketch extends PApplet {
     System.arraycopy(pixelCapture, 0, pixels, 0, pixels.length);
     pixelCapture = null;
     updatePixels();
+  }
+
+  public class SelectCallback {
+
+    protected Sketch sketch;
+    protected String callback;
+
+    public SelectCallback(Sketch sketch, String callback) {
+      this.sketch = sketch;
+      this.callback = callback;
+    }
+
+    public void callback(File selection) {
+      try {
+        sketch.callFunction(callback, selection == null ? null : selection.getAbsolutePath());
+      } catch (Exception e) {
+        setSuccess(false);
+      }
+    }
   }
 }

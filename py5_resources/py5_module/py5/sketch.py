@@ -19,6 +19,7 @@
 # *****************************************************************************
 # *** FORMAT PARAMS ***
 from __future__ import annotations
+from re import S
 
 import time
 import os
@@ -28,6 +29,7 @@ import warnings
 from io import BytesIO
 from pathlib import Path
 import functools
+import uuid
 from typing import overload, Any, Callable, Union  # noqa
 
 import jpype
@@ -36,6 +38,7 @@ from jpype.types import JClass, JException, JArray, JInt  # noqa
 import numpy as np
 import numpy.typing as npt
 
+import py5_tools
 import py5_tools.environ as _environ
 from py5_tools.printstreams import _DefaultPrintlnStream, _DisplayPubPrintlnStream
 from .bridge import Py5Bridge, _extract_py5_user_function_data
@@ -377,6 +380,33 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         if not isinstance(filename, BytesIO):
             filename = self._insert_frame(str(filename))
         self.save(filename, format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
+
+    def select_folder(self, prompt: str, callback: Callable, default_folder: str = None) -> None:
+        """$class_Sketch_select_folder"""
+        self._generic_select(self._instance.py5SelectFolder, 'select_folder', prompt, callback, default_folder)
+
+    def select_input(self, prompt: str, callback: Callable, default_file: str = None) -> None:
+        """$class_Sketch_select_folder"""
+        self._generic_select(self._instance.py5SelectInput, 'select_input', prompt, callback, default_file)
+
+    def select_output(self, prompt: str, callback: Callable, default_file: str = None) -> None:
+        """$class_Sketch_select_folder"""
+        self._generic_select(self._instance.py5SelectOutput, 'select_output', prompt, callback, default_file)
+
+    def _generic_select(self, py5f: Callable, name: str, prompt: str, callback: Callable, default_folder: str = None) -> None:
+        key = "_PY5_SELECT_CALLBACK_" + str(uuid.uuid4())
+        py5_tools.config.register_java_mode_key(key, callback, callback_once=True)
+
+        if platform.system() == 'Darwin':
+            if self._environ.in_ipython_session:
+                raise RuntimeError("Sorry, py5's " + name + "() method doesn't work on OSX when the Sketch is run through Jupyter. However, there are some IPython widgets you can use instead.")
+            else:
+                def _run():
+                    py5f(key, prompt, default_folder)
+                proxy = jpype.JProxy('java.lang.Runnable', dict(run=_run))
+                jpype.JClass('java.lang.Thread')(proxy).start()
+        else:
+            py5f(key, prompt, default_folder)
 
     # *** Py5Image methods ***
 
