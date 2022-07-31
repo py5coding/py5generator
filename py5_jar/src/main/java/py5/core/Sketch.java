@@ -109,7 +109,7 @@ public class Sketch extends PApplet {
     return success;
   }
 
-  protected Object callFunction(String key, Object... params) {
+  public Object callFunction(String key, Object... params) {
     Object retVal = py5Bridge.call_function(key, params);
     if (retVal instanceof RuntimeException) {
       throw ((RuntimeException) retVal);
