@@ -109,19 +109,10 @@ public class Sketch extends PApplet {
     return success;
   }
 
-  public Object callFunction(String key, Object... params) {
-    return callFunction(key, true, params);
-  }
-
-  public Object callFunction(String key, boolean throwIfError, Object... params) {
+  protected Object callFunction(String key, Object... params) {
     Object retVal = py5Bridge.call_function(key, params);
     if (retVal instanceof RuntimeException) {
-      if (throwIfError) {
-        throw ((RuntimeException) retVal);
-      } else {
-        success = false;
-        return null;
-      }
+      throw ((RuntimeException) retVal);
     } else {
       return retVal;
     }
@@ -753,7 +744,7 @@ public class Sketch extends PApplet {
 
     public void callback(File selection) {
       try {
-        sketch.callFunction(callback, false, selection == null ? null : selection.getAbsolutePath());
+        sketch.callFunction(callback, selection == null ? null : selection.getAbsolutePath());
       } catch (Exception e) {
         success = false;
       }
