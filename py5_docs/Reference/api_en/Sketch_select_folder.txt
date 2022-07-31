@@ -16,3 +16,14 @@ prompt: str - text prompt for select dialog box
 
 @@ description
 Opens a file chooser dialog to select a folder. After the selection is made, the selection will be passed to the ``callback`` function. If the dialog is closed or canceled, ``None`` will be sent to the function, so that the program is not waiting for additional input. The callback is necessary because of how threading works.
+
+@@ example
+def folder_selected(selection):
+    if selection is None:
+        py5.println("Window was closed or the user hit cancel.")
+    else:
+        py5.println("User selected " + selection)
+
+
+def setup():
+    py5.select_folder("Select a folder to process:", folder_selected)
