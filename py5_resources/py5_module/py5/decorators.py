@@ -56,7 +56,7 @@ def _hex_converter(arg):
             if HEX_COLOR_REGEX.match(arg.upper()):
                 return JInt(int("0xFF" + arg[1:], base=16))
             elif HEX_8DIGIT_COLOR_REGEX.match(arg.upper()):
-                return JInt(int("0x" + arg[1:], base=16))
+                return JInt(int("0x" + arg[7:] + arg[1:7], base=16))
             elif HEX_3DIGIT_COLOR_REGEX.match(arg.upper()):
                 return JInt(int("0xFF" + ''.join([c + c for c in arg[1:]]), base=16))
         else:

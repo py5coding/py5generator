@@ -40,7 +40,8 @@ class MathMixin:
     @classmethod
     def hex_color(cls, color: int) -> str:
         """$class_Sketch_hex_color"""
-        return '#' + hex(np.uint32(color & 0xFFFFFFFF))[2:].zfill(8).upper()
+        c = hex(np.uint32(color & 0xFFFFFFFF))[2:].zfill(8).upper()
+        return '#' + c[2:] + c[:2]
 
     @classmethod
     def sin(cls, angle: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]:
