@@ -109,6 +109,10 @@ public class Sketch extends PApplet {
     return success;
   }
 
+  public void setSuccess(boolean success) {
+    this.success = success;
+  }
+
   public Object callFunction(String key, Object... params) {
     Object retVal = py5Bridge.call_function(key, params);
     if (retVal instanceof RuntimeException) {
@@ -746,7 +750,7 @@ public class Sketch extends PApplet {
       try {
         sketch.callFunction(callback, selection == null ? null : selection.getAbsolutePath());
       } catch (Exception e) {
-        success = false;
+        setSuccess(false);
       }
     }
   }
