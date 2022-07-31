@@ -96,7 +96,9 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     _py5_object_cache = set()
     _cls = _Sketch
 
-    def __new__(cls, *, _instance=None, _jclassname=None):
+    def __new__(cls, *args, **kwargs):
+        _instance = kwargs.get('_instance')
+
         cls._py5_object_cache = set(s for s in cls._py5_object_cache if not s.is_dead)
         if _instance:
             for s in cls._py5_object_cache:
@@ -105,11 +107,14 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             else:
                 raise RuntimeError('Failed to locate cached Sketch class for provided py5.core.Sketch instance')
         else:
-            s = object.__new__(Sketch)
+            s = object.__new__(cls)
             cls._py5_object_cache.add(s)
             return s
 
-    def __init__(self, *, _instance=None, _jclassname=None):
+    def __init__(self, *args, **kwargs):
+        _instance = kwargs.get('_instance')
+        _jclassname = kwargs.get('_jclassname')
+
         if _instance:
             if _instance == getattr(self, '_instance', None):
                 # this is a cached Sketch object, don't re-run __init__()
