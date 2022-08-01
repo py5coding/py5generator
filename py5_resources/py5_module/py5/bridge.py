@@ -223,6 +223,10 @@ class Py5Bridge:
         return [JString(f'{name}:{self._function_param_counts[name]}') for name in self._functions.keys()]
 
     @JOverride
+    def terminate_sketch(self):
+        self._sketch._terminate_sketch()
+
+    @JOverride
     def run_method(self, method_name, params):
         try:
             if method_name in self._functions:
@@ -241,7 +245,7 @@ class Py5Bridge:
             return True
         except Exception:
             handle_exception(self._sketch.println, *sys.exc_info())
-            self._sketch._terminate_sketch()
+            self.terminate_sketch()
             return False
 
     @JOverride

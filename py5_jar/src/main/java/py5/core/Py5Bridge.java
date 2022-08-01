@@ -23,6 +23,8 @@ public interface Py5Bridge {
 
   public String[] get_function_list();
 
+  public void terminate_sketch();
+
   public boolean run_method(String method_name, Object... params);
 
   public Object call_function(String key, Object... params);
