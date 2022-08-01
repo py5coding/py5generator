@@ -21,14 +21,14 @@ from typing import Union
 from types import ModuleType
 
 
-_PY5_JAVA_MODE_KEYS = {}
-_PY5_JAVA_MODE_CALLBACK_ONCE = set()
+_PY5_PROCESSING_MODE_KEYS = {}
+_PY5_PROCESSING_MODE_CALLBACK_ONCE = set()
 
 
-def register_java_mode_key(key: str, value: Union[callable, ModuleType], *, callback_once: bool = False):
-    _PY5_JAVA_MODE_KEYS[key] = value
+def register_processing_mode_key(key: str, value: Union[callable, ModuleType], *, callback_once: bool = False):
+    _PY5_PROCESSING_MODE_KEYS[key] = value
     if callback_once:
-        _PY5_JAVA_MODE_CALLBACK_ONCE.add(key)
+        _PY5_PROCESSING_MODE_CALLBACK_ONCE.add(key)
 
 
-__all__ = ['register_java_mode_key']
+__all__ = ['register_processing_mode_key']

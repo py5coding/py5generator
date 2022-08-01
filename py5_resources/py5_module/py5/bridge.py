@@ -250,7 +250,7 @@ class Py5Bridge:
 
     @JOverride
     def call_function(self, key, params):
-        d = py5_tools.config._PY5_JAVA_MODE_KEYS
+        d = py5_tools.config._PY5_PROCESSING_MODE_KEYS
         try:
             *str_hierarchy, c = str(key).split('.')
 
@@ -271,10 +271,10 @@ class Py5Bridge:
 
             try:
                 retval = func(*self._convert_to_python_types(params))
-                if key in py5_tools.config._PY5_JAVA_MODE_CALLBACK_ONCE:
-                    py5_tools.config._PY5_JAVA_MODE_CALLBACK_ONCE.remove(key)
-                    if key in py5_tools.config._PY5_JAVA_MODE_KEYS:
-                        py5_tools.config._PY5_JAVA_MODE_KEYS.pop(key)
+                if key in py5_tools.config._PY5_PROCESSING_MODE_CALLBACK_ONCE:
+                    py5_tools.config._PY5_PROCESSING_MODE_CALLBACK_ONCE.remove(key)
+                    if key in py5_tools.config._PY5_PROCESSING_MODE_KEYS:
+                        py5_tools.config._PY5_PROCESSING_MODE_KEYS.pop(key)
                 return retval
             except Exception as e:
                 handle_exception(self._sketch.println, *sys.exc_info())
