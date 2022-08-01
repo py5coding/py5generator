@@ -34,18 +34,21 @@ def translate_code(translate_token: Callable, code: str, post_translate: Callabl
     out = StringIO()
     in_comment = False
     in_quote = None
+    in_import_line = False
     for token in tokens:
-        if token in ["'", '"'] and not in_comment:
+        if token in ("'", '"""', '"', "'''") and not in_comment:
             if not in_quote:
                 in_quote = token
             elif in_quote and token == in_quote:
                 in_quote = None
+        elif token in ('import', 'from'):
+            in_import_line = True
         elif token == '#':
             in_comment = True
         elif token == '\n':
             in_comment = False
-            in_quote = None
-        elif not (in_comment or in_quote):
+            in_import_line = False
+        elif not (in_comment or in_quote or in_import_line):
             token = translate_token(token)
 
         out.write(token)
