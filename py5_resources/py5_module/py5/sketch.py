@@ -133,7 +133,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self._post_hooks_to_add = []
         # must always keep the py5_methods reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
-        self._py5_methods = None
+        self._py5_bridge = None
         self._environ = None
         iconPath = Path(__file__).parent.parent / 'py5_tools/kernel/resources/logo-64x64.png'
         if iconPath.exists():
@@ -174,12 +174,12 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self.set_println_stream(_DisplayPubPrintlnStream() if self._environ.in_jupyter_zmq_shell else _DefaultPrintlnStream())
         self._init_println_stream()
 
-        self._py5_methods = Py5Bridge(self)
-        self._py5_methods.add_functions(methods, method_param_counts)
-        self._py5_methods.profile_functions(self._methods_to_profile)
-        self._py5_methods.add_pre_hooks(self._pre_hooks_to_add)
-        self._py5_methods.add_post_hooks(self._post_hooks_to_add)
-        self._instance.buildPy5Bridge(self._py5_methods)
+        self._py5_bridge = Py5Bridge(self)
+        self._py5_bridge.add_functions(methods, method_param_counts)
+        self._py5_bridge.profile_functions(self._methods_to_profile)
+        self._py5_bridge.add_pre_hooks(self._pre_hooks_to_add)
+        self._py5_bridge.add_post_hooks(self._post_hooks_to_add)
+        self._instance.buildPy5Bridge(self._py5_bridge)
 
         if not py5_options:
             py5_options = []
@@ -256,28 +256,28 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self._shutdown()
 
     def _add_pre_hook(self, method_name, hook_name, function):
-        if self._py5_methods is None:
+        if self._py5_bridge is None:
             self._pre_hooks_to_add.append((method_name, hook_name, function))
         else:
-            self._py5_methods.add_pre_hook(method_name, hook_name, function)
+            self._py5_bridge.add_pre_hook(method_name, hook_name, function)
 
     def _remove_pre_hook(self, method_name, hook_name):
-        if self._py5_methods is None:
+        if self._py5_bridge is None:
             self._pre_hooks_to_add = [x for x in self._pre_hooks_to_add if x[0] != method_name and x[1] != hook_name]
         else:
-            self._py5_methods.remove_pre_hook(method_name, hook_name)
+            self._py5_bridge.remove_pre_hook(method_name, hook_name)
 
     def _add_post_hook(self, method_name, hook_name, function):
-        if self._py5_methods is None:
+        if self._py5_bridge is None:
             self._post_hooks_to_add.append((method_name, hook_name, function))
         else:
-            self._py5_methods.add_post_hook(method_name, hook_name, function)
+            self._py5_bridge.add_post_hook(method_name, hook_name, function)
 
     def _remove_post_hook(self, method_name, hook_name):
-        if self._py5_methods is None:
+        if self._py5_bridge is None:
             self._post_hooks_to_add = [x for x in self._post_hooks_to_add if x[0] != method_name and x[1] != hook_name]
         else:
-            self._py5_methods.remove_post_hook(method_name, hook_name)
+            self._py5_bridge.remove_post_hook(method_name, hook_name)
 
     # *** BEGIN METHODS ***
 
@@ -344,16 +344,16 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         """$class_Sketch_hot_reload_draw"""
         methods, method_param_counts = _extract_py5_user_function_data(dict(draw=draw))
         if 'draw' in methods:
-            self._py5_methods.add_functions(methods, method_param_counts)
+            self._py5_bridge.add_functions(methods, method_param_counts)
         else:
             self.println("The new draw() function must take no parameters")
 
     def profile_functions(self, function_names: list[str]) -> None:
         """$class_Sketch_profile_functions"""
-        if self._py5_methods is None:
+        if self._py5_bridge is None:
             self._methods_to_profile.extend(function_names)
         else:
-            self._py5_methods.profile_functions(function_names)
+            self._py5_bridge.profile_functions(function_names)
 
     def profile_draw(self) -> None:
         """$class_Sketch_profile_draw"""
@@ -361,7 +361,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def print_line_profiler_stats(self) -> None:
         """$class_Sketch_print_line_profiler_stats"""
-        self._py5_methods.dump_stats()
+        self._py5_bridge.dump_stats()
 
     def _insert_frame(self, what, num=None):
         """Utility function to insert a number into a filename.
