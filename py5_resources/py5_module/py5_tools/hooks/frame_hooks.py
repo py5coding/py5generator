@@ -49,9 +49,13 @@ def screenshot(*, sketch: Sketch = None, hook_post_draw: bool = False) -> PIL.Im
         using_current_sketch = False
 
     if sketch.is_dead:
-        msg =  f'The {"current " if using_current_sketch else ""}Sketch is dead. The screenshot() function cannot be used on a Sketch in the dead state.'
+        msg =  f'The {"current " if using_current_sketch else ""}Sketch is dead. The py5_tools.screenshot() function cannot be used on a Sketch in the dead state.'
         if using_current_sketch:
             msg += f' Call {"" if _imported.get_imported_mode() else "py5."}reset_py5() to reset py5 to the ready state.'
+        raise RuntimeError(msg)
+
+    if py5.bridge.check_run_method_callstack():
+        msg = 'Calling py5_tools.screenshot() from within a py5 user function is not allowed. Please move this code to outside the Sketch.'
         raise RuntimeError(msg)
 
     with tempfile.TemporaryDirectory() as tempdir:
@@ -81,13 +85,17 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
         using_current_sketch = False
 
     if sketch.is_dead:
-        msg =  f'The {"current " if using_current_sketch else ""}Sketch is dead. The save_frames() function cannot be used on a Sketch in the dead state.'
+        msg =  f'The {"current " if using_current_sketch else ""}Sketch is dead. The py5_tools.save_frames() function cannot be used on a Sketch in the dead state.'
         if using_current_sketch:
             msg += f' Call {"" if _imported.get_imported_mode() else "py5."}reset_py5() to reset py5 to the ready state.'
         raise RuntimeError(msg)
 
     if block and sys.platform == 'darwin' and _environ.Environment().in_ipython_session:
         raise RuntimeError('Blocking is not allowed on OSX when run from IPython')
+
+    if block and py5.bridge.check_run_method_callstack():
+        msg = 'Calling py5_tools.save_frames() from within a py5 user function with `block=True` is not allowed. Please move this code to outside the Sketch or set `block=False`.'
+        raise RuntimeError(msg)
 
     dirname = Path(dirname)
     if not dirname.exists():
@@ -116,9 +124,13 @@ def offline_frame_processing(func: Callable[[npt.NDArray[np.uint8]], None], *,
         using_current_sketch = False
 
     if sketch.is_dead:
-        msg =  f'The {"current " if using_current_sketch else ""}Sketch is dead. The offline_frame_processing() function cannot be used on a Sketch in the dead state.'
+        msg =  f'The {"current " if using_current_sketch else ""}Sketch is dead. The py5_tools.offline_frame_processing() function cannot be used on a Sketch in the dead state.'
         if using_current_sketch:
             msg += f' Call {"" if _imported.get_imported_mode() else "py5."}reset_py5() to reset py5 to the ready state.'
+        raise RuntimeError(msg)
+
+    if block and py5.bridge.check_run_method_callstack():
+        msg = 'Calling py5_tools.offline_frame_processing() from within a py5 user function with `block=True` is not allowed. Please move this code to outside the Sketch or set `block=False`.'
         raise RuntimeError(msg)
 
     hook = QueuedBatchProcessingHook(period, limit, batch_size, func,
@@ -144,13 +156,17 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
         using_current_sketch = False
 
     if sketch.is_dead:
-        msg =  f'The {"current " if using_current_sketch else ""}Sketch is dead. The animated_gif() function cannot be used on a Sketch in the dead state.'
+        msg =  f'The {"current " if using_current_sketch else ""}Sketch is dead. The py5_tools.animated_gif() function cannot be used on a Sketch in the dead state.'
         if using_current_sketch:
             msg += f' Call {"" if _imported.get_imported_mode() else "py5."}reset_py5() to reset py5 to the ready state.'
         raise RuntimeError(msg)
 
     if block and sys.platform == 'darwin' and _environ.Environment().in_ipython_session:
         raise RuntimeError('Blocking is not allowed on OSX when run from IPython')
+
+    if block and py5.bridge.check_run_method_callstack():
+        msg = 'Calling py5_tools.animated_gif() from within a py5 user function with `block=True` is not allowed. Please move this code to outside the Sketch or set `block=False`.'
+        raise RuntimeError(msg)
 
     filename = Path(filename)
 
@@ -184,13 +200,17 @@ def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None,
         using_current_sketch = False
 
     if sketch.is_dead:
-        msg =  f'The {"current " if using_current_sketch else ""}Sketch is dead. The capture_frames() function cannot be used on a Sketch in the dead state.'
+        msg =  f'The {"current " if using_current_sketch else ""}Sketch is dead. The py5_tools.capture_frames() function cannot be used on a Sketch in the dead state.'
         if using_current_sketch:
             msg += f' Call {"" if _imported.get_imported_mode() else "py5."}reset_py5() to reset py5 to the ready state.'
         raise RuntimeError(msg)
 
     if block and sys.platform == 'darwin' and _environ.Environment().in_ipython_session:
         raise RuntimeError('Blocking is not allowed on OSX when run from IPython')
+
+    if block and py5.bridge.check_run_method_callstack():
+        msg = 'Calling py5_tools.capture_frames() from within a py5 user function with `block=True` is not allowed. Please move this code to outside the Sketch or set `block=False`.'
+        raise RuntimeError(msg)
 
     results = []
 
