@@ -1,7 +1,7 @@
 py5_name,processing_name,decorator,type,implementation,comments
-X,X,,static field,JAVA,
-Y,Y,,static field,JAVA,
-Z,Z,,static field,JAVA,
+X,X,,static field,SKIP,
+Y,Y,,static field,SKIP,
+Z,Z,,static field,SKIP,
 JAVA2D,JAVA2D,,static field,JAVA,
 P2D,P2D,,static field,JAVA,
 P3D,P3D,,static field,JAVA,
