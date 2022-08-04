@@ -24,6 +24,7 @@ from collections import defaultdict
 from typing import Union
 import inspect
 import line_profiler
+import traceback
 
 from jpype import JClass, JImplements, JOverride, JString
 
@@ -51,6 +52,14 @@ _EXCEPTION_MSGS = {
 }
 
 _JAVA_RUNTIMEEXCEPTION  = JClass('java.lang.RuntimeException')
+
+
+def check_run_method_callstack():
+    for t in traceback.extract_stack():
+        if t.filename == __file__ and t.name == 'run_method':
+            return True
+    else:
+        return False
 
 
 def _exception_msg(println, exc_type_name, exc_msg, py5info):
