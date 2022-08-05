@@ -20,6 +20,8 @@
 from __future__ import annotations
 
 import warnings
+import traceback
+from pathlib import Path
 from typing import overload, Union, Any
 
 import numpy as np
@@ -28,6 +30,16 @@ import numpy.typing as npt
 from jpype import JClass
 
 _OpenSimplex2S = JClass('py5.util.OpenSimplex2S')
+
+
+def _non_py5_stacklevel():
+    f = str(Path(__file__).parent.parent)
+    for i, t in enumerate(reversed(traceback.extract_stack())):
+        if t.filename.startswith(f):
+            continue
+        else:
+            return i
+
 
 class MathMixin:
 
@@ -99,7 +111,7 @@ class MathMixin:
         """$class_Sketch_remap"""
         denom = stop1 - start1
         if denom == 0:
-            warnings.warn(f'remap({value}, {start1}, {stop1}, {start2}, {stop2}) called, which returns NaN (not a number)', stacklevel=2)
+            warnings.warn(f'remap({value}, {start1}, {stop1}, {start2}, {stop2}) called, which returns NaN (not a number)', stacklevel=_non_py5_stacklevel())
             return float("nan")
         else:
             return start2 + (stop2 - start2) * ((value - start1) / denom)
