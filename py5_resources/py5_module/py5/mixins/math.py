@@ -19,6 +19,7 @@
 # *****************************************************************************
 from __future__ import annotations
 
+import warnings
 from typing import overload, Union, Any
 
 import numpy as np
@@ -96,7 +97,12 @@ class MathMixin:
     @classmethod
     def remap(cls, value: Union[float, npt.NDArray], start1: Union[float, npt.NDArray], stop1: Union[float, npt.NDArray], start2: Union[float, npt.NDArray], stop2: Union[float, npt.NDArray]) -> Union[float, npt.NDArray]:
         """$class_Sketch_remap"""
-        return start2 + (stop2 - start2) * ((value - start1) / (stop1 - start1))
+        denom = stop1 - start1
+        if denom == 0:
+            warnings.warn(f'remap({value}, {start1}, {stop1}, {start2}, {stop2}) called, which returns NaN (not a number)', stacklevel=2)
+            return float("nan")
+        else:
+            return start2 + (stop2 - start2) * ((value - start1) / denom)
 
     @overload
     def dist(cls, x1: Union[float, npt.NDArray], y1: Union[float, npt.NDArray], x2: Union[float, npt.NDArray], y2: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
