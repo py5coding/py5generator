@@ -139,7 +139,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         if iconPath.exists():
             self._instance.setPy5IconPath(str(iconPath))
         elif hasattr(sys, '_MEIPASS'):
-            warnings.warn("py5 logo image cannot be found. You are running this Sketch with pyinstaller and the image is missing from the packaging. I'm going to nag you about this until you fix it.")
+            warnings.warn("py5 logo image cannot be found. You are running this Sketch with pyinstaller and the image is missing from the packaging. I'm going to nag you about this until you fix it.", stacklevel=3)
         Sketch._cls.setJOGLProperties(str(Path(__file__).parent))
 
         # attempt to instantiate Py5Utilities
