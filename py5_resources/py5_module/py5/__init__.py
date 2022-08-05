@@ -115,7 +115,8 @@ def run_sketch(block: bool = None, *,
                        "Your sketch will be a small boring gray square. "
                        "If that isn't what you intended, you need to make sure "
                        "your implementation of those functions are available in "
-                       "the local namespace that made the `run_sketch()` call."))
+                       "the local namespace that made the `run_sketch()` call."),
+                       stacklevel=2)
 
     global _py5sketch
     if _py5sketch.is_running:
