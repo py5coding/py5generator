@@ -121,7 +121,7 @@ def run_code(sketch_path, classpath=None, new_process=False, exit_if_error=False
         print(f'file {sketch_path} not found')
         return
 
-    with open(sketch_path, 'r') as f:
+    with open(sketch_path, 'r', encoding='utf8') as f:
         code = f.read()
 
     if is_static_mode(code):
@@ -167,7 +167,7 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, s
         py5_options_str = str([f'--{o}' for o in py5_options]) if py5_options else 'None'
         sketch_args_str = str(sketch_args)
 
-        with open(sketch_path, 'r') as f:
+        with open(sketch_path, 'r', encoding='utf8') as f:
             sketch_code = _CODE_FRAMEWORK.format(f.read(), exit_if_error, py5_options_str, sketch_args_str, re.sub(r"""(\"|\')""", r'\\\1', str(original_sketch_path)))
 
         # does the code parse? if not, display an error message

@@ -67,13 +67,13 @@ def translate_file(translate_token: Callable, src: Union[str, Path], dest: Union
     src = Path(src)
     dest = Path(dest)
 
-    with open(src, 'r') as f:
+    with open(src, 'r', encoding='utf8') as f:
         new_code = translate_code(translate_token, f.read(), post_translate=post_translate)
 
     if not dest.parent.exists():
         dest.parent.mkdir(parents=True)
 
-    with open(dest, "w") as f:
+    with open(dest, "w", encoding='utf8') as f:
         f.write(new_code)
 
 
