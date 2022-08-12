@@ -17,6 +17,8 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+import sys
+
 from typing import Any
 
 
@@ -37,5 +39,8 @@ class PrintlnStream:
 
     def println(self, *args, sep: str = ' ', end: str = '\n', stderr: bool = False) -> None:
         """$class_Sketch_println"""
-        self._println_stream.print(sep.join(str(x)
-                                   for x in args), end=end, stderr=stderr)
+        msg = sep.join(str(x) for x in args)
+        if self._println_stream is None:
+            print(msg, end=end, file=sys.stderr if stderr else sys.stdout)
+        else:
+            self._println_stream.print(msg, end=end, stderr=stderr)
