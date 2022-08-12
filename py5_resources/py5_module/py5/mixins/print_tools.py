@@ -41,6 +41,6 @@ class PrintlnStream:
         """$class_Sketch_println"""
         msg = sep.join(str(x) for x in args)
         if self._println_stream is None:
-            print("PY5 INTERNAL ERROR: " + msg, end=end, file=sys.stderr)
+            print(msg, end=end, file=sys.stderr if stderr else sys.stdout)
         else:
             self._println_stream.print(msg, end=end, stderr=stderr)
