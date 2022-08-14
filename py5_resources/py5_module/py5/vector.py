@@ -36,6 +36,7 @@ class Py5Vector(Sequence):
         kwarg_dim = dim
         kwarg_dtype = dtype
 
+        used_default_dim = len(args) == 0 and dim is None
         dim = 3 if dim is None else dim
         dtype = np.float_ if dtype is None else dtype
 
@@ -108,6 +109,7 @@ class Py5Vector(Sequence):
             raise RuntimeError(f'Why is dim == {dim}? Please report bug')
 
         v._data = data
+        v._used_default_dim = used_default_dim
 
         return v
 
