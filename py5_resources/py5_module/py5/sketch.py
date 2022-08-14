@@ -388,14 +388,20 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def select_folder(self, prompt: str, callback: Callable, default_folder: str = None) -> None:
         """$class_Sketch_select_folder"""
+        if not isinstance(prompt, str) or not callable(callback) or (default_folder is not None and not isinstance(default_folder, str)):
+            raise TypeError("This method's signature is select_folder(prompt: str, callback: Callable, default_folder: str)")
         self._generic_select(self._instance.py5SelectFolder, 'select_folder', prompt, callback, default_folder)
 
     def select_input(self, prompt: str, callback: Callable, default_file: str = None) -> None:
         """$class_Sketch_select_folder"""
+        if not isinstance(prompt, str) or not callable(callback) or (default_file is not None and not isinstance(default_file, str)):
+            raise TypeError("This method's signature is select_input(prompt: str, callback: Callable, default_file: str)")
         self._generic_select(self._instance.py5SelectInput, 'select_input', prompt, callback, default_file)
 
     def select_output(self, prompt: str, callback: Callable, default_file: str = None) -> None:
         """$class_Sketch_select_folder"""
+        if not isinstance(prompt, str) or not callable(callback) or (default_file is not None and not isinstance(default_file, str)):
+            raise TypeError("This method's signature is select_output(prompt: str, callback: Callable, default_file: str)")
         self._generic_select(self._instance.py5SelectOutput, 'select_output', prompt, callback, default_file)
 
     def _generic_select(self, py5f: Callable, name: str, prompt: str, callback: Callable, default_folder: str = None) -> None:
