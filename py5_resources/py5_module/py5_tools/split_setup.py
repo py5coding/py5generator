@@ -63,7 +63,7 @@ def find_cutoffs(code, mode, static_mode=False):
     for i, line in enumerate(code.split('\n')):
         if not line.strip():
             continue
-        if not static_mode and line == 'def setup():':
+        if not static_mode and line.startswith('def setup():'):
             def_statement = True
             continue
 
