@@ -19,7 +19,6 @@
 # *****************************************************************************
 # *** FORMAT PARAMS ***
 from __future__ import annotations
-from re import S
 
 import time
 import os
