@@ -40,7 +40,7 @@ logger = logging.getLogger(__name__)
 
 
 CONSTANT_REGEX = re.compile(r'^\s*([A-Z_]*)\s*=\s*(.*?)\s+# CODEBUILDER INCLUDE$', re.MULTILINE)
-METHOD_REGEX = re.compile(r'(@\w+)?\s*def (.*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):\s*(# @decorator)?$', re.MULTILINE | re.DOTALL)
+METHOD_REGEX = re.compile(r'(@\w+)?\s*def ([^\s]*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):\s*(# @decorator)?$', re.MULTILINE | re.DOTALL)
 TYPEHINT_UNION_COMMA_REMOVER_REGEX = re.compile(r'(\[[\w\s,\.]+\])')
 COMMA_REGEX = re.compile(r',\s*(?![\s\w,\.]+\])')
 
