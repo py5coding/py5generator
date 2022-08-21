@@ -705,7 +705,7 @@ public class Sketch extends PApplet {
   public float[] osNoiseArray(float[] x, float[] y, float[] z) {
     float[] out = new float[x.length];
     for (int i = 0; i < x.length; ++i) {
-      out[i] = OpenSimplex2S.noise3_Fallback(osNoiseSeed, x[i], y[i], y[i]);
+      out[i] = OpenSimplex2S.noise3_Fallback(osNoiseSeed, x[i], y[i], z[i]);
     }
     return out;
   }
@@ -713,7 +713,7 @@ public class Sketch extends PApplet {
   public float[] osNoiseArray(float[] x, float[] y, float[] z, float[] w) {
     float[] out = new float[x.length];
     for (int i = 0; i < x.length; ++i) {
-      out[i] = OpenSimplex2S.noise4_Fallback(osNoiseSeed, x[i], y[i], y[i], w[i]);
+      out[i] = OpenSimplex2S.noise4_Fallback(osNoiseSeed, x[i], y[i], z[i], w[i]);
     }
     return out;
   }
