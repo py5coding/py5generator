@@ -25,7 +25,7 @@ import py5_tools.parsing as parsing
 
 
 COMMENT_LINE = re.compile(r'^\s*#.*' + chr(36), flags=re.MULTILINE)
-DOCSTRING = re.compile(r'^\s*"""[^"]*"""', flags=re.MULTILINE | re.DOTALL)
+DOCSTRING = re.compile(r'^\s*""".*?"""', flags=re.MULTILINE | re.DOTALL)
 SETUP_LINE = re.compile(r'^def setup[^:]*:')
 MODULE_MODE_METHOD_LINE = re.compile(r'^\s*py5\.(\w+)\([^\)]*\)')
 IMPORTED_MODE_METHOD_LINE = re.compile(r'^\s*(\w+)\([^\)]*\)')
