@@ -5,7 +5,18 @@ category = sketch_hooks
 subcategory = None
 
 @@ signatures
-offline_frame_processing(func: Callable[[npt.NDArray[np.uint8]], None], *, limit: int = 0, period: float = 0.0, batch_size: int = 1, complete_func: Callable[[], None] = None, stop_processing_func: Callable[[], bool] = None, sketch: Sketch = None, hook_post_draw: bool = False, queue_limit: int = None, block: bool = False) -> None
+offline_frame_processing(
+    func: Callable[[npt.NDArray[np.uint8]], None], *,
+    limit: int = 0,
+    period: float = 0.0,
+    batch_size: int = 1,
+    complete_func: Callable[[], None] = None,
+    stop_processing_func: Callable[[], bool] = None,
+    sketch: Sketch = None,
+    hook_post_draw: bool = False,
+    queue_limit: int = None,
+    block: bool = False
+    ) -> None
 
 @@ variables
 batch_size: int = 1 - number of frames to include in each batch passed to the frame processing function
