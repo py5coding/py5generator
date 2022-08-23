@@ -5,7 +5,17 @@ category = sketch_hooks
 subcategory = None
 
 @@ signatures
-animated_gif(filename: str, count: int, period: float, duration: float, *, loop: int = 0, optimize: bool = True, sketch: Sketch = None, hook_post_draw: bool = False, block: bool = False) -> None
+animated_gif(
+    filename: str,
+    count: int,
+    period: float,
+    duration: float, *, 
+    loop: int = 0,
+    optimize: bool = True,
+    sketch: Sketch = None,
+    hook_post_draw: bool = False,
+    block: bool = False
+    ) -> None
 
 @@ variables
 block: bool = False - method returns immediately (False) or blocks until function returns (True)
