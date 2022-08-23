@@ -40,6 +40,8 @@ The ``renderer`` parameter selects which rendering engine to use. For example, i
 * ``PDF``: The ``PDF`` renderer draws 2D graphics directly to an Acrobat PDF file. This produces excellent results when you need vector shapes for high-resolution output or printing.
 * ``SVG``: The ``SVG`` renderer draws 2D graphics directly to an SVG file. This is great for importing into other vector programs or using for digital fabrication.
 
+When using the ``PDF`` and ``SVG`` rendererers that write to a file, you must call ``exit_sketch()`` by the end of your drawing. If you'd like to draw 3D objects to a PDF or SVG file, you might try the ``begin_raw()`` method istead of this.
+
 @@ example
 def setup():
     py5.size(200, 100)
@@ -70,3 +72,10 @@ def setup():
     py5.rotate_x(py5.PI/6)
     py5.rotate_y(py5.PI/6)
     py5.box(35)
+
+@@ example
+def setup():
+    py5.size(200, 400, py5.PDF, 'output.pdf')
+    py5.background(153)
+    py5.line(0, 0, py5.width, py5.height)
+    py5.exit_sketch()  # needed to save and close the output properly 
