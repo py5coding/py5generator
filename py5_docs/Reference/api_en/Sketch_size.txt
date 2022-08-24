@@ -78,4 +78,4 @@ def setup():
     py5.size(200, 400, py5.PDF, 'output.pdf')
     py5.background(153)
     py5.line(0, 0, py5.width, py5.height)
-    py5.exit_sketch()  # needed to save and close the output properly 
+    py5.exit_sketch()  # needed to save and close the output properly
