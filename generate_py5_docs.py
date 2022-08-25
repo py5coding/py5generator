@@ -260,9 +260,7 @@ def format_signatures_variables(signatures, variables):
                         new_params.append((param, ''))
 
                 new_params2 = []
-                for i, stuff in enumerate(new_params):
-                    # print(stuff)
-                    param, vardesc = stuff
+                for i, (param, vardesc) in enumerate(new_params):
                     if i < len(new_params) - 1:
                         new_params2.append(f"{param},  # {vardesc}" if vardesc else f"{param},")
                     else:
