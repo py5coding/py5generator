@@ -261,10 +261,8 @@ def format_signatures_variables(signatures, variables):
 
                 new_params2 = []
                 for i, (param, vardesc) in enumerate(new_params):
-                    if i < len(new_params) - 1:
-                        new_params2.append(f"{param},  # {vardesc}" if vardesc else f"{param},")
-                    else:
-                        new_params2.append(f"{param}  # {vardesc}" if vardesc else param)
+                    maybe_comma = ',' if i < len(new_params) - 1 else ''
+                    new_params2.append(f"{param}{maybe_comma}  # {vardesc}" if vardesc else f"{param}{maybe_comma}")
 
                 params = '\n'.join(new_params2) + '\n'
                 line_length = max([len(l) for l in new_params2]) + 5
