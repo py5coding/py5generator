@@ -195,38 +195,6 @@ def format_examples(name, examples):
     return out
 
 
-# def format_signatures(signatures):
-#     out = ''
-
-#     def helper(s):
-#          return black.format_str(f'def {s}: pass', mode=black.Mode(line_length=80))[4:-11]
-
-#     if signatures:
-#         out += '\nSyntax\n------\n\n.. code:: python\n\n'
-#         formatted_signatures = [helper(s) for s in signatures]
-#         has_multi_line_signature = max(len(s.strip().split('\n')) for s in formatted_signatures) > 1
-#         out += textwrap.indent(('\n\n' if has_multi_line_signature else '\n').join(formatted_signatures), '    ')
-
-#     return out
-
-
-# def format_parameters(variables):
-#     out = ''
-
-#     if variables:
-#         out += '\nParameters\n----------\n\n'
-#         for var, desc in variables.items():
-#             if ':' in var:
-#                 varname, vartype = var.split(':')
-#                 vartype = vartype.replace('\\', '\\\\')
-#                 out += f'* **{varname}**: `{vartype.strip()}` - {desc}\n'
-#             else:
-#                 out += f'* **{var}**: - {desc}\n'
-#         out += '\n'
-
-#     return out
-
-
 def tokenize_params(params):
     bracket_count = 0
     out = ''
@@ -386,8 +354,6 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
                 title, first_sentence, examples,
                 description, usage, arguments, now_pretty)
         else:
-            # signatures = format_signatures(doc.signatures)
-            # parameters = format_parameters(doc.variables)
             signatures = format_signatures_variables(doc.signatures, doc.variables)
             if group in ['Sketch', 'Py5Functions', 'Py5Magics']:
                 title = name
