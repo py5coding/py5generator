@@ -28,6 +28,7 @@ import json
 
 import requests
 import pandas as pd
+import black
 
 from generator.docfiles import Documentation
 
@@ -47,6 +48,7 @@ parser.add_argument('py5_doc_ref_dir', action='store', help='location to write p
 
 
 FIRST_SENTENCE_REGEX = re.compile(r'^.*?\.(?=\s)')
+PARTITION_SIG_REGEX = re.compile(r'(\w*)\((.*?)\)( ->.*)')
 
 REF_COLUMN_STARTS = {
     'Sketch': [('lights_camera', 'camera'), ('shape', '')],
@@ -91,8 +93,7 @@ Description
 
 {3}{4}
 {5}
-{6}
-Updated on {7}
+Updated on {6}
 
 """
 
@@ -194,29 +195,53 @@ def format_examples(name, examples):
     return out
 
 
-def format_signatures(signatures):
+def tokenize_params(params):
+    bracket_count = 0
+    out = ''
+    for c in params:
+        if c == ',' and bracket_count == 0:
+            yield out.strip()
+            out = ''
+        else:
+            out += c
+        if c == '[':
+            bracket_count += 1
+        if c == ']':
+            bracket_count -= 1
+    yield out.strip()
+
+
+def format_signatures_variables(signatures, variables):
     out = ''
 
     if signatures:
-        out += '\nSyntax\n------\n\n.. code:: python\n\n'
-        out += textwrap.indent('\n'.join(signatures), '    ')
+        new_signatures = []
+        for s in signatures:
+            name, params, ret = PARTITION_SIG_REGEX.match(s).groups()
 
-    return out
+            if params:
+                new_params = []
+                for param in tokenize_params(params):
+                    if param in variables:
+                        new_params.append((param, variables[param.replace('*', '')]))
+                    else:
+                        new_params.append((param, ''))
 
+                new_params2 = []
+                for i, (param, vardesc) in enumerate(new_params):
+                    maybe_comma = ',' if i < len(new_params) - 1 else ''
+                    new_params2.append(f"{param}{maybe_comma}  # {vardesc}" if vardesc else f"{param}{maybe_comma}")
 
-def format_parameters(variables):
-    out = ''
-
-    if variables:
-        out += '\nParameters\n----------\n\n'
-        for var, desc in variables.items():
-            if ':' in var:
-                varname, vartype = var.split(':')
-                vartype = vartype.replace('\\', '\\\\')
-                out += f'* **{varname}**: `{vartype.strip()}` - {desc}\n'
+                params = '\n'.join(new_params2) + '\n'
+                line_length = max([len(l) for l in new_params2]) + 5
             else:
-                out += f'* **{var}**: - {desc}\n'
-        out += '\n'
+                line_length = 120
+
+            new_signatures.append(black.format_str(f"def {name}({params}){ret}: pass", mode=black.Mode(line_length=line_length))[4:-11])
+
+        out += '\nSignatures\n------\n\n.. code:: python\n\n'
+        has_multi_line_signature = max(len(s.strip().split('\n')) for s in new_signatures) > 1
+        out += textwrap.indent(('\n\n' if has_multi_line_signature else '\n').join(new_signatures), '    ')
 
     return out
 
@@ -329,8 +354,7 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
                 title, first_sentence, examples,
                 description, usage, arguments, now_pretty)
         else:
-            signatures = format_signatures(doc.signatures)
-            parameters = format_parameters(doc.variables)
+            signatures = format_signatures_variables(doc.signatures, doc.variables)
             if group in ['Sketch', 'Py5Functions', 'Py5Magics']:
                 title = name
             elif group == 'Py5Tools':
@@ -341,7 +365,7 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
             title = f'{title}\n{"=" * len(title)}'
             doc_rst = DOC_TEMPLATE.format(
                 title, first_sentence, examples,
-                description, underlying_java_ref, signatures, parameters, now_pretty)
+                description, underlying_java_ref, signatures, now_pretty)
 
         # only write new file if more changed than the timestamp
         dest_filename = dest_dir / 'reference' / f'{stem.lower()}.rst'
