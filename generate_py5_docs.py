@@ -242,6 +242,7 @@ def format_signatures_variables(signatures, variables):
         out += '\nSignatures\n----------\n\n.. code:: python\n\n'
         has_multi_line_signature = max(len(s.strip().split('\n')) for s in new_signatures) > 1
         out += textwrap.indent(('\n\n' if has_multi_line_signature else '\n').join(new_signatures), '    ')
+        out += '\n'
 
     return out
 
