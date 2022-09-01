@@ -188,7 +188,7 @@ def format_examples(name, examples):
             if img:
                 out += f'.. image:: /images/reference/{img}\n    :alt: example picture for {name}\n\n'
             out += '.. raw:: html\n\n    </div><div class="example-cell-code">\n\n'
-            out += f'.. code:: python\n    :number-lines:\n\n{textwrap.indent(code, "    ")}\n\n'
+            out += f'.. code:: python\n\n{textwrap.indent(code, "    ")}\n\n'
             out += '.. raw:: html\n\n    </div></div>\n\n'
         out += '.. raw:: html\n\n    </div>\n'
 
