@@ -239,7 +239,7 @@ def format_signatures_variables(signatures, variables):
 
             new_signatures.append(black.format_str(f"def {name}({params}){ret}: pass", mode=black.Mode(line_length=line_length))[4:-11])
 
-        out += '\nSignatures\n------\n\n.. code:: python\n\n'
+        out += '\nSignatures\n----------\n\n.. code:: python\n\n'
         has_multi_line_signature = max(len(s.strip().split('\n')) for s in new_signatures) > 1
         out += textwrap.indent(('\n\n' if has_multi_line_signature else '\n').join(new_signatures), '    ')
 
