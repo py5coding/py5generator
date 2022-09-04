@@ -47,7 +47,7 @@ POM_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
   <version>0.1</version>
 
   <name>py5utilities</name>
-  <url>https://py5.ixora.io/</url>
+  <url>https://py5coding.org/</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
