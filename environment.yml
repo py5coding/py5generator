@@ -4,6 +4,7 @@ channels:
   - defaults
 dependencies:
   - autopep8=1.6.*
+  - black=22.6.*
   - cairo=1.16.*
   - cairocffi=1.3.*
   - cairosvg=2.5.*
@@ -13,8 +14,9 @@ dependencies:
   # remove after jedi bug fix
   - jedi=0.17.2
   - jupyter=1.0.*
-  - jupyterlab=3.4.*
+  - jupyter-book=0.13.*
   - jupyter-packaging=0.12.*
+  - jupyterlab=3.4.*
   - line_profiler=3.4.*
   - matplotlib=3.5.*
   - nodejs=17.8.*
@@ -26,12 +28,9 @@ dependencies:
   - requests=2.27.*
   - twine=4.0.*
   - wheel=0.37.*
-  - xmltodict=0.12.*
   - yarn=1.22.*
   - pip:
     - bump2version==1.0.*
     - jpype1==1.3.*
-    - opencv-contrib-python==4.5.*
     - rstcheck==5.0.*
-    - scikit-video==1.1.*
     - stackprinter==0.2.*
