@@ -17,6 +17,7 @@ dependencies:
   - jupyter-book=0.13.*
   - jupyter-packaging=0.12.*
   - jupyterlab=3.4.*
+  - jupytext=1.14.*
   - line_profiler=3.4.*
   - matplotlib=3.5.*
   - nodejs=17.8.*
