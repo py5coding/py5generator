@@ -68,6 +68,15 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
     """
     _py5_object_cache = weakref.WeakSet()
 
+    PI = np.pi
+    HALF_PI = np.pi / 2
+    THIRD_PI = np.pi / 3
+    QUARTER_PI = np.pi / 4
+    TWO_PI = 2 * np.pi
+    TAU = 2 * np.pi
+    RAD_TO_DEG = 180 / np.pi
+    DEG_TO_RAD = np.pi / 180
+
     def __new__(cls, pgraphics):
         for o in cls._py5_object_cache:
             if pgraphics == o._instance:
