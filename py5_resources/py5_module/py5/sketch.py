@@ -280,6 +280,15 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     # *** BEGIN METHODS ***
 
+    PI = np.pi
+    HALF_PI = np.pi / 2
+    THIRD_PI = np.pi / 3
+    QUARTER_PI = np.pi / 4
+    TWO_PI = 2 * np.pi
+    TAU = 2 * np.pi
+    RAD_TO_DEG = 180 / np.pi
+    DEG_TO_RAD = np.pi / 180
+
     @overload
     def sketch_path(self) -> Path:
         """$class_Sketch_sketch_path"""
