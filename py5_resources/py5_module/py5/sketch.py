@@ -280,14 +280,14 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     # *** BEGIN METHODS ***
 
-    PI = np.pi
-    HALF_PI = np.pi / 2
-    THIRD_PI = np.pi / 3
-    QUARTER_PI = np.pi / 4
-    TWO_PI = 2 * np.pi
-    TAU = 2 * np.pi
-    RAD_TO_DEG = 180 / np.pi
-    DEG_TO_RAD = np.pi / 180
+    PI = np.pi  # CODEBUILDER INCLUDE
+    HALF_PI = np.pi / 2  # CODEBUILDER INCLUDE
+    THIRD_PI = np.pi / 3  # CODEBUILDER INCLUDE
+    QUARTER_PI = np.pi / 4  # CODEBUILDER INCLUDE
+    TWO_PI = 2 * np.pi  # CODEBUILDER INCLUDE
+    TAU = 2 * np.pi  # CODEBUILDER INCLUDE
+    RAD_TO_DEG = 180 / np.pi  # CODEBUILDER INCLUDE
+    DEG_TO_RAD = np.pi / 180  # CODEBUILDER INCLUDE
 
     @overload
     def sketch_path(self) -> Path:
