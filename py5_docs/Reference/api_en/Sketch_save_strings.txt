@@ -1,0 +1,18 @@
+@@ meta
+name = save_strings()
+type = method
+pclass = Sketch
+processing_name = saveStrings
+category = output
+subcategory = files
+
+@@ signatures
+save_strings(string_data: list[str], filename: Union[str, Path], *, end: str = '\n') -> None
+
+@@ variables
+end: str = '\n' - missing variable description
+filename: Union[str, Path] - missing variable description
+string_data: list[str] - missing variable description
+
+@@ description
+The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
