@@ -405,11 +405,11 @@ create_writer,createWriter,,method,output,files,SKIP,methods that should be re-i
 create_input,createInput,,method,input,files,SKIP,methods that should be re-implemented by me in Python
 create_input_raw,createInputRaw,,method,,,SKIP,methods that should be re-implemented by me in Python
 load_bytes,loadBytes,,method,input,files,SKIP,methods that should be re-implemented by me in Python
-load_strings,loadStrings,,method,input,files,SKIP,methods that should be re-implemented by me in Python
+load_strings,loadStrings,,method,input,files,PYTHON,
 create_output,createOutput,,method,output,files,SKIP,methods that should be re-implemented by me in Python
 save_stream,saveStream,,method,output,files,SKIP,methods that should be re-implemented by me in Python
 save_bytes,saveBytes,,method,output,files,SKIP,methods that should be re-implemented by me in Python
-save_strings,saveStrings,,method,output,files,SKIP,methods that should be re-implemented by me in Python
+save_strings,saveStrings,,method,output,files,PYTHON,
 sketch_file,sketchFile,,method,,,SKIP,methods that should be re-implemented by me in Python
 save_path,savePath,,method,,,SKIP,methods that should be re-implemented by me in Python
 save_file,saveFile,,method,,,SKIP,methods that should be re-implemented by me in Python

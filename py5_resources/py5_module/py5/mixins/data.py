@@ -67,3 +67,33 @@ class DataMixin:
     def parse_json(cls, serialized_json: Any, **kwargs: dict[str, Any]) -> Any:
         """$class_Sketch_parse_json"""
         return json.loads(serialized_json, **kwargs)
+
+    def load_strings(self, string_path: Union[str, Path]) -> list[str]:
+        """$class_Sketch_load_strings"""
+        if isinstance(string_path, str) and re.match(r'https?://', string_path.lower()):
+            response = requests.get(string_path)
+            if response.status_code == 200:
+                return response.text.splitlines()
+            else:
+                raise RuntimeError('Unable to download URL: ' + response.reason)
+        else:
+            path = Path(string_path)
+            if not path.is_absolute():
+                cwd = self.sketch_path()
+                if (cwd / 'data' / string_path).exists():
+                    path = cwd / 'data' / string_path
+                else:
+                    path = cwd / string_path
+            if path.exists():
+                with open(path, 'r', encoding='utf8') as f:
+                    return f.read().splitlines()
+            else:
+                raise RuntimeError('Unable to find file ' + str(string_path))
+
+    def save_strings(self, string_data: list[str], filename: Union[str, Path], *, end: str = '\n') -> None:
+        """$class_Sketch_save_strings"""
+        path = Path(filename)
+        if not path.is_absolute():
+            path = self.sketch_path() / filename
+        with open(path, 'w') as f:
+            f.write(end.join(string_data))
