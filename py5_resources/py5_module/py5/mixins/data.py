@@ -97,3 +97,33 @@ class DataMixin:
             path = self.sketch_path() / filename
         with open(path, 'w') as f:
             f.write(end.join(string_data))
+
+    def load_bytes(self, bytes_path: Union[str, Path]) -> bytearray:
+        """$class_Sketch_load_bytes"""
+        if isinstance(bytes_path, str) and re.match(r'https?://', bytes_path.lower()):
+            response = requests.get(bytes_path)
+            if response.status_code == 200:
+                return bytearray(response.content)
+            else:
+                raise RuntimeError('Unable to download URL: ' + response.reason)
+        else:
+            path = Path(bytes_path)
+            if not path.is_absolute():
+                cwd = self.sketch_path()
+                if (cwd / 'data' / bytes_path).exists():
+                    path = cwd / 'data' / bytes_path
+                else:
+                    path = cwd / bytes_path
+            if path.exists():
+                with open(path, 'rb') as f:
+                    return bytearray(f.read())
+            else:
+                raise RuntimeError('Unable to find file ' + str(bytes_path))
+
+    def save_bytes(self, bytes_data: Union[bytes, bytearray], filename: Union[str, Path]) -> None:
+        """$class_Sketch_save_bytes"""
+        path = Path(filename)
+        if not path.is_absolute():
+            path = self.sketch_path() / filename
+        with open(path, 'wb') as f:
+            f.write(bytes_data)
