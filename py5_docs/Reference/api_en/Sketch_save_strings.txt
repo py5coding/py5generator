@@ -10,9 +10,9 @@ subcategory = files
 save_strings(string_data: list[str], filename: Union[str, Path], *, end: str = '\n') -> None
 
 @@ variables
-end: str = '\n' - missing variable description
-filename: Union[str, Path] - missing variable description
-string_data: list[str] - missing variable description
+end: str = '\n' - line terminator for each string
+filename: Union[str, Path] - filename to save string data to
+string_data: list[str] - string data to save in a file
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
