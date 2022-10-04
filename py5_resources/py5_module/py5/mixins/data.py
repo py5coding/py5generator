@@ -60,6 +60,8 @@ class DataMixin:
         if not path.is_absolute():
             cwd = self.sketch_path()
             path = cwd / filename
+        if not path.parent.exists():
+            path.parent.mkdir(parents=True)
         with open(path, 'w') as f:
             json.dump(json_data, f, **kwargs)
 
@@ -95,6 +97,8 @@ class DataMixin:
         path = Path(filename)
         if not path.is_absolute():
             path = self.sketch_path() / filename
+        if not path.parent.exists():
+            path.parent.mkdir(parents=True)
         with open(path, 'w') as f:
             f.write(end.join(str(s) for s in string_data))
 
@@ -125,5 +129,7 @@ class DataMixin:
         path = Path(filename)
         if not path.is_absolute():
             path = self.sketch_path() / filename
+        if not path.parent.exists():
+            path.parent.mkdir(parents=True)
         with open(path, 'wb') as f:
             f.write(bytes_data)
