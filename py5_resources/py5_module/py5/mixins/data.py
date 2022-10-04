@@ -96,7 +96,7 @@ class DataMixin:
         if not path.is_absolute():
             path = self.sketch_path() / filename
         with open(path, 'w') as f:
-            f.write(end.join(string_data))
+            f.write(end.join(str(s) for s in string_data))
 
     def load_bytes(self, bytes_path: Union[str, Path]) -> bytearray:
         """$class_Sketch_load_bytes"""
