@@ -22,7 +22,7 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
-from typing import Any, Union, overload
+from typing import Any, Union
 import requests
 
 
