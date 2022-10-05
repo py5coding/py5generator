@@ -23,7 +23,7 @@ import sys
 import time
 from pathlib import Path
 import tempfile
-from typing import Callable, Any
+from typing import Callable
 
 import numpy as np
 import numpy.typing as npt
@@ -41,8 +41,8 @@ Sketch = 'Sketch'
 
 def screenshot(*, sketch: Sketch = None, hook_post_draw: bool = False) -> PIL.ImageFile.ImageFile:
     """$module_Py5Tools_screenshot"""
+    import py5
     if sketch is None:
-        import py5
         sketch = py5.get_current_sketch()
         using_current_sketch = True
     else:
@@ -55,7 +55,7 @@ def screenshot(*, sketch: Sketch = None, hook_post_draw: bool = False) -> PIL.Im
         raise RuntimeError(msg)
 
     if py5.bridge.check_run_method_callstack():
-        msg = 'Calling py5_tools.screenshot() from within a py5 user function is not allowed. Please move this code to outside the Sketch.'
+        msg = 'Calling py5_tools.screenshot() from within a py5 user function is not allowed. Please move this code to outside the Sketch or consider using save_frame() instead.'
         raise RuntimeError(msg)
 
     with tempfile.TemporaryDirectory() as tempdir:
@@ -77,8 +77,8 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
                 sketch: Sketch = None, hook_post_draw: bool = False,
                 block: bool = False) -> None:
     """$module_Py5Tools_save_frames"""
+    import py5
     if sketch is None:
-        import py5
         sketch = py5.get_current_sketch()
         using_current_sketch = True
     else:
@@ -116,8 +116,8 @@ def offline_frame_processing(func: Callable[[npt.NDArray[np.uint8]], None], *,
                              sketch: Sketch = None, hook_post_draw: bool = False,
                              queue_limit: int = None, block: bool = None) -> None:
     """$module_Py5Tools_offline_frame_processing"""
+    import py5
     if sketch is None:
-        import py5
         sketch = py5.get_current_sketch()
         using_current_sketch = True
     else:
@@ -148,8 +148,8 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
                  loop: int = 0, optimize: bool = True, sketch: Sketch = None,
                  hook_post_draw: bool = False, block: bool = False) -> None:
     """$module_Py5Tools_animated_gif"""
+    import py5
     if sketch is None:
-        import py5
         sketch = py5.get_current_sketch()
         using_current_sketch = True
     else:
@@ -192,8 +192,8 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
 def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None,
                    hook_post_draw: bool = False, block: bool = False) -> list[PIL.ImageFile.ImageFile]:
     """$module_Py5Tools_capture_frames"""
+    import py5
     if sketch is None:
-        import py5
         sketch = py5.get_current_sketch()
         using_current_sketch = True
     else:
