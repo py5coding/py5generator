@@ -55,7 +55,7 @@ def screenshot(*, sketch: Sketch = None, hook_post_draw: bool = False) -> PIL.Im
         raise RuntimeError(msg)
 
     if py5.bridge.check_run_method_callstack():
-        msg = 'Calling py5_tools.screenshot() from within a py5 user function is not allowed. Please move this code to outside the Sketch.'
+        msg = 'Calling py5_tools.screenshot() from within a py5 user function is not allowed. Please move this code to outside the Sketch or consider using save_frame() instead.'
         raise RuntimeError(msg)
 
     with tempfile.TemporaryDirectory() as tempdir:
