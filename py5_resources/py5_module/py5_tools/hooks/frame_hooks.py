@@ -23,7 +23,7 @@ import sys
 import time
 from pathlib import Path
 import tempfile
-from typing import Callable, Any
+from typing import Callable
 
 import numpy as np
 import numpy.typing as npt
