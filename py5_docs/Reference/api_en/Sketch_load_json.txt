@@ -14,7 +14,7 @@ kwargs: dict[str, Any] - keyword arguments
 @@ description
 Load a JSON data file from a file or URL. When loading a file, the path can be in the data directory, relative to the current working directory (:doc:`sketch_sketch_path`), or an absolute path. When loading from a URL, the ``json_path`` parameter must start with ``http://`` or ``https://``.
 
-When loading JSON data from a URL, the data is retrieved using the Python requests library with the ``get`` method, and the ``kwargs`` parameter is passed along to that method. When loading JSON data from a file, the data is loaded using the Python json library with the ``load`` method, and again the ``kwargs`` parameter passed along to that method.
+When loading JSON data from a URL, the data is retrieved using the Python requests library with the ``get`` method, and any extra keyword arguments (the ``kwargs`` parameter) are passed along to that method. When loading JSON data from a file, the data is loaded using the Python json library with the ``load`` method, and again any extra keyword arguments are passed along to that method.
 
 @@ example
 image = Sketch_load_json_0.png

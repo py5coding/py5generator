@@ -7,10 +7,13 @@ category = input
 subcategory = files
 
 @@ signatures
-load_strings(string_path: Union[str, Path]) -> list[str]
+load_strings(string_path: Union[str, Path], **kwargs: dict[str, Any]) -> list[str]
 
 @@ variables
+kwargs: dict[str, Any] - keyword arguments
 string_path: Union[str, Path] - url or file path for string data file
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Load a list of strings from a file or URL. When loading a file, the path can be in the data directory, relative to the current working directory (:doc:`sketch_sketch_path`), or an absolute path. When loading from a URL, the ``string_path`` parameter must start with ``http://`` or ``https://``.
+
+When loading string data from a URL, the data is retrieved using the Python requests library with the ``get`` method, and any extra keyword arguments (the ``kwargs`` parameter) are passed along to that method. When loading string data from a file, the ``kwargs`` parameter is not used.
