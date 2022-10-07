@@ -70,10 +70,10 @@ class DataMixin:
         """$class_Sketch_parse_json"""
         return json.loads(serialized_json, **kwargs)
 
-    def load_strings(self, string_path: Union[str, Path]) -> list[str]:
+    def load_strings(self, string_path: Union[str, Path], **kwargs: dict[str, Any]) -> list[str]:
         """$class_Sketch_load_strings"""
         if isinstance(string_path, str) and re.match(r'https?://', string_path.lower()):
-            response = requests.get(string_path)
+            response = requests.get(string_path, **kwargs)
             if response.status_code == 200:
                 return response.text.splitlines()
             else:
@@ -102,10 +102,10 @@ class DataMixin:
         with open(path, 'w') as f:
             f.write(end.join(str(s) for s in string_data))
 
-    def load_bytes(self, bytes_path: Union[str, Path]) -> bytearray:
+    def load_bytes(self, bytes_path: Union[str, Path], **kwargs: dict[str, Any]) -> bytearray:
         """$class_Sketch_load_bytes"""
         if isinstance(bytes_path, str) and re.match(r'https?://', bytes_path.lower()):
-            response = requests.get(bytes_path)
+            response = requests.get(bytes_path, **kwargs)
             if response.status_code == 200:
                 return bytearray(response.content)
             else:
