@@ -15,4 +15,6 @@ filename: Union[str, Path] - filename to save string data to
 string_data: list[str] - string data to save in a file
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Save a list of strings to a file. If ``filename`` is not an absolute path, it will be saved relative to the current working directory (:doc:`sketch_sketch_path`).
+
+Use the ``end`` parameter to set the line terminator for each string in the list. If items in the list of strings already have line terminators, set the ``end`` parameter to ``''`` to keep the output file from being saved with a blank line after each item.
