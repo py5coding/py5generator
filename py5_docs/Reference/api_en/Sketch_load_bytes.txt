@@ -17,3 +17,12 @@ kwargs: dict[str, Any] - keyword arguments
 Load byte data from a file or URL. When loading a file, the path can be in the data directory, relative to the current working directory (:doc:`sketch_sketch_path`), or an absolute path. When loading from a URL, the ``bytes_path`` parameter must start with ``http://`` or ``https://``.
 
 When loading byte data from a URL, the data is retrieved using the Python requests library with the ``get`` method, and any extra keyword arguments (the ``kwargs`` parameter) are passed along to that method. When loading byte data from a file, the ``kwargs`` parameter is not used.
+
+@@ example
+def setup():
+    py5.size(250, 250)
+    py5.stroke_weight(10)
+    mouse_x_positions = py5.load_bytes('mouse_x_positions.dat')
+    mouse_y_positions = py5.load_bytes('mouse_y_positions.dat')
+    for x, y in zip(mouse_x_positions, mouse_y_positions):
+        py5.point(x, y)
