@@ -144,7 +144,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         # attempt to instantiate Py5Utilities
         self.utils = None
         try:
-            self.utils = jpype.JClass('py5.utils.Py5Utilities')(self._instance)
+            self.utils = jpype.JClass('py5utils.Py5Utilities')(self._instance)
         except Exception:
             pass
 
