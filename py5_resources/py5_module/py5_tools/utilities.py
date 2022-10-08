@@ -21,11 +21,11 @@ import os
 from pathlib import Path
 
 
-PY5_UTILITIES_CLASS = """package py5.utils;
+PY5_UTILITIES_CLASS = """package py5utils;
 
 import py5.core.Sketch;
 
-class Py5Utilities {
+public class Py5Utilities {
 
   public Sketch sketch;
 
@@ -131,7 +131,7 @@ def generate_utilities_framework(output_dir=None):
     with open(java_dir / 'pom.xml', 'w') as f:
         f.write(POM_TEMPLATE.format(classpath=py5_classpath))
 
-    utils_filename = java_dir / Path('src/main/java/py5/utils/Py5Utilities.java')
+    utils_filename = java_dir / Path('src/main/java/py5utils/Py5Utilities.java')
     utils_filename.parent.mkdir(parents=True, exist_ok=True)
     with open(utils_filename, 'w') as f:
         f.write(PY5_UTILITIES_CLASS)
