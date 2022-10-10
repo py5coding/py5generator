@@ -26,6 +26,16 @@ def setup():
 
 @@ example
 def setup():
+    py5.size(250, 250)
+    py5.stroke_weight(10)
+    data = py5.load_json('mouse_positions.json')
+    mouse_x_positions = data['mouse_x']
+    mouse_y_positions = data['mouse_y']
+    positions = [(int(x), int(y)) for x, y in zip(mouse_x_positions, mouse_y_positions)]
+    py5.points(positions)
+
+@@ example
+def setup():
     global promise
     py5.size(200, 100)
     promise = py5.launch_promise_thread(load_data)
