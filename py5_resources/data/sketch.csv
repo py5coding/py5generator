@@ -406,10 +406,12 @@ create_input,createInput,,method,input,files,SKIP,user should use python instead
 create_input_raw,createInputRaw,,method,,,SKIP,user should use python instead
 load_bytes,loadBytes,,method,input,files,PYTHON,
 load_strings,loadStrings,,method,input,files,PYTHON,
+load_pickle,loadPickle,,method,input,files,PYTHON,
 create_output,createOutput,,method,output,files,SKIP,user should use python instead
 save_stream,saveStream,,method,output,files,SKIP,user should use python instead
 save_bytes,saveBytes,,method,output,files,PYTHON,
 save_strings,saveStrings,,method,output,files,PYTHON,
+save_pickle,savePickle,,method,output,files,PYTHON,
 sketch_file,sketchFile,,method,,,SKIP,user should use python instead
 save_path,savePath,,method,,,SKIP,user should use python instead
 save_file,saveFile,,method,,,SKIP,user should use python instead
