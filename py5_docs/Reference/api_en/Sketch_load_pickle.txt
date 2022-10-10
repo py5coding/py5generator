@@ -7,14 +7,15 @@ category = input
 subcategory = files
 
 @@ signatures
-load_pickle(pickle_path: Union[str, Path], **kwargs: dict[str, Any]) -> Any
+load_pickle(pickle_path: Union[str, Path]) -> Any
 
 @@ variables
-kwargs: dict[str, Any] - keyword arguments
-pickle_path: Union[str, Path] - url or file path for pickle data file
+pickle_path: Union[str, Path] - file path for pickle object file
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Load a pickled Python object from a file. The path can be in the data directory, relative to the current working directory (:doc:`sketch_sketch_path`), or an absolute path.
+
+There are security risks associated with Python pickle files. A pickle file can contain malicious code, so never load a pickle file from an untrusted source.
 
 @@ example
 def setup():
