@@ -26,13 +26,18 @@ def setup():
 
 @@ example
 def setup():
+    global mouse_x_positions, mouse_y_positions
     py5.size(250, 250)
     py5.stroke_weight(10)
     data = py5.load_json('mouse_positions.json')
     mouse_x_positions = data['mouse_x']
     mouse_y_positions = data['mouse_y']
-    positions = [(int(x), int(y)) for x, y in zip(mouse_x_positions, mouse_y_positions)]
-    py5.points(positions)
+
+
+def draw():
+    i = py5.frame_count
+    if i < len(mouse_x_positions) and i < len(mouse_y_positions):
+        py5.point(mouse_x_positions[i], mouse_y_positions[i])
 
 @@ example
 def setup():
