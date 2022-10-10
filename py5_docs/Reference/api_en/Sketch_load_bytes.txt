@@ -20,9 +20,14 @@ When loading byte data from a URL, the data is retrieved using the Python reques
 
 @@ example
 def setup():
+    global mouse_x_positions, mouse_y_positions
     py5.size(250, 250)
     py5.stroke_weight(10)
     mouse_x_positions = py5.load_bytes('mouse_x_positions.dat')
     mouse_y_positions = py5.load_bytes('mouse_y_positions.dat')
-    positions = list(zip(mouse_x_positions, mouse_y_positions))
-    py5.points(positions)
+
+
+def draw():
+    i = py5.frame_count
+    if i < len(mouse_x_positions) and i < len(mouse_y_positions):
+        py5.point(mouse_x_positions[i], mouse_y_positions[i])
