@@ -135,27 +135,20 @@ class DataMixin:
         with open(path, 'wb') as f:
             f.write(bytes_data)
 
-    def load_pickle(self, pickle_path: Union[str, Path], **kwargs: dict[str, Any]) -> Any:
+    def load_pickle(self, pickle_path: Union[str, Path]) -> Any:
         """$class_Sketch_load_pickle"""
-        if isinstance(pickle_path, str) and re.match(r'https?://', pickle_path.lower()):
-            response = requests.get(pickle_path, **kwargs)
-            if response.status_code == 200:
-                return pickle.loads(response.content)
+        path = Path(pickle_path)
+        if not path.is_absolute():
+            cwd = self.sketch_path()
+            if (cwd / 'data' / pickle_path).exists():
+                path = cwd / 'data' / pickle_path
             else:
-                raise RuntimeError('Unable to download URL: ' + response.reason)
+                path = cwd / pickle_path
+        if path.exists():
+            with open(path, 'rb') as f:
+                return pickle.load(f)
         else:
-            path = Path(pickle_path)
-            if not path.is_absolute():
-                cwd = self.sketch_path()
-                if (cwd / 'data' / pickle_path).exists():
-                    path = cwd / 'data' / pickle_path
-                else:
-                    path = cwd / pickle_path
-            if path.exists():
-                with open(path, 'rb') as f:
-                    return pickle.load(f)
-            else:
-                raise RuntimeError('Unable to find file ' + str(pickle_path))
+            raise RuntimeError('Unable to find file ' + str(pickle_path))
 
     def save_pickle(self, obj: Any, filename: Union[str, Path]) -> None:
         """$class_Sketch_save_pickle"""
