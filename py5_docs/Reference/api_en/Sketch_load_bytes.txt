@@ -24,5 +24,5 @@ def setup():
     py5.stroke_weight(10)
     mouse_x_positions = py5.load_bytes('mouse_x_positions.dat')
     mouse_y_positions = py5.load_bytes('mouse_y_positions.dat')
-    for x, y in zip(mouse_x_positions, mouse_y_positions):
-        py5.point(x, y)
+    positions = list(zip(mouse_x_positions, mouse_y_positions))
+    py5.points(positions)
