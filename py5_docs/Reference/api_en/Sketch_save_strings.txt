@@ -27,6 +27,7 @@ def setup():
     py5.size(250, 250)
     py5.stroke_weight(10)
 
+
 def draw():
     mouse_x_history.append(py5.mouse_x)
     mouse_y_history.append(py5.mouse_y)
