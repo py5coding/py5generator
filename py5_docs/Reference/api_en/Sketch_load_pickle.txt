@@ -1,0 +1,27 @@
+@@ meta
+name = load_pickle()
+type = method
+pclass = Sketch
+processing_name = loadPickle
+category = input
+subcategory = files
+
+@@ signatures
+load_pickle(pickle_path: Union[str, Path], **kwargs: dict[str, Any]) -> Any
+
+@@ variables
+kwargs: dict[str, Any] - missing variable description
+pickle_path: Union[str, Path] - missing variable description
+
+@@ description
+The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+
+@@ example
+def setup():
+    py5.size(250, 250)
+    py5.stroke_weight(10)
+    data = py5.load_pickle('mouse_positions.pkl')
+    mouse_x_positions = data['mouse_x']
+    mouse_y_positions = data['mouse_y']
+    positions = [(int(x), int(y)) for x, y in zip(mouse_x_positions, mouse_y_positions)]
+    py5.points(positions)
