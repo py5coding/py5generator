@@ -398,28 +398,30 @@ py5_select_folder,py5SelectFolder,,method,,,SKIP,used by select_folder
 py5_select_input,py5SelectInput,,method,,,SKIP,used by select_input
 py5_select_output,py5SelectOutput,,method,,,SKIP,used by select_output
 select_callback,selectCallback,,static method,,,SKIP,
-list_paths,listPaths,,method,,,SKIP,methods that should be re-implemented by me in Python
-check_extension,checkExtension,,static method,,,SKIP,methods that should be re-implemented by me in Python
-create_reader,createReader,,method,input,files,SKIP,methods that should be re-implemented by me in Python
-create_writer,createWriter,,method,output,files,SKIP,methods that should be re-implemented by me in Python
-create_input,createInput,,method,input,files,SKIP,methods that should be re-implemented by me in Python
-create_input_raw,createInputRaw,,method,,,SKIP,methods that should be re-implemented by me in Python
-load_bytes,loadBytes,,method,input,files,SKIP,methods that should be re-implemented by me in Python
-load_strings,loadStrings,,method,input,files,SKIP,methods that should be re-implemented by me in Python
-create_output,createOutput,,method,output,files,SKIP,methods that should be re-implemented by me in Python
-save_stream,saveStream,,method,output,files,SKIP,methods that should be re-implemented by me in Python
-save_bytes,saveBytes,,method,output,files,SKIP,methods that should be re-implemented by me in Python
-save_strings,saveStrings,,method,output,files,SKIP,methods that should be re-implemented by me in Python
-sketch_file,sketchFile,,method,,,SKIP,methods that should be re-implemented by me in Python
-save_path,savePath,,method,,,SKIP,methods that should be re-implemented by me in Python
-save_file,saveFile,,method,,,SKIP,methods that should be re-implemented by me in Python
-desktop_file,desktopFile,,static method,,,SKIP,methods that should be re-implemented by me in Python
-desktop_path,desktopPath,,static method,,,SKIP,methods that should be re-implemented by me in Python
-data_path,dataPath,,method,,,SKIP,methods that should be re-implemented by me in Python
-data_file,dataFile,,method,,,SKIP,methods that should be re-implemented by me in Python
-create_path,createPath,,method,,,SKIP,methods that should be re-implemented by me in Python
-url_encode,urlEncode,,static method,,,SKIP,methods that should be re-implemented by me in Python
-url_decode,urlDecode,,static method,,,SKIP,methods that should be re-implemented by me in Python
+list_paths,listPaths,,method,,,SKIP,user should use python instead
+check_extension,checkExtension,,static method,,,SKIP,user should use python instead
+create_reader,createReader,,method,input,files,SKIP,user should use python instead
+create_writer,createWriter,,method,output,files,SKIP,user should use python instead
+create_input,createInput,,method,input,files,SKIP,user should use python instead
+create_input_raw,createInputRaw,,method,,,SKIP,user should use python instead
+load_bytes,loadBytes,,method,input,files,PYTHON,
+load_strings,loadStrings,,method,input,files,PYTHON,
+load_pickle,loadPickle,,method,input,files,PYTHON,
+create_output,createOutput,,method,output,files,SKIP,user should use python instead
+save_stream,saveStream,,method,output,files,SKIP,user should use python instead
+save_bytes,saveBytes,,method,output,files,PYTHON,
+save_strings,saveStrings,,method,output,files,PYTHON,
+save_pickle,savePickle,,method,output,files,PYTHON,
+sketch_file,sketchFile,,method,,,SKIP,user should use python instead
+save_path,savePath,,method,,,SKIP,user should use python instead
+save_file,saveFile,,method,,,SKIP,user should use python instead
+desktop_file,desktopFile,,static method,,,SKIP,user should use python instead
+desktop_path,desktopPath,,static method,,,SKIP,user should use python instead
+data_path,dataPath,,method,,,SKIP,user should use python instead
+data_file,dataFile,,method,,,SKIP,user should use python instead
+create_path,createPath,,method,,,SKIP,user should use python instead
+url_encode,urlEncode,,static method,,,SKIP,user should use python instead
+url_decode,urlDecode,,static method,,,SKIP,user should use python instead
 array_copy,arrayCopy,,method,data,array_functions,SKIP,user should use python instead
 shorten,shorten,,method,data,array_functions,SKIP,user should use python instead
 splice,splice,,method,data,array_functions,SKIP,user should use python instead
