@@ -268,7 +268,7 @@ resume,resume,,method,structure,,SKIP,
 delay,delay,,method,environment,,SKIP,user should use python instead
 print,print,,method,output,text_area,SKIP,conflict with builtin python function
 save,save,,method,output,image,PYTHON,implemented in pixels.py mixin
-flush,flush,,method,,,SKIP,methods that are not part of the processing framework
+flush,flush,,method,rendering,,JAVA,
 copy,copy,@_auto_convert_to_py5image;@_return_py5image,method,image,pixels,JAVA,
 mask,mask,,method,pimage,method,SKIP,why is this method in PApplet? It is not documented and cannot actually work correctly
 nf,nf,,method,data,string_functions,SKIP,user should use python instead

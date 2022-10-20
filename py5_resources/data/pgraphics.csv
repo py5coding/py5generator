@@ -318,7 +318,7 @@ load_tiff,loadTIFF,,static method,SKIP,
 load_tga,loadTGA,,static method,SKIP,
 is_loaded,isLoaded,,method,SKIP,
 clear,clear,,method,JAVA,
-flush,flush,,method,SKIP,methods that are not part of the processing framework
+flush,flush,,method,JAVA,
 box,box,,method,JAVA,
 line,line,,method,JAVA,
 scale,scale,,method,JAVA,

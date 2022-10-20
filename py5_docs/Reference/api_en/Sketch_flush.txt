@@ -1,0 +1,13 @@
+@@ meta
+name = flush()
+type = method
+pclass = Sketch
+processing_name = flush
+category = rendering
+subcategory = None
+
+@@ signatures
+flush() -> None
+
+@@ description
+Flush drawing commands to the renderer. For most renderers, this method does absolutely nothing. There are not a lot of good reasons to use this method, but if you need it, it is available for your use.
