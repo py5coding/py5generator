@@ -10,4 +10,4 @@ subcategory = None
 flush() -> None
 
 @@ description
-Flush drawing commands to the renderer. For most renderers, this method does absolutely nothing. There are not a lot of good reasons for using this method, but for those who need it, it is available for your use.
+Flush drawing commands to the renderer. For most renderers, this method does absolutely nothing. There are not a lot of good reasons to use this method, but if you need it, it is available for your use.
