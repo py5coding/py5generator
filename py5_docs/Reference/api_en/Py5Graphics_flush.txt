@@ -8,4 +8,6 @@ processing_name = flush
 flush() -> None
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Flush drawing commands to the renderer. For most renderers, this method does absolutely nothing. There are not a lot of good reasons to use this method, but if you need it, it is available for your use.
+
+This method is the same as :doc:`sketch_flush` but linked to a ``Py5Graphics`` object.
