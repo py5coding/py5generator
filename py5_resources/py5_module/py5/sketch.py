@@ -301,11 +301,17 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def sketch_path(self, *args) -> Path:
         """$class_Sketch_sketch_path"""
+        if not self.is_running:
+            msg = ("Calling method sketch_path() when Sketch is not running. " +
+                   "The returned value will not be correct on all platforms. Consider " +
+                   "calling this after setup() or perhaps using the Python standard " +
+                   "library methods os.getcwd() or pathlib.Path.cwd().")
+            warnings.warn(msg)
         if len(args) <= 1:
             return Path(str(self._instance.sketchPath(*args)))
         else:
             # this exception will be replaced with a more informative one by the custom exception handler
-            raise TypeError('The parameters are invalid for method sketch_path')
+            raise TypeError('The parameters are invalid for method sketch_path()')
 
     def _get_is_ready(self) -> bool:  # @decorator
         """$class_Sketch_is_ready"""
