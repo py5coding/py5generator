@@ -218,7 +218,7 @@ ARGS_SKETCH_FOLDER,ARGS_SKETCH_FOLDER,,static field,constants,,JAVA,
 ARGS_UI_SCALE,ARGS_UI_SCALE,,static field,constants,,JAVA,
 EXTERNAL_STOP,EXTERNAL_STOP,,static field,constants,,JAVA,
 EXTERNAL_MOVE,EXTERNAL_MOVE,,static field,constants,,JAVA,
-pixel_density,pixelDensity,,method,environment,,JAVA,
+pixel_density,pixelDensity,@_settings_only,method,environment,,JAVA,
 wait,wait,,method,,,SKIP,public methods that shouldn't be available to users
 equals,equals,,method,,,SKIP,user should use python instead
 to_string,toString,,method,,,SKIP,public methods that shouldn't be available to users
@@ -252,7 +252,7 @@ concat,concat,,method,data,array_functions,SKIP,user should use python instead
 split,split,,method,data,string_functions,SKIP,user should use python instead
 join,join,,method,data,string_functions,SKIP,user should use python instead
 trim,trim,,method,data,string_functions,SKIP,user should use python instead
-size,size,,method,environment,,JAVA,
+size,size,@_settings_only,method,environment,,JAVA,
 fill,fill,@_convert_hex_color(),method,color,setting,JAVA,
 apply_filter,filter,,method,image,pixels,JAVA,filter method has name conflict with python builtin function; replaced with apply_filter method
 second,second,,static method,input,time_date,JAVA,
@@ -315,8 +315,8 @@ update_pixels,updatePixels,,method,image,pixels,JAVA,
 sketch_path,sketchPath,,method,environment,,PYTHON,
 redraw,redraw,,method,structure,,JAVA,
 exit_called,exitCalled,,method,,,SKIP,methods that are not part of the processing framework
-smooth,smooth,,method,environment,,JAVA,
-full_screen,fullScreen,,method,environment,,JAVA,
+smooth,smooth,@_settings_only,method,environment,,JAVA,
+full_screen,fullScreen,@_settings_only,method,environment,,JAVA,
 get_surface,getSurface,@_return_py5surface,method,environment,,JAVA,
 surface,surface,,unknown,,,SKIP,use get_surface
 sketch_width,sketchWidth,,method,,,SKIP,methods that are not part of the processing framework
@@ -330,7 +330,7 @@ sketch_output_stream,sketchOutputStream,,method,,,SKIP,methods that are not part
 sketch_window_color,sketchWindowColor,,method,,,SKIP,methods that are not part of the processing framework
 sketch_pixel_density,sketchPixelDensity,,method,,,SKIP,methods that are not part of the processing framework
 display_density,displayDensity,,method,environment,,JAVA,
-no_smooth,noSmooth,,method,environment,,JAVA,
+no_smooth,noSmooth,@_settings_only,method,environment,,JAVA,
 get_graphics,getGraphics,@_return_py5graphics,method,rendering,,JAVA,
 graphics,graphics,,unknown,,,SKIP,use get_graphics
 orientation,orientation,,method,,,SKIP,methods that are not part of the processing framework
