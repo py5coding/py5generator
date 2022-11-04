@@ -96,7 +96,7 @@ def _settings_only(name):
             if self_._py5_bridge.current_running_method == 'settings':
                 return f(self_, *args)
             else:
-                raise RuntimeError("Cannot call " + name + " here.")
+                raise RuntimeError("Cannot use the " + name + "() method here. Either move it to a settings() function or move it to closer to the start of setup().")
         return decorated
     return _decorator
 
