@@ -89,6 +89,17 @@ def _auto_convert_to_py5image(f):
     return decorated
 
 
+def _settings_only(name):
+    def _decorator(f):
+        @functools.wraps(f)
+        def decorated(self_, *args):
+            if self_._py5_bridge.current_running_method == 'settings':
+                return f(self_, *args)
+            else:
+                raise RuntimeError("Cannot call the " + name + "() method here. Either move it to a settings() function or move it to closer to the start of setup().")
+        return decorated
+    return _decorator
+
 class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5Base):
     """$classdoc_Sketch
     """
