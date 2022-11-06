@@ -110,9 +110,9 @@ def run_sketch(block: bool = None, *,
     functions, function_param_counts = bridge._extract_py5_user_function_data(sketch_functions if sketch_functions else caller_locals)
     functions = _split_setup.transform(functions, caller_globals, caller_locals, println, mode='imported' if _PY5_USE_IMPORTED_MODE else 'module')
 
-    if not set(functions.keys()) & set(['settings', 'setup', 'draw']):
+    if not set(functions.keys()) & set(['settings', 'setup', 'draw']) and not _jclassname:
         warnings.warn(("Unable to find settings, setup, or draw functions. "
-                       "Your sketch will be a small boring gray square. "
+                       "Your sketch will be a small gray square. "
                        "If that isn't what you intended, you need to make sure "
                        "your implementation of those functions are available in "
                        "the local namespace that made the `run_sketch()` call."),
