@@ -23,7 +23,7 @@ import sys
 import time
 import threading
 from collections.abc import Iterable
-from typing import Callable, Any
+from typing import Callable, Any, Union
 
 from .. import bridge
 
@@ -172,6 +172,11 @@ class ThreadsMixin:
         """$class_Sketch_has_thread"""
         self._remove_dead_threads()
         return name in self._py5threads
+
+    def get_thread(self, name: str)-> Union[threading.Thread, None]:
+        """$class_Sketch_get_thread"""
+        self._remove_dead_threads()
+        return self._py5threads[name][0] if name in self._py5threads else None
 
     def stop_thread(self, name: str, wait: bool = False) -> None:
         """$class_Sketch_stop_thread"""
