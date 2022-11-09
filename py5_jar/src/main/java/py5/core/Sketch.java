@@ -114,7 +114,7 @@ public class Sketch extends PApplet {
     py5Bridge.terminate_sketch();
   }
 
-  public Object callFunction(String key, Object... params) {
+  public Object callPython(String key, Object... params) {
     Object retVal = py5Bridge.call_function(key, params);
     if (retVal instanceof RuntimeException) {
       throw ((RuntimeException) retVal);
@@ -749,7 +749,7 @@ public class Sketch extends PApplet {
 
     public void callback(File selection) {
       try {
-        sketch.callFunction(callback, selection == null ? null : selection.getAbsolutePath());
+        sketch.callPython(callback, selection == null ? null : selection.getAbsolutePath());
       } catch (Exception e) {
         _terminateSketch(true);
       }
