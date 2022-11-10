@@ -11,4 +11,4 @@ get_thread(name: str) -> Union[threading.Thread, None]
 name: str - name of thread
 
 @@ description
-Get the Python Thread associated with the given thread name. Accessing the Python Thread is necessary to ``join()`` with the thread, as shown in the example. You can get the list of all currently running threads with :doc:`sketch_list_threads`.
+Get the Python Thread associated with the given thread name. Accessing the Python Thread is necessary to ``join()`` with the thread, as shown in the example. This method will return ``None`` if the named thread does not exist or the thread is no longer running. You can get the list of all currently running threads with :doc:`sketch_list_threads`.
