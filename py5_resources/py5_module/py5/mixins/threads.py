@@ -173,11 +173,12 @@ class ThreadsMixin:
         self._remove_dead_threads()
         return name in self._py5threads
 
-    def join_thread(self, name: str, timeout: float = None)-> None:
+    def join_thread(self, name: str, *, timeout: float = None)-> bool:
         """$class_Sketch_join_thread"""
         self._remove_dead_threads()
         if name in self._py5threads:
             self._py5threads[name][0].join(timeout)
+        return not self.has_thread(name)
 
     def stop_thread(self, name: str, wait: bool = False) -> None:
         """$class_Sketch_stop_thread"""
