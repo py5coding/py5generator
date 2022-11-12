@@ -12,4 +12,21 @@ name: str - name of thread
 timeout: float = None - maximum time in seconds to wait for the thread to join
 
 @@ description
-Join the Python Thread associated with the given thread name. This method will return right away if the named thread does not exist or the thread has already exited. You can get the list of all currently running threads with :doc:`sketch_list_threads`.
+Join the Python Thread associated with the given thread name. The ``join_thread()`` method will wait until the named thread has finished before returning. Use the ``timeout`` parameter to set an upper limit for the number of seconds to wait. This method will return right away if the named thread does not exist or the thread has already exited. You can get the list of all currently running threads with :doc:`sketch_list_threads`.
+
+@@ example
+import time
+
+
+def f():
+    py5.println("start f()")
+    time.sleep(0.5)
+    py5.println("end f()")
+
+
+def setup():
+    py5.println("start setup()")
+    py5.launch_thread(f, "f")
+    py5.println("thread f() launched")
+    py5.join_thread("f")
+    py5.println("end setup()")
