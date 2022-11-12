@@ -1,0 +1,15 @@
+@@ meta
+name = join_thread()
+type = method
+category = structure
+subcategory = threading
+
+@@ signatures
+join_thread(name: str, timeout: float = None) -> None
+
+@@ variables
+name: str - name of thread
+timeout: float = None - maximum time in seconds to wait for the thread to join
+
+@@ description
+Join the Python Thread associated with the given thread name. This method will return right away if the named thread does not exist or the thread has already exited. You can get the list of all currently running threads with :doc:`sketch_list_threads`.

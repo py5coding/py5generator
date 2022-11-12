@@ -620,7 +620,7 @@ launch_thread,,,method,structure,threading,PYTHON,implemented in mixin file thre
 launch_promise_thread,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
 launch_repeating_thread,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
 has_thread,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
-get_thread,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
+join_thread,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
 stop_thread,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
 stop_all_threads,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
 list_threads,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
