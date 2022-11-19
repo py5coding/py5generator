@@ -1,6 +1,8 @@
 @@ meta
 name = flush()
 type = method
+category = rendering
+subcategory = None
 pclass = PGraphics
 processing_name = flush
 
