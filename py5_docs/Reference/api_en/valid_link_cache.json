@@ -522,5 +522,13 @@
   "https://processing.org/reference/g.html": false,
   "https://processing.org/reference/selectFolder_.html": true,
   "https://processing.org/reference/selectInput_.html": true,
-  "https://processing.org/reference/selectOutput_.html": true
+  "https://processing.org/reference/selectOutput_.html": true,
+  "https://processing.org/reference/PGraphics_flush_.html": false,
+  "https://processing.org/reference/flush_.html": false,
+  "https://processing.org/reference/loadBytes_.html": true,
+  "https://processing.org/reference/loadPickle_.html": false,
+  "https://processing.org/reference/loadStrings_.html": true,
+  "https://processing.org/reference/saveBytes_.html": true,
+  "https://processing.org/reference/savePickle_.html": false,
+  "https://processing.org/reference/saveStrings_.html": true
 }
