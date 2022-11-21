@@ -82,7 +82,7 @@ except ModuleNotFoundError:
     pass
 
 
-__version__ = '0.8.3a1'
+__version__ = '0.8.4.dev0'
 
 _PY5_USE_IMPORTED_MODE = py5_tools.get_imported_mode()
 py5_tools._lock_imported_mode()
