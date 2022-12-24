@@ -47,6 +47,7 @@ class ProcessingLibraryInfo:
                             for line in block.splitlines()
                             if line != "library"])
                        for block in blocks]
+
         df = pd.DataFrame.from_dict(block_lines, dtype="string")
         # lastUpdated is supposed to be the last column
         df = df.iloc[:, :(df.columns.get_loc('lastUpdated') + 1)]
@@ -59,6 +60,20 @@ class ProcessingLibraryInfo:
         # line or the paragraph could be missing
         df['paragraph'] = [PARAGRAPH_REGEX.findall(b) for b in blocks]
         df['paragraph'] = df['paragraph'].apply(lambda x: x[0] if x else '').astype('string')
+
+        categories = set()
+        names = list()
+        for i, libinfo in enumerate(block_lines):
+            libinfo['id'] = int(libinfo['id'])
+            libinfo['minRevision'] = int(libinfo['minRevision'])
+            libinfo['maxRevision'] = int(libinfo['maxRevision'])
+            libinfo['categories'] = libinfo['categories'].split(',')
+            paragraph = PARAGRAPH_REGEX.findall(blocks[i])
+            libinfo['paragraph'] = paragraph[0] if paragraph else ''
+
+            categories.update(libinfo['categories'])
+            names.append(libinfo['name'])
+
 
         self._data = df
         self.categories = sorted(reduce(lambda x, y: x | set(y), df['categories'], set()))
