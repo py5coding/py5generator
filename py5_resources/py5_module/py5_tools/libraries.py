@@ -21,10 +21,7 @@ import re
 import io
 import zipfile
 import requests
-from functools import reduce
 from pathlib import Path
-
-import pandas as pd
 
 
 PROCESSING_LIBRARY_URL = 'http://download.processing.org/contribs'
@@ -43,27 +40,14 @@ class ProcessingLibraryInfo:
             raise RuntimeError(f'could not download data file at {PROCESSING_LIBRARY_URL}')
 
         blocks = [b for b in response.text.split('\n\n') if b.startswith('library')]
-        block_lines = [dict([line.split('=', 1)
+        data = [dict([line.split('=', 1)
                             for line in block.splitlines()
                             if line != "library"])
-                       for block in blocks]
-
-        df = pd.DataFrame.from_dict(block_lines, dtype="string")
-        # lastUpdated is supposed to be the last column
-        df = df.iloc[:, :(df.columns.get_loc('lastUpdated') + 1)]
-        df.astype({'id': int, 'minRevision': int, 'maxRevision': int})
-        df['id'] = df['id'].astype(int)
-        df['minRevision'] = df['minRevision'].astype(int)
-        df['maxRevision'] = df['maxRevision'].astype(int)
-        df['categories'] = df['categories'].apply(lambda x: x.split(','))
-        # get paragraph values from raw data because they could be on more than one
-        # line or the paragraph could be missing
-        df['paragraph'] = [PARAGRAPH_REGEX.findall(b) for b in blocks]
-        df['paragraph'] = df['paragraph'].apply(lambda x: x[0] if x else '').astype('string')
+                      for block in blocks]
 
         categories = set()
         names = list()
-        for i, libinfo in enumerate(block_lines):
+        for i, libinfo in enumerate(data):
             libinfo['id'] = int(libinfo['id'])
             libinfo['minRevision'] = int(libinfo['minRevision'])
             libinfo['maxRevision'] = int(libinfo['maxRevision'])
@@ -74,22 +58,21 @@ class ProcessingLibraryInfo:
             categories.update(libinfo['categories'])
             names.append(libinfo['name'])
 
-
-        self._data = df
-        self.categories = sorted(reduce(lambda x, y: x | set(y), df['categories'], set()))
-        self.names = sorted(df['name'])
+        self.categories = sorted(categories)
+        self.names = sorted(names)
+        self._data = data
 
     def get_library_info(self, category=None, library_name=None, library_id=None):
+        # TODO: also make sure minRevision < version < maxRevision, but how?
         info = self._data
-        # TODO: also make sure minRevision < version < maxRevision
         if category:
-            info = info[info['categories'].apply(lambda x: category in x)]
+            info = filter(lambda x: category in x.get('categories', []), info)
         if library_name:
-            info = info[info['name'] == library_name]
+            info = filter(lambda x: x.get('name') == library_name, info)
         if library_id:
-            info = info[info['id'] == library_id]
+            info = filter(lambda x: x.get('id') == int(library_id), info)
 
-        return info
+        return list(info)
 
     def download_zip(self, dest, library_name=None, library_id=None):
         info = self.get_library_info(library_name=library_name, library_id=library_id)
@@ -99,7 +82,7 @@ class ProcessingLibraryInfo:
         if len(info) > 1:
             raise RuntimeError(f'more than one library')
 
-        info = info.T.to_dict()[info.index[0]]
+        info = info[0]
         download_url = info['download']
 
         response = requests.get(download_url)

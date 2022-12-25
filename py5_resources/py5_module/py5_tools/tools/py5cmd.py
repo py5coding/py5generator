@@ -48,7 +48,7 @@ class Py5Cmd(cmd.Cmd):
     intro = "Welcome to the py5 command tool."
 
     def _print_library_info(self, info):
-        info = info.T.to_dict()[info.index[0]]
+        info = info[0]
 
         return LIBRARY_TEMPLATE.format(**info)
 
@@ -57,9 +57,9 @@ class Py5Cmd(cmd.Cmd):
             print(c)
 
     def do_show_category(self, line):
-        category_libraries = self._libraries.get_library_info(category=line).sort_values('id')
+        category_libraries = sorted(self._libraries.get_library_info(category=line), key=lambda x: x.get('id'))
 
-        for _, info in category_libraries.iterrows():
+        for info in category_libraries:
             print(LIBRARY_TEMPLATE.format(**info).strip() + '\n')
 
     def complete_show_category(self, text, line, begidx, endidx):
