@@ -19,7 +19,7 @@
 # *****************************************************************************
 import sys
 
-from  . import environ as _environ
+from . import environ as _environ
 
 
 class _DefaultPrintlnStream:

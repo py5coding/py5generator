@@ -93,7 +93,7 @@ class ProcessingLibraryInfo:
             jars = []
             for name in zf.namelist():
                 path = Path(name)
-                if len(path.parts) > 2 and path.parts[1] == 'library' and path.suffix == '.jar':
+                if len(path.parts) > 2 and path.parts[1] == 'library':
                     jars.append(name)
             zf.extractall(dest, jars)
 
