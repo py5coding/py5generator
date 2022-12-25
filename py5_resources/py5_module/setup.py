@@ -33,7 +33,6 @@ INSTALL_REQUIRES = [
     'jpype1>=1.4',
     'line_profiler>=4.0',
     'numpy>=1.23',
-    'pandas>=1.5',
     'pillow>=9.2',
     'pyobjc>=9.0;sys_platform=="darwin"',
     'requests>=2.28',
