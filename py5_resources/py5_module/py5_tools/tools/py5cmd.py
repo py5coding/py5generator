@@ -32,18 +32,18 @@ parser = argparse.ArgumentParser(description="py5 command tool")
 
 SHORT_LIBRARY_TEMPLATE = """[{id}] Name: {name}
 Author: {authors}
-{sentence}
-{categories}
-{paragraph}"""
+Summary: {sentence}
+Categories: {categories}
+Description: {paragraph}"""
 
 FULL_LIBRARY_TEMPLATE = """[{id}] Name: {name}
 Author: {authors}
+Summary: {sentence}
+Categories: {categories}
 Library version: {prettyVersion}
 Project URL: {url}
 Download URL: {download}
-{sentence}
-{categories}
-{paragraph}"""
+Description: {paragraph}"""
 
 
 class Py5Cmd(cmd.Cmd):
@@ -70,7 +70,7 @@ class Py5Cmd(cmd.Cmd):
     def do_show_category(self, line):
         """show_category [category name]
         Show information for all of the available libraries in a given category."""
-        category_libraries = sorted(self._libraries.get_library_info(category=line), key=lambda x: x.get('id'))
+        category_libraries = sorted(self._libraries.get_library_info(category=line), key=lambda x: x.get('name'))
 
         if category_libraries:
             for info in category_libraries:
