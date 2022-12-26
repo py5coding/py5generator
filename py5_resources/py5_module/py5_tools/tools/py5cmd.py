@@ -60,7 +60,7 @@ class Py5Cmd(cmd.Cmd):
 
     def do_show_category(self, line):
         """show_category [category name]
-        Show all of the available libraries in a given category."""
+        Show information for all of the available libraries in a given category."""
         category_libraries = sorted(self._libraries.get_library_info(category=line), key=lambda x: x.get('id'))
 
         for info in category_libraries:
@@ -102,6 +102,26 @@ class Py5Cmd(cmd.Cmd):
             print(e)
 
     def complete_get_library(self, text, line, begidx, endidx):
+        if not text:
+            completions = self._libraries.names
+        else:
+            completions = [n for n in self._libraries.names if n.startswith(text)]
+
+        return completions
+
+    def do_library_info(self, line):
+        """library_info [library name]
+        Show information for the given library."""
+        info = self._libraries.get_library_info(library_name=line)
+
+        if len(info) == 0:
+            print('There are no libraries named ' + line)
+        elif len(info) == 1:
+            print(LIBRARY_TEMPLATE.format(**info[0]).strip() + '\n')
+        else:
+            print('Multiple libraries found named ' + line)
+
+    def complete_library_info(self, text, line, begidx, endidx):
         if not text:
             completions = self._libraries.names
         else:
