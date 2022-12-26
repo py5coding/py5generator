@@ -30,8 +30,17 @@ import py5_tools.imported
 parser = argparse.ArgumentParser(description="py5 command tool")
 
 
-LIBRARY_TEMPLATE = """[{id}] Name: {name}
+SHORT_LIBRARY_TEMPLATE = """[{id}] Name: {name}
 Author: {authors}
+{sentence}
+{categories}
+{paragraph}"""
+
+FULL_LIBRARY_TEMPLATE = """[{id}] Name: {name}
+Author: {authors}
+Library version: {prettyVersion}
+Project URL: {url}
+Download URL: {download}
 {sentence}
 {categories}
 {paragraph}"""
@@ -50,7 +59,7 @@ class Py5Cmd(cmd.Cmd):
     def _print_library_info(self, info):
         info = info[0]
 
-        return LIBRARY_TEMPLATE.format(**info)
+        return SHORT_LIBRARY_TEMPLATE.format(**info)
 
     def do_list_categories(self, line):
         """list_categories
@@ -65,7 +74,7 @@ class Py5Cmd(cmd.Cmd):
 
         if category_libraries:
             for info in category_libraries:
-                print(LIBRARY_TEMPLATE.format(**info).strip() + '\n')
+                print(SHORT_LIBRARY_TEMPLATE.format(**info).strip() + '\n')
         else:
             print('No libraries found in category ' + line)
 
@@ -120,7 +129,7 @@ class Py5Cmd(cmd.Cmd):
         if len(info) == 0:
             print('There are no libraries named ' + line)
         elif len(info) == 1:
-            print(LIBRARY_TEMPLATE.format(**info[0]).strip() + '\n')
+            print(FULL_LIBRARY_TEMPLATE.format(**info[0]).strip() + '\n')
         else:
             print('Multiple libraries found named ' + line)
 
