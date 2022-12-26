@@ -53,10 +53,14 @@ class Py5Cmd(cmd.Cmd):
         return LIBRARY_TEMPLATE.format(**info)
 
     def do_list_categories(self, line):
+        """list_categories
+        List the Processing library categories."""
         for c in self._libraries.categories:
             print(c)
 
     def do_show_category(self, line):
+        """show_category [category name]
+        Show all of the available libraries in a given category."""
         category_libraries = sorted(self._libraries.get_library_info(category=line), key=lambda x: x.get('id'))
 
         for info in category_libraries:
@@ -71,6 +75,8 @@ class Py5Cmd(cmd.Cmd):
         return completions
 
     def do_run_sketch(self, line):
+        """run_sketch [path]
+        Run the imported mode Sketch found at the given path."""
         if line:
             try:
                 new_process = platform.system() != 'Windows'
@@ -88,6 +94,8 @@ class Py5Cmd(cmd.Cmd):
         return completions
 
     def do_get_library(self, line):
+        """get_library [library name]
+        Download a library and unzip it into a jars subdirectory."""
         try:
             self._libraries.download_zip('jars', library_name=line)
         except Exception as e:
@@ -104,19 +112,29 @@ class Py5Cmd(cmd.Cmd):
     def emptyline(self):
         return None
 
-    def do_exit(self, line):
-        return True
-
-    def do_EOF(self, line):
+    def shutdown(self):
         for p in self._running_sketches:
             p.terminate()
             p.join()
 
+    def do_exit(self, line):
+        """exit
+        Quit the py5 command tool."""
+        self.shutdown()
         return True
+
+    def do_EOF(self, line):
+        """exit
+        Quit the py5 command tool."""
+        self.shutdown()
+        return True
+
+    def postloop(self):
+        print()
 
 
 def main():
-    # args = parser.parse_args()
+    args = parser.parse_args()
     py5cmd = Py5Cmd()
     py5cmd.cmdloop()
 
