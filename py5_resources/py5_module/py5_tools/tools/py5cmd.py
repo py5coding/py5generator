@@ -63,8 +63,11 @@ class Py5Cmd(cmd.Cmd):
         Show information for all of the available libraries in a given category."""
         category_libraries = sorted(self._libraries.get_library_info(category=line), key=lambda x: x.get('id'))
 
-        for info in category_libraries:
-            print(LIBRARY_TEMPLATE.format(**info).strip() + '\n')
+        if category_libraries:
+            for info in category_libraries:
+                print(LIBRARY_TEMPLATE.format(**info).strip() + '\n')
+        else:
+            print('No libraries found in category ' + line)
 
     def complete_show_category(self, text, line, begidx, endidx):
         if not text:
