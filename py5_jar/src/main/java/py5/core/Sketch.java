@@ -459,13 +459,15 @@ public class Sketch extends PApplet {
 
     // call exiting even if success == false. user might need to do shutdown
     // activities
-    if (py5RegisteredEvents.contains("exiting")) {
+    if (py5RegisteredEvents != null && py5Bridge != null && py5RegisteredEvents.contains("exiting")) {
       py5Bridge.run_method("exiting");
       // if the exiting method was not successful we still need to run the below
       // shutdown code.
     }
 
-    py5Bridge.shutdown();
+    if (py5Bridge != null) {
+      py5Bridge.shutdown();
+    }
 
     final Object nativeWindow = surface.getNative();
     if (nativeWindow instanceof GLWindow) {
