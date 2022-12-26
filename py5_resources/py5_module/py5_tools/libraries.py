@@ -78,9 +78,9 @@ class ProcessingLibraryInfo:
         info = self.get_library_info(library_name=library_name, library_id=library_id)
 
         if len(info) == 0:
-            raise RuntimeError(f'library not found')
+            raise RuntimeError('There are no libraries named ' + library_name)
         if len(info) > 1:
-            raise RuntimeError(f'more than one library')
+            raise RuntimeError('Multiple libraries found named ' + library_name)
 
         info = info[0]
         download_url = info['download']
