@@ -24,8 +24,8 @@ import tempfile
 
 import stackprinter
 
-from .. import parsing
-from .. import split_setup
+from . import parsing
+from . import split_setup
 
 
 PY5BOT_CODE_STARTUP = """
