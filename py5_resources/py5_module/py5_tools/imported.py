@@ -23,6 +23,7 @@ import ast
 from multiprocessing import Process
 from pathlib import Path
 import re
+import tempfile
 
 import stackprinter
 
@@ -53,11 +54,11 @@ def get_imported_mode() -> bool:
 
 
 _STATIC_CODE_FRAMEWORK = """
-import ast as _PY5BOT_ast
+import ast as _PY5STATIC_ast
 
 import py5_tools
 py5_tools.set_imported_mode(True)
-import py5_tools.parsing as _PY5BOT_parsing
+import py5_tools.parsing as _PY5STATIC_parsing
 from py5 import *
 _PY5_NS_ = locals().copy()
 
@@ -66,8 +67,8 @@ def settings():
     with open('{0}', 'r') as f:
         exec(
             compile(
-                _PY5BOT_parsing.transform_py5_code(
-                    _PY5BOT_ast.parse(f.read(), filename='{0}', mode='exec'),
+                _PY5STATIC_parsing.transform_py5_code(
+                    _PY5STATIC_ast.parse(f.read(), filename='{0}', mode='exec'),
                 ),
                 filename='{0}',
                 mode='exec'
@@ -80,8 +81,8 @@ def setup():
     with open('{1}', 'r') as f:
         exec(
             compile(
-                _PY5BOT_parsing.transform_py5_code(
-                    _PY5BOT_ast.parse(f.read(), filename='{1}', mode='exec'),
+                _PY5STATIC_parsing.transform_py5_code(
+                    _PY5STATIC_ast.parse(f.read(), filename='{1}', mode='exec'),
                 ),
                 filename='{1}',
                 mode='exec'
@@ -130,17 +131,29 @@ def run_code(sketch_path, classpath=None, new_process=False, exit_if_error=False
 
 
 def _run_static_code(code, sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args):
-    from . import static
-
-    py5bot_mgr = static.Py5BotManager()
-    success, result = static.check_for_problems(code, sketch_path)
+    success, result = parsing.check_for_problems(code, sketch_path)
     if success:
-        py5bot_globals, py5bot_settings, py5bot_setup = result
-        py5bot_mgr.write_code(py5bot_globals, py5bot_settings, py5bot_setup)
-        new_sketch_path = py5bot_mgr.tempdir / '_PY5_STATIC_FRAMEWORK_CODE_.py'
-        new_sketch_code = _STATIC_CODE_FRAMEWORK.format(py5bot_mgr.settings_filename.as_posix(), py5bot_mgr.setup_filename.as_posix())
+        py5static_globals, py5static_settings, py5static_setup = result
+
+        tempdir = Path(tempfile.TemporaryDirectory().name)
+        tempdir.mkdir(parents=True, exist_ok=True)
+        settings_filename = tempdir / '_PY5_STATIC_SETTINGS_CODE_.py'
+        setup_filename = tempdir / '_PY5_STATIC_SETUP_CODE_.py'
+
+        with open(settings_filename, 'w') as f:
+            f.write('\n' * sum(c == '\n' for c in py5static_globals))
+            f.write(py5static_settings)
+
+        with open(setup_filename, 'w') as f:
+            f.write(py5static_globals)
+            f.write('\n' * sum(c == '\n' for c in py5static_settings))
+            f.write(py5static_setup)
+
+        new_sketch_path = tempdir / '_PY5_STATIC_FRAMEWORK_CODE_.py'
+        new_sketch_code = _STATIC_CODE_FRAMEWORK.format(settings_filename.as_posix(), setup_filename.as_posix())
         with open(new_sketch_path, 'w') as f:
             f.write(new_sketch_code)
+
         _run_code(new_sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args, sketch_path)
     else:
         print(result, file=sys.stderr)
