@@ -130,10 +130,10 @@ def run_code(sketch_path, classpath=None, new_process=False, exit_if_error=False
 
 
 def _run_static_code(code, sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args):
-    from . import py5bot
+    from . import static
 
-    py5bot_mgr = py5bot.Py5BotManager()
-    success, result = py5bot.check_for_problems(code, sketch_path)
+    py5bot_mgr = static.Py5BotManager()
+    success, result = static.check_for_problems(code, sketch_path)
     if success:
         py5bot_globals, py5bot_settings, py5bot_setup = result
         py5bot_mgr.write_code(py5bot_globals, py5bot_settings, py5bot_setup)
