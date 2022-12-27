@@ -21,7 +21,7 @@ import re
 import ast
 import inspect
 
-import py5_tools.parsing as parsing
+from . import parsing
 
 
 COMMENT_LINE = re.compile(r'^\s*#.*' + chr(36), flags=re.MULTILINE)
