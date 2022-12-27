@@ -77,7 +77,7 @@ from . import reference
 from . import java_conversion  # noqa
 try:
     from py5_tools.magics import load_ipython_extension  # noqa
-except ModuleNotFoundError:
+except ImportError:
     # IPython must not be installed
     pass
 
