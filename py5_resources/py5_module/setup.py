@@ -23,13 +23,10 @@ from setuptools import setup
 with open('README.md') as f:
     README = f.read()
 
-VERSION = '0.8.4.dev0'
+VERSION = '0.9.0.dev0'
 
 INSTALL_REQUIRES = [
     'autopep8>=2.0',
-    'ipykernel>=6.19',
-    'ipython>=8.7',
-    'ipywidgets>=7.7',
     'jpype1>=1.4',
     'line_profiler>=4.0',
     'numpy>=1.23',
@@ -37,7 +34,6 @@ INSTALL_REQUIRES = [
     'pyobjc>=9.0;sys_platform=="darwin"',
     'requests>=2.28',
     'stackprinter>=0.2.4',
-    'traitlets>=5.0',
 ]
 
 pjoin = os.path.join
@@ -59,7 +55,7 @@ setup_args = dict(
     python_requires='>3.8',
     install_requires=INSTALL_REQUIRES,
     extras_require={
-        'jupyter': ['py5jupyter>=0.1.2a1'],
+        'jupyter': ['py5jupyter>=0.2.0a0'],
     },
     description='Processing for CPython',
     long_description=README,

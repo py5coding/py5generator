@@ -23,15 +23,12 @@ from IPython.display import display
 from IPython.core.magic import Magics, magics_class, cell_magic
 from IPython.core.magic_arguments import parse_argstring, argument, magic_arguments, kwds
 
+from py5jupyter.kernels.py5bot.py5bot import Py5BotManager
+
 from .. import split_setup
+from ..parsing import check_for_problems
+
 from .util import CellMagicHelpFormatter, filename_check, variable_name_check
-
-try:
-    from py5jupyter.kernels.py5bot.py5bot import Py5BotManager, check_for_problems
-except ImportError:
-    # TODO: deprecated
-    from ..py5bot.py5bot import Py5BotManager, check_for_problems
-
 
 @magics_class
 class Py5BotMagics(Magics):

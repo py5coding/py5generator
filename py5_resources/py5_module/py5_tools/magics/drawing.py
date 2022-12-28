@@ -31,9 +31,10 @@ from IPython.core.magic_arguments import parse_argstring, argument, magic_argume
 import stackprinter
 import PIL
 
-from .util import CellMagicHelpFormatter, filename_check, variable_name_check
 from .. import imported
 from .. import parsing
+
+from .util import CellMagicHelpFormatter, filename_check, variable_name_check
 
 
 _CODE_FRAMEWORK_BEGIN = """

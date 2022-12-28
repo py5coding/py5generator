@@ -77,12 +77,12 @@ from . import reference
 from . import java_conversion  # noqa
 try:
     from py5_tools.magics import load_ipython_extension  # noqa
-except ModuleNotFoundError:
+except ImportError:
     # IPython must not be installed
     pass
 
 
-__version__ = '0.8.4.dev0'
+__version__ = '0.9.0.dev0'
 
 _PY5_USE_IMPORTED_MODE = py5_tools.get_imported_mode()
 py5_tools._lock_imported_mode()
