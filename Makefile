@@ -26,11 +26,8 @@ $(py5_build_dir): $(py5_jar_file) $(py5_py_src) $(py5_generator) $(generator_src
 
 install_py5: $(py5_installed)
 $(py5_installed): $(py5_build_dir)
-	cd $(py5_build_dir) && python setup.py build && pip install .
+	cd $(py5_build_dir) && hatch build && pip install ./dist/py5*.tar.gz
 	touch $(py5_installed)
-
-distributions:
-	cd $(py5_build_dir) && python setup.py sdist && python setup.py bdist_wheel
 
 generate_py5_docs:
 	python $(py5_doc_generator) $(py5_website_dir) py5_docs/Reference/$(py5_api_lang)
