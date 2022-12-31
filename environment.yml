@@ -10,6 +10,7 @@ dependencies:
   - cairosvg=2.5.*
   - cookiecutter=2.1.*
   - flake8=6.0.*
+  - hatch=1.6.*
   - ipython=8.7.*
   - jedi=0.18.2
   - jpype1=1.4.*
