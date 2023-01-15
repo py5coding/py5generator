@@ -61,6 +61,7 @@ from . import reference
 sketch_class_members_code = None  # DELETE
 
 _Sketch = jpype.JClass('py5.core.Sketch')
+_SketchBase = jpype.JClass('py5.core.SketchBase')
 
 
 try:
@@ -134,7 +135,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
         Sketch._cls = JClass(_jclassname) if _jclassname else _Sketch
         instance = Sketch._cls()
-        if not isinstance(instance, _Sketch):
+        if not isinstance(instance, _SketchBase):
             raise RuntimeError('Java instance must inherit from py5.core.Sketch')
 
         super().__init__(instance=instance)

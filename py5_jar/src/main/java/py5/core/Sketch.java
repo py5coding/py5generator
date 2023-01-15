@@ -48,14 +48,12 @@ import processing.opengl.PJOGL;
 import py5.util.KeyEventUtilities;
 import py5.util.OpenSimplex2S;
 
-public class Sketch extends PApplet {
+public class Sketch extends SketchBase {
 
-  protected Py5Bridge py5Bridge;
   protected Set<String> py5RegisteredEvents;
   protected Map<String, Integer> py5RegisteredEventParamCounts;
   protected boolean success = false;
   protected int exitActualCallCount = 0;
-  protected String py5IconPath;
   protected int[] pixelCapture = null;
   protected long osNoiseSeed = (long) (Math.random() * Long.MAX_VALUE);
   public Integer lastWindowX;
@@ -69,30 +67,12 @@ public class Sketch extends PApplet {
     Sketch.useNativeSelect = platform == MACOS;
   }
 
-  public void setPy5IconPath(String py5IconPath) {
-    this.py5IconPath = py5IconPath;
-  }
-
-  public static void setJOGLProperties(String py5Path) {
-    if (System.getProperty("jogamp.gluegen.UseTempJarCache") == null) {
-      System.setProperty("jogamp.gluegen.UseTempJarCache", "false");
-    }
-
-    String variant = PConstants.platformNames[PApplet.platform] + "-" + System.getProperty("os.arch");
-    String joglPath = py5Path + File.separator + "natives" + File.separator + variant;
-    String javaLibraryPath = System.getProperty("java.library.path");
-    if (javaLibraryPath == null) {
-      System.setProperty("java.library.path", joglPath);
-    } else if (!javaLibraryPath.contains(joglPath)) {
-      System.setProperty("java.library.path", javaLibraryPath + File.pathSeparator + joglPath);
-    }
-  }
-
   /*
    * The below methods are how Java makes calls to the Python implementations of
    * the Processing methods.
    */
 
+  @Override
   public void buildPy5Bridge(Py5Bridge py5Bridge) {
     this.py5Bridge = py5Bridge;
     this.py5RegisteredEvents = new HashSet<String>();
@@ -112,23 +92,6 @@ public class Sketch extends PApplet {
   public void _terminateSketch(boolean error) {
     success = !error;
     py5Bridge.terminate_sketch();
-  }
-
-  public Object callPython(String key, Object... params) {
-    Object retVal = py5Bridge.call_function(key, params);
-    if (retVal instanceof RuntimeException) {
-      throw ((RuntimeException) retVal);
-    } else {
-      return retVal;
-    }
-  }
-
-  public void py5Println(String text) {
-    py5Bridge.py5_println(text, false);
-  }
-
-  public void py5Println(String text, boolean stderr) {
-    py5Bridge.py5_println(text, stderr);
   }
 
   public String getRendererName() {
