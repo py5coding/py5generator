@@ -389,14 +389,6 @@ public class Sketch extends SketchBase {
     super.postWindowMoved(newX, newY);
   }
 
-  @Override
-  public void exit() {
-    if (platform == MACOS && g.isGL() && !isLooping()) {
-      loop();
-    }
-    super.exit();
-  }
-
   /*
    * These extra methods are here to get around the name collisions caused by
    * methods and fields that have the same name. That sort of thing is allowed in

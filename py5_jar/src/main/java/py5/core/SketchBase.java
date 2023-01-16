@@ -90,6 +90,14 @@ public class SketchBase extends PApplet {
   }
 
   @Override
+  public void exit() {
+    if (platform == MACOS && g.isGL() && !isLooping()) {
+      loop();
+    }
+    super.exit();
+  }
+
+  @Override
   public void exitActual() {
     // TODO: This function needs to be re-written by someone who knows something
     // about cross platform Java GUI programming.
