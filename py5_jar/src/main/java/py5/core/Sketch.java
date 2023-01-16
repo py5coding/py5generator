@@ -39,6 +39,7 @@ import py5.util.OpenSimplex2S;
 public class Sketch extends SketchBase {
 
   protected boolean success = false;
+  protected String py5IconPath;
   protected int[] pixelCapture = null;
   protected long osNoiseSeed = (long) (Math.random() * Long.MAX_VALUE);
   public Integer lastWindowX;
@@ -50,6 +51,10 @@ public class Sketch extends SketchBase {
 
   public Sketch() {
     Sketch.useNativeSelect = platform == MACOS;
+  }
+
+  public void setPy5IconPath(String py5IconPath) {
+    this.py5IconPath = py5IconPath;
   }
 
   /*
