@@ -20,6 +20,8 @@
 package py5.core;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -42,15 +44,13 @@ public class SketchBase extends PApplet {
   protected Py5Bridge py5Bridge;
   protected Set<String> py5RegisteredEvents;
   protected Map<String, Integer> py5RegisteredEventParamCounts;
-  protected String py5IconPath;
-  protected int exitActualCallCount = 0;
+  protected int exitActualCallCount;
 
   public SketchBase() {
-
-  }
-
-  public void setPy5IconPath(String py5IconPath) {
-    this.py5IconPath = py5IconPath;
+    py5Bridge = null;
+    this.py5RegisteredEvents = new HashSet<String>();
+    this.py5RegisteredEventParamCounts = new HashMap<String, Integer>();
+    this.exitActualCallCount = 0;
   }
 
   public static void setJOGLProperties(String py5Path) {

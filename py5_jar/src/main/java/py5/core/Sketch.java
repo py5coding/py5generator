@@ -20,8 +20,6 @@
 package py5.core;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.HashSet;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -38,10 +36,10 @@ import py5.util.OpenSimplex2S;
 
 public class Sketch extends SketchBase {
 
-  protected boolean success = false;
+  protected boolean success;
   protected String py5IconPath;
-  protected int[] pixelCapture = null;
-  protected long osNoiseSeed = (long) (Math.random() * Long.MAX_VALUE);
+  protected int[] pixelCapture;
+  protected long osNoiseSeed;
   public Integer lastWindowX;
   public Integer lastWindowY;
 
@@ -50,6 +48,13 @@ public class Sketch extends SketchBase {
   public static final String HIDDEN = "py5.core.graphics.HiddenPy5GraphicsJava2D";
 
   public Sketch() {
+    this.success = false;
+    this.py5IconPath = null;
+    this.pixelCapture = null;
+    this.osNoiseSeed = (long) (Math.random() * Long.MAX_VALUE);
+    this.lastWindowX = null;
+    this.lastWindowY = null;
+
     Sketch.useNativeSelect = platform == MACOS;
   }
 
@@ -65,8 +70,6 @@ public class Sketch extends SketchBase {
   @Override
   public void buildPy5Bridge(Py5Bridge py5Bridge) {
     this.py5Bridge = py5Bridge;
-    this.py5RegisteredEvents = new HashSet<String>();
-    this.py5RegisteredEventParamCounts = new HashMap<String, Integer>();
     for (String f : py5Bridge.get_function_list()) {
       String[] nameParamCountPairs = f.split(":");
       this.py5RegisteredEvents.add(nameParamCountPairs[0]);
