@@ -45,12 +45,14 @@ public class SketchBase extends PApplet {
   protected Set<String> py5RegisteredEvents;
   protected Map<String, Integer> py5RegisteredEventParamCounts;
   protected int exitActualCallCount;
+  protected boolean disposeCalled;
 
   public SketchBase() {
     py5Bridge = null;
     this.py5RegisteredEvents = new HashSet<String>();
     this.py5RegisteredEventParamCounts = new HashMap<String, Integer>();
     this.exitActualCallCount = 0;
+    disposeCalled = false;
   }
 
   public static void setJOGLProperties(String py5Path) {
@@ -94,13 +96,28 @@ public class SketchBase extends PApplet {
     if (platform == MACOS && g.isGL() && !isLooping()) {
       loop();
     }
+
+    // make sure these have been set
+    finished = true;
+    exitCalled = true;
+
     super.exit();
   }
 
   @Override
+  public void dispose() {
+    disposeCalled = true;
+    super.dispose();
+  }
+
+  // @Override
   public void exitActual() {
     // TODO: This function needs to be re-written by someone who knows something
     // about cross platform Java GUI programming.
+
+    if (!disposeCalled) {
+      dispose();
+    }
 
     // prevent an endless loop on OSX
     exitActualCallCount += 1;
@@ -161,11 +178,14 @@ public class SketchBase extends PApplet {
       }
 
       // finally, destroy the window
-      try {
-        window.destroy();
-      } catch (RuntimeException e) {
-        // ignore possible NullPointerException since exiting anyway
+      if (platform != MACOS || (platform == MACOS && exitActualCallCount == 1)) {
+        try {
+          window.destroy();
+        } catch (RuntimeException e) {
+          // ignore possible NullPointerException since exiting anyway
+        }
       }
+
     } else if (nativeWindow instanceof processing.awt.PSurfaceAWT.SmoothCanvas) {
       processing.awt.PSurfaceAWT.SmoothCanvas window = (processing.awt.PSurfaceAWT.SmoothCanvas) nativeWindow;
       window.getFrame().dispose();
