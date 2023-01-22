@@ -256,7 +256,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     def _shutdown(self):
         global _PY5_LAST_WINDOW_X
         global _PY5_LAST_WINDOW_Y
-        if self._instance.lastWindowX is not None and self._instance.lastWindowY is not None:
+        if (hasattr(self._instance, 'lastWindowX') and hasattr(self._instance, 'lastWindowY') and
+                self._instance.lastWindowX is not None and self._instance.lastWindowY is not None):
             _PY5_LAST_WINDOW_X = int(self._instance.lastWindowX)
             _PY5_LAST_WINDOW_Y = int(self._instance.lastWindowY)
         super()._shutdown()
