@@ -68,8 +68,8 @@ public class Sketch extends SketchBase {
    */
 
   @Override
-  public void buildPy5Bridge(Py5Bridge py5Bridge) {
-    this.py5Bridge = py5Bridge;
+  public void buildPy5Bridge(Py5Bridge py5Bridge, boolean inIPythonSession, boolean inJupyterZMQShell) {
+    super.buildPy5Bridge(py5Bridge, inIPythonSession, inJupyterZMQShell);
     for (String f : py5Bridge.get_function_list()) {
       String[] nameParamCountPairs = f.split(":");
       this.py5RegisteredEvents.add(nameParamCountPairs[0]);

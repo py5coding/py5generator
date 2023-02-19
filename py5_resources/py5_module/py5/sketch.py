@@ -190,7 +190,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self._py5_bridge.profile_functions(self._methods_to_profile)
         self._py5_bridge.add_pre_hooks(self._pre_hooks_to_add)
         self._py5_bridge.add_post_hooks(self._post_hooks_to_add)
-        self._instance.buildPy5Bridge(self._py5_bridge)
+        self._instance.buildPy5Bridge(self._py5_bridge, self._environ.in_ipython_session, self._environ.in_jupyter_zmq_shell)
 
         if not py5_options:
             py5_options = []

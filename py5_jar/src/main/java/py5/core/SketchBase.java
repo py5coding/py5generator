@@ -46,6 +46,8 @@ public class SketchBase extends PApplet {
   protected Map<String, Integer> py5RegisteredEventParamCounts;
   protected int exitActualCallCount;
   protected boolean disposeCalled;
+  protected boolean inIPythonSession;
+  protected boolean inJupyterZMQShell;
 
   public SketchBase() {
     py5Bridge = null;
@@ -70,8 +72,10 @@ public class SketchBase extends PApplet {
     }
   }
 
-  public void buildPy5Bridge(Py5Bridge py5Bridge) {
+  public void buildPy5Bridge(Py5Bridge py5Bridge, boolean inIPythonSession, boolean inJupyterZMQShell) {
     this.py5Bridge = py5Bridge;
+    this.inIPythonSession = inIPythonSession;
+    this.inJupyterZMQShell = inJupyterZMQShell;
   }
 
   public Object callPython(String key, Object... params) {
@@ -112,7 +116,19 @@ public class SketchBase extends PApplet {
 
   // @Override
   public void exitActual() {
-    // TODO: This function needs to be re-written by someone who knows something
+    if (platform == MACOS && !inIPythonSession && !(this instanceof Sketch)) {
+      // if this is not an instance of Sketch, the Sketch is being run in
+      // Processing mode. If in Processing mode and not being executed in an
+      // IPython session, we need to kill the JVM to prevent the user from
+      // needing to hit Ctrl-C to terminate the window. If for some reason
+      // this is not what the user wants, they can override exitActual().
+      System.exit(0);
+    }
+
+    // If not in an IPython session, try to shut down the window completely
+    // without killing the JVM and without putting py5 into an unusable state.
+
+    // The below code needs to be re-written by someone who knows something
     // about cross platform Java GUI programming.
 
     if (!disposeCalled) {
