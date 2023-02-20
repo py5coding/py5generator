@@ -116,7 +116,7 @@ public class SketchBase extends PApplet {
 
   // @Override
   public void exitActual() {
-    if (platform == MACOS && !inIPythonSession && !(this instanceof Sketch)) {
+    if ((platform == MACOS || platform == LINUX) && !inIPythonSession && !(this instanceof Sketch)) {
       // if this is not an instance of Sketch, the Sketch is being run in
       // Processing mode. If in Processing mode and not being executed in an
       // IPython session, we need to kill the JVM to prevent the user from
