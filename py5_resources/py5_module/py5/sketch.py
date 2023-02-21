@@ -110,7 +110,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     def __new__(cls, *args, **kwargs):
         _instance = kwargs.get('_instance')
 
-        cls._py5_object_cache = set(s for s in cls._py5_object_cache if not s.is_dead)
+        # remove dead or malformed Sketch instances from the object cache
+        cls._py5_object_cache = set(s for s in cls._py5_object_cache if hasattr(s, '_instance') and not s.is_dead)
         if _instance:
             for s in cls._py5_object_cache:
                 if _instance == s._instance:
