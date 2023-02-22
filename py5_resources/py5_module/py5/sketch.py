@@ -61,6 +61,7 @@ from . import reference
 sketch_class_members_code = None  # DELETE
 
 _Sketch = jpype.JClass('py5.core.Sketch')
+_SketchBase = jpype.JClass('py5.core.SketchBase')
 
 
 try:
@@ -109,7 +110,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     def __new__(cls, *args, **kwargs):
         _instance = kwargs.get('_instance')
 
-        cls._py5_object_cache = set(s for s in cls._py5_object_cache if not s.is_dead)
+        # remove dead or malformed Sketch instances from the object cache
+        cls._py5_object_cache = set(s for s in cls._py5_object_cache if hasattr(s, '_instance') and not s.is_dead)
         if _instance:
             for s in cls._py5_object_cache:
                 if _instance == s._instance:
@@ -134,8 +136,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
         Sketch._cls = JClass(_jclassname) if _jclassname else _Sketch
         instance = Sketch._cls()
-        if not isinstance(instance, _Sketch):
-            raise RuntimeError('Java instance must inherit from py5.core.Sketch')
+        if not isinstance(instance, _SketchBase):
+            raise RuntimeError('Java instance must inherit from py5.core.SketchBase')
 
         super().__init__(instance=instance)
         self._methods_to_profile = []
@@ -146,7 +148,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self._py5_bridge = None
         self._environ = None
         iconPath = Path(__file__).parent.parent / 'py5_tools/resources/logo-64x64.png'
-        if iconPath.exists():
+        if iconPath.exists() and hasattr(self._instance, 'setPy5IconPath'):
             self._instance.setPy5IconPath(str(iconPath))
         elif hasattr(sys, '_MEIPASS'):
             warnings.warn("py5 logo image cannot be found. You are running this Sketch with pyinstaller and the image is missing from the packaging. I'm going to nag you about this until you fix it.", stacklevel=3)
@@ -189,7 +191,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self._py5_bridge.profile_functions(self._methods_to_profile)
         self._py5_bridge.add_pre_hooks(self._pre_hooks_to_add)
         self._py5_bridge.add_post_hooks(self._post_hooks_to_add)
-        self._instance.buildPy5Bridge(self._py5_bridge)
+        self._instance.buildPy5Bridge(self._py5_bridge, self._environ.in_ipython_session, self._environ.in_jupyter_zmq_shell)
 
         if not py5_options:
             py5_options = []
@@ -255,7 +257,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     def _shutdown(self):
         global _PY5_LAST_WINDOW_X
         global _PY5_LAST_WINDOW_Y
-        if self._instance.lastWindowX is not None and self._instance.lastWindowY is not None:
+        if (hasattr(self._instance, 'lastWindowX') and hasattr(self._instance, 'lastWindowY') and
+                self._instance.lastWindowX is not None and self._instance.lastWindowY is not None):
             _PY5_LAST_WINDOW_X = int(self._instance.lastWindowX)
             _PY5_LAST_WINDOW_Y = int(self._instance.lastWindowY)
         super()._shutdown()
