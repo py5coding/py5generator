@@ -33,14 +33,13 @@ LINK_REGEX = re.compile(r':doc:`(\w+)`')
 for docfile in sorted(PY5_API_EN.glob('*.txt')):
 # for docfile in list(sorted(PY5_API_EN.glob('*.txt')))[:10]:
     doc = Documentation(docfile)
+    desc = doc.description
 
     # there's only one file (Py5Shape_set_visible.txt) that contains a variable
     # description with rest. Adjust it manually
     for _, var_desc in sorted(doc.variables.items()):
         if var_desc.find(':doc:') >= 0 or var_desc.find('`') >= 0 or var_desc.find('*') >= 0:
             print(docfile, var_desc)
-
-    desc = doc.description
 
     # convert ``x = 42`` to `x = 42`
     desc = desc.replace('``', '`')
