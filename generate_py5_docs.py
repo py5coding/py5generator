@@ -39,7 +39,7 @@ from generator.docfiles import Documentation
 
 parser = argparse.ArgumentParser(description="Generate py5 library reference documentation")
 parser.add_argument('dest_dir', action='store', help='location to write documentation files to')
-parser.add_argument('py5_doc_ref_dir', action='store', help='location to write py5 documenation rst files')
+parser.add_argument('py5_doc_ref_dir', action='store', help='location to write py5 documenation md files')
 
 
 ###############################################################################
@@ -88,8 +88,7 @@ DOC_TEMPLATE = """{0}
 
 {1}
 {2}
-Description
------------
+## Description
 
 {3}{4}
 {5}
@@ -101,23 +100,23 @@ MAGIC_TEMPLATE = """{0}
 
 {1}
 {2}
-Description
------------
+## Description
 
 {3}
 
-Usage
------
+## Usage
 
-.. code::
+```python
 
     {4}
-Arguments
----------
+```
 
-.. code::
+## Arguments
+
+```python
 
 {5}
+```
 
 Updated on {6}
 
@@ -127,14 +126,14 @@ CLASS_DOC_TEMPLATE = """{0}
 
 {1}
 {2}
-Description
------------
+## Description
 
 {3}{4}
 
 The following {5} are provided:
 
-.. include:: include_{6}.rst
+```{{include}} include_{6}.md
+```
 
 Updated on {7}
 
@@ -170,7 +169,7 @@ def format_underlying_java_ref(stem, doc_type, processing_name, valid_link_cache
 
         out = f'\n\nUnderlying Processing {doc_type}: '
         if valid:
-            out += f'`{text} <{link}>`_'
+            out += f'[{text}]({link})'
         else:
             out += f'{text}'
 
@@ -181,16 +180,16 @@ def format_examples(name, examples):
     out = ''
 
     if examples:
-        out += '\nExamples\n--------\n\n'
-        out += '.. raw:: html\n\n    <div class="example-table">\n\n'
+        out += '\n## Examples\n\n'
+        out += '<div class="example-table">\n\n'
         for img, code in examples:
-            out += '.. raw:: html\n\n    <div class="example-row"><div class="example-cell-image">\n\n'
+            out += '    <div class="example-row"><div class="example-cell-image">\n\n'
             if img:
-                out += f'.. image:: /images/reference/{img}\n    :alt: example picture for {name}\n\n'
-            out += '.. raw:: html\n\n    </div><div class="example-cell-code">\n\n'
-            out += f'.. code:: python\n\n{textwrap.indent(code, "    ")}\n\n'
-            out += '.. raw:: html\n\n    </div></div>\n\n'
-        out += '.. raw:: html\n\n    </div>\n'
+                out += f'![example picture for {name}](/images/reference/{img})\n\n'
+            out += '    </div><div class="example-cell-code">\n\n'
+            out += f'```python\n\n{textwrap.indent(code, "    ")}\n```\n\n'
+            out += '    </div></div>\n\n'
+        out += '</div>\n'
 
     return out
 
@@ -239,23 +238,23 @@ def format_signatures_variables(signatures, variables):
 
             new_signatures.append(black.format_str(f"def {name}({params}){ret}: pass", mode=black.Mode(line_length=line_length))[4:-11])
 
-        out += '\nSignatures\n----------\n\n.. code:: python\n\n'
+        out += '\n## Signatures\n\n```python\n\n'
         has_multi_line_signature = max(len(s.strip().split('\n')) for s in new_signatures) > 1
         out += textwrap.indent(('\n\n' if has_multi_line_signature else '\n').join(new_signatures), '    ')
-        out += '\n'
+        out += '\n```\n\n'
 
     return out
 
 
 def write_main_ref_columns(filename, columns):
     with open(filename, 'w') as f:
-        f.write('.. raw:: html\n\n    <table style="width:100%"><tr><td style="vertical-align:top">\n\n')
+        f.write('<table style="width:100%"><tr><td style="vertical-align:top">\n\n')
         f.write(columns[0].getvalue())
-        f.write('\n\n.. raw:: html\n\n    </td><td style="vertical-align:top">\n\n')
+        f.write('\n\n    </td><td style="vertical-align:top">\n\n')
         f.write(columns[1].getvalue())
-        f.write('\n\n.. raw:: html\n\n    </td><td style="vertical-align:top">\n\n')
+        f.write('\n\n    </td><td style="vertical-align:top">\n\n')
         f.write(columns[2].getvalue())
-        f.write('\n\n.. raw:: html\n\n    </td></tr></table>\n\n')
+        f.write('\n\n    </td></tr></table>\n\n')
 
 
 def compare_files(old_filename, new_content):
@@ -276,8 +275,8 @@ def write_category_heading(f, catname, subcategory=False):
         catname = CATEGORY_LOOKUP[catname]
     else:
         catname = ' '.join([w.capitalize() for w in catname.split('_')])
-    char = '^' if subcategory else '~'
-    f.write(f'\n{catname}\n{char * len(catname)}\n')
+    prefix = '#' * (4 if subcategory else 3)
+    f.write(f'\n{prefix} {catname}\n')
 
 
 def magic_help_strings(program_name, argument_data):
@@ -305,9 +304,8 @@ def magic_help_strings(program_name, argument_data):
 ###############################################################################
 
 
-def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
+def write_doc_md_files(dest_dir, py5_doc_ref_dir):
     now = pd.Timestamp.now(tz='UTC')
-    now_nikola = now.strftime('%Y-%m-%d %H:%M:%S %Z%z')[:-2] + ':00'
     now_pretty = now.strftime('%B %d, %Y %H:%M:%S%P %Z')
 
     # create the destination directories
@@ -320,7 +318,7 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
         with open(valid_link_cache_file, 'r') as f:
             valid_link_cache = json.load(f)
 
-    rstfiles = defaultdict(set)
+    mdfiles = defaultdict(set)
     docfiles = sorted(py5_doc_ref_dir.glob('*.txt'))
     for num, docfile in enumerate(docfiles):
         doc = Documentation(docfile)
@@ -330,7 +328,7 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
         group = stem.split('_', 1)[0]
         slug = stem.lower()
 
-        print(f'{num + 1} / {len(docfiles)} generating rst doc for {stem}')
+        print(f'{num + 1} / {len(docfiles)} generating md doc for {stem}')
 
         description = doc.description
         m = FIRST_SENTENCE_REGEX.match(description)
@@ -341,17 +339,17 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
         examples = format_examples(name, doc.examples)
 
         if item_type in ['class', 'pseudoclass']:
-            title = f'{name}\n{"=" * len(name)}'
+            title = f'# {name}\n'
             provides_description = doc.meta.get('provides_description', 'methods and fields')
-            doc_rst = CLASS_DOC_TEMPLATE.format(
+            doc_md = CLASS_DOC_TEMPLATE.format(
                 title, first_sentence, examples,
                 description, underlying_java_ref, provides_description,
                 stem.lower(), now_pretty)
         elif item_type in ['line magic', 'cell magic']:
             usage, arguments = magic_help_strings(name, doc.arguments)
             arguments = textwrap.indent(arguments, prefix='    ')
-            title = f'{name}\n{"=" * len(name)}'
-            doc_rst = MAGIC_TEMPLATE.format(
+            title = f'# {name}\n'
+            doc_md = MAGIC_TEMPLATE.format(
                 title, first_sentence, examples,
                 description, usage, arguments, now_pretty)
         else:
@@ -363,36 +361,36 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
             else:
                 title = f"{group}.{name}"
 
-            title = f'{title}\n{"=" * len(title)}'
-            doc_rst = DOC_TEMPLATE.format(
+            title = f'# {title}\n'
+            doc_md = DOC_TEMPLATE.format(
                 title, first_sentence, examples,
                 description, underlying_java_ref, signatures, now_pretty)
 
         # only write new file if more changed than the timestamp
-        dest_filename = dest_dir / 'reference' / f'{stem.lower()}.rst'
-        if not compare_files(dest_filename, doc_rst):
+        dest_filename = dest_dir / 'reference' / f'{stem.lower()}.md'
+        if not compare_files(dest_filename, doc_md):
             print('writing file', dest_filename)
             with open(dest_filename, 'w') as f:
-                f.write(doc_rst)
+                f.write(doc_md)
 
         # collect data for the include files
         if item_type not in ['class', 'pseudoclass']:
             if group in ['Sketch']:
-                rstfiles['Sketch'].add(
+                mdfiles['Sketch'].add(
                     (name, slug, first_sentence,
                      (doc.meta['category'].replace('None', ''), doc.meta['subcategory'].replace('None', ''))
                     )
                 )
             elif group in ['Py5Shape', 'Py5Graphics']:
-                rstfiles[group].add(
+                mdfiles[group].add(
                     (name, slug, first_sentence,
                      (doc.meta['category'].replace('None', ''), doc.meta['subcategory'].replace('None', ''))
                     )
                 )
             else:
-                rstfiles[group].add((name, slug, first_sentence))
+                mdfiles[group].add((name, slug, first_sentence))
 
-    for group, data in rstfiles.items():
+    for group, data in mdfiles.items():
         if group in ['Sketch', 'Py5Shape', 'Py5Graphics']:
             organized_data = groupby(sorted(data, key=lambda x: x[3]), key=lambda x: x[3])
             prev_category = ('_', '_')
@@ -408,12 +406,12 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
                 prev_category = category
                 columns[column_num].write('\n')
                 for (name, stem, first_sentence, _) in sorted(contents):
-                    columns[column_num].write(f'* `{name} <{stem}.html>`_\n')
-            write_main_ref_columns(dest_dir / 'reference' / f'include_{group.lower()}.rst', columns)
+                    columns[column_num].write(f'* [{name}]({stem})\n')
+            write_main_ref_columns(dest_dir / 'reference' / f'include_{group.lower()}.md', columns)
         else:
-            with open(dest_dir / 'reference' / f'include_{group.lower()}.rst', 'w') as f:
+            with open(dest_dir / 'reference' / f'include_{group.lower()}.md', 'w') as f:
                 for name, stem, first_sentence in sorted(data):
-                    f.write(f'* `{name} <{stem}.html>`_: {first_sentence}\n')
+                    f.write(f'* [{name}]({stem}): {first_sentence}\n')
 
     # save the valid link cache
     with open(valid_link_cache_file, 'w') as f:
@@ -422,7 +420,7 @@ def write_doc_rst_files(dest_dir, py5_doc_ref_dir):
 
 def main():
     args = parser.parse_args()
-    write_doc_rst_files(Path(args.dest_dir), Path(args.py5_doc_ref_dir))
+    write_doc_md_files(Path(args.dest_dir), Path(args.py5_doc_ref_dir))
 
 
 if __name__ == '__main__':
