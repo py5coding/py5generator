@@ -93,7 +93,6 @@ DOC_TEMPLATE = """{0}
 {3}{4}
 {5}
 Updated on {6}
-
 """
 
 MAGIC_TEMPLATE = """{0}
@@ -119,7 +118,6 @@ MAGIC_TEMPLATE = """{0}
 ```
 
 Updated on {6}
-
 """
 
 CLASS_DOC_TEMPLATE = """{0}
@@ -136,7 +134,6 @@ The following {5} are provided:
 ```
 
 Updated on {7}
-
 """
 
 
@@ -183,12 +180,12 @@ def format_examples(name, examples):
         out += '\n## Examples\n\n'
         out += '<div class="example-table">\n\n'
         for img, code in examples:
-            out += '    <div class="example-row"><div class="example-cell-image">\n\n'
+            out += '<div class="example-row"><div class="example-cell-image">\n\n'
             if img:
                 out += f'![example picture for {name}](/images/reference/{img})\n\n'
-            out += '    </div><div class="example-cell-code">\n\n'
+            out += '</div><div class="example-cell-code">\n\n'
             out += f'```python\n\n{textwrap.indent(code, "    ")}\n```\n\n'
-            out += '    </div></div>\n\n'
+            out += '</div></div>\n\n'
         out += '</div>\n'
 
     return out
@@ -241,7 +238,7 @@ def format_signatures_variables(signatures, variables):
         out += '\n## Signatures\n\n```python\n\n'
         has_multi_line_signature = max(len(s.strip().split('\n')) for s in new_signatures) > 1
         out += textwrap.indent(('\n\n' if has_multi_line_signature else '\n').join(new_signatures), '    ')
-        out += '\n```\n\n'
+        out += '\n```\n'
 
     return out
 
@@ -339,7 +336,7 @@ def write_doc_md_files(dest_dir, py5_doc_ref_dir):
         examples = format_examples(name, doc.examples)
 
         if item_type in ['class', 'pseudoclass']:
-            title = f'# {name}\n'
+            title = f'# {name}'
             provides_description = doc.meta.get('provides_description', 'methods and fields')
             doc_md = CLASS_DOC_TEMPLATE.format(
                 title, first_sentence, examples,
@@ -348,7 +345,7 @@ def write_doc_md_files(dest_dir, py5_doc_ref_dir):
         elif item_type in ['line magic', 'cell magic']:
             usage, arguments = magic_help_strings(name, doc.arguments)
             arguments = textwrap.indent(arguments, prefix='    ')
-            title = f'# {name}\n'
+            title = f'# {name}'
             doc_md = MAGIC_TEMPLATE.format(
                 title, first_sentence, examples,
                 description, usage, arguments, now_pretty)
@@ -361,7 +358,7 @@ def write_doc_md_files(dest_dir, py5_doc_ref_dir):
             else:
                 title = f"{group}.{name}"
 
-            title = f'# {title}\n'
+            title = f'# {title}'
             doc_md = DOC_TEMPLATE.format(
                 title, first_sentence, examples,
                 description, underlying_java_ref, signatures, now_pretty)
