@@ -13,7 +13,7 @@ remove_child(idx: int, /) -> None
 idx: int - index value
 
 @@ description
-Removes a child ``Py5Shape`` object from a parent ``Py5Shape`` object that is defined as a ``GROUP``.
+Removes a child `Py5Shape` object from a parent `Py5Shape` object that is defined as a `GROUP`.
 
 @@ example
 image = Py5Shape_remove_child_0.png

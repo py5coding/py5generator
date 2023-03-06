@@ -10,7 +10,7 @@ subcategory = organization
 get_name() -> str
 
 @@ description
-Get the name assigned to a Py5Shape object. Will return ``None`` if the object has no name.
+Get the name assigned to a Py5Shape object. Will return `None` if the object has no name.
 
 @@ example
 image = Py5Shape_get_name_0.png

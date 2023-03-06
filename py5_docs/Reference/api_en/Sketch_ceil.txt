@@ -13,7 +13,7 @@ value: Union[float, npt.ArrayLike] - number to round up
 @@ description
 Calculates the closest int value that is greater than or equal to the value of the parameter.
 
-This function makes a call to the numpy ``ceil()`` function.
+This function makes a call to the numpy `ceil()` function.
 
 @@ example
 def setup():

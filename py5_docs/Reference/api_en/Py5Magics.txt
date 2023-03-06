@@ -4,7 +4,7 @@ type = pseudoclass
 provides_description = magics
 
 @@ description
-The py5 Magics are Jupyter Notebook "meta-commands" that can be within Jupyter Notebooks to enhance py5's ability to work within the notebook. The py5 magics will enable users to create Sketches and embed the results in the Notebook without defining any functions or calling the :doc:`sketch_size` function.
+The py5 Magics are Jupyter Notebook "meta-commands" that can be within Jupyter Notebooks to enhance py5's ability to work within the notebook. The py5 magics will enable users to create Sketches and embed the results in the Notebook without defining any functions or calling the [](sketch_size) function.
 
 @@ example
 image = Py5Magics_0.png

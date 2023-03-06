@@ -7,11 +7,11 @@ pclass = PShape
 processing_name = PShape
 
 @@ description
-Datatype for storing shapes. Before a shape is used, it must be loaded with the :doc:`sketch_load_shape` or created with the :doc:`sketch_create_shape`. The :doc:`sketch_shape` function is used to draw the shape to the display window. Py5 can currently load and display SVG (Scalable Vector Graphics) and OBJ shapes. OBJ files can only be opened using the ``P3D`` renderer. The :doc:`sketch_load_shape` function supports SVG files created with Inkscape and Adobe Illustrator. It is not a full SVG implementation, but offers some straightforward support for handling vector data. A more complete SVG implementation can be provided by :doc:`sketch_convert_image` if Cairo is installed. See installation instructions for additional detail.
+Datatype for storing shapes. Before a shape is used, it must be loaded with the [](sketch_load_shape) or created with the [](sketch_create_shape). The [](sketch_shape) function is used to draw the shape to the display window. Py5 can currently load and display SVG (Scalable Vector Graphics) and OBJ shapes. OBJ files can only be opened using the `P3D` renderer. The [](sketch_load_shape) function supports SVG files created with Inkscape and Adobe Illustrator. It is not a full SVG implementation, but offers some straightforward support for handling vector data. A more complete SVG implementation can be provided by [](sketch_convert_image) if Cairo is installed. See installation instructions for additional detail.
 
-The ``Py5Shape`` object contains a group of methods that can operate on the shape data.
+The `Py5Shape` object contains a group of methods that can operate on the shape data.
 
-To create a new shape, use the :doc:`sketch_create_shape` function. Do not use the syntax ``Py5Shape()``.
+To create a new shape, use the [](sketch_create_shape) function. Do not use the syntax `Py5Shape()`.
 
 @@ example
 image = Py5Shape_0.png

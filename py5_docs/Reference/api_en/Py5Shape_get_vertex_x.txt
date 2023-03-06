@@ -13,7 +13,7 @@ get_vertex_x(index: int, /) -> float
 index: int - vertex index
 
 @@ description
-Get the value of the x coordinate for the vertex ``index``.
+Get the value of the x coordinate for the vertex `index`.
 
 @@ example
 image = Py5Shape_get_vertex_x_0.png

@@ -10,9 +10,9 @@ processing_name = beginDraw
 begin_draw() -> None
 
 @@ description
-Sets the default properties for a ``Py5Graphics`` object. It should be called before anything is drawn into the object. After the drawing commands have concluded, call :doc:`py5graphics_end_draw` to finalize the ``Py5Graphics`` object.
+Sets the default properties for a `Py5Graphics` object. It should be called before anything is drawn into the object. After the drawing commands have concluded, call [](py5graphics_end_draw) to finalize the `Py5Graphics` object.
 
-This method can be used as a context manager to ensure that :doc:`py5graphics_end_draw` always gets called, as shown in the second example.
+This method can be used as a context manager to ensure that [](py5graphics_end_draw) always gets called, as shown in the second example.
 
 @@ example
 image = Py5Graphics_begin_draw_0.png

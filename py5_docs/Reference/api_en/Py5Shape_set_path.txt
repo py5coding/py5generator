@@ -14,9 +14,9 @@ vcount: int - number of vertices
 verts: npt.NDArray[np.floating] - 2D array of vertex coordinates
 
 @@ description
-Set many vertex points at the same time, using a numpy array. This will be faster and more efficient than repeatedly calling :doc:`py5shape_set_vertex` in a loop. Setting the vertex codes is not supported, so the vertices will be regular vertices and not bezier, quadratic or curve vertices.
+Set many vertex points at the same time, using a numpy array. This will be faster and more efficient than repeatedly calling [](py5shape_set_vertex) in a loop. Setting the vertex codes is not supported, so the vertices will be regular vertices and not bezier, quadratic or curve vertices.
 
-The ``vcount`` parameter cannot be larger than the first dimension of the ``verts`` array.
+The `vcount` parameter cannot be larger than the first dimension of the `verts` array.
 
 @@ example
 image = Py5Shape_set_path_0.png

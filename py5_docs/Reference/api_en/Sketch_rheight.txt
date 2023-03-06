@@ -7,7 +7,7 @@ category = environment
 subcategory = None
 
 @@ description
-The height of the scale invariant display window. This will be the value of the ``high`` parameter used in the call to :doc:`sketch_window_ratio` that activates scale invariant drawing. This field should only be used in a scale invariant Sketch. See :doc:`sketch_window_ratio` for more information about how to activate this and why it is useful.
+The height of the scale invariant display window. This will be the value of the `high` parameter used in the call to [](sketch_window_ratio) that activates scale invariant drawing. This field should only be used in a scale invariant Sketch. See [](sketch_window_ratio) for more information about how to activate this and why it is useful.
 
 @@ example
 def setup():

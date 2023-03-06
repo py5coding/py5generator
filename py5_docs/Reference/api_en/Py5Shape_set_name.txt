@@ -13,7 +13,7 @@ set_name(name: str, /) -> None
 name: str - name to be assigned to shape
 
 @@ description
-Assign a name to a ``Py5Shape`` object. This can be used to later find the shape in a ``GROUP`` shape.
+Assign a name to a `Py5Shape` object. This can be used to later find the shape in a `GROUP` shape.
 
 @@ example
 image = Py5Shape_set_name_0.png

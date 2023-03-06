@@ -10,10 +10,10 @@ processing_name = setVisible
 set_visible(visible: bool, /) -> None
 
 @@ variables
-visible: bool - ``False`` makes the shape invisible and ``True`` makes it visible
+visible: bool - False makes the shape invisible and True makes it visible
 
 @@ description
-Sets the shape to be visible or invisible. This is determined by the value of the ``visible`` parameter.
+Sets the shape to be visible or invisible. This is determined by the value of the `visible` parameter.
 
 The default visibility of a shape is usually controlled by whatever program created the SVG file. For instance, this parameter is controlled by showing or hiding the shape in the layers palette in Adobe Illustrator.
 

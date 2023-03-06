@@ -13,15 +13,15 @@ ellipse_mode(mode: int, /) -> None
 mode: int - either CENTER, RADIUS, CORNER, or CORNERS
 
 @@ description
-Modifies the location from which ellipses are drawn by changing the way in which parameters given to :doc:`sketch_ellipse` are intepreted.
+Modifies the location from which ellipses are drawn by changing the way in which parameters given to [](sketch_ellipse) are intepreted.
 
-The default mode is ``ellipse_mode(CENTER)``, which interprets the first two parameters of :doc:`sketch_ellipse` as the shape's center point, while the third and fourth parameters are its width and height.
+The default mode is `ellipse_mode(CENTER)`, which interprets the first two parameters of [](sketch_ellipse) as the shape's center point, while the third and fourth parameters are its width and height.
 
-``ellipse_mode(RADIUS)`` also uses the first two parameters of :doc:`sketch_ellipse` as the shape's center point, but uses the third and fourth parameters to specify half of the shapes's width and height.
+`ellipse_mode(RADIUS)` also uses the first two parameters of [](sketch_ellipse) as the shape's center point, but uses the third and fourth parameters to specify half of the shapes's width and height.
 
-``ellipse_mode(CORNER)`` interprets the first two parameters of :doc:`sketch_ellipse` as the upper-left corner of the shape, while the third and fourth parameters are its width and height.
+`ellipse_mode(CORNER)` interprets the first two parameters of [](sketch_ellipse) as the upper-left corner of the shape, while the third and fourth parameters are its width and height.
 
-``ellipse_mode(CORNERS)`` interprets the first two parameters of :doc:`sketch_ellipse` as the location of one corner of the ellipse's bounding box, and the third and fourth parameters as the location of the opposite corner.
+`ellipse_mode(CORNERS)` interprets the first two parameters of [](sketch_ellipse) as the location of one corner of the ellipse's bounding box, and the third and fourth parameters as the location of the opposite corner.
 
 The parameter must be written in ALL CAPS because Python is a case-sensitive language.
 

@@ -31,11 +31,11 @@ n33: float - numeric value in row 3 and column 3 of the matrix
 source: npt.NDArray[np.floating] - transformation matrix with a shape of 2x3 for 2D transforms or 4x4 for 3D transforms
 
 @@ description
-Apply a transformation matrix to a ``Py5Shape`` object. This can be used to scale, rotate, and translate a shape with one call.
+Apply a transformation matrix to a `Py5Shape` object. This can be used to scale, rotate, and translate a shape with one call.
 
 Making productive use of this method requires some knowledge of 2D or 3D transformation matrices, and perhaps some knowledge of Processing's source code.
 
-Transformations are cummulative and therefore will be applied on top of existing transformations. Use :doc:`py5shape_reset_matrix` to set the transformation matrix to the identity matrix.
+Transformations are cummulative and therefore will be applied on top of existing transformations. Use [](py5shape_reset_matrix) to set the transformation matrix to the identity matrix.
 
 @@ example
 def setup():

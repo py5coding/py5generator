@@ -13,13 +13,13 @@ pixel_density(density: int, /) -> None
 density: int - 1 or 2
 
 @@ description
-This function makes it possible for py5 to render using all of the pixels on high resolutions screens like Apple Retina displays and Windows High-DPI displays. This function can only be run once within a program. It is intended to be called from the ``settings()`` function.
+This function makes it possible for py5 to render using all of the pixels on high resolutions screens like Apple Retina displays and Windows High-DPI displays. This function can only be run once within a program. It is intended to be called from the `settings()` function.
 
-When programming in module mode and imported mode, py5 will allow calls to ``pixel_density()`` from the ``setup()`` function if it is called at the beginning of ``setup()``. This allows the user to omit the ``settings()`` function, much like what can be done while programming in the Processing IDE. Py5 does this by inspecting the ``setup()`` function and attempting to split it into synthetic ``settings()`` and ``setup()`` functions if both were not created by the user and the real ``setup()`` function contains a call to ``pixel_density()``, or calls to :doc:`sketch_size`, :doc:`sketch_full_screen`, :doc:`sketch_smooth`, or :doc:`sketch_no_smooth`. Calls to those functions must be at the very beginning of ``setup()``, before any other Python code (but comments are ok). This feature is not available when programming in class mode.
+When programming in module mode and imported mode, py5 will allow calls to `pixel_density()` from the `setup()` function if it is called at the beginning of `setup()`. This allows the user to omit the `settings()` function, much like what can be done while programming in the Processing IDE. Py5 does this by inspecting the `setup()` function and attempting to split it into synthetic `settings()` and `setup()` functions if both were not created by the user and the real `setup()` function contains a call to `pixel_density()`, or calls to [](sketch_size), [](sketch_full_screen), [](sketch_smooth), or [](sketch_no_smooth). Calls to those functions must be at the very beginning of `setup()`, before any other Python code (but comments are ok). This feature is not available when programming in class mode.
 
-The ``pixel_density()`` should only be used with hardcoded numbers (in almost all cases this number will be 2) or in combination with :doc:`sketch_display_density` as in the second example.
+The `pixel_density()` should only be used with hardcoded numbers (in almost all cases this number will be 2) or in combination with [](sketch_display_density) as in the second example.
 
-When the pixel density is set to more than 1, it changes all of the pixel operations including the way :doc:`sketch_get`, :doc:`sketch_blend`, :doc:`sketch_copy`, :doc:`sketch_update_pixels`, and :doc:`sketch_update_np_pixels` all work. See the reference for :doc:`sketch_pixel_width` and :doc:`sketch_pixel_height` for more information.
+When the pixel density is set to more than 1, it changes all of the pixel operations including the way [](sketch_get), [](sketch_blend), [](sketch_copy), [](sketch_update_pixels), and [](sketch_update_np_pixels) all work. See the reference for [](sketch_pixel_width) and [](sketch_pixel_height) for more information.
 
 @@ example
 def setup():

@@ -17,7 +17,7 @@ z: float - 3D z-coordinate to be mapped
 @@ description
 Returns the three-dimensional X, Y, Z position in model space. This returns the Z value for a given coordinate based on the current set of transformations (scale, rotate, translate, etc.) The Z value can be used to place an object in space relative to the location of the original point once the transformations are no longer in use.
 
-In the example, the :doc:`sketch_model_x`, :doc:`sketch_model_y`, and ``model_z()`` functions record the location of a box in space after being placed using a series of translate and rotate commands. After :doc:`sketch_pop_matrix` is called, those transformations no longer apply, but the (x, y, z) coordinate returned by the model functions is used to place another box in the same location.
+In the example, the [](sketch_model_x), [](sketch_model_y), and `model_z()` functions record the location of a box in space after being placed using a series of translate and rotate commands. After [](sketch_pop_matrix) is called, those transformations no longer apply, but the (x, y, z) coordinate returned by the model functions is used to place another box in the same location.
 
 @@ example
 def setup():

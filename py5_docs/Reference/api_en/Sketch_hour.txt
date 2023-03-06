@@ -10,7 +10,7 @@ processing_name = hour
 hour() -> int
 
 @@ description
-Py5 communicates with the clock on your computer. The ``hour()`` function returns the current hour as a value from 0 - 23.
+Py5 communicates with the clock on your computer. The `hour()` function returns the current hour as a value from 0 - 23.
 
 @@ example
 def draw():

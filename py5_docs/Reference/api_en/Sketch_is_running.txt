@@ -5,7 +5,7 @@ category = structure
 subcategory = None
 
 @@ description
-Boolean value reflecting if the Sketch is in the running state. This will be ``False`` before :doc:`sketch_run_sketch` is called and ``True`` after. It will be ``False`` again after the Sketch has exited.
+Boolean value reflecting if the Sketch is in the running state. This will be `False` before [](sketch_run_sketch) is called and `True` after. It will be `False` again after the Sketch has exited.
 
 @@ example
 import time

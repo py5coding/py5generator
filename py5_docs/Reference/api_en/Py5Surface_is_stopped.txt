@@ -8,9 +8,9 @@ processing_name = isStopped
 is_stopped() -> bool
 
 @@ description
-Determine if the surface is currently running an animation. A Sketch that has called :doc:`sketch_no_loop` or has no ``draw()`` function is not animating, and will result in this method returning ``True``. If there is a ``draw()`` function and :doc:`sketch_no_loop` has not been called, this will return ``False``. Calling Py5Surface's :doc:`py5surface_stop_thread` will make all future calls to ``is_stopped()`` return ``True``.
+Determine if the surface is currently running an animation. A Sketch that has called [](sketch_no_loop) or has no `draw()` function is not animating, and will result in this method returning `True`. If there is a `draw()` function and [](sketch_no_loop) has not been called, this will return `False`. Calling Py5Surface's [](py5surface_stop_thread) will make all future calls to `is_stopped()` return `True`.
 
-The output of this method is independent of :doc:`py5surface_pause_thread` and :doc:`py5surface_resume_thread`.
+The output of this method is independent of [](py5surface_pause_thread) and [](py5surface_resume_thread).
 
 @@ example
 def draw():

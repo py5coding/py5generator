@@ -15,11 +15,11 @@ emissive: int - any color value
 index: int - vertex index
 
 @@ description
-Sets a ``Py5Shape`` object's emissive color. This is part of the material properties of a ``Py5Shape`` object.
+Sets a `Py5Shape` object's emissive color. This is part of the material properties of a `Py5Shape` object.
 
-The ``emissive`` parameter can be applied to the entire ``Py5Shape`` object or to a single vertex.
+The `emissive` parameter can be applied to the entire `Py5Shape` object or to a single vertex.
 
-This method can only be used for a complete ``Py5Shape`` object, and never within a :doc:`py5shape_begin_shape` and :doc:`py5shape_end_shape` pair.
+This method can only be used for a complete `Py5Shape` object, and never within a [](py5shape_begin_shape) and [](py5shape_end_shape) pair.
 
 @@ example
 image = Py5Shape_set_emissive_0.png

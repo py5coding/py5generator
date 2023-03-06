@@ -15,9 +15,9 @@ index: int - vertex index
 weight: float - the weight (in pixels) of the stroke
 
 @@ description
-Sets the width of the stroke used for lines and points in a ``Py5Shape`` object. All widths are set in units of pixels. Attempting to set this for individual vertices may not work, depending on the renderer used and other factors.
+Sets the width of the stroke used for lines and points in a `Py5Shape` object. All widths are set in units of pixels. Attempting to set this for individual vertices may not work, depending on the renderer used and other factors.
 
-This method differs from :doc:`py5shape_stroke_weight` in that it is only to be used outside the :doc:`py5shape_begin_shape` and :doc:`py5shape_end_shape` methods.
+This method differs from [](py5shape_stroke_weight) in that it is only to be used outside the [](py5shape_begin_shape) and [](py5shape_end_shape) methods.
 
 @@ example
 image = Py5Shape_set_stroke_weight_0.png

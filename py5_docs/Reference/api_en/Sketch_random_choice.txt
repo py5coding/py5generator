@@ -13,9 +13,9 @@ replace: bool=True - whether to select random items with or without replacement
 size: int=1 - number of random items to select
 
 @@ description
-Select random items from a list. The list items can be of any type. If multiple items are selected, this function will by default allow the same item to be selected multiple times. Set the ``replace`` parameter to ``False`` to prevent the same item from being selected multiple times.
+Select random items from a list. The list items can be of any type. If multiple items are selected, this function will by default allow the same item to be selected multiple times. Set the `replace` parameter to `False` to prevent the same item from being selected multiple times.
 
-This function's randomness can be influenced by :doc:`sketch_random_seed`, and makes calls to numpy to select the random items.
+This function's randomness can be influenced by [](sketch_random_seed), and makes calls to numpy to select the random items.
 
 @@ example
 def setup():

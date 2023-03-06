@@ -10,7 +10,7 @@ processing_name = minute
 minute() -> int
 
 @@ description
-Py5 communicates with the clock on your computer. The ``minute()`` function returns the current minute as a value from 0 - 59.
+Py5 communicates with the clock on your computer. The `minute()` function returns the current minute as a value from 0 - 59.
 
 @@ example
 def draw():

@@ -7,7 +7,7 @@ pclass = PApplet
 processing_name = frameCount
 
 @@ description
-The system variable ``frame_count`` contains the number of frames that have been displayed since the program started. Inside ``setup()`` the value is 0. Inside the first execution of ``draw()`` it is 1, and it will increase by 1 for every execution of ``draw()`` after that.
+The system variable `frame_count` contains the number of frames that have been displayed since the program started. Inside `setup()` the value is 0. Inside the first execution of `draw()` it is 1, and it will increase by 1 for every execution of `draw()` after that.
 
 @@ example
 def setup():

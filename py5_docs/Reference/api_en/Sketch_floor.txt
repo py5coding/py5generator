@@ -13,7 +13,7 @@ value: Union[float, npt.ArrayLike] - number to round down
 @@ description
 Calculates the closest int value that is less than or equal to the value of the parameter.
 
-This function makes a call to the numpy ``floor()`` function.
+This function makes a call to the numpy `floor()` function.
 
 @@ example
 def setup():

@@ -10,9 +10,9 @@ subcategory = texture
 no_tint() -> None
 
 @@ description
-Stop applying a color tint to a shape's texture map. Use :doc:`py5shape_tint` to start applying a color tint.
+Stop applying a color tint to a shape's texture map. Use [](py5shape_tint) to start applying a color tint.
 
-Both :doc:`py5shape_tint` and ``no_tint()`` can be used to control the coloring of textures in 3D.
+Both [](py5shape_tint) and `no_tint()` can be used to control the coloring of textures in 3D.
 
 @@ example
 image = Py5Shape_no_tint_0.png

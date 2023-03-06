@@ -13,7 +13,7 @@ title: str - new window title
 @@ description
 Set the Sketch window's title. This will typically appear at the window's title bar. The default window title is "Sketch".
 
-This method provides the same functionality as :doc:`sketch_window_title`.
+This method provides the same functionality as [](sketch_window_title).
 
 @@ example
 def setup():

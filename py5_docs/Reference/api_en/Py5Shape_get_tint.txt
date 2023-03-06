@@ -13,7 +13,7 @@ get_tint(index: int, /) -> int
 index: int - vertex index
 
 @@ description
-Get the texture tint color assigned to one vertex in a ``Py5Shape`` object. If the vertex has no assigned tint, the returned color value will be white.
+Get the texture tint color assigned to one vertex in a `Py5Shape` object. If the vertex has no assigned tint, the returned color value will be white.
 
 @@ example
 image = Py5Shape_get_tint_0.png

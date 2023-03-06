@@ -13,7 +13,7 @@ stroke_join(join: int, /) -> None
 join: int - either MITER, BEVEL, ROUND
 
 @@ description
-Sets the style of the joints which connect line segments. These joints are either mitered, beveled, or rounded and specified with the corresponding parameters ``MITER``, ``BEVEL``, and ``ROUND``. The default joint is ``MITER``.
+Sets the style of the joints which connect line segments. These joints are either mitered, beveled, or rounded and specified with the corresponding parameters `MITER`, `BEVEL`, and `ROUND`. The default joint is `MITER`.
 
 @@ example
 image = Sketch_stroke_join_0.png

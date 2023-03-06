@@ -14,7 +14,7 @@ get_matrix(target: npt.NDArray[np.floating], /) -> npt.NDArray[np.floating]
 target: npt.NDArray[np.floating] - transformation matrix with a shape of 2x3 for 2D transforms or 4x4 for 3D transforms
 
 @@ description
-Get the current matrix as a numpy array. Use the ``target`` parameter to put the matrix data in a properly sized and typed numpy array.
+Get the current matrix as a numpy array. Use the `target` parameter to put the matrix data in a properly sized and typed numpy array.
 
 @@ example
 image = Sketch_get_matrix_0.png

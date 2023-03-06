@@ -13,7 +13,7 @@ get_child_index(who: Py5Shape, /) -> int
 who: Py5Shape - Py5Shape object
 
 @@ description
-Get a child ``Py5Shape`` object's index from a parent ``Py5Shape`` object that is defined as a ``GROUP``. Inside Processing, a group ``Py5Shape`` object is an ordered list of child shapes. This method will retrieve the index for a particular child in that ordered list. That index value is useful when using other methods such as :doc:`py5shape_get_child` or :doc:`py5shape_remove_child`.
+Get a child `Py5Shape` object's index from a parent `Py5Shape` object that is defined as a `GROUP`. Inside Processing, a group `Py5Shape` object is an ordered list of child shapes. This method will retrieve the index for a particular child in that ordered list. That index value is useful when using other methods such as [](py5shape_get_child) or [](py5shape_remove_child).
 
 @@ example
 image = Py5Shape_get_child_index_0.png

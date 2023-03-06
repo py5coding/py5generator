@@ -12,7 +12,7 @@ is3d() -> bool
 @@ description
 Boolean value reflecting if the shape is or is not a 3D shape.
 
-If the shape is created in a Sketch using the ``P3D`` renderer, this will be ``True``, even if it only uses 2D coordinates.
+If the shape is created in a Sketch using the `P3D` renderer, this will be `True`, even if it only uses 2D coordinates.
 
 @@ example
 image = Py5Shape_is3d_0.png

@@ -10,7 +10,7 @@ processing_name = nextPage
 next_page() -> None
 
 @@ description
-Move to the next page in a PDF document. This method is only available when using a ``PDF`` :doc:`py5graphics` object. Using this method with any other graphics renderer will result in an error.
+Move to the next page in a PDF document. This method is only available when using a `PDF` [](py5graphics) object. Using this method with any other graphics renderer will result in an error.
 
 @@ example
 def setup():
