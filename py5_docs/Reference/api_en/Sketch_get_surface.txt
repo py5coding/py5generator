@@ -10,7 +10,7 @@ subcategory = None
 get_surface() -> Py5Surface
 
 @@ description
-Get the :doc:`py5surface` object used for the Sketch.
+Get the [](py5surface) object used for the Sketch.
 
 @@ example
 py5.run_sketch(block=False)

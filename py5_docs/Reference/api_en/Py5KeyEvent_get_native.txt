@@ -10,7 +10,7 @@ get_native() -> Any
 @@ description
 Retrieve native key event object. The returned object will be a Java object and its type can vary based on the renderer used by the Sketch and the operating system the Sketch is run on. Sometimes the native object can be used to access functionality not otherwise available through Processing or py5.
 
-Be aware that it is possible for the native event object to be ``None``, such as when interacting with a Sketch through :doc:`py5tools_sketch_portal`.
+Be aware that it is possible for the native event object to be `None`, such as when interacting with a Sketch through [](py5tools_sketch_portal).
 
 @@ example
 def setup():

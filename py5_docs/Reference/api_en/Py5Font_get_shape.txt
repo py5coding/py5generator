@@ -13,11 +13,11 @@ ch: chr - single character
 detail: float - level of shape detail
 
 @@ description
-Get a single character as a :doc:`py5shape` object. Use the ``detail`` parameter to draw the shape with only straight line segments.
+Get a single character as a [](py5shape) object. Use the `detail` parameter to draw the shape with only straight line segments.
 
-Calling :doc:`py5shape_disable_style` on the returned :doc:`py5shape` object seems to be necessary for these to be drawable.
+Calling [](py5shape_disable_style) on the returned [](py5shape) object seems to be necessary for these to be drawable.
 
-This method only works on fonts loaded with :doc:`sketch_create_font`.
+This method only works on fonts loaded with [](sketch_create_font).
 
 @@ example
 image = Py5Font_get_shape_0.png

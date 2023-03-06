@@ -15,7 +15,7 @@ title: str - new window title
 @@ description
 Set the Sketch window's title. This will typically appear at the window's title bar. The default window title is "Sketch".
 
-This method provides the same functionality as :doc:`py5surface_set_title` but without the need to interact directly with the :doc:`py5surface` object.
+This method provides the same functionality as [](py5surface_set_title) but without the need to interact directly with the [](py5surface) object.
 
 @@ example
 def setup():

@@ -16,6 +16,6 @@ c: float - width of the rectangle, by default
 d: float - height of the rectangle, by default
 
 @@ description
-Limits the rendering to the boundaries of a rectangle defined by the parameters. The boundaries are drawn based on the state of the :doc:`py5graphics_image_mode` fuction, either ``CORNER``, ``CORNERS``, or ``CENTER``.
+Limits the rendering to the boundaries of a rectangle defined by the parameters. The boundaries are drawn based on the state of the [](py5graphics_image_mode) fuction, either `CORNER`, `CORNERS`, or `CENTER`.
 
-This method is the same as :doc:`sketch_clip` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_clip`.
+This method is the same as [](sketch_clip) but linked to a `Py5Graphics` object. To see example code for how it can be used, see [](sketch_clip).

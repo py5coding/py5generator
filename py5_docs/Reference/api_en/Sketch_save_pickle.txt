@@ -14,7 +14,7 @@ filename: Union[str, Path] - filename to save pickled object to
 obj: Any - any non-py5 Python object
 
 @@ description
-Pickle a Python object to a file. If ``filename`` is not an absolute path, it will be saved relative to the current working directory (:doc:`sketch_sketch_path`). The saved file can be reloaded with :doc:`sketch_load_pickle`.
+Pickle a Python object to a file. If `filename` is not an absolute path, it will be saved relative to the current working directory ([](sketch_sketch_path)). The saved file can be reloaded with [](sketch_load_pickle).
 
 Object "pickling" is a method for serializing objects and saving them to a file for later retrieval. The recreated objects will be clones of the original objects. Not all Python objects can be saved to a Python pickle file. This limitation prevents any py5 object from being pickled.
 

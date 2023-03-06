@@ -25,11 +25,11 @@ sy: int - y-coordinate of the source's upper left corner
 @@ description
 Blends a region of pixels from one image into another (or in itself again) with full alpha channel support. There is a choice of the following modes to blend the source pixels (A) with the ones of pixels in the destination image (B):
 
-* BLEND: linear interpolation of colors: ``C = A*factor + B``
-* ADD: additive blending with white clip: ``C = min(A*factor + B, 255)``
-* SUBTRACT: subtractive blending with black clip: ``C = max(B - A*factor, 0)``
-* DARKEST: only the darkest color succeeds: ``C = min(A*factor, B)``
-* LIGHTEST: only the lightest color succeeds: ``C = max(A*factor, B)``
+* BLEND: linear interpolation of colors: `C = A*factor + B`
+* ADD: additive blending with white clip: `C = min(A*factor + B, 255)`
+* SUBTRACT: subtractive blending with black clip: `C = max(B - A*factor, 0)`
+* DARKEST: only the darkest color succeeds: `C = min(A*factor, B)`
+* LIGHTEST: only the lightest color succeeds: `C = max(A*factor, B)`
 * DIFFERENCE: subtract colors from underlying image.
 * EXCLUSION: similar to DIFFERENCE, but less extreme.
 * MULTIPLY: Multiply the colors, result will always be darker.
@@ -40,8 +40,8 @@ Blends a region of pixels from one image into another (or in itself again) with 
 * DODGE: Lightens light tones and increases contrast, ignores darks. Called "Color Dodge" in Illustrator and Photoshop.
 * BURN: Darker areas are applied, increasing contrast, ignores lights. Called "Color Burn" in Illustrator and Photoshop.
 
-All modes use the alpha information (highest byte) of source image pixels as the blending factor. If the source and destination regions are different sizes, the image will be automatically resized to match the destination size. If the ``src`` parameter is not used, the Py5Graphics drawing surface is used as the source image.
+All modes use the alpha information (highest byte) of source image pixels as the blending factor. If the source and destination regions are different sizes, the image will be automatically resized to match the destination size. If the `src` parameter is not used, the Py5Graphics drawing surface is used as the source image.
 
-This function ignores :doc:`py5graphics_image_mode`.
+This function ignores [](py5graphics_image_mode).
 
-This method is the same as :doc:`sketch_blend` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_blend`.
+This method is the same as [](sketch_blend) but linked to a `Py5Graphics` object. To see example code for how it can be used, see [](sketch_blend).

@@ -10,11 +10,11 @@ dim: int - dimension of the random vector to create
 dtype: type = np.float_ - dtype of the random vector to create
 
 @@ description
-Create a new vector with random values. Use the ``dim`` parameter to specify if the vector should have 2, 3, or 4 dimensions.
+Create a new vector with random values. Use the `dim` parameter to specify if the vector should have 2, 3, or 4 dimensions.
 
 The new vector will have a magnitude of 1 and a heading that is uniformly distributed across all possible headings for a vector with the given dimension.
 
-When used as a ``Py5Vector`` class method, the ``dim`` parameter is required to specify what the new vector's dimension should be. When used as a class method for the ``Py5Vector2D``, ``Py5Vector3D``, or ``Py5Vector4D`` child classes, the ``dim`` parameter is optional and will default to the dimension implied by the specific class. When used as a method on a vector instance, the ``dim`` parameter is also optional and will default to the vector instance's dimension. See the example code for examples of all of these use cases.
+When used as a `Py5Vector` class method, the `dim` parameter is required to specify what the new vector's dimension should be. When used as a class method for the `Py5Vector2D`, `Py5Vector3D`, or `Py5Vector4D` child classes, the `dim` parameter is optional and will default to the dimension implied by the specific class. When used as a method on a vector instance, the `dim` parameter is also optional and will default to the vector instance's dimension. See the example code for examples of all of these use cases.
 
 @@ example
 v_2d = py5.Py5Vector2D.random()

@@ -13,7 +13,7 @@ noise_seed(seed: int, /) -> None
 seed: int - seed value
 
 @@ description
-Sets the seed value for :doc:`sketch_noise`. By default, :doc:`sketch_noise` produces different results each time the program is run. Set the seed parameter to a constant to return the same pseudo-random numbers each time the Sketch is run.
+Sets the seed value for [](sketch_noise). By default, [](sketch_noise) produces different results each time the program is run. Set the seed parameter to a constant to return the same pseudo-random numbers each time the Sketch is run.
 
 @@ example
 def setup():

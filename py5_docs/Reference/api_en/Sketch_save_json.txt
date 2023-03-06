@@ -13,9 +13,9 @@ json_data: Any - json data object
 kwargs: dict[str, Any] - keyword arguments
 
 @@ description
-Save JSON data to a file. If ``filename`` is not an absolute path, it will be saved relative to the current working directory (:doc:`sketch_sketch_path`). The saved file can be reloaded with :doc:`sketch_load_json`.
+Save JSON data to a file. If `filename` is not an absolute path, it will be saved relative to the current working directory ([](sketch_sketch_path)). The saved file can be reloaded with [](sketch_load_json).
 
-The JSON data is saved using the Python json library with the ``dump`` method, and the ``kwargs`` parameter is passed along to that method.
+The JSON data is saved using the Python json library with the `dump` method, and the `kwargs` parameter is passed along to that method.
 
 @@ example
 data = dict(mouse_x=[], mouse_y=[])

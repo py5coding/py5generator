@@ -14,7 +14,7 @@ end_shape(mode: int, /) -> None
 mode: int - Either OPEN or CLOSE
 
 @@ description
-This method is used to complete a custom shape created with the :doc:`sketch_create_shape` function. It's always and only used with :doc:`sketch_create_shape`.
+This method is used to complete a custom shape created with the [](sketch_create_shape) function. It's always and only used with [](sketch_create_shape).
 
 @@ example
 def setup():

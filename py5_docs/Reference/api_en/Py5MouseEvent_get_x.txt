@@ -8,7 +8,7 @@ processing_name = getX
 get_x() -> int
 
 @@ description
-Return the x position of the mouse at the time of this mouse event. This information can also be obtained with :doc:`sketch_mouse_x`.
+Return the x position of the mouse at the time of this mouse event. This information can also be obtained with [](sketch_mouse_x).
 
 @@ example
 def setup():

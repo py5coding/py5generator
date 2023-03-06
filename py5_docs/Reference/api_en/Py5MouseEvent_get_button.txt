@@ -8,7 +8,7 @@ processing_name = getButton
 get_button() -> int
 
 @@ description
-Identify the mouse button used in the event. This can be ``LEFT``, ``CENTER``, or ``RIGHT``.
+Identify the mouse button used in the event. This can be `LEFT`, `CENTER`, or `RIGHT`.
 
 @@ example
 def setup():

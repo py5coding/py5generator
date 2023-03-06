@@ -7,9 +7,9 @@ category = input
 subcategory = mouse
 
 @@ description
-The current vertical coordinate of the mouse after activating scale invariant drawing. See :doc:`sketch_window_ratio` for more information about how to activate this and why it is useful.
+The current vertical coordinate of the mouse after activating scale invariant drawing. See [](sketch_window_ratio) for more information about how to activate this and why it is useful.
 
-Note that py5 can only track the mouse position when the pointer is over the current window. The default value of ``rmouse_y`` is ``0``, so ``0`` will be returned until the mouse moves in front of the Sketch window. (This typically happens when a Sketch is first run.)  Once the mouse moves away from the window, ``rmouse_y`` will continue to report its most recent position.
+Note that py5 can only track the mouse position when the pointer is over the current window. The default value of `rmouse_y` is `0`, so `0` will be returned until the mouse moves in front of the Sketch window. (This typically happens when a Sketch is first run.)  Once the mouse moves away from the window, `rmouse_y` will continue to report its most recent position.
 
 @@ example
 def setup():

@@ -7,7 +7,7 @@ pclass = KeyEvent
 processing_name = KeyEvent
 
 @@ description
-Datatype for providing information about key events. An instance of this class will be passed to user-defined key event functions if py5 detects those functions accept 1 (positional) argument, as demonstrated in the example code. The key event functions can be any of ``key_pressed()``, ``key_typed()``, or ``key_released()``. Key events can be generated faster than the frame rate of the Sketch, making key event functions useful for capturing all of a user's keyboard activity.
+Datatype for providing information about key events. An instance of this class will be passed to user-defined key event functions if py5 detects those functions accept 1 (positional) argument, as demonstrated in the example code. The key event functions can be any of `key_pressed()`, `key_typed()`, or `key_released()`. Key events can be generated faster than the frame rate of the Sketch, making key event functions useful for capturing all of a user's keyboard activity.
 
 @@ example
 def setup():

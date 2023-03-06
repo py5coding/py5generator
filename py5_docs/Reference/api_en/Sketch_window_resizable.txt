@@ -15,9 +15,9 @@ resizable: bool - should the Sketch window be resizable
 @@ description
 Set the Sketch window as resizable by the user. The user will be able to resize the window in the same way as they do for many other windows on their computer. By default, the Sketch window is not resizable.
 
-Changing the window size will clear the drawing canvas. If you do this, the :doc:`sketch_width` and :doc:`sketch_height` variables will change.
+Changing the window size will clear the drawing canvas. If you do this, the [](sketch_width) and [](sketch_height) variables will change.
 
-This method provides the same functionality as :doc:`py5surface_set_resizable` but without the need to interact directly with the :doc:`py5surface` object.
+This method provides the same functionality as [](py5surface_set_resizable) but without the need to interact directly with the [](py5surface) object.
 
 @@ example
 def setup():

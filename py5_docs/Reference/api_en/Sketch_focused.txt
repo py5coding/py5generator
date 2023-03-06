@@ -7,7 +7,7 @@ pclass = PApplet
 processing_name = focused
 
 @@ description
-Confirms if a py5 program is "focused," meaning that it is active and will accept mouse or keyboard input. This variable is ``True`` if it is focused and ``False`` if not.
+Confirms if a py5 program is "focused," meaning that it is active and will accept mouse or keyboard input. This variable is `True` if it is focused and `False` if not.
 
 @@ example
 def setup():

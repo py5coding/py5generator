@@ -13,9 +13,9 @@ get_vertex_code(index: int, /) -> int
 index: int - vertex code index
 
 @@ description
-Get the vertex code for a particular vertex code index. The vertex codes can be used to inspect a shape's geometry to determine what kind of vertices it has. Each can be one of ``BREAK``, ``VERTEX``, ``BEZIER_VERTEX``, ``QUADRATIC_VERTEX`` or ``CURVE_VERTEX``.
+Get the vertex code for a particular vertex code index. The vertex codes can be used to inspect a shape's geometry to determine what kind of vertices it has. Each can be one of `BREAK`, `VERTEX`, `BEZIER_VERTEX`, `QUADRATIC_VERTEX` or `CURVE_VERTEX`.
 
-The vertex codes will not necessarily align with the vertices because number of vertex codes may be larger than the number of vertices. This will be the case for shapes that use contours, and therefore contain ``BREAK`` codes.
+The vertex codes will not necessarily align with the vertices because number of vertex codes may be larger than the number of vertices. This will be the case for shapes that use contours, and therefore contain `BREAK` codes.
 
 @@ example
 image = Py5Shape_get_vertex_code_0.png

@@ -13,7 +13,7 @@ load_pickle(pickle_path: Union[str, Path]) -> Any
 pickle_path: Union[str, Path] - file path for pickle object file
 
 @@ description
-Load a pickled Python object from a file. The path can be in the data directory, relative to the current working directory (:doc:`sketch_sketch_path`), or an absolute path.
+Load a pickled Python object from a file. The path can be in the data directory, relative to the current working directory ([](sketch_sketch_path)), or an absolute path.
 
 There are security risks associated with Python pickle files. A pickle file can contain malicious code, so never load a pickle file from an untrusted source.
 

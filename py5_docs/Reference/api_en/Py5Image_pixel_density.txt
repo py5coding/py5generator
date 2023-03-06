@@ -5,7 +5,7 @@ pclass = PImage
 processing_name = pixelDensity
 
 @@ description
-Pixel density of the Py5Image object. This will always be equal to 1, even if the Sketch used :doc:`sketch_pixel_density` to set the pixel density to a value greater than 1.
+Pixel density of the Py5Image object. This will always be equal to 1, even if the Sketch used [](sketch_pixel_density) to set the pixel density to a value greater than 1.
 
 @@ example
 def setup():

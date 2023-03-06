@@ -14,7 +14,7 @@ loc: float - average of randomly selected numbers
 scale: float - standard deviation of randomly selected numbers
 
 @@ description
-Generates random gaussian values. Each time the ``random_gaussian()`` function is called, it returns an unexpected float with a probability distribution set by the parameters.  This function's randomness can be influenced by :doc:`sketch_random_seed`.
+Generates random gaussian values. Each time the `random_gaussian()` function is called, it returns an unexpected float with a probability distribution set by the parameters.  This function's randomness can be influenced by [](sketch_random_seed).
 
 If no parameters are passed to the function, returned values will have an average of 0 and a standard deviation of 1. Although there is theoretically no minimum or maximum value that this function might return, in practice returned values will be within plus or minus one standard deviation of the mean 68% of the time and within two standard devations 95% of the time. Values farther and farther from the mean become increasingly less likely.
 

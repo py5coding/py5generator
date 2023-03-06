@@ -13,9 +13,9 @@ shininess(shine: float, /) -> None
 shine: float - degree of shininess
 
 @@ description
-Sets the amount of gloss in the surface of a ``Py5Shape`` object. Use in combination with :doc:`py5shape_ambient`, :doc:`py5shape_specular`, and :doc:`py5shape_emissive` to set the material properties of a ``Py5Shape`` object.
+Sets the amount of gloss in the surface of a `Py5Shape` object. Use in combination with [](py5shape_ambient), [](py5shape_specular), and [](py5shape_emissive) to set the material properties of a `Py5Shape` object.
 
-This method can only be used within a :doc:`py5shape_begin_shape` and :doc:`py5shape_end_shape` pair. The shininess color setting will be applied to vertices added after the call to this method.
+This method can only be used within a [](py5shape_begin_shape) and [](py5shape_end_shape) pair. The shininess color setting will be applied to vertices added after the call to this method.
 
 @@ example
 image = Py5Shape_shininess_0.png

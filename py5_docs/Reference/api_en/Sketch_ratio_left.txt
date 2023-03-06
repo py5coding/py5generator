@@ -7,7 +7,7 @@ category = environment
 subcategory = None
 
 @@ description
-Width of the left section of the window that does not fit the desired aspect ratio of a scale invariant Sketch. This will always be greater than or equal to zero. Experimenting with the example and seeing how this value changes will provide more understanding than what can be explained with words. See :doc:`sketch_window_ratio` for more information about how to activate scale invariant drawing and why it is useful.
+Width of the left section of the window that does not fit the desired aspect ratio of a scale invariant Sketch. This will always be greater than or equal to zero. Experimenting with the example and seeing how this value changes will provide more understanding than what can be explained with words. See [](sketch_window_ratio) for more information about how to activate scale invariant drawing and why it is useful.
 
 @@ example
 def setup():

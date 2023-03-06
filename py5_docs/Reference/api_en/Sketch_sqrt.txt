@@ -11,9 +11,9 @@ sqrt(value: Union[float, npt.NDArray]) -> Union[float, complex, npt.NDArray]
 value: Union[float, npt.NDArray] - value to calculate the square root of
 
 @@ description
-Calculates the square root of a number. The square root of a positive number is always positive, even though there may be a valid negative root. The square root of a negative number is a complex number. In either case, the square root ``s`` of number ``a`` is such that ``s*s = a``. It is the opposite of squaring.
+Calculates the square root of a number. The square root of a positive number is always positive, even though there may be a valid negative root. The square root of a negative number is a complex number. In either case, the square root `s` of number `a` is such that `s*s = a`. It is the opposite of squaring.
 
-Python supports complex numbers, but such values cannot be passed to py5 drawing functions. When using the ``sqrt()`` function, you should check if the result is complex before using the value. You can also extract the real and imaginary components of the complex value with ``.real`` and ``.imag``. See the second example to learn how to do both of these things.
+Python supports complex numbers, but such values cannot be passed to py5 drawing functions. When using the `sqrt()` function, you should check if the result is complex before using the value. You can also extract the real and imaginary components of the complex value with `.real` and `.imag`. See the second example to learn how to do both of these things.
 
 @@ example
 image = Sketch_sqrt_0.png

@@ -10,9 +10,9 @@ amt: Union[float, np.ndarray] - float between 0.0 and 1.0
 other: Union[Py5Vector, np.ndarray] - other vector to interpolate between
 
 @@ description
-Calculates a vector between two vectors at a specific increment. The two vectors must have the same dimension. The ``amt`` parameter is the amount to interpolate between the two values where 0.0 equal to the first point, 0.1 is very near the first point, 0.5 is half-way in between, etc. If the ``amt`` parameter is greater than 1.0 or less than 0.0, the interpolated vector will be outside of the range specified by the two vectors.
+Calculates a vector between two vectors at a specific increment. The two vectors must have the same dimension. The `amt` parameter is the amount to interpolate between the two values where 0.0 equal to the first point, 0.1 is very near the first point, 0.5 is half-way in between, etc. If the `amt` parameter is greater than 1.0 or less than 0.0, the interpolated vector will be outside of the range specified by the two vectors.
 
-This method is similar to :doc:`sketch_lerp` and :doc:`sketch_lerp_color`, but for vectors instead of numbers or colors.
+This method is similar to [](sketch_lerp) and [](sketch_lerp_color), but for vectors instead of numbers or colors.
 
 @@ example
 image = Py5Vector_lerp_0.png

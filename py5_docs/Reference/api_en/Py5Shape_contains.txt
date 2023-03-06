@@ -14,9 +14,9 @@ x: float - x-coordinate
 y: float - y-coordinate
 
 @@ description
-Boolean value reflecting if the given coordinates are or are not contained within the ``Py5Shape`` object. This method will only work for a ``Py5Shape`` object that is a ``PATH`` shape or a ``GROUP`` of ``PATH`` shapes. Use :doc:`py5shape_get_family` to determine how a ``Py5Shape`` object was defined.
+Boolean value reflecting if the given coordinates are or are not contained within the `Py5Shape` object. This method will only work for a `Py5Shape` object that is a `PATH` shape or a `GROUP` of `PATH` shapes. Use [](py5shape_get_family) to determine how a `Py5Shape` object was defined.
 
-This method uses a coordinate system that is unique to the shape and how the paths were created. To get the range of relevant coordinates, start by finding the minimum and maximum values for the vertices using :doc:`py5shape_get_vertex_x` and :doc:`py5shape_get_vertex_y`. Do not use :doc:`py5shape_get_width` or :doc:`py5shape_get_height`.
+This method uses a coordinate system that is unique to the shape and how the paths were created. To get the range of relevant coordinates, start by finding the minimum and maximum values for the vertices using [](py5shape_get_vertex_x) and [](py5shape_get_vertex_y). Do not use [](py5shape_get_width) or [](py5shape_get_height).
 
 @@ example
 image = Py5Shape_contains_0.png

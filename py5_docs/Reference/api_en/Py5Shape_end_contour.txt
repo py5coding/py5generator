@@ -10,9 +10,9 @@ subcategory = None
 end_contour() -> None
 
 @@ description
-Use the :doc:`py5shape_begin_contour` and ``end_contour()`` methods to create negative shapes within a ``Py5Shape`` object such as the center of the letter 'O'. The :doc:`py5shape_begin_contour` method begins recording vertices for the shape and ``end_contour()`` stops recording. The vertices that define a negative shape must "wind" in the opposite direction from the exterior shape. First draw vertices for the exterior shape in clockwise order, then for internal shapes, draw vertices counterclockwise.
+Use the [](py5shape_begin_contour) and `end_contour()` methods to create negative shapes within a `Py5Shape` object such as the center of the letter 'O'. The [](py5shape_begin_contour) method begins recording vertices for the shape and `end_contour()` stops recording. The vertices that define a negative shape must "wind" in the opposite direction from the exterior shape. First draw vertices for the exterior shape in clockwise order, then for internal shapes, draw vertices counterclockwise.
 
-These methods can only be used within a :doc:`py5shape_begin_shape` & :doc:`py5shape_end_shape` pair and transformations such as :doc:`py5shape_translate`, :doc:`py5shape_rotate`, and :doc:`py5shape_scale` do not work within a :doc:`py5shape_begin_contour` & ``end_contour()`` pair. It is also not possible to use other shapes, such as :doc:`sketch_ellipse` or :doc:`sketch_rect` within.
+These methods can only be used within a [](py5shape_begin_shape) & [](py5shape_end_shape) pair and transformations such as [](py5shape_translate), [](py5shape_rotate), and [](py5shape_scale) do not work within a [](py5shape_begin_contour) & `end_contour()` pair. It is also not possible to use other shapes, such as [](sketch_ellipse) or [](sketch_rect) within.
 
 @@ example
 image = Py5Shape_end_contour_0.png

@@ -15,9 +15,9 @@ filename: Union[str, Path] - filename to save string data to
 string_data: list[str] - string data to save in a file
 
 @@ description
-Save a list of strings to a file. If ``filename`` is not an absolute path, it will be saved relative to the current working directory (:doc:`sketch_sketch_path`). If the contents of the list are not already strings, it will be converted to strings with the Python builtin ``str``. The saved file can be reloaded with :doc:`sketch_load_strings`.
+Save a list of strings to a file. If `filename` is not an absolute path, it will be saved relative to the current working directory ([](sketch_sketch_path)). If the contents of the list are not already strings, it will be converted to strings with the Python builtin `str`. The saved file can be reloaded with [](sketch_load_strings).
 
-Use the ``end`` parameter to set the line terminator for each string in the list. If items in the list of strings already have line terminators, set the ``end`` parameter to ``''`` to keep the output file from being saved with a blank line after each item.
+Use the `end` parameter to set the line terminator for each string in the list. If items in the list of strings already have line terminators, set the `end` parameter to `''` to keep the output file from being saved with a blank line after each item.
 
 @@ example
 mouse_x_history = list()

@@ -12,4 +12,4 @@ print_camera() -> None
 @@ description
 Prints the current camera matrix to standard output.
 
-This method is the same as :doc:`sketch_print_camera` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_print_camera`.
+This method is the same as [](sketch_print_camera) but linked to a `Py5Graphics` object. To see example code for how it can be used, see [](sketch_print_camera).

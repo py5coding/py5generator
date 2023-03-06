@@ -10,9 +10,9 @@ subcategory = setting
 clear() -> None
 
 @@ description
-Clear the drawing surface by setting every pixel to black. Calling this method is the same as passing ``0`` to the :doc:`sketch_background` method, as in ``background(0)``.
+Clear the drawing surface by setting every pixel to black. Calling this method is the same as passing `0` to the [](sketch_background) method, as in `background(0)`.
 
-This method behaves differently than :doc:`py5graphics_clear` because ``Py5Graphics`` objects allow transparent pixels.
+This method behaves differently than [](py5graphics_clear) because `Py5Graphics` objects allow transparent pixels.
 
 @@ example
 image = Sketch_clear_0.png

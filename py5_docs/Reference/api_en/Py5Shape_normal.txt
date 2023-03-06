@@ -15,9 +15,9 @@ ny: float - y direction
 nz: float - z direction
 
 @@ description
-Sets the current normal vector for a ``Py5Shape`` object's vertices. Used for drawing three dimensional shapes and surfaces, ``normal()`` specifies a vector perpendicular to a shape's surface which, in turn, determines how lighting affects it. Py5 attempts to automatically assign normals to shapes, but since that's imperfect, this is a better option when you want more control.
+Sets the current normal vector for a `Py5Shape` object's vertices. Used for drawing three dimensional shapes and surfaces, `normal()` specifies a vector perpendicular to a shape's surface which, in turn, determines how lighting affects it. Py5 attempts to automatically assign normals to shapes, but since that's imperfect, this is a better option when you want more control.
 
-This method can only be used within a :doc:`py5shape_begin_shape` and :doc:`py5shape_end_shape` pair. The normal setting will be applied to vertices added after the call to this method.
+This method can only be used within a [](py5shape_begin_shape) and [](py5shape_end_shape) pair. The normal setting will be applied to vertices added after the call to this method.
 
 @@ example
 image = Py5Shape_normal_0.png

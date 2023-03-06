@@ -5,9 +5,9 @@ category = structure
 subcategory = None
 
 @@ description
-Boolean value reflecting if the Sketch has been run and has now stopped. This will be ``True`` after calling :doc:`sketch_exit_sketch` or if the Sketch throws an error and stops. This will also be ``True`` after calling :doc:`py5surface`'s :doc:`py5surface_stop_thread` method. Once a Sketch reaches the "dead" state, it cannot be rerun.
+Boolean value reflecting if the Sketch has been run and has now stopped. This will be `True` after calling [](sketch_exit_sketch) or if the Sketch throws an error and stops. This will also be `True` after calling [](py5surface)'s [](py5surface_stop_thread) method. Once a Sketch reaches the "dead" state, it cannot be rerun.
 
-After an error or a call to :doc:`py5surface_stop_thread`, the Sketch window will still be open. Call :doc:`sketch_exit_sketch` to close the window.
+After an error or a call to [](py5surface_stop_thread), the Sketch window will still be open. Call [](sketch_exit_sketch) to close the window.
 
 @@ example
 import time

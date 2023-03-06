@@ -15,9 +15,9 @@ u: float - horizontal coordinate for the texture mapping
 v: float - vertical coordinate for the texture mapping
 
 @@ description
-Set the uv texture mapping coordinates for a given vertex in a ``Py5Shape`` object. This method can only be used outside the :doc:`py5shape_begin_shape` and :doc:`py5shape_end_shape` methods.
+Set the uv texture mapping coordinates for a given vertex in a `Py5Shape` object. This method can only be used outside the [](py5shape_begin_shape) and [](py5shape_end_shape) methods.
 
-The ``u`` and ``v`` coordinates define the mapping of a ``Py5Shape`` object's texture to the form. By default, the coordinates used for ``u`` and ``v`` are specified in relation to the image's size in pixels, but this relation can be changed with the ``Py5Shape`` object's :doc:`py5shape_set_texture_mode` method.
+The `u` and `v` coordinates define the mapping of a `Py5Shape` object's texture to the form. By default, the coordinates used for `u` and `v` are specified in relation to the image's size in pixels, but this relation can be changed with the `Py5Shape` object's [](py5shape_set_texture_mode) method.
 
 @@ example
 image = Py5Shape_set_texture_uv_0.png

@@ -15,7 +15,7 @@ index: int - the layer position of the shape to get
 target: str - the name of the shape to get
 
 @@ description
-Extracts a child ``Py5Shape`` object from a parent ``Py5Shape`` object that is defined as a ``GROUP``. Specify the name of the shape with the ``target`` parameter, or use the index with the ``index`` parameter. The shape is returned as a ``Py5Shape`` object, or ``None`` is returned if there is an error.
+Extracts a child `Py5Shape` object from a parent `Py5Shape` object that is defined as a `GROUP`. Specify the name of the shape with the `target` parameter, or use the index with the `index` parameter. The shape is returned as a `Py5Shape` object, or `None` is returned if there is an error.
 
 @@ example
 image = Py5Shape_get_child_0.png

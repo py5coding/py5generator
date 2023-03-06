@@ -10,6 +10,6 @@ processing_name = noStroke
 no_stroke() -> None
 
 @@ description
-Disables drawing the stroke (outline). If both ``no_stroke()`` and :doc:`py5graphics_no_fill` are called, nothing will be drawn to the screen.
+Disables drawing the stroke (outline). If both `no_stroke()` and [](py5graphics_no_fill) are called, nothing will be drawn to the screen.
 
-This method is the same as :doc:`sketch_no_stroke` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_no_stroke`.
+This method is the same as [](sketch_no_stroke) but linked to a `Py5Graphics` object. To see example code for how it can be used, see [](sketch_no_stroke).

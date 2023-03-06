@@ -3,7 +3,7 @@ name = dtype
 type = field
 
 @@ description
-Vector data type. This will be one of ``np.float16``, ``np.float32``, ``np.float64``, or ``np.float128``.
+Vector data type. This will be one of `np.float16`, `np.float32`, `np.float64`, or `np.float128`.
 
 @@ example
 import numpy as np

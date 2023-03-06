@@ -20,4 +20,4 @@ y3: float - y-coordinate of the third point
 @@ description
 A triangle is a plane created by connecting three points. The first two arguments specify the first point, the middle two arguments specify the second point, and the last two arguments specify the third point.
 
-This method is the same as :doc:`sketch_triangle` but linked to a ``Py5Graphics`` object. To see example code for how it can be used, see :doc:`sketch_triangle`.
+This method is the same as [](sketch_triangle) but linked to a `Py5Graphics` object. To see example code for how it can be used, see [](sketch_triangle).

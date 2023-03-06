@@ -13,7 +13,7 @@ shape_mode(mode: int, /) -> None
 mode: int - either CORNER, CORNERS, CENTER
 
 @@ description
-Modifies the location from which shapes draw. The default mode is ``shape_mode(CORNER)``, which specifies the location to be the upper left corner of the shape and uses the third and fourth parameters of :doc:`sketch_shape` to specify the width and height. The syntax ``shape_mode(CORNERS)`` uses the first and second parameters of :doc:`sketch_shape` to set the location of one corner and uses the third and fourth parameters to set the opposite corner. The syntax ``shape_mode(CENTER)`` draws the shape from its center point and uses the third and forth parameters of :doc:`sketch_shape` to specify the width and height. The parameter must be written in ALL CAPS because Python is a case sensitive language.
+Modifies the location from which shapes draw. The default mode is `shape_mode(CORNER)`, which specifies the location to be the upper left corner of the shape and uses the third and fourth parameters of [](sketch_shape) to specify the width and height. The syntax `shape_mode(CORNERS)` uses the first and second parameters of [](sketch_shape) to set the location of one corner and uses the third and fourth parameters to set the opposite corner. The syntax `shape_mode(CENTER)` draws the shape from its center point and uses the third and forth parameters of [](sketch_shape) to specify the width and height. The parameter must be written in ALL CAPS because Python is a case sensitive language.
 
 @@ example
 image = Sketch_shape_mode_0.png

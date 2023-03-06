@@ -10,7 +10,7 @@ processing_name = endDraw
 end_draw() -> None
 
 @@ description
-Finalizes the rendering of a ``Py5Graphics`` object so that it can be shown on screen.
+Finalizes the rendering of a `Py5Graphics` object so that it can be shown on screen.
 
 @@ example
 def setup():

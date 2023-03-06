@@ -8,7 +8,7 @@ processing_name = isSmooth
 is_smooth() -> bool
 
 @@ description
-Boolean value reflecting if smoothing (anti-aliasing) was used when the font was created. By default, :doc:`sketch_create_font` will use smoothing.
+Boolean value reflecting if smoothing (anti-aliasing) was used when the font was created. By default, [](sketch_create_font) will use smoothing.
 
 @@ example
 image = Py5Font_is_smooth_0.png

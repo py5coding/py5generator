@@ -10,7 +10,7 @@ processing_name = resetMatrix
 reset_matrix() -> None
 
 @@ description
-Replaces the current matrix of a shape with the identity matrix. The equivalent function in OpenGL is ``gl_load_identity()``.
+Replaces the current matrix of a shape with the identity matrix. The equivalent function in OpenGL is `gl_load_identity()`.
 
 @@ example
 def setup():

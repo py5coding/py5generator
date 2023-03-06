@@ -10,7 +10,7 @@ processing_name = loadPixels
 load_pixels() -> None
 
 @@ description
-Loads the pixel data of the current display window into the :doc:`sketch_pixels` array. This function must always be called before reading from or writing to :doc:`sketch_pixels`. Subsequent changes to the display window will not be reflected in :doc:`sketch_pixels` until ``load_pixels()`` is called again.
+Loads the pixel data of the current display window into the [](sketch_pixels) array. This function must always be called before reading from or writing to [](sketch_pixels). Subsequent changes to the display window will not be reflected in [](sketch_pixels) until `load_pixels()` is called again.
 
 @@ example
 image = Sketch_load_pixels_0.png

@@ -11,9 +11,9 @@ radians(degrees: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]
 degrees: Union[float, npt.ArrayLike] - degree value to convert to radians
 
 @@ description
-Converts a degree measurement to its corresponding value in radians. Radians and degrees are two ways of measuring the same thing. There are 360 degrees in a circle and ``2*PI`` radians in a circle. For example, ``90° = PI/2 = 1.5707964``. All trigonometric functions in py5 require their parameters to be specified in radians.
+Converts a degree measurement to its corresponding value in radians. Radians and degrees are two ways of measuring the same thing. There are 360 degrees in a circle and `2*PI` radians in a circle. For example, `90° = PI/2 = 1.5707964`. All trigonometric functions in py5 require their parameters to be specified in radians.
 
-This function makes a call to the numpy ``radians()`` function.
+This function makes a call to the numpy `radians()` function.
 
 @@ example
 def setup():

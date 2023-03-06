@@ -5,7 +5,7 @@ category = input
 subcategory = keyboard
 
 @@ description
-The ``is_key_pressed`` variable stores whether or not a keyboard button is currently being pressed. The value is true when `any` keyboard button is pressed, and false if no button is pressed. The :doc:`sketch_key` variable and :doc:`sketch_key_code` variables (see the related reference entries) can be used to determine which button has been pressed.
+The `is_key_pressed` variable stores whether or not a keyboard button is currently being pressed. The value is true when `any` keyboard button is pressed, and false if no button is pressed. The [](sketch_key) variable and [](sketch_key_code) variables (see the related reference entries) can be used to determine which button has been pressed.
 
 @@ example
 # click on the window to give it focus,

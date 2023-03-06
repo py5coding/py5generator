@@ -11,7 +11,7 @@ has_thread(name: str) -> None
 name: str - name of thread
 
 @@ description
-Determine if a thread of a given name exists and is currently running. You can get the list of all currently running threads with :doc:`sketch_list_threads`.
+Determine if a thread of a given name exists and is currently running. You can get the list of all currently running threads with [](sketch_list_threads).
 
 @@ example
 import time

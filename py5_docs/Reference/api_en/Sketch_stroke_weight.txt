@@ -15,7 +15,7 @@ weight: float - the weight (in pixels) of the stroke
 @@ description
 Sets the width of the stroke used for lines, points, and the border around shapes. All widths are set in units of pixels.
 
-Using :doc:`sketch_point` with ``strokeWeight(1)`` or smaller may draw nothing to the screen, depending on the graphics settings of the computer. Workarounds include setting the pixel using the :doc:`sketch_pixels` or :doc:`sketch_np_pixels` arrays or drawing the point using either :doc:`sketch_circle` or :doc:`sketch_square`.
+Using [](sketch_point) with `strokeWeight(1)` or smaller may draw nothing to the screen, depending on the graphics settings of the computer. Workarounds include setting the pixel using the [](sketch_pixels) or [](sketch_np_pixels) arrays or drawing the point using either [](sketch_circle) or [](sketch_square).
 
 @@ example
 image = Sketch_stroke_weight_0.png

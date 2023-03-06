@@ -10,9 +10,9 @@ subcategory = fill
 no_fill() -> None
 
 @@ description
-Disables the ``Py5Shape`` object's filling geometry. If both :doc:`py5shape_no_stroke` and ``no_fill()`` are called, nothing will be drawn to the screen.
+Disables the `Py5Shape` object's filling geometry. If both [](py5shape_no_stroke) and `no_fill()` are called, nothing will be drawn to the screen.
 
-This method can only be used within a :doc:`py5shape_begin_shape` and :doc:`py5shape_end_shape` pair.
+This method can only be used within a [](py5shape_begin_shape) and [](py5shape_end_shape) pair.
 
 @@ example
 image = Py5Shape_no_fill_0.png

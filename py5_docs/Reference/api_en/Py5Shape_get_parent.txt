@@ -10,7 +10,7 @@ subcategory = organization
 get_parent() -> Py5Shape
 
 @@ description
-Locate a child ``Py5Shape`` object's parent ``GROUP`` ``Py5Shape`` object. This will return ``None`` if the shape has no parent, such as when the shape is the parent object or the shape is not a part of a group.
+Locate a child `Py5Shape` object's parent `GROUP` `Py5Shape` object. This will return `None` if the shape has no parent, such as when the shape is the parent object or the shape is not a part of a group.
 
 @@ example
 image = Py5Shape_get_parent_0.png

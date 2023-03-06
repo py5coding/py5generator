@@ -8,11 +8,11 @@ type = method
 load_np_pixels() -> None
 
 @@ description
-Loads the pixel data of the image into the :doc:`py5image_np_pixels` array. This method must always be called before reading from or writing to :doc:`py5image_np_pixels`. Subsequent changes to the image will not be reflected in :doc:`py5image_np_pixels` until ``py5image_load_np_pixels()`` is called again.
+Loads the pixel data of the image into the [](py5image_np_pixels) array. This method must always be called before reading from or writing to [](py5image_np_pixels). Subsequent changes to the image will not be reflected in [](py5image_np_pixels) until `py5image_load_np_pixels()` is called again.
 
-The ``load_np_pixels()`` method is similar to :doc:`py5image_load_pixels` in that ``load_np_pixels()`` must be called before reading from or writing to :doc:`py5image_np_pixels` just as :doc:`py5image_load_pixels` must be called before reading from or writing to :doc:`py5image_pixels`.
+The `load_np_pixels()` method is similar to [](py5image_load_pixels) in that `load_np_pixels()` must be called before reading from or writing to [](py5image_np_pixels) just as [](py5image_load_pixels) must be called before reading from or writing to [](py5image_pixels).
 
-Note that ``load_np_pixels()`` will as a side effect call :doc:`py5image_load_pixels`, so if your code needs to read :doc:`py5image_np_pixels` and :doc:`py5image_pixels` simultaneously, there is no need for a separate call to :doc:`py5image_load_pixels`. However, be aware that modifying both :doc:`py5image_np_pixels` and :doc:`py5image_pixels` simultaneously will likely result in the updates to :doc:`py5image_pixels` being discarded.
+Note that `load_np_pixels()` will as a side effect call [](py5image_load_pixels), so if your code needs to read [](py5image_np_pixels) and [](py5image_pixels) simultaneously, there is no need for a separate call to [](py5image_load_pixels). However, be aware that modifying both [](py5image_np_pixels) and [](py5image_pixels) simultaneously will likely result in the updates to [](py5image_pixels) being discarded.
 
 @@ example
 image = Py5Image_load_np_pixels_0.png

@@ -14,9 +14,9 @@ kwargs: dict[str, Any] - keyword arguments
 string_path: Union[str, Path] - url or file path for string data file
 
 @@ description
-Load a list of strings from a file or URL. When loading a file, the path can be in the data directory, relative to the current working directory (:doc:`sketch_sketch_path`), or an absolute path. When loading from a URL, the ``string_path`` parameter must start with ``http://`` or ``https://``.
+Load a list of strings from a file or URL. When loading a file, the path can be in the data directory, relative to the current working directory ([](sketch_sketch_path)), or an absolute path. When loading from a URL, the `string_path` parameter must start with `http://` or `https://`.
 
-When loading string data from a URL, the data is retrieved using the Python requests library with the ``get`` method, and any extra keyword arguments (the ``kwargs`` parameter) are passed along to that method. When loading string data from a file, the ``kwargs`` parameter is not used.
+When loading string data from a URL, the data is retrieved using the Python requests library with the `get` method, and any extra keyword arguments (the `kwargs` parameter) are passed along to that method. When loading string data from a file, the `kwargs` parameter is not used.
 
 @@ example
 def setup():

@@ -14,7 +14,7 @@ bytes_data: Union[bytes, bytearray] - byte data to save in a file
 filename: Union[str, Path] - filename to save byte data to
 
 @@ description
-Save byte data to a file. If ``filename`` is not an absolute path, it will be saved relative to the current working directory (:doc:`sketch_sketch_path`). The saved file can be reloaded with :doc:`sketch_load_bytes`.
+Save byte data to a file. If `filename` is not an absolute path, it will be saved relative to the current working directory ([](sketch_sketch_path)). The saved file can be reloaded with [](sketch_load_bytes).
 
 @@ example
 mouse_x_history = list()

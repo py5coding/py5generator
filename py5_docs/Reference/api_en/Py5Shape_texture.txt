@@ -13,9 +13,9 @@ texture(tex: Py5Image, /) -> None
 tex: Py5Image - reference to a Py5Image object
 
 @@ description
-Sets a texture to be applied to a ``Py5Shape`` object's vertex points. The ``texture()`` function must be called between :doc:`py5shape_begin_shape` and :doc:`py5shape_end_shape` and before any calls to :doc:`py5shape_vertex`. This method only works with the ``P2D`` and ``P3D`` renderers.
+Sets a texture to be applied to a `Py5Shape` object's vertex points. The `texture()` function must be called between [](py5shape_begin_shape) and [](py5shape_end_shape) and before any calls to [](py5shape_vertex). This method only works with the `P2D` and `P3D` renderers.
 
-When textures are in use, the fill color is ignored. Instead, use :doc:`py5shape_tint` to specify the color of the texture as it is applied to the shape.
+When textures are in use, the fill color is ignored. Instead, use [](py5shape_tint) to specify the color of the texture as it is applied to the shape.
 
 @@ example
 image = Py5Shape_texture_0.png

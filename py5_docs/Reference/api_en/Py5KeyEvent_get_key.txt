@@ -8,7 +8,7 @@ processing_name = getKey
 get_key() -> chr
 
 @@ description
-Return the key for the key event. If the value is ``CODED``, use :doc:`py5keyevent_get_key_code` instead. This information can also be obtained with :doc:`sketch_key`.
+Return the key for the key event. If the value is `CODED`, use [](py5keyevent_get_key_code) instead. This information can also be obtained with [](sketch_key).
 
 @@ example
 def setup():

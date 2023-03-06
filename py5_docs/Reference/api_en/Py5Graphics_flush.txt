@@ -12,4 +12,4 @@ flush() -> None
 @@ description
 Flush drawing commands to the renderer. For most renderers, this method does absolutely nothing. There are not a lot of good reasons to use this method, but if you need it, it is available for your use.
 
-This method is the same as :doc:`sketch_flush` but linked to a ``Py5Graphics`` object.
+This method is the same as [](sketch_flush) but linked to a `Py5Graphics` object.

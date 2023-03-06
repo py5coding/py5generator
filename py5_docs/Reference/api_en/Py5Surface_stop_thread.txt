@@ -8,9 +8,9 @@ processing_name = stopThread
 stop_thread() -> bool
 
 @@ description
-Stop the animation thread. The Sketch window will remain open but will be static and unresponsive. Use :doc:`py5surface_is_stopped` to determine if a Sketch has been stopped or not.
+Stop the animation thread. The Sketch window will remain open but will be static and unresponsive. Use [](py5surface_is_stopped) to determine if a Sketch has been stopped or not.
 
-This method is different from :doc:`py5surface_pause_thread` in that it will irreversably stop the animation. Use :doc:`py5surface_pause_thread` and :doc:`py5surface_resume_thread` if you want to pause and resume a running Sketch.
+This method is different from [](py5surface_pause_thread) in that it will irreversably stop the animation. Use [](py5surface_pause_thread) and [](py5surface_resume_thread) if you want to pause and resume a running Sketch.
 
 @@ example
 def draw():

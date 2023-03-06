@@ -8,7 +8,7 @@ processing_name = getY
 get_y() -> int
 
 @@ description
-Return the y position of the mouse at the time of this mouse event. This information can also be obtained with :doc:`sketch_mouse_y`.
+Return the y position of the mouse at the time of this mouse event. This information can also be obtained with [](sketch_mouse_y).
 
 @@ example
 def setup():
