@@ -20,7 +20,6 @@
 import re
 from pathlib import Path
 import argparse
-import textwrap
 from io import StringIO
 from itertools import groupby
 from collections import defaultdict
@@ -106,14 +105,12 @@ MAGIC_TEMPLATE = """{0}
 ## Usage
 
 ```python
-
-    {4}
+{4}
 ```
 
 ## Arguments
 
 ```python
-
 {5}
 ```
 
@@ -184,7 +181,7 @@ def format_examples(name, examples):
             if img:
                 out += f'![example picture for {name}](/images/reference/{img})\n\n'
             out += '</div><div class="example-cell-code">\n\n'
-            out += f'```python\n\n{textwrap.indent(code, "    ")}\n```\n\n'
+            out += f'```python\n{code}\n```\n\n'
             out += '</div></div>\n\n'
         out += '</div>\n'
 
@@ -235,9 +232,9 @@ def format_signatures_variables(signatures, variables):
 
             new_signatures.append(black.format_str(f"def {name}({params}){ret}: pass", mode=black.Mode(line_length=line_length))[4:-11])
 
-        out += '\n## Signatures\n\n```python\n\n'
+        out += '\n## Signatures\n\n```python\n'
         has_multi_line_signature = max(len(s.strip().split('\n')) for s in new_signatures) > 1
-        out += textwrap.indent(('\n\n' if has_multi_line_signature else '\n').join(new_signatures), '    ')
+        out += ('\n\n' if has_multi_line_signature else '\n').join(new_signatures)
         out += '\n```\n'
 
     return out
@@ -344,7 +341,6 @@ def write_doc_md_files(dest_dir, py5_doc_ref_dir):
                 stem.lower(), now_pretty)
         elif item_type in ['line magic', 'cell magic']:
             usage, arguments = magic_help_strings(name, doc.arguments)
-            arguments = textwrap.indent(arguments, prefix='    ')
             title = f'# {name}'
             doc_md = MAGIC_TEMPLATE.format(
                 title, first_sentence, examples,
