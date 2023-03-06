@@ -286,7 +286,7 @@ def magic_help_strings(program_name, argument_data):
     for args, kwargs in argument_args:
         parser.add_argument(*args, **kwargs)
 
-    usage = parser.format_usage()
+    usage = parser.format_usage().strip()
     arguments = parser.format_help()[len(usage):].strip()
     usage = usage[7:]
 
