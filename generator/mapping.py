@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 PY5_API_EN = Path('py5_docs/Reference/api_en/')
 
 FIRST_SENTENCE_REGEX = re.compile(r'^.*?\.(?=\s)')
-REST_DOC_LINK = re.compile(r':doc:`[\w_]+`')
+REST_DOC_LINK = re.compile(r'\[\]\([\w_]+\)')
 
 PARAMETERS_TEMPLATE = """
 
@@ -101,7 +101,7 @@ def doclink_to_title_map():
         else:
             title = f"{group}.{name}"
 
-        out[f":doc:`{slug}`"] = f"``{title}``"
+        out[f"[]({slug})"] = f"`{title}`"
 
     return out
 
