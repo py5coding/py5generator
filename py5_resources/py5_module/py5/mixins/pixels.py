@@ -117,6 +117,9 @@ class PixelMixin:
         elif bands == 'RGBA':
             self._np_pixels[:, :, 0] = array[:, :, 3]
             self._np_pixels[:, :, 1:] = array[:, :, :3]
+        elif bands == 'BGR':
+            self._np_pixels[:, :, 0] = 225
+            self._np_pixels[:, :, 1:] = array[:, :, ::-1]
         self.update_np_pixels()
 
     def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
