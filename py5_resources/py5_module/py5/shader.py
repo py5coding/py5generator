@@ -99,6 +99,12 @@ class Py5Shader:
             o._instance = pshader
             cls._py5_object_cache.add(o)
             return o
+    
+    def __str__(self) -> str:
+        return 'Py5Shader object.'
+    
+    def __repr__(self) -> str:
+        return 'Py5Shader object.'
 
 
 {py5shader_class_members_code}

@@ -161,6 +161,12 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         except Exception:
             pass
 
+    def __str__(self):
+        return 'Py5 Sketch object.'
+
+    def __repr__(self):
+        return f'Py5 Sketch object. Py5Utilities: ' + str(self.utils)
+
     def run_sketch(self, block: bool = None, *,
                    py5_options: list = None, sketch_args: list = None,
                    _osx_alt_run_method: bool = True) -> None:

@@ -106,6 +106,12 @@ class Py5Shape:
             o._instance = pshape
             cls._py5_object_cache.add(o)
             return o
+    
+    def __str__(self) -> str:
+        return 'Py5Shape object.'
+
+    def __repr__(self) -> str:
+        return 'Py5Shape object.'
 
 
 {py5shape_class_members_code}

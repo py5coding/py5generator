@@ -49,6 +49,11 @@ class Py5Surface:
             o._instance = psurface
             cls._py5_object_cache.add(o)
             return o
+    
+    def __str__(self) -> str:
+        return "Py5Surface object."
 
+    def __repr__(self) -> str:
+        return "Py5Surface object."
 
 {py5surface_class_members_code}
