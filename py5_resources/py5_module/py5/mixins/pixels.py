@@ -110,13 +110,21 @@ class PixelMixin:
             self._np_pixels[:, :, 0] = 255
             self._np_pixels[:, :, 1:] = array[:, :, None] if array.ndim == 2 else array
         elif bands == 'ARGB':
-            self._np_pixels[:] = array
+            self._np_pixels[:] = array[:, :, :4]
         elif bands == 'RGB':
             self._np_pixels[:, :, 0] = 255
-            self._np_pixels[:, :, 1:] = array
+            self._np_pixels[:, :, 1:] = array[:, :, :3]
         elif bands == 'RGBA':
             self._np_pixels[:, :, 0] = array[:, :, 3]
             self._np_pixels[:, :, 1:] = array[:, :, :3]
+        elif bands == 'BGR':
+            self._np_pixels[:, :, 0] = 255
+            self._np_pixels[:, :, 1:] = array[:, :, 2::-1]
+        elif bands == 'BGRA':
+            self._np_pixels[:, :, 0] = array[:, :, 3]
+            self._np_pixels[:, :, 1:] = array[:, :, 2::-1]
+        else:
+            raise RuntimeError(f"Unknown `bands` value '{bands}'. Supported values are 'L', 'ARGB', 'RGB', 'RGBA', 'BGR', and 'BGRA'.")
         self.update_np_pixels()
 
     def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
