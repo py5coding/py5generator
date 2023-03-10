@@ -162,10 +162,10 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             pass
 
     def __str__(self):
-        return 'Py5 Sketch object.'
+        return f"Sketch(height={{self._get_height()}}, width={{self._get_width()}})"
 
     def __repr__(self):
-        return f'Py5 Sketch object. Py5Utilities: ' + str(self.utils)
+        return self.__str__()
 
     def run_sketch(self, block: bool = None, *,
                    py5_options: list = None, sketch_args: list = None,
