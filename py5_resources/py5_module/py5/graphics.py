@@ -23,6 +23,7 @@ from __future__ import annotations
 import functools
 from typing import overload  # noqa
 import weakref
+import types
 
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa
@@ -114,21 +115,33 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
         self._context_manager_exit_function(*self._context_manager_exit_args)
 
     def points(self, coordinates):
+        if isinstance(coordinates, types.GeneratorType):
+            coordinates = list(coordinates)
         _Py5GraphicsHelper.points(self._instance, coordinates)
 
     def lines(self, coordinates):
+        if isinstance(coordinates, types.GeneratorType):
+            coordinates = list(coordinates)
         _Py5GraphicsHelper.lines(self._instance, coordinates)
 
     def vertices(self, coordinates):
+        if isinstance(coordinates, types.GeneratorType):
+            coordinates = list(coordinates)
         _Py5GraphicsHelper.vertices(self._instance, coordinates)
 
     def bezier_vertices(self, coordinates):
+        if isinstance(coordinates, types.GeneratorType):
+            coordinates = list(coordinates)
         _Py5GraphicsHelper.bezierVertices(self._instance, coordinates)
 
     def curve_vertices(self, coordinates):
+        if isinstance(coordinates, types.GeneratorType):
+            coordinates = list(coordinates)
         _Py5GraphicsHelper.curveVertices(self._instance, coordinates)
 
     def quadratic_vertices(self, coordinates):
+        if isinstance(coordinates, types.GeneratorType):
+            coordinates = list(coordinates)
         _Py5GraphicsHelper.quadraticVertices(self._instance, coordinates)
 
 

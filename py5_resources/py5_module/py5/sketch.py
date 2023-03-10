@@ -28,6 +28,7 @@ import warnings
 from io import BytesIO
 from pathlib import Path
 import functools
+import types
 import uuid
 from typing import overload, Any, Callable, Union  # noqa
 
@@ -86,6 +87,15 @@ def _auto_convert_to_py5image(f):
             args = self_.create_image_from_numpy(args_index.array, args_index.bands), *args[1:]
         elif not isinstance(args_index, (Py5Image, Py5Graphics)) and _convertable(args_index):
             args = self_.convert_image(args_index), *args[1:]
+        return f(self_, *args)
+    return decorated
+
+
+def _generator_to_list(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        if isinstance(args[0], types.GeneratorType):
+            args = list(args[0]), *args[1:]
         return f(self_, *args)
     return decorated
 
