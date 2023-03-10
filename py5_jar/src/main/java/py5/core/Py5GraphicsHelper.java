@@ -24,6 +24,11 @@ import processing.core.PGraphics;
 public class Py5GraphicsHelper {
 
   public static void points(PGraphics g, float[][] coordinates) {
+    if (coordinates.length == 0) {
+      // no points
+      return;
+    }
+
     g.beginShape(PGraphics.POINTS);
     if (coordinates[0].length == 2) {
       for (int i = 0; i < coordinates.length; ++i) {
@@ -40,6 +45,11 @@ public class Py5GraphicsHelper {
   }
 
   public static void lines(PGraphics g, float[][] coordinates) {
+    if (coordinates.length == 0) {
+      // no lines
+      return;
+    }
+
     g.beginShape(PGraphics.LINES);
     if (coordinates[0].length == 4) {
       for (int i = 0; i < coordinates.length; ++i) {
@@ -58,6 +68,11 @@ public class Py5GraphicsHelper {
   }
 
   public static void vertices(PGraphics g, float[][] coordinates) {
+    if (coordinates.length == 0) {
+      // no vertices
+      return;
+    }
+
     if (coordinates[0].length == 2) {
       for (int i = 0; i < coordinates.length; ++i) {
         g.vertex(coordinates[i][0], coordinates[i][1]);
@@ -85,6 +100,11 @@ public class Py5GraphicsHelper {
   }
 
   public static void bezierVertices(PGraphics g, float[][] coordinates) {
+    if (coordinates.length == 0) {
+      // no vertices
+      return;
+    }
+
     if (coordinates[0].length == 6) {
       for (int i = 0; i < coordinates.length; ++i) {
         g.bezierVertex(coordinates[i][0], coordinates[i][1], coordinates[i][2], coordinates[i][3], coordinates[i][4],
@@ -101,6 +121,11 @@ public class Py5GraphicsHelper {
   }
 
   public static void curveVertices(PGraphics g, float[][] coordinates) {
+    if (coordinates.length == 0) {
+      // no vertices
+      return;
+    }
+
     if (coordinates[0].length == 2) {
       for (int i = 0; i < coordinates.length; ++i) {
         g.curveVertex(coordinates[i][0], coordinates[i][1]);
@@ -115,6 +140,11 @@ public class Py5GraphicsHelper {
   }
 
   public static void quadraticVertices(PGraphics g, float[][] coordinates) {
+    if (coordinates.length == 0) {
+      // no vertices
+      return;
+    }
+
     if (coordinates[0].length == 4) {
       for (int i = 0; i < coordinates.length; ++i) {
         g.quadraticVertex(coordinates[i][0], coordinates[i][1], coordinates[i][2], coordinates[i][3]);
