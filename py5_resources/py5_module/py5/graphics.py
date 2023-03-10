@@ -94,6 +94,13 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
         self._instance = pgraphics
         super().__init__(instance=pgraphics)
 
+    def __str__(self) -> str:
+        return f"CreateFontTool(font_name='{{self.font_name()}}', font_size={{self.font_size()}})"
+
+    def __repr__(self) -> str:
+        return self.__str__()
+
+
     def _activate_context_manager(self, exit_function, exit_args):
         self._context_manager_exit_function = exit_function
         self._context_manager_exit_args = exit_args

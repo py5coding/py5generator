@@ -101,10 +101,10 @@ class Py5Shader:
             return o
     
     def __str__(self) -> str:
-        return 'Py5Shader object.'
+        return f"Py5Shader(id={{id(self)}})"
     
     def __repr__(self) -> str:
-        return 'Py5Shader object.'
+        return self.__str__()
 
 
 {py5shader_class_members_code}

@@ -108,10 +108,10 @@ class Py5Shape:
             return o
     
     def __str__(self) -> str:
-        return 'Py5Shape object.'
+        return f"Py5Shape({{self.get_name()}})"
 
     def __repr__(self) -> str:
-        return 'Py5Shape object.'
+        return self.__str__()
 
 
 {py5shape_class_members_code}

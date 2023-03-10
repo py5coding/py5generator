@@ -30,6 +30,12 @@ class CreateFontTool(Sketch):
         self.filename = filename or f'{font_name}-{font_size}.vlw'
         self.characters = characters
 
+    def __str__(self):
+        return f"CreateFontTool(font_name='{{self.font_name}}', font_size={{self.font_size}})"
+
+    def __repr__(self):
+        return f"CreateFontTool(font_name='{{self.font_name}}', font_size={{self.font_size}}), pause={{self.pause}}"
+
     def settings(self):
         self.size(400, 100, self.P2D)
 

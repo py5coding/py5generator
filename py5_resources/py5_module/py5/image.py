@@ -63,6 +63,12 @@ class Py5Image(PixelPy5ImageMixin, Py5Base):
 
         self._instance = pimage
         super().__init__(instance=pimage)
+    
+    def __str__(self) -> str:
+        return f"Py5Image(height={{self._get_height()}}, width={{self._get_width()}})"
+
+    def __repr__(self) -> str:
+        return self.__str__()
 
 
 {py5image_class_members_code}
