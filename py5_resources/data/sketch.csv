@@ -625,12 +625,12 @@ stop_thread,,,method,structure,threading,PYTHON,implemented in mixin file thread
 stop_all_threads,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
 list_threads,,,method,structure,threading,PYTHON,implemented in mixin file threads.py
 HIDDEN,HIDDEN,,static field,,,JAVA,hidden version of default renderer
-points,points,,method,shape,2d_primitives,JAVA,implemented by me in Py5GraphicsHelper
-lines,lines,,method,shape,2d_primitives,JAVA,implemented by me in Py5GraphicsHelper
-vertices,vertices,,method,shape,vertex,JAVA,implemented by me in Py5GraphicsHelper
-bezier_vertices,bezierVertices,,method,shape,vertex,JAVA,implemented by me in Py5GraphicsHelper
-curve_vertices,curveVertices,,method,shape,vertex,JAVA,implemented by me in Py5GraphicsHelper
-quadratic_vertices,quadraticVertices,,method,shape,vertex,JAVA,implemented by me in Py5GraphicsHelper
+points,points,@_generator_to_list,method,shape,2d_primitives,JAVA,implemented by me in Py5GraphicsHelper
+lines,lines,@_generator_to_list,method,shape,2d_primitives,JAVA,implemented by me in Py5GraphicsHelper
+vertices,vertices,@_generator_to_list,method,shape,vertex,JAVA,implemented by me in Py5GraphicsHelper
+bezier_vertices,bezierVertices,@_generator_to_list,method,shape,vertex,JAVA,implemented by me in Py5GraphicsHelper
+curve_vertices,curveVertices,@_generator_to_list,method,shape,vertex,JAVA,implemented by me in Py5GraphicsHelper
+quadratic_vertices,quadraticVertices,@_generator_to_list,method,shape,vertex,JAVA,implemented by me in Py5GraphicsHelper
 is_ready,,,dynamic variable,structure,,PYTHON,property to determine sketch state
 is_running,,,dynamic variable,structure,,PYTHON,property to determine sketch state
 is_dead,,,dynamic variable,structure,,PYTHON,property to determine sketch state
