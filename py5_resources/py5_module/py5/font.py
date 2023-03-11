@@ -83,5 +83,11 @@ class Py5Font:
             cls._py5_object_cache.add(o)
             return o
 
+    def __str__(self) -> str:
+        return "Py5Font(font_name='" + self.get_name() + "', font_size=" + str(self.get_size()) + ")"
+
+    def __repr__(self) -> str:
+        return self.__str__()
+
 
 {py5font_class_members_code}

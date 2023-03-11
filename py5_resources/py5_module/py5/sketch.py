@@ -171,6 +171,12 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         except Exception:
             pass
 
+    def __str__(self):
+        return f"Sketch(width=" + str(self._get_width()) + ", height=" + str(self._get_height()) + ")"
+
+    def __repr__(self):
+        return self.__str__()
+
     def run_sketch(self, block: bool = None, *,
                    py5_options: list = None, sketch_args: list = None,
                    _osx_alt_run_method: bool = True) -> None:

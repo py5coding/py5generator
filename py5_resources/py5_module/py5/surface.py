@@ -50,5 +50,11 @@ class Py5Surface:
             cls._py5_object_cache.add(o)
             return o
 
+    def __str__(self) -> str:
+        return f"Py5Surface(id=" + str(id(self)) + ")"
+
+    def __repr__(self) -> str:
+        return self.__str__()
+
 
 {py5surface_class_members_code}
