@@ -31,13 +31,11 @@ class CreateFontTool(Sketch):
         self.characters = characters
 
     def __str__(self) -> str:
-        return f"CreateFontTool(font_name='" + \
-                self.font_name + "', font_size=" + \
-                str(self.font_size) + ")"
+        return f"CreateFontTool(font_name='" + self.font_name + "', font_size=" + str(self.font_size) + ")"
 
     def __repr__(self) -> str:
         return self.__str__()
-    
+
     def settings(self):
         self.size(400, 100, self.P2D)
 
