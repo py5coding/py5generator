@@ -23,6 +23,7 @@ from typing import Union
 import operator
 from collections.abc import Sequence, Iterable
 import re
+import warnings
 
 import numpy as np
 import numpy.typing as npt
@@ -405,13 +406,12 @@ class Py5Vector(Sequence):
     def set_mag(self, mag: float) -> Py5Vector:
         """$class_Py5Vector_mag
         """
-        if mag < 0:
-            raise RuntimeError('Cannot set magnitude to a negative number')
-        elif mag == 0:
+        if mag == 0:
             self._data[:] = 0
         else:
             self.normalize()
             self._data *= mag
+
         return self
 
     def _get_mag_sq(self) -> float:
@@ -439,7 +439,7 @@ class Py5Vector(Sequence):
             self._data /= mag
             return self
         else:
-            raise RuntimeError('Cannot normalize Py5Vector of zeros')
+            warnings.warn('Using normalize on a vector of zero magnitude has no effect', stacklevel=2)
 
     def _get_norm(self) -> Py5Vector:
         """$class_Py5Vector_norm
