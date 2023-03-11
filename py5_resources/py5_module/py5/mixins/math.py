@@ -22,6 +22,7 @@ from __future__ import annotations
 import warnings
 import traceback
 from pathlib import Path
+import types
 from typing import overload, Union, Any
 
 import numpy as np
@@ -261,17 +262,25 @@ class MathMixin:
 
     def random_choice(self, objects: list[Any]) -> Any:
         """$class_Sketch_random_choice"""
-        if objects:
+        if len(objects):
             return objects[self._rng.integers(0, len(objects))]
         else:
             return None
 
-    def random_sample(self, objects: list[Any], size: int=1, replace: bool=True) -> npt.NDArray:
+    def random_sample(self, objects: list[Any], size: int=1, replace: bool=True) -> list[Any]:
         """$class_Sketch_random_sample"""
-        if objects:
-            return self._rng.choice(objects, size=size, replace=replace)
+        if len(objects):
+            if isinstance(objects, types.GeneratorType):
+                objects = list(objects)
+            indices = self._rng.choice(range(len(objects)), size=size, replace=replace)
+            if not isinstance(objects, list):
+                try:
+                    return objects[indices]
+                except:
+                    pass
+            return [objects[idx] for idx in indices]
         else:
-            return np.array([], dtype='O')
+            return []
 
     @overload
     def random_gaussian(self) -> float:
