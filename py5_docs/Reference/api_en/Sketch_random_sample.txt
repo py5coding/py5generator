@@ -1,0 +1,26 @@
+@@ meta
+name = random_sample()
+type = method
+category = math
+subcategory = random
+
+@@ signatures
+random_sample(objects: list[Any], size: int=1, replace: bool=True) -> list[Any]
+
+@@ variables
+objects: list[Any] - list of objects to choose from
+replace: bool=True - whether to select random items with or without replacement
+size: int=1 - number of random items to select
+
+@@ description
+Select random items from a list. The list items can be of any type. If multiple items are selected, this function will by default allow the same item to be selected multiple times. Set the `replace` parameter to `False` to prevent the same item from being selected multiple times.
+
+The returned value will always be a sequence such as a list or numpy array, even if only one item is sampled. If you only want to sample one item, consider using [](sketch_random_choice) instead. If the list of objects is empty, an empty list will be returned.
+
+This function's randomness can be influenced by [](sketch_random_seed), and makes calls to numpy to select the random items.
+
+@@ example
+def setup():
+    words = ["apple", "bear", "cat", "dog"]
+    word = py5.random_sample(words)
+    py5.println(word)  # Prints one of the four words
