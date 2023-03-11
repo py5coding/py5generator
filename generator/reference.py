@@ -139,7 +139,7 @@ EXTRA_METHOD_SIGNATURES = {
         (['dirname: str', '*', "filename: str = 'frame_####.png'",
           'period: float = 0.0', 'start: int = None', 'limit: int = 0',
           'sketch: Sketch = None', 'hook_post_draw: bool = False',
-          'block: bool = False'], 'None')
+          'block: bool = False', 'display_progress: bool = True'], 'None')
     ],
     ('Py5Tools', 'animated_gif'): [
         (['filename: str', 'count: int', 'period: float', 'duration: float', '*',

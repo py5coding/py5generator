@@ -75,7 +75,7 @@ def screenshot(*, sketch: Sketch = None, hook_post_draw: bool = False) -> PIL.Im
 def save_frames(dirname: str, *, filename: str = 'frame_####.png',
                 period: float = 0.0, start: int = None, limit: int = 0,
                 sketch: Sketch = None, hook_post_draw: bool = False,
-                block: bool = False) -> None:
+                block: bool = False, display_progress: bool = True) -> None:
     """$module_Py5Tools_save_frames"""
     import py5
     if sketch is None:
@@ -101,7 +101,7 @@ def save_frames(dirname: str, *, filename: str = 'frame_####.png',
     if not dirname.exists():
         dirname.mkdir(parents=True)
 
-    hook = SaveFramesHook(dirname, filename, period, start, limit)
+    hook = SaveFramesHook(dirname, filename, period, start, limit, display_progress)
     sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
     if block:
