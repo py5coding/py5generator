@@ -100,11 +100,5 @@ class Py5Shader:
             cls._py5_object_cache.add(o)
             return o
     
-    def __str__(self) -> str:
-        return f"Py5Shader(id={{id(self)}})"
-    
-    def __repr__(self) -> str:
-        return self.__str__()
-
 
 {py5shader_class_members_code}

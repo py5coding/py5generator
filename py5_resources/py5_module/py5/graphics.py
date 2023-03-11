@@ -96,7 +96,9 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
         super().__init__(instance=pgraphics)
 
     def __str__(self) -> str:
-        return f"Py5Graphics(height='{{self._get_height()}}', width={{self._get_width()}})"
+        return f"Py5Graphics(height=" + \
+                str(self._get_height()) + ", width=" + \
+                str(self._get_width()) + ")"
 
     def __repr__(self) -> str:
         return self.__str__()

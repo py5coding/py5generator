@@ -107,10 +107,12 @@ class Py5Shape:
             cls._py5_object_cache.add(o)
             return o
     
-    def __str__(self) -> str:
-        return f"Py5Shape({{self.get_name()}})"
+    def __str__(self):
+        name = "'" + self.get_name() + "'" if self.get_name() else str(None)
+        return f"Py5Shape(name=" + \
+                name + ")"
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return self.__str__()
 
 

@@ -51,8 +51,8 @@ class Py5Surface:
             return o
     
     def __str__(self) -> str:
-        return f"Py5Surface(id={{id(self)}})"
-    
+        return f"Py5Surface(id=" + str(id(self)) + ")"
+
     def __repr__(self) -> str:
         return self.__str__()
 

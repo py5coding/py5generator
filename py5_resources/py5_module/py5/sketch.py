@@ -172,8 +172,10 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             pass
 
     def __str__(self):
-        return f"Sketch(height={{self._get_height()}}, width={{self._get_width()}})"
-
+        return f"Sketch(height=" + \
+                str(self._get_height()) + ", width=" + \
+                str(self._get_width()) + ")"
+    
     def __repr__(self):
         return self.__str__()
 
