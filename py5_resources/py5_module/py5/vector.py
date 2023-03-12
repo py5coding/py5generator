@@ -439,7 +439,7 @@ class Py5Vector(Sequence):
             self._data /= mag
             return self
         else:
-            warnings.warn('Using normalize on a vector of zero magnitude has no effect', stacklevel=2)
+            warnings.warn('Using normalize on a zero vector has no effect', stacklevel=2)
 
     def _get_norm(self) -> Py5Vector:
         """$class_Py5Vector_norm
