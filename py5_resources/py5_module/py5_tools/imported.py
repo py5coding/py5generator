@@ -95,7 +95,7 @@ _CODE_FRAMEWORK = """{0}
 
 
 
-run_sketch(block=True, py5_options={2}, sketch_args={3})
+run_sketch(block={4}, py5_options={2}, sketch_args={3})
 if {1} and is_dead_from_error:
     exit_sketch()
 """
@@ -114,8 +114,8 @@ def is_static_mode(code):
     return no_settings and no_setup and no_draw
 
 
-def run_code(sketch_path, classpath=None, new_process=False, exit_if_error=False,
-             py5_options=None, sketch_args=None):
+def run_code(sketch_path, *, classpath=None, new_process=False, exit_if_error=False,
+             py5_options=None, sketch_args=None, block=True):
     sketch_path = Path(sketch_path)
     if not sketch_path.exists():
         print(f'file {sketch_path} not found')
@@ -125,12 +125,12 @@ def run_code(sketch_path, classpath=None, new_process=False, exit_if_error=False
         code = f.read()
 
     if is_static_mode(code):
-        _run_static_code(code, sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args)
+        _run_static_code(code, sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args, block)
     else:
-        _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args, sketch_path)
+        _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args, sketch_path, block)
 
 
-def _run_static_code(code, sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args):
+def _run_static_code(code, sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args, block):
     success, result = parsing.check_for_problems(code, sketch_path)
     if success:
         py5static_globals, py5static_settings, py5static_setup = result
@@ -154,12 +154,12 @@ def _run_static_code(code, sketch_path, classpath, new_process, exit_if_error, p
         with open(new_sketch_path, 'w') as f:
             f.write(new_sketch_code)
 
-        _run_code(new_sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args, sketch_path)
+        _run_code(new_sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args, sketch_path, block)
     else:
         print(result, file=sys.stderr)
 
 
-def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args, original_sketch_path):
+def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args, original_sketch_path, block):
     def _run_sketch(sketch_path, classpath, exit_if_error):
         if not jvm.is_jvm_running():
             if classpath:
@@ -183,7 +183,7 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, s
             # this will make sure indentation and syntax errors are correctly attributed to the user's code and not the _CODE_FRAMEWORK template
             ast.parse(user_code, filename=sketch_path, mode='exec')
             # now do the real parsing
-            sketch_code = _CODE_FRAMEWORK.format(user_code, exit_if_error, py5_options_str, sketch_args_str)
+            sketch_code = _CODE_FRAMEWORK.format(user_code, exit_if_error, py5_options_str, sketch_args_str, block)
             sketch_ast = ast.parse(sketch_code, filename=sketch_path, mode='exec')
         except IndentationError as e:
             msg = f'There is an indentation problem with your code on line {e.lineno}:\n'
