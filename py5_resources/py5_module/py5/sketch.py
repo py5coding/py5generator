@@ -450,7 +450,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def _generic_select(self, py5f: Callable, name: str, prompt: str, callback: Callable, default_folder: str = None) -> None:
         key = "_PY5_SELECT_CALLBACK_" + str(uuid.uuid4())
-        py5_tools.config.register_processing_mode_key(key, lambda x: callback(Path(x)), callback_once=True)
+        py5_tools.config.register_processing_mode_key(key, lambda x: callback(x if x is None else Path(x)), callback_once=True)
 
         if platform.system() == 'Darwin':
             if self._environ.in_ipython_session:
