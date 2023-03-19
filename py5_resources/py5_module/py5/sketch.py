@@ -451,7 +451,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def _generic_select(self, py5f: Callable, name: str, prompt: str, callback: Callable, default_folder: str = None) -> None:
         callback_sig = inspect.signature(callback)
-        if len(callback_sig.parameters) != 1:
+        if len(callback_sig.parameters) != 1 or list(callback_sig.parameters.values())[0].kind == inspect.Parameter.KEYWORD_ONLY:
             raise RuntimeError("The callback function must have one and only one positional argument")
 
         key = "_PY5_SELECT_CALLBACK_" + str(uuid.uuid4())
