@@ -11,10 +11,14 @@ set_pixels(x: int, y: int, c: int, /) -> None
 set_pixels(x: int, y: int, img: Py5Image, /) -> None
 
 @@ variables
-c: int - missing variable description
-img: Py5Image - missing variable description
-x: int - missing variable description
-y: int - missing variable description
+c: int - any color value
+img: Py5Image - image to copy into the Sketch window
+x: int - x-coordinate of the pixel
+y: int - y-coordinate of the pixel
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Changes the color of any pixel or writes an image directly into the drawing surface.
+
+The `x` and `y` parameters specify the pixel to change and the color parameter specifies the color value. The color parameter `c` is affected by the current color mode (the default is RGB values from 0 to 255). When setting an image, the `x` and `y` parameters define the coordinates for the upper-left corner of the image, regardless of the current [](sketch_image_mode).
+
+Setting the color of a single pixel with `py5.set_pixels(x, y)` is easy, but not as fast as putting the data directly into [](sketch_pixels). The equivalent statement to `py5.set_pixels(x, y, 0)` using [](sketch_pixels) is `py5.pixels[y*py5.width+x] = 0`. See the reference for [](sketch_pixels) for more information.
