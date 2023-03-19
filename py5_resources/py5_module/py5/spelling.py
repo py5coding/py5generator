@@ -55,8 +55,7 @@ def candidates(word, dictionary):
 
 
 def suggestions(word, dictionary):
-    words = candidates(word, dictionary)
-    words = ['"' + w + '"' for w in words]
+    words = ['"' + w + '"' for w in sorted(candidates(word, dictionary))]
     if len(words) == 0:
         return None
     elif len(words) == 1:
