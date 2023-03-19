@@ -159,7 +159,6 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_bridge = None
         self._environ = None
-        self._dictionary = set(dir(self))
         iconPath = Path(__file__).parent.parent / 'py5_tools/resources/logo-64x64.png'
         if iconPath.exists() and hasattr(self._instance, 'setPy5IconPath'):
             self._instance.setPy5IconPath(str(iconPath))
@@ -182,7 +181,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def __getattr__(self, name):
         msg = 'Sketch objects have no fields or methods named "' + name + '"'
-        if (suggestions := spelling.suggestions(name, self._dictionary)):
+        if (suggestions := spelling.suggestions(name, set(dir(self)))):
             msg += '. Did you mean ' + suggestions + '?'
         raise AttributeError(msg)
 

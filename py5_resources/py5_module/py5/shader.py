@@ -32,6 +32,7 @@ from .image import Py5Image  # noqa
 from jpype.types import JException, JArray, JBoolean, JInt, JFloat  # noqa
 from .pmath import _py5vector_to_pvector, _numpy_to_pvector, _numpy_to_pmatrix2d, _numpy_to_pmatrix3d  # noqa
 from .vector import Py5Vector
+from . import spelling
 
 
 py5shader_class_members_code = None  # DELETE
@@ -106,5 +107,10 @@ class Py5Shader:
     def __repr__(self) -> str:
         return self.__str__()
 
+    def __getattr__(self, name):
+        msg = 'Py5Shader objects have no fields or methods named "' + name + '"'
+        if (suggestions := spelling.suggestions(name, set(dir(self)))):
+            msg += '. Did you mean ' + suggestions + '?'
+        raise AttributeError(msg)
 
 {py5shader_class_members_code}

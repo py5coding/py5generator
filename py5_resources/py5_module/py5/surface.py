@@ -23,6 +23,7 @@ from typing import overload, Any  # noqa
 import weakref
 
 from .image import Py5Image  # noqa
+from . import spelling
 
 
 py5surface_class_members_code = None  # DELETE
@@ -56,5 +57,10 @@ class Py5Surface:
     def __repr__(self) -> str:
         return self.__str__()
 
+    def __getattr__(self, name):
+        msg = 'Py5Surface objects have no fields or methods named "' + name + '"'
+        if (suggestions := spelling.suggestions(name, set(dir(self)))):
+            msg += '. Did you mean ' + suggestions + '?'
+        raise AttributeError(msg)
 
 {py5surface_class_members_code}

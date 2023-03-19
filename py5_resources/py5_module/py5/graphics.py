@@ -95,7 +95,6 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
 
         self._instance = pgraphics
         super().__init__(instance=pgraphics)
-        self._dictionary = set(dir(self))
 
     def __str__(self) -> str:
         return f"Py5Graphics(width=" + str(self._get_width()) + ", height=" + str(self._get_height()) + ")"
@@ -105,7 +104,7 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
 
     def __getattr__(self, name):
         msg = 'Py5Graphics objects have no fields or methods named "' + name + '"'
-        if (suggestions := spelling.suggestions(name, self._dictionary)):
+        if (suggestions := spelling.suggestions(name, set(dir(self)))):
             msg += '. Did you mean ' + suggestions + '?'
         raise AttributeError(msg)
 
