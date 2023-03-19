@@ -231,7 +231,7 @@ println,println,,method,output,text_area,PYTHON,override to provide special prin
 set_println_stream,,,method,output,text_area,PYTHON,special print tools for managing print output from a running sketch
 main,main,,method,,,SKIP,public methods that shouldn't be available to users
 exit_sketch,exit,,method,structure,,JAVA,renamed because of conflict with builtin python function
-get,get,@_return_py5image,method,image,pixels,JAVA,
+get_pixels,get,@_return_py5image,method,image,pixels,JAVA,
 method,method,,method,,,SKIP,
 append,append,,method,data,array_functions,SKIP,user should use python instead
 abs,abs,,method,math,calculation,SKIP,user should use numpy instead
@@ -257,7 +257,7 @@ fill,fill,@_convert_hex_color(),method,color,setting,JAVA,
 apply_filter,filter,,method,image,pixels,JAVA,filter method has name conflict with python builtin function; replaced with apply_filter method
 second,second,,static method,input,time_date,JAVA,
 match,match,,static method,data,string_functions,SKIP,user should use python instead
-set,set,,method,image,pixels,SKIP,conflict with builtin python function
+set_pixels,set,,method,image,pixels,JAVA,
 remap,map,,static method,math,calculation,PYTHON,renamed to remap to avoid conflict with builtin function; implemented in python for performance
 setup,setup,,method,structure,,SKIP,method implemented by user
 debug,debug,,static method,,,SKIP,user should use python instead
