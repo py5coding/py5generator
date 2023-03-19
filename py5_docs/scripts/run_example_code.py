@@ -78,7 +78,7 @@ try:
                     _, code = code.split('\n', maxsplit=1)
                     if image:
                         code += f"\n\nsave('{DEST_DIR / image}')\n"
-                    py5_tools.imported._run_static_code(code, '', None, True, True, py5_options=None, sketch_args=None)
+                    py5_tools.imported._run_static_code(code, '', None, True, True, py5_options=None, sketch_args=None, block=True)
                 else:
                     magic_line, magic_cell = code.split('\n', maxsplit=1)
                     magic, line = magic_line.split(' ', maxsplit=1)
