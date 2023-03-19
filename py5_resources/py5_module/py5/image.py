@@ -73,7 +73,7 @@ class Py5Image(PixelPy5ImageMixin, Py5Base):
         return self.__str__()
 
     def __getattr__(self, name):
-        msg = 'Py5Image objects have no methods or fields named "' + name + '"'
+        msg = 'Py5Image objects have no fields or methods named "' + name + '"'
         if (suggestions := spelling.suggestions(name, self._dictionary)):
             msg += '. Did you mean ' + suggestions + '?'
         raise AttributeError(msg)
