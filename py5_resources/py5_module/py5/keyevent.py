@@ -25,6 +25,8 @@ import weakref
 
 from jpype.types import JInt, JChar
 
+from . import spelling
+
 py5keyevent_class_members_code = None  # DELETE
 
 
@@ -63,5 +65,10 @@ class Py5KeyEvent:
             cls._py5_object_cache.add(o)
             return o
 
+    def __getattr__(self, name):
+        msg = 'Py5KeyEvent objects have no fields or methods named "' + name + '"'
+        if (suggestions := spelling.suggestions(name, set(dir(self)))):
+            msg += '. Did you mean ' + suggestions + '?'
+        raise AttributeError(msg)
 
 {py5keyevent_class_members_code}
