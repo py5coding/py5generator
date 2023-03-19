@@ -162,10 +162,7 @@ def set_stackprinter_style(style: str) -> None:
 
 
 def __getattr__(name):
-    if hasattr(_py5sketch, name):
-        return getattr(_py5sketch, name)
-    else:
-        raise AttributeError('py5 has no function or field named ' + name)
+    return getattr(_py5sketch, name)
 
 
 def __dir__():

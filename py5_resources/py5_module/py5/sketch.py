@@ -58,6 +58,7 @@ from .decorators import _text_fix_str, _convert_hex_color, _context_wrapper  # n
 from .pmath import _get_matrix_wrapper  # noqa
 from . import image_conversion
 from .image_conversion import NumpyImageArray, _convertable
+from . import spelling
 from . import reference
 
 sketch_class_members_code = None  # DELETE
@@ -158,6 +159,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_bridge = None
         self._environ = None
+        self._dictionary = set(dir(self))
         iconPath = Path(__file__).parent.parent / 'py5_tools/resources/logo-64x64.png'
         if iconPath.exists() and hasattr(self._instance, 'setPy5IconPath'):
             self._instance.setPy5IconPath(str(iconPath))
@@ -177,6 +179,12 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def __repr__(self):
         return self.__str__()
+
+    def __getattr__(self, name):
+        msg = 'py5 has no function or field named "' + name + '"'
+        if (suggestions := spelling.suggestions(name, self._dictionary)):
+            msg += '. Did you mean ' + suggestions + '?'
+        raise AttributeError(msg)
 
     def run_sketch(self, block: bool = None, *,
                    py5_options: list = None, sketch_args: list = None,
