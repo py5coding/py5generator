@@ -75,6 +75,7 @@ from .vector import Py5Vector, Py5Vector2D, Py5Vector3D, Py5Vector4D  # noqa
 from py5_tools import split_setup as _split_setup
 from . import reference
 from . import java_conversion  # noqa
+from . import spelling as _spelling
 try:
     from py5_tools.magics import load_ipython_extension  # noqa
 except ImportError:
@@ -162,7 +163,13 @@ def set_stackprinter_style(style: str) -> None:
 
 
 def __getattr__(name):
-    return getattr(_py5sketch, name)
+    if hasattr(_py5sketch, name):
+        return getattr(_py5sketch, name)
+    else:
+        msg = 'py5 has no function or field named "' + name + '"'
+        if (suggestions := _spelling.suggestions(name, _py5sketch._dictionary)):
+            msg += '. Did you mean ' + suggestions + '?'
+        raise AttributeError(msg)
 
 
 def __dir__():

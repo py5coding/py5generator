@@ -181,7 +181,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         return self.__str__()
 
     def __getattr__(self, name):
-        msg = 'py5 has no function or field named "' + name + '"'
+        msg = 'Sketch objects have no methods or fields named "' + name + '"'
         if (suggestions := spelling.suggestions(name, self._dictionary)):
             msg += '. Did you mean ' + suggestions + '?'
         raise AttributeError(msg)
