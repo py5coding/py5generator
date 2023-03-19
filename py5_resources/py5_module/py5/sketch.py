@@ -455,7 +455,11 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             raise RuntimeError("The callback function must have one and only one positional argument")
 
         key = "_PY5_SELECT_CALLBACK_" + str(uuid.uuid4())
-        py5_tools.config.register_processing_mode_key(key, lambda x: callback(x if x is None else Path(x)), callback_once=True)
+
+        def wrapped_callback_py5_no_prune(selection):
+            return callback(selection if selection is None else Path(selection))
+
+        py5_tools.config.register_processing_mode_key(key, wrapped_callback_py5_no_prune, callback_once=True)
 
         if platform.system() == 'Darwin':
             if self._environ.in_ipython_session:
