@@ -25,10 +25,7 @@ import string
 
 
 def edits1(word):
-    if word == word.upper():
-        letters = string.ascii_uppercase + '_'
-    else:
-        letters = string.ascii_lowercase
+    letters = (string.ascii_uppercase if word == word.upper() else string.ascii_lowercase) + '_'
 
     splits = [(word[:i], word[i:]) for i in range(len(word) + 1)]
     deletes = [L + R[1:] for L, R in splits if R]
