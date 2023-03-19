@@ -27,6 +27,7 @@ import platform
 import warnings
 from io import BytesIO
 from pathlib import Path
+import inspect
 import functools
 import types
 import uuid
@@ -449,8 +450,16 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self._generic_select(self._instance.py5SelectOutput, 'select_output', prompt, callback, default_file)
 
     def _generic_select(self, py5f: Callable, name: str, prompt: str, callback: Callable, default_folder: str = None) -> None:
+        callback_sig = inspect.signature(callback)
+        if len(callback_sig.parameters) != 1 or list(callback_sig.parameters.values())[0].kind == inspect.Parameter.KEYWORD_ONLY:
+            raise RuntimeError("The callback function must have one and only one positional argument")
+
         key = "_PY5_SELECT_CALLBACK_" + str(uuid.uuid4())
-        py5_tools.config.register_processing_mode_key(key, callback, callback_once=True)
+
+        def wrapped_callback_py5_no_prune(selection):
+            return callback(selection if selection is None else Path(selection))
+
+        py5_tools.config.register_processing_mode_key(key, wrapped_callback_py5_no_prune, callback_once=True)
 
         if platform.system() == 'Darwin':
             if self._environ.in_ipython_session:

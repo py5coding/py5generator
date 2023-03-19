@@ -90,12 +90,12 @@ def handle_exception(println, exc_type, exc_value, exc_tb):
             tb = exc_tb.tb_next
             while hasattr(tb, 'tb_next') and hasattr(tb, 'tb_frame'):
                 f_code = tb.tb_frame.f_code
-                if f_code.co_filename.startswith(_MODULE_INSTALL_DIR):
+                if f_code.co_filename.startswith(_MODULE_INSTALL_DIR) and not f_code.co_name.contains('py5_no_prune'):
                     py5info.append((Path(f_code.co_filename[(len(_MODULE_INSTALL_DIR) + 1):]).parts,
                                     f_code.co_name))
                     if trim_tb is None:
                         trim_tb = prev_tb
-                elif f_code.co_filename.startswith(_PY5TOOLS_MODULE_INSTALL_DIR):
+                elif f_code.co_filename.startswith(_PY5TOOLS_MODULE_INSTALL_DIR) and not f_code.co_name.contains('py5_no_prune'):
                     py5info.append((Path(f_code.co_filename[(len(_PY5TOOLS_MODULE_INSTALL_DIR) + 1):]).parts,
                                     f_code.co_name))
                     if trim_tb is None:
