@@ -26,6 +26,7 @@ import weakref
 
 from .base import Py5Base
 from .mixins import PixelPy5ImageMixin
+from . import spelling
 
 
 py5image_class_members_code = None  # DELETE
@@ -63,6 +64,7 @@ class Py5Image(PixelPy5ImageMixin, Py5Base):
 
         self._instance = pimage
         super().__init__(instance=pimage)
+        self._dictionary = set(dir(self))
 
     def __str__(self) -> str:
         return f"Py5Image(width=" + str(self._get_width()) + ", height=" + str(self._get_height()) + ")"
@@ -70,5 +72,10 @@ class Py5Image(PixelPy5ImageMixin, Py5Base):
     def __repr__(self) -> str:
         return self.__str__()
 
+    def __getattr__(self, name):
+        msg = 'Py5Image objects have no methods or fields named "' + name + '"'
+        if (suggestions := spelling.suggestions(name, self._dictionary)):
+            msg += '. Did you mean ' + suggestions + '?'
+        raise AttributeError(msg)
 
 {py5image_class_members_code}
