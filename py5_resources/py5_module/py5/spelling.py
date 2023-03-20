@@ -67,7 +67,7 @@ def error_msg(obj_name, word, obj, module=False):
     msg = 'py5 has no field or function' if module else obj_name + ' objects have no fields or methods'
     msg += ' named "' + word + '"'
 
-    if (suggestion_list := suggestions(word, set(dir(obj)))):
+    if word and word[0] != '_' and (suggestion_list := suggestions(word, set(dir(obj)))):
         msg += '. Did you mean ' + suggestion_list + '?'
 
     return msg
