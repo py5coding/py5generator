@@ -51,8 +51,8 @@ def candidates(word, dictionary):
         return known(edits1(word), dictionary) or known(edits2(word), dictionary) or []
 
 
-def suggestions(word, dictionary):
-    words = ['"' + w + '"' for w in sorted(candidates(word, dictionary))]
+def suggestions(word, word_list):
+    words = ['"' + w + '"' for w in sorted(candidates(word, word_list))]
     if len(words) == 0:
         return None
     elif len(words) == 1:
@@ -61,3 +61,13 @@ def suggestions(word, dictionary):
         return words[0] + ' or ' + words[1]
     else:
         return ', '.join(words[:-1]) + ', or ' + words[-1]
+
+
+def error_msg(obj_name, word, obj, module=False):
+    msg = 'py5 has no field or function' if module else obj_name + ' objects have no fields or methods'
+    msg += ' named "' + word + '"'
+
+    if (suggestion_list := suggestions(word, set(dir(obj)))):
+        msg += '. Did you mean ' + suggestion_list + '?'
+
+    return msg

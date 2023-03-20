@@ -180,10 +180,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         return self.__str__()
 
     def __getattr__(self, name):
-        msg = 'Sketch objects have no fields or methods named "' + name + '"'
-        if (suggestions := spelling.suggestions(name, set(dir(self)))):
-            msg += '. Did you mean ' + suggestions + '?'
-        raise AttributeError(msg)
+        raise AttributeError(spelling.error_msg('Sketch', name, self))
 
     def run_sketch(self, block: bool = None, *,
                    py5_options: list = None, sketch_args: list = None,

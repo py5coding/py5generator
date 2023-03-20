@@ -116,9 +116,6 @@ class Py5Shape:
         return self.__str__()
 
     def __getattr__(self, name):
-        msg = 'Py5Shape objects have no fields or methods named "' + name + '"'
-        if (suggestions := spelling.suggestions(name, set(dir(self)))):
-            msg += '. Did you mean ' + suggestions + '?'
-        raise AttributeError(msg)
+        raise AttributeError(spelling.error_msg('Py5Shape', name, self))
 
 {py5shape_class_members_code}

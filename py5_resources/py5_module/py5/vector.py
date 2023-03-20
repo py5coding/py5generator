@@ -124,10 +124,7 @@ class Py5Vector(Sequence):
             else:
                 raise RuntimeError('Invalid swizzle: length must be between 2 and 4 characters')
         else:
-            msg = 'Py5Vector objects have no fields or methods named "' + name + '"'
-            if (suggestions := spelling.suggestions(name, set(dir(self)))):
-                msg += '. Did you mean ' + suggestions + '?'
-            raise AttributeError(msg)
+            raise AttributeError(spelling.error_msg('Py5Vector', name, self))
 
     def __setattr__(self, name, val):
         if name.startswith('_') or not (hasattr(self, '_data') and not (set(name) - set('xyzw'[:self._data.size]))):

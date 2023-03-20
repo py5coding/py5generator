@@ -166,10 +166,7 @@ def __getattr__(name):
     if hasattr(_py5sketch, name):
         return getattr(_py5sketch, name)
     else:
-        msg = 'py5 has no field or function named "' + name + '"'
-        if (suggestions := _spelling.suggestions(name, set(dir(_py5sketch)))):
-            msg += '. Did you mean ' + suggestions + '?'
-        raise AttributeError(msg)
+        raise AttributeError(_spelling.error_msg('', name, _py5sketch, module=True))
 
 
 def __dir__():

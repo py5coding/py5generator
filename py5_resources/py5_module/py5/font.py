@@ -91,9 +91,6 @@ class Py5Font:
         return self.__str__()
 
     def __getattr__(self, name):
-        msg = 'Py5Font objects have no fields or methods named "' + name + '"'
-        if (suggestions := spelling.suggestions(name, set(dir(self)))):
-            msg += '. Did you mean ' + suggestions + '?'
-        raise AttributeError(msg)
+        raise AttributeError(spelling.error_msg('Py5Font', name, self))
 
 {py5font_class_members_code}

@@ -103,10 +103,7 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
         return self.__str__()
 
     def __getattr__(self, name):
-        msg = 'Py5Graphics objects have no fields or methods named "' + name + '"'
-        if (suggestions := spelling.suggestions(name, set(dir(self)))):
-            msg += '. Did you mean ' + suggestions + '?'
-        raise AttributeError(msg)
+        raise AttributeError(spelling.error_msg('Py5Graphics', name, self))
 
     def _activate_context_manager(self, exit_function, exit_args):
         self._context_manager_exit_function = exit_function
