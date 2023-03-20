@@ -20,8 +20,8 @@
 import string
 
 
-# many thanks to Peter Norvig (http://norvig.com/spell-correct.html) for his
-# spelling corrector tutorial.
+# many thanks to Peter Norvig for his spelling corrector tutorial:
+# http://norvig.com/spell-correct.html
 
 
 def edits1(word):
