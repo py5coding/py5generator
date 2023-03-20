@@ -48,7 +48,7 @@ def candidates(word, dictionary):
     if word in dictionary:
         return set([word])
     else:
-        return known(edits1(word), dictionary) or known(edits2(word), dictionary) or []
+        return known(edits1(word), dictionary) or (len(word) <= 10 and known(edits2(word), dictionary)) or []
 
 
 def suggestions(word, word_list):
