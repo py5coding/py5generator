@@ -29,6 +29,7 @@ from jpype import JException, JArray, JString  # noqa
 
 from .shape import Py5Shape, _return_py5shape  # noqa
 from .decorators import _ret_str  # noqa
+from . import spelling
 
 
 py5font_class_members_code = None  # DELETE
@@ -89,5 +90,7 @@ class Py5Font:
     def __repr__(self) -> str:
         return self.__str__()
 
+    def __getattr__(self, name):
+        raise AttributeError(spelling.error_msg('Py5Font', name, self))
 
 {py5font_class_members_code}

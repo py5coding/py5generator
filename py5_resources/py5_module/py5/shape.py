@@ -33,6 +33,7 @@ from jpype.types import JBoolean, JInt, JFloat
 
 from .pmath import _get_pvector_wrapper  # noqa
 from .decorators import _ret_str, _convert_hex_color, _convert_hex_color2, _context_wrapper  # noqa
+from . import spelling
 
 
 py5shape_class_members_code = None  # DELETE
@@ -114,5 +115,7 @@ class Py5Shape:
     def __repr__(self):
         return self.__str__()
 
+    def __getattr__(self, name):
+        raise AttributeError(spelling.error_msg('Py5Shape', name, self))
 
 {py5shape_class_members_code}

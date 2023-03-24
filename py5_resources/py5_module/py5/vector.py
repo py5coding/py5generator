@@ -28,6 +28,8 @@ import warnings
 import numpy as np
 import numpy.typing as npt
 
+from . import spelling
+
 
 class Py5Vector(Sequence):
     """$classdoc_Py5Vector
@@ -122,7 +124,7 @@ class Py5Vector(Sequence):
             else:
                 raise RuntimeError('Invalid swizzle: length must be between 2 and 4 characters')
         else:
-            raise AttributeError(f"'Py5Vector' object has no attribute '{name}'")
+            raise AttributeError(spelling.error_msg('Py5Vector', name, self))
 
     def __setattr__(self, name, val):
         if name.startswith('_') or not (hasattr(self, '_data') and not (set(name) - set('xyzw'[:self._data.size]))):

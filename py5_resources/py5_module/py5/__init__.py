@@ -75,6 +75,7 @@ from .vector import Py5Vector, Py5Vector2D, Py5Vector3D, Py5Vector4D  # noqa
 from py5_tools import split_setup as _split_setup
 from . import reference
 from . import java_conversion  # noqa
+from . import spelling as _spelling
 try:
     from py5_tools.magics import load_ipython_extension  # noqa
 except ImportError:
@@ -165,7 +166,7 @@ def __getattr__(name):
     if hasattr(_py5sketch, name):
         return getattr(_py5sketch, name)
     else:
-        raise AttributeError('py5 has no function or field named ' + name)
+        raise AttributeError(_spelling.error_msg('', name, _py5sketch, module=True))
 
 
 def __dir__():

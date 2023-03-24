@@ -38,6 +38,7 @@ from .shape import Py5Shape, _return_py5shape, _load_py5shape  # noqa
 from .image import Py5Image, _return_py5image  # noqa
 from .decorators import _text_fix_str, _convert_hex_color, _context_wrapper  # noqa
 from .pmath import _get_matrix_wrapper  # noqa
+from . import spelling
 
 
 py5graphics_class_members_code = None  # DELETE
@@ -100,6 +101,9 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
 
     def __repr__(self) -> str:
         return self.__str__()
+
+    def __getattr__(self, name):
+        raise AttributeError(spelling.error_msg('Py5Graphics', name, self))
 
     def _activate_context_manager(self, exit_function, exit_args):
         self._context_manager_exit_function = exit_function

@@ -26,6 +26,7 @@ import weakref
 
 from .base import Py5Base
 from .mixins import PixelPy5ImageMixin
+from . import spelling
 
 
 py5image_class_members_code = None  # DELETE
@@ -70,5 +71,7 @@ class Py5Image(PixelPy5ImageMixin, Py5Base):
     def __repr__(self) -> str:
         return self.__str__()
 
+    def __getattr__(self, name):
+        raise AttributeError(spelling.error_msg('Py5Image', name, self))
 
 {py5image_class_members_code}

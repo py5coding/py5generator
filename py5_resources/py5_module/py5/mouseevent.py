@@ -22,6 +22,8 @@ from __future__ import annotations
 
 import weakref
 
+from . import spelling
+
 py5mouseevent_class_members_code = None  # DELETE
 
 
@@ -40,5 +42,7 @@ class Py5MouseEvent:
             cls._py5_object_cache.add(o)
             return o
 
+    def __getattr__(self, name):
+        raise AttributeError(spelling.error_msg('Py5MouseEvent', name, self))
 
 {py5mouseevent_class_members_code}

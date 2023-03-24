@@ -25,6 +25,8 @@ import weakref
 
 from jpype.types import JInt, JChar
 
+from . import spelling
+
 py5keyevent_class_members_code = None  # DELETE
 
 
@@ -63,5 +65,7 @@ class Py5KeyEvent:
             cls._py5_object_cache.add(o)
             return o
 
+    def __getattr__(self, name):
+        raise AttributeError(spelling.error_msg('Py5KeyEvent', name, self))
 
 {py5keyevent_class_members_code}

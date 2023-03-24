@@ -23,6 +23,7 @@ from typing import overload, Any  # noqa
 import weakref
 
 from .image import Py5Image  # noqa
+from . import spelling
 
 
 py5surface_class_members_code = None  # DELETE
@@ -56,5 +57,7 @@ class Py5Surface:
     def __repr__(self) -> str:
         return self.__str__()
 
+    def __getattr__(self, name):
+        raise AttributeError(spelling.error_msg('Py5Surface', name, self))
 
 {py5surface_class_members_code}

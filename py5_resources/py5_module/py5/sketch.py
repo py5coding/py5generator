@@ -58,6 +58,7 @@ from .decorators import _text_fix_str, _convert_hex_color, _context_wrapper  # n
 from .pmath import _get_matrix_wrapper  # noqa
 from . import image_conversion
 from .image_conversion import NumpyImageArray, _convertable
+from . import spelling
 from . import reference
 
 sketch_class_members_code = None  # DELETE
@@ -177,6 +178,9 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def __repr__(self):
         return self.__str__()
+
+    def __getattr__(self, name):
+        raise AttributeError(spelling.error_msg('Sketch', name, self))
 
     def run_sketch(self, block: bool = None, *,
                    py5_options: list = None, sketch_args: list = None,
