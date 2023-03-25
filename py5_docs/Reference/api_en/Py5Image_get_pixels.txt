@@ -29,11 +29,11 @@ image = Py5Image_get_pixels_0.png
 
 def setup():
     mountains = py5.load_image("rockies.jpg")
-    py5.background(mountains)
-    py5.no_stroke()
     c = mountains.get_pixels(60, 90)
-    py5.fill(c)
-    py5.rect(25, 25, 50, 50)
+    for i in range(25, 75):
+        for j in range(25, 75):
+            mountains.set_pixels(i, j, c)
+    py5.image(mountains, 0, 0)
 
 @@ example
 image = Py5Image_get_pixels_1.png
