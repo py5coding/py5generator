@@ -45,8 +45,8 @@ class Py5MouseEvent:
     def __str__(self):
         action = self.get_action()
         action_str = 'UNKNOWN'
-        for k in dir(self):
-            if k == k.upper() and action == getattr(self, k):
+        for k, v in Py5MouseEvent.__dict__.items():
+            if k == k.upper() and action == v:
                 action_str = k
                 break
         return f"Py5MouseEvent(x=" + str(self.get_x()) + ", y=" + str(self.get_y()) + ", action=" + action_str + ")"
