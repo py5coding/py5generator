@@ -280,7 +280,7 @@ class Py5Bridge:
                     elif hasattr(subd, '__dir__') or hasattr(subd, '__dict__'):
                         d = {k: getattr(subd, k) for k in dir(subd)}
                     else:
-                        return _JAVA_RUNTIMEEXCEPTION(f'{s} in key {key} does not map to dict or object with __dict__ attribute')
+                        return _JAVA_RUNTIMEEXCEPTION(f'{s} in key {key} does not map to a dict or an object that can be inspected with dir()')
                 else:
                     return _JAVA_RUNTIMEEXCEPTION(f'{s} not found with key {key}')
 
