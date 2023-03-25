@@ -1,0 +1,40 @@
+@@ meta
+name = set_pixels()
+type = method
+pclass = Sketch
+processing_name = set
+category = image
+subcategory = pixels
+
+@@ signatures
+set_pixels(x: int, y: int, c: int, /) -> None
+set_pixels(x: int, y: int, img: Py5Image, /) -> None
+
+@@ variables
+c: int - any color value
+img: Py5Image - image to copy into the Sketch window
+x: int - x-coordinate of the pixel
+y: int - y-coordinate of the pixel
+
+@@ description
+Changes the color of any pixel or writes an image directly into the drawing surface.
+
+The `x` and `y` parameters specify the pixel to change and the color parameter specifies the color value. The color parameter `c` is affected by the current color mode (the default is RGB values from 0 to 255). When setting an image, the `x` and `y` parameters define the coordinates for the upper-left corner of the image, regardless of the current [](sketch_image_mode).
+
+Setting the color of a single pixel with `py5.set_pixels(x, y)` is easy, but not as fast as putting the data directly into [](sketch_pixels). The equivalent statement to `py5.set_pixels(x, y, 0)` using [](sketch_pixels) is `py5.pixels[y*py5.width+x] = 0`. See the reference for [](sketch_pixels) for more information.
+
+@@ example
+image = Sketch_set_pixels_0.png
+
+def setup():
+    for i in range(100):
+        for j in range(100):
+            c = py5.color(2 * j, 2 * i, 0)
+            py5.set_pixels(i, j, c)
+
+@@ example
+image = Sketch_set_pixels_1.png
+
+def setup():
+    img = py5.load_image("laDefense.jpg")
+    py5.set_pixels(0, 0, img)

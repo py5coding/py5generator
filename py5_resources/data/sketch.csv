@@ -231,7 +231,7 @@ println,println,,method,output,text_area,PYTHON,override to provide special prin
 set_println_stream,,,method,output,text_area,PYTHON,special print tools for managing print output from a running sketch
 main,main,,method,,,SKIP,public methods that shouldn't be available to users
 exit_sketch,exit,,method,structure,,JAVA,renamed because of conflict with builtin python function
-get,get,@_return_py5image,method,image,pixels,JAVA,
+get_pixels,get,@_return_py5image,method,image,pixels,JAVA,
 method,method,,method,,,SKIP,
 append,append,,method,data,array_functions,SKIP,user should use python instead
 abs,abs,,method,math,calculation,SKIP,user should use numpy instead
@@ -257,7 +257,7 @@ fill,fill,@_convert_hex_color(),method,color,setting,JAVA,
 apply_filter,filter,,method,image,pixels,JAVA,filter method has name conflict with python builtin function; replaced with apply_filter method
 second,second,,static method,input,time_date,JAVA,
 match,match,,static method,data,string_functions,SKIP,user should use python instead
-set,set,,method,image,pixels,SKIP,conflict with builtin python function
+set_pixels,set,@_auto_convert_to_py5image(2),method,image,pixels,JAVA,
 remap,map,,static method,math,calculation,PYTHON,renamed to remap to avoid conflict with builtin function; implemented in python for performance
 setup,setup,,method,structure,,SKIP,method implemented by user
 debug,debug,,static method,,,SKIP,user should use python instead
@@ -269,7 +269,7 @@ delay,delay,,method,environment,,SKIP,user should use python instead
 print,print,,method,output,text_area,SKIP,conflict with builtin python function
 save,save,,method,output,image,PYTHON,implemented in pixels.py mixin
 flush,flush,,method,rendering,,JAVA,
-copy,copy,@_auto_convert_to_py5image;@_return_py5image,method,image,pixels,JAVA,
+copy,copy,@_auto_convert_to_py5image(0);@_return_py5image,method,image,pixels,JAVA,
 mask,mask,,method,pimage,method,SKIP,why is this method in PApplet? It is not documented and cannot actually work correctly
 nf,nf,,method,data,string_functions,SKIP,user should use python instead
 expand,expand,,method,data,array_functions,SKIP,user should use python instead
@@ -339,7 +339,7 @@ register_method,registerMethod,,method,,,SKIP,public methods that shouldn't be a
 unregister_method,unregisterMethod,,method,,,SKIP,public methods that shouldn't be available to users
 create_graphics,createGraphics,@_return_py5graphics,method,rendering,,JAVA,this needs to be reimplemented but I haven't decided what to do with it yet
 create_image,createImage,@_return_py5image,method,image,,JAVA,
-image,image,@_auto_convert_to_py5image,method,image,loading_displaying,JAVA,
+image,image,@_auto_convert_to_py5image(0),method,image,loading_displaying,JAVA,
 handle_draw,handleDraw,,method,,,SKIP,public methods that shouldn't be available to users
 alpha,alpha,@_convert_hex_color(),method,color,creating_reading,JAVA,
 is_looping,isLooping,,method,,,SKIP,methods that are not part of the processing framework
@@ -460,7 +460,7 @@ attrib_color,attribColor,,method,,,SKIP,methods that are not part of the process
 attrib,attrib,,method,,,SKIP,methods that are not part of the processing framework
 texture_mode,textureMode,,method,image,textures,JAVA,
 texture_wrap,textureWrap,,method,image,textures,JAVA,
-texture,texture,@_auto_convert_to_py5image,method,image,textures,JAVA,
+texture,texture,@_auto_convert_to_py5image(0),method,image,textures,JAVA,
 no_texture,noTexture,,method,image,textures,SKIP,
 vertex,vertex,,method,shape,vertex,JAVA,
 begin_contour,beginContour,@_context_wrapper('end_contour'),method,shape,vertex,JAVA,
@@ -559,7 +559,7 @@ point_light,pointLight,,method,lights_camera,lights,JAVA,
 spot_light,spotLight,,method,lights_camera,lights,JAVA,
 light_falloff,lightFalloff,,method,lights_camera,lights,JAVA,
 light_specular,lightSpecular,,method,lights_camera,lights,JAVA,
-background,background,@_auto_convert_to_py5image;@_convert_hex_color(),method,color,setting,JAVA,
+background,background,@_auto_convert_to_py5image(0);@_convert_hex_color(),method,color,setting,JAVA,
 color_mode,colorMode,,method,color,setting,JAVA,
 green,green,@_convert_hex_color(),method,color,creating_reading,JAVA,
 blue,blue,@_convert_hex_color(),method,color,creating_reading,JAVA,
@@ -572,8 +572,8 @@ show_method_warning,showMethodWarning,,static method,,,SKIP,public methods that 
 show_variation_warning,showVariationWarning,,static method,,,SKIP,public methods that shouldn't be available to users
 show_missing_warning,showMissingWarning,,static method,,,SKIP,public methods that shouldn't be available to users
 check_alpha,checkAlpha,,method,,,SKIP,
-blend,blend,@_auto_convert_to_py5image,method,image,pixels,JAVA,
-cursor,cursor,@_auto_convert_to_py5image,method,environment,,JAVA,
+blend,blend,@_auto_convert_to_py5image(0),method,image,pixels,JAVA,
+cursor,cursor,@_auto_convert_to_py5image(0),method,environment,,JAVA,
 get_extension,getExtension,,static method,,,SKIP,public methods that shouldn't be available to users
 list_files,listFiles,,method,,,SKIP,public methods that shouldn't be available to users
 normal,normal,,method,lights_camera,lights,JAVA,

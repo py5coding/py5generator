@@ -1,0 +1,35 @@
+@@ meta
+name = set_pixels()
+category = PImage
+subcategory = Method
+type = method
+pclass = PImage
+processing_name = set
+
+@@ signatures
+set_pixels(x: int, y: int, c: int, /) -> None
+set_pixels(x: int, y: int, img: Py5Image, /) -> None
+
+@@ variables
+c: int - any color value
+img: Py5Image - image to copy into the Py5Image object
+x: int - x-coordinate of the pixel
+y: int - y-coordinate of the pixel
+
+@@ description
+Changes the color of any pixel or writes an image directly into the Py5Image object.
+
+The `x` and `y` parameters specify the pixel to change and the color parameter specifies the color value. The color parameter `c` is affected by the current color mode (the default is RGB values from 0 to 255). When setting an image, the `x` and `y` parameters define the coordinates for the upper-left corner of the image, regardless of the current [](sketch_image_mode).
+
+Setting the color of a single pixel with `set_pixels(x, y)` is easy, but not as fast as putting the data directly into [](py5image_pixels). The equivalent statement to `set_pixels(x, y, 0)` using [](py5image_pixels) is `pixels[y*py5.width+x] = 0`. See the reference for [](py5image_pixels) for more information.
+
+@@ example
+image = Py5Image_set_pixels_0.png
+
+def setup():
+    mountains = py5.load_image("rockies.jpg")
+    c = mountains.get_pixels(60, 90)
+    for i in range(25, 75):
+        for j in range(25, 75):
+            mountains.set_pixels(i, j, c)
+    py5.image(mountains, 0, 0)

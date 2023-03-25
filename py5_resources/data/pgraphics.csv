@@ -285,10 +285,10 @@ hash_code,hashCode,,method,SKIP,public methods that shouldn't be available to us
 get_class,getClass,,method,SKIP,public methods that shouldn't be available to users
 notify,notify,,method,SKIP,public methods that shouldn't be available to users
 notify_all,notifyAll,,method,SKIP,public methods that shouldn't be available to users
-get,get,@_return_py5image,method,JAVA,
+get_pixels,get,@_return_py5image,method,JAVA,
 clone,clone,,method,SKIP,
 apply_filter,filter,,method,JAVA,filter method has name conflict with python builtin function; replaced with apply_filter method
-set,set,,method,SKIP,conflict with builtin python function
+set_pixels,set,,method,JAVA,
 init,init,,method,SKIP,
 save,save,,method,PYTHON,implemented in pixels.py mixin
 copy,copy,@_return_py5image,method,JAVA,
