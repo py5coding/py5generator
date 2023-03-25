@@ -42,6 +42,18 @@ class Py5MouseEvent:
             cls._py5_object_cache.add(o)
             return o
 
+    def __str__(self):
+        action = self.get_action()
+        action_str = 'UNKNOWN'
+        for k, v in Py5MouseEvent.__dict__.items():
+            if k == k.upper() and action == v:
+                action_str = k
+                break
+        return f"Py5MouseEvent(x=" + str(self.get_x()) + ", y=" + str(self.get_y()) + ", action=" + action_str + ")"
+
+    def __repr__(self):
+        return self.__str__()
+
     def __getattr__(self, name):
         raise AttributeError(spelling.error_msg('Py5MouseEvent', name, self))
 
