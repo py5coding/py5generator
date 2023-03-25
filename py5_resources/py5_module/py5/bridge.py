@@ -280,7 +280,7 @@ class Py5Bridge:
                     elif hasattr(subd, '__dict__'):
                         d = subd.__dict__
                     else:
-                        return _JAVA_RUNTIMEEXCEPTION(f'{s} in key {key} does map to dict or object with __dict__ attribute')
+                        return _JAVA_RUNTIMEEXCEPTION(f'{s} in key {key} does not map to dict or object with __dict__ attribute')
                 else:
                     return _JAVA_RUNTIMEEXCEPTION(f'{s} not found with key {key}')
 
