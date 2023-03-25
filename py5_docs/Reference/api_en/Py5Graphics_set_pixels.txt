@@ -12,7 +12,7 @@ set_pixels(x: int, y: int, img: Py5Image, /) -> None
 
 @@ variables
 c: int - any color value
-img: Py5Image - image to copy into the Sketch window
+img: Py5Image - image to copy into the Py5Graphics object
 x: int - x-coordinate of the pixel
 y: int - y-coordinate of the pixel
 
