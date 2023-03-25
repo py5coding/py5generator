@@ -80,16 +80,20 @@ _PY5_LAST_WINDOW_X = None
 _PY5_LAST_WINDOW_Y = None
 
 
-def _auto_convert_to_py5image(f):
-    @functools.wraps(f)
-    def decorated(self_, *args):
-        args_index = args[0]
-        if isinstance(args_index, NumpyImageArray):
-            args = self_.create_image_from_numpy(args_index.array, args_index.bands), *args[1:]
-        elif not isinstance(args_index, (Py5Image, Py5Graphics)) and _convertable(args_index):
-            args = self_.convert_image(args_index), *args[1:]
-        return f(self_, *args)
-    return decorated
+def _auto_convert_to_py5image(argnum):
+    def _decorator(f):
+        @functools.wraps(f)
+        def decorated(self_, *args):
+            if len(args) > argnum:
+                args = list(args)
+                img = args[argnum]
+                if isinstance(img, NumpyImageArray):
+                    args[argnum] = self_.create_image_from_numpy(img.array, img.bands)
+                elif not isinstance(img, (Py5Image, Py5Graphics)) and _convertable(img):
+                    args[argnum] = self_.convert_image(img)
+            return f(self_, *args)
+        return decorated
+    return _decorator
 
 
 def _generator_to_list(f):
