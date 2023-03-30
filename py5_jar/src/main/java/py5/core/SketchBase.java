@@ -100,11 +100,6 @@ public class SketchBase extends PApplet {
     if (platform == MACOS && g.isGL() && !isLooping()) {
       loop();
     }
-
-    // make sure these have been set
-    finished = true;
-    exitCalled = true;
-
     super.exit();
   }
 
