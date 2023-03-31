@@ -17,6 +17,8 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+import pathlib
+
 import numpy as np
 from jpype import JClass, JArray, _jcustomizer
 
@@ -64,6 +66,7 @@ def init_jpype_converters():
     _jcustomizer.JConversion('processing.core.PVector', Py5Vector)(_py5vector_to_pvector_converter)
     _jcustomizer.JConversion('processing.core.PVector', np.ndarray)(_numpy_to_pvector_converter)
     _jcustomizer.JConversion('processing.core.PMatrix', np.ndarray)(_numpy_to_pmatrix_converter)
+    _jcustomizer.JConversion('java.lang.String', pathlib.Path)(lambda jcls, path: _String(path.as_posix()))
 
 
 def convert_to_python_types(params):
