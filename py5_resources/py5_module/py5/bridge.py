@@ -33,11 +33,7 @@ import stackprinter
 import py5_tools
 from . import reference
 from . import custom_exceptions
-# from . import java_conversion
 
-# *** stacktrace configuration ***
-# set stackprinter color style. Default is plaintext. Other choices are darkbg,
-# darkbg2, darkbg3, lightbg, lightbg2, lightbg3.
 _stackprinter_style = 'plaintext'
 # prune tracebacks to only show only show stack levels in the user's py5 code.
 _prune_tracebacks = True
