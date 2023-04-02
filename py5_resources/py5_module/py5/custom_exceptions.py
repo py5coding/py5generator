@@ -51,7 +51,7 @@ def handle_nameerror(exc_type_name, exc_msg, py5info):
         m = IMPORTED_MODE_NAMEERROR_REGEX.match(exc_msg)
         if m:
             fname = m.group(1)
-            exc_msg = 'The name ' + fname + ' is not defined.'
+            exc_msg = "The name '" + fname + "' is not defined."
             suggestion_list = spelling.suggestions(fname, py5_tools.reference.PY5_DIR_STR)
             if suggestion_list:
                 exc_msg += ' Did you mean ' + suggestion_list + '?'
