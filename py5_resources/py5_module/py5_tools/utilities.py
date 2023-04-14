@@ -30,6 +30,8 @@ public class Py5Utilities {
   public Sketch sketch;
 
   public Py5Utilities(Sketch sketch) {
+    // This constructor is called before the sketch starts running. DO NOT use
+    // Processing methods here, as they may not work correctly.
     this.sketch = sketch;
   }
 
