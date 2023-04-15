@@ -28,6 +28,8 @@ class Py5Utilities:
     def __init__(self, sketch):
         self._instance = jpype.JClass('py5utils.Py5Utilities')(sketch)
         self._dir = list(set(dir(self._instance)) - set('equals getClass hashCode notify notifyAll wait toString'.split()))
+        from .java_conversion import convert_to_python_type
+        self._convert_to_python_type = convert_to_python_type
 
     def __str__(self) -> str:
         return f"Py5Utilities()"
@@ -40,6 +42,10 @@ class Py5Utilities:
 
     def __getattr__(self, name):
         if hasattr(self._instance, name):
-            return getattr(self._instance, name)
+            attr = getattr(self._instance, name)
+            if callable(attr):
+                return lambda *args: self._convert_to_python_type(attr(*args))
+            else:
+                return self._convert_to_python_type(attr)
         else:
             raise AttributeError(spelling.error_msg('Py5Utilities', name, self._instance))
