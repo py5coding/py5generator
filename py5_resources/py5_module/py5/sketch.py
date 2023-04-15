@@ -174,7 +174,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         # attempt to instantiate Py5Utilities
         self.utils = None
         try:
-            self.utils = Py5Utilities(self._instance)
+            self.utils = Py5Utilities(self)
         except Exception:
             pass
 

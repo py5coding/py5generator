@@ -26,13 +26,14 @@ class Py5Utilities:
     """TODO: there should there be a classdoc_Py5Utilities
     """
     def __init__(self, sketch):
-        self._instance = jpype.JClass('py5utils.Py5Utilities')(sketch)
+        self._sketch = sketch
+        self._instance = jpype.JClass('py5utils.Py5Utilities')(sketch._instance)
         self._dir = list(set(dir(self._instance)) - set('equals getClass hashCode notify notifyAll wait toString'.split()))
         from .java_conversion import convert_to_python_type
         self._convert_to_python_type = convert_to_python_type
 
     def __str__(self) -> str:
-        return f"Py5Utilities()"
+        return "Py5Utilities(sketch=" + self._sketch.__str__() + ")"
 
     def __repr__(self) -> str:
         return self.__str__()
