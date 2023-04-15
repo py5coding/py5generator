@@ -54,6 +54,7 @@ from .font import Py5Font, _return_py5font, _load_py5font, _return_list_str  # n
 from .graphics import Py5Graphics, _return_py5graphics  # noqa
 from .keyevent import Py5KeyEvent, _convert_jchar_to_chr, _convert_jint_to_int  # noqa
 from .mouseevent import Py5MouseEvent  # noqa
+from .utilities import Py5Utilities
 from .decorators import _text_fix_str, _convert_hex_color, _context_wrapper  # noqa
 from .pmath import _get_matrix_wrapper  # noqa
 from . import image_conversion
@@ -173,7 +174,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         # attempt to instantiate Py5Utilities
         self.utils = None
         try:
-            self.utils = jpype.JClass('py5utils.Py5Utilities')(self._instance)
+            self.utils = Py5Utilities(self._instance)
         except Exception:
             pass
 
