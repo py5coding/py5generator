@@ -103,7 +103,7 @@ def run_sketch(block: bool = None, *,
                py5_options: list[str] = None,
                sketch_args: list[str] = None,
                sketch_functions: dict[str, Callable] = None,
-               _jclassname: str = None,
+               jclassname: str = None,
                _osx_alt_run_method: bool = True) -> None:
     """$module_Sketch_run_sketch"""
     caller_globals = inspect.stack()[1].frame.f_globals
@@ -111,7 +111,7 @@ def run_sketch(block: bool = None, *,
     functions, function_param_counts = bridge._extract_py5_user_function_data(sketch_functions if sketch_functions else caller_locals)
     functions = _split_setup.transform(functions, caller_globals, caller_locals, println, mode='imported' if _PY5_USE_IMPORTED_MODE else 'module')
 
-    if not set(functions.keys()) & set(['settings', 'setup', 'draw']) and not _jclassname:
+    if not set(functions.keys()) & set(['settings', 'setup', 'draw']) and not jclassname:
         warnings.warn(("Unable to find settings, setup, or draw functions. "
                        "Your sketch will be a small gray square. "
                        "If that isn't what you intended, you need to make sure "
@@ -123,8 +123,8 @@ def run_sketch(block: bool = None, *,
     if _py5sketch.is_running:
         print('Sketch is already running. To run a new sketch, exit the running sketch first.', file=sys.stderr)
         return
-    if _py5sketch.is_dead or _jclassname:
-        _py5sketch = Sketch(_jclassname=_jclassname)
+    if _py5sketch.is_dead or jclassname:
+        _py5sketch = Sketch(jclassname=jclassname)
 
     _prepare_dynamic_variables(caller_locals, caller_globals)
 
@@ -136,11 +136,11 @@ def get_current_sketch() -> Sketch:
     return _py5sketch
 
 
-def reset_py5(*, _jclassname: str = None, _force=False) -> bool:
+def reset_py5(*, jclassname: str = None, _force=False) -> bool:
     """$module_Py5Functions_reset_py5"""
     global _py5sketch
-    if _force or _jclassname or _py5sketch.is_dead:
-        _py5sketch = Sketch(_jclassname=_jclassname)
+    if _force or jclassname or _py5sketch.is_dead:
+        _py5sketch = Sketch(jclassname=jclassname)
         if _PY5_USE_IMPORTED_MODE:
             caller_locals = inspect.stack()[1].frame.f_locals
             caller_globals = inspect.stack()[1].frame.f_globals

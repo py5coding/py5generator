@@ -142,7 +142,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def __init__(self, *args, **kwargs):
         _instance = kwargs.get('_instance')
-        _jclassname = kwargs.get('_jclassname')
+        jclassname = kwargs.get('jclassname')
 
         if _instance:
             if _instance == getattr(self, '_instance', None):
@@ -151,7 +151,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             else:
                 raise RuntimeError('Unexpected Situation: Passed py5.core.Sketch instance does not match existing py5.core.Sketch instance. What is going on?')
 
-        Sketch._cls = JClass(_jclassname) if _jclassname else _Sketch
+        Sketch._cls = JClass(jclassname) if jclassname else _Sketch
         instance = Sketch._cls()
         if not isinstance(instance, _SketchBase):
             raise RuntimeError('Java instance must inherit from py5.core.SketchBase')

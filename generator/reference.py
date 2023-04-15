@@ -83,14 +83,15 @@ EXTRA_METHOD_SIGNATURES = {
     ('Sketch', 'run_sketch'): [
         (['block: bool = None', '*',
           'py5_options: list[str] = None', 'sketch_args: list[str] = None',
-          'sketch_functions: dict[str, Callable] = None'], 'None')
+          'sketch_functions: dict[str, Callable] = None',
+          'jclassname: str = None'], 'None')
     ],
     ('Py5Functions', 'create_font_file'): [
         (['font_name: str', 'font_size: int', 'filename: str = None',
           'characters: str = None', 'pause: bool = True'], 'None')
     ],
     ('Py5Functions', 'get_current_sketch'): [([], 'Sketch')],
-    ('Py5Functions', 'reset_py5'): [([], 'bool')],
+    ('Py5Functions', 'reset_py5'): [(['jclassname: str = None'], 'bool')],
     ('Py5Functions', 'prune_tracebacks'): [(['prune: bool'], 'None')],
     ('Py5Functions', 'set_stackprinter_style'): [(['style: str'], 'None')],
     ('Py5Functions', 'render_frame'): [
