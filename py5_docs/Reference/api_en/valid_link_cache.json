@@ -530,5 +530,8 @@
   "https://processing.org/reference/loadStrings_.html": true,
   "https://processing.org/reference/saveBytes_.html": true,
   "https://processing.org/reference/savePickle_.html": false,
-  "https://processing.org/reference/saveStrings_.html": true
+  "https://processing.org/reference/saveStrings_.html": true,
+  "https://processing.org/reference/PGraphics_set_.html": false,
+  "https://processing.org/reference/PImage_set_.html": true,
+  "https://processing.org/reference/set_.html": true
 }

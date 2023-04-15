@@ -23,7 +23,7 @@ from . import spelling
 
 
 class Py5Utilities:
-    """TODO: there should there be a classdoc_Py5Utilities
+    """$classdoc_Py5Utilities
     """
     def __init__(self, sketch):
         self._sketch = sketch
