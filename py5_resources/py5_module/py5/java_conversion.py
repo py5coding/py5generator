@@ -69,18 +69,20 @@ def init_jpype_converters():
     _jcustomizer.JConversion('java.lang.String', pathlib.Path)(lambda jcls, path: _String(path.as_posix()))
 
 
-def convert_to_python_types(params):
-    for p in params:
-        for jclass, py5class in PROCESSING_TO_PY5_CLASS_MAP:
-            if isinstance(p, jclass):
-                yield py5class(p)
-                break
+def convert_to_python_type(obj):
+    for jclass, py5class in PROCESSING_TO_PY5_CLASS_MAP:
+        if isinstance(obj, jclass):
+            return py5class(obj)
+    else:
+        if isinstance(obj, _String):
+            return str(obj)
+        elif isinstance(obj, _Sketch):
+            return Sketch(_instance=obj)
+        elif isinstance(obj, JArray):
+            return np.asarray(obj)
         else:
-            if isinstance(p, _String):
-                yield str(p)
-            elif isinstance(p, _Sketch):
-                yield Sketch(_instance=p)
-            elif isinstance(p, JArray):
-                yield np.asarray(p)
-            else:
-                yield p
+            return obj
+
+
+def convert_to_python_types(params):
+    return [convert_to_python_type(p) for p in params]
