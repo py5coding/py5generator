@@ -129,6 +129,9 @@ EXTRA_METHOD_SIGNATURES = {
     ('Py5Tools', 'add_jars'): [
         (['path: Union[Path, str]'], 'None')
     ],
+    ('Py5Tools', 'register_processing_mode_key'): [
+        (['key: str', 'value: Union[Callable, ModuleType]', '*', 'callback_once: bool = False'], 'None')
+    ],
     ('Py5Tools', 'get_jvm_debug_info'): [
         ([], 'dict[str, Any]')
     ],

@@ -17,7 +17,7 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from typing import Union
+from typing import Union, Callable
 from types import ModuleType
 
 
@@ -25,7 +25,8 @@ _PY5_PROCESSING_MODE_KEYS = {}
 _PY5_PROCESSING_MODE_CALLBACK_ONCE = set()
 
 
-def register_processing_mode_key(key: str, value: Union[callable, ModuleType], *, callback_once: bool = False):
+def register_processing_mode_key(key: str, value: Union[Callable, ModuleType], *, callback_once: bool = False):
+    """$module_Py5Tools_register_processing_mode_key"""
     _PY5_PROCESSING_MODE_KEYS[key] = value
     if callback_once:
         _PY5_PROCESSING_MODE_CALLBACK_ONCE.add(key)
