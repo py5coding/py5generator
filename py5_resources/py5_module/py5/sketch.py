@@ -231,7 +231,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
         try:
             if _osx_alt_run_method and platform.system() == 'Darwin':
-                from PyObjCTools import AppHelper
+                from PyObjCTools import AppHelper  # type: ignore
 
                 def run():
                     Sketch._cls.runSketch(args, self._instance)
