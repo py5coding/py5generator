@@ -72,19 +72,35 @@ def init_jpype_converters():
     _jcustomizer.JConversion('java.lang.String', pathlib.Path)(lambda jcls, path: _String(path.as_posix()))
 
 
+def convert_to_java_type(obj):
+    for _, py5class in JCONVERSION_CLASS_MAP:
+        if isinstance(obj, py5class):
+            return obj._instance
+
+    if isinstance(obj, Py5Vector):
+        if obj.dim == 4:
+            return obj._data
+        else:
+            return _py5vector_to_pvector_converter(obj)
+    elif isinstance(obj, pathlib.Path):
+        return _String(obj.as_posix())
+    else:
+        return obj
+
+
 def convert_to_python_type(obj):
     for jclass, py5class in PROCESSING_TO_PY5_CLASS_MAP:
         if isinstance(obj, jclass):
             return py5class(obj)
+
+    if isinstance(obj, _String):
+        return str(obj)
+    elif isinstance(obj, _Sketch):
+        return Sketch(_instance=obj)
+    elif isinstance(obj, JArray):
+        return np.asarray(obj)
     else:
-        if isinstance(obj, _String):
-            return str(obj)
-        elif isinstance(obj, _Sketch):
-            return Sketch(_instance=obj)
-        elif isinstance(obj, JArray):
-            return np.asarray(obj)
-        else:
-            return obj
+        return obj
 
 
 def convert_to_python_types(params):
