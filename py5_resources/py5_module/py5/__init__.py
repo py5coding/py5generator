@@ -74,7 +74,7 @@ from .image_conversion import register_image_conversion, NumpyImageArray  # noqa
 from .vector import Py5Vector, Py5Vector2D, Py5Vector3D, Py5Vector4D  # noqa
 from py5_tools import split_setup as _split_setup
 from . import reference
-from . import java_conversion  # noqa
+from . import object_conversion  # noqa
 from . import spelling as _spelling
 try:
     from py5_tools.magics import load_ipython_extension  # noqa
@@ -88,7 +88,7 @@ __version__ = '0.9.0.dev0'
 _PY5_USE_IMPORTED_MODE = py5_tools.get_imported_mode()
 py5_tools._lock_imported_mode()
 
-java_conversion.init_jpype_converters()
+object_conversion.init_jpype_converters()
 
 sketch_module_members_code = None  # DELETE
 run_sketch_pre_run_code = None  # DELETE

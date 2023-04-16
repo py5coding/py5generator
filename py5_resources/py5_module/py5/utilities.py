@@ -34,7 +34,7 @@ class Py5Utilities:
             self._instance = None
             self._dir = []
 
-        from .java_conversion import convert_to_python_type
+        from .object_conversion import convert_to_python_type
         self._convert_to_python_type = convert_to_python_type
 
     def __str__(self) -> str:

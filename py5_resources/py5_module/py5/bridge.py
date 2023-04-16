@@ -156,7 +156,7 @@ class Py5Bridge:
         self._current_running_method = None
         self._is_terminated = False
 
-        from .java_conversion import convert_to_python_types, convert_to_java_type
+        from .object_conversion import convert_to_python_types, convert_to_java_type
         self._convert_to_python_types = convert_to_python_types
         self._convert_to_java_type = convert_to_java_type
 

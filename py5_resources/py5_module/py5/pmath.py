@@ -54,7 +54,7 @@ def _numpy_to_pmatrix3d(array):
 
 
 # the next three functions are only used for the jpype conversion customizer
-# they are registered in java_conversion.py
+# they are registered in object_conversion.py
 def _numpy_to_pvector_converter(jcls, array):
     return _numpy_to_pvector(array)
 
