@@ -99,8 +99,6 @@ def convert_to_python_type(obj):
         return str(obj)
     elif isinstance(obj, _Sketch):
         return Sketch(_instance=obj)
-    # elif isinstance(obj, JArray):
-    #     return np.asarray(obj)
     else:
         return obj
 
