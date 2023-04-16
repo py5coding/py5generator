@@ -84,6 +84,8 @@ def convert_to_java_type(obj):
             return _py5vector_to_pvector_converter(obj)
     elif isinstance(obj, pathlib.Path):
         return _String(obj.as_posix())
+    elif isinstance(obj, np.ndarray):
+        return JArray.of(obj)
     else:
         return obj
 
@@ -97,8 +99,8 @@ def convert_to_python_type(obj):
         return str(obj)
     elif isinstance(obj, _Sketch):
         return Sketch(_instance=obj)
-    elif isinstance(obj, JArray):
-        return np.asarray(obj)
+    # elif isinstance(obj, JArray):
+    #     return np.asarray(obj)
     else:
         return obj
 
