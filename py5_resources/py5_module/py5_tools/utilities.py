@@ -27,7 +27,7 @@ import py5.core.Sketch;
 
 public class Py5Utilities {
 
-  public Sketch sketch;
+  protected Sketch sketch;
 
   public Py5Utilities(Sketch sketch) {
     // This constructor is called before the sketch starts running. DO NOT use

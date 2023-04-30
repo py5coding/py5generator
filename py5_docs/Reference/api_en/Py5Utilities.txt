@@ -1,0 +1,7 @@
+@@ meta
+name = Py5Utilities
+type = class
+pclass = Py5Utilities
+
+@@ description
+Py5Utilities enables hybrid programming, enabling you to augment your py5 Sketch code with Java. This is very much like creating custom Processing extensions to enhance py5. Read the online documentation to learn more about how to use this feature.

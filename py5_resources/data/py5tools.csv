@@ -11,3 +11,4 @@ capture_frames,,,function,sketch_hooks,,PYTHON,hooks
 sketch_portal,,,function,sketch_hooks,,PYTHON,hooks
 get_jvm_debug_info,,,function,jvm,,PYTHON,jvm
 offline_frame_processing,,,function,sketch_hooks,,PYTHON,hooks
+register_processing_mode_key,,,function,processing_mode,,PYTHON,processing mode

@@ -156,8 +156,9 @@ class Py5Bridge:
         self._current_running_method = None
         self._is_terminated = False
 
-        from .java_conversion import convert_to_python_types
+        from .object_conversion import convert_to_python_types, convert_to_java_type
         self._convert_to_python_types = convert_to_python_types
+        self._convert_to_java_type = convert_to_java_type
 
     def set_functions(self, functions, function_param_counts):
         self._function_param_counts = dict()
@@ -289,7 +290,7 @@ class Py5Bridge:
                     py5_tools.config._PY5_PROCESSING_MODE_CALLBACK_ONCE.remove(key)
                     if key in py5_tools.config._PY5_PROCESSING_MODE_KEYS:
                         py5_tools.config._PY5_PROCESSING_MODE_KEYS.pop(key)
-                return retval
+                return self._convert_to_java_type(retval)
             except Exception as e:
                 handle_exception(self._sketch.println, *sys.exc_info())
                 return _JAVA_RUNTIMEEXCEPTION(str(e))

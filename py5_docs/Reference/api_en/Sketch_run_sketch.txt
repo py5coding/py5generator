@@ -5,10 +5,11 @@ category = structure
 subcategory = None
 
 @@ signatures
-run_sketch(block: bool = None, *, py5_options: list[str] = None, sketch_args: list[str] = None, sketch_functions: dict[str, Callable] = None) -> None
+run_sketch(block: bool = None, *, py5_options: list[str] = None, sketch_args: list[str] = None, sketch_functions: dict[str, Callable] = None, jclassname: str = None) -> None
 
 @@ variables
 block: bool = None - method returns immediately (False) or blocks until Sketch exits (True)
+jclassname: str = None - canonical name of class to instantiate when using py5 in processing mode
 py5_options: list[str] = None - command line arguments to pass to Processing as arguments
 sketch_args: list[str] = None - command line arguments that become Sketch arguments
 sketch_functions: dict[str, Callable] = None - sketch methods when using module mode
@@ -25,6 +26,8 @@ When calling `run_sketch()` in module mode, py5 will by default search for funct
 When programming in module mode and imported mode, py5 will inspect the `setup()` function and will attempt to split it into synthetic `settings()` and `setup()` functions if both were not created by the user and the real `setup()` function contains calls to [](sketch_size), [](sketch_full_screen), [](sketch_smooth), [](sketch_no_smooth), or [](sketch_pixel_density). Calls to those functions must be at the very beginning of `setup()`, before any other Python code (except for comments). This feature allows the user to omit the `settings()` function, much like what can be done while programming in the Processing IDE. This feature is not available when programming in class mode.
 
 When running a Sketch asynchronously through Jupyter Notebook, any `print` statements using Python's builtin function will always appear in the output of the currently active cell. This will rarely be desirable, as the active cell will keep changing as the user executes code elsewhere in the notebook. As an alternative, use py5's [](sketch_println) method, which will place all text in the output of the cell that made the `run_sketch()` call. This will continue to be true if the user moves on to execute code in other Notebook cells. Use [](sketch_set_println_stream) to customize this behavior. All py5 error messages and stack traces are routed through the [](sketch_println) method. Be aware that some error messages and warnings generated inside the Processing Jars cannot be controlled in the same way, and may appear in the output of the active cell or mixed in with the Jupyter Kernel logs.
+
+The `jclassname` parameter should only be used when programming in Processing Mode. This value must be the canonical name of your Processing Sketch class (i.e. `"org.test.MySketch"`). The class must inherit from `py5.core.SketchBase`. Read py5's online documentation to learn more about Processing Mode.
 
 @@ example
 py5.run_sketch(block=True)

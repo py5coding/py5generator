@@ -106,7 +106,7 @@ public class Sketch extends SketchBase {
       case DXF:
         return "DXF";
       default:
-        return null;
+        return "UNKNOWN";
     }
   }
 

@@ -54,6 +54,7 @@ from .font import Py5Font, _return_py5font, _load_py5font, _return_list_str  # n
 from .graphics import Py5Graphics, _return_py5graphics  # noqa
 from .keyevent import Py5KeyEvent, _convert_jchar_to_chr, _convert_jint_to_int  # noqa
 from .mouseevent import Py5MouseEvent  # noqa
+from .utilities import Py5Utilities
 from .decorators import _text_fix_str, _convert_hex_color, _context_wrapper  # noqa
 from .pmath import _get_matrix_wrapper  # noqa
 from . import image_conversion
@@ -141,7 +142,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def __init__(self, *args, **kwargs):
         _instance = kwargs.get('_instance')
-        _jclassname = kwargs.get('_jclassname')
+        jclassname = kwargs.get('jclassname')
 
         if _instance:
             if _instance == getattr(self, '_instance', None):
@@ -150,7 +151,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             else:
                 raise RuntimeError('Unexpected Situation: Passed py5.core.Sketch instance does not match existing py5.core.Sketch instance. What is going on?')
 
-        Sketch._cls = JClass(_jclassname) if _jclassname else _Sketch
+        Sketch._cls = JClass(jclassname) if jclassname else _Sketch
         instance = Sketch._cls()
         if not isinstance(instance, _SketchBase):
             raise RuntimeError('Java instance must inherit from py5.core.SketchBase')
@@ -169,16 +170,10 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         elif hasattr(sys, '_MEIPASS'):
             warnings.warn("py5 logo image cannot be found. You are running this Sketch with pyinstaller and the image is missing from the packaging. I'm going to nag you about this until you fix it.", stacklevel=3)
         Sketch._cls.setJOGLProperties(str(Path(__file__).parent))
-
-        # attempt to instantiate Py5Utilities
-        self.utils = None
-        try:
-            self.utils = jpype.JClass('py5utils.Py5Utilities')(self._instance)
-        except Exception:
-            pass
+        self.utils = Py5Utilities(self)
 
     def __str__(self):
-        return f"Sketch(width=" + str(self._get_width()) + ", height=" + str(self._get_height()) + ")"
+        return f"Sketch(width=" + str(self._get_width()) + ", height=" + str(self._get_height()) + ", renderer=" + str(self._instance.getRendererName()) + ")"
 
     def __repr__(self):
         return self.__str__()
@@ -230,7 +225,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
         try:
             if _osx_alt_run_method and platform.system() == 'Darwin':
-                from PyObjCTools import AppHelper
+                from PyObjCTools import AppHelper  # type: ignore
 
                 def run():
                     Sketch._cls.runSketch(args, self._instance)
