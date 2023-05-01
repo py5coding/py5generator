@@ -18,6 +18,7 @@
 #
 # *****************************************************************************
 import os
+import sys
 from pathlib import Path
 
 
@@ -130,13 +131,20 @@ def generate_utilities_framework(output_dir=None):
     java_dir.mkdir(parents=True, exist_ok=True)
     jars_dir.mkdir(exist_ok=True)
 
-    with open(java_dir / 'pom.xml', 'w') as f:
-        f.write(POM_TEMPLATE.format(classpath=py5_classpath))
+    pom_filename = java_dir / 'pom.xml'
+    if pom_filename.exists():
+        print(f"Skipping {pom_filename}: file already exists", file=sys.stderr)
+    else:
+      with open(pom_filename, 'w') as f:
+          f.write(POM_TEMPLATE.format(classpath=py5_classpath))
 
     utils_filename = java_dir / Path('src/main/java/py5utils/Py5Utilities.java')
-    utils_filename.parent.mkdir(parents=True, exist_ok=True)
-    with open(utils_filename, 'w') as f:
-        f.write(PY5_UTILITIES_CLASS)
+    if utils_filename.exists():
+        print(f"Skipping {utils_filename}: file already exists", file=sys.stderr)
+    else:
+      utils_filename.parent.mkdir(parents=True, exist_ok=True)
+      with open(utils_filename, 'w') as f:
+          f.write(PY5_UTILITIES_CLASS)
 
 
 __all__ = ['generate_utilities_framework']
