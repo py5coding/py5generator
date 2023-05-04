@@ -83,7 +83,7 @@ except ImportError:
     pass
 
 
-__version__ = '0.9.0.dev0'
+__version__ = '0.9.0a0'
 
 _PY5_USE_IMPORTED_MODE = py5_tools.get_imported_mode()
 py5_tools._lock_imported_mode()
