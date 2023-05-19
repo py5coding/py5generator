@@ -4,32 +4,30 @@ channels:
   - defaults
 dependencies:
   - autopep8=2.0.*
-  - black=22.10.*
+  - black=23.3.*
   - cairo=1.16.*
-  - cairocffi=1.4.*
-  - cairosvg=2.5.*
-  - cookiecutter=2.1.*
+  - cairocffi=1.5.*
+  - cairosvg=2.6.*
   - flake8=6.0.*
-  - hatch=1.6.*
-  - ipython=8.7.*
+  - hatch=1.7.*
+  - ipython=8.12.*
   - jedi=0.18.2
   - jpype1=1.4.*
   - jupyter=1.0.*
-  - jupyter-book=0.13.*
+  - jupyter-book=0.15.*
   - jupyter-packaging=0.12.*
-  - jupyterlab=3.5.*
+  - jupyterlab=4.0.*
   - jupytext=1.14.*
   - line_profiler=4.0.*
-  - matplotlib=3.6.*
-  - nodejs=18.12.*
-  - numpy=1.23.*
-  - pandas=1.5.*
-  - pillow=9.2.*
-  - pip=22.3.*
+  - matplotlib=3.7.*
+  - nodejs=18.15.*
+  - numpy=1.24.*
+  - pandas=2.0.*
+  - pillow=9.5.*
+  - pip
   - python=3.8.*
-  - requests=2.28.*
+  - requests=2.29.*
   - twine=4.0.*
-  - wheel=0.38.*
   - yarn=1.22.*
   - pip:
     - bump2version==1.0.*
