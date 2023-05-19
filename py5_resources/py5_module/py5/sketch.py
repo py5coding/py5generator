@@ -193,20 +193,33 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
         methods, method_param_counts = _extract_py5_user_function_data(dict(
             [(e, getattr(self, e)) for e in reference.METHODS.keys() if hasattr(self, e)]))
-        self._run_sketch(methods, method_param_counts, block, py5_options, sketch_args, _osx_alt_run_method)
+
+        caller_locals = inspect.stack()[1].frame.f_locals
+        caller_globals = inspect.stack()[1].frame.f_globals
+
+        self._run_sketch(methods, method_param_counts, block,
+                         py5_options=py5_options,
+                         sketch_args=sketch_args,
+                         _caller_locals=caller_locals,
+                         _caller_globals=caller_globals,
+                         _osx_alt_run_method=_osx_alt_run_method)
 
     def _run_sketch(self,
                     methods: dict[str, Callable],
                     method_param_counts: dict[str, int],
                     block: bool,
+                    *,
                     py5_options: list[str] = None,
                     sketch_args: list[str] = None,
+                    _caller_locals: dict[str, Any] = None,
+                    _caller_globals: dict[str, Any] = None,
                     _osx_alt_run_method: bool = True) -> None:
         self._environ = _environ.Environment()
         self.set_println_stream(_DisplayPubPrintlnStream() if self._environ.in_jupyter_zmq_shell else _DefaultPrintlnStream())
         self._init_println_stream()
 
         self._py5_bridge = Py5Bridge(self)
+        self._py5_bridge.set_caller_locals_globals(_caller_locals, _caller_globals)
         self._py5_bridge.add_functions(methods, method_param_counts)
         self._py5_bridge.profile_functions(self._methods_to_profile)
         self._py5_bridge.add_pre_hooks(self._pre_hooks_to_add)
