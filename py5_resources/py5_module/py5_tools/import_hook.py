@@ -28,7 +28,7 @@ from importlib.util import spec_from_file_location
 import py5_tools
 
 
-PY5_IMPORTED_MODE_CODE_MARKER_REGEX =  re.compile(r"^# PY5 IMPORTED MODE CODE$$", re.MULTILINE)
+PY5_IMPORTED_MODE_CODE_MARKER_REGEX =  re.compile(r"^# PY5 IMPORTED MODE CODE\s*$$", re.MULTILINE)
 PY5_HEADER = '\n\n\n'.join([f'def {dvar}():\n    return get_current_sketch().{dvar}' for dvar in py5_tools.reference.PY5_DYNAMIC_VARIABLES])
 
 
@@ -59,7 +59,7 @@ class Py5ImportedModeFinder(MetaPathFinder):
                 else:
                     return None
             else:
-                # if we get here, this must be a module without a __init__.py file
+                # if we get here, this must be a module without a __init__.py file?
                 return None
 
         else:
@@ -72,11 +72,7 @@ class Py5ImportedModeFinder(MetaPathFinder):
                 return None
 
         # this is py5 imported mode code
-        if "." in fullname:
-            *_, name = fullname.split(".")
-        else:
-            name = fullname
-
+        name = fullname.split(".")[-1]
         for entry in path:
             if Path(entry, name).is_dir():
                 filename = Path(entry, name, "__init__.py")
@@ -97,7 +93,8 @@ class Py5ImportedModeLoader(Loader):
         self.filename = filename
 
     def create_module(self, spec):
-        return None # use default module creation semantics
+        # default module creation semantics
+        return None 
 
     def exec_module(self, module):
         with open(self.filename) as f:
