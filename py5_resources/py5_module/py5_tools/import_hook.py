@@ -25,7 +25,6 @@ from importlib.abc import Loader, MetaPathFinder
 from importlib.util import spec_from_file_location
 
 import py5_tools
-# from py5 import __dict__ as py5_dict
 
 
 PY5_IMPORT_MODE_CODE_MARKER = "PY5 IMPORT MODE CODE"
@@ -122,7 +121,6 @@ class Py5ImportedModeLoader(Loader):
         # exec the code in a temporary namespace
         import py5
         exec(source, ns:={**vars(py5), **vars(module)})
-        # exec(source, ns:={**py5_dict, **vars(module)})
 
         # add user's code to the module. the filtering makes sure we don't add
         # py5 methods necessary for proper execution to the module's namespace
