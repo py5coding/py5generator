@@ -82,9 +82,6 @@ except ImportError:
     # IPython must not be installed
     pass
 
-from py5_tools import import_hook as _import_hook
-_import_hook.activate_py5_import_hook()
-
 
 __version__ = '0.9.1.dev0'
 
