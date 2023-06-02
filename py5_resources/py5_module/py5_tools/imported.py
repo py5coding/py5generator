@@ -29,7 +29,6 @@ import stackprinter
 
 from . import jvm
 from . import parsing
-from . import import_hook
 
 
 _imported_mode = False
@@ -48,7 +47,6 @@ def set_imported_mode(imported_mode: bool):
     if _imported_mode_locked:
         raise RuntimeError('Attempting to set imported mode after importing py5. This would put py5 into a confused state. Throwing an exception to prevent you from having to debug that.')
     _imported_mode = imported_mode
-    import_hook.activate_py5_import_hook()
 
 
 def get_imported_mode() -> bool:
