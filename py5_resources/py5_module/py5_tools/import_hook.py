@@ -20,6 +20,7 @@
 import sys
 from pathlib import Path
 import ast
+import re
 
 from importlib.abc import Loader, MetaPathFinder
 from importlib.util import spec_from_file_location
@@ -27,7 +28,7 @@ from importlib.util import spec_from_file_location
 import py5_tools
 
 
-PY5_IMPORT_MODE_CODE_MARKER = "PY5 IMPORT MODE CODE"
+PY5_IMPORT_MODE_CODE_MARKER_REGEX =  re.compile(r"^# PY5 IMPORT MODE CODE$$", re.MULTILINE)
 PY5_HEADER = '\n\n\n'.join([f'def {dvar}():\n    return get_current_sketch().{dvar}' for dvar in py5_tools.reference.PY5_DYNAMIC_VARIABLES])
 
 
@@ -48,12 +49,12 @@ class Py5ImportedModeFinder(MetaPathFinder):
             if marker_file1.exists():
                 with open(marker_file1) as f:
                     data = f.read()
-                if PY5_IMPORT_MODE_CODE_MARKER not in data:
+                if not PY5_IMPORT_MODE_CODE_MARKER_REGEX.search(data):
                     return None
             elif marker_file2.exists():
                 with open(marker_file2) as f:
                     data = f.read()
-                if PY5_IMPORT_MODE_CODE_MARKER in data:
+                if PY5_IMPORT_MODE_CODE_MARKER_REGEX.search(data):
                     self._validated_py5_module_mode_paths.append(marker_file2.parent)
                 else:
                     return None
