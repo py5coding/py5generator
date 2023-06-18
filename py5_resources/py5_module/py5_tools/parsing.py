@@ -91,6 +91,16 @@ class Py5CodeValidation(ast.NodeTransformer):
         self.generic_visit(node)
         return node
 
+    def visit_FunctionDef(self, node: ast.FunctionDef):
+        if node.name in self._reserved_words:
+            problem = self._format_problem_message(node)
+            if self._report_immediately:
+                # raise Py5InputRejected(problem)
+                sys.stdout.write(problem + '\n')
+            self._problems.append(problem)
+        self.generic_visit(node)
+        return node
+
     def visit_Import(self, node: ast.Import):
         for alias in node.names:
             if alias.name == 'py5':
@@ -112,6 +122,8 @@ class Py5CodeValidation(ast.NodeTransformer):
                 out.append(f'Assignment to py5 reserved word "{node.id}" on line {node.lineno} is discouraged and may causes errors in your sketch.')
         elif isinstance(node, ast.Import):
                 out.append(f'"import py5" found on line {node.lineno}. Do not import the py5 library, as this has already been done for you. Your code should be written without any "py5." prefixes.')
+        elif isinstance(node, ast.FunctionDef):
+            out.append(f'Defining a function named after py5 reserved word "{node.name}" on line {node.lineno} is discouraged and may causes errors in your sketch.')
 
         if self._code:
             lines = self._code.splitlines()
