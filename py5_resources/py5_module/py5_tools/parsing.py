@@ -75,7 +75,7 @@ class Py5CodeValidation(ast.NodeTransformer):
         super().__init__()
         self._code = code
         self._report_immediately = report_immediately
-        self._reserved_words = ref.PY5_DIR_STR
+        self._reserved_words = [w for w in ref.PY5_DIR_STR if len(w) > 1]
         self._problems = []
 
     def visit_Name(self, node: ast.Name):
