@@ -108,7 +108,7 @@ class Py5ImportedModeLoader(Loader):
         code_ast = ast.parse(code_src, filename=self.filename, mode='exec')
         problems = py5_tools.parsing.check_reserved_words(code_src, code_ast)
         if problems:
-            msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with the code import ' + str(module.__name__) + '.\n'
+            msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with the imported "' + str(module.__name__) + '" module.\n'
             msg += '=' * len(msg) + '\n' + '\n'.join(problems)
             raise Py5ImportError(msg)
 
