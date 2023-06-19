@@ -217,7 +217,10 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, s
         py5_ns.update(py5.__dict__)
         py5_ns['__file__'] = str(original_sketch_path)
 
-        exec(sketch_compiled, py5_ns)
+        try:
+            exec(sketch_compiled, py5_ns)
+        except import_hook.Py5ImportError as e:
+            print(e.msg, file=sys.stderr)
 
     if new_process:
         p = Process(target=_run_sketch, args=(sketch_path, classpath, exit_if_error))
