@@ -171,7 +171,7 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, s
         set_imported_mode(True)
         import py5
         if (py5.is_running() if callable(py5.is_running) else py5.is_running):
-            print('You must exit the currently running sketch before running another sketch.')
+            print('You must exit the currently running sketch before running another sketch.', file=sys.stderr)
             return None
 
         py5_options_str = str([f'--{o}' for o in py5_options]) if py5_options else 'None'
@@ -192,7 +192,7 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, s
             arrow_msg = f'--> {e.lineno}    '
             msg += f'{arrow_msg}{e.text}'
             msg += ' ' * (len(arrow_msg) + e.offset) + '^'
-            print(msg)
+            print(msg, file=sys.stderr)
             return
         except Exception as e:
             msg = stackprinter.format(e)
@@ -200,14 +200,14 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, s
             if m:
                 msg = msg[m.start(0):]
             msg = 'There is a problem with your code:\n' + msg
-            print(msg)
+            print(msg, file=sys.stderr)
             return
 
         problems = parsing.check_reserved_words(sketch_code, sketch_ast)
         if problems:
             msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your Sketch code'
             msg += '\n' + '=' * len(msg) + '\n' + '\n'.join(problems)
-            print(msg)
+            print(msg, file=sys.stderr)
             return
 
         sketch_compiled = compile(parsing.transform_py5_code(sketch_ast), filename=sketch_path, mode='exec')
