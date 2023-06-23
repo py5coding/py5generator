@@ -29,6 +29,7 @@ import stackprinter
 
 from . import jvm
 from . import parsing
+from . import import_hook
 
 
 _imported_mode = False
@@ -47,6 +48,7 @@ def set_imported_mode(imported_mode: bool):
     if _imported_mode_locked:
         raise RuntimeError('Attempting to set imported mode after importing py5. This would put py5 into a confused state. Throwing an exception to prevent you from having to debug that.')
     _imported_mode = imported_mode
+    import_hook.activate_py5_import_hook()
 
 
 def get_imported_mode() -> bool:
@@ -169,7 +171,7 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, s
         set_imported_mode(True)
         import py5
         if (py5.is_running() if callable(py5.is_running) else py5.is_running):
-            print('You must exit the currently running sketch before running another sketch.')
+            print('You must exit the currently running sketch before running another sketch.', file=sys.stderr)
             return None
 
         py5_options_str = str([f'--{o}' for o in py5_options]) if py5_options else 'None'
@@ -190,7 +192,7 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, s
             arrow_msg = f'--> {e.lineno}    '
             msg += f'{arrow_msg}{e.text}'
             msg += ' ' * (len(arrow_msg) + e.offset) + '^'
-            print(msg)
+            print(msg, file=sys.stderr)
             return
         except Exception as e:
             msg = stackprinter.format(e)
@@ -198,14 +200,14 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, s
             if m:
                 msg = msg[m.start(0):]
             msg = 'There is a problem with your code:\n' + msg
-            print(msg)
+            print(msg, file=sys.stderr)
             return
 
         problems = parsing.check_reserved_words(sketch_code, sketch_ast)
         if problems:
             msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your Sketch code'
             msg += '\n' + '=' * len(msg) + '\n' + '\n'.join(problems)
-            print(msg)
+            print(msg, file=sys.stderr)
             return
 
         sketch_compiled = compile(parsing.transform_py5_code(sketch_ast), filename=sketch_path, mode='exec')
@@ -215,7 +217,10 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, s
         py5_ns.update(py5.__dict__)
         py5_ns['__file__'] = str(original_sketch_path)
 
-        exec(sketch_compiled, py5_ns)
+        try:
+            exec(sketch_compiled, py5_ns)
+        except import_hook.Py5ImportError as e:
+            print(e.msg, file=sys.stderr)
 
     if new_process:
         p = Process(target=_run_sketch, args=(sketch_path, classpath, exit_if_error))

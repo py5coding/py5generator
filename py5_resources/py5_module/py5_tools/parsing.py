@@ -75,7 +75,7 @@ class Py5CodeValidation(ast.NodeTransformer):
         super().__init__()
         self._code = code
         self._report_immediately = report_immediately
-        self._reserved_words = ref.PY5_DIR_STR
+        self._reserved_words = [w for w in ref.PY5_DIR_STR if len(w) > 1]
         self._problems = []
 
     def visit_Name(self, node: ast.Name):
@@ -85,6 +85,16 @@ class Py5CodeValidation(ast.NodeTransformer):
                 # TODO: throwing an exception would cause the IPython kernel to
                 # reject the input but I need syntax highlighting to work before
                 # it makes sense to do this
+                # raise Py5InputRejected(problem)
+                sys.stdout.write(problem + '\n')
+            self._problems.append(problem)
+        self.generic_visit(node)
+        return node
+
+    def visit_FunctionDef(self, node: ast.FunctionDef):
+        if node.name in self._reserved_words:
+            problem = self._format_problem_message(node)
+            if self._report_immediately:
                 # raise Py5InputRejected(problem)
                 sys.stdout.write(problem + '\n')
             self._problems.append(problem)
@@ -112,6 +122,8 @@ class Py5CodeValidation(ast.NodeTransformer):
                 out.append(f'Assignment to py5 reserved word "{node.id}" on line {node.lineno} is discouraged and may causes errors in your sketch.')
         elif isinstance(node, ast.Import):
                 out.append(f'"import py5" found on line {node.lineno}. Do not import the py5 library, as this has already been done for you. Your code should be written without any "py5." prefixes.')
+        elif isinstance(node, ast.FunctionDef):
+            out.append(f'Defining a function named after py5 reserved word "{node.name}" on line {node.lineno} is discouraged and may causes errors in your sketch.')
 
         if self._code:
             lines = self._code.splitlines()
