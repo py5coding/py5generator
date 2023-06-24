@@ -434,7 +434,7 @@ public class Sketch extends SketchBase {
   }
 
   /*
-   * This is to get around an issue with JPype method dispatching. It will always
+   * This is to get around an issue with JPype method dispatching. It would always
    * use the second method signature, even when p.length == 0.
    */
 
