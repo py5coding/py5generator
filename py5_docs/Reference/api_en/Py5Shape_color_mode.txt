@@ -11,12 +11,12 @@ color_mode(mode: int, max_x: float, max_y: float, max_z: float, /) -> None
 color_mode(mode: int, max_x: float, max_y: float, max_z: float, max_a: float, /) -> None
 
 @@ variables
-max: float - missing variable description
-max_a: float - missing variable description
-max_x: float - missing variable description
-max_y: float - missing variable description
-max_z: float - missing variable description
-mode: int - missing variable description
+max: float - range for all color elements
+max_a: float - range for the alpha
+max_x: float - range for the red or hue depending on the current color mode
+max_y: float - range for the green or saturation depending on the current color mode
+max_z: float - range for the blue or brightness depending on the current color mode
+mode: int - Either RGB or HSB, corresponding to Red/Green/Blue and Hue/Saturation/Brightness
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
