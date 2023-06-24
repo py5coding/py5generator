@@ -20,6 +20,7 @@
 package py5.core;
 
 import processing.core.PGraphics;
+import processing.core.PShape;
 
 public class Py5GraphicsHelper {
 
@@ -156,6 +157,19 @@ public class Py5GraphicsHelper {
       }
     } else {
       throw new RuntimeException("the second axis of parameter coordinates must have a length equal to 4 or 6");
+    }
+  }
+
+  /*
+   * This is to get around an issue with JPype method dispatching. It would always
+   * use the second method signature, even when p.length == 0.
+   */
+
+  public PShape createShape(int kind, float... p) {
+    if (p.length == 0) {
+      return g.createShape(kind);
+    } else {
+      return g.createShape(kind, p);
     }
   }
 
