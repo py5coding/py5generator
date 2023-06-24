@@ -106,8 +106,8 @@ def run_sketch(block: bool = None, *,
                jclassname: str = None,
                _osx_alt_run_method: bool = True) -> None:
     """$module_Sketch_run_sketch"""
-    caller_globals = inspect.stack()[1].frame.f_globals
     caller_locals = inspect.stack()[1].frame.f_locals
+    caller_globals = inspect.stack()[1].frame.f_globals
     functions, function_param_counts = bridge._extract_py5_user_function_data(sketch_functions if sketch_functions else caller_locals)
     functions = _split_setup.transform(functions, caller_globals, caller_locals, println, mode='imported' if _PY5_USE_IMPORTED_MODE else 'module')
 
@@ -128,7 +128,12 @@ def run_sketch(block: bool = None, *,
 
     _prepare_dynamic_variables(caller_locals, caller_globals)
 
-    _py5sketch._run_sketch(functions, function_param_counts, block, py5_options, sketch_args, _osx_alt_run_method)
+    _py5sketch._run_sketch(functions, function_param_counts, block,
+                           py5_options=py5_options,
+                           sketch_args=sketch_args,
+                           _caller_locals=caller_locals,
+                           _caller_globals=caller_globals,
+                           _osx_alt_run_method=_osx_alt_run_method)
 
 
 def get_current_sketch() -> Sketch:
