@@ -16,3 +16,17 @@ The `coordinates` parameter should be a numpy array with one row for each curve 
 Drawing 2D curves requires using the `P2D` renderer and drawing 3D curves requires using the `P3D` renderer. When drawing directly with `Py5Shape` objects, curves do not work at all using the default renderer.
 
 This method can only be used within a [](py5shape_begin_shape) and [](py5shape_end_shape) pair.
+
+@@ example
+image = Py5Shape_curve_vertices_0.png
+
+import numpy as np
+
+def setup():
+    py5.size(100, 100, py5.P2D)
+    random_curve_vertices = 100 * np.random.rand(25, 2)
+    s = py5.create_shape()
+    with s.begin_shape():
+        s.vertex(py5.width / 2, py5.height / 2)
+        s.curve_vertices(random_curve_vertices)
+    py5.shape(s)
