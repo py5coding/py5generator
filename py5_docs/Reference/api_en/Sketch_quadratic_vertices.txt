@@ -24,7 +24,6 @@ import numpy as np
 
 def setup():
     random_quadratic_vertices = 100 * np.random.rand(25, 4)
-    py5.begin_shape()
-    py5.vertex(py5.width / 2, py5.height / 2)
-    py5.quadratic_vertices(random_quadratic_vertices)
-    py5.end_shape()
+    with py5.begin_shape():
+        py5.vertex(py5.width / 2, py5.height / 2)
+        py5.quadratic_vertices(random_quadratic_vertices)

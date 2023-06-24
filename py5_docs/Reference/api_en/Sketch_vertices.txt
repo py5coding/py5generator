@@ -24,6 +24,5 @@ import numpy as np
 
 def setup():
     random_triangle_vertices = 100 * np.random.rand(25, 2)
-    py5.begin_shape(py5.TRIANGLES)
-    py5.vertices(random_triangle_vertices)
-    py5.end_shape()
+    with py5.begin_shape(py5.TRIANGLES):
+        py5.vertices(random_triangle_vertices)
