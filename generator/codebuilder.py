@@ -372,6 +372,8 @@ def find_signatures(class_name, filename):
         if decorator == '@overload':
             method_signatures[(class_name, fname)].append((COMMA_REGEX.split(args), rettypestr))
         elif (class_name, fname) not in overloaded:
+            if args == '*args':
+                continue
             split_args = COMMA_REGEX.split(args) if args else []
             method_signatures[(class_name, fname)].append((split_args, rettypestr))
 
