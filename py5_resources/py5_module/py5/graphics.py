@@ -147,7 +147,8 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
             coordinates = list(coordinates)
         _Py5GraphicsHelper.quadraticVertices(self._instance, coordinates)
 
+    @_return_py5shape
     def create_shape(self, *args):
-        _Py5GraphicsHelper.createShape(self._instance, *args)
+        return _Py5GraphicsHelper.createShape(self._instance, *args)
 
 {py5graphics_class_members_code}

@@ -164,8 +164,8 @@ public class Py5GraphicsHelper {
    * This is to get around an issue with JPype method dispatching. It would always
    * use the second method signature, even when p.length == 0.
    */
-
-  public PShape createShape(int kind, float... p) {
+ 
+   public static PShape createShape(PGraphics g, int kind, float... p) {
     if (p.length == 0) {
       return g.createShape(kind);
     } else {
