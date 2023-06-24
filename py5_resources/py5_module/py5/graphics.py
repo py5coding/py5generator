@@ -117,32 +117,40 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
     def __exit__(self, *exc):
         self._context_manager_exit_function(*self._context_manager_exit_args)
 
-    def points(self, coordinates):
+    # *** BEGIN METHODS ***
+
+    def points(self, coordinates: npt.NDArray[np.floating], /) -> None:
+        """$class_Py5Graphics_points"""
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5GraphicsHelper.points(self._instance, coordinates)
 
-    def lines(self, coordinates):
+    def lines(self, coordinates: npt.NDArray[np.floating], /) -> None:
+        """$class_Py5Graphics_lines"""
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5GraphicsHelper.lines(self._instance, coordinates)
 
-    def vertices(self, coordinates):
+    def vertices(self, coordinates: npt.NDArray[np.floating], /) -> None:
+        """$class_Py5Graphics_vertices"""
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5GraphicsHelper.vertices(self._instance, coordinates)
 
-    def bezier_vertices(self, coordinates):
+    def bezier_vertices(self, coordinates: npt.NDArray[np.floating], /) -> None:
+        """$class_Py5Graphics_bezier_vertices"""
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5GraphicsHelper.bezierVertices(self._instance, coordinates)
 
-    def curve_vertices(self, coordinates):
+    def curve_vertices(self, coordinates: npt.NDArray[np.floating], /) -> None:
+        """$class_Py5Graphics_curve_vertices"""
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5GraphicsHelper.curveVertices(self._instance, coordinates)
 
-    def quadratic_vertices(self, coordinates):
+    def quadratic_vertices(self, coordinates: npt.NDArray[np.floating], /) -> None:
+        """$class_Py5Graphics_quadratic_vertices"""
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5GraphicsHelper.quadraticVertices(self._instance, coordinates)
@@ -163,7 +171,7 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
         pass
 
     @_return_py5shape
-    def create_shape(self, *args):
+    def create_shape(self, *args) -> Py5Shape:
         """$class_Py5Graphics_create_shape"""
         return _Py5GraphicsHelper.createShape(self._instance, *args)
 
