@@ -160,7 +160,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self._methods_to_profile = []
         self._pre_hooks_to_add = []
         self._post_hooks_to_add = []
-        # must always keep the py5_methods reference count from hitting zero.
+        # must always keep the _py5_bridge reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_bridge = None
         self._environ = None
