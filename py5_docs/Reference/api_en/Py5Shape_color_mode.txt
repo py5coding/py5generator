@@ -24,14 +24,15 @@ Changes the way a `Py5Shape` object interprets color data. By default, the param
 After changing the range of values for colors with code like `color_mode(HSB, 360, 100, 100)`, those ranges remain in use until they are explicitly changed again. For example, after running `color_mode(HSB, 360, 100, 100)` and then changing back to `color_mode(RGB)`, the range for R will be 0 to 360 and the range for G and B will be 0 to 100. To avoid this, be explicit about the ranges when changing the color mode. For instance, instead of `color_mode(RGB)`, write `color_mode(RGB, 255, 255, 255)`.
 
 @@ example
+image = Py5Shape_color_mode_0.png
+
 def setup():
     s = py5.create_shape()
     s.color_mode(s.RGB, 1.0)
-    s.begin_shape()
-    s.fill(0.8, 0.6, 0.4)
-    s.vertex(20, 80)
-    s.vertex(50, 20)
-    s.vertex(80, 80)
-    s.end_shape(py5.CLOSE)
+    with s.begin_closed_shape():
+        s.fill(0.8, 0.6, 0.4)
+        s.vertex(20, 80)
+        s.vertex(50, 20)
+        s.vertex(80, 80)
 
     py5.shape(s)
