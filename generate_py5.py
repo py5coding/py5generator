@@ -123,6 +123,7 @@ def generate_py5(app_dir, build_dir, skip_autopep8=False):
 
     logger.info(f'reading Py5Vector code')
     py5vector_method_signatures = find_signatures('Py5Vector', Path('py5_resources/py5_module/py5/vector.py'))
+    py5graphics_method_signatures = find_signatures('Py5Graphics', Path('py5_resources/py5_module/py5/graphics.py'))
 
     # this assembles the code fragments from the builders so it can be
     # inserted into the code templates to complete the py5 module.
@@ -150,6 +151,7 @@ def generate_py5(app_dir, build_dir, skip_autopep8=False):
         **py5keyevent_builder.method_signatures,
         **py5mouseevent_builder.method_signatures,
         **py5vector_method_signatures,
+        **py5graphics_method_signatures,
         **ref.EXTRA_METHOD_SIGNATURES,
     }
 
