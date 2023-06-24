@@ -122,22 +122,22 @@ class Py5Shape:
     def __getattr__(self, name):
         raise AttributeError(spelling.error_msg('Py5Shape', name, self))
 
-    def vertices(self, coordinates):
+    def vertices(self, coordinates: npt.NDArray[np.floating], /) -> None:
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5ShapeHelper.vertices(self._instance, coordinates)
 
-    def bezier_vertices(self, coordinates):
+    def bezier_vertices(self, coordinates: npt.NDArray[np.floating], /) -> None:
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5ShapeHelper.bezierVertices(self._instance, coordinates)
 
-    def curve_vertices(self, coordinates):
+    def curve_vertices(self, coordinates: npt.NDArray[np.floating], /) -> None:
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5ShapeHelper.curveVertices(self._instance, coordinates)
 
-    def quadratic_vertices(self, coordinates):
+    def quadratic_vertices(self, coordinates: npt.NDArray[np.floating], /) -> None:
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5ShapeHelper.quadraticVertices(self._instance, coordinates)
