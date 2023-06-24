@@ -24,11 +24,12 @@ import functools
 from pathlib import Path
 from typing import overload  # noqa
 import weakref
+import types
 
 import numpy as np
 import numpy.typing as npt  # noqa
 
-from jpype import JException
+from jpype import JClass, JException
 from jpype.types import JBoolean, JInt, JFloat
 
 from .pmath import _get_pvector_wrapper  # noqa
@@ -93,6 +94,9 @@ def _return_numpy_array(f):
     return decorated
 
 
+_Py5ShapeHelper = JClass('py5.core.Py5ShapeHelper')
+
+
 class Py5Shape:
     """$classdoc_Py5Shape
     """
@@ -117,5 +121,25 @@ class Py5Shape:
 
     def __getattr__(self, name):
         raise AttributeError(spelling.error_msg('Py5Shape', name, self))
+
+    def vertices(self, coordinates):
+        if isinstance(coordinates, types.GeneratorType):
+            coordinates = list(coordinates)
+        _Py5ShapeHelper.vertices(self._instance, coordinates)
+
+    def bezier_vertices(self, coordinates):
+        if isinstance(coordinates, types.GeneratorType):
+            coordinates = list(coordinates)
+        _Py5ShapeHelper.bezierVertices(self._instance, coordinates)
+
+    def curve_vertices(self, coordinates):
+        if isinstance(coordinates, types.GeneratorType):
+            coordinates = list(coordinates)
+        _Py5ShapeHelper.curveVertices(self._instance, coordinates)
+
+    def quadratic_vertices(self, coordinates):
+        if isinstance(coordinates, types.GeneratorType):
+            coordinates = list(coordinates)
+        _Py5ShapeHelper.quadraticVertices(self._instance, coordinates)
 
 {py5shape_class_members_code}
