@@ -3,6 +3,8 @@ name = color_mode()
 type = method
 pclass = PShape
 processing_name = colorMode
+category = drawing
+subcategory = None
 
 @@ signatures
 color_mode(mode: int, /) -> None

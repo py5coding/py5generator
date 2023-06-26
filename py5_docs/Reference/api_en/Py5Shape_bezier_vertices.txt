@@ -1,6 +1,9 @@
 @@ meta
 name = bezier_vertices()
 type = method
+pclass = PShape
+category = vertices
+subcategory = None
 
 @@ signatures
 bezier_vertices(coordinates: npt.NDArray[np.floating], /) -> None

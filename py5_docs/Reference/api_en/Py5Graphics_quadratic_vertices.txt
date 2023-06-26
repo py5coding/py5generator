@@ -2,7 +2,6 @@
 name = quadratic_vertices()
 type = method
 pclass = PGraphics
-processing_name = quadraticVertices
 category = shape
 subcategory = vertex
 

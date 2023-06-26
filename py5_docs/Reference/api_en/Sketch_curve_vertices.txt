@@ -2,7 +2,6 @@
 name = curve_vertices()
 type = method
 pclass = PApplet
-processing_name = curveVertices
 category = shape
 subcategory = vertex
 

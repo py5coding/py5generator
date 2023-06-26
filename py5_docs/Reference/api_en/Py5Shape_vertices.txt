@@ -1,6 +1,9 @@
 @@ meta
 name = vertices()
 type = method
+pclass = PShape
+category = vertices
+subcategory = None
 
 @@ signatures
 vertices(coordinates: npt.NDArray[np.floating], /) -> None

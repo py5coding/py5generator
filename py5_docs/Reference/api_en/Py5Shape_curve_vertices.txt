@@ -1,6 +1,9 @@
 @@ meta
 name = curve_vertices()
 type = method
+pclass = PShape
+category = vertices
+subcategory = None
 
 @@ signatures
 curve_vertices(coordinates: npt.NDArray[np.floating], /) -> None

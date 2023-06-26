@@ -1,6 +1,9 @@
 @@ meta
 name = quadratic_vertices()
 type = method
+pclass = PShape
+category = vertices
+subcategory = None
 
 @@ signatures
 quadratic_vertices(coordinates: npt.NDArray[np.floating], /) -> None

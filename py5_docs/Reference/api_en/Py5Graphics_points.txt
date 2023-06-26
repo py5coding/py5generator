@@ -2,7 +2,6 @@
 name = points()
 type = method
 pclass = PGraphics
-processing_name = points
 category = shape
 subcategory = 2d_primitives
 
