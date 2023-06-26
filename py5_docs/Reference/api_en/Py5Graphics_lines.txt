@@ -2,7 +2,6 @@
 name = lines()
 type = method
 pclass = PGraphics
-processing_name = lines
 category = shape
 subcategory = 2d_primitives
 

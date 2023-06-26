@@ -2,7 +2,6 @@
 name = points()
 type = method
 pclass = PApplet
-processing_name = points
 category = shape
 subcategory = 2d_primitives
 

@@ -2,7 +2,6 @@
 name = vertices()
 type = method
 pclass = PGraphics
-processing_name = vertices
 category = shape
 subcategory = vertex
 
