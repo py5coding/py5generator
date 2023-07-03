@@ -52,9 +52,15 @@ def handle_nameerror(exc_type_name, exc_msg, py5info):
         if m:
             fname = m.group(1)
             exc_msg = 'The name "' + fname + '" is not defined.'
-            suggestion_list = spelling.suggestions(fname, py5_tools.reference.PY5_DIR_STR)
-            if suggestion_list:
-                exc_msg += ' Did you mean ' + suggestion_list + '?'
+            if fname in py5_tools.reference.PY5_DIR_STR:
+                return exc_msg + (' Your Sketch is also running in Imported Mode. ' +
+                        'If the code throwing this exception was imported into your ' +
+                        'main py5 Sketch code, please ensure the py5 Imported Mode marker ' +
+                        '"# PY5 IMPORTED MODE CODE" has been properly added to the module.')
+            else:
+                suggestion_list = spelling.suggestions(fname, py5_tools.reference.PY5_DIR_STR)
+                if suggestion_list:
+                    exc_msg += ' Did you mean ' + suggestion_list + '?'
 
     return exc_msg
 

@@ -28,7 +28,7 @@ from importlib.util import spec_from_file_location
 import py5_tools
 
 
-PY5_IMPORTED_MODE_CODE_MARKER_REGEX =  re.compile(r"^# PY5 IMPORTED MODE CODE\s*$$", re.MULTILINE)
+PY5_IMPORTED_MODE_CODE_MARKER_REGEX =  re.compile(r"^# PY5 IMPORTED MODE CODE\s*$$", re.MULTILINE | re.IGNORECASE)
 PY5_HEADER = '\n\n\n'.join([f'def {dvar}():\n    return get_current_sketch().{dvar}' for dvar in py5_tools.reference.PY5_DYNAMIC_VARIABLES])
 
 
