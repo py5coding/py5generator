@@ -151,7 +151,7 @@ def check_for_problems(code, filename, *, tool=None):
         if tool:
             msg += f' When using {tool}, your code is written in static mode, without defining a setup() function or a draw() function.'
         else:
-            msg += 'When coding in static mode, your code should not define a setup() function or  draw() function.'
+            msg += ' When coding in static mode, your code should not define a setup() function or  draw() function.'
         return False, msg
 
     # does the code parse? if not, return an error message
