@@ -103,10 +103,9 @@ if {1} and is_dead_from_error:
 """
 
 
-SETTINGS_REGEX = re.compile(r'^def settings\(\):', flags=re.MULTILINE)
-SETUP_REGEX = re.compile(r'^def setup\(\):', flags=re.MULTILINE)
-DRAW_REGEX = re.compile(r'^def draw\(\):', flags=re.MULTILINE)
-
+SETTINGS_REGEX = re.compile(r'^def settings[^:]*:', flags=re.MULTILINE)
+SETUP_REGEX = re.compile(r'^def setup[^:]*:', flags=re.MULTILINE)
+DRAW_REGEX = re.compile(r'^def draw[^:]*:', flags=re.MULTILINE)
 
 def is_static_mode(code):
     no_settings =  SETTINGS_REGEX.search(code) is None
