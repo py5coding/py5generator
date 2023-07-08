@@ -146,7 +146,7 @@ def transform_py5_code(code_ast: ast.Module):
 
 def check_for_problems(code, filename, *, tool=None):
     # if the code contains a setup() or a draw() function, the user could be confused about static mode
-    if (ms := re.findall(r"^def (setup|draw)\([^\)]*\):", code, flags=re.MULTILINE)):
+    if (ms := re.findall(r'^def (setup|draw)[^:]*:', code, flags=re.MULTILINE)):
         msg = 'Your code contains ' + (f'a {ms[0]}() function.' if len(ms) == 1 else 'setup() and draw() functions.')
         if tool:
             msg += f' When using {tool}, your code is written in static mode, without defining a setup() function or a draw() function.'
