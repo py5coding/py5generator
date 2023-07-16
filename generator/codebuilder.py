@@ -141,6 +141,9 @@ class CodeBuilder:
         decorator = self._py5_decorators[name]
         var_type = _convert_type(type_name)
 
+        # adjust decorator if there are multiple decorators
+        decorator = decorator.replace(';', '\n    ')
+
         self.class_members.append(
             templ.CLASS_PROPERTY_TEMPLATE.format(self._class_name, py5_name, var_type, name, decorator)
         )
