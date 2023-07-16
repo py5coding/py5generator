@@ -82,6 +82,16 @@ _PY5_LAST_WINDOW_X = None
 _PY5_LAST_WINDOW_Y = None
 
 
+def _deprecated_g(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        warnings.warn("Accessing the primary Py5Graphics object with `g` is deprecated. Please use `get_graphics()` instead.",
+                      category=DeprecationWarning,
+                      stacklevel=3 if py5_tools.imported.get_imported_mode() else 4)
+        return f(self_, *args)
+    return decorated
+
+
 def _auto_convert_to_py5image(argnum):
     def _decorator(f):
         @functools.wraps(f)
