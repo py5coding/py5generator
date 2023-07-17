@@ -64,11 +64,11 @@ class Py5Vector(Sequence):
                     arg0 = arg0._data
                 if isinstance(arg0, np.ndarray):
                     if copy:
-                        data = arg0.astype(dtype)
+                        data = arg0.astype(dtype).flatten()
                     else:
-                        data = arg0
+                        data = arg0.flatten()
                 else:
-                    data = np.array(arg0, dtype=dtype)
+                    data = np.array(arg0, dtype=dtype).flatten()
             else:
                 raise RuntimeError(f'Cannot create a Py5Vector with {len(arg0)} values')
         elif 2 <= len(args) <= 4:
@@ -79,7 +79,7 @@ class Py5Vector(Sequence):
                     if np.issubdtype(item.dtype, np.floating) or np.issubdtype(item.dtype, np.integer):
                         if kwarg_dtype is None:
                             dtype_ = item.dtype if dtype_ is None else max(dtype_, item.dtype)
-                        data_.extend(item.tolist())
+                        data_.extend(item.flatten().tolist() if isinstance(item, np.ndarray) else item.tolist())
                     else:
                         raise RuntimeError(f'Argument {i} is a numpy array with dtype {item.dtype} and cannot be used in a Py5Vector')
                 elif isinstance(item, Iterable):
