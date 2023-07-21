@@ -9,6 +9,8 @@ subcategory = None
 @@ description
 The [](py5graphics) object used by the Sketch. Internally, all of Processing's drawing functionality comes from interaction with PGraphics objects, and this will provide direct access to the PGraphics object used by the Sketch.
 
+Use of `g` is deprecated as of version 0.9.1. Please use [](sketch_get_graphics) instead.
+
 @@ example
 def setup():
     py5.g.rect(10, 10, 50, 50)
