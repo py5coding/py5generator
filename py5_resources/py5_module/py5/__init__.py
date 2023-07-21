@@ -90,7 +90,7 @@ py5_tools._lock_imported_mode()
 
 object_conversion.init_jpype_converters()
 
-warnings.filterwarnings("default", category=DeprecationWarning, module="py5")
+warnings.filterwarnings("once", category=DeprecationWarning, module="py5")
 
 sketch_module_members_code = None  # DELETE
 run_sketch_pre_run_code = None  # DELETE
