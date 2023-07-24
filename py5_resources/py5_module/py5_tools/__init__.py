@@ -28,4 +28,4 @@ from .config import *  # noqa
 from . import translators  # noqa
 
 
-__version__ = '0.9.1a1'
+__version__ = '0.9.2.dev0'
