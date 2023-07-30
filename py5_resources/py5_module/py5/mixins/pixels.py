@@ -127,6 +127,37 @@ class PixelMixin:
             raise RuntimeError(f"Unknown `bands` value '{bands}'. Supported values are 'L', 'ARGB', 'RGB', 'RGBA', 'BGR', and 'BGRA'.")
         self.update_np_pixels()
 
+    def get_np_pixels(self, x: int, y: int, w: int, h: int, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
+        """$class_Sketch_get_np_pixels"""
+        x_slice = slice(x, x + w)
+        y_slice = slice(y, y + h)
+
+        self.load_np_pixels()
+        if bands == 'L':
+            pixels = self._np_pixels[x_slice, y_slice]
+            pixels = ((pixels[:, :, 0:1] / 255.0) * pixels[:, :, 1:] @ [0.299, 0.587, 0.114]).astype(np.uint8)
+        elif bands == 'ARGB':
+            pixels = self._np_pixels[x_slice, y_slice]
+        elif bands == 'RGB':
+            pixels = self._np_pixels[x_slice, y_slice, 1:]
+        elif bands == 'RGBA':
+            pixels = np.roll(self._np_pixels[x_slice, y_slice], 1, axis=2)
+        elif bands == 'BGR':
+            pixels = self._np_pixels[x_slice, y_slice, 3:0:-1]
+        elif bands == 'BGRA':
+            pixels = np.dstack([self._np_pixels[x_slice, y_slice, 3:0:-1], self._np_pixels[x_slice, y_slice, 0]])
+        else:
+            raise RuntimeError(f"Unknown `bands` value '{bands}'. Supported values are 'L', 'ARGB', 'RGB', 'RGBA', 'BGR', and 'BGRA'.")
+
+        if dst is not None:
+            if dst.shape != pixels.shape:
+                raise ValueError(f"Destination array has shape {dst.shape} but expected {pixels.shape}")
+            else:
+                dst[:] = pixels
+                return dst
+        else:
+            return pixels if pixels.base is None else pixels.copy()
+
     def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
         """$class_Sketch_save"""
         sketch_instance = self._instance if isinstance(self._instance, _Sketch) else self._instance.parent
@@ -168,6 +199,10 @@ class PixelPy5GraphicsMixin(PixelMixin):
         """$class_Py5Graphics_set_np_pixels"""
         return super().set_np_pixels(array, bands)
 
+    def get_np_pixels(self, x: int, y: int, w: int, h: int, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
+        """$class_Py5Graphics_get_np_pixels"""
+        return super().get_np_pixels(x, y, w, h, bands=bands, dst=dst)
+
     def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
         """$class_Py5Graphics_save"""
         return super().save(filename, format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
@@ -191,6 +226,10 @@ class PixelPy5ImageMixin(PixelMixin):
     def set_np_pixels(self, array: npt.NDArray[np.uint8], bands: str = 'ARGB') -> None:
         """$class_Py5Image_set_np_pixels"""
         return super().set_np_pixels(array, bands)
+
+    def get_np_pixels(self, x: int, y: int, w: int, h: int, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
+        """$class_Py5Image_get_np_pixels"""
+        return super().get_np_pixels(x, y, w, h, bands=bands, dst=dst)
 
     def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
         """$class_Py5Image_save"""
