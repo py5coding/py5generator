@@ -5,6 +5,7 @@ category = image
 subcategory = pixels
 
 @@ signatures
+get_np_pixels(*, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]
 get_np_pixels(x: int, y: int, w: int, h: int, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]
 
 @@ variables

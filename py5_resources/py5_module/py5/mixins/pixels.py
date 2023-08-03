@@ -127,25 +127,46 @@ class PixelMixin:
             raise RuntimeError(f"Unknown `bands` value '{bands}'. Supported values are 'L', 'ARGB', 'RGB', 'RGBA', 'BGR', and 'BGRA'.")
         self.update_np_pixels()
 
+    @overload
+    def get_np_pixels(self, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
+        """$class_Sketch_get_np_pixels"""
+        pass
+
+    @overload
     def get_np_pixels(self, x: int, y: int, w: int, h: int, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
         """$class_Sketch_get_np_pixels"""
+        pass
+
+    def get_np_pixels(self, *args, **kwargs) -> npt.NDArray[np.uint8]:
+        """$class_Sketch_get_np_pixels"""
+        self.load_np_pixels()
+
+        if len(args) == 4:
+            x, y, w, h = args
+        elif len(args) == 0:
+            x, y, h, w = 0, 0, *self.np_pixels.shape[:2]
+        else:
+            raise TypeError(f"Received {len(args)} out of 4 positional arguments for x, y, w, and h.")
+
+        bands = kwargs.get('bands', 'ARGB')
+        dst = kwargs.get('dst', None)
+
         x_slice = slice(x, x + w)
         y_slice = slice(y, y + h)
 
-        self.load_np_pixels()
         if bands == 'L':
-            pixels = self._np_pixels[x_slice, y_slice]
+            pixels = self._np_pixels[y_slice, x_slice]
             pixels = ((pixels[:, :, 0:1] / 255.0) * pixels[:, :, 1:] @ [0.299, 0.587, 0.114]).astype(np.uint8)
         elif bands == 'ARGB':
-            pixels = self._np_pixels[x_slice, y_slice]
+            pixels = self._np_pixels[y_slice, x_slice]
         elif bands == 'RGB':
-            pixels = self._np_pixels[x_slice, y_slice, 1:]
+            pixels = self._np_pixels[y_slice, x_slice, 1:]
         elif bands == 'RGBA':
-            pixels = np.roll(self._np_pixels[x_slice, y_slice], 1, axis=2)
+            pixels = np.roll(self._np_pixels[y_slice, x_slice], 1, axis=2)
         elif bands == 'BGR':
-            pixels = self._np_pixels[x_slice, y_slice, 3:0:-1]
+            pixels = self._np_pixels[y_slice, x_slice, 3:0:-1]
         elif bands == 'BGRA':
-            pixels = np.dstack([self._np_pixels[x_slice, y_slice, 3:0:-1], self._np_pixels[x_slice, y_slice, 0]])
+            pixels = np.dstack([self._np_pixels[y_slice, x_slice, 3:0:-1], self._np_pixels[y_slice, x_slice, 0]])
         else:
             raise RuntimeError(f"Unknown `bands` value '{bands}'. Supported values are 'L', 'ARGB', 'RGB', 'RGBA', 'BGR', and 'BGRA'.")
 
