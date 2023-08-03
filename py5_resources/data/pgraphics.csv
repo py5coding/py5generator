@@ -463,6 +463,7 @@ load_np_pixels,,,method,PYTHON,like loadPixels but for np_pixels; implemented in
 update_np_pixels,,,method,PYTHON,like updatePixels but for np_pixels; implemented in the pixels.py mixin
 set_np_pixels,,,method,PYTHON,replaces data in the np_pixels array; implemented in the pixels.py mixin
 get_np_pixels,,,method,PYTHON,gets data in the np_pixels array; implemented in the pixels.py mixin
+to_pil,,,method,PYTHON,implemented in the pixels.py mixin
 np_pixels,,,dynamic variable,PYTHON,numpy array containing pixel data
 points,,,method,PYTHON,implemented by me in Py5GraphicsHelper
 lines,,,method,PYTHON,implemented by me in Py5GraphicsHelper

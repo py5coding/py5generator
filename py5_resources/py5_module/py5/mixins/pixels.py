@@ -27,6 +27,7 @@ from typing import overload, Union  # noqa
 import numpy as np
 import numpy.typing as npt
 from PIL import Image
+from PIL.Image import Image as PIL_Image
 import jpype
 
 from ..decorators import _hex_converter
@@ -133,7 +134,7 @@ class PixelMixin:
         pass
 
     @overload
-    def get_np_pixels(self, x: int, y: int, w: int, h: int, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
+    def get_np_pixels(self, x: int, y: int, w: int, h: int, /, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
         """$class_Sketch_get_np_pixels"""
         pass
 
@@ -178,6 +179,20 @@ class PixelMixin:
                 return dst
         else:
             return pixels if pixels.base is None else pixels.copy()
+
+    @overload
+    def to_pil(self) -> PIL_Image:
+        """$class_Sketch_to_pil"""
+        pass
+
+    @overload
+    def to_pil(self, x: int, y: int, w: int, h: int, /) -> PIL_Image:
+        """$class_Sketch_to_pil"""
+        pass
+
+    def to_pil(self, *args) -> PIL_Image:
+        """$class_Sketch_to_pil"""
+        return Image.fromarray(self.get_np_pixels(*args, bands='RGBA'))
 
     def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
         """$class_Sketch_save"""
@@ -224,6 +239,20 @@ class PixelPy5GraphicsMixin(PixelMixin):
         """$class_Py5Graphics_get_np_pixels"""
         return super().get_np_pixels(x, y, w, h, bands=bands, dst=dst)
 
+    @overload
+    def to_pil(self) -> PIL_Image:
+        """$class_Py5Graphics_to_pil"""
+        pass
+
+    @overload
+    def to_pil(self, x: int, y: int, w: int, h: int, /) -> PIL_Image:
+        """$class_Py5Graphics_to_pil"""
+        pass
+
+    def to_pil(self, *args) -> PIL_Image:
+        """$class_Py5Graphics_to_pil"""
+        return super().to_pil(*args)
+
     def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
         """$class_Py5Graphics_save"""
         return super().save(filename, format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
@@ -251,6 +280,20 @@ class PixelPy5ImageMixin(PixelMixin):
     def get_np_pixels(self, x: int, y: int, w: int, h: int, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
         """$class_Py5Image_get_np_pixels"""
         return super().get_np_pixels(x, y, w, h, bands=bands, dst=dst)
+
+    @overload
+    def to_pil(self) -> PIL_Image:
+        """$class_Py5Image_to_pil"""
+        pass
+
+    @overload
+    def to_pil(self, x: int, y: int, w: int, h: int, /) -> PIL_Image:
+        """$class_Py5Image_to_pil"""
+        pass
+
+    def to_pil(self, *args) -> PIL_Image:
+        """$class_Py5Image_to_pil"""
+        return super().to_pil(*args)
 
     def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
         """$class_Py5Image_save"""

@@ -1,16 +1,14 @@
 @@ meta
-name = get_np_pixels()
+name = to_pil()
 type = method
 category = image
 subcategory = pixels
 
 @@ signatures
-get_np_pixels(*, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]
-get_np_pixels(x: int, y: int, w: int, h: int, /, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]
+to_pil() -> PIL_Image
+to_pil(x: int, y: int, w: int, h: int, /) -> PIL_Image
 
 @@ variables
-bands: str = 'ARGB' - missing variable description
-dst: npt.NDArray[np.uint8] = None - missing variable description
 h: int - missing variable description
 w: int - missing variable description
 x: int - missing variable description
