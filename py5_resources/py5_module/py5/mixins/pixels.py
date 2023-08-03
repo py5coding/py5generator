@@ -163,7 +163,7 @@ class PixelMixin:
         elif bands == 'RGB':
             pixels = self._np_pixels[y_slice, x_slice, 1:]
         elif bands == 'RGBA':
-            pixels = np.roll(self._np_pixels[y_slice, x_slice], 1, axis=2)
+            pixels = np.roll(self._np_pixels[y_slice, x_slice], -1, axis=2)
         elif bands == 'BGR':
             pixels = self._np_pixels[y_slice, x_slice, 3:0:-1]
         elif bands == 'BGRA':
