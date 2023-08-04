@@ -5,7 +5,7 @@ category = sketch_hooks
 subcategory = None
 
 @@ signatures
-screenshot(*, sketch: Sketch = None, hook_post_draw: bool = False) -> PIL.Image
+screenshot(*, sketch: Sketch = None, hook_post_draw: bool = False) -> PIL_Image
 
 @@ variables
 hook_post_draw: bool = False - attach hook to Sketch's post_draw method instead of draw
