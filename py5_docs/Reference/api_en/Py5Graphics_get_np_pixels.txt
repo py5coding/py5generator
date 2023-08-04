@@ -7,12 +7,12 @@ get_np_pixels(*, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.
 get_np_pixels(x: int, y: int, w: int, h: int, /, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]
 
 @@ variables
-bands: str = 'ARGB' - missing variable description
-dst: npt.NDArray[np.uint8] = None - missing variable description
-h: int - missing variable description
-w: int - missing variable description
-x: int - missing variable description
-y: int - missing variable description
+bands: str = 'ARGB' - color channels in output array
+dst: npt.NDArray[np.uint8] = None - destination array to copy pixel data into
+h: int - source height
+w: int - source width
+x: int - x-coordinate of the source's upper left corner
+y: int - y-coordinate of the source's upper left corner
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
