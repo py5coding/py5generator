@@ -215,6 +215,9 @@ class PixelMixin:
 
 
 # NOTE: changes to the below method signatures will not update the reference docs automatically
+# could also add this information to generator/reference.py but it is simpler to copy-paste from
+# the Sketch doc files to the Py5Graphics and Py5Image doc files.
+# Both of these classes are necessary so that the docstings will be correct.
 
 class PixelPy5GraphicsMixin(PixelMixin):
 

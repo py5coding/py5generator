@@ -2,5 +2,15 @@
 name = to_pil()
 type = method
 
+@@ signatures
+to_pil() -> PIL_Image
+to_pil(x: int, y: int, w: int, h: int) -> PIL_Image
+
+@@ variables
+h: int - missing variable description
+w: int - missing variable description
+x: int - missing variable description
+y: int - missing variable description
+
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
