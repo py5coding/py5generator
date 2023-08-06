@@ -156,8 +156,7 @@ class PixelMixin:
         y_slice = slice(y, y + h)
 
         if bands == 'L':
-            pixels = self._np_pixels[y_slice, x_slice]
-            pixels = ((pixels[:, :, 0:1] / 255.0) * pixels[:, :, 1:] @ [0.299, 0.587, 0.114]).astype(np.uint8)
+            pixels = (self._np_pixels[y_slice, x_slice][:, :, 1:] @ [0.299, 0.587, 0.114]).astype(np.uint8)
         elif bands == 'ARGB':
             pixels = self._np_pixels[y_slice, x_slice]
         elif bands == 'RGB':
