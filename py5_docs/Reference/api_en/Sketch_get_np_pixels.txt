@@ -17,4 +17,8 @@ x: int - x-coordinate of the source's upper left corner
 y: int - y-coordinate of the source's upper left corner
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Get the contents of [](sketch_np_pixels) as a numpy array. The returned numpy array can be the entirety of [](sketch_np_pixels) or a rectangular subsection. Use the `x`, `y`, `h`, and `w` parameters to specify the bounds of a rectangular subsection.
+
+The `bands` parameter is used to determine the ordering of the returned numpy array's color channel. It can be one of `'L'` (single-channel grayscale), `'ARGB'`, `'RGB'`, or `'RGBA'`. If the `bands` parameter is `'L'`, the returned array will have two dimensions, and each pixel value will be calculated as `0.299 * red + 0.587 * green + 0.114 * blue`. The alpha channel will also be ignored. For all other `bands` parameter values, the returned array will have three dimensions, with the third dimension representing the different color channels specified by the `bands` value.
+
+The returned array will always be a copy of the data in [](sketch_np_pixels) and not a view into that array or any other array. Use the `dst` parameter to provide the numpy array to copy the pixel data into. The provided array must be sized correctly. The array's `dtype` should `np.uint8`, but this isn't required.
