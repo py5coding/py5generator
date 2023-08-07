@@ -22,3 +22,21 @@ The `bands` parameter is used to determine the ordering of the returned numpy ar
 The returned array will always be a copy of the data in [](py5graphics_np_pixels) and not a view into that array or any other array. Use the `dst` parameter to provide the numpy array to copy the pixel data into. The provided array must be sized correctly. The array's `dtype` should `np.uint8`, but this isn't required.
 
 This method is the same as [](sketch_get_np_pixels) but linked to a `Py5Graphics` object.
+
+@@ example
+image = Py5Graphics_get_np_pixels_0.png
+
+import numpy as np
+
+def setup():
+    py5.background(128)
+    g = py5.create_graphics(80, 80)
+    with g.begin_draw():
+        g.background(0)
+        g.fill(128)
+        for i in range(5, 66, 10):
+            g.rect(i, i, 8, 8)
+        array = g.get_np_pixels(bands='RGB')
+        array[:, :, 0] = np.linspace(0, 255, num=g.width, dtype=np.uint8)
+        g.set_np_pixels(array, bands='RGB')
+    py5.image(g, 10, 10)

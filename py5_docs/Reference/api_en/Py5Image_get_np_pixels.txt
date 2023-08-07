@@ -20,3 +20,15 @@ Get the contents of [](py5image_np_pixels) as a numpy array. The returned numpy 
 The `bands` parameter is used to determine the ordering of the returned numpy array's color channel. It can be one of `'L'` (single-channel grayscale), `'ARGB'`, `'RGB'`, or `'RGBA'`. If the `bands` parameter is `'L'`, the returned array will have two dimensions, and each pixel value will be calculated as `0.299 * red + 0.587 * green + 0.114 * blue`. The alpha channel will also be ignored. For all other `bands` parameter values, the returned array will have three dimensions, with the third dimension representing the different color channels specified by the `bands` value.
 
 The returned array will always be a copy of the data in [](py5image_np_pixels) and not a view into that array or any other array. Use the `dst` parameter to provide the numpy array to copy the pixel data into. The provided array must be sized correctly. The array's `dtype` should `np.uint8`, but this isn't required.
+
+@@ example
+image = Py5Image_get_np_pixels_0.png
+
+import numpy as np
+
+def setup():
+    img = py5.load_image('rockies.jpg')
+    array = img.get_np_pixels(bands='RGB')
+    array[:, :, 0] = np.linspace(0, 255, num=img.width, dtype=np.uint8)
+    img.set_np_pixels(array, bands='RGB')
+    py5.image(img, 0, 0)
