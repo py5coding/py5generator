@@ -16,3 +16,14 @@ y: int - y-coordinate of the source's upper left corner
 
 @@ description
 Get the Sketch drawing surface as a PIL Image object. The returned PIL Image object can include the entirety of the Sketch drawing surface or a rectangular subsection. Use the `x`, `y`, `h`, and `w` parameters to specify the bounds of a rectangular subsection.
+
+@@ example
+image = Sketch_to_pil_0.png
+
+def setup():
+    py5.stroke_weight(5)
+    for x in range(0, 100, 10):
+        py5.line(x, 0, x, 100)
+    img = py5.to_pil()
+    img = img.rotate(45)
+    py5.image(img, 0, 0)
