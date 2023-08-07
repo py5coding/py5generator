@@ -106,6 +106,8 @@ class PixelMixin:
 
     def set_np_pixels(self, array: npt.NDArray[np.uint8], bands: str = 'ARGB') -> None:
         """$class_Sketch_set_np_pixels"""
+        bands = bands.upper()
+
         self.load_np_pixels()
         if bands == 'L':
             self._np_pixels[:, :, 0] = 255
@@ -149,7 +151,7 @@ class PixelMixin:
         else:
             raise TypeError(f"Received {len(args)} out of 4 positional arguments for x, y, w, and h.")
 
-        bands = kwargs.get('bands', 'ARGB')
+        bands = kwargs.get('bands', 'ARGB').upper()
         dst = kwargs.get('dst', None)
 
         x_slice = slice(x, x + w)
