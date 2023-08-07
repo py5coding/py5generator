@@ -1,6 +1,8 @@
 @@ meta
 name = to_pil()
 type = method
+category = image
+subcategory = pixels
 
 @@ signatures
 to_pil() -> PIL_Image
