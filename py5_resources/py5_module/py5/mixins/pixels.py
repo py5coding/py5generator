@@ -237,9 +237,19 @@ class PixelPy5GraphicsMixin(PixelMixin):
         """$class_Py5Graphics_set_np_pixels"""
         return super().set_np_pixels(array, bands)
 
-    def get_np_pixels(self, x: int, y: int, w: int, h: int, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
+    @overload
+    def get_np_pixels(self, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
         """$class_Py5Graphics_get_np_pixels"""
-        return super().get_np_pixels(x, y, w, h, bands=bands, dst=dst)
+        pass
+
+    @overload
+    def get_np_pixels(self, x: int, y: int, w: int, h: int, /, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
+        """$class_Py5Graphics_get_np_pixels"""
+        pass
+
+    def get_np_pixels(self, *args, **kwargs) -> npt.NDArray[np.uint8]:
+        """$class_Py5Graphics_get_np_pixels"""
+        return super().get_np_pixels(*args, **kwargs)
 
     @overload
     def to_pil(self) -> PIL_Image:
@@ -279,9 +289,19 @@ class PixelPy5ImageMixin(PixelMixin):
         """$class_Py5Image_set_np_pixels"""
         return super().set_np_pixels(array, bands)
 
-    def get_np_pixels(self, x: int, y: int, w: int, h: int, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
+    @overload
+    def get_np_pixels(self, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
         """$class_Py5Image_get_np_pixels"""
-        return super().get_np_pixels(x, y, w, h, bands=bands, dst=dst)
+        pass
+
+    @overload
+    def get_np_pixels(self, x: int, y: int, w: int, h: int, /, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
+        """$class_Py5Image_get_np_pixels"""
+        pass
+
+    def get_np_pixels(self, *args, **kwargs) -> npt.NDArray[np.uint8]:
+        """$class_Py5Image_get_np_pixels"""
+        return super().get_np_pixels(*args, **kwargs)
 
     @overload
     def to_pil(self) -> PIL_Image:
