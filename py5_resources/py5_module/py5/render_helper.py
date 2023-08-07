@@ -25,8 +25,7 @@ from typing import Callable
 
 import numpy as np
 
-import PIL
-import PIL.ImageFile
+from PIL.Image import Image as PIL_Image
 from PIL import Image
 
 from .sketch import Sketch
@@ -124,7 +123,7 @@ def _osx_renderer_check(renderer):
 def render_frame(draw: Callable, width: int, height: int,
                  renderer: str = Sketch.HIDDEN, *,
                  draw_args: tuple = None, draw_kwargs: dict = None,
-                 use_py5graphics=False) -> PIL.ImageFile.ImageFile:
+                 use_py5graphics=False) -> PIL_Image:
     """$module_Py5Functions_render_frame"""
     if msg :=_check_allowed_renderer(renderer):
         print(msg, file=sys.stderr)
@@ -145,7 +144,7 @@ def render_frame_sequence(draw: Callable, width: int, height: int,
                           limit: int = 1, setup: Callable = None,
                           setup_args: tuple = None, setup_kwargs: dict = None,
                           draw_args: tuple = None, draw_kwargs: dict = None,
-                          use_py5graphics=False) -> list[PIL.ImageFile.ImageFile]:
+                          use_py5graphics=False) -> list[PIL_Image]:
     """$module_Py5Functions_render_frame_sequence"""
     if msg :=_check_allowed_renderer(renderer):
         print(msg, file=sys.stderr)
@@ -163,7 +162,7 @@ def render_frame_sequence(draw: Callable, width: int, height: int,
 
 
 def render(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
-           use_py5graphics=False) -> PIL.ImageFile.ImageFile:
+           use_py5graphics=False) -> PIL_Image:
     """$module_Py5Functions_render"""
     if msg :=_check_allowed_renderer(renderer):
         raise RuntimeError(msg)
@@ -182,7 +181,7 @@ def render(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
 def render_sequence(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
                     limit: int = 1, setup: Callable = None,
                     setup_args: tuple = None, setup_kwargs: dict = None,
-                    use_py5graphics=False) -> list[PIL.ImageFile.ImageFile]:
+                    use_py5graphics=False) -> list[PIL_Image]:
     """$module_Py5Functions_render_sequence"""
     if msg :=_check_allowed_renderer(renderer):
         raise RuntimeError(msg)

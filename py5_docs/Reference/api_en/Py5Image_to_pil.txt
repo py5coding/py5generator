@@ -1,0 +1,26 @@
+@@ meta
+name = to_pil()
+type = method
+
+@@ signatures
+to_pil() -> PIL_Image
+to_pil(x: int, y: int, w: int, h: int) -> PIL_Image
+
+@@ variables
+h: int - source height
+w: int - source width
+x: int - x-coordinate of the source's upper left corner
+y: int - y-coordinate of the source's upper left corner
+
+@@ description
+Convert the Py5Image object to a PIL Image object. The returned PIL Image object can include the entirety of the Py5Image's pixels or a rectangular subsection. Use the `x`, `y`, `h`, and `w` parameters to specify the bounds of a rectangular subsection.
+
+@@ example
+image = Py5Image_to_pil_0.png
+
+def setup():
+    py5.background(0)
+    img = py5.load_image('rockies.jpg')
+    img = img.to_pil()
+    img = img.rotate(45)
+    py5.image(img, 0, 0)

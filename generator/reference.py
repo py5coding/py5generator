@@ -105,12 +105,12 @@ EXTRA_METHOD_SIGNATURES = {
         (['draw: Callable', 'width: int', 'height: int', 'renderer: str = Sketch.HIDDEN', '*',
           'limit: int = 1', 'setup: Callable = None', 'setup_args: tuple = None',
           'setup_kwargs: dict = None', 'draw_args: tuple = None',
-          'draw_kwargs: dict = None', 'use_py5graphics: bool = False'], 'list[PIL.ImageFile.ImageFile]')
+          'draw_kwargs: dict = None', 'use_py5graphics: bool = False'], 'list[PIL_Image]')
     ],
     ('Py5Functions', 'render_sequence'): [
         (['width: int', 'height: int', 'renderer: str = Sketch.HIDDEN', '*', 'limit: int = 1',
           'setup: Callable = None', 'setup_args: tuple = None',
-          'setup_kwargs: dict = None', 'use_py5graphics: bool = False'], 'list[PIL.ImageFile.ImageFile]')
+          'setup_kwargs: dict = None', 'use_py5graphics: bool = False'], 'list[PIL_Image]')
     ],
     ('Py5Functions', 'register_image_conversion'): [
         (['precondition: Callable', 'convert_function: Callable'], 'None')
@@ -137,7 +137,7 @@ EXTRA_METHOD_SIGNATURES = {
         ([], 'dict[str, Any]')
     ],
     ('Py5Tools', 'screenshot'): [
-        (['*', 'sketch: Sketch = None', 'hook_post_draw: bool = False'], 'PIL.Image')
+        (['*', 'sketch: Sketch = None', 'hook_post_draw: bool = False'], 'PIL_Image')
     ],
     ('Py5Tools', 'save_frames'): [
         (['dirname: str', '*', "filename: str = 'frame_####.png'",
@@ -160,7 +160,7 @@ EXTRA_METHOD_SIGNATURES = {
     ],
     ('Py5Tools', 'capture_frames'): [
         (['count: float', '*', 'period: float = 0.0', 'sketch: Sketch = None',
-          'hook_post_draw: bool = False', 'block: bool = False'], 'list[PIL.Image]')
+          'hook_post_draw: bool = False', 'block: bool = False'], 'list[PIL_Image]')
     ],
     ('Py5Tools', 'sketch_portal'): [
         (['*', 'time_limit: float = 0.0', 'throttle_frame_rate: float = 30',

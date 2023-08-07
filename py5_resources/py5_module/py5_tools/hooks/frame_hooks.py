@@ -29,7 +29,7 @@ import numpy as np
 import numpy.typing as npt
 
 import PIL
-import PIL.ImageFile
+from PIL.Image import Image as PIL_Image
 
 from .hooks import ScreenshotHook, SaveFramesHook, GrabFramesHook, QueuedBatchProcessingHook
 from .. import environ as _environ
@@ -39,7 +39,7 @@ from .. import imported as _imported
 Sketch = 'Sketch'
 
 
-def screenshot(*, sketch: Sketch = None, hook_post_draw: bool = False) -> PIL.ImageFile.ImageFile:
+def screenshot(*, sketch: Sketch = None, hook_post_draw: bool = False) -> PIL_Image:
     """$module_Py5Tools_screenshot"""
     import py5
     if sketch is None:
@@ -190,7 +190,7 @@ def animated_gif(filename: str, count: int, period: float, duration: float, *,
 
 
 def capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None,
-                   hook_post_draw: bool = False, block: bool = False) -> list[PIL.ImageFile.ImageFile]:
+                   hook_post_draw: bool = False, block: bool = False) -> list[PIL_Image]:
     """$module_Py5Tools_capture_frames"""
     import py5
     if sketch is None:

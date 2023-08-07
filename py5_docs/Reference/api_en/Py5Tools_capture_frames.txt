@@ -6,7 +6,7 @@ subcategory = None
 bool = False - method returns immediately (False) or blocks until function returns (True)
 
 @@ signatures
-capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None, hook_post_draw: bool = False, block: bool = False) -> list[PIL.Image]
+capture_frames(count: float, *, period: float = 0.0, sketch: Sketch = None, hook_post_draw: bool = False, block: bool = False) -> list[PIL_Image]
 
 @@ variables
 block: bool = False - method returns immediately (False) or blocks until function returns (True)

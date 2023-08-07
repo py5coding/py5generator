@@ -27,6 +27,7 @@ from typing import overload, Union  # noqa
 import numpy as np
 import numpy.typing as npt
 from PIL import Image
+from PIL.Image import Image as PIL_Image
 import jpype
 
 from ..decorators import _hex_converter
@@ -105,6 +106,8 @@ class PixelMixin:
 
     def set_np_pixels(self, array: npt.NDArray[np.uint8], bands: str = 'ARGB') -> None:
         """$class_Sketch_set_np_pixels"""
+        bands = bands.upper()
+
         self.load_np_pixels()
         if bands == 'L':
             self._np_pixels[:, :, 0] = 255
@@ -127,6 +130,71 @@ class PixelMixin:
             raise RuntimeError(f"Unknown `bands` value '{bands}'. Supported values are 'L', 'ARGB', 'RGB', 'RGBA', 'BGR', and 'BGRA'.")
         self.update_np_pixels()
 
+    @overload
+    def get_np_pixels(self, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
+        """$class_Sketch_get_np_pixels"""
+        pass
+
+    @overload
+    def get_np_pixels(self, x: int, y: int, w: int, h: int, /, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
+        """$class_Sketch_get_np_pixels"""
+        pass
+
+    def get_np_pixels(self, *args, **kwargs) -> npt.NDArray[np.uint8]:
+        """$class_Sketch_get_np_pixels"""
+        self.load_np_pixels()
+
+        if len(args) == 4:
+            x, y, w, h = args
+        elif len(args) == 0:
+            x, y, h, w = 0, 0, *self.np_pixels.shape[:2]
+        else:
+            raise TypeError(f"Received {len(args)} out of 4 positional arguments for x, y, w, and h.")
+
+        bands = kwargs.get('bands', 'ARGB').upper()
+        dst = kwargs.get('dst', None)
+
+        x_slice = slice(x, x + w)
+        y_slice = slice(y, y + h)
+
+        if bands == 'L':
+            pixels = (self._np_pixels[y_slice, x_slice][:, :, 1:] @ [0.299, 0.587, 0.114]).astype(np.uint8)
+        elif bands == 'ARGB':
+            pixels = self._np_pixels[y_slice, x_slice]
+        elif bands == 'RGB':
+            pixels = self._np_pixels[y_slice, x_slice, 1:]
+        elif bands == 'RGBA':
+            pixels = np.roll(self._np_pixels[y_slice, x_slice], -1, axis=2)
+        elif bands == 'BGR':
+            pixels = self._np_pixels[y_slice, x_slice, 3:0:-1]
+        elif bands == 'BGRA':
+            pixels = np.dstack([self._np_pixels[y_slice, x_slice, 3:0:-1], self._np_pixels[y_slice, x_slice, 0]])
+        else:
+            raise RuntimeError(f"Unknown `bands` value '{bands}'. Supported values are 'L', 'ARGB', 'RGB', 'RGBA', 'BGR', and 'BGRA'.")
+
+        if dst is not None:
+            if dst.shape != pixels.shape:
+                raise ValueError(f"Destination array has shape {dst.shape} but expected {pixels.shape}")
+            else:
+                dst[:] = pixels
+                return dst
+        else:
+            return pixels if pixels.base is None else pixels.copy()
+
+    @overload
+    def to_pil(self) -> PIL_Image:
+        """$class_Sketch_to_pil"""
+        pass
+
+    @overload
+    def to_pil(self, x: int, y: int, w: int, h: int, /) -> PIL_Image:
+        """$class_Sketch_to_pil"""
+        pass
+
+    def to_pil(self, *args) -> PIL_Image:
+        """$class_Sketch_to_pil"""
+        return Image.fromarray(self.get_np_pixels(*args, bands='RGBA'))
+
     def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
         """$class_Sketch_save"""
         sketch_instance = self._instance if isinstance(self._instance, _Sketch) else self._instance.parent
@@ -148,6 +216,9 @@ class PixelMixin:
 
 
 # NOTE: changes to the below method signatures will not update the reference docs automatically
+# could also add this information to generator/reference.py but it is simpler to copy-paste from
+# the Sketch doc files to the Py5Graphics and Py5Image doc files.
+# Both of these classes are necessary so that the docstings will be correct.
 
 class PixelPy5GraphicsMixin(PixelMixin):
 
@@ -167,6 +238,34 @@ class PixelPy5GraphicsMixin(PixelMixin):
     def set_np_pixels(self, array: npt.NDArray[np.uint8], bands: str = 'ARGB') -> None:
         """$class_Py5Graphics_set_np_pixels"""
         return super().set_np_pixels(array, bands)
+
+    @overload
+    def get_np_pixels(self, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
+        """$class_Py5Graphics_get_np_pixels"""
+        pass
+
+    @overload
+    def get_np_pixels(self, x: int, y: int, w: int, h: int, /, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
+        """$class_Py5Graphics_get_np_pixels"""
+        pass
+
+    def get_np_pixels(self, *args, **kwargs) -> npt.NDArray[np.uint8]:
+        """$class_Py5Graphics_get_np_pixels"""
+        return super().get_np_pixels(*args, **kwargs)
+
+    @overload
+    def to_pil(self) -> PIL_Image:
+        """$class_Py5Graphics_to_pil"""
+        pass
+
+    @overload
+    def to_pil(self, x: int, y: int, w: int, h: int, /) -> PIL_Image:
+        """$class_Py5Graphics_to_pil"""
+        pass
+
+    def to_pil(self, *args) -> PIL_Image:
+        """$class_Py5Graphics_to_pil"""
+        return super().to_pil(*args)
 
     def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
         """$class_Py5Graphics_save"""
@@ -191,6 +290,34 @@ class PixelPy5ImageMixin(PixelMixin):
     def set_np_pixels(self, array: npt.NDArray[np.uint8], bands: str = 'ARGB') -> None:
         """$class_Py5Image_set_np_pixels"""
         return super().set_np_pixels(array, bands)
+
+    @overload
+    def get_np_pixels(self, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
+        """$class_Py5Image_get_np_pixels"""
+        pass
+
+    @overload
+    def get_np_pixels(self, x: int, y: int, w: int, h: int, /, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]:
+        """$class_Py5Image_get_np_pixels"""
+        pass
+
+    def get_np_pixels(self, *args, **kwargs) -> npt.NDArray[np.uint8]:
+        """$class_Py5Image_get_np_pixels"""
+        return super().get_np_pixels(*args, **kwargs)
+
+    @overload
+    def to_pil(self) -> PIL_Image:
+        """$class_Py5Image_to_pil"""
+        pass
+
+    @overload
+    def to_pil(self, x: int, y: int, w: int, h: int, /) -> PIL_Image:
+        """$class_Py5Image_to_pil"""
+        pass
+
+    def to_pil(self, *args) -> PIL_Image:
+        """$class_Py5Image_to_pil"""
+        return super().to_pil(*args)
 
     def save(self, filename: Union[str, Path, BytesIO], *, format: str = None, drop_alpha: bool = True, use_thread: bool = False, **params) -> None:
         """$class_Py5Image_save"""
