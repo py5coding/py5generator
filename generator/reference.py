@@ -21,6 +21,7 @@
 Reference and Lookups
 """
 
+
 PY5_SKIP_PARAM_TYPES = {
     'processing.core.PMatrix'
 }
@@ -99,7 +100,8 @@ EXTRA_METHOD_SIGNATURES = {
           'draw_args: tuple = None', 'draw_kwargs: dict = None', 'use_py5graphics: bool = False'], 'Image')
     ],
     ('Py5Functions', 'render'): [
-        (['width: int', 'height: int', 'renderer: str = Sketch.HIDDEN', 'use_py5graphics: bool = False'], 'Image')
+        (['width: int', 'height: int', 'renderer: str = Sketch.HIDDEN',
+         'use_py5graphics: bool = False'], 'Image')
     ],
     ('Py5Functions', 'render_frame_sequence'): [
         (['draw: Callable', 'width: int', 'height: int', 'renderer: str = Sketch.HIDDEN', '*',
@@ -131,7 +133,8 @@ EXTRA_METHOD_SIGNATURES = {
         (['path: Union[Path, str]'], 'None')
     ],
     ('Py5Tools', 'register_processing_mode_key'): [
-        (['key: str', 'value: Union[Callable, ModuleType]', '*', 'callback_once: bool = False'], 'None')
+        (['key: str', 'value: Union[Callable, ModuleType]',
+         '*', 'callback_once: bool = False'], 'None')
     ],
     ('Py5Tools', 'get_jvm_debug_info'): [
         ([], 'dict[str, Any]')
@@ -151,7 +154,7 @@ EXTRA_METHOD_SIGNATURES = {
           'hook_post_draw: bool = False', 'block: bool = False'], 'None')
     ],
     ('Py5Tools', 'offline_frame_processing'): [
-        (['func: Callable[[npt.NDArray[np.uint8]], None]', '*', 
+        (['func: Callable[[npt.NDArray[np.uint8]], None]', '*',
           'limit: int = 0', 'period: float = 0.0', 'batch_size: int = 1',
           'complete_func: Callable[[], None] = None',
           'stop_processing_func: Callable[[], bool] = None',

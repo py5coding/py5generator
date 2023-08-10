@@ -20,7 +20,6 @@
 import re
 from pathlib import Path
 
-
 DOC_REGEX = re.compile(r'(?<=@@ )(\w+)\s(.*?)(?=@@|$)', re.DOTALL)
 META_REGEX = re.compile(r'(\w*)\s*=\s*(.*)')
 CODE_REGEX = re.compile(r'image\s*=\s*([\w\d\.]+)\s+(.*)', re.DOTALL)
@@ -50,7 +49,8 @@ class Documentation:
             filename.parent.mkdir(parents=True)
         with open(filename, 'w') as f:
             f.write('@@ meta\n')
-            f.write('\n'.join(f'{m[0]} = {m[1]}' for m in self.meta.items()) + '\n')
+            f.write(
+                '\n'.join(f'{m[0]} = {m[1]}' for m in self.meta.items()) + '\n')
             if self.signatures:
                 f.write('\n@@ signatures\n')
                 for signature in sorted(set(self.signatures)):
@@ -77,8 +77,10 @@ class Documentation:
             elif kind == 'signatures':
                 self.signatures.extend(content.strip().splitlines())
             elif kind == 'variables':
-                var_desc = [var.split('-', 1) for var in content.strip().splitlines()]
-                self.variables.update({k.strip(): v.strip() for k, v in var_desc})
+                var_desc = [var.split('-', 1)
+                            for var in content.strip().splitlines()]
+                self.variables.update({k.strip(): v.strip()
+                                      for k, v in var_desc})
             elif kind == 'arguments':
                 self.arguments.extend(content.strip().split('\n\n'))
             elif kind == 'example':

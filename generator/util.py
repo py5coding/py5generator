@@ -17,13 +17,13 @@
 #   with this program. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import re
 import logging
-from string import Template
-from pathlib import Path
+import re
 import shutil
-import autopep8
+from pathlib import Path
+from string import Template
 
+import autopep8
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +49,8 @@ class CodeCopier:
                 content = content.format(**self.format_params)
 
             content = re.sub(r'^.*DELETE$', '', content, flags=re.MULTILINE)
-            content = re.sub(r'\s*# @decorator$', '', content, flags=re.MULTILINE)
+            content = re.sub(r'\s*# @decorator$', '',
+                             content, flags=re.MULTILINE)
             content = Template(content).substitute(self.docstring_dict)
             if self.skip_autopep8 or content.find('# *** SKIP AUTOPEP8 ***') >= 0:
                 content = content.replace('# *** SKIP AUTOPEP8 ***\n', '')

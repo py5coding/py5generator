@@ -17,10 +17,10 @@
 #   with this program. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import re
 import logging
-import textwrap
+import re
 import shlex
+import textwrap
 from pathlib import Path
 
 from .docfiles import Documentation
@@ -120,18 +120,22 @@ def prepare_mapping(method_signatures_lookup):
             description = description.replace(m, title_map[m])
         m = FIRST_SENTENCE_REGEX.match(description)
         first_sentence = m.group() if m else description
-        description = '\n'.join([textwrap.fill(d, 80) for d in description.splitlines()])
+        description = '\n'.join([textwrap.fill(d, 80)
+                                for d in description.splitlines()])
         first_sentence = textwrap.fill(first_sentence, 80)
         if item_type in ['line magic', 'cell magic']:
-            arg_decorators = '\n'.join(f'@argument({decorator_helper(d)})' for d in doc.arguments)
-            mapping[(tuple_key[0], f'{tuple_key[1]}_arguments')] = arg_decorators
+            arg_decorators = '\n'.join(
+                f'@argument({decorator_helper(d)})' for d in doc.arguments)
+            mapping[(tuple_key[0],
+                     f'{tuple_key[1]}_arguments')] = arg_decorators
             docstring = MAGIC_DOC_TEMPLATE.format(description)
         elif item_type in ['method', 'function']:
             signatures = doc.signatures
             variables = doc.variables
             if tuple_key not in method_signatures_lookup:
                 if not signatures:
-                    logger.error(f'missing method signatures in lookup for {tuple_key[0]}.{tuple_key[1]}')
+                    logger.error(
+                        f'missing method signatures in lookup for {tuple_key[0]}.{tuple_key[1]}')
             else:
                 found_signatures = set()
                 found_variables = set()
@@ -139,39 +143,50 @@ def prepare_mapping(method_signatures_lookup):
                     sig = f"{tuple_key[1]}({', '.join(params)}) -> {rettype}"
                     found_signatures.add(sig)
                     if sig not in signatures:
-                        logger.warning(f'new signature: {tuple_key[0]}.{tuple_key[1]}, {sig}')
+                        logger.warning(
+                            f'new signature: {tuple_key[0]}.{tuple_key[1]}, {sig}')
                         signatures.append(sig)
                     for p in [p.replace('*', '') for p in params if p and p not in ['/', '*']]:
                         found_variables.add(p)
                         if p not in variables:
-                            logger.warning(f'new variable: {tuple_key[0]}.{tuple_key[1]}, {p}')
+                            logger.warning(
+                                f'new variable: {tuple_key[0]}.{tuple_key[1]}, {p}')
                             variables[p] = 'missing variable description'
 
                 # remove no longer used variables and signatures from documentation
-                dropped_signatures = set(signatures).difference(found_signatures)
+                dropped_signatures = set(
+                    signatures).difference(found_signatures)
                 for dropped_sig in dropped_signatures:
-                    logger.warning(f'dropped signature: {tuple_key[0]}.{tuple_key[1]}, {dropped_sig}')
+                    logger.warning(
+                        f'dropped signature: {tuple_key[0]}.{tuple_key[1]}, {dropped_sig}')
                     signatures.remove(dropped_sig)
-                dropped_variables = set(variables.keys()).difference(found_variables)
+                dropped_variables = set(
+                    variables.keys()).difference(found_variables)
                 for dropped_var in dropped_variables:
-                    logger.warning(f'dropped variable: {tuple_key[0]}.{tuple_key[1]}, {dropped_var}')
+                    logger.warning(
+                        f'dropped variable: {tuple_key[0]}.{tuple_key[1]}, {dropped_var}')
                     variables.pop(dropped_var)
 
             extras = ''
             if processing_name:
                 extras += f'\n\nUnderlying Processing {item_type}: {doc.meta["pclass"]}.{processing_name}'
             if len(signatures) > 1:
-                signatures_txt = '\n'.join(sorted([f' * {s}' for s in signatures]))
+                signatures_txt = '\n'.join(
+                    sorted([f' * {s}' for s in signatures]))
                 extras += SIGNATURES_TEMPLATE.format(signatures_txt)
             if variables:
-                variables_txt = [f'{k}\n    {v}\n'.replace('\\', '\\\\') for k, v in variables.items()]
-                extras += PARAMETERS_TEMPLATE.format('\n'.join(sorted(variables_txt)))[:-1]
-            docstring = METHOD_DOC_TEMPLATE.format(first_sentence + extras, description)
+                variables_txt = [f'{k}\n    {v}\n'.replace(
+                    '\\', '\\\\') for k, v in variables.items()]
+                extras += PARAMETERS_TEMPLATE.format(
+                    '\n'.join(sorted(variables_txt)))[:-1]
+            docstring = METHOD_DOC_TEMPLATE.format(
+                first_sentence + extras, description)
         else:
             extras = ''
             if processing_name:
                 extras += f'\n\nUnderlying Processing {item_type}: {doc.meta["pclass"]}.{processing_name}'
-            docstring = VARIABLE_DOC_TEMPLATE.format(first_sentence + extras, description)
+            docstring = VARIABLE_DOC_TEMPLATE.format(
+                first_sentence + extras, description)
 
         # sort to make everything neat and tidy
         doc.signatures = list(sorted(set(doc.signatures)))
@@ -187,7 +202,8 @@ def prepare_mapping(method_signatures_lookup):
 
 class TemplateMapping:
 
-    INDENTING = {'class': 8, 'pseudoclass': 0, 'module': 4, 'classdoc': 4, 'arguments': 4}
+    INDENTING = {'class': 8, 'pseudoclass': 0,
+                 'module': 4, 'classdoc': 4, 'arguments': 4}
 
     def __init__(self, method_signatures_lookup):
         self._data = prepare_mapping(method_signatures_lookup)

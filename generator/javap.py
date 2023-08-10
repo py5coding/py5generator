@@ -28,7 +28,8 @@ from collections import defaultdict
 
 classpath = ''
 
-FUNCTION_REGEX = re.compile(r'[\w\s]*?\s+(static)?[\w\s]*?([\w\[\]\.]+) (\w+)\(([^\)]*)\).*;')
+FUNCTION_REGEX = re.compile(
+    r'[\w\s]*?\s+(static)?[\w\s]*?([\w\[\]\.]+) (\w+)\(([^\)]*)\).*;')
 CLASS_REGEX = re.compile(r'.*?class ([\w\.,]+)')
 EXTENDS_REGEX = re.compile(r'.*?extends ([\w\.,]+)')
 IMPLEMENTS_REGEX = re.compile(r'.*?implements ([\w\.,]+)')
@@ -45,8 +46,10 @@ def process_block(block, is_interface):
 
         paramnames = []
         if 'LocalVariableTable' in block:
-            var_table = block.split('LocalVariableTable:\n')[1].strip().splitlines()[1:]
-            paramnames = [t[3] for t in [v.split() for v in var_table] if t[0] == '0']
+            var_table = block.split('LocalVariableTable:\n')[
+                1].strip().splitlines()[1:]
+            paramnames = [t[3]
+                          for t in [v.split() for v in var_table] if t[0] == '0']
             if not static:
                 paramnames = paramnames[1:]
 
@@ -54,9 +57,11 @@ def process_block(block, is_interface):
         data['fname'] = fname
         data['static'] = static == 'static'
         data['rettype'] = rettype
-        data['paramtypes'] = [p.strip() for p in paramtypes.split(',')] if paramtypes else []
+        data['paramtypes'] = [p.strip()
+                              for p in paramtypes.split(',')] if paramtypes else []
         data['paramnames'] = paramnames
-        assert len(data['paramnames']) == len(data['paramtypes']), (data['paramnames'], data['paramtypes'])
+        assert len(data['paramnames']) == len(data['paramtypes']
+                                              ), (data['paramnames'], data['paramtypes'])
     elif '(' in signature:
         # this is a constructor
         data['type'] = 'constructor'
