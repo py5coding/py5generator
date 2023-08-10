@@ -23,7 +23,7 @@ from __future__ import annotations
 import functools
 import weakref
 
-from jpype.types import JInt, JChar
+from jpype.types import JChar, JInt
 
 from . import spelling
 
@@ -83,8 +83,8 @@ class Py5KeyEvent:
     def __repr__(self):
         return self.__str__()
 
-
     def __getattr__(self, name):
         raise AttributeError(spelling.error_msg('Py5KeyEvent', name, self))
+
 
 {py5keyevent_class_members_code}

@@ -19,14 +19,13 @@
 # *****************************************************************************
 from __future__ import annotations
 
-import sys
 import functools
+import sys
 from typing import Callable
 
 import numpy as np
-
-from PIL.Image import Image as PIL_Image
 from PIL import Image
+from PIL.Image import Image as PIL_Image
 
 from .sketch import Sketch
 
@@ -84,7 +83,8 @@ class RenderHelperGraphicsCanvas(Sketch):
 
     def setup(self):
         self.frame_rate(1000)  # performance boost :)
-        self._g = self.create_graphics(self._width, self._height, self._renderer)
+        self._g = self.create_graphics(
+            self._width, self._height, self._renderer)
         # this begin/end draw pair is necessary when using the opengl renderers
         self._g.begin_draw()
         self._g.end_draw()
@@ -97,15 +97,18 @@ class RenderHelperGraphicsCanvas(Sketch):
         self._draw(self._g, *self._draw_args, **self._draw_kwargs)
         self._g.end_draw()
         self._g.load_np_pixels()
-        g_pixels = np.dstack((self._g.np_pixels[:, :, 1:], self._g.np_pixels[:, :, 0]))
+        g_pixels = np.dstack(
+            (self._g.np_pixels[:, :, 1:], self._g.np_pixels[:, :, 0]))
         self.output.append(Image.fromarray(g_pixels))
         if self.frame_count >= self._limit:
             self.exit_sketch()
 
 
 def _check_allowed_renderer(renderer):
-    renderer_name = {Sketch.SVG: 'SVG', Sketch.PDF: 'PDF', Sketch.DXF: 'DXF', Sketch.P2D: 'P2D', Sketch.P3D: 'P3D'}.get(renderer, renderer)
-    renderers = [Sketch.HIDDEN, Sketch.JAVA2D] if sys.platform == 'darwin' else [Sketch.HIDDEN, Sketch.JAVA2D, Sketch.P2D, Sketch.P3D]
+    renderer_name = {Sketch.SVG: 'SVG', Sketch.PDF: 'PDF', Sketch.DXF: 'DXF',
+                     Sketch.P2D: 'P2D', Sketch.P3D: 'P3D'}.get(renderer, renderer)
+    renderers = [Sketch.HIDDEN, Sketch.JAVA2D] if sys.platform == 'darwin' else [
+        Sketch.HIDDEN, Sketch.JAVA2D, Sketch.P2D, Sketch.P3D]
     if renderer not in renderers:
         return f'Sorry, the render helper tools do not support the {renderer_name} renderer' + (' on OSX.' if sys.platform == 'darwin' else '.')
     else:
@@ -125,7 +128,7 @@ def render_frame(draw: Callable, width: int, height: int,
                  draw_args: tuple = None, draw_kwargs: dict = None,
                  use_py5graphics=False) -> PIL_Image:
     """$module_Py5Functions_render_frame"""
-    if msg :=_check_allowed_renderer(renderer):
+    if msg := _check_allowed_renderer(renderer):
         print(msg, file=sys.stderr)
         return None
     renderer = _osx_renderer_check(renderer)
@@ -146,7 +149,7 @@ def render_frame_sequence(draw: Callable, width: int, height: int,
                           draw_args: tuple = None, draw_kwargs: dict = None,
                           use_py5graphics=False) -> list[PIL_Image]:
     """$module_Py5Functions_render_frame_sequence"""
-    if msg :=_check_allowed_renderer(renderer):
+    if msg := _check_allowed_renderer(renderer):
         print(msg, file=sys.stderr)
         return None
     renderer = _osx_renderer_check(renderer)
@@ -164,7 +167,7 @@ def render_frame_sequence(draw: Callable, width: int, height: int,
 def render(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
            use_py5graphics=False) -> PIL_Image:
     """$module_Py5Functions_render"""
-    if msg :=_check_allowed_renderer(renderer):
+    if msg := _check_allowed_renderer(renderer):
         raise RuntimeError(msg)
     renderer = _osx_renderer_check(renderer)
 
@@ -183,7 +186,7 @@ def render_sequence(width: int, height: int, renderer: str = Sketch.HIDDEN, *,
                     setup_args: tuple = None, setup_kwargs: dict = None,
                     use_py5graphics=False) -> list[PIL_Image]:
     """$module_Py5Functions_render_sequence"""
-    if msg :=_check_allowed_renderer(renderer):
+    if msg := _check_allowed_renderer(renderer):
         raise RuntimeError(msg)
     renderer = _osx_renderer_check(renderer)
 

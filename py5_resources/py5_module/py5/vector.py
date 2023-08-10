@@ -19,11 +19,11 @@
 # *****************************************************************************
 from __future__ import annotations
 
-from typing import Union
 import operator
-from collections.abc import Sequence, Iterable
 import re
 import warnings
+from collections.abc import Iterable, Sequence
+from typing import Union
 
 import numpy as np
 import numpy.typing as npt
@@ -45,13 +45,16 @@ class Py5Vector(Sequence):
         dtype = np.float_ if dtype is None else dtype
 
         if not isinstance(dtype, (type, np.dtype)) or not np.issubdtype(dtype, np.floating):
-            raise RuntimeError('dtype parameter is not a valid numpy float type (i.e., np.float32, np.float64, etc)')
+            raise RuntimeError(
+                'dtype parameter is not a valid numpy float type (i.e., np.float32, np.float64, etc)')
 
         if copy == False:
             if not (len(args) == 1 and isinstance(args[0], np.ndarray) and np.issubdtype(args[0].dtype, np.floating)):
-                raise RuntimeError('When the copy parameter is False, please provide a single properly sized numpy array with a floating dtype for py5 to store vector data')
+                raise RuntimeError(
+                    'When the copy parameter is False, please provide a single properly sized numpy array with a floating dtype for py5 to store vector data')
             if kwarg_dtype is not None and args[0].dtype != kwarg_dtype:
-                raise RuntimeError("When the copy parameter is False, the dtype parameter cannot differ from the provided numpy array's dtype")
+                raise RuntimeError(
+                    "When the copy parameter is False, the dtype parameter cannot differ from the provided numpy array's dtype")
 
         if len(args) == 0:
             data = np.zeros(dim, dtype=dtype)
@@ -70,7 +73,8 @@ class Py5Vector(Sequence):
                 else:
                     data = np.array(arg0, dtype=dtype).flatten()
             else:
-                raise RuntimeError(f'Cannot create a Py5Vector with {len(arg0)} values')
+                raise RuntimeError(
+                    f'Cannot create a Py5Vector with {len(arg0)} values')
         elif 2 <= len(args) <= 4:
             dtype_ = None or kwarg_dtype
             data_ = []
@@ -78,30 +82,38 @@ class Py5Vector(Sequence):
                 if isinstance(item, (np.ndarray, Py5Vector)):
                     if np.issubdtype(item.dtype, np.floating) or np.issubdtype(item.dtype, np.integer):
                         if kwarg_dtype is None:
-                            dtype_ = item.dtype if dtype_ is None else max(dtype_, item.dtype)
-                        data_.extend(item.flatten().tolist() if isinstance(item, np.ndarray) else item.tolist())
+                            dtype_ = item.dtype if dtype_ is None else max(
+                                dtype_, item.dtype)
+                        data_.extend(item.flatten().tolist() if isinstance(
+                            item, np.ndarray) else item.tolist())
                     else:
-                        raise RuntimeError(f'Argument {i} is a numpy array with dtype {item.dtype} and cannot be used in a Py5Vector')
+                        raise RuntimeError(
+                            f'Argument {i} is a numpy array with dtype {item.dtype} and cannot be used in a Py5Vector')
                 elif isinstance(item, Iterable):
                     data_.extend(item)
                 elif isinstance(item, (int, float, np.integer, np.floating)):
                     data_.append(item)
                 else:
-                    raise RuntimeError(f'Argument {i} has type {type(item).__name__} and cannot be used used in a Py5Vector')
+                    raise RuntimeError(
+                        f'Argument {i} has type {type(item).__name__} and cannot be used used in a Py5Vector')
             if 2 <= len(data_) <= 4:
                 data = np.array(data_, dtype=dtype_ or dtype)
             else:
-                raise RuntimeError(f'Cannot create a Py5Vector with {len(data_)} values')
+                raise RuntimeError(
+                    f'Cannot create a Py5Vector with {len(data_)} values')
         else:
-            raise RuntimeError(f'Cannot create Py5Vector instance with {str(args)}')
+            raise RuntimeError(
+                f'Cannot create Py5Vector instance with {str(args)}')
 
         dim = len(data)
         dtype = data.dtype
 
         if kwarg_dim is not None and dim != kwarg_dim:
-            raise RuntimeError(f"dim parameter is {kwarg_dim} but Py5Vector values imply dimension of {dim}")
+            raise RuntimeError(
+                f"dim parameter is {kwarg_dim} but Py5Vector values imply dimension of {dim}")
         if kwarg_dtype is not None and dtype != kwarg_dtype:
-            raise RuntimeError(f"dtype parameter is {kwarg_dtype} but Py5Vector values imply dtype of {dtype}")
+            raise RuntimeError(
+                f"dtype parameter is {kwarg_dtype} but Py5Vector values imply dtype of {dtype}")
 
         if dim == 2:
             v = object.__new__(Py5Vector2D)
@@ -122,7 +134,8 @@ class Py5Vector(Sequence):
             if 2 <= len(name) <= 4:
                 return Py5Vector(self._data[['xyzw'.index(c) for c in name]], dtype=self._data.dtype, copy=True)
             else:
-                raise RuntimeError('Invalid swizzle: length must be between 2 and 4 characters')
+                raise RuntimeError(
+                    'Invalid swizzle: length must be between 2 and 4 characters')
         else:
             raise AttributeError(spelling.error_msg('Py5Vector', name, self))
 
@@ -133,9 +146,11 @@ class Py5Vector(Sequence):
             if not isinstance(val, Iterable) or len(val) in [1, len(name)]:
                 self._data[['xyzw'.index(c) for c in name]] = val
             else:
-                raise RuntimeError(f'Mismatch: value length of {len(val)} cannot be assigned to swizzle of length {len(name)}')
+                raise RuntimeError(
+                    f'Mismatch: value length of {len(val)} cannot be assigned to swizzle of length {len(name)}')
         else:
-            raise RuntimeError('Invalid swizzle: repeats are not allowed in assignments')
+            raise RuntimeError(
+                'Invalid swizzle: repeats are not allowed in assignments')
 
     def __getitem__(self, key):
         return self._data[key]
@@ -166,11 +181,14 @@ class Py5Vector(Sequence):
     def _run_op(self, op, other, opname, swap=False, inplace=False, allow2vectors=False):
         if isinstance(other, Py5Vector):
             if not allow2vectors:
-                raise RuntimeError(f"Cannot perform {opname} operation on two Py5Vectors. If you want to do {opname} on the Py5Vector's data elementwise, use the `.data` attribute to access the Py5Vector's data as a numpy array.")
+                raise RuntimeError(
+                    f"Cannot perform {opname} operation on two Py5Vectors. If you want to do {opname} on the Py5Vector's data elementwise, use the `.data` attribute to access the Py5Vector's data as a numpy array.")
             elif self._data.size != other._data.size:
-                raise RuntimeError(f"Cannot perform {opname} operation on a {self._data.size}D Py5Vector and a {other._data.size}D Py5Vector. The dimensions must be the same." + self._check_used_default_dim(other))
+                raise RuntimeError(
+                    f"Cannot perform {opname} operation on a {self._data.size}D Py5Vector and a {other._data.size}D Py5Vector. The dimensions must be the same." + self._check_used_default_dim(other))
             elif inplace:
-                op(self._data[:other._data.size], other._data[:other._data.size])
+                op(self._data[:other._data.size],
+                   other._data[:other._data.size])
                 return self
             else:
                 a, b = (other, self) if swap else (self, other)
@@ -185,8 +203,10 @@ class Py5Vector(Sequence):
                     result = op(a, b)
                     return Py5Vector(result, copy=False) if result.ndim == 1 and 2 <= result.size <= 4 else result
             except ValueError as e:
-                other_type = 'numpy array' if isinstance(other, np.ndarray) else f'{type(other).__name__} object'
-                raise RuntimeError(f'Unable to perform {opname} on a Py5Vector and a {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
+                other_type = 'numpy array' if isinstance(
+                    other, np.ndarray) else f'{type(other).__name__} object'
+                raise RuntimeError(
+                    f'Unable to perform {opname} on a Py5Vector and a {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
 
     def __add__(self, other):
         return self._run_op(operator.add, other, 'addition', allow2vectors=True)
@@ -338,18 +358,21 @@ class Py5Vector(Sequence):
 
     x: float = property(_get_x, _set_x, doc="""$class_Py5Vector_x""")
     y: float = property(_get_y, _set_y, doc="""$class_Py5Vector_y""")
-    data: npt.NDArray[np.floating] = property(_get_data, doc="""$class_Py5Vector_data""")
+    data: npt.NDArray[np.floating] = property(
+        _get_data, doc="""$class_Py5Vector_data""")
     copy = property(_get_copy, doc="""$class_Py5Vector_copy""")
     dim: int = property(_get_dim, doc="""$class_Py5Vector_dim""")
     dtype: type = property(_get_dtype, doc="""$class_Py5Vector_dtype""")
 
     def _run_calc(self, other, calc, name, maybe_vector=False):
-        other_type = 'numpy array' if isinstance(other, np.ndarray) else f'{type(other).__name__} object'
+        other_type = 'numpy array' if isinstance(
+            other, np.ndarray) else f'{type(other).__name__} object'
         if isinstance(other, Py5Vector):
             if self._data.size == other._data.size:
                 other = other._data
             else:
-                raise RuntimeError(f'Py5Vector dimensions must be the same to calculate the {name} two Py5Vectors.' + self._check_used_default_dim(other))
+                raise RuntimeError(
+                    f'Py5Vector dimensions must be the same to calculate the {name} two Py5Vectors.' + self._check_used_default_dim(other))
 
         if isinstance(other, np.ndarray):
             try:
@@ -361,9 +384,11 @@ class Py5Vector(Sequence):
                 else:
                     return result
             except ValueError as e:
-                raise RuntimeError(f'Unable to calculate the {name} between a Py5Vector and {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
+                raise RuntimeError(
+                    f'Unable to calculate the {name} between a Py5Vector and {other_type}, probably because of a size mismatch. The error message is: ' + str(e)) from None
         else:
-            raise RuntimeError(f'Do not know how to calculate the {name} {type(self).__name__} and {type(other).__name__}')
+            raise RuntimeError(
+                f'Do not know how to calculate the {name} {type(self).__name__} and {type(other).__name__}')
 
     def lerp(self, other: Union[Py5Vector, np.ndarray], amt: Union[float, np.ndarray]) -> Union[Py5Vector, np.ndarray[np.floating]]:
         """$class_Py5Vector_lerp
@@ -389,7 +414,8 @@ class Py5Vector(Sequence):
         """$class_Py5Vector_cross
         """
         if self._data.size == 4 or isinstance(other, Py5Vector4D):
-            raise RuntimeError('Cannot calculate the cross product with a 4D Py5Vector')
+            raise RuntimeError(
+                'Cannot calculate the cross product with a 4D Py5Vector')
         elif self._data.size == 2:
             maybe_vector = isinstance(other, Py5Vector3D)
             if isinstance(other, Py5Vector):
@@ -425,7 +451,8 @@ class Py5Vector(Sequence):
         """$class_Py5Vector_mag_sq
         """
         if mag_sq < 0:
-            raise RuntimeError('Cannot set squared magnitude to a negative number')
+            raise RuntimeError(
+                'Cannot set squared magnitude to a negative number')
         elif mag_sq == 0:
             self._data[:] = 0
         else:
@@ -441,7 +468,8 @@ class Py5Vector(Sequence):
             self._data /= mag
             return self
         else:
-            warnings.warn('Using normalize on a zero vector has no effect', stacklevel=2)
+            warnings.warn(
+                'Using normalize on a zero vector has no effect', stacklevel=2)
 
     def _get_norm(self) -> Py5Vector:
         """$class_Py5Vector_norm
@@ -449,7 +477,8 @@ class Py5Vector(Sequence):
         return self.copy.normalize()
 
     mag: float = property(_get_mag, set_mag, doc="""$class_Py5Vector_mag""")
-    mag_sq: float = property(_get_mag_sq, set_mag_sq, doc="""$class_Py5Vector_mag_sq""")
+    mag_sq: float = property(_get_mag_sq, set_mag_sq,
+                             doc="""$class_Py5Vector_mag_sq""")
     norm: Py5Vector = property(_get_norm, doc="""$class_Py5Vector_norm""")
 
     def set_limit(self, max_mag: float) -> Py5Vector:
@@ -475,7 +504,8 @@ class Py5Vector(Sequence):
                     float(np.arctan2(self._data[1], self._data[0])))
         else:
             return (float(np.arctan2((self._data[1:]**2).sum()**0.5, self._data[0])),
-                    float(np.arctan2((self._data[2:]**2).sum()**0.5, self._data[1])),
+                    float(np.arctan2(
+                        (self._data[2:]**2).sum()**0.5, self._data[1])),
                     float(2 * np.arctan2(self._data[3], self._data[2] + (self._data[2:]**2).sum()**0.5)))
 
     def set_heading(self, *heading) -> Py5Vector:
@@ -510,9 +540,11 @@ class Py5Vector(Sequence):
             self._data[:] = [x1, x2, x3, x4]
             return self
         else:
-            raise RuntimeError(f'This Py5Vector has dimension {self._data.size} and requires {self._data.size - 1} values to set the heading, not {len(heading)}')
+            raise RuntimeError(
+                f'This Py5Vector has dimension {self._data.size} and requires {self._data.size - 1} values to set the heading, not {len(heading)}')
 
-    heading: tuple[float] = property(_get_heading, set_heading, doc="""$class_Py5Vector_heading""")
+    heading: tuple[float] = property(
+        _get_heading, set_heading, doc="""$class_Py5Vector_heading""")
 
     @classmethod
     def from_heading(cls, *heading, dtype: int = np.float_) -> Py5Vector:
@@ -528,7 +560,8 @@ class Py5Vector(Sequence):
         elif len(heading) == 3:
             return Py5Vector(1, 0, 0, 0, dtype=dtype).set_heading(*heading)
         else:
-            raise RuntimeError(f'Cannot create a Py5Vector from {len(heading)} arguments')
+            raise RuntimeError(
+                f'Cannot create a Py5Vector from {len(heading)} arguments')
 
     @classmethod
     def random(cls, dim: int, *, dtype: type = np.float_) -> Py5Vector:
@@ -541,7 +574,8 @@ class Py5Vector(Sequence):
         elif dim == 4:
             return Py5Vector((v := np.random.randn(4).astype(dtype)) / (v**2).sum()**0.5, copy=False)
         else:
-            raise RuntimeError(f'Cannot create a random Py5Vector with dimension {dim}')
+            raise RuntimeError(
+                f'Cannot create a random Py5Vector with dimension {dim}')
 
     # *** END METHODS ***
 
@@ -600,13 +634,17 @@ class Py5Vector3D(Py5Vector):
         sin_angle = np.sin(angle)
         cos_angle = np.cos(angle)
         if dim in [1, 'x']:
-            rot = np.array([[1, 0, 0], [0, cos_angle, -sin_angle], [0, sin_angle, cos_angle]])
+            rot = np.array(
+                [[1, 0, 0], [0, cos_angle, -sin_angle], [0, sin_angle, cos_angle]])
         elif dim in [2, 'y']:
-            rot = np.array([[cos_angle, 0, sin_angle], [0, 1, 0], [-sin_angle, 0, cos_angle]])
+            rot = np.array([[cos_angle, 0, sin_angle], [
+                           0, 1, 0], [-sin_angle, 0, cos_angle]])
         elif dim in [3, 'z']:
-            rot = np.array([[cos_angle, -sin_angle, 0], [sin_angle, cos_angle, 0], [0, 0, 1]])
+            rot = np.array([[cos_angle, -sin_angle, 0],
+                           [sin_angle, cos_angle, 0], [0, 0, 1]])
         else:
-            raise RuntimeError("dim parameter must be 1, 2, or 3, or one of 'x', 'y', and 'z'")
+            raise RuntimeError(
+                "dim parameter must be 1, 2, or 3, or one of 'x', 'y', and 'z'")
         self._data[:] = rot @ self._data
         return self
 
@@ -622,9 +660,12 @@ class Py5Vector3D(Py5Vector):
         sin, cos = np.sin(angle), np.cos(angle)
         ncosp1 = 1 - cos
         rot = np.array([
-            [cos + ux * ux * ncosp1,       ux * uy * ncosp1 - uz * sin,   ux * uz * ncosp1 + uy * sin],
-            [uy * ux * ncosp1 + uz * sin,  cos + uy * uy * ncosp1,        uy * uz * ncosp1 - ux * sin],
-            [uz * ux * ncosp1 - uy * sin,  uz * uy * ncosp1 + ux * sin,   cos + uz * uz * ncosp1]
+            [cos + ux * ux * ncosp1,       ux * uy * ncosp1 -
+                uz * sin,   ux * uz * ncosp1 + uy * sin],
+            [uy * ux * ncosp1 + uz * sin,  cos + uy * uy *
+                ncosp1,        uy * uz * ncosp1 - ux * sin],
+            [uz * ux * ncosp1 - uy * sin,  uz * uy *
+                ncosp1 + ux * sin,   cos + uz * uz * ncosp1]
         ])
         self._data[:] = rot @ self._data
         return self

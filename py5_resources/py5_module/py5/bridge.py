@@ -17,22 +17,20 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import sys
-import re
-from pathlib import Path
-from collections import defaultdict
-from typing import Union
 import inspect
-import line_profiler
+import re
+import sys
 import traceback
+from collections import defaultdict
+from pathlib import Path
+from typing import Union
 
+import line_profiler
+import py5_tools
+import stackprinter
 from jpype import JClass, JImplements, JOverride, JString
 
-import stackprinter
-
-import py5_tools
-from . import reference
-from . import custom_exceptions
+from . import custom_exceptions, reference
 
 _stackprinter_style = 'plaintext'
 # prune tracebacks to only show only show stack levels in the user's py5 code.
@@ -41,13 +39,14 @@ _prune_tracebacks = True
 _MODULE_INSTALL_DIR = str(Path(__file__).parent)
 _PY5TOOLS_MODULE_INSTALL_DIR = str(Path(py5_tools.__file__).parent)
 
-_PY5_STATIC_CODE_FILENAME_REGEX = re.compile(r'File "[^\"]*?_PY5_STATIC_(SETUP|SETTINGS|FRAMEWORK)_CODE_\.py", line \d+, in .*')
+_PY5_STATIC_CODE_FILENAME_REGEX = re.compile(
+    r'File "[^\"]*?_PY5_STATIC_(SETUP|SETTINGS|FRAMEWORK)_CODE_\.py", line \d+, in .*')
 
 _EXCEPTION_MSGS = {
     **custom_exceptions.CUSTOM_EXCEPTION_MSGS,
 }
 
-_JAVA_RUNTIMEEXCEPTION  = JClass('java.lang.RuntimeException')
+_JAVA_RUNTIMEEXCEPTION = JClass('java.lang.RuntimeException')
 
 
 def check_run_method_callstack():
@@ -66,10 +65,12 @@ def _exception_msg(println, exc_type_name, exc_msg, py5info):
         elif callable(msg):
             return msg(exc_type_name, exc_msg, py5info)
         else:
-            println(f'unknown exception msg type for {exc_type_name}: {type(msg).__name__}', stderr=True)
+            println(
+                f'unknown exception msg type for {exc_type_name}: {type(msg).__name__}', stderr=True)
             return exc_msg
     except Exception as e:
-        println(f'error generating exception msg for {exc_type_name}: {e}', stderr=True)
+        println(
+            f'error generating exception msg for {exc_type_name}: {e}', stderr=True)
         return exc_msg
 
 
@@ -101,7 +102,8 @@ def handle_exception(println, exc_type, exc_value, exc_tb):
             if trim_tb:
                 trim_tb.tb_next = None
     except Exception as e:
-        println(f'Exception thrown while examining error traceback: {str(e)}', stderr=True)
+        println(
+            f'Exception thrown while examining error traceback: {str(e)}', stderr=True)
 
     errmsg = stackprinter.format(
         thing=(exc_type, exc_value, exc_tb.tb_next),
@@ -133,7 +135,8 @@ def _extract_py5_user_function_data(d: dict):
             continue
 
         sig = inspect.signature(d[name])
-        pargs_count = len([p for p in sig.parameters.values() if p.kind in [inspect.Parameter.POSITIONAL_ONLY, inspect.Parameter.POSITIONAL_OR_KEYWORD]])
+        pargs_count = len([p for p in sig.parameters.values() if p.kind in [
+                          inspect.Parameter.POSITIONAL_ONLY, inspect.Parameter.POSITIONAL_OR_KEYWORD]])
         if pargs_count != len(sig.parameters) or pargs_count not in allowed_parg_count:
             continue
 
@@ -158,7 +161,8 @@ class Py5Bridge:
         self._current_running_method = None
         self._is_terminated = False
 
-        from .object_conversion import convert_to_python_types, convert_to_java_type
+        from .object_conversion import (convert_to_java_type,
+                                        convert_to_python_types)
         self._convert_to_python_types = convert_to_python_types
         self._convert_to_java_type = convert_to_java_type
 
@@ -175,7 +179,8 @@ class Py5Bridge:
         for name, f in functions.items():
             self._functions[name] = f
             if name == 'settings':
-                self._function_param_counts['settings'] = function_param_counts.get('settings', function_param_counts.get('setup'))
+                self._function_param_counts['settings'] = function_param_counts.get(
+                    'settings', function_param_counts.get('setup'))
             else:
                 self._function_param_counts[name] = function_param_counts[name]
 
@@ -251,7 +256,8 @@ class Py5Bridge:
                         hook(self._sketch)
 
                 # now run the actual method
-                self._functions[method_name](*self._convert_to_python_types(params))
+                self._functions[method_name](
+                    *self._convert_to_python_types(params))
 
                 # finally, post-hooks
                 if method_name in self._post_hooks:
@@ -297,13 +303,14 @@ class Py5Bridge:
                 else:
                     return _JAVA_RUNTIMEEXCEPTION(f'{s} not found with key {key}')
 
-            if c not in d or not callable(func:=d[c]):
+            if c not in d or not callable(func := d[c]):
                 return _JAVA_RUNTIMEEXCEPTION(f'callable {c} not found with key {key}')
 
             try:
                 retval = func(*self._convert_to_python_types(params))
                 if key in py5_tools.config._PY5_PROCESSING_MODE_CALLBACK_ONCE:
-                    py5_tools.config._PY5_PROCESSING_MODE_CALLBACK_ONCE.remove(key)
+                    py5_tools.config._PY5_PROCESSING_MODE_CALLBACK_ONCE.remove(
+                        key)
                     if key in py5_tools.config._PY5_PROCESSING_MODE_KEYS:
                         py5_tools.config._PY5_PROCESSING_MODE_KEYS.pop(key)
                 return self._convert_to_java_type(retval)
@@ -324,4 +331,5 @@ class Py5Bridge:
             self._is_terminated = True
             self.terminate_hooks()
         except Exception:
-            self._sketch.println('exception in sketch shutdown sequence', stderr=True)
+            self._sketch.println(
+                'exception in sketch shutdown sequence', stderr=True)

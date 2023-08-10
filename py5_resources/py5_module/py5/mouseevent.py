@@ -57,4 +57,5 @@ class Py5MouseEvent:
     def __getattr__(self, name):
         raise AttributeError(spelling.error_msg('Py5MouseEvent', name, self))
 
+
 {py5mouseevent_class_members_code}

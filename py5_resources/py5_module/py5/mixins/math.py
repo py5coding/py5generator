@@ -19,15 +19,14 @@
 # *****************************************************************************
 from __future__ import annotations
 
-import warnings
 import traceback
-from pathlib import Path
 import types
-from typing import overload, Union, Any
+import warnings
+from pathlib import Path
+from typing import Any, Union, overload
 
 import numpy as np
 import numpy.typing as npt
-
 from jpype import JClass
 
 _OpenSimplex2S = JClass('py5.util.OpenSimplex2S')
@@ -112,7 +111,8 @@ class MathMixin:
         """$class_Sketch_remap"""
         denom = stop1 - start1
         if denom == 0:
-            warnings.warn(f'remap({value}, {start1}, {stop1}, {start2}, {stop2}) called, which returns NaN (not a number)', stacklevel=_non_py5_stacklevel())
+            warnings.warn(
+                f'remap({value}, {start1}, {stop1}, {start2}, {stop2}) called, which returns NaN (not a number)', stacklevel=_non_py5_stacklevel())
             return float("nan")
         else:
             return start2 + (stop2 - start2) * ((value - start1) / denom)
@@ -131,7 +131,8 @@ class MathMixin:
     def dist(cls, *args: Union[float, npt.NDArray]) -> float:
         """$class_Sketch_dist"""
         if len(args) % 2 == 1:
-            raise RuntimeError(f'Cannot apply dist function to arguments {args}')
+            raise RuntimeError(
+                f'Cannot apply dist function to arguments {args}')
         return sum([(a - b)**2 for a, b in zip(args[:(len(args) // 2)], args[(len(args) // 2):])])**0.5
 
     @classmethod
@@ -192,7 +193,8 @@ class MathMixin:
     def _get_np_random(self) -> np.random.Generator:  # @decorator
         """$class_Sketch_np_random"""
         return self._rng
-    np_random: np.random.Generator = property(fget=_get_np_random, doc="""$class_Sketch_np_random""")
+    np_random: np.random.Generator = property(
+        fget=_get_np_random, doc="""$class_Sketch_np_random""")
 
     def random_seed(self, seed: int) -> None:
         """$class_Sketch_random_seed"""
@@ -227,7 +229,8 @@ class MathMixin:
                 return self._rng.uniform(low, high)
 
         types = ','.join([type(a).__name__ for a in args])
-        raise TypeError(f'No matching overloads found for Sketch.random({types})')
+        raise TypeError(
+            f'No matching overloads found for Sketch.random({types})')
 
     @overload
     def random_int(self) -> int:
@@ -258,7 +261,8 @@ class MathMixin:
                 return self._rng.integers(low, high, endpoint=True)
 
         types = ','.join([type(a).__name__ for a in args])
-        raise TypeError(f'No matching overloads found for Sketch.random_int({types})')
+        raise TypeError(
+            f'No matching overloads found for Sketch.random_int({types})')
 
     def random_choice(self, objects: list[Any]) -> Any:
         """$class_Sketch_random_choice"""
@@ -267,12 +271,13 @@ class MathMixin:
         else:
             return None
 
-    def random_sample(self, objects: list[Any], size: int=1, replace: bool=True) -> list[Any]:
+    def random_sample(self, objects: list[Any], size: int = 1, replace: bool = True) -> list[Any]:
         """$class_Sketch_random_sample"""
         if len(objects):
             if isinstance(objects, types.GeneratorType):
                 objects = list(objects)
-            indices = self._rng.choice(range(len(objects)), size=size, replace=replace)
+            indices = self._rng.choice(
+                range(len(objects)), size=size, replace=replace)
             if not isinstance(objects, list):
                 try:
                     return objects[indices]
@@ -311,7 +316,8 @@ class MathMixin:
                 return self._rng.normal(loc, scale)
 
         types = ','.join([type(a).__name__ for a in args])
-        raise TypeError(f'No matching overloads found for Sketch.random_gaussian({types})')
+        raise TypeError(
+            f'No matching overloads found for Sketch.random_gaussian({types})')
 
     @overload
     def noise(self, x: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:

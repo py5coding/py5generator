@@ -21,13 +21,12 @@
 from __future__ import annotations
 
 import functools
-from typing import overload, Union  # noqa
 import weakref
+from typing import Union, overload  # noqa
 
+from . import spelling
 from .base import Py5Base
 from .mixins import PixelPy5ImageMixin
-from . import spelling
-
 
 py5image_class_members_code = None  # DELETE
 
@@ -73,5 +72,6 @@ class Py5Image(PixelPy5ImageMixin, Py5Base):
 
     def __getattr__(self, name):
         raise AttributeError(spelling.error_msg('Py5Image', name, self))
+
 
 {py5image_class_members_code}

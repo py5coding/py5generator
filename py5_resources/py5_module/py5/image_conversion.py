@@ -18,15 +18,14 @@
 #
 # *****************************************************************************
 import io
-from pathlib import Path
-import uuid
 import tempfile
+import uuid
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Callable
 
 import numpy as np
 from PIL import Image
-
 
 pimage_functions = []
 
@@ -73,14 +72,18 @@ class NumpyImageArray:
             raise RuntimeError("bands parameter must be a string")
         if self.bands in ['RGBA', 'ARGB', 'RGB']:
             if self.array.ndim != 3:
-                raise RuntimeError(f"array parameter must have 3 dimensions for '{self.bands}' image arrays")
+                raise RuntimeError(
+                    f"array parameter must have 3 dimensions for '{self.bands}' image arrays")
             if self.array.shape[2] != len(self.bands):
-                raise RuntimeError("third dimension of array parameter equal the length of the bands parameter")
+                raise RuntimeError(
+                    "third dimension of array parameter equal the length of the bands parameter")
         elif self.bands == 'L':
             if not (self.array.ndim == 2 or (self.array.ndim == 3 and self.array.shape[2] == 1)):
-                raise RuntimeError("for 'L' image arrays, array must have 2 dimensions or a 3rd dimension of size 1")
+                raise RuntimeError(
+                    "for 'L' image arrays, array must have 2 dimensions or a 3rd dimension of size 1")
         else:
-            raise RuntimeError("bands parameter must be one of 'RGBA', 'ARGB', 'RGB', or 'L'")
+            raise RuntimeError(
+                "bands parameter must be one of 'RGBA', 'ARGB', 'RGB', or 'L'")
 
 
 def numpy_image_array_precondition(obj):
@@ -91,7 +94,8 @@ def numpy_image_array_converter(obj):
     return obj
 
 
-register_image_conversion(numpy_image_array_precondition, numpy_image_array_converter)
+register_image_conversion(
+    numpy_image_array_precondition, numpy_image_array_converter)
 
 
 def pillow_image_to_ndarray_precondition(obj):
@@ -104,7 +108,8 @@ def pillow_image_to_ndarray_converter(img):
     return NumpyImageArray(np.asarray(img), img.mode)
 
 
-register_image_conversion(pillow_image_to_ndarray_precondition, pillow_image_to_ndarray_converter)
+register_image_conversion(
+    pillow_image_to_ndarray_precondition, pillow_image_to_ndarray_converter)
 
 
 ###############################################################################
@@ -115,8 +120,8 @@ register_image_conversion(pillow_image_to_ndarray_precondition, pillow_image_to_
 
 
 try:
-    import cairosvg  # noqa
     import cairocffi  # noqa
+    import cairosvg  # noqa
 
     def svg_file_to_ndarray_precondition(obj):
         if isinstance(obj, (str, Path)):
@@ -130,7 +135,8 @@ try:
             img = Image.open(io.BytesIO(cairosvg.svg2png(file_obj=f)))
             return pillow_image_to_ndarray_converter(img)
 
-    register_image_conversion(svg_file_to_ndarray_precondition, svg_file_to_ndarray_converter)
+    register_image_conversion(
+        svg_file_to_ndarray_precondition, svg_file_to_ndarray_converter)
 except Exception:
     pass
 
@@ -146,7 +152,8 @@ try:
         surface.write_to_png(temp_png.as_posix())
         return temp_png
 
-    register_image_conversion(cairocffi_surface_to_tempfile_precondition, cairocffi_surface_to_tempfile_converter)
+    register_image_conversion(
+        cairocffi_surface_to_tempfile_precondition, cairocffi_surface_to_tempfile_converter)
 except Exception:
     pass
 
@@ -162,14 +169,15 @@ try:
         surface.write_to_png(temp_png.as_posix())
         return temp_png
 
-    register_image_conversion(cairo_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
+    register_image_conversion(
+        cairo_surface_to_tempfile_precondition, cairo_surface_to_tempfile_converter)
 except Exception:
     pass
 
 
 try:
-    from matplotlib.figure import Figure  # noqa
     from matplotlib.backends.backend_agg import FigureCanvasAgg  # noqa
+    from matplotlib.figure import Figure  # noqa
 
     def figure_to_ndarray_precondition(obj):
         return isinstance(obj, Figure)
@@ -179,6 +187,7 @@ try:
         canvas.draw()
         return NumpyImageArray(np.asarray(canvas.buffer_rgba()), 'RGBA')
 
-    register_image_conversion(figure_to_ndarray_precondition, figure_to_ndarray_converter)
+    register_image_conversion(
+        figure_to_ndarray_precondition, figure_to_ndarray_converter)
 except Exception:
     pass

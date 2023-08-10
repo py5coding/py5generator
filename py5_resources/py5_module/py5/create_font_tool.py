@@ -55,7 +55,8 @@ class CreateFontTool(Sketch):
         os.close()
 
         self.fill(255)
-        msg = str(font.get_glyph_count()) + ' glyphs written to ' + self.filename
+        msg = str(font.get_glyph_count()) + \
+            ' glyphs written to ' + self.filename
         self.translate(self.width / 2, self.height / 2)
         self.scale(0.95 * self.width / self.text_width(msg))
         self.text(msg, 0, 0)

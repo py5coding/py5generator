@@ -19,12 +19,11 @@
 # *****************************************************************************
 # *** FORMAT PARAMS ***
 import functools
-from typing import overload, Any  # noqa
 import weakref
+from typing import Any, overload  # noqa
 
-from .image import Py5Image  # noqa
 from . import spelling
-
+from .image import Py5Image  # noqa
 
 py5surface_class_members_code = None  # DELETE
 
@@ -59,5 +58,6 @@ class Py5Surface:
 
     def __getattr__(self, name):
         raise AttributeError(spelling.error_msg('Py5Surface', name, self))
+
 
 {py5surface_class_members_code}

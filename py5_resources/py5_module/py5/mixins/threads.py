@@ -20,10 +20,10 @@
 from __future__ import annotations
 
 import sys
-import time
 import threading
+import time
 from collections.abc import Iterable
-from typing import Callable, Any, Union
+from typing import Any, Callable, Union
 
 from .. import bridge
 
@@ -116,7 +116,8 @@ class ThreadsMixin:
 
     def _check_param_types(self, args, kwargs):
         if not isinstance(args, Iterable) and args is not None:
-            raise RuntimeError('args argument must be iterable (such as a tuple or list)')
+            raise RuntimeError(
+                'args argument must be iterable (such as a tuple or list)')
         if not isinstance(kwargs, dict) and kwargs is not None:
             raise RuntimeError('kwargs argument must be a dictionary')
 
@@ -141,7 +142,7 @@ class ThreadsMixin:
 
     # *** BEGIN METHODS ***
 
-    def launch_thread(self, f: Callable, name: str = None, *, 
+    def launch_thread(self, f: Callable, name: str = None, *,
                       daemon: bool = True, args: tuple = None, kwargs: dict = None) -> str:
         """$class_Sketch_launch_thread"""
         args, kwargs = self._check_param_types(args, kwargs)
@@ -152,7 +153,8 @@ class ThreadsMixin:
         """$class_Sketch_launch_promise_thread"""
         args, kwargs = self._check_param_types(args, kwargs)
         promise = Py5Promise()
-        self._launch_py5thread(name, Py5PromiseThread(self, f, promise, args, kwargs), daemon)
+        self._launch_py5thread(name, Py5PromiseThread(
+            self, f, promise, args, kwargs), daemon)
         return promise
 
     def launch_repeating_thread(self, f: Callable, name: str = None, *,
@@ -173,7 +175,7 @@ class ThreadsMixin:
         self._remove_dead_threads()
         return name in self._py5threads
 
-    def join_thread(self, name: str, *, timeout: float = None)-> bool:
+    def join_thread(self, name: str, *, timeout: float = None) -> bool:
         """$class_Sketch_join_thread"""
         self._remove_dead_threads()
         if name in self._py5threads:

@@ -21,21 +21,20 @@
 from __future__ import annotations
 
 import functools
+import types
+import weakref
 from pathlib import Path
 from typing import overload  # noqa
-import weakref
-import types
 
 import numpy as np
 import numpy.typing as npt  # noqa
-
 from jpype import JClass, JException
-from jpype.types import JBoolean, JInt, JFloat
+from jpype.types import JBoolean, JFloat, JInt
 
-from .pmath import _get_pvector_wrapper  # noqa
-from .decorators import _ret_str, _convert_hex_color, _convert_hex_color2, _context_wrapper  # noqa
 from . import spelling
-
+from .decorators import (_context_wrapper, _convert_hex_color,  # noqa
+                         _convert_hex_color2, _ret_str)
+from .pmath import _get_pvector_wrapper  # noqa
 
 py5shape_class_members_code = None  # DELETE
 
@@ -82,7 +81,8 @@ def _load_py5shape(f):
             msg = e.message()
             if msg == 'None':
                 msg = 'shape file cannot be found'
-        raise RuntimeError('cannot load shape ' + str(args[0]) + '. error message: ' + msg)
+        raise RuntimeError('cannot load shape ' +
+                           str(args[0]) + '. error message: ' + msg)
     return decorated
 
 
@@ -147,5 +147,6 @@ class Py5Shape:
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5ShapeHelper.quadraticVertices(self._instance, coordinates)
+
 
 {py5shape_class_members_code}

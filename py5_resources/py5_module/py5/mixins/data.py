@@ -20,10 +20,11 @@
 from __future__ import annotations
 
 import json
-import re
 import pickle
+import re
 from pathlib import Path
 from typing import Any, Union
+
 import requests
 
 
@@ -40,7 +41,8 @@ class DataMixin:
             if response.status_code == 200:
                 return response.json()
             else:
-                raise RuntimeError('Unable to download JSON URL: ' + response.reason)
+                raise RuntimeError(
+                    'Unable to download JSON URL: ' + response.reason)
         else:
             path = Path(json_path)
             if not path.is_absolute():
@@ -53,7 +55,8 @@ class DataMixin:
                 with open(path, 'r', encoding='utf8') as f:
                     return json.load(f, **kwargs)
             else:
-                raise RuntimeError('Unable to find JSON file ' + str(json_path))
+                raise RuntimeError(
+                    'Unable to find JSON file ' + str(json_path))
 
     def save_json(self, json_data: Any, filename: Union[str, Path], **kwargs: dict[str, Any]) -> None:
         """$class_Sketch_save_json"""
@@ -78,7 +81,8 @@ class DataMixin:
             if response.status_code == 200:
                 return response.text.splitlines()
             else:
-                raise RuntimeError('Unable to download URL: ' + response.reason)
+                raise RuntimeError(
+                    'Unable to download URL: ' + response.reason)
         else:
             path = Path(string_path)
             if not path.is_absolute():
@@ -110,7 +114,8 @@ class DataMixin:
             if response.status_code == 200:
                 return bytearray(response.content)
             else:
-                raise RuntimeError('Unable to download URL: ' + response.reason)
+                raise RuntimeError(
+                    'Unable to download URL: ' + response.reason)
         else:
             path = Path(bytes_path)
             if not path.is_absolute():

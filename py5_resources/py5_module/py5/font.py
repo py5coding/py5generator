@@ -21,16 +21,15 @@
 from __future__ import annotations
 
 import functools
-from typing import overload  # noqa
 import weakref
+from typing import overload  # noqa
 
 import jpype
-from jpype import JException, JArray, JString  # noqa
+from jpype import JArray, JException, JString  # noqa
 
-from .shape import Py5Shape, _return_py5shape  # noqa
-from .decorators import _ret_str  # noqa
 from . import spelling
-
+from .decorators import _ret_str  # noqa
+from .shape import Py5Shape, _return_py5shape  # noqa
 
 py5font_class_members_code = None  # DELETE
 
@@ -55,7 +54,8 @@ def _load_py5font(f):
                 msg = 'font file is missing or inaccessible.'
             else:
                 return Py5Font(ret)
-        raise RuntimeError('cannot load font file ' + str(args[0]) + '. error message: ' + msg)
+        raise RuntimeError('cannot load font file ' +
+                           str(args[0]) + '. error message: ' + msg)
     return decorated
 
 
@@ -92,5 +92,6 @@ class Py5Font:
 
     def __getattr__(self, name):
         raise AttributeError(spelling.error_msg('Py5Font', name, self))
+
 
 {py5font_class_members_code}
