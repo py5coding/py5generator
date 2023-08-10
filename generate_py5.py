@@ -17,20 +17,20 @@
 #   with this program. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import os
 import argparse
 import logging
+import os
 import shutil
 from pathlib import Path
 
 import pandas as pd
 
-from generator import CodeBuilder, TemplateMapping, CodeCopier, find_signatures
+from generator import (CodeBuilder, CodeCopier, TemplateMapping,
+                       find_signatures, javap)
 from generator import reference as ref
-from generator import javap
 
-
-logging.basicConfig(format="%(asctime)s | %(levelname)s | %(message)s", level=logging.INFO)
+logging.basicConfig(
+    format="%(asctime)s | %(levelname)s | %(message)s", level=logging.INFO)
 
 logger = logging.getLogger(__name__)
 
@@ -39,10 +39,14 @@ logger = logging.getLogger(__name__)
 ###############################################################################
 
 
-parser = argparse.ArgumentParser(description="Generate py5 library using processing jars")
-parser.add_argument('processing_app_dir', action='store', help='location of processing PDE directory (processing application)')
-parser.add_argument('py5_build_dir', action='store', help='location of build directory')
-parser.add_argument('--skip_autopep8', action='store_true', default=False, help='skip autopep8 formatting of output')
+parser = argparse.ArgumentParser(
+    description="Generate py5 library using processing jars")
+parser.add_argument('processing_app_dir', action='store',
+                    help='location of processing PDE directory (processing application)')
+parser.add_argument('py5_build_dir', action='store',
+                    help='location of build directory')
+parser.add_argument('--skip_autopep8', action='store_true',
+                    default=False, help='skip autopep8 formatting of output')
 
 ###############################################################################
 # MAIN
@@ -87,7 +91,8 @@ def generate_py5(app_dir, build_dir, skip_autopep8=False):
     javap.classpath = f'{py5_jar_path}:{core_jar_path}'
 
     logger.info('creating Sketch code')
-    sketch_data = pd.read_csv(Path('py5_resources', 'data', 'sketch.csv')).fillna('').set_index('processing_name')
+    sketch_data = pd.read_csv(Path('py5_resources', 'data', 'sketch.csv')).fillna(
+        '').set_index('processing_name')
 
     # these CodeBuilder objects write the code fragments for the methods and fields.
     sketch_builder = CodeBuilder('py5.core.Sketch', 'Sketch', sketch_data)
@@ -100,31 +105,41 @@ def generate_py5(app_dir, build_dir, skip_autopep8=False):
         if filename.stem == '__init__':
             continue
         sketch_builder.code_extra_module('Sketch', filename)
-    sketch_builder.code_extra_module('Sketch', Path('py5_resources', 'py5_module', 'py5', 'sketch.py'))
+    sketch_builder.code_extra_module('Sketch', Path(
+        'py5_resources', 'py5_module', 'py5', 'sketch.py'))
 
     def run_code_builder(name, clsname, class_name=None):
         logger.info(f'creating {name} code')
         class_name = class_name or clsname.split('.')[-1]
-        data = pd.read_csv(Path('py5_resources', 'data', f'{class_name.lower()}.csv')).fillna('').set_index('processing_name')
+        data = pd.read_csv(Path('py5_resources', 'data', f'{class_name.lower()}.csv')).fillna(
+            '').set_index('processing_name')
 
         builder = CodeBuilder(clsname, name, data)
         builder.run_builder()
 
         return builder
 
-    py5shader_builder = run_code_builder('Py5Shader', 'processing.opengl.PShader')
+    py5shader_builder = run_code_builder(
+        'Py5Shader', 'processing.opengl.PShader')
     py5shape_builder = run_code_builder('Py5Shape', 'processing.core.PShape')
     py5font_builder = run_code_builder('Py5Font', 'processing.core.PFont')
-    py5surface_builder = run_code_builder('Py5Surface', 'py5.core.Py5SurfaceDummy', class_name='PSurface')
-    py5graphics_builder = run_code_builder('Py5Graphics', 'py5.core.Py5Graphics', class_name='PGraphics')
+    py5surface_builder = run_code_builder(
+        'Py5Surface', 'py5.core.Py5SurfaceDummy', class_name='PSurface')
+    py5graphics_builder = run_code_builder(
+        'Py5Graphics', 'py5.core.Py5Graphics', class_name='PGraphics')
     py5image_builder = run_code_builder('Py5Image', 'processing.core.PImage')
-    py5keyevent_builder = run_code_builder('Py5KeyEvent', 'processing.event.KeyEvent')
-    py5mouseevent_builder = run_code_builder('Py5MouseEvent', 'processing.event.MouseEvent')
+    py5keyevent_builder = run_code_builder(
+        'Py5KeyEvent', 'processing.event.KeyEvent')
+    py5mouseevent_builder = run_code_builder(
+        'Py5MouseEvent', 'processing.event.MouseEvent')
 
     logger.info(f'reading Py5Vector code')
-    py5vector_method_signatures = find_signatures('Py5Vector', Path('py5_resources/py5_module/py5/vector.py'))
-    py5graphics_method_signatures = find_signatures('Py5Graphics', Path('py5_resources/py5_module/py5/graphics.py'))
-    py5shape_method_signatures = find_signatures('Py5Shape', Path('py5_resources/py5_module/py5/shape.py'))
+    py5vector_method_signatures = find_signatures(
+        'Py5Vector', Path('py5_resources/py5_module/py5/vector.py'))
+    py5graphics_method_signatures = find_signatures(
+        'Py5Graphics', Path('py5_resources/py5_module/py5/graphics.py'))
+    py5shape_method_signatures = find_signatures(
+        'Py5Shape', Path('py5_resources/py5_module/py5/shape.py'))
 
     # this assembles the code fragments from the builders so it can be
     # inserted into the code templates to complete the py5 module.
@@ -138,7 +153,8 @@ def generate_py5(app_dir, build_dir, skip_autopep8=False):
     py5graphics_class_members_code = ''.join(py5graphics_builder.class_members)
     py5image_class_members_code = ''.join(py5image_builder.class_members)
     py5keyevent_class_members_code = ''.join(py5keyevent_builder.class_members)
-    py5mouseevent_class_members_code = ''.join(py5mouseevent_builder.class_members)
+    py5mouseevent_class_members_code = ''.join(
+        py5mouseevent_builder.class_members)
 
     # gather method_signatures info so they can be added to the docstrings
     method_signatures_lookup = {
@@ -159,16 +175,21 @@ def generate_py5(app_dir, build_dir, skip_autopep8=False):
 
     # code the result of the module's __dir__ function and __all__ variable
     py5_dir_names = sketch_builder.all_names | ref.EXTRA_DIR_NAMES | ref.PY5_PYTHON_DYNAMIC_VARIABLES
-    py5_dir_str = str(sorted(py5_dir_names, key=lambda x: (x.lower(), x)))[1:-1].replace(', ', ',\n    ')
+    py5_dir_str = str(sorted(py5_dir_names, key=lambda x: (x.lower(), x)))[
+        1:-1].replace(', ', ',\n    ')
     # don't want import * to import the dynamic variables because they cannot be updated
-    py5_all_str = str(sorted(py5_dir_names - sketch_builder.dynamic_variable_names, key=lambda x: (x.lower(), x)))[1:-1].replace(', ', ',\n    ')
-    py5_dynamic_variables_str = str(sorted(sketch_builder.dynamic_variable_names))[1:-1].replace(', ', ',\n    ')
-    py5_python_dynamic_variables_str = str(sorted(ref.PY5_PYTHON_DYNAMIC_VARIABLES))[1:-1].replace(', ', ',\n    ')
+    py5_all_str = str(sorted(py5_dir_names - sketch_builder.dynamic_variable_names,
+                      key=lambda x: (x.lower(), x)))[1:-1].replace(', ', ',\n    ')
+    py5_dynamic_variables_str = str(sorted(sketch_builder.dynamic_variable_names))[
+        1:-1].replace(', ', ',\n    ')
+    py5_python_dynamic_variables_str = str(sorted(ref.PY5_PYTHON_DYNAMIC_VARIABLES))[
+        1:-1].replace(', ', ',\n    ')
 
     def build_signatures(v):
         return [f"({', '.join(params)}) -> {rettype}" for params, rettype in v]
     # build signatures lookup for custom exceptions and do formatting so autopep8 doesn't have to
-    method_signatures_lookup_str = '\n    '.join(f'({str(k)}, {build_signatures(v)}),' for k, v in method_signatures_lookup.items())
+    method_signatures_lookup_str = '\n    '.join(
+        f'({str(k)}, {build_signatures(v)}),' for k, v in method_signatures_lookup.items())
 
     # this dictionary of code strings will be inserted into the python code templates
     format_params = dict(sketch_class_members_code=sketch_class_members_code,
@@ -207,10 +228,12 @@ def generate_py5(app_dir, build_dir, skip_autopep8=False):
     # CodeCopier is callable and is basically a custom version of `shutil.copy`
     copier = CodeCopier(format_params, docstrings, skip_autopep8)
     try:
-        shutil.copytree(Path('py5_resources', 'py5_module'), build_dir, copy_function=copier, dirs_exist_ok=True)
+        shutil.copytree(Path('py5_resources', 'py5_module'),
+                        build_dir, copy_function=copier, dirs_exist_ok=True)
     except shutil.Error:
         # for some reason on WSL this exception will be thrown but the files all get copied.
-        logger.error('errors thrown in shutil.copytree, continuing and hoping for the best', exc_info=True)
+        logger.error(
+            'errors thrown in shutil.copytree, continuing and hoping for the best', exc_info=True)
 
     # add the jars
     def copy_jars(jar_dir, dest):
@@ -226,8 +249,9 @@ def generate_py5(app_dir, build_dir, skip_autopep8=False):
 
     # add the native libraries
     shutil.copytree(core_jar_path.parent, build_dir / 'py5' / 'natives',
-        ignore=lambda _, names: [n for n in names if Path(n).suffix == '.jar'],
-        dirs_exist_ok=True)
+                    ignore=lambda _, names: [
+                        n for n in names if Path(n).suffix == '.jar'],
+                    dirs_exist_ok=True)
 
     build_dir.touch()
 
@@ -236,7 +260,8 @@ def generate_py5(app_dir, build_dir, skip_autopep8=False):
 
 def main():
     args = parser.parse_args()
-    generate_py5(args.processing_app_dir, args.py5_build_dir, args.skip_autopep8)
+    generate_py5(args.processing_app_dir,
+                 args.py5_build_dir, args.skip_autopep8)
 
 
 if __name__ == '__main__':

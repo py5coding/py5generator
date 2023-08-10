@@ -17,17 +17,17 @@
 #   with this program. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import re
-from pathlib import Path
 import argparse
+import json
+import re
+from collections import defaultdict
 from io import StringIO
 from itertools import groupby
-from collections import defaultdict
-import json
+from pathlib import Path
 
-import requests
-import pandas as pd
 import black
+import pandas as pd
+import requests
 
 from generator.docfiles import Documentation
 
@@ -36,9 +36,12 @@ from generator.docfiles import Documentation
 ###############################################################################
 
 
-parser = argparse.ArgumentParser(description="Generate py5 library reference documentation")
-parser.add_argument('dest_dir', action='store', help='location to write documentation files to')
-parser.add_argument('py5_doc_ref_dir', action='store', help='location to write py5 documenation md files')
+parser = argparse.ArgumentParser(
+    description="Generate py5 library reference documentation")
+parser.add_argument('dest_dir', action='store',
+                    help='location to write documentation files to')
+parser.add_argument('py5_doc_ref_dir', action='store',
+                    help='location to write py5 documenation md files')
 
 
 ###############################################################################
@@ -146,7 +149,8 @@ def format_underlying_java_ref(stem, doc_type, processing_name, valid_link_cache
         text = ''
         link = processing_name
 
-        processing_classname = PROCESSING_CLASSNAME_LOOKUP.get(stem.split('_')[0])
+        processing_classname = PROCESSING_CLASSNAME_LOOKUP.get(
+            stem.split('_')[0])
         if doc_type not in ['class', 'pseudoclass'] and processing_classname:
             text = processing_classname + '.'
             link = f'{processing_classname}_{link}'
@@ -216,24 +220,28 @@ def format_signatures_variables(signatures, variables):
                 new_params = []
                 for param in tokenize_params(params):
                     if param in variables:
-                        new_params.append((param, variables[param.replace('*', '')]))
+                        new_params.append(
+                            (param, variables[param.replace('*', '')]))
                     else:
                         new_params.append((param, ''))
 
                 new_params2 = []
                 for i, (param, vardesc) in enumerate(new_params):
                     maybe_comma = ',' if i < len(new_params) - 1 else ''
-                    new_params2.append(f"{param}{maybe_comma}  # {vardesc}" if vardesc else f"{param}{maybe_comma}")
+                    new_params2.append(
+                        f"{param}{maybe_comma}  # {vardesc}" if vardesc else f"{param}{maybe_comma}")
 
                 params = '\n'.join(new_params2) + '\n'
                 line_length = max([len(l) for l in new_params2]) + 5
             else:
                 line_length = 120
 
-            new_signatures.append(black.format_str(f"def {name}({params}){ret}: pass", mode=black.Mode(line_length=line_length))[4:-11])
+            new_signatures.append(black.format_str(
+                f"def {name}({params}){ret}: pass", mode=black.Mode(line_length=line_length))[4:-11])
 
         out += '\n## Signatures\n\n```python\n'
-        has_multi_line_signature = max(len(s.strip().split('\n')) for s in new_signatures) > 1
+        has_multi_line_signature = max(
+            len(s.strip().split('\n')) for s in new_signatures) > 1
         out += ('\n\n' if has_multi_line_signature else '\n').join(new_signatures)
         out += '\n```\n'
 
@@ -255,10 +263,14 @@ def compare_files(old_filename, new_content):
     try:
         with open(old_filename, 'r') as f:
             old_content = f.read()
-        old_content = re.sub(r'^\.\. date: .*$', '', old_content, flags=re.MULTILINE)
-        old_content = re.sub(r'^Updated on .*$', '', old_content, flags=re.MULTILINE)
-        new_content = re.sub(r'^\.\. date: .*$', '', new_content, flags=re.MULTILINE)
-        new_content = re.sub(r'^Updated on .*$', '', new_content, flags=re.MULTILINE)
+        old_content = re.sub(r'^\.\. date: .*$', '',
+                             old_content, flags=re.MULTILINE)
+        old_content = re.sub(r'^Updated on .*$', '',
+                             old_content, flags=re.MULTILINE)
+        new_content = re.sub(r'^\.\. date: .*$', '',
+                             new_content, flags=re.MULTILINE)
+        new_content = re.sub(r'^Updated on .*$', '',
+                             new_content, flags=re.MULTILINE)
         return old_content == new_content
     except FileNotFoundError:
         return False
@@ -277,7 +289,8 @@ def magic_help_strings(program_name, argument_data):
     argument_args = []
     for datum in argument_data:
         arg_str, *help = datum.split('\n', maxsplit=1)
-        args, kwargs = eval(f"(lambda *args, **kwargs: (args, kwargs))({arg_str})")
+        args, kwargs = eval(
+            f"(lambda *args, **kwargs: (args, kwargs))({arg_str})")
         if help:
             kwargs['help'] = help[0]
         argument_args.append((args, kwargs))
@@ -334,7 +347,8 @@ def write_doc_md_files(dest_dir, py5_doc_ref_dir):
 
         if item_type in ['class', 'pseudoclass']:
             title = f'# {name}'
-            provides_description = doc.meta.get('provides_description', 'methods and fields')
+            provides_description = doc.meta.get(
+                'provides_description', 'methods and fields')
             doc_md = CLASS_DOC_TEMPLATE.format(
                 title, first_sentence, examples,
                 description, underlying_java_ref, provides_description,
@@ -346,7 +360,8 @@ def write_doc_md_files(dest_dir, py5_doc_ref_dir):
                 title, first_sentence, examples,
                 description, usage, arguments, now_pretty)
         else:
-            signatures = format_signatures_variables(doc.signatures, doc.variables)
+            signatures = format_signatures_variables(
+                doc.signatures, doc.variables)
             if group in ['Sketch', 'Py5Functions', 'Py5Magics']:
                 title = name
             elif group == 'Py5Tools':
@@ -371,21 +386,24 @@ def write_doc_md_files(dest_dir, py5_doc_ref_dir):
             if group in ['Sketch']:
                 mdfiles['Sketch'].add(
                     (name, slug, first_sentence,
-                     (doc.meta['category'].replace('None', ''), doc.meta['subcategory'].replace('None', ''))
-                    )
+                     (doc.meta['category'].replace('None', ''),
+                      doc.meta['subcategory'].replace('None', ''))
+                     )
                 )
             elif group in ['Py5Shape', 'Py5Graphics']:
                 mdfiles[group].add(
                     (name, slug, first_sentence,
-                     (doc.meta['category'].replace('None', ''), doc.meta['subcategory'].replace('None', ''))
-                    )
+                     (doc.meta['category'].replace('None', ''),
+                      doc.meta['subcategory'].replace('None', ''))
+                     )
                 )
             else:
                 mdfiles[group].add((name, slug, first_sentence))
 
     for group, data in mdfiles.items():
         if group in ['Sketch', 'Py5Shape', 'Py5Graphics']:
-            organized_data = groupby(sorted(data, key=lambda x: x[3]), key=lambda x: x[3])
+            organized_data = groupby(
+                sorted(data, key=lambda x: x[3]), key=lambda x: x[3])
             prev_category = ('_', '_')
             columns = [StringIO() for _ in range(3)]
             column_num = 0
@@ -395,12 +413,14 @@ def write_doc_md_files(dest_dir, py5_doc_ref_dir):
                 if category[0] != prev_category[0]:
                     write_category_heading(columns[column_num], category[0])
                 if category[1] != prev_category[1] and category[1] != '':
-                    write_category_heading(columns[column_num], category[1], subcategory=True)
+                    write_category_heading(
+                        columns[column_num], category[1], subcategory=True)
                 prev_category = category
                 columns[column_num].write('\n')
                 for (name, stem, first_sentence, _) in sorted(contents):
                     columns[column_num].write(f'* [{name}]({stem})\n')
-            write_main_ref_columns(dest_dir / 'reference' / f'include_{group.lower()}.md', columns)
+            write_main_ref_columns(
+                dest_dir / 'reference' / f'include_{group.lower()}.md', columns)
         else:
             with open(dest_dir / 'reference' / f'include_{group.lower()}.md', 'w') as f:
                 for name, stem, first_sentence in sorted(data):
