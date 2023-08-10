@@ -18,6 +18,7 @@
 #
 # *****************************************************************************
 
+
 class Environment:
 
     def __init__(self):
@@ -26,7 +27,8 @@ class Environment:
             from ipykernel.zmqshell import ZMQInteractiveShell
             self.in_ipython_session = True
             self.ipython_shell = get_ipython()  # type: ignore
-            self.in_jupyter_zmq_shell = isinstance(self.ipython_shell, ZMQInteractiveShell)
+            self.in_jupyter_zmq_shell = isinstance(
+                self.ipython_shell, ZMQInteractiveShell)
         except Exception:
             self.in_ipython_session = False
             self.ipython_shell = None

@@ -17,16 +17,17 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import re
 import io
+import re
 import zipfile
-import requests
 from pathlib import Path
 
+import requests
 
 PROCESSING_LIBRARY_URL = 'http://download.processing.org/contribs'
 
-PARAGRAPH_REGEX = re.compile('^paragraph=(.*?)^[a-z]*?=', re.DOTALL | re.MULTILINE)
+PARAGRAPH_REGEX = re.compile(
+    '^paragraph=(.*?)^[a-z]*?=', re.DOTALL | re.MULTILINE)
 
 
 class ProcessingLibraryInfo:
@@ -37,13 +38,15 @@ class ProcessingLibraryInfo:
     def _load_data(self):
         response = requests.get(PROCESSING_LIBRARY_URL)
         if response.status_code != 200:
-            raise RuntimeError(f'could not download data file at {PROCESSING_LIBRARY_URL}')
+            raise RuntimeError(
+                f'could not download data file at {PROCESSING_LIBRARY_URL}')
 
-        blocks = [b for b in response.text.split('\n\n') if b.startswith('library')]
+        blocks = [b for b in response.text.split(
+            '\n\n') if b.startswith('library')]
         data = [dict([line.split('=', 1)
-                            for line in block.splitlines()
-                            if line != "library"])
-                      for block in blocks]
+                      for line in block.splitlines()
+                      if line != "library"])
+                for block in blocks]
 
         categories = set()
         names = list()
@@ -75,12 +78,14 @@ class ProcessingLibraryInfo:
         return list(info)
 
     def download_zip(self, dest, library_name=None, library_id=None):
-        info = self.get_library_info(library_name=library_name, library_id=library_id)
+        info = self.get_library_info(
+            library_name=library_name, library_id=library_id)
 
         if len(info) == 0:
             raise RuntimeError('There are no libraries named ' + library_name)
         if len(info) > 1:
-            raise RuntimeError('Multiple libraries found named ' + library_name)
+            raise RuntimeError(
+                'Multiple libraries found named ' + library_name)
 
         info = info[0]
         download_url = info['download']

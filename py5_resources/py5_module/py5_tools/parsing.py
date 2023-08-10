@@ -17,9 +17,9 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import sys
 import ast
 import re
+import sys
 
 import stackprinter
 
@@ -117,13 +117,17 @@ class Py5CodeValidation(ast.NodeTransformer):
 
         if isinstance(node, ast.Name):
             if isinstance(node.ctx, ast.Del):
-                out.append(f'Deleting py5 reserved word "{node.id}" on line {node.lineno} is discouraged and may causes errors in your sketch.')
+                out.append(
+                    f'Deleting py5 reserved word "{node.id}" on line {node.lineno} is discouraged and may causes errors in your sketch.')
             elif isinstance(node.ctx, ast.Store):
-                out.append(f'Assignment to py5 reserved word "{node.id}" on line {node.lineno} is discouraged and may causes errors in your sketch.')
+                out.append(
+                    f'Assignment to py5 reserved word "{node.id}" on line {node.lineno} is discouraged and may causes errors in your sketch.')
         elif isinstance(node, ast.Import):
-                out.append(f'"import py5" found on line {node.lineno}. Do not import the py5 library, as this has already been done for you. Your code should be written without any "py5." prefixes.')
+            out.append(
+                f'"import py5" found on line {node.lineno}. Do not import the py5 library, as this has already been done for you. Your code should be written without any "py5." prefixes.')
         elif isinstance(node, ast.FunctionDef):
-            out.append(f'Defining a function named after py5 reserved word "{node.name}" on line {node.lineno} is discouraged and may causes errors in your sketch.')
+            out.append(
+                f'Defining a function named after py5 reserved word "{node.name}" on line {node.lineno} is discouraged and may causes errors in your sketch.')
 
         if self._code:
             lines = self._code.splitlines()
@@ -147,7 +151,9 @@ def transform_py5_code(code_ast: ast.Module):
 def check_for_problems(code, filename, *, tool=None):
     # if the code contains a setup() or a draw() function, the user could be confused about static mode
     if (ms := re.findall(r'^def (setup|draw)[^:]*:', code, flags=re.MULTILINE)):
-        msg = 'Your code contains ' + (f'a {ms[0]}() function.' if len(ms) == 1 else 'setup() and draw() functions.')
+        msg = 'Your code contains ' + \
+            (f'a {ms[0]}() function.' if len(ms) ==
+             1 else 'setup() and draw() functions.')
         if tool:
             msg += f' When using {tool}, your code is written in static mode, without defining a setup() function or a draw() function.'
         else:
@@ -174,22 +180,28 @@ def check_for_problems(code, filename, *, tool=None):
     # check for assignments to or deletions of reserved words
     problems = check_reserved_words(code, sketch_ast)
     if problems:
-        msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your code.\n'
+        msg = 'There ' + ('is a problem' if len(problems) ==
+                          1 else f'are {len(problems)} problems') + ' with your code.\n'
         msg += '=' * len(msg) + '\n' + '\n'.join(problems)
         return False, msg
 
-    cutoff1, cutoff2 = split_setup.find_cutoffs(code, 'imported', static_mode=True)
+    cutoff1, cutoff2 = split_setup.find_cutoffs(
+        code, 'imported', static_mode=True)
     lines = code.splitlines(keepends=True)
     py5static_globals = ''.join(lines[:cutoff1])
     py5static_settings = ''.join(lines[cutoff1:cutoff2])
     py5static_setup = ''.join(lines[cutoff2:])
 
     # check for calls to size, etc, that were not at the beginning of the code
-    problems = split_setup.check_for_special_functions(py5static_setup, 'imported')
+    problems = split_setup.check_for_special_functions(
+        py5static_setup, 'imported')
     if problems:
-        msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your code.\n'
-        msg += 'The function ' + ('call' if len(problems) == 1 else 'calls') + ' to '
-        problems = [f'{name} (on line {i + cutoff2 + 1})' for i, name in problems]
+        msg = 'There ' + ('is a problem' if len(problems) ==
+                          1 else f'are {len(problems)} problems') + ' with your code.\n'
+        msg += 'The function ' + \
+            ('call' if len(problems) == 1 else 'calls') + ' to '
+        problems = [
+            f'{name} (on line {i + cutoff2 + 1})' for i, name in problems]
         if len(problems) == 1:
             msg += problems[0]
         elif len(problems) == 2:

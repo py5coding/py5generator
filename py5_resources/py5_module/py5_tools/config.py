@@ -17,9 +17,8 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from typing import Union, Callable
 from types import ModuleType
-
+from typing import Callable, Union
 
 _PY5_PROCESSING_MODE_KEYS = {}
 _PY5_PROCESSING_MODE_CALLBACK_ONCE = set()

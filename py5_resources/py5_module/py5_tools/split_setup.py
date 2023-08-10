@@ -17,19 +17,19 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import re
 import ast
 import inspect
+import re
 
 from . import parsing
-
 
 COMMENT_LINE = re.compile(r'^\s*#.*' + chr(36), flags=re.MULTILINE)
 DOCSTRING = re.compile(r'^\s*""".*?"""', flags=re.MULTILINE | re.DOTALL)
 SETUP_LINE = re.compile(r'^def setup[^:]*:')
 MODULE_MODE_METHOD_LINE = re.compile(r'^\s*py5\.(\w+)\s*\([^\)]*\)')
 IMPORTED_MODE_METHOD_LINE = re.compile(r'^\s*(\w+)\s*\([^\)]*\)')
-GLOBAL_STATEMENT_LINE = re.compile(r'^\s*global\s+.*' + chr(36), flags=re.MULTILINE)
+GLOBAL_STATEMENT_LINE = re.compile(
+    r'^\s*global\s+.*' + chr(36), flags=re.MULTILINE)
 
 
 def _get_method_line_regex(mode):
@@ -43,7 +43,8 @@ def _get_method_line_regex(mode):
 
 def _remove_comments(code):
     # remove # comments
-    code = ''.join(['\n' if COMMENT_LINE.match(l) else l for l in code.splitlines(keepends=True)])
+    code = ''.join(['\n' if COMMENT_LINE.match(
+        l) else l for l in code.splitlines(keepends=True)])
 
     # remove docstrings
     for docstring in DOCSTRING.findall(code):
@@ -77,8 +78,10 @@ def find_cutoffs(code, mode, static_mode=False):
         else:
             other_statements.append(i)
 
-    cutoff1 = max(leading_global_statements) + 1 if leading_global_statements else int(def_statement)
-    cutoff2 = (min(other_statements) if other_statements else max(settings_statements) + 1) if settings_statements else cutoff1
+    cutoff1 = max(leading_global_statements) + \
+        1 if leading_global_statements else int(def_statement)
+    cutoff2 = (min(other_statements) if other_statements else max(
+        settings_statements) + 1) if settings_statements else cutoff1
 
     return cutoff1, cutoff2
 
@@ -124,17 +127,22 @@ def transform(functions, sketch_globals, sketch_locals, println, *, mode):
         # build the fake code
         lines, lineno = inspect.getsourcelines(setup)
         filename = inspect.getfile(setup)
-        fake_settings_code = (lineno - 1) * '\n' + "def _py5_faux_settings():\n" + (cutoff1 - 1) * '\n' + ''.join(lines[cutoff1:cutoff2])
-        fake_setup_code = (lineno - 1) * '\n' + "def _py5_faux_setup():\n" + ''.join(lines[1:cutoff1]) + (cutoff2 - cutoff1) * '\n' + ''.join(lines[cutoff2:])
+        fake_settings_code = (lineno - 1) * '\n' + "def _py5_faux_settings():\n" + \
+            (cutoff1 - 1) * '\n' + ''.join(lines[cutoff1:cutoff2])
+        fake_setup_code = (lineno - 1) * '\n' + "def _py5_faux_setup():\n" + ''.join(
+            lines[1:cutoff1]) + (cutoff2 - cutoff1) * '\n' + ''.join(lines[cutoff2:])
 
         # if the fake settings code is empty, there's no need to change anything
         if count_noncomment_lines(fake_settings_code) > 1:
             # parse the fake settings code and transform it if using imported mode
-            fake_settings_ast = ast.parse(fake_settings_code, filename=filename, mode='exec')
+            fake_settings_ast = ast.parse(
+                fake_settings_code, filename=filename, mode='exec')
             if mode == 'imported':
-                fake_settings_ast = parsing.transform_py5_code(fake_settings_ast)
+                fake_settings_ast = parsing.transform_py5_code(
+                    fake_settings_ast)
             # compile the fake code
-            exec(compile(fake_settings_ast, filename=filename, mode='exec'), sketch_globals, sketch_locals)
+            exec(compile(fake_settings_ast, filename=filename,
+                 mode='exec'), sketch_globals, sketch_locals)
             # extract the results and cleanup
             functions['settings'] = sketch_locals['_py5_faux_settings']
             del sketch_globals['_py5_faux_settings']
@@ -144,11 +152,13 @@ def transform(functions, sketch_globals, sketch_locals, println, *, mode):
                 del functions['setup']
             else:
                 # parse the fake setup code and transform it if using imported mode
-                fake_setup_ast = ast.parse(fake_setup_code, filename=filename, mode='exec')
+                fake_setup_ast = ast.parse(
+                    fake_setup_code, filename=filename, mode='exec')
                 if mode == 'imported':
                     fake_setup_ast = parsing.transform_py5_code(fake_setup_ast)
                 # compile the fake code
-                exec(compile(fake_setup_ast, filename=filename, mode='exec'), sketch_globals, sketch_locals)
+                exec(compile(fake_setup_ast, filename=filename,
+                     mode='exec'), sketch_globals, sketch_locals)
                 # extract the results and cleanup
                 functions['setup'] = sketch_locals['_py5_faux_setup']
                 del sketch_globals['_py5_faux_setup']
@@ -156,6 +166,7 @@ def transform(functions, sketch_globals, sketch_locals, println, *, mode):
     except OSError as e:
         println("Unable to obtain source code for setup(). Either make it obtainable or create a settings() function for calls to size(), fullscreen(), etc.", stderr=True)
     except Exception as e:
-        println("Exception thrown while analyzing setup() function:", str(e), stderr=True)
+        println("Exception thrown while analyzing setup() function:",
+                str(e), stderr=True)
 
     return functions

@@ -17,20 +17,17 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import os
-import sys
 import ast
+import os
+import re
+import sys
+import tempfile
 from multiprocessing import Process
 from pathlib import Path
-import re
-import tempfile
 
 import stackprinter
 
-from . import jvm
-from . import parsing
-from . import import_hook
-
+from . import import_hook, jvm, parsing
 
 _imported_mode = False
 _imported_mode_locked = False
@@ -46,7 +43,8 @@ def set_imported_mode(imported_mode: bool):
     if _imported_mode == imported_mode:
         return
     if _imported_mode_locked:
-        raise RuntimeError('Attempting to set imported mode after importing py5. This would put py5 into a confused state. Throwing an exception to prevent you from having to debug that.')
+        raise RuntimeError(
+            'Attempting to set imported mode after importing py5. This would put py5 into a confused state. Throwing an exception to prevent you from having to debug that.')
     _imported_mode = imported_mode
     import_hook.activate_py5_import_hook()
 
@@ -107,8 +105,9 @@ SETTINGS_REGEX = re.compile(r'^def settings[^:]*:', flags=re.MULTILINE)
 SETUP_REGEX = re.compile(r'^def setup[^:]*:', flags=re.MULTILINE)
 DRAW_REGEX = re.compile(r'^def draw[^:]*:', flags=re.MULTILINE)
 
+
 def is_static_mode(code):
-    no_settings =  SETTINGS_REGEX.search(code) is None
+    no_settings = SETTINGS_REGEX.search(code) is None
     no_setup = SETUP_REGEX.search(code) is None
     no_draw = DRAW_REGEX.search(code) is None
 
@@ -126,9 +125,11 @@ def run_code(sketch_path, *, classpath=None, new_process=False, exit_if_error=Fa
         code = f.read()
 
     if is_static_mode(code):
-        _run_static_code(code, sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args, block)
+        _run_static_code(code, sketch_path, classpath, new_process,
+                         exit_if_error, py5_options, sketch_args, block)
     else:
-        _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args, sketch_path, block)
+        _run_code(sketch_path, classpath, new_process, exit_if_error,
+                  py5_options, sketch_args, sketch_path, block)
 
 
 def _run_static_code(code, sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args, block):
@@ -151,11 +152,13 @@ def _run_static_code(code, sketch_path, classpath, new_process, exit_if_error, p
             f.write(py5static_setup)
 
         new_sketch_path = tempdir / '_PY5_STATIC_FRAMEWORK_CODE_.py'
-        new_sketch_code = _STATIC_CODE_FRAMEWORK.format(settings_filename.as_posix(), setup_filename.as_posix())
+        new_sketch_code = _STATIC_CODE_FRAMEWORK.format(
+            settings_filename.as_posix(), setup_filename.as_posix())
         with open(new_sketch_path, 'w') as f:
             f.write(new_sketch_code)
 
-        _run_code(new_sketch_path, classpath, new_process, exit_if_error, py5_options, sketch_args, sketch_path, block)
+        _run_code(new_sketch_path, classpath, new_process,
+                  exit_if_error, py5_options, sketch_args, sketch_path, block)
     else:
         print(result, file=sys.stderr)
 
@@ -170,10 +173,12 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, s
         set_imported_mode(True)
         import py5
         if (py5.is_running() if callable(py5.is_running) else py5.is_running):
-            print('You must exit the currently running sketch before running another sketch.', file=sys.stderr)
+            print(
+                'You must exit the currently running sketch before running another sketch.', file=sys.stderr)
             return None
 
-        py5_options_str = str([f'--{o}' for o in py5_options]) if py5_options else 'None'
+        py5_options_str = str(
+            [f'--{o}' for o in py5_options]) if py5_options else 'None'
         sketch_args_str = str(sketch_args)
 
         with open(sketch_path, 'r', encoding='utf8') as f:
@@ -184,8 +189,10 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, s
             # this will make sure indentation and syntax errors are correctly attributed to the user's code and not the _CODE_FRAMEWORK template
             ast.parse(user_code, filename=sketch_path, mode='exec')
             # now do the real parsing
-            sketch_code = _CODE_FRAMEWORK.format(user_code, exit_if_error, py5_options_str, sketch_args_str, block)
-            sketch_ast = ast.parse(sketch_code, filename=sketch_path, mode='exec')
+            sketch_code = _CODE_FRAMEWORK.format(
+                user_code, exit_if_error, py5_options_str, sketch_args_str, block)
+            sketch_ast = ast.parse(
+                sketch_code, filename=sketch_path, mode='exec')
         except IndentationError as e:
             msg = f'There is an indentation problem with your code on line {e.lineno}:\n'
             arrow_msg = f'--> {e.lineno}    '
@@ -204,12 +211,14 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, s
 
         problems = parsing.check_reserved_words(sketch_code, sketch_ast)
         if problems:
-            msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your Sketch code'
+            msg = 'There ' + ('is a problem' if len(problems) ==
+                              1 else f'are {len(problems)} problems') + ' with your Sketch code'
             msg += '\n' + '=' * len(msg) + '\n' + '\n'.join(problems)
             print(msg, file=sys.stderr)
             return
 
-        sketch_compiled = compile(parsing.transform_py5_code(sketch_ast), filename=sketch_path, mode='exec')
+        sketch_compiled = compile(parsing.transform_py5_code(
+            sketch_ast), filename=sketch_path, mode='exec')
 
         sys.path.extend([str(sketch_path.absolute().parent), os.getcwd()])
         py5_ns = dict()
@@ -222,7 +231,8 @@ def _run_code(sketch_path, classpath, new_process, exit_if_error, py5_options, s
             print(e.msg, file=sys.stderr)
 
     if new_process:
-        p = Process(target=_run_sketch, args=(sketch_path, classpath, exit_if_error))
+        p = Process(target=_run_sketch, args=(
+            sketch_path, classpath, exit_if_error))
         p.start()
         return p
     else:

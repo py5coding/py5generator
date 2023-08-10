@@ -20,12 +20,12 @@
 """
 Utilities and accessory tools for py5. 
 """
-from .imported import set_imported_mode, get_imported_mode, _lock_imported_mode  # noqa
+from . import translators  # noqa
+from .config import *  # noqa
+from .hooks import *  # noqa
+from .imported import (_lock_imported_mode, get_imported_mode,  # noqa
+                       set_imported_mode)
 from .jvm import *  # noqa
 from .libraries import *  # noqa
-from .hooks import *  # noqa
-from .config import *  # noqa
-from . import translators  # noqa
-
 
 __version__ = '0.9.2.dev0'

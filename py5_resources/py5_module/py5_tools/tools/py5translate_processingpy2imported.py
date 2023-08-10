@@ -22,10 +22,12 @@ from pathlib import Path
 
 from py5_tools import translators
 
-
-parser = argparse.ArgumentParser(description="Translate processing.py code to imported mode code")
-parser.add_argument(action='store', dest='src', help='path to processing.py code')
-parser.add_argument(action='store', dest='dest', help='path to imported mode code')
+parser = argparse.ArgumentParser(
+    description="Translate processing.py code to imported mode code")
+parser.add_argument(action='store', dest='src',
+                    help='path to processing.py code')
+parser.add_argument(action='store', dest='dest',
+                    help='path to imported mode code')
 
 
 def main():

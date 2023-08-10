@@ -19,7 +19,6 @@
 # *****************************************************************************
 from pathlib import Path
 
-
 _DRAW_WRAPPER_CODE_TEMPLATE = """
 if {1}:
     draw_ = draw
@@ -41,12 +40,14 @@ if py5.is_dead_from_error:
     py5.exit_sketch()
 """
 
+
 _EXIT_SKETCH = """
 import time
 time.sleep(1)
 py5.exit_sketch()
 time.sleep(1)
 """
+
 
 def run_code(code: str, image: Path) -> bool:
     import py5
@@ -57,7 +58,8 @@ def run_code(code: str, image: Path) -> bool:
     if code.find("py5.run_sketch") >= 0:
         code += _EXIT_SKETCH
     else:
-        code += _DRAW_WRAPPER_CODE_TEMPLATE.format(image, code.find("def draw():") >= 0, image is not None) + '\n\n' + _RUN_SKETCH_CODE
+        code += _DRAW_WRAPPER_CODE_TEMPLATE.format(image, code.find(
+            "def draw():") >= 0, image is not None) + '\n\n' + _RUN_SKETCH_CODE
 
     # writing code to file so inspect.getsource() works correctly
     with open('/tmp/test_file.py', 'w') as f:

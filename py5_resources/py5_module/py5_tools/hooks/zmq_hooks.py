@@ -30,9 +30,8 @@ except ImportError:
         def __init__(self, sketch, w, h):
             super().__init__()
 
-from .hooks import SketchPortalHook
 from .. import environ as _environ
-
+from .hooks import SketchPortalHook
 
 Sketch = 'Sketch'
 
@@ -44,11 +43,14 @@ def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = 30,
     """$module_Py5Tools_sketch_portal"""
     environment = _environ.Environment()
     if not environment.in_ipython_session:
-        raise RuntimeError('The sketch_widget() function can only be used with IPython and ZMQInteractiveShell (such as Jupyter Lab)')
+        raise RuntimeError(
+            'The sketch_widget() function can only be used with IPython and ZMQInteractiveShell (such as Jupyter Lab)')
     if not environment.in_jupyter_zmq_shell:
-        raise RuntimeError('The sketch_widget() function can only be used with ZMQInteractiveShell (such as Jupyter Lab)')
+        raise RuntimeError(
+            'The sketch_widget() function can only be used with ZMQInteractiveShell (such as Jupyter Lab)')
     if issubclass(Py5SketchPortal, widgets.Image):
-        warnings.warn('Please install the py5jupyter package for interactive Py5SketchPortal functionality.')
+        warnings.warn(
+            'Please install the py5jupyter package for interactive Py5SketchPortal functionality.')
 
     if sketch is None:
         import py5
@@ -58,15 +60,19 @@ def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = 30,
         prefix = ''
 
     if not sketch._py5_bridge.has_function('draw'):
-        raise RuntimeError('This tool cannot be used on a sketch that does not have a draw() method')
+        raise RuntimeError(
+            'This tool cannot be used on a sketch that does not have a draw() method')
     if not sketch.is_running:
         raise RuntimeError(f'The {prefix} sketch is not running')
     if throttle_frame_rate is not None and throttle_frame_rate <= 0:
-        raise RuntimeError('The throttle_frame_rate parameter must be None or greater than zero')
+        raise RuntimeError(
+            'The throttle_frame_rate parameter must be None or greater than zero')
     if time_limit < 0:
-        raise RuntimeError('The time_limit parameter must be greater than or equal to zero')
+        raise RuntimeError(
+            'The time_limit parameter must be greater than or equal to zero')
     if quality < 1 or quality > 100:
-        raise RuntimeError('The quality parameter must be between 1 (worst) and 100 (best)')
+        raise RuntimeError(
+            'The quality parameter must be between 1 (worst) and 100 (best)')
     if scale <= 0:
         raise RuntimeError('The scale parameter must be greater than zero')
 
@@ -88,7 +94,8 @@ def sketch_portal(*, time_limit: float = 0.0, throttle_frame_rate: float = 30,
 
     hook = SketchPortalHook(displayer, throttle_frame_rate, time_limit)
 
-    sketch._add_post_hook('post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
+    sketch._add_post_hook(
+        'post_draw' if hook_post_draw else 'draw', hook.hook_name, hook)
 
     exit_button = widgets.Button(description='exit_sketch()')
     exit_button.on_click(lambda x: sketch.exit_sketch())

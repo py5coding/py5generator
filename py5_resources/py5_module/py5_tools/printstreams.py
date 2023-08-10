@@ -47,9 +47,12 @@ class _DisplayPubPrintlnStream:
         if self.display_pub is None or self.parent_header is None:
             print(text, end=end, file=sys.stderr if stderr else sys.stdout)
         else:
-            content = dict(name='stderr' if stderr else 'stdout', text=text + end)
-            msg = self.display_pub.session.msg('stream', content, parent=self.parent_header)
-            self.display_pub.session.send(self.display_pub.pub_socket, msg, ident=b'stream')
+            content = dict(
+                name='stderr' if stderr else 'stdout', text=text + end)
+            msg = self.display_pub.session.msg(
+                'stream', content, parent=self.parent_header)
+            self.display_pub.session.send(
+                self.display_pub.pub_socket, msg, ident=b'stream')
 
 
 class _WidgetPrintlnStream:

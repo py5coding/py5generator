@@ -17,13 +17,12 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from pathlib import Path
 import re
-from typing import Union
 import string
+from pathlib import Path
+from typing import Union
 
 from . import util
-
 
 CONSTANT_CHARACTERS = string.ascii_uppercase + string.digits + '_'
 
@@ -72,7 +71,9 @@ def translate_dir(src: Union[str, Path], dest: Union[str, Path], ext='.pyde'):
     util.translate_dir(translate_token, src, dest, ext)
 
 
-__ALL__ = ['translate_token', 'translate_code', 'translate_file', 'translate_dir']
+__ALL__ = ['translate_token', 'translate_code',
+           'translate_file', 'translate_dir']
+
 
 def __dir__():
     return __ALL__

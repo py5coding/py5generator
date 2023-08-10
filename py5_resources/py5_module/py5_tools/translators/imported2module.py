@@ -17,13 +17,13 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+import os
+import re
 from pathlib import Path
 from typing import Union
-import re
-import os
 
-from . import util
 from .. import reference
+from . import util
 
 
 def translate_token(token):
@@ -44,14 +44,18 @@ def translate_code(code):
 
 
 def translate_file(src: Union[str, Path], dest: Union[str, Path]):
-    util.translate_file(translate_token, src, dest, post_translate=post_translate)
+    util.translate_file(translate_token, src, dest,
+                        post_translate=post_translate)
 
 
 def translate_dir(src: Union[str, Path], dest: Union[str, Path], ext='.py'):
-    util.translate_dir(translate_token, src, dest, ext, post_translate=post_translate)
+    util.translate_dir(translate_token, src, dest, ext,
+                       post_translate=post_translate)
 
 
-__ALL__ = ['translate_token', 'translate_code', 'translate_file', 'translate_dir']
+__ALL__ = ['translate_token', 'translate_code',
+           'translate_file', 'translate_dir']
+
 
 def __dir__():
     return __ALL__

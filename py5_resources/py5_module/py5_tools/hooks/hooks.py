@@ -18,13 +18,13 @@
 #
 # *****************************************************************************
 import time
-from queue import Queue, Empty
+from queue import Empty, Queue
 from threading import Thread
 
 import numpy as np
 
-from  .. import environ as _environ
-from ..printstreams import _WidgetPrintlnStream, _DefaultPrintlnStream
+from .. import environ as _environ
+from ..printstreams import _DefaultPrintlnStream, _WidgetPrintlnStream
 
 
 class BaseHook:
@@ -34,7 +34,8 @@ class BaseHook:
         self.is_ready = False
         self.exception = None
         self.is_terminated = False
-        self._msg_writer = (_WidgetPrintlnStream if _environ.Environment().in_jupyter_zmq_shell else _DefaultPrintlnStream)().init()
+        self._msg_writer = (_WidgetPrintlnStream if _environ.Environment(
+        ).in_jupyter_zmq_shell else _DefaultPrintlnStream)().init()
         self._last_println_msg = 0
 
     def hook_finished(self, sketch):
@@ -45,7 +46,8 @@ class BaseHook:
         self.exception = e
         sketch._remove_post_hook('draw', self.hook_name)
         self.is_terminated = True
-        self.status_msg('exception thrown while running magic: ' + str(e), stderr=True)
+        self.status_msg(
+            'exception thrown while running magic: ' + str(e), stderr=True)
 
     def sketch_terminated(self):
         self.is_terminated = True
@@ -54,7 +56,8 @@ class BaseHook:
         final_msg = self.is_ready or self.is_terminated
         now = time.time()
         if final_msg or now > self._last_println_msg + 0.1:
-            self._msg_writer.print(msg, end=('\n' if final_msg else '\r'), stderr=stderr)
+            self._msg_writer.print(
+                msg, end=('\n' if final_msg else '\r'), stderr=stderr)
             self._last_println_msg = now
 
 
@@ -101,7 +104,8 @@ class SaveFramesHook(BaseHook):
             if len(self.filenames) == self.limit:
                 self.hook_finished(sketch)
             if self.display_progress:
-                self.status_msg(f'saving frame {len(self.filenames)}' + (f'/{self.limit}' if self.limit else ''))
+                self.status_msg(
+                    f'saving frame {len(self.filenames)}' + (f'/{self.limit}' if self.limit else ''))
         except Exception as e:
             self.hook_error(sketch, e)
 
@@ -125,7 +129,8 @@ class GrabFramesHook(BaseHook):
             self.last_frame_time = time.time()
             if len(self.frames) == self.limit:
                 self.hook_finished(sketch)
-            self.status_msg(f'collecting frame {len(self.frames)}' + (f'/{self.limit}' if self.limit else ''))
+            self.status_msg(
+                f'collecting frame {len(self.frames)}' + (f'/{self.limit}' if self.limit else ''))
             if len(self.frames) == self.limit:
                 Thread(target=self.complete_func, args=(self,)).start()
 
@@ -182,14 +187,16 @@ class QueuedBatchProcessingHook(BaseHook):
 
         self.arrays = Queue()
         self.used_arrays = Queue()
-        self.processor = BatchProcessor(self.arrays, self.used_arrays, func, complete_func, stop_processing_func)
+        self.processor = BatchProcessor(
+            self.arrays, self.used_arrays, func, complete_func, stop_processing_func)
         self.processor.start()
 
     def msg(self):
         fmt = f'0{len(str(self.limit))}'
         queued_count = self.arrays.qsize() * self.batch_size
         dropped_count = self.dropped_batches * self.batch_size
-        out = f'grabbed frames: {self.grabbed_frames_count:{fmt}}' + (f'/{self.limit}' if self.limit else '')
+        out = f'grabbed frames: {self.grabbed_frames_count:{fmt}}' + \
+            (f'/{self.limit}' if self.limit else '')
         out += f' processed frames: {self.grabbed_frames_count-self.array_index-queued_count-dropped_count:{fmt}}'
         out += f' queued frames: {queued_count:{fmt}}'
         if self.queue_limit:
@@ -209,11 +216,13 @@ class QueuedBatchProcessingHook(BaseHook):
 
                 if self.current_batch is None:
                     if self.array_shape is None:
-                        self.array_shape = self.batch_size, *sketch.np_pixels.shape[0:2], 3
+                        self.array_shape = self.batch_size, * \
+                            sketch.np_pixels.shape[0:2], 3
                     try:
                         self.current_batch = self.used_arrays.get(block=False)
                     except Empty:
-                        self.current_batch = np.empty(self.array_shape, np.uint8)
+                        self.current_batch = np.empty(
+                            self.array_shape, np.uint8)
 
                 self.current_batch[self.array_index] = sketch.np_pixels[:, :, 1:]
                 self.array_index += 1

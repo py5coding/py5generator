@@ -17,15 +17,14 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import cmd
 import argparse
-import platform
+import cmd
 import glob
+import platform
 from pathlib import Path
 
 import py5_tools
 import py5_tools.imported
-
 
 parser = argparse.ArgumentParser(description="py5 command tool")
 
@@ -70,7 +69,8 @@ class Py5Cmd(cmd.Cmd):
     def do_show_category(self, line):
         """show_category [category name]
         Show information for all of the available libraries in a given category."""
-        category_libraries = sorted(self._libraries.get_library_info(category=line), key=lambda x: x.get('name'))
+        category_libraries = sorted(self._libraries.get_library_info(
+            category=line), key=lambda x: x.get('name'))
 
         if category_libraries:
             for info in category_libraries:
@@ -82,7 +82,8 @@ class Py5Cmd(cmd.Cmd):
         if not text:
             completions = self._libraries.categories
         else:
-            completions = [c for c in self._libraries.categories if c.startswith(text)]
+            completions = [
+                c for c in self._libraries.categories if c.startswith(text)]
 
         return completions
 
@@ -102,7 +103,8 @@ class Py5Cmd(cmd.Cmd):
         path = line[10:].strip()
         completions = []
         for p in glob.glob(path + '*'):
-            completions.append(p[(len(path) - len(text)):] + ('/' if Path(p).is_dir() else ''))
+            completions.append(p[(len(path) - len(text)):] +
+                               ('/' if Path(p).is_dir() else ''))
         return completions
 
     def do_get_library(self, line):
@@ -117,7 +119,8 @@ class Py5Cmd(cmd.Cmd):
         if not text:
             completions = self._libraries.names
         else:
-            completions = [n for n in self._libraries.names if n.startswith(text)]
+            completions = [
+                n for n in self._libraries.names if n.startswith(text)]
 
         return completions
 
@@ -137,7 +140,8 @@ class Py5Cmd(cmd.Cmd):
         if not text:
             completions = self._libraries.names
         else:
-            completions = [n for n in self._libraries.names if n.startswith(text)]
+            completions = [
+                n for n in self._libraries.names if n.startswith(text)]
 
         return completions
 

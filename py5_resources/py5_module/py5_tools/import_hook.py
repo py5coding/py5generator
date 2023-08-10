@@ -17,19 +17,19 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import sys
-from pathlib import Path
 import ast
 import re
-
+import sys
 from importlib.abc import Loader, MetaPathFinder
 from importlib.util import spec_from_file_location
+from pathlib import Path
 
 import py5_tools
 
-
-PY5_IMPORTED_MODE_CODE_MARKER_REGEX =  re.compile(r"^# PY5 IMPORTED MODE CODE\s*$$", re.MULTILINE | re.IGNORECASE)
-PY5_HEADER = '\n\n\n'.join([f'def {dvar}():\n    return get_current_sketch().{dvar}' for dvar in py5_tools.reference.PY5_DYNAMIC_VARIABLES])
+PY5_IMPORTED_MODE_CODE_MARKER_REGEX = re.compile(
+    r"^# PY5 IMPORTED MODE CODE\s*$$", re.MULTILINE | re.IGNORECASE)
+PY5_HEADER = '\n\n\n'.join(
+    [f'def {dvar}():\n    return get_current_sketch().{dvar}' for dvar in py5_tools.reference.PY5_DYNAMIC_VARIABLES])
 
 
 class Py5ImportError(ImportError):
@@ -59,7 +59,8 @@ class Py5ImportedModeFinder(MetaPathFinder):
                 with open(marker_file2) as f:
                     data = f.read()
                 if PY5_IMPORTED_MODE_CODE_MARKER_REGEX.search(data):
-                    self._validated_py5_module_mode_paths.append(marker_file2.parent)
+                    self._validated_py5_module_mode_paths.append(
+                        marker_file2.parent)
                 else:
                     return None
             else:
@@ -89,7 +90,7 @@ class Py5ImportedModeFinder(MetaPathFinder):
 
             return spec_from_file_location(fullname, filename, loader=Py5ImportedModeLoader(filename), submodule_search_locations=submodule_locations)
 
-        return None # don't import this
+        return None  # don't import this
 
 
 class Py5ImportedModeLoader(Loader):
@@ -98,7 +99,7 @@ class Py5ImportedModeLoader(Loader):
 
     def create_module(self, spec):
         # default module creation semantics
-        return None 
+        return None
 
     def exec_module(self, module):
         with open(self.filename) as f:
@@ -108,7 +109,8 @@ class Py5ImportedModeLoader(Loader):
         code_ast = ast.parse(code_src, filename=self.filename, mode='exec')
         problems = py5_tools.parsing.check_reserved_words(code_src, code_ast)
         if problems:
-            msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with the imported "' + str(module.__name__) + '" module.\n'
+            msg = 'There ' + ('is a problem' if len(problems) ==
+                              1 else f'are {len(problems)} problems') + ' with the imported "' + str(module.__name__) + '" module.\n'
             msg += '=' * len(msg) + '\n' + '\n'.join(problems)
             raise Py5ImportError(msg)
 
@@ -122,7 +124,7 @@ class Py5ImportedModeLoader(Loader):
 
         # exec the code in a temporary namespace
         import py5
-        exec(source, ns:={**vars(py5), **vars(module)})
+        exec(source, ns := {**vars(py5), **vars(module)})
 
         # add user's code to the module. the filtering makes sure we don't add
         # py5 methods necessary for proper execution to the module's namespace

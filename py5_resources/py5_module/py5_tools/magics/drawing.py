@@ -17,25 +17,22 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import sys
-import re
 import ast
 import io
-from pathlib import Path
+import re
+import sys
 import tempfile
+from pathlib import Path
 
-from IPython.display import display, SVG, Image
-from IPython.core.magic import Magics, magics_class, cell_magic
-from IPython.core.magic_arguments import parse_argstring, argument, magic_arguments, kwds
-
-import stackprinter
 import PIL
+import stackprinter
+from IPython.core.magic import Magics, cell_magic, magics_class
+from IPython.core.magic_arguments import (argument, kwds, magic_arguments,
+                                          parse_argstring)
+from IPython.display import SVG, Image, display
 
-from .. import imported
-from .. import parsing
-
+from .. import imported, parsing
 from .util import CellMagicHelpFormatter, filename_check, variable_name_check
-
 
 _CODE_FRAMEWORK_BEGIN = """
 import py5
@@ -153,7 +150,7 @@ def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
 
     import py5
     is_running = py5.is_running
-    if (isinstance(is_running, bool) and is_running) or (callable(is_running) and is_running()) :
+    if (isinstance(is_running, bool) and is_running) or (callable(is_running) and is_running()):
         print('You must exit the currently running sketch before running another sketch.', file=sys.stderr)
         return None
 
@@ -179,14 +176,18 @@ def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
         # check for assignments to or deletions of reserved words
         problems = parsing.check_reserved_words(code, sketch_ast)
         if problems:
-            msg = 'There ' + ('is a problem' if len(problems) == 1 else f'are {len(problems)} problems') + ' with your code.\n'
+            msg = 'There ' + ('is a problem' if len(problems) ==
+                              1 else f'are {len(problems)} problems') + ' with your code.\n'
             msg += '=' * len(msg) + '\n' + '\n'.join(problems)
             print(msg, file=sys.stderr)
             return None
 
-        code_framework = _CODE_FRAMEWORK_IMPORTED_BEGIN + template.replace('py5.', '')
+        code_framework = _CODE_FRAMEWORK_IMPORTED_BEGIN + \
+            template.replace('py5.', '')
     else:
-        code_framework = _CODE_FRAMEWORK_BEGIN + '\n'.join([l for l in template.splitlines() if l.find('# TRANSFORM') == -1])
+        code_framework = _CODE_FRAMEWORK_BEGIN + \
+            '\n'.join([l for l in template.splitlines()
+                      if l.find('# TRANSFORM') == -1])
 
     with tempfile.TemporaryDirectory() as tempdir:
         temp_py = Path(tempdir) / '_PY5_STATIC_SETUP_CODE_.py'
@@ -200,7 +201,8 @@ def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
             py5._prepare_dynamic_variables(user_ns, user_ns)
 
         user_ns['_py5_user_ns'] = user_ns.copy() if safe_exec else user_ns
-        exec(code_framework.format(width, height, renderer, temp_out.as_posix(), temp_py.as_posix()), user_ns)
+        exec(code_framework.format(width, height, renderer,
+             temp_out.as_posix(), temp_py.as_posix()), user_ns)
 
         if temp_out.exists():
             with open(temp_out, read_mode) as f:
@@ -267,7 +269,8 @@ class DrawingMagics(Magics):
 
         if sys.platform == 'darwin':
             if args.renderer in ['P2D', 'P3D', 'DXF']:
-                print(f'Sorry, py5 magics do not support the {args.renderer} renderer on OSX.', file=sys.stderr)
+                print(
+                    f'Sorry, py5 magics do not support the {args.renderer} renderer on OSX.', file=sys.stderr)
                 return
             if args.renderer == 'JAVA2D':
                 args.renderer = 'HIDDEN'
@@ -298,7 +301,8 @@ class DrawingMagics(Magics):
                         self.shell.user_ns[args.variable] = pil_img
                         print(f'PIL Image assigned to {args.variable}')
                     else:
-                        print(f'Invalid variable name {args.variable}', file=sys.stderr)
+                        print(
+                            f'Invalid variable name {args.variable}', file=sys.stderr)
             display(Image(png))
 
 
