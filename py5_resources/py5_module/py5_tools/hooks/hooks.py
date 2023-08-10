@@ -18,34 +18,37 @@
 #
 # *****************************************************************************
 import time
-from queue import Queue, Empty
+from queue import Empty, Queue
 from threading import Thread
 
 import numpy as np
 
-from  .. import environ as _environ
-from ..printstreams import _WidgetPrintlnStream, _DefaultPrintlnStream
+from .. import environ as _environ
+from ..printstreams import _DefaultPrintlnStream, _WidgetPrintlnStream
 
 
 class BaseHook:
-
     def __init__(self, hook_name):
         self.hook_name = hook_name
         self.is_ready = False
         self.exception = None
         self.is_terminated = False
-        self._msg_writer = (_WidgetPrintlnStream if _environ.Environment().in_jupyter_zmq_shell else _DefaultPrintlnStream)().init()
+        self._msg_writer = (
+            _WidgetPrintlnStream
+            if _environ.Environment().in_jupyter_zmq_shell
+            else _DefaultPrintlnStream
+        )().init()
         self._last_println_msg = 0
 
     def hook_finished(self, sketch):
-        sketch._remove_post_hook('draw', self.hook_name)
+        sketch._remove_post_hook("draw", self.hook_name)
         self.is_ready = True
 
     def hook_error(self, sketch, e):
         self.exception = e
-        sketch._remove_post_hook('draw', self.hook_name)
+        sketch._remove_post_hook("draw", self.hook_name)
         self.is_terminated = True
-        self.status_msg('exception thrown while running magic: ' + str(e), stderr=True)
+        self.status_msg("exception thrown while running magic: " + str(e), stderr=True)
 
     def sketch_terminated(self):
         self.is_terminated = True
@@ -54,14 +57,15 @@ class BaseHook:
         final_msg = self.is_ready or self.is_terminated
         now = time.time()
         if final_msg or now > self._last_println_msg + 0.1:
-            self._msg_writer.print(msg, end=('\n' if final_msg else '\r'), stderr=stderr)
+            self._msg_writer.print(
+                msg, end=("\n" if final_msg else "\r"), stderr=stderr
+            )
             self._last_println_msg = now
 
 
 class ScreenshotHook(BaseHook):
-
     def __init__(self, filename):
-        super().__init__('py5screenshot_hook')
+        super().__init__("py5screenshot_hook")
         self.filename = filename
 
     def __call__(self, sketch):
@@ -73,9 +77,8 @@ class ScreenshotHook(BaseHook):
 
 
 class SaveFramesHook(BaseHook):
-
     def __init__(self, dirname, filename, period, start, limit, display_progress):
-        super().__init__('py5save_frames_hook')
+        super().__init__("py5save_frames_hook")
         self.dirname = dirname
         self.filename = filename
         self.period = period
@@ -91,25 +94,30 @@ class SaveFramesHook(BaseHook):
             if time.time() - self.last_frame_time < self.period:
                 return
             if self.num_offset is None:
-                self.num_offset = 0 if self.start is None else sketch.frame_count - self.start
+                self.num_offset = (
+                    0 if self.start is None else sketch.frame_count - self.start
+                )
             num = sketch.frame_count - self.num_offset
             frame_filename = sketch._insert_frame(
-                str(self.dirname / self.filename), num=num)
+                str(self.dirname / self.filename), num=num
+            )
             sketch.save_frame(frame_filename, use_thread=True)
             self.filenames.append(frame_filename)
             self.last_frame_time = time.time()
             if len(self.filenames) == self.limit:
                 self.hook_finished(sketch)
             if self.display_progress:
-                self.status_msg(f'saving frame {len(self.filenames)}' + (f'/{self.limit}' if self.limit else ''))
+                self.status_msg(
+                    f"saving frame {len(self.filenames)}"
+                    + (f"/{self.limit}" if self.limit else "")
+                )
         except Exception as e:
             self.hook_error(sketch, e)
 
 
 class GrabFramesHook(BaseHook):
-
     def __init__(self, period, limit, complete_func):
-        super().__init__('py5grab_frames_hook')
+        super().__init__("py5grab_frames_hook")
         self.period = period
         self.limit = limit
         self.complete_func = complete_func
@@ -125,7 +133,10 @@ class GrabFramesHook(BaseHook):
             self.last_frame_time = time.time()
             if len(self.frames) == self.limit:
                 self.hook_finished(sketch)
-            self.status_msg(f'collecting frame {len(self.frames)}' + (f'/{self.limit}' if self.limit else ''))
+            self.status_msg(
+                f"collecting frame {len(self.frames)}"
+                + (f"/{self.limit}" if self.limit else "")
+            )
             if len(self.frames) == self.limit:
                 Thread(target=self.complete_func, args=(self,)).start()
 
@@ -134,8 +145,14 @@ class GrabFramesHook(BaseHook):
 
 
 class BatchProcessor(Thread):
-
-    def __init__(self, input_queue, processed_queue, func, complete_func=None, stop_processing_func=None):
+    def __init__(
+        self,
+        input_queue,
+        processed_queue,
+        func,
+        complete_func=None,
+        stop_processing_func=None,
+    ):
         super().__init__()
         self.input_queue = input_queue
         self.processed_queue = processed_queue
@@ -163,10 +180,17 @@ class BatchProcessor(Thread):
 
 
 class QueuedBatchProcessingHook(BaseHook):
-
-    def __init__(self, period, limit, batch_size, func,
-                 complete_func=None, stop_processing_func=None, queue_limit=0):
-        super().__init__('py5queued_block_processing_hook')
+    def __init__(
+        self,
+        period,
+        limit,
+        batch_size,
+        func,
+        complete_func=None,
+        stop_processing_func=None,
+        queue_limit=0,
+    ):
+        super().__init__("py5queued_block_processing_hook")
         self.period = period
         self.limit = limit
         self.batch_size = batch_size
@@ -182,18 +206,22 @@ class QueuedBatchProcessingHook(BaseHook):
 
         self.arrays = Queue()
         self.used_arrays = Queue()
-        self.processor = BatchProcessor(self.arrays, self.used_arrays, func, complete_func, stop_processing_func)
+        self.processor = BatchProcessor(
+            self.arrays, self.used_arrays, func, complete_func, stop_processing_func
+        )
         self.processor.start()
 
     def msg(self):
-        fmt = f'0{len(str(self.limit))}'
+        fmt = f"0{len(str(self.limit))}"
         queued_count = self.arrays.qsize() * self.batch_size
         dropped_count = self.dropped_batches * self.batch_size
-        out = f'grabbed frames: {self.grabbed_frames_count:{fmt}}' + (f'/{self.limit}' if self.limit else '')
-        out += f' processed frames: {self.grabbed_frames_count-self.array_index-queued_count-dropped_count:{fmt}}'
-        out += f' queued frames: {queued_count:{fmt}}'
+        out = f"grabbed frames: {self.grabbed_frames_count:{fmt}}" + (
+            f"/{self.limit}" if self.limit else ""
+        )
+        out += f" processed frames: {self.grabbed_frames_count-self.array_index-queued_count-dropped_count:{fmt}}"
+        out += f" queued frames: {queued_count:{fmt}}"
         if self.queue_limit:
-            out += f' dropped frames: {dropped_count:{fmt}}'
+            out += f" dropped frames: {dropped_count:{fmt}}"
         return out
 
     def __call__(self, sketch):
@@ -201,7 +229,9 @@ class QueuedBatchProcessingHook(BaseHook):
             if time.time() - self.last_frame_time < self.period:
                 return
 
-            if (self.limit > 0 and self.grabbed_frames_count == self.limit) or self.processor.stop_processing:
+            if (
+                self.limit > 0 and self.grabbed_frames_count == self.limit
+            ) or self.processor.stop_processing:
                 self.continue_grabbing_frames = False
 
             if self.continue_grabbing_frames:
@@ -209,7 +239,11 @@ class QueuedBatchProcessingHook(BaseHook):
 
                 if self.current_batch is None:
                     if self.array_shape is None:
-                        self.array_shape = self.batch_size, *sketch.np_pixels.shape[0:2], 3
+                        self.array_shape = (
+                            self.batch_size,
+                            *sketch.np_pixels.shape[0:2],
+                            3,
+                        )
                     try:
                         self.current_batch = self.used_arrays.get(block=False)
                     except Empty:
@@ -220,17 +254,22 @@ class QueuedBatchProcessingHook(BaseHook):
                 self.grabbed_frames_count += 1
                 self.last_frame_time = time.time()
 
-                if self.array_index == self.current_batch.shape[0] or not self.continue_grabbing_frames:
+                if (
+                    self.array_index == self.current_batch.shape[0]
+                    or not self.continue_grabbing_frames
+                ):
                     # make room for the new batch if the queue has reached the its size limit
                     if self.queue_limit:
-                        while self.arrays.qsize() >= self.queue_limit // self.batch_size:
+                        while (
+                            self.arrays.qsize() >= self.queue_limit // self.batch_size
+                        ):
                             try:
                                 self.arrays.get(block=False)
                                 self.dropped_batches += 1
                             except Empty:
                                 pass
 
-                    self.arrays.put(self.current_batch[:self.array_index])
+                    self.arrays.put(self.current_batch[: self.array_index])
                     self.current_batch = None
                     self.array_index = 0
 
@@ -246,7 +285,7 @@ class QueuedBatchProcessingHook(BaseHook):
 
 class SketchPortalHook(BaseHook):
     def __init__(self, displayer, throttle_frame_rate, time_limit):
-        super().__init__('py5sketch_portal_hook')
+        super().__init__("py5sketch_portal_hook")
         self.displayer = displayer
         self.period = 1 / throttle_frame_rate if throttle_frame_rate else 0
         self.time_limit = time_limit
