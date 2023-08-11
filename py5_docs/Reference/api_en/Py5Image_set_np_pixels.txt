@@ -5,7 +5,7 @@ subcategory = Method
 type = method
 
 @@ signatures
-set_np_pixels(array: npt.NDArray[np.uint8], bands: str = 'ARGB') -> None
+set_np_pixels(array: npt.NDArray[np.uint8], bands: str = "ARGB") -> None
 
 @@ variables
 array: npt.NDArray[np.uint8] - properly sized numpy array to be copied to np_pixels[]
