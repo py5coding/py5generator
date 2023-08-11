@@ -42,7 +42,7 @@ CONSTANT_REGEX = re.compile(
     r"^\s*([A-Z_]*)\s*=\s*(.*?)\s+# CODEBUILDER INCLUDE$", re.MULTILINE
 )
 METHOD_REGEX = re.compile(
-    r"(@\w+)?\s*def ([^\s]*?)\((cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):\s*(# @decorator)?$",
+    r"(@\w+)?\s*def ([^\s]*?)\(\s*(cls|self),?\s*(.*?)\)\s*-?>?\s*(.*?):\s*(# @decorator)?$",
     re.MULTILINE | re.DOTALL,
 )
 TYPEHINT_UNION_COMMA_REMOVER_REGEX = re.compile(r"(\[[\w\s,\.]+\])")
@@ -385,6 +385,7 @@ class CodeBuilder:
             rettypestr,
             fake_decorator,
         ) in METHOD_REGEX.findall(method_code):
+            args = args.replace("\n", "").strip()
             if fname.startswith("_") and not fake_decorator:
                 continue
             if not rettypestr:
@@ -510,6 +511,7 @@ def find_signatures(class_name, filename):
     )
 
     for decorator, fname, _, args, rettypestr, _ in METHOD_REGEX.findall(method_code):
+        args = args.replace("\n", "").strip()
         if fname.startswith("_") or decorator == "@property":
             continue
         if not rettypestr:

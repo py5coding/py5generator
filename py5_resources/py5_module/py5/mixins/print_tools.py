@@ -22,7 +22,6 @@ from typing import Any
 
 
 class PrintlnStream:
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._println_stream = None
@@ -36,7 +35,9 @@ class PrintlnStream:
         """$class_Sketch_set_println_stream"""
         self._println_stream = println_stream
 
-    def println(self, *args, sep: str = ' ', end: str = '\n', stderr: bool = False) -> None:
+    def println(
+        self, *args, sep: str = " ", end: str = "\n", stderr: bool = False
+    ) -> None:
         """$class_Sketch_println"""
         msg = sep.join(str(x) for x in args)
         if self._println_stream is None:

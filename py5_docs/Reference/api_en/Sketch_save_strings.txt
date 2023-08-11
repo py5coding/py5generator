@@ -7,10 +7,10 @@ category = output
 subcategory = files
 
 @@ signatures
-save_strings(string_data: list[str], filename: Union[str, Path], *, end: str = '\n') -> None
+save_strings(string_data: list[str], filename: Union[str, Path], *, end: str = "\n") -> None
 
 @@ variables
-end: str = '\n' - line terminator for each string
+end: str = "\n" - line terminator for each string
 filename: Union[str, Path] - filename to save string data to
 string_data: list[str] - string data to save in a file
 

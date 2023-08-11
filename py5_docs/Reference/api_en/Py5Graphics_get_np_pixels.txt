@@ -9,7 +9,7 @@ get_np_pixels(*, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.
 get_np_pixels(x: int, y: int, w: int, h: int, /, *, bands: str = 'ARGB', dst: npt.NDArray[np.uint8] = None) -> npt.NDArray[np.uint8]
 
 @@ variables
-bands: str = 'ARGB' - color channels in output array
+bands: str = "ARGB" - color channels in output array
 dst: npt.NDArray[np.uint8] = None - destination array to copy pixel data into
 h: int - source height
 w: int - source width
