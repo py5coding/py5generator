@@ -20,20 +20,19 @@
 # *** FORMAT PARAMS ***
 from __future__ import annotations
 
-
 import functools
-from typing import overload, Any  # noqa
 import weakref
+from typing import Any, overload  # noqa
 
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa
+from jpype.types import JArray, JBoolean, JException, JFloat, JInt  # noqa
 
-from .image import Py5Image  # noqa
-from jpype.types import JException, JArray, JBoolean, JInt, JFloat  # noqa
-from .pmath import _py5vector_to_pvector, _numpy_to_pvector, _numpy_to_pmatrix2d, _numpy_to_pmatrix3d  # noqa
-from .vector import Py5Vector
 from . import spelling
-
+from .image import Py5Image  # noqa
+from .pmath import (_numpy_to_pmatrix2d, _numpy_to_pmatrix3d,  # noqa
+                    _numpy_to_pvector, _py5vector_to_pvector)
+from .vector import Py5Vector
 
 py5shader_class_members_code = None  # DELETE
 

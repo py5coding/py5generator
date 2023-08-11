@@ -19,15 +19,14 @@
 # *****************************************************************************
 from __future__ import annotations
 
-import warnings
 import traceback
-from pathlib import Path
 import types
-from typing import overload, Union, Any
+import warnings
+from pathlib import Path
+from typing import Any, Union, overload
 
 import numpy as np
 import numpy.typing as npt
-
 from jpype import JClass
 
 _OpenSimplex2S = JClass('py5.util.OpenSimplex2S')

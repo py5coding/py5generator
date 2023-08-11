@@ -20,12 +20,14 @@
 import pathlib
 
 import numpy as np
-from jpype import JClass, JArray, _jcustomizer
+from jpype import JArray, JClass, _jcustomizer
 
-from .sketch import _Sketch, Sketch, Py5Graphics, Py5Image, Py5Font, Py5Shape, Py5Shader, Py5KeyEvent, Py5MouseEvent
-from .pmath import _py5vector_to_pvector_converter, _numpy_to_pvector_converter, _numpy_to_pmatrix_converter, _PVector, _PMatrix2D, _PMatrix3D, _pvector_to_py5vector, _pmatrix_to_numpy
+from .pmath import (_numpy_to_pmatrix_converter, _numpy_to_pvector_converter,
+                    _PMatrix2D, _PMatrix3D, _pmatrix_to_numpy, _PVector,
+                    _pvector_to_py5vector, _py5vector_to_pvector_converter)
+from .sketch import (Py5Font, Py5Graphics, Py5Image, Py5KeyEvent,
+                     Py5MouseEvent, Py5Shader, Py5Shape, Sketch, _Sketch)
 from .vector import Py5Vector
-
 
 JCONVERSION_CLASS_MAP = [
     ("processing.core.PImage", Py5Image),

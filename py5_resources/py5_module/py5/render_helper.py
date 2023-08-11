@@ -19,14 +19,13 @@
 # *****************************************************************************
 from __future__ import annotations
 
-import sys
 import functools
+import sys
 from typing import Callable
 
 import numpy as np
-
-from PIL.Image import Image as PIL_Image
 from PIL import Image
+from PIL.Image import Image as PIL_Image
 
 from .sketch import Sketch
 

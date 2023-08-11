@@ -18,15 +18,14 @@
 #
 # *****************************************************************************
 import io
-from pathlib import Path
-import uuid
 import tempfile
+import uuid
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Callable
 
 import numpy as np
 from PIL import Image
-
 
 pimage_functions = []
 
@@ -115,8 +114,8 @@ register_image_conversion(pillow_image_to_ndarray_precondition, pillow_image_to_
 
 
 try:
-    import cairosvg  # noqa
     import cairocffi  # noqa
+    import cairosvg  # noqa
 
     def svg_file_to_ndarray_precondition(obj):
         if isinstance(obj, (str, Path)):
@@ -168,8 +167,8 @@ except Exception:
 
 
 try:
-    from matplotlib.figure import Figure  # noqa
     from matplotlib.backends.backend_agg import FigureCanvasAgg  # noqa
+    from matplotlib.figure import Figure  # noqa
 
     def figure_to_ndarray_precondition(obj):
         return isinstance(obj, Figure)

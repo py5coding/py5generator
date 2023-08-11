@@ -24,7 +24,6 @@ from jpype import JClass
 
 from .vector import Py5Vector
 
-
 _PVector = JClass('processing.core.PVector')
 _PMatrix2D = JClass('processing.core.PMatrix2D')
 _PMatrix3D = JClass('processing.core.PMatrix3D')

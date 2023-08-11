@@ -27,12 +27,8 @@ from pathlib import Path
 import PIL
 import stackprinter
 from IPython.core.magic import Magics, cell_magic, magics_class
-from IPython.core.magic_arguments import (
-    argument,
-    kwds,
-    magic_arguments,
-    parse_argstring,
-)
+from IPython.core.magic_arguments import (argument, kwds, magic_arguments,
+                                          parse_argstring)
 from IPython.display import SVG, Image, display
 
 from .. import imported, parsing
@@ -239,10 +235,10 @@ def _run_sketch(renderer, code, width, height, user_ns, safe_exec):
 @magics_class
 class DrawingMagics(Magics):
     @magic_arguments()
-    @argument(
+    @argument(  # DELETE
         """ DELETE
     $arguments_Py5Magics_py5drawpdf_arguments
-    """
+    """  # DELETE
     )  # DELETE
     @kwds(formatter_class=CellMagicHelpFormatter)
     @cell_magic
@@ -260,10 +256,10 @@ class DrawingMagics(Magics):
             print(f"PDF written to {filename}")
 
     @magic_arguments()
-    @argument(
+    @argument(  # DELETE
         """ DELETE
     $arguments_Py5Magics_py5drawsvg_arguments
-    """
+    """  # DELETE
     )  # DELETE
     @kwds(formatter_class=CellMagicHelpFormatter)
     @cell_magic
@@ -283,10 +279,10 @@ class DrawingMagics(Magics):
             display(SVG(svg))
 
     @magic_arguments()
-    @argument(
+    @argument(  # DELETE
         """ DELETE
     $arguments_Py5Magics_py5draw_arguments
-    """
+    """  # DELETE
     )  # DELETE
     @kwds(formatter_class=CellMagicHelpFormatter)
     @cell_magic
@@ -343,10 +339,10 @@ class DrawingMagics(Magics):
 @magics_class
 class DXFDrawingMagic(Magics):
     @magic_arguments()
-    @argument(
+    @argument(  # DELETE
         """ DELETE
     $arguments_Py5Magics_py5drawdxf_arguments
-    """
+    """  # DELETE
     )  # DELETE
     @kwds(formatter_class=CellMagicHelpFormatter)
     @cell_magic

@@ -23,7 +23,7 @@ import shutil
 from pathlib import Path
 from string import Template
 
-import black
+import autopep8
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +53,7 @@ class CodeCopier:
             if self.skip_autopep8 or content.find("# *** SKIP AUTOPEP8 ***") >= 0:
                 content = content.replace("# *** SKIP AUTOPEP8 ***\n", "")
             else:
-                content = black.format_str(content, mode=black.FileMode())
+                content = autopep8.fix_code(content, options={"aggressive": 2})
 
             with open(dest, "w") as f:
                 f.write(content)

@@ -21,8 +21,7 @@ import re
 
 import py5_tools
 
-from . import reference
-from . import spelling
+from . import reference, spelling
 
 JPYPE_TYPEERROR_REGEX = re.compile(r'No matching overloads found for [\w\.]*(\([^\)]*\))')
 IMPORTED_MODE_NAMEERROR_REGEX = re.compile(r"name '(\w+)' is not defined")

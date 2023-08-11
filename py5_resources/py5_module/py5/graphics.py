@@ -21,25 +21,24 @@
 from __future__ import annotations
 
 import functools
-from typing import overload  # noqa
-import weakref
 import types
+import weakref
+from typing import overload  # noqa
 
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa
-
 from jpype import JClass
 
-from .base import Py5Base
-from .mixins import PixelPy5GraphicsMixin
-from .font import Py5Font  # noqa
-from .shader import Py5Shader, _return_py5shader, _load_py5shader  # noqa
-from .shape import Py5Shape, _return_py5shape, _load_py5shape  # noqa
-from .image import Py5Image, _return_py5image  # noqa
-from .decorators import _text_fix_str, _convert_hex_color, _context_wrapper  # noqa
-from .pmath import _get_matrix_wrapper  # noqa
 from . import spelling
-
+from .base import Py5Base
+from .decorators import (_context_wrapper, _convert_hex_color,  # noqa
+                         _text_fix_str)
+from .font import Py5Font  # noqa
+from .image import Py5Image, _return_py5image  # noqa
+from .mixins import PixelPy5GraphicsMixin
+from .pmath import _get_matrix_wrapper  # noqa
+from .shader import Py5Shader, _load_py5shader, _return_py5shader  # noqa
+from .shape import Py5Shape, _load_py5shape, _return_py5shape  # noqa
 
 py5graphics_class_members_code = None  # DELETE
 

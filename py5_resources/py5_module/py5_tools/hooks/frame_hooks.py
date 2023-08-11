@@ -32,12 +32,8 @@ from PIL.Image import Image as PIL_Image
 
 from .. import environ as _environ
 from .. import imported as _imported
-from .hooks import (
-    GrabFramesHook,
-    QueuedBatchProcessingHook,
-    SaveFramesHook,
-    ScreenshotHook,
-)
+from .hooks import (GrabFramesHook, QueuedBatchProcessingHook, SaveFramesHook,
+                    ScreenshotHook)
 
 Sketch = "Sketch"
 
