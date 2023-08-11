@@ -17,8 +17,8 @@
 #   with this program. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from .util import CodeCopier  # noqa
-from .mapping import TemplateMapping  # noqa
 from . import reference  # noqa
-from .codebuilder import CodeBuilder, find_signatures  # noqa
 from . import templates  # noqa
+from .codebuilder import CodeBuilder, find_signatures  # noqa
+from .mapping import TemplateMapping  # noqa
+from .util import CodeCopier  # noqa
