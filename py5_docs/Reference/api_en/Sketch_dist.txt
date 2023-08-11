@@ -5,8 +5,8 @@ category = math
 subcategory = calculation
 
 @@ signatures
-dist(x1: Union[float, npt.NDArray], y1: Union[float, npt.NDArray], x2: Union[float, npt.NDArray], y2: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]
-dist(x1: Union[float, npt.NDArray], y1: Union[float, npt.NDArray], z1: Union[float, npt.NDArray], x2: Union[float, npt.NDArray], y2: Union[float, npt.NDArray], z2: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]
+dist(x1: Union[float, npt.NDArray], y1: Union[float, npt.NDArray], x2: Union[float, npt.NDArray], y2: Union[float, npt.NDArray], /, ) -> Union[float, npt.NDArray]
+dist(x1: Union[float, npt.NDArray], y1: Union[float, npt.NDArray], z1: Union[float, npt.NDArray], x2: Union[float, npt.NDArray], y2: Union[float, npt.NDArray], z2: Union[float, npt.NDArray], /, ) -> Union[float, npt.NDArray]
 
 @@ variables
 x1: Union[float, npt.NDArray] - x-coordinate of the first point

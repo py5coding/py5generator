@@ -5,11 +5,11 @@ category = image
 subcategory = pixels
 
 @@ signatures
-set_np_pixels(array: npt.NDArray[np.uint8], bands: str = 'ARGB') -> None
+set_np_pixels(array: npt.NDArray[np.uint8], bands: str = "ARGB") -> None
 
 @@ variables
 array: npt.NDArray[np.uint8] - properly sized numpy array to be copied to np_pixels[]
-bands: str = 'ARGB' - color channels in the array's third dimension
+bands: str = "ARGB" - color channels in the array's third dimension
 
 @@ description
 Set the entire contents of [](sketch_np_pixels) to the contents of another properly sized and typed numpy array. The size of `array`'s first and second dimensions must match the height and width of the Sketch window, respectively. The array's `dtype` must be `np.uint8`.

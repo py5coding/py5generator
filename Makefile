@@ -10,8 +10,8 @@ generator_src = $(shell find generator/ -name "*.py*")
 py5_installed = $(py5_build_dir)/.install_py5.nogit
 extra_args := 
 
-ifeq ($(skip_autopep8), true)
-	extra_args += --skip_autopep8
+ifeq ($(skip_black), true)
+	extra_args += --skip_black
 endif
 
 all: install_py5

@@ -29,7 +29,6 @@ from .. import bridge
 
 
 class Py5Promise:
-
     def __init__(self):
         self._result = None
         self._is_ready = False
@@ -48,7 +47,6 @@ class Py5Promise:
 
 
 class Py5Thread:
-
     def __init__(self, sketch, f, args, kwargs):
         self.sketch = sketch
         self.f = f
@@ -67,7 +65,6 @@ class Py5Thread:
 
 
 class Py5PromiseThread(Py5Thread):
-
     def __init__(self, sketch, f, promise, args, kwargs):
         super().__init__(sketch, f, args, kwargs)
         self.promise = promise
@@ -84,7 +81,6 @@ class Py5PromiseThread(Py5Thread):
 
 
 class Py5RepeatingThread(Py5Thread):
-
     def __init__(self, sketch, f, delay, args, kwargs):
         super().__init__(sketch, f, args, kwargs)
         self.repeat = True
@@ -109,16 +105,17 @@ class Py5RepeatingThread(Py5Thread):
 
 
 class ThreadsMixin:
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._py5threads = {}
 
     def _check_param_types(self, args, kwargs):
         if not isinstance(args, Iterable) and args is not None:
-            raise RuntimeError('args argument must be iterable (such as a tuple or list)')
+            raise RuntimeError(
+                "args argument must be iterable (such as a tuple or list)"
+            )
         if not isinstance(kwargs, dict) and kwargs is not None:
-            raise RuntimeError('kwargs argument must be a dictionary')
+            raise RuntimeError("kwargs argument must be a dictionary")
 
         kwargs = kwargs or {}
         args = args or ()
@@ -141,26 +138,51 @@ class ThreadsMixin:
 
     # *** BEGIN METHODS ***
 
-    def launch_thread(self, f: Callable, name: str = None, *, 
-                      daemon: bool = True, args: tuple = None, kwargs: dict = None) -> str:
+    def launch_thread(
+        self,
+        f: Callable,
+        name: str = None,
+        *,
+        daemon: bool = True,
+        args: tuple = None,
+        kwargs: dict = None,
+    ) -> str:
         """$class_Sketch_launch_thread"""
         args, kwargs = self._check_param_types(args, kwargs)
         return self._launch_py5thread(name, Py5Thread(self, f, args, kwargs), daemon)
 
-    def launch_promise_thread(self, f: Callable, name: str = None, *,
-                              daemon: bool = True, args: tuple = None, kwargs: dict = None) -> Py5Promise:
+    def launch_promise_thread(
+        self,
+        f: Callable,
+        name: str = None,
+        *,
+        daemon: bool = True,
+        args: tuple = None,
+        kwargs: dict = None,
+    ) -> Py5Promise:
         """$class_Sketch_launch_promise_thread"""
         args, kwargs = self._check_param_types(args, kwargs)
         promise = Py5Promise()
-        self._launch_py5thread(name, Py5PromiseThread(self, f, promise, args, kwargs), daemon)
+        self._launch_py5thread(
+            name, Py5PromiseThread(self, f, promise, args, kwargs), daemon
+        )
         return promise
 
-    def launch_repeating_thread(self, f: Callable, name: str = None, *,
-                                time_delay: float = 0, daemon: bool = True,
-                                args: tuple = None, kwargs: dict = None) -> str:
+    def launch_repeating_thread(
+        self,
+        f: Callable,
+        name: str = None,
+        *,
+        time_delay: float = 0,
+        daemon: bool = True,
+        args: tuple = None,
+        kwargs: dict = None,
+    ) -> str:
         """$class_Sketch_launch_repeating_thread"""
         args, kwargs = self._check_param_types(args, kwargs)
-        return self._launch_py5thread(name, Py5RepeatingThread(self, f, time_delay, args, kwargs), daemon)
+        return self._launch_py5thread(
+            name, Py5RepeatingThread(self, f, time_delay, args, kwargs), daemon
+        )
 
     def _remove_dead_threads(self):
         thread_names = list(self._py5threads.keys())
@@ -173,7 +195,7 @@ class ThreadsMixin:
         self._remove_dead_threads()
         return name in self._py5threads
 
-    def join_thread(self, name: str, *, timeout: float = None)-> bool:
+    def join_thread(self, name: str, *, timeout: float = None) -> bool:
         """$class_Sketch_join_thread"""
         self._remove_dead_threads()
         if name in self._py5threads:

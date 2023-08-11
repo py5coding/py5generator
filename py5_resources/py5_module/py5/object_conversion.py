@@ -22,11 +22,27 @@ import pathlib
 import numpy as np
 from jpype import JArray, JClass, _jcustomizer
 
-from .pmath import (_numpy_to_pmatrix_converter, _numpy_to_pvector_converter,
-                    _PMatrix2D, _PMatrix3D, _pmatrix_to_numpy, _PVector,
-                    _pvector_to_py5vector, _py5vector_to_pvector_converter)
-from .sketch import (Py5Font, Py5Graphics, Py5Image, Py5KeyEvent,
-                     Py5MouseEvent, Py5Shader, Py5Shape, Sketch, _Sketch)
+from .pmath import (
+    _numpy_to_pmatrix_converter,
+    _numpy_to_pvector_converter,
+    _PMatrix2D,
+    _PMatrix3D,
+    _pmatrix_to_numpy,
+    _PVector,
+    _pvector_to_py5vector,
+    _py5vector_to_pvector_converter,
+)
+from .sketch import (
+    Py5Font,
+    Py5Graphics,
+    Py5Image,
+    Py5KeyEvent,
+    Py5MouseEvent,
+    Py5Shader,
+    Py5Shape,
+    Sketch,
+    _Sketch,
+)
 from .vector import Py5Vector
 
 JCONVERSION_CLASS_MAP = [
@@ -61,17 +77,24 @@ _String = JClass("java.lang.String")
 
 
 def init_jpype_converters():
-
     def convert(jcls, obj):
         return obj._instance
 
     for javaname, cls_ in JCONVERSION_CLASS_MAP:
         _jcustomizer.JConversion(javaname, cls_)(convert)
 
-    _jcustomizer.JConversion('processing.core.PVector', Py5Vector)(_py5vector_to_pvector_converter)
-    _jcustomizer.JConversion('processing.core.PVector', np.ndarray)(_numpy_to_pvector_converter)
-    _jcustomizer.JConversion('processing.core.PMatrix', np.ndarray)(_numpy_to_pmatrix_converter)
-    _jcustomizer.JConversion('java.lang.String', pathlib.Path)(lambda jcls, path: _String(path.as_posix()))
+    _jcustomizer.JConversion("processing.core.PVector", Py5Vector)(
+        _py5vector_to_pvector_converter
+    )
+    _jcustomizer.JConversion("processing.core.PVector", np.ndarray)(
+        _numpy_to_pvector_converter
+    )
+    _jcustomizer.JConversion("processing.core.PMatrix", np.ndarray)(
+        _numpy_to_pmatrix_converter
+    )
+    _jcustomizer.JConversion("java.lang.String", pathlib.Path)(
+        lambda jcls, path: _String(path.as_posix())
+    )
 
 
 def convert_to_java_type(obj):

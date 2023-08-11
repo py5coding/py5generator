@@ -27,8 +27,12 @@ from pathlib import Path
 import PIL
 import stackprinter
 from IPython.core.magic import Magics, cell_magic, magics_class
-from IPython.core.magic_arguments import (argument, kwds, magic_arguments,
-                                          parse_argstring)
+from IPython.core.magic_arguments import (
+    argument,
+    kwds,
+    magic_arguments,
+    parse_argstring,
+)
 from IPython.display import SVG, Image, display
 
 from .. import imported, parsing

@@ -38,6 +38,7 @@ def _return_py5font(f):
     @functools.wraps(f)
     def decorated(self_, *args):
         return Py5Font(f(self_, *args))
+
     return decorated
 
 
@@ -51,10 +52,13 @@ def _load_py5font(f):
             msg = e.message()
         else:
             if ret is None:
-                msg = 'font file is missing or inaccessible.'
+                msg = "font file is missing or inaccessible."
             else:
                 return Py5Font(ret)
-        raise RuntimeError('cannot load font file ' + str(args[0]) + '. error message: ' + msg)
+        raise RuntimeError(
+            "cannot load font file " + str(args[0]) + ". error message: " + msg
+        )
+
     return decorated
 
 
@@ -62,13 +66,14 @@ def _return_list_str(f):
     @functools.wraps(f)
     def decorated(cls_, *args):
         return [str(x) for x in f(cls_, *args) or []]
+
     return decorated
 
 
 class Py5Font:
-    """$classdoc_Py5Font
-    """
-    _cls = jpype.JClass('processing.core.PFont')
+    """$classdoc_Py5Font"""
+
+    _cls = jpype.JClass("processing.core.PFont")
     CHARSET = _cls.CHARSET
 
     _py5_object_cache = weakref.WeakSet()
@@ -84,12 +89,19 @@ class Py5Font:
             return o
 
     def __str__(self) -> str:
-        return "Py5Font(font_name='" + self.get_name() + "', font_size=" + str(self.get_size()) + ")"
+        return (
+            "Py5Font(font_name='"
+            + self.get_name()
+            + "', font_size="
+            + str(self.get_size())
+            + ")"
+        )
 
     def __repr__(self) -> str:
         return self.__str__()
 
     def __getattr__(self, name):
-        raise AttributeError(spelling.error_msg('Py5Font', name, self))
+        raise AttributeError(spelling.error_msg("Py5Font", name, self))
+
 
 {py5font_class_members_code}

@@ -215,7 +215,7 @@ EXTRA_METHOD_SIGNATURES = {
             [
                 "dirname: str",
                 "*",
-                "filename: str = 'frame_####.png'",
+                'filename: str = "frame_####.png"',
                 "period: float = 0.0",
                 "start: int = None",
                 "limit: int = 0",

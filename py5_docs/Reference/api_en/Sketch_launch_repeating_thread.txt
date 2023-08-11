@@ -5,7 +5,7 @@ category = structure
 subcategory = threading
 
 @@ signatures
-launch_repeating_thread(f: Callable, name: str = None, *, time_delay: float = 0, daemon: bool = True, args: tuple = None, kwargs: dict = None) -> str
+launch_repeating_thread(f: Callable, name: str = None, *, time_delay: float = 0, daemon: bool = True, args: tuple = None, kwargs: dict = None, ) -> str
 
 @@ variables
 args: tuple = None - positional arguments to pass to the given function

@@ -6,8 +6,8 @@ subcategory = random
 
 @@ signatures
 os_noise(x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]
-os_noise(x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], z: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]
-os_noise(x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], z: Union[float, npt.NDArray], w: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]
+os_noise(x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], z: Union[float, npt.NDArray], /, ) -> Union[float, npt.NDArray]
+os_noise(x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], z: Union[float, npt.NDArray], w: Union[float, npt.NDArray], /, ) -> Union[float, npt.NDArray]
 
 @@ variables
 w: Union[float, npt.NDArray] - w-coordinate in noise space

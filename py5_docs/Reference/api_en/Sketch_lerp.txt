@@ -5,7 +5,7 @@ category = math
 subcategory = calculation
 
 @@ signatures
-lerp(start: Union[float, npt.NDArray], stop: Union[float, npt.NDArray], amt: Union[float, npt.NDArray]) -> Union[float, npt.NDArray]
+lerp(start: Union[float, npt.NDArray], stop: Union[float, npt.NDArray], amt: Union[float, npt.NDArray], ) -> Union[float, npt.NDArray]
 
 @@ variables
 amt: Union[float, npt.NDArray] - float between 0.0 and 1.0

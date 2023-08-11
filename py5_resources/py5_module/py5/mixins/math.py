@@ -29,7 +29,7 @@ import numpy as np
 import numpy.typing as npt
 from jpype import JClass
 
-_OpenSimplex2S = JClass('py5.util.OpenSimplex2S')
+_OpenSimplex2S = JClass("py5.util.OpenSimplex2S")
 
 
 def _non_py5_stacklevel():
@@ -42,10 +42,9 @@ def _non_py5_stacklevel():
 
 
 class MathMixin:
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._instance = kwargs['instance']
+        self._instance = kwargs["instance"]
         self._rng = np.random.default_rng()
 
     # *** BEGIN METHODS ***
@@ -54,7 +53,7 @@ class MathMixin:
     def hex_color(cls, color: int) -> str:
         """$class_Sketch_hex_color"""
         c = hex(np.uint32(color & 0xFFFFFFFF))[2:].zfill(8).upper()
-        return '#' + c[2:] + c[:2]
+        return "#" + c[2:] + c[:2]
 
     @classmethod
     def sin(cls, angle: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]:
@@ -87,7 +86,9 @@ class MathMixin:
         return np.arctan(value)
 
     @classmethod
-    def atan2(cls, y: Union[float, npt.ArrayLike], x: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]:
+    def atan2(
+        cls, y: Union[float, npt.ArrayLike], x: Union[float, npt.ArrayLike]
+    ) -> Union[float, npt.NDArray]:
         """$class_Sketch_atan2"""
         return np.arctan2(y, x)
 
@@ -102,27 +103,58 @@ class MathMixin:
         return np.radians(degrees)
 
     @classmethod
-    def constrain(cls, amt: Union[float, npt.NDArray], low: Union[float, npt.NDArray], high: Union[float, npt.NDArray]) -> Union[float, npt.NDArray]:
+    def constrain(
+        cls,
+        amt: Union[float, npt.NDArray],
+        low: Union[float, npt.NDArray],
+        high: Union[float, npt.NDArray],
+    ) -> Union[float, npt.NDArray]:
         """$class_Sketch_constrain"""
         return np.where(amt < low, low, np.where(amt > high, high, amt))
 
     @classmethod
-    def remap(cls, value: Union[float, npt.NDArray], start1: Union[float, npt.NDArray], stop1: Union[float, npt.NDArray], start2: Union[float, npt.NDArray], stop2: Union[float, npt.NDArray]) -> Union[float, npt.NDArray]:
+    def remap(
+        cls,
+        value: Union[float, npt.NDArray],
+        start1: Union[float, npt.NDArray],
+        stop1: Union[float, npt.NDArray],
+        start2: Union[float, npt.NDArray],
+        stop2: Union[float, npt.NDArray],
+    ) -> Union[float, npt.NDArray]:
         """$class_Sketch_remap"""
         denom = stop1 - start1
         if denom == 0:
-            warnings.warn(f'remap({value}, {start1}, {stop1}, {start2}, {stop2}) called, which returns NaN (not a number)', stacklevel=_non_py5_stacklevel())
+            warnings.warn(
+                f"remap({value}, {start1}, {stop1}, {start2}, {stop2}) called, which returns NaN (not a number)",
+                stacklevel=_non_py5_stacklevel(),
+            )
             return float("nan")
         else:
             return start2 + (stop2 - start2) * ((value - start1) / denom)
 
     @overload
-    def dist(cls, x1: Union[float, npt.NDArray], y1: Union[float, npt.NDArray], x2: Union[float, npt.NDArray], y2: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
+    def dist(
+        cls,
+        x1: Union[float, npt.NDArray],
+        y1: Union[float, npt.NDArray],
+        x2: Union[float, npt.NDArray],
+        y2: Union[float, npt.NDArray],
+        /,
+    ) -> Union[float, npt.NDArray]:
         """$class_Sketch_dist"""
         pass
 
     @overload
-    def dist(cls, x1: Union[float, npt.NDArray], y1: Union[float, npt.NDArray], z1: Union[float, npt.NDArray], x2: Union[float, npt.NDArray], y2: Union[float, npt.NDArray], z2: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
+    def dist(
+        cls,
+        x1: Union[float, npt.NDArray],
+        y1: Union[float, npt.NDArray],
+        z1: Union[float, npt.NDArray],
+        x2: Union[float, npt.NDArray],
+        y2: Union[float, npt.NDArray],
+        z2: Union[float, npt.NDArray],
+        /,
+    ) -> Union[float, npt.NDArray]:
         """$class_Sketch_dist"""
         pass
 
@@ -130,31 +162,57 @@ class MathMixin:
     def dist(cls, *args: Union[float, npt.NDArray]) -> float:
         """$class_Sketch_dist"""
         if len(args) % 2 == 1:
-            raise RuntimeError(f'Cannot apply dist function to arguments {args}')
-        return sum([(a - b)**2 for a, b in zip(args[:(len(args) // 2)], args[(len(args) // 2):])])**0.5
+            raise RuntimeError(f"Cannot apply dist function to arguments {args}")
+        return (
+            sum(
+                [
+                    (a - b) ** 2
+                    for a, b in zip(args[: (len(args) // 2)], args[(len(args) // 2) :])
+                ]
+            )
+            ** 0.5
+        )
 
     @classmethod
-    def lerp(cls, start: Union[float, npt.NDArray], stop: Union[float, npt.NDArray], amt: Union[float, npt.NDArray]) -> Union[float, npt.NDArray]:
+    def lerp(
+        cls,
+        start: Union[float, npt.NDArray],
+        stop: Union[float, npt.NDArray],
+        amt: Union[float, npt.NDArray],
+    ) -> Union[float, npt.NDArray]:
         """$class_Sketch_lerp"""
         return amt * (stop - start) + start
 
     @overload
-    def mag(cls, a: Union[float, npt.NDArray], b: Union[float, npt.NDArray], /) -> float:
+    def mag(
+        cls, a: Union[float, npt.NDArray], b: Union[float, npt.NDArray], /
+    ) -> float:
         """$class_Sketch_mag"""
         pass
 
     @overload
-    def mag(cls, a: Union[float, npt.NDArray], b: Union[float, npt.NDArray], c: Union[float, npt.NDArray], /) -> float:
+    def mag(
+        cls,
+        a: Union[float, npt.NDArray],
+        b: Union[float, npt.NDArray],
+        c: Union[float, npt.NDArray],
+        /,
+    ) -> float:
         """$class_Sketch_mag"""
         pass
 
     @classmethod
     def mag(cls, *args: Union[float, npt.NDArray]) -> float:
         """$class_Sketch_mag"""
-        return sum([x * x for x in args])**0.5
+        return sum([x * x for x in args]) ** 0.5
 
     @classmethod
-    def norm(cls, value: Union[float, npt.NDArray], start: Union[float, npt.NDArray], stop: Union[float, npt.NDArray]) -> Union[float, npt.NDArray]:
+    def norm(
+        cls,
+        value: Union[float, npt.NDArray],
+        start: Union[float, npt.NDArray],
+        stop: Union[float, npt.NDArray],
+    ) -> Union[float, npt.NDArray]:
         """$class_Sketch_norm"""
         return (value - start) / (stop - start)
 
@@ -164,7 +222,9 @@ class MathMixin:
         return value * value
 
     @classmethod
-    def sqrt(cls, value: Union[float, npt.NDArray]) -> Union[float, complex, npt.NDArray]:
+    def sqrt(
+        cls, value: Union[float, npt.NDArray]
+    ) -> Union[float, complex, npt.NDArray]:
         """$class_Sketch_sqrt"""
         return value**0.5
 
@@ -191,7 +251,10 @@ class MathMixin:
     def _get_np_random(self) -> np.random.Generator:  # @decorator
         """$class_Sketch_np_random"""
         return self._rng
-    np_random: np.random.Generator = property(fget=_get_np_random, doc="""$class_Sketch_np_random""")
+
+    np_random: np.random.Generator = property(
+        fget=_get_np_random, doc="""$class_Sketch_np_random"""
+    )
 
     def random_seed(self, seed: int) -> None:
         """$class_Sketch_random_seed"""
@@ -222,11 +285,13 @@ class MathMixin:
                 return self._rng.uniform(0, high)
         elif len(args) == 2:
             low, high = args
-            if isinstance(low, (int, np.integer, float)) and isinstance(high, (int, np.integer, float)):
+            if isinstance(low, (int, np.integer, float)) and isinstance(
+                high, (int, np.integer, float)
+            ):
                 return self._rng.uniform(low, high)
 
-        types = ','.join([type(a).__name__ for a in args])
-        raise TypeError(f'No matching overloads found for Sketch.random({types})')
+        types = ",".join([type(a).__name__ for a in args])
+        raise TypeError(f"No matching overloads found for Sketch.random({types})")
 
     @overload
     def random_int(self) -> int:
@@ -253,11 +318,13 @@ class MathMixin:
                 return self._rng.integers(0, high, endpoint=True)
         elif len(args) == 2:
             low, high = args
-            if isinstance(low, (int, np.integer)) and isinstance(high, (int, np.integer)):
+            if isinstance(low, (int, np.integer)) and isinstance(
+                high, (int, np.integer)
+            ):
                 return self._rng.integers(low, high, endpoint=True)
 
-        types = ','.join([type(a).__name__ for a in args])
-        raise TypeError(f'No matching overloads found for Sketch.random_int({types})')
+        types = ",".join([type(a).__name__ for a in args])
+        raise TypeError(f"No matching overloads found for Sketch.random_int({types})")
 
     def random_choice(self, objects: list[Any]) -> Any:
         """$class_Sketch_random_choice"""
@@ -266,7 +333,9 @@ class MathMixin:
         else:
             return None
 
-    def random_sample(self, objects: list[Any], size: int=1, replace: bool=True) -> list[Any]:
+    def random_sample(
+        self, objects: list[Any], size: int = 1, replace: bool = True
+    ) -> list[Any]:
         """$class_Sketch_random_sample"""
         if len(objects):
             if isinstance(objects, types.GeneratorType):
@@ -306,11 +375,15 @@ class MathMixin:
                 return self._rng.normal(loc)
         elif len(args) == 2:
             loc, scale = args
-            if isinstance(loc, (int, np.integer, float)) and isinstance(scale, (int, np.integer, float)):
+            if isinstance(loc, (int, np.integer, float)) and isinstance(
+                scale, (int, np.integer, float)
+            ):
                 return self._rng.normal(loc, scale)
 
-        types = ','.join([type(a).__name__ for a in args])
-        raise TypeError(f'No matching overloads found for Sketch.random_gaussian({types})')
+        types = ",".join([type(a).__name__ for a in args])
+        raise TypeError(
+            f"No matching overloads found for Sketch.random_gaussian({types})"
+        )
 
     @overload
     def noise(self, x: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
@@ -318,12 +391,20 @@ class MathMixin:
         pass
 
     @overload
-    def noise(self, x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
+    def noise(
+        self, x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], /
+    ) -> Union[float, npt.NDArray]:
         """$class_Sketch_noise"""
         pass
 
     @overload
-    def noise(self, x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], z: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
+    def noise(
+        self,
+        x: Union[float, npt.NDArray],
+        y: Union[float, npt.NDArray],
+        z: Union[float, npt.NDArray],
+        /,
+    ) -> Union[float, npt.NDArray]:
         """$class_Sketch_noise"""
         pass
 
@@ -331,22 +412,39 @@ class MathMixin:
         """$class_Sketch_noise"""
         if any(isinstance(arg, np.ndarray) for arg in args):
             arrays = np.broadcast_arrays(*args)
-            return np.array(self._instance.noiseArray(*[a.flatten() for a in arrays])).reshape(arrays[0].shape)
+            return np.array(
+                self._instance.noiseArray(*[a.flatten() for a in arrays])
+            ).reshape(arrays[0].shape)
         else:
             return self._instance.noise(*args)
 
     @overload
-    def os_noise(self, x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
+    def os_noise(
+        self, x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], /
+    ) -> Union[float, npt.NDArray]:
         """$class_Sketch_os_noise"""
         pass
 
     @overload
-    def os_noise(self, x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], z: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
+    def os_noise(
+        self,
+        x: Union[float, npt.NDArray],
+        y: Union[float, npt.NDArray],
+        z: Union[float, npt.NDArray],
+        /,
+    ) -> Union[float, npt.NDArray]:
         """$class_Sketch_os_noise"""
         pass
 
     @overload
-    def os_noise(self, x: Union[float, npt.NDArray], y: Union[float, npt.NDArray], z: Union[float, npt.NDArray], w: Union[float, npt.NDArray], /) -> Union[float, npt.NDArray]:
+    def os_noise(
+        self,
+        x: Union[float, npt.NDArray],
+        y: Union[float, npt.NDArray],
+        z: Union[float, npt.NDArray],
+        w: Union[float, npt.NDArray],
+        /,
+    ) -> Union[float, npt.NDArray]:
         """$class_Sketch_os_noise"""
         pass
 
@@ -354,6 +452,8 @@ class MathMixin:
         """$class_Sketch_os_noise"""
         if any(isinstance(arg, np.ndarray) for arg in args):
             arrays = np.broadcast_arrays(*args)
-            return np.array(self._instance.osNoiseArray(*[a.flatten() for a in arrays])).reshape(arrays[0].shape)
+            return np.array(
+                self._instance.osNoiseArray(*[a.flatten() for a in arrays])
+            ).reshape(arrays[0].shape)
         else:
             return self._instance.osNoise(*args)

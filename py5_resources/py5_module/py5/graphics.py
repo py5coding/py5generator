@@ -31,8 +31,7 @@ from jpype import JClass
 
 from . import spelling
 from .base import Py5Base
-from .decorators import (_context_wrapper, _convert_hex_color,  # noqa
-                         _text_fix_str)
+from .decorators import _context_wrapper, _convert_hex_color, _text_fix_str  # noqa
 from .font import Py5Font  # noqa
 from .image import Py5Image, _return_py5image  # noqa
 from .mixins import PixelPy5GraphicsMixin
@@ -49,6 +48,7 @@ def _return_py5graphics(f):
         ret = f(self_, *args)
         if ret is not None:
             return Py5Graphics(ret)
+
     return decorated
 
 
@@ -57,16 +57,18 @@ def _name_renderer(renderer_name, clsname):
         @functools.wraps(f)
         def decorated(self_, *args):
             return f(self_, *args, _renderer_name=renderer_name, _clsname=clsname)
+
         return decorated
+
     return _decorator
 
 
-_Py5GraphicsHelper = JClass('py5.core.Py5GraphicsHelper')
+_Py5GraphicsHelper = JClass("py5.core.Py5GraphicsHelper")
 
 
 class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
-    """$classdoc_Py5Graphics
-    """
+    """$classdoc_Py5Graphics"""
+
     _py5_object_cache = weakref.WeakSet()
 
     PI = np.pi
@@ -88,7 +90,7 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
             return o
 
     def __init__(self, pgraphics):
-        if pgraphics == getattr(self, '_instance', None):
+        if pgraphics == getattr(self, "_instance", None):
             # this is a cached Py5Graphics object, don't re-run __init__()
             return
 
@@ -96,21 +98,32 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
         super().__init__(instance=pgraphics)
 
     def __str__(self) -> str:
-        return f"Py5Graphics(width=" + str(self._get_width()) + ", height=" + str(self._get_height()) + ")"
+        return (
+            f"Py5Graphics(width="
+            + str(self._get_width())
+            + ", height="
+            + str(self._get_height())
+            + ")"
+        )
 
     def __repr__(self) -> str:
         return self.__str__()
 
     def __getattr__(self, name):
-        raise AttributeError(spelling.error_msg('Py5Graphics', name, self))
+        raise AttributeError(spelling.error_msg("Py5Graphics", name, self))
 
     def _activate_context_manager(self, exit_function, exit_args):
         self._context_manager_exit_function = exit_function
         self._context_manager_exit_args = exit_args
 
     def __enter__(self):
-        if not (hasattr(self, '_context_manager_exit_function') and hasattr(self, '_context_manager_exit_args')):
-            raise RuntimeError('Cannot use this Py5Graphics object as a context manager')
+        if not (
+            hasattr(self, "_context_manager_exit_function")
+            and hasattr(self, "_context_manager_exit_args")
+        ):
+            raise RuntimeError(
+                "Cannot use this Py5Graphics object as a context manager"
+            )
         return self
 
     def __exit__(self, *exc):
@@ -173,5 +186,6 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
     def create_shape(self, *args) -> Py5Shape:
         """$class_Py5Graphics_create_shape"""
         return _Py5GraphicsHelper.createShape(self._instance, *args)
+
 
 {py5graphics_class_members_code}

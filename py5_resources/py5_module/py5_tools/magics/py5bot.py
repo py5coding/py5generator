@@ -20,8 +20,12 @@
 import sys
 
 from IPython.core.magic import Magics, cell_magic, magics_class
-from IPython.core.magic_arguments import (argument, kwds, magic_arguments,
-                                          parse_argstring)
+from IPython.core.magic_arguments import (
+    argument,
+    kwds,
+    magic_arguments,
+    parse_argstring,
+)
 from IPython.display import display
 from py5jupyter.kernels.py5bot.py5bot import Py5BotManager
 
