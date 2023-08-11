@@ -32,8 +32,12 @@ from jpype import JClass, JException
 from jpype.types import JBoolean, JFloat, JInt
 
 from . import spelling
-from .decorators import (_context_wrapper, _convert_hex_color,  # noqa
-                         _convert_hex_color2, _ret_str)
+from .decorators import (
+    _context_wrapper,
+    _convert_hex_color,  # noqa
+    _convert_hex_color2,
+    _ret_str,
+)
 from .pmath import _get_pvector_wrapper  # noqa
 
 py5shape_class_members_code = None  # DELETE
@@ -43,6 +47,7 @@ def _return_list_py5shapes(f):
     @functools.wraps(f)
     def decorated(self_, *args):
         return [Py5Shape(s) for s in f(self_, *args)]
+
     return decorated
 
 
@@ -52,6 +57,7 @@ def _return_py5shape(f):
         result = f(self_, *args)
         if result:
             return Py5Shape(result)
+
     return decorated
 
 
@@ -67,8 +73,10 @@ def _py5shape_type_fixer(f):
                 return JFloat(arg)
             else:
                 return arg
+
         args = [fix_type(a) for a in args]
         return f(self_, *args)
+
     return decorated
 
 
@@ -79,9 +87,12 @@ def _load_py5shape(f):
             return Py5Shape(f(self_, *args))
         except JException as e:
             msg = e.message()
-            if msg == 'None':
-                msg = 'shape file cannot be found'
-        raise RuntimeError('cannot load shape ' + str(args[0]) + '. error message: ' + msg)
+            if msg == "None":
+                msg = "shape file cannot be found"
+        raise RuntimeError(
+            "cannot load shape " + str(args[0]) + ". error message: " + msg
+        )
+
     return decorated
 
 
@@ -90,15 +101,16 @@ def _return_numpy_array(f):
     def decorated(self_, *args):
         result = f(self_, *args)
         return np.array(result) if result is not None else None
+
     return decorated
 
 
-_Py5ShapeHelper = JClass('py5.core.Py5ShapeHelper')
+_Py5ShapeHelper = JClass("py5.core.Py5ShapeHelper")
 
 
 class Py5Shape:
-    """$classdoc_Py5Shape
-    """
+    """$classdoc_Py5Shape"""
+
     _py5_object_cache = weakref.WeakSet()
 
     def __new__(cls, pshape):
@@ -119,7 +131,7 @@ class Py5Shape:
         return self.__str__()
 
     def __getattr__(self, name):
-        raise AttributeError(spelling.error_msg('Py5Shape', name, self))
+        raise AttributeError(spelling.error_msg("Py5Shape", name, self))
 
     # *** BEGIN METHODS ***
 
@@ -146,5 +158,6 @@ class Py5Shape:
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5ShapeHelper.quadraticVertices(self._instance, coordinates)
+
 
 {py5shape_class_members_code}

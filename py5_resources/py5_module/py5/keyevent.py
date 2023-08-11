@@ -37,6 +37,7 @@ def _convert_jchar_to_chr(f):
         if isinstance(result, JChar):
             result = chr(result)
         return result
+
     return decorated
 
 
@@ -47,12 +48,13 @@ def _convert_jint_to_int(f):
         if isinstance(result, JInt):
             result = int(result)
         return result
+
     return decorated
 
 
 class Py5KeyEvent:
-    """$classdoc_Py5KeyEvent
-    """
+    """$classdoc_Py5KeyEvent"""
+
     _py5_object_cache = weakref.WeakSet()
 
     def __new__(cls, pkeyevent):
@@ -69,22 +71,22 @@ class Py5KeyEvent:
         key = self.get_key()
         action = self.get_action()
 
-        action_str = 'UNKNOWN'
+        action_str = "UNKNOWN"
         for k, v in Py5KeyEvent.__dict__.items():
             if k == k.upper() and action == v:
                 action_str = k
                 break
 
-        if key == '\uffff':  # py5.CODED
-            key = 'CODED'
+        if key == "\uffff":  # py5.CODED
+            key = "CODED"
 
         return f"Py5KeyEvent(key=" + key + ", action=" + action_str + ")"
 
     def __repr__(self):
         return self.__str__()
 
-
     def __getattr__(self, name):
-        raise AttributeError(spelling.error_msg('Py5KeyEvent', name, self))
+        raise AttributeError(spelling.error_msg("Py5KeyEvent", name, self))
+
 
 {py5keyevent_class_members_code}

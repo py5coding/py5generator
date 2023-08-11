@@ -6,7 +6,7 @@ subcategory = calculation
 
 @@ signatures
 mag(a: Union[float, npt.NDArray], b: Union[float, npt.NDArray], /) -> float
-mag(a: Union[float, npt.NDArray], b: Union[float, npt.NDArray], c: Union[float, npt.NDArray], /) -> float
+mag(a: Union[float, npt.NDArray], b: Union[float, npt.NDArray], c: Union[float, npt.NDArray], /, ) -> float
 
 @@ variables
 a: Union[float, npt.NDArray] - first value

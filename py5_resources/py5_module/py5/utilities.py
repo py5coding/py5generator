@@ -23,18 +23,22 @@ from . import spelling
 
 
 class Py5Utilities:
-    """$classdoc_Py5Utilities
-    """
+    """$classdoc_Py5Utilities"""
+
     def __init__(self, sketch):
         self._sketch = sketch
         try:
-            self._instance = jpype.JClass('py5utils.Py5Utilities')(sketch._instance)
-            self._dir = list(set(dir(self._instance)) - set('equals getClass hashCode notify notifyAll wait toString'.split()))
+            self._instance = jpype.JClass("py5utils.Py5Utilities")(sketch._instance)
+            self._dir = list(
+                set(dir(self._instance))
+                - set("equals getClass hashCode notify notifyAll wait toString".split())
+            )
         except:
             self._instance = None
             self._dir = []
 
         from .object_conversion import convert_to_python_type
+
         self._convert_to_python_type = convert_to_python_type
 
     def __str__(self) -> str:
@@ -51,7 +55,9 @@ class Py5Utilities:
 
     def __getattr__(self, name):
         if self._instance is None:
-            raise AttributeError("Py5Utilities class was not instantiated for this Sketch. Check your classpath if you believe this to be an error.")
+            raise AttributeError(
+                "Py5Utilities class was not instantiated for this Sketch. Check your classpath if you believe this to be an error."
+            )
         elif hasattr(self._instance, name):
             attr = getattr(self._instance, name)
             if callable(attr):
@@ -59,4 +65,6 @@ class Py5Utilities:
             else:
                 return self._convert_to_python_type(attr)
         else:
-            raise AttributeError(spelling.error_msg('Py5Utilities', name, self._instance))
+            raise AttributeError(
+                spelling.error_msg("Py5Utilities", name, self._instance)
+            )

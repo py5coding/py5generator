@@ -39,12 +39,13 @@ def _return_py5image(f):
             return ret
         else:
             return Py5Image(ret)
+
     return decorated
 
 
 class Py5Image(PixelPy5ImageMixin, Py5Base):
-    """$classdoc_Py5Image
-    """
+    """$classdoc_Py5Image"""
+
     _py5_object_cache = weakref.WeakSet()
 
     def __new__(cls, pimage):
@@ -57,7 +58,7 @@ class Py5Image(PixelPy5ImageMixin, Py5Base):
             return o
 
     def __init__(self, pimage):
-        if pimage == getattr(self, '_instance', None):
+        if pimage == getattr(self, "_instance", None):
             # this is a cached Py5Image object, don't re-run __init__()
             return
 
@@ -65,12 +66,19 @@ class Py5Image(PixelPy5ImageMixin, Py5Base):
         super().__init__(instance=pimage)
 
     def __str__(self) -> str:
-        return f"Py5Image(width=" + str(self._get_width()) + ", height=" + str(self._get_height()) + ")"
+        return (
+            f"Py5Image(width="
+            + str(self._get_width())
+            + ", height="
+            + str(self._get_height())
+            + ")"
+        )
 
     def __repr__(self) -> str:
         return self.__str__()
 
     def __getattr__(self, name):
-        raise AttributeError(spelling.error_msg('Py5Image', name, self))
+        raise AttributeError(spelling.error_msg("Py5Image", name, self))
+
 
 {py5image_class_members_code}

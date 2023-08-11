@@ -41,13 +41,17 @@ from jpype.types import JArray, JChar, JFloat, JInt, JString  # noqa
 from PIL import Image  # noqa
 
 if not py5_tools.is_jvm_running():
-    base_path = Path(getattr(sys, '_MEIPASS')) / 'py5' if hasattr(sys, '_MEIPASS') else Path(__file__).absolute().parent
+    base_path = (
+        Path(getattr(sys, "_MEIPASS")) / "py5"
+        if hasattr(sys, "_MEIPASS")
+        else Path(__file__).absolute().parent
+    )
     # add py5 jars to the classpath first
-    py5_tools.add_jars(str(base_path / 'jars'))
+    py5_tools.add_jars(str(base_path / "jars"))
     # if the cwd has a jars subdirectory, add that next
-    py5_tools.add_jars(Path('jars'))
+    py5_tools.add_jars(Path("jars"))
     # if the PY5_JARS environment variable exists, add those jars
-    if (py5_classpath := os.environ.get('PY5_JARS')):
+    if py5_classpath := os.environ.get("PY5_JARS"):
         py5_tools.add_jars(Path(py5_classpath))
 
     try:
@@ -57,11 +61,17 @@ if not py5_tools.is_jvm_running():
         started_jvm = False
 
     debug_info = py5_tools.get_jvm_debug_info()
-    java_version = debug_info['jvm version'][0]
+    java_version = debug_info["jvm version"][0]
     if not started_jvm or java_version < 17:
         print("py5 is unable to start a Java 17 Virtual Machine.", file=sys.stderr)
-        print("This library requires Java 17 to be installed and a properly set JAVA_HOME environment variable.", file=sys.stderr)
-        print("Here is some debug info about your installation that might help you identify the source of this problem.", file=sys.stderr)
+        print(
+            "This library requires Java 17 to be installed and a properly set JAVA_HOME environment variable.",
+            file=sys.stderr,
+        )
+        print(
+            "Here is some debug info about your installation that might help you identify the source of this problem.",
+            file=sys.stderr,
+        )
         print(debug_info, file=sys.stderr)
         raise RuntimeError("py5 is unable to start Java 17 Virtual Machine")
 
@@ -74,11 +84,20 @@ from .bridge import register_exception_msg  # noqa
 from .create_font_tool import create_font_file  # noqa
 from .image_conversion import NumpyImageArray  # noqa
 from .image_conversion import register_image_conversion
-from .render_helper import (render, render_frame,  # noqa
-                            render_frame_sequence, render_sequence)
-from .sketch import (Py5Font, Py5Graphics, Py5Image, Py5KeyEvent,  # noqa
-                     Py5MouseEvent, Py5Promise, Py5Shader, Py5Shape,
-                     Py5Surface, Sketch)
+from .render_helper import render_frame  # noqa
+from .render_helper import render, render_frame_sequence, render_sequence
+from .sketch import Py5KeyEvent  # noqa
+from .sketch import (
+    Py5Font,
+    Py5Graphics,
+    Py5Image,
+    Py5MouseEvent,
+    Py5Promise,
+    Py5Shader,
+    Py5Shape,
+    Py5Surface,
+    Sketch,
+)
 from .vector import Py5Vector, Py5Vector2D, Py5Vector3D, Py5Vector4D  # noqa
 
 try:
@@ -88,7 +107,7 @@ except ImportError:
     pass
 
 
-__version__ = '0.9.2.dev0'
+__version__ = "0.9.2.dev0"
 
 _PY5_USE_IMPORTED_MODE = py5_tools.get_imported_mode()
 py5_tools._lock_imported_mode()
@@ -99,48 +118,73 @@ warnings.filterwarnings("once", category=DeprecationWarning, module="py5")
 
 sketch_module_members_code = None  # DELETE
 run_sketch_pre_run_code = None  # DELETE
-println = None # DELETE
+println = None  # DELETE
 
 _py5sketch = Sketch()
 
 {sketch_module_members_code}
 
 
-def run_sketch(block: bool = None, *,
-               py5_options: list[str] = None,
-               sketch_args: list[str] = None,
-               sketch_functions: dict[str, Callable] = None,
-               jclassname: str = None,
-               _osx_alt_run_method: bool = True) -> None:
+def run_sketch(
+    block: bool = None,
+    *,
+    py5_options: list[str] = None,
+    sketch_args: list[str] = None,
+    sketch_functions: dict[str, Callable] = None,
+    jclassname: str = None,
+    _osx_alt_run_method: bool = True,
+) -> None:
     """$module_Sketch_run_sketch"""
     caller_locals = inspect.stack()[1].frame.f_locals
     caller_globals = inspect.stack()[1].frame.f_globals
-    functions, function_param_counts = bridge._extract_py5_user_function_data(sketch_functions if sketch_functions else caller_locals)
-    functions = _split_setup.transform(functions, caller_globals, caller_locals, println, mode='imported' if _PY5_USE_IMPORTED_MODE else 'module')
+    functions, function_param_counts = bridge._extract_py5_user_function_data(
+        sketch_functions if sketch_functions else caller_locals
+    )
+    functions = _split_setup.transform(
+        functions,
+        caller_globals,
+        caller_locals,
+        println,
+        mode="imported" if _PY5_USE_IMPORTED_MODE else "module",
+    )
 
-    if not set(functions.keys()) & set(['settings', 'setup', 'draw']) and not jclassname:
-        warnings.warn(("Unable to find settings, setup, or draw functions. "
-                       "Your sketch will be a small gray square. "
-                       "If that isn't what you intended, you need to make sure "
-                       "your implementation of those functions are available in "
-                       "the local namespace that made the `run_sketch()` call."),
-                       stacklevel=2)
+    if (
+        not set(functions.keys()) & set(["settings", "setup", "draw"])
+        and not jclassname
+    ):
+        warnings.warn(
+            (
+                "Unable to find settings, setup, or draw functions. "
+                "Your sketch will be a small gray square. "
+                "If that isn't what you intended, you need to make sure "
+                "your implementation of those functions are available in "
+                "the local namespace that made the `run_sketch()` call."
+            ),
+            stacklevel=2,
+        )
 
     global _py5sketch
     if _py5sketch.is_running:
-        print('Sketch is already running. To run a new sketch, exit the running sketch first.', file=sys.stderr)
+        print(
+            "Sketch is already running. To run a new sketch, exit the running sketch first.",
+            file=sys.stderr,
+        )
         return
     if _py5sketch.is_dead or jclassname:
         _py5sketch = Sketch(jclassname=jclassname)
 
     _prepare_dynamic_variables(caller_locals, caller_globals)
 
-    _py5sketch._run_sketch(functions, function_param_counts, block,
-                           py5_options=py5_options,
-                           sketch_args=sketch_args,
-                           _caller_locals=caller_locals,
-                           _caller_globals=caller_globals,
-                           _osx_alt_run_method=_osx_alt_run_method)
+    _py5sketch._run_sketch(
+        functions,
+        function_param_counts,
+        block,
+        py5_options=py5_options,
+        sketch_args=sketch_args,
+        _caller_locals=caller_locals,
+        _caller_globals=caller_globals,
+        _osx_alt_run_method=_osx_alt_run_method,
+    )
 
 
 def get_current_sketch() -> Sketch:
@@ -165,12 +209,14 @@ def reset_py5(*, jclassname: str = None, _force=False) -> bool:
 def prune_tracebacks(prune: bool) -> None:
     """$module_Py5Functions_prune_tracebacks"""
     from . import bridge
+
     bridge._prune_tracebacks = prune
 
 
 def set_stackprinter_style(style: str) -> None:
     """$module_Py5Functions_set_stackprinter_style"""
     from . import bridge
+
     bridge._stackprinter_style = style
 
 
@@ -178,7 +224,7 @@ def __getattr__(name):
     if hasattr(_py5sketch, name):
         return getattr(_py5sketch, name)
     else:
-        raise AttributeError(_spelling.error_msg('', name, _py5sketch, module=True))
+        raise AttributeError(_spelling.error_msg("", name, _py5sketch, module=True))
 
 
 def __dir__():
@@ -200,12 +246,15 @@ def _prepare_dynamic_variables(caller_locals, caller_globals):
     When running in imported mode, place variables in the the caller's local
     namespace that link to the Sketch's dynamic variable property objects.
     """
-    for dvar in py5_tools.reference.PY5_DYNAMIC_VARIABLES + py5_tools.reference.PY5_PYTHON_DYNAMIC_VARIABLES:
+    for dvar in (
+        py5_tools.reference.PY5_DYNAMIC_VARIABLES
+        + py5_tools.reference.PY5_PYTHON_DYNAMIC_VARIABLES
+    ):
         if dvar in caller_globals:
             caller_globals.pop(dvar)
         if _PY5_USE_IMPORTED_MODE:
             if dvar in py5_tools.reference.PY5_DYNAMIC_VARIABLES:
-                caller_locals[dvar] = getattr(_py5sketch, '_get_' + dvar)
+                caller_locals[dvar] = getattr(_py5sketch, "_get_" + dvar)
             else:
                 caller_locals[dvar] = getattr(_py5sketch, dvar)
 

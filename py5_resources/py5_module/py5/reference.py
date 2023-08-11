@@ -20,6 +20,7 @@
 # *** FORMAT PARAMS ***
 # *** SKIP AUTOPEP8 ***
 
+
 method_signatures_lookup_str = None  # DELETE
 
 METHODS = dict(
@@ -45,22 +46,22 @@ METHODS = dict(
     movie_event=[1],
 )
 
-FILE_CLASS_LOOKUP = dict([
-    (('font.py',), 'Py5Font'),
-    (('graphics.py',), 'Py5Graphics'),
-    (('image.py',), 'Py5Image'),
-    (('shader.py',), 'Py5Shader'),
-    (('shape.py',), 'Py5Shape'),
-    (('sketch.py',), 'Sketch'),
-    (('surface.py',), 'Py5Surface'),
-    (('mixins', 'data.py'), 'Sketch'),
-    (('mixins', 'math.py'), 'Sketch'),
-    (('mixins', 'pixels.py'), 'Sketch'),
-    (('mixins', 'threads.py'), 'Sketch'),
-    (('keyevent.py',), 'Py5KeyEvent'),
-    (('mouseevent.py',), 'Py5MouseEvent'),
-])
+FILE_CLASS_LOOKUP = dict(
+    [
+        (("font.py",), "Py5Font"),
+        (("graphics.py",), "Py5Graphics"),
+        (("image.py",), "Py5Image"),
+        (("shader.py",), "Py5Shader"),
+        (("shape.py",), "Py5Shape"),
+        (("sketch.py",), "Sketch"),
+        (("surface.py",), "Py5Surface"),
+        (("mixins", "data.py"), "Sketch"),
+        (("mixins", "math.py"), "Sketch"),
+        (("mixins", "pixels.py"), "Sketch"),
+        (("mixins", "threads.py"), "Sketch"),
+        (("keyevent.py",), "Py5KeyEvent"),
+        (("mouseevent.py",), "Py5MouseEvent"),
+    ]
+)
 
-METHOD_SIGNATURES_LOOKUP = dict([
-    {method_signatures_lookup_str}
-])
+METHOD_SIGNATURES_LOOKUP = dict([{method_signatures_lookup_str}])

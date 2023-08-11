@@ -32,12 +32,13 @@ def _return_py5surface(f):
     @functools.wraps(f)
     def decorated(self_, *args):
         return Py5Surface(f(self_, *args))
+
     return decorated
 
 
 class Py5Surface:
-    """$classdoc_Py5Surface
-    """
+    """$classdoc_Py5Surface"""
+
     _py5_object_cache = weakref.WeakSet()
 
     def __new__(cls, psurface):
@@ -57,6 +58,7 @@ class Py5Surface:
         return self.__str__()
 
     def __getattr__(self, name):
-        raise AttributeError(spelling.error_msg('Py5Surface', name, self))
+        raise AttributeError(spelling.error_msg("Py5Surface", name, self))
+
 
 {py5surface_class_members_code}

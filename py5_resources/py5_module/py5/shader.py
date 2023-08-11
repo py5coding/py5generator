@@ -30,8 +30,12 @@ from jpype.types import JArray, JBoolean, JException, JFloat, JInt  # noqa
 
 from . import spelling
 from .image import Py5Image  # noqa
-from .pmath import (_numpy_to_pmatrix2d, _numpy_to_pmatrix3d,  # noqa
-                    _numpy_to_pvector, _py5vector_to_pvector)
+from .pmath import (
+    _numpy_to_pmatrix2d,
+    _numpy_to_pmatrix3d,  # noqa
+    _numpy_to_pvector,
+    _py5vector_to_pvector,
+)
 from .vector import Py5Vector
 
 py5shader_class_members_code = None  # DELETE
@@ -41,6 +45,7 @@ def _return_py5shader(f):
     @functools.wraps(f)
     def decorated(self_, *args):
         return Py5Shader(f(self_, *args))
+
     return decorated
 
 
@@ -51,9 +56,12 @@ def _load_py5shader(f):
             return Py5Shader(f(self_, *args))
         except JException as e:
             msg = e.message()
-            if msg == 'None':
-                msg = 'shader file cannot be found'
-        raise RuntimeError('cannot load shader file ' + str(args[0]) + '. error message: ' + msg)
+            if msg == "None":
+                msg = "shader file cannot be found"
+        raise RuntimeError(
+            "cannot load shader file " + str(args[0]) + ". error message: " + msg
+        )
+
     return decorated
 
 
@@ -71,6 +79,7 @@ def _py5shader_set_wrapper(f):
         elif isinstance(args[0], Py5Vector):
             args = _py5vector_to_pvector(args[0]), *args[1:]
         else:
+
             def fix_type(arg):
                 if isinstance(arg, bool):
                     return JBoolean(arg)
@@ -80,14 +89,16 @@ def _py5shader_set_wrapper(f):
                     return JFloat(arg)
                 else:
                     return arg
+
             args = [fix_type(a) for a in args]
         return f(self_, name, *args)
+
     return decorated
 
 
 class Py5Shader:
-    """$classdoc_Py5Shader
-    """
+    """$classdoc_Py5Shader"""
+
     _py5_object_cache = weakref.WeakSet()
 
     def __new__(cls, pshader):
@@ -107,6 +118,7 @@ class Py5Shader:
         return self.__str__()
 
     def __getattr__(self, name):
-        raise AttributeError(spelling.error_msg('Py5Shader', name, self))
+        raise AttributeError(spelling.error_msg("Py5Shader", name, self))
+
 
 {py5shader_class_members_code}
