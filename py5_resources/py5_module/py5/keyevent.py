@@ -23,7 +23,7 @@ from __future__ import annotations
 import functools
 import weakref
 
-from jpype.types import JInt, JChar
+from jpype.types import JChar, JInt
 
 from . import spelling
 

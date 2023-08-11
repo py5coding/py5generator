@@ -20,10 +20,10 @@
 from __future__ import annotations
 
 import sys
-import time
 import threading
+import time
 from collections.abc import Iterable
-from typing import Callable, Any, Union
+from typing import Any, Callable, Union
 
 from .. import bridge
 

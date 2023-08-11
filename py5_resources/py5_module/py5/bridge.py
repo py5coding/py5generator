@@ -17,22 +17,20 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import sys
-import re
-from pathlib import Path
-from collections import defaultdict
-from typing import Union
 import inspect
-import line_profiler
+import re
+import sys
 import traceback
+from collections import defaultdict
+from pathlib import Path
+from typing import Union
 
+import line_profiler
+import py5_tools
+import stackprinter
 from jpype import JClass, JImplements, JOverride, JString
 
-import stackprinter
-
-import py5_tools
-from . import reference
-from . import custom_exceptions
+from . import custom_exceptions, reference
 
 _stackprinter_style = 'plaintext'
 # prune tracebacks to only show only show stack levels in the user's py5 code.
@@ -158,7 +156,8 @@ class Py5Bridge:
         self._current_running_method = None
         self._is_terminated = False
 
-        from .object_conversion import convert_to_python_types, convert_to_java_type
+        from .object_conversion import (convert_to_java_type,
+                                        convert_to_python_types)
         self._convert_to_python_types = convert_to_python_types
         self._convert_to_java_type = convert_to_java_type
 

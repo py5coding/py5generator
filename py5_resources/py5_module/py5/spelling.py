@@ -19,7 +19,6 @@
 # *****************************************************************************
 import string
 
-
 # many thanks to Peter Norvig for his spelling corrector tutorial:
 # http://norvig.com/spell-correct.html
 

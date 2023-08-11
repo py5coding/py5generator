@@ -17,12 +17,11 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import re
 import functools
+import re
 
 import numpy as np
-from jpype.types import JString, JInt
-
+from jpype.types import JInt, JString
 
 HEX_3DIGIT_COLOR_REGEX = re.compile(r'#[0-9A-F]{3}' + chr(36))
 HEX_4DIGIT_COLOR_REGEX = re.compile(r'#[0-9A-F]{4}' + chr(36))

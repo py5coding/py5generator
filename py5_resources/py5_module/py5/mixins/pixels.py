@@ -20,18 +20,17 @@
 from __future__ import annotations
 
 import threading
-from pathlib import Path
 from io import BytesIO
-from typing import overload, Union  # noqa
+from pathlib import Path
+from typing import Union, overload  # noqa
 
+import jpype
 import numpy as np
 import numpy.typing as npt
 from PIL import Image
 from PIL.Image import Image as PIL_Image
-import jpype
 
 from ..decorators import _hex_converter
-
 
 _Sketch = jpype.JClass('py5.core.Sketch')
 

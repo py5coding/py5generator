@@ -21,16 +21,15 @@
 from __future__ import annotations
 
 import functools
-from typing import overload  # noqa
 import weakref
+from typing import overload  # noqa
 
 import jpype
-from jpype import JException, JArray, JString  # noqa
+from jpype import JArray, JException, JString  # noqa
 
-from .shape import Py5Shape, _return_py5shape  # noqa
-from .decorators import _ret_str  # noqa
 from . import spelling
-
+from .decorators import _ret_str  # noqa
+from .shape import Py5Shape, _return_py5shape  # noqa
 
 py5font_class_members_code = None  # DELETE
 

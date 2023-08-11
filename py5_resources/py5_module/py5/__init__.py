@@ -24,22 +24,21 @@ py5 is a version of Processing for Python 3.8+. It makes the Processing Java lib
 """
 from __future__ import annotations
 
+import inspect
 import os
 import sys
-from pathlib import Path
-from io import BytesIO
-import inspect
-from typing import overload, Any, Callable, Union  # noqa
 import warnings
+from io import BytesIO
+from pathlib import Path
+from typing import Any, Callable, Union, overload  # noqa
 
+import jpype.imports  # noqa
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa
-from PIL import Image  # noqa
-from jpype import JClass  # noqa
-import jpype.imports  # noqa
-from jpype.types import JArray, JString, JFloat, JInt, JChar  # noqa
-
 import py5_tools
+from jpype import JClass  # noqa
+from jpype.types import JArray, JChar, JFloat, JInt, JString  # noqa
+from PIL import Image  # noqa
 
 if not py5_tools.is_jvm_running():
     base_path = Path(getattr(sys, '_MEIPASS')) / 'py5' if hasattr(sys, '_MEIPASS') else Path(__file__).absolute().parent
@@ -66,16 +65,22 @@ if not py5_tools.is_jvm_running():
         print(debug_info, file=sys.stderr)
         raise RuntimeError("py5 is unable to start Java 17 Virtual Machine")
 
-from .bridge import register_exception_msg  # noqa
-from .sketch import Sketch, Py5Surface, Py5Graphics, Py5Image, Py5Shader, Py5Shape, Py5Font, Py5KeyEvent, Py5MouseEvent, Py5Promise  # noqa
-from .render_helper import render_frame, render_frame_sequence, render, render_sequence  # noqa
-from .create_font_tool import create_font_file  # noqa
-from .image_conversion import register_image_conversion, NumpyImageArray  # noqa
-from .vector import Py5Vector, Py5Vector2D, Py5Vector3D, Py5Vector4D  # noqa
 from py5_tools import split_setup as _split_setup
-from . import reference
+
 from . import object_conversion  # noqa
+from . import reference
 from . import spelling as _spelling
+from .bridge import register_exception_msg  # noqa
+from .create_font_tool import create_font_file  # noqa
+from .image_conversion import NumpyImageArray  # noqa
+from .image_conversion import register_image_conversion
+from .render_helper import (render, render_frame,  # noqa
+                            render_frame_sequence, render_sequence)
+from .sketch import (Py5Font, Py5Graphics, Py5Image, Py5KeyEvent,  # noqa
+                     Py5MouseEvent, Py5Promise, Py5Shader, Py5Shape,
+                     Py5Surface, Sketch)
+from .vector import Py5Vector, Py5Vector2D, Py5Vector3D, Py5Vector4D  # noqa
+
 try:
     from py5_tools.magics import load_ipython_extension  # noqa
 except ImportError:

@@ -19,12 +19,11 @@
 # *****************************************************************************
 # *** FORMAT PARAMS ***
 import functools
-from typing import overload, Any  # noqa
 import weakref
+from typing import Any, overload  # noqa
 
-from .image import Py5Image  # noqa
 from . import spelling
-
+from .image import Py5Image  # noqa
 
 py5surface_class_members_code = None  # DELETE
 

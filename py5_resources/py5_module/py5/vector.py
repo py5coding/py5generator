@@ -19,11 +19,11 @@
 # *****************************************************************************
 from __future__ import annotations
 
-from typing import Union
 import operator
-from collections.abc import Sequence, Iterable
 import re
 import warnings
+from collections.abc import Iterable, Sequence
+from typing import Union
 
 import numpy as np
 import numpy.typing as npt

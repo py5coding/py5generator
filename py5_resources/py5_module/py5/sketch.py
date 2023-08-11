@@ -20,47 +20,49 @@
 # *** FORMAT PARAMS ***
 from __future__ import annotations
 
-import time
+import functools
+import inspect
 import os
-import sys
 import platform
+import sys
+import time
+import types
+import uuid
 import warnings
 from io import BytesIO
 from pathlib import Path
-import inspect
-import functools
-import types
-import uuid
-from typing import overload, Any, Callable, Union  # noqa
+from typing import Any, Callable, Union, overload  # noqa
 
 import jpype
-from jpype.types import JClass, JException, JArray, JInt  # noqa
-
 import numpy as np
 import numpy.typing as npt
-
 import py5_tools
 import py5_tools.environ as _environ
-from py5_tools.printstreams import _DefaultPrintlnStream, _DisplayPubPrintlnStream
-from .bridge import Py5Bridge, _extract_py5_user_function_data
+from jpype.types import JArray, JClass, JException, JInt  # noqa
+from py5_tools.printstreams import (_DefaultPrintlnStream,
+                                    _DisplayPubPrintlnStream)
+
+from . import image_conversion, reference, spelling
 from .base import Py5Base
-from .mixins import MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream
-from .mixins.threads import Py5Promise  # noqa
-from .image import Py5Image, _return_py5image  # noqa
-from .shape import Py5Shape, _return_py5shape, _load_py5shape  # noqa
-from .surface import Py5Surface, _return_py5surface  # noqa
-from .shader import Py5Shader, _return_py5shader, _load_py5shader  # noqa
-from .font import Py5Font, _return_py5font, _load_py5font, _return_list_str  # noqa
+from .bridge import Py5Bridge, _extract_py5_user_function_data
+from .decorators import (_context_wrapper, _convert_hex_color,  # noqa
+                         _text_fix_str)
+from .font import (Py5Font, _load_py5font, _return_list_str,  # noqa
+                   _return_py5font)
 from .graphics import Py5Graphics, _return_py5graphics  # noqa
-from .keyevent import Py5KeyEvent, _convert_jchar_to_chr, _convert_jint_to_int  # noqa
-from .mouseevent import Py5MouseEvent  # noqa
-from .utilities import Py5Utilities
-from .decorators import _text_fix_str, _convert_hex_color, _context_wrapper  # noqa
-from .pmath import _get_matrix_wrapper  # noqa
-from . import image_conversion
+from .image import Py5Image, _return_py5image  # noqa
 from .image_conversion import NumpyImageArray, _convertable
-from . import spelling
-from . import reference
+from .keyevent import (Py5KeyEvent, _convert_jchar_to_chr,  # noqa
+                       _convert_jint_to_int)
+from .mixins import (DataMixin, MathMixin, PixelMixin, PrintlnStream,
+                     ThreadsMixin)
+from .mixins.threads import Py5Promise  # noqa
+from .mouseevent import Py5MouseEvent  # noqa
+from .pmath import _get_matrix_wrapper  # noqa
+from .shader import Py5Shader, _load_py5shader, _return_py5shader  # noqa
+from .shape import Py5Shape, _load_py5shape, _return_py5shape  # noqa
+from .surface import Py5Surface, _return_py5surface  # noqa
+from .utilities import Py5Utilities
 
 sketch_class_members_code = None  # DELETE
 
@@ -71,7 +73,8 @@ _SketchBase = jpype.JClass('py5.core.SketchBase')
 try:
     # be aware that __IPYTHON__ and get_ipython() are inserted into the user namespace late in the kernel startup process
     __IPYTHON__  # type: ignore
-    if sys.platform == 'darwin' and (_ipython_shell := get_ipython()).active_eventloop != 'osx':  # type: ignore
+    # type: ignore
+    if sys.platform == 'darwin' and (_ipython_shell := get_ipython()).active_eventloop != 'osx':
         print("Importing py5 on OSX but the necessary Jupyter OSX event loop has not been activated. I'll activate it for you, but next time, execute `%gui osx` before importing this library.")
         _ipython_shell.run_line_magic('gui', 'osx')
 except Exception:
@@ -100,7 +103,8 @@ def _auto_convert_to_py5image(argnum):
                 args = list(args)
                 img = args[argnum]
                 if isinstance(img, NumpyImageArray):
-                    args[argnum] = self_.create_image_from_numpy(img.array, img.bands)
+                    args[argnum] = self_.create_image_from_numpy(
+                        img.array, img.bands)
                 elif not isinstance(img, (Py5Image, Py5Graphics)) and _convertable(img):
                     args[argnum] = self_.convert_image(img)
             return f(self_, *args)
@@ -124,9 +128,11 @@ def _settings_only(name):
             if self_._py5_bridge.current_running_method == 'settings':
                 return f(self_, *args)
             else:
-                raise RuntimeError("Cannot call the " + name + "() method here. Either move it to a settings() function or move it to closer to the start of setup().")
+                raise RuntimeError(
+                    "Cannot call the " + name + "() method here. Either move it to a settings() function or move it to closer to the start of setup().")
         return decorated
     return _decorator
+
 
 class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5Base):
     """$classdoc_Sketch
@@ -138,13 +144,15 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         _instance = kwargs.get('_instance')
 
         # remove dead or malformed Sketch instances from the object cache
-        cls._py5_object_cache = set(s for s in cls._py5_object_cache if hasattr(s, '_instance') and not s.is_dead)
+        cls._py5_object_cache = set(
+            s for s in cls._py5_object_cache if hasattr(s, '_instance') and not s.is_dead)
         if _instance:
             for s in cls._py5_object_cache:
                 if _instance == s._instance:
                     return s
             else:
-                raise RuntimeError('Failed to locate cached Sketch class for provided py5.core.Sketch instance')
+                raise RuntimeError(
+                    'Failed to locate cached Sketch class for provided py5.core.Sketch instance')
         else:
             s = object.__new__(cls)
             cls._py5_object_cache.add(s)
@@ -159,12 +167,14 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                 # this is a cached Sketch object, don't re-run __init__()
                 return
             else:
-                raise RuntimeError('Unexpected Situation: Passed py5.core.Sketch instance does not match existing py5.core.Sketch instance. What is going on?')
+                raise RuntimeError(
+                    'Unexpected Situation: Passed py5.core.Sketch instance does not match existing py5.core.Sketch instance. What is going on?')
 
         Sketch._cls = JClass(jclassname) if jclassname else _Sketch
         instance = Sketch._cls()
         if not isinstance(instance, _SketchBase):
-            raise RuntimeError('Java instance must inherit from py5.core.SketchBase')
+            raise RuntimeError(
+                'Java instance must inherit from py5.core.SketchBase')
 
         super().__init__(instance=instance)
         self._methods_to_profile = []
@@ -174,7 +184,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_bridge = None
         self._environ = None
-        iconPath = Path(__file__).parent.parent / 'py5_tools/resources/logo-64x64.png'
+        iconPath = Path(__file__).parent.parent / \
+            'py5_tools/resources/logo-64x64.png'
         if iconPath.exists() and hasattr(self._instance, 'setPy5IconPath'):
             self._instance.setPy5IconPath(str(iconPath))
         elif hasattr(sys, '_MEIPASS'):
@@ -225,16 +236,19 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                     _caller_globals: dict[str, Any] = None,
                     _osx_alt_run_method: bool = True) -> None:
         self._environ = _environ.Environment()
-        self.set_println_stream(_DisplayPubPrintlnStream() if self._environ.in_jupyter_zmq_shell else _DefaultPrintlnStream())
+        self.set_println_stream(_DisplayPubPrintlnStream(
+        ) if self._environ.in_jupyter_zmq_shell else _DefaultPrintlnStream())
         self._init_println_stream()
 
         self._py5_bridge = Py5Bridge(self)
-        self._py5_bridge.set_caller_locals_globals(_caller_locals, _caller_globals)
+        self._py5_bridge.set_caller_locals_globals(
+            _caller_locals, _caller_globals)
         self._py5_bridge.add_functions(methods, method_param_counts)
         self._py5_bridge.profile_functions(self._methods_to_profile)
         self._py5_bridge.add_pre_hooks(self._pre_hooks_to_add)
         self._py5_bridge.add_post_hooks(self._post_hooks_to_add)
-        self._instance.buildPy5Bridge(self._py5_bridge, self._environ.in_ipython_session, self._environ.in_jupyter_zmq_shell)
+        self._instance.buildPy5Bridge(
+            self._py5_bridge, self._environ.in_ipython_session, self._environ.in_jupyter_zmq_shell)
 
         if not py5_options:
             py5_options = []
@@ -243,7 +257,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         if not any([a.startswith('--sketch-path') for a in py5_options]):
             py5_options.append('--sketch-path=' + os.getcwd())
         if not any([a.startswith('--location') for a in py5_options]) and _PY5_LAST_WINDOW_X is not None and _PY5_LAST_WINDOW_Y is not None:
-            py5_options.append('--location=' + str(_PY5_LAST_WINDOW_X) + ',' + str(_PY5_LAST_WINDOW_Y))
+            py5_options.append(
+                '--location=' + str(_PY5_LAST_WINDOW_X) + ',' + str(_PY5_LAST_WINDOW_Y))
         args = py5_options + [''] + sketch_args
 
         try:
@@ -262,7 +277,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                         AppHelper.stopEventLoop()
 
                 if block == False and not self._environ.in_ipython_session:
-                    self.println("On OSX, blocking is manditory when Sketch is not run through Jupyter. This applies to all renderers.", stderr=True)
+                    self.println(
+                        "On OSX, blocking is manditory when Sketch is not run through Jupyter. This applies to all renderers.", stderr=True)
 
                 proxy = jpype.JProxy('java.lang.Runnable', dict(run=run))
                 jpype.JClass('java.lang.Thread')(proxy).start()
@@ -271,11 +287,13 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             else:
                 Sketch._cls.runSketch(args, self._instance)
         except Exception as e:
-            self.println('Java exception thrown by Sketch.runSketch:\n' + str(e), stderr=True)
+            self.println(
+                'Java exception thrown by Sketch.runSketch:\n' + str(e), stderr=True)
 
         if platform.system() == 'Darwin' and self._environ.in_ipython_session and block:
             if (renderer := self._instance.getRendererName()) in ['JAVA2D', 'P2D', 'P3D', 'FX2D']:
-                self.println("On OSX, blocking is not allowed when Sketch using the", renderer, "renderer is run though Jupyter.", stderr=True)
+                self.println("On OSX, blocking is not allowed when Sketch using the",
+                             renderer, "renderer is run though Jupyter.", stderr=True)
                 block = False
 
         if block or (block is None and not self._environ.in_ipython_session):
@@ -319,7 +337,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def _remove_pre_hook(self, method_name, hook_name):
         if self._py5_bridge is None:
-            self._pre_hooks_to_add = [x for x in self._pre_hooks_to_add if x[0] != method_name and x[1] != hook_name]
+            self._pre_hooks_to_add = [
+                x for x in self._pre_hooks_to_add if x[0] != method_name and x[1] != hook_name]
         else:
             self._py5_bridge.remove_pre_hook(method_name, hook_name)
 
@@ -331,7 +350,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def _remove_post_hook(self, method_name, hook_name):
         if self._py5_bridge is None:
-            self._post_hooks_to_add = [x for x in self._post_hooks_to_add if x[0] != method_name and x[1] != hook_name]
+            self._post_hooks_to_add = [
+                x for x in self._post_hooks_to_add if x[0] != method_name and x[1] != hook_name]
         else:
             self._py5_bridge.remove_post_hook(method_name, hook_name)
 
@@ -368,14 +388,16 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             return Path(str(self._instance.sketchPath(*args)))
         else:
             # this exception will be replaced with a more informative one by the custom exception handler
-            raise TypeError('The parameters are invalid for method sketch_path()')
+            raise TypeError(
+                'The parameters are invalid for method sketch_path()')
 
     def _get_is_ready(self) -> bool:  # @decorator
         """$class_Sketch_is_ready"""
         surface = self.get_surface()
         # if there is no surface yet, the sketch can be run.
         return surface._instance is None
-    is_ready: bool = property(fget=_get_is_ready, doc="""$class_Sketch_is_ready""")
+    is_ready: bool = property(
+        fget=_get_is_ready, doc="""$class_Sketch_is_ready""")
 
     def _get_is_running(self) -> bool:  # @decorator
         """$class_Sketch_is_running"""
@@ -385,7 +407,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             return False
         else:
             return not surface.is_stopped() and not hasattr(self, '_shutdown_initiated')
-    is_running: bool = property(fget=_get_is_running, doc="""$class_Sketch_is_running""")
+    is_running: bool = property(
+        fget=_get_is_running, doc="""$class_Sketch_is_running""")
 
     def _get_is_dead(self) -> bool:  # @decorator
         """$class_Sketch_is_dead"""
@@ -394,26 +417,31 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             # Sketch has not been run yet
             return False
         return surface.is_stopped() or hasattr(self, '_shutdown_initiated')
-    is_dead: bool = property(fget=_get_is_dead, doc="""$class_Sketch_is_dead""")
+    is_dead: bool = property(
+        fget=_get_is_dead, doc="""$class_Sketch_is_dead""")
 
     def _get_is_dead_from_error(self) -> bool:  # @decorator
         """$class_Sketch_is_dead_from_error"""
         return self.is_dead and not self._instance.getSuccess()
-    is_dead_from_error: bool = property(fget=_get_is_dead_from_error, doc="""$class_Sketch_is_dead_from_error""")
+    is_dead_from_error: bool = property(
+        fget=_get_is_dead_from_error, doc="""$class_Sketch_is_dead_from_error""")
 
     def _get_is_mouse_pressed(self) -> bool:  # @decorator
         """$class_Sketch_is_mouse_pressed"""
         return self._instance.isMousePressed()
-    is_mouse_pressed: bool = property(fget=_get_is_mouse_pressed, doc="""$class_Sketch_is_mouse_pressed""")
+    is_mouse_pressed: bool = property(
+        fget=_get_is_mouse_pressed, doc="""$class_Sketch_is_mouse_pressed""")
 
     def _get_is_key_pressed(self) -> bool:  # @decorator
         """$class_Sketch_is_key_pressed"""
         return self._instance.isKeyPressed()
-    is_key_pressed: bool = property(fget=_get_is_key_pressed, doc="""$class_Sketch_is_key_pressed""")
+    is_key_pressed: bool = property(
+        fget=_get_is_key_pressed, doc="""$class_Sketch_is_key_pressed""")
 
     def hot_reload_draw(self, draw: Callable) -> None:
         """$class_Sketch_hot_reload_draw"""
-        methods, method_param_counts = _extract_py5_user_function_data(dict(draw=draw))
+        methods, method_param_counts = _extract_py5_user_function_data(
+            dict(draw=draw))
         if 'draw' in methods:
             self._py5_bridge.add_functions(methods, method_param_counts)
         else:
@@ -455,41 +483,51 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         """$class_Sketch_save_frame"""
         if not isinstance(filename, BytesIO):
             filename = self._insert_frame(str(filename))
-        self.save(filename, format=format, drop_alpha=drop_alpha, use_thread=use_thread, **params)
+        self.save(filename, format=format, drop_alpha=drop_alpha,
+                  use_thread=use_thread, **params)
 
     def select_folder(self, prompt: str, callback: Callable, default_folder: str = None) -> None:
         """$class_Sketch_select_folder"""
         if not isinstance(prompt, str) or not callable(callback) or (default_folder is not None and not isinstance(default_folder, str)):
-            raise TypeError("This method's signature is select_folder(prompt: str, callback: Callable, default_folder: str)")
-        self._generic_select(self._instance.py5SelectFolder, 'select_folder', prompt, callback, default_folder)
+            raise TypeError(
+                "This method's signature is select_folder(prompt: str, callback: Callable, default_folder: str)")
+        self._generic_select(self._instance.py5SelectFolder,
+                             'select_folder', prompt, callback, default_folder)
 
     def select_input(self, prompt: str, callback: Callable, default_file: str = None) -> None:
         """$class_Sketch_select_folder"""
         if not isinstance(prompt, str) or not callable(callback) or (default_file is not None and not isinstance(default_file, str)):
-            raise TypeError("This method's signature is select_input(prompt: str, callback: Callable, default_file: str)")
-        self._generic_select(self._instance.py5SelectInput, 'select_input', prompt, callback, default_file)
+            raise TypeError(
+                "This method's signature is select_input(prompt: str, callback: Callable, default_file: str)")
+        self._generic_select(self._instance.py5SelectInput,
+                             'select_input', prompt, callback, default_file)
 
     def select_output(self, prompt: str, callback: Callable, default_file: str = None) -> None:
         """$class_Sketch_select_folder"""
         if not isinstance(prompt, str) or not callable(callback) or (default_file is not None and not isinstance(default_file, str)):
-            raise TypeError("This method's signature is select_output(prompt: str, callback: Callable, default_file: str)")
-        self._generic_select(self._instance.py5SelectOutput, 'select_output', prompt, callback, default_file)
+            raise TypeError(
+                "This method's signature is select_output(prompt: str, callback: Callable, default_file: str)")
+        self._generic_select(self._instance.py5SelectOutput,
+                             'select_output', prompt, callback, default_file)
 
     def _generic_select(self, py5f: Callable, name: str, prompt: str, callback: Callable, default_folder: str = None) -> None:
         callback_sig = inspect.signature(callback)
         if len(callback_sig.parameters) != 1 or list(callback_sig.parameters.values())[0].kind == inspect.Parameter.KEYWORD_ONLY:
-            raise RuntimeError("The callback function must have one and only one positional argument")
+            raise RuntimeError(
+                "The callback function must have one and only one positional argument")
 
         key = "_PY5_SELECT_CALLBACK_" + str(uuid.uuid4())
 
         def wrapped_callback_py5_no_prune(selection):
             return callback(selection if selection is None else Path(selection))
 
-        py5_tools.config.register_processing_mode_key(key, wrapped_callback_py5_no_prune, callback_once=True)
+        py5_tools.config.register_processing_mode_key(
+            key, wrapped_callback_py5_no_prune, callback_once=True)
 
         if platform.system() == 'Darwin':
             if self._environ.in_ipython_session:
-                raise RuntimeError("Sorry, py5's " + name + "() method doesn't work on OSX when the Sketch is run through Jupyter. However, there are some IPython widgets you can use instead.")
+                raise RuntimeError(
+                    "Sorry, py5's " + name + "() method doesn't work on OSX when the Sketch is run through Jupyter. However, there are some IPython widgets you can use instead.")
             else:
                 def _run():
                     py5f(key, prompt, default_folder)
@@ -506,7 +544,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
         if dst:
             if width != dst.pixel_width or height != dst.pixel_height:
-                raise RuntimeError("array size does not match size of dst Py5Image")
+                raise RuntimeError(
+                    "array size does not match size of dst Py5Image")
             py5_img = dst
         else:
             py5_img = self.create_image(width, height, self.ARGB)
@@ -540,13 +579,15 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             if pimg and pimg.width > 0:
                 if dst:
                     if pimg.pixel_width != dst.pixel_width or pimg.pixel_height != dst.pixel_height:
-                        raise RuntimeError("size of loaded image does not match size of dst Py5Image")
+                        raise RuntimeError(
+                            "size of loaded image does not match size of dst Py5Image")
                     dst._replace_instance(pimg)
                     return dst
                 else:
                     return Py5Image(pimg)
             else:
-                raise RuntimeError('cannot load image file ' + str(image_path) + '. error message: either the file cannot be found or the file does not contain valid image data.')
+                raise RuntimeError('cannot load image file ' + str(image_path) +
+                                   '. error message: either the file cannot be found or the file does not contain valid image data.')
         raise RuntimeError(msg)
 
     def request_image(self, image_path: Union[str, Path]) -> Py5Promise:
