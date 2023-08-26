@@ -41,7 +41,7 @@ import py5_tools.environ as _environ
 from jpype.types import JArray, JClass, JException, JInt  # noqa
 from py5_tools.printstreams import _DefaultPrintlnStream, _DisplayPubPrintlnStream
 
-from . import image_conversion, reference, spelling
+from . import image_conversion, reference, shape_conversion, spelling
 from .base import Py5Base
 from .bridge import Py5Bridge, _extract_py5_user_function_data
 from .decorators import _context_wrapper, _convert_hex_color, _text_fix_str  # noqa
@@ -718,6 +718,10 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         else:
             # could be Py5Image or something comparable
             return result
+
+    def convert_shape(self, obj: Any) -> Py5Shape:
+        """$class_Sketch_convert_shape"""
+        return shape_conversion._convert(self, obj)
 
     def load_image(
         self, image_path: Union[str, Path], *, dst: Py5Image = None
