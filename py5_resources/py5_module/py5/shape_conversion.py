@@ -52,7 +52,6 @@ def register_shape_conversion(
 
 
 try:
-    import shapely
     from shapely import (
         GeometryCollection,
         LineString,
