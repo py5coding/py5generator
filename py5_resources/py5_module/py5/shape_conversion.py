@@ -54,8 +54,10 @@ def register_shape_conversion(
 try:
     from shapely import (
         GeometryCollection,
+        LinearRing,
         LineString,
         MultiLineString,
+        MultiPoint,
         MultiPolygon,
         Point,
         Polygon,
@@ -67,8 +69,10 @@ try:
             obj,
             (
                 GeometryCollection,
+                LinearRing,
                 LineString,
                 MultiLineString,
+                MultiPoint,
                 MultiPolygon,
                 Point,
                 Polygon,
@@ -98,7 +102,30 @@ try:
                         )
                         shape.vertices(coords[:-1])
             return shape
-        elif isinstance(obj, MultiPolygon):
+        elif isinstance(obj, LinearRing):
+            shape = sketch.create_shape()
+            with shape.begin_closed_shape():
+                shape.no_fill()
+                coords = np.array(obj.coords)
+                shape.vertices(coords[:-1])
+            return shape
+        elif isinstance(obj, LineString):
+            shape = sketch.create_shape()
+            with shape.begin_shape():
+                shape.no_fill()
+                coords = np.array(obj.coords)
+                shape.vertices(coords)
+            return shape
+        elif isinstance(obj, MultiPoint):
+            shape = sketch.create_shape()
+            with shape.begin_shape(sketch.POINTS):
+                coords = np.array([p.coords for p in obj.geoms]).squeeze()
+                shape.vertices(coords)
+            return shape
+        elif isinstance(obj, Point):
+            shape = sketch.create_shape(sketch.POINT, obj.x, obj.y)
+            return shape
+        elif isinstance(obj, (GeometryCollection, MultiPolygon, MultiLineString)):
             shape = sketch.create_shape(sketch.GROUP)
             for p in obj.geoms:
                 shape.add_child(
