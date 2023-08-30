@@ -27,6 +27,7 @@ dependencies:
   - pip
   - python=3.8.*
   - requests=2.29.*
+  - shapely=2.0.*
   - twine=4.0.*
   - yarn=1.22.*
   - pip:
