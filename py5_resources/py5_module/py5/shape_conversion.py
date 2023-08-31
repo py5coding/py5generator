@@ -43,7 +43,7 @@ def register_shape_conversion(
     precondition: Callable, convert_function: Callable
 ) -> None:
     # TODO: add docstring
-    pshape_functions.append((precondition, convert_function))
+    pshape_functions.insert(0, (precondition, convert_function))
 
 
 ###############################################################################

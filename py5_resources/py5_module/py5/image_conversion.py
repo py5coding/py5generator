@@ -52,7 +52,7 @@ def register_image_conversion(
     precondition: Callable, convert_function: Callable
 ) -> None:
     """$module_Py5Functions_register_image_conversion"""
-    pimage_functions.append((precondition, convert_function))
+    pimage_functions.insert(0, (precondition, convert_function))
 
 
 ###############################################################################
