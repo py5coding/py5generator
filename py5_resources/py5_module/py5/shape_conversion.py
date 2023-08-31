@@ -159,6 +159,20 @@ try:
         trimesh_to_py5shape_precondition, trimesh_to_py5shape_converter
     )
 
+    def trimesh_scene_to_py5shape_precondition(obj):
+        return isinstance(obj, trimesh.Scene)
+
+    def trimesh_scene_to_py5shape_converter(sketch, obj):
+        shape = sketch.create_shape(sketch.GROUP)
+        for name, geometry in obj.geometry.items():
+            child = trimesh_to_py5shape_converter(sketch, geometry)
+            child.set_name(name)
+            shape.add_child(child)
+        return shape
+
+    register_shape_conversion(
+        trimesh_scene_to_py5shape_precondition, trimesh_scene_to_py5shape_converter
+    )
 
 except Exception:
     pass
