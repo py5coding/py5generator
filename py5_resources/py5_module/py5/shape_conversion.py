@@ -145,14 +145,30 @@ except Exception:
 
 try:
     import trimesh
+    from trimesh.visual import TextureVisuals
 
     def trimesh_to_py5shape_precondition(obj):
         return isinstance(obj, trimesh.Trimesh)
 
     def trimesh_to_py5shape_converter(sketch, obj):
         shape = sketch.create_shape()
+        use_texture = False
+
+        vertices = obj.vertices[obj.faces.flatten()]
+
+        if isinstance(obj.visual, TextureVisuals):
+            use_texture = True
+            uv = obj.visual.uv[obj.faces.flatten()]
+            uv[:, 1] = 1 - uv[:, 1]
+            vertices = np.hstack([vertices, uv])
+
         with shape.begin_shape(sketch.TRIANGLES):
-            shape.vertices(obj.vertices[obj.faces.flatten()])
+            if use_texture:
+                shape.texture_mode(sketch.NORMAL)
+                shape.no_stroke()
+
+            shape.vertices(vertices)
+
         return shape
 
     register_shape_conversion(
@@ -164,10 +180,12 @@ try:
 
     def trimesh_scene_to_py5shape_converter(sketch, obj):
         shape = sketch.create_shape(sketch.GROUP)
+
         for name, geometry in obj.geometry.items():
             child = trimesh_to_py5shape_converter(sketch, geometry)
             child.set_name(name)
             shape.add_child(child)
+
         return shape
 
     register_shape_conversion(
