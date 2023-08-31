@@ -141,3 +141,24 @@ try:
 
 except Exception:
     pass
+
+
+try:
+    import trimesh
+
+    def trimesh_to_py5shape_precondition(obj):
+        return isinstance(obj, trimesh.Trimesh)
+
+    def trimesh_to_py5shape_converter(sketch, obj):
+        shape = sketch.create_shape()
+        with shape.begin_shape(sketch.TRIANGLES):
+            shape.vertices(obj.vertices[obj.faces.flatten()])
+        return shape
+
+    register_shape_conversion(
+        trimesh_to_py5shape_precondition, trimesh_to_py5shape_converter
+    )
+
+
+except Exception:
+    pass
