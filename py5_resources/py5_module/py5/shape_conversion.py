@@ -144,13 +144,14 @@ except Exception:
 
 
 try:
-    import trimesh
+    from trimesh import Scene, Trimesh
+    from trimesh.path import Path2D, Path3D
     from trimesh.visual import TextureVisuals
 
     def trimesh_to_py5shape_precondition(obj):
-        return isinstance(obj, trimesh.Trimesh)
+        return isinstance(obj, Trimesh)
 
-    def trimesh_to_py5shape_converter(sketch, obj):
+    def trimesh_to_py5shape_converter(sketch, obj: Trimesh):
         shape = sketch.create_shape()
         use_texture = False
 
@@ -176,9 +177,9 @@ try:
     )
 
     def trimesh_scene_to_py5shape_precondition(obj):
-        return isinstance(obj, trimesh.Scene)
+        return isinstance(obj, Scene)
 
-    def trimesh_scene_to_py5shape_converter(sketch, obj):
+    def trimesh_scene_to_py5shape_converter(sketch, obj: Scene):
         shape = sketch.create_shape(sketch.GROUP)
 
         for name, geometry in obj.geometry.items():
@@ -191,6 +192,27 @@ try:
     register_shape_conversion(
         trimesh_scene_to_py5shape_precondition, trimesh_scene_to_py5shape_converter
     )
+
+    def trimesh_path3d_to_py5shape_precondition(obj):
+        return isinstance(obj, Path3D)
+
+    def trimesh_path3d_to_py5shape_converter(sketch, obj: Path3D):
+        shape = sketch.create_shape(sketch.GROUP)
+
+        # TODO: what if there is only one entity? don't make it a group shape
+        # TODO: can't entities be more than just lines?
+        for entity in obj.entities:
+            child_shape = sketch.create_shape()
+            with child_shape.begin_shape():
+                child_shape.vertices(obj.vertices[entity.points])
+            shape.add_child(child_shape)
+
+        return shape
+
+    register_shape_conversion(
+        trimesh_path3d_to_py5shape_precondition, trimesh_path3d_to_py5shape_converter
+    )
+
 
 except Exception:
     pass
