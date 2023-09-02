@@ -157,6 +157,8 @@ try:
 
         vertices = obj.vertices[obj.faces.flatten()]
 
+        # TODO: don't forget about ColorVisuals and other possibilities
+
         if isinstance(obj.visual, TextureVisuals):
             use_texture = True
             uv = obj.visual.uv[obj.faces.flatten()]
@@ -182,6 +184,8 @@ try:
     def trimesh_scene_to_py5shape_converter(sketch, obj: Scene):
         shape = sketch.create_shape(sketch.GROUP)
 
+        # TODO: what if there is only one geometry? don't make it a group shape
+        # TODO: objects can be Trimesh, Path2D, Path3D, or PointCloud
         for name, geometry in obj.geometry.items():
             child = trimesh_to_py5shape_converter(sketch, geometry)
             child.set_name(name)
@@ -200,11 +204,16 @@ try:
         shape = sketch.create_shape(sketch.GROUP)
 
         # TODO: what if there is only one entity? don't make it a group shape
-        # TODO: can't entities be more than just lines?
+        # TODO: break Entity out into its own pair of functions and call that function from here
         for entity in obj.entities:
             child_shape = sketch.create_shape()
-            with child_shape.begin_shape():
-                child_shape.vertices(obj.vertices[entity.points])
+            if entity.closed:
+                with child_shape.begin_closed_shape():
+                    child_shape.vertices(entity.discrete(obj.vertices)[:-1])
+            else:
+                with child_shape.begin_shape():
+                    child_shape.vertices(entity.discrete(obj.vertices))
+
             shape.add_child(child_shape)
 
         return shape
