@@ -148,6 +148,39 @@ try:
     from trimesh.path import Path2D, Path3D
     from trimesh.visual import TextureVisuals
 
+    ##### Path3D #####
+
+    def trimesh_path3d_to_py5shape_precondition(obj):
+        return isinstance(obj, Path3D)
+
+    def trimesh_path3d_to_py5shape_converter(sketch, obj: Path3D):
+        def helper(entity):
+            shape = sketch.create_shape()
+
+            if entity.closed:
+                with shape.begin_closed_shape():
+                    shape.vertices(entity.discrete(obj.vertices)[:-1])
+            else:
+                with shape.begin_shape():
+                    shape.vertices(entity.discrete(obj.vertices))
+
+            return shape
+
+        if len(obj.entities) == 1:
+            shape = helper(obj.entities[0])
+        else:
+            shape = sketch.create_shape(sketch.GROUP)
+            for entity in obj.entities:
+                shape.add_child(helper(entity))
+
+        return shape
+
+    register_shape_conversion(
+        trimesh_path3d_to_py5shape_precondition, trimesh_path3d_to_py5shape_converter
+    )
+
+    ##### Trimesh #####
+
     def trimesh_to_py5shape_precondition(obj):
         return isinstance(obj, Trimesh)
 
@@ -181,6 +214,8 @@ try:
     def trimesh_scene_to_py5shape_precondition(obj):
         return isinstance(obj, Scene)
 
+    ##### Scene #####
+
     def trimesh_scene_to_py5shape_converter(sketch, obj: Scene):
         def helper(geometry):
             if isinstance(geometry, Trimesh):
@@ -207,35 +242,6 @@ try:
 
     register_shape_conversion(
         trimesh_scene_to_py5shape_precondition, trimesh_scene_to_py5shape_converter
-    )
-
-    def trimesh_path3d_to_py5shape_precondition(obj):
-        return isinstance(obj, Path3D)
-
-    def trimesh_path3d_to_py5shape_converter(sketch, obj: Path3D):
-        def helper(entity):
-            shape = sketch.create_shape()
-
-            if entity.closed:
-                with shape.begin_closed_shape():
-                    shape.vertices(entity.discrete(obj.vertices)[:-1])
-            else:
-                with shape.begin_shape():
-                    shape.vertices(entity.discrete(obj.vertices))
-
-            return shape
-
-        if len(obj.entities) == 1:
-            shape = helper(obj.entities[0])
-        else:
-            shape = sketch.create_shape(sketch.GROUP)
-            for entity in obj.entities:
-                shape.add_child(helper(entity))
-
-        return shape
-
-    register_shape_conversion(
-        trimesh_path3d_to_py5shape_precondition, trimesh_path3d_to_py5shape_converter
     )
 
 
