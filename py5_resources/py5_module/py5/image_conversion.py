@@ -43,7 +43,10 @@ def _convert(obj):
             obj = convert_function(obj)
             break
     else:
-        raise RuntimeError(f"Py5 Converter is not able to convert {str(obj)}")
+        classname = f"{obj.__class__.__module__}.{obj.__class__.__name__}"
+        raise RuntimeError(
+            f"py5 convert_image() method is not able to convert objects of type {classname}"
+        )
 
     return obj
 

@@ -34,7 +34,10 @@ def _convert(sketch, obj):
             obj = convert_function(sketch, obj)
             break
     else:
-        raise RuntimeError(f"Py5 Converter is not able to convert {str(obj)}")
+        classname = f"{obj.__class__.__module__}.{obj.__class__.__name__}"
+        raise RuntimeError(
+            f"py5 convert_shape() method is not able to convert objects of type {classname}"
+        )
 
     return obj
 
@@ -255,8 +258,11 @@ try:
             elif isinstance(geometry, PointCloud):
                 return trimesh_pointcloud_to_py5shape_converter(sketch, geometry)
             else:
+                classname = (
+                    f"{geometry.__class__.__module__}.{geometry.__class__.__name__}"
+                )
                 raise RuntimeError(
-                    f"Py5 Converter is not yet able to convert {str(type(geometry))}"
+                    f"py5 convert_shape() method is not able to convert trimesh objects of type {classname}"
                 )
 
         if len(obj.geometry) == 1:
