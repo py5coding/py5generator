@@ -190,11 +190,18 @@ try:
     def trimesh_pointcloud_to_py5shape_converter(sketch, obj: PointCloud):
         shape = sketch.create_shape()
 
-        # TODO: PointCloud has a colors property
-        # https://trimsh.org/trimesh.html#trimesh.PointCloud.colors
-
         with shape.begin_shape(sketch.POINTS):
             shape.vertices(obj.vertices)
+
+        if obj.colors.size > 0 and obj.colors.shape[0] == obj.vertices.shape[0]:
+            colors = (
+                obj.colors[:, 0] * 65536
+                + obj.colors[:, 1] * 256
+                + obj.colors[:, 2]
+                + obj.colors[:, 3] * 16777216
+            )
+            shape.set_strokes(colors)
+
         return shape
 
     register_shape_conversion(
