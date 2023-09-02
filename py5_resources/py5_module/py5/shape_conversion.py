@@ -144,7 +144,7 @@ except Exception:
 
 
 try:
-    from trimesh import Scene, Trimesh
+    from trimesh import PointCloud, Scene, Trimesh
     from trimesh.path import Path2D, Path3D
     from trimesh.visual import TextureVisuals
 
@@ -177,6 +177,26 @@ try:
 
     register_shape_conversion(
         trimesh_path3d_to_py5shape_precondition, trimesh_path3d_to_py5shape_converter
+    )
+
+    ##### PointCloud #####
+
+    def trimesh_pointcloud_to_py5shape_precondition(obj):
+        return isinstance(obj, PointCloud)
+
+    def trimesh_pointcloud_to_py5shape_converter(sketch, obj: PointCloud):
+        shape = sketch.create_shape()
+
+        # TODO: PointCloud has a color property
+        # https://trimsh.org/trimesh.html#trimesh.PointCloud.colors
+
+        with shape.begin_shape(sketch.POINTS):
+            shape.vertices(obj.vertices)
+        return shape
+
+    register_shape_conversion(
+        trimesh_pointcloud_to_py5shape_precondition,
+        trimesh_pointcloud_to_py5shape_converter,
     )
 
     ##### Trimesh #####
@@ -222,8 +242,10 @@ try:
                 return trimesh_trimesh_to_py5shape_converter(sketch, geometry)
             elif isinstance(geometry, Path3D):
                 return trimesh_path3d_to_py5shape_converter(sketch, geometry)
+            elif isinstance(geometry, PointCloud):
+                return trimesh_pointcloud_to_py5shape_converter(sketch, geometry)
             else:
-                # TODO: objects can also be Path2D or PointCloud
+                # TODO: objects can also be Path2D
                 raise RuntimeError(
                     f"Py5 Converter is not yet able to convert {str(type(geometry))}"
                 )
