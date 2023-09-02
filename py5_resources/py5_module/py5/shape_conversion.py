@@ -201,20 +201,24 @@ try:
         return isinstance(obj, Path3D)
 
     def trimesh_path3d_to_py5shape_converter(sketch, obj: Path3D):
-        shape = sketch.create_shape(sketch.GROUP)
+        def helper(entity):
+            shape = sketch.create_shape()
 
-        # TODO: what if there is only one entity? don't make it a group shape
-        # TODO: break Entity out into its own pair of functions and call that function from here
-        for entity in obj.entities:
-            child_shape = sketch.create_shape()
             if entity.closed:
-                with child_shape.begin_closed_shape():
-                    child_shape.vertices(entity.discrete(obj.vertices)[:-1])
+                with shape.begin_closed_shape():
+                    shape.vertices(entity.discrete(obj.vertices)[:-1])
             else:
-                with child_shape.begin_shape():
-                    child_shape.vertices(entity.discrete(obj.vertices))
+                with shape.begin_shape():
+                    shape.vertices(entity.discrete(obj.vertices))
 
-            shape.add_child(child_shape)
+            return shape
+
+        if len(obj.entities) == 1:
+            shape = helper(obj.entities[0])
+        else:
+            shape = sketch.create_shape(sketch.GROUP)
+            for entity in obj.entities:
+                shape.add_child(helper(entity))
 
         return shape
 
