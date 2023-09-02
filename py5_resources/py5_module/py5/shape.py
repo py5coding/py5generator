@@ -32,12 +32,8 @@ from jpype import JClass, JException
 from jpype.types import JBoolean, JFloat, JInt
 
 from . import spelling
-from .decorators import (
-    _context_wrapper,
-    _convert_hex_color,  # noqa
-    _convert_hex_color2,
-    _ret_str,
-)
+from .decorators import _convert_hex_color  # noqa
+from .decorators import _context_wrapper, _convert_hex_color2, _ret_str
 from .pmath import _get_pvector_wrapper  # noqa
 
 py5shape_class_members_code = None  # DELETE
@@ -134,6 +130,18 @@ class Py5Shape:
         raise AttributeError(spelling.error_msg("Py5Shape", name, self))
 
     # *** BEGIN METHODS ***
+
+    def set_strokes(self, strokes: npt.NDArray[np.int32], /) -> None:
+        """class_Py5Shape_set_strokes"""
+        if isinstance(strokes, types.GeneratorType):
+            strokes = list(strokes)
+        _Py5ShapeHelper.setStrokes(self._instance, strokes)
+
+    def set_fills(self, fills: npt.NDArray[np.int32], /) -> None:
+        """class_Py5Shape_set_fills"""
+        if isinstance(fills, types.GeneratorType):
+            fills = list(fills)
+        _Py5ShapeHelper.setFills(self._instance, fills)
 
     def vertices(self, coordinates: npt.NDArray[np.floating], /) -> None:
         """$class_Py5Shape_vertices"""
