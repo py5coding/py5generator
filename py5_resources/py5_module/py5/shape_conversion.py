@@ -17,7 +17,7 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from typing import Callable
+from typing import Callable, Union
 
 import numpy as np
 
@@ -148,12 +148,12 @@ try:
     from trimesh.path import Path2D, Path3D
     from trimesh.visual import TextureVisuals
 
-    ##### Path3D #####
+    ##### Path2D and Path3D #####
 
-    def trimesh_path3d_to_py5shape_precondition(obj):
-        return isinstance(obj, Path3D)
+    def trimesh_path2d_path3d_to_py5shape_precondition(obj):
+        return isinstance(obj, (Path2D, Path3D))
 
-    def trimesh_path3d_to_py5shape_converter(sketch, obj: Path3D):
+    def trimesh_path2d_path3d_to_py5shape_converter(sketch, obj: Union[Path2D, Path3D]):
         def helper(entity):
             shape = sketch.create_shape()
 
@@ -176,7 +176,8 @@ try:
         return shape
 
     register_shape_conversion(
-        trimesh_path3d_to_py5shape_precondition, trimesh_path3d_to_py5shape_converter
+        trimesh_path2d_path3d_to_py5shape_precondition,
+        trimesh_path2d_path3d_to_py5shape_converter,
     )
 
     ##### PointCloud #####
@@ -240,12 +241,11 @@ try:
         def helper(geometry):
             if isinstance(geometry, Trimesh):
                 return trimesh_trimesh_to_py5shape_converter(sketch, geometry)
-            elif isinstance(geometry, Path3D):
-                return trimesh_path3d_to_py5shape_converter(sketch, geometry)
+            elif isinstance(geometry, (Path2D, Path3D)):
+                return trimesh_path2d_path3d_to_py5shape_converter(sketch, geometry)
             elif isinstance(geometry, PointCloud):
                 return trimesh_pointcloud_to_py5shape_converter(sketch, geometry)
             else:
-                # TODO: objects can also be Path2D
                 raise RuntimeError(
                     f"Py5 Converter is not yet able to convert {str(type(geometry))}"
                 )
