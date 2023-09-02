@@ -181,10 +181,10 @@ try:
 
     ##### Trimesh #####
 
-    def trimesh_to_py5shape_precondition(obj):
+    def trimesh_trimesh_to_py5shape_precondition(obj):
         return isinstance(obj, Trimesh)
 
-    def trimesh_to_py5shape_converter(sketch, obj: Trimesh):
+    def trimesh_trimesh_to_py5shape_converter(sketch, obj: Trimesh):
         shape = sketch.create_shape()
         use_texture = False
 
@@ -208,7 +208,7 @@ try:
         return shape
 
     register_shape_conversion(
-        trimesh_to_py5shape_precondition, trimesh_to_py5shape_converter
+        trimesh_trimesh_to_py5shape_precondition, trimesh_trimesh_to_py5shape_converter
     )
 
     def trimesh_scene_to_py5shape_precondition(obj):
@@ -219,7 +219,7 @@ try:
     def trimesh_scene_to_py5shape_converter(sketch, obj: Scene):
         def helper(geometry):
             if isinstance(geometry, Trimesh):
-                return trimesh_to_py5shape_converter(sketch, geometry)
+                return trimesh_trimesh_to_py5shape_converter(sketch, geometry)
             elif isinstance(geometry, Path3D):
                 return trimesh_path3d_to_py5shape_converter(sketch, geometry)
             else:
@@ -234,7 +234,7 @@ try:
             shape = sketch.create_shape(sketch.GROUP)
 
             for name, geometry in obj.geometry.items():
-                child = trimesh_to_py5shape_converter(sketch, geometry)
+                child = trimesh_trimesh_to_py5shape_converter(sketch, geometry)
                 child.set_name(name)
                 shape.add_child(child)
 
