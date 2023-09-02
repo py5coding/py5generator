@@ -182,14 +182,26 @@ try:
         return isinstance(obj, Scene)
 
     def trimesh_scene_to_py5shape_converter(sketch, obj: Scene):
-        shape = sketch.create_shape(sketch.GROUP)
+        def helper(geometry):
+            if isinstance(geometry, Trimesh):
+                return trimesh_to_py5shape_converter(sketch, geometry)
+            elif isinstance(geometry, Path3D):
+                return trimesh_path3d_to_py5shape_converter(sketch, geometry)
+            else:
+                # TODO: objects can also be Path2D or PointCloud
+                raise RuntimeError(
+                    f"Py5 Converter is not yet able to convert {str(type(geometry))}"
+                )
 
-        # TODO: what if there is only one geometry? don't make it a group shape
-        # TODO: objects can be Trimesh, Path2D, Path3D, or PointCloud
-        for name, geometry in obj.geometry.items():
-            child = trimesh_to_py5shape_converter(sketch, geometry)
-            child.set_name(name)
-            shape.add_child(child)
+        if len(obj.geometry) == 1:
+            shape = helper(list(obj.geometry.values())[0])
+        else:
+            shape = sketch.create_shape(sketch.GROUP)
+
+            for name, geometry in obj.geometry.items():
+                child = trimesh_to_py5shape_converter(sketch, geometry)
+                child.set_name(name)
+                shape.add_child(child)
 
         return shape
 
