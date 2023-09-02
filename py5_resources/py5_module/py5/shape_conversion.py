@@ -251,12 +251,14 @@ try:
 
     def trimesh_scene_to_py5shape_converter(sketch, obj: Scene):
         def helper(geometry):
-            if isinstance(geometry, Trimesh):
-                return trimesh_trimesh_to_py5shape_converter(sketch, geometry)
-            elif isinstance(geometry, (Path2D, Path3D)):
-                return trimesh_path2d_path3d_to_py5shape_converter(sketch, geometry)
-            elif isinstance(geometry, PointCloud):
-                return trimesh_pointcloud_to_py5shape_converter(sketch, geometry)
+            if isinstance(geometry, (Path2D, Path3D, PointCloud, Trimesh)):
+                return _convert(sketch, geometry)
+            # if isinstance(geometry, Trimesh):
+            #     return trimesh_trimesh_to_py5shape_converter(sketch, geometry)
+            # elif isinstance(geometry, (Path2D, Path3D)):
+            #     return trimesh_path2d_path3d_to_py5shape_converter(sketch, geometry)
+            # elif isinstance(geometry, PointCloud):
+            #     return trimesh_pointcloud_to_py5shape_converter(sketch, geometry)
             else:
                 classname = (
                     f"{geometry.__class__.__module__}.{geometry.__class__.__name__}"
@@ -271,7 +273,7 @@ try:
             shape = sketch.create_shape(sketch.GROUP)
 
             for name, geometry in obj.geometry.items():
-                child = trimesh_trimesh_to_py5shape_converter(sketch, geometry)
+                child = helper(geometry)
                 child.set_name(name)
                 shape.add_child(child)
 
