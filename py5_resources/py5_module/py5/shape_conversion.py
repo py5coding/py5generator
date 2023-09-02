@@ -157,6 +157,8 @@ try:
         def helper(entity):
             shape = sketch.create_shape()
 
+            # TODO: Path2D and Path3D both have a colors property
+
             if entity.closed:
                 with shape.begin_closed_shape():
                     shape.vertices(entity.discrete(obj.vertices)[:-1])
@@ -188,7 +190,7 @@ try:
     def trimesh_pointcloud_to_py5shape_converter(sketch, obj: PointCloud):
         shape = sketch.create_shape()
 
-        # TODO: PointCloud has a color property
+        # TODO: PointCloud has a colors property
         # https://trimsh.org/trimesh.html#trimesh.PointCloud.colors
 
         with shape.begin_shape(sketch.POINTS):
