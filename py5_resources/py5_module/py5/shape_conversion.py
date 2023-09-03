@@ -265,11 +265,10 @@ try:
                 use_color = False
 
         with shape.begin_shape(sketch.TRIANGLES):
+            if use_texture or use_color:
+                shape.no_stroke()
             if use_texture:
                 shape.texture_mode(sketch.NORMAL)
-                shape.no_stroke()
-            elif use_color:
-                shape.no_stroke()
 
             shape.vertices(vertices)
 
