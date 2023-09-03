@@ -160,13 +160,28 @@ try:
         def helper(entity):
             shape = sketch.create_shape()
 
-            # TODO: Path2D and Path3D both have a colors property
+            stroke_color = (
+                None
+                if entity.color is None
+                else (
+                    entity.color[0] * 65536
+                    + entity.color[1] * 256
+                    + entity.color[2]
+                    + entity.color[3] * 16777216
+                )
+            )
 
             if entity.closed:
                 with shape.begin_closed_shape():
+                    if stroke_color is not None:
+                        shape.stroke(stroke_color)
+                        shape.no_fill()
                     shape.vertices(entity.discrete(obj.vertices)[:-1])
             else:
                 with shape.begin_shape():
+                    if stroke_color is not None:
+                        shape.stroke(stroke_color)
+                        shape.no_fill()
                     shape.vertices(entity.discrete(obj.vertices))
 
             return shape
