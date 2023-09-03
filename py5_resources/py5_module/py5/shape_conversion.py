@@ -239,8 +239,6 @@ try:
 
         vertices = obj.vertices[obj.faces.flatten()]
 
-        # TODO: don't forget about ColorVisuals and other possibilities
-
         if isinstance(obj.visual, TextureVisuals):
             use_texture = True
             uv = obj.visual.uv[obj.faces.flatten()]
