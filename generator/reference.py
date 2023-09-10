@@ -83,6 +83,7 @@ EXTRA_DIR_NAMES = {
     "create_font_file",
     "register_exception_msg",
     "register_image_conversion",
+    "register_shape_conversion",
     "NumpyImageArray",
     "__version__",
     "utils",
@@ -188,6 +189,9 @@ EXTRA_METHOD_SIGNATURES = {
         )
     ],
     ("Py5Functions", "register_image_conversion"): [
+        (["precondition: Callable", "convert_function: Callable"], "None")
+    ],
+    ("Py5Functions", "register_shape_conversion"): [
         (["precondition: Callable", "convert_function: Callable"], "None")
     ],
     ("Py5Tools", "is_jvm_running"): [([], "bool")],
