@@ -34,5 +34,7 @@ class Py5Color(int):
     def __str__(self):
         return self.__repr__()
 
-    def to_hex(self):
+    def _to_hex(self):
         return str(_Py5ColorHelper.toHex(JInt(self)))
+
+    hex = property(fget=_to_hex)
