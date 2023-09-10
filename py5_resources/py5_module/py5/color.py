@@ -17,16 +17,22 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+from jpype import JClass, JInt
+
+_Py5ColorHelper = JClass("py5.core.Py5ColorHelper")
 
 
 class Py5Color(int):
-    def __repr__(self):
-        a = self >> 24 & 0xFF
-        r = self >> 16 & 0xFF
-        g = self >> 8 & 0xFF
-        b = self & 0xFF
+    def __new__(cls, val, *, creator):
+        color = super().__new__(cls, val)
+        color._creator = creator
+        return color
 
-        return f"Py5Color({r}, {g}, {b}, {a})"
+    def __repr__(self):
+        return str(_Py5ColorHelper.repr(self._creator._instance, JInt(self)))
 
     def __str__(self):
         return self.__repr__()
+
+    def to_hex(self):
+        return str(_Py5ColorHelper.toHex(JInt(self)))

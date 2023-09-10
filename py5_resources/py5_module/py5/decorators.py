@@ -116,10 +116,10 @@ def _create_color(indices=[0]):
             for i, arg in [(i, args[i]) for i in indices if i < len(args)]:
                 if (new_arg := _hex_converter(arg)) is not None:
                     if len(args) == 1:
-                        return Py5Color(new_arg)
+                        return Py5Color(new_arg, creator=self_)
                     else:
                         args[i] = new_arg
-            return Py5Color(f(self_, *args))
+            return Py5Color(f(self_, *args), creator=self_)
 
         return decorated
 
