@@ -76,6 +76,6 @@ public class Py5ColorHelper {
   }
 
   public static String toHex(int color) {
-    return String.format("#%08X", color);
+    return String.format("#%06X%02X", color & 0x00FFFFFF, color >> 24 & 0xFF);
   }
 }
