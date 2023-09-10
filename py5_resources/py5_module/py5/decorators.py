@@ -23,6 +23,8 @@ import re
 import numpy as np
 from jpype.types import JInt, JString
 
+from .color import Py5Color
+
 HEX_3DIGIT_COLOR_REGEX = re.compile(r"#[0-9A-F]{3}" + chr(36))
 HEX_4DIGIT_COLOR_REGEX = re.compile(r"#[0-9A-F]{4}" + chr(36))
 HEX_6DIGIT_COLOR_REGEX = re.compile(r"#[0-9A-F]{6}" + chr(36))
@@ -104,6 +106,24 @@ def _convert_hex_color2(f):
         return f(self_, *args)
 
     return decorated
+
+
+def _create_color(indices=[0]):
+    def _hex_color(f):
+        @functools.wraps(f)
+        def decorated(self_, *args):
+            args = list(args)
+            for i, arg in [(i, args[i]) for i in indices if i < len(args)]:
+                if (new_arg := _hex_converter(arg)) is not None:
+                    if len(args) == 1:
+                        return Py5Color(new_arg)
+                    else:
+                        args[i] = new_arg
+            return Py5Color(f(self_, *args))
+
+        return decorated
+
+    return _hex_color
 
 
 class _Py5ContextManager:

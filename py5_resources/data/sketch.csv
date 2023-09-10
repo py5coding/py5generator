@@ -438,7 +438,7 @@ hex,hex,,method,data,conversion,SKIP,user should use python instead
 unhex,unhex,,static method,data,conversion,SKIP,user should use python instead
 binary,binary,,method,data,conversion,SKIP,user should use python instead
 unbinary,unbinary,,static method,data,conversion,SKIP,user should use python instead
-color,color,@_convert_hex_color(),method,color,creating_reading,JAVA,
+color,color,@_create_color(),method,color,creating_reading,JAVA,
 lerp_color,lerpColor,"@_convert_hex_color(indices=[0, 1])",method,color,creating_reading,JAVA,
 blend_color,blendColor,,static method,color,creating_reading,SKIP,methods that are not part of the processing framework
 frame_moved,frameMoved,,method,,,SKIP,methods that are not part of the processing framework
@@ -469,6 +469,7 @@ end_contour,endContour,,method,shape,vertex,JAVA,
 end_shape,endShape,,method,shape,vertex,JAVA,
 load_shape,loadShape,@_load_py5shape,method,shape,,JAVA,
 create_shape,createShape,@_return_py5shape,method,shape,,JAVA,
+convert_shape,,,method,shape,,PYTHON,
 load_shader,loadShader,@_load_py5shader,method,rendering,shaders,JAVA,
 shader,shader,,method,rendering,shaders,JAVA,
 reset_shader,resetShader,,method,rendering,shaders,JAVA,
