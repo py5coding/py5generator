@@ -59,9 +59,9 @@ public class Py5ColorHelper {
     int b = color & 0xFF;
 
     if (colorModeX == 255 && colorModeY == 255 && colorModeZ == 255 && colorModeA == 255) {
-      return String.format("(red=%d, green=%d, blue=%d, alpha=%d)", r, g, b, a);
+      return String.format("Py5Color(red=%d, green=%d, blue=%d, alpha=%d)", r, g, b, a);
     } else {
-      return String.format("(red=%f, green=%f, blue=%f, alpha=%f)", r / 255 * colorModeX, g / 255 * colorModeY, b / 255 * colorModeZ,
+      return String.format("Py5Color(red=%f, green=%f, blue=%f, alpha=%f)", r / 255 * colorModeX, g / 255 * colorModeY, b / 255 * colorModeZ,
           a / 255 * colorModeA);
     }
   }
@@ -71,7 +71,7 @@ public class Py5ColorHelper {
     float[] hsb = new float[3];
     Color.RGBtoHSB(color >> 16 & 0xFF, color >> 8 & 0xFF, color & 0xFF, hsb);
 
-    return String.format("(hue=%f, saturation=%f, brightness=%f, alpha=%f)", hsb[0] * colorModeX, hsb[1] * colorModeY, hsb[2] * colorModeZ,
+    return String.format("Py5Color(hue=%f, saturation=%f, brightness=%f, alpha=%f)", hsb[0] * colorModeX, hsb[1] * colorModeY, hsb[2] * colorModeZ,
         a / 255 * colorModeA);
   }
 
