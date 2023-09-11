@@ -33,46 +33,55 @@ public class Py5ColorHelper {
   }
 
   public static String repr(PGraphics g, int color) {
-    if (g.colorMode == PConstants.RGB) {
-      return intToRGB(color, g.colorModeX, g.colorModeY, g.colorModeZ, g.colorModeA);
-    } else if (g.colorMode == PConstants.HSB) {
-      return intToHSB(color, g.colorModeX, g.colorModeY, g.colorModeZ, g.colorModeA);
-    } else {
-      throw new RuntimeException("Unrecognized colorMode value " + g.colorMode);
-    }
+    return makeStr(g.colorMode, color, g.colorModeX, g.colorModeY, g.colorModeZ, g.colorModeA);
   }
 
   public static String repr(PShape s, int color) {
-    if (s.colorMode == PConstants.RGB) {
-      return intToRGB(color, s.colorModeX, s.colorModeY, s.colorModeZ, s.colorModeA);
-    } else if (s.colorMode == PConstants.HSB) {
-      return intToHSB(color, s.colorModeX, s.colorModeY, s.colorModeZ, s.colorModeA);
-    } else {
-      throw new RuntimeException("Unrecognized colorMode value " + s.colorMode);
-    }
+    return makeStr(s.colorMode, color, s.colorModeX, s.colorModeY, s.colorModeZ, s.colorModeA);
   }
 
-  public static String intToRGB(int color, float colorModeX, float colorModeY, float colorModeZ, float colorModeA) {
+  protected static String makeStr(int colorMode, int color, float colorModeX, float colorModeY, float colorModeZ,
+      float colorModeA) {
+    // RGB values
     int a = color >> 24 & 0xFF;
     int r = color >> 16 & 0xFF;
     int g = color >> 8 & 0xFF;
     int b = color & 0xFF;
 
-    if (colorModeX == 255 && colorModeY == 255 && colorModeZ == 255 && colorModeA == 255) {
-      return String.format("Py5Color(red=%d, green=%d, blue=%d, alpha=%d)", r, g, b, a);
-    } else {
-      return String.format("Py5Color(red=%f, green=%f, blue=%f, alpha=%f)", r / 255 * colorModeX, g / 255 * colorModeY, b / 255 * colorModeZ,
-          a / 255 * colorModeA);
-    }
-  }
-
-  public static String intToHSB(int color, float colorModeX, float colorModeY, float colorModeZ, float colorModeA) {
-    int a = color >> 24 & 0xFF;
+    // HSB values
     float[] hsb = new float[3];
     Color.RGBtoHSB(color >> 16 & 0xFF, color >> 8 & 0xFF, color & 0xFF, hsb);
 
-    return String.format("Py5Color(hue=%f, saturation=%f, brightness=%f, alpha=%f)", hsb[0] * colorModeX, hsb[1] * colorModeY, hsb[2] * colorModeZ,
-        a / 255 * colorModeA);
+    if (colorMode == PConstants.RGB) {
+      if (colorModeX == 255 && colorModeY == 255 && colorModeZ == 255 && colorModeA == 255) {
+        return String.format("Py5Color(RGB, %d, %d, %d, alpha=%d, hue=%d°, saturation=%d%%, brightness=%d%%)",
+            r, g, b, a,
+            (int) (hsb[0] * 360),
+            (int) (hsb[1] * 100),
+            (int) (hsb[2] * 100));
+      } else {
+        return String.format(
+            "Py5Color(RGB, %.2f, %.2f, %.2f, alpha=%.2f, hue=%d\u00B0, saturation=%d%%, brightness=%d%%)",
+            r / 255 * colorModeX,
+            g / 255 * colorModeY,
+            b / 255 * colorModeZ,
+            a / 255 * colorModeA,
+            (int) (hsb[0] * 360),
+            (int) (hsb[1] * 100),
+            (int) (hsb[2] * 100));
+      }
+    } else if (colorMode == PConstants.HSB) {
+      return String.format("Py5Color(HSB, %.2f, %.2f, %.2f, alpha=%.2f, red=%d%%, green=%d%%, blue=%d%%)",
+          hsb[0] * colorModeX,
+          hsb[1] * colorModeY,
+          hsb[2] * colorModeZ,
+          a / 255 * colorModeA,
+          (int) (r / 255.0 * 100),
+          (int) (g / 255.0 * 100),
+          (int) (b / 255.0 * 100));
+    } else {
+      throw new RuntimeException("Unrecognized colorMode value " + colorMode);
+    }
   }
 
   public static String toHex(int color) {
