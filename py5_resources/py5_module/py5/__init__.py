@@ -81,6 +81,7 @@ from . import object_conversion  # noqa
 from . import reference
 from . import spelling as _spelling
 from .bridge import register_exception_msg  # noqa
+from .color import Py5Color  # noqa
 from .create_font_tool import create_font_file  # noqa
 from .image_conversion import NumpyImageArray  # noqa
 from .image_conversion import register_image_conversion
