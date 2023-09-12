@@ -54,14 +54,14 @@ public class Py5ColorHelper {
 
     if (colorMode == PConstants.RGB) {
       if (colorModeX == 255 && colorModeY == 255 && colorModeZ == 255 && colorModeA == 255) {
-        return String.format("Py5Color(RGB, %d, %d, %d, alpha=%d, hue=%d°, saturation=%d%%, brightness=%d%%)",
+        return String.format("Py5Color(red=%d, green=%d, blue=%d, alpha=%d, hue=%d°, saturation=%d%%, brightness=%d%%)",
             r, g, b, a,
             (int) (hsb[0] * 360),
             (int) (hsb[1] * 100),
             (int) (hsb[2] * 100));
       } else {
         return String.format(
-            "Py5Color(RGB, %.2f, %.2f, %.2f, alpha=%.2f, hue=%d°, saturation=%d%%, brightness=%d%%)",
+            "Py5Color(red=%.2f, green=%.2f, blue=%.2f, alpha=%.2f, hue=%d°, saturation=%d%%, brightness=%d%%)",
             r / 255 * colorModeX,
             g / 255 * colorModeY,
             b / 255 * colorModeZ,
@@ -72,7 +72,7 @@ public class Py5ColorHelper {
       }
     } else if (colorMode == PConstants.HSB) {
       if (colorModeX == 360 && colorModeY == 100 && colorModeZ == 100 && colorModeA == 100) {
-        return String.format("Py5Color(HSB, %d°, %d%%, %d%%, alpha=%d%%, red=%d%%, green=%d%%, blue=%d%%)",
+        return String.format("Py5Color(hue=%d°, saturation=%d%%, brightness=%d%%, alpha=%d%%, red=%d%%, green=%d%%, blue=%d%%)",
             (int) Math.round(hsb[0] * 360),
             (int) Math.round(hsb[1] * 100),
             (int) Math.round(hsb[2] * 100),
@@ -81,7 +81,7 @@ public class Py5ColorHelper {
             (int) Math.round(g / 255.0 * 100),
             (int) Math.round(b / 255.0 * 100));
       } else {
-        return String.format("Py5Color(HSB, %.2f, %.2f, %.2f, alpha=%.2f, red=%d%%, green=%d%%, blue=%d%%)",
+        return String.format("Py5Color(hue=%.2f, saturation=%.2f, brightness=%.2f, alpha=%.2f, red=%d%%, green=%d%%, blue=%d%%)",
             hsb[0] * colorModeX,
             hsb[1] * colorModeY,
             hsb[2] * colorModeZ,
