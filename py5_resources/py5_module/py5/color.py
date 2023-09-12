@@ -23,9 +23,15 @@ _Py5ColorHelper = JClass("py5.core.Py5ColorHelper")
 
 
 class Py5Color(int):
-    def __new__(cls, val, *, creator):
+    def __new__(cls, val, *, _creator=None):
         color = super().__new__(cls, val)
-        color._creator = creator
+
+        if _creator is None:
+            raise ValueError(
+                "Py5Color must be created by calling py5.color(). Do not instantiate directly."
+            )
+
+        color._creator = _creator
         return color
 
     def __repr__(self):
