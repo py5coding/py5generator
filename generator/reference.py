@@ -70,6 +70,7 @@ EXTRA_DIR_NAMES = {
     "reset_py5",
     "JClass",
     "Sketch",
+    "Py5Color",
     "Py5Font",
     "Py5Graphics",
     "Py5Image",
