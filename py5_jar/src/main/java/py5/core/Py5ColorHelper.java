@@ -61,24 +61,35 @@ public class Py5ColorHelper {
             (int) (hsb[2] * 100));
       } else {
         return String.format(
-            "Py5Color(RGB, %.2f, %.2f, %.2f, alpha=%.2f, hue=%d\u00B0, saturation=%d%%, brightness=%d%%)",
+            "Py5Color(RGB, %.2f, %.2f, %.2f, alpha=%.2f, hue=%d°, saturation=%d%%, brightness=%d%%)",
             r / 255 * colorModeX,
             g / 255 * colorModeY,
             b / 255 * colorModeZ,
             a / 255 * colorModeA,
-            (int) (hsb[0] * 360),
-            (int) (hsb[1] * 100),
-            (int) (hsb[2] * 100));
+            (int) Math.round(hsb[0] * 360),
+            (int) Math.round(hsb[1] * 100),
+            (int) Math.round(hsb[2] * 100));
       }
     } else if (colorMode == PConstants.HSB) {
-      return String.format("Py5Color(HSB, %.2f, %.2f, %.2f, alpha=%.2f, red=%d%%, green=%d%%, blue=%d%%)",
-          hsb[0] * colorModeX,
-          hsb[1] * colorModeY,
-          hsb[2] * colorModeZ,
-          a / 255 * colorModeA,
-          (int) (r / 255.0 * 100),
-          (int) (g / 255.0 * 100),
-          (int) (b / 255.0 * 100));
+      if (colorModeX == 360 && colorModeY == 100 && colorModeZ == 100 && colorModeA == 100) {
+        return String.format("Py5Color(HSB, %d°, %d%%, %d%%, alpha=%d%%, red=%d%%, green=%d%%, blue=%d%%)",
+            (int) Math.round(hsb[0] * 360),
+            (int) Math.round(hsb[1] * 100),
+            (int) Math.round(hsb[2] * 100),
+            (int) Math.round(a / 255.0 * 100),
+            (int) Math.round(r / 255.0 * 100),
+            (int) Math.round(g / 255.0 * 100),
+            (int) Math.round(b / 255.0 * 100));
+      } else {
+        return String.format("Py5Color(HSB, %.2f, %.2f, %.2f, alpha=%.2f, red=%d%%, green=%d%%, blue=%d%%)",
+            hsb[0] * colorModeX,
+            hsb[1] * colorModeY,
+            hsb[2] * colorModeZ,
+            a / 255 * colorModeA,
+            (int) Math.round(r / 255.0 * 100),
+            (int) Math.round(g / 255.0 * 100),
+            (int) Math.round(b / 255.0 * 100));
+      }
     } else {
       throw new RuntimeException("Unrecognized colorMode value " + colorMode);
     }
