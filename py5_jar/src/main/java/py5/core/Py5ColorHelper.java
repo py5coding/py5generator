@@ -53,42 +53,43 @@ public class Py5ColorHelper {
     Color.RGBtoHSB(color >> 16 & 0xFF, color >> 8 & 0xFF, color & 0xFF, hsb);
 
     if (colorMode == PConstants.RGB) {
+      String hsbVals = String.format("hue=%d°, saturation=%d%%, brightness=%d%%",
+          Math.round(hsb[0] * 360),
+          Math.round(hsb[1] * 100),
+          Math.round(hsb[2] * 100));
+
       if (colorModeX == 255 && colorModeY == 255 && colorModeZ == 255 && colorModeA == 255) {
-        return String.format("Py5Color(red=%d, green=%d, blue=%d, alpha=%d, hue=%d°, saturation=%d%%, brightness=%d%%)",
-            r, g, b, a,
-            (int) (hsb[0] * 360),
-            (int) (hsb[1] * 100),
-            (int) (hsb[2] * 100));
+        return String.format("Py5Color(red=%d, green=%d, blue=%d, alpha=%d, %s)",
+            r, g, b, a, hsbVals);
       } else {
         return String.format(
-            "Py5Color(red=%.2f, green=%.2f, blue=%.2f, alpha=%.2f, hue=%d°, saturation=%d%%, brightness=%d%%)",
-            r / 255 * colorModeX,
-            g / 255 * colorModeY,
-            b / 255 * colorModeZ,
-            a / 255 * colorModeA,
-            (int) Math.round(hsb[0] * 360),
-            (int) Math.round(hsb[1] * 100),
-            (int) Math.round(hsb[2] * 100));
+            "Py5Color(red=%.2f, green=%.2f, blue=%.2f, alpha=%.2f, %s)",
+            r / 255.0 * colorModeX,
+            g / 255.0 * colorModeY,
+            b / 255.0 * colorModeZ,
+            a / 255.0 * colorModeA,
+            hsbVals);
       }
     } else if (colorMode == PConstants.HSB) {
+      String rgbVals = String.format("red=%d%%, green=%d%%, blue=%d%%",
+          Math.round(r / 255.0 * 100),
+          Math.round(g / 255.0 * 100),
+          Math.round(b / 255.0 * 100));
+
       if (colorModeX == 360 && colorModeY == 100 && colorModeZ == 100 && colorModeA == 100) {
-        return String.format("Py5Color(hue=%d°, saturation=%d%%, brightness=%d%%, alpha=%d%%, red=%d%%, green=%d%%, blue=%d%%)",
-            (int) Math.round(hsb[0] * 360),
-            (int) Math.round(hsb[1] * 100),
-            (int) Math.round(hsb[2] * 100),
-            (int) Math.round(a / 255.0 * 100),
-            (int) Math.round(r / 255.0 * 100),
-            (int) Math.round(g / 255.0 * 100),
-            (int) Math.round(b / 255.0 * 100));
+        return String.format("Py5Color(hue=%d°, saturation=%d%%, brightness=%d%%, alpha=%d%%, %s)",
+            Math.round(hsb[0] * 360),
+            Math.round(hsb[1] * 100),
+            Math.round(hsb[2] * 100),
+            Math.round(a / 255.0 * 100),
+            rgbVals);
       } else {
-        return String.format("Py5Color(hue=%.2f, saturation=%.2f, brightness=%.2f, alpha=%.2f, red=%d%%, green=%d%%, blue=%d%%)",
+        return String.format("Py5Color(hue=%.2f, saturation=%.2f, brightness=%.2f, alpha=%.2f, %s)",
             hsb[0] * colorModeX,
             hsb[1] * colorModeY,
             hsb[2] * colorModeZ,
             a / 255 * colorModeA,
-            (int) Math.round(r / 255.0 * 100),
-            (int) Math.round(g / 255.0 * 100),
-            (int) Math.round(b / 255.0 * 100));
+            rgbVals);
       }
     } else {
       throw new RuntimeException("Unrecognized colorMode value " + colorMode);
