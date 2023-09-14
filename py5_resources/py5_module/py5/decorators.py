@@ -23,6 +23,11 @@ import re
 import numpy as np
 from jpype.types import JInt, JString
 
+try:
+    import colour
+except ImportError:
+    colour = None
+
 from .color import Py5Color
 
 HEX_3DIGIT_COLOR_REGEX = re.compile(r"#[0-9A-F]{3}" + chr(36))
@@ -76,6 +81,8 @@ def _hex_converter(arg):
                 return None
     elif isinstance(arg, (int, np.integer)) and 0x7FFFFFFF < arg <= 0xFFFFFFFF:
         return JInt(arg)
+    elif colour is not None and isinstance(arg, colour.Color):
+        return JInt(int("0xFF" + arg.hex_l[1:], base=16))
 
     return None
 
