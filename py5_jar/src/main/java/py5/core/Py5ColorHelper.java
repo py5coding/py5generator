@@ -40,57 +40,53 @@ public class Py5ColorHelper {
     return makeStr(s.colorMode, color, s.colorModeX, s.colorModeY, s.colorModeZ, s.colorModeA);
   }
 
-  protected static String makeStr(int colorMode, int color, float colorModeX, float colorModeY, float colorModeZ,
-      float colorModeA) {
-    // RGB values
-    int a = color >> 24 & 0xFF;
+  protected static String formatRGB(int color, int colorModeX, int colorModeY, int colorModeZ) {
     int r = color >> 16 & 0xFF;
     int g = color >> 8 & 0xFF;
     int b = color & 0xFF;
 
-    // HSB values
+    if (colorModeX == 255 && colorModeY == 255 && colorModeZ == 255) {
+      return String.format("red=%d/%d, green=%d/%d, blue=%d/%d", r, colorModeX, g,
+          colorModeY, b, colorModeZ);
+    } else {
+      return String.format("red=%.2f/%d, green=%.2f/%d, blue=%.2f/%d",
+          r / 255f * colorModeX, colorModeX,
+          g / 255f * colorModeY, colorModeY,
+          b / 255f * colorModeZ, colorModeZ);
+    }
+  }
+
+  protected static String formatHSB(int color, int colorModeX, int colorModeY, int colorModeZ) {
     float[] hsb = new float[3];
     Color.RGBtoHSB(color >> 16 & 0xFF, color >> 8 & 0xFF, color & 0xFF, hsb);
 
+    return String.format("hue=%.2f/%d, saturation=%.2f/%d, brightness=%.2f/%d",
+        hsb[0] * colorModeX, colorModeX,
+        hsb[1] * colorModeY, colorModeY,
+        hsb[2] * colorModeZ, colorModeZ);
+  }
+
+  protected static String makeStr(int colorMode, int color, float colorModeX, float colorModeY, float colorModeZ,
+      float colorModeA) {
+    // RGB values
+    int a = color >> 24 & 0xFF;
+    String alphaString;
+    if (colorModeA == 255) {
+      alphaString = String.format("alpha=%d/255", a);
+    } else {
+      alphaString = String.format("alpha=%.2f/%d", a / 255f * colorModeA, Math.round(colorModeA));
+    }
+
     if (colorMode == PConstants.RGB) {
-      String hsbVals = String.format("hue=%d°, saturation=%d%%, brightness=%d%%",
-          Math.round(hsb[0] * 360),
-          Math.round(hsb[1] * 100),
-          Math.round(hsb[2] * 100));
+      String rgbString = formatRGB(color, Math.round(colorModeX), Math.round(colorModeY), Math.round(colorModeZ));
+      String hsbString = formatHSB(color, 360, 100, 100);
 
-      if (colorModeX == 255 && colorModeY == 255 && colorModeZ == 255 && colorModeA == 255) {
-        return String.format("Py5Color(red=%d, green=%d, blue=%d, alpha=%d, %s)",
-            r, g, b, a, hsbVals);
-      } else {
-        return String.format(
-            "Py5Color(red=%.2f, green=%.2f, blue=%.2f, alpha=%.2f, %s)",
-            r / 255.0 * colorModeX,
-            g / 255.0 * colorModeY,
-            b / 255.0 * colorModeZ,
-            a / 255.0 * colorModeA,
-            hsbVals);
-      }
+      return String.format("Py5Color(RGB, %s, %s, %s)", rgbString, alphaString, hsbString);
     } else if (colorMode == PConstants.HSB) {
-      String rgbVals = String.format("red=%d%%, green=%d%%, blue=%d%%",
-          Math.round(r / 255.0 * 100),
-          Math.round(g / 255.0 * 100),
-          Math.round(b / 255.0 * 100));
+      String rgbString = formatRGB(color, 255, 255, 255);
+      String hsbString = formatHSB(color, Math.round(colorModeX), Math.round(colorModeY), Math.round(colorModeZ));
 
-      if (colorModeX == 360 && colorModeY == 100 && colorModeZ == 100 && colorModeA == 100) {
-        return String.format("Py5Color(hue=%d°, saturation=%d%%, brightness=%d%%, alpha=%d%%, %s)",
-            Math.round(hsb[0] * 360),
-            Math.round(hsb[1] * 100),
-            Math.round(hsb[2] * 100),
-            Math.round(a / 255.0 * 100),
-            rgbVals);
-      } else {
-        return String.format("Py5Color(hue=%.2f, saturation=%.2f, brightness=%.2f, alpha=%.2f, %s)",
-            hsb[0] * colorModeX,
-            hsb[1] * colorModeY,
-            hsb[2] * colorModeZ,
-            a / 255 * colorModeA,
-            rgbVals);
-      }
+      return String.format("Py5Color(HSB, %s, %s, %s)", hsbString, alphaString, rgbString);
     } else {
       throw new RuntimeException("Unrecognized colorMode value " + colorMode);
     }
