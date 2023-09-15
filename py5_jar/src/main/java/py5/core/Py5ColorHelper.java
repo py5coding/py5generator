@@ -40,6 +40,15 @@ public class Py5ColorHelper {
     return makeStr(s.colorMode, color, s.colorModeX, s.colorModeY, s.colorModeZ, s.colorModeA);
   }
 
+  protected static String formatValueRange(float value, int range) {
+    int roundValue = Math.round(value);
+    if (Math.abs(value - roundValue) < 0.005) {
+      return String.format("%d/%d", roundValue, range);
+    } else {
+      return String.format("%.2f/%d", Math.round(value * 100) / 100f, range);
+    }
+  }
+
   protected static String formatRGB(int color, int colorModeX, int colorModeY, int colorModeZ) {
     int r = color >> 16 & 0xFF;
     int g = color >> 8 & 0xFF;
@@ -49,10 +58,10 @@ public class Py5ColorHelper {
       return String.format("red=%d/%d, green=%d/%d, blue=%d/%d", r, colorModeX, g,
           colorModeY, b, colorModeZ);
     } else {
-      return String.format("red=%.2f/%d, green=%.2f/%d, blue=%.2f/%d",
-          r / 255f * colorModeX, colorModeX,
-          g / 255f * colorModeY, colorModeY,
-          b / 255f * colorModeZ, colorModeZ);
+      return String.format("red=%s, green=%s, blue=%s",
+          formatValueRange(r / 255f * colorModeX, colorModeX),
+          formatValueRange(g / 255f * colorModeY, colorModeY),
+          formatValueRange(b / 255f * colorModeZ, colorModeZ));
     }
   }
 
@@ -60,22 +69,15 @@ public class Py5ColorHelper {
     float[] hsb = new float[3];
     Color.RGBtoHSB(color >> 16 & 0xFF, color >> 8 & 0xFF, color & 0xFF, hsb);
 
-    return String.format("hue=%.2f/%d, saturation=%.2f/%d, brightness=%.2f/%d",
-        hsb[0] * colorModeX, colorModeX,
-        hsb[1] * colorModeY, colorModeY,
-        hsb[2] * colorModeZ, colorModeZ);
+    return String.format("hue=%s, saturation=%s, brightness=%s",
+        formatValueRange(hsb[0] * colorModeX, colorModeX),
+        formatValueRange(hsb[1] * colorModeY, colorModeY),
+        formatValueRange(hsb[2] * colorModeZ, colorModeZ));
   }
 
   protected static String makeStr(int colorMode, int color, float colorModeX, float colorModeY, float colorModeZ,
       float colorModeA) {
-    // RGB values
-    int a = color >> 24 & 0xFF;
-    String alphaString;
-    if (colorModeA == 255) {
-      alphaString = String.format("alpha=%d/255", a);
-    } else {
-      alphaString = String.format("alpha=%.2f/%d", a / 255f * colorModeA, Math.round(colorModeA));
-    }
+    String alphaString = String.format("alpha=%s", formatValueRange(color >> 24 & 0xFF, 255));
 
     if (colorMode == PConstants.RGB) {
       String rgbString = formatRGB(color, Math.round(colorModeX), Math.round(colorModeY), Math.round(colorModeZ));
