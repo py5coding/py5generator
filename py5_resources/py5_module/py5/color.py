@@ -39,8 +39,3 @@ class Py5Color(int):
 
     def __str__(self):
         return self.__repr__()
-
-    def _to_hex(self):
-        return "#%06X%02X" % (self & 0xFFFFFF, (self >> 24) & 0xFF)
-
-    hex = property(fget=_to_hex)
