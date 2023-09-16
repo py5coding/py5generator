@@ -115,9 +115,6 @@ def _convert_hex_color2(f):
     return decorated
 
 
-# TODO: rename functions that have hex in them to something more accurate
-
-
 def _create_color(indices=[0]):
     def _hex_color(f):
         @functools.wraps(f)
