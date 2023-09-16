@@ -32,7 +32,7 @@ from jpype import JClass
 from . import spelling
 from .base import Py5Base
 from .decorators import _convert_hex_color  # noqa
-from .decorators import _context_wrapper, _create_color, _text_fix_str  # noqa
+from .decorators import _context_wrapper, _create_color, _return_color, _text_fix_str
 from .font import Py5Font  # noqa
 from .image import Py5Image, _return_py5image  # noqa
 from .mixins import PixelPy5GraphicsMixin

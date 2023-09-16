@@ -439,7 +439,7 @@ unhex,unhex,,static method,data,conversion,SKIP,user should use python instead
 binary,binary,,method,data,conversion,SKIP,user should use python instead
 unbinary,unbinary,,static method,data,conversion,SKIP,user should use python instead
 color,color,@_create_color(),method,color,creating_reading,JAVA,
-lerp_color,lerpColor,"@_create_color();@_convert_hex_color(indices=[0, 1])",method,color,creating_reading,JAVA,
+lerp_color,lerpColor,"@_return_color;@_convert_hex_color(indices=[0, 1])",method,color,creating_reading,JAVA,
 blend_color,blendColor,,static method,color,creating_reading,SKIP,methods that are not part of the processing framework
 frame_moved,frameMoved,,method,,,SKIP,methods that are not part of the processing framework
 frame_resized,frameResized,,method,,,SKIP,methods that are not part of the processing framework

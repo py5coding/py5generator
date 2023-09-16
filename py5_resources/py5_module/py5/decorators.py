@@ -115,7 +115,6 @@ def _convert_hex_color2(f):
     return decorated
 
 
-# TODO: doublecheck the lerp decorators
 # TODO: rename functions that have hex in them to something more accurate
 
 

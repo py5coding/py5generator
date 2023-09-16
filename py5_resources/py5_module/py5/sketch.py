@@ -46,7 +46,7 @@ from .base import Py5Base
 from .bridge import Py5Bridge, _extract_py5_user_function_data
 from .color import Py5Color  # noqa
 from .decorators import _convert_hex_color  # noqa
-from .decorators import _context_wrapper, _create_color, _text_fix_str
+from .decorators import _context_wrapper, _create_color, _return_color, _text_fix_str
 from .font import Py5Font, _load_py5font, _return_list_str, _return_py5font  # noqa
 from .graphics import Py5Graphics, _return_py5graphics  # noqa
 from .image import Py5Image, _return_py5image  # noqa
