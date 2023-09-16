@@ -115,6 +115,10 @@ def _convert_hex_color2(f):
     return decorated
 
 
+# TODO: doublecheck the lerp decorators
+# TODO: rename functions that have hex in them to something more accurate
+
+
 def _create_color(indices=[0]):
     def _hex_color(f):
         @functools.wraps(f)
@@ -131,6 +135,14 @@ def _create_color(indices=[0]):
         return decorated
 
     return _hex_color
+
+
+def _return_color(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        return Py5Color(f(self_, *args), _creator_instance=self_)
+
+    return decorated
 
 
 class _Py5ContextManager:

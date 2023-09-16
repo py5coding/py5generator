@@ -32,12 +32,8 @@ from jpype import JClass, JException
 from jpype.types import JBoolean, JFloat, JInt
 
 from . import spelling
-from .decorators import (
-    _context_wrapper,
-    _convert_hex_color,  # noqa
-    _convert_hex_color2,
-    _ret_str,
-)
+from .decorators import _convert_hex_color  # noqa
+from .decorators import _context_wrapper, _convert_hex_color2, _ret_str, _return_color
 from .pmath import _get_pvector_wrapper  # noqa
 
 py5shape_class_members_code = None  # DELETE
