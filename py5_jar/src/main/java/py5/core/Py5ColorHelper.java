@@ -28,8 +28,8 @@ import processing.core.PShape;
 
 public class Py5ColorHelper {
 
-  public static String repr(Sketch g, int color) {
-    return repr(g.getGraphics(), color);
+  public static String repr(Sketch sketch, int color) {
+    return repr(sketch.getGraphics(), color);
   }
 
   public static String repr(PGraphics g, int color) {
@@ -55,8 +55,7 @@ public class Py5ColorHelper {
     int b = color & 0xFF;
 
     if (colorModeX == 255 && colorModeY == 255 && colorModeZ == 255) {
-      return String.format("red=%d/%d, green=%d/%d, blue=%d/%d", r, colorModeX, g,
-          colorModeY, b, colorModeZ);
+      return String.format("red=%d/255, green=%d/255, blue=%d/255", r, g, b);
     } else {
       return String.format("red=%s, green=%s, blue=%s",
           formatValueRange(r / 255f * colorModeX, colorModeX),
