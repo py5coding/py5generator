@@ -87,6 +87,10 @@ def _hex_converter(arg):
     return None
 
 
+# both of the following two decorators should be named something else but they
+# are all over the place and it would be a pain to change them now.
+
+
 def _convert_hex_color(indices=[0]):
     def _hex_color(f):
         @functools.wraps(f)
@@ -122,7 +126,14 @@ def _create_color(indices=[0]):
             args = list(args)
             for i, arg in [(i, args[i]) for i in indices if i < len(args)]:
                 if (new_arg := _hex_converter(arg)) is not None:
+                    # this decorator is only used for Sketch.color and
+                    # Py5Graphics.color.
                     if len(args) == 1:
+                        # therefore, if we get here, we have already created
+                        # the color int value correctly and can just return
+                        # that without a call to the Processing Java method.
+                        # this also ensures the correct value is returned if
+                        # this is called before the Sketch is started.
                         return Py5Color(new_arg, _creator_instance=self_)
                     else:
                         args[i] = new_arg
