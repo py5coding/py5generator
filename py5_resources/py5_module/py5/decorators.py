@@ -112,7 +112,11 @@ def _convert_hex_color(indices=[0]):
         def decorated(self_, *args):
             args = list(args)
             for i, arg in [(i, args[i]) for i in indices if i < len(args)]:
-                if CMAP and not isinstance(args[i], Py5Color):
+                if (
+                    CMAP
+                    and isinstance(args[i], (int, np.integer, float, np.floating))
+                    and not isinstance(args[i], Py5Color)
+                ):
                     args[i] = _matplotlib_cmap_converter(CMAP, CMAP_RANGE, args[i])
                 elif (new_arg := _hex_converter(arg)) is not None:
                     args[i] = new_arg
@@ -127,7 +131,11 @@ def _convert_hex_color2(f):
     @functools.wraps(f)
     def decorated(self_, *args):
         args = list(args)
-        if CMAP and not isinstance(args[0], Py5Color):
+        if (
+            CMAP
+            and isinstance(args[0], (int, np.integer, float, np.floating))
+            and not isinstance(args[0], Py5Color)
+        ):
             args[0] = _matplotlib_cmap_converter(CMAP, CMAP_RANGE, args[0])
         elif len(args) == 1 and (new_arg := _hex_converter(args[0])):
             args[0] = new_arg
@@ -156,7 +164,8 @@ def _create_color(indices=[0]):
                     else:
                         # TODO: if there are two args the second is the alpha
                         # value. If the Sketch has not been started, this will
-                        # mess up the color
+                        # mess up the color. Moving this decorator to a regular
+                        # Sketch method will let me check if it is running first
                         args[i] = new_arg
                 elif (new_arg := _hex_converter(arg)) is not None:
                     # this decorator is only used for Sketch.color and
