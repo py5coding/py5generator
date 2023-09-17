@@ -28,6 +28,13 @@ try:
 except ImportError:
     colour = None
 
+try:
+    import matplotlib as mpl
+    import matplotlib.colors as mcolors
+except ImportError:
+    mpl = None
+    mcolors = None
+
 from .color import Py5Color
 
 HEX_3DIGIT_COLOR_REGEX = re.compile(r"#[0-9A-F]{3}" + chr(36))
@@ -74,9 +81,8 @@ def _hex_converter(arg):
                 return JInt(int("0x" + arg[7:] + arg[1:7], base=16))
         else:
             try:
-                import matplotlib.colors as mcolors
-
-                return JInt(int("0xFF" + mcolors.to_hex(arg)[1:], base=16))
+                if mcolors is not None:
+                    return JInt(int("0xFF" + mcolors.to_hex(arg)[1:], base=16))
             except:
                 return None
     elif isinstance(arg, (int, np.integer)) and 0x7FFFFFFF < arg <= 0xFFFFFFFF:
@@ -85,6 +91,15 @@ def _hex_converter(arg):
         return JInt(int("0xFF" + arg.hex_l[1:], base=16))
 
     return None
+
+
+# CMAP = None
+CMAP = mpl.colormaps["Set1"]
+CMAP_RANGE = 500
+
+
+def _matplotlib_cmap_converter(cmap, cmap_range, arg):
+    return JInt(int("0xFF" + mcolors.to_hex(cmap(arg / cmap_range))[1:], base=16))
 
 
 # both of the following two decorators should be named something else but they
@@ -97,7 +112,9 @@ def _convert_hex_color(indices=[0]):
         def decorated(self_, *args):
             args = list(args)
             for i, arg in [(i, args[i]) for i in indices if i < len(args)]:
-                if (new_arg := _hex_converter(arg)) is not None:
+                if CMAP and len(args) == 1:
+                    args[i] = _matplotlib_cmap_converter(CMAP, CMAP_RANGE, arg)
+                elif (new_arg := _hex_converter(arg)) is not None:
                     args[i] = new_arg
             return f(self_, *args)
 
@@ -110,7 +127,9 @@ def _convert_hex_color2(f):
     @functools.wraps(f)
     def decorated(self_, *args):
         args = list(args)
-        if len(args) == 1 and (new_arg := _hex_converter(args[0])):
+        if CMAP and len(args) == 1:
+            args[0] = _matplotlib_cmap_converter(CMAP, CMAP_RANGE, args[0])
+        elif len(args) == 1 and (new_arg := _hex_converter(args[0])):
             args[0] = new_arg
         elif len(args) == 2 and (new_arg := _hex_converter(args[1])):
             args[1] = new_arg
@@ -125,7 +144,12 @@ def _create_color(indices=[0]):
         def decorated(self_, *args):
             args = list(args)
             for i, arg in [(i, args[i]) for i in indices if i < len(args)]:
-                if (new_arg := _hex_converter(arg)) is not None:
+                if CMAP and len(args) == 1:
+                    return Py5Color(
+                        _matplotlib_cmap_converter(CMAP, CMAP_RANGE, arg),
+                        _creator_instance=self_,
+                    )
+                elif (new_arg := _hex_converter(arg)) is not None:
                     # this decorator is only used for Sketch.color and
                     # Py5Graphics.color.
                     if len(args) == 1:
