@@ -38,4 +38,4 @@ class Py5Color(int):
         return str(_Py5ColorHelper.repr(self._creator_instance._instance, JInt(self)))
 
     def __str__(self):
-        return self.__repr__()
+        return str(_Py5ColorHelper.repr(self._creator_instance._instance, JInt(self)))
