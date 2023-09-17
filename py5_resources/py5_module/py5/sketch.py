@@ -46,7 +46,13 @@ from .base import Py5Base
 from .bridge import Py5Bridge, _extract_py5_user_function_data
 from .color import Py5Color  # noqa
 from .decorators import _convert_hex_color  # noqa
-from .decorators import _context_wrapper, _create_color, _return_color, _text_fix_str
+from .decorators import (
+    _context_wrapper,
+    _create_color,
+    _hex_converter,
+    _return_color,
+    _text_fix_str,
+)
 from .font import Py5Font, _load_py5font, _return_list_str, _return_py5font  # noqa
 from .graphics import Py5Graphics, _return_py5graphics  # noqa
 from .image import Py5Image, _return_py5image  # noqa
@@ -60,6 +66,13 @@ from .shader import Py5Shader, _load_py5shader, _return_py5shader  # noqa
 from .shape import Py5Shape, _load_py5shape, _return_py5shape  # noqa
 from .surface import Py5Surface, _return_py5surface  # noqa
 from .utilities import Py5Utilities
+
+try:
+    import matplotlib as mpl
+    import matplotlib.colors as mcolors
+except:
+    mpl = None
+    mcolors = None
 
 sketch_class_members_code = None  # DELETE
 
@@ -210,6 +223,10 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             )
         Sketch._cls.setJOGLProperties(str(Path(__file__).parent))
         self.utils = Py5Utilities(self)
+
+        self._cmap = None
+        self._cmap_range = 0
+        self._cmap_alpha_range = 0
 
     def __str__(self):
         return (
@@ -445,6 +462,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     TAU = 2 * np.pi  # CODEBUILDER INCLUDE
     RAD_TO_DEG = 180 / np.pi  # CODEBUILDER INCLUDE
     DEG_TO_RAD = np.pi / 180  # CODEBUILDER INCLUDE
+    CMAP = 999999  # CODEBUILDER INCLUDE
 
     @overload
     def sketch_path(self) -> Path:
@@ -758,6 +776,97 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     def request_image(self, image_path: Union[str, Path]) -> Py5Promise:
         """$class_Sketch_request_image"""
         return self.launch_promise_thread(self.load_image, args=(image_path,))
+
+    def color_mode(self, mode: int, *args) -> None:
+        """$class_Sketch_color_mode"""
+
+        # TODO: validate inputs
+
+        if mode == self.CMAP:
+            if mpl is None:
+                raise RuntimeError(
+                    "matplotlib must be installed to use CMAP color mode"
+                )
+            args = list(args)
+            if isinstance(args[0], str):
+                args[0] = mpl.colormaps[args[0]]
+            elif not isinstance(args[0], mpl.colors.Colormap):
+                raise RuntimeError("invalid colormap")
+
+            if len(args) == 1:
+                self._cmap = args[0]
+                self._cmap_range = 1.0
+                self._cmap_alpha_range = 255
+            elif len(args) == 2:
+                self._cmap = args[0]
+                self._cmap_range = args[1]
+                self._cmap_alpha_range = 255
+            elif len(args) == 3:
+                self._cmap = args[0]
+                self._cmap_range = args[1]
+                self._cmap_alpha_range = args[2]
+            else:
+                raise RuntimeError(
+                    "color_mode(CMAP, cmap) or color_mode(CMAP, cmap, range) or color_mode(CMAP, cmap, range, alpha_range)"
+                )
+            self._instance.colorMode(self.RGB, 255, 255, 255, self._cmap_alpha_range)
+        else:
+            self._cmap = None
+            self._cmap_range = 0
+            self._cmap_alpha_range = 0
+            self._instance.colorMode(mode, *args)
+
+    @_create_color()
+    def color(self, *args) -> int:
+        """$class_Sketch_color"""
+        args = list(args)
+
+        if not isinstance(args[0], Py5Color):
+            if self._cmap is not None and isinstance(
+                args[0], (int, np.integer, float, np.floating)
+            ):
+                new_arg = JInt(
+                    int(
+                        "0xFF"
+                        + mcolors.to_hex(self._cmap(args[0] / self._cmap_range))[1:],
+                        base=16,
+                    )
+                )
+                args[0] = Py5Color(new_arg, _creator_instance=self)
+
+            elif (new_arg := _hex_converter(args[0])) is not None:
+                args[0] = Py5Color(new_arg, _creator_instance=self)
+
+            if len(args) == 1 and isinstance(args[0], Py5Color):
+                return args[0]
+
+        # TODO: validate inputs
+
+        if not self.is_running:
+            # TODO: can I make a call to Java to take care of this?
+            if len(args) == 1:
+                # grayscale value
+                return Py5Color(0, _creator_instance=self)
+            if len(args) == 2:
+                # grayscale value and alpha
+                return Py5Color(0, _creator_instance=self)
+            if len(args) == 3:
+                # rgb
+                return Py5Color(0, _creator_instance=self)
+            if len(args) == 4:
+                # rgb and alpha
+                return Py5Color(0, _creator_instance=self)
+
+            # elif len(args) == 2 and not self.is_running:
+            #     alpha = int(
+            #         round(255 * np.clip(args[1] / self._cmap_alpha_range, 0, 1))
+            #     )
+            #     return Py5Color(
+            #         (new_arg & 0x00FFFFFF) | ((alpha & 0xFF) << 24),
+            #         _creator_instance=self,
+            #     )
+
+        return Py5Color(self._instance.color(*args), _creator_instance=self)
 
 
 {sketch_class_members_code}

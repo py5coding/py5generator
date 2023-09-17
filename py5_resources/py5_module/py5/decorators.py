@@ -93,11 +93,6 @@ def _hex_converter(arg):
     return None
 
 
-CMAP = mpl.colormaps["plasma"]
-CMAP_RANGE = 500.0
-# CMAP = None
-
-
 def _matplotlib_cmap_converter(cmap, cmap_range, arg):
     return JInt(int("0xFF" + mcolors.to_hex(cmap(arg / cmap_range))[1:], base=16))
 
@@ -113,11 +108,14 @@ def _convert_hex_color(indices=[0]):
             args = list(args)
             for i, arg in [(i, args[i]) for i in indices if i < len(args)]:
                 if (
-                    CMAP
+                    hasattr(self_, "_cmap")
+                    and self_._cmap is not None
                     and isinstance(args[i], (int, np.integer, float, np.floating))
                     and not isinstance(args[i], Py5Color)
                 ):
-                    args[i] = _matplotlib_cmap_converter(CMAP, CMAP_RANGE, args[i])
+                    args[i] = _matplotlib_cmap_converter(
+                        self_._cmap, self_._cmap_range, args[i]
+                    )
                 elif (new_arg := _hex_converter(arg)) is not None:
                     args[i] = new_arg
             return f(self_, *args)
@@ -132,11 +130,14 @@ def _convert_hex_color2(f):
     def decorated(self_, *args):
         args = list(args)
         if (
-            CMAP
+            hasattr(self_, "_cmap")
+            and self_._cmap is not None
             and isinstance(args[0], (int, np.integer, float, np.floating))
             and not isinstance(args[0], Py5Color)
         ):
-            args[0] = _matplotlib_cmap_converter(CMAP, CMAP_RANGE, args[0])
+            args[0] = _matplotlib_cmap_converter(
+                self_._cmap, self_._cmap_range, args[0]
+            )
         elif len(args) == 1 and (new_arg := _hex_converter(args[0])):
             args[0] = new_arg
         elif len(args) == 2 and (new_arg := _hex_converter(args[1])):
@@ -148,40 +149,51 @@ def _convert_hex_color2(f):
 
 # TODO: this is a mess. since this is only used in two places, move this to
 # Sketch and Py5Graphics and get rid of this decorator.
-def _create_color(indices=[0]):
+def _create_color():
     def _hex_color(f):
         @functools.wraps(f)
         def decorated(self_, *args):
             args = list(args)
-            for i, arg in [(i, args[i]) for i in indices if i < len(args)]:
-                if isinstance(arg, Py5Color):
-                    continue
-
-                if CMAP and isinstance(arg, (int, np.integer, float, np.floating)):
-                    new_arg = _matplotlib_cmap_converter(CMAP, CMAP_RANGE, arg)
-                    if len(args) == 1:
-                        return Py5Color(new_arg, _creator_instance=self_)
-                    else:
-                        # TODO: if there are two args the second is the alpha
-                        # value. If the Sketch has not been started, this will
-                        # mess up the color. Moving this decorator to a regular
-                        # Sketch method will let me check if it is running first
-                        args[i] = new_arg
-                elif (new_arg := _hex_converter(arg)) is not None:
-                    # this decorator is only used for Sketch.color and
-                    # Py5Graphics.color.
-                    if len(args) == 1:
-                        # therefore, if we get here, we have already created
-                        # the color int value correctly and can just return
-                        # that without a call to the Processing Java method.
-                        # this also ensures the correct value is returned if
-                        # this is called before the Sketch is started.
-                        return Py5Color(new_arg, _creator_instance=self_)
-                    else:
-                        # TODO: if there are two args the second is the alpha
-                        # value. If the Sketch has not been started, this will
-                        # mess up the color
-                        args[i] = new_arg
+            if (
+                hasattr(self_, "_cmap")
+                and self_._cmap is not None
+                and not isinstance(args[0], Py5Color)
+                and isinstance(args[0], (int, np.integer, float, np.floating))
+            ):
+                new_arg = _matplotlib_cmap_converter(
+                    self_._cmap, self_._cmap_range, args[0]
+                )
+                if len(args) == 1:
+                    return Py5Color(new_arg, _creator_instance=self_)
+                elif (
+                    len(args) == 2
+                    and hasattr(self_, "is_running")
+                    and not self_.is_running
+                ):
+                    alpha = int(
+                        round(255 * np.clip(args[1] / self_._cmap_alpha_range, 0, 1))
+                    )
+                    return Py5Color(
+                        (new_arg & 0x00FFFFFF) | ((alpha & 0xFF) << 24),
+                        _creator_instance=self_,
+                    )
+                else:
+                    args[0] = new_arg
+            elif (
+                not isinstance(args[0], Py5Color)
+                and (new_arg := _hex_converter(args[0])) is not None
+            ):
+                # this decorator is only used for Sketch.color and
+                # Py5Graphics.color.
+                if len(args) == 1:
+                    # therefore, if we get here, we have already created
+                    # the color int value correctly and can just return
+                    # that without a call to the Processing Java method.
+                    # this also ensures the correct value is returned if
+                    # this is called before the Sketch is started.
+                    return Py5Color(new_arg, _creator_instance=self_)
+                else:
+                    args[0] = new_arg
             return Py5Color(f(self_, *args), _creator_instance=self_)
 
         return decorated

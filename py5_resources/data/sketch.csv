@@ -438,7 +438,7 @@ hex,hex,,method,data,conversion,SKIP,user should use python instead
 unhex,unhex,,static method,data,conversion,SKIP,user should use python instead
 binary,binary,,method,data,conversion,SKIP,user should use python instead
 unbinary,unbinary,,static method,data,conversion,SKIP,user should use python instead
-color,color,@_create_color(),method,color,creating_reading,JAVA,
+color,color,,method,color,creating_reading,PYTHON,
 lerp_color,lerpColor,"@_return_color;@_convert_hex_color(indices=[0, 1])",method,color,creating_reading,JAVA,
 blend_color,blendColor,,static method,color,creating_reading,SKIP,methods that are not part of the processing framework
 frame_moved,frameMoved,,method,,,SKIP,methods that are not part of the processing framework
@@ -561,7 +561,7 @@ spot_light,spotLight,,method,lights_camera,lights,JAVA,
 light_falloff,lightFalloff,,method,lights_camera,lights,JAVA,
 light_specular,lightSpecular,,method,lights_camera,lights,JAVA,
 background,background,@_auto_convert_to_py5image(0);@_convert_hex_color(),method,color,setting,JAVA,
-color_mode,colorMode,,method,color,setting,JAVA,
+color_mode,colorMode,,method,color,setting,PYTHON,
 green,green,@_convert_hex_color(),method,color,creating_reading,JAVA,
 blue,blue,@_convert_hex_color(),method,color,creating_reading,JAVA,
 hue,hue,@_convert_hex_color(),method,color,creating_reading,JAVA,
