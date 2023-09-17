@@ -29,15 +29,27 @@ import processing.core.PShape;
 public class Py5ColorHelper {
 
   public static String repr(Sketch sketch, int color) {
-    return repr(sketch.getGraphics(), color);
+    if (sketch == null || sketch.getGraphics() == null) {
+      return makeStr(PConstants.RGB, color, 255, 255, 255, 255);
+    } else {
+      return repr(sketch.getGraphics(), color);
+    }
   }
 
   public static String repr(PGraphics g, int color) {
-    return makeStr(g.colorMode, color, g.colorModeX, g.colorModeY, g.colorModeZ, g.colorModeA);
+    if (g == null) {
+      return makeStr(PConstants.RGB, color, 255, 255, 255, 255);
+    } else {
+      return makeStr(g.colorMode, color, g.colorModeX, g.colorModeY, g.colorModeZ, g.colorModeA);
+    }
   }
 
   public static String repr(PShape s, int color) {
-    return makeStr(s.colorMode, color, s.colorModeX, s.colorModeY, s.colorModeZ, s.colorModeA);
+    if (s == null) {
+      return makeStr(PConstants.RGB, color, 255, 255, 255, 255);
+    } else {
+      return makeStr(s.colorMode, color, s.colorModeX, s.colorModeY, s.colorModeZ, s.colorModeA);
+    }
   }
 
   protected static String formatValueRange(float value, int range) {
