@@ -462,7 +462,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     TAU = 2 * np.pi  # CODEBUILDER INCLUDE
     RAD_TO_DEG = 180 / np.pi  # CODEBUILDER INCLUDE
     DEG_TO_RAD = np.pi / 180  # CODEBUILDER INCLUDE
-    CMAP = 999999  # CODEBUILDER INCLUDE
+    CMAP = 6  # CODEBUILDER INCLUDE
 
     @overload
     def sketch_path(self) -> Path:
