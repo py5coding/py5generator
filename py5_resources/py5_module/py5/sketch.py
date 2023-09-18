@@ -782,6 +782,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
         # TODO: validate inputs
 
+        # TODO: don't allow users to call this before the Sketch starts running
+
         if mode == self.CMAP:
             if mpl is None:
                 raise RuntimeError(
@@ -842,31 +844,14 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
         # TODO: validate inputs
 
-        if not self.is_running:
-            # TODO: can I make a call to Java to take care of this?
-            if len(args) == 1:
-                # grayscale value
-                return Py5Color(0, _creator_instance=self)
-            if len(args) == 2:
-                # grayscale value and alpha
-                return Py5Color(0, _creator_instance=self)
-            if len(args) == 3:
-                # rgb
-                return Py5Color(0, _creator_instance=self)
-            if len(args) == 4:
-                # rgb and alpha
-                return Py5Color(0, _creator_instance=self)
+        if self.is_running:
+            return Py5Color(self._instance.color(*args), _creator_instance=self)
+        else:
+            if not hasattr(self, "_dummy_pgraphics"):
+                self._dummy_pgraphics = JClass("processing.core.PGraphics")()
+                self._dummy_pgraphics.colorMode(self.RGB, 255, 255, 255, 255)
 
-            # elif len(args) == 2 and not self.is_running:
-            #     alpha = int(
-            #         round(255 * np.clip(args[1] / self._cmap_alpha_range, 0, 1))
-            #     )
-            #     return Py5Color(
-            #         (new_arg & 0x00FFFFFF) | ((alpha & 0xFF) << 24),
-            #         _creator_instance=self,
-            #     )
-
-        return Py5Color(self._instance.color(*args), _creator_instance=self)
+            return Py5Color(self._dummy_pgraphics.color(*args), _creator_instance=self)
 
 
 {sketch_class_members_code}
