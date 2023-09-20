@@ -73,6 +73,7 @@ try:
 except:
     mpl = None
     mcolors = None
+Colormap = "mpl.colors.Colormap"
 
 sketch_class_members_code = None  # DELETE
 
@@ -799,12 +800,50 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         """$class_Sketch_color_mode"""
         pass
 
+    @overload
+    def color_mode(self, mode: int, color_map: str, /) -> None:
+        """$class_Sketch_color_mode"""
+        pass
+
+    @overload
+    def color_mode(self, mode: int, color_map: Colormap, /) -> None:
+        """$class_Sketch_color_mode"""
+        pass
+
+    @overload
+    def color_mode(self, mode: int, color_map: str, max1: float, /) -> None:
+        """$class_Sketch_color_mode"""
+        pass
+
+    @overload
+    def color_mode(self, mode: int, color_map: Colormap, max1: float, /) -> None:
+        """$class_Sketch_color_mode"""
+        pass
+
+    @overload
+    def color_mode(
+        self, mode: int, color_map: str, max1: float, max_a: float, /
+    ) -> None:
+        """$class_Sketch_color_mode"""
+        pass
+
+    @overload
+    def color_mode(
+        self, mode: int, color_map: Colormap, max1: float, max_a: float, /
+    ) -> None:
+        """$class_Sketch_color_mode"""
+        pass
+
     def color_mode(self, mode: int, *args) -> None:
         """$class_Sketch_color_mode"""
 
-        # TODO: validate inputs
+        # TODO: validate inputs?
 
-        # TODO: don't allow users to call this before the Sketch starts running
+        # don't allow users to call this before the Sketch starts running
+        if not self.is_running:
+            raise RuntimeError(
+                "color_mode() cannot be called for a Sketch that is not running."
+            )
 
         if mode == self.CMAP:
             if mpl is None:
@@ -830,8 +869,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                 self._cmap_range = args[1]
                 self._cmap_alpha_range = args[2]
             else:
-                raise RuntimeError(
-                    "color_mode(CMAP, cmap) or color_mode(CMAP, cmap, range) or color_mode(CMAP, cmap, range, alpha_range)"
+                raise TypeError(
+                    "When using the CMAP color mode, the arguments must be one of color_mode(CMAP, cmap) or color_mode(CMAP, cmap, range) or color_mode(CMAP, cmap, range, alpha_range)"
                 )
             self._instance.colorMode(self.RGB, 255, 255, 255, self._cmap_alpha_range)
         else:
@@ -879,6 +918,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     def color(self, v1: int, v2: int, v3: int, alpha: int, /) -> int:
         """$class_Sketch_color"""
         pass
+
+    # TODO: add overload for color(CMAP, value) and color(CMAP, value, alpha) and hex stuff
 
     def color(self, *args) -> int:
         """$class_Sketch_color"""
