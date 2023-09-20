@@ -777,6 +777,28 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         """$class_Sketch_request_image"""
         return self.launch_promise_thread(self.load_image, args=(image_path,))
 
+    @overload
+    def color_mode(self, mode: int, /) -> None:
+        """$class_Sketch_color_mode"""
+        pass
+
+    @overload
+    def color_mode(self, mode: int, max1: float, max2: float, max3: float, /) -> None:
+        """$class_Sketch_color_mode"""
+        pass
+
+    @overload
+    def color_mode(
+        self, mode: int, max1: float, max2: float, max3: float, max_a: float, /
+    ) -> None:
+        """$class_Sketch_color_mode"""
+        pass
+
+    @overload
+    def color_mode(self, mode: int, max: float, /) -> None:
+        """$class_Sketch_color_mode"""
+        pass
+
     def color_mode(self, mode: int, *args) -> None:
         """$class_Sketch_color_mode"""
 
@@ -818,7 +840,46 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             self._cmap_alpha_range = 0
             self._instance.colorMode(mode, *args)
 
-    @_create_color()
+    @overload
+    def color(self, fgray: float, /) -> int:
+        """$class_Sketch_color"""
+        pass
+
+    @overload
+    def color(self, fgray: float, falpha: float, /) -> int:
+        """$class_Sketch_color"""
+        pass
+
+    @overload
+    def color(self, gray: int, /) -> int:
+        """$class_Sketch_color"""
+        pass
+
+    @overload
+    def color(self, gray: int, alpha: int, /) -> int:
+        """$class_Sketch_color"""
+        pass
+
+    @overload
+    def color(self, v1: float, v2: float, v3: float, /) -> int:
+        """$class_Sketch_color"""
+        pass
+
+    @overload
+    def color(self, v1: float, v2: float, v3: float, alpha: float, /) -> int:
+        """$class_Sketch_color"""
+        pass
+
+    @overload
+    def color(self, v1: int, v2: int, v3: int, /) -> int:
+        """$class_Sketch_color"""
+        pass
+
+    @overload
+    def color(self, v1: int, v2: int, v3: int, alpha: int, /) -> int:
+        """$class_Sketch_color"""
+        pass
+
     def color(self, *args) -> int:
         """$class_Sketch_color"""
         args = list(args)
