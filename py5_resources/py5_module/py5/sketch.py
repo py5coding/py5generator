@@ -48,7 +48,6 @@ from .color import Py5Color  # noqa
 from .decorators import (
     _context_wrapper,
     _convert_hex_color,
-    _create_color,
     _hex_converter,
     _return_color,
     _text_fix_str,

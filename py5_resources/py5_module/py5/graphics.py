@@ -32,10 +32,9 @@ from jpype import JClass
 from . import spelling
 from .base import Py5Base
 from .color import Py5Color  # noqa
-from .decorators import _convert_hex_color  # noqa
 from .decorators import (
     _context_wrapper,
-    _create_color,
+    _convert_hex_color,
     _hex_converter,
     _return_color,
     _text_fix_str,
