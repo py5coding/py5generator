@@ -7,6 +7,8 @@ pclass = PApplet
 processing_name = color
 
 @@ signatures
+color(cmap_input: float, /) -> int
+color(cmap_input: float, alpha: int, /) -> int
 color(fgray: float, /) -> int
 color(fgray: float, falpha: float, /) -> int
 color(gray: int, /) -> int
@@ -19,6 +21,7 @@ color(v1: int, v2: int, v3: int, alpha: int, /) -> int
 @@ variables
 alpha: float - alpha value relative to current color range
 alpha: int - alpha value relative to current color range
+cmap_input: float - input value when using colormap color mode
 falpha: float - alpha value relative to current color range
 fgray: float - number specifying value between white and black
 gray: int - number specifying value between white and black

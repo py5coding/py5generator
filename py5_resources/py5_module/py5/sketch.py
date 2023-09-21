@@ -919,7 +919,15 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         """$class_Sketch_color"""
         pass
 
-    # TODO: add overload for color(CMAP, value) and color(CMAP, value, alpha) and hex stuff
+    @overload
+    def color(self, cmap_input: float, /) -> int:
+        """$class_Sketch_color"""
+        pass
+
+    @overload
+    def color(self, cmap_input: float, alpha: int, /) -> int:
+        """$class_Sketch_color"""
+        pass
 
     def color(self, *args) -> int:
         """$class_Sketch_color"""
