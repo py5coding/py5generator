@@ -45,9 +45,9 @@ from . import image_conversion, reference, spelling
 from .base import Py5Base
 from .bridge import Py5Bridge, _extract_py5_user_function_data
 from .color import Py5Color  # noqa
-from .decorators import _convert_hex_color  # noqa
 from .decorators import (
     _context_wrapper,
+    _convert_hex_color,
     _create_color,
     _hex_converter,
     _return_color,
@@ -876,6 +876,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                 raise TypeError(
                     "When using the CMAP color mode, the arguments must be one of color_mode(CMAP, cmap), color_mode(CMAP, cmap, range), or color_mode(CMAP, cmap, range, alpha_range)"
                 )
+
             self._instance.colorMode(self.RGB, 255, 255, 255, self._cmap_alpha_range)
         else:
             self._cmap = None
