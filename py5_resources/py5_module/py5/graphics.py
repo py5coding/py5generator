@@ -31,8 +31,15 @@ from jpype import JClass
 
 from . import spelling
 from .base import Py5Base
+from .color import Py5Color  # noqa
 from .decorators import _convert_hex_color  # noqa
-from .decorators import _context_wrapper, _create_color, _return_color, _text_fix_str
+from .decorators import (
+    _context_wrapper,
+    _create_color,
+    _hex_converter,
+    _return_color,
+    _text_fix_str,
+)
 from .font import Py5Font  # noqa
 from .image import Py5Image, _return_py5image  # noqa
 from .mixins import PixelPy5GraphicsMixin
@@ -187,6 +194,64 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
     def create_shape(self, *args) -> Py5Shape:
         """$class_Py5Graphics_create_shape"""
         return _Py5GraphicsHelper.createShape(self._instance, *args)
+
+    @overload
+    def color(self, c: int, /) -> int:
+        """$class_Py5Graphics_color"""
+        pass
+
+    @overload
+    def color(self, c: int, alpha: float, /) -> int:
+        """$class_Py5Graphics_color"""
+        pass
+
+    @overload
+    def color(self, c: int, alpha: int, /) -> int:
+        """$class_Py5Graphics_color"""
+        pass
+
+    @overload
+    def color(self, gray: float, /) -> int:
+        """$class_Py5Graphics_color"""
+        pass
+
+    @overload
+    def color(self, gray: float, alpha: float, /) -> int:
+        """$class_Py5Graphics_color"""
+        pass
+
+    @overload
+    def color(self, v1: float, v2: float, v3: float, /) -> int:
+        """$class_Py5Graphics_color"""
+        pass
+
+    @overload
+    def color(self, v1: float, v2: float, v3: float, a: float, /) -> int:
+        """$class_Py5Graphics_color"""
+        pass
+
+    @overload
+    def color(self, v1: int, v2: int, v3: int, /) -> int:
+        """$class_Py5Graphics_color"""
+        pass
+
+    @overload
+    def color(self, v1: int, v2: int, v3: int, a: int, /) -> int:
+        """$class_Py5Graphics_color"""
+        pass
+
+    def color(self, *args) -> int:
+        """$class_Py5Graphics_color"""
+        args = list(args)
+
+        if not isinstance(args[0], Py5Color):
+            if (new_arg := _hex_converter(args[0])) is not None:
+                args[0] = Py5Color(new_arg, _creator_instance=self)
+
+            if len(args) == 1 and isinstance(args[0], Py5Color):
+                return args[0]
+
+        return Py5Color(self._instance.color(*args), _creator_instance=self)
 
 
 {py5graphics_class_members_code}
