@@ -35,7 +35,18 @@ class Py5Color(int):
         return color
 
     def __repr__(self):
-        return str(_Py5ColorHelper.repr(self._creator_instance._instance, JInt(self)))
+        return str(self)
 
     def __str__(self):
-        return str(_Py5ColorHelper.repr(self._creator_instance._instance, JInt(self)))
+        color_mode_name = (
+            "CMAP"
+            if hasattr(self._creator_instance, "_cmap")
+            and self._creator_instance._cmap is not None
+            else None
+        )
+
+        return str(
+            _Py5ColorHelper.repr(
+                self._creator_instance._instance, color_mode_name, JInt(self)
+            )
+        )
