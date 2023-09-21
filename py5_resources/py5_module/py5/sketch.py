@@ -836,9 +836,6 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def color_mode(self, mode: int, *args) -> None:
         """$class_Sketch_color_mode"""
-
-        # TODO: validate inputs?
-
         # don't allow users to call this before the Sketch starts running
         if not self.is_running:
             raise RuntimeError(
@@ -852,9 +849,16 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                 )
             args = list(args)
             if isinstance(args[0], str):
-                args[0] = mpl.colormaps[args[0]]
+                if args[0] in mpl.colormaps:
+                    args[0] = mpl.colormaps[args[0]]
+                else:
+                    raise RuntimeError(
+                        "provided colormap name not available in matplotlib"
+                    )
             elif not isinstance(args[0], mpl.colors.Colormap):
-                raise RuntimeError("invalid colormap")
+                raise RuntimeError(
+                    "provided colormap is not an instance of mpl.colors.Colormap"
+                )
 
             if len(args) == 1:
                 self._cmap = args[0]
@@ -870,7 +874,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                 self._cmap_alpha_range = args[2]
             else:
                 raise TypeError(
-                    "When using the CMAP color mode, the arguments must be one of color_mode(CMAP, cmap) or color_mode(CMAP, cmap, range) or color_mode(CMAP, cmap, range, alpha_range)"
+                    "When using the CMAP color mode, the arguments must be one of color_mode(CMAP, cmap), color_mode(CMAP, cmap, range), or color_mode(CMAP, cmap, range, alpha_range)"
                 )
             self._instance.colorMode(self.RGB, 255, 255, 255, self._cmap_alpha_range)
         else:
