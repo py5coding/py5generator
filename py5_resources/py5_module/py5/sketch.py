@@ -39,25 +39,24 @@ import numpy.typing as npt
 import py5_tools
 import py5_tools.environ as _environ
 from jpype.types import JArray, JClass, JException, JInt  # noqa
-from py5_tools.printstreams import _DefaultPrintlnStream, _DisplayPubPrintlnStream
+from py5_tools.printstreams import (_DefaultPrintlnStream,
+                                    _DisplayPubPrintlnStream)
 
 from . import image_conversion, reference, spelling
 from .base import Py5Base
 from .bridge import Py5Bridge, _extract_py5_user_function_data
 from .color import Py5Color  # noqa
-from .decorators import (
-    _context_wrapper,
-    _convert_hex_color,
-    _hex_converter,
-    _return_color,
-    _text_fix_str,
-)
-from .font import Py5Font, _load_py5font, _return_list_str, _return_py5font  # noqa
+from .decorators import (_context_wrapper, _convert_hex_color, _hex_converter,
+                         _return_color, _text_fix_str)
+from .font import (Py5Font, _load_py5font, _return_list_str,  # noqa
+                   _return_py5font)
 from .graphics import Py5Graphics, _return_py5graphics  # noqa
 from .image import Py5Image, _return_py5image  # noqa
 from .image_conversion import NumpyImageArray, _convertable
-from .keyevent import Py5KeyEvent, _convert_jchar_to_chr, _convert_jint_to_int  # noqa
-from .mixins import DataMixin, MathMixin, PixelMixin, PrintlnStream, ThreadsMixin
+from .keyevent import (Py5KeyEvent, _convert_jchar_to_chr,  # noqa
+                       _convert_jint_to_int)
+from .mixins import (DataMixin, MathMixin, PixelMixin, PrintlnStream,
+                     ThreadsMixin)
 from .mixins.threads import Py5Promise  # noqa
 from .mouseevent import Py5MouseEvent  # noqa
 from .pmath import _get_matrix_wrapper  # noqa
@@ -930,6 +929,16 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     @overload
     def color(self, cmap_input: float, alpha: int, /) -> int:
+        """$class_Sketch_color"""
+        pass
+
+    @overload
+    def color(self, hex_code: str, /) -> int:
+        """$class_Sketch_color"""
+        pass
+
+    @overload
+    def color(self, hex_code: str, alpha: int, /) -> int:
         """$class_Sketch_color"""
         pass
 

@@ -13,6 +13,8 @@ color(fgray: float, /) -> int
 color(fgray: float, falpha: float, /) -> int
 color(gray: int, /) -> int
 color(gray: int, alpha: int, /) -> int
+color(hex_code: str, /) -> int
+color(hex_code: str, alpha: int, /) -> int
 color(v1: float, v2: float, v3: float, /) -> int
 color(v1: float, v2: float, v3: float, alpha: float, /) -> int
 color(v1: int, v2: int, v3: int, /) -> int
@@ -25,6 +27,7 @@ cmap_input: float - input value when using colormap color mode
 falpha: float - alpha value relative to current color range
 fgray: float - number specifying value between white and black
 gray: int - number specifying value between white and black
+hex_code: str - hex color code
 v1: float - red or hue values relative to the current color range
 v1: int - red or hue values relative to the current color range
 v2: float - green or saturation values relative to the current color range

@@ -239,6 +239,16 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
         """$class_Py5Graphics_color"""
         pass
 
+    @overload
+    def color(self, hex_code: str, /) -> int:
+        """$class_Sketch_color"""
+        pass
+
+    @overload
+    def color(self, hex_code: str, alpha: int, /) -> int:
+        """$class_Sketch_color"""
+        pass
+
     def color(self, *args) -> int:
         """$class_Py5Graphics_color"""
         args = list(args)
