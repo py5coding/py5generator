@@ -956,8 +956,6 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             if len(args) == 1 and isinstance(args[0], Py5Color):
                 return args[0]
 
-        # TODO: validate inputs
-
         if self.is_running:
             return Py5Color(self._instance.color(*args), _creator_instance=self)
         else:
