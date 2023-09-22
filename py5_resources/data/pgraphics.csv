@@ -396,7 +396,7 @@ blue,blue,@_convert_hex_color(),method,JAVA,
 hue,hue,@_convert_hex_color(),method,JAVA,
 saturation,saturation,@_convert_hex_color(),method,JAVA,
 brightness,brightness,@_convert_hex_color(),method,JAVA,
-lerp_color,lerpColor,"@_convert_hex_color(indices=[0, 1])",method,JAVA,
+lerp_color,lerpColor,"@_return_color;@_convert_hex_color(indices=[0, 1])",method,JAVA,
 begin_raw,beginRaw,@_context_wrapper('end_raw'),method,JAVA,
 end_raw,endRaw,,method,JAVA,
 have_raw,haveRaw,,method,SKIP,
@@ -422,7 +422,7 @@ vertex,vertex,,method,JAVA,
 attrib_position,attribPosition,,method,SKIP,methods that are not part of the processing framework
 attrib_normal,attribNormal,,method,SKIP,methods that are not part of the processing framework
 attrib_color,attribColor,,method,SKIP,methods that are not part of the processing framework
-color,color,@_convert_hex_color(),method,JAVA,
+color,color,,method,PYTHON,
 attrib,attrib,,method,SKIP,methods that are not part of the processing framework
 begin_shape,beginShape,@_context_wrapper('end_shape'),method,JAVA,
 begin_closed_shape,beginShape,"@_context_wrapper('end_shape', exit_attr_args=('CLOSE',))",method,JAVA,

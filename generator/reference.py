@@ -70,6 +70,7 @@ EXTRA_DIR_NAMES = {
     "reset_py5",
     "JClass",
     "Sketch",
+    "Py5Color",
     "Py5Font",
     "Py5Graphics",
     "Py5Image",
@@ -94,6 +95,9 @@ EXTRA_DIR_NAMES = {
     "Py5Vector2D",
     "Py5Vector3D",
     "Py5Vector4D",
+    "xkcd_colors",
+    "css4_colors",
+    "mpl_cmaps",
 }
 
 EXTRA_METHOD_SIGNATURES = {
