@@ -93,10 +93,6 @@ def _hex_converter(arg):
     return None
 
 
-def _matplotlib_cmap_converter(cmap, cmap_range, arg):
-    return JInt(int("0xFF" + mcolors.to_hex(cmap(arg / cmap_range))[1:], base=16))
-
-
 # both of the following two decorators should be named something else but they
 # are all over the place and it would be a pain to change them now.
 
@@ -108,13 +104,17 @@ def _convert_hex_color(indices=[0]):
             args = list(args)
             for i, arg in [(i, args[i]) for i in indices if i < len(args)]:
                 if (
-                    hasattr(self_, "_cmap")
-                    and self_._cmap is not None
+                    mcolors is not None
+                    and getattr(self_, "_cmap", None) is not None
                     and isinstance(args[i], (int, np.integer, float, np.floating))
                     and not isinstance(args[i], Py5Color)
                 ):
-                    args[i] = _matplotlib_cmap_converter(
-                        self_._cmap, self_._cmap_range, args[i]
+                    args[i] = JInt(
+                        int(
+                            "0xFF"
+                            + mcolors.to_hex(self_._cmap(arg / self_._cmap_range))[1:],
+                            base=16,
+                        )
                     )
                 elif (new_arg := _hex_converter(arg)) is not None:
                     args[i] = new_arg
@@ -130,13 +130,17 @@ def _convert_hex_color2(f):
     def decorated(self_, *args):
         args = list(args)
         if (
-            hasattr(self_, "_cmap")
-            and self_._cmap is not None
+            mcolors is not None
+            and getattr(self_, "_cmap", None) is not None
             and isinstance(args[0], (int, np.integer, float, np.floating))
             and not isinstance(args[0], Py5Color)
         ):
-            args[0] = _matplotlib_cmap_converter(
-                self_._cmap, self_._cmap_range, args[0]
+            args[0] = JInt(
+                int(
+                    "0xFF"
+                    + mcolors.to_hex(self_._cmap(args[0] / self_._cmap_range))[1:],
+                    base=16,
+                )
             )
         elif len(args) == 1 and (new_arg := _hex_converter(args[0])):
             args[0] = new_arg
