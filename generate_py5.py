@@ -192,6 +192,8 @@ def generate_py5(app_dir, build_dir, skip_black=False):
         **py5vector_method_signatures,
         **py5graphics_method_signatures,
         **py5shape_method_signatures,
+        # the keys in EXTRA_METHOD_SIGNATURES should be unique, otherwise
+        # this will override what is in the previous signature dictionaries
         **ref.EXTRA_METHOD_SIGNATURES,
     }
 
