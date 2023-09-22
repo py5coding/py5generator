@@ -24,10 +24,12 @@ import re
 import shutil
 from pathlib import Path
 
+import matplotlib as mpl
 import matplotlib.colors as mcolors
 import pandas as pd
 
-from generator import CodeBuilder, CodeCopier, TemplateMapping, find_signatures, javap
+from generator import (CodeBuilder, CodeCopier, TemplateMapping,
+                       find_signatures, javap)
 from generator import reference as ref
 
 logging.basicConfig(
@@ -241,6 +243,10 @@ def generate_py5(app_dir, build_dir, skip_black=False):
         ]
     )
 
+    mpl_cmaps = "\n".join(
+        [f"{name.upper()} = '{name}'" for name in mpl.colormaps.keys()]
+    )
+
     # this dictionary of code strings will be inserted into the python code templates
     format_params = dict(
         sketch_class_members_code=sketch_class_members_code,
@@ -260,6 +266,7 @@ def generate_py5(app_dir, build_dir, skip_black=False):
         py5_python_dynamic_variables_str=py5_python_dynamic_variables_str,
         mcolor_css4=mcolor_css4,
         mcolor_xkcd=mcolor_xkcd,
+        mpl_cmaps=mpl_cmaps,
     )
 
     # build complete py5 module in destination directory

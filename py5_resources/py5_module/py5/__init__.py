@@ -76,6 +76,7 @@ if not py5_tools.is_jvm_running():
         raise RuntimeError("py5 is unable to start Java 17 Virtual Machine")
 
 import py5_tools.colors.css4 as css4_colors  # noqa
+import py5_tools.colors.mpl_cmaps as mpl_cmaps  # noqa
 import py5_tools.colors.xkcd as xkcd_colors  # noqa
 from py5_tools import split_setup as _split_setup
 

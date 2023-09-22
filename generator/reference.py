@@ -97,6 +97,7 @@ EXTRA_DIR_NAMES = {
     "Py5Vector4D",
     "xkcd_colors",
     "css4_colors",
+    "mpl_cmaps",
 }
 
 EXTRA_METHOD_SIGNATURES = {

@@ -17,4 +17,8 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from . import css4, mpl_cmaps, xkcd
+# *** FORMAT PARAMS ***
+
+mpl_cmaps = None  # DELETE
+
+{mpl_cmaps}
