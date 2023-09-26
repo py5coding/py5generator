@@ -157,31 +157,30 @@ try:
         return isinstance(obj, (Path2D, Path3D))
 
     def trimesh_path2d_path3d_to_py5shape_converter(sketch, obj: Union[Path2D, Path3D]):
-        def helper(entity):
+        def helper(entity, color):
             shape = sketch.create_shape()
-
-            stroke_color = (
-                None
-                if entity.color is None
-                else (
-                    entity.color[0] * 65536
-                    + entity.color[1] * 256
-                    + entity.color[2]
-                    + entity.color[3] * 16777216
-                )
-            )
 
             if entity.closed:
                 with shape.begin_closed_shape():
-                    if stroke_color is not None:
-                        shape.stroke(stroke_color)
-                        shape.no_fill()
+                    shape.no_fill()
+                    if color is not None:
+                        shape.stroke(
+                            color[0] * 65536
+                            + color[1] * 256
+                            + color[2]
+                            + color[3] * 16777216
+                        )
                     shape.vertices(entity.discrete(obj.vertices)[:-1])
             else:
                 with shape.begin_shape():
-                    if stroke_color is not None:
-                        shape.stroke(stroke_color)
-                        shape.no_fill()
+                    shape.no_fill()
+                    if color is not None:
+                        shape.stroke(
+                            color[0] * 65536
+                            + color[1] * 256
+                            + color[2]
+                            + color[3] * 16777216
+                        )
                     shape.vertices(entity.discrete(obj.vertices))
 
             return shape
@@ -190,8 +189,9 @@ try:
             shape = helper(obj.entities[0])
         else:
             shape = sketch.create_shape(sketch.GROUP)
-            for entity in obj.entities:
-                shape.add_child(helper(entity))
+            for i, entity in enumerate(obj.entities):
+                color = None if obj.colors is None else obj.colors[i]
+                shape.add_child(helper(entity, color))
 
         return shape
 
