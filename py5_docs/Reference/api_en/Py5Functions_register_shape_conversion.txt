@@ -8,8 +8,8 @@ subcategory = None
 register_shape_conversion(precondition: Callable, convert_function: Callable) -> None
 
 @@ variables
-convert_function: Callable - missing variable description
-precondition: Callable - missing variable description
+convert_function: Callable - function to convert object to Py5Shape object
+precondition: Callable - predicate determining if an object can be converted
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
