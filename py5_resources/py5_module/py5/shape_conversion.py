@@ -209,9 +209,12 @@ try:
         shape = sketch.create_shape()
 
         with shape.begin_shape(sketch.POINTS):
+            if obj.colors.size > 0 and (color := obj.colors.squeeze()).shape == (4,):
+                shape.stroke(*color)
+
             shape.vertices(obj.vertices)
 
-        if obj.colors.size > 0 and obj.colors.shape[0] == obj.vertices.shape[0]:
+        if obj.colors.size > 0 and obj.colors.shape == (obj.vertices.shape[0], 4):
             colors = (
                 obj.colors[:, 0] * 65536
                 + obj.colors[:, 1] * 256
