@@ -83,9 +83,10 @@ from . import spelling as _spelling
 from .bridge import register_exception_msg  # noqa
 from .create_font_tool import create_font_file  # noqa
 from .image_conversion import NumpyImageArray  # noqa
-from .image_conversion import register_image_conversion
+from .image_conversion import register_image_conversion  # noqa
 from .render_helper import render_frame  # noqa
 from .render_helper import render, render_frame_sequence, render_sequence
+from .shape_conversion import register_shape_conversion  # noqa
 from .sketch import Py5KeyEvent  # noqa
 from .sketch import (
     Py5Font,
