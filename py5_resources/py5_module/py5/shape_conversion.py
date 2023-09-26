@@ -45,7 +45,7 @@ def _convert(sketch, obj, **kwargs):
 def register_shape_conversion(
     precondition: Callable, convert_function: Callable
 ) -> None:
-    # TODO: add docstring
+    """$module_Py5Functions_register_shape_conversion"""
     pshape_functions.insert(0, (precondition, convert_function))
 
 
