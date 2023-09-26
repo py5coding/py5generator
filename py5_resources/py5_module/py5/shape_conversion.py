@@ -235,7 +235,8 @@ try:
     def trimesh_trimesh_to_py5shape_converter(sketch, obj: Trimesh):
         shape = sketch.create_shape()
         use_texture = False
-        use_color = False
+        vertices_fill_colors = None
+        shape_fill_color = None
 
         vertices = obj.vertices[obj.faces.flatten()]
 
@@ -245,35 +246,42 @@ try:
             uv[:, 1] = 1 - uv[:, 1]
             vertices = np.hstack([vertices, uv])
         elif isinstance(obj.visual, ColorVisuals) and obj.visual.kind is not None:
-            use_color = True
             if obj.visual.kind == "vertex":
-                fill_colors = (
-                    obj.visual.vertex_colors[obj.faces.flatten(), 0] * 65536
-                    + obj.visual.vertex_colors[obj.faces.flatten(), 1] * 256
-                    + obj.visual.vertex_colors[obj.faces.flatten(), 2]
-                    + obj.visual.vertex_colors[obj.faces.flatten(), 3] * 16777216
-                )
+                if obj.visual.vertex_colors.shape == (obj.vertices.shape[0], 4):
+                    vertices_fill_colors = (
+                        obj.visual.vertex_colors[obj.faces.flatten(), 0] * 65536
+                        + obj.visual.vertex_colors[obj.faces.flatten(), 1] * 256
+                        + obj.visual.vertex_colors[obj.faces.flatten(), 2]
+                        + obj.visual.vertex_colors[obj.faces.flatten(), 3] * 16777216
+                    )
+                elif (color := obj.visual.vertex_colors.squeeze()).shape == (4,):
+                    shape_fill_color = color
             elif obj.visual.kind == "face":
-                fill_colors = np.repeat(
-                    obj.visual.face_colors[:, 0] * 65536
-                    + obj.visual.face_colors[:, 1] * 256
-                    + obj.visual.face_colors[:, 2]
-                    + obj.visual.face_colors[:, 3] * 16777216,
-                    3,
-                )
-            else:
-                use_color = False
+                if obj.visual.face_colors.shape == (obj.faces.shape[0], 4):
+                    vertices_fill_colors = np.repeat(
+                        obj.visual.face_colors[:, 0] * 65536
+                        + obj.visual.face_colors[:, 1] * 256
+                        + obj.visual.face_colors[:, 2]
+                        + obj.visual.face_colors[:, 3] * 16777216,
+                        3,
+                    )
+                elif (color := obj.visual.face_colors.squeeze()).shape == (4,):
+                    shape_fill_color = color
 
         with shape.begin_shape(sketch.TRIANGLES):
-            if use_texture or use_color:
+            if vertices_fill_colors is not None:
                 shape.no_stroke()
             if use_texture:
+                shape.no_stroke()
                 shape.texture_mode(sketch.NORMAL)
+            if shape_fill_color is not None:
+                shape.no_stroke()
+                shape.fill(*shape_fill_color)
 
             shape.vertices(vertices)
 
-        if use_color:
-            shape.set_fills(fill_colors)
+        if vertices_fill_colors is not None:
+            shape.set_fills(vertices_fill_colors)
 
         return shape
 
