@@ -719,9 +719,9 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             # could be Py5Image or something comparable
             return result
 
-    def convert_shape(self, obj: Any) -> Py5Shape:
+    def convert_shape(self, obj: Any, **kwargs: dict[str, Any]) -> Py5Shape:
         """$class_Sketch_convert_shape"""
-        return shape_conversion._convert(self, obj)
+        return shape_conversion._convert(self, obj, **kwargs)
 
     def load_image(
         self, image_path: Union[str, Path], *, dst: Py5Image = None

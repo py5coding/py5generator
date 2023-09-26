@@ -28,10 +28,10 @@ def _convertable(obj):
     return any(pre(obj) for pre, _ in pshape_functions)
 
 
-def _convert(sketch, obj):
+def _convert(sketch, obj, **kwargs):
     for precondition, convert_function in pshape_functions:
         if precondition(obj):
-            obj = convert_function(sketch, obj)
+            obj = convert_function(sketch, obj, **kwargs)
             break
     else:
         classname = f"{obj.__class__.__module__}.{obj.__class__.__name__}"
@@ -82,7 +82,7 @@ try:
             ),
         )
 
-    def shapely_to_py5shape_converter(sketch, obj, first_call=True):
+    def shapely_to_py5shape_converter(sketch, obj, first_call=True, **kwargs):
         if first_call:
             obj = affinity.scale(obj, yfact=-1, origin="center")
 
@@ -108,14 +108,16 @@ try:
         elif isinstance(obj, LinearRing):
             shape = sketch.create_shape()
             with shape.begin_closed_shape():
-                shape.no_fill()
+                if not kwargs.get("lines_allow_fill", False):
+                    shape.no_fill()
                 coords = np.array(obj.coords)
                 shape.vertices(coords[:-1])
             return shape
         elif isinstance(obj, LineString):
             shape = sketch.create_shape()
             with shape.begin_shape():
-                shape.no_fill()
+                if not kwargs.get("lines_allow_fill", False):
+                    shape.no_fill()
                 coords = np.array(obj.coords)
                 shape.vertices(coords)
             return shape
@@ -132,7 +134,7 @@ try:
             shape = sketch.create_shape(sketch.GROUP)
             for p in obj.geoms:
                 shape.add_child(
-                    shapely_to_py5shape_converter(sketch, p, first_call=False)
+                    shapely_to_py5shape_converter(sketch, p, first_call=False, **kwargs)
                 )
             return shape
         else:
@@ -156,13 +158,17 @@ try:
     def trimesh_path2d_path3d_to_py5shape_precondition(obj):
         return isinstance(obj, (Path2D, Path3D))
 
-    def trimesh_path2d_path3d_to_py5shape_converter(sketch, obj: Union[Path2D, Path3D]):
+    def trimesh_path2d_path3d_to_py5shape_converter(
+        sketch, obj: Union[Path2D, Path3D], **kwargs
+    ):
         def helper(entity, color):
             shape = sketch.create_shape()
 
             if entity.closed:
                 with shape.begin_closed_shape():
-                    shape.no_fill()
+                    if not kwargs.get("lines_allow_fill", False):
+                        shape.no_fill()
+
                     if color is not None:
                         shape.stroke(
                             color[0] * 65536
@@ -170,10 +176,13 @@ try:
                             + color[2]
                             + color[3] * 16777216
                         )
+
                     shape.vertices(entity.discrete(obj.vertices)[:-1])
             else:
                 with shape.begin_shape():
-                    shape.no_fill()
+                    if not kwargs.get("lines_allow_fill", False):
+                        shape.no_fill()
+
                     if color is not None:
                         shape.stroke(
                             color[0] * 65536
@@ -181,6 +190,7 @@ try:
                             + color[2]
                             + color[3] * 16777216
                         )
+
                     shape.vertices(entity.discrete(obj.vertices))
 
             return shape
@@ -205,7 +215,7 @@ try:
     def trimesh_pointcloud_to_py5shape_precondition(obj):
         return isinstance(obj, PointCloud)
 
-    def trimesh_pointcloud_to_py5shape_converter(sketch, obj: PointCloud):
+    def trimesh_pointcloud_to_py5shape_converter(sketch, obj: PointCloud, **kwargs):
         shape = sketch.create_shape()
 
         with shape.begin_shape(sketch.POINTS):
@@ -235,7 +245,7 @@ try:
     def trimesh_trimesh_to_py5shape_precondition(obj):
         return isinstance(obj, Trimesh)
 
-    def trimesh_trimesh_to_py5shape_converter(sketch, obj: Trimesh):
+    def trimesh_trimesh_to_py5shape_converter(sketch, obj: Trimesh, **kwargs):
         shape = sketch.create_shape()
         use_texture = False
         vertices_fill_colors = None
@@ -297,10 +307,10 @@ try:
 
     ##### Scene #####
 
-    def trimesh_scene_to_py5shape_converter(sketch, obj: Scene):
+    def trimesh_scene_to_py5shape_converter(sketch, obj: Scene, **kwargs):
         def helper(geometry):
             if isinstance(geometry, (Path2D, Path3D, PointCloud, Trimesh)):
-                return _convert(sketch, geometry)
+                return _convert(sketch, geometry, **kwargs)
             else:
                 classname = (
                     f"{geometry.__class__.__module__}.{geometry.__class__.__name__}"
