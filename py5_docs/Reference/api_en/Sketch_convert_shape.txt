@@ -5,9 +5,10 @@ category = shape
 subcategory = None
 
 @@ signatures
-convert_shape(obj: Any) -> Py5Shape
+convert_shape(obj: Any, **kwargs: dict[str, Any]) -> Py5Shape
 
 @@ variables
+kwargs: dict[str, Any] - missing variable description
 obj: Any - missing variable description
 
 @@ description
