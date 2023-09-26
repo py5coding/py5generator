@@ -82,8 +82,8 @@ try:
             ),
         )
 
-    def shapely_to_py5shape_converter(sketch, obj, first_call=True, **kwargs):
-        if first_call:
+    def shapely_to_py5shape_converter(sketch, obj, _first_call=True, **kwargs):
+        if _first_call and kwargs.get("flip_y_axis", True):
             obj = affinity.scale(obj, yfact=-1, origin="center")
 
         if isinstance(obj, Polygon):
@@ -134,7 +134,9 @@ try:
             shape = sketch.create_shape(sketch.GROUP)
             for p in obj.geoms:
                 shape.add_child(
-                    shapely_to_py5shape_converter(sketch, p, first_call=False, **kwargs)
+                    shapely_to_py5shape_converter(
+                        sketch, p, _first_call=False, **kwargs
+                    )
                 )
             return shape
         else:
