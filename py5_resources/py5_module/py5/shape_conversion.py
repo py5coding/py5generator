@@ -289,6 +289,13 @@ try:
             if use_texture:
                 shape.no_stroke()
                 shape.texture_mode(sketch.NORMAL)
+
+                if "texture" in kwargs:
+                    from . import Py5Graphics, Py5Image
+
+                    if isinstance(tex := kwargs["texture"], (Py5Image, Py5Graphics)):
+                        shape.texture(tex)
+
             if shape_fill_color is not None:
                 shape.no_stroke()
                 shape.fill(*shape_fill_color)
