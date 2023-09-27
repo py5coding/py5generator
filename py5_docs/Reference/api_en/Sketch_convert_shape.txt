@@ -12,4 +12,10 @@ kwargs: dict[str, Any] - keyword arguments
 obj: Any - object to convert into a Py5Shape object
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Convert non-py5 shape objects into Py5Shape objects. This facilitates py5 compatability with other commonly used Python libraries.
+
+This method is comparable to [](sketch_load_shape), except instead of reading shape files from disk, it converts shape data from other Python objects.
+
+Passed shape object types must be known to py5's shape conversion tools. New object types and functions to effect conversions can be registered with [](py5functions_register_shape_conversion).
+
+The `convert_shape()` method has builtin support for the conversion of shapely and trimesh objects. This will allow users to explore the geometry capabilities of those libraries.
