@@ -39,18 +39,22 @@ import numpy.typing as npt
 import py5_tools
 import py5_tools.environ as _environ
 from jpype.types import JArray, JClass, JException, JInt  # noqa
-from py5_tools.printstreams import _DefaultPrintlnStream, _DisplayPubPrintlnStream
+from py5_tools.printstreams import (_DefaultPrintlnStream,
+                                    _DisplayPubPrintlnStream)
 
 from . import image_conversion, reference, shape_conversion, spelling
 from .base import Py5Base
 from .bridge import Py5Bridge, _extract_py5_user_function_data
-from .decorators import _context_wrapper, _convert_hex_color, _text_fix_str  # noqa
-from .font import Py5Font, _load_py5font, _return_list_str, _return_py5font  # noqa
+from .decorators import (_context_wrapper, _convert_hex_color,  # noqa
+                         _text_fix_str)
+from .font import (Py5Font, _load_py5font, _return_list_str,  # noqa
+                   _return_py5font)
 from .graphics import Py5Graphics, _return_py5graphics  # noqa
 from .image import Py5Image, _return_py5image  # noqa
-from .image_conversion import NumpyImageArray, _convertable
-from .keyevent import Py5KeyEvent, _convert_jchar_to_chr, _convert_jint_to_int  # noqa
-from .mixins import DataMixin, MathMixin, PixelMixin, PrintlnStream, ThreadsMixin
+from .keyevent import (Py5KeyEvent, _convert_jchar_to_chr,  # noqa
+                       _convert_jint_to_int)
+from .mixins import (DataMixin, MathMixin, PixelMixin, PrintlnStream,
+                     ThreadsMixin)
 from .mixins.threads import Py5Promise  # noqa
 from .mouseevent import Py5MouseEvent  # noqa
 from .pmath import _get_matrix_wrapper  # noqa
@@ -105,15 +109,30 @@ def _auto_convert_to_py5image(argnum):
             if len(args) > argnum:
                 args = list(args)
                 img = args[argnum]
-                if isinstance(img, NumpyImageArray):
+                if isinstance(img, image_conversion.NumpyImageArray):
                     args[argnum] = self_.create_image_from_numpy(img.array, img.bands)
-                elif not isinstance(img, (Py5Image, Py5Graphics)) and _convertable(img):
+                elif not isinstance(
+                    img, (Py5Image, Py5Graphics)
+                ) and image_conversion._convertable(img):
                     args[argnum] = self_.convert_image(img)
             return f(self_, *args)
 
         return decorated
 
     return _decorator
+
+
+def _auto_convert_to_py5shape(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        if len(args) >= 1:
+            args = list(args)
+            shape = args[0]
+            if not isinstance(shape, Py5Shape) and shape_conversion._convertable(shape):
+                args[0] = self_.convert_shape(shape)
+        return f(self_, *args)
+
+    return decorated
 
 
 def _generator_to_list(f):
@@ -713,7 +732,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         result = image_conversion._convert(obj)
         if isinstance(result, (Path, str)):
             return self.load_image(result, dst=dst)
-        elif isinstance(result, NumpyImageArray):
+        elif isinstance(result, image_conversion.NumpyImageArray):
             return self.create_image_from_numpy(result.array, result.bands, dst=dst)
         else:
             # could be Py5Image or something comparable
