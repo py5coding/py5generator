@@ -253,21 +253,21 @@ try:
         vertices_fill_colors = None
         shape_fill_color = None
 
-        vertices = obj.vertices[obj.faces.flatten()]
+        vertices = obj.vertices[obj.faces.ravel()]
 
         if isinstance(obj.visual, TextureVisuals):
             use_texture = True
-            uv = obj.visual.uv[obj.faces.flatten()]
+            uv = obj.visual.uv[obj.faces.ravel()]
             uv[:, 1] = 1 - uv[:, 1]
             vertices = np.hstack([vertices, uv])
         elif isinstance(obj.visual, ColorVisuals) and obj.visual.kind is not None:
             if obj.visual.kind == "vertex":
                 if obj.visual.vertex_colors.shape == (obj.vertices.shape[0], 4):
                     vertices_fill_colors = (
-                        obj.visual.vertex_colors[obj.faces.flatten(), 0] * 65536
-                        + obj.visual.vertex_colors[obj.faces.flatten(), 1] * 256
-                        + obj.visual.vertex_colors[obj.faces.flatten(), 2]
-                        + obj.visual.vertex_colors[obj.faces.flatten(), 3] * 16777216
+                        obj.visual.vertex_colors[obj.faces.ravel(), 0] * 65536
+                        + obj.visual.vertex_colors[obj.faces.ravel(), 1] * 256
+                        + obj.visual.vertex_colors[obj.faces.ravel(), 2]
+                        + obj.visual.vertex_colors[obj.faces.ravel(), 3] * 16777216
                     )
                 elif (color := obj.visual.vertex_colors.squeeze()).shape == (4,):
                     shape_fill_color = color
