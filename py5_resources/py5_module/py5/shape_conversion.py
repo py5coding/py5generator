@@ -252,6 +252,7 @@ try:
         use_texture = False
         vertices_fill_colors = None
         shape_fill_color = None
+        texture = None
 
         obj_faces_ravel = obj.faces.ravel()
         vertices = obj.vertices[obj_faces_ravel]
@@ -261,6 +262,18 @@ try:
             uv = obj.visual.uv[obj_faces_ravel]
             uv[:, 1] = 1 - uv[:, 1]
             vertices = np.hstack([vertices, uv])
+
+            if "texture" in kwargs:
+                from . import Py5Graphics, Py5Image
+
+                if isinstance(tex := kwargs["texture"], (Py5Image, Py5Graphics)):
+                    texture = tex
+            elif obj.visual.material.baseColorTexture is not None:
+                try:
+                    texture = sketch.convert_image(obj.visual.material.baseColorTexture)
+                except:
+                    pass
+
         elif isinstance(obj.visual, ColorVisuals) and obj.visual.kind is not None:
             if obj.visual.kind == "vertex":
                 if obj.visual.vertex_colors.shape == (obj.vertices.shape[0], 4):
@@ -290,13 +303,8 @@ try:
             if use_texture:
                 shape.no_stroke()
                 shape.texture_mode(sketch.NORMAL)
-
-                if "texture" in kwargs:
-                    from . import Py5Graphics, Py5Image
-
-                    if isinstance(tex := kwargs["texture"], (Py5Image, Py5Graphics)):
-                        shape.texture(tex)
-
+                if texture is not None:
+                    shape.texture(texture)
             if shape_fill_color is not None:
                 shape.no_stroke()
                 shape.fill(*shape_fill_color)
