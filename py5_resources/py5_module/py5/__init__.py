@@ -75,12 +75,16 @@ if not py5_tools.is_jvm_running():
         print(debug_info, file=sys.stderr)
         raise RuntimeError("py5 is unable to start Java 17 Virtual Machine")
 
+import py5_tools.colors.css4 as css4_colors  # noqa
+import py5_tools.colors.mpl_cmaps as mpl_cmaps  # noqa
+import py5_tools.colors.xkcd as xkcd_colors  # noqa
 from py5_tools import split_setup as _split_setup
 
 from . import object_conversion  # noqa
 from . import reference
 from . import spelling as _spelling
 from .bridge import register_exception_msg  # noqa
+from .color import Py5Color  # noqa
 from .create_font_tool import create_font_file  # noqa
 from .image_conversion import NumpyImageArray, register_image_conversion  # noqa
 from .render_helper import render, render_frame, render_frame_sequence, render_sequence
