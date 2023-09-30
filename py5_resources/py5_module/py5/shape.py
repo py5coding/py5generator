@@ -131,6 +131,18 @@ class Py5Shape:
 
     # *** BEGIN METHODS ***
 
+    def set_strokes(self, strokes: npt.NDArray[np.int32], /) -> None:
+        """class_Py5Shape_set_strokes"""
+        if isinstance(strokes, types.GeneratorType):
+            strokes = list(strokes)
+        _Py5ShapeHelper.setStrokes(self._instance, strokes)
+
+    def set_fills(self, fills: npt.NDArray[np.int32], /) -> None:
+        """class_Py5Shape_set_fills"""
+        if isinstance(fills, types.GeneratorType):
+            fills = list(fills)
+        _Py5ShapeHelper.setFills(self._instance, fills)
+
     def vertices(self, coordinates: npt.NDArray[np.floating], /) -> None:
         """$class_Py5Shape_vertices"""
         if isinstance(coordinates, types.GeneratorType):

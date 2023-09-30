@@ -41,7 +41,7 @@ import py5_tools.environ as _environ
 from jpype.types import JArray, JClass, JException, JInt  # noqa
 from py5_tools.printstreams import _DefaultPrintlnStream, _DisplayPubPrintlnStream
 
-from . import image_conversion, reference, spelling
+from . import image_conversion, reference, shape_conversion, spelling
 from .base import Py5Base
 from .bridge import Py5Bridge, _extract_py5_user_function_data
 from .color import Py5Color  # noqa
@@ -55,7 +55,6 @@ from .decorators import (
 from .font import Py5Font, _load_py5font, _return_list_str, _return_py5font  # noqa
 from .graphics import Py5Graphics, _return_py5graphics  # noqa
 from .image import Py5Image, _return_py5image  # noqa
-from .image_conversion import NumpyImageArray, _convertable
 from .keyevent import Py5KeyEvent, _convert_jchar_to_chr, _convert_jint_to_int  # noqa
 from .mixins import DataMixin, MathMixin, PixelMixin, PrintlnStream, ThreadsMixin
 from .mixins.threads import Py5Promise  # noqa
@@ -120,15 +119,30 @@ def _auto_convert_to_py5image(argnum):
             if len(args) > argnum:
                 args = list(args)
                 img = args[argnum]
-                if isinstance(img, NumpyImageArray):
+                if isinstance(img, image_conversion.NumpyImageArray):
                     args[argnum] = self_.create_image_from_numpy(img.array, img.bands)
-                elif not isinstance(img, (Py5Image, Py5Graphics)) and _convertable(img):
+                elif not isinstance(
+                    img, (Py5Image, Py5Graphics)
+                ) and image_conversion._convertable(img):
                     args[argnum] = self_.convert_image(img)
             return f(self_, *args)
 
         return decorated
 
     return _decorator
+
+
+def _auto_convert_to_py5shape(f):
+    @functools.wraps(f)
+    def decorated(self_, *args):
+        if len(args) >= 1:
+            args = list(args)
+            shape = args[0]
+            if not isinstance(shape, Py5Shape) and shape_conversion._convertable(shape):
+                args[0] = self_.convert_shape(shape)
+        return f(self_, *args)
+
+    return decorated
 
 
 def _generator_to_list(f):
@@ -728,16 +742,22 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
         return py5_img
 
-    def convert_image(self, obj: Any, *, dst: Py5Image = None) -> Py5Image:
+    def convert_image(
+        self, obj: Any, *, dst: Py5Image = None, **kwargs: dict[str, Any]
+    ) -> Py5Image:
         """$class_Sketch_convert_image"""
-        result = image_conversion._convert(obj)
+        result = image_conversion._convert(obj, **kwargs)
         if isinstance(result, (Path, str)):
             return self.load_image(result, dst=dst)
-        elif isinstance(result, NumpyImageArray):
+        elif isinstance(result, image_conversion.NumpyImageArray):
             return self.create_image_from_numpy(result.array, result.bands, dst=dst)
         else:
             # could be Py5Image or something comparable
             return result
+
+    def convert_shape(self, obj: Any, **kwargs: dict[str, Any]) -> Py5Shape:
+        """$class_Sketch_convert_shape"""
+        return shape_conversion._convert(self, obj, **kwargs)
 
     def load_image(
         self, image_path: Union[str, Path], *, dst: Py5Image = None
