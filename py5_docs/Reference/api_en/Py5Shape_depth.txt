@@ -5,4 +5,4 @@ pclass = PShape
 processing_name = depth
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Get the `Py5Shape` object's depth. This method only makes sense when using the `P3D` renderer. It will be equal to 0 when using default renderer.
