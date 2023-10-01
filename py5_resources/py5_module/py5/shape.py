@@ -143,6 +143,24 @@ class Py5Shape:
 
     # *** BEGIN METHODS ***
 
+    def _get_width(self) -> float:  # @decorator
+        """$class_Py5Shape_width"""
+        return self._instance.getWidth()
+
+    width: float = property(fget=_get_width, doc="""$class_Py5Shape_width""")
+
+    def _get_height(self) -> float:  # @decorator
+        """$class_Py5Shape_height"""
+        return self._instance.getHeight()
+
+    height: float = property(fget=_get_height, doc="""$class_Py5Shape_height""")
+
+    def _get_depth(self) -> float:  # @decorator
+        """$class_Py5Shape_depth"""
+        return self._instance.getDepth()
+
+    depth: float = property(fget=_get_depth, doc="""$class_Py5Shape_depth""")
+
     def set_strokes(self, strokes: npt.NDArray[np.int32], /) -> None:
         """class_Py5Shape_set_strokes"""
         if isinstance(strokes, types.GeneratorType):
