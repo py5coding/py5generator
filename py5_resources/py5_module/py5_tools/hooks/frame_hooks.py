@@ -193,7 +193,7 @@ def animated_gif(
     import py5
 
     # TODO: validate function parameters. Must pass count, period and duration OR frame_numbers and duration
-    # TODO: validate frame_numbers. Smallest number must be less than the current frame_count
+    # TODO: should this allow frame_numbers to include zero? Can it?
 
     if sketch is None:
         sketch = py5.get_current_sketch()

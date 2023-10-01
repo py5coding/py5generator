@@ -135,8 +135,15 @@ class GrabFramesHook(BaseHook):
         try:
             if time.time() - self.last_frame_time < self.period:
                 return
-            if self.frame_numbers and sketch.frame_count not in self.frame_numbers:
-                return
+            if self.frame_numbers:
+                if min(self.frame_numbers) < sketch.frame_count:
+                    raise RuntimeError(
+                        f"minimum requested frame number {min(self.frame_numbers)} has passed"
+                    )
+                if sketch.frame_count in self.frame_numbers:
+                    self.frame_numbers.remove(sketch.frame_count)
+                else:
+                    return
 
             sketch.load_np_pixels()
             self.frames.append(sketch.np_pixels[:, :, 1:].copy())
