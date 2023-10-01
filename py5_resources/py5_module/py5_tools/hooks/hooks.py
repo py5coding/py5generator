@@ -48,7 +48,9 @@ class BaseHook:
         self.exception = e
         sketch._remove_post_hook("draw", self.hook_name)
         self.is_terminated = True
-        self.status_msg("exception thrown while running magic: " + str(e), stderr=True)
+        self.status_msg(
+            "exception thrown while running py5 tools: " + str(e), stderr=True
+        )
 
     def sketch_terminated(self):
         self.is_terminated = True
