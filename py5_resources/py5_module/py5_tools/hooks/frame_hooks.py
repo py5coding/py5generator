@@ -23,7 +23,7 @@ import sys
 import tempfile
 import time
 from pathlib import Path
-from typing import Callable
+from typing import Callable, Iterable
 
 import numpy as np
 import numpy.typing as npt
@@ -178,10 +178,11 @@ def offline_frame_processing(
 
 def animated_gif(
     filename: str,
-    count: int,
-    period: float,
-    duration: float,
     *,
+    count: int = 0,
+    period: float = 0.0,
+    duration: float = 0.0,
+    frame_numbers: Iterable = None,
     loop: int = 0,
     optimize: bool = True,
     sketch: Sketch = None,
@@ -190,6 +191,9 @@ def animated_gif(
 ) -> None:
     """$module_Py5Tools_animated_gif"""
     import py5
+
+    # TODO: validate function parameters. Must pass count, period and duration OR frame_numbers and duration
+    # TODO: validate frame_numbers. Smallest number must be less than the current frame_count
 
     if sketch is None:
         sketch = py5.get_current_sketch()
@@ -229,7 +233,7 @@ def animated_gif(
 
         hook.status_msg("animated gif written to " + str(filename))
 
-    hook = GrabFramesHook(period, count, complete_func)
+    hook = GrabFramesHook(frame_numbers, period, count, complete_func)
     sketch._add_post_hook(
         "post_draw" if hook_post_draw else "draw", hook.hook_name, hook
     )

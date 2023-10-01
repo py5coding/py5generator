@@ -116,10 +116,17 @@ class SaveFramesHook(BaseHook):
 
 
 class GrabFramesHook(BaseHook):
-    def __init__(self, period, limit, complete_func):
+    def __init__(self, frame_numbers, period, limit, complete_func):
         super().__init__("py5grab_frames_hook")
-        self.period = period
-        self.limit = limit
+        if frame_numbers:
+            self.frame_numbers = set(frame_numbers)
+            self.period = 0
+            self.limit = len(self.frame_numbers)
+        else:
+            self.frame_numbers = set()
+            self.period = period
+            self.limit = limit
+
         self.complete_func = complete_func
         self.frames = []
         self.last_frame_time = 0
@@ -128,6 +135,9 @@ class GrabFramesHook(BaseHook):
         try:
             if time.time() - self.last_frame_time < self.period:
                 return
+            if self.frame_numbers and sketch.frame_count not in self.frame_numbers:
+                return
+
             sketch.load_np_pixels()
             self.frames.append(sketch.np_pixels[:, :, 1:].copy())
             self.last_frame_time = time.time()
