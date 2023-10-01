@@ -19,6 +19,6 @@ Loads geometry into a variable of type `Py5Shape`. SVG and OBJ files may be load
 
 Alternatively, the file maybe be loaded from anywhere on the local computer using an absolute path (something that starts with / on Unix and Linux, or a drive letter on Windows), or the filename parameter can be a URL for a file found on a network.
 
-If the shape file is not available or an error occurs, an exception will be thrown.
+If the shape file is not available or for whatever reason a shape cannot be created, an exception will be thrown.
 
 This method is the same as [](sketch_load_shape) but linked to a `Py5Graphics` object. To see example code for how it can be used, see [](sketch_load_shape).
