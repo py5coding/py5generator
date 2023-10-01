@@ -32,8 +32,13 @@ from jpype import JClass, JException
 from jpype.types import JBoolean, JFloat, JInt
 
 from . import spelling
-from .decorators import _convert_hex_color  # noqa
-from .decorators import _context_wrapper, _convert_hex_color2, _ret_str, _return_color
+from .decorators import (
+    _context_wrapper,
+    _convert_hex_color,
+    _convert_hex_color2,
+    _ret_str,
+    _return_color,
+)
 from .pmath import _get_pvector_wrapper  # noqa
 
 py5shape_class_members_code = None  # DELETE
@@ -79,15 +84,22 @@ def _py5shape_type_fixer(f):
 def _load_py5shape(f):
     @functools.wraps(f)
     def decorated(self_, *args):
+        msg, pshape = "", None
+
         try:
-            return Py5Shape(f(self_, *args))
-        except JException as e:
+            if (pshape := f(self_, *args)) is None:
+                msg = "Processing unable to read shape file"
+        except Exception as e:
             msg = e.message()
             if msg == "None":
                 msg = "shape file cannot be found"
-        raise RuntimeError(
-            "cannot load shape " + str(args[0]) + ". error message: " + msg
-        )
+
+        if pshape is None:
+            raise RuntimeError(
+                "cannot load shape " + str(args[0]) + ". error message: " + msg
+            )
+        else:
+            return Py5Shape(pshape)
 
     return decorated
 
