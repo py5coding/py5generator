@@ -28,8 +28,9 @@ from ..printstreams import _DefaultPrintlnStream, _WidgetPrintlnStream
 
 
 class BaseHook:
-    def __init__(self, hook_name):
+    def __init__(self, hook_name, hooked_setup=False):
         self.hook_name = hook_name
+        self.hooked_setup = hooked_setup
         self.is_ready = False
         self.exception = None
         self.is_terminated = False
@@ -42,11 +43,15 @@ class BaseHook:
 
     def hook_finished(self, sketch):
         sketch._remove_post_hook("draw", self.hook_name)
+        if self.hooked_setup:
+            sketch._remove_post_hook("setup", self.hook_name)
         self.is_ready = True
 
     def hook_error(self, sketch, e):
         self.exception = e
         sketch._remove_post_hook("draw", self.hook_name)
+        if self.hooked_setup:
+            sketch._remove_post_hook("setup", self.hook_name)
         self.is_terminated = True
         self.status_msg(
             "exception thrown while running py5 tools: " + str(e), stderr=True
@@ -118,8 +123,8 @@ class SaveFramesHook(BaseHook):
 
 
 class GrabFramesHook(BaseHook):
-    def __init__(self, frame_numbers, period, limit, complete_func):
-        super().__init__("py5grab_frames_hook")
+    def __init__(self, frame_numbers, period, limit, complete_func, hooked_setup):
+        super().__init__("py5grab_frames_hook", hooked_setup=hooked_setup)
         if frame_numbers:
             self.frame_numbers = set(frame_numbers)
             self.period = 0

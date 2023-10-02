@@ -193,7 +193,7 @@ def animated_gif(
     import py5
 
     # TODO: validate function parameters. Must pass count, period and duration OR frame_numbers and duration
-    # TODO: should this allow frame_numbers to include zero? Can it?
+    # TODO: should be able to call this outside of the sketch and before run_sketch() is called
 
     if sketch is None:
         sketch = py5.get_current_sketch()
@@ -233,10 +233,15 @@ def animated_gif(
 
         hook.status_msg("animated gif written to " + str(filename))
 
-    hook = GrabFramesHook(frame_numbers, period, count, complete_func)
+    hook_setup = bool(frame_numbers and 0 in frame_numbers)
+    hook = GrabFramesHook(
+        frame_numbers, period, count, complete_func, hooked_setup=hook_setup
+    )
     sketch._add_post_hook(
         "post_draw" if hook_post_draw else "draw", hook.hook_name, hook
     )
+    if hook_setup:
+        sketch._add_post_hook("setup", hook.hook_name, hook)
 
     if block:
         while not hook.is_ready and not hook.is_terminated:
@@ -280,10 +285,15 @@ def capture_frames(
         results.extend([PIL.Image.fromarray(arr, mode="RGB") for arr in hook.frames])
         hook.status_msg(f"captured {count} frames")
 
-    hook = GrabFramesHook(frame_numbers, period, count, complete_func)
+    hook_setup = bool(frame_numbers and 0 in frame_numbers)
+    hook = GrabFramesHook(
+        frame_numbers, period, count, complete_func, hooked_setup=hook_setup
+    )
     sketch._add_post_hook(
         "post_draw" if hook_post_draw else "draw", hook.hook_name, hook
     )
+    if hook_setup:
+        sketch._add_post_hook("setup", hook.hook_name, hook)
 
     if block:
         while not hook.is_ready and not hook.is_terminated:
