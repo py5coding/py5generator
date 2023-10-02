@@ -244,9 +244,10 @@ def animated_gif(
 
 
 def capture_frames(
-    count: float,
     *,
+    count: float = 0,
     period: float = 0.0,
+    frame_numbers: Iterable = None,
     sketch: Sketch = None,
     hook_post_draw: bool = False,
     block: bool = False,
@@ -279,7 +280,7 @@ def capture_frames(
         results.extend([PIL.Image.fromarray(arr, mode="RGB") for arr in hook.frames])
         hook.status_msg(f"captured {count} frames")
 
-    hook = GrabFramesHook(period, count, complete_func)
+    hook = GrabFramesHook(frame_numbers, period, count, complete_func)
     sketch._add_post_hook(
         "post_draw" if hook_post_draw else "draw", hook.hook_name, hook
     )
