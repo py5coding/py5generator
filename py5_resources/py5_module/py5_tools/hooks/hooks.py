@@ -18,6 +18,7 @@
 #
 # *****************************************************************************
 import time
+import uuid
 from queue import Empty, Queue
 from threading import Thread
 
@@ -29,7 +30,7 @@ from ..printstreams import _DefaultPrintlnStream, _WidgetPrintlnStream
 
 class BaseHook:
     def __init__(self, hook_name, hooked_setup=False):
-        self.hook_name = hook_name
+        self.hook_name = hook_name + "_" + str(uuid.uuid4())
         self.hooked_setup = hooked_setup
         self.is_ready = False
         self.exception = None
