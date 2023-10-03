@@ -193,7 +193,6 @@ def animated_gif(
     import py5
 
     # TODO: validate function parameters. Must pass count, period and duration OR frame_numbers and duration
-    # TODO: should be able to call this outside of the sketch and before run_sketch() is called
 
     if sketch is None:
         sketch = py5.get_current_sketch()
@@ -283,7 +282,7 @@ def capture_frames(
 
     def complete_func(hook):
         results.extend([PIL.Image.fromarray(arr, mode="RGB") for arr in hook.frames])
-        hook.status_msg(f"captured {count} frames")
+        hook.status_msg(f"captured {len(hook.frames)} frames")
 
     hook_setup = bool(frame_numbers and 0 in frame_numbers)
     hook = GrabFramesHook(
