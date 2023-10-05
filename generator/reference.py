@@ -239,10 +239,11 @@ EXTRA_METHOD_SIGNATURES = {
         (
             [
                 "filename: str",
+                "*",
                 "count: int",
                 "period: float",
                 "duration: float",
-                "*",
+                "frame_numbers: Iterable = None",
                 "loop: int = 0",
                 "optimize: bool = True",
                 "sketch: Sketch = None",
@@ -273,9 +274,10 @@ EXTRA_METHOD_SIGNATURES = {
     ("Py5Tools", "capture_frames"): [
         (
             [
-                "count: float",
                 "*",
+                "count: float",
                 "period: float = 0.0",
+                "frame_numbers: Iterable = None",
                 "sketch: Sketch = None",
                 "hook_post_draw: bool = False",
                 "block: bool = False",
