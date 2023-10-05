@@ -36,3 +36,11 @@ import py5_tools
 py5.run_sketch()
 # create a 10 frame animated GIF saved to '/tmp/animated.gif'
 py5_tools.animated_gif('/tmp/animated.gif', count=10, period=1, duration=0.5)
+
+@@ example
+import py5_tools
+
+# make an animated GIF with specific frames, save to '/tmp/animated.gif'
+py5_tools.animated_gif('/tmp/animated.gif', frame_numbers=[0, 1, 3, 5, 13], duration=0.5)
+
+py5.run_sketch()
