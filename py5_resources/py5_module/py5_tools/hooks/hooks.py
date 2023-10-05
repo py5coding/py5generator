@@ -156,7 +156,10 @@ class GrabFramesHook(BaseHook):
             sketch.load_np_pixels()
             self.frames.append(sketch.np_pixels[:, :, 1:].copy())
             self.last_frame_time = time.time()
-            if len(self.frames) == self.limit:
+            if len(self.frames) == self.limit or (
+                self.frame_numbers is not None
+                and max(self.frame_numbers) < sketch.frame_count
+            ):
                 self.hook_finished(sketch)
             self.status_msg(
                 f"collecting frame {len(self.frames)}"

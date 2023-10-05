@@ -192,7 +192,7 @@ def animated_gif(
     """$module_Py5Tools_animated_gif"""
     import py5
 
-    # TODO: validate function parameters. Must pass count, period and duration OR frame_numbers and duration
+    # TODO: validate function parameters. Must pass count and duration, optionally period OR frame_numbers and duration, and not period
 
     if sketch is None:
         sketch = py5.get_current_sketch()
