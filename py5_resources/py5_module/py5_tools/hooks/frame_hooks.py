@@ -192,7 +192,26 @@ def animated_gif(
     """$module_Py5Tools_animated_gif"""
     import py5
 
-    # TODO: validate function parameters. Must pass count and duration, optionally period OR frame_numbers and duration, and not period
+    if count > 0 and frame_numbers is None:
+        # ok
+        pass
+    elif (
+        count == 0 and frame_numbers is not None and isinstance(frame_numbers, Iterable)
+    ):
+        # ok, but check period is still 0.0
+        if period != 0.0:
+            raise RuntimeError(
+                "Must not pass period parameter when using the frame_numbers parameter"
+            )
+    else:
+        raise RuntimeError(
+            "Must pass either count > 0 or frame_numbers an iterable, but not both"
+        )
+
+    if duration <= 0.0:
+        raise RuntimeError(
+            "Must pass a duration > 0.0 to specify the time delay between frames in the animated gif"
+        )
 
     if sketch is None:
         sketch = py5.get_current_sketch()
@@ -258,6 +277,21 @@ def capture_frames(
 ) -> list[PIL_Image]:
     """$module_Py5Tools_capture_frames"""
     import py5
+
+    if count > 0 and frame_numbers is None:
+        pass
+    elif (
+        count == 0 and frame_numbers is not None and isinstance(frame_numbers, Iterable)
+    ):
+        # ok, but check period is still 0.0
+        if period != 0.0:
+            raise RuntimeError(
+                "Must not pass period parameter when using the frame_numbers parameter"
+            )
+    else:
+        raise RuntimeError(
+            "Must pass either count > 0 or frame_numbers an iterable, but not both"
+        )
 
     if sketch is None:
         sketch = py5.get_current_sketch()
