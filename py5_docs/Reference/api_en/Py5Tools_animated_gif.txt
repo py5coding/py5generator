@@ -5,18 +5,18 @@ category = sketch_hooks
 subcategory = None
 
 @@ signatures
-animated_gif(filename: str, *, count: int, period: float, duration: float, frame_numbers: Iterable = None, loop: int = 0, optimize: bool = True, sketch: Sketch = None, hook_post_draw: bool = False, block: bool = False) -> None
+animated_gif(filename: str, *, count: int = 0, period: float = 0.0, frame_numbers: Iterable = None, duration: float = 0.0, loop: int = 0, optimize: bool = True, sketch: Sketch = None, hook_post_draw: bool = False, block: bool = False) -> None
 
 @@ variables
 block: bool = False - method returns immediately (False) or blocks until function returns (True)
-count: int - number of Sketch snapshots to create
-duration: float - time in seconds between frames in the GIF
+count: int = 0 - number of Sketch snapshots to create
+duration: float = 0.0 - time in seconds between frames in the GIF
 filename: str - filename of GIF to create
 frame_numbers: Iterable = None - list of frame numbers to include in animated GIF
 hook_post_draw: bool = False - attach hook to Sketch's post_draw method instead of draw
 loop: int = 0 - number of times for the GIF to loop (default of 0 loops indefinitely)
 optimize: bool = True - optimize GIF palette
-period: float - time in seconds between Sketch snapshots
+period: float = 0.0 - time in seconds between Sketch snapshots
 sketch: Sketch = None - running Sketch
 
 @@ description
