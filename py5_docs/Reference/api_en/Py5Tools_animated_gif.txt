@@ -8,7 +8,7 @@ subcategory = None
 animated_gif(filename: str, *, count: int = 0, period: float = 0.0, frame_numbers: Iterable = None, duration: float = 0.0, loop: int = 0, optimize: bool = True, sketch: Sketch = None, hook_post_draw: bool = False, block: bool = False) -> None
 
 @@ variables
-block: bool = False - method returns immediately (False) or blocks until function returns (True)
+block: bool = False - function returns immediately (False) or blocks until function returns (True)
 count: int = 0 - number of Sketch snapshots to create
 duration: float = 0.0 - time in seconds between frames in the GIF
 filename: str - filename of GIF to create
@@ -26,7 +26,7 @@ You have two choices for how to specify which frames should be included in the a
 
 Bottom line, you must use either the `count` parameter or the `frame_numbers` parameter but not both. The `period` parameter can only be used in conjunction with the `count` parameter. The duration parameter must always be used.
 
-By default this function will return right away and construct the animated gif in the background while the Sketch is running. The completed gif will be saved to the location specified by the `filename` parameter when it is ready. Set the `block` parameter to `True` to instruct the method to not return until the gif construction is complete. This blocking feature is not available on OSX when the Sketch is executed through an IPython kernel. If the Sketch terminates prematurely, no gif will be created.
+By default this function will return right away and construct the animated gif in the background while the Sketch is running. The completed gif will be saved to the location specified by the `filename` parameter when it is ready. Set the `block` parameter to `True` to instruct the function to not return until the gif construction is complete. This blocking feature is not available on OSX when the Sketch is executed through an IPython kernel. If the Sketch terminates prematurely, no gif will be created.
 
 By default the Sketch will be the currently running Sketch, as returned by [](py5functions_get_current_sketch). Use the `sketch` parameter to specify a different running Sketch, such as a Sketch created using Class mode.
 
