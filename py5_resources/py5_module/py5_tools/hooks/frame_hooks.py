@@ -23,7 +23,7 @@ import sys
 import tempfile
 import time
 from pathlib import Path
-from typing import Callable
+from typing import Callable, Iterable
 
 import numpy as np
 import numpy.typing as npt
@@ -178,10 +178,11 @@ def offline_frame_processing(
 
 def animated_gif(
     filename: str,
-    count: int,
-    period: float,
-    duration: float,
     *,
+    count: int = 0,
+    period: float = 0.0,
+    frame_numbers: Iterable = None,
+    duration: float = 0.0,
     loop: int = 0,
     optimize: bool = True,
     sketch: Sketch = None,
@@ -190,6 +191,28 @@ def animated_gif(
 ) -> None:
     """$module_Py5Tools_animated_gif"""
     import py5
+
+    if count > 0 and frame_numbers is None:
+        # ok
+        pass
+    elif (
+        count == 0 and frame_numbers is not None and isinstance(frame_numbers, Iterable)
+    ):
+        # ok, but check period is still 0.0
+        if period != 0.0:
+            raise RuntimeError(
+                "Must not pass period parameter when using the frame_numbers parameter"
+            )
+    else:
+        # not ok
+        raise RuntimeError(
+            "Must either pass count > 0 or pass frame_numbers an iterable, but not both"
+        )
+
+    if duration <= 0.0:
+        raise RuntimeError(
+            "Must pass a duration > 0.0 to specify the time delay between frames in the animated gif"
+        )
 
     if sketch is None:
         sketch = py5.get_current_sketch()
@@ -229,10 +252,15 @@ def animated_gif(
 
         hook.status_msg("animated gif written to " + str(filename))
 
-    hook = GrabFramesHook(period, count, complete_func)
+    hook_setup = bool(frame_numbers and 0 in frame_numbers)
+    hook = GrabFramesHook(
+        frame_numbers, period, count, complete_func, hooked_setup=hook_setup
+    )
     sketch._add_post_hook(
         "post_draw" if hook_post_draw else "draw", hook.hook_name, hook
     )
+    if hook_setup:
+        sketch._add_post_hook("setup", hook.hook_name, hook)
 
     if block:
         while not hook.is_ready and not hook.is_terminated:
@@ -240,15 +268,33 @@ def animated_gif(
 
 
 def capture_frames(
-    count: float,
     *,
+    count: float = 0,
     period: float = 0.0,
+    frame_numbers: Iterable = None,
     sketch: Sketch = None,
     hook_post_draw: bool = False,
     block: bool = False,
 ) -> list[PIL_Image]:
     """$module_Py5Tools_capture_frames"""
     import py5
+
+    if count > 0 and frame_numbers is None:
+        # ok
+        pass
+    elif (
+        count == 0 and frame_numbers is not None and isinstance(frame_numbers, Iterable)
+    ):
+        # ok, but check period is still 0.0
+        if period != 0.0:
+            raise RuntimeError(
+                "Must not pass period parameter when using the frame_numbers parameter"
+            )
+    else:
+        # not ok
+        raise RuntimeError(
+            "Must either pass count > 0 or pass frame_numbers an iterable, but not both"
+        )
 
     if sketch is None:
         sketch = py5.get_current_sketch()
@@ -273,12 +319,17 @@ def capture_frames(
 
     def complete_func(hook):
         results.extend([PIL.Image.fromarray(arr, mode="RGB") for arr in hook.frames])
-        hook.status_msg(f"captured {count} frames")
+        hook.status_msg(f"captured {len(hook.frames)} frames")
 
-    hook = GrabFramesHook(period, count, complete_func)
+    hook_setup = bool(frame_numbers and 0 in frame_numbers)
+    hook = GrabFramesHook(
+        frame_numbers, period, count, complete_func, hooked_setup=hook_setup
+    )
     sketch._add_post_hook(
         "post_draw" if hook_post_draw else "draw", hook.hook_name, hook
     )
+    if hook_setup:
+        sketch._add_post_hook("setup", hook.hook_name, hook)
 
     if block:
         while not hook.is_ready and not hook.is_terminated:
