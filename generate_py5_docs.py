@@ -352,6 +352,9 @@ def write_doc_md_files(dest_dir, py5_doc_ref_dir):
         )
         examples = format_examples(name, doc.examples)
 
+        if name == "Py5Utilities":
+            continue
+
         if item_type in ["class", "pseudoclass"]:
             title = f"# {name}"
             provides_description = doc.meta.get(
