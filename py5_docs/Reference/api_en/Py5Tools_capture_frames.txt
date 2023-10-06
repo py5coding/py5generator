@@ -18,7 +18,7 @@ sketch: Sketch = None - running Sketch
 @@ description
 Capture frames from a running Sketch.
 
-You have two choices for how to specify which frames should be captured. The first choice is to use the `count` keyword argument to capture a specific number of frames. Optionally, the `period` keyword argument can be used with `count` to introduce a fixed time delay between captured frames. The second choice is to use the `frame_numbers` keyword argument to pass a list of frame numbers. A frame will be captured when [](sketch_frame_count) is in the list passed to `frame_numbers`. For this feature, frame number 0 is after `setup()` is complete and frame number 1 is after the first call to `draw()`. If the smallest number passed to `frame_numbers` is greater than the current [](sketch_frame_count), this function will throw an exception.
+You have two choices for how to specify which frames should be captured. The first choice is to use the `count` keyword argument to capture a specific number of frames. Optionally, the `period` keyword argument can also be used with `count` to introduce a fixed time delay between captured frames. The second choice is to use the `frame_numbers` keyword argument to pass a list of frame numbers. A frame will be captured when the [](sketch_frame_count) value is in the list passed to `frame_numbers`. For this feature, frame number 0 is after `setup()` is complete and frame number 1 is after the first call to `draw()`.
 
 Bottom line, you must use either the `count` parameter or the `frame_numbers` parameter but not both. The `period` parameter can only be used in conjunction with the `count` parameter.
 
