@@ -3,7 +3,6 @@ name = capture_frames()
 type = function
 category = sketch_hooks
 subcategory = None
-bool = False - method returns immediately (False) or blocks until function returns (True)
 
 @@ signatures
 capture_frames(*, count: float = 0, period: float = 0.0, frame_numbers: Iterable = None, sketch: Sketch = None, hook_post_draw: bool = False, block: bool = False) -> list[PIL_Image]
