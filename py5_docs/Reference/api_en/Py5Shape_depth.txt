@@ -3,9 +3,11 @@ name = depth
 type = field
 pclass = PShape
 processing_name = depth
+category = object
+subcategory = properties
 
 @@ description
-Get the `Py5Shape` object's depth. This method only makes sense when using the `P3D` renderer. It will be equal to 0 when using default renderer.
+Get the `Py5Shape` object's depth. This property only makes sense when using the `P3D` renderer. The value will be equal to 0 when using default renderer.
 
 @@ example
 image = Py5Shape_depth_0.png

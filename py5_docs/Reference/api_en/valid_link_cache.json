@@ -534,5 +534,8 @@
   "https://processing.org/reference/PGraphics_set_.html": false,
   "https://processing.org/reference/PImage_set_.html": true,
   "https://processing.org/reference/set_.html": true,
-  "https://processing.org/reference/PShape_colorMode_.html": false
+  "https://processing.org/reference/PShape_colorMode_.html": false,
+  "https://processing.org/reference/PShape_depth.html": false,
+  "https://processing.org/reference/PShape_height.html": true,
+  "https://processing.org/reference/PShape_width.html": true
 }
