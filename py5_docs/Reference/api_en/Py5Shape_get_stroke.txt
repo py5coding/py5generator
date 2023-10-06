@@ -21,6 +21,7 @@ This method can only be used for a complete `Py5Shape` object, and never within 
 image = Py5Shape_get_stroke_0.png
 
 def setup():
+    py5.size(100, 100, py5.P2D)
     py5.stroke_weight(4)
     py5.stroke(200, 50, 50)
     s = py5.create_shape(py5.RECT, 20, 20, 60, 60)
