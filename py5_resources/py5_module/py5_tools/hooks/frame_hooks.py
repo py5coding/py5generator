@@ -204,8 +204,9 @@ def animated_gif(
                 "Must not pass period parameter when using the frame_numbers parameter"
             )
     else:
+        # not ok
         raise RuntimeError(
-            "Must pass either count > 0 or frame_numbers an iterable, but not both"
+            "Must either pass count > 0 or pass frame_numbers an iterable, but not both"
         )
 
     if duration <= 0.0:
@@ -279,6 +280,7 @@ def capture_frames(
     import py5
 
     if count > 0 and frame_numbers is None:
+        # ok
         pass
     elif (
         count == 0 and frame_numbers is not None and isinstance(frame_numbers, Iterable)
@@ -289,8 +291,9 @@ def capture_frames(
                 "Must not pass period parameter when using the frame_numbers parameter"
             )
     else:
+        # not ok
         raise RuntimeError(
-            "Must pass either count > 0 or frame_numbers an iterable, but not both"
+            "Must either pass count > 0 or pass frame_numbers an iterable, but not both"
         )
 
     if sketch is None:
