@@ -29,10 +29,10 @@ logger = logging.getLogger(__name__)
 
 
 class CodeCopier:
-    def __init__(self, format_params, docstring_dict, skip_autopep8=False):
+    def __init__(self, format_params, docstring_dict, skip_black=False):
         self.format_params = format_params
         self.docstring_dict = docstring_dict
-        self.skip_autopep8 = skip_autopep8
+        self.skip_black = skip_black
 
     def __call__(self, src, dest, *, follow_symlinks=True):
         logger.info(f"copying {src} to {dest}")
@@ -50,7 +50,7 @@ class CodeCopier:
             content = re.sub(r"^.*DELETE$", "", content, flags=re.MULTILINE)
             content = re.sub(r"\s*# @decorator$", "", content, flags=re.MULTILINE)
             content = Template(content).substitute(self.docstring_dict)
-            if self.skip_autopep8 or content.find("# *** SKIP AUTOPEP8 ***") >= 0:
+            if self.skip_black or content.find("# *** SKIP AUTOPEP8 ***") >= 0:
                 content = content.replace("# *** SKIP AUTOPEP8 ***\n", "")
             else:
                 content = black.format_str(content, mode=black.FileMode())
