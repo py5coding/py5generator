@@ -45,6 +45,13 @@ dependencies = [
 jupyter = [
     "py5jupyter>=0.2.0a0",
 ]
+extras = [
+    "colour>=0.1.5",
+    "matplotlib>=3.7",
+    "py5jupyter>=0.2.0a0",
+    "shapely>=2.0",
+    "trimesh>=3.23",
+]
 
 [project.scripts]
 py5cmd = "py5_tools.tools.py5cmd:main"
