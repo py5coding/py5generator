@@ -55,7 +55,8 @@ def register_shape_conversion(
 
 
 try:
-    from shapely import (
+    from shapely import affinity
+    from shapely.geometry import (
         GeometryCollection,
         LinearRing,
         LineString,
@@ -64,7 +65,6 @@ try:
         MultiPolygon,
         Point,
         Polygon,
-        affinity,
     )
 
     def shapely_to_py5shape_precondition(obj):
