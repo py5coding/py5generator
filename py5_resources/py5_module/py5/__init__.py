@@ -75,6 +75,11 @@ if not py5_tools.is_jvm_running():
         print(debug_info, file=sys.stderr)
         raise RuntimeError("py5 is unable to start Java 17 Virtual Machine")
 
+    if JClass("py5.util.CheckHeadless")().test():
+        raise RuntimeError(
+            "py5 is unable to run correctly in headless mode. Make sure you are running in a graphical environment and that your Java Virtual Machine is not a Headless JVM."
+        )
+
 import py5_tools.colors.css4 as css4_colors  # noqa
 import py5_tools.colors.mpl_cmaps as mpl_cmaps  # noqa
 import py5_tools.colors.xkcd as xkcd_colors  # noqa
