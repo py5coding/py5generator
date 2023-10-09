@@ -162,13 +162,13 @@ class Py5Shape:
     depth: float = property(fget=_get_depth, doc="""$class_Py5Shape_depth""")
 
     def set_strokes(self, strokes: npt.NDArray[np.int32], /) -> None:
-        """class_Py5Shape_set_strokes"""
+        """$class_Py5Shape_set_strokes"""
         if isinstance(strokes, types.GeneratorType):
             strokes = list(strokes)
         _Py5ShapeHelper.setStrokes(self._instance, strokes)
 
     def set_fills(self, fills: npt.NDArray[np.int32], /) -> None:
-        """class_Py5Shape_set_fills"""
+        """$class_Py5Shape_set_fills"""
         if isinstance(fills, types.GeneratorType):
             fills = list(fills)
         _Py5ShapeHelper.setFills(self._instance, fills)
