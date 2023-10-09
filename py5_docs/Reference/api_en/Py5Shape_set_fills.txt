@@ -9,4 +9,6 @@ set_fills(fills: npt.NDArray[np.int32], /) -> None
 fills: npt.NDArray[np.int32] - array of fill colors
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Set the fill color for each of the individual vertices of a `Py5Shape`. The length of the passed `fills` array must equal the number of vertices in the shape. This method exists to provide an alternative to repeatedly calling [](py5shape_set_fill) in a loop.
+
+This method can only be used after shapes are created or when a shape is defined explicitly. Do not use this method between the calls to [](py5shape_begin_shape) and [](py5shape_end_shape).
