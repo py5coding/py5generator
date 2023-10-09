@@ -322,3 +322,5 @@ vertices,,,method,PYTHON,implemented by me in Py5ShapeHelper
 bezier_vertices,,,method,PYTHON,implemented by me in Py5ShapeHelper
 curve_vertices,,,method,PYTHON,implemented by me in Py5ShapeHelper
 quadratic_vertices,,,method,PYTHON,implemented by me in Py5ShapeHelper
+set_strokes,,,method,PYTHON,implemented by me in Py5ShapeHelper
+set_fills,,,method,PYTHON,implemented by me in Py5ShapeHelper
