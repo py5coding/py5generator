@@ -83,7 +83,7 @@ try:
         )
 
     def shapely_to_py5shape_converter(sketch, obj, _first_call=True, **kwargs):
-        if _first_call and kwargs.get("flip_y_axis", True):
+        if _first_call and kwargs.get("flip_y_axis", False):
             obj = affinity.scale(obj, yfact=-1, origin="center")
 
         if isinstance(obj, Polygon):
