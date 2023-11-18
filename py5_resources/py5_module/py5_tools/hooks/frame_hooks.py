@@ -28,6 +28,7 @@ from typing import Callable, Iterable
 import numpy as np
 import numpy.typing as npt
 import PIL
+from jpype import JClass
 from PIL.Image import Image as PIL_Image
 
 from .. import environ as _environ
@@ -75,8 +76,14 @@ def screenshot(*, sketch: Sketch = None, hook_post_draw: bool = False) -> PIL_Im
             elif hook.is_terminated and hook.exception:
                 raise RuntimeError("error running magic: " + str(hook.exception))
     else:
-        sketch.load_np_pixels()
-        return PIL.Image.fromarray(sketch.np_pixels[:, :, 1:], mode="RGB")
+        if isinstance(
+            sketch.get_graphics()._instance, JClass("processing.opengl.PGraphicsOpenGL")
+        ):
+            msg = "The py5_tools.screenshot() function cannot be used on an OpenGL Sketch with no draw() function."
+            raise RuntimeError(msg)
+        else:
+            sketch.load_np_pixels()
+            return PIL.Image.fromarray(sketch.np_pixels[:, :, 1:], mode="RGB")
 
 
 def save_frames(
