@@ -20,6 +20,7 @@
 from typing import Callable, Union
 
 import numpy as np
+from PIL.Image import Image as PIL_Image
 
 pshape_functions = []
 
@@ -198,7 +199,8 @@ try:
             return shape
 
         if len(obj.entities) == 1:
-            shape = helper(obj.entities[0])
+            color = None if obj.colors is None else obj.colors[0]
+            shape = helper(obj.entities[0], color)
         else:
             shape = sketch.create_shape(sketch.GROUP)
             for i, entity in enumerate(obj.entities):
@@ -266,9 +268,15 @@ try:
             if "texture" in kwargs:
                 from . import Py5Graphics, Py5Image
 
-                if isinstance(tex := kwargs["texture"], (Py5Image, Py5Graphics)):
+                tex = kwargs["texture"]
+                if isinstance(tex, (Py5Image, Py5Graphics)):
                     texture = tex
-            elif obj.visual.material.baseColorTexture is not None:
+                elif isinstance(tex, PIL_Image):
+                    texture = sketch.convert_image(tex)
+            elif (
+                hasattr(obj.visual.material, "baseColorTexture")
+                and obj.visual.material.baseColorTexture is not None
+            ):
                 try:
                     texture = sketch.convert_image(obj.visual.material.baseColorTexture)
                 except:
