@@ -62,17 +62,21 @@ def screenshot(*, sketch: Sketch = None, hook_post_draw: bool = False) -> PIL_Im
         msg = "Calling py5_tools.screenshot() from within a py5 user function is not allowed. Please move this code to outside the Sketch or consider using save_frame() instead."
         raise RuntimeError(msg)
 
-    hook = ScreenshotHook()
-    sketch._add_post_hook(
-        "post_draw" if hook_post_draw else "draw", hook.hook_name, hook
-    )
+    if sketch._py5_bridge.has_function("draw"):
+        hook = ScreenshotHook()
+        sketch._add_post_hook(
+            "post_draw" if hook_post_draw else "draw", hook.hook_name, hook
+        )
 
-    while not hook.is_ready and not hook.is_terminated:
-        time.sleep(0.005)
-        if hook.is_ready:
-            return PIL.Image.fromarray(hook.pixels, mode="RGB")
-        elif hook.is_terminated and hook.exception:
-            raise RuntimeError("error running magic: " + str(hook.exception))
+        while not hook.is_ready and not hook.is_terminated:
+            time.sleep(0.005)
+            if hook.is_ready:
+                return PIL.Image.fromarray(hook.pixels, mode="RGB")
+            elif hook.is_terminated and hook.exception:
+                raise RuntimeError("error running magic: " + str(hook.exception))
+    else:
+        sketch.load_np_pixels()
+        return PIL.Image.fromarray(sketch.np_pixels[:, :, 1:], mode="RGB")
 
 
 def save_frames(
