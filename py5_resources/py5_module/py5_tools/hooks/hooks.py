@@ -72,13 +72,14 @@ class BaseHook:
 
 
 class ScreenshotHook(BaseHook):
-    def __init__(self, filename):
+    def __init__(self):
         super().__init__("py5screenshot_hook")
-        self.filename = filename
+        self.pixels = []
 
     def __call__(self, sketch):
         try:
-            sketch.save_frame(self.filename, use_thread=False)
+            sketch.load_np_pixels()
+            self.pixels = sketch.np_pixels[:, :, 1:].copy()
             self.hook_finished(sketch)
         except Exception as e:
             self.hook_error(sketch, e)
