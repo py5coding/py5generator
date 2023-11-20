@@ -76,6 +76,11 @@ def screenshot(*, sketch: Sketch = None, hook_post_draw: bool = False) -> PIL_Im
             elif hook.is_terminated and hook.exception:
                 raise RuntimeError("error running magic: " + str(hook.exception))
     else:
+        # this works because Processing sees a dummy draw() in Sketch.java
+        # method and keeps looping
+        while sketch.frame_count < 1:
+            time.sleep(0.005)
+
         if isinstance(
             sketch.get_graphics()._instance, JClass("processing.opengl.PGraphicsOpenGL")
         ):
