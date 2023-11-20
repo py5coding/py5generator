@@ -142,9 +142,36 @@ try:
             return False
 
     def svg_file_to_ndarray_converter(filename, **kwargs):
+        parent_width = kwargs.get("parent_width", None)
+        parent_height = kwargs.get("parent_height", None)
+        dpi = kwargs.get("dpi", 96)
+        scale = kwargs.get("scale", 1)
+        unsafe = kwargs.get("unsafe", False)
+        background_color = kwargs.get("background_color", None)
+        negate_colors = kwargs.get("negate_colors", False)
+        invert_images = kwargs.get("invert_images", False)
+        output_width = kwargs.get("output_width", None)
+        output_height = kwargs.get("output_height", None)
+
         filename = Path(filename)
         with open(filename, "r") as f:
-            img = Image.open(io.BytesIO(cairosvg.svg2png(file_obj=f)))
+            img = Image.open(
+                io.BytesIO(
+                    cairosvg.svg2png(
+                        file_obj=f,
+                        dpi=dpi,
+                        parent_width=parent_width,
+                        parent_height=parent_height,
+                        scale=scale,
+                        unsafe=unsafe,
+                        background_color=background_color,
+                        negate_colors=negate_colors,
+                        invert_images=invert_images,
+                        output_width=output_width,
+                        output_height=output_height,
+                    )
+                )
+            )
             return pillow_image_to_ndarray_converter(img, **kwargs)
 
     register_image_conversion(
