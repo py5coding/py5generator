@@ -109,13 +109,17 @@ def _convert_hex_color(indices=[0]):
                     and isinstance(args[i], (int, np.integer, float, np.floating))
                     and not isinstance(args[i], Py5Color)
                 ):
-                    args[i] = JInt(
-                        int(
-                            "0xFF"
-                            + mcolors.to_hex(self_._cmap(arg / self_._cmap_range))[1:],
-                            base=16,
-                        )
+                    hex_color = mcolors.to_hex(
+                        self_._cmap(arg / self_._cmap_range), keep_alpha=True
                     )
+                    # small hack because matplotlib returns #00000000 for bad values
+                    # without this, PApplet.color() would convert JInt(0) to 0xFF000000.
+                    hex_color = (
+                        "00010101"
+                        if hex_color == "#00000000"
+                        else hex_color[-2:] + hex_color[1:-2]
+                    )
+                    args[i] = JInt(int("0x" + hex_color, base=16))
                 elif (new_arg := _hex_converter(arg)) is not None:
                     args[i] = new_arg
             return f(self_, *args)
@@ -135,13 +139,17 @@ def _convert_hex_color2(f):
             and isinstance(args[0], (int, np.integer, float, np.floating))
             and not isinstance(args[0], Py5Color)
         ):
-            args[0] = JInt(
-                int(
-                    "0xFF"
-                    + mcolors.to_hex(self_._cmap(args[0] / self_._cmap_range))[1:],
-                    base=16,
-                )
+            hex_color = mcolors.to_hex(
+                self_._cmap(args[0] / self_._cmap_range), keep_alpha=True
             )
+            # small hack because matplotlib returns #00000000 for bad values
+            # without this, PApplet.color() would convert JInt(0) to 0xFF000000.
+            hex_color = (
+                "00010101"
+                if hex_color == "#00000000"
+                else hex_color[-2:] + hex_color[1:-2]
+            )
+            args[0] = JInt(int("0x" + hex_color, base=16))
         elif len(args) == 1 and (new_arg := _hex_converter(args[0])):
             args[0] = new_arg
         elif len(args) == 2 and (new_arg := _hex_converter(args[1])):
