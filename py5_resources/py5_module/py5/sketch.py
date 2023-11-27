@@ -68,10 +68,11 @@ from .utilities import Py5Utilities
 try:
     import matplotlib as mpl
     import matplotlib.colors as mcolors
+    from matplotlib.colors import Colormap
 except:
     mpl = None
     mcolors = None
-Colormap = "mpl.colors.Colormap"
+    Colormap = "matplotlib.colors.Colormap"
 
 sketch_class_members_code = None  # DELETE
 
@@ -803,6 +804,11 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         pass
 
     @overload
+    def color_mode(self, colormap_mode: int, /) -> None:
+        """$class_Sketch_color_mode"""
+        pass
+
+    @overload
     def color_mode(self, mode: int, max1: float, max2: float, max3: float, /) -> None:
         """$class_Sketch_color_mode"""
         pass
@@ -820,35 +826,42 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         pass
 
     @overload
-    def color_mode(self, mode: int, color_map: str, /) -> None:
+    def color_mode(self, colormap_mode: int, color_map: str, /) -> None:
         """$class_Sketch_color_mode"""
         pass
 
     @overload
-    def color_mode(self, mode: int, color_map: Colormap, /) -> None:
+    def color_mode(self, colormap_mode: int, color_map_instance: Colormap, /) -> None:
         """$class_Sketch_color_mode"""
         pass
 
     @overload
-    def color_mode(self, mode: int, color_map: str, max1: float, /) -> None:
-        """$class_Sketch_color_mode"""
-        pass
-
-    @overload
-    def color_mode(self, mode: int, color_map: Colormap, max1: float, /) -> None:
+    def color_mode(self, colormap_mode: int, color_map: str, max_map: float, /) -> None:
         """$class_Sketch_color_mode"""
         pass
 
     @overload
     def color_mode(
-        self, mode: int, color_map: str, max1: float, max_a: float, /
+        self, colormap_mode: int, color_map_instance: Colormap, max_map: float, /
     ) -> None:
         """$class_Sketch_color_mode"""
         pass
 
     @overload
     def color_mode(
-        self, mode: int, color_map: Colormap, max1: float, max_a: float, /
+        self, colormap_mode: int, color_map: str, max_map: float, max_a: float, /
+    ) -> None:
+        """$class_Sketch_color_mode"""
+        pass
+
+    @overload
+    def color_mode(
+        self,
+        colormap_mode: int,
+        color_map_instance: Colormap,
+        max_map: float,
+        max_a: float,
+        /,
     ) -> None:
         """$class_Sketch_color_mode"""
         pass
