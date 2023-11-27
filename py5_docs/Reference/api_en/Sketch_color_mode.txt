@@ -7,25 +7,28 @@ pclass = PApplet
 processing_name = colorMode
 
 @@ signatures
+color_mode(colormap_mode: int, /) -> None
+color_mode(colormap_mode: int, color_map: str, /) -> None
+color_mode(colormap_mode: int, color_map: str, max_map: float, /) -> None
+color_mode(colormap_mode: int, color_map: str, max_map: float, max_a: float, /) -> None
+color_mode(colormap_mode: int, color_map_instance: Colormap, /) -> None
+color_mode(colormap_mode: int, color_map_instance: Colormap, max_map: float, /) -> None
+color_mode(colormap_mode: int, color_map_instance: Colormap, max_map: float, max_a: float, /, ) -> None
 color_mode(mode: int, /) -> None
-color_mode(mode: int, color_map: Colormap, /) -> None
-color_mode(mode: int, color_map: Colormap, max1: float, /) -> None
-color_mode(mode: int, color_map: Colormap, max1: float, max_a: float, /) -> None
-color_mode(mode: int, color_map: str, /) -> None
-color_mode(mode: int, color_map: str, max1: float, /) -> None
-color_mode(mode: int, color_map: str, max1: float, max_a: float, /) -> None
 color_mode(mode: int, max1: float, max2: float, max3: float, /) -> None
 color_mode(mode: int, max1: float, max2: float, max3: float, max_a: float, /) -> None
 color_mode(mode: int, max: float, /) -> None
 
 @@ variables
-color_map: Colormap - matplotlib Colormap instance
-color_map: str - name of matplotlib colormap
+color_map: str - name of builtin matplotlib Colormap
+color_map_instance: Colormap - matplotlib.colors.Colormap instance
+colormap_mode: int - CMAP, activating matplotlib Colormap mode
 max1: float - range for the red or hue depending on the current color mode
 max2: float - range for the green or saturation depending on the current color mode
 max3: float - range for the blue or brightness depending on the current color mode
 max: float - range for all color elements
 max_a: float - range for the alpha
+max_map: float - range for the color map
 mode: int - Either RGB or HSB, corresponding to Red/Green/Blue and Hue/Saturation/Brightness
 
 @@ description
