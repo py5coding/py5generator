@@ -804,11 +804,6 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         pass
 
     @overload
-    def color_mode(self, colormap_mode: int, /) -> None:
-        """$class_Sketch_color_mode"""
-        pass
-
-    @overload
     def color_mode(self, mode: int, max1: float, max2: float, max3: float, /) -> None:
         """$class_Sketch_color_mode"""
         pass
@@ -880,6 +875,10 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                     "matplotlib must be installed to use CMAP color mode"
                 )
             args = list(args)
+            if len(args) == 0:
+                raise TypeError(
+                    "When using the CMAP color mode, the second parameter must be an instance of matplotlib.colors.Colormap or a string representing a matplotlib colormap name"
+                )
             if isinstance(args[0], str):
                 if args[0] in mpl.colormaps:
                     args[0] = mpl.colormaps[args[0]]
