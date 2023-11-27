@@ -7,7 +7,6 @@ pclass = PApplet
 processing_name = colorMode
 
 @@ signatures
-color_mode(colormap_mode: int, /) -> None
 color_mode(colormap_mode: int, color_map: str, /) -> None
 color_mode(colormap_mode: int, color_map: str, max_map: float, /) -> None
 color_mode(colormap_mode: int, color_map: str, max_map: float, max_a: float, /) -> None
