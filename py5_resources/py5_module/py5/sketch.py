@@ -747,7 +747,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self, obj: Any, *, dst: Py5Image = None, **kwargs: dict[str, Any]
     ) -> Py5Image:
         """$class_Sketch_convert_image"""
-        result = image_conversion._convert(obj, **kwargs)
+        result = image_conversion._convert(self, obj, **kwargs)
         if isinstance(result, (Path, str)):
             return self.load_image(result, dst=dst)
         elif isinstance(result, image_conversion.NumpyImageArray):

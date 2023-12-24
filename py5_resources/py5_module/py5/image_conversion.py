@@ -37,10 +37,10 @@ def _convertable(obj):
     return any(pre(obj) for pre, _ in pimage_functions)
 
 
-def _convert(obj, **kwargs):
+def _convert(sketch, obj, **kwargs):
     for precondition, convert_function in pimage_functions:
         if precondition(obj):
-            obj = convert_function(obj, **kwargs)
+            obj = convert_function(sketch, obj, **kwargs)
             break
     else:
         classname = f"{obj.__class__.__module__}.{obj.__class__.__name__}"
@@ -102,7 +102,7 @@ def numpy_image_array_precondition(obj):
     return isinstance(obj, NumpyImageArray)
 
 
-def numpy_image_array_converter(obj, **kwargs):
+def numpy_image_array_converter(sketch, obj, **kwargs):
     return obj
 
 
@@ -113,7 +113,7 @@ def pillow_image_to_ndarray_precondition(obj):
     return isinstance(obj, Image.Image)
 
 
-def pillow_image_to_ndarray_converter(img, **kwargs):
+def pillow_image_to_ndarray_converter(sketch, img, **kwargs):
     if img.mode not in ["RGB", "RGBA"]:
         img = img.convert(mode="RGB")
     return NumpyImageArray(np.asarray(img), img.mode)
@@ -141,7 +141,7 @@ try:
         else:
             return False
 
-    def svg_file_to_ndarray_converter(filename, **kwargs):
+    def svg_file_to_ndarray_converter(sketch, filename, **kwargs):
         parent_width = kwargs.get("parent_width", None)
         parent_height = kwargs.get("parent_height", None)
         dpi = kwargs.get("dpi", 96)
@@ -172,7 +172,7 @@ try:
                     )
                 )
             )
-            return pillow_image_to_ndarray_converter(img, **kwargs)
+            return pillow_image_to_ndarray_converter(sketch, img, **kwargs)
 
     register_image_conversion(
         svg_file_to_ndarray_precondition, svg_file_to_ndarray_converter
@@ -187,7 +187,7 @@ try:
     def cairocffi_surface_to_tempfile_precondition(obj):
         return isinstance(obj, cairocffi.Surface)
 
-    def cairocffi_surface_to_tempfile_converter(surface, **kwargs):
+    def cairocffi_surface_to_tempfile_converter(sketch, surface, **kwargs):
         temp_png = _TEMP_DIR / f"{uuid.uuid4()}.png"
         surface.write_to_png(temp_png.as_posix())
         return temp_png
@@ -206,7 +206,7 @@ try:
     def cairo_surface_to_tempfile_precondition(obj):
         return isinstance(obj, cairo.Surface)
 
-    def cairo_surface_to_tempfile_converter(surface, **kwargs):
+    def cairo_surface_to_tempfile_converter(sketch, surface, **kwargs):
         temp_png = _TEMP_DIR / f"{uuid.uuid4()}.png"
         surface.write_to_png(temp_png.as_posix())
         return temp_png
@@ -225,7 +225,7 @@ try:
     def figure_to_ndarray_precondition(obj):
         return isinstance(obj, Figure)
 
-    def figure_to_ndarray_converter(figure, **kwargs):
+    def figure_to_ndarray_converter(sketch, figure, **kwargs):
         canvas = FigureCanvasAgg(figure)
         canvas.draw()
         return NumpyImageArray(np.asarray(canvas.buffer_rgba()), "RGBA")
