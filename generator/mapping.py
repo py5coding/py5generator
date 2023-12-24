@@ -30,7 +30,8 @@ logger = logging.getLogger(__name__)
 PY5_API_EN = Path("py5_docs/Reference/api_en/")
 
 FIRST_SENTENCE_REGEX = re.compile(r"^.*?\.(?=\s)")
-REST_DOC_LINK = re.compile(r"\[\]\([\w_]+\)")
+MARKDOWN_DOC_LINK = re.compile(r"\[\]\([\w_]+\)")
+MARKDOWN_LINK = re.compile(r"\[(.+)\]\(.*?\)")
 
 PARAMETERS_TEMPLATE = """
 
@@ -118,8 +119,9 @@ def prepare_mapping(method_signatures_lookup):
         item_type = doc.meta["type"]
         processing_name = doc.meta.get("processing_name")
         description = doc.description.strip()
-        for m in REST_DOC_LINK.findall(description):
+        for m in MARKDOWN_DOC_LINK.findall(description):
             description = description.replace(m, title_map[m])
+        description = MARKDOWN_LINK.sub(r"\1", description)
         m = FIRST_SENTENCE_REGEX.match(description)
         first_sentence = m.group() if m else description
         description = "\n".join(
