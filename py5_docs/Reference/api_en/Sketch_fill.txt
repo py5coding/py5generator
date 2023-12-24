@@ -31,6 +31,8 @@ When using web color notation to specify a color, create a string beginning with
 
 The value for the "gray" parameter must be less than or equal to the current maximum value as specified by [](sketch_color_mode). The default maximum value is 255.
 
+This method has additional color functionality that is not reflected in the method's signatures. For example, you can pass the name of a color (e.g. "green", "mediumpurple", etc). Look at the online ["All About Colors"](/integrations/colors) Python Ecosystem Integration tutorial for more information.
+
 To change the color of an image or a texture, use [](sketch_tint).
 
 @@ example
