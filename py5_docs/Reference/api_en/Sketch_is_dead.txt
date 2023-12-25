@@ -18,7 +18,7 @@ def setup():
 
 print("the sketch is ready:", py5.is_ready)
 
-py5.run_sketch()
+py5.run_sketch(block=False)
 
 print("the sketch is running:", py5.is_running)
 

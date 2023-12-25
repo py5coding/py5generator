@@ -26,7 +26,7 @@ If your Sketch has a `post_draw()` method, use the `hook_post_draw` parameter to
 import time
 import py5_tools
 
-py5.run_sketch()
+py5.run_sketch(block=False)
 # take a screenshot of the running sketch after a two second delay
 time.sleep(2)
 img = py5_tools.screenshot()

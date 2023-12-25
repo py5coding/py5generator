@@ -15,9 +15,6 @@ This method can be called before or after [](sketch_run_sketch). You are welcome
 To profile a other functions besides draw, use [](sketch_profile_functions). To see the results, use [](sketch_print_line_profiler_stats).
 
 @@ example
-import time
-
-
 def draw():
     py5.stroke(py5.random_int(255), py5.random_int(255), py5.random_int(255))
     # this draw function should use `points` instead
@@ -25,11 +22,9 @@ def draw():
         py5.point(py5.random_int(py5.width), py5.random_int(py5.height))
 
 
+def key_pressed():
+    py5.print_line_profiler_stats()
+
+
 py5.profile_draw()
 py5.run_sketch()
-
-
-# let the sketch run for a bit to accumulate data
-time.sleep(10)
-
-py5.print_line_profiler_stats()

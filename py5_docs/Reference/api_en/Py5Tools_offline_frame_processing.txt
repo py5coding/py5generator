@@ -37,7 +37,7 @@ import skvideo.io
 import py5_tools
 
 
-py5.run_sketch()
+py5.run_sketch(block=False)
 
 writer = skvideo.io.FFmpegWriter(
     '/tmp/video.mp4',

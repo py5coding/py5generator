@@ -35,7 +35,7 @@ If your Sketch has a `post_draw()` method, use the `hook_post_draw` parameter to
 @@ example
 import py5_tools
 
-py5.run_sketch()
+py5.run_sketch(block=False)
 # create a 10 frame animated GIF saved to '/tmp/animated.gif'
 py5_tools.animated_gif('/tmp/animated.gif', count=10, period=1, duration=0.5)
 

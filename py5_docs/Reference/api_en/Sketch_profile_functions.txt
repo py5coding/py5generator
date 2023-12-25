@@ -18,9 +18,6 @@ This method can be called before or after [](sketch_run_sketch). You are welcome
 To profile just the draw function, you can also use [](sketch_profile_draw). To see the results, use [](sketch_print_line_profiler_stats).
 
 @@ example
-import time
-
-
 def setup():
     # to load images from the web, use `request_image` instead
     img = py5.load_image('http://py5coding.org/files/apples.jpg')
@@ -28,8 +25,9 @@ def setup():
     py5.image(img, 10, 10, py5.width - 10, py5.height - 10)
 
 
+def key_pressed():
+    py5.print_line_profiler_stats()
+
+
 py5.profile_functions(['setup'])
 py5.run_sketch()
-
-time.sleep(5)
-py5.print_line_profiler_stats()

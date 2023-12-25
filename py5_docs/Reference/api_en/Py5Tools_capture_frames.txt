@@ -31,7 +31,7 @@ If your Sketch has a `post_draw()` method, use the `hook_post_draw` parameter to
 @@ example
 import py5_tools
 
-py5.run_sketch()
+py5.run_sketch(block=False)
 # capture 10 frames from the currently running sketch
 frames = py5_tools.capture_frames(count=10, period=1)
 

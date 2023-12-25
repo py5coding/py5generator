@@ -34,6 +34,6 @@ If your Sketch has a `post_draw()` method, use the `hook_post_draw` parameter to
 @@ example
 import py5_tools
 
-py5.run_sketch()
+py5.run_sketch(block=False)
 # save the next 50 frames to the `/tmp/frames` directory
 frames = py5_tools.save_frames('/tmp/frames', limit=50, start=0)

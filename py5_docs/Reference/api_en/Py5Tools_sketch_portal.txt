@@ -38,7 +38,7 @@ To stop a Sketch Portal, wait for the time limit to expire, call [](sketch_exit_
 @@ example
 import py5_tools
 
-py5.run_sketch()
+py5.run_sketch(block=False)
 # stream frames from the currently running sketch for 5 seconds
 portal = py5_tools.sketch_portal(time_limit=5)
 
