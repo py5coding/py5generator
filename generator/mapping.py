@@ -31,7 +31,7 @@ PY5_API_EN = Path("py5_docs/Reference/api_en/")
 
 FIRST_SENTENCE_REGEX = re.compile(r"^.*?\.(?=\s)")
 MARKDOWN_DOC_LINK = re.compile(r"\[\]\([\w_]+\)")
-MARKDOWN_LINK = re.compile(r"\[(.+)\]\(.*?\)")
+MARKDOWN_LINK = re.compile(r"\[([^\]]+)\]\(.*?\)")
 
 PARAMETERS_TEMPLATE = """
 
