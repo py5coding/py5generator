@@ -31,6 +31,8 @@ An image can also be used as the background for a Sketch, although the image's w
  
 It is not possible to use the transparency `alpha` parameter with background colors on the main drawing surface. It can only be used along with a `Py5Graphics` object and [](sketch_create_graphics).
 
+This method has additional color functionality that is not reflected in the method's signatures. For example, you can pass the name of a color (e.g. "green", "mediumpurple", etc). Look at the online ["All About Colors"](/integrations/colors) Python Ecosystem Integration tutorial for more information.
+
 @@ example
 image = Sketch_background_0.png
 
