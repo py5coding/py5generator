@@ -49,6 +49,10 @@ def sketch_portal(
     hook_post_draw: bool = False,
 ) -> None:
     """$module_Py5Tools_sketch_portal"""
+    raise RuntimeError(
+        "The sketch_widget() functionality is broken and was removed in py5 version 0.10.0. It will be re-introduced in a future release. Sorry!"
+    )
+
     environment = _environ.Environment()
     if not environment.in_ipython_session:
         raise RuntimeError(
