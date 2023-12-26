@@ -31,9 +31,13 @@ def sketch_portal(
     scale: float = 1.0,
     quality: int = 75,
     portal_widget: Py5SketchPortal = None,
-    sketch: Sketch = None
+    sketch: Sketch = None,
 ) -> None:
     """$module_Py5Tools_sketch_portal"""
+    raise RuntimeError(
+        "The sketch_widget() functionality is broken and was removed in py5 version 0.10.0. It will be re-introduced in a future release. Sorry!"
+    )
+
     raise RuntimeError(
         "The sketch_widget() function can only be used with IPython and ZMQInteractiveShell (such as Jupyter Lab)"
     )
