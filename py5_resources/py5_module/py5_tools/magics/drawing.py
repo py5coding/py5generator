@@ -297,7 +297,7 @@ class DrawingMagics(Magics):
         if sys.platform == "darwin":
             if args.renderer in ["P2D", "P3D", "DXF"]:
                 print(
-                    f"Sorry, py5 magics do not support the {args.renderer} renderer on OSX.",
+                    f"Sorry, py5 magics do not support the {args.renderer} renderer on macOS.",
                     file=sys.stderr,
                 )
                 return

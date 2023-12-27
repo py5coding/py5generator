@@ -119,7 +119,7 @@ def save_frames(
         raise RuntimeError(msg)
 
     if block and sys.platform == "darwin" and _environ.Environment().in_ipython_session:
-        raise RuntimeError("Blocking is not allowed on OSX when run from IPython")
+        raise RuntimeError("Blocking is not allowed on macOS when run from IPython")
 
     if block and py5.bridge.check_run_method_callstack():
         msg = "Calling py5_tools.save_frames() from within a py5 user function with `block=True` is not allowed. Please move this code to outside the Sketch or set `block=False`."
@@ -240,7 +240,7 @@ def animated_gif(
         raise RuntimeError(msg)
 
     if block and sys.platform == "darwin" and _environ.Environment().in_ipython_session:
-        raise RuntimeError("Blocking is not allowed on OSX when run from IPython")
+        raise RuntimeError("Blocking is not allowed on macOS when run from IPython")
 
     if block and py5.bridge.check_run_method_callstack():
         msg = "Calling py5_tools.animated_gif() from within a py5 user function with `block=True` is not allowed. Please move this code to outside the Sketch or set `block=False`."
@@ -322,7 +322,7 @@ def capture_frames(
         raise RuntimeError(msg)
 
     if block and sys.platform == "darwin" and _environ.Environment().in_ipython_session:
-        raise RuntimeError("Blocking is not allowed on OSX when run from IPython")
+        raise RuntimeError("Blocking is not allowed on macOS when run from IPython")
 
     if block and py5.bridge.check_run_method_callstack():
         msg = "Calling py5_tools.capture_frames() from within a py5 user function with `block=True` is not allowed. Please move this code to outside the Sketch or set `block=False`."

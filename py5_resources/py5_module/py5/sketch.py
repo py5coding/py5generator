@@ -89,7 +89,7 @@ try:
         and (_ipython_shell := get_ipython()).active_eventloop != "osx"
     ):
         print(
-            "Importing py5 on OSX but the necessary Jupyter OSX event loop has not been activated. I'll activate it for you, but next time, execute `%gui osx` before importing this library."
+            "Importing py5 on macOS but the necessary Jupyter macOS event loop has not been activated. I'll activate it for you, but next time, execute `%gui osx` before importing this library."
         )
         _ipython_shell.run_line_magic("gui", "osx")
 except Exception:
@@ -366,7 +366,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
                 if block == False and not self._environ.in_ipython_session:
                     self.println(
-                        "On OSX, blocking is manditory when Sketch is not run through Jupyter. This applies to all renderers.",
+                        "On macOS, blocking is manditory when Sketch is not run through Jupyter. This applies to all renderers.",
                         stderr=True,
                     )
 
@@ -389,7 +389,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                 "FX2D",
             ]:
                 self.println(
-                    "On OSX, blocking is not allowed when Sketch using the",
+                    "On macOS, blocking is not allowed when Sketch using the",
                     renderer,
                     "renderer is run though Jupyter.",
                     stderr=True,
@@ -712,7 +712,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                 raise RuntimeError(
                     "Sorry, py5's "
                     + name
-                    + "() method doesn't work on OSX when the Sketch is run through Jupyter. However, there are some IPython widgets you can use instead."
+                    + "() method doesn't work on macOS when the Sketch is run through Jupyter. However, there are some IPython widgets you can use instead."
                 )
             else:
 
