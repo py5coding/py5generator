@@ -130,7 +130,7 @@ public class SketchBase extends PApplet {
       dispose();
     }
 
-    // prevent an endless loop on OSX
+    // prevent an endless loop on macOS
     exitActualCallCount += 1;
 
     // call exiting even if success == false. user might need to do shutdown
