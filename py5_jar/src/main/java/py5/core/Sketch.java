@@ -184,7 +184,7 @@ public class Sketch extends SketchBase {
       }
     }
 
-    if (success && py5RegisteredEvents.contains("update")) {
+    if (success && py5RegisteredEvents.contains("update") && !py5RegisteredEvents.contains("post_draw")) {
       launchUpdateThread();
     }
 
@@ -200,6 +200,10 @@ public class Sketch extends SketchBase {
   }
 
   public void preDraw() {
+    if (updateThread != null) {
+      joinUpdateThread();
+    }
+
     if (success && py5RegisteredEvents.contains("pre_draw")) {
       success = py5Bridge.run_method("pre_draw");
     }
@@ -208,6 +212,10 @@ public class Sketch extends SketchBase {
   public void postDraw() {
     if (success && py5RegisteredEvents.contains("post_draw")) {
       success = py5Bridge.run_method("post_draw");
+    }
+
+    if (success && py5RegisteredEvents.contains("update")) {
+      launchUpdateThread();
     }
   }
 
