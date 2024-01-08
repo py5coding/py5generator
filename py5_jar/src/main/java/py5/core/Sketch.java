@@ -180,7 +180,7 @@ public class Sketch extends SketchBase {
       }
     }
 
-    if (py5RegisteredEvents.contains("update")) {
+    if (success && py5RegisteredEvents.contains("update")) {
       launchUpdateThread();
     }
 
