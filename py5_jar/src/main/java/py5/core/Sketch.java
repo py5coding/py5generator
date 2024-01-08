@@ -42,6 +42,7 @@ public class Sketch extends SketchBase {
   protected long osNoiseSeed;
   public Integer lastWindowX;
   public Integer lastWindowY;
+  protected Thread updateThread;
 
   public static final char CODED = PApplet.CODED;
 
@@ -167,6 +168,10 @@ public class Sketch extends SketchBase {
       restorePixels();
     }
 
+    if (updateThread != null) {
+      joinUpdateThread();
+    }
+
     if (success) {
       if (py5RegisteredEvents.contains("draw")) {
         success = py5Bridge.run_method("draw");
@@ -175,8 +180,18 @@ public class Sketch extends SketchBase {
       }
     }
 
+    if (py5RegisteredEvents.contains("update")) {
+      launchUpdateThread();
+    }
+
     if (frameCount == 1 && platform == WINDOWS && (sketchRenderer().equals(P2D) || sketchRenderer().equals(P3D))) {
       capturePixels(false);
+    }
+  }
+
+  protected void update() {
+    if (success) {
+      success = py5Bridge.run_method("update");
     }
   }
 
@@ -626,4 +641,27 @@ public class Sketch extends SketchBase {
       }
     }
   }
+
+  /*
+   * Update Thread methods
+   */
+
+  protected void launchUpdateThread() {
+    updateThread = new Thread() {
+      public void run() {
+        update();
+      }
+    };
+    updateThread.start();
+  }
+
+  protected void joinUpdateThread() {
+    try {
+      updateThread.join();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    updateThread = null;
+  }
+
 }
