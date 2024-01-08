@@ -27,6 +27,7 @@ METHODS = dict(
     settings=[0],
     setup=[0],
     draw=[0],
+    update=[0],
     pre_draw=[0],
     post_draw=[0],
     key_pressed=[0, 1],
