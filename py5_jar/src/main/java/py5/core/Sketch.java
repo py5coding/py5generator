@@ -156,6 +156,10 @@ public class Sketch extends SketchBase {
         super.setup();
       }
 
+      if (success && py5RegisteredEvents.contains("update")) {
+        launchUpdateThread();
+      }
+
       if (platform == WINDOWS && (sketchRenderer().equals(P2D) || sketchRenderer().equals(P3D))) {
         capturePixels(true);
       }
