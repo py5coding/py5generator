@@ -747,6 +747,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self, obj: Any, *, dst: Py5Image = None, **kwargs: dict[str, Any]
     ) -> Py5Image:
         """$class_Sketch_convert_image"""
+        if isinstance(obj, (Py5Image, Py5Graphics)):
+            return obj
         result = image_conversion._convert(self, obj, **kwargs)
         if isinstance(result, (Path, str)):
             return self.load_image(result, dst=dst)
@@ -758,6 +760,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
     def convert_shape(self, obj: Any, **kwargs: dict[str, Any]) -> Py5Shape:
         """$class_Sketch_convert_shape"""
+        if isinstance(obj, Py5Shape):
+            return obj
         return shape_conversion._convert(self, obj, **kwargs)
 
     def load_image(
