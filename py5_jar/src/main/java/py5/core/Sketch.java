@@ -42,7 +42,7 @@ public class Sketch extends SketchBase {
   protected long osNoiseSeed;
   public Integer lastWindowX;
   public Integer lastWindowY;
-  protected Thread updateThread;
+  protected UpdateRunner updateRunner;
 
   public static final char CODED = PApplet.CODED;
 
@@ -157,7 +157,8 @@ public class Sketch extends SketchBase {
       }
 
       if (success && py5RegisteredEvents.contains("update")) {
-        launchUpdateThread();
+        updateRunner = new UpdateRunner();
+        updateRunner.start();
       }
 
       if (platform == WINDOWS && (sketchRenderer().equals(P2D) || sketchRenderer().equals(P3D))) {
@@ -172,8 +173,13 @@ public class Sketch extends SketchBase {
       restorePixels();
     }
 
-    if (updateThread != null) {
-      joinUpdateThread();
+    if (updateRunner != null) {
+      while (updateRunner.runningUpdate) {
+        try {
+          Thread.sleep(0, 10000);
+        } catch (InterruptedException e) {
+        }
+      }
     }
 
     if (success) {
@@ -185,7 +191,7 @@ public class Sketch extends SketchBase {
     }
 
     if (success && py5RegisteredEvents.contains("update") && !py5RegisteredEvents.contains("post_draw")) {
-      launchUpdateThread();
+      updateRunner.interrupt();
     }
 
     if (frameCount == 1 && platform == WINDOWS && (sketchRenderer().equals(P2D) || sketchRenderer().equals(P3D))) {
@@ -200,8 +206,13 @@ public class Sketch extends SketchBase {
   }
 
   public void preDraw() {
-    if (updateThread != null) {
-      joinUpdateThread();
+    if (updateRunner != null) {
+      while (updateRunner.runningUpdate) {
+        try {
+          Thread.sleep(0, 10000);
+        } catch (InterruptedException e) {
+        }
+      }
     }
 
     if (success && py5RegisteredEvents.contains("pre_draw")) {
@@ -215,7 +226,7 @@ public class Sketch extends SketchBase {
     }
 
     if (success && py5RegisteredEvents.contains("update")) {
-      launchUpdateThread();
+      updateRunner.interrupt();
     }
   }
 
@@ -658,22 +669,36 @@ public class Sketch extends SketchBase {
    * Update Thread methods
    */
 
-  protected void launchUpdateThread() {
-    updateThread = new Thread() {
-      public void run() {
-        update();
-      }
-    };
-    updateThread.start();
-  }
+  protected class UpdateRunner extends Thread {
 
-  protected void joinUpdateThread() {
-    try {
-      updateThread.join();
-    } catch (InterruptedException e) {
-      e.printStackTrace();
+    public boolean runningUpdate;
+
+    public UpdateRunner() {
+      runningUpdate = false;
     }
-    updateThread = null;
+
+    public void run() {
+      runningUpdate = true;
+      callUpdate();
+
+      while (!disposeCalled) {
+        try {
+          Thread.sleep(100);
+        } catch (InterruptedException e) {
+          callUpdate();
+        }
+      }
+    }
+
+    public void interrupt() {
+      runningUpdate = true;
+      super.interrupt();
+    }
+
+    protected void callUpdate() {
+      update();
+      runningUpdate = false;
+    }
   }
 
 }
