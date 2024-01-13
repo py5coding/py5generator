@@ -666,7 +666,7 @@ public class Sketch extends SketchBase {
   }
 
   /*
-   * Update Thread methods
+   * Class for running user update() function
    */
 
   protected class UpdateRunner extends Thread {
