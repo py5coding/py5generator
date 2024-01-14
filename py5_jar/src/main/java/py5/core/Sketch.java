@@ -190,7 +190,7 @@ public class Sketch extends SketchBase {
       }
     }
 
-    if (success && py5RegisteredEvents.contains("update") && !py5RegisteredEvents.contains("post_draw")) {
+    if (success && updateRunner != null && !py5RegisteredEvents.contains("post_draw")) {
       updateRunner.interrupt();
     }
 
@@ -225,7 +225,7 @@ public class Sketch extends SketchBase {
       success = py5Bridge.run_method("post_draw");
     }
 
-    if (success && py5RegisteredEvents.contains("update")) {
+    if (success && updateRunner != null) {
       updateRunner.interrupt();
     }
   }
