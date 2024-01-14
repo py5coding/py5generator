@@ -42,6 +42,7 @@ public class Sketch extends SketchBase {
   protected long osNoiseSeed;
   public Integer lastWindowX;
   public Integer lastWindowY;
+  protected UpdateRunner updateRunner;
 
   public static final char CODED = PApplet.CODED;
 
@@ -155,6 +156,11 @@ public class Sketch extends SketchBase {
         super.setup();
       }
 
+      if (success && py5RegisteredEvents.contains("update")) {
+        updateRunner = new UpdateRunner();
+        updateRunner.start();
+      }
+
       if (platform == WINDOWS && (sketchRenderer().equals(P2D) || sketchRenderer().equals(P3D))) {
         capturePixels(true);
       }
@@ -167,6 +173,15 @@ public class Sketch extends SketchBase {
       restorePixels();
     }
 
+    if (updateRunner != null) {
+      while (updateRunner.runningUpdate) {
+        try {
+          Thread.sleep(0, 10000);
+        } catch (InterruptedException e) {
+        }
+      }
+    }
+
     if (success) {
       if (py5RegisteredEvents.contains("draw")) {
         success = py5Bridge.run_method("draw");
@@ -175,12 +190,31 @@ public class Sketch extends SketchBase {
       }
     }
 
+    if (success && updateRunner != null && !py5RegisteredEvents.contains("post_draw")) {
+      updateRunner.interrupt();
+    }
+
     if (frameCount == 1 && platform == WINDOWS && (sketchRenderer().equals(P2D) || sketchRenderer().equals(P3D))) {
       capturePixels(false);
     }
   }
 
+  protected void update() {
+    if (success) {
+      success = py5Bridge.run_method("update");
+    }
+  }
+
   public void preDraw() {
+    if (updateRunner != null) {
+      while (updateRunner.runningUpdate) {
+        try {
+          Thread.sleep(0, 10000);
+        } catch (InterruptedException e) {
+        }
+      }
+    }
+
     if (success && py5RegisteredEvents.contains("pre_draw")) {
       success = py5Bridge.run_method("pre_draw");
     }
@@ -189,6 +223,10 @@ public class Sketch extends SketchBase {
   public void postDraw() {
     if (success && py5RegisteredEvents.contains("post_draw")) {
       success = py5Bridge.run_method("post_draw");
+    }
+
+    if (success && updateRunner != null) {
+      updateRunner.interrupt();
     }
   }
 
@@ -626,4 +664,41 @@ public class Sketch extends SketchBase {
       }
     }
   }
+
+  /*
+   * Class for running user update() function
+   */
+
+  protected class UpdateRunner extends Thread {
+
+    public boolean runningUpdate;
+
+    public UpdateRunner() {
+      runningUpdate = false;
+    }
+
+    public void run() {
+      runningUpdate = true;
+      callUpdate();
+
+      while (!disposeCalled) {
+        try {
+          Thread.sleep(100);
+        } catch (InterruptedException e) {
+          callUpdate();
+        }
+      }
+    }
+
+    public void interrupt() {
+      runningUpdate = true;
+      super.interrupt();
+    }
+
+    protected void callUpdate() {
+      update();
+      runningUpdate = false;
+    }
+  }
+
 }
