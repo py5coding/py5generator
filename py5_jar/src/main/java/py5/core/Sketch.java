@@ -42,7 +42,7 @@ public class Sketch extends SketchBase {
   protected long osNoiseSeed;
   public Integer lastWindowX;
   public Integer lastWindowY;
-  protected UpdateRunner updateRunner;
+  protected PreDrawUpdateRunner preDrawUpdateRunner;
 
   public static final char CODED = PApplet.CODED;
 
@@ -156,9 +156,9 @@ public class Sketch extends SketchBase {
         super.setup();
       }
 
-      if (success && py5RegisteredEvents.contains("update")) {
-        updateRunner = new UpdateRunner();
-        updateRunner.start();
+      if (success && py5RegisteredEvents.contains("predraw_update")) {
+        preDrawUpdateRunner = new PreDrawUpdateRunner();
+        preDrawUpdateRunner.start();
       }
 
       if (platform == WINDOWS && (sketchRenderer().equals(P2D) || sketchRenderer().equals(P3D))) {
@@ -173,8 +173,8 @@ public class Sketch extends SketchBase {
       restorePixels();
     }
 
-    if (updateRunner != null) {
-      while (updateRunner.runningUpdate) {
+    if (preDrawUpdateRunner != null) {
+      while (preDrawUpdateRunner.runningPreDrawUpdate) {
         try {
           Thread.sleep(0, 10000);
         } catch (InterruptedException e) {
@@ -190,8 +190,8 @@ public class Sketch extends SketchBase {
       }
     }
 
-    if (success && updateRunner != null && !py5RegisteredEvents.contains("post_draw")) {
-      updateRunner.interrupt();
+    if (success && preDrawUpdateRunner != null && !py5RegisteredEvents.contains("post_draw")) {
+      preDrawUpdateRunner.interrupt();
     }
 
     if (frameCount == 1 && platform == WINDOWS && (sketchRenderer().equals(P2D) || sketchRenderer().equals(P3D))) {
@@ -199,15 +199,15 @@ public class Sketch extends SketchBase {
     }
   }
 
-  protected void update() {
+  protected void preDrawUpdate() {
     if (success) {
-      success = py5Bridge.run_method("update");
+      success = py5Bridge.run_method("predraw_update");
     }
   }
 
   public void preDraw() {
-    if (updateRunner != null) {
-      while (updateRunner.runningUpdate) {
+    if (preDrawUpdateRunner != null) {
+      while (preDrawUpdateRunner.runningPreDrawUpdate) {
         try {
           Thread.sleep(0, 10000);
         } catch (InterruptedException e) {
@@ -225,8 +225,8 @@ public class Sketch extends SketchBase {
       success = py5Bridge.run_method("post_draw");
     }
 
-    if (success && updateRunner != null) {
-      updateRunner.interrupt();
+    if (success && preDrawUpdateRunner != null) {
+      preDrawUpdateRunner.interrupt();
     }
   }
 
@@ -666,38 +666,38 @@ public class Sketch extends SketchBase {
   }
 
   /*
-   * Class for running user update() function
+   * Class for running user predraw_update() function
    */
 
-  protected class UpdateRunner extends Thread {
+  protected class PreDrawUpdateRunner extends Thread {
 
-    public boolean runningUpdate;
+    public boolean runningPreDrawUpdate;
 
-    public UpdateRunner() {
-      runningUpdate = false;
+    public PreDrawUpdateRunner() {
+      runningPreDrawUpdate = false;
     }
 
     public void run() {
-      runningUpdate = true;
-      callUpdate();
+      runningPreDrawUpdate = true;
+      callPreDrawUpdate();
 
       while (!disposeCalled) {
         try {
           Thread.sleep(100);
         } catch (InterruptedException e) {
-          callUpdate();
+          callPreDrawUpdate();
         }
       }
     }
 
     public void interrupt() {
-      runningUpdate = true;
+      runningPreDrawUpdate = true;
       super.interrupt();
     }
 
-    protected void callUpdate() {
-      update();
-      runningUpdate = false;
+    protected void callPreDrawUpdate() {
+      preDrawUpdate();
+      runningPreDrawUpdate = false;
     }
   }
 
