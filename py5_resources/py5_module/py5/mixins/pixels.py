@@ -30,6 +30,7 @@ import numpy.typing as npt
 from PIL import Image
 from PIL.Image import Image as PIL_Image
 
+from .. import bridge
 from ..decorators import _hex_converter
 
 _Sketch = jpype.JClass("py5.core.Sketch")
@@ -246,26 +247,33 @@ class PixelMixin:
             if isinstance(self._instance, _Sketch)
             else self._instance.parent
         )
-        if not isinstance(filename, BytesIO):
-            filename = Path(str(sketch_instance.savePath(str(filename))))
-        self.load_np_pixels()
-        arr = (
-            self.np_pixels[:, :, 1:]
-            if drop_alpha
-            else np.roll(self.np_pixels, -1, axis=2)
-        )
-
-        if use_thread:
-
-            def _save(arr, filename, format, params):
-                Image.fromarray(arr).save(filename, format=format, **params)
-
-            t = threading.Thread(
-                target=_save, args=(arr, filename, format, params), daemon=True
-            )
-            t.start()
+        if (
+            isinstance(self._instance, _Sketch)
+            and bridge.check_run_method_callstack()
+            and self._py5_bridge.current_running_method not in ["setup", "draw"]
+        ):
+            self._instance.save(filename)
         else:
-            Image.fromarray(arr).save(filename, format=format, **params)
+            if not isinstance(filename, BytesIO):
+                filename = Path(str(sketch_instance.savePath(str(filename))))
+            self.load_np_pixels()
+            arr = (
+                self.np_pixels[:, :, 1:]
+                if drop_alpha
+                else np.roll(self.np_pixels, -1, axis=2)
+            )
+
+            if use_thread:
+
+                def _save(arr, filename, format, params):
+                    Image.fromarray(arr).save(filename, format=format, **params)
+
+                t = threading.Thread(
+                    target=_save, args=(arr, filename, format, params), daemon=True
+                )
+                t.start()
+            else:
+                Image.fromarray(arr).save(filename, format=format, **params)
 
     # *** END METHODS ***
 
