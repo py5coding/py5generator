@@ -19,6 +19,7 @@
 # *****************************************************************************
 from __future__ import annotations
 
+import tempfile
 import threading
 from io import BytesIO
 from pathlib import Path
@@ -252,7 +253,22 @@ class PixelMixin:
             and bridge.check_run_method_callstack()
             and self._py5_bridge.current_running_method not in ["setup", "draw"]
         ):
-            self._instance.save(filename)
+            if (
+                drop_alpha
+                and not use_thread
+                and format is None
+                and isinstance((filename_param := Path(str(filename))), (str, Path))
+                and filename_param.suffix.lower() in [".jpg", ".jpeg", ".png"]
+            ):
+                self._instance.save(filename)
+                return
+
+            with tempfile.TemporaryDirectory() as td:
+                temp_filename = Path(td) / "temp.png"
+                self._instance.save(temp_filename)
+                arr = np.asarray(Image.open(temp_filename))
+                if not drop_alpha:
+                    arr = np.dstack([arr, np.full(arr.shape[:2], 255, dtype=np.uint8)])
         else:
             if not isinstance(filename, BytesIO):
                 filename = Path(str(sketch_instance.savePath(str(filename))))
@@ -263,17 +279,17 @@ class PixelMixin:
                 else np.roll(self.np_pixels, -1, axis=2)
             )
 
-            if use_thread:
+        if use_thread:
 
-                def _save(arr, filename, format, params):
-                    Image.fromarray(arr).save(filename, format=format, **params)
-
-                t = threading.Thread(
-                    target=_save, args=(arr, filename, format, params), daemon=True
-                )
-                t.start()
-            else:
+            def _save(arr, filename, format, params):
                 Image.fromarray(arr).save(filename, format=format, **params)
+
+            t = threading.Thread(
+                target=_save, args=(arr, filename, format, params), daemon=True
+            )
+            t.start()
+        else:
+            Image.fromarray(arr).save(filename, format=format, **params)
 
     # *** END METHODS ***
 
