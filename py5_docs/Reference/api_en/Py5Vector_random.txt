@@ -3,11 +3,11 @@ name = random()
 type = method
 
 @@ signatures
-random(dim: int, *, dtype: type = np.float_) -> Py5Vector
+random(dim: int, *, dtype: type = np.float64) -> Py5Vector
 
 @@ variables
 dim: int - dimension of the random vector to create
-dtype: type = np.float_ - dtype of the random vector to create
+dtype: type = np.float64 - dtype of the random vector to create
 
 @@ description
 Create a new vector with random values. Use the `dim` parameter to specify if the vector should have 2, 3, or 4 dimensions.
