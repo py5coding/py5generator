@@ -42,7 +42,7 @@ class Py5Vector(Sequence):
 
         used_default_dim = len(args) == 0 and dim is None
         dim = Py5Vector._DEFAULT_DIM if dim is None else dim
-        dtype = np.float_ if dtype is None else dtype
+        dtype = np.float64 if dtype is None else dtype
 
         if not isinstance(dtype, (type, np.dtype)) or not np.issubdtype(
             dtype, np.floating
@@ -628,7 +628,7 @@ class Py5Vector(Sequence):
     )
 
     @classmethod
-    def from_heading(cls, *heading, dtype: int = np.float_) -> Py5Vector:
+    def from_heading(cls, *heading, dtype: int = np.float64) -> Py5Vector:
         """$class_Py5Vector_from_heading"""
         if len(heading) == 1 and isinstance(heading[0], Iterable):
             heading = heading[0]
@@ -645,7 +645,7 @@ class Py5Vector(Sequence):
             )
 
     @classmethod
-    def random(cls, dim: int, *, dtype: type = np.float_) -> Py5Vector:
+    def random(cls, dim: int, *, dtype: type = np.float64) -> Py5Vector:
         """$class_Py5Vector_random"""
         if dim == 2:
             return Py5Vector(
@@ -672,7 +672,7 @@ class Py5Vector(Sequence):
 class Py5Vector2D(Py5Vector):
     """$classdoc_Py5Vector"""
 
-    def __new__(cls, *args, dtype: type = np.float_):
+    def __new__(cls, *args, dtype: type = np.float64):
         return super().__new__(cls, *args, dim=2, dtype=dtype)
 
     # *** BEGIN METHODS ***
@@ -688,7 +688,7 @@ class Py5Vector2D(Py5Vector):
     # *** END METHODS ***
 
     @classmethod
-    def random(cls, dim: int = 2, *, dtype: type = np.float_) -> Py5Vector2D:
+    def random(cls, dim: int = 2, *, dtype: type = np.float64) -> Py5Vector2D:
         """$class_Py5Vector_random"""
         return super().random(dim, dtype=dtype)
 
@@ -696,7 +696,7 @@ class Py5Vector2D(Py5Vector):
 class Py5Vector3D(Py5Vector):
     """$classdoc_Py5Vector"""
 
-    def __new__(cls, *args, dtype: type = np.float_):
+    def __new__(cls, *args, dtype: type = np.float64):
         return super().__new__(cls, *args, dim=3, dtype=dtype)
 
     def _get_z(self) -> float:
@@ -769,7 +769,7 @@ class Py5Vector3D(Py5Vector):
     # *** END METHODS ***
 
     @classmethod
-    def random(cls, dim: int = 3, *, dtype: type = np.float_) -> Py5Vector3D:
+    def random(cls, dim: int = 3, *, dtype: type = np.float64) -> Py5Vector3D:
         """$class_Py5Vector_random"""
         return super().random(dim, dtype=dtype)
 
@@ -777,7 +777,7 @@ class Py5Vector3D(Py5Vector):
 class Py5Vector4D(Py5Vector):
     """$classdoc_Py5Vector"""
 
-    def __new__(cls, *args, dtype: type = np.float_):
+    def __new__(cls, *args, dtype: type = np.float64):
         return super().__new__(cls, *args, dim=4, dtype=dtype)
 
     def _get_z(self) -> float:
@@ -800,6 +800,6 @@ class Py5Vector4D(Py5Vector):
     w: float = property(_get_w, _set_w, doc="""$class_Py5Vector_w""")
 
     @classmethod
-    def random(cls, dim: int = 4, *, dtype: type = np.float_) -> Py5Vector4D:
+    def random(cls, dim: int = 4, *, dtype: type = np.float64) -> Py5Vector4D:
         """$class_Py5Vector_random"""
         return super().random(dim, dtype=dtype)
