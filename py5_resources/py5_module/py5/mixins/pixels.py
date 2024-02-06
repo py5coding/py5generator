@@ -255,7 +255,7 @@ class PixelMixin:
         ):
             if (
                 drop_alpha
-                and not use_thread
+                # and not use_thread  # ignore use_thread because the alternative is always slower
                 and format is None
                 and isinstance((filename_param := Path(str(filename))), (str, Path))
                 and filename_param.suffix.lower() in [".jpg", ".jpeg", ".png"]
