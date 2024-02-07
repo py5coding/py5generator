@@ -9,11 +9,11 @@ constrain(amt: Union[float, npt.NDArray], low: Union[float, npt.NDArray], high: 
 
 @@ variables
 amt: Union[float, npt.NDArray] - the value to constrain
-high: Union[float, npt.NDArray] - minimum limit
-low: Union[float, npt.NDArray] - maximum limit
+high: Union[float, npt.NDArray] - maximum limit
+low: Union[float, npt.NDArray] - minimum limit
 
 @@ description
-Constrains a value to not exceed a maximum and minimum value.
+Constrains a value between a minimum and maximum value.
 
 @@ example
 def draw():
