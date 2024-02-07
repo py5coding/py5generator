@@ -230,12 +230,12 @@ class MathMixin:
     @classmethod
     def floor(cls, value: Union[float, npt.ArrayLike]) -> Union[int, npt.NDArray]:
         """$class_Sketch_floor"""
-        return np.floor(value).astype(np.int_)
+        return np.floor(value).astype(np.int64)
 
     @classmethod
     def ceil(cls, value: Union[float, npt.ArrayLike]) -> Union[int, npt.NDArray]:
         """$class_Sketch_ceil"""
-        return np.ceil(value).astype(np.int_)
+        return np.ceil(value).astype(np.int64)
 
     @classmethod
     def exp(cls, value: Union[float, npt.ArrayLike]) -> Union[float, npt.NDArray]:

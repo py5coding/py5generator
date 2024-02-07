@@ -3,10 +3,10 @@ name = from_heading()
 type = method
 
 @@ signatures
-from_heading(*heading, dtype: int = np.float_) -> Py5Vector
+from_heading(*heading, dtype: int = np.float64) -> Py5Vector
 
 @@ variables
-dtype: int = np.float_ - dtype of new vector to create
+dtype: int = np.float64 - dtype of new vector to create
 heading - heading values in radians
 
 @@ description
