@@ -267,6 +267,7 @@ EXTRA_METHOD_SIGNATURES = {
                 "hook_post_draw: bool = False",
                 "queue_limit: int = None",
                 "block: bool = False",
+                "display_progress: bool = True",
             ],
             "None",
         )
