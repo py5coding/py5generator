@@ -151,6 +151,7 @@ def offline_frame_processing(
     hook_post_draw: bool = False,
     queue_limit: int = None,
     block: bool = None,
+    display_progress: bool = True,
 ) -> None:
     """$module_Py5Tools_offline_frame_processing"""
     import py5
@@ -179,6 +180,7 @@ def offline_frame_processing(
         complete_func=complete_func,
         stop_processing_func=stop_processing_func,
         queue_limit=queue_limit,
+        display_progress=display_progress,
     )
     sketch._add_post_hook(
         "post_draw" if hook_post_draw else "draw", hook.hook_name, hook
