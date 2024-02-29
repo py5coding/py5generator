@@ -13,9 +13,9 @@ ortho(left: float, right: float, bottom: float, top: float, near: float, far: fl
 
 @@ variables
 bottom: float - bottom plane of the clipping volume
-far: float - maximum distance from the origin away from the viewer
+far: float - distance from the viewer to the farthest clipping plane
 left: float - left plane of the clipping volume
-near: float - maximum distance from the origin to the viewer
+near: float - distance from the viewer to the nearest clipping plane
 right: float - right plane of the clipping volume
 top: float - top plane of the clipping volume
 
