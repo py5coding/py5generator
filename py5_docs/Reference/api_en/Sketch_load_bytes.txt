@@ -2,7 +2,6 @@
 name = load_bytes()
 type = method
 pclass = Sketch
-processing_name = loadBytes
 category = input
 subcategory = files
 

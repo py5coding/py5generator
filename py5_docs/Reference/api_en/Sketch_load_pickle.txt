@@ -2,7 +2,6 @@
 name = load_pickle()
 type = method
 pclass = Sketch
-processing_name = loadPickle
 category = input
 subcategory = files
 
