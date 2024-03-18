@@ -2,7 +2,6 @@
 name = save_pickle()
 type = method
 pclass = Sketch
-processing_name = savePickle
 category = output
 subcategory = files
 
