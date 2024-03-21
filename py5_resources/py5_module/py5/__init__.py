@@ -140,6 +140,7 @@ def run_sketch(
     sketch_args: list[str] = None,
     sketch_functions: dict[str, Callable] = None,
     jclassname: str = None,
+    jclass_params: tuple[Any] = (),
     _osx_alt_run_method: bool = True,
 ) -> None:
     """$module_Sketch_run_sketch"""
@@ -179,7 +180,7 @@ def run_sketch(
         )
         return
     if _py5sketch.is_dead or jclassname:
-        _py5sketch = Sketch(jclassname=jclassname)
+        _py5sketch = Sketch(jclassname=jclassname, jclass_params=jclass_params)
 
     _prepare_dynamic_variables(caller_locals, caller_globals)
 

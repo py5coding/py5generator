@@ -111,6 +111,7 @@ EXTRA_METHOD_SIGNATURES = {
                 "sketch_args: list[str] = None",
                 "sketch_functions: dict[str, Callable] = None",
                 "jclassname: str = None",
+                "jclass_params: tuple[Any] = ()",
             ],
             "None",
         )

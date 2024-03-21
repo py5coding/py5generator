@@ -205,6 +205,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     def __init__(self, *args, **kwargs):
         _instance = kwargs.get("_instance")
         jclassname = kwargs.get("jclassname")
+        jclass_params = kwargs.get("jclass_params", ())
 
         if _instance:
             if _instance == getattr(self, "_instance", None):
@@ -216,7 +217,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                 )
 
         Sketch._cls = JClass(jclassname) if jclassname else _Sketch
-        instance = Sketch._cls()
+        instance = Sketch._cls(*jclass_params)
         if not isinstance(instance, _SketchBase):
             raise RuntimeError("Java instance must inherit from py5.core.SketchBase")
 
