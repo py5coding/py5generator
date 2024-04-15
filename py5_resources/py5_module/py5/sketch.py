@@ -320,7 +320,6 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             if self._environ.in_jupyter_zmq_shell
             else _DefaultPrintlnStream()
         )
-        self._init_println_stream()
 
         self._py5_bridge = Py5Bridge(self)
         self._py5_bridge.set_caller_locals_globals(_caller_locals, _caller_globals)

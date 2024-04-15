@@ -26,8 +26,10 @@ class PrintlnStream:
         super().__init__(*args, **kwargs)
         self._println_stream = None
 
-    def _init_println_stream(self):
-        self._println_stream.init()
+    def _shutdown(self):
+        if self._println_stream is not None:
+            self._println_stream.shutdown()
+        super()._shutdown()
 
     # *** BEGIN METHODS ***
 
