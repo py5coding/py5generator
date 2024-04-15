@@ -196,7 +196,7 @@ apply_filter,filter,,method,JAVA,filter method has name conflict with python bui
 set_pixels,set,,method,JAVA,
 init,init,,method,SKIP,
 save,save,,method,PYTHON,implemented in pixels.py mixin
-copy,copy,,method,JAVA,
+copy,copy,@_return_py5image,method,JAVA,
 mask,mask,,method,JAVA,
 resize,resize,,method,SKIP,
 get_image,getImage,,method,SKIP,
