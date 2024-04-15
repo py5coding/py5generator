@@ -85,9 +85,13 @@ class _WidgetPrintlnStream:
 class _PrintlnFileStream:
 
     def __init__(self, filename):
-        self.f = open(filename, "w")
+        self.filename = filename
+        self.f = None
 
     def print(self, text, end="\n", stderr=False):
+        if self.f is None:
+            self.f = open(self.filename, "w")
+
         print(text, end=end, file=self.f)
 
     def shutdown(self):
