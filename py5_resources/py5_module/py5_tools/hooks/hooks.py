@@ -36,10 +36,10 @@ class BaseHook:
         self.exception = None
         self.is_terminated = False
         self._msg_writer = (
-            _WidgetPrintlnStream
+            _WidgetPrintlnStream()
             if _environ.Environment().in_jupyter_zmq_shell
-            else _DefaultPrintlnStream
-        )().init()
+            else _DefaultPrintlnStream()
+        )
         self._last_println_msg = 0
 
     def hook_finished(self, sketch):
