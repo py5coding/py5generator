@@ -95,4 +95,5 @@ class _PrintlnFileStream:
         print(text, end=end, file=self.f)
 
     def shutdown(self):
-        self.f.close()
+        if self.f is not None:
+            self.f.close()
