@@ -55,7 +55,7 @@ category_lookup_data = dict()
 for pclass in PY5_CLASS_LOOKUP.keys():
     filename = pclass.lower() + ".csv"
     class_data = pd.read_csv(class_resource_data / filename)
-    class_data = class_data.fillna("").set_index("processing_name")
+    class_data = class_data.fillna("").set_index("java_name")
     class_data_info[pclass] = class_data.query("implementation!='SKIP'")
     if pclass in ["Sketch", "Py5Functions", "Py5Tools", "Py5Magics"]:
         category_lookup_data[pclass] = class_data_info[pclass].set_index("py5_name")[
@@ -66,7 +66,7 @@ for pclass in PY5_CLASS_LOOKUP.keys():
 # identify the new files that must be created
 new_doc_files = []
 for pclass, class_data in class_data_info.items():
-    for processing_name, data in class_data.iterrows():
+    for java_name, data in class_data.iterrows():
         py5_name = data["py5_name"]
         item_type = data["type"]
         if item_type in ["static field", "unknown"]:
@@ -76,13 +76,11 @@ for pclass, class_data in class_data_info.items():
         if new_docfile.exists():
             continue
 
-        new_doc_files.append(
-            (pclass, py5_name, item_type, processing_name, new_docfile)
-        )
+        new_doc_files.append((pclass, py5_name, item_type, java_name, new_docfile))
 
 
 for num, new_file_data in enumerate(new_doc_files):
-    pclass, py5_name, item_type, processing_name, new_docfile = new_file_data
+    pclass, py5_name, item_type, java_name, new_docfile = new_file_data
     if item_type == "dynamic variable":
         doc_type = "field"
         name = py5_name
@@ -105,8 +103,8 @@ for num, new_file_data in enumerate(new_doc_files):
     print(f"creating {new_docfile}")
     with open(new_docfile, "w") as f:
         extra = (
-            f"pclass = {pclass}\nprocessing_name = {processing_name}\n"
-            if processing_name
+            f"pclass = {pclass}\nprocessing_name = {java_name}  # remove if not a part of Processing\n"
+            if java_name
             else ""
         )
         if (

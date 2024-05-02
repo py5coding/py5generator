@@ -2,7 +2,6 @@
 name = get_frame_rate()
 type = method
 pclass = PApplet
-processing_name = getFrameRate
 category = environment
 subcategory = None
 

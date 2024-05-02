@@ -1,4 +1,4 @@
-py5_name,processing_name,decorator,type,category,subcategory,implementation,comments
+py5_name,java_name,decorator,type,category,subcategory,implementation,comments
 X,X,,static field,constants,,SKIP,
 Y,Y,,static field,constants,,SKIP,
 Z,Z,,static field,constants,,SKIP,

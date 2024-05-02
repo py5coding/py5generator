@@ -1,4 +1,4 @@
-py5_name,processing_name,decorator,type,implementation,comments
+py5_name,java_name,decorator,type,implementation,comments
 MIN_WINDOW_WIDTH,MIN_WINDOW_WIDTH,,static field,SKIP,
 MIN_WINDOW_HEIGHT,MIN_WINDOW_HEIGHT,,static field,SKIP,
 wait,wait,,method,SKIP,

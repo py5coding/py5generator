@@ -28,8 +28,7 @@ import matplotlib as mpl
 import matplotlib.colors as mcolors
 import pandas as pd
 
-from generator import (CodeBuilder, CodeCopier, TemplateMapping,
-                       find_signatures, javap)
+from generator import CodeBuilder, CodeCopier, TemplateMapping, find_signatures, javap
 from generator import reference as ref
 
 logging.basicConfig(
@@ -108,7 +107,7 @@ def generate_py5(app_dir, build_dir, skip_black=False):
     sketch_data = (
         pd.read_csv(Path("py5_resources", "data", "sketch.csv"))
         .fillna("")
-        .set_index("processing_name")
+        .set_index("java_name")
     )
 
     # these CodeBuilder objects write the code fragments for the methods and fields.
@@ -132,7 +131,7 @@ def generate_py5(app_dir, build_dir, skip_black=False):
         data = (
             pd.read_csv(Path("py5_resources", "data", f"{class_name.lower()}.csv"))
             .fillna("")
-            .set_index("processing_name")
+            .set_index("java_name")
         )
 
         builder = CodeBuilder(clsname, name, data)
