@@ -1,4 +1,4 @@
-py5_name,processing_name,decorator,type,implementation,comments
+py5_name,java_name,decorator,type,implementation,comments
 astype,,,method,PYTHON,
 tolist,,,method,PYTHON,
 x,,,dynamic variable,PYTHON,

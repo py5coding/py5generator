@@ -1,4 +1,4 @@
-py5_name,processing_name,decorator,type,implementation,comments
+py5_name,java_name,decorator,type,implementation,comments
 SHIFT,SHIFT,,static field,JAVA,
 CTRL,CTRL,,static field,JAVA,
 META,META,,static field,JAVA,
