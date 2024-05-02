@@ -79,6 +79,8 @@ PROCESSING_CLASSNAME_LOOKUP = {
     "Py5Shader": "PShader",
     "Py5Font": "PFont",
     "Py5Surface": "PSurface",
+    "Py5KeyEvent": "KeyEvent",
+    "Py5MouseEvent": "MouseEvent",
 }
 
 CATEGORY_LOOKUP = {
