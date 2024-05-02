@@ -367,7 +367,6 @@
   "https://processing.org/reference/frustum_.html": true,
   "https://processing.org/reference/fullScreen_.html": true,
   "https://processing.org/reference/g.html": false,
-  "https://processing.org/reference/getFrameRate_.html": false,
   "https://processing.org/reference/getGraphics_.html": false,
   "https://processing.org/reference/getMatrix_.html": false,
   "https://processing.org/reference/get_.html": true,
