@@ -1,7 +1,7 @@
 # *****************************************************************************
 #
 #   Part of the py5generator project; generator of the py5 library
-#   Copyright (C) 2020-2023 Jim Schmitz
+#   Copyright (C) 2020-2024 Jim Schmitz
 #
 #   This project is free software: you can redistribute it and/or modify it
 #   under the terms of the GNU General Public License as published by the
@@ -32,15 +32,19 @@ from pathlib import Path
 from generator.docfiles import Documentation
 
 
-PY5_API_EN = Path('py5_docs/Reference/api_en/')
+PY5_API_EN = Path("py5_docs/Reference/api_en/")
 
 
-SETUP_CODE_REGEX = re.compile(r'^def setup\(\):.*?(?=^\w|\Z)', flags=re.MULTILINE | re.DOTALL)
-SETTINGS_CODE_REGEX = re.compile(r'^def settings\(\):.*?(?=^\w|\Z)', flags=re.MULTILINE | re.DOTALL)
+SETUP_CODE_REGEX = re.compile(
+    r"^def setup\(\):.*?(?=^\w|\Z)", flags=re.MULTILINE | re.DOTALL
+)
+SETTINGS_CODE_REGEX = re.compile(
+    r"^def settings\(\):.*?(?=^\w|\Z)", flags=re.MULTILINE | re.DOTALL
+)
 
 
 problem_files = 0
-for docfile in sorted(PY5_API_EN.glob('*.txt')):
+for docfile in sorted(PY5_API_EN.glob("*.txt")):
     doc = Documentation(docfile)
 
     new_examples = []
@@ -52,25 +56,27 @@ for docfile in sorted(PY5_API_EN.glob('*.txt')):
         if has_setup and has_settings:
             settings_code = has_settings.group().strip()
             setup_code = has_setup.group().strip()
-            settings_lines = settings_code.split('\n')
-            setup_lines = setup_code.split('\n')
+            settings_lines = settings_code.split("\n")
+            setup_lines = setup_code.split("\n")
 
-            new_setup = '\n'.join([setup_lines[0], *settings_lines[1:], *setup_lines[1:]])
+            new_setup = "\n".join(
+                [setup_lines[0], *settings_lines[1:], *setup_lines[1:]]
+            )
 
-            new_code = code.replace(setup_code, '').replace(settings_code, new_setup)
+            new_code = code.replace(setup_code, "").replace(settings_code, new_setup)
             new_code = autopep8.fix_code(new_code, options=dict(aggressive=2)).strip()
 
             new_examples.append((image, new_code))
 
-            print('*' * 40)
+            print("*" * 40)
             print(new_code)
 
         elif has_settings:
-            new_code = code.replace('def settings()', 'def setup()').strip()
+            new_code = code.replace("def settings()", "def setup()").strip()
 
             new_examples.append((image, new_code))
 
-            print('*' * 40)
+            print("*" * 40)
             print(new_code)
         else:
             new_examples.append((image, code.strip()))
