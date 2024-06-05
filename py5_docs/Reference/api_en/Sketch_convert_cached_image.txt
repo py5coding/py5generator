@@ -5,10 +5,10 @@ category = image
 subcategory = loading_displaying
 
 @@ signatures
-convert_cached_image(obj: Any, force_conversion=False, **kwargs: dict[str, Any]) -> Py5Image
+convert_cached_image(obj: Any, force_conversion: bool = False, **kwargs: dict[str, Any]) -> Py5Image
 
 @@ variables
-force_conversion=False - missing variable description
+force_conversion: bool = False - missing variable description
 kwargs: dict[str, Any] - missing variable description
 obj: Any - missing variable description
 

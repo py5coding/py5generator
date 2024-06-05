@@ -761,7 +761,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             return result
 
     def convert_cached_image(
-        self, obj: Any, force_conversion=False, **kwargs: dict[str, Any]
+        self, obj: Any, force_conversion: bool = False, **kwargs: dict[str, Any]
     ) -> Py5Image:
         """$class_Sketch_convert_cached_image"""
         try:
@@ -793,7 +793,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         return shape_conversion._convert(self, obj, **kwargs)
 
     def convert_cached_shape(
-        self, obj: Any, force_conversion=False, **kwargs: dict[str, Any]
+        self, obj: Any, force_conversion: bool = False, **kwargs: dict[str, Any]
     ) -> Py5Shape:
         """$class_Sketch_convert_cached_shape"""
         try:
