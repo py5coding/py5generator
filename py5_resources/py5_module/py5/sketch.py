@@ -772,7 +772,9 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             hashable = False
             warnings.warn(
                 "cannot cache convert image results for unhashable "
-                + str(type(obj))
+                + str(obj.__class__.__module__)
+                + "."
+                + str(obj.__class__.__name__)
                 + " object"
             )
 
@@ -804,7 +806,9 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             hashable = False
             warnings.warn(
                 "cannot cache convert shape results for unhashable "
-                + str(type(obj))
+                + str(obj.__class__.__module__)
+                + "."
+                + str(obj.__class__.__name__)
                 + " object"
             )
 
