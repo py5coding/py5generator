@@ -20,3 +20,19 @@ See [](sketch_convert_image) for method details.
 Converting objects to Py5Image objects can sometimes be slow. Often times you will not want to repeatedly convert the same object in your `draw()` function. Writing code to convert an object once in `setup()` (with a `global` directive) to be later used in your `draw()` function can be a bit tedious. This method lets you write simpler code.
 
 Your object must be hashable for object caching to work. If your object is not hashable, it cannot be cached and you will get a warning. If you want your code to ignore a previously cached object and force a re-conversion, use the `force_conversion` parameter.
+
+@@ example
+from pathlib import Path
+
+
+svg_file = Path("data/us_map.svg")
+
+
+def setup():
+    py5.size(200, 200)
+
+
+def draw():
+    py5.background(204)
+    py5_image = py5.convert_cached_image(svg_file, scale=0.1)
+    py5.image(py5_image, py5.mouse_x, py5.mouse_y)
