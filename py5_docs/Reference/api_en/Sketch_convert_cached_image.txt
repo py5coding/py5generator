@@ -13,4 +13,10 @@ kwargs: dict[str, Any] - keyword arguments for conversion function
 obj: Any - object to convert into a Py5Image object
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Convert non-py5 image objects into Py5Image objects, but cache the results. This method is similar to [](sketch_convert_image) with the addition of an object cache. Both methods facilitates py5 compatibility with other commonly used Python libraries.
+
+See [](sketch_convert_image) for method details.
+
+Converting objects to Py5Image objects can sometimes be slow. Often times you will not want to repeatedly convert the same object in your `draw()` function. Writing code to convert an object once in `setup()` (with a `global` directive) to be later used in your `draw()` function can be a bit tedious. This method lets you write simpler code.
+
+Your object must be hashable for object caching to work. If your object is not hashable, it cannot be cached and you will get a warning. If you want your code to ignore a previously cached object and force a re-conversion, use the `force_conversion` parameter.
