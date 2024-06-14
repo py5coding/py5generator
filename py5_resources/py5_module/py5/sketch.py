@@ -240,6 +240,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         Sketch._cls.setJOGLProperties(str(Path(__file__).parent))
         self.utils = Py5Utilities(self)
 
+        self._py5_convert_image_cache = dict()
+        self._py5_convert_shape_cache = dict()
         self._cmap = None
         self._cmap_range = 0
         self._cmap_alpha_range = 0
@@ -758,11 +760,67 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             # could be Py5Image or something comparable
             return result
 
+    def convert_cached_image(
+        self, obj: Any, force_conversion: bool = False, **kwargs: dict[str, Any]
+    ) -> Py5Image:
+        """$class_Sketch_convert_cached_image"""
+        try:
+            obj_in_cache = obj in self._py5_convert_image_cache
+            hashable = True
+        except TypeError:
+            obj_in_cache = False
+            hashable = False
+            warnings.warn(
+                "cannot cache convert image results for unhashable "
+                + str(obj.__class__.__module__)
+                + "."
+                + str(obj.__class__.__name__)
+                + " object"
+            )
+
+        if obj_in_cache and not force_conversion:
+            return self._py5_convert_image_cache[obj]
+        else:
+            converted_obj = self.convert_image(obj, **kwargs)
+
+            if hashable:
+                self._py5_convert_image_cache[obj] = converted_obj
+
+            return converted_obj
+
     def convert_shape(self, obj: Any, **kwargs: dict[str, Any]) -> Py5Shape:
         """$class_Sketch_convert_shape"""
         if isinstance(obj, Py5Shape):
             return obj
         return shape_conversion._convert(self, obj, **kwargs)
+
+    def convert_cached_shape(
+        self, obj: Any, force_conversion: bool = False, **kwargs: dict[str, Any]
+    ) -> Py5Shape:
+        """$class_Sketch_convert_cached_shape"""
+        try:
+            obj_in_cache = obj in self._py5_convert_shape_cache
+            hashable = True
+        except TypeError:
+            obj_in_cache = False
+            hashable = False
+            warnings.warn(
+                "cannot cache convert shape results for unhashable "
+                + str(obj.__class__.__module__)
+                + "."
+                + str(obj.__class__.__name__)
+                + " object"
+            )
+
+        if obj_in_cache and not force_conversion:
+            return self._py5_convert_shape_cache[obj]
+        else:
+            converted_obj = self.convert_shape(obj, **kwargs)
+
+            if hashable:
+                self._py5_convert_shape_cache[obj] = converted_obj
+
+            return converted_obj
 
     def load_image(
         self, image_path: Union[str, Path], *, dst: Py5Image = None
