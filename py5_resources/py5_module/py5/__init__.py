@@ -157,6 +157,9 @@ def run_sketch(
         mode="imported" if _PY5_USE_IMPORTED_MODE else "module",
     )
 
+    if functions is None:
+        return
+
     if (
         not set(functions.keys()) & set(["settings", "setup", "draw"])
         and not jclassname
