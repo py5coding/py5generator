@@ -10,6 +10,7 @@ dependencies:
   - cairosvg=2.6.*
   - flake8=6.0.*
   - hatch=1.7.*
+  - ipykernel>=6.29.5
   - ipython=8.12.*
   - jedi=0.18.2
   - jpype1=1.4.*
