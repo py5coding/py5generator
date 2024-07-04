@@ -206,9 +206,12 @@ def transform(functions, sketch_globals, sketch_locals, println, *, mode):
     except OSError as e:
         msg = "Unable to obtain source code for setup(). "
         if filename in ("<stdin>", "<string>"):
-            msg += "Please save your sketch to a file before running it."
+            msg += "Please save your sketch to a file before running it"
         else:
-            msg += "Either make it obtainable or create a settings() function for calls to size(), fullscreen(), etc."
+            msg += "Please make it obtainable"
+        msg += (
+            " or create a settings() function for calls to size(), fullscreen(), etc."
+        )
 
         println(msg, stderr=True)
 
