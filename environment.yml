@@ -3,34 +3,32 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - autopep8=2.0.*
-  - black=23.3.*
-  - cairo=1.16.*
-  - cairocffi=1.5.*
-  - cairosvg=2.6.*
-  - flake8=6.0.*
-  - hatch=1.7.*
-  - ipython=8.12.*
-  - jedi=0.18.2
-  - jpype1=1.4.*
+  - autopep8=2.2.*
+  - black=24.2.*
+  - cairo=1.18.*
+  - cairocffi=1.7.*
+  - cairosvg=2.7.*
+  - flake8=7.1.*
+  - hatch=1.12.*
+  - ipython=8.18.*
+  - jedi=0.19.*
+  - jpype1=1.5.*
   - jupyter=1.0.*
-  - jupyter-book=0.15.1
-  - jupyter-packaging=0.12.*
-  - jupyterlab=4.0.*
-  - jupytext=1.14.7
-  - line_profiler=4.0.*
-  - matplotlib=3.7.*
-  - nodejs=18.15.*
-  - numpy=1.24.*
-  - pandas=2.0.*
-  - pillow=9.5.*
+  - jupyter-book=1.0.*
+  - jupyterlab=4.2.*
+  - jupytext=1.16.*
+  - line_profiler=4.1.*
+  - matplotlib=3.9.*
+  - numpy=1.26.*
+  - pandas=2.2.*
+  - pillow=10.2.*
   - pip
-  - python=3.8.*
-  - requests=2.29.*
+  - python=3.9.*
+  - requests=2.31.*
   - shapely=2.0.*
-  - trimesh=3.23.*
-  - twine=4.0.*
-  - yarn=1.22.*
+  - trimesh=4.3.*
+  - twine>=5.1.*
+  - yarn>=4.3.*
   - pip:
     - bump2version==1.0.*
-    - stackprinter==0.2.*
+    - stackprinter==0.2.11
