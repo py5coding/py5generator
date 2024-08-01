@@ -20,7 +20,6 @@
 import datetime as dt
 import inspect
 import os
-import platform
 import sys
 from pathlib import Path
 
@@ -28,10 +27,12 @@ import py5 as _py5
 
 """
 TODO: what about multiple files? can this watch a directory for changes instead? what about re-importing local modules?
-TODO: make nice terminal interface like opengl prototype tool?
+TODO: use overlay for frame rate and frame count
 TODO: add record features for image sequence or animated GIFs
 TODO: cmd line param to set the directory for screenshots or backups
 TODO: support user function for formatting filenames images and code copies are saved to?
+TODO: should work in jupyter notebook, and maybe the py5 kernel also
+TODO: better error formatting for syntax errors and errors outside py5 functions
 """
 
 
@@ -68,7 +69,9 @@ class UserFunctionWrapper:
         except Exception as e:
             UserFunctionWrapper.exception_state = True
             self.sketch.no_loop()
+            self.sketch.println("*" * 80)
             _py5.bridge.handle_exception(self.sketch.println, *sys.exc_info())
+            self.sketch.println("*" * 80)
 
 
 class UserFunctionWrapperZeroParams(UserFunctionWrapper):
@@ -137,21 +140,6 @@ class SyncDraw:
             s.get_surface().set_always_on_top(True)
 
     def pre_draw_hook(self, s: _py5.Sketch):
-        # TODO: should it show frame rate and frame number if there is no user draw() function?
-        # maybe could use no_loop() and redraw() in that scenario
-        if platform.system() == "Windows":
-            os.system("cls")
-        else:
-            s.println("\033[H\033[J", end="")
-        msg = (
-            f"* filename {self.filename} | "
-            + f"frame_rate {s.get_frame_rate():0.2f} | "
-            + f"frame_number {s.frame_count} *"
-        )
-        s.println("*" * len(msg))
-        s.println(msg)
-        s.println("*" * len(msg))
-
         if self.run_setup_again:
             # in case user doesn't call background in setup
             s.background(204)
@@ -201,13 +189,19 @@ class SyncDraw:
                     self.user_setup_code = None
 
         except SyntaxError as e:
-            # TODO: this could be formatted better
+            # TODO: both of these don't look as nice because the exceptions are not thrown
+            # through py5bridge execution. can I use stackprinter directly? will need to
+            # alter the stack trace.
             UserFunctionWrapper.exception_state = True
-            msg = f"{e.__class__.__name__}\n{e.filename}, line {e.lineno}\n{e.text}\n{' ' * (e.offset - 1)}^"
+            msg = "*" * 80 + "\n"
+            msg += f"{e.__class__.__name__}\n{e.filename}, line {e.lineno}\n{e.text}\n{' ' * (e.offset - 1)}^\n\n"
+            msg += "*" * 80
             s.println(msg)
         except Exception as e:
             UserFunctionWrapper.exception_state = True
-            msg = f"Exception {e.__class__.__name__} thrown while updating code: {e}"
+            msg = "*" * 80 + "\n"
+            msg += f"Exception {e.__class__.__name__} thrown while updating code: {e}\n"
+            msg += "*" * 80
             s.println(msg)
 
 
