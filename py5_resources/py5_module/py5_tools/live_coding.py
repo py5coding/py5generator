@@ -29,10 +29,10 @@ import stackprinter
 """
 TODO: what about multiple files? can this watch a directory for changes instead? what about re-importing local modules?
 TODO: use overlay for frame rate and frame count
-TODO: add record features for image sequence or animated GIFs
 TODO: cmd line param to set the directory for screenshots or backups
 TODO: support user function for formatting filenames images and code copies are saved to?
 TODO: should work in jupyter notebook, and maybe the py5 kernel also
+TODO: insert controller to namespace that can interact with a live coding controller
 """
 
 
