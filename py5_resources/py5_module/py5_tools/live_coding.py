@@ -24,6 +24,7 @@ import sys
 from pathlib import Path
 
 import py5 as _py5
+import stackprinter
 
 """
 TODO: what about multiple files? can this watch a directory for changes instead? what about re-importing local modules?
@@ -32,7 +33,6 @@ TODO: add record features for image sequence or animated GIFs
 TODO: cmd line param to set the directory for screenshots or backups
 TODO: support user function for formatting filenames images and code copies are saved to?
 TODO: should work in jupyter notebook, and maybe the py5 kernel also
-TODO: better error formatting for syntax errors and errors outside py5 functions
 """
 
 
@@ -188,20 +188,22 @@ class SyncDraw:
                 else:
                     self.user_setup_code = None
 
-        except SyntaxError as e:
-            # TODO: both of these don't look as nice because the exceptions are not thrown
-            # through py5bridge execution. can I use stackprinter directly? will need to
-            # alter the stack trace.
-            UserFunctionWrapper.exception_state = True
-            msg = "*" * 80 + "\n"
-            msg += f"{e.__class__.__name__}\n{e.filename}, line {e.lineno}\n{e.text}\n{' ' * (e.offset - 1)}^\n\n"
-            msg += "*" * 80
-            s.println(msg)
         except Exception as e:
             UserFunctionWrapper.exception_state = True
+            exc_type, exc_value, exc_tb = sys.exc_info()
+            exc_tb = exc_tb.tb_next.tb_next
             msg = "*" * 80 + "\n"
-            msg += f"Exception {e.__class__.__name__} thrown while updating code: {e}\n"
-            msg += "*" * 80
+            msg += stackprinter.format(
+                thing=(exc_type, exc_value, exc_tb),
+                show_vals="line",
+                style="plaintext",
+                suppressed_paths=[
+                    r"lib/python.*?/site-packages/numpy/",
+                    r"lib/python.*?/site-packages/py5/",
+                    r"lib/python.*?/site-packages/py5tools/",
+                ],
+            )
+            msg += "\n" + "*" * 80
             s.println(msg)
 
 
