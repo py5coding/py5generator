@@ -31,8 +31,15 @@ TODO: what about multiple files? can this watch a directory for changes instead?
 TODO: use overlay for frame rate and frame count
 TODO: cmd line param to set the directory for screenshots or backups
 TODO: support user function for formatting filenames images and code copies are saved to?
+TODO: insert controller to namespace that can interact with a live coding controller, include info like counter, number of saves, etc
+TODO: use sys.modules dict and importlib.reload to manage imported modules and reload if necessary
 TODO: should work in jupyter notebook, and maybe the py5 kernel also
-TODO: insert controller to namespace that can interact with a live coding controller
+
+https://ipython.readthedocs.io/en/stable/config/callbacks.html
+
+from IPython import get_ipython
+kernel = get_ipython()
+kernel.events.register('post_execute', callback) # or 'post_run_cell'
 """
 
 
