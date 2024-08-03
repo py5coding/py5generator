@@ -27,8 +27,8 @@ import py5 as _py5
 import stackprinter
 
 """
-TODO: ability to npn-py5 Sketch code one and only one time per live coding session. this would be useful for loading models, etc
-TODO: what about multiple files? can this watch a directory for changes instead? what about re-importing local modules?
+TODO: bug on first run when there is only a setup function
+TODO: ability to run-py5 Sketch code one and only one time per live coding session. this would be useful for loading models, etc
 TODO: use overlay for frame rate and frame count
 TODO: support user function for formatting filenames images and code copies are saved to?
 TODO: insert controller to namespace that can interact with a live coding controller, include info like counter, number of saves, etc
@@ -135,12 +135,21 @@ class SyncDraw:
         always_on_top=True,
         screenshot_dir=None,
         code_backup_dir=None,
+        watch_dir=None,
     ):
-        self.filename = filename
+        self.filename = Path(filename)
         self.always_rerun_setup = always_rerun_setup
         self.always_on_top = always_on_top
         self.screenshot_dir = Path(screenshot_dir) if screenshot_dir else Path(".")
         self.code_backup_dir = Path(code_backup_dir) if code_backup_dir else Path(".")
+
+        if watch_dir:
+            self.getmtime = lambda f: max(
+                (os.path.getmtime(ff) for ff in f.parent.glob("**/*") if ff.is_file()),
+                default=0,
+            )
+        else:
+            self.getmtime = os.path.getmtime
 
         self.screenshot_dir.mkdir(exist_ok=True)
         self.code_backup_dir.mkdir(exist_ok=True)
@@ -179,10 +188,7 @@ class SyncDraw:
 
     def keep_functions_current(self, s: _py5.Sketch, first_call=False):
         try:
-            if (
-                self.mtime != (new_mtime := os.path.getmtime(self.filename))
-                or first_call
-            ):
+            if self.mtime != (new_mtime := self.getmtime(self.filename)) or first_call:
                 self.mtime = new_mtime
 
                 self.functions, function_param_counts = exec_user_code(s, self.filename)
@@ -241,6 +247,7 @@ def launch_live_coding(
     always_on_top=True,
     screenshot_dir=None,
     code_backup_dir=None,
+    watch_dir=False,
 ):
     if _py5.is_dead:
         _py5.reset_py5()
@@ -256,6 +263,7 @@ def launch_live_coding(
             always_on_top=always_on_top,
             screenshot_dir=screenshot_dir,
             code_backup_dir=code_backup_dir,
+            watch_dir=watch_dir,
         )
 
         sketch = _py5.get_current_sketch()

@@ -38,6 +38,14 @@ parser.add_argument(
     help="keep sketch on top of other windows",
 )
 parser.add_argument(
+    "-d",
+    "--watch-dir",
+    action="store_true",
+    default=False,
+    dest="watch_dir",
+    help="watch all files in a directory or subdirectory for changes",
+)
+parser.add_argument(
     "-s",
     "--screenshot-dir",
     action="store",
@@ -61,6 +69,7 @@ def main():
         always_on_top=args.always_on_top,
         screenshot_dir=args.screenshot_dir,
         code_backup_dir=args.code_backup_dir,
+        watch_dir=args.watch_dir,
     )
 
 
