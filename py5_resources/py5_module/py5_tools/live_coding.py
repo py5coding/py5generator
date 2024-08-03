@@ -265,16 +265,20 @@ def launch_live_coding(
             "key_typed", "sync_key_typed", sync_draw.pre_key_typed_hook
         )
 
-        sync_draw.keep_functions_current(sketch, first_call=True)
-        sketch.launch_repeating_thread(
-            sync_draw.keep_functions_current,
-            "keep_functions_current",
-            time_delay=0.01,
-            args=(sketch,),
-        )
+        if sync_draw.keep_functions_current(sketch, first_call=True):
+            sketch.launch_repeating_thread(
+                sync_draw.keep_functions_current,
+                "keep_functions_current",
+                time_delay=0.01,
+                args=(sketch,),
+            )
 
-        _real_run_sketch(
-            sketch_functions=sync_draw.functions, **_mock_run_sketch.kwargs
-        )
+            _real_run_sketch(
+                sketch_functions=sync_draw.functions, **_mock_run_sketch.kwargs
+            )
+
+        else:
+            sketch.println("Error in live coding startup...please fix and try again")
+
     except Exception as e:
         print(e)
