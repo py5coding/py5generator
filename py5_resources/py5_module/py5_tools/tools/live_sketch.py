@@ -24,26 +24,19 @@ from py5_tools import live_coding
 parser = argparse.ArgumentParser(description="Live coding for module mode py5 sketches")
 parser.add_argument(action="store", dest="sketch_path", help="path to py5 sketch")
 parser.add_argument(
+    "-r",
     "--always-rerun-setup",
-    action=argparse.BooleanOptionalAction,
+    action="store_true",
     default=False,
     dest="always_rerun_setup",
     help="always rerun setup function when file is updated",
 )
 parser.add_argument(
-    "--always-on-top",
-    action=argparse.BooleanOptionalAction,
+    "-t" "--not-always-on-top",
+    action="store_false",
     default=True,
     dest="always_on_top",
     help="keep sketch on top of other windows",
-)
-parser.add_argument(
-    "-d",
-    "--watch-dir",
-    action="store_true",
-    default=False,
-    dest="watch_dir",
-    help="watch all files in a directory or subdirectory for changes",
 )
 parser.add_argument(
     "-f",
@@ -52,6 +45,14 @@ parser.add_argument(
     default=False,
     dest="show_framerate",
     help="show framerate",
+)
+parser.add_argument(
+    "-d",
+    "--watch-dir",
+    action="store_true",
+    default=False,
+    dest="watch_dir",
+    help="watch all files in a directory or subdirectory for changes",
 )
 parser.add_argument(
     "-s",
@@ -75,8 +76,8 @@ def main():
         args.sketch_path,
         always_rerun_setup=args.always_rerun_setup,
         always_on_top=args.always_on_top,
-        watch_dir=args.watch_dir,
         show_framerate=args.show_framerate,
+        watch_dir=args.watch_dir,
         screenshot_dir=args.screenshot_dir,
         code_backup_dir=args.code_backup_dir,
     )

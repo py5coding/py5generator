@@ -27,7 +27,6 @@ import py5 as _py5
 import stackprinter
 
 """
-TODO: improve parameters a bit
 TODO: ability to run-py5 Sketch code one and only one time per live coding session. this would be useful for loading models, etc
 TODO: support user function for formatting filenames images and code copies are saved to?
 TODO: insert controller to namespace that can interact with a live coding controller, include info like counter, number of saves, etc
@@ -274,8 +273,8 @@ def launch_live_coding(
     *,
     always_rerun_setup=False,
     always_on_top=True,
-    watch_dir=False,
     show_framerate=False,
+    watch_dir=False,
     screenshot_dir=None,
     code_backup_dir=None,
 ):
@@ -291,8 +290,8 @@ def launch_live_coding(
             filename,
             always_rerun_setup=always_rerun_setup,
             always_on_top=always_on_top,
-            watch_dir=watch_dir,
             show_framerate=show_framerate,
+            watch_dir=watch_dir,
             screenshot_dir=screenshot_dir,
             code_backup_dir=code_backup_dir,
         )
