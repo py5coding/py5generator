@@ -107,6 +107,8 @@ def exec_user_code(sketch, filename):
         or {}
     )
 
+    user_supplied_draw = "draw" in functions
+
     for fname in ["setup", "draw", "key_typed"]:
         if fname not in functions:
             functions[fname] = lambda: None
@@ -121,7 +123,7 @@ def exec_user_code(sketch, filename):
         UserFunctionWrapper.exception_state = False
         sketch.loop()
 
-    return functions, function_param_counts
+    return functions, function_param_counts, user_supplied_draw
 
 
 class SyncDraw:
@@ -181,7 +183,7 @@ class SyncDraw:
             self.capture_pixels = None
 
     def post_draw_hook(self, s: _py5.Sketch):
-        if self.show_framerate:
+        if self.show_framerate and self.user_supplied_draw:
             with s.push():
                 s.reset_matrix()
                 s.rect_mode(s.CORNER)
@@ -215,7 +217,9 @@ class SyncDraw:
             if self.mtime != (new_mtime := self.getmtime(self.filename)) or first_call:
                 self.mtime = new_mtime
 
-                self.functions, function_param_counts = exec_user_code(s, self.filename)
+                self.functions, function_param_counts, self.user_supplied_draw = (
+                    exec_user_code(s, self.filename)
+                )
 
                 new_user_setup_code = (
                     inspect.getsource(self.functions["setup"].f)
