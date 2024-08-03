@@ -46,6 +46,14 @@ parser.add_argument(
     help="watch all files in a directory or subdirectory for changes",
 )
 parser.add_argument(
+    "-f",
+    "--show-framerate",
+    action="store_true",
+    default=False,
+    dest="show_framerate",
+    help="show framerate",
+)
+parser.add_argument(
     "-s",
     "--screenshot-dir",
     action="store",
@@ -67,9 +75,10 @@ def main():
         args.sketch_path,
         always_rerun_setup=args.always_rerun_setup,
         always_on_top=args.always_on_top,
+        watch_dir=args.watch_dir,
+        show_framerate=args.show_framerate,
         screenshot_dir=args.screenshot_dir,
         code_backup_dir=args.code_backup_dir,
-        watch_dir=args.watch_dir,
     )
 
 

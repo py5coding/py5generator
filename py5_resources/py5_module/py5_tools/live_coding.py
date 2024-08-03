@@ -28,7 +28,6 @@ import stackprinter
 
 """
 TODO: ability to run-py5 Sketch code one and only one time per live coding session. this would be useful for loading models, etc
-TODO: use overlay for frame rate and frame count
 TODO: support user function for formatting filenames images and code copies are saved to?
 TODO: insert controller to namespace that can interact with a live coding controller, include info like counter, number of saves, etc
 TODO: use sys.modules dict and importlib.reload to manage imported modules and reload if necessary
@@ -132,15 +131,17 @@ class SyncDraw:
         *,
         always_rerun_setup=False,
         always_on_top=True,
+        show_framerate=False,
+        watch_dir=None,
         screenshot_dir=None,
         code_backup_dir=None,
-        watch_dir=None,
     ):
         self.filename = Path(filename)
         self.always_rerun_setup = always_rerun_setup
         self.always_on_top = always_on_top
         self.screenshot_dir = Path(screenshot_dir) if screenshot_dir else Path(".")
         self.code_backup_dir = Path(code_backup_dir) if code_backup_dir else Path(".")
+        self.show_framerate = show_framerate
 
         if watch_dir:
             self.getmtime = lambda f: max(
@@ -178,6 +179,23 @@ class SyncDraw:
         if self.capture_pixels is not None:
             s.set_pixels(0, 0, self.capture_pixels)
             self.capture_pixels = None
+
+    def post_draw_hook(self, s: _py5.Sketch):
+        if self.show_framerate:
+            with s.push():
+                s.reset_matrix()
+                s.rect_mode(s.CORNER)
+                s.text_align(s.LEFT, s.CENTER)
+                s.text_size(16)
+
+                msg = f"frame rate: {s.get_frame_rate():0.1f}"
+
+                s.fill(255)
+                s.no_stroke()
+                s.rect(0, 0, s.text_width(msg) + 10, 24)
+
+                s.fill(0)
+                s.text(msg, 5, 12)
 
     def pre_key_typed_hook(self, s: _py5.Sketch):
         if s.key == "R":
@@ -251,9 +269,10 @@ def launch_live_coding(
     *,
     always_rerun_setup=False,
     always_on_top=True,
+    watch_dir=False,
+    show_framerate=False,
     screenshot_dir=None,
     code_backup_dir=None,
-    watch_dir=False,
 ):
     if _py5.is_dead:
         _py5.reset_py5()
@@ -267,15 +286,17 @@ def launch_live_coding(
             filename,
             always_rerun_setup=always_rerun_setup,
             always_on_top=always_on_top,
+            watch_dir=watch_dir,
+            show_framerate=show_framerate,
             screenshot_dir=screenshot_dir,
             code_backup_dir=code_backup_dir,
-            watch_dir=watch_dir,
         )
 
         sketch = _py5.get_current_sketch()
         sketch._add_pre_hook("setup", "sync_pre_setup", sync_draw.pre_setup_hook)
         sketch._add_post_hook("setup", "sync_post_setup", sync_draw.post_setup_hook)
         sketch._add_pre_hook("draw", "sync_pre_draw", sync_draw.pre_draw_hook)
+        sketch._add_post_hook("draw", "sync_post_draw", sync_draw.post_draw_hook)
         sketch._add_pre_hook(
             "key_typed", "sync_pre_key_typed", sync_draw.pre_key_typed_hook
         )
