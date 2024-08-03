@@ -37,6 +37,20 @@ parser.add_argument(
     dest="always_on_top",
     help="keep sketch on top of other windows",
 )
+parser.add_argument(
+    "-s",
+    "--screenshot-dir",
+    action="store",
+    dest="screenshot_dir",
+    help="directory to save screenshots",
+)
+parser.add_argument(
+    "-b",
+    "--code-backup-dir",
+    action="store",
+    dest="code_backup_dir",
+    help="directory to save code backups",
+)
 
 
 def main():
@@ -45,6 +59,8 @@ def main():
         args.sketch_path,
         always_rerun_setup=args.always_rerun_setup,
         always_on_top=args.always_on_top,
+        screenshot_dir=args.screenshot_dir,
+        code_backup_dir=args.code_backup_dir,
     )
 
 

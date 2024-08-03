@@ -29,7 +29,6 @@ import stackprinter
 """
 TODO: what about multiple files? can this watch a directory for changes instead? what about re-importing local modules?
 TODO: use overlay for frame rate and frame count
-TODO: cmd line param to set the directory for screenshots or backups
 TODO: support user function for formatting filenames images and code copies are saved to?
 TODO: insert controller to namespace that can interact with a live coding controller, include info like counter, number of saves, etc
 TODO: use sys.modules dict and importlib.reload to manage imported modules and reload if necessary
@@ -133,10 +132,17 @@ class SyncDraw:
         *,
         always_rerun_setup=False,
         always_on_top=True,
+        screenshot_dir=None,
+        code_backup_dir=None,
     ):
         self.filename = filename
         self.always_rerun_setup = always_rerun_setup
         self.always_on_top = always_on_top
+        self.screenshot_dir = Path(screenshot_dir) if screenshot_dir else Path(".")
+        self.code_backup_dir = Path(code_backup_dir) if code_backup_dir else Path(".")
+
+        self.screenshot_dir.mkdir(exist_ok=True)
+        self.code_backup_dir.mkdir(exist_ok=True)
 
         self.mtime = None
         self.user_setup_code = None
@@ -159,11 +165,11 @@ class SyncDraw:
         elif s.key in "ABS":
             datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
             if s.key in "AS":
-                s.save_frame(f"screenshot_{datestr}.png")
+                s.save_frame(self.screenshot_dir / f"screenshot_{datestr}.png")
             if s.key in "AB":
                 new_filename = Path(self.filename).stem + "_" + datestr + ".py"
                 with open(self.filename, "r") as f:
-                    with open(new_filename, "w") as f2:
+                    with open(self.code_backup_dir / new_filename, "w") as f2:
                         f2.write(f.read())
 
     def keep_functions_current(self, s: _py5.Sketch, first_call=False):
@@ -214,7 +220,14 @@ class SyncDraw:
             s.println(msg)
 
 
-def launch_live_coding(filename, *, always_rerun_setup=False, always_on_top=True):
+def launch_live_coding(
+    filename,
+    *,
+    always_rerun_setup=False,
+    always_on_top=True,
+    screenshot_dir=None,
+    code_backup_dir=None,
+):
     if _py5.is_dead:
         _py5.reset_py5()
 
@@ -227,6 +240,8 @@ def launch_live_coding(filename, *, always_rerun_setup=False, always_on_top=True
             filename,
             always_rerun_setup=always_rerun_setup,
             always_on_top=always_on_top,
+            screenshot_dir=screenshot_dir,
+            code_backup_dir=code_backup_dir,
         )
 
         sketch = _py5.get_current_sketch()
