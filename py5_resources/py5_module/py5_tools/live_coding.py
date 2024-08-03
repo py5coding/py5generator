@@ -27,6 +27,7 @@ import py5 as _py5
 import stackprinter
 
 """
+TODO: improve parameters a bit
 TODO: ability to run-py5 Sketch code one and only one time per live coding session. this would be useful for loading models, etc
 TODO: support user function for formatting filenames images and code copies are saved to?
 TODO: insert controller to namespace that can interact with a live coding controller, include info like counter, number of saves, etc
@@ -298,12 +299,12 @@ def launch_live_coding(
 
         sketch = _py5.get_current_sketch()
         sketch._add_pre_hook("setup", "sync_pre_setup", sync_draw.pre_setup_hook)
-        sketch._add_post_hook("setup", "sync_post_setup", sync_draw.post_setup_hook)
         sketch._add_pre_hook("draw", "sync_pre_draw", sync_draw.pre_draw_hook)
-        sketch._add_post_hook("draw", "sync_post_draw", sync_draw.post_draw_hook)
         sketch._add_pre_hook(
             "key_typed", "sync_pre_key_typed", sync_draw.pre_key_typed_hook
         )
+        sketch._add_post_hook("setup", "sync_post_setup", sync_draw.post_setup_hook)
+        sketch._add_post_hook("draw", "sync_post_draw", sync_draw.post_draw_hook)
 
         if sync_draw.keep_functions_current(sketch, first_call=True):
             sketch.launch_repeating_thread(
@@ -316,7 +317,6 @@ def launch_live_coding(
             _real_run_sketch(
                 sketch_functions=sync_draw.functions, **_mock_run_sketch.kwargs
             )
-
         else:
             sketch.println("Error in live coding startup...please fix and try again")
 
