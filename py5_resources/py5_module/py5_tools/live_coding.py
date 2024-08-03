@@ -27,7 +27,6 @@ import py5 as _py5
 import stackprinter
 
 """
-TODO: bug on first run when there is only a setup function
 TODO: ability to run-py5 Sketch code one and only one time per live coding session. this would be useful for loading models, etc
 TODO: use overlay for frame rate and frame count
 TODO: support user function for formatting filenames images and code copies are saved to?
@@ -109,7 +108,7 @@ def exec_user_code(sketch, filename):
         or {}
     )
 
-    for fname in ["settings", "draw", "key_typed"]:
+    for fname in ["setup", "draw", "key_typed"]:
         if fname not in functions:
             functions[fname] = lambda: None
             function_param_counts[fname] = 0
@@ -155,6 +154,7 @@ class SyncDraw:
         self.code_backup_dir.mkdir(exist_ok=True)
 
         self.mtime = None
+        self.capture_pixels = None
         self.functions = {}
         self.user_supplied_draw = False
         self.user_setup_code = None
@@ -164,14 +164,20 @@ class SyncDraw:
         if self.always_on_top:
             s.get_surface().set_always_on_top(True)
 
+    def post_setup_hook(self, s: _py5.Sketch):
+        if self.always_on_top:
+            self.capture_pixels = s.get_pixels()
+
     def pre_draw_hook(self, s: _py5.Sketch):
         if self.run_setup_again:
             # in case user doesn't call background in setup
             s.background(204)
-
-            if "setup" in self.functions:
-                self.functions["setup"]()
+            self.functions["setup"]()
             self.run_setup_again = False
+
+        if self.capture_pixels is not None:
+            s.set_pixels(0, 0, self.capture_pixels)
+            self.capture_pixels = None
 
     def pre_key_typed_hook(self, s: _py5.Sketch):
         if s.key == "R":
@@ -267,10 +273,11 @@ def launch_live_coding(
         )
 
         sketch = _py5.get_current_sketch()
-        sketch._add_pre_hook("setup", "sync_setup", sync_draw.pre_setup_hook)
-        sketch._add_pre_hook("draw", "sync_draw", sync_draw.pre_draw_hook)
+        sketch._add_pre_hook("setup", "sync_pre_setup", sync_draw.pre_setup_hook)
+        sketch._add_post_hook("setup", "sync_post_setup", sync_draw.post_setup_hook)
+        sketch._add_pre_hook("draw", "sync_pre_draw", sync_draw.pre_draw_hook)
         sketch._add_pre_hook(
-            "key_typed", "sync_key_typed", sync_draw.pre_key_typed_hook
+            "key_typed", "sync_pre_key_typed", sync_draw.pre_key_typed_hook
         )
 
         if sync_draw.keep_functions_current(sketch, first_call=True):
