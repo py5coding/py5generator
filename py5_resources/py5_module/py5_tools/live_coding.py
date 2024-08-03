@@ -27,6 +27,7 @@ import py5 as _py5
 import stackprinter
 
 """
+TODO: ability to npn-py5 Sketch code one and only one time per live coding session. this would be useful for loading models, etc
 TODO: what about multiple files? can this watch a directory for changes instead? what about re-importing local modules?
 TODO: use overlay for frame rate and frame count
 TODO: support user function for formatting filenames images and code copies are saved to?
@@ -145,6 +146,8 @@ class SyncDraw:
         self.code_backup_dir.mkdir(exist_ok=True)
 
         self.mtime = None
+        self.functions = {}
+        self.user_supplied_draw = False
         self.user_setup_code = None
         self.run_setup_again = False
 
@@ -156,7 +159,9 @@ class SyncDraw:
         if self.run_setup_again:
             # in case user doesn't call background in setup
             s.background(204)
-            self.functions["setup"]()
+
+            if "setup" in self.functions:
+                self.functions["setup"]()
             self.run_setup_again = False
 
     def pre_key_typed_hook(self, s: _py5.Sketch):
@@ -182,7 +187,15 @@ class SyncDraw:
 
                 self.functions, function_param_counts = exec_user_code(s, self.filename)
 
-                if not first_call:
+                new_user_setup_code = (
+                    inspect.getsource(self.functions["setup"].f)
+                    if "setup" in self.functions
+                    else None
+                )
+
+                if first_call:
+                    self.user_setup_code = new_user_setup_code
+                else:
                     s._py5_bridge.set_functions(self.functions, function_param_counts)
                     s._instance.buildPy5Bridge(
                         s._py5_bridge,
@@ -190,16 +203,15 @@ class SyncDraw:
                         s._environ.in_jupyter_zmq_shell,
                     )
 
-                if "setup" in self.functions:
-                    new_user_setup_code = inspect.getsource(self.functions["setup"].f)
-                    if not first_call and (
+                    if (
                         self.always_rerun_setup
                         or self.user_setup_code != new_user_setup_code
                     ):
                         self.run_setup_again = True
+
                     self.user_setup_code = new_user_setup_code
-                else:
-                    self.user_setup_code = None
+
+            return True
 
         except Exception as e:
             UserFunctionWrapper.exception_state = True
@@ -218,6 +230,8 @@ class SyncDraw:
             )
             msg += "\n" + "*" * 80
             s.println(msg)
+
+            return False
 
 
 def launch_live_coding(
