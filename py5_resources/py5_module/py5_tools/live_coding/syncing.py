@@ -27,10 +27,13 @@ from pathlib import Path
 import py5 as _py5
 import stackprinter
 
+from ..hooks import frame_hooks
+
 """
+TODO: this might need to move from py5_tools to py5 because it must import py5
 TODO: ability to run-py5 Sketch code one and only one time per live coding session. this would be useful for loading models, etc
 TODO: support user function for formatting filenames images and code copies are saved to?
-TODO: insert controller to namespace that can interact with a live coding controller, include info like counter, number of saves, etc
+TODO: insert controller to namespace that can interact with a live coding controller, include info like counter, number of saves, methods to archive code and screenshots, etc
 TODO: use sys.modules dict and importlib.reload to manage imported modules and reload if necessary
 TODO: should work in jupyter notebook, and maybe the py5 kernel also
 
@@ -158,6 +161,7 @@ class SyncDraw:
         self.screenshot_dir.mkdir(exist_ok=True)
         self.code_backup_dir.mkdir(exist_ok=True)
 
+        self.exec_code_count = 0
         self.mtime = None
         self.capture_pixels = None
         self.functions = {}
@@ -207,9 +211,24 @@ class SyncDraw:
         elif s.key in "ABS":
             datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
             if s.key in "AS":
-                s.save_frame(self.screenshot_dir / f"screenshot_{datestr}.png")
+                screenshot_filename = self.take_screenshot(s)
+                s.println(f"Screenshot saved to {screenshot_filename}")
             if s.key in "AB":
-                self.archive_code()
+                archive_filename = self.archive_code()
+                s.println(f"Code archived to {archive_filename}")
+
+    def take_screenshot(self, s: _py5.Sketch = None, screenshot_filename: str = None):
+        if screenshot_filename is None:
+            datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
+            screenshot_filename = self.screenshot_dir / f"screenshot_{datestr}.png"
+
+        if s is None:
+            screenshot = frame_hooks.screenshot()
+            screenshot.save(screenshot_filename)
+        else:
+            s.save_frame(screenshot_filename)
+
+        return screenshot_filename
 
     def archive_code(self, archive_filename: str = None):
         if archive_filename is None:
@@ -228,6 +247,8 @@ class SyncDraw:
             with open(self.filename, "r") as f:
                 with open(archive_filename, "w") as f2:
                     f2.write(f.read())
+
+        return archive_filename
 
     def keep_functions_current(self, s: _py5.Sketch, first_call=False):
         try:
@@ -283,6 +304,8 @@ class SyncDraw:
             s.println(msg)
 
             return False
+        finally:
+            self.exec_code_count += 1
 
 
 def launch_live_coding(
