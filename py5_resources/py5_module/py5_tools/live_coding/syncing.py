@@ -21,6 +21,7 @@ import datetime as dt
 import inspect
 import os
 import sys
+import zipfile
 from pathlib import Path
 
 import py5 as _py5
@@ -144,8 +145,9 @@ class SyncDraw:
         self.screenshot_dir = Path(screenshot_dir) if screenshot_dir else Path(".")
         self.code_backup_dir = Path(code_backup_dir) if code_backup_dir else Path(".")
         self.show_framerate = show_framerate
+        self.watch_dir = watch_dir
 
-        if watch_dir:
+        if self.watch_dir:
             self.getmtime = lambda f: max(
                 (os.path.getmtime(ff) for ff in f.parent.glob("**/*") if ff.is_file()),
                 default=0,
@@ -207,10 +209,25 @@ class SyncDraw:
             if s.key in "AS":
                 s.save_frame(self.screenshot_dir / f"screenshot_{datestr}.png")
             if s.key in "AB":
-                new_filename = Path(self.filename).stem + "_" + datestr + ".py"
-                with open(self.filename, "r") as f:
-                    with open(self.code_backup_dir / new_filename, "w") as f2:
-                        f2.write(f.read())
+                self.archive_code()
+
+    def archive_code(self, archive_filename: str = None):
+        if archive_filename is None:
+            datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
+            archive_filename = Path(self.filename).stem + "_" + datestr + ".py"
+
+        archive_filename = self.code_backup_dir / archive_filename
+
+        if self.watch_dir:
+            archive_filename = archive_filename.with_suffix(".zip")
+            with zipfile.ZipFile(archive_filename, "w", zipfile.ZIP_DEFLATED) as zf:
+                for ff in self.filename.parent.glob("**/*"):
+                    if ff.is_file() and ff.suffix != ".zip":
+                        zf.write(ff, ff.relative_to(self.filename.parent))
+        else:
+            with open(self.filename, "r") as f:
+                with open(archive_filename, "w") as f2:
+                    f2.write(f.read())
 
     def keep_functions_current(self, s: _py5.Sketch, first_call=False):
         try:
