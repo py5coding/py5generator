@@ -8,6 +8,7 @@ dependencies:
   - cairo=1.18.*
   - cairocffi=1.7.*
   - cairosvg=2.7.*
+  - colour>=0.1.*
   - flake8=7.1.*
   - hatch=1.12.*
   - ipython=8.18.*
@@ -32,3 +33,4 @@ dependencies:
   - pip:
     - bump2version==1.0.*
     - stackprinter==0.2.11
+    - opencv-contrib-python>=4.10.*
