@@ -30,7 +30,9 @@ import stackprinter
 from ..hooks import frame_hooks
 
 """
-TODO: this might need to move from py5_tools to py5 because it must import py5
+TODO: py5_tools.live_coding doesn't work outside of live_sketch
+TODO: this might need to move from py5_tools to py5 because it must import py5?
+
 TODO: use sys.modules dict and importlib.reload to manage imported modules and reload if necessary?
 but wait, is there a way to "reset" the global namespace to start fresh? maybe, the generic python interpreter has only a few things in globals() on startup
 this would make shre __name__ is correct, among other things, would take care of the import stuff by default
