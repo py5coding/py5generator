@@ -24,6 +24,30 @@ from py5_tools import live_coding
 parser = argparse.ArgumentParser(description="Live coding for module mode py5 sketches")
 parser.add_argument(action="store", dest="sketch_path", help="path to py5 sketch")
 parser.add_argument(
+    "-a",
+    "--archive-dir",
+    action="store",
+    dest="archive_dir",
+    default="archive",
+    help="directory to save screenshots and code backups",
+)
+parser.add_argument(
+    "-d",
+    "--watch-dir",
+    action="store_true",
+    default=False,
+    dest="watch_dir",
+    help="watch all files in a directory or subdirectory for changes",
+)
+parser.add_argument(
+    "-f",
+    "--show-framerate",
+    action="store_true",
+    default=False,
+    dest="show_framerate",
+    help="show framerate",
+)
+parser.add_argument(
     "-r",
     "--always-rerun-setup",
     action="store_true",
@@ -37,30 +61,6 @@ parser.add_argument(
     default=True,
     dest="always_on_top",
     help="keep sketch on top of other windows",
-)
-parser.add_argument(
-    "-f",
-    "--show-framerate",
-    action="store_true",
-    default=False,
-    dest="show_framerate",
-    help="show framerate",
-)
-parser.add_argument(
-    "-d",
-    "--watch-dir",
-    action="store_true",
-    default=False,
-    dest="watch_dir",
-    help="watch all files in a directory or subdirectory for changes",
-)
-parser.add_argument(
-    "-a",
-    "--archive-dir",
-    action="store",
-    dest="archive_dir",
-    default="archive",
-    help="directory to save screenshots and code backups",
 )
 
 
