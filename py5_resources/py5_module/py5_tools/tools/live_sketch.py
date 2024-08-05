@@ -55,18 +55,12 @@ parser.add_argument(
     help="watch all files in a directory or subdirectory for changes",
 )
 parser.add_argument(
-    "-s",
-    "--screenshot-dir",
+    "-a",
+    "--archive-dir",
     action="store",
-    dest="screenshot_dir",
-    help="directory to save screenshots",
-)
-parser.add_argument(
-    "-b",
-    "--code-backup-dir",
-    action="store",
-    dest="code_backup_dir",
-    help="directory to save code backups",
+    dest="archive_dir",
+    default="archive",
+    help="directory to save screenshots and code backups",
 )
 
 
@@ -78,8 +72,7 @@ def main():
         always_on_top=args.always_on_top,
         show_framerate=args.show_framerate,
         watch_dir=args.watch_dir,
-        screenshot_dir=args.screenshot_dir,
-        code_backup_dir=args.code_backup_dir,
+        archive_dir=args.archive_dir,
     )
 
 

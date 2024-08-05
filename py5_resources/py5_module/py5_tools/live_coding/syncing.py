@@ -31,9 +31,6 @@ from ..hooks import frame_hooks
 
 """
 TODO: this might need to move from py5_tools to py5 because it must import py5
-TODO: ability to run-py5 Sketch code one and only one time per live coding session. this would be useful for loading models, etc
-TODO: support user function for formatting filenames images and code copies are saved to?
-TODO: insert controller to namespace that can interact with a live coding controller, include info like counter, number of saves, methods to archive code and screenshots, etc
 TODO: use sys.modules dict and importlib.reload to manage imported modules and reload if necessary
 TODO: should work in jupyter notebook, and maybe the py5 kernel also
 
@@ -43,6 +40,12 @@ from IPython import get_ipython
 kernel = get_ipython()
 kernel.events.register('post_execute', callback) # or 'post_run_cell'
 """
+
+
+def is_subdirectory(d, f):
+    d = Path(d).resolve()
+    f = Path(f).resolve()
+    return f.parts[: len(d.parts)] == d.parts
 
 
 class MockRunSketch:
@@ -139,27 +142,30 @@ class SyncDraw:
         always_on_top=True,
         show_framerate=False,
         watch_dir=None,
-        screenshot_dir=None,
-        code_backup_dir=None,
+        archive_dir=None,
     ):
         self.filename = Path(filename)
         self.always_rerun_setup = always_rerun_setup
         self.always_on_top = always_on_top
-        self.screenshot_dir = Path(screenshot_dir) if screenshot_dir else Path(".")
-        self.code_backup_dir = Path(code_backup_dir) if code_backup_dir else Path(".")
+        # TODO: validate this is not the current directory
+        self.archive_dir = Path(archive_dir)
         self.show_framerate = show_framerate
         self.watch_dir = watch_dir
 
+        # TODO: don't do this until first save
+        self.archive_dir.mkdir(exist_ok=True)
+
         if self.watch_dir:
             self.getmtime = lambda f: max(
-                (os.path.getmtime(ff) for ff in f.parent.glob("**/*") if ff.is_file()),
+                (
+                    os.path.getmtime(ff)
+                    for ff in f.parent.glob("**/*")
+                    if ff.is_file() and not is_subdirectory(self.archive_dir, ff)
+                ),
                 default=0,
             )
         else:
             self.getmtime = os.path.getmtime
-
-        self.screenshot_dir.mkdir(exist_ok=True)
-        self.code_backup_dir.mkdir(exist_ok=True)
 
         self.exec_code_count = 0
         self.mtime = None
@@ -208,19 +214,22 @@ class SyncDraw:
     def pre_key_typed_hook(self, s: _py5.Sketch):
         if s.key == "R":
             self.run_setup_again = True
-        elif s.key in "ABS":
-            datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
-            if s.key in "AS":
-                screenshot_filename = self.take_screenshot(s)
-                s.println(f"Screenshot saved to {screenshot_filename}")
-            if s.key in "AB":
-                archive_filename = self.archive_code()
-                s.println(f"Code archived to {archive_filename}")
+        if s.key in "AS":
+            screenshot_filename = self.take_screenshot(s)
+            s.println(f"Screenshot saved to {screenshot_filename}")
+        if s.key in "AB":
+            archive_filename = self.archive_code()
+            s.println(f"Code archived to {archive_filename}")
 
-    def take_screenshot(self, s: _py5.Sketch = None, screenshot_filename: str = None):
-        if screenshot_filename is None:
+    def take_screenshot(self, s: _py5.Sketch = None, *, screenshot_name: str = None):
+        if screenshot_name is None:
             datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
-            screenshot_filename = self.screenshot_dir / f"screenshot_{datestr}.png"
+            screenshot_name = f"screenshot_{datestr}.png"
+
+        screenshot_filename = self.archive_dir / screenshot_name
+
+        if not screenshot_filename.suffix:
+            screenshot_filename = screenshot_filename.with_suffix(".png")
 
         if s is None:
             screenshot = frame_hooks.screenshot()
@@ -230,20 +239,21 @@ class SyncDraw:
 
         return screenshot_filename
 
-    def archive_code(self, archive_filename: str = None):
-        if archive_filename is None:
+    def archive_code(self, *, archive_name: str = None):
+        if archive_name is None:
             datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
-            archive_filename = Path(self.filename).stem + "_" + datestr + ".py"
+            archive_name = Path(self.filename).stem + "_" + datestr + ".py"
 
-        archive_filename = self.code_backup_dir / archive_filename
+        archive_filename = self.archive_dir / archive_name
 
         if self.watch_dir:
             archive_filename = archive_filename.with_suffix(".zip")
             with zipfile.ZipFile(archive_filename, "w", zipfile.ZIP_DEFLATED) as zf:
                 for ff in self.filename.parent.glob("**/*"):
-                    if ff.is_file() and ff.suffix != ".zip":
+                    if ff.is_file() and not is_subdirectory(self.archive_dir, ff):
                         zf.write(ff, ff.relative_to(self.filename.parent))
         else:
+            archive_filename = archive_filename.with_suffix(".py")
             with open(self.filename, "r") as f:
                 with open(archive_filename, "w") as f2:
                     f2.write(f.read())
@@ -258,6 +268,7 @@ class SyncDraw:
                 self.functions, function_param_counts, self.user_supplied_draw = (
                     exec_user_code(s, self.filename)
                 )
+                self.exec_code_count += 1
 
                 new_user_setup_code = (
                     inspect.getsource(self.functions["setup"].f)
@@ -304,8 +315,6 @@ class SyncDraw:
             s.println(msg)
 
             return False
-        finally:
-            self.exec_code_count += 1
 
 
 def launch_live_coding(
@@ -315,8 +324,7 @@ def launch_live_coding(
     always_on_top=True,
     show_framerate=False,
     watch_dir=False,
-    screenshot_dir=None,
-    code_backup_dir=None,
+    archive_dir=None,
 ):
     if _py5.is_dead:
         _py5.reset_py5()
@@ -332,11 +340,13 @@ def launch_live_coding(
             always_on_top=always_on_top,
             show_framerate=show_framerate,
             watch_dir=watch_dir,
-            screenshot_dir=screenshot_dir,
-            code_backup_dir=code_backup_dir,
+            archive_dir=archive_dir,
         )
 
         sketch = _py5.get_current_sketch()
+
+        sketch._set_sync_draw(sync_draw)
+
         sketch._add_pre_hook("setup", "sync_pre_setup", sync_draw.pre_setup_hook)
         sketch._add_pre_hook("draw", "sync_pre_draw", sync_draw.pre_draw_hook)
         sketch._add_pre_hook(

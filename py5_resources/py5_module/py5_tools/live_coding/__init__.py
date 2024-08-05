@@ -17,4 +17,5 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+from .controller import get_controller
 from .syncing import launch_live_coding

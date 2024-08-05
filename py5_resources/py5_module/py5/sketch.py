@@ -239,6 +239,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             )
         Sketch._cls.setJOGLProperties(str(Path(__file__).parent))
         self.utils = Py5Utilities(self)
+        self._sync_draw = None
 
         self._py5_convert_image_cache = dict()
         self._py5_convert_shape_cache = dict()
@@ -725,6 +726,12 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                 jpype.JClass("java.lang.Thread")(proxy).start()
         else:
             py5f(key, prompt, default_folder)
+
+    def _set_sync_draw(self, sync_draw):
+        self._sync_draw = sync_draw
+
+    def _get_sync_draw(self):
+        return self._sync_draw
 
     # *** Py5Image methods ***
 
