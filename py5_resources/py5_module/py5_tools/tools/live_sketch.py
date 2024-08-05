@@ -18,6 +18,7 @@
 #
 # *****************************************************************************
 import argparse
+from pathlib import Path
 
 from py5_tools import live_coding
 
@@ -66,6 +67,14 @@ parser.add_argument(
 
 def main():
     args = parser.parse_args()
+
+    sketch_path = Path(args.sketch_path).resolve()
+    archive_dir = Path(args.archive_dir).resolve()
+    if sketch_path.parent == archive_dir:
+        raise ValueError(
+            f"Archived files cannot be saved to the directory containing the Sketch code."
+        )
+
     live_coding.launch_live_coding(
         args.sketch_path,
         always_rerun_setup=args.always_rerun_setup,

@@ -147,7 +147,6 @@ class SyncDraw:
         self.filename = Path(filename)
         self.always_rerun_setup = always_rerun_setup
         self.always_on_top = always_on_top
-        # TODO: validate this is not the current directory
         self.archive_dir = Path(archive_dir)
         self.show_framerate = show_framerate
         self.watch_dir = watch_dir
