@@ -152,9 +152,6 @@ class SyncDraw:
         self.show_framerate = show_framerate
         self.watch_dir = watch_dir
 
-        # TODO: don't do this until first save
-        self.archive_dir.mkdir(exist_ok=True)
-
         if self.watch_dir:
             self.getmtime = lambda f: max(
                 (
@@ -226,6 +223,7 @@ class SyncDraw:
             datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
             screenshot_name = f"screenshot_{datestr}.png"
 
+        self.archive_dir.mkdir(exist_ok=True)
         screenshot_filename = self.archive_dir / screenshot_name
 
         if not screenshot_filename.suffix:
@@ -244,6 +242,7 @@ class SyncDraw:
             datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
             archive_name = Path(self.filename).stem + "_" + datestr + ".py"
 
+        self.archive_dir.mkdir(exist_ok=True)
         archive_filename = self.archive_dir / archive_name
 
         if self.watch_dir:
