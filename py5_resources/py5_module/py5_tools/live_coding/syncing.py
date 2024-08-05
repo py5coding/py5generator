@@ -31,7 +31,10 @@ from ..hooks import frame_hooks
 
 """
 TODO: this might need to move from py5_tools to py5 because it must import py5
-TODO: use sys.modules dict and importlib.reload to manage imported modules and reload if necessary
+TODO: use sys.modules dict and importlib.reload to manage imported modules and reload if necessary?
+but wait, is there a way to "reset" the global namespace to start fresh? maybe, the generic python interpreter has only a few things in globals() on startup
+this would make shre __name__ is correct, among other things, would take care of the import stuff by default
+
 TODO: should work in jupyter notebook, and maybe the py5 kernel also
 
 https://ipython.readthedocs.io/en/stable/config/callbacks.html
@@ -97,11 +100,12 @@ class UserFunctionWrapperOneParam(UserFunctionWrapper):
 
 
 def exec_user_code(sketch, filename):
+    # this clears out any previously defined functions from the global namespace
     for method_name in _py5.reference.METHODS:
         globals().pop(method_name, None)
 
+    # execute user code and put new functions into the global namespace
     with open(filename, "r") as f:
-
         exec(compile(f.read(), filename=filename, mode="exec"), globals())
 
     functions, function_param_counts = _py5.bridge._extract_py5_user_function_data(
