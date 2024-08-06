@@ -46,6 +46,16 @@ kernel = get_ipython()
 kernel.events.register('post_execute', callback) # or 'post_run_cell'
 """
 
+STARTUP_CODE = """
+__name__ = "__main__"
+__doc__ = None
+__package__ = None
+__spec__ = None
+__annotations__ = dict()
+__file__ = "{0}"
+__cached__ = None
+"""
+
 
 def is_subdirectory(d, f):
     d = Path(d).resolve()
@@ -348,9 +358,11 @@ def launch_live_coding(
     archive_dir=None,
 ):
     if py5.is_dead:
-        py5.resetpy5()
+        py5.reset_py5()
 
     try:
+        exec(STARTUP_CODE.format(Path(filename).absolute()), globals())
+
         # this needs to be before keep_functions_current() is called
         _real_run_sketch = py5.run_sketch
         py5.run_sketch = (_mock_run_sketch := MockRunSketch())
