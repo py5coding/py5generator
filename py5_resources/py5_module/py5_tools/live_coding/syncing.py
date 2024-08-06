@@ -91,12 +91,13 @@ class UserFunctionWrapper:
             self.sketch.println("*" * 80)
 
             # watch code for changes that will fix the problem and let Sketch continue
-            self.sketch.launch_repeating_thread(
-                self.sketch._get_sync_draw().keep_functions_current,
-                "keep_functions_current",
-                time_delay=0.01,
-                args=(self.sketch,),
-            )
+            if not self.sketch.has_thread("keep_functions_current"):
+                self.sketch.launch_repeating_thread(
+                    self.sketch._get_sync_draw().keep_functions_current,
+                    "keep_functions_current",
+                    time_delay=0.01,
+                    args=(self.sketch,),
+                )
 
 
 class UserFunctionWrapperZeroParams(UserFunctionWrapper):
@@ -139,15 +140,6 @@ def exec_user_code(sketch, filename):
         name: UserFunctionWrapper(sketch, name, f, function_param_counts.get(name, 0))
         for name, f in functions.items()
     }
-
-    # TODO: should this be in keep_functions_current? I think it should
-    if UserFunctionWrapper.exception_state:
-        sketch.println("Resuming Sketch execution...")
-        UserFunctionWrapper.exception_state = False
-        sketch.loop()
-
-        if sketch.has_thread("keep_functions_current"):
-            sketch.stop_thread("keep_functions_current")
 
     return functions, function_param_counts, user_supplied_draw
 
@@ -306,6 +298,14 @@ class SyncDraw:
 
                     self.user_setup_code = new_user_setup_code
 
+                if UserFunctionWrapper.exception_state:
+                    s.println("Resuming Sketch execution...")
+                    UserFunctionWrapper.exception_state = False
+                    s.loop()
+
+                    if s.has_thread("keep_functions_current"):
+                        s.stop_thread("keep_functions_current")
+
             return True
 
         except Exception as e:
@@ -327,12 +327,13 @@ class SyncDraw:
             s.println(msg)
 
             # watch code for changes that will fix the problem and let Sketch continue
-            s.launch_repeating_thread(
-                self.keep_functions_current,
-                "keep_functions_current",
-                time_delay=0.01,
-                args=(s,),
-            )
+            if not s.has_thread("keep_functions_current"):
+                s.launch_repeating_thread(
+                    self.keep_functions_current,
+                    "keep_functions_current",
+                    time_delay=0.01,
+                    args=(s,),
+                )
 
             return False
 
