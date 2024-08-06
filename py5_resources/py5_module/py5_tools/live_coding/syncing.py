@@ -30,8 +30,6 @@ import stackprinter
 from ..hooks import frame_hooks
 
 """
-TODO: seems to be a bug where the Sketch will appear to freeze with a blank window on an error
-TODO: temporarily pause Sketch while executing code - not doing so messes up global variables
 TODO: use logging w/ levels for messages, include status stuff and intermittent frame rate stats
 TODO: py5_tools.live_coding doesn't work outside of live_sketch
 TODO: this might need to move from py5_tools to py5 because it must import py5?
@@ -93,6 +91,14 @@ class UserFunctionWrapper:
             _py5.bridge.handle_exception(self.sketch.println, *sys.exc_info())
             self.sketch.println("*" * 80)
 
+            # watch code for changes that will fix the problem and let Sketch continue
+            self.sketch.launch_repeating_thread(
+                self.sketch._get_sync_draw().keep_functions_current,
+                "keep_functions_current",
+                time_delay=0.01,
+                args=(self.sketch,),
+            )
+
 
 class UserFunctionWrapperZeroParams(UserFunctionWrapper):
     def __call__(self):
@@ -138,6 +144,9 @@ def exec_user_code(sketch, filename):
     if UserFunctionWrapper.exception_state:
         UserFunctionWrapper.exception_state = False
         sketch.loop()
+
+        if sketch.has_thread("keep_functions_current"):
+            sketch.stop_thread("keep_functions_current")
 
     return functions, function_param_counts, user_supplied_draw
 
@@ -204,6 +213,8 @@ class SyncDraw:
         if self.show_framerate and self.user_supplied_draw:
             msg = f"frame rate: {s.get_frame_rate():0.1f}"
             s.println(msg, end="\r")
+
+        self.keep_functions_current(s)
 
     def pre_key_typed_hook(self, s: _py5.Sketch):
         if s.key == "R":
@@ -310,6 +321,14 @@ class SyncDraw:
             msg += "\n" + "*" * 80
             s.println(msg)
 
+            # watch code for changes that will fix the problem and let Sketch continue
+            s.launch_repeating_thread(
+                self.keep_functions_current,
+                "keep_functions_current",
+                time_delay=0.01,
+                args=(s,),
+            )
+
             return False
 
 
@@ -352,13 +371,6 @@ def launch_live_coding(
         sketch._add_post_hook("draw", "sync_post_draw", sync_draw.post_draw_hook)
 
         if sync_draw.keep_functions_current(sketch, first_call=True):
-            sketch.launch_repeating_thread(
-                sync_draw.keep_functions_current,
-                "keep_functions_current",
-                time_delay=0.01,
-                args=(sketch,),
-            )
-
             _real_run_sketch(
                 sketch_functions=sync_draw.functions, **_mock_run_sketch.kwargs
             )
