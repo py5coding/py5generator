@@ -357,9 +357,6 @@ def launch_live_coding(
     watch_dir=False,
     archive_dir=None,
 ):
-    if py5.is_dead:
-        py5.reset_py5()
-
     try:
         exec(STARTUP_CODE.format(Path(filename).absolute()), globals())
 
