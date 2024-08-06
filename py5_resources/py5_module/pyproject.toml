@@ -62,7 +62,8 @@ py5translate-module2imported = "py5_tools.tools.py5translate_module2imported:mai
 py5translate-processingpy2imported = "py5_tools.tools.py5translate_processingpy2imported:main"
 py5utils = "py5_tools.tools.py5utils:main"
 run_sketch = "py5_tools.tools.run_sketch:main"
-live_sketch = "py5_tools.tools.live_sketch:main"
+run-sketch = "py5_tools.tools.run_sketch:main"
+live-sketch = "py5_tools.tools.live_sketch:main"
 
 [project.urls]
 "Bug Tracker" = "https://github.com/py5coding/py5generator/issues"
