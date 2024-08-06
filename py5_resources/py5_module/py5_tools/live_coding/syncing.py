@@ -30,12 +30,12 @@ import stackprinter
 from ..hooks import frame_hooks
 
 """
+TODO: seems to be a bug where the Sketch will appear to freeze with a blank window on an error
 TODO: temporarily pause Sketch while executing code - not doing so messes up global variables
 TODO: use logging w/ levels for messages
-TODO: show frame rate doesn't work for P3D renderer
+TODO: show frame rate doesn't work for P3D renderer, overlay isn't easy to do, maybe add it to info level logs
 TODO: py5_tools.live_coding doesn't work outside of live_sketch
 TODO: this might need to move from py5_tools to py5 because it must import py5?
-TODO: can frame_count and millis be reset to 0 when setup is rerun?
 
 TODO: use sys.modules dict and importlib.reload to manage imported modules and reload if necessary?
 but wait, is there a way to "reset" the global namespace to start fresh? maybe, the generic python interpreter has only a few things in globals() on startup
@@ -191,6 +191,7 @@ class SyncDraw:
 
     def pre_draw_hook(self, s: _py5.Sketch):
         if self.run_setup_again:
+            s._instance._resetSketch()
             # in case user doesn't call background in setup
             s.background(204)
             self.functions["setup"]()
