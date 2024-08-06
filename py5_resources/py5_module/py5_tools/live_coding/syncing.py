@@ -30,7 +30,6 @@ import stackprinter
 from ..hooks import frame_hooks
 
 """
-TODO: use logging w/ levels for messages, include status stuff and intermittent frame rate stats
 TODO: py5_tools.live_coding doesn't work outside of live_sketch
 TODO: this might need to move from py5_tools to py5 because it must import py5?
 
@@ -142,6 +141,7 @@ def exec_user_code(sketch, filename):
     }
 
     if UserFunctionWrapper.exception_state:
+        sketch.println("Resuming Sketch execution...")
         UserFunctionWrapper.exception_state = False
         sketch.loop()
 
