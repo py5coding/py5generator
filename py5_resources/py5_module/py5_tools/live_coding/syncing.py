@@ -32,8 +32,7 @@ from ..hooks import frame_hooks
 """
 TODO: seems to be a bug where the Sketch will appear to freeze with a blank window on an error
 TODO: temporarily pause Sketch while executing code - not doing so messes up global variables
-TODO: use logging w/ levels for messages
-TODO: show frame rate doesn't work for P3D renderer, overlay isn't easy to do, maybe add it to info level logs
+TODO: use logging w/ levels for messages, include status stuff and intermittent frame rate stats
 TODO: py5_tools.live_coding doesn't work outside of live_sketch
 TODO: this might need to move from py5_tools to py5 because it must import py5?
 
@@ -203,20 +202,8 @@ class SyncDraw:
 
     def post_draw_hook(self, s: _py5.Sketch):
         if self.show_framerate and self.user_supplied_draw:
-            with s.push():
-                s.reset_matrix()
-                s.rect_mode(s.CORNER)
-                s.text_align(s.LEFT, s.CENTER)
-                s.text_size(16)
-
-                msg = f"frame rate: {s.get_frame_rate():0.1f}"
-
-                s.fill(255)
-                s.no_stroke()
-                s.rect(0, 0, s.text_width(msg) + 10, 24)
-
-                s.fill(0)
-                s.text(msg, 5, 12)
+            msg = f"frame rate: {s.get_frame_rate():0.1f}"
+            s.println(msg, end="\r")
 
     def pre_key_typed_hook(self, s: _py5.Sketch):
         if s.key == "R":
