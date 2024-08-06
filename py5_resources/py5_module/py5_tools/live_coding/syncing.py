@@ -24,7 +24,7 @@ import sys
 import zipfile
 from pathlib import Path
 
-import py5 as _py5
+import py5
 import stackprinter
 
 from ..hooks import frame_hooks
@@ -68,7 +68,7 @@ class MockRunSketch:
 class UserFunctionWrapper:
     exception_state = False
 
-    def __new__(self, sketch: _py5.Sketch, name, f, param_count):
+    def __new__(self, sketch: py5.Sketch, name, f, param_count):
         ufw = object.__new__(
             UserFunctionWrapperOneParam
             if param_count == 1
@@ -87,7 +87,7 @@ class UserFunctionWrapper:
             UserFunctionWrapper.exception_state = True
             self.sketch.no_loop()
             self.sketch.println("*" * 80)
-            _py5.bridge.handle_exception(self.sketch.println, *sys.exc_info())
+            py5.bridge.handle_exception(self.sketch.println, *sys.exc_info())
             self.sketch.println("*" * 80)
 
             # watch code for changes that will fix the problem and let Sketch continue
@@ -112,18 +112,18 @@ class UserFunctionWrapperOneParam(UserFunctionWrapper):
 
 def exec_user_code(sketch, filename):
     # this clears out any previously defined functions from the global namespace
-    for method_name in _py5.reference.METHODS:
+    for method_name in py5.reference.METHODS:
         globals().pop(method_name, None)
 
     # execute user code and put new functions into the global namespace
     with open(filename, "r") as f:
         exec(compile(f.read(), filename=filename, mode="exec"), globals())
 
-    functions, function_param_counts = _py5.bridge._extract_py5_user_function_data(
+    functions, function_param_counts = py5.bridge._extract_py5_user_function_data(
         globals()
     )
     functions = (
-        _py5._split_setup.transform(
+        py5._split_setup.transform(
             functions, globals(), globals(), sketch.println, mode="module"
         )
         or {}
@@ -182,15 +182,15 @@ class SyncDraw:
         self.user_setup_code = None
         self.run_setup_again = False
 
-    def pre_setup_hook(self, s: _py5.Sketch):
+    def pre_setup_hook(self, s: py5.Sketch):
         if self.always_on_top:
             s.get_surface().set_always_on_top(True)
 
-    def post_setup_hook(self, s: _py5.Sketch):
+    def post_setup_hook(self, s: py5.Sketch):
         if self.always_on_top:
             self.capture_pixels = s.get_pixels()
 
-    def pre_draw_hook(self, s: _py5.Sketch):
+    def pre_draw_hook(self, s: py5.Sketch):
         if self.run_setup_again:
             s._instance._resetSketch()
             # in case user doesn't call background in setup
@@ -202,7 +202,7 @@ class SyncDraw:
             s.set_pixels(0, 0, self.capture_pixels)
             self.capture_pixels = None
 
-    def post_draw_hook(self, s: _py5.Sketch):
+    def post_draw_hook(self, s: py5.Sketch):
         if (
             self.show_framerate
             and self.user_supplied_draw
@@ -213,7 +213,7 @@ class SyncDraw:
 
         self.keep_functions_current(s)
 
-    def pre_key_typed_hook(self, s: _py5.Sketch):
+    def pre_key_typed_hook(self, s: py5.Sketch):
         if s.key == "R":
             self.run_setup_again = True
         if s.key in "AS":
@@ -223,7 +223,7 @@ class SyncDraw:
             archive_filename = self.archive_code()
             s.println(f"Code archived to {archive_filename}")
 
-    def take_screenshot(self, s: _py5.Sketch = None, *, screenshot_name: str = None):
+    def take_screenshot(self, s: py5.Sketch = None, *, screenshot_name: str = None):
         if screenshot_name is None:
             datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
             screenshot_name = f"screenshot_{datestr}.png"
@@ -264,7 +264,7 @@ class SyncDraw:
 
         return archive_filename
 
-    def keep_functions_current(self, s: _py5.Sketch, first_call=False):
+    def keep_functions_current(self, s: py5.Sketch, first_call=False):
         try:
             if self.mtime != (new_mtime := self.getmtime(self.filename)) or first_call:
                 self.mtime = new_mtime
@@ -347,13 +347,13 @@ def launch_live_coding(
     watch_dir=False,
     archive_dir=None,
 ):
-    if _py5.is_dead:
-        _py5.reset_py5()
+    if py5.is_dead:
+        py5.resetpy5()
 
     try:
         # this needs to be before keep_functions_current() is called
-        _real_run_sketch = _py5.run_sketch
-        _py5.run_sketch = (_mock_run_sketch := MockRunSketch())
+        _real_run_sketch = py5.run_sketch
+        py5.run_sketch = (_mock_run_sketch := MockRunSketch())
 
         sync_draw = SyncDraw(
             filename,
@@ -364,7 +364,7 @@ def launch_live_coding(
             archive_dir=archive_dir,
         )
 
-        sketch = _py5.get_current_sketch()
+        sketch = py5.get_current_sketch()
 
         sketch._set_sync_draw(sync_draw)
 
