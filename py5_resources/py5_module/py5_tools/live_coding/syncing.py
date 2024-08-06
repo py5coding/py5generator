@@ -140,6 +140,7 @@ def exec_user_code(sketch, filename):
         for name, f in functions.items()
     }
 
+    # TODO: should this be in keep_functions_current? I think it should
     if UserFunctionWrapper.exception_state:
         sketch.println("Resuming Sketch execution...")
         UserFunctionWrapper.exception_state = False
@@ -210,7 +211,11 @@ class SyncDraw:
             self.capture_pixels = None
 
     def post_draw_hook(self, s: _py5.Sketch):
-        if self.show_framerate and self.user_supplied_draw:
+        if (
+            self.show_framerate
+            and self.user_supplied_draw
+            and not UserFunctionWrapper.exception_state
+        ):
             msg = f"frame rate: {s.get_frame_rate():0.1f}"
             s.println(msg, end="\r")
 
