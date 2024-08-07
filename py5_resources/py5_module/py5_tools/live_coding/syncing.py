@@ -26,8 +26,6 @@ from pathlib import Path
 
 import stackprinter
 
-from ..hooks import frame_hooks
-
 Sketch = "Sketch"
 
 """
