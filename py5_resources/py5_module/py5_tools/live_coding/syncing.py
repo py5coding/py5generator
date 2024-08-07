@@ -246,11 +246,7 @@ class SyncDraw:
         if not screenshot_filename.suffix:
             screenshot_filename = screenshot_filename.with_suffix(".png")
 
-        if s is None:
-            screenshot = frame_hooks.screenshot()
-            screenshot.save(screenshot_filename)
-        else:
-            s.save_frame(screenshot_filename)
+        s.save_frame(screenshot_filename)
 
         return screenshot_filename
 
