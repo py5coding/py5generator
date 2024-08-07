@@ -224,12 +224,14 @@ class SyncDraw:
             self.run_setup_again = True
         if s.key in "AS":
             screenshot_filename = self.take_screenshot(s)
-            s.println(f"Screenshot saved to {screenshot_filename}")
         if s.key in "AB":
-            archive_filename = self.archive_code()
-            s.println(f"Code archived to {archive_filename}")
+            archive_filename = self.archive_code(s)
 
     def take_screenshot(self, s: py5.Sketch = None, *, screenshot_name: str = None):
+        if UserFunctionWrapper.exception_state:
+            s.println(f"Skipping screenshot due to error state")
+            return
+
         if screenshot_name is None:
             datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
             screenshot_name = f"screenshot_{datestr}.png"
@@ -241,10 +243,13 @@ class SyncDraw:
             screenshot_filename = screenshot_filename.with_suffix(".png")
 
         s.save_frame(screenshot_filename)
+        s.println(f"Screenshot saved to {screenshot_filename}")
 
-        return screenshot_filename
+    def archive_code(self, s: py5.Sketch = None, *, archive_name: str = None):
+        if UserFunctionWrapper.exception_state:
+            s.println(f"Skipping code archive due to error state")
+            return
 
-    def archive_code(self, *, archive_name: str = None):
         if archive_name is None:
             datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
             archive_name = Path(self.filename).stem + "_" + datestr + ".py"
@@ -264,7 +269,7 @@ class SyncDraw:
                 with open(archive_filename, "w") as f2:
                     f2.write(f.read())
 
-        return archive_filename
+        s.println(f"Code archived to {archive_filename}")
 
     def keep_functions_current(self, s: py5.Sketch, first_call=False):
         try:

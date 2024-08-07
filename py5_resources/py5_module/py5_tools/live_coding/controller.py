@@ -27,15 +27,13 @@ class LiveCodingController:
 
     def screenshot(self, screenshot_name: str = None):
         if self._sketch.is_running and self._sync_draw is not None:
-            screenshot_filename = self._sync_draw.take_screenshot(
+            self._sync_draw.take_screenshot(
                 self._sketch, screenshot_name=screenshot_name
             )
-            self._sketch.println(f"Screenshot saved to {screenshot_filename}")
 
     def archive_code(self, archive_name: str = None):
         if self._sketch.is_running and self._sync_draw is not None:
-            archive_filename = self._sync_draw.archive_code(archive_name=archive_name)
-            self._sketch.println(f"Code archived to {archive_filename}")
+            self._sync_draw.archive_code(self._sketch, archive_name=archive_name)
 
     def backup(self, backup_name: str = None):
         self.screenshot(screenshot_name=backup_name)
