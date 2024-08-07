@@ -28,6 +28,9 @@ import py5
 import stackprinter
 
 """
+TODO: recommendation - run_sketch() should be at the end of the file, controller backup code should be at the end also
+TODO: should I allow no call to run_sketch()? it is optional here
+
 TODO: should work in jupyter notebook, and maybe the py5 kernel also
 
 https://ipython.readthedocs.io/en/stable/config/callbacks.html
@@ -220,21 +223,19 @@ class SyncDraw:
         self.keep_functions_current(s)
 
     def pre_key_typed_hook(self, s: py5.Sketch):
+        datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
+
         if s.key == "R":
             self.run_setup_again = True
         if s.key in "AS":
-            screenshot_filename = self.take_screenshot(s)
+            self.take_screenshot(s, f"screenshot_{datestr}.png")
         if s.key in "AB":
-            archive_filename = self.archive_code(s)
+            self.archive_code(s, f"{self.filename.stem}_{datestr}")
 
-    def take_screenshot(self, s: py5.Sketch = None, *, screenshot_name: str = None):
+    def take_screenshot(self, s: py5.Sketch, screenshot_name: str):
         if UserFunctionWrapper.exception_state:
             s.println(f"Skipping screenshot due to error state")
             return
-
-        if screenshot_name is None:
-            datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
-            screenshot_name = f"screenshot_{datestr}.png"
 
         self.archive_dir.mkdir(exist_ok=True)
         screenshot_filename = self.archive_dir / screenshot_name
@@ -245,14 +246,10 @@ class SyncDraw:
         s.save_frame(screenshot_filename)
         s.println(f"Screenshot saved to {screenshot_filename}")
 
-    def archive_code(self, s: py5.Sketch = None, *, archive_name: str = None):
+    def archive_code(self, s: py5.Sketch, archive_name: str):
         if UserFunctionWrapper.exception_state:
             s.println(f"Skipping code archive due to error state")
             return
-
-        if archive_name is None:
-            datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
-            archive_name = Path(self.filename).stem + "_" + datestr + ".py"
 
         self.archive_dir.mkdir(exist_ok=True)
         archive_filename = self.archive_dir / archive_name
