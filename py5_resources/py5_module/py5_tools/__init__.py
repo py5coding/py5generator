@@ -20,6 +20,7 @@
 """
 Utilities and accessory tools for py5. 
 """
+from . import live_coding  # noqa
 from . import translators  # noqa
 from .config import *  # noqa
 from .hooks import *  # noqa
