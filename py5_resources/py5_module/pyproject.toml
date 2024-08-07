@@ -63,7 +63,7 @@ py5translate-processingpy2imported = "py5_tools.tools.py5translate_processingpy2
 py5utils = "py5_tools.tools.py5utils:main"
 run_sketch = "py5_tools.tools.run_sketch:main"
 py5-run-sketch = "py5_tools.tools.run_sketch:main"
-py5-live-coding = "py5_tools.tools.live_sketch:main"
+py5-live-coding = "py5_tools.tools.live_coding:main"
 
 [project.urls]
 "Bug Tracker" = "https://github.com/py5coding/py5generator/issues"
