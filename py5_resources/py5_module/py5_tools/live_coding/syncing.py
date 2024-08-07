@@ -301,12 +301,12 @@ class SyncDraw:
                     self.user_setup_code = new_user_setup_code
 
                 if UserFunctionWrapper.exception_state:
+                    if s.has_thread("keep_functions_current"):
+                        s.stop_thread("keep_functions_current")
+
                     s.println("Resuming Sketch execution...")
                     UserFunctionWrapper.exception_state = False
                     s.loop()
-
-                    if s.has_thread("keep_functions_current"):
-                        s.stop_thread("keep_functions_current")
 
             return True
 
