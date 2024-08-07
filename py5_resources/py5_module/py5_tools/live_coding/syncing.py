@@ -24,15 +24,10 @@ import sys
 import zipfile
 from pathlib import Path
 
+import py5
 import stackprinter
 
-Sketch = "Sketch"
-
 """
-TODO: use sys.modules dict and importlib.reload to manage imported modules and reload if necessary?
-but wait, is there a way to "reset" the global namespace to start fresh? maybe, the generic python interpreter has only a few things in globals() on startup
-this would make sure __name__ is correct, among other things, would take care of the import stuff by default
-
 TODO: should work in jupyter notebook, and maybe the py5 kernel also
 
 https://ipython.readthedocs.io/en/stable/config/callbacks.html
@@ -51,6 +46,13 @@ __annotations__ = dict()
 __file__ = "{0}"
 __cached__ = None
 """
+
+USER_NAMESPACE = dict()
+
+
+def init_user_namespace(filename):
+    USER_NAMESPACE.clear()
+    exec(STARTUP_CODE.format(Path(filename).absolute()), USER_NAMESPACE)
 
 
 def is_subdirectory(d, f):
@@ -74,7 +76,7 @@ class MockRunSketch:
 class UserFunctionWrapper:
     exception_state = False
 
-    def __new__(self, sketch: Sketch, name, f, param_count):
+    def __new__(self, sketch: py5.Sketch, name, f, param_count):
         ufw = object.__new__(
             UserFunctionWrapperOneParam
             if param_count == 1
@@ -117,22 +119,18 @@ class UserFunctionWrapperOneParam(UserFunctionWrapper):
 
 
 def exec_user_code(sketch, filename):
-    import py5
-
-    # this clears out any previously defined functions from the global namespace
-    for method_name in py5.reference.METHODS:
-        globals().pop(method_name, None)
+    init_user_namespace(filename)
 
     # execute user code and put new functions into the global namespace
     with open(filename, "r") as f:
-        exec(compile(f.read(), filename=filename, mode="exec"), globals())
+        exec(compile(f.read(), filename=filename, mode="exec"), USER_NAMESPACE)
 
     functions, function_param_counts = py5.bridge._extract_py5_user_function_data(
-        globals()
+        USER_NAMESPACE
     )
     functions = (
         py5._split_setup.transform(
-            functions, globals(), globals(), sketch.println, mode="module"
+            functions, USER_NAMESPACE, USER_NAMESPACE, sketch.println, mode="module"
         )
         or {}
     )
@@ -190,15 +188,15 @@ class SyncDraw:
         self.user_setup_code = None
         self.run_setup_again = False
 
-    def pre_setup_hook(self, s: Sketch):
+    def pre_setup_hook(self, s: py5.Sketch):
         if self.always_on_top:
             s.get_surface().set_always_on_top(True)
 
-    def post_setup_hook(self, s: Sketch):
+    def post_setup_hook(self, s: py5.Sketch):
         if self.always_on_top:
             self.capture_pixels = s.get_pixels()
 
-    def pre_draw_hook(self, s: Sketch):
+    def pre_draw_hook(self, s: py5.Sketch):
         if self.run_setup_again:
             s._instance._resetSketch()
             # in case user doesn't call background in setup
@@ -210,7 +208,7 @@ class SyncDraw:
             s.set_pixels(0, 0, self.capture_pixels)
             self.capture_pixels = None
 
-    def post_draw_hook(self, s: Sketch):
+    def post_draw_hook(self, s: py5.Sketch):
         if (
             self.show_framerate
             and self.user_supplied_draw
@@ -221,7 +219,7 @@ class SyncDraw:
 
         self.keep_functions_current(s)
 
-    def pre_key_typed_hook(self, s: Sketch):
+    def pre_key_typed_hook(self, s: py5.Sketch):
         if s.key == "R":
             self.run_setup_again = True
         if s.key in "AS":
@@ -231,7 +229,7 @@ class SyncDraw:
             archive_filename = self.archive_code()
             s.println(f"Code archived to {archive_filename}")
 
-    def take_screenshot(self, s: Sketch = None, *, screenshot_name: str = None):
+    def take_screenshot(self, s: py5.Sketch = None, *, screenshot_name: str = None):
         if screenshot_name is None:
             datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
             screenshot_name = f"screenshot_{datestr}.png"
@@ -268,7 +266,7 @@ class SyncDraw:
 
         return archive_filename
 
-    def keep_functions_current(self, s: Sketch, first_call=False):
+    def keep_functions_current(self, s: py5.Sketch, first_call=False):
         try:
             if self.mtime != (new_mtime := self.getmtime(self.filename)) or first_call:
                 self.mtime = new_mtime
@@ -351,10 +349,8 @@ def launch_live_coding(
     watch_dir=False,
     archive_dir=None,
 ):
-    import py5
-
     try:
-        exec(STARTUP_CODE.format(Path(filename).absolute()), globals())
+        init_user_namespace(filename)
 
         # this needs to be before keep_functions_current() is called
         _real_run_sketch = py5.run_sketch
