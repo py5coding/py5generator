@@ -20,7 +20,7 @@
 import argparse
 from pathlib import Path
 
-from py5_tools import live_coding
+from py5_tools.live_coding import syncing
 
 parser = argparse.ArgumentParser(description="Live coding for module mode py5 sketches")
 parser.add_argument(action="store", dest="sketch_path", help="path to py5 sketch")
@@ -75,7 +75,7 @@ def main():
             f"Archived files cannot be saved to the directory containing the Sketch code."
         )
 
-    live_coding.launch_live_coding(
+    syncing.launch_live_coding(
         args.sketch_path,
         always_rerun_setup=args.always_rerun_setup,
         always_on_top=args.always_on_top,

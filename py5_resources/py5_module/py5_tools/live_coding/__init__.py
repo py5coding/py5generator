@@ -18,4 +18,3 @@
 #
 # *****************************************************************************
 from .controller import get_controller
-from .syncing import launch_live_coding
