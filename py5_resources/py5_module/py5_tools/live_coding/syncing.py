@@ -83,6 +83,7 @@ class MockRunSketch:
         )
 
         # TODO: this isn't quite right for MacOS
+        # platform.system() == "Darwin"
         if "block" not in kwargs or kwargs["block"]:
             raise Py5RunSketchBlockException("run_sketch() blocking")
 
