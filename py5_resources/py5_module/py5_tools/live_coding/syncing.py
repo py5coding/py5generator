@@ -28,8 +28,7 @@ import py5
 import stackprinter
 
 """
-TODO: recommendation - run_sketch() should be at the end of the file, controller backup code should be at the end also
-TODO: should I allow no call to run_sketch()? it is optional here
+TODO: documentation recommendation - run_sketch() should be at the end of the file, controller backup code should be at the end also
 
 TODO: should work in jupyter notebook, and maybe the py5 kernel also
 
@@ -68,8 +67,10 @@ class MockRunSketch:
 
     def __init__(self):
         self.kwargs = {}
+        self.called = False
 
     def __call__(self, *args, **kwargs):
+        self.called = True
         if "sketch_functions" in kwargs:
             kwargs.pop("sketch_functions")
 
@@ -380,9 +381,14 @@ def launch_live_coding(
         sketch._add_post_hook("draw", "sync_post_draw", sync_draw.post_draw_hook)
 
         if sync_draw.keep_functions_current(sketch, first_call=True):
-            _real_run_sketch(
-                sketch_functions=sync_draw.functions, **_mock_run_sketch.kwargs
-            )
+            if _mock_run_sketch.called:
+                _real_run_sketch(
+                    sketch_functions=sync_draw.functions, **_mock_run_sketch.kwargs
+                )
+            else:
+                sketch.println(
+                    f"File {filename} has no call to py5's run_sketch() method. Please add it to the end of the file and try again."
+                )
         else:
             sketch.println("Error in live coding startup...please fix and try again")
 
