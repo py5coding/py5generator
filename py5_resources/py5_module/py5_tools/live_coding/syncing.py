@@ -28,7 +28,8 @@ import py5
 import stackprinter
 
 """
-TODO: documentation recommendation - run_sketch() should be at the end of the file, controller backup code should be at the end also
+TODO: add sentinel code to end of user code to see if run_sketch() is not blocking and script would exit when run with python executable
+TODO: run_sketch() block parameter doesn't work????
 
 TODO: should work in jupyter notebook, and maybe the py5 kernel also
 
@@ -63,6 +64,10 @@ def is_subdirectory(d, f):
     return f.parts[: len(d.parts)] == d.parts
 
 
+class Py5RunSketchBlockException(Exception):
+    pass
+
+
 class MockRunSketch:
 
     def __init__(self):
@@ -75,6 +80,9 @@ class MockRunSketch:
             kwargs.pop("sketch_functions")
 
         self.kwargs = kwargs
+
+        if "block" not in kwargs or kwargs["block"]:
+            raise Py5RunSketchBlockException("run_sketch() blocking")
 
 
 class UserFunctionWrapper:
@@ -126,8 +134,12 @@ def exec_user_code(sketch, filename):
     init_user_namespace(filename)
 
     # execute user code and put new functions into the global namespace
-    with open(filename, "r") as f:
-        exec(compile(f.read(), filename=filename, mode="exec"), USER_NAMESPACE)
+
+    try:
+        with open(filename, "r") as f:
+            exec(compile(f.read(), filename=filename, mode="exec"), USER_NAMESPACE)
+    except Py5RunSketchBlockException:
+        pass
 
     functions, function_param_counts = py5.bridge._extract_py5_user_function_data(
         USER_NAMESPACE
