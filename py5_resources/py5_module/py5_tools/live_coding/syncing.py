@@ -28,9 +28,6 @@ import py5
 import stackprinter
 
 """
-TODO: add sentinel code to end of user code to see if run_sketch() is not blocking and script would exit when run with python executable
-TODO: run_sketch() block parameter doesn't work????
-
 TODO: should work in jupyter notebook, and maybe the py5 kernel also
 
 https://ipython.readthedocs.io/en/stable/config/callbacks.html
@@ -71,16 +68,21 @@ class Py5RunSketchBlockException(Exception):
 class MockRunSketch:
 
     def __init__(self):
-        self.kwargs = {}
-        self.called = False
+        self._kwargs = {}
+        self._called = False
 
     def __call__(self, *args, **kwargs):
-        self.called = True
+        self._called = True
         if "sketch_functions" in kwargs:
             kwargs.pop("sketch_functions")
 
-        self.kwargs = kwargs
+        self._kwargs = kwargs
 
+        self._functions, self._function_param_counts = (
+            py5.bridge._extract_py5_user_function_data(USER_NAMESPACE)
+        )
+
+        # TODO: this isn't quite right for MacOS
         if "block" not in kwargs or kwargs["block"]:
             raise Py5RunSketchBlockException("run_sketch() blocking")
 
@@ -141,9 +143,12 @@ def exec_user_code(sketch, filename):
     except Py5RunSketchBlockException:
         pass
 
-    functions, function_param_counts = py5.bridge._extract_py5_user_function_data(
-        USER_NAMESPACE
+    # py5.run_sketch is a MockRunSketch instance here
+    functions, function_param_counts = (
+        py5.run_sketch._functions,
+        py5.run_sketch._function_param_counts,
     )
+
     functions = (
         py5._split_setup.transform(
             functions, USER_NAMESPACE, USER_NAMESPACE, sketch.println, mode="module"
@@ -393,9 +398,9 @@ def launch_live_coding(
         sketch._add_post_hook("draw", "sync_post_draw", sync_draw.post_draw_hook)
 
         if sync_draw.keep_functions_current(sketch, first_call=True):
-            if _mock_run_sketch.called:
+            if _mock_run_sketch._called:
                 _real_run_sketch(
-                    sketch_functions=sync_draw.functions, **_mock_run_sketch.kwargs
+                    sketch_functions=sync_draw.functions, **_mock_run_sketch._kwargs
                 )
             else:
                 sketch.println(
