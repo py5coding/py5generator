@@ -20,6 +20,7 @@
 import datetime as dt
 import inspect
 import os
+import platform
 import sys
 import zipfile
 from pathlib import Path
@@ -28,8 +29,6 @@ import py5
 import stackprinter
 
 """
-TODO: make adjustments to MockRunSketch for MacOS
-
 TODO: should work in jupyter notebook, and maybe the py5 kernel also
 
 https://ipython.readthedocs.io/en/stable/config/callbacks.html
@@ -80,12 +79,13 @@ class MockRunSketch:
 
         self._kwargs = kwargs
 
+        if platform.system() == "Darwin":
+            kwargs["block"] = True
+
         self._functions, self._function_param_counts = (
             py5.bridge._extract_py5_user_function_data(USER_NAMESPACE)
         )
 
-        # TODO: this isn't quite right for MacOS
-        # platform.system() == "Darwin"
         if "block" not in kwargs or kwargs["block"]:
             raise Py5RunSketchBlockException("run_sketch() blocking")
 
