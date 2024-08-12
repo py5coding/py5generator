@@ -144,13 +144,16 @@ def exec_user_code(sketch, filename):
         with open(filename, "r") as f:
             exec(compile(f.read(), filename=filename, mode="exec"), USER_NAMESPACE)
     except Py5RunSketchBlockException:
-        pass
-
-    # py5.run_sketch is a MockRunSketch instance here
-    functions, function_param_counts = (
-        py5.run_sketch._functions,
-        py5.run_sketch._function_param_counts,
-    )
+        # run_sketch() called, but it is a MockRunSketch instance
+        functions, function_param_counts = (
+            py5.run_sketch._functions,
+            py5.run_sketch._function_param_counts,
+        )
+    else:
+        # the user didn't call run_sketch() in their code. issue a warning later
+        functions, function_param_counts = py5.bridge._extract_py5_user_function_data(
+            USER_NAMESPACE
+        )
 
     functions = (
         py5._split_setup.transform(
@@ -401,14 +404,14 @@ def launch_live_coding(
         sketch._add_post_hook("draw", "sync_post_draw", sync_draw.post_draw_hook)
 
         if sync_draw.keep_functions_current(sketch, first_call=True):
-            if _mock_run_sketch._called:
-                _real_run_sketch(
-                    sketch_functions=sync_draw.functions, **_mock_run_sketch._kwargs
-                )
-            else:
+            if not _mock_run_sketch._called:
                 sketch.println(
-                    f"File {filename} has no call to py5's run_sketch() method. Please add it to the end of the file and try again."
+                    f"File {filename} has no call to py5's run_sketch() method. py5 will make the call for you, but please add it to the end of the file to avoid this message."
                 )
+
+            _real_run_sketch(
+                sketch_functions=sync_draw.functions, **_mock_run_sketch._kwargs
+            )
         else:
             sketch.println("Error in live coding startup...please fix and try again")
 
