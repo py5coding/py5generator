@@ -251,6 +251,15 @@ class SyncDraw:
         self.user_setup_code = None
         self.run_setup_again = False
 
+    def _init_hooks(self, s: py5.Sketch):
+        s._set_sync_draw(self)
+
+        s._add_pre_hook("setup", "sync_pre_setup", self.pre_setup_hook)
+        s._add_pre_hook("draw", "sync_pre_draw", self.pre_draw_hook)
+        s._add_pre_hook("key_typed", "sync_pre_key_typed", self.pre_key_typed_hook)
+        s._add_post_hook("setup", "sync_post_setup", self.post_setup_hook)
+        s._add_post_hook("draw", "sync_post_draw", self.post_draw_hook)
+
     def pre_setup_hook(self, s: py5.Sketch):
         if self.always_on_top:
             s.get_surface().set_always_on_top(True)
@@ -469,17 +478,7 @@ def activate_live_coding(
         )
 
         sketch = py5.get_current_sketch()
-
-        # TODO: this next bit is duplicated
-        sketch._set_sync_draw(sync_draw)
-
-        sketch._add_pre_hook("setup", "sync_pre_setup", sync_draw.pre_setup_hook)
-        sketch._add_pre_hook("draw", "sync_pre_draw", sync_draw.pre_draw_hook)
-        sketch._add_pre_hook(
-            "key_typed", "sync_pre_key_typed", sync_draw.pre_key_typed_hook
-        )
-        sketch._add_post_hook("setup", "sync_post_setup", sync_draw.post_setup_hook)
-        sketch._add_post_hook("draw", "sync_post_draw", sync_draw.post_draw_hook)
+        sync_draw._init_hooks(sketch)
 
         # https://ipython.readthedocs.io/en/stable/config/callbacks.html
         def _callback(result):
@@ -527,16 +526,7 @@ def launch_live_coding(
         )
 
         sketch = py5.get_current_sketch()
-
-        sketch._set_sync_draw(sync_draw)
-
-        sketch._add_pre_hook("setup", "sync_pre_setup", sync_draw.pre_setup_hook)
-        sketch._add_pre_hook("draw", "sync_pre_draw", sync_draw.pre_draw_hook)
-        sketch._add_pre_hook(
-            "key_typed", "sync_pre_key_typed", sync_draw.pre_key_typed_hook
-        )
-        sketch._add_post_hook("setup", "sync_post_setup", sync_draw.post_setup_hook)
-        sketch._add_post_hook("draw", "sync_post_draw", sync_draw.post_draw_hook)
+        sync_draw._init_hooks(sketch)
 
         if sync_draw.keep_functions_current_from_file(sketch, first_call=True):
             if not _mock_run_sketch._called:
