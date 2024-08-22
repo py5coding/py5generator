@@ -23,6 +23,7 @@ import os
 import platform
 import sys
 import zipfile
+from enum import Enum
 from pathlib import Path
 
 import py5
@@ -34,7 +35,15 @@ TODO: fix import problem, need a good way to let user call activate_live_coding(
 maybe rename those methods also.
 
 Can also improve this by organizing everything better and adding comments.
+
+TODO: I want to be able to use this with ipython & save code in a file. Combination of both modes
 """
+
+
+class LiveCodingMode(Enum):
+    FILE = 1
+    GLOBALS = 2
+
 
 STARTUP_CODE = """
 __name__ = "__main__"
@@ -114,10 +123,10 @@ class UserFunctionWrapper:
             py5.bridge.handle_exception(self.sketch.println, *sys.exc_info())
             self.sketch.println("*" * 80)
 
-            # watch code for changes that will fix the problem and let Sketch continue
+            # if we are in file mode, watch code for changes that will fix the
+            # problem if we aren't doing so already
             if (
-                # TODO: I hate this check
-                self.sketch._get_sync_draw().filename is not None
+                self.sketch._get_sync_draw().live_coding_mode == LiveCodingMode.FILE
                 and not self.sketch.has_thread("keep_functions_current_from_file")
             ):
                 self.sketch.launch_repeating_thread(
@@ -206,11 +215,12 @@ class SyncDraw:
         watch_dir=None,
         archive_dir=None,
     ):
-        # #TODO: set a better flag for the mode
         if global_namespace is None:
+            self.live_coding_mode = LiveCodingMode.FILE
             self.filename = Path(filename)
             self.global_namespace = None
         else:
+            self.live_coding_mode = LiveCodingMode.GLOBALS
             self.filename = None
             self.global_namespace = global_namespace
 
@@ -270,7 +280,7 @@ class SyncDraw:
             msg = f"frame rate: {s.get_frame_rate():0.1f}"
             s.println(msg, end="\r")
 
-        if self.filename is not None:
+        if self.live_coding_mode == LiveCodingMode.FILE:
             self.keep_functions_current_from_file(s)
 
     def pre_key_typed_hook(self, s: py5.Sketch):
@@ -298,6 +308,7 @@ class SyncDraw:
         s.println(f"Screenshot saved to {screenshot_filename}")
 
     def archive_code(self, s: py5.Sketch, archive_name: str):
+        # TODO: this should never be called in file mode
         if UserFunctionWrapper.exception_state:
             s.println(f"Skipping code archive due to error state")
             return
