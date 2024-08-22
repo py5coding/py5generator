@@ -29,13 +29,11 @@ import py5
 import stackprinter
 
 """
-TODO: should work in jupyter notebook, and maybe the py5 kernel also
+TODO: fix import problem, need a good way to let user call activate_live_coding()
 
-https://ipython.readthedocs.io/en/stable/config/callbacks.html
+maybe rename those methods also.
 
-from IPython import get_ipython
-kernel = get_ipython()
-kernel.events.register('post_execute', callback) # or 'post_run_cell'
+Can also improve this by organizing everything better and adding comments.
 """
 
 STARTUP_CODE = """
@@ -48,6 +46,7 @@ __file__ = "{0}"
 __cached__ = None
 """
 
+# TODO: does this really have to be a global variable?
 USER_NAMESPACE = dict()
 
 
@@ -116,10 +115,14 @@ class UserFunctionWrapper:
             self.sketch.println("*" * 80)
 
             # watch code for changes that will fix the problem and let Sketch continue
-            if not self.sketch.has_thread("keep_functions_current"):
+            if (
+                # TODO: I hate this check
+                self.sketch._get_sync_draw().filename is not None
+                and not self.sketch.has_thread("keep_functions_current_from_file")
+            ):
                 self.sketch.launch_repeating_thread(
-                    self.sketch._get_sync_draw().keep_functions_current,
-                    "keep_functions_current",
+                    self.sketch._get_sync_draw().keep_functions_current_from_file,
+                    "keep_functions_current_from_file",
                     time_delay=0.01,
                     args=(self.sketch,),
                 )
@@ -155,7 +158,9 @@ def exec_user_code(sketch, filename):
             USER_NAMESPACE
         )
 
-    return process_user_functions(sketch, functions, function_param_counts)
+    return process_user_functions(
+        sketch, functions, function_param_counts, USER_NAMESPACE
+    )
 
 
 def retrieve_user_code(sketch, namespace):
@@ -163,13 +168,13 @@ def retrieve_user_code(sketch, namespace):
         namespace
     )
 
-    return process_user_functions(sketch, functions, function_param_counts)
+    return process_user_functions(sketch, functions, function_param_counts, namespace)
 
 
-def process_user_functions(sketch, functions, function_param_counts):
+def process_user_functions(sketch, functions, function_param_counts, namespace):
     functions = (
         py5._split_setup.transform(
-            functions, USER_NAMESPACE, USER_NAMESPACE, sketch.println, mode="module"
+            functions, namespace, namespace, sketch.println, mode="module"
         )
         or {}
     )
@@ -192,15 +197,23 @@ def process_user_functions(sketch, functions, function_param_counts):
 class SyncDraw:
     def __init__(
         self,
-        filename,
         *,
+        filename=None,
+        global_namespace=None,
         always_rerun_setup=False,
         always_on_top=True,
         show_framerate=False,
         watch_dir=None,
         archive_dir=None,
     ):
-        self.filename = Path(filename)
+        # #TODO: set a better flag for the mode
+        if global_namespace is None:
+            self.filename = Path(filename)
+            self.global_namespace = None
+        else:
+            self.filename = None
+            self.global_namespace = global_namespace
+
         self.always_rerun_setup = always_rerun_setup
         self.always_on_top = always_on_top
         self.archive_dir = Path(archive_dir)
@@ -223,6 +236,7 @@ class SyncDraw:
         self.mtime = None
         self.capture_pixels = None
         self.functions = {}
+        self.function_param_counts = {}
         self.user_supplied_draw = False
         self.user_setup_code = None
         self.run_setup_again = False
@@ -256,7 +270,8 @@ class SyncDraw:
             msg = f"frame rate: {s.get_frame_rate():0.1f}"
             s.println(msg, end="\r")
 
-        self.keep_functions_current(s)
+        if self.filename is not None:
+            self.keep_functions_current_from_file(s)
 
     def pre_key_typed_hook(self, s: py5.Sketch):
         datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -304,43 +319,61 @@ class SyncDraw:
 
         s.println(f"Code archived to {archive_filename}")
 
-    def keep_functions_current(self, s: py5.Sketch, first_call=False):
+    def keep_functions_current_from_globals(self, s: py5.Sketch, first_call=False):
+        try:
+            self.functions, self.function_param_counts, self.user_supplied_draw = (
+                retrieve_user_code(s, self.global_namespace)
+            )
+
+            self._process_new_functions(
+                s,
+                first_call,
+            )
+
+            if UserFunctionWrapper.exception_state:
+                s.println("Resuming Sketch execution...")
+                UserFunctionWrapper.exception_state = False
+                s.loop()
+
+            return True
+
+        except Exception as e:
+            UserFunctionWrapper.exception_state = True
+            exc_type, exc_value, exc_tb = sys.exc_info()
+            exc_tb = exc_tb.tb_next.tb_next
+            msg = "*" * 80 + "\n"
+            msg += stackprinter.format(
+                thing=(exc_type, exc_value, exc_tb),
+                show_vals="line",
+                style="plaintext",
+                suppressed_paths=[
+                    r"lib/python.*?/site-packages/numpy/",
+                    r"lib/python.*?/site-packages/py5/",
+                    r"lib/python.*?/site-packages/py5tools/",
+                ],
+            )
+            msg += "\n" + "*" * 80
+            s.println(msg)
+
+            return False
+
+    def keep_functions_current_from_file(self, s: py5.Sketch, first_call=False):
         try:
             if self.mtime != (new_mtime := self.getmtime(self.filename)) or first_call:
                 self.mtime = new_mtime
 
-                self.functions, function_param_counts, self.user_supplied_draw = (
+                self.functions, self.function_param_counts, self.user_supplied_draw = (
                     exec_user_code(s, self.filename)
                 )
-                self.exec_code_count += 1
 
-                new_user_setup_code = (
-                    inspect.getsource(self.functions["setup"].f)
-                    if "setup" in self.functions
-                    else None
+                self._process_new_functions(
+                    s,
+                    first_call,
                 )
 
-                if first_call:
-                    self.user_setup_code = new_user_setup_code
-                else:
-                    s._py5_bridge.set_functions(self.functions, function_param_counts)
-                    s._instance.buildPy5Bridge(
-                        s._py5_bridge,
-                        s._environ.in_ipython_session,
-                        s._environ.in_jupyter_zmq_shell,
-                    )
-
-                    if (
-                        self.always_rerun_setup
-                        or self.user_setup_code != new_user_setup_code
-                    ):
-                        self.run_setup_again = True
-
-                    self.user_setup_code = new_user_setup_code
-
                 if UserFunctionWrapper.exception_state:
-                    if s.has_thread("keep_functions_current"):
-                        s.stop_thread("keep_functions_current")
+                    if s.has_thread("keep_functions_current_from_file"):
+                        s.stop_thread("keep_functions_current_from_file")
 
                     s.println("Resuming Sketch execution...")
                     UserFunctionWrapper.exception_state = False
@@ -367,15 +400,94 @@ class SyncDraw:
             s.println(msg)
 
             # watch code for changes that will fix the problem and let Sketch continue
-            if not s.has_thread("keep_functions_current"):
+            if not s.has_thread("keep_functions_current_from_file"):
                 s.launch_repeating_thread(
-                    self.keep_functions_current,
-                    "keep_functions_current",
+                    self.keep_functions_current_from_file,
+                    "keep_functions_current_from_file",
                     time_delay=0.01,
                     args=(s,),
                 )
 
             return False
+
+    def _process_new_functions(
+        self,
+        s: py5.Sketch,
+        first_call=False,
+    ):
+        self.exec_code_count += 1
+
+        new_user_setup_code = (
+            inspect.getsource(self.functions["setup"].f)
+            if "setup" in self.functions
+            else None
+        )
+
+        # TODO: do I really need this first_call variable?
+        if first_call:
+            self.user_setup_code = new_user_setup_code
+        else:
+            s._py5_bridge.set_functions(self.functions, self.function_param_counts)
+            s._instance.buildPy5Bridge(
+                s._py5_bridge,
+                s._environ.in_ipython_session,
+                s._environ.in_jupyter_zmq_shell,
+            )
+
+            if self.always_rerun_setup or self.user_setup_code != new_user_setup_code:
+                self.run_setup_again = True
+
+            self.user_setup_code = new_user_setup_code
+
+
+def activate_live_coding(
+    always_rerun_setup=False,
+    always_on_top=True,
+    archive_dir="archive",
+):
+    caller_globals = inspect.stack()[1].frame.f_globals
+
+    try:
+        sync_draw = SyncDraw(
+            global_namespace=caller_globals,
+            always_rerun_setup=always_rerun_setup,
+            always_on_top=always_on_top,
+            show_framerate=False,
+            watch_dir=False,
+            archive_dir=archive_dir,
+        )
+
+        sketch = py5.get_current_sketch()
+
+        # TODO: this next bit is duplicated
+        sketch._set_sync_draw(sync_draw)
+
+        sketch._add_pre_hook("setup", "sync_pre_setup", sync_draw.pre_setup_hook)
+        sketch._add_pre_hook("draw", "sync_pre_draw", sync_draw.pre_draw_hook)
+        sketch._add_pre_hook(
+            "key_typed", "sync_pre_key_typed", sync_draw.pre_key_typed_hook
+        )
+        sketch._add_post_hook("setup", "sync_post_setup", sync_draw.post_setup_hook)
+        sketch._add_post_hook("draw", "sync_post_draw", sync_draw.post_draw_hook)
+
+        # https://ipython.readthedocs.io/en/stable/config/callbacks.html
+        def _callback(result):
+            sync_draw.keep_functions_current_from_globals(sketch)
+
+        # TODO: should actually check if this is IPython
+        from IPython import get_ipython
+
+        kernel = get_ipython()
+        kernel.events.register("post_run_cell", _callback)
+
+        if sync_draw.keep_functions_current_from_globals(sketch, first_call=True):
+            py5.run_sketch(sketch_functions=sync_draw.functions)
+        else:
+            # TODO: could this ever happen?
+            sketch.println("Error in live coding startup...please fix and try again")
+
+    except Exception as e:
+        print(e)
 
 
 def launch_live_coding(
@@ -385,17 +497,17 @@ def launch_live_coding(
     always_on_top=True,
     show_framerate=False,
     watch_dir=False,
-    archive_dir=None,
+    archive_dir="archive",
 ):
     try:
         init_user_namespace(filename)
 
-        # this needs to be before keep_functions_current() is called
+        # this needs to be before keep_functions_current_from_file() is called
         _real_run_sketch = py5.run_sketch
         py5.run_sketch = (_mock_run_sketch := MockRunSketch())
 
         sync_draw = SyncDraw(
-            filename,
+            filename=filename,
             always_rerun_setup=always_rerun_setup,
             always_on_top=always_on_top,
             show_framerate=show_framerate,
@@ -415,7 +527,7 @@ def launch_live_coding(
         sketch._add_post_hook("setup", "sync_post_setup", sync_draw.post_setup_hook)
         sketch._add_post_hook("draw", "sync_post_draw", sync_draw.post_draw_hook)
 
-        if sync_draw.keep_functions_current(sketch, first_call=True):
+        if sync_draw.keep_functions_current_from_file(sketch, first_call=True):
             if not _mock_run_sketch._called:
                 sketch.println(
                     f"File {filename} has no call to py5's run_sketch() method. py5 will make the call for you, but please add it to the end of the file to avoid this message."
