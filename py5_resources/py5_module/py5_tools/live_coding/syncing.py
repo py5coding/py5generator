@@ -55,13 +55,10 @@ __file__ = "{0}"
 __cached__ = None
 """
 
-# TODO: does this really have to be a global variable?
-USER_NAMESPACE = dict()
 
-
-def init_user_namespace(filename):
-    USER_NAMESPACE.clear()
-    exec(STARTUP_CODE.format(Path(filename).absolute()), USER_NAMESPACE)
+def init_namespace(filename, global_namespace):
+    global_namespace.clear()
+    exec(STARTUP_CODE.format(Path(filename).absolute()), global_namespace)
 
 
 def is_subdirectory(d, f):
@@ -76,7 +73,8 @@ class Py5RunSketchBlockException(Exception):
 
 class MockRunSketch:
 
-    def __init__(self):
+    def __init__(self, global_namespace):
+        self._global_namespace = global_namespace
         self._kwargs = {}
         self._called = False
 
@@ -91,7 +89,7 @@ class MockRunSketch:
             kwargs["block"] = True
 
         self._functions, self._function_param_counts = (
-            py5.bridge._extract_py5_user_function_data(USER_NAMESPACE)
+            py5.bridge._extract_py5_user_function_data(self._global_namespace)
         )
 
         if "block" not in kwargs or kwargs["block"]:
@@ -147,14 +145,14 @@ class UserFunctionWrapperOneParam(UserFunctionWrapper):
         self.call_f(arg)
 
 
-def exec_user_code(sketch, filename):
-    init_user_namespace(filename)
+def exec_user_code(sketch, filename, global_namespace):
+    init_namespace(filename, global_namespace)
 
     # execute user code and put new functions into the global namespace
 
     try:
         with open(filename, "r") as f:
-            exec(compile(f.read(), filename=filename, mode="exec"), USER_NAMESPACE)
+            exec(compile(f.read(), filename=filename, mode="exec"), global_namespace)
     except Py5RunSketchBlockException:
         # run_sketch() called, but it is a MockRunSketch instance
         functions, function_param_counts = (
@@ -164,11 +162,11 @@ def exec_user_code(sketch, filename):
     else:
         # the user didn't call run_sketch() in their code. issue a warning later
         functions, function_param_counts = py5.bridge._extract_py5_user_function_data(
-            USER_NAMESPACE
+            global_namespace
         )
 
     return process_user_functions(
-        sketch, functions, function_param_counts, USER_NAMESPACE
+        sketch, functions, function_param_counts, global_namespace
     )
 
 
@@ -206,6 +204,7 @@ def process_user_functions(sketch, functions, function_param_counts, namespace):
 class SyncDraw:
     def __init__(
         self,
+        live_coding_mode,
         *,
         filename=None,
         global_namespace=None,
@@ -215,14 +214,14 @@ class SyncDraw:
         watch_dir=None,
         archive_dir=None,
     ):
-        if global_namespace is None:
-            self.live_coding_mode = LiveCodingMode.FILE
+        self.live_coding_mode = live_coding_mode
+
+        if self.live_coding_mode == LiveCodingMode.FILE:
             self.filename = Path(filename)
-            self.global_namespace = None
-        else:
-            self.live_coding_mode = LiveCodingMode.GLOBALS
+        elif self.live_coding_mode == LiveCodingMode.GLOBALS:
             self.filename = None
-            self.global_namespace = global_namespace
+
+        self.global_namespace = global_namespace
 
         self.always_rerun_setup = always_rerun_setup
         self.always_on_top = always_on_top
@@ -383,7 +382,7 @@ class SyncDraw:
                 self.mtime = new_mtime
 
                 self.functions, self.function_param_counts, self.user_supplied_draw = (
-                    exec_user_code(s, self.filename)
+                    exec_user_code(s, self.filename, self.global_namespace)
                 )
 
                 self._process_new_functions(
@@ -469,6 +468,7 @@ def activate_live_coding(
 
     try:
         sync_draw = SyncDraw(
+            LiveCodingMode.GLOBALS,
             global_namespace=caller_globals,
             always_rerun_setup=always_rerun_setup,
             always_on_top=always_on_top,
@@ -510,14 +510,17 @@ def launch_live_coding(
     archive_dir="archive",
 ):
     try:
-        init_user_namespace(filename)
+        global_namespace = dict()
+        init_namespace(filename, global_namespace)
 
         # this needs to be before keep_functions_current_from_file() is called
         _real_run_sketch = py5.run_sketch
-        py5.run_sketch = (_mock_run_sketch := MockRunSketch())
+        py5.run_sketch = (_mock_run_sketch := MockRunSketch(global_namespace))
 
         sync_draw = SyncDraw(
+            LiveCodingMode.FILE,
             filename=filename,
+            global_namespace=global_namespace,
             always_rerun_setup=always_rerun_setup,
             always_on_top=always_on_top,
             show_framerate=show_framerate,
