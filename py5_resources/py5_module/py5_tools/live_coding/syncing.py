@@ -155,6 +155,18 @@ def exec_user_code(sketch, filename):
             USER_NAMESPACE
         )
 
+    return process_user_functions(sketch, functions, function_param_counts)
+
+
+def retrieve_user_code(sketch, namespace):
+    functions, function_param_counts = py5.bridge._extract_py5_user_function_data(
+        namespace
+    )
+
+    return process_user_functions(sketch, functions, function_param_counts)
+
+
+def process_user_functions(sketch, functions, function_param_counts):
     functions = (
         py5._split_setup.transform(
             functions, USER_NAMESPACE, USER_NAMESPACE, sketch.println, mode="module"
