@@ -312,6 +312,12 @@ class SyncDraw:
         if not screenshot_filename.suffix:
             screenshot_filename = screenshot_filename.with_suffix(".png")
 
+        if screenshot_filename.exists():
+            s.println(
+                f"Skipping screenshot because {screenshot_filename} already exists"
+            )
+            return
+
         s.save_frame(screenshot_filename)
         s.println(f"Screenshot saved to {screenshot_filename}")
 
@@ -329,12 +335,24 @@ class SyncDraw:
 
         if self.watch_dir:
             archive_filename = archive_filename.with_suffix(".zip")
+            if archive_filename.exists():
+                s.println(
+                    f"Skipping code archive because {archive_filename} already exists"
+                )
+                return
+
             with zipfile.ZipFile(archive_filename, "w", zipfile.ZIP_DEFLATED) as zf:
                 for ff in self.filename.parent.glob("**/*"):
                     if ff.is_file() and not is_subdirectory(self.archive_dir, ff):
                         zf.write(ff, ff.relative_to(self.filename.parent))
         else:
             archive_filename = archive_filename.with_suffix(".py")
+            if archive_filename.exists():
+                s.println(
+                    f"Skipping code archive because {archive_filename} already exists"
+                )
+                return
+
             with open(self.filename, "r") as f:
                 with open(archive_filename, "w") as f2:
                     f2.write(f.read())
