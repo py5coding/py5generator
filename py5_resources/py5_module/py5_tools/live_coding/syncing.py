@@ -514,7 +514,6 @@ def activate_live_coding(
         if sync_draw.keep_functions_current_from_globals(sketch, first_call=True):
             py5.run_sketch(sketch_functions=sync_draw.functions)
         else:
-            # TODO: could this ever happen?
             sketch.println("Error in live coding startup...please fix and try again")
 
     except Exception as e:
