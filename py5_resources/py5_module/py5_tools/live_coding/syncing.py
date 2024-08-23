@@ -316,7 +316,10 @@ class SyncDraw:
         s.println(f"Screenshot saved to {screenshot_filename}")
 
     def archive_code(self, s: py5.Sketch, archive_name: str):
-        # TODO: this should never be called in file mode
+        if self.live_coding_mode == LiveCodingMode.GLOBALS:
+            s.println(f"Skipping code archive because code is not in a *.py file")
+            return
+
         if UserFunctionWrapper.exception_state:
             s.println(f"Skipping code archive due to error state")
             return
