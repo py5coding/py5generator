@@ -29,6 +29,8 @@ from pathlib import Path
 import py5
 import stackprinter
 
+from .. import environ as _environ
+
 """
 TODO: fix import problem, need a good way to let user call activate_live_coding()
 
@@ -485,6 +487,11 @@ def activate_live_coding(
     always_on_top=True,
     archive_dir="archive",
 ):
+    if not _environ.Environment().in_ipython_session:
+        raise RuntimeError(
+            "activate_live_coding() must be called from an IPython session"
+        )
+
     caller_globals = inspect.stack()[1].frame.f_globals
 
     try:
@@ -505,7 +512,6 @@ def activate_live_coding(
         def _callback(result):
             sync_draw.keep_functions_current_from_globals(sketch)
 
-        # TODO: should actually check if this is IPython
         from IPython import get_ipython
 
         kernel = get_ipython()
