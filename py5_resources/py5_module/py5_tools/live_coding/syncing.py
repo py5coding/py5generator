@@ -243,6 +243,7 @@ class SyncDraw:
         else:
             self.getmtime = os.path.getmtime
 
+        self.startup = True
         self.exec_code_count = 0
         self.mtime = None
         self.capture_pixels = None
@@ -361,16 +362,13 @@ class SyncDraw:
 
         s.println(f"Code archived to {archive_filename}")
 
-    def keep_functions_current_from_globals(self, s: py5.Sketch, first_call=False):
+    def keep_functions_current_from_globals(self, s: py5.Sketch):
         try:
             self.functions, self.function_param_counts, self.user_supplied_draw = (
                 retrieve_user_code(s, self.global_namespace)
             )
 
-            self._process_new_functions(
-                s,
-                first_call,
-            )
+            self._process_new_functions(s)
 
             if UserFunctionWrapper.exception_state:
                 s.println("Resuming Sketch execution...")
@@ -399,19 +397,19 @@ class SyncDraw:
 
             return False
 
-    def keep_functions_current_from_file(self, s: py5.Sketch, first_call=False):
+    def keep_functions_current_from_file(self, s: py5.Sketch, force_update=False):
         try:
-            if self.mtime != (new_mtime := self.getmtime(self.filename)) or first_call:
+            if (
+                self.mtime != (new_mtime := self.getmtime(self.filename))
+                or force_update
+            ):
                 self.mtime = new_mtime
 
                 self.functions, self.function_param_counts, self.user_supplied_draw = (
                     exec_user_code(s, self.filename, self.global_namespace)
                 )
 
-                self._process_new_functions(
-                    s,
-                    first_call,
-                )
+                self._process_new_functions(s)
 
                 if UserFunctionWrapper.exception_state:
                     if s.has_thread("keep_functions_current_from_file"):
@@ -455,7 +453,6 @@ class SyncDraw:
     def _process_new_functions(
         self,
         s: py5.Sketch,
-        first_call=False,
     ):
         self.exec_code_count += 1
 
@@ -465,9 +462,9 @@ class SyncDraw:
             else None
         )
 
-        # TODO: do I really need this first_call variable?
-        if first_call:
+        if self.startup:
             self.user_setup_code = new_user_setup_code
+            self.startup = False
         else:
             s._py5_bridge.set_functions(self.functions, self.function_param_counts)
             s._instance.buildPy5Bridge(
@@ -517,7 +514,7 @@ def activate_live_coding(
         kernel = get_ipython()
         kernel.events.register("post_run_cell", _callback)
 
-        if sync_draw.keep_functions_current_from_globals(sketch, first_call=True):
+        if sync_draw.keep_functions_current_from_globals(sketch):
             py5.run_sketch(sketch_functions=sync_draw.functions)
         else:
             sketch.println("Error in live coding startup...please fix and try again")
@@ -557,7 +554,7 @@ def launch_live_coding(
         sketch = py5.get_current_sketch()
         sync_draw._init_hooks(sketch)
 
-        if sync_draw.keep_functions_current_from_file(sketch, first_call=True):
+        if sync_draw.keep_functions_current_from_file(sketch, force_update=True):
             if not _mock_run_sketch._called:
                 sketch.println(
                     f"File {filename} has no call to py5's run_sketch() method. py5 will make the call for you, but please add it to the end of the file to avoid this message."
