@@ -480,7 +480,7 @@ class SyncDraw:
 
 
 def activate_live_coding(
-    always_rerun_setup=False,
+    always_rerun_setup=True,
     always_on_top=True,
     archive_dir="archive",
 ):
@@ -526,7 +526,7 @@ def activate_live_coding(
 def launch_live_coding(
     filename,
     *,
-    always_rerun_setup=False,
+    always_rerun_setup=True,
     always_on_top=True,
     show_framerate=False,
     watch_dir=False,

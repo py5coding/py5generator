@@ -33,6 +33,13 @@ parser.add_argument(
     help="directory to save screenshots and code backups",
 )
 parser.add_argument(
+    "-b" "--not-always-on-top",
+    action="store_false",
+    default=True,
+    dest="always_on_top",
+    help="don't keep sketch on top of other windows",
+)
+parser.add_argument(
     "-d",
     "--watch-dir",
     action="store_true",
@@ -49,19 +56,12 @@ parser.add_argument(
     help="show framerate",
 )
 parser.add_argument(
-    "-r",
-    "--always-rerun-setup",
-    action="store_true",
-    default=False,
-    dest="always_rerun_setup",
-    help="always rerun setup function when file is updated",
-)
-parser.add_argument(
-    "-t" "--not-always-on-top",
+    "-x",
+    "--not-always-rerun-setup",
     action="store_false",
     default=True,
-    dest="always_on_top",
-    help="keep sketch on top of other windows",
+    dest="always_rerun_setup",
+    help="don't always rerun setup function when file is updated",
 )
 
 
