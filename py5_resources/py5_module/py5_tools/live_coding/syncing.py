@@ -47,6 +47,22 @@ class LiveCodingMode(Enum):
     GLOBALS = 2
 
 
+class PostRunCellCallback:
+    def __init__(self, sync_draw, sketch):
+        self.sync_draw = sync_draw
+        self.sketch = sketch
+
+    def new_sketch(self, sync_draw, sketch):
+        self.sync_draw = sync_draw
+        self.sketch = sketch
+
+    def __call__(self, result):
+        self.sync_draw.keep_functions_current_from_globals(self.sketch)
+
+
+post_run_cell_callback = None
+
+
 STARTUP_CODE = """
 __name__ = "__main__"
 __doc__ = None
@@ -484,6 +500,8 @@ def activate_live_coding(
     always_on_top=True,
     archive_dir="archive",
 ):
+    global post_run_cell_callback
+
     if not _environ.Environment().in_ipython_session:
         raise RuntimeError(
             "activate_live_coding() must be called from an IPython session"
@@ -503,16 +521,27 @@ def activate_live_coding(
         )
 
         sketch = py5.get_current_sketch()
+
+        if sketch.is_running:
+            raise RuntimeError(
+                "activate_live_coding() cannot be called while the current Sketch is running"
+            )
+        if not sketch.is_ready:
+            py5.reset_py5()
+            sketch = py5.get_current_sketch()
+
         sync_draw._init_hooks(sketch)
 
-        # https://ipython.readthedocs.io/en/stable/config/callbacks.html
-        def _callback(result):
-            sync_draw.keep_functions_current_from_globals(sketch)
+        # setup callback to keep functions synced after cell execution
+        if post_run_cell_callback is None:
+            post_run_cell_callback = PostRunCellCallback(sync_draw, sketch)
 
-        from IPython import get_ipython
+            from IPython import get_ipython
 
-        kernel = get_ipython()
-        kernel.events.register("post_run_cell", _callback)
+            # https://ipython.readthedocs.io/en/stable/config/callbacks.html
+            get_ipython().events.register("post_run_cell", post_run_cell_callback)
+        else:
+            post_run_cell_callback.new_sketch(sync_draw, sketch)
 
         if sync_draw.keep_functions_current_from_globals(sketch):
             py5.run_sketch(sketch_functions=sync_draw.functions)
