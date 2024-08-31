@@ -47,7 +47,10 @@ py5shape_class_members_code = None  # DELETE
 def _return_list_py5shapes(f):
     @functools.wraps(f)
     def decorated(self_, *args):
-        return [Py5Shape(s) for s in f(self_, *args)]
+        try:
+            return [Py5Shape(s) for s in f(self_, *args)]
+        except Exception as e:
+            return []
 
     return decorated
 
