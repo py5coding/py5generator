@@ -232,11 +232,7 @@ class SyncDraw:
     ):
         self.live_coding_mode = live_coding_mode
 
-        if self.live_coding_mode & LIVE_CODING_FILE:
-            self.filename = Path(filename)
-        elif self.live_coding_mode & LIVE_CODING_GLOBALS:
-            self.filename = None
-
+        self.filename = Path(filename) if live_coding_mode & LIVE_CODING_FILE else None
         self.global_namespace = global_namespace
 
         self.always_rerun_setup = always_rerun_setup
