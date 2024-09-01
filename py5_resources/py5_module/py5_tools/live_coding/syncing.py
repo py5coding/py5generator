@@ -36,8 +36,6 @@ TODO: fix import problem, need a good way to let user call activate_live_coding(
 maybe rename those methods also.
 
 Can also improve this by organizing everything better and adding comments.
-
-TODO: I want to be able to use this with ipython & save code in a file. Combination of both modes
 """
 
 
