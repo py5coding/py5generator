@@ -23,7 +23,6 @@ import os
 import platform
 import sys
 import zipfile
-from enum import Enum
 from pathlib import Path
 
 import py5
@@ -42,9 +41,8 @@ TODO: I want to be able to use this with ipython & save code in a file. Combinat
 """
 
 
-class LiveCodingMode(Enum):
-    FILE = 1
-    GLOBALS = 2
+LIVE_CODING_FILE = 1
+LIVE_CODING_GLOBALS = 2
 
 
 class PostRunCellCallback:
@@ -142,7 +140,7 @@ class UserFunctionWrapper:
             # if we are in file mode, watch code for changes that will fix the
             # problem if we aren't doing so already
             if (
-                self.sketch._get_sync_draw().live_coding_mode == LiveCodingMode.FILE
+                self.sketch._get_sync_draw().live_coding_mode & LIVE_CODING_FILE
                 and not self.sketch.has_thread("keep_functions_current_from_file")
             ):
                 self.sketch.launch_repeating_thread(
@@ -234,9 +232,9 @@ class SyncDraw:
     ):
         self.live_coding_mode = live_coding_mode
 
-        if self.live_coding_mode == LiveCodingMode.FILE:
+        if self.live_coding_mode & LIVE_CODING_FILE:
             self.filename = Path(filename)
-        elif self.live_coding_mode == LiveCodingMode.GLOBALS:
+        elif self.live_coding_mode & LIVE_CODING_GLOBALS:
             self.filename = None
 
         self.global_namespace = global_namespace
@@ -307,7 +305,7 @@ class SyncDraw:
             msg = f"frame rate: {s.get_frame_rate():0.1f}"
             s.println(msg, end="\r")
 
-        if self.live_coding_mode == LiveCodingMode.FILE:
+        if self.live_coding_mode & LIVE_CODING_FILE:
             self.keep_functions_current_from_file(s)
 
     def pre_key_typed_hook(self, s: py5.Sketch):
@@ -341,7 +339,7 @@ class SyncDraw:
         s.println(f"Screenshot saved to {screenshot_filename}")
 
     def archive_code(self, s: py5.Sketch, archive_name: str):
-        if self.live_coding_mode == LiveCodingMode.GLOBALS:
+        if self.live_coding_mode & LIVE_CODING_GLOBALS:
             s.println(f"Skipping code archive because code is not in a *.py file")
             return
 
@@ -511,7 +509,7 @@ def activate_live_coding(
 
     try:
         sync_draw = SyncDraw(
-            LiveCodingMode.GLOBALS,
+            LIVE_CODING_GLOBALS,
             global_namespace=caller_globals,
             always_rerun_setup=always_rerun_setup,
             always_on_top=always_on_top,
@@ -570,7 +568,7 @@ def launch_live_coding(
         py5.run_sketch = (_mock_run_sketch := MockRunSketch(global_namespace))
 
         sync_draw = SyncDraw(
-            LiveCodingMode.FILE,
+            LIVE_CODING_FILE,
             filename=filename,
             global_namespace=global_namespace,
             always_rerun_setup=always_rerun_setup,
