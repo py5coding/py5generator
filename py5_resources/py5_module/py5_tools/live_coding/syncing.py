@@ -69,7 +69,7 @@ class Py5RunSketchBlockException(Exception):
 class UserFunctionWrapper:
     exception_state = False
 
-    def __new__(self, sketch: py5.Sketch, name, f, param_count):
+    def __new__(self, sketch, name, f, param_count):
         ufw = object.__new__(
             UserFunctionWrapperOneParam
             if param_count == 1
@@ -217,7 +217,7 @@ class SyncDraw:
         self.user_setup_code = None
         self.run_setup_again = False
 
-    def _init_hooks(self, s: py5.Sketch):
+    def _init_hooks(self, s):
         s._set_sync_draw(self)
 
         s._add_pre_hook("setup", "sync_pre_setup", self.pre_setup_hook)
@@ -226,15 +226,15 @@ class SyncDraw:
         s._add_post_hook("setup", "sync_post_setup", self.post_setup_hook)
         s._add_post_hook("draw", "sync_post_draw", self.post_draw_hook)
 
-    def pre_setup_hook(self, s: py5.Sketch):
+    def pre_setup_hook(self, s):
         if self.always_on_top:
             s.get_surface().set_always_on_top(True)
 
-    def post_setup_hook(self, s: py5.Sketch):
+    def post_setup_hook(self, s):
         if self.always_on_top:
             self.capture_pixels = s.get_pixels()
 
-    def pre_draw_hook(self, s: py5.Sketch):
+    def pre_draw_hook(self, s):
         if self.run_setup_again:
             s._instance._resetSketch()
             # in case user doesn't call background in setup
@@ -246,7 +246,7 @@ class SyncDraw:
             s.set_pixels(0, 0, self.capture_pixels)
             self.capture_pixels = None
 
-    def post_draw_hook(self, s: py5.Sketch):
+    def post_draw_hook(self, s):
         if (
             self.show_framerate
             and self.user_supplied_draw
@@ -258,7 +258,7 @@ class SyncDraw:
         if self.live_coding_mode & LIVE_CODING_FILE:
             self.keep_functions_current_from_file(s)
 
-    def pre_key_typed_hook(self, s: py5.Sketch):
+    def pre_key_typed_hook(self, s):
         datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
 
         if s.key == "R":
@@ -268,7 +268,7 @@ class SyncDraw:
         if s.key in "AB":
             self.archive_code(s, f"{self.filename.stem}_{datestr}")
 
-    def take_screenshot(self, s: py5.Sketch, screenshot_name: str):
+    def take_screenshot(self, s, screenshot_name: str):
         if UserFunctionWrapper.exception_state:
             s.println(f"Skipping screenshot due to error state")
             return
@@ -288,7 +288,7 @@ class SyncDraw:
         s.save_frame(screenshot_filename)
         s.println(f"Screenshot saved to {screenshot_filename}")
 
-    def archive_code(self, s: py5.Sketch, archive_name: str):
+    def archive_code(self, s, archive_name: str):
         if self.live_coding_mode & LIVE_CODING_GLOBALS:
             s.println(f"Skipping code archive because code is not in a *.py file")
             return
@@ -326,7 +326,7 @@ class SyncDraw:
 
         s.println(f"Code archived to {archive_filename}")
 
-    def keep_functions_current_from_globals(self, s: py5.Sketch):
+    def keep_functions_current_from_globals(self, s):
         try:
             self.functions, self.function_param_counts, self.user_supplied_draw = (
                 retrieve_user_code(s, self.global_namespace)
@@ -361,7 +361,7 @@ class SyncDraw:
 
             return False
 
-    def keep_functions_current_from_file(self, s: py5.Sketch, force_update=False):
+    def keep_functions_current_from_file(self, s, force_update=False):
         try:
             if (
                 self.mtime != (new_mtime := self.getmtime(self.filename))
@@ -414,10 +414,7 @@ class SyncDraw:
 
             return False
 
-    def _process_new_functions(
-        self,
-        s: py5.Sketch,
-    ):
+    def _process_new_functions(self, s):
         self.exec_code_count += 1
 
         new_user_setup_code = (
