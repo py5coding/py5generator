@@ -24,14 +24,9 @@ import sys
 import zipfile
 from pathlib import Path
 
-import py5
 import stackprinter
 
 """
-TODO: fix import problem, need a good way to let user call activate_live_coding()
-
-maybe rename those methods also.
-
 Can also improve this by organizing everything better and adding comments.
 """
 
@@ -81,6 +76,8 @@ class UserFunctionWrapper:
         return ufw
 
     def call_f(self, *args):
+        import py5.bridge as py5_bridge
+
         try:
             if self.f is not None and not UserFunctionWrapper.exception_state:
                 self.f(*args)
@@ -88,7 +85,7 @@ class UserFunctionWrapper:
             UserFunctionWrapper.exception_state = True
             self.sketch.no_loop()
             self.sketch.println("*" * 80)
-            py5.bridge.handle_exception(self.sketch.println, *sys.exc_info())
+            py5_bridge.handle_exception(self.sketch.println, *sys.exc_info())
             self.sketch.println("*" * 80)
 
             # if we are in file mode, watch code for changes that will fix the
@@ -116,6 +113,8 @@ class UserFunctionWrapperOneParam(UserFunctionWrapper):
 
 
 def exec_user_code(sketch, filename, global_namespace, mock_run_sketch):
+    import py5.bridge as py5_bridge
+
     init_namespace(filename, global_namespace)
 
     # execute user code and put new functions into the global namespace
@@ -131,7 +130,7 @@ def exec_user_code(sketch, filename, global_namespace, mock_run_sketch):
         )
     else:
         # the user didn't call run_sketch() in their code. issue a warning later
-        functions, function_param_counts = py5.bridge._extract_py5_user_function_data(
+        functions, function_param_counts = py5_bridge._extract_py5_user_function_data(
             global_namespace
         )
 
@@ -141,7 +140,9 @@ def exec_user_code(sketch, filename, global_namespace, mock_run_sketch):
 
 
 def retrieve_user_code(sketch, namespace):
-    functions, function_param_counts = py5.bridge._extract_py5_user_function_data(
+    import py5.bridge as py5_bridge
+
+    functions, function_param_counts = py5_bridge._extract_py5_user_function_data(
         namespace
     )
 
@@ -149,8 +150,10 @@ def retrieve_user_code(sketch, namespace):
 
 
 def process_user_functions(sketch, functions, function_param_counts, namespace):
+    from py5 import _split_setup as py5_split_setup
+
     functions = (
-        py5._split_setup.transform(
+        py5_split_setup.transform(
             functions, namespace, namespace, sketch.println, mode="module"
         )
         or {}
