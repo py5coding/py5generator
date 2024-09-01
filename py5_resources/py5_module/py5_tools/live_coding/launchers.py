@@ -101,9 +101,14 @@ def activate_live_coding(
         sketch = py5.get_current_sketch()
 
         if sketch.is_running:
-            raise RuntimeError(
-                "activate_live_coding() cannot be called while the current Sketch is running"
-            )
+            if sketch._get_sync_draw() is None:
+                raise RuntimeError(
+                    "activate_live_coding() cannot be called while the current Sketch is running"
+                )
+            else:
+                raise RuntimeError(
+                    "activate_live_coding() has already been called and activated"
+                )
         if not sketch.is_ready:
             py5.reset_py5()
             sketch = py5.get_current_sketch()
