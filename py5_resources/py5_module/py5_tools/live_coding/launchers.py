@@ -23,7 +23,7 @@ import platform
 from .. import environ
 
 
-class PostRunCellCallback:
+class PostExecuteCallback:
     def __init__(self, sync_draw, sketch):
         self.sync_draw = sync_draw
         self.sketch = sketch
@@ -32,11 +32,11 @@ class PostRunCellCallback:
         self.sync_draw = sync_draw
         self.sketch = sketch
 
-    def __call__(self, result):
+    def __call__(self):
         self.sync_draw.keep_functions_current_from_globals(self.sketch)
 
 
-post_run_cell_callback = None
+post_execute_callback = None
 
 
 class MockRunSketch:
@@ -73,7 +73,7 @@ def activate_live_coding(
     always_on_top=True,
     archive_dir="archive",
 ):
-    global post_run_cell_callback
+    global post_execute_callback
 
     import py5
 
@@ -111,15 +111,15 @@ def activate_live_coding(
         sync_draw._init_hooks(sketch)
 
         # setup callback to keep functions synced after cell execution
-        if post_run_cell_callback is None:
-            post_run_cell_callback = PostRunCellCallback(sync_draw, sketch)
+        if post_execute_callback is None:
+            post_execute_callback = PostExecuteCallback(sync_draw, sketch)
 
             from IPython import get_ipython
 
             # https://ipython.readthedocs.io/en/stable/config/callbacks.html
-            get_ipython().events.register("post_run_cell", post_run_cell_callback)
+            get_ipython().events.register("post_execute", post_execute_callback)
         else:
-            post_run_cell_callback.new_sketch(sync_draw, sketch)
+            post_execute_callback.new_sketch(sync_draw, sketch)
 
         if sync_draw.keep_functions_current_from_globals(sketch):
             py5.run_sketch(sketch_functions=sync_draw.functions)
