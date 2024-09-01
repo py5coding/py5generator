@@ -26,11 +26,6 @@ from pathlib import Path
 
 import stackprinter
 
-"""
-Can also improve this by organizing everything better and adding comments.
-"""
-
-
 LIVE_CODING_FILE = 1
 LIVE_CODING_GLOBALS = 2
 
@@ -59,6 +54,11 @@ def is_subdirectory(d, f):
 
 class Py5RunSketchBlockException(Exception):
     pass
+
+
+######################################################################
+# USER FUNCTION WRAPPERS
+######################################################################
 
 
 class UserFunctionWrapper:
@@ -113,6 +113,7 @@ class UserFunctionWrapperOneParam(UserFunctionWrapper):
 
 
 def exec_user_code(sketch, filename, global_namespace, mock_run_sketch):
+    # get user functions by executing code in the given filename, for LIVE_CODING_FILE mode
     import py5.bridge as py5_bridge
 
     init_namespace(filename, global_namespace)
@@ -140,6 +141,7 @@ def exec_user_code(sketch, filename, global_namespace, mock_run_sketch):
 
 
 def retrieve_user_code(sketch, namespace):
+    # get user functions from the given namespace, for LIVE_CODING_GLOBALS mode
     import py5.bridge as py5_bridge
 
     functions, function_param_counts = py5_bridge._extract_py5_user_function_data(
@@ -150,6 +152,8 @@ def retrieve_user_code(sketch, namespace):
 
 
 def process_user_functions(sketch, functions, function_param_counts, namespace):
+    # process the user functions, adding any missing functions and wrapping them
+    # used by both LIVE_CODING_FILE and LIVE_CODING_GLOBALS modes
     from py5 import _split_setup as py5_split_setup
 
     functions = (
@@ -222,6 +226,10 @@ class SyncDraw:
         self.user_setup_code = None
         self.run_setup_again = False
 
+    ######################################################################
+    # HOOK METHODS
+    ######################################################################
+
     def _init_hooks(self, s):
         s._set_sync_draw(self)
 
@@ -272,6 +280,10 @@ class SyncDraw:
             self.take_screenshot(s, f"screenshot_{datestr}.png")
         if s.key in "AB":
             self.archive_code(s, f"{self.filename.stem}_{datestr}")
+
+    ######################################################################
+    # ARCHIVE METHODS
+    ######################################################################
 
     def take_screenshot(self, s, screenshot_name: str):
         if UserFunctionWrapper.exception_state:
@@ -330,6 +342,10 @@ class SyncDraw:
                     f2.write(f.read())
 
         s.println(f"Code archived to {archive_filename}")
+
+    ######################################################################
+    # CODE PROCESSING METHODS
+    ######################################################################
 
     def keep_functions_current_from_globals(self, s):
         try:

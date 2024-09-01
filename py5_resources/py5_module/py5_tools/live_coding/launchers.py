@@ -102,13 +102,10 @@ def activate_live_coding(
 
         if sketch.is_running:
             if sketch._get_sync_draw() is None:
-                raise RuntimeError(
-                    "activate_live_coding() cannot be called while the current Sketch is running"
-                )
+                msg = "activate_live_coding() cannot be called while the current Sketch is running"
             else:
-                raise RuntimeError(
-                    "activate_live_coding() has already been called and activated"
-                )
+                msg = "activate_live_coding() has already been called and activated"
+            raise RuntimeError(msg)
         if not sketch.is_ready:
             py5.reset_py5()
             sketch = py5.get_current_sketch()
@@ -153,6 +150,7 @@ def launch_live_coding(
         init_namespace(filename, global_namespace)
 
         # this needs to be before keep_functions_current_from_file() is called
+        # The MockRunSketch class captures user parameters passed to run_sketch()
         real_run_sketch = py5.run_sketch
         py5.run_sketch = (mock_run_sketch := MockRunSketch(global_namespace))
 
