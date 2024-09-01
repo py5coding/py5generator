@@ -115,7 +115,7 @@ class UserFunctionWrapperOneParam(UserFunctionWrapper):
         self.call_f(arg)
 
 
-def exec_user_code(sketch, filename, global_namespace):
+def exec_user_code(sketch, filename, global_namespace, mock_run_sketch):
     init_namespace(filename, global_namespace)
 
     # execute user code and put new functions into the global namespace
@@ -124,10 +124,10 @@ def exec_user_code(sketch, filename, global_namespace):
         with open(filename, "r") as f:
             exec(compile(f.read(), filename=filename, mode="exec"), global_namespace)
     except Py5RunSketchBlockException:
-        # run_sketch() called, but it is a MockRunSketch instance
+        # MockRunSketch instance has replaced run_sketch() in the py5 module
         functions, function_param_counts = (
-            py5.run_sketch._functions,
-            py5.run_sketch._function_param_counts,
+            mock_run_sketch._functions,
+            mock_run_sketch._function_param_counts,
         )
     else:
         # the user didn't call run_sketch() in their code. issue a warning later
@@ -181,8 +181,9 @@ class SyncDraw:
         always_rerun_setup=False,
         always_on_top=True,
         show_framerate=False,
-        watch_dir=None,
+        watch_dir=False,
         archive_dir=None,
+        mock_run_sketch=None,
     ):
         self.live_coding_mode = live_coding_mode
 
@@ -191,9 +192,10 @@ class SyncDraw:
 
         self.always_rerun_setup = always_rerun_setup
         self.always_on_top = always_on_top
-        self.archive_dir = Path(archive_dir)
         self.show_framerate = show_framerate
         self.watch_dir = watch_dir
+        self.archive_dir = Path(archive_dir)
+        self.mock_run_sketch = mock_run_sketch
 
         if self.watch_dir:
             self.getmtime = lambda f: max(
@@ -370,7 +372,9 @@ class SyncDraw:
                 self.mtime = new_mtime
 
                 self.functions, self.function_param_counts, self.user_supplied_draw = (
-                    exec_user_code(s, self.filename, self.global_namespace)
+                    exec_user_code(
+                        s, self.filename, self.global_namespace, self.mock_run_sketch
+                    )
                 )
 
                 self._process_new_functions(s)

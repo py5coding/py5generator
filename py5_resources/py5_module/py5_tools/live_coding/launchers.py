@@ -92,8 +92,9 @@ def activate_live_coding(
             global_namespace=caller_globals,
             always_rerun_setup=always_rerun_setup,
             always_on_top=always_on_top,
-            show_framerate=False,
-            watch_dir=False,
+            # both default to False
+            # show_framerate=False,
+            # watch_dir=False,
             archive_dir=archive_dir,
         )
 
@@ -147,8 +148,8 @@ def launch_live_coding(
         init_namespace(filename, global_namespace)
 
         # this needs to be before keep_functions_current_from_file() is called
-        _real_run_sketch = py5.run_sketch
-        py5.run_sketch = (_mock_run_sketch := MockRunSketch(global_namespace))
+        real_run_sketch = py5.run_sketch
+        py5.run_sketch = (mock_run_sketch := MockRunSketch(global_namespace))
 
         sync_draw = SyncDraw(
             LIVE_CODING_FILE,
@@ -159,19 +160,20 @@ def launch_live_coding(
             show_framerate=show_framerate,
             watch_dir=watch_dir,
             archive_dir=archive_dir,
+            mock_run_sketch=mock_run_sketch,
         )
 
         sketch = py5.get_current_sketch()
         sync_draw._init_hooks(sketch)
 
         if sync_draw.keep_functions_current_from_file(sketch, force_update=True):
-            if not _mock_run_sketch._called:
+            if not mock_run_sketch._called:
                 sketch.println(
                     f"File {filename} has no call to py5's run_sketch() method. py5 will make the call for you, but please add it to the end of the file to avoid this message."
                 )
 
-            _real_run_sketch(
-                sketch_functions=sync_draw.functions, **_mock_run_sketch._kwargs
+            real_run_sketch(
+                sketch_functions=sync_draw.functions, **mock_run_sketch._kwargs
             )
         else:
             sketch.println("Error in live coding startup...please fix and try again")
