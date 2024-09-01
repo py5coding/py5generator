@@ -20,15 +20,12 @@
 import datetime as dt
 import inspect
 import os
-import platform
 import sys
 import zipfile
 from pathlib import Path
 
 import py5
 import stackprinter
-
-from .. import environ as _environ
 
 """
 TODO: fix import problem, need a good way to let user call activate_live_coding()
@@ -41,22 +38,6 @@ Can also improve this by organizing everything better and adding comments.
 
 LIVE_CODING_FILE = 1
 LIVE_CODING_GLOBALS = 2
-
-
-class PostRunCellCallback:
-    def __init__(self, sync_draw, sketch):
-        self.sync_draw = sync_draw
-        self.sketch = sketch
-
-    def new_sketch(self, sync_draw, sketch):
-        self.sync_draw = sync_draw
-        self.sketch = sketch
-
-    def __call__(self, result):
-        self.sync_draw.keep_functions_current_from_globals(self.sketch)
-
-
-post_run_cell_callback = None
 
 
 STARTUP_CODE = """
@@ -83,31 +64,6 @@ def is_subdirectory(d, f):
 
 class Py5RunSketchBlockException(Exception):
     pass
-
-
-class MockRunSketch:
-
-    def __init__(self, global_namespace):
-        self._global_namespace = global_namespace
-        self._kwargs = {}
-        self._called = False
-
-    def __call__(self, *args, **kwargs):
-        self._called = True
-        if "sketch_functions" in kwargs:
-            kwargs.pop("sketch_functions")
-
-        self._kwargs = kwargs
-
-        if platform.system() == "Darwin":
-            kwargs["block"] = True
-
-        self._functions, self._function_param_counts = (
-            py5.bridge._extract_py5_user_function_data(self._global_namespace)
-        )
-
-        if "block" not in kwargs or kwargs["block"]:
-            raise Py5RunSketchBlockException("run_sketch() blocking")
 
 
 class UserFunctionWrapper:
@@ -485,107 +441,3 @@ class SyncDraw:
                 self.run_setup_again = True
 
             self.user_setup_code = new_user_setup_code
-
-
-def activate_live_coding(
-    always_rerun_setup=True,
-    always_on_top=True,
-    archive_dir="archive",
-):
-    global post_run_cell_callback
-
-    if not _environ.Environment().in_ipython_session:
-        raise RuntimeError(
-            "activate_live_coding() must be called from an IPython session"
-        )
-
-    caller_globals = inspect.stack()[1].frame.f_globals
-
-    try:
-        sync_draw = SyncDraw(
-            LIVE_CODING_GLOBALS,
-            global_namespace=caller_globals,
-            always_rerun_setup=always_rerun_setup,
-            always_on_top=always_on_top,
-            show_framerate=False,
-            watch_dir=False,
-            archive_dir=archive_dir,
-        )
-
-        sketch = py5.get_current_sketch()
-
-        if sketch.is_running:
-            raise RuntimeError(
-                "activate_live_coding() cannot be called while the current Sketch is running"
-            )
-        if not sketch.is_ready:
-            py5.reset_py5()
-            sketch = py5.get_current_sketch()
-
-        sync_draw._init_hooks(sketch)
-
-        # setup callback to keep functions synced after cell execution
-        if post_run_cell_callback is None:
-            post_run_cell_callback = PostRunCellCallback(sync_draw, sketch)
-
-            from IPython import get_ipython
-
-            # https://ipython.readthedocs.io/en/stable/config/callbacks.html
-            get_ipython().events.register("post_run_cell", post_run_cell_callback)
-        else:
-            post_run_cell_callback.new_sketch(sync_draw, sketch)
-
-        if sync_draw.keep_functions_current_from_globals(sketch):
-            py5.run_sketch(sketch_functions=sync_draw.functions)
-        else:
-            sketch.println("Error in live coding startup...please fix and try again")
-
-    except Exception as e:
-        print(e)
-
-
-def launch_live_coding(
-    filename,
-    *,
-    always_rerun_setup=True,
-    always_on_top=True,
-    show_framerate=False,
-    watch_dir=False,
-    archive_dir="archive",
-):
-    try:
-        global_namespace = dict()
-        init_namespace(filename, global_namespace)
-
-        # this needs to be before keep_functions_current_from_file() is called
-        _real_run_sketch = py5.run_sketch
-        py5.run_sketch = (_mock_run_sketch := MockRunSketch(global_namespace))
-
-        sync_draw = SyncDraw(
-            LIVE_CODING_FILE,
-            filename=filename,
-            global_namespace=global_namespace,
-            always_rerun_setup=always_rerun_setup,
-            always_on_top=always_on_top,
-            show_framerate=show_framerate,
-            watch_dir=watch_dir,
-            archive_dir=archive_dir,
-        )
-
-        sketch = py5.get_current_sketch()
-        sync_draw._init_hooks(sketch)
-
-        if sync_draw.keep_functions_current_from_file(sketch, force_update=True):
-            if not _mock_run_sketch._called:
-                sketch.println(
-                    f"File {filename} has no call to py5's run_sketch() method. py5 will make the call for you, but please add it to the end of the file to avoid this message."
-                )
-
-            _real_run_sketch(
-                sketch_functions=sync_draw.functions, **_mock_run_sketch._kwargs
-            )
-        else:
-            sketch.println("Error in live coding startup...please fix and try again")
-
-    except Exception as e:
-        print(e)

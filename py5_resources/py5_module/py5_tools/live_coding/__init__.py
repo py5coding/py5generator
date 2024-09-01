@@ -18,3 +18,4 @@
 #
 # *****************************************************************************
 from .controller import get_controller
+from .launchers import activate_live_coding, launch_live_coding
