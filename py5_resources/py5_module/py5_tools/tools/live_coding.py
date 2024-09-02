@@ -33,13 +33,6 @@ parser.add_argument(
     help="directory to save screenshots and code backups",
 )
 parser.add_argument(
-    "-b" "--not-always-on-top",
-    action="store_false",
-    default=True,
-    dest="always_on_top",
-    help="don't keep sketch on top of other windows",
-)
-parser.add_argument(
     "-d",
     "--watch-dir",
     action="store_true",
@@ -56,12 +49,19 @@ parser.add_argument(
     help="show framerate",
 )
 parser.add_argument(
-    "-x",
+    "-s",
     "--not-always-rerun-setup",
     action="store_false",
     default=True,
     dest="always_rerun_setup",
     help="don't always rerun setup function when file is updated",
+)
+parser.add_argument(
+    "-t" "--not-always-on-top",
+    action="store_false",
+    default=True,
+    dest="always_on_top",
+    help="don't keep sketch on top of other windows",
 )
 
 
@@ -72,7 +72,7 @@ def main():
     archive_dir = Path(args.archive_dir).resolve()
     if sketch_path.parent == archive_dir:
         raise ValueError(
-            f"Archived files cannot be saved to the directory containing the Sketch code."
+            "Archived files cannot be saved to the directory containing the Sketch code."
         )
 
     launch_live_coding(
