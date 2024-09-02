@@ -17,15 +17,6 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-"""
-Utilities and accessory tools for py5. 
-"""
-from . import live_coding  # noqa
-from . import translators  # noqa
-from .config import *  # noqa
-from .hooks import *  # noqa
-from .imported import _lock_imported_mode, get_imported_mode, set_imported_mode  # noqa
-from .jvm import *  # noqa
-from .libraries import *  # noqa
-
-__version__ = "0.10.3.dev0"
+from .controller import get_controller
+from .notebook_launcher import activate_live_coding
+from .standard_launcher import launch_live_coding

@@ -35,7 +35,7 @@ import py5.util.KeyEventUtilities;
 import py5.util.OpenSimplex2S;
 
 public class Sketch extends SketchBase {
-
+  
   protected boolean success;
   protected String py5IconPath;
   protected int[] pixelCapture;
@@ -47,6 +47,8 @@ public class Sketch extends SketchBase {
   public static final char CODED = PApplet.CODED;
 
   public static final String HIDDEN = "py5.core.graphics.HiddenPy5GraphicsJava2D";
+
+  long millisOffset = System.currentTimeMillis();
 
   public Sketch() {
     this.success = false;
@@ -109,6 +111,16 @@ public class Sketch extends SketchBase {
       default:
         return "UNKNOWN";
     }
+  }
+
+  @Override
+  public int millis() {
+    return (int) (System.currentTimeMillis() - millisOffset);
+  }
+
+  public void _resetSketch() {
+    millisOffset = System.currentTimeMillis();
+    frameCount = 0;
   }
 
   @Override
