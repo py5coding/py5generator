@@ -18,4 +18,5 @@
 #
 # *****************************************************************************
 from .controller import get_controller
-from .launchers import activate_live_coding, launch_live_coding
+from .notebook_launcher import activate_live_coding
+from .standard_launcher import launch_live_coding

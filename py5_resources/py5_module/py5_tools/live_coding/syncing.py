@@ -107,6 +107,14 @@ class UserFunctionWrapper:
                 )
 
 
+"""
+These two subclasses need to be here because py5 will inspect user functions to
+determine the paremeter counts. I can't just remove these and use the above
+class with a `__call__(self, *args)` method because the `*args` parameter will
+trip up py5.
+"""
+
+
 class UserFunctionWrapperZeroParams(UserFunctionWrapper):
     def __call__(self):
         self.call_f()
@@ -115,6 +123,11 @@ class UserFunctionWrapperZeroParams(UserFunctionWrapper):
 class UserFunctionWrapperOneParam(UserFunctionWrapper):
     def __call__(self, arg):
         self.call_f(arg)
+
+
+######################################################################
+# CODE PROCESSING FUNCTIONS
+######################################################################
 
 
 def exec_user_code(sketch, filename, global_namespace, mock_run_sketch):
@@ -135,7 +148,7 @@ def exec_user_code(sketch, filename, global_namespace, mock_run_sketch):
             mock_run_sketch._function_param_counts,
         )
     else:
-        # the user didn't call run_sketch() in their code. issue a warning later
+        # the user didn't call run_sketch() in their code. will issue a warning later
         functions, function_param_counts = py5_bridge._extract_py5_user_function_data(
             global_namespace
         )
@@ -181,6 +194,11 @@ def process_user_functions(sketch, functions, function_param_counts, namespace):
     }
 
     return functions, function_param_counts, user_supplied_draw
+
+
+######################################################################
+# SYNC DRAW CLASS
+######################################################################
 
 
 class SyncDraw:

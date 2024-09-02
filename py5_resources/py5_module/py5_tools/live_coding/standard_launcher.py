@@ -17,26 +17,11 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-import inspect
 import platform
 
-from .. import environ
-
-
-class PostExecuteCallback:
-    def __init__(self, sync_draw, sketch):
-        self.sync_draw = sync_draw
-        self.sketch = sketch
-
-    def new_sketch(self, sync_draw, sketch):
-        self.sync_draw = sync_draw
-        self.sketch = sketch
-
-    def __call__(self):
-        self.sync_draw.keep_functions_current_from_globals(self.sketch)
-
-
-post_execute_callback = None
+######################################################################
+# STANDARD *.PY FILE LIVE CODING
+######################################################################
 
 
 class MockRunSketch:
@@ -66,70 +51,6 @@ class MockRunSketch:
 
         if "block" not in kwargs or kwargs["block"]:
             raise Py5RunSketchBlockException("run_sketch() blocking")
-
-
-def activate_live_coding(
-    always_rerun_setup=True,
-    always_on_top=True,
-    archive_dir="archive",
-):
-    global post_execute_callback
-
-    import py5
-
-    from .syncing import LIVE_CODING_GLOBALS, SyncDraw
-
-    if not environ.Environment().in_ipython_session:
-        raise RuntimeError(
-            "activate_live_coding() must be called from an IPython session"
-        )
-
-    caller_globals = inspect.stack()[1].frame.f_globals
-
-    try:
-        sync_draw = SyncDraw(
-            LIVE_CODING_GLOBALS,
-            global_namespace=caller_globals,
-            always_rerun_setup=always_rerun_setup,
-            always_on_top=always_on_top,
-            # both default to False
-            # show_framerate=False,
-            # watch_dir=False,
-            archive_dir=archive_dir,
-        )
-
-        sketch = py5.get_current_sketch()
-
-        if sketch.is_running:
-            if sketch._get_sync_draw() is None:
-                msg = "activate_live_coding() cannot be called while the current Sketch is running"
-            else:
-                msg = "activate_live_coding() has already been called and activated"
-            raise RuntimeError(msg)
-        if not sketch.is_ready:
-            py5.reset_py5()
-            sketch = py5.get_current_sketch()
-
-        sync_draw._init_hooks(sketch)
-
-        # setup callback to keep functions synced after cell execution
-        if post_execute_callback is None:
-            post_execute_callback = PostExecuteCallback(sync_draw, sketch)
-
-            from IPython import get_ipython
-
-            # https://ipython.readthedocs.io/en/stable/config/callbacks.html
-            get_ipython().events.register("post_execute", post_execute_callback)
-        else:
-            post_execute_callback.new_sketch(sync_draw, sketch)
-
-        if sync_draw.keep_functions_current_from_globals(sketch):
-            py5.run_sketch(sketch_functions=sync_draw.functions)
-        else:
-            sketch.println("Error in live coding startup...please fix and try again")
-
-    except Exception as e:
-        print(e)
 
 
 def launch_live_coding(
