@@ -17,7 +17,7 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-class LiveCodingController:
+class Py5LiveCodingController:
 
     def __init__(self):
         import py5
@@ -47,4 +47,4 @@ class LiveCodingController:
 
 
 def get_controller():
-    return LiveCodingController()
+    return Py5LiveCodingController()
