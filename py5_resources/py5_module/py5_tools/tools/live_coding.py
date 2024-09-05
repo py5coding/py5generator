@@ -57,7 +57,8 @@ parser.add_argument(
     help="don't always rerun setup function when file is updated",
 )
 parser.add_argument(
-    "-t" "--not-always-on-top",
+    "-t",
+    "--not-always-on-top",
     action="store_false",
     default=True,
     dest="always_on_top",
