@@ -17,34 +17,38 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-class Py5LiveCodingController:
+def _get_sketch_and_sync_draw():
+    import py5
 
-    def __init__(self):
-        import py5
+    sketch = py5.get_current_sketch()
+    sync_draw = sketch._get_sync_draw()
 
-        self._sketch = py5.get_current_sketch()
-        self._sync_draw = self._sketch._get_sync_draw()
-
-    def screenshot(self, screenshot_name: str = None):
-        if self._sketch.is_running and self._sync_draw is not None:
-            self._sync_draw.take_screenshot(self._sketch, screenshot_name)
-
-    def archive_code(self, archive_name: str = None):
-        if self._sketch.is_running and self._sync_draw is not None:
-            self._sync_draw.archive_code(self._sketch, archive_name)
-
-    def backup(self, backup_name: str = None):
-        self.screenshot(screenshot_name=backup_name)
-        self.archive_code(archive_name=backup_name)
-
-    def _get_exec_code_count(self):
-        if self._sketch.is_running and self._sync_draw is not None:
-            return self._sync_draw.exec_code_count
-        else:
-            return 0
-
-    exec_code_count = property(_get_exec_code_count)
+    return sketch, sync_draw
 
 
-def get_controller():
-    return Py5LiveCodingController()
+def screenshot(screenshot_name: str = None):
+    sketch, sync_draw = _get_sketch_and_sync_draw()
+
+    if sketch.is_running and sync_draw is not None:
+        sync_draw.take_screenshot(sketch, screenshot_name)
+
+
+def archive_code(archive_name: str = None):
+    sketch, sync_draw = _get_sketch_and_sync_draw()
+
+    if sketch.is_running and sync_draw is not None:
+        sync_draw.archive_code(sketch, archive_name)
+
+
+def backup(backup_name: str = None):
+    screenshot(screenshot_name=backup_name)
+    archive_code(archive_name=backup_name)
+
+
+def get_code_count():
+    sketch, sync_draw = _get_sketch_and_sync_draw()
+
+    if sketch.is_running and sync_draw is not None:
+        return sync_draw.exec_code_count
+    else:
+        return 0
