@@ -44,6 +44,7 @@ class PostExecuteCallback:
 def activate_live_coding(
     always_rerun_setup=True,
     always_on_top=True,
+    activate_keyboard_shortcuts=False,
     archive_dir="archive",
 ):
     global post_execute_callback
@@ -65,6 +66,7 @@ def activate_live_coding(
             global_namespace=caller_globals,
             always_rerun_setup=always_rerun_setup,
             always_on_top=always_on_top,
+            activate_keyboard_shortcuts=activate_keyboard_shortcuts,
             # both default to False
             # show_framerate=False,
             # watch_dir=False,

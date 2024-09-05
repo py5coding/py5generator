@@ -59,6 +59,7 @@ def launch_live_coding(
     always_rerun_setup=True,
     always_on_top=True,
     show_framerate=False,
+    activate_keyboard_shortcuts=False,
     watch_dir=False,
     archive_dir="archive",
 ):
@@ -82,6 +83,7 @@ def launch_live_coding(
             always_rerun_setup=always_rerun_setup,
             always_on_top=always_on_top,
             show_framerate=show_framerate,
+            activate_keyboard_shortcuts=activate_keyboard_shortcuts,
             watch_dir=watch_dir,
             archive_dir=archive_dir,
             mock_run_sketch=mock_run_sketch,

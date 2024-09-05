@@ -130,7 +130,9 @@ class UserFunctionWrapperOneParam(UserFunctionWrapper):
 ######################################################################
 
 
-def exec_user_code(sketch, filename, global_namespace, mock_run_sketch):
+def exec_user_code(
+    sketch, filename, global_namespace, mock_run_sketch, activate_keyboard_shortcuts
+):
     # get user functions by executing code in the given filename, for LIVE_CODING_FILE mode
     import py5.bridge as py5_bridge
 
@@ -154,11 +156,15 @@ def exec_user_code(sketch, filename, global_namespace, mock_run_sketch):
         )
 
     return process_user_functions(
-        sketch, functions, function_param_counts, global_namespace
+        sketch,
+        functions,
+        function_param_counts,
+        global_namespace,
+        activate_keyboard_shortcuts,
     )
 
 
-def retrieve_user_code(sketch, namespace):
+def retrieve_user_code(sketch, namespace, activate_keyboard_shortcuts):
     # get user functions from the given namespace, for LIVE_CODING_GLOBALS mode
     import py5.bridge as py5_bridge
 
@@ -166,10 +172,14 @@ def retrieve_user_code(sketch, namespace):
         namespace
     )
 
-    return process_user_functions(sketch, functions, function_param_counts, namespace)
+    return process_user_functions(
+        sketch, functions, function_param_counts, namespace, activate_keyboard_shortcuts
+    )
 
 
-def process_user_functions(sketch, functions, function_param_counts, namespace):
+def process_user_functions(
+    sketch, functions, function_param_counts, namespace, activate_keyboard_shortcuts
+):
     # process the user functions, adding any missing functions and wrapping them
     # used by both LIVE_CODING_FILE and LIVE_CODING_GLOBALS modes
     from py5 import _split_setup as py5_split_setup
@@ -184,6 +194,10 @@ def process_user_functions(sketch, functions, function_param_counts, namespace):
     user_supplied_draw = "draw" in functions
 
     for fname in ["setup", "draw", "key_typed"]:
+        # the key_typed one is only needed if activate_keyboard_shortcuts is True
+        if fname == "key_typed" and not activate_keyboard_shortcuts:
+            continue
+
         if fname not in functions:
             functions[fname] = lambda: None
             function_param_counts[fname] = 0
@@ -211,6 +225,7 @@ class SyncDraw:
         always_rerun_setup=False,
         always_on_top=True,
         show_framerate=False,
+        activate_keyboard_shortcuts=False,
         watch_dir=False,
         archive_dir=None,
         mock_run_sketch=None,
@@ -223,6 +238,7 @@ class SyncDraw:
         self.always_rerun_setup = always_rerun_setup
         self.always_on_top = always_on_top
         self.show_framerate = show_framerate
+        self.activate_keyboard_shortcuts = activate_keyboard_shortcuts
         self.watch_dir = watch_dir
         self.archive_dir = Path(archive_dir)
         self.mock_run_sketch = mock_run_sketch
@@ -258,7 +274,8 @@ class SyncDraw:
 
         s._add_pre_hook("setup", "sync_pre_setup", self.pre_setup_hook)
         s._add_pre_hook("draw", "sync_pre_draw", self.pre_draw_hook)
-        s._add_pre_hook("key_typed", "sync_pre_key_typed", self.pre_key_typed_hook)
+        if self.activate_keyboard_shortcuts:
+            s._add_pre_hook("key_typed", "sync_pre_key_typed", self.pre_key_typed_hook)
         s._add_post_hook("setup", "sync_post_setup", self.post_setup_hook)
         s._add_post_hook("draw", "sync_post_draw", self.post_draw_hook)
 
@@ -373,7 +390,9 @@ class SyncDraw:
     def keep_functions_current_from_globals(self, s):
         try:
             self.functions, self.function_param_counts, self.user_supplied_draw = (
-                retrieve_user_code(s, self.global_namespace)
+                retrieve_user_code(
+                    s, self.global_namespace, self.activate_keyboard_shortcuts
+                )
             )
 
             self._process_new_functions(s)
@@ -415,7 +434,11 @@ class SyncDraw:
 
                 self.functions, self.function_param_counts, self.user_supplied_draw = (
                     exec_user_code(
-                        s, self.filename, self.global_namespace, self.mock_run_sketch
+                        s,
+                        self.filename,
+                        self.global_namespace,
+                        self.mock_run_sketch,
+                        self.activate_keyboard_shortcuts,
                     )
                 )
 
