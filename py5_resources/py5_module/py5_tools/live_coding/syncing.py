@@ -256,7 +256,7 @@ class SyncDraw:
             self.getmtime = os.path.getmtime
 
         self.startup = True
-        self.exec_code_count = 0
+        self.update_count = 0
         self.mtime = None
         self.capture_pixels = None
         self.functions = {}
@@ -484,7 +484,7 @@ class SyncDraw:
             return False
 
     def _process_new_functions(self, s):
-        self.exec_code_count += 1
+        self.update_count += 1
 
         new_user_setup_code = (
             inspect.getsource(self.functions["setup"].f)

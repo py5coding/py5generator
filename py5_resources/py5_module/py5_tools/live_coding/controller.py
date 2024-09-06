@@ -45,10 +45,10 @@ def backup(backup_name: str = None):
     archive_code(archive_name=backup_name)
 
 
-def get_code_count():
+def get_update_count():
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
     if sketch.is_running and sync_draw is not None:
-        return sync_draw.exec_code_count
+        return sync_draw.update_count
     else:
         return 0
