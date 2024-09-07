@@ -18,6 +18,8 @@
 #
 # *****************************************************************************
 import platform
+import sys
+from pathlib import Path
 
 ######################################################################
 # STANDARD *.PY FILE LIVE CODING
@@ -64,6 +66,8 @@ def launch_live_coding(
     archive_dir="archive",
 ):
     try:
+        sys.path[0] = str(Path(filename).absolute().parent)
+
         import py5
 
         from .syncing import LIVE_CODING_FILE, SyncDraw, init_namespace
