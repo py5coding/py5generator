@@ -193,7 +193,7 @@ def process_user_functions(
 
     user_supplied_draw = "draw" in functions
 
-    for fname in ["setup", "draw", "key_typed"]:
+    for fname in ["settings", "setup", "draw", "key_typed"]:
         # the key_typed one is only needed if activate_keyboard_shortcuts is True
         if fname == "key_typed" and not activate_keyboard_shortcuts:
             continue
