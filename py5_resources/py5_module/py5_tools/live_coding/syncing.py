@@ -26,6 +26,8 @@ from pathlib import Path
 
 import stackprinter
 
+from .import_hook import activate_py5_live_coding_import_hook
+
 LIVE_CODING_FILE = 1
 LIVE_CODING_GLOBALS = 2
 
@@ -252,8 +254,12 @@ class SyncDraw:
                 ),
                 default=0,
             )
+            self.import_hook = activate_py5_live_coding_import_hook(
+                self.filename.parent.absolute()
+            )
         else:
             self.getmtime = os.path.getmtime
+            self.import_hook = None
 
         self.startup = True
         self.update_count = 0
@@ -431,6 +437,9 @@ class SyncDraw:
                 or force_update
             ):
                 self.mtime = new_mtime
+
+                if self.import_hook is not None:
+                    self.import_hook.flush_imported_modules()
 
                 self.functions, self.function_param_counts, self.user_supplied_draw = (
                     exec_user_code(
