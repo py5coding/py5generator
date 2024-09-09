@@ -20,7 +20,7 @@
 import argparse
 from pathlib import Path
 
-from py5_tools.live_coding import launch_live_coding
+from py5_tools.live_coding.standard_launcher import launch_live_coding
 
 parser = argparse.ArgumentParser(description="Live coding for module mode py5 sketches")
 parser.add_argument(action="store", dest="sketch_path", help="path to py5 sketch")
