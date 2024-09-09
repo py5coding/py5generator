@@ -19,4 +19,15 @@
 # *****************************************************************************
 from .controller import archive_code, backup, get_update_count, screenshot
 from .notebook_launcher import activate_live_coding
-from .standard_launcher import launch_live_coding
+
+__all__ = [
+    "activate_live_coding",
+    "screenshot",
+    "archive_code",
+    "backup",
+    "get_update_count",
+]
+
+
+def __dir__():
+    return __all__
