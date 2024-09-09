@@ -17,7 +17,7 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from .controller import archive_code, backup, get_update_count, screenshot
+from .controls import archive_code, backup, get_update_count, screenshot
 from .notebook_launcher import activate_live_coding
 
 __all__ = [
