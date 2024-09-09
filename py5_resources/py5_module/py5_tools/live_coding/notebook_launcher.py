@@ -42,11 +42,13 @@ class PostExecuteCallback:
 
 
 def activate_live_coding(
-    always_rerun_setup=True,
-    always_on_top=True,
-    activate_keyboard_shortcuts=False,
-    archive_dir="archive",
+    *,
+    always_rerun_setup: bool = True,
+    always_on_top: bool = True,
+    activate_keyboard_shortcuts: bool = False,
+    archive_dir: str = "archive",
 ):
+    """$module_Py5Tools_live_coding_activate_live_coding"""
     global post_execute_callback
 
     import py5

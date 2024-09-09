@@ -27,6 +27,7 @@ def _get_sketch_and_sync_draw():
 
 
 def screenshot(screenshot_name: str = None):
+    """$module_Py5Tools_live_coding_screenshot"""
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
     if sketch.is_running and sync_draw is not None:
@@ -34,6 +35,7 @@ def screenshot(screenshot_name: str = None):
 
 
 def archive_code(archive_name: str = None):
+    """$module_Py5Tools_live_coding_archive_code"""
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
     if sketch.is_running and sync_draw is not None:
@@ -41,11 +43,13 @@ def archive_code(archive_name: str = None):
 
 
 def backup(backup_name: str = None):
+    """$module_Py5Tools_live_coding_backup"""
     screenshot(screenshot_name=backup_name)
     archive_code(archive_name=backup_name)
 
 
-def get_update_count():
+def get_update_count() -> int:
+    """$module_Py5Tools_live_coding_get_update_count"""
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
     if sketch.is_running and sync_draw is not None:
