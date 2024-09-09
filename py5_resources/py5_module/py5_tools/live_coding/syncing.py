@@ -250,7 +250,9 @@ class SyncDraw:
                 (
                     os.path.getmtime(ff)
                     for ff in f.parent.glob("**/*")
-                    if ff.is_file() and not is_subdirectory(self.archive_dir, ff)
+                    if ff.is_file()
+                    and not is_subdirectory(self.archive_dir, ff)
+                    and not ff.suffix == ".pyc"
                 ),
                 default=0,
             )
