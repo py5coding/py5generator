@@ -297,7 +297,7 @@ class SyncDraw:
 
     def pre_draw_hook(self, s):
         if self.run_setup_again:
-            s._instance._resetSketch()
+            s._instance._resetSyncSketch()
             # in case user doesn't call background in setup
             s.background(204)
             self.functions["setup"]()
