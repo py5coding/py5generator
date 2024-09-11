@@ -318,7 +318,7 @@ EXTRA_METHOD_SIGNATURES = {
             "None",
         )
     ],
-    ("Py5Tools", "live_coding.backup"): [
+    ("Py5Tools", "live_coding_backup"): [
         (
             [
                 "backup_name: str = None",
