@@ -11,6 +11,8 @@ live_coding_archive_code(archive_name: str = None) -> None
 archive_name: str = None - name of file for code archive
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Create a copy of the current code. The code archive will be saved to the archive directory. By default, this is an `archive` subdirectory under the Sketch code's current working directory.
 
-Will add zip or py suffix if `archive_name` does not have one.
+This function will not work if the live coding feature is being used in a Jupyter Notebook. If live coding is watching the directory for changes, the code archive will be a zip file. Otherwise, it will be a regular Python file. The appropriate filename suffix will be set if `archive_name` does not already have it. It won't overwrite an existing file if the file it tries to write to already exists.
+
+Look at the online ["Live Coding"](/content/live_coding) documentation to learn more.

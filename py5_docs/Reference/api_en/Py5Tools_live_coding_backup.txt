@@ -11,4 +11,8 @@ live_coding_backup(backup_name: str = None) -> None
 backup_name: str = None - name of file for screenshot and code archive
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Create a screenshot of the current Sketch window and a copy of the current code. This function combines the functionality of [](py5tools_live_coding_screenshot) and [](py5tools_live_coding_archive_code). Everything will be saved to the archive directory. By default, this is an `archive` subdirectory under the Sketch code's current working directory.
+
+See the documentation for [](py5tools_live_coding_screenshot) and [](py5tools_live_coding_archive_code) for more information about each feature.
+
+Look at the online ["Live Coding"](/content/live_coding) documentation to learn more.

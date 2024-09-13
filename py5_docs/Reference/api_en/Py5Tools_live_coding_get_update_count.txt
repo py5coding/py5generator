@@ -8,4 +8,6 @@ subcategory = None
 live_coding_get_update_count() -> int
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Return the number of times the live code has been updated. This starts at zero and increments by one each time py5's live coding system updates the code. If you exit a Sketch that uses py5's live coding functionality and restart it, the counter resets to zero. The purpose of this function is to provide people using the live coding feature with a value that changes from one code version to the next. This isn't otherwise possible because the live coding feature will reset the global namespace each time the code is updated.
+
+Look at the online ["Live Coding"](/content/live_coding) documentation to learn more.

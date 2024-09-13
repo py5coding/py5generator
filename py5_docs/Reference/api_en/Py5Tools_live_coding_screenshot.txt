@@ -11,6 +11,8 @@ live_coding_screenshot(screenshot_name: str = None) -> None
 screenshot_name: str = None - name of file for screenshot
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Create a screenshot of the current Sketch window. The screenshot image will be saved to the archive directory. By default, this is an `archive` subdirectory under the Sketch code's current working directory.
 
-Will add png suffix if `screenshot_name` does not have one.
+This function will save PNG images and set the appropriate filename suffix if `screenshot_name` does not have one. It won't overwrite an existing file if the file it tries to write to already exists.
+
+Look at the online ["Live Coding"](/content/live_coding) documentation to learn more.
