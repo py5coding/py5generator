@@ -8,7 +8,9 @@ subcategory = None
 live_coding_archive_code(archive_name: str = None) -> None
 
 @@ variables
-archive_name: str = None - missing variable description
+archive_name: str = None - name of file for code archive
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+
+Will add zip or py suffix if `archive_name` does not have one.

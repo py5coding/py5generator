@@ -8,7 +8,7 @@ subcategory = None
 live_coding_backup(backup_name: str = None) -> None
 
 @@ variables
-backup_name: str = None - missing variable description
+backup_name: str = None - name of file for screenshot and code archive
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.

@@ -8,7 +8,9 @@ subcategory = None
 live_coding_screenshot(screenshot_name: str = None) -> None
 
 @@ variables
-screenshot_name: str = None - missing variable description
+screenshot_name: str = None - name of file for screenshot
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+
+Will add png suffix if `screenshot_name` does not have one.

@@ -8,10 +8,10 @@ subcategory = None
 live_coding_activate_live_coding(*, always_rerun_setup: bool = True, always_on_top: bool = True, activate_keyboard_shortcuts: bool = False, archive_dir: str = 'archive') -> None
 
 @@ variables
-activate_keyboard_shortcuts: bool = False - missing variable description
-always_on_top: bool = True - missing variable description
-always_rerun_setup: bool = True - missing variable description
-archive_dir: str = 'archive' - missing variable description
+activate_keyboard_shortcuts: bool = False - activate keyboard shortcuts for creating screenshots and code archives
+always_on_top: bool = True - keep Sketch window on top of other windows
+always_rerun_setup: bool = True - always rerun setup() function when updating code
+archive_dir: str = 'archive' - directory to save screenshots and code archives
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
