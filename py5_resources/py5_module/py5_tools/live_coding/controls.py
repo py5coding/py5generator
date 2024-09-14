@@ -63,8 +63,8 @@ def snapshot(snapshot_name: str = None):
         copy_code(copy_name=snapshot_name)
 
 
-def update_count() -> int:
-    """$module_Py5Tools_live_coding_update_count"""
+def count() -> int:
+    """$module_Py5Tools_live_coding_count"""
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
     if sketch.is_running and sync_draw is not None:

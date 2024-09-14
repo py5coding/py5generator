@@ -15,5 +15,5 @@ register_processing_mode_key,,,function,processing_mode,,PYTHON,processing mode
 live_coding_screenshot,,,function,live_coding,,PYTHON,live_coding
 live_coding_copy_code,,,function,live_coding,,PYTHON,live_coding
 live_coding_snapshot,,,function,live_coding,,PYTHON,live_coding
-live_coding_update_count,,,function,live_coding,,PYTHON,live_coding
+live_coding_count,,,function,live_coding,,PYTHON,live_coding
 live_coding_activate,,,function,live_coding,,PYTHON,live_coding

@@ -1,11 +1,11 @@
 @@ meta
-name = live_coding.update_count()
+name = live_coding.count()
 type = function
 category = live_coding
 subcategory = None
 
 @@ signatures
-live_coding_update_count() -> int
+live_coding_count() -> int
 
 @@ description
 Return the number of times the live code has been updated. This starts at zero and increments by one each time py5's live coding system updates the code. If you exit a Sketch that uses py5's live coding functionality and restart it, the counter resets to zero. The purpose of this function is to provide people using the live coding feature with a value that changes from one version to the next. This isn't otherwise possible because the live coding feature will reset the global namespace each time the code is updated.
@@ -19,6 +19,6 @@ Look at the online ["Live Coding"](/content/live_coding) documentation to learn 
 @@ example
 import py5_tools
 
-count = py5_tools.live_coding.update_count()
-py5_tools.live_coding.screenshot(f"version_%H%M%S")
-py5_tools.live_coding.copy_code(f"version_%H%M%S")
+count = py5_tools.live_coding.count()
+py5_tools.live_coding.screenshot(f"version_{count}")
+py5_tools.live_coding.copy_code(f"version_{count}")
