@@ -34,11 +34,8 @@ def screenshot(screenshot_name: str = None):
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
     if sketch.is_running and sync_draw is not None:
-        if screenshot_name:
-            now = dt.datetime.now()
-            screenshot_name = now.strftime(screenshot_name)
-        else:
-            screenshot_name = f"screenshot_{sync_draw.update_count}"
+        screenshot_name = screenshot_name or "screenshot_%Y%m%d_%H%M%S"
+        screenshot_name = dt.datetime.now().strftime(screenshot_name)
 
         sync_draw.take_screenshot(sketch, screenshot_name)
 
@@ -48,11 +45,8 @@ def archive_code(archive_name: str = None):
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
     if sketch.is_running and sync_draw is not None:
-        if archive_name:
-            now = dt.datetime.now()
-            archive_name = now.strftime(archive_name)
-        else:
-            archive_name = f"archive_{sync_draw.update_count}"
+        archive_name = archive_name or "archive_%Y%m%d_%H%M%S"
+        archive_name = dt.datetime.now().strftime(archive_name)
 
         sync_draw.archive_code(sketch, archive_name)
 
@@ -62,11 +56,8 @@ def snapshot(snapshot_name: str = None):
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
     if sketch.is_running and sync_draw is not None:
-        if snapshot_name:
-            now = dt.datetime.now()
-            snapshot_name = now.strftime(snapshot_name)
-        else:
-            snapshot_name = f"snapshot_{sync_draw.update_count}"
+        snapshot_name = snapshot_name or "snapshot_%Y%m%d_%H%M%S"
+        snapshot_name = dt.datetime.now().strftime(snapshot_name)
 
         screenshot(screenshot_name=snapshot_name)
         archive_code(archive_name=snapshot_name)
