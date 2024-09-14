@@ -15,6 +15,10 @@ Create a screenshot of the current Sketch window. The screenshot image will be s
 
 This function will save PNG images and set the appropriate filename suffix if `screenshot_name` does not have one. It won't overwrite an existing file if the file it tries to write to already exists.
 
+A suggested use case for this is to put the function calls in your code but leave them commented out. When you have working code that you want to create a screenshot for but don't want to pause to do that manually, simply uncomment the code and save the file. A screenshot will then be created for you in the `archive` subdirectory.
+
+This function will do nothing when not running through py5's live coding feature.
+
 Look at the online ["Live Coding"](/content/live_coding) documentation to learn more.
 
 @@ example
