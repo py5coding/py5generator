@@ -327,6 +327,7 @@ class SyncDraw:
         if s.key in "AS":
             self.take_screenshot(s, f"screenshot_{datestr}.png")
         if s.key in "AB":
+            # TODO: make this consistent
             self.copy_code(s, f"{self.filename.stem}_{datestr}")
 
     ######################################################################
@@ -375,7 +376,11 @@ class SyncDraw:
 
             with zipfile.ZipFile(copy_filename, "w", zipfile.ZIP_DEFLATED) as zf:
                 for ff in self.filename.parent.glob("**/*"):
-                    if ff.is_file() and not is_subdirectory(self.archive_dir, ff):
+                    if (
+                        ff.is_file()
+                        and not is_subdirectory(self.archive_dir, ff)
+                        and not ff.suffix == ".pyc"
+                    ):
                         zf.write(ff, ff.relative_to(self.filename.parent))
         else:
             copy_filename = copy_filename.with_suffix(".py")
