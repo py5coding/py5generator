@@ -17,6 +17,9 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+import datetime as dt
+
+
 def _get_sketch_and_sync_draw():
     import py5
 
@@ -31,7 +34,12 @@ def screenshot(screenshot_name: str = None):
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
     if sketch.is_running and sync_draw is not None:
-        screenshot_name = screenshot_name or f"screenshot_{sync_draw.update_count}"
+        if screenshot_name:
+            now = dt.datetime.now()
+            screenshot_name = now.strftime(screenshot_name)
+        else:
+            screenshot_name = f"screenshot_{sync_draw.update_count}"
+
         sync_draw.take_screenshot(sketch, screenshot_name)
 
 
@@ -40,7 +48,12 @@ def archive_code(archive_name: str = None):
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
     if sketch.is_running and sync_draw is not None:
-        archive_name = archive_name or f"archive_{sync_draw.update_count}"
+        if archive_name:
+            now = dt.datetime.now()
+            archive_name = now.strftime(archive_name)
+        else:
+            archive_name = f"archive_{sync_draw.update_count}"
+
         sync_draw.archive_code(sketch, archive_name)
 
 
@@ -49,7 +62,12 @@ def snapshot(snapshot_name: str = None):
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
     if sketch.is_running and sync_draw is not None:
-        snapshot_name = snapshot_name or f"snapshot_{sync_draw.update_count}"
+        if snapshot_name:
+            now = dt.datetime.now()
+            snapshot_name = now.strftime(snapshot_name)
+        else:
+            snapshot_name = f"snapshot_{sync_draw.update_count}"
+
         screenshot(screenshot_name=snapshot_name)
         archive_code(archive_name=snapshot_name)
 
