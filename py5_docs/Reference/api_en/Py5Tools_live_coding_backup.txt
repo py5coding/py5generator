@@ -16,3 +16,9 @@ Create a screenshot of the current Sketch window and a copy of the current code.
 See the documentation for [](py5tools_live_coding_screenshot) and [](py5tools_live_coding_archive_code) for more information about each feature.
 
 Look at the online ["Live Coding"](/content/live_coding) documentation to learn more.
+
+@@ example
+import py5_tools
+
+update_count = py5_tools.live_coding.get_update_count()
+py5_tools.live_coding.backup(f"version_{update_count}")

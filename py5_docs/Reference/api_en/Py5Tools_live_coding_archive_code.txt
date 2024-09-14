@@ -16,3 +16,10 @@ Create a copy of the current code. The code archive will be saved to the archive
 This function will not work if the live coding feature is being used in a Jupyter Notebook. If live coding is watching the directory for changes, the code archive will be a zip file. Otherwise, it will be a regular Python file. The appropriate filename suffix will be set if `archive_name` does not already have it. It won't overwrite an existing file if the file it tries to write to already exists.
 
 Look at the online ["Live Coding"](/content/live_coding) documentation to learn more.
+
+@@ example
+import py5_tools
+
+update_count = py5_tools.live_coding.get_update_count()
+py5_tools.live_coding.screenshot(f"version_{update_count}")
+py5_tools.live_coding.archive_code(f"version_{update_count}")
