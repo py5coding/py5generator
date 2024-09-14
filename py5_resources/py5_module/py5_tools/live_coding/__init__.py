@@ -17,14 +17,14 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from .controls import archive_code, get_count, screenshot, snapshot
+from .controls import copy_code, screenshot, snapshot, update_count
 from .notebook_launcher import activate
 
 __all__ = [
-    "archive_code",
-    "get_count",
+    "copy_code",
     "screenshot",
     "snapshot",
+    "update_count",
     "activate",
 ]
 

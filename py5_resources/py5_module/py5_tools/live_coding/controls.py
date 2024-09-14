@@ -40,15 +40,15 @@ def screenshot(screenshot_name: str = None):
         sync_draw.take_screenshot(sketch, screenshot_name)
 
 
-def archive_code(archive_name: str = None):
-    """$module_Py5Tools_live_coding_archive_code"""
+def copy_code(copy_name: str = None):
+    """$module_Py5Tools_live_coding_copy_code"""
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
     if sketch.is_running and sync_draw is not None:
-        archive_name = archive_name or "archive_%Y%m%d_%H%M%S"
-        archive_name = dt.datetime.now().strftime(archive_name)
+        copy_name = copy_name or "copy_%Y%m%d_%H%M%S"
+        copy_name = dt.datetime.now().strftime(copy_name)
 
-        sync_draw.archive_code(sketch, archive_name)
+        sync_draw.copy_code(sketch, copy_name)
 
 
 def snapshot(snapshot_name: str = None):
@@ -60,11 +60,11 @@ def snapshot(snapshot_name: str = None):
         snapshot_name = dt.datetime.now().strftime(snapshot_name)
 
         screenshot(screenshot_name=snapshot_name)
-        archive_code(archive_name=snapshot_name)
+        copy_code(copy_name=snapshot_name)
 
 
-def get_count() -> int:
-    """$module_Py5Tools_live_coding_get_count"""
+def update_count() -> int:
+    """$module_Py5Tools_live_coding_update_count"""
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
     if sketch.is_running and sync_draw is not None:

@@ -310,10 +310,10 @@ EXTRA_METHOD_SIGNATURES = {
             "None",
         )
     ],
-    ("Py5Tools", "live_coding_archive_code"): [
+    ("Py5Tools", "live_coding_copy_code"): [
         (
             [
-                "archive_name: str = None",
+                "copy_name: str = None",
             ],
             "None",
         )
@@ -326,7 +326,7 @@ EXTRA_METHOD_SIGNATURES = {
             "None",
         )
     ],
-    ("Py5Tools", "live_coding_get_count"): [
+    ("Py5Tools", "live_coding_update_count"): [
         (
             [],
             "int",

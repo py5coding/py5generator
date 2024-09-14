@@ -327,7 +327,7 @@ class SyncDraw:
         if s.key in "AS":
             self.take_screenshot(s, f"screenshot_{datestr}.png")
         if s.key in "AB":
-            self.archive_code(s, f"{self.filename.stem}_{datestr}")
+            self.copy_code(s, f"{self.filename.stem}_{datestr}")
 
     ######################################################################
     # ARCHIVE METHODS
@@ -353,43 +353,43 @@ class SyncDraw:
         s.save_frame(screenshot_filename)
         s.println(f"Screenshot saved to {screenshot_filename}")
 
-    def archive_code(self, s, archive_name: str):
+    def copy_code(self, s, copy_name: str):
         if self.live_coding_mode & LIVE_CODING_GLOBALS:
-            s.println(f"Skipping code archive because code is not in a *.py file")
+            s.println(f"Skipping code copying because code is not in a *.py file")
             return
 
         if UserFunctionWrapper.exception_state:
-            s.println(f"Skipping code archive due to error state")
+            s.println(f"Skipping code copying due to error state")
             return
 
         self.archive_dir.mkdir(exist_ok=True)
-        archive_filename = self.archive_dir / archive_name
+        copy_filename = self.archive_dir / copy_name
 
         if self.watch_dir:
-            archive_filename = archive_filename.with_suffix(".zip")
-            if archive_filename.exists():
+            copy_filename = copy_filename.with_suffix(".zip")
+            if copy_filename.exists():
                 s.println(
-                    f"Skipping code archive because {archive_filename} already exists"
+                    f"Skipping code copying because {copy_filename} already exists"
                 )
                 return
 
-            with zipfile.ZipFile(archive_filename, "w", zipfile.ZIP_DEFLATED) as zf:
+            with zipfile.ZipFile(copy_filename, "w", zipfile.ZIP_DEFLATED) as zf:
                 for ff in self.filename.parent.glob("**/*"):
                     if ff.is_file() and not is_subdirectory(self.archive_dir, ff):
                         zf.write(ff, ff.relative_to(self.filename.parent))
         else:
-            archive_filename = archive_filename.with_suffix(".py")
-            if archive_filename.exists():
+            copy_filename = copy_filename.with_suffix(".py")
+            if copy_filename.exists():
                 s.println(
-                    f"Skipping code archive because {archive_filename} already exists"
+                    f"Skipping code copying because {copy_filename} already exists"
                 )
                 return
 
             with open(self.filename, "r") as f:
-                with open(archive_filename, "w") as f2:
+                with open(copy_filename, "w") as f2:
                     f2.write(f.read())
 
-        s.println(f"Code archived to {archive_filename}")
+        s.println(f"Code copied to {copy_filename}")
 
     ######################################################################
     # CODE PROCESSING METHODS
