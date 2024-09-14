@@ -24,4 +24,4 @@ Look at the online ["Live Coding"](/content/live_coding) documentation to learn 
 @@ example
 import py5_tools
 
-py5_tools.live_coding.snapshot(f"version_%H%M%S")
+py5_tools.live_coding.snapshot("version_%H%M%S")
