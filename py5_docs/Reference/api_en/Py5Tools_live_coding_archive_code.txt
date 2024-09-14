@@ -24,6 +24,6 @@ Look at the online ["Live Coding"](/content/live_coding) documentation to learn 
 @@ example
 import py5_tools
 
-update_count = py5_tools.live_coding.get_update_count()
-py5_tools.live_coding.screenshot(f"version_{update_count}")
-py5_tools.live_coding.archive_code(f"version_{update_count}")
+count = py5_tools.live_coding.get_count()
+py5_tools.live_coding.screenshot(f"version_{count}")
+py5_tools.live_coding.archive_code(f"version_{count}")

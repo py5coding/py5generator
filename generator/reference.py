@@ -326,7 +326,7 @@ EXTRA_METHOD_SIGNATURES = {
             "None",
         )
     ],
-    ("Py5Tools", "live_coding_get_update_count"): [
+    ("Py5Tools", "live_coding_get_count"): [
         (
             [],
             "int",
