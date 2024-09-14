@@ -318,10 +318,10 @@ EXTRA_METHOD_SIGNATURES = {
             "None",
         )
     ],
-    ("Py5Tools", "live_coding_backup"): [
+    ("Py5Tools", "live_coding_snapshot"): [
         (
             [
-                "backup_name: str = None",
+                "snapshot_name: str = None",
             ],
             "None",
         )
@@ -332,7 +332,7 @@ EXTRA_METHOD_SIGNATURES = {
             "int",
         )
     ],
-    ("Py5Tools", "live_coding_activate_live_coding"): [
+    ("Py5Tools", "live_coding_activate"): [
         (
             [
                 "*",

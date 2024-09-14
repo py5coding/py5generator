@@ -14,6 +14,6 @@ offline_frame_processing,,,function,sketch_hooks,,PYTHON,hooks
 register_processing_mode_key,,,function,processing_mode,,PYTHON,processing mode
 live_coding_screenshot,,,function,live_coding,,PYTHON,live_coding
 live_coding_archive_code,,,function,live_coding,,PYTHON,live_coding
-live_coding_backup,,,function,live_coding,,PYTHON,live_coding
+live_coding_snapshot,,,function,live_coding,,PYTHON,live_coding
 live_coding_get_update_count,,,function,live_coding,,PYTHON,live_coding
-live_coding_activate_live_coding,,,function,live_coding,,PYTHON,live_coding
+live_coding_activate,,,function,live_coding,,PYTHON,live_coding

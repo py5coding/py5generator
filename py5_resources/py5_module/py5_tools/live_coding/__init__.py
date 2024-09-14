@@ -17,15 +17,15 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from .controls import archive_code, backup, get_update_count, screenshot
-from .notebook_launcher import activate_live_coding
+from .controls import archive_code, get_update_count, screenshot, snapshot
+from .notebook_launcher import activate
 
 __all__ = [
-    "activate_live_coding",
-    "screenshot",
     "archive_code",
-    "backup",
     "get_update_count",
+    "screenshot",
+    "snapshot",
+    "activate",
 ]
 
 

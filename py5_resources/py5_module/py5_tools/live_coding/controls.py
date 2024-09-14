@@ -30,6 +30,8 @@ def screenshot(screenshot_name: str = None):
     """$module_Py5Tools_live_coding_screenshot"""
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
+    # TODO: need a default name, don't pass None
+
     if sketch.is_running and sync_draw is not None:
         sync_draw.take_screenshot(sketch, screenshot_name)
 
@@ -38,14 +40,19 @@ def archive_code(archive_name: str = None):
     """$module_Py5Tools_live_coding_archive_code"""
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
+    # TODO: need a default name, don't pass None
+
     if sketch.is_running and sync_draw is not None:
         sync_draw.archive_code(sketch, archive_name)
 
 
-def backup(backup_name: str = None):
-    """$module_Py5Tools_live_coding_backup"""
-    screenshot(screenshot_name=backup_name)
-    archive_code(archive_name=backup_name)
+def snapshot(snapshot_name: str = None):
+    """$module_Py5Tools_live_coding_snapshot"""
+
+    # TODO: need a default name, don't pass None
+
+    screenshot(screenshot_name=snapshot_name)
+    archive_code(archive_name=snapshot_name)
 
 
 def get_update_count() -> int:
