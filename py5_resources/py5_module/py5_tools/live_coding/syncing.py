@@ -321,14 +321,15 @@ class SyncDraw:
 
     def pre_key_typed_hook(self, s):
         datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
+        name = f"{self.filename.stem}_{datestr}"
 
+        # TODO: pick better letters
         if s.key == "R":
             self.run_setup_again = True
         if s.key in "AS":
-            self.take_screenshot(s, f"screenshot_{datestr}.png")
+            self.take_screenshot(s, name)
         if s.key in "AB":
-            # TODO: make this consistent
-            self.copy_code(s, f"{self.filename.stem}_{datestr}")
+            self.copy_code(s, name)
 
     ######################################################################
     # ARCHIVE METHODS
