@@ -334,6 +334,9 @@ class SyncDraw:
     # ARCHIVE METHODS
     ######################################################################
 
+    def get_filename_stem(self):
+        return self.filename.stem if self.filename else None
+
     def take_screenshot(self, s, screenshot_name: str):
         if UserFunctionWrapper.exception_state:
             s.println(f"Skipping screenshot due to error state")

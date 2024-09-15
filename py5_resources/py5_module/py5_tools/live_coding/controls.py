@@ -34,8 +34,9 @@ def screenshot(screenshot_name: str = None):
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
     if sketch.is_running and sync_draw is not None:
+        stem = sync_draw.get_filename_stem() or "screenshot"
         screenshot_name = dt.datetime.now().strftime(
-            screenshot_name or f"{sync_draw.filename.stem}_%Y%m%d_%H%M%S"
+            screenshot_name or f"{stem}_%Y%m%d_%H%M%S"
         )
 
         sync_draw.take_screenshot(sketch, screenshot_name)
@@ -46,9 +47,10 @@ def copy_code(copy_name: str = None):
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
     if sketch.is_running and sync_draw is not None:
-        copy_name = dt.datetime.now().strftime(
-            copy_name or f"{sync_draw.filename.stem}_%Y%m%d_%H%M%S"
-        )
+        # if sync_draw.get_filename_stem() is None, the Sketch is running
+        # through a notebook and sync_draw will decline to copy the code
+        stem = sync_draw.get_filename_stem() or "copy"
+        copy_name = dt.datetime.now().strftime(copy_name or f"{stem}_%Y%m%d_%H%M%S")
 
         sync_draw.copy_code(sketch, copy_name)
 
@@ -58,8 +60,11 @@ def snapshot(snapshot_name: str = None):
     sketch, sync_draw = _get_sketch_and_sync_draw()
 
     if sketch.is_running and sync_draw is not None:
+        # if sync_draw.get_filename_stem() is None, the Sketch is running
+        # through a notebook and sync_draw will decline to copy the code
+        stem = sync_draw.get_filename_stem() or "snapshot"
         snapshot_name = dt.datetime.now().strftime(
-            snapshot_name or f"{sync_draw.filename.stem}_%Y%m%d_%H%M%S"
+            snapshot_name or f"{stem}_%Y%m%d_%H%M%S"
         )
 
         screenshot(screenshot_name=snapshot_name)
