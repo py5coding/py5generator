@@ -71,14 +71,14 @@ class Py5RunSketchBlockException(Exception):
 class UserFunctionWrapper:
     exception_state = False
 
-    def __new__(self, sketch, name, f, param_count):
+    def __new__(self, sketch, fname, f, param_count):
         ufw = object.__new__(
             UserFunctionWrapperOneParam
             if param_count == 1
             else UserFunctionWrapperZeroParams
         )
         ufw.sketch = sketch
-        ufw.name = name
+        ufw.fname = fname
         ufw.f = f
         return ufw
 
@@ -205,8 +205,10 @@ def process_user_functions(
             function_param_counts[fname] = 0
 
     functions = {
-        name: UserFunctionWrapper(sketch, name, f, function_param_counts.get(name, 0))
-        for name, f in functions.items()
+        fname: UserFunctionWrapper(
+            sketch, fname, f, function_param_counts.get(fname, 0)
+        )
+        for fname, f in functions.items()
     }
 
     return functions, function_param_counts, user_supplied_draw
