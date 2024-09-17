@@ -252,7 +252,7 @@ class SyncDraw:
                     for ff in f.parent.glob("**/*")
                     if ff.is_file()
                     and not is_subdirectory(self.archive_dir, ff)
-                    and not ff.suffix == ".pyc"
+                    and not ff.suffix in [".pyc", ".class", ".lst"]
                 ),
                 default=0,
             )
@@ -382,7 +382,7 @@ class SyncDraw:
                     if (
                         ff.is_file()
                         and not is_subdirectory(self.archive_dir, ff)
-                        and not ff.suffix == ".pyc"
+                        and not ff.suffix in [".pyc", ".class", ".lst"]
                     ):
                         zf.write(ff, ff.relative_to(self.filename.parent))
         else:
