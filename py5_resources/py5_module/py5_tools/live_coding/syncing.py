@@ -64,12 +64,26 @@ class Py5RunSketchBlockException(Exception):
 
 
 ######################################################################
+# MOCK LOOP AND NO_LOOP METHODS
+######################################################################
+
+
+def mock_loop():
+    UserFunctionWrapper.looping_state = True
+
+
+def mock_no_loop():
+    UserFunctionWrapper.looping_state = False
+
+
+######################################################################
 # USER FUNCTION WRAPPERS
 ######################################################################
 
 
 class UserFunctionWrapper:
     exception_state = False
+    looping_state = True
 
     def __new__(self, sketch, fname, f, param_count):
         ufw = object.__new__(
@@ -86,7 +100,11 @@ class UserFunctionWrapper:
         import py5.bridge as py5_bridge
 
         try:
-            if self.f is not None and not UserFunctionWrapper.exception_state:
+            if (
+                self.f is not None
+                and not UserFunctionWrapper.exception_state
+                and (self.fname != "draw" or UserFunctionWrapper.looping_state)
+            ):
                 self.f(*args)
         except Exception as e:
             UserFunctionWrapper.exception_state = True
@@ -289,6 +307,10 @@ class SyncDraw:
         s._add_post_hook("setup", "sync_post_setup", self.post_setup_hook)
         s._add_post_hook("draw", "sync_post_draw", self.post_draw_hook)
 
+        # replace loop and no_loop methods with mock versions
+        s.loop = mock_loop
+        s.no_loop = mock_no_loop
+
     def pre_setup_hook(self, s):
         if self.always_on_top:
             s.get_surface().set_always_on_top(True)
@@ -300,6 +322,7 @@ class SyncDraw:
     def pre_draw_hook(self, s):
         if self.run_setup_again:
             s._instance._resetSyncSketch()
+            UserFunctionWrapper.looping_state = True
             # in case user doesn't call background in setup
             s.background(204)
             self.functions["setup"]()
