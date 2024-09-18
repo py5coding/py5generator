@@ -31,6 +31,9 @@ from .import_hook import activate_py5_live_coding_import_hook
 LIVE_CODING_FILE = 1
 LIVE_CODING_GLOBALS = 2
 
+ANIMATION_LOOPING = 1
+ANIMATION_NO_LOOPING = 2
+ANIMATION_REDRAW = 4
 
 ######################################################################
 # HELPER FUNCTIONS
@@ -69,11 +72,15 @@ class Py5RunSketchBlockException(Exception):
 
 
 def mock_loop():
-    UserFunctionWrapper.looping_state = True
+    UserFunctionWrapper.looping_state = ANIMATION_LOOPING
 
 
 def mock_no_loop():
-    UserFunctionWrapper.looping_state = False
+    UserFunctionWrapper.looping_state = ANIMATION_NO_LOOPING
+
+
+def mock_redraw():
+    UserFunctionWrapper.looping_state = ANIMATION_REDRAW
 
 
 ######################################################################
@@ -83,7 +90,7 @@ def mock_no_loop():
 
 class UserFunctionWrapper:
     exception_state = False
-    looping_state = True
+    looping_state = ANIMATION_LOOPING
 
     def __new__(self, sketch, fname, f, param_count):
         ufw = object.__new__(
@@ -103,7 +110,11 @@ class UserFunctionWrapper:
             if (
                 self.f is not None
                 and not UserFunctionWrapper.exception_state
-                and (self.fname != "draw" or UserFunctionWrapper.looping_state)
+                and (
+                    self.fname != "draw"
+                    or UserFunctionWrapper.looping_state
+                    & (ANIMATION_LOOPING | ANIMATION_REDRAW)
+                )
             ):
                 self.f(*args)
         except Exception as e:
@@ -322,7 +333,7 @@ class SyncDraw:
     def pre_draw_hook(self, s):
         if self.run_setup_again:
             s._instance._resetSyncSketch()
-            UserFunctionWrapper.looping_state = True
+            UserFunctionWrapper.looping_state = ANIMATION_LOOPING
             # in case user doesn't call background in setup
             s.background(204)
             self.functions["setup"]()
@@ -343,6 +354,9 @@ class SyncDraw:
 
         if self.live_coding_mode & LIVE_CODING_FILE:
             self.keep_functions_current_from_file(s)
+
+        if UserFunctionWrapper.looping_state & ANIMATION_REDRAW:
+            UserFunctionWrapper.looping_state = ANIMATION_NO_LOOPING
 
     def pre_key_typed_hook(self, s):
         datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
