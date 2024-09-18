@@ -25,6 +25,7 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PMatrix2D;
 import processing.core.PShape;
+import processing.core.PStyle;
 import processing.core.PSurface;
 import processing.event.Event;
 import processing.event.KeyEvent;
@@ -35,7 +36,7 @@ import py5.util.KeyEventUtilities;
 import py5.util.OpenSimplex2S;
 
 public class Sketch extends SketchBase {
-  
+
   protected boolean success;
   protected String py5IconPath;
   protected int[] pixelCapture;
@@ -43,6 +44,7 @@ public class Sketch extends SketchBase {
   public Integer lastWindowX;
   public Integer lastWindowY;
   protected PreDrawUpdateRunner preDrawUpdateRunner;
+  protected PStyle savedStyle;
 
   public static final char CODED = PApplet.CODED;
 
@@ -118,9 +120,12 @@ public class Sketch extends SketchBase {
     return (int) (System.currentTimeMillis() - millisOffset);
   }
 
-  public void _resetSketch() {
+  public void _resetSyncSketch() {
     millisOffset = System.currentTimeMillis();
     frameCount = 0;
+    if (savedStyle != null) {
+      style(savedStyle);
+    }
   }
 
   @Override
@@ -160,6 +165,9 @@ public class Sketch extends SketchBase {
         } catch (Exception e) {
         }
       }
+
+      // save for safe keeping
+      savedStyle = getGraphics().getStyle();
 
       if (py5RegisteredEvents.contains("setup")) {
         success = py5Bridge.run_method("setup");

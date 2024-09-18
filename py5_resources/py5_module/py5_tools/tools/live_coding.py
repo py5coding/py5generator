@@ -20,7 +20,7 @@
 import argparse
 from pathlib import Path
 
-from py5_tools.live_coding import launch_live_coding
+from py5_tools.live_coding.standard_launcher import launch_live_coding
 
 parser = argparse.ArgumentParser(description="Live coding for module mode py5 sketches")
 parser.add_argument(action="store", dest="sketch_path", help="path to py5 sketch")
@@ -49,6 +49,14 @@ parser.add_argument(
     help="show framerate",
 )
 parser.add_argument(
+    "-k",
+    "--activate-keyboard-shortcuts",
+    action="store_true",
+    default=False,
+    dest="activate_keyboard_shortcuts",
+    help="activate keyboard shortcuts",
+)
+parser.add_argument(
     "-s",
     "--not-always-rerun-setup",
     action="store_false",
@@ -57,7 +65,8 @@ parser.add_argument(
     help="don't always rerun setup function when file is updated",
 )
 parser.add_argument(
-    "-t" "--not-always-on-top",
+    "-t",
+    "--not-always-on-top",
     action="store_false",
     default=True,
     dest="always_on_top",
@@ -80,6 +89,7 @@ def main():
         always_rerun_setup=args.always_rerun_setup,
         always_on_top=args.always_on_top,
         show_framerate=args.show_framerate,
+        activate_keyboard_shortcuts=args.activate_keyboard_shortcuts,
         watch_dir=args.watch_dir,
         archive_dir=args.archive_dir,
     )

@@ -302,6 +302,48 @@ EXTRA_METHOD_SIGNATURES = {
             "None",
         )
     ],
+    ("Py5Tools", "live_coding_screenshot"): [
+        (
+            [
+                "screenshot_name: str = None",
+            ],
+            "None",
+        )
+    ],
+    ("Py5Tools", "live_coding_copy_code"): [
+        (
+            [
+                "copy_name: str = None",
+            ],
+            "None",
+        )
+    ],
+    ("Py5Tools", "live_coding_snapshot"): [
+        (
+            [
+                "snapshot_name: str = None",
+            ],
+            "None",
+        )
+    ],
+    ("Py5Tools", "live_coding_count"): [
+        (
+            [],
+            "int",
+        )
+    ],
+    ("Py5Tools", "live_coding_activate"): [
+        (
+            [
+                "*",
+                "always_rerun_setup: bool = True",
+                "always_on_top: bool = True",
+                "activate_keyboard_shortcuts: bool = False",
+                "archive_dir: str = 'archive'",
+            ],
+            "None",
+        )
+    ],
 }
 
 OPTIONAL_METHOD_SIGNATURES = {

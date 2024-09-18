@@ -26,9 +26,14 @@ from pathlib import Path
 
 import stackprinter
 
+from .import_hook import activate_py5_live_coding_import_hook
+
 LIVE_CODING_FILE = 1
 LIVE_CODING_GLOBALS = 2
 
+ANIMATION_LOOPING = 1
+ANIMATION_NO_LOOPING = 2
+ANIMATION_REDRAW = 4
 
 ######################################################################
 # HELPER FUNCTIONS
@@ -62,21 +67,39 @@ class Py5RunSketchBlockException(Exception):
 
 
 ######################################################################
+# MOCK LOOP AND NO_LOOP METHODS
+######################################################################
+
+
+def mock_loop():
+    UserFunctionWrapper.looping_state = ANIMATION_LOOPING
+
+
+def mock_no_loop():
+    UserFunctionWrapper.looping_state = ANIMATION_NO_LOOPING
+
+
+def mock_redraw():
+    UserFunctionWrapper.looping_state = ANIMATION_REDRAW
+
+
+######################################################################
 # USER FUNCTION WRAPPERS
 ######################################################################
 
 
 class UserFunctionWrapper:
     exception_state = False
+    looping_state = ANIMATION_LOOPING
 
-    def __new__(self, sketch, name, f, param_count):
+    def __new__(self, sketch, fname, f, param_count):
         ufw = object.__new__(
             UserFunctionWrapperOneParam
             if param_count == 1
             else UserFunctionWrapperZeroParams
         )
         ufw.sketch = sketch
-        ufw.name = name
+        ufw.fname = fname
         ufw.f = f
         return ufw
 
@@ -84,7 +107,15 @@ class UserFunctionWrapper:
         import py5.bridge as py5_bridge
 
         try:
-            if self.f is not None and not UserFunctionWrapper.exception_state:
+            if (
+                self.f is not None
+                and not UserFunctionWrapper.exception_state
+                and (
+                    self.fname != "draw"
+                    or UserFunctionWrapper.looping_state
+                    & (ANIMATION_LOOPING | ANIMATION_REDRAW)
+                )
+            ):
                 self.f(*args)
         except Exception as e:
             UserFunctionWrapper.exception_state = True
@@ -130,7 +161,9 @@ class UserFunctionWrapperOneParam(UserFunctionWrapper):
 ######################################################################
 
 
-def exec_user_code(sketch, filename, global_namespace, mock_run_sketch):
+def exec_user_code(
+    sketch, filename, global_namespace, mock_run_sketch, activate_keyboard_shortcuts
+):
     # get user functions by executing code in the given filename, for LIVE_CODING_FILE mode
     import py5.bridge as py5_bridge
 
@@ -154,11 +187,15 @@ def exec_user_code(sketch, filename, global_namespace, mock_run_sketch):
         )
 
     return process_user_functions(
-        sketch, functions, function_param_counts, global_namespace
+        sketch,
+        functions,
+        function_param_counts,
+        global_namespace,
+        activate_keyboard_shortcuts,
     )
 
 
-def retrieve_user_code(sketch, namespace):
+def retrieve_user_code(sketch, namespace, activate_keyboard_shortcuts):
     # get user functions from the given namespace, for LIVE_CODING_GLOBALS mode
     import py5.bridge as py5_bridge
 
@@ -166,10 +203,14 @@ def retrieve_user_code(sketch, namespace):
         namespace
     )
 
-    return process_user_functions(sketch, functions, function_param_counts, namespace)
+    return process_user_functions(
+        sketch, functions, function_param_counts, namespace, activate_keyboard_shortcuts
+    )
 
 
-def process_user_functions(sketch, functions, function_param_counts, namespace):
+def process_user_functions(
+    sketch, functions, function_param_counts, namespace, activate_keyboard_shortcuts
+):
     # process the user functions, adding any missing functions and wrapping them
     # used by both LIVE_CODING_FILE and LIVE_CODING_GLOBALS modes
     from py5 import _split_setup as py5_split_setup
@@ -183,14 +224,20 @@ def process_user_functions(sketch, functions, function_param_counts, namespace):
 
     user_supplied_draw = "draw" in functions
 
-    for fname in ["setup", "draw", "key_typed"]:
+    for fname in ["settings", "setup", "draw", "key_typed"]:
+        # the key_typed one is only needed if activate_keyboard_shortcuts is True
+        if fname == "key_typed" and not activate_keyboard_shortcuts:
+            continue
+
         if fname not in functions:
             functions[fname] = lambda: None
             function_param_counts[fname] = 0
 
     functions = {
-        name: UserFunctionWrapper(sketch, name, f, function_param_counts.get(name, 0))
-        for name, f in functions.items()
+        fname: UserFunctionWrapper(
+            sketch, fname, f, function_param_counts.get(fname, 0)
+        )
+        for fname, f in functions.items()
     }
 
     return functions, function_param_counts, user_supplied_draw
@@ -211,6 +258,7 @@ class SyncDraw:
         always_rerun_setup=False,
         always_on_top=True,
         show_framerate=False,
+        activate_keyboard_shortcuts=False,
         watch_dir=False,
         archive_dir=None,
         mock_run_sketch=None,
@@ -223,6 +271,7 @@ class SyncDraw:
         self.always_rerun_setup = always_rerun_setup
         self.always_on_top = always_on_top
         self.show_framerate = show_framerate
+        self.activate_keyboard_shortcuts = activate_keyboard_shortcuts
         self.watch_dir = watch_dir
         self.archive_dir = Path(archive_dir)
         self.mock_run_sketch = mock_run_sketch
@@ -232,15 +281,21 @@ class SyncDraw:
                 (
                     os.path.getmtime(ff)
                     for ff in f.parent.glob("**/*")
-                    if ff.is_file() and not is_subdirectory(self.archive_dir, ff)
+                    if ff.is_file()
+                    and not is_subdirectory(self.archive_dir, ff)
+                    and not ff.suffix in [".pyc", ".class", ".lst"]
                 ),
                 default=0,
             )
+            self.import_hook = activate_py5_live_coding_import_hook(
+                self.filename.parent.absolute()
+            )
         else:
             self.getmtime = os.path.getmtime
+            self.import_hook = None
 
         self.startup = True
-        self.exec_code_count = 0
+        self.update_count = 0
         self.mtime = None
         self.capture_pixels = None
         self.functions = {}
@@ -258,9 +313,15 @@ class SyncDraw:
 
         s._add_pre_hook("setup", "sync_pre_setup", self.pre_setup_hook)
         s._add_pre_hook("draw", "sync_pre_draw", self.pre_draw_hook)
-        s._add_pre_hook("key_typed", "sync_pre_key_typed", self.pre_key_typed_hook)
+        if self.activate_keyboard_shortcuts:
+            s._add_pre_hook("key_typed", "sync_pre_key_typed", self.pre_key_typed_hook)
         s._add_post_hook("setup", "sync_post_setup", self.post_setup_hook)
         s._add_post_hook("draw", "sync_post_draw", self.post_draw_hook)
+
+        # replace loop and no_loop methods with mock versions
+        s.loop = mock_loop
+        s.no_loop = mock_no_loop
+        s.redraw = mock_redraw
 
     def pre_setup_hook(self, s):
         if self.always_on_top:
@@ -272,7 +333,8 @@ class SyncDraw:
 
     def pre_draw_hook(self, s):
         if self.run_setup_again:
-            s._instance._resetSketch()
+            s._instance._resetSyncSketch()
+            UserFunctionWrapper.looping_state = ANIMATION_LOOPING
             # in case user doesn't call background in setup
             s.background(204)
             self.functions["setup"]()
@@ -287,26 +349,33 @@ class SyncDraw:
             self.show_framerate
             and self.user_supplied_draw
             and not UserFunctionWrapper.exception_state
+            and UserFunctionWrapper.looping_state & ANIMATION_LOOPING
         ):
-            msg = f"frame rate: {s.get_frame_rate():0.1f}"
-            s.println(msg, end="\r")
+            s.println(f"frame rate: {s.get_frame_rate():0.1f}", end="\r")
 
         if self.live_coding_mode & LIVE_CODING_FILE:
             self.keep_functions_current_from_file(s)
 
+        if UserFunctionWrapper.looping_state & ANIMATION_REDRAW:
+            UserFunctionWrapper.looping_state = ANIMATION_NO_LOOPING
+
     def pre_key_typed_hook(self, s):
         datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
+        name = f"{self.filename.stem}_{datestr}"
 
         if s.key == "R":
             self.run_setup_again = True
         if s.key in "AS":
-            self.take_screenshot(s, f"screenshot_{datestr}.png")
-        if s.key in "AB":
-            self.archive_code(s, f"{self.filename.stem}_{datestr}")
+            self.take_screenshot(s, name)
+        if s.key in "AC":
+            self.copy_code(s, name)
 
     ######################################################################
     # ARCHIVE METHODS
     ######################################################################
+
+    def get_filename_stem(self):
+        return self.filename.stem if self.filename else None
 
     def take_screenshot(self, s, screenshot_name: str):
         if UserFunctionWrapper.exception_state:
@@ -328,43 +397,47 @@ class SyncDraw:
         s.save_frame(screenshot_filename)
         s.println(f"Screenshot saved to {screenshot_filename}")
 
-    def archive_code(self, s, archive_name: str):
+    def copy_code(self, s, copy_name: str):
         if self.live_coding_mode & LIVE_CODING_GLOBALS:
-            s.println(f"Skipping code archive because code is not in a *.py file")
+            s.println(f"Skipping code copying because code is not in a *.py file")
             return
 
         if UserFunctionWrapper.exception_state:
-            s.println(f"Skipping code archive due to error state")
+            s.println(f"Skipping code copying due to error state")
             return
 
         self.archive_dir.mkdir(exist_ok=True)
-        archive_filename = self.archive_dir / archive_name
+        copy_filename = self.archive_dir / copy_name
 
         if self.watch_dir:
-            archive_filename = archive_filename.with_suffix(".zip")
-            if archive_filename.exists():
+            copy_filename = copy_filename.with_suffix(".zip")
+            if copy_filename.exists():
                 s.println(
-                    f"Skipping code archive because {archive_filename} already exists"
+                    f"Skipping code copying because {copy_filename} already exists"
                 )
                 return
 
-            with zipfile.ZipFile(archive_filename, "w", zipfile.ZIP_DEFLATED) as zf:
+            with zipfile.ZipFile(copy_filename, "w", zipfile.ZIP_DEFLATED) as zf:
                 for ff in self.filename.parent.glob("**/*"):
-                    if ff.is_file() and not is_subdirectory(self.archive_dir, ff):
+                    if (
+                        ff.is_file()
+                        and not is_subdirectory(self.archive_dir, ff)
+                        and not ff.suffix in [".pyc", ".class", ".lst"]
+                    ):
                         zf.write(ff, ff.relative_to(self.filename.parent))
         else:
-            archive_filename = archive_filename.with_suffix(".py")
-            if archive_filename.exists():
+            copy_filename = copy_filename.with_suffix(".py")
+            if copy_filename.exists():
                 s.println(
-                    f"Skipping code archive because {archive_filename} already exists"
+                    f"Skipping code copying because {copy_filename} already exists"
                 )
                 return
 
             with open(self.filename, "r") as f:
-                with open(archive_filename, "w") as f2:
+                with open(copy_filename, "w") as f2:
                     f2.write(f.read())
 
-        s.println(f"Code archived to {archive_filename}")
+        s.println(f"Code copied to {copy_filename}")
 
     ######################################################################
     # CODE PROCESSING METHODS
@@ -373,7 +446,9 @@ class SyncDraw:
     def keep_functions_current_from_globals(self, s):
         try:
             self.functions, self.function_param_counts, self.user_supplied_draw = (
-                retrieve_user_code(s, self.global_namespace)
+                retrieve_user_code(
+                    s, self.global_namespace, self.activate_keyboard_shortcuts
+                )
             )
 
             self._process_new_functions(s)
@@ -413,9 +488,16 @@ class SyncDraw:
             ):
                 self.mtime = new_mtime
 
+                if self.import_hook is not None:
+                    self.import_hook.flush_imported_modules()
+
                 self.functions, self.function_param_counts, self.user_supplied_draw = (
                     exec_user_code(
-                        s, self.filename, self.global_namespace, self.mock_run_sketch
+                        s,
+                        self.filename,
+                        self.global_namespace,
+                        self.mock_run_sketch,
+                        self.activate_keyboard_shortcuts,
                     )
                 )
 
@@ -461,7 +543,7 @@ class SyncDraw:
             return False
 
     def _process_new_functions(self, s):
-        self.exec_code_count += 1
+        self.update_count += 1
 
         new_user_setup_code = (
             inspect.getsource(self.functions["setup"].f)

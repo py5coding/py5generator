@@ -17,6 +17,17 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from .controller import get_controller
-from .notebook_launcher import activate_live_coding
-from .standard_launcher import launch_live_coding
+from .controls import copy_code, count, screenshot, snapshot
+from .notebook_launcher import activate
+
+__all__ = [
+    "copy_code",
+    "count",
+    "screenshot",
+    "snapshot",
+    "activate",
+]
+
+
+def __dir__():
+    return __all__

@@ -214,13 +214,22 @@ def tokenize_params(params):
     yield out.strip()
 
 
-def format_signatures_variables(signatures, variables):
+def format_signatures_variables(signatures, variables, full_name):
+    full_name_trimmed = full_name.replace("()", "").replace("@", "")
+
     out = ""
 
     if signatures:
         new_signatures = []
         for s in signatures:
             name, params, ret = PARTITION_SIG_REGEX.match(s).groups()
+
+            if name != full_name_trimmed:
+                # If the name metadata from the doc file is not in the signature
+                # this must be a special case such as a function in a submodule.
+                # Get the function name from the metadata name value and use
+                # that instead.
+                name = full_name_trimmed.split(".")[-1]
 
             if params:
                 new_params = []
@@ -385,7 +394,9 @@ def write_doc_md_files(dest_dir, py5_doc_ref_dir):
                 now_pretty,
             )
         else:
-            signatures = format_signatures_variables(doc.signatures, doc.variables)
+            signatures = format_signatures_variables(
+                doc.signatures, doc.variables, name
+            )
             if group in ["Sketch", "Py5Functions", "Py5Magics"]:
                 title = name
             elif group == "Py5Tools":

@@ -41,11 +41,14 @@ class PostExecuteCallback:
         self.sync_draw.keep_functions_current_from_globals(self.sketch)
 
 
-def activate_live_coding(
-    always_rerun_setup=True,
-    always_on_top=True,
-    archive_dir="archive",
+def activate(
+    *,
+    always_rerun_setup: bool = True,
+    always_on_top: bool = True,
+    activate_keyboard_shortcuts: bool = False,
+    archive_dir: str = "archive",
 ):
+    """$module_Py5Tools_live_coding_activate"""
     global post_execute_callback
 
     import py5
@@ -53,9 +56,7 @@ def activate_live_coding(
     from .syncing import LIVE_CODING_GLOBALS, SyncDraw
 
     if not environ.Environment().in_ipython_session:
-        raise RuntimeError(
-            "activate_live_coding() must be called from an IPython session"
-        )
+        raise RuntimeError("activate() must be called from an IPython session")
 
     caller_globals = inspect.stack()[1].frame.f_globals
 
@@ -65,6 +66,7 @@ def activate_live_coding(
             global_namespace=caller_globals,
             always_rerun_setup=always_rerun_setup,
             always_on_top=always_on_top,
+            activate_keyboard_shortcuts=activate_keyboard_shortcuts,
             # both default to False
             # show_framerate=False,
             # watch_dir=False,
@@ -75,9 +77,9 @@ def activate_live_coding(
 
         if sketch.is_running:
             if sketch._get_sync_draw() is None:
-                msg = "activate_live_coding() cannot be called while the current Sketch is running"
+                msg = "activate() cannot be called while the current Sketch is running"
             else:
-                msg = "activate_live_coding() has already been called and activated"
+                msg = "activate() has already been called and activated"
             raise RuntimeError(msg)
         if not sketch.is_ready:
             py5.reset_py5()
