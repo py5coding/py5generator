@@ -351,8 +351,7 @@ class SyncDraw:
             and not UserFunctionWrapper.exception_state
             and UserFunctionWrapper.looping_state & ANIMATION_LOOPING
         ):
-            msg = f"frame rate: {s.get_frame_rate():0.1f}"
-            s.println(msg, end="\r")
+            s.println(f"frame rate: {s.get_frame_rate():0.1f}", end="\r")
 
         if self.live_coding_mode & LIVE_CODING_FILE:
             self.keep_functions_current_from_file(s)
