@@ -349,6 +349,7 @@ class SyncDraw:
             self.show_framerate
             and self.user_supplied_draw
             and not UserFunctionWrapper.exception_state
+            and UserFunctionWrapper.looping_state & ANIMATION_LOOPING
         ):
             msg = f"frame rate: {s.get_frame_rate():0.1f}"
             s.println(msg, end="\r")
