@@ -321,6 +321,7 @@ class SyncDraw:
         # replace loop and no_loop methods with mock versions
         s.loop = mock_loop
         s.no_loop = mock_no_loop
+        s.redraw = mock_redraw
 
     def pre_setup_hook(self, s):
         if self.always_on_top:
