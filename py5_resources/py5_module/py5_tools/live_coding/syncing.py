@@ -66,6 +66,10 @@ class Py5RunSketchBlockException(Exception):
     pass
 
 
+class Py5ExitSketchException(Exception):
+    pass
+
+
 ######################################################################
 # MOCK LOOP AND NO_LOOP METHODS
 ######################################################################
@@ -81,6 +85,12 @@ def mock_no_loop():
 
 def mock_redraw():
     UserFunctionWrapper.looping_state = ANIMATION_REDRAW
+
+
+def mock_exit_sketch():
+    raise Py5ExitSketchException(
+        "Pausing after exit_sketch() call. Resume by updating your code. Exit with the Escape key or by closing the window."
+    )
 
 
 ######################################################################
@@ -120,8 +130,12 @@ class UserFunctionWrapper:
         except Exception as e:
             UserFunctionWrapper.exception_state = True
             self.sketch.no_loop()
+
             self.sketch.println("*" * 80)
-            py5_bridge.handle_exception(self.sketch.println, *sys.exc_info())
+            if isinstance(e, Py5ExitSketchException):
+                self.sketch.println(e)
+            else:
+                py5_bridge.handle_exception(self.sketch.println, *sys.exc_info())
             self.sketch.println("*" * 80)
 
             # if we are in file mode, watch code for changes that will fix the
@@ -322,6 +336,7 @@ class SyncDraw:
         s.loop = mock_loop
         s.no_loop = mock_no_loop
         s.redraw = mock_redraw
+        s.exit_sketch = mock_exit_sketch
 
     def pre_setup_hook(self, s):
         if self.always_on_top:
