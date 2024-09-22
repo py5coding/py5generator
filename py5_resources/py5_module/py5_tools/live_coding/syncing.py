@@ -154,7 +154,7 @@ class UserFunctionWrapper:
 
 """
 These two subclasses need to be here because py5 will inspect user functions to
-determine the paremeter counts. I can't just remove these and use the above
+determine the parameter counts. I can't just remove these and use the above
 class with a `__call__(self, *args)` method because the `*args` parameter will
 trip up py5.
 """

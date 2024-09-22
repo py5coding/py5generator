@@ -122,7 +122,7 @@ public class Sketch extends SketchBase {
 
   public void _resetSyncSketch() {
     millisOffset = System.currentTimeMillis();
-    frameCount = 0;
+    frameCount = 1;
     if (savedStyle != null) {
       style(savedStyle);
     }
