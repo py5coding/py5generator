@@ -128,13 +128,13 @@ class UserFunctionWrapper:
             ):
                 self.f(*args)
         except Exception as e:
-            UserFunctionWrapper.exception_state = True
             self.sketch.no_loop()
 
             self.sketch.println("*" * 80)
             if isinstance(e, Py5ExitSketchException):
                 self.sketch.println(e)
             else:
+                UserFunctionWrapper.exception_state = True
                 py5_bridge.handle_exception(self.sketch.println, *sys.exc_info())
             self.sketch.println("*" * 80)
 
