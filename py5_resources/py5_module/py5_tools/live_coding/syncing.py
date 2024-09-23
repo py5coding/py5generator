@@ -100,7 +100,7 @@ class MockMethods:
 
 
 class UserFunctionWrapper:
-    exception_state = False
+    running_state = True
     looping_state = ANIMATION_LOOPING
 
     def __new__(self, sketch, fname, f, param_count):
@@ -120,7 +120,7 @@ class UserFunctionWrapper:
         try:
             if (
                 self.f is not None
-                and not UserFunctionWrapper.exception_state
+                and UserFunctionWrapper.running_state
                 and (
                     self.fname != "draw"
                     or UserFunctionWrapper.looping_state
@@ -135,7 +135,7 @@ class UserFunctionWrapper:
             if isinstance(e, Py5ExitSketchException):
                 self.sketch.println(e)
             else:
-                UserFunctionWrapper.exception_state = True
+                UserFunctionWrapper.running_state = False
                 py5_bridge.handle_exception(self.sketch.println, *sys.exc_info())
             self.sketch.println("*" * 80)
 
@@ -365,7 +365,7 @@ class SyncDraw:
         if (
             self.show_framerate
             and self.user_supplied_draw
-            and not UserFunctionWrapper.exception_state
+            and UserFunctionWrapper.running_state
             and UserFunctionWrapper.looping_state & ANIMATION_LOOPING
         ):
             s.println(f"frame rate: {s.get_frame_rate():0.1f}", end="\r")
@@ -395,7 +395,7 @@ class SyncDraw:
         return self.filename.stem if self.filename else None
 
     def take_screenshot(self, s, screenshot_name: str):
-        if UserFunctionWrapper.exception_state:
+        if not UserFunctionWrapper.running_state:
             s.println(f"Skipping screenshot due to error state")
             return
 
@@ -419,7 +419,7 @@ class SyncDraw:
             s.println(f"Skipping code copying because code is not in a *.py file")
             return
 
-        if UserFunctionWrapper.exception_state:
+        if not UserFunctionWrapper.running_state:
             s.println(f"Skipping code copying due to error state")
             return
 
@@ -470,15 +470,15 @@ class SyncDraw:
 
             self._process_new_functions(s)
 
-            if UserFunctionWrapper.exception_state:
+            if not UserFunctionWrapper.running_state:
                 s.println("Resuming Sketch execution...")
-                UserFunctionWrapper.exception_state = False
+                UserFunctionWrapper.running_state = True
                 s.loop()
 
             return True
 
         except Exception as e:
-            UserFunctionWrapper.exception_state = True
+            UserFunctionWrapper.running_state = False
             exc_type, exc_value, exc_tb = sys.exc_info()
             exc_tb = exc_tb.tb_next.tb_next
             msg = "*" * 80 + "\n"
@@ -520,18 +520,18 @@ class SyncDraw:
 
                 self._process_new_functions(s)
 
-                if UserFunctionWrapper.exception_state:
+                if not UserFunctionWrapper.running_state:
                     if s.has_thread("keep_functions_current_from_file"):
                         s.stop_thread("keep_functions_current_from_file")
 
                     s.println("Resuming Sketch execution...")
-                    UserFunctionWrapper.exception_state = False
+                    UserFunctionWrapper.running_state = True
                     s.loop()
 
             return True
 
         except Exception as e:
-            UserFunctionWrapper.exception_state = True
+            UserFunctionWrapper.running_state = False
             exc_type, exc_value, exc_tb = sys.exc_info()
             exc_tb = exc_tb.tb_next.tb_next
             msg = "*" * 80 + "\n"
