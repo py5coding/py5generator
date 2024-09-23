@@ -75,9 +75,9 @@ class Py5ExitSketchException(Exception):
 ######################################################################
 
 
-class MockLoopMethods:
-    def __init__(self, sketch):
-        self.sketch = sketch
+class MockMethods:
+    def __init__(self, sync_draw):
+        self.sync_draw = sync_draw
 
     def mock_loop(self):
         UserFunctionWrapper.looping_state = ANIMATION_LOOPING
@@ -88,11 +88,10 @@ class MockLoopMethods:
     def mock_redraw(self):
         UserFunctionWrapper.looping_state = ANIMATION_REDRAW
 
-
-def mock_exit_sketch():
-    raise Py5ExitSketchException(
-        "Pausing after exit_sketch() call. Resume by updating your code. Exit with the Escape key or by closing the window."
-    )
+    def mock_exit_sketch(self):
+        raise Py5ExitSketchException(
+            "Pausing after exit_sketch() call. Resume by updating your code. Exit with the Escape key or by closing the window."
+        )
 
 
 ######################################################################
@@ -335,11 +334,11 @@ class SyncDraw:
         s._add_post_hook("draw", "sync_post_draw", self.post_draw_hook)
 
         # replace loop and no_loop methods with mock versions
-        mock_loop_methods = MockLoopMethods(s)
-        s.loop = mock_loop_methods.mock_loop
-        s.no_loop = mock_loop_methods.mock_no_loop
-        s.redraw = mock_loop_methods.mock_redraw
-        s.exit_sketch = mock_exit_sketch
+        mock_methods = MockMethods(self)
+        s.loop = mock_methods.mock_loop
+        s.no_loop = mock_methods.mock_no_loop
+        s.redraw = mock_methods.mock_redraw
+        s.exit_sketch = mock_methods.mock_exit_sketch
 
     def pre_setup_hook(self, s):
         if self.always_on_top:
