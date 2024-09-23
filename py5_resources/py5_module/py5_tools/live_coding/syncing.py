@@ -101,6 +101,7 @@ class MockMethods:
 
 class UserFunctionWrapper:
     running_state = True
+    exception_thrown = False
     looping_state = ANIMATION_LOOPING
 
     def __new__(self, sketch, fname, f, param_count):
@@ -130,12 +131,13 @@ class UserFunctionWrapper:
                 self.f(*args)
         except Exception as e:
             self.sketch.no_loop()
+            UserFunctionWrapper.running_state = False
 
             self.sketch.println("*" * 80)
             if isinstance(e, Py5ExitSketchException):
                 self.sketch.println(e)
             else:
-                UserFunctionWrapper.running_state = False
+                UserFunctionWrapper.exception_thrown = True
                 py5_bridge.handle_exception(self.sketch.println, *sys.exc_info())
             self.sketch.println("*" * 80)
 
@@ -396,7 +398,8 @@ class SyncDraw:
 
     def take_screenshot(self, s, screenshot_name: str):
         if not UserFunctionWrapper.running_state:
-            s.println(f"Skipping screenshot due to error state")
+            if UserFunctionWrapper.exception_thrown:
+                s.println(f"Skipping screenshot due to error state")
             return
 
         self.archive_dir.mkdir(exist_ok=True)
@@ -420,7 +423,8 @@ class SyncDraw:
             return
 
         if not UserFunctionWrapper.running_state:
-            s.println(f"Skipping code copying due to error state")
+            if UserFunctionWrapper.exception_thrown:
+                s.println(f"Skipping code copying due to error state")
             return
 
         self.archive_dir.mkdir(exist_ok=True)
@@ -473,6 +477,7 @@ class SyncDraw:
             if not UserFunctionWrapper.running_state:
                 s.println("Resuming Sketch execution...")
                 UserFunctionWrapper.running_state = True
+                UserFunctionWrapper.exception_thrown = False
                 s.loop()
 
             return True
@@ -526,6 +531,7 @@ class SyncDraw:
 
                     s.println("Resuming Sketch execution...")
                     UserFunctionWrapper.running_state = True
+                    UserFunctionWrapper.exception_thrown = False
                     s.loop()
 
             return True
