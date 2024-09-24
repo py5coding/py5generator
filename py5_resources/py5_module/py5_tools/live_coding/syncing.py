@@ -75,22 +75,26 @@ class Py5ExitSketchException(Exception):
 ######################################################################
 
 
-def mock_loop():
-    UserFunctionWrapper.looping_state = ANIMATION_LOOPING
+class MockMethods:
+    def __init__(self, sketch):
+        self.sketch = sketch
 
+    def mock_loop(self):
+        UserFunctionWrapper.looping_state = ANIMATION_LOOPING
+        UserFunctionWrapper.freeze_frame_count = None
 
-def mock_no_loop():
-    UserFunctionWrapper.looping_state = ANIMATION_NO_LOOPING
+    def mock_no_loop(self):
+        UserFunctionWrapper.looping_state = ANIMATION_NO_LOOPING
+        UserFunctionWrapper.freeze_frame_count = self.sketch.frame_count
 
+    def mock_redraw(self):
+        UserFunctionWrapper.looping_state = ANIMATION_REDRAW
+        UserFunctionWrapper.freeze_frame_count += 1
 
-def mock_redraw():
-    UserFunctionWrapper.looping_state = ANIMATION_REDRAW
-
-
-def mock_exit_sketch():
-    raise Py5ExitSketchException(
-        "Pausing after exit_sketch() call. Resume by updating your code. Exit with the Escape key or by closing the window."
-    )
+    def mock_exit_sketch(self):
+        raise Py5ExitSketchException(
+            "Pausing after exit_sketch() call. Resume by updating your code. Exit with the Escape key or by closing the window."
+        )
 
 
 ######################################################################
@@ -99,8 +103,10 @@ def mock_exit_sketch():
 
 
 class UserFunctionWrapper:
-    exception_state = False
+    running_state = True
+    exception_thrown = False
     looping_state = ANIMATION_LOOPING
+    freeze_frame_count = None
 
     def __new__(self, sketch, fname, f, param_count):
         ufw = object.__new__(
@@ -116,10 +122,13 @@ class UserFunctionWrapper:
     def call_f(self, *args):
         import py5.bridge as py5_bridge
 
+        if UserFunctionWrapper.freeze_frame_count is not None:
+            self.sketch._instance.frameCount = UserFunctionWrapper.freeze_frame_count
+
         try:
             if (
                 self.f is not None
-                and not UserFunctionWrapper.exception_state
+                and UserFunctionWrapper.running_state
                 and (
                     self.fname != "draw"
                     or UserFunctionWrapper.looping_state
@@ -129,12 +138,13 @@ class UserFunctionWrapper:
                 self.f(*args)
         except Exception as e:
             self.sketch.no_loop()
+            UserFunctionWrapper.running_state = False
 
             self.sketch.println("*" * 80)
             if isinstance(e, Py5ExitSketchException):
                 self.sketch.println(e)
             else:
-                UserFunctionWrapper.exception_state = True
+                UserFunctionWrapper.exception_thrown = True
                 py5_bridge.handle_exception(self.sketch.println, *sys.exc_info())
             self.sketch.println("*" * 80)
 
@@ -333,10 +343,11 @@ class SyncDraw:
         s._add_post_hook("draw", "sync_post_draw", self.post_draw_hook)
 
         # replace loop and no_loop methods with mock versions
-        s.loop = mock_loop
-        s.no_loop = mock_no_loop
-        s.redraw = mock_redraw
-        s.exit_sketch = mock_exit_sketch
+        mock_methods = MockMethods(s)
+        s.loop = mock_methods.mock_loop
+        s.no_loop = mock_methods.mock_no_loop
+        s.redraw = mock_methods.mock_redraw
+        s.exit_sketch = mock_methods.mock_exit_sketch
 
     def pre_setup_hook(self, s):
         if self.always_on_top:
@@ -350,6 +361,7 @@ class SyncDraw:
         if self.run_setup_again:
             s._instance._resetSyncSketch()
             UserFunctionWrapper.looping_state = ANIMATION_LOOPING
+            UserFunctionWrapper.freeze_frame_count = None
             # in case user doesn't call background in setup
             s.background(204)
             self.functions["setup"]()
@@ -363,7 +375,7 @@ class SyncDraw:
         if (
             self.show_framerate
             and self.user_supplied_draw
-            and not UserFunctionWrapper.exception_state
+            and UserFunctionWrapper.running_state
             and UserFunctionWrapper.looping_state & ANIMATION_LOOPING
         ):
             s.println(f"frame rate: {s.get_frame_rate():0.1f}", end="\r")
@@ -393,8 +405,9 @@ class SyncDraw:
         return self.filename.stem if self.filename else None
 
     def take_screenshot(self, s, screenshot_name: str):
-        if UserFunctionWrapper.exception_state:
-            s.println(f"Skipping screenshot due to error state")
+        if not UserFunctionWrapper.running_state:
+            if UserFunctionWrapper.exception_thrown:
+                s.println(f"Skipping screenshot due to error state")
             return
 
         self.archive_dir.mkdir(exist_ok=True)
@@ -417,8 +430,9 @@ class SyncDraw:
             s.println(f"Skipping code copying because code is not in a *.py file")
             return
 
-        if UserFunctionWrapper.exception_state:
-            s.println(f"Skipping code copying due to error state")
+        if not UserFunctionWrapper.running_state:
+            if UserFunctionWrapper.exception_thrown:
+                s.println(f"Skipping code copying due to error state")
             return
 
         self.archive_dir.mkdir(exist_ok=True)
@@ -468,15 +482,16 @@ class SyncDraw:
 
             self._process_new_functions(s)
 
-            if UserFunctionWrapper.exception_state:
+            if not UserFunctionWrapper.running_state:
                 s.println("Resuming Sketch execution...")
-                UserFunctionWrapper.exception_state = False
+                UserFunctionWrapper.running_state = True
+                UserFunctionWrapper.exception_thrown = False
                 s.loop()
 
             return True
 
         except Exception as e:
-            UserFunctionWrapper.exception_state = True
+            UserFunctionWrapper.running_state = False
             exc_type, exc_value, exc_tb = sys.exc_info()
             exc_tb = exc_tb.tb_next.tb_next
             msg = "*" * 80 + "\n"
@@ -518,18 +533,19 @@ class SyncDraw:
 
                 self._process_new_functions(s)
 
-                if UserFunctionWrapper.exception_state:
+                if not UserFunctionWrapper.running_state:
                     if s.has_thread("keep_functions_current_from_file"):
                         s.stop_thread("keep_functions_current_from_file")
 
                     s.println("Resuming Sketch execution...")
-                    UserFunctionWrapper.exception_state = False
+                    UserFunctionWrapper.running_state = True
+                    UserFunctionWrapper.exception_thrown = False
                     s.loop()
 
             return True
 
         except Exception as e:
-            UserFunctionWrapper.exception_state = True
+            UserFunctionWrapper.running_state = False
             exc_type, exc_value, exc_tb = sys.exc_info()
             exc_tb = exc_tb.tb_next.tb_next
             msg = "*" * 80 + "\n"
