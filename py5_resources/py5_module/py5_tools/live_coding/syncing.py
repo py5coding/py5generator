@@ -76,17 +76,20 @@ class Py5ExitSketchException(Exception):
 
 
 class MockMethods:
-    def __init__(self, sync_draw):
-        self.sync_draw = sync_draw
+    def __init__(self, sketch):
+        self.sketch = sketch
 
     def mock_loop(self):
         UserFunctionWrapper.looping_state = ANIMATION_LOOPING
+        UserFunctionWrapper.freeze_frame_count = None
 
     def mock_no_loop(self):
         UserFunctionWrapper.looping_state = ANIMATION_NO_LOOPING
+        UserFunctionWrapper.freeze_frame_count = self.sketch.frame_count
 
     def mock_redraw(self):
         UserFunctionWrapper.looping_state = ANIMATION_REDRAW
+        UserFunctionWrapper.freeze_frame_count += 1
 
     def mock_exit_sketch(self):
         raise Py5ExitSketchException(
@@ -103,6 +106,7 @@ class UserFunctionWrapper:
     running_state = True
     exception_thrown = False
     looping_state = ANIMATION_LOOPING
+    freeze_frame_count = None
 
     def __new__(self, sketch, fname, f, param_count):
         ufw = object.__new__(
@@ -117,6 +121,9 @@ class UserFunctionWrapper:
 
     def call_f(self, *args):
         import py5.bridge as py5_bridge
+
+        if UserFunctionWrapper.freeze_frame_count is not None:
+            self.sketch._instance.frameCount = UserFunctionWrapper.freeze_frame_count
 
         try:
             if (
@@ -336,7 +343,7 @@ class SyncDraw:
         s._add_post_hook("draw", "sync_post_draw", self.post_draw_hook)
 
         # replace loop and no_loop methods with mock versions
-        mock_methods = MockMethods(self)
+        mock_methods = MockMethods(s)
         s.loop = mock_methods.mock_loop
         s.no_loop = mock_methods.mock_no_loop
         s.redraw = mock_methods.mock_redraw
@@ -354,6 +361,7 @@ class SyncDraw:
         if self.run_setup_again:
             s._instance._resetSyncSketch()
             UserFunctionWrapper.looping_state = ANIMATION_LOOPING
+            UserFunctionWrapper.freeze_frame_count = None
             # in case user doesn't call background in setup
             s.background(204)
             self.functions["setup"]()
