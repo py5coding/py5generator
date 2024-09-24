@@ -115,7 +115,7 @@ except ImportError:
     pass
 
 
-__version__ = "0.10.3.dev2"
+__version__ = "0.10.3.dev3"
 
 _PY5_USE_IMPORTED_MODE = py5_tools.get_imported_mode()
 py5_tools._lock_imported_mode()
