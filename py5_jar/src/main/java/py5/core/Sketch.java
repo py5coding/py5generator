@@ -126,6 +126,9 @@ public class Sketch extends SketchBase {
     if (savedStyle != null) {
       style(savedStyle);
     }
+    resetShader(POINTS);
+    resetShader(LINES);
+    resetShader(TRIANGLES);
   }
 
   @Override
