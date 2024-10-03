@@ -126,9 +126,24 @@ public class Sketch extends SketchBase {
     if (savedStyle != null) {
       style(savedStyle);
     }
+
+    // reset shaders
     resetShader(POINTS);
     resetShader(LINES);
     resetShader(TRIANGLES);
+
+    // reset hints
+    hint(ENABLE_DEPTH_TEST);
+    hint(DISABLE_DEPTH_SORT);
+    hint(ENABLE_OPENGL_ERRORS);
+    hint(ENABLE_DEPTH_MASK);
+    hint(ENABLE_OPTIMIZED_STROKE);
+    hint(DISABLE_STROKE_PERSPECTIVE);
+    hint(ENABLE_TEXTURE_MIPMAPS);
+    hint(DISABLE_STROKE_PURE);
+    hint(DISABLE_BUFFER_READING);
+    hint(DISABLE_KEY_REPEAT);
+    hint(ENABLE_ASYNC_SAVEFRAME);
   }
 
   @Override
