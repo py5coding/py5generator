@@ -128,9 +128,11 @@ public class Sketch extends SketchBase {
     }
 
     // reset shaders
-    resetShader(POINTS);
-    resetShader(LINES);
-    resetShader(TRIANGLES);
+    if (g instanceof PGraphicsOpenGL) {
+      resetShader(POINTS);
+      resetShader(LINES);
+      resetShader(TRIANGLES);
+    }
 
     // reset hints
     hint(ENABLE_DEPTH_TEST);

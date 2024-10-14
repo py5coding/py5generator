@@ -367,8 +367,12 @@ class SyncDraw:
             self.functions["setup"]()
             self.run_setup_again = False
 
-        if self.capture_pixels is not None:
-            s.set_pixels(0, 0, self.capture_pixels)
+        try:
+            if self.capture_pixels is not None:
+                s.set_pixels(0, 0, self.capture_pixels)
+        except Exception as e:
+            pass
+        finally:
             self.capture_pixels = None
 
     def post_draw_hook(self, s):
