@@ -392,7 +392,13 @@ class SyncDraw:
 
     def pre_key_typed_hook(self, s):
         datestr = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
-        name = f"{self.filename.stem}_{datestr}"
+        stem = (
+            self.get_filename_stem()
+            or (s.key == "A" and "snapshot")
+            or (s.key == "S" and "screenshot")
+            or (s.key == "C" and "copy")
+        )
+        name = f"{stem}_{datestr}"
 
         if s.key == "R":
             self.run_setup_again = True
