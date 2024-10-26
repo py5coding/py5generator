@@ -29,3 +29,29 @@ from .jvm import *  # noqa
 from .libraries import *  # noqa
 
 __version__ = "0.10.3.dev5"
+
+
+__all__ = sorted(
+    [
+        "__version__",
+        "add_classpath",
+        "add_jars",
+        "add_options",
+        "animated_gif",
+        "capture_frames",
+        "get_classpath",
+        "get_jvm_debug_info",
+        "is_jvm_running",
+        "live_coding",
+        "offline_frame_processing",
+        "register_processing_mode_key",
+        "save_frames",
+        "screenshot",
+        "sketch_portal",
+        "translators",
+    ]
+)
+
+
+def __dir__():
+    return __all__
