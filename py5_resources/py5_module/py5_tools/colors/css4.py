@@ -28,4 +28,4 @@ def __getattr__(name):
     if name in locals():
         return locals()[name]
     else:
-        raise AttributeError("unknown css4 color " + name)
+        raise AttributeError("unknown css4 color '" + name + "'")
