@@ -22,3 +22,10 @@
 mcolor_css4 = None  # DELETE
 
 {mcolor_css4}
+
+
+def __getattr__(name):
+    if name in locals():
+        return locals()[name]
+    else:
+        raise AttributeError("unknown css4 color '" + name + "'")

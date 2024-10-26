@@ -22,3 +22,10 @@
 mpl_cmaps = None  # DELETE
 
 {mpl_cmaps}
+
+
+def __getattr__(name):
+    if name in locals():
+        return locals()[name]
+    else:
+        raise AttributeError("unknown matplotlib colormap '" + name + "'")
