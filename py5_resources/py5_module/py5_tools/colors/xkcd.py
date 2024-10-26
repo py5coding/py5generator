@@ -22,3 +22,10 @@
 mcolor_xkcd = None  # DELETE
 
 {mcolor_xkcd}
+
+
+def __getattr__(name):
+    if name in locals():
+        return locals()[name]
+    else:
+        raise AttributeError("unknown xkcd color " + name)
