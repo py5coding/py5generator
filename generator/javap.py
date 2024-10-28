@@ -26,6 +26,8 @@ import re
 import subprocess
 from collections import defaultdict
 
+from .reference import SKIP_METHOD_SIGNATURES
+
 FUNCTION_REGEX = re.compile(
     r"[\w\s]*?\s+(static)?[\w\s]*?([\w\[\]\.]+) (\w+)\(([^\)]*)\).*;"
 )
@@ -147,5 +149,9 @@ def get_class_information(classpath, classname):
     for key in list(constant_field_data.keys()):
         if key in method_data:
             del constant_field_data[key]
+
+    for method_name, sig in SKIP_METHOD_SIGNATURES.get(classname, []):
+        if method_name in method_data and sig in method_data[method_name]:
+            del method_data[method_name][sig]
 
     return constant_field_data, field_data, method_data
