@@ -54,7 +54,7 @@ os.chdir(DEST_DIR)
 try:
     for i, docfile in list(enumerate(sorted(PY5_API_EN.glob("*.txt"))))[:]:
         doc = Documentation(docfile)
-        if doc.meta["type"] in ["function", "line magic", "pseudoclass"]:
+        if doc.meta["type"] in ["function", "line magic", "cell magic", "pseudoclass"]:
             # skip these for now, but I should probably include them later
             continue
 
@@ -62,10 +62,10 @@ try:
         # if doc.meta.get('pclass') != 'PGraphics' or doc.meta.get('name') not in ['load_np_pixels()', 'set_np_pixels()', 'update_np_pixels()',
         #                                                                          'np_pixels[]', 'load_pixels()', 'update_pixels()', 'pixels[]']:
         # if doc.meta['type'] != 'cell magic':
-        if doc.meta.get("name") != "hex_color()":
-            continue
-        if doc.meta.get("pclass") == "PShape":
-            continue
+        # if doc.meta.get("name") != "hex_color()":
+        #     continue
+        # if doc.meta.get("pclass") == "PShape":
+        #     continue
 
         for image, code in doc.examples:
             if ONLY_RUN_EXAMPLES_WITH_IMAGES and image is None:
