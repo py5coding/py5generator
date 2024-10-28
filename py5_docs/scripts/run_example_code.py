@@ -55,13 +55,12 @@ try:
     for i, docfile in list(enumerate(sorted(PY5_API_EN.glob("*.txt"))))[:]:
         doc = Documentation(docfile)
         if doc.meta["type"] in ["function", "line magic", "cell magic", "pseudoclass"]:
-            # skip these for now, but I should probably include them later
+            # skip these for now, but I should probably figure out a way to include them later
             continue
 
-        # if doc.meta.get('category') != 'image' or doc.meta.get('subcategory') != 'loading_displaying':
+        # # filtering for test purposes
         # if doc.meta.get('pclass') != 'PGraphics' or doc.meta.get('name') not in ['load_np_pixels()', 'set_np_pixels()', 'update_np_pixels()',
         #                                                                          'np_pixels[]', 'load_pixels()', 'update_pixels()', 'pixels[]']:
-        # if doc.meta['type'] != 'cell magic':
         # if doc.meta.get("name") != "hex_color()":
         #     continue
         # if doc.meta.get("pclass") == "PShape":
