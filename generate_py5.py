@@ -101,7 +101,7 @@ def generate_py5(app_dir, build_dir, skip_black=False):
         logger.critical(msg)
         raise RuntimeError(msg)
 
-    javap.classpath = f"{py5_jar_path}:{core_jar_path}"
+    classpath = f"{py5_jar_path}:{core_jar_path}"
 
     logger.info("creating Sketch code")
     sketch_data = (
@@ -111,7 +111,7 @@ def generate_py5(app_dir, build_dir, skip_black=False):
     )
 
     # these CodeBuilder objects write the code fragments for the methods and fields.
-    sketch_builder = CodeBuilder("py5.core.Sketch", "Sketch", sketch_data)
+    sketch_builder = CodeBuilder(classpath, "py5.core.Sketch", "Sketch", sketch_data)
     sketch_builder.code_module_members("_py5sketch")
     sketch_builder.run_builder()
 
@@ -134,7 +134,7 @@ def generate_py5(app_dir, build_dir, skip_black=False):
             .set_index("java_name")
         )
 
-        builder = CodeBuilder(clsname, name, data)
+        builder = CodeBuilder(classpath, clsname, name, data)
         builder.run_builder()
 
         return builder

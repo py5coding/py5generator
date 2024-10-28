@@ -101,6 +101,11 @@ EXTRA_DIR_NAMES = {
     "mpl_cmaps",
 }
 
+SKIP_METHOD_SIGNATURES = {
+    "py5.core.Sketch": [("vertex", "float[]")],
+    "py5.core.Py5Graphics": [("vertex", "float[]")],
+}
+
 EXTRA_METHOD_SIGNATURES = {
     ("Sketch", "run_sketch"): [
         (

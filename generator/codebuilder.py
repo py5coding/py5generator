@@ -90,12 +90,12 @@ def _param_annotation(varname: str, jtype: str) -> str:
 
 
 class CodeBuilder:
-    def __init__(self, clsname, class_name, class_data):
+    def __init__(self, classpath, clsname, class_name, class_data):
         (
             self._constant_field_data,
             self._field_data,
             self._method_data,
-        ) = javap.get_class_information(clsname)
+        ) = javap.get_class_information(classpath, clsname)
         self._class_name = class_name
         self._py5_names = class_data["py5_name"]
         self._py5_decorators = class_data["decorator"]

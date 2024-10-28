@@ -7,7 +7,6 @@ pclass = PApplet
 processing_name = vertex
 
 @@ signatures
-vertex(v: npt.NDArray[np.floating], /) -> None
 vertex(x: float, y: float, /) -> None
 vertex(x: float, y: float, u: float, v: float, /) -> None
 vertex(x: float, y: float, z: float, /) -> None
@@ -16,7 +15,6 @@ vertex(x: float, y: float, z: float, u: float, v: float, /) -> None
 @@ variables
 u: float - horizontal coordinate for the texture mapping
 v: float - vertical coordinate for the texture mapping
-v: npt.NDArray[np.floating] - vertical coordinate data for the texture mapping
 x: float - x-coordinate of the vertex
 y: float - y-coordinate of the vertex
 z: float - z-coordinate of the vertex
