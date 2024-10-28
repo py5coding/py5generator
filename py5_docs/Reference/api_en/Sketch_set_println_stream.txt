@@ -18,7 +18,7 @@ The passed `println_stream` object must provide `print()` and `shutdown()` metho
 When running a Sketch asynchronously through Jupyter Notebook, any `print` statements using Python's builtin function will always appear in the output of the currently active cell. This will rarely be desirable, as the active cell will keep changing as the user executes code elsewhere in the notebook. The [](sketch_println) method was created to provide users with print functionality in a Sketch without having to cope with output moving from one cell to the next. Use `set_println_stream` to change how the output is handled.
 
 @@ example
-class _PrintlnFileStream:
+class PrintlnFileStream:
 
     def __init__(self, filename):
         self.filename = filename
