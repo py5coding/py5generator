@@ -26,8 +26,6 @@ import re
 import subprocess
 from collections import defaultdict
 
-classpath = ""
-
 FUNCTION_REGEX = re.compile(
     r"[\w\s]*?\s+(static)?[\w\s]*?([\w\[\]\.]+) (\w+)\(([^\)]*)\).*;"
 )
@@ -88,7 +86,7 @@ def process_block(block, is_interface):
     return data
 
 
-def process_class(classname, data):
+def process_class(classpath, classname, data):
     command = f"javap -classpath {classpath} -constants -public -l {classname}"
     result = subprocess.run(command.split(), capture_output=True)
 
@@ -108,23 +106,23 @@ def process_class(classname, data):
     m = IMPLEMENTS_REGEX.match(class_signature)
     if m:
         for interface in m.group(1).split(","):
-            process_class(interface.strip(), data)
+            process_class(classpath, interface.strip(), data)
     m = EXTENDS_REGEX.match(class_signature)
     if m:
-        process_class(m.group(1).strip(), data)
+        process_class(classpath, m.group(1).strip(), data)
 
     blocks = content.split("\n\n")
     data.extend([process_block(b, is_interface) for b in blocks if b])
 
 
-def get_class_information(classname):
+def get_class_information(classpath, classname):
     """parse the output of `javap` to get info on a class's methods and fields
 
     Java classes need to have been compiled with debug information for this to
     work.
     """
     data = []
-    process_class(classname, data)
+    process_class(classpath, classname, data)
 
     constant_field_data = {}
     field_data = {}
