@@ -148,15 +148,14 @@ public class Sketch extends SketchBase {
     hint(ENABLE_ASYNC_SAVEFRAME);
 
     // reset random methods
-    // osNoiseSeed = (long) (Math.random() * Long.MAX_VALUE);
+    osNoiseSeed = (long) (Math.random() * Long.MAX_VALUE);
     // pnoise seed
     // pnoise detail
     // random seed (in Python?)
 
     // reset window settings
     frameRate(60);  
-    // windowTitle("Sketch");
-    // cursor(ARROW);
+    // cursor(ARROW);  // not needed?
 
     // reset detail settings
     // sphere detail
