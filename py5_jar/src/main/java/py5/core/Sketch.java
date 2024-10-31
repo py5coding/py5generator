@@ -126,7 +126,6 @@ public class Sketch extends SketchBase {
     if (savedStyle != null) {
       style(savedStyle);
     }
-    frameRate(60);
 
     // reset shaders
     if (g instanceof PGraphicsOpenGL) {
@@ -147,6 +146,33 @@ public class Sketch extends SketchBase {
     hint(DISABLE_BUFFER_READING);
     hint(DISABLE_KEY_REPEAT);
     hint(ENABLE_ASYNC_SAVEFRAME);
+
+    // reset random methods
+    // osNoiseSeed = (long) (Math.random() * Long.MAX_VALUE);
+    // pnoise seed
+    // pnoise detail
+    // random seed (in Python?)
+
+    // reset window settings
+    frameRate(60);  
+    // windowTitle("Sketch");
+    // cursor(ARROW);
+
+    // reset detail settings
+    // sphere detail
+    // bezier detail
+    // curve detail
+    // curve tightness
+    // texture mode, texture wrap
+
+    // reset camera settings
+    // camera, ortho, etc
+    // clip / no_clip?
+
+    // reset misc settings
+    // stop threads in Python
+    // reset print stream?
+    // changes to run_sketch() params will not work most likely
   }
 
   @Override
