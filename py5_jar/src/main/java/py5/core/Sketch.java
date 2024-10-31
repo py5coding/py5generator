@@ -126,6 +126,7 @@ public class Sketch extends SketchBase {
     if (savedStyle != null) {
       style(savedStyle);
     }
+    frameRate(60);
 
     // reset shaders
     if (g instanceof PGraphicsOpenGL) {
