@@ -149,8 +149,8 @@ public class Sketch extends SketchBase {
 
     // reset random methods
     osNoiseSeed = (long) (Math.random() * Long.MAX_VALUE);
-    // pnoise seed
-    // pnoise detail
+    // pnoise seed - how is this set?
+    noiseDetail(4, 0.5f);
     // random seed (in Python?)
 
     // reset window settings
