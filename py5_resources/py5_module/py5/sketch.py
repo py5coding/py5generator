@@ -318,11 +318,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         _osx_alt_run_method: bool = True,
     ) -> None:
         self._environ = _environ.Environment()
-        self.set_println_stream(
-            _DisplayPubPrintlnStream()
-            if self._environ.in_jupyter_zmq_shell
-            else _DefaultPrintlnStream()
-        )
+        self._init_print_stream()
 
         self._py5_bridge = Py5Bridge(self)
         self._py5_bridge.set_caller_locals_globals(_caller_locals, _caller_globals)
@@ -437,6 +433,13 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         self._instance.noLoop()
         self._shutdown_initiated = True
         self._shutdown()
+
+    def _init_print_stream(self):
+        self.set_println_stream(
+            _DisplayPubPrintlnStream()
+            if self._environ.in_jupyter_zmq_shell
+            else _DefaultPrintlnStream()
+        )
 
     def _add_pre_hook(self, method_name, hook_name, function):
         if self._py5_bridge is None:
