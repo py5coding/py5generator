@@ -174,14 +174,10 @@ public class Sketch extends SketchBase {
     curveDetail(20);
     curveTightness(0f);
 
-    // reset stuff in Python?
-    // random seed self._rng = np.random.default_rng()
-    // stop threads
-    // reset print stream
-
     // things to document
     // changes to run_sketch() params will not work
     // issues if you add a call to clip()
+    // issues with threads not stopping
   }
 
   @Override
