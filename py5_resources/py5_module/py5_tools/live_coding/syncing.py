@@ -361,7 +361,7 @@ class SyncDraw:
     def pre_draw_hook(self, s):
         if self.run_setup_again:
             s._instance._resetSyncSketch()
-            s._rng = np.random.default_rng()
+            s._init_math_mixin()
             s.stop_all_threads(wait=False)
 
             UserFunctionWrapper.looping_state = ANIMATION_LOOPING
