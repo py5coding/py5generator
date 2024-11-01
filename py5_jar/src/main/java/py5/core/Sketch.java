@@ -155,7 +155,7 @@ public class Sketch extends SketchBase {
 
     // reset window settings
     frameRate(60);  
-    // cursor(ARROW);  // not needed?
+    cursor(ARROW);
 
     // reset detail settings
     // sphere detail
