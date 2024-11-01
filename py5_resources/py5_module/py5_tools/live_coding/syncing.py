@@ -363,7 +363,6 @@ class SyncDraw:
             s._instance._resetSyncSketch()
             s._rng = np.random.default_rng()
             s.stop_all_threads(wait=False)
-            s._init_print_stream()
 
             UserFunctionWrapper.looping_state = ANIMATION_LOOPING
             UserFunctionWrapper.freeze_frame_count = None
