@@ -20,6 +20,7 @@
 package py5.core;
 
 import java.io.File;
+import java.util.Random;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -149,12 +150,11 @@ public class Sketch extends SketchBase {
 
     // reset random methods
     osNoiseSeed = (long) (Math.random() * Long.MAX_VALUE);
-    // pnoise seed - how is this set?
-    noiseDetail(4, 0.5f);  // am I sure this is needed?
-    // random seed (in Python?)
+    noiseSeed((long) (Math.random() * Long.MAX_VALUE));
+    noiseDetail(4, 0.5f);
 
     // reset window settings
-    frameRate(60);  
+    frameRate(60);
     cursor(ARROW);
 
     // reset detail settings
@@ -168,10 +168,11 @@ public class Sketch extends SketchBase {
     // camera, ortho, etc
     // clip / no_clip?
 
-    // reset misc settings
-    // stop threads in Python
-    // reset print stream?
-    // changes to run_sketch() params will not work most likely
+    // reset stuff in Python?
+    // random seed self._rng = np.random.default_rng()
+    // stop threads
+    // reset print stream
+    // document: changes to run_sketch() params will not work
   }
 
   @Override
