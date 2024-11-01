@@ -158,7 +158,7 @@ public class Sketch extends SketchBase {
     cursor(ARROW);
 
     // reset detail settings
-    // sphere detail
+    sphereDetail(30);
     // bezier detail
     // curve detail
     // curve tightness
