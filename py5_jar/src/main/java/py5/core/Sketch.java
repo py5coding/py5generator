@@ -161,7 +161,7 @@ public class Sketch extends SketchBase {
     sphereDetail(30);
     bezierDetail(20);
     curveDetail(20);
-    // curve tightness
+    curveTightness(0f);
     // texture mode, texture wrap
 
     // reset camera settings
