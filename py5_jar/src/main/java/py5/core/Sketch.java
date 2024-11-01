@@ -128,6 +128,9 @@ public class Sketch extends SketchBase {
       style(savedStyle);
     }
 
+    // in case user doesn't call background in setup
+    background(204);
+
     // reset shaders and other opengl only stuff
     if (g instanceof PGraphicsOpenGL) {
       resetShader(POINTS);
@@ -158,6 +161,7 @@ public class Sketch extends SketchBase {
     // reset window settings
     frameRate(60);
     cursor(ARROW);
+    noClip();
 
     // reset detail settings
     sphereDetail(30);
@@ -165,15 +169,14 @@ public class Sketch extends SketchBase {
     curveDetail(20);
     curveTightness(0f);
 
-    // reset camera settings
-    // camera, ortho, etc
-    // clip / no_clip?
-
     // reset stuff in Python?
     // random seed self._rng = np.random.default_rng()
     // stop threads
     // reset print stream
-    // document: changes to run_sketch() params will not work
+
+    // things to document
+    // changes to run_sketch() params will not work
+    // issues if you add a call to clip()
   }
 
   @Override

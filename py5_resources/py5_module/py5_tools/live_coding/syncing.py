@@ -362,8 +362,6 @@ class SyncDraw:
             s._instance._resetSyncSketch()
             UserFunctionWrapper.looping_state = ANIMATION_LOOPING
             UserFunctionWrapper.freeze_frame_count = None
-            # in case user doesn't call background in setup
-            s.background(204)
             self.functions["setup"]()
             self.run_setup_again = False
 
