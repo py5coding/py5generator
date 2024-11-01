@@ -24,6 +24,7 @@ import sys
 import zipfile
 from pathlib import Path
 
+import numpy as np
 import stackprinter
 
 from .import_hook import activate_py5_live_coding_import_hook
@@ -360,8 +361,13 @@ class SyncDraw:
     def pre_draw_hook(self, s):
         if self.run_setup_again:
             s._instance._resetSyncSketch()
+            s._rng = np.random.default_rng()
+            s.stop_all_threads(wait=False)
+            s._init_print_stream()
+
             UserFunctionWrapper.looping_state = ANIMATION_LOOPING
             UserFunctionWrapper.freeze_frame_count = None
+
             self.functions["setup"]()
             self.run_setup_again = False
 
