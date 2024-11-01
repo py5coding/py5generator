@@ -178,6 +178,7 @@ public class Sketch extends SketchBase {
     // changes to run_sketch() params will not work
     // issues if you add a call to clip()
     // issues with threads not stopping
+    // don't mess with print stream
   }
 
   @Override
