@@ -128,11 +128,13 @@ public class Sketch extends SketchBase {
       style(savedStyle);
     }
 
-    // reset shaders
+    // reset shaders and other opengl only stuff
     if (g instanceof PGraphicsOpenGL) {
       resetShader(POINTS);
       resetShader(LINES);
       resetShader(TRIANGLES);
+      textureMode(IMAGE);
+      textureWrap(CLAMP);
     }
 
     // reset hints
@@ -162,8 +164,6 @@ public class Sketch extends SketchBase {
     bezierDetail(20);
     curveDetail(20);
     curveTightness(0f);
-    textureMode(IMAGE);
-    // texture wrap
 
     // reset camera settings
     // camera, ortho, etc
