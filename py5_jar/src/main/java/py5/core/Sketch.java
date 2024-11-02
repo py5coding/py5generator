@@ -128,8 +128,16 @@ public class Sketch extends SketchBase {
       style(savedStyle);
     }
 
-    // in case user doesn't call background in setup
-    background(204);
+    // reset window settings
+    frameRate(60);
+    cursor(ARROW);
+    noClip();
+
+    // reset 3D settings
+    if (g.is3D()) {
+      camera();
+      perspective();
+    }
 
     // reset shaders and other opengl only stuff
     if (g instanceof PGraphicsOpenGL) {
@@ -138,12 +146,6 @@ public class Sketch extends SketchBase {
       resetShader(TRIANGLES);
       textureMode(IMAGE);
       textureWrap(CLAMP);
-    }
-
-    // reset 3D settings
-    if (g.is3D()) {
-      camera();
-      perspective();
     }
 
     // reset hints
@@ -159,15 +161,13 @@ public class Sketch extends SketchBase {
     hint(DISABLE_KEY_REPEAT);
     hint(ENABLE_ASYNC_SAVEFRAME);
 
+    // in case user doesn't call background in setup
+    background(204);
+
     // reset random methods
     osNoiseSeed = (long) (Math.random() * Long.MAX_VALUE);
     noiseSeed((long) (Math.random() * Long.MAX_VALUE));
     noiseDetail(4, 0.5f);
-
-    // reset window settings
-    frameRate(60);
-    cursor(ARROW);
-    noClip();
 
     // reset detail settings
     sphereDetail(30);
