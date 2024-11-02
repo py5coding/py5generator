@@ -20,6 +20,7 @@
 package py5.core;
 
 import java.io.File;
+import java.util.Random;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -126,13 +127,25 @@ public class Sketch extends SketchBase {
     if (savedStyle != null) {
       style(savedStyle);
     }
-    frameRate(60);
 
-    // reset shaders
+    // reset window settings
+    frameRate(60);
+    cursor(ARROW);
+    noClip();
+
+    // reset 3D settings
+    if (g.is3D()) {
+      camera();
+      perspective();
+    }
+
+    // reset shaders and other opengl only stuff
     if (g instanceof PGraphicsOpenGL) {
       resetShader(POINTS);
       resetShader(LINES);
       resetShader(TRIANGLES);
+      textureMode(IMAGE);
+      textureWrap(CLAMP);
     }
 
     // reset hints
@@ -147,6 +160,20 @@ public class Sketch extends SketchBase {
     hint(DISABLE_BUFFER_READING);
     hint(DISABLE_KEY_REPEAT);
     hint(ENABLE_ASYNC_SAVEFRAME);
+
+    // in case user doesn't call background in setup
+    background(204);
+
+    // reset random methods
+    osNoiseSeed = (long) (Math.random() * Long.MAX_VALUE);
+    noiseSeed((long) (Math.random() * Long.MAX_VALUE));
+    noiseDetail(4, 0.5f);
+
+    // reset detail settings
+    sphereDetail(30);
+    bezierDetail(20);
+    curveDetail(20);
+    curveTightness(0f);
   }
 
   @Override
