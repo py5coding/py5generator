@@ -138,11 +138,12 @@ public class Sketch extends SketchBase {
       resetShader(TRIANGLES);
       textureMode(IMAGE);
       textureWrap(CLAMP);
+    }
 
-      if (g.is3D()) {
-        camera();
-        perspective();
-      }
+    // reset 3D settings
+    if (g.is3D()) {
+      camera();
+      perspective();
     }
 
     // reset hints
