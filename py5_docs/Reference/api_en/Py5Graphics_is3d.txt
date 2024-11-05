@@ -1,5 +1,7 @@
 @@ meta
 name = is3d()
+category = environment
+subcategory = None
 type = method
 pclass = PGraphics
 processing_name = is3D
