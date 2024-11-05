@@ -8,4 +8,6 @@ processing_name = is3D
 is3d() -> bool
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Boolean value reflecting if the Py5Graphics object is or is not a 3D renderer.
+
+This will be `True` if the renderer is a 3D renderer such as `P3D`.
