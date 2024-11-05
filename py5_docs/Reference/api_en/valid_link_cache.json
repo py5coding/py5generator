@@ -514,5 +514,6 @@
   "https://processing.org/reference/windowTitle_.html": true,
   "https://processing.org/reference/windowX.html": false,
   "https://processing.org/reference/windowY.html": false,
-  "https://processing.org/reference/year_.html": true
+  "https://processing.org/reference/year_.html": true,
+  "https://processing.org/reference/PGraphics_is3D_.html": false
 }
