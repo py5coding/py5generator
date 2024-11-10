@@ -7,7 +7,7 @@ name = "py5"
 dynamic = ["version"]
 description = "Processing for CPython"
 readme = "README.md"
-license = ""
+license = "LGPL-2.1-only"
 requires-python = ">3.9"
 authors = [
     { name = "Jim Schmitz", email = "jim@ixora.io" },
