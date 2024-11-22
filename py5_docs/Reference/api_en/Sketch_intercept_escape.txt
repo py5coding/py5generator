@@ -14,7 +14,7 @@ Prevent the Escape key from causing the Sketch to exit. Normally hitting the Esc
 
 The `intercept_escape()` method will only do something when [](sketch_key) already equals `ESC`. This function should only be called from the user event functions `key_pressed()`, `key_typed()`, and `key_released()`.
 
-This method will not alter the value of [](sketch_key). This method cannot prevent a Sketch from exiting when the Sketch window is closed.
+This method will not alter the value of [](sketch_key). This method cannot prevent a Sketch from exiting when the exit is triggered by any other means, such as a call to [](sketch_exit_sketch) or the user closes the window.
 
 @@ example
 def setup():
