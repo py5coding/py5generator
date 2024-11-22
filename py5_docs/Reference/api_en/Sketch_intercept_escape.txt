@@ -10,7 +10,7 @@ subcategory = None
 intercept_escape() -> None
 
 @@ description
-Prevent the Escape key from causing the Sketch to exit. Normally hitting the Escape key (`ESC`) will cause the Sketch to exit. In Processing, one can write code to change the Escape key's behavior by changing the [](sketch_key) value to something else, perhaps with code similar to `py5.key = 'x'`. That code won't work in py5 because py5 does not allow the user to alter the value of [](sketch_key) like Processing does. To allow users to achieve the same goal of preventing the Escape key from causing the Sketch to exit, the `intercept_escape()` method was created.
+Prevent the Escape key from causing the Sketch to exit. Normally hitting the Escape key (`ESC`) will cause the Sketch to exit. In Processing, one can write code to change the Escape key's behavior by changing the [](sketch_key) value to something else, perhaps with code similar to `py5.key = 'x'`. That code won't work in py5 because py5 does not allow the user to alter the value of [](sketch_key) like Processing does. The `intercept_escape()` method was created to allow users to achieve the same goal of preventing the Escape key from causing the Sketch to exit.
 
 The `intercept_escape()` method will only do something when [](sketch_key) already equals `ESC`. This function should only be called from the user event functions `key_pressed()`, `key_typed()`, and `key_released()`.
 
