@@ -494,6 +494,18 @@ public class Sketch extends SketchBase {
     postEvent(new KeyEvent(null, System.currentTimeMillis(), action, modifiers, key, keyCode, isAutoRepeat));
   }
 
+  public void interceptEscape() {
+    if (key == ESC) {
+      interceptEscape = true;
+    }
+  }
+
+  @Override
+  protected void handleKeyEvent(KeyEvent event) {
+    super.handleKeyEvent(event);
+    interceptEscape = false;
+  }
+
   @Override
   public void postWindowMoved(int newX, int newY) {
     if (!sketchFullScreen()) {

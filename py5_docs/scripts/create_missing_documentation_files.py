@@ -103,7 +103,7 @@ for num, new_file_data in enumerate(new_doc_files):
     print(f"creating {new_docfile}")
     with open(new_docfile, "w") as f:
         extra = (
-            f"pclass = {pclass}\nprocessing_name = {java_name}  # remove if not a part of Processing\n"
+            f"pclass = {pclass}\nprocessing_name = {java_name}  # **REMOVE IF NOT A PART OF PROCESSING**\n"
             if java_name
             else ""
         )

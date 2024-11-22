@@ -231,6 +231,7 @@ println,println,,method,output,text_area,PYTHON,override to provide special prin
 set_println_stream,,,method,output,text_area,PYTHON,special print tools for managing print output from a running sketch
 main,main,,method,,,SKIP,public methods that shouldn't be available to users
 exit_sketch,exit,,method,structure,,JAVA,renamed because of conflict with builtin python function
+intercept_escape,interceptEscape,,method,structure,,JAVA,
 get_pixels,get,@_return_py5image,method,image,pixels,JAVA,
 method,method,,method,,,SKIP,
 append,append,,method,data,array_functions,SKIP,user should use python instead
