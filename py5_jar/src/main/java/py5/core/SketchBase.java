@@ -48,6 +48,7 @@ public class SketchBase extends PApplet {
   protected boolean disposeCalled;
   protected boolean inIPythonSession;
   protected boolean inJupyterZMQShell;
+  protected boolean interceptEscape;
 
   public SketchBase() {
     py5Bridge = null;
@@ -55,6 +56,7 @@ public class SketchBase extends PApplet {
     this.py5RegisteredEventParamCounts = new HashMap<String, Integer>();
     this.exitActualCallCount = 0;
     disposeCalled = false;
+    interceptEscape = false;
   }
 
   public static void setJOGLProperties(String py5Path) {
@@ -97,10 +99,12 @@ public class SketchBase extends PApplet {
 
   @Override
   public void exit() {
-    if (platform == MACOS && g.isGL() && !isLooping()) {
-      loop();
+    if (!interceptEscape) {
+      if (platform == MACOS && g.isGL() && !isLooping()) {
+        loop();
+      }
+      super.exit();
     }
-    super.exit();
   }
 
   @Override
