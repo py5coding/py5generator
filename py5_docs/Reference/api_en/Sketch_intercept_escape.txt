@@ -2,7 +2,6 @@
 name = intercept_escape()
 type = method
 pclass = Sketch
-processing_name = interceptEscape  # remove if not a part of Processing
 category = structure
 subcategory = None
 
