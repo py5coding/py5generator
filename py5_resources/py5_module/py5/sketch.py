@@ -369,7 +369,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
                 if block == False and not self._environ.in_ipython_session:
                     self.println(
-                        "On macOS, blocking is manditory when Sketch is not run through Jupyter. This applies to all renderers.",
+                        "On macOS, blocking is mandatory when Sketch is not run through Jupyter. This applies to all renderers.",
                         stderr=True,
                     )
 
