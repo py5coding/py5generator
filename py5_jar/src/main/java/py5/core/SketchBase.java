@@ -49,6 +49,7 @@ public class SketchBase extends PApplet {
   protected boolean inIPythonSession;
   protected boolean inJupyterZMQShell;
   protected boolean interceptEscape;
+  protected boolean allowSystemExit;
 
   public SketchBase() {
     py5Bridge = null;
@@ -57,6 +58,7 @@ public class SketchBase extends PApplet {
     this.exitActualCallCount = 0;
     disposeCalled = false;
     interceptEscape = false;
+    allowSystemExit = false;
   }
 
   public static void setJOGLProperties(String py5Path) {
@@ -113,8 +115,17 @@ public class SketchBase extends PApplet {
     super.dispose();
   }
 
+  // TODO: remove underscore and add to Sketch class data file
+  public void _allowSystemExit() {
+    allowSystemExit = true;
+  }
+
   // @Override
   public void exitActual() {
+    if (allowSystemExit) {
+      System.exit(0);
+    }
+
     if (!inIPythonSession && !(this instanceof Sketch)) {
       // if this is not an instance of Sketch, the Sketch is being run in
       // Processing mode. If in Processing mode and not being executed in an

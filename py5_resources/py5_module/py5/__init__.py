@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import inspect
 import os
+import platform
 import sys
 import warnings
 from io import BytesIO
@@ -41,6 +42,14 @@ from jpype.types import JArray, JChar, JFloat, JInt, JString  # noqa
 from PIL import Image  # noqa
 
 if not py5_tools.is_jvm_running():
+    if platform.system() == "Darwin":
+        # make sure Python appears on the MacOS Dock
+        from tkinter import Tk
+
+        _tk = Tk()
+        _tk.quit()
+        _tk.destroy()
+
     base_path = (
         Path(getattr(sys, "_MEIPASS")) / "py5"
         if hasattr(sys, "_MEIPASS")

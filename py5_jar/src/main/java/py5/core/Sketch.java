@@ -28,6 +28,7 @@ import processing.core.PMatrix2D;
 import processing.core.PShape;
 import processing.core.PStyle;
 import processing.core.PSurface;
+import processing.core.ThinkDifferent;
 import processing.event.Event;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -199,13 +200,31 @@ public class Sketch extends SketchBase {
   public void setup() {
     if (success) {
       PSurface surface = getSurface();
+      if (sketchRenderer().equals(JAVA2D)) {
+        if (platform == WINDOWS) {
+          surface.setAlwaysOnTop(true);
+          surface.setAlwaysOnTop(false);
+
+          // TODO: somewhere in here might be a better solution for Windows
+          // java.awt.Canvas canvas = (java.awt.Canvas) surface.getNative();
+          // canvas.setFocusable(true);
+          // canvas.requestFocus();
+          // canvas.requestFocusInWindow();
+          // java.awt.Taskbar taskbar = java.awt.Taskbar.getTaskbar();
+          // taskbar.requestUserAttention(true, false);
+        } else if (platform == MACOS) {
+          ThinkDifferent.activateIgnoringOtherApps();
+        }
+      }
+
       // This is an ugly hack to make sure the Sketch window opens above all
       // other windows. It alleviates the symptoms of bug #5 but is not a
       // proper fix. When it does get a proper fix, this needs to be removed.
-      if ((platform == MACOS || platform == WINDOWS) && sketchRenderer().equals(JAVA2D)) {
-        surface.setAlwaysOnTop(true);
-        surface.setAlwaysOnTop(false);
-      }
+      // OLD CODE
+      // if ((platform == MACOS || platform == WINDOWS) && sketchRenderer().equals(JAVA2D)) {
+      //   surface.setAlwaysOnTop(true);
+      //   surface.setAlwaysOnTop(false);
+      // }
 
       if (py5IconPath != null && !(g instanceof PGraphicsOpenGL)) {
         try {
