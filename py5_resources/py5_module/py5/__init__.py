@@ -55,7 +55,7 @@ if not py5_tools.is_jvm_running():
 
         del _tk
 
-        # Should we warn the user? How do to this in a way that is not annoying?
+        # Should we warn the user? Can we do this in a way that is not annoying?
         # if not _PY5_USE_IMPORTED_MODE:
         #     _environ = py5_tools.environ.Environment()
         #     if _environ.in_jupyter_zmq_shell:
