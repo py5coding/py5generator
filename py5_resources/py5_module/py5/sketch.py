@@ -359,10 +359,10 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                 def run():
                     Sketch._cls.runSketch(args, self._instance)
                     if not self._environ.in_ipython_session:
-                        # TODO: shouldn't this only be for JAVA2D?
-                        # No, because this always kills Python when the sketch is done.
-                        # There has to be a better way than this though
-                        self._instance._allowSystemExit()
+                        # need to call System.exit() in Java to stop the sketch
+                        # would never get past runConsoleEventLoop() anyway
+                        # because that doesn't return
+                        self._instance.allowSystemExit()
                         while not self.is_dead:
                             time.sleep(0.05)
                         if self.is_dead_from_error:

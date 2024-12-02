@@ -220,7 +220,7 @@ public class Sketch extends SketchBase {
       // This is an ugly hack to make sure the Sketch window opens above all
       // other windows. It alleviates the symptoms of bug #5 but is not a
       // proper fix. When it does get a proper fix, this needs to be removed.
-      // OLD CODE
+      // TODO: OLD CODE, remove
       // if ((platform == MACOS || platform == WINDOWS) && sketchRenderer().equals(JAVA2D)) {
       //   surface.setAlwaysOnTop(true);
       //   surface.setAlwaysOnTop(false);

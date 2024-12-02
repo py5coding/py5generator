@@ -115,8 +115,7 @@ public class SketchBase extends PApplet {
     super.dispose();
   }
 
-  // TODO: remove underscore and add to Sketch class data file
-  public void _allowSystemExit() {
+  public void allowSystemExit() {
     allowSystemExit = true;
   }
 
