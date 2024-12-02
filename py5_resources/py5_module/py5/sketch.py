@@ -362,14 +362,19 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                         # need to call System.exit() in Java to stop the sketch
                         # would never get past runConsoleEventLoop() anyway
                         # because that doesn't return
-                        self._instance.allowSystemExit()
-                        while not self.is_dead:
-                            time.sleep(0.05)
-                        if self.is_dead_from_error:
-                            surface = self.get_surface()
-                            while not surface.is_stopped():
+                        try:
+                            self._instance.allowSystemExit()
+                            while not self.is_dead:
                                 time.sleep(0.05)
-                        AppHelper.stopEventLoop()
+                            if self.is_dead_from_error:
+                                surface = self.get_surface()
+                                while not surface.is_stopped():
+                                    time.sleep(0.05)
+                            AppHelper.stopEventLoop()
+                        except Exception as e:
+                            # exception might be thrown because the JVM gets
+                            # shut down forcefully
+                            pass
 
                 if block == False and not self._environ.in_ipython_session:
                     self.println(
