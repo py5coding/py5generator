@@ -47,7 +47,6 @@ if not py5_tools.is_jvm_running():
         from tkinter import Tk
 
         _tk = Tk()
-        # TODO: do I need both of these calls?
         _tk.quit()
         _tk.destroy()
 
