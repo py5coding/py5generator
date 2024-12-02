@@ -47,9 +47,27 @@ if not py5_tools.is_jvm_running():
         # otherwise MacOS will not like to let JAVA2D Sketches get focus
         from tkinter import Tk
 
+        # yes, this code has to be here. putting it later, in py5.run_sketch()
+        # perhaps, results in a nasty uncaught exception
         _tk = Tk()
         _tk.quit()
         _tk.destroy()
+
+        del _tk
+
+        # Should we warn the user? How do to this in a way that is not annoying?
+        # if not _PY5_USE_IMPORTED_MODE:
+        #     _environ = py5_tools.environ.Environment()
+        #     if _environ.in_jupyter_zmq_shell:
+        #         print(
+        #             "Importing py5 on macOS from a Jupyter notebook will cause your browser to lose focus."
+        #         )
+        #     elif _environ.in_ipython_session:
+        #         print(
+        #             "Importing py5 on macOS from IPython will cause your terminal to lose focus."
+        #         )
+
+        #     del _environ
 
     base_path = (
         Path(getattr(sys, "_MEIPASS")) / "py5"
