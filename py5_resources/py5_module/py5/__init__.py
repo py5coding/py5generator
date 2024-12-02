@@ -43,7 +43,8 @@ from PIL import Image  # noqa
 
 if not py5_tools.is_jvm_running():
     if platform.system() == "Darwin":
-        # make sure Python appears on the MacOS Dock
+        # Make sure Python appears on the MacOS Dock This is necessary,
+        # otherwise MacOS will not like to let JAVA2D Sketches get focus
         from tkinter import Tk
 
         _tk = Tk()
