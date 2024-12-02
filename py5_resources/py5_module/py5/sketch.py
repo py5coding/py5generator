@@ -81,6 +81,7 @@ _SketchBase = jpype.JClass("py5.core.SketchBase")
 
 
 try:
+    # TODO: why not use the very nice py5_tools.environ.Environment class here?
     # be aware that __IPYTHON__ and get_ipython() are inserted into the user namespace late in the kernel startup process
     __IPYTHON__  # type: ignore
     # type: ignore
