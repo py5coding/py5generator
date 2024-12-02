@@ -121,16 +121,24 @@ public class SketchBase extends PApplet {
 
   // @Override
   public void exitActual() {
-    if (allowSystemExit) {
-      System.exit(0);
-    }
-
     if (!inIPythonSession && !(this instanceof Sketch)) {
       // if this is not an instance of Sketch, the Sketch is being run in
       // Processing mode. If in Processing mode and not being executed in an
       // IPython session, we need to kill the JVM to prevent the user from
       // needing to hit Ctrl-C to terminate the window. If for some reason
       // this is not what the user wants, they can override exitActual().
+      System.exit(0);
+    }
+
+    // call exiting even if success == false. user might need to do shutdown
+    // activities
+    if (py5RegisteredEvents != null && py5Bridge != null && py5RegisteredEvents.contains("exiting")) {
+      py5Bridge.run_method("exiting");
+      // if the exiting method was not successful we still need to run the below
+      // shutdown code.
+    }
+
+    if (allowSystemExit) {
       System.exit(0);
     }
 
@@ -146,14 +154,6 @@ public class SketchBase extends PApplet {
 
     // prevent an endless loop on macOS
     exitActualCallCount += 1;
-
-    // call exiting even if success == false. user might need to do shutdown
-    // activities
-    if (py5RegisteredEvents != null && py5Bridge != null && py5RegisteredEvents.contains("exiting")) {
-      py5Bridge.run_method("exiting");
-      // if the exiting method was not successful we still need to run the below
-      // shutdown code.
-    }
 
     if (py5Bridge != null) {
       py5Bridge.shutdown();
