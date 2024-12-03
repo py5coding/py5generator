@@ -223,6 +223,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_bridge = None
         self._environ = None
+        # TODO: shouldn't this be like the base_path variable in __init__.py?
         iconPath = Path(__file__).parent.parent / "py5_tools/resources/logo-64x64.png"
         if iconPath.exists() and hasattr(self._instance, "setPy5IconPath"):
             self._instance.setPy5IconPath(str(iconPath))
