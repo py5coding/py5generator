@@ -43,31 +43,42 @@ from PIL import Image  # noqa
 
 if not py5_tools.is_jvm_running():
     if platform.system() == "Darwin":
-        # Make sure Python appears on the MacOS Dock This is necessary,
-        # otherwise MacOS will not like to let JAVA2D Sketches get focus
-        from tkinter import Tk
+        # Make sure Python appears on the MacOS Dock
+        # This is necessary, otherwise MacOS will not like to let JAVA2D Sketches get focus
+        try:
+            # yes, this tkinter code has to be here. putting it later, in
+            # py5.run_sketch() perhaps, results in a nasty uncaught exception
+            from tkinter import Tk
 
-        # yes, this code has to be here. putting it later, in py5.run_sketch()
-        # perhaps, results in a nasty uncaught exception
-        _tk = Tk()
-        _tk.quit()
-        _tk.destroy()
+            _tk = Tk()
 
-        del _tk
+            try:
+                # now attempt to set the py5 logo as the icon on MacOS Dock
+                from Foundation import NSURL, NSApplication, NSImage
 
-        # Should we warn the user? Can we do this in a way that is not annoying?
-        # if not _PY5_USE_IMPORTED_MODE:
-        #     _environ = py5_tools.environ.Environment()
-        #     if _environ.in_jupyter_zmq_shell:
-        #         print(
-        #             "Importing py5 on macOS from a Jupyter notebook will cause your browser to lose focus."
-        #         )
-        #     elif _environ.in_ipython_session:
-        #         print(
-        #             "Importing py5 on macOS from IPython will cause your terminal to lose focus."
-        #         )
+                app = NSApplication.sharedApplication()
 
-        #     del _environ
+                icon_path = (
+                    Path(__file__).parent.parent / "py5_tools/resources/logo.icns"
+                )
+                icon_url = NSURL.fileURLWithPath_(str(icon_path))
+                icon_image = NSImage.alloc().initWithContentsOfURL_(icon_url)
+
+                app.setApplicationIconImage_(icon_image)
+
+                # cleanup
+                del app, icon_path, icon_url, icon_image
+                del NSURL, NSApplication, NSImage
+            except:
+                pass
+
+            _tk.quit()
+            _tk.destroy()
+
+            # cleanup
+            del _tk, Tk
+        except:
+            pass
 
     base_path = (
         Path(getattr(sys, "_MEIPASS")) / "py5"
