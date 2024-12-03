@@ -42,6 +42,12 @@ from jpype.types import JArray, JChar, JFloat, JInt, JString  # noqa
 from PIL import Image  # noqa
 
 if not py5_tools.is_jvm_running():
+    base_path = (
+        Path(getattr(sys, "_MEIPASS")) / "py5"
+        if hasattr(sys, "_MEIPASS")
+        else Path(__file__).absolute().parent
+    )
+
     if platform.system() == "Darwin":
         # Make sure Python appears on the MacOS Dock
         # This is necessary, otherwise MacOS will not like to let JAVA2D Sketches get focus
@@ -58,9 +64,7 @@ if not py5_tools.is_jvm_running():
 
                 app = NSApplication.sharedApplication()
 
-                icon_path = (
-                    Path(__file__).parent.parent / "py5_tools/resources/logo.icns"
-                )
+                icon_path = base_path.parent / "py5_tools/resources/logo.icns"
                 icon_url = NSURL.fileURLWithPath_(str(icon_path))
                 icon_image = NSImage.alloc().initWithContentsOfURL_(icon_url)
 
@@ -80,11 +84,6 @@ if not py5_tools.is_jvm_running():
         except:
             pass
 
-    base_path = (
-        Path(getattr(sys, "_MEIPASS")) / "py5"
-        if hasattr(sys, "_MEIPASS")
-        else Path(__file__).absolute().parent
-    )
     # add py5 jars to the classpath first
     py5_tools.add_jars(str(base_path / "jars"))
     # if the cwd has a jars subdirectory, add that next
