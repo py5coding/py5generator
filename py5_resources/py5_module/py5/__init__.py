@@ -60,7 +60,7 @@ if not py5_tools.is_jvm_running():
 
             try:
                 # now attempt to set the py5 logo as the icon on MacOS Dock
-                from Foundation import NSURL, NSApplication, NSImage
+                from AppKit import NSURL, NSApplication, NSImage
 
                 app = NSApplication.sharedApplication()
 
