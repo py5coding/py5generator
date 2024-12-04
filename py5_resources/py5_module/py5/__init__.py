@@ -52,35 +52,26 @@ if not py5_tools.is_jvm_running():
         # Make sure Python appears on the MacOS Dock
         # This is necessary, otherwise MacOS will not like to let JAVA2D Sketches get focus
         try:
-            # yes, this tkinter code has to be here. putting it later, in
-            # py5.run_sketch() perhaps, results in a nasty uncaught exception
-            from tkinter import Tk
+            from AppKit import (
+                NSURL,
+                NSApplication,
+                NSApplicationActivationPolicyRegular,
+                NSImage,
+            )
 
-            _tk = Tk()
+            # this adds a white square to the dock
+            app = NSApplication.sharedApplication()
+            app.setActivationPolicy_(NSApplicationActivationPolicyRegular)
 
-            try:
-                # now attempt to set the py5 logo as the icon on MacOS Dock
-                from AppKit import NSURL, NSApplication, NSImage
-
-                app = NSApplication.sharedApplication()
-
-                icon_path = base_path.parent / "py5_tools/resources/logo.icns"
-                icon_url = NSURL.fileURLWithPath_(str(icon_path))
-                icon_image = NSImage.alloc().initWithContentsOfURL_(icon_url)
-
-                app.setApplicationIconImage_(icon_image)
-
-                # cleanup
-                del app, icon_path, icon_url, icon_image
-                del NSURL, NSApplication, NSImage
-            except:
-                pass
-
-            _tk.quit()
-            _tk.destroy()
+            # set the dock icon to the py5 logo
+            icon_path = base_path.parent / "py5_tools/resources/logo.icns"
+            icon_url = NSURL.fileURLWithPath_(str(icon_path))
+            icon_image = NSImage.alloc().initWithContentsOfURL_(icon_url)
+            app.setApplicationIconImage_(icon_image)
 
             # cleanup
-            del _tk, Tk
+            del app, icon_path, icon_url, icon_image
+            del NSURL, NSApplication, NSApplicationActivationPolicyRegular, NSImage
         except:
             pass
 
