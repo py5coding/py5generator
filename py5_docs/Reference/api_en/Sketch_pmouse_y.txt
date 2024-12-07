@@ -7,7 +7,7 @@ pclass = PApplet
 processing_name = pmouseY
 
 @@ description
-The system variable `pmouse_y` always contains the vertical position of the mouse in the frame previous to the current frame.
+The variable `pmouse_y` always contains the vertical position of the mouse in the frame previous to the current frame.
 
 For more detail on how `pmouse_y` is updated inside of mouse events and `draw()`, see the reference for [](sketch_pmouse_x).
 
