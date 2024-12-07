@@ -28,7 +28,7 @@ from .imported import _lock_imported_mode, get_imported_mode, set_imported_mode 
 from .jvm import *  # noqa
 from .libraries import *  # noqa
 
-__version__ = "0.10.4.dev0"
+__version__ = "0.10.4.dev1"
 
 
 __all__ = [
