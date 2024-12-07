@@ -245,8 +245,7 @@ public class Sketch extends SketchBase {
         long windowHandle = window.getWindowHandle();
         // also need to pass the window handle to the bridge to make a Windows
         // API call to request focus
-
-        // TODO: pass handle to bridge to call ctypes, win32gui, or pywinauto
+        py5Bridge.focus_window(windowHandle);
       }
     }
   }

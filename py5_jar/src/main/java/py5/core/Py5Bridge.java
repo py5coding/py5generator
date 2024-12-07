@@ -31,6 +31,8 @@ public interface Py5Bridge {
 
   public void py5_println(String text, boolean stderr);
 
+  public void focus_window(long handle);
+
   public void shutdown();
 
 }
