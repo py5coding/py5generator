@@ -7,7 +7,7 @@ pclass = PApplet
 processing_name = displayWidth
 
 @@ description
-System variable that stores the width of the entire screen display. This can be used to run a full-screen program on any display size, but calling [](sketch_full_screen) is usually a better choice.
+Variable that stores the width of the entire screen display. This can be used to run a full-screen program on any display size, but calling [](sketch_full_screen) is usually a better choice.
 
 @@ example
 def setup():
