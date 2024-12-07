@@ -75,6 +75,23 @@ if not py5_tools.is_jvm_running():
         except:
             pass
 
+    if platform.system() == "Windows":
+        # This code is here so that later win32gui code works correctly. The
+        # `focus_window(handle)` method in `Py5Bridge` is used to move Sketch
+        # windows to the foreground
+        try:
+            from win32com import client as win32com_client
+
+            shell = win32com_client.Dispatch("WScript.Shell")
+
+            # send the most benign key possible. this can't possibly do anything
+            shell.SendKeys(chr(0))
+
+            # cleanup
+            del win32com_client, shell
+        except:
+            pass
+
     # add py5 jars to the classpath first
     py5_tools.add_jars(str(base_path / "jars"))
     # if the cwd has a jars subdirectory, add that next
