@@ -39,6 +39,7 @@ dependencies = [
     "numpy>=1.26",
     "pillow>=10.2",
     "pyobjc>=10.1;sys_platform==\"darwin\"",
+    "pywin32>=308;sys_platform==\"win32\"",
     "requests>=2.31",
     "stackprinter>=0.2.11",
 ]
