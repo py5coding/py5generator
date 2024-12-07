@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import inspect
 import os
+import platform
 import sys
 import warnings
 from io import BytesIO
@@ -46,6 +47,51 @@ if not py5_tools.is_jvm_running():
         if hasattr(sys, "_MEIPASS")
         else Path(__file__).absolute().parent
     )
+
+    if platform.system() == "Darwin":
+        # Make sure Python appears on the MacOS Dock
+        # This is necessary, otherwise MacOS will not like to let JAVA2D Sketches get focus
+        try:
+            from AppKit import (
+                NSURL,
+                NSApplication,
+                NSApplicationActivationPolicyRegular,
+                NSImage,
+            )
+
+            # this adds a white square to the dock
+            app = NSApplication.sharedApplication()
+            app.setActivationPolicy_(NSApplicationActivationPolicyRegular)
+
+            # set the dock icon to the py5 logo
+            icon_path = base_path.parent / "py5_tools/resources/logo.icns"
+            icon_url = NSURL.fileURLWithPath_(str(icon_path))
+            icon_image = NSImage.alloc().initWithContentsOfURL_(icon_url)
+            app.setApplicationIconImage_(icon_image)
+
+            # cleanup
+            del app, icon_path, icon_url, icon_image
+            del NSURL, NSApplication, NSApplicationActivationPolicyRegular, NSImage
+        except:
+            pass
+
+    if platform.system() == "Windows":
+        # This code is here so that later win32gui code works correctly. The
+        # `focus_window(handle)` method in `Py5Bridge` is used to move Sketch
+        # windows to the foreground
+        try:
+            from win32com import client as win32com_client
+
+            shell = win32com_client.Dispatch("WScript.Shell")
+
+            # send the most benign key possible. this can't possibly do anything
+            shell.SendKeys(chr(0))
+
+            # cleanup
+            del win32com_client, shell
+        except:
+            pass
+
     # add py5 jars to the classpath first
     py5_tools.add_jars(str(base_path / "jars"))
     # if the cwd has a jars subdirectory, add that next

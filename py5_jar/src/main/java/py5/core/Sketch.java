@@ -20,7 +20,10 @@
 package py5.core;
 
 import java.io.File;
-import java.util.Random;
+
+import com.jogamp.newt.opengl.GLWindow;
+
+import java.awt.Canvas;
 
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -28,6 +31,7 @@ import processing.core.PMatrix2D;
 import processing.core.PShape;
 import processing.core.PStyle;
 import processing.core.PSurface;
+import processing.core.ThinkDifferent;
 import processing.event.Event;
 import processing.event.KeyEvent;
 import processing.event.MouseEvent;
@@ -199,12 +203,16 @@ public class Sketch extends SketchBase {
   public void setup() {
     if (success) {
       PSurface surface = getSurface();
-      // This is an ugly hack to make sure the Sketch window opens above all
-      // other windows. It alleviates the symptoms of bug #5 but is not a
-      // proper fix. When it does get a proper fix, this needs to be removed.
-      if ((platform == MACOS || platform == WINDOWS) && sketchRenderer().equals(JAVA2D)) {
-        surface.setAlwaysOnTop(true);
-        surface.setAlwaysOnTop(false);
+
+      // request focus for Java2D renderer on Windows and MacOS
+      if (sketchRenderer().equals(JAVA2D)) {
+        if (platform == WINDOWS) {
+          Canvas canvas = (Canvas) surface.getNative();
+          canvas.setFocusable(true);
+          canvas.requestFocus();
+        } else if (platform == MACOS) {
+          ThinkDifferent.activateIgnoringOtherApps();
+        }
       }
 
       if (py5IconPath != null && !(g instanceof PGraphicsOpenGL)) {
@@ -229,8 +237,15 @@ public class Sketch extends SketchBase {
         preDrawUpdateRunner.start();
       }
 
-      if (platform == WINDOWS && (sketchRenderer().equals(P2D) || sketchRenderer().equals(P3D))) {
-        capturePixels(true);
+      // Weirdness with Windows and OpenGL, need to capture pixels and restore
+      // them before the first draw() call
+      if (platform == WINDOWS && g.isGL()) {
+        capturePixels();
+        GLWindow window = (GLWindow) surface.getNative();
+        long windowHandle = window.getWindowHandle();
+        // also need to pass the window handle to the bridge to make a Windows
+        // API call to request focus
+        py5Bridge.focus_window(windowHandle);
       }
     }
   }
@@ -260,10 +275,6 @@ public class Sketch extends SketchBase {
 
     if (success && preDrawUpdateRunner != null && !py5RegisteredEvents.contains("post_draw")) {
       preDrawUpdateRunner.interrupt();
-    }
-
-    if (frameCount == 1 && platform == WINDOWS && (sketchRenderer().equals(P2D) || sketchRenderer().equals(P3D))) {
-      capturePixels(false);
     }
   }
 
@@ -709,11 +720,10 @@ public class Sketch extends SketchBase {
 
   /*
    * Capture and restore pixel functions, used as a workaround for a Windows
-   * problem. It alleviates the symptoms of bug #5 but is not a proper fix.
+   * shortcoming.
    */
 
-  protected void capturePixels(boolean alwaysOnTop) {
-    surface.setAlwaysOnTop(alwaysOnTop);
+  protected void capturePixels() {
     loadPixels();
     pixelCapture = new int[pixels.length];
     System.arraycopy(pixels, 0, pixelCapture, 0, pixels.length);

@@ -37,7 +37,6 @@ import jpype
 import numpy as np
 import numpy.typing as npt
 import py5_tools
-import py5_tools.environ as _environ
 from jpype.types import JArray, JClass, JException, JInt  # noqa
 from py5_tools.printstreams import _DefaultPrintlnStream, _DisplayPubPrintlnStream
 
@@ -79,21 +78,16 @@ sketch_class_members_code = None  # DELETE
 _Sketch = jpype.JClass("py5.core.Sketch")
 _SketchBase = jpype.JClass("py5.core.SketchBase")
 
-
-try:
-    # be aware that __IPYTHON__ and get_ipython() are inserted into the user namespace late in the kernel startup process
-    __IPYTHON__  # type: ignore
-    # type: ignore
-    if (
-        sys.platform == "darwin"
-        and (_ipython_shell := get_ipython()).active_eventloop != "osx"
-    ):
-        print(
-            "Importing py5 on macOS but the necessary Jupyter macOS event loop has not been activated. I'll activate it for you, but next time, execute `%gui osx` before importing this library."
-        )
-        _ipython_shell.run_line_magic("gui", "osx")
-except Exception:
-    pass
+_environ = py5_tools.environ.Environment()
+if (
+    sys.platform == "darwin"
+    and _environ.in_ipython_session
+    and _environ.ipython_shell.active_eventloop != "osx"
+):
+    print(
+        "Importing py5 on macOS but the necessary Jupyter macOS event loop has not been activated. I'll activate it for you, but next time, execute `%gui osx` before importing this library."
+    )
+    _environ.ipython_shell.run_line_magic("gui", "osx")
 
 
 _PY5_LAST_WINDOW_X = None
@@ -229,6 +223,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_bridge = None
         self._environ = None
+        # TODO: shouldn't this be like the base_path variable in __init__.py?
         iconPath = Path(__file__).parent.parent / "py5_tools/resources/logo-64x64.png"
         if iconPath.exists() and hasattr(self._instance, "setPy5IconPath"):
             self._instance.setPy5IconPath(str(iconPath))
@@ -317,7 +312,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         _caller_globals: dict[str, Any] = None,
         _osx_alt_run_method: bool = True,
     ) -> None:
-        self._environ = _environ.Environment()
+        self._environ = _environ
         self.set_println_stream(
             _DisplayPubPrintlnStream()
             if self._environ.in_jupyter_zmq_shell
@@ -359,13 +354,22 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                 def run():
                     Sketch._cls.runSketch(args, self._instance)
                     if not self._environ.in_ipython_session:
-                        while not self.is_dead:
-                            time.sleep(0.05)
-                        if self.is_dead_from_error:
-                            surface = self.get_surface()
-                            while not surface.is_stopped():
+                        # need to call System.exit() in Java to stop the sketch
+                        # would never get past runConsoleEventLoop() anyway
+                        # because that doesn't return
+                        try:
+                            self._instance.allowSystemExit()
+                            while not self.is_dead:
                                 time.sleep(0.05)
-                        AppHelper.stopEventLoop()
+                            if self.is_dead_from_error:
+                                surface = self.get_surface()
+                                while not surface.is_stopped():
+                                    time.sleep(0.05)
+                            AppHelper.stopEventLoop()
+                        except Exception as e:
+                            # exception might be thrown because the JVM gets
+                            # shut down forcefully
+                            pass
 
                 if block == False and not self._environ.in_ipython_session:
                     self.println(
