@@ -91,6 +91,27 @@ public class SketchBase extends PApplet {
     }
   }
 
+  public String getRendererName() {
+    switch (sketchRenderer()) {
+      case JAVA2D:
+        return "JAVA2D";
+      case P2D:
+        return "P2D";
+      case P3D:
+        return "P3D";
+      case FX2D:
+        return "FX2D";
+      case PDF:
+        return "PDF";
+      case SVG:
+        return "SVG";
+      case DXF:
+        return "DXF";
+      default:
+        return "UNKNOWN";
+    }
+  }
+
   public void py5Println(String text) {
     py5Bridge.py5_println(text, false);
   }
