@@ -191,11 +191,11 @@ public class Sketch extends SketchBase {
       PSurface surface = getSurface();
 
       // request focus for Java2D renderer on Windows and MacOS
-      if (sketchRenderer().equals(JAVA2D) && (platform == WINDOWS)) {
+      if (platform == WINDOWS && sketchRenderer().equals(JAVA2D)) {
         Canvas canvas = (Canvas) surface.getNative();
         canvas.setFocusable(true);
         canvas.requestFocus();
-      } else if (platform == MACOS) {
+      } else if (platform == MACOS && (sketchRenderer().equals(JAVA2D) || g.isGL())) {
         ThinkDifferent.activateIgnoringOtherApps();
       }
 
