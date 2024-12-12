@@ -191,14 +191,12 @@ public class Sketch extends SketchBase {
       PSurface surface = getSurface();
 
       // request focus for Java2D renderer on Windows and MacOS
-      if (sketchRenderer().equals(JAVA2D)) {
-        if (platform == WINDOWS) {
-          Canvas canvas = (Canvas) surface.getNative();
-          canvas.setFocusable(true);
-          canvas.requestFocus();
-        } else if (platform == MACOS) {
-          ThinkDifferent.activateIgnoringOtherApps();
-        }
+      if (platform == WINDOWS && sketchRenderer().equals(JAVA2D)) {
+        Canvas canvas = (Canvas) surface.getNative();
+        canvas.setFocusable(true);
+        canvas.requestFocus();
+      } else if (platform == MACOS && (sketchRenderer().equals(JAVA2D) || g.isGL())) {
+        ThinkDifferent.activateIgnoringOtherApps();
       }
 
       if (py5IconPath != null && !(g instanceof PGraphicsOpenGL)) {
@@ -229,8 +227,7 @@ public class Sketch extends SketchBase {
         capturePixels();
         GLWindow window = (GLWindow) surface.getNative();
         long windowHandle = window.getWindowHandle();
-        // also need to pass the window handle to the bridge to make a Windows
-        // API call to request focus
+        // the bridge will make a Windows API call to request focus
         py5Bridge.focus_window(windowHandle);
       }
     }
