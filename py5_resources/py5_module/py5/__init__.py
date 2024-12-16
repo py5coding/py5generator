@@ -37,6 +37,7 @@ import jpype.imports  # noqa
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa
 import py5_tools
+import py5_tools.environ  # noqa
 from jpype import JClass  # noqa
 from jpype.types import JArray, JChar, JFloat, JInt, JString  # noqa
 from PIL import Image  # noqa
@@ -51,29 +52,34 @@ if not py5_tools.is_jvm_running():
     if platform.system() == "Darwin":
         # Make sure Python appears on the MacOS Dock
         # This is necessary, otherwise MacOS will not like to let JAVA2D Sketches get focus
-        try:
-            from AppKit import (
-                NSURL,
-                NSApplication,
-                NSApplicationActivationPolicyRegular,
-                NSImage,
-            )
+        # But don't do this on Intel macOS w/ IPython, that can of worms is handled differently
+        if not (
+            platform.processor() == "i386"
+            and py5_tools.environ.Environment().in_ipython_session
+        ):
+            try:
+                from AppKit import (
+                    NSURL,
+                    NSApplication,
+                    NSApplicationActivationPolicyRegular,
+                    NSImage,
+                )
 
-            # this adds a white square to the dock
-            app = NSApplication.sharedApplication()
-            app.setActivationPolicy_(NSApplicationActivationPolicyRegular)
+                # this adds a white square to the dock
+                app = NSApplication.sharedApplication()
+                app.setActivationPolicy_(NSApplicationActivationPolicyRegular)
 
-            # set the dock icon to the py5 logo
-            icon_path = base_path.parent / "py5_tools/resources/logo.icns"
-            icon_url = NSURL.fileURLWithPath_(str(icon_path))
-            icon_image = NSImage.alloc().initWithContentsOfURL_(icon_url)
-            app.setApplicationIconImage_(icon_image)
+                # set the dock icon to the py5 logo
+                icon_path = base_path.parent / "py5_tools/resources/logo.icns"
+                icon_url = NSURL.fileURLWithPath_(str(icon_path))
+                icon_image = NSImage.alloc().initWithContentsOfURL_(icon_url)
+                app.setApplicationIconImage_(icon_image)
 
-            # cleanup
-            del app, icon_path, icon_url, icon_image
-            del NSURL, NSApplication, NSApplicationActivationPolicyRegular, NSImage
-        except:
-            pass
+                # cleanup
+                del app, icon_path, icon_url, icon_image
+                del NSURL, NSApplication, NSApplicationActivationPolicyRegular, NSImage
+            except:
+                pass
 
     if platform.system() == "Windows":
         # This code is here so that later win32gui code works correctly. The
@@ -318,3 +324,15 @@ def _prepare_dynamic_variables(caller_locals, caller_globals):
 
 
 _prepare_dynamic_variables(locals(), globals())
+
+
+if (
+    platform.system() == "Darwin"
+    and platform.processor() == "i386"
+    and py5_tools.environ.Environment().in_ipython_session
+):
+    from . import dock_activation
+
+    dock_activation.run()
+
+    del dock_activation
