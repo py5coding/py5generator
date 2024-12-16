@@ -42,7 +42,7 @@ class DockActivator(Sketch):
         self.image(self.logo, self.width / 2, 100)
         self.text("Initializing py5 for Jupyter", self.width / 2, 225)
 
-        if self.frame_count == 50:
+        if self.frame_count == 30:
             self.exit_sketch()
 
 
