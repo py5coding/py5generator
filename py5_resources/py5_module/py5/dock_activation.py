@@ -25,7 +25,7 @@ from .sketch import Sketch
 class DockActivator(Sketch):
 
     def settings(self):
-        self.size(250, 250, self.P2D)
+        self.size(150, 150, self.P2D)
 
     def setup(self):
         self.text_align(self.CENTER, self.CENTER)
@@ -39,8 +39,8 @@ class DockActivator(Sketch):
 
     def draw(self):
         self.background(240)
-        self.image(self.logo, self.width / 2, 100)
-        self.text("Initializing py5 for Jupyter", self.width / 2, 225)
+        self.image(self.logo, self.width / 2, 50)
+        self.text("initializing py5", self.width / 2, 125)
 
         if self.frame_count == 30:
             self.exit_sketch()
