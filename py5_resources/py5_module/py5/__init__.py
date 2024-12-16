@@ -42,6 +42,8 @@ from jpype import JClass  # noqa
 from jpype.types import JArray, JChar, JFloat, JInt, JString  # noqa
 from PIL import Image  # noqa
 
+_environ = py5_tools.environ.Environment()
+
 if not py5_tools.is_jvm_running():
     base_path = (
         Path(getattr(sys, "_MEIPASS")) / "py5"
@@ -53,10 +55,7 @@ if not py5_tools.is_jvm_running():
         # Make sure Python appears on the MacOS Dock
         # This is necessary, otherwise MacOS will not like to let JAVA2D Sketches get focus
         # But don't do this on Intel macOS w/ IPython, that can of worms is handled differently
-        if not (
-            platform.processor() == "i386"
-            and py5_tools.environ.Environment().in_ipython_session
-        ):
+        if not (platform.processor() == "i386" and _environ.in_ipython_session):
             try:
                 from AppKit import (
                     NSURL,
@@ -326,13 +325,19 @@ def _prepare_dynamic_variables(caller_locals, caller_globals):
 _prepare_dynamic_variables(locals(), globals())
 
 
-if (
-    platform.system() == "Darwin"
-    and platform.processor() == "i386"
-    and py5_tools.environ.Environment().in_ipython_session
-):
-    from . import dock_activation
+if platform.system() == "Darwin" and _environ.in_ipython_session:
+    if _environ.ipython_shell.active_eventloop != "osx":
+        print(
+            "Importing py5 on macOS but the necessary Jupyter macOS event loop has not been activated. I'll activate it for you, but next time, execute `%gui osx` before importing this library."
+        )
+        _environ.ipython_shell.run_line_magic("gui", "osx")
 
-    dock_activation.run()
+    if platform.processor() == "i386":
+        from . import dock_activation
 
-    del dock_activation
+        print(
+            "Stand by as py5 launches a quick Sketch to initialize in a Jupyter Notebook. This is necessary for proper operation in Jupyter on macOS machines with Intel Silicon CPUs."
+        )
+        dock_activation.run()
+
+        del dock_activation

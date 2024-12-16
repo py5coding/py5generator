@@ -78,18 +78,6 @@ sketch_class_members_code = None  # DELETE
 _Sketch = jpype.JClass("py5.core.Sketch")
 _SketchBase = jpype.JClass("py5.core.SketchBase")
 
-_environ = py5_tools.environ.Environment()
-if (
-    sys.platform == "darwin"
-    and _environ.in_ipython_session
-    and _environ.ipython_shell.active_eventloop != "osx"
-):
-    print(
-        "Importing py5 on macOS but the necessary Jupyter macOS event loop has not been activated. I'll activate it for you, but next time, execute `%gui osx` before importing this library."
-    )
-    _environ.ipython_shell.run_line_magic("gui", "osx")
-
-
 _PY5_LAST_WINDOW_X = None
 _PY5_LAST_WINDOW_Y = None
 
@@ -222,7 +210,6 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         # must always keep the _py5_bridge reference count from hitting zero.
         # otherwise, it will be garbage collected and lead to segmentation faults!
         self._py5_bridge = None
-        self._environ = None
         # TODO: shouldn't this be like the base_path variable in __init__.py?
         iconPath = Path(__file__).parent.parent / "py5_tools/resources/logo-64x64.png"
         if iconPath.exists() and hasattr(self._instance, "setPy5IconPath"):
@@ -312,7 +299,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         _caller_globals: dict[str, Any] = None,
         _osx_alt_run_method: bool = True,
     ) -> None:
-        self._environ = _environ
+        self._environ = py5_tools.environ.Environment()
         self.set_println_stream(
             _DisplayPubPrintlnStream()
             if self._environ.in_jupyter_zmq_shell
