@@ -51,6 +51,26 @@ class RendererTest(Sketch):
             self.exit_sketch()
 
 
+class TestInteractivity(Sketch):
+
+    def __init__(self, renderer, renderer_name):
+        super().__init__()
+        self.renderer = renderer
+        self.renderer_name = renderer_name
+
+    def settings(self):
+        self.size(250, 250, self.renderer)
+
+    def setup(self):
+        self.rect_mode(self.CENTER)
+
+    def draw(self):
+        self.rect(self.mouse_x, self.mouse_y, 10, 10)
+
+    def key_pressed(self):
+        self.println("key =", self.key)
+
+
 def test_java2d():
     test = RendererTest(Sketch.JAVA2D, "JAVA2D")
     test.run_sketch()
@@ -63,4 +83,19 @@ def test_p2d():
 
 def test_p3d():
     test = RendererTest(Sketch.P3D, "P3D")
+    test.run_sketch()
+
+
+def test_interactivity_java2d():
+    test = TestInteractivity(Sketch.JAVA2D, "JAVA2D")
+    test.run_sketch()
+
+
+def test_interactivity_p2d():
+    test = TestInteractivity(Sketch.P2D, "P2D")
+    test.run_sketch()
+
+
+def test_interactivity_p3d():
+    test = TestInteractivity(Sketch.P3D, "P3D")
     test.run_sketch()
