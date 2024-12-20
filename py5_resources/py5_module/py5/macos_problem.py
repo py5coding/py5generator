@@ -54,7 +54,19 @@ If you'd like to disable this safety feature (and risk Python crashing), use the
     from py5 import macos_problem
     macos_problem.disable_safety_check()
 
-It actually would be helpful to the py5 maintainers if you would disable the safety feature to test if the problematic sequence of events does in fact cause Python to crash on your machine. If you do this test, please report your findings in the below discussion thread. Include your macOS version and CPU type. (For your convenience, this information will be displayed at the end of this message.) Your feedback will help us understand the problem better and more accurately calibrate this crash protection feature.
+It actually would be helpful to the py5 maintainers if you would disable the safety feature to test if the problematic sequence of events does in fact cause Python to crash on your machine. To run this test, use the following code in Jupyter, with each line of code in a separate cell:
+
+    from py5 import macos_problem, test
+
+    macos_problem.disable_safety_check()
+
+    # open a Sketch with the default renderer
+    test.test_java2d()
+
+    # does this cell cause a crash?
+    test.test_p2d()
+
+If you do this test, please report your findings in the below discussion thread. Include your macOS version and CPU type. (For your convenience, this information will be displayed at the end of this message.) Your feedback will help us understand the problem better and more accurately calibrate this crash protection feature.
 
 <insert link to discussion thread>
 
