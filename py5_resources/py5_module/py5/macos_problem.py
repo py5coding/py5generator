@@ -51,7 +51,7 @@ It actually would be helpful to the py5 maintainers if you would disable this sa
 
 <insert link to discussion thread>
 
-Sorry again for the weird limitation. We're doing our best to make py5 as stable as possible. Thanks for your understanding.
+Sorry again for the weird limitation. We're doing our best to make py5 as stable as possible. Thank you for your understanding.
 """
 
 
