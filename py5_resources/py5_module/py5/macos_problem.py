@@ -29,6 +29,11 @@ def disable_safety_check():
     _enforce_safety_check = False
 
 
+OPENGL_RENDERERS = [
+    "processing.opengl.PGraphics2D",
+    "processing.opengl.PGraphics3D",
+]
+
 MESSAGE = """Sorry, but you can't use an OpenGL renderer in your Sketch right now. Doing so would likely cause Python to crash.
 
 Here's the problem: On macOS machines with Intel CPUs, py5 seems to crash when you use an OpenGL renderer in an IPython or Jupyter session if the first Sketch run in that Python session used the default (JAVA2D) renderer. Sorry if that sounds crazy. This is an unfortunate side effect of a py5 code fix that actually solved a lot of problems for all macOS users.
@@ -69,22 +74,16 @@ def _macos_safety_check(f):
         ):
             if _first_renderer_opengl is None:
                 # This is the first Sketch. Record if the renderer is OpenGL
-                if len(args) >= 2 and args[2] in [
-                    "processing.opengl.PGraphics2D",
-                    "processing.opengl.PGraphics3D",
-                ]:
+                if len(args) >= 2 and args[2] in OPENGL_RENDERERS:
                     _first_renderer_opengl = True
                 else:
                     _first_renderer_opengl = False
             elif _first_renderer_opengl is False:
                 # The first Sketch was not OpenGL. OpenGL is not allowed now.
-                if len(args) >= 2 and args[2] in [
-                    "processing.opengl.PGraphics2D",
-                    "processing.opengl.PGraphics3D",
-                ]:
+                if len(args) >= 2 and args[2] in OPENGL_RENDERERS:
                     self_.println(MESSAGE)
                     raise RuntimeError(
-                        "Halting execution to prevent Python from crashing"
+                        "Halting Sketch startup to prevent Python from crashing"
                     )
 
         f(self_, *args)
