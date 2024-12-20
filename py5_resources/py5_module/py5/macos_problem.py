@@ -90,6 +90,7 @@ def _macos_safety_check(f):
                     _first_renderer_opengl = True
                 else:
                     _first_renderer_opengl = False
+
             elif _first_renderer_opengl is False:
                 # The first Sketch was not OpenGL. OpenGL is not allowed now.
                 if len(args) >= 2 and args[2] in OPENGL_RENDERERS:
