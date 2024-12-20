@@ -33,7 +33,7 @@ MESSAGE = """Sorry, but you can't use the OpenGL renderer here. Doing so would l
 
 Here's the problem: On macOS machines with Intel CPUs, py5 seems to crash when you use an OpenGL renderer in an IPython or Jupyter session if the first Sketch run in that Python session used the default renderer. Sorry if that sounds crazy. This is an unfortunate side effect of a code fix that actually solved a lot of py5 problems for all macOS users.
 
-The root problem is somewhere in native macOS code. Maybe it will be fixed in the future. For now, you get this message.
+The root problem is somewhere in native macOS code that py5 depends on. Maybe we will find a better workaround in the future. Until then, you get this message.
 
 If you want to use the OpenGL renderer right now, you should restart IPython or this Jupyter Notebook and run your code again. If you really need to mix Java2D and OpenGL renderers together in one Python session, you should make sure that the first Sketch executed is an OpenGL Sketch. For convenience, you use the following code to open a quick Sketch right after importing py5. This will ensure the first Sketch is always an OpenGL Sketch, eliminating the problem entirely:
 
@@ -62,6 +62,7 @@ def _macos_safety_check(f):
         if (
             _enforce_safety_check
             and platform.system() == "Darwin"
+            and platform.processor() == "i386"
             and self_._environ.in_ipython_session
         ):
             if _first_renderer_opengl is None:
