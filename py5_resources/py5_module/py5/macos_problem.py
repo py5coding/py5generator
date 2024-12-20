@@ -20,13 +20,13 @@
 import functools
 import platform
 
-_enforce_macos_renderer_problem = True
+_enforce_safety_check = True
 _first_renderer_opengl = None
 
 
-def disable_macos_renderer_problem():
-    global _enforce_macos_renderer_problem
-    _enforce_macos_renderer_problem = False
+def disable_safety_check():
+    global _enforce_safety_check
+    _enforce_safety_check = False
 
 
 MESSAGE = """Sorry, but you can't use the OpenGL renderer here. Doing so would likely cause Python to crash.
@@ -42,8 +42,8 @@ If you want to use the OpenGL renderer here, you should restart IPython or this 
 
 If you'd like to disable this safety feature, run the following code:
 
-    from py5 import macos_renderer_problem
-    disable_macos_renderer_problem()
+    from py5 import macos_problem
+    macos_problem.disable_safety_check()
 
 It actually would be helpful to the py5 maintainers if you would disable this safety feature and try running your code to see if it actually does crash. If you do that, please report your findings to the below discussion thread. Include your macOS version and CPU type (Intel or Apple Silicon). Your feedback here will help us understand the problem better and better calibrate this safety feature.
 
@@ -56,7 +56,7 @@ def _macos_renderer_problem(f):
     def decorated(self_, *args):
         global _first_renderer_opengl
         if (
-            _enforce_macos_renderer_problem
+            _enforce_safety_check
             and platform.system() == "Darwin"
             and self_._environ.in_ipython_session
         ):
