@@ -22,10 +22,14 @@ from pathlib import Path
 from .sketch import Sketch
 
 
-class DockActivator(Sketch):
+class Test(Sketch):
+
+    def __init__(self, renderer):
+        super().__init__()
+        self.renderer = renderer
 
     def settings(self):
-        self.size(150, 150, self.P2D)
+        self.size(150, 150, self.renderer)
 
     def setup(self):
         self.text_align(self.CENTER, self.CENTER)
@@ -40,12 +44,22 @@ class DockActivator(Sketch):
     def draw(self):
         self.background(240)
         self.image(self.logo, self.width / 2, 50)
-        self.text("initializing py5", self.width / 2, 125)
+        self.text("testing py5", self.width / 2, 125)
 
         if self.frame_count == 30:
             self.exit_sketch()
 
 
-def run():
-    dock_activator = DockActivator()
-    dock_activator.run_sketch()
+def test_java2d():
+    test = Test(Sketch.JAVA2D)
+    test.run_sketch()
+
+
+def test_p2d():
+    test = Test(Sketch.P2D)
+    test.run_sketch()
+
+
+def test_p3d():
+    test = Test(Sketch.P3D)
+    test.run_sketch()
