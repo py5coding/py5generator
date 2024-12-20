@@ -51,7 +51,7 @@ It actually would be helpful to the py5 maintainers if you would disable this sa
 """
 
 
-def _macos_renderer_problem(f):
+def _macos_safety_check(f):
     @functools.wraps(f)
     def decorated(self_, *args):
         global _first_renderer_opengl

@@ -55,7 +55,7 @@ from .font import Py5Font, _load_py5font, _return_list_str, _return_py5font  # n
 from .graphics import Py5Graphics, _return_py5graphics  # noqa
 from .image import Py5Image, _return_py5image  # noqa
 from .keyevent import Py5KeyEvent, _convert_jchar_to_chr, _convert_jint_to_int  # noqa
-from .macos_renderer_problem import _macos_renderer_problem
+from .macos_problem import _macos_safety_check
 from .mixins import DataMixin, MathMixin, PixelMixin, PrintlnStream, ThreadsMixin
 from .mixins.threads import Py5Promise  # noqa
 from .mouseevent import Py5MouseEvent  # noqa
