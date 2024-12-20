@@ -24,9 +24,10 @@ from .sketch import Sketch
 
 class Test(Sketch):
 
-    def __init__(self, renderer):
+    def __init__(self, renderer, renderer_name):
         super().__init__()
         self.renderer = renderer
+        self.renderer_name = renderer_name
 
     def settings(self):
         self.size(150, 150, self.renderer)
@@ -44,22 +45,22 @@ class Test(Sketch):
     def draw(self):
         self.background(240)
         self.image(self.logo, self.width / 2, 50)
-        self.text("testing py5", self.width / 2, 125)
+        self.text("testing " + self.renderer_name, self.width / 2, 125)
 
-        if self.frame_count == 30:
+        if self.frame_count == 60:
             self.exit_sketch()
 
 
 def test_java2d():
-    test = Test(Sketch.JAVA2D)
+    test = Test(Sketch.JAVA2D, "JAVA2D")
     test.run_sketch()
 
 
 def test_p2d():
-    test = Test(Sketch.P2D)
+    test = Test(Sketch.P2D, "P2D")
     test.run_sketch()
 
 
 def test_p3d():
-    test = Test(Sketch.P3D)
+    test = Test(Sketch.P3D, "P3D")
     test.run_sketch()
