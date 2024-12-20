@@ -329,13 +329,3 @@ if platform.system() == "Darwin" and _environ.in_ipython_session:
             "Importing py5 on macOS but the necessary Jupyter macOS event loop has not been activated. I'll activate it for you, but next time, execute `%gui osx` before importing this library."
         )
         _environ.ipython_shell.run_line_magic("gui", "osx")
-
-    if platform.processor() == "i386":
-        from . import dock_activation
-
-        print(
-            "Stand by as py5 launches a quick Sketch to initialize in a Jupyter Notebook. This is necessary for proper operation in Jupyter on macOS machines with Intel Silicon CPUs."
-        )
-        dock_activation.run()
-
-        del dock_activation
