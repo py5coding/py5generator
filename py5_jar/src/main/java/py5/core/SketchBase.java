@@ -123,7 +123,7 @@ public class SketchBase extends PApplet {
   @Override
   public void exit() {
     if (!interceptEscape) {
-      if (platform == MACOS && g.isGL() && !isLooping()) {
+      if (platform == MACOS && g != null && g.isGL() && surface != null && !isLooping()) {
         loop();
       }
       super.exit();

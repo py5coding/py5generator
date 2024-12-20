@@ -24,6 +24,11 @@ _enforce_macos_renderer_problem = True
 _first_renderer_opengl = None
 
 
+def disable_macos_renderer_problem():
+    global _enforce_macos_renderer_problem
+    _enforce_macos_renderer_problem = False
+
+
 MESSAGE = """Sorry, but you can't use the OpenGL renderer here. Doing so would likely cause Python to crash.
 
 Here's the problem: On macOS on Intel CPU machines, py5 seems to crash when you use an OpenGL renderer in an IPython or Jupyter session if the first Sketch used the default renderer. Sorry if that sounds crazy, but it's true. This is caused by problems in native macOS code.
@@ -37,7 +42,8 @@ If you want to use the OpenGL renderer here, you should restart IPython or this 
 
 If you'd like to disable this safety feature, run the following code:
 
-<insert code to disable the safety feature>
+    from py5 import macos_renderer_problem
+    disable_macos_renderer_problem()
 
 It actually would be helpful to the py5 maintainers if you would disable this safety feature and try running your code to see if it actually does crash. If you do that, please report your findings to the below discussion thread. Include your macOS version and CPU type (Intel or Apple Silicon). Your feedback here will help us understand the problem better and better calibrate this safety feature.
 
