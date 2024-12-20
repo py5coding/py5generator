@@ -22,7 +22,7 @@ from pathlib import Path
 from .sketch import Sketch
 
 
-class Test(Sketch):
+class RendererTest(Sketch):
 
     def __init__(self, renderer, renderer_name):
         super().__init__()
@@ -52,15 +52,15 @@ class Test(Sketch):
 
 
 def test_java2d():
-    test = Test(Sketch.JAVA2D, "JAVA2D")
+    test = RendererTest(Sketch.JAVA2D, "JAVA2D")
     test.run_sketch()
 
 
 def test_p2d():
-    test = Test(Sketch.P2D, "P2D")
+    test = RendererTest(Sketch.P2D, "P2D")
     test.run_sketch()
 
 
 def test_p3d():
-    test = Test(Sketch.P3D, "P3D")
+    test = RendererTest(Sketch.P3D, "P3D")
     test.run_sketch()
