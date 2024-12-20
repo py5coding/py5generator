@@ -31,9 +31,11 @@ def disable_safety_check():
 
 MESSAGE = """Sorry, but you can't use the OpenGL renderer here. Doing so would likely cause Python to crash.
 
-Here's the problem: On macOS on Intel CPU machines, py5 seems to crash when you use an OpenGL renderer in an IPython or Jupyter session if the first Sketch used the default renderer. Sorry if that sounds crazy, but it's true. This is caused by problems in native macOS code.
+Here's the problem: On macOS machines with Intel CPUs, py5 seems to crash when you use an OpenGL renderer in an IPython or Jupyter session if the first Sketch run in that Python session used the default renderer. Sorry if that sounds crazy. This is an unfortunate side effect of a code fix that actually solved a lot of py5 problems for all macOS users.
 
-If you want to use the OpenGL renderer here, you should restart IPython or this Jupyter Notebook and run the code again. If you really need to mix Java2D and OpenGL renderers together, you should make sure the first Sketch executed is an OpenGL Sketch. For convenience, you use the following code to open a quick Sketch right after importing py5. This will ensure the first Sketch is an OpenGL Sketch, eliminating the problem entirely:
+The root problem is somewhere in native macOS code. Maybe it will be fixed in the future. For now, you get this message.
+
+If you want to use the OpenGL renderer right now, you should restart IPython or this Jupyter Notebook and run your code again. If you really need to mix Java2D and OpenGL renderers together in one Python session, you should make sure that the first Sketch executed is an OpenGL Sketch. For convenience, you use the following code to open a quick Sketch right after importing py5. This will ensure the first Sketch is always an OpenGL Sketch, eliminating the problem entirely:
 
     import py5
 
@@ -45,9 +47,11 @@ If you'd like to disable this safety feature, run the following code:
     from py5 import macos_problem
     macos_problem.disable_safety_check()
 
-It actually would be helpful to the py5 maintainers if you would disable this safety feature and try running your code to see if it actually does crash. If you do that, please report your findings to the below discussion thread. Include your macOS version and CPU type (Intel or Apple Silicon). Your feedback here will help us understand the problem better and better calibrate this safety feature.
+It actually would be helpful to the py5 maintainers if you would disable this safety feature right now and try running your code to see if Python actually does crash. If you do this test, please report your findings to the below discussion thread. Include your macOS version and CPU type (Intel or Apple Silicon). Your feedback here will help us understand the problem better and better calibrate this safety feature.
 
 <insert link to discussion thread>
+
+Sorry again for the weird limitation. We're doing our best to make py5 as stable as possible. Thanks for your understanding.
 """
 
 
