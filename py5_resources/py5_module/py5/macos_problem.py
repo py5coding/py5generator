@@ -37,6 +37,11 @@ def disable_safety_check():
     _enforce_safety_check = False
 
 
+def enable_safety_check():
+    global _enforce_safety_check
+    _enforce_safety_check = True
+
+
 OPENGL_RENDERERS = [
     "processing.opengl.PGraphics2D",
     "processing.opengl.PGraphics3D",
