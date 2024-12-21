@@ -103,7 +103,6 @@ def _macos_safety_check(f):
                 # The first Sketch was not OpenGL. OpenGL is not allowed now.
                 if len(args) >= 2 and args[2] in OPENGL_RENDERERS:
                     self_.println(MESSAGE)
-
                     self_.println("macOS version:", platform.mac_ver()[0])
                     self_.println("macOS CPU type:", platform.processor())
                     raise RuntimeError(
