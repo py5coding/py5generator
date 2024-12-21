@@ -20,7 +20,15 @@
 import functools
 import platform
 
-_enforce_safety_check = True
+from py5_tools.environ import Environment
+
+_environ = Environment()
+
+_enforce_safety_check = (
+    platform.system() == "Darwin"
+    and platform.processor() == "i386"
+    and _environ.in_ipython_session
+)
 _first_renderer_opengl = None
 
 
@@ -78,12 +86,7 @@ def _macos_safety_check(f):
     @functools.wraps(f)
     def decorated(self_, *args):
         global _first_renderer_opengl
-        if (
-            _enforce_safety_check
-            and platform.system() == "Darwin"
-            and platform.processor() == "i386"
-            and self_._environ.in_ipython_session
-        ):
+        if _enforce_safety_check:
             if _first_renderer_opengl is None:
                 # This is the first Sketch. Record if the renderer is OpenGL.
                 if len(args) >= 2 and args[2] in OPENGL_RENDERERS:
