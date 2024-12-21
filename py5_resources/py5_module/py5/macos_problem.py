@@ -76,10 +76,10 @@ It actually would be helpful to the py5 maintainers if you would disable the saf
     # open a Sketch with the default renderer
     test.test_java2d()
 
-    # does this cell cause a crash?
+    # does this cell cause a crash???
     test.test_p2d()
 
-If you do this test, please report your findings in the below discussion thread. Include your macOS version and CPU type. (For your convenience, this information will be displayed at the end of this message.) Your feedback will help us understand the problem better and more accurately calibrate this crash protection feature.
+If you do this test, please report your findings in the below GitHub issue thread. Include your macOS version and CPU type. (For your convenience, this information will be displayed at the end of this message.) Your feedback will help us understand the problem better and more accurately calibrate this crash protection feature.
 
 <insert link to issue thread>
 
