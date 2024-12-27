@@ -33,4 +33,4 @@ dependencies:
   - pip:
     - bump2version==1.0.*
     - stackprinter==0.2.11
-    - opencv-contrib-python>=4.10.*
+    - opencv-contrib-python>=4.10
