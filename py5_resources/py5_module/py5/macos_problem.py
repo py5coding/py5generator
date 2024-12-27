@@ -26,7 +26,10 @@ _environ = Environment()
 
 _enforce_safety_check = (
     platform.system() == "Darwin"
-    and platform.processor() == "i386"
+    and (
+        platform.processor() == "i386"
+        or int(platform.mac_ver()[0].split(".", 1)[0]) < 14
+    )
     and _environ.in_ipython_session
 )
 _first_renderer_opengl = None
