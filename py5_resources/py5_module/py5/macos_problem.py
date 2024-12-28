@@ -52,41 +52,44 @@ OPENGL_RENDERERS = [
 
 MESSAGE = """Sorry, but you can't use an OpenGL renderer in your Sketch right now. Doing so might cause Python to crash.
 
-Here's the problem: On macOS machines with Intel CPUs, py5 seems to crash when you use an OpenGL renderer in an IPython or Jupyter session if the first Sketch run in that Python session used the default (JAVA2D) renderer. Sorry if that sounds crazy. This is an unfortunate side effect of an important code change that actually significantly improved py5 for all macOS users.
+Here's the problem: On macOS machines with Intel CPUs and/or older macOS versions, py5 seems to crash when you use an OpenGL renderer in an IPython or Jupyter session if the first Sketch run in that Python session used the default (JAVA2D) renderer. Sorry if that sounds crazy. This is an unfortunate side effect of an important code change that actually significantly improved py5 for all macOS users.
 
 The root issue is somewhere in native macOS code that Processing and py5 both depend on. Hopefully in the future we will find a real fix or a better workaround.
 
-If you want to use the OpenGL renderer right now, you should restart IPython or this Jupyter Notebook and run your code again. If you really need to mix Java2D and OpenGL renderers together in one Python session, you should make sure that the first Sketch executed is always an OpenGL Sketch. For convenience, you can use the following code to open a quick Sketch right after importing py5. This will ensure the first Sketch is always an OpenGL Sketch, eliminating the problem (and this warning) entirely:
+You are seeing this message because this version of py5 has a safety feature that detects the sequence of events that might lead to this crash. However, if you'd like to disable this safety feature (and risk Python crashing), use the following code:
+
+    from py5 import macos_problem
+    macos_problem.disable_safety_check()
+
+But before doing that, it would be great if you could do a quick test for us. Please run the following code in a new Jupyter Notebook or IPython REPL, with each line of code executed separately:
+
+    from py5 import macos_problem, test
+
+    macos_problem.disable_safety_check()
+
+    # run a Sketch with the default renderer
+    test.test_java2d()
+
+    # run a Sketch with an opengl renderer
+    # does this cause a crash???
+    test.test_p2d()
+
+Then report your findings to the below GitHub issue thread. Include your macOS version and CPU type. (For your convenience, this information will be displayed at the end of this message.) Your feedback will help us understand the problem better and more accurately calibrate this crash protection feature.
+
+<insert link to issue thread>
+
+If the above test code doesn't cause Python to crash on your machine, great! You can keep using that `disable_safety_check()` function so you never see this warning again. But please take the time report your findings to the GitHub issue thread. The next version of py5 will incorporate your feedback and the safety feature will be adjusted accordingly.
+
+If the above test code does cause Python to crash on your machine, it's OK. If you really need to mix Java2D and OpenGL renderers together in one Python session, you just need to make sure that the first executed Sketch is always an OpenGL Sketch. For convenience, you can use the following code to open a quick Sketch right after importing py5. This will ensure the first Sketch is always an OpenGL Sketch, eliminating the problem (and this warning) entirely:
 
     import py5
 
     from py5 import test
     test.test_p2d()
 
-If you'd like to disable this safety feature (and risk Python crashing), use the following code:
+If you'd like to read about our progress understanding this issue, please visit the above GitHub issue thread.
 
-    import py5
-
-    from py5 import macos_problem
-    macos_problem.disable_safety_check()
-
-It actually would be helpful to the py5 maintainers if you would disable the safety feature just once to test if the problematic sequence of events does in fact cause Python to crash on your machine. To run this test, use the following code in Jupyter, with each line of code in a separate cell:
-
-    from py5 import macos_problem, test
-
-    macos_problem.disable_safety_check()
-
-    # open a Sketch with the default renderer
-    test.test_java2d()
-
-    # does this cell cause a crash???
-    test.test_p2d()
-
-If you do this test, please report your findings in the below GitHub issue thread. Include your macOS version and CPU type. (For your convenience, this information will be displayed at the end of this message.) Your feedback will help us understand the problem better and more accurately calibrate this crash protection feature.
-
-<insert link to issue thread>
-
-Sorry again for the weird limitation. We're doing our best to make py5 as stable as possible. Thank you for your understanding.
+Sorry again for the weird limitation. We're doing our best to make py5 as stable as possible. This safety feature is here because we don't want users to become upset because Python crashed for confusing reasons. Thank you for your understanding.
 """
 
 
