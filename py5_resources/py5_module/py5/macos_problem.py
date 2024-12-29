@@ -101,14 +101,14 @@ def _macos_safety_check(f):
         if _enforce_safety_check:
             if _first_renderer_opengl is None:
                 # This is the first Sketch. Record if the renderer is OpenGL.
-                if len(args) >= 2 and args[2] in OPENGL_RENDERERS:
+                if len(args) >= 3 and args[2] in OPENGL_RENDERERS:
                     _first_renderer_opengl = True
                 else:
                     _first_renderer_opengl = False
 
             elif _first_renderer_opengl is False:
                 # The first Sketch was not OpenGL. OpenGL is not allowed now.
-                if len(args) >= 2 and args[2] in OPENGL_RENDERERS:
+                if len(args) >= 3 and args[2] in OPENGL_RENDERERS:
                     self_.println(MESSAGE)
                     if platform.system() == "Darwin":  # just in case
                         self_.println("macOS version:", platform.mac_ver()[0])
