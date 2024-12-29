@@ -59,6 +59,7 @@ The root issue is somewhere in native macOS code that Processing and py5 both de
 You are seeing this message because this version of py5 has a safety feature that detects the sequence of events that might lead to this crash. However, if you'd like to disable this safety feature (and risk Python crashing), use the following code:
 
     from py5 import macos_problem
+
     macos_problem.disable_safety_check()
 
 But before doing that, it would be great if you could do a quick test for us. Please run the following code in a new Jupyter Notebook or IPython REPL, with each line of code executed separately:
@@ -76,7 +77,7 @@ But before doing that, it would be great if you could do a quick test for us. Pl
 
 Then report your findings to the below GitHub issue thread. Include your macOS version and CPU type. (For your convenience, this information will be displayed at the end of this message.) Your feedback will help us understand the problem better and more accurately calibrate this crash protection feature.
 
-<insert link to issue thread>
+https://github.com/py5coding/py5generator/issues/578
 
 If the above test code doesn't cause Python to crash on your machine, great! You can keep using that `disable_safety_check()` function so you never see this warning again. But please take the time report your findings to the GitHub issue thread. The next version of py5 will incorporate your feedback and the safety feature will be adjusted accordingly.
 
