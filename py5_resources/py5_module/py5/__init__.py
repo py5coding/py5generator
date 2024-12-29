@@ -37,9 +37,12 @@ import jpype.imports  # noqa
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa
 import py5_tools
+import py5_tools.environ  # noqa
 from jpype import JClass  # noqa
 from jpype.types import JArray, JChar, JFloat, JInt, JString  # noqa
 from PIL import Image  # noqa
+
+_environ = py5_tools.environ.Environment()
 
 if not py5_tools.is_jvm_running():
     base_path = (
@@ -318,3 +321,11 @@ def _prepare_dynamic_variables(caller_locals, caller_globals):
 
 
 _prepare_dynamic_variables(locals(), globals())
+
+
+if platform.system() == "Darwin" and _environ.in_ipython_session:
+    if _environ.ipython_shell.active_eventloop != "osx":
+        print(
+            "Importing py5 on macOS but the necessary Jupyter macOS event loop has not been activated. I'll activate it for you, but next time, execute `%gui osx` before importing this library."
+        )
+        _environ.ipython_shell.run_line_magic("gui", "osx")
