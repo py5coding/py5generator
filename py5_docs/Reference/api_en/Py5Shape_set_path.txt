@@ -7,11 +7,11 @@ category = vertices
 subcategory = None
 
 @@ signatures
-set_path(vcount: int, verts: npt.NDArray[np.floating], /) -> None
+set_path(vcount: int, verts: Iterator[Iterator[float]], /) -> None
 
 @@ variables
 vcount: int - number of vertices
-verts: npt.NDArray[np.floating] - 2D array of vertex coordinates
+verts: Iterator[Iterator[float]] - 2D array of vertex coordinates
 
 @@ description
 Set many vertex points at the same time, using a numpy array. This will be faster and more efficient than repeatedly calling [](py5shape_set_vertex) in a loop. Setting the vertex codes is not supported, so the vertices will be regular vertices and not bezier, quadratic or curve vertices.

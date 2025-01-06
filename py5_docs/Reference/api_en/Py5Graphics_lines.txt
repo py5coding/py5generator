@@ -6,10 +6,10 @@ category = shape
 subcategory = 2d_primitives
 
 @@ signatures
-lines(coordinates: npt.NDArray[np.floating], /) -> None
+lines(coordinates: Iterator[Iterator[float]], /) -> None
 
 @@ variables
-coordinates: npt.NDArray[np.floating] - 2D array of line coordinates with 4 or 6 columns for 2D or 3D points, respectively
+coordinates: Iterator[Iterator[float]] - 2D array of line coordinates with 4 or 6 columns for 2D or 3D points, respectively
 
 @@ description
 Draw a collection of lines to the Py5Graphics drawing surface. The purpose of this method is to provide an alternative to repeatedly calling [](py5graphics_line) in a loop. For a large number of lines, the performance of `lines()` will be much faster.

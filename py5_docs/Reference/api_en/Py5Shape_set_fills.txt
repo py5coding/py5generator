@@ -5,10 +5,10 @@ subcategory = fill
 type = method
 
 @@ signatures
-set_fills(fills: npt.NDArray[np.int32], /) -> None
+set_fills(fills: Iterator[int], /) -> None
 
 @@ variables
-fills: npt.NDArray[np.int32] - array of fill colors
+fills: Iterator[int] - array of fill colors
 
 @@ description
 Set the fill color for each of the individual vertices of a `Py5Shape`. The length of the passed `fills` array must equal the number of vertices in the shape. This method exists to provide an alternative to repeatedly calling [](py5shape_set_fill) in a loop.

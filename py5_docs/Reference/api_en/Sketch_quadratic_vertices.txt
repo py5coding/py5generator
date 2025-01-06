@@ -6,10 +6,10 @@ category = shape
 subcategory = vertex
 
 @@ signatures
-quadratic_vertices(coordinates: npt.NDArray[np.floating], /) -> None
+quadratic_vertices(coordinates: Iterator[Iterator[float]], /) -> None
 
 @@ variables
-coordinates: npt.NDArray[np.floating] - 2D array of quadratic vertex coordinates with 4 or 6 columns for 2D or 3D points, respectively
+coordinates: Iterator[Iterator[float]] - missing variable description
 
 @@ description
 Create a collection of quadratic vertices. The purpose of this method is to provide an alternative to repeatedly calling [](sketch_quadratic_vertex) in a loop. For a large number of quadratic vertices, the performance of `quadratic_vertices()` will be much faster.

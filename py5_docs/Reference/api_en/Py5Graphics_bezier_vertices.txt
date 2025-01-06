@@ -6,10 +6,10 @@ category = shape
 subcategory = vertex
 
 @@ signatures
-bezier_vertices(coordinates: npt.NDArray[np.floating], /) -> None
+bezier_vertices(coordinates: Iterator[Iterator[float]], /) -> None
 
 @@ variables
-coordinates: npt.NDArray[np.floating] - 2D array of bezier vertex coordinates with 6 or 9 columns for 2D or 3D points, respectively
+coordinates: Iterator[Iterator[float]] - 2D array of bezier vertex coordinates with 6 or 9 columns for 2D or 3D points, respectively
 
 @@ description
 Create a collection of bezier vertices. The purpose of this method is to provide an alternative to repeatedly calling [](py5graphics_bezier_vertex) in a loop. For a large number of bezier vertices, the performance of `bezier_vertices()` will be much faster.

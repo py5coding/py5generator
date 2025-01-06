@@ -5,10 +5,10 @@ subcategory = stroke
 type = method
 
 @@ signatures
-set_strokes(strokes: npt.NDArray[np.int32], /) -> None
+set_strokes(strokes: Iterator[int], /) -> None
 
 @@ variables
-strokes: npt.NDArray[np.int32] - array of stroke colors
+strokes: Iterator[int] - array of stroke colors
 
 @@ description
 Set the stroke color for each of the individual vertices of a `Py5Shape`. The length of the passed `strokes` array must equal the number of vertices in the shape. This method exists to provide an alternative to repeatedly calling [](py5shape_set_fill) in a loop.
