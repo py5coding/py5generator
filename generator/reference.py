@@ -30,9 +30,9 @@ TYPE_OVERRIDES = {
     "processing.core.PShape[]": "list[Py5Shape]",
     "char[]": "list[chr]",
     "java.lang.String[]": "list[str]",
-    "float[]": "npt.NDArray[np.floating]",
-    "float[][]": "npt.NDArray[np.floating]",
-    "int[]": "npt.NDArray[np.integer]",
+    "float[]": "Iterator[float]",
+    "float[][]": "Iterator[Iterator[float]]",
+    "int[]": "Iterator[int]",
 }
 
 JPYPE_CONVERSIONS = {
