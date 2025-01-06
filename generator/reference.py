@@ -37,7 +37,7 @@ RETURN_TYPE_OVERRIDES = {
     # this is correct, see _return_list_py5shapes
     "processing.core.PShape[]": "list[Py5Shape]",
     "java.lang.String[]": "list[str]",
-    "int[]": "npt.NDArray[np.int32]",
+    "int[]": "npt.NDArray[np.integer]",
 }
 
 JPYPE_CONVERSIONS = {
