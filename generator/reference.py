@@ -27,7 +27,7 @@ PY5_SKIP_RETURN_TYPES = set()
 
 PARAM_TYPE_OVERRIDES = {
     "boolean[]": "Iterator[bool]",
-    "char[]": "list[chr]",
+    "char[]": "Iterator[chr]",
     "java.lang.String[]": "list[str]",
     "float[]": "Iterator[float]",
     "float[][]": "Iterator[Iterator[float]]",
