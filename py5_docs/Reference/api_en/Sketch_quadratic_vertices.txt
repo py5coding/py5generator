@@ -9,7 +9,7 @@ subcategory = vertex
 quadratic_vertices(coordinates: Iterator[Iterator[float]], /) -> None
 
 @@ variables
-coordinates: Iterator[Iterator[float]] - missing variable description
+coordinates: Iterator[Iterator[float]] - 2D array of quadratic vertex coordinates with 4 or 6 columns for 2D or 3D points, respectively
 
 @@ description
 Create a collection of quadratic vertices. The purpose of this method is to provide an alternative to repeatedly calling [](sketch_quadratic_vertex) in a loop. For a large number of quadratic vertices, the performance of `quadratic_vertices()` will be much faster.
