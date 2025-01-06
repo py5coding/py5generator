@@ -25,14 +25,19 @@ PY5_SKIP_PARAM_TYPES = {"processing.core.PMatrix"}
 
 PY5_SKIP_RETURN_TYPES = set()
 
-TYPE_OVERRIDES = {
-    # this is correct, see _return_list_py5shapes
-    "processing.core.PShape[]": "list[Py5Shape]",
+PARAM_TYPE_OVERRIDES = {
     "char[]": "list[chr]",
     "java.lang.String[]": "list[str]",
     "float[]": "Iterator[float]",
     "float[][]": "Iterator[Iterator[float]]",
     "int[]": "Iterator[int]",
+}
+
+RETURN_TYPE_OVERRIDES = {
+    # this is correct, see _return_list_py5shapes
+    "processing.core.PShape[]": "list[Py5Shape]",
+    "java.lang.String[]": "list[str]",
+    "int[]": "npt.NDArray[np.int32]",
 }
 
 JPYPE_CONVERSIONS = {
