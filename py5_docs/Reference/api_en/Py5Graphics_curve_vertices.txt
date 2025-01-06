@@ -6,10 +6,10 @@ category = shape
 subcategory = vertex
 
 @@ signatures
-curve_vertices(coordinates: npt.NDArray[np.floating], /) -> None
+curve_vertices(coordinates: Iterator[Iterator[float]], /) -> None
 
 @@ variables
-coordinates: npt.NDArray[np.floating] - 2D array of curve vertex coordinates with 2 or 3 columns for 2D or 3D points, respectively
+coordinates: Iterator[Iterator[float]] - 2D array of curve vertex coordinates with 2 or 3 columns for 2D or 3D points, respectively
 
 @@ description
 Create a collection of curve vertices. The purpose of this method is to provide an alternative to repeatedly calling [](py5graphics_curve_vertex) in a loop. For a large number of curve vertices, the performance of `curve_vertices()` will be much faster.

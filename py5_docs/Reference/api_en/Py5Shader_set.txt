@@ -7,16 +7,16 @@ pclass = PShader
 processing_name = set
 
 @@ signatures
-set(name: str, boolvec: JArray(JBoolean), ncoords: int, /) -> None
+set(name: str, boolvec: Iterator[bool], ncoords: int, /) -> None
 set(name: str, mat: npt.NDArray[np.floating], /) -> None
 set(name: str, mat: npt.NDArray[np.floating], use3x3: bool, /) -> None
 set(name: str, tex: Py5Image, /) -> None
-set(name: str, vec: JArray(JBoolean), /) -> None
+set(name: str, vec: Iterator[bool], /) -> None
+set(name: str, vec: Iterator[float], /) -> None
+set(name: str, vec: Iterator[float], ncoords: int, /) -> None
+set(name: str, vec: Iterator[int], /) -> None
+set(name: str, vec: Iterator[int], ncoords: int, /) -> None
 set(name: str, vec: Py5Vector, /) -> None
-set(name: str, vec: npt.NDArray[np.floating], /) -> None
-set(name: str, vec: npt.NDArray[np.floating], ncoords: int, /) -> None
-set(name: str, vec: npt.NDArray[np.integer], /) -> None
-set(name: str, vec: npt.NDArray[np.integer], ncoords: int, /) -> None
 set(name: str, x: bool, /) -> None
 set(name: str, x: bool, y: bool, /) -> None
 set(name: str, x: bool, y: bool, z: bool, /) -> None
@@ -31,16 +31,16 @@ set(name: str, x: int, y: int, z: int, /) -> None
 set(name: str, x: int, y: int, z: int, w: int, /) -> None
 
 @@ variables
-boolvec: JArray(JBoolean) - modifies all the components of an array/vector uniform variable
+boolvec: Iterator[bool] - modifies all the components of an array/vector uniform variable
 mat: npt.NDArray[np.floating] - 2D numpy array of values with shape 2x3 for 2D matrices or 4x4 for 3D matrices
 name: str - the name of the uniform variable to modify
 ncoords: int - number of coordinates per element, max 4
 tex: Py5Image - sets the sampler uniform variable to read from this image texture
 use3x3: bool - enforces the numpy array is 3 x 3
-vec: JArray(JBoolean) - modifies all the components of an array/vector uniform variable
+vec: Iterator[bool] - modifies all the components of an array/vector uniform variable
+vec: Iterator[float] - 1D numpy array of values to modify all the components of an array/vector uniform variable
+vec: Iterator[int] - 1D numpy array of values to modify all the components of an array/vector uniform variable
 vec: Py5Vector - vector of values to modify all the components of an array/vector uniform variable
-vec: npt.NDArray[np.floating] - 1D numpy array of values to modify all the components of an array/vector uniform variable
-vec: npt.NDArray[np.integer] - 1D numpy array of values to modify all the components of an array/vector uniform variable
 w: bool - fourth component of the variable to modify. The variable has to be declared with an array/vector type in the shader (i.e.: int[4], vec4)
 w: float - fourth component of the variable to modify. The variable has to be declared with an array/vector type in the shader (i.e.: int[4], vec4)
 w: int - fourth component of the variable to modify. The variable has to be declared with an array/vector type in the shader (i.e.: int[4], vec4)

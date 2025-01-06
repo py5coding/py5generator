@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import functools
 import weakref
-from typing import Union, overload  # noqa
+from typing import Iterator, Union, overload  # noqa
 
 from . import spelling
 from .base import Py5Base

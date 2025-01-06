@@ -9,8 +9,8 @@ processing_name = text
 @@ signatures
 text(c: chr, x: float, y: float, /) -> None
 text(c: chr, x: float, y: float, z: float, /) -> None
-text(chars: list[chr], start: int, stop: int, x: float, y: float, /) -> None
-text(chars: list[chr], start: int, stop: int, x: float, y: float, z: float, /) -> None
+text(chars: Iterator[chr], start: int, stop: int, x: float, y: float, /) -> None
+text(chars: Iterator[chr], start: int, stop: int, x: float, y: float, z: float, /) -> None
 text(num: float, x: float, y: float, /) -> None
 text(num: float, x: float, y: float, z: float, /) -> None
 text(num: int, x: float, y: float, /) -> None
@@ -21,7 +21,7 @@ text(str: str, x: float, y: float, z: float, /) -> None
 
 @@ variables
 c: chr - the alphanumeric character to be displayed
-chars: list[chr] - the alphanumberic symbols to be displayed
+chars: Iterator[chr] - the alphanumberic symbols to be displayed
 num: float - the numeric value to be displayed
 num: int - the numeric value to be displayed
 start: int - array index at which to start writing characters

@@ -63,11 +63,13 @@ def snake_case(name):
 
 
 @lru_cache(128)
-def _convert_type(jtype: str) -> str:
+def _convert_type(jtype: str, parameter=True) -> str:
     if jtype == "void":
         return "None"
-    elif jtype in ref.TYPE_OVERRIDES:
-        return ref.TYPE_OVERRIDES[jtype]
+    elif parameter and jtype in ref.PARAM_TYPE_OVERRIDES:
+        return ref.PARAM_TYPE_OVERRIDES[jtype]
+    elif not parameter and jtype in ref.RETURN_TYPE_OVERRIDES:
+        return ref.RETURN_TYPE_OVERRIDES[jtype]
     elif jtype.endswith("[][]"):
         return f"JArray({ref.JPYPE_CONVERSIONS[jtype[:-4]]}, 2)"
     elif jtype.endswith("[]"):
@@ -148,7 +150,7 @@ class CodeBuilder:
         paramstrs = [first_param] + [
             _param_annotation(pn, p) for pn, p in zip(parameter_names, params)
         ]
-        rettypestr = _convert_type(rettype)
+        rettypestr = _convert_type(rettype, parameter=False)
 
         return paramstrs, rettypestr
 

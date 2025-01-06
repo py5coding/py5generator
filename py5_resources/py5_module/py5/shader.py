@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import functools
 import weakref
-from typing import Any, overload  # noqa
+from typing import Any, Iterator, overload  # noqa
 
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa
@@ -30,9 +30,9 @@ from jpype.types import JArray, JBoolean, JException, JFloat, JInt  # noqa
 
 from . import spelling
 from .image import Py5Image  # noqa
-from .pmath import (
+from .pmath import (  # noqa
     _numpy_to_pmatrix2d,
-    _numpy_to_pmatrix3d,  # noqa
+    _numpy_to_pmatrix3d,
     _numpy_to_pvector,
     _py5vector_to_pvector,
 )
