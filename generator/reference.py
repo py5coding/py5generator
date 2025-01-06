@@ -26,6 +26,7 @@ PY5_SKIP_PARAM_TYPES = {"processing.core.PMatrix"}
 PY5_SKIP_RETURN_TYPES = set()
 
 PARAM_TYPE_OVERRIDES = {
+    "boolean[]": "Iterator[bool]",
     "char[]": "list[chr]",
     "java.lang.String[]": "list[str]",
     "float[]": "Iterator[float]",
