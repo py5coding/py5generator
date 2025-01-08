@@ -26,11 +26,11 @@ PY5_SKIP_PARAM_TYPES = {"processing.core.PMatrix"}
 PY5_SKIP_RETURN_TYPES = set()
 
 PARAM_TYPE_OVERRIDES = {
-    "boolean[]": "Iterator[bool]",
-    "char[]": "Iterator[chr]",
-    "float[]": "Iterator[float]",
-    "float[][]": "Iterator[Iterator[float]]",
-    "int[]": "Iterator[int]",
+    "boolean[]": "Sequence[bool]",
+    "char[]": "Sequence[chr]",
+    "float[]": "Sequence[float]",
+    "float[][]": "Sequence[Sequence[float]]",
+    "int[]": "Sequence[int]",
 }
 
 RETURN_TYPE_OVERRIDES = {
