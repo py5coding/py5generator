@@ -24,7 +24,7 @@ import functools
 import types
 import weakref
 from pathlib import Path
-from typing import Iterator, overload  # noqa
+from typing import Sequence, overload  # noqa
 
 import numpy as np
 import numpy.typing as npt  # noqa
@@ -164,37 +164,37 @@ class Py5Shape:
 
     depth: float = property(fget=_get_depth, doc="""$class_Py5Shape_depth""")
 
-    def set_strokes(self, strokes: Iterator[int], /) -> None:
+    def set_strokes(self, strokes: Sequence[int], /) -> None:
         """$class_Py5Shape_set_strokes"""
         if isinstance(strokes, types.GeneratorType):
             strokes = list(strokes)
         _Py5ShapeHelper.setStrokes(self._instance, strokes)
 
-    def set_fills(self, fills: Iterator[int], /) -> None:
+    def set_fills(self, fills: Sequence[int], /) -> None:
         """$class_Py5Shape_set_fills"""
         if isinstance(fills, types.GeneratorType):
             fills = list(fills)
         _Py5ShapeHelper.setFills(self._instance, fills)
 
-    def vertices(self, coordinates: Iterator[Iterator[float]], /) -> None:
+    def vertices(self, coordinates: Sequence[Sequence[float]], /) -> None:
         """$class_Py5Shape_vertices"""
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5ShapeHelper.vertices(self._instance, coordinates)
 
-    def bezier_vertices(self, coordinates: Iterator[Iterator[float]], /) -> None:
+    def bezier_vertices(self, coordinates: Sequence[Sequence[float]], /) -> None:
         """$class_Py5Shape_bezier_vertices"""
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5ShapeHelper.bezierVertices(self._instance, coordinates)
 
-    def curve_vertices(self, coordinates: Iterator[Iterator[float]], /) -> None:
+    def curve_vertices(self, coordinates: Sequence[Sequence[float]], /) -> None:
         """$class_Py5Shape_curve_vertices"""
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5ShapeHelper.curveVertices(self._instance, coordinates)
 
-    def quadratic_vertices(self, coordinates: Iterator[Iterator[float]], /) -> None:
+    def quadratic_vertices(self, coordinates: Sequence[Sequence[float]], /) -> None:
         """$class_Py5Shape_quadratic_vertices"""
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)

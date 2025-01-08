@@ -23,7 +23,7 @@ from __future__ import annotations
 import functools
 import types
 import weakref
-from typing import Iterator, overload  # noqa
+from typing import Sequence, overload  # noqa
 
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa
@@ -138,37 +138,37 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
 
     # *** BEGIN METHODS ***
 
-    def points(self, coordinates: Iterator[Iterator[float]], /) -> None:
+    def points(self, coordinates: Sequence[Sequence[float]], /) -> None:
         """$class_Py5Graphics_points"""
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5GraphicsHelper.points(self._instance, coordinates)
 
-    def lines(self, coordinates: Iterator[Iterator[float]], /) -> None:
+    def lines(self, coordinates: Sequence[Sequence[float]], /) -> None:
         """$class_Py5Graphics_lines"""
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5GraphicsHelper.lines(self._instance, coordinates)
 
-    def vertices(self, coordinates: Iterator[Iterator[float]], /) -> None:
+    def vertices(self, coordinates: Sequence[Sequence[float]], /) -> None:
         """$class_Py5Graphics_vertices"""
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5GraphicsHelper.vertices(self._instance, coordinates)
 
-    def bezier_vertices(self, coordinates: Iterator[Iterator[float]], /) -> None:
+    def bezier_vertices(self, coordinates: Sequence[Sequence[float]], /) -> None:
         """$class_Py5Graphics_bezier_vertices"""
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5GraphicsHelper.bezierVertices(self._instance, coordinates)
 
-    def curve_vertices(self, coordinates: Iterator[Iterator[float]], /) -> None:
+    def curve_vertices(self, coordinates: Sequence[Sequence[float]], /) -> None:
         """$class_Py5Graphics_curve_vertices"""
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)
         _Py5GraphicsHelper.curveVertices(self._instance, coordinates)
 
-    def quadratic_vertices(self, coordinates: Iterator[Iterator[float]], /) -> None:
+    def quadratic_vertices(self, coordinates: Sequence[Sequence[float]], /) -> None:
         """$class_Py5Graphics_quadratic_vertices"""
         if isinstance(coordinates, types.GeneratorType):
             coordinates = list(coordinates)

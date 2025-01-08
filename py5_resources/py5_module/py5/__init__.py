@@ -31,7 +31,7 @@ import sys
 import warnings
 from io import BytesIO
 from pathlib import Path
-from typing import Any, Callable, Iterator, Union, overload  # noqa
+from typing import Any, Callable, Sequence, Union, overload  # noqa
 
 import jpype.imports  # noqa
 import numpy as np  # noqa

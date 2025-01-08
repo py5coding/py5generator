@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import functools
 import weakref
-from typing import Any, Iterator, overload  # noqa
+from typing import Any, Sequence, overload  # noqa
 
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa
