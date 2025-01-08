@@ -6,10 +6,10 @@ category = shape
 subcategory = 2d_primitives
 
 @@ signatures
-points(coordinates: Iterator[Iterator[float]], /) -> None
+points(coordinates: Sequence[Sequence[float]], /) -> None
 
 @@ variables
-coordinates: Iterator[Iterator[float]] - 2D array of point coordinates with 2 or 3 columns for 2D or 3D points, respectively
+coordinates: Sequence[Sequence[float]] - 2D array of point coordinates with 2 or 3 columns for 2D or 3D points, respectively
 
 @@ description
 Draw a collection of points, each a coordinate in space at the dimension of one pixel. The purpose of this method is to provide an alternative to repeatedly calling [](sketch_point) in a loop. For a large number of points, the performance of `points()` will be much faster.
