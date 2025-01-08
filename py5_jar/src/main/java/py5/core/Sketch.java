@@ -259,6 +259,11 @@ public class Sketch extends SketchBase {
     if (success && preDrawUpdateRunner != null && !py5RegisteredEvents.contains("post_draw")) {
       preDrawUpdateRunner.interrupt();
     }
+
+    if (frameCount == 1 && platform == LINUX && g.isGL()) {
+      // Linux and OpenGL need to capture pixels after the last draw() call
+      capturePixels();
+    }
   }
 
   protected void preDrawUpdate() {
