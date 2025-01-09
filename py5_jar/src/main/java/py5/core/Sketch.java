@@ -261,7 +261,7 @@ public class Sketch extends SketchBase {
     }
 
     if (frameCount == 1 && platform == LINUX && g.isGL()) {
-      // Linux and OpenGL need to capture pixels after the last draw() call
+      // Linux with KDE Plasma window manager and OpenGL need to capture pixels after the last draw() call
       capturePixels();
     }
   }
