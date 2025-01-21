@@ -196,7 +196,7 @@ public class Sketch extends SketchBase {
         canvas.setFocusable(true);
         canvas.requestFocus();
       } else if (platform == MACOS && (sketchRenderer().equals(JAVA2D) || g.isGL())) {
-        ThinkDifferent.activateIgnoringOtherApps();
+        ThinkDifferent.activateSketchWindow();
       }
 
       if (py5IconPath != null && !(g instanceof PGraphicsOpenGL)) {
