@@ -352,6 +352,10 @@ class MathMixin:
         else:
             return []
 
+    def shuffle(self, objects: list[Any]) -> list[Any]:
+        """$class_Sketch_shuffle"""
+        return self.random_sample(objects, len(objects), False)
+
     @overload
     def random_gaussian(self) -> float:
         """$class_Sketch_random_gaussian"""
