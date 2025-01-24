@@ -23,7 +23,7 @@ import traceback
 import types
 import warnings
 from pathlib import Path
-from typing import Any, Union, overload
+from typing import Any, Union, overload, Sequence
 
 import numpy as np
 import numpy.typing as npt
@@ -352,9 +352,17 @@ class MathMixin:
         else:
             return []
 
-    def shuffle(self, objects: list[Any]) -> list[Any]:
-        """$class_Sketch_shuffle"""
-        return self.random_sample(objects, len(objects), False)
+    def random_permutation(self, seq: Sequence[Any]) -> Sequence[Any]:
+        """$class_Sketch_random_permutation"""
+        if isinstance(seq, types.GeneratorType):
+            seq = list(seq)
+        indices = self._rng.permutation(range(len(seq)))
+        if not isinstance(seq, list):
+            try:
+                return seq[indices]
+            except:
+                pass
+        return [seq[idx] for idx in indices]
 
     @overload
     def random_gaussian(self) -> float:
