@@ -368,6 +368,7 @@ random_gaussian,randomGaussian,,method,math,random,PYTHON,implementation uses nu
 random_int,,,method,math,random,PYTHON,implementation uses numpy for performance reasons
 random_choice,,,method,math,random,PYTHON,implementation uses numpy for performance reasons
 random_sample,,,method,math,random,PYTHON,implementation uses numpy for performance reasons
+random_permutation,,,method,math,random,PYTHON,implementation uses numpy for performance reasons
 random_seed,randomSeed,,method,math,random,PYTHON,implementation uses numpy for performance reasons
 choice,choice,,method,math,random,SKIP,new method but functionality already provided by random_int
 np_random,,,dynamic variable,math,random,PYTHON,make numpy random number generator available to users

@@ -5,7 +5,7 @@ category = math
 subcategory = random
 
 @@ signatures
-random_permutation(seq: Sequence[Any] -> Sequence[Any]
+random_permutation(seq: Sequence[Any]) -> Sequence[Any]
 
 @@ variables
 seq: Sequence[Any] - Sequence of objects for which random permutation is required.
