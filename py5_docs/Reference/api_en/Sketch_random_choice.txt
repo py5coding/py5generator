@@ -5,10 +5,10 @@ category = math
 subcategory = random
 
 @@ signatures
-random_choice(objects: list[Any]) -> Any
+random_choice(seq: Sequence[Any]) -> Any
 
 @@ variables
-objects: list[Any] - list of objects to choose from
+seq: Sequence[Any] - list of objects to choose from
 
 @@ description
 Select a random item from a list. The list items can be of any type. If the list of objects is empty, `None` will be returned.
