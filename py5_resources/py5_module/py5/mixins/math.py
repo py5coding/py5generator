@@ -23,7 +23,7 @@ import traceback
 import types
 import warnings
 from pathlib import Path
-from typing import Any, Union, overload, Sequence
+from typing import Any, Sequence, Union, overload
 
 import numpy as np
 import numpy.typing as npt
@@ -328,27 +328,27 @@ class MathMixin:
         types = ",".join([type(a).__name__ for a in args])
         raise TypeError(f"No matching overloads found for Sketch.random_int({types})")
 
-    def random_choice(self, objects: list[Any]) -> Any:
+    def random_choice(self, seq: Sequence[Any]) -> Any:
         """$class_Sketch_random_choice"""
-        if len(objects):
-            return objects[self._rng.integers(0, len(objects))]
+        if len(seq):
+            return seq[self._rng.integers(0, len(seq))]
         else:
             return None
 
     def random_sample(
-        self, objects: list[Any], size: int = 1, replace: bool = True
-    ) -> list[Any]:
+        self, seq: Sequence[Any], size: int = 1, replace: bool = True
+    ) -> Sequence[Any]:
         """$class_Sketch_random_sample"""
-        if len(objects):
-            if isinstance(objects, types.GeneratorType):
-                objects = list(objects)
-            indices = self._rng.choice(range(len(objects)), size=size, replace=replace)
-            if not isinstance(objects, list):
+        if len(seq):
+            if isinstance(seq, types.GeneratorType):
+                seq = list(seq)
+            indices = self._rng.choice(range(len(seq)), size=size, replace=replace)
+            if not isinstance(seq, list):
                 try:
-                    return objects[indices]
+                    return seq[indices]
                 except:
                     pass
-            return [objects[idx] for idx in indices]
+            return [seq[idx] for idx in indices]
         else:
             return []
 
