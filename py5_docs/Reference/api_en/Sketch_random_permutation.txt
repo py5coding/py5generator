@@ -8,10 +8,10 @@ subcategory = random
 random_permutation(seq: Sequence[Any]) -> Sequence[Any]
 
 @@ variables
-seq: Sequence[Any] - Sequence of objects for which random permutation is required.
+seq: Sequence[Any] - sequence of objects for which random permutation is required.
 
 @@ description
-Generates a random permutation for the given sequence. Each time the `random_permutation()` is called, it generates and return a random permuted sequence of the given sequence.
+Generates a random permutation for the given sequence. Each time the `random_permutation()` method is called, it generates and return a random permuted sequence of the given sequence.
 
 The returned value will always be a sequence such as a list. If the provided sequence is empty, an empty list will be returned.
 
