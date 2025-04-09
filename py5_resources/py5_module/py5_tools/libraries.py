@@ -24,7 +24,7 @@ from pathlib import Path
 
 import requests
 
-PROCESSING_LIBRARY_URL = "http://download.processing.org/contribs"
+PROCESSING_LIBRARY_URL = "https://contributions.processing.org/contribs.txt"
 
 PARAGRAPH_REGEX = re.compile("^paragraph=(.*?)^[a-z]*?=", re.DOTALL | re.MULTILINE)
 
