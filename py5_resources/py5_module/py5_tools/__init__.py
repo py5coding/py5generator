@@ -18,7 +18,7 @@
 #
 # *****************************************************************************
 """
-Utilities and accessory tools for py5. 
+Utilities and accessory tools for py5.
 """
 from . import live_coding  # noqa
 from . import translators  # noqa
@@ -27,6 +27,7 @@ from .hooks import *  # noqa
 from .imported import _lock_imported_mode, get_imported_mode, set_imported_mode  # noqa
 from .jvm import *  # noqa
 from .libraries import *  # noqa
+from .library_manager import *  # noqa
 
 __version__ = "0.10.5.dev0"
 
@@ -38,6 +39,7 @@ __all__ = [
     "add_options",
     "animated_gif",
     "capture_frames",
+    "download_processing_library",
     "get_classpath",
     "get_jvm_debug_info",
     "is_jvm_running",

@@ -88,6 +88,9 @@ class ProcessingLibraryInfo:
         info = info[0]
         download_url = info["download"]
 
+        # TODO: I need to check the minRevision and maxRevision
+        # against the current version of Processing.
+
         response = requests.get(download_url)
         if response.status_code != 200:
             raise RuntimeError(f"could not download library at {download_url}")
