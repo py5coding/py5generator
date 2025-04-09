@@ -39,6 +39,7 @@ __all__ = [
     "add_options",
     "animated_gif",
     "capture_frames",
+    "check_processing_library",
     "download_processing_library",
     "get_classpath",
     "get_jvm_debug_info",

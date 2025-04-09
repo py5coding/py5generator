@@ -63,7 +63,39 @@ class ProcessingLibraryManager:
 
         return info
 
+    def check_library(self, library_name):
+        """Check if a library is available and up to date.
+
+        Args:
+            library_name (str): The name of the library to check.
+
+        Returns:
+            bool: True if the library is available and up to date, False otherwise.
+        """
+        info = self._libraries.get_library_info(library_name=library_name)
+
+        if len(info) == 0:
+            return False
+        if len(info) > 1:
+            raise ValueError(f"Library {library_name} is ambiguous")
+
+        info = info[0]
+
+        stored_info = self._load_library_info(library_name)
+        if stored_info and stored_info["version"] == info["version"]:
+            return True
+        else:
+            return False
+
     def get_library(self, library_name):
+        """Download a library if it is not already downloaded or is outdated.
+
+        Args:
+            library_name (str): The name of the library to download.
+
+        Returns:
+            dict: Information about the downloaded library.
+        """
         info = self._libraries.get_library_info(library_name=library_name)
 
         if len(info) == 0:
@@ -88,6 +120,20 @@ class ProcessingLibraryManager:
             return self._load_library_info(library_name)
 
 
+def get_processing_library_storage_dir() -> Path:
+    return STORAGE_DIR
+
+
+def check_processing_library(library_name: str) -> bool:
+    # TODO: add to reference docs
+    """module_Py5Tools_check_processing_library"""
+    global _library_manager
+    if _library_manager is None:
+        _library_manager = ProcessingLibraryManager()
+
+    return _library_manager.check_library(library_name)
+
+
 def download_processing_library(library_name: str) -> bool:
     # TODO: add to reference docs
     """module_Py5Tools_download_processing_library"""
@@ -98,4 +144,8 @@ def download_processing_library(library_name: str) -> bool:
     return _library_manager.get_library(library_name)
 
 
-__all__ = ["download_processing_library"]
+__all__ = [
+    "check_processing_library",
+    "download_processing_library",
+    "get_processing_library_storage_dir",
+]
