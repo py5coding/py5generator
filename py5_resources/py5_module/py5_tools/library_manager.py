@@ -18,13 +18,16 @@
 #
 # *****************************************************************************
 import datetime as dt
+import platform
 from pathlib import Path
 
 from .libraries import ProcessingLibraryInfo
 
-# TODO: change this to someplace more suitable
-STORAGE_DIR = Path("/tmp/py5-library-storage")
-STORAGE_DIR.mkdir(exist_ok=True)
+if platform.system() == "Windows":
+    STORAGE_DIR = Path.home() / "AppData" / "Local" / "py5" / "processing-libraries"
+else:
+    STORAGE_DIR = Path.home() / ".cache" / "py5" / "processing-libraries"
+STORAGE_DIR.mkdir(parents=True, exist_ok=True)
 
 _library_manager = None
 
