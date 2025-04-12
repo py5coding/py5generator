@@ -17,6 +17,15 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
+import os
+import platform
+from pathlib import Path
+
+if not (PY5_HOME := os.environ.get("PY5_HOME")):
+    if platform.system() == "Windows":
+        PY5_HOME = Path.home() / "AppData" / "Local" / "py5"
+    else:
+        PY5_HOME = Path.home() / ".cache" / "py5"
 
 
 class Environment:
