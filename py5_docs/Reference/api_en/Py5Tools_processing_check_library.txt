@@ -8,7 +8,7 @@ subcategory = None
 processing_check_library(library_name: str) -> bool
 
 @@ variables
-library_name: str - missing variable description
+library_name: str - name of Processing library
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
