@@ -1,5 +1,5 @@
 @@ meta
-name = processing_library_storage_dir()
+name = processing.library_storage_dir()
 type = function
 category = processing
 subcategory = None

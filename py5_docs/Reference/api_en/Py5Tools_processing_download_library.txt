@@ -1,5 +1,5 @@
 @@ meta
-name = processing_download_library()
+name = processing.download_library()
 type = function
 category = processing
 subcategory = None

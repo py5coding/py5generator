@@ -1,5 +1,5 @@
 @@ meta
-name = processing_check_library()
+name = processing.check_library()
 type = function
 category = processing
 subcategory = None

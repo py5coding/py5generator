@@ -1,5 +1,5 @@
 @@ meta
-name = processing_installed_libraries()
+name = processing.installed_libraries()
 type = function
 category = processing
 subcategory = None
