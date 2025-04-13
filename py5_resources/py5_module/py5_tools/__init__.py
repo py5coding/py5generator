@@ -21,13 +21,13 @@
 Utilities and accessory tools for py5.
 """
 from . import live_coding  # noqa
+from . import processing  # noqa
 from . import translators  # noqa
 from .config import *  # noqa
 from .constants import VERSION as __version__
 from .hooks import *  # noqa
 from .imported import _lock_imported_mode, get_imported_mode, set_imported_mode  # noqa
 from .jvm import *  # noqa
-from .library_manager import *  # noqa
 
 __all__ = [
     "__version__",
@@ -36,15 +36,12 @@ __all__ = [
     "add_options",
     "animated_gif",
     "capture_frames",
-    "check_processing_library",
-    "download_processing_library",
     "get_classpath",
     "get_jvm_debug_info",
-    "installed_processing_libraries",
     "is_jvm_running",
     "live_coding",
     "offline_frame_processing",
-    "processing_library_storage_dir",
+    "processing",
     "register_processing_mode_key",
     "save_frames",
     "screenshot",

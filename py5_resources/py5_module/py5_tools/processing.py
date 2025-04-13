@@ -125,13 +125,14 @@ class ProcessingLibraryManager:
             return
 
 
-def processing_library_storage_dir() -> Path:
+def library_storage_dir() -> Path:
+    """module_Py5Tools_processing_library_storage_dir"""
     return STORAGE_DIR
 
 
-def installed_processing_libraries() -> list[str]:
+def installed_libraries() -> list[str]:
     # TODO: add to reference docs
-    """module_Py5Tools_installed_processing_libraries"""
+    """module_Py5Tools_processing_installed_libraries"""
     global _library_manager
     if _library_manager is None:
         _library_manager = ProcessingLibraryManager()
@@ -139,9 +140,9 @@ def installed_processing_libraries() -> list[str]:
     return _library_manager.installed_libraries()
 
 
-def check_processing_library(library_name: str) -> bool:
+def check_library(library_name: str) -> bool:
     # TODO: add to reference docs
-    """module_Py5Tools_check_processing_library"""
+    """module_Py5Tools_processing_check_library"""
     global _library_manager
     if _library_manager is None:
         _library_manager = ProcessingLibraryManager()
@@ -149,9 +150,9 @@ def check_processing_library(library_name: str) -> bool:
     return _library_manager.check_library(library_name)
 
 
-def download_processing_library(library_name: str) -> bool:
+def download_library(library_name: str) -> bool:
     # TODO: add to reference docs
-    """module_Py5Tools_download_processing_library"""
+    """module_Py5Tools_processing_download_library"""
     global _library_manager
     if _library_manager is None:
         _library_manager = ProcessingLibraryManager()
@@ -160,8 +161,12 @@ def download_processing_library(library_name: str) -> bool:
 
 
 __all__ = [
-    "check_processing_library",
-    "download_processing_library",
-    "installed_processing_libraries",
-    "processing_library_storage_dir",
+    "check_library",
+    "download_library",
+    "installed_libraries",
+    "library_storage_dir",
 ]
+
+
+def __dir__():
+    return __all__
