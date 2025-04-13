@@ -63,6 +63,9 @@ class ProcessingLibraryManager:
 
         return info
 
+    def installed_libraries(self):
+        return [f.stem for f in STORAGE_DIR.glob("*.txt")]
+
     def check_library(self, library_name):
         """Check if a library is available and up to date.
 
@@ -126,7 +129,13 @@ def get_processing_library_storage_dir() -> Path:
     return STORAGE_DIR
 
 
-# TODO: add function that lists what libraries are installed
+def installed_processing_libraries() -> list[str]:
+    """module_Py5Tools_installed_processing_libraries"""
+    global _library_manager
+    if _library_manager is None:
+        _library_manager = ProcessingLibraryManager()
+
+    return _library_manager.installed_libraries()
 
 
 def check_processing_library(library_name: str) -> bool:
@@ -153,4 +162,5 @@ __all__ = [
     "check_processing_library",
     "download_processing_library",
     "get_processing_library_storage_dir",
+    "installed_processing_libraries",
 ]
