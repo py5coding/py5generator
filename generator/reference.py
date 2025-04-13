@@ -354,6 +354,30 @@ EXTRA_METHOD_SIGNATURES = {
             "None",
         )
     ],
+    ("Py5Tools", "processing_library_storage_dir"): [
+        (
+            [],
+            "Path",
+        )
+    ],
+    ("Py5Tools", "processing_installed_libraries"): [
+        (
+            [],
+            "list[str]",
+        )
+    ],
+    ("Py5Tools", "processing_check_library"): [
+        (
+            ["library_name: str"],
+            "bool",
+        )
+    ],
+    ("Py5Tools", "processing_download_library"): [
+        (
+            ["library_name: str"],
+            "bool",
+        )
+    ],
 }
 
 OPTIONAL_METHOD_SIGNATURES = {
