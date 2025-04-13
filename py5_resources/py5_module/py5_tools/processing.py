@@ -130,13 +130,12 @@ class ProcessingLibraryManager:
 
 
 def library_storage_dir() -> Path:
-    """module_Py5Tools_processing_library_storage_dir"""
+    """$module_Py5Tools_processing_library_storage_dir"""
     return STORAGE_DIR
 
 
 def installed_libraries() -> list[str]:
-    # TODO: add to reference docs
-    """module_Py5Tools_processing_installed_libraries"""
+    """$module_Py5Tools_processing_installed_libraries"""
     global _library_manager
     if _library_manager is None:
         _library_manager = ProcessingLibraryManager()
@@ -145,8 +144,7 @@ def installed_libraries() -> list[str]:
 
 
 def check_library(library_name: str) -> bool:
-    # TODO: add to reference docs
-    """module_Py5Tools_processing_check_library"""
+    """$module_Py5Tools_processing_check_library"""
     global _library_manager
     if _library_manager is None:
         _library_manager = ProcessingLibraryManager()
@@ -155,8 +153,7 @@ def check_library(library_name: str) -> bool:
 
 
 def download_library(library_name: str) -> bool:
-    # TODO: add to reference docs
-    """module_Py5Tools_processing_download_library"""
+    """$module_Py5Tools_processing_download_library"""
     global _library_manager
     if _library_manager is None:
         _library_manager = ProcessingLibraryManager()

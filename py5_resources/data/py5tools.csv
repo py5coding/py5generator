@@ -17,3 +17,7 @@ live_coding_copy_code,,,function,live_coding,,PYTHON,live_coding
 live_coding_snapshot,,,function,live_coding,,PYTHON,live_coding
 live_coding_count,,,function,live_coding,,PYTHON,live_coding
 live_coding_activate,,,function,live_coding,,PYTHON,live_coding
+processing_library_storage_dir,,,function,processing,,PYTHON,processing
+processing_installed_libraries,,,function,processing,,PYTHON,processing
+processing_check_library,,,function,processing,,PYTHON,processing
+processing_download_library,,,function,processing,,PYTHON,processing
