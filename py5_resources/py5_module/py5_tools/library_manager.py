@@ -125,7 +125,7 @@ class ProcessingLibraryManager:
             return
 
 
-def get_processing_library_storage_dir() -> Path:
+def processing_library_storage_dir() -> Path:
     return STORAGE_DIR
 
 
@@ -162,6 +162,6 @@ def download_processing_library(library_name: str) -> bool:
 __all__ = [
     "check_processing_library",
     "download_processing_library",
-    "get_processing_library_storage_dir",
     "installed_processing_libraries",
+    "processing_library_storage_dir",
 ]
