@@ -23,14 +23,12 @@ Utilities and accessory tools for py5.
 from . import live_coding  # noqa
 from . import translators  # noqa
 from .config import *  # noqa
+from .constants import VERSION as __version__
 from .hooks import *  # noqa
 from .imported import _lock_imported_mode, get_imported_mode, set_imported_mode  # noqa
 from .jvm import *  # noqa
 from .libraries import *  # noqa
 from .library_manager import *  # noqa
-
-__version__ = "0.10.5.dev0"
-
 
 __all__ = [
     "__version__",

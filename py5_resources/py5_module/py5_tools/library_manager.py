@@ -20,7 +20,7 @@
 import datetime as dt
 from pathlib import Path
 
-from .environ import PY5_HOME
+from .constants import PY5_HOME
 from .libraries import ProcessingLibraryInfo
 
 STORAGE_DIR = Path(PY5_HOME) / "processing-libraries"

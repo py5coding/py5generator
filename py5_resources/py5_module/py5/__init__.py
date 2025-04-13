@@ -41,6 +41,7 @@ import py5_tools.environ  # noqa
 from jpype import JClass  # noqa
 from jpype.types import JArray, JChar, JFloat, JInt, JString  # noqa
 from PIL import Image  # noqa
+from py5_tools.constants import VERSION as __version__
 
 _environ = py5_tools.environ.Environment()
 
@@ -164,9 +165,6 @@ try:
 except ImportError:
     # IPython must not be installed
     pass
-
-
-__version__ = "0.10.5.dev0"
 
 _PY5_USE_IMPORTED_MODE = py5_tools.get_imported_mode()
 py5_tools._lock_imported_mode()
