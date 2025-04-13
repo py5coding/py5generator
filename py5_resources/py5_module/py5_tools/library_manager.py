@@ -130,6 +130,7 @@ def get_processing_library_storage_dir() -> Path:
 
 
 def installed_processing_libraries() -> list[str]:
+    # TODO: add to reference docs
     """module_Py5Tools_installed_processing_libraries"""
     global _library_manager
     if _library_manager is None:
