@@ -27,7 +27,6 @@ from .constants import VERSION as __version__
 from .hooks import *  # noqa
 from .imported import _lock_imported_mode, get_imported_mode, set_imported_mode  # noqa
 from .jvm import *  # noqa
-from .libraries import *  # noqa
 from .library_manager import *  # noqa
 
 __all__ = [
@@ -41,6 +40,8 @@ __all__ = [
     "download_processing_library",
     "get_classpath",
     "get_jvm_debug_info",
+    "get_processing_library_storage_dir",
+    "installed_processing_libraries",
     "is_jvm_running",
     "live_coding",
     "offline_frame_processing",

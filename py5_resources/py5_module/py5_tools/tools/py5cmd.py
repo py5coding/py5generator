@@ -23,8 +23,8 @@ import glob
 import platform
 from pathlib import Path
 
-import py5_tools
 import py5_tools.imported
+from py5_tools.libraries import ProcessingLibraryInfo
 
 parser = argparse.ArgumentParser(description="py5 command tool")
 
@@ -50,7 +50,7 @@ Description: {paragraph}"""
 class Py5Cmd(cmd.Cmd):
     def __init__(self):
         super().__init__()
-        self._libraries = py5_tools.ProcessingLibraryInfo()
+        self._libraries = ProcessingLibraryInfo()
         self._running_sketches = []
 
     prompt = "py5: "
