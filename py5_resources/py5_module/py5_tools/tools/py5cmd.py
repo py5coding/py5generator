@@ -32,12 +32,14 @@ parser = argparse.ArgumentParser(description="py5 command tool")
 SHORT_LIBRARY_TEMPLATE = """[{id}] Name: {name}
 Author: {authors}
 Summary: {sentence}
+Compatible: {compatible}
 Categories: {categories}
 Description: {paragraph}"""
 
 FULL_LIBRARY_TEMPLATE = """[{id}] Name: {name}
 Author: {authors}
 Summary: {sentence}
+Compatible: {compatible}
 Categories: {categories}
 Library version: {prettyVersion}
 Project URL: {url}

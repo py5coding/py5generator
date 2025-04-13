@@ -24,6 +24,8 @@ from pathlib import Path
 
 import requests
 
+from .constants import PROCESSING_BUILD_NUMBER
+
 PROCESSING_LIBRARY_URL = "https://contributions.processing.org/contribs.txt"
 
 PARAGRAPH_REGEX = re.compile("^paragraph=(.*?)^[a-z]*?=", re.DOTALL | re.MULTILINE)
@@ -54,6 +56,12 @@ class ProcessingLibraryInfo:
             libinfo["id"] = int(libinfo["id"])
             libinfo["minRevision"] = int(libinfo["minRevision"])
             libinfo["maxRevision"] = int(libinfo["maxRevision"])
+            libinfo["compatible"] = (
+                libinfo["maxRevision"] == 0
+                or libinfo["minRevision"]
+                <= PROCESSING_BUILD_NUMBER
+                <= libinfo["maxRevision"]
+            )
             libinfo["categories"] = libinfo["categories"].split(",")
             paragraph = PARAGRAPH_REGEX.findall(blocks[i])
             libinfo["paragraph"] = paragraph[0] if paragraph else ""
@@ -66,7 +74,6 @@ class ProcessingLibraryInfo:
         self._data = data
 
     def get_library_info(self, category=None, library_name=None, library_id=None):
-        # TODO: also make sure minRevision < version < maxRevision, but how?
         info = self._data
         if category:
             info = filter(lambda x: category in x.get("categories", []), info)
@@ -88,8 +95,10 @@ class ProcessingLibraryInfo:
         info = info[0]
         download_url = info["download"]
 
-        # TODO: I need to check the minRevision and maxRevision
-        # against the current version of Processing.
+        if not info["compatible"]:
+            raise RuntimeError(
+                f"Library {library_name} is not compatible with the version of Processing py5 is currently using."
+            )
 
         response = requests.get(download_url)
         if response.status_code != 200:

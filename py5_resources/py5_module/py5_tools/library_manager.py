@@ -99,9 +99,11 @@ class ProcessingLibraryManager:
         info = self._libraries.get_library_info(library_name=library_name)
 
         if len(info) == 0:
-            raise ValueError(f"Library {library_name} not found")
+            print(f"Library {library_name} not found")
+            return
         if len(info) > 1:
-            raise ValueError(f"Library {library_name} is ambiguous")
+            print(f"Library {library_name} is ambiguous")
+            return
 
         info = info[0]
 
@@ -113,15 +115,18 @@ class ProcessingLibraryManager:
 
         try:
             self._libraries.download_zip(STORAGE_DIR, library_name=library_name)
-        except Exception as e:
-            raise RuntimeError(f"Failed to download library {library_name}: {e}")
-        finally:
             self._store_library_info(library_name, info)
             return self._load_library_info(library_name)
+        except Exception as e:
+            print(f"Failed to download library {library_name}: {e}")
+            return
 
 
 def get_processing_library_storage_dir() -> Path:
     return STORAGE_DIR
+
+
+# TODO: add function that lists what libraries are installed
 
 
 def check_processing_library(library_name: str) -> bool:
