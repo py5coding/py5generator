@@ -42,6 +42,7 @@ class ProcessingLibraryManager:
             f.write(f"version={info['version']}\n")
             f.write(f"prettyVersion={info['prettyVersion']}\n")
             f.write(f"downloadDate={current_date}\n")
+            f.write(f"dir={info['dir']}\n")
 
     def _load_library_info(self, library_name):
         info_file = STORAGE_DIR / f"{library_name}.txt"
@@ -117,7 +118,10 @@ class ProcessingLibraryManager:
             print(f"Library {library_name} is outdated. Updating...")
 
         try:
-            self._libraries.download_zip(STORAGE_DIR, library_name=library_name)
+            parts0 = self._libraries.download_zip(
+                STORAGE_DIR, library_name=library_name
+            )
+            info["dir"] = parts0
             self._store_library_info(library_name, info)
             return self._load_library_info(library_name)
         except Exception as e:

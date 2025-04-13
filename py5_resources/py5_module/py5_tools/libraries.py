@@ -106,11 +106,16 @@ class ProcessingLibraryInfo:
 
         with zipfile.ZipFile(io.BytesIO(response.content)) as zf:
             jars = []
+            parts0 = None
             for name in zf.namelist():
                 path = Path(name)
                 if len(path.parts) > 2 and path.parts[1] == "library":
                     jars.append(name)
+                    if parts0 is None:
+                        parts0 = path.parts[0]
             zf.extractall(dest, jars)
+
+            return parts0
 
 
 __all__ = ["ProcessingLibraryInfo"]
