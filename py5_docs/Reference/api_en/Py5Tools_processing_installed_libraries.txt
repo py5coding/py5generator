@@ -8,4 +8,6 @@ subcategory = None
 processing_installed_libraries() -> list[str]
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+List the Processing libraries stored in your computer's Processing library storage directory. These are all of the Processing libraries that have been installed using the [](py5tools_processing_download_library) function. To get the location of the library storage directory, use the [](py5tools_processing_library_storage_dir) function.
+
+The Processing libraries are the same libraries available to you in the Library Manager when you use the Processing Development Environment (PDE). Any installed libraries will be available for you to import in Python after you import py5.
