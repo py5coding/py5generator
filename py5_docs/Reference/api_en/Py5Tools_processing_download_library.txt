@@ -13,4 +13,4 @@ library_name: str - name of Processing library
 @@ description
 Download and store a Processing library. These are the same libraries available to you in the Library Manager when you use the Processing Development Environment (PDE). After this function downloads a Processing library, it will be available for you to import in Python after you import py5.
 
-The library's files will be saved in the Processing library storage directory. Use [](py5tools_processing_library_storage_dir) to get the specific location of the storage directory on your machine.
+Downloaded libraries will be saved in the Processing library storage directory. Use [](py5tools_processing_library_storage_dir) to get the specific location of the storage directory on your machine.
