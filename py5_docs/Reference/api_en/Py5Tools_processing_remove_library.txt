@@ -8,7 +8,12 @@ subcategory = None
 processing_remove_library(library_name: str) -> None
 
 @@ variables
-library_name: str - missing variable description
+library_name: str - name of Processing library
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Remove a previously downloaded and stored Processing library. These are the same libraries available to you in the Library Manager when you use the Processing Development Environment (PDE). After this function removes a Processing library, it will no longer be available for you to use with py5.
+
+@@ example
+import py5_tools
+
+py5_tools.processing.remove_library("PeasyCam")
