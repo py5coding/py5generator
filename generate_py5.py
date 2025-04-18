@@ -22,6 +22,7 @@ import logging
 import os
 import re
 import shutil
+import tempfile
 from pathlib import Path
 
 import matplotlib as mpl
@@ -90,7 +91,7 @@ def generate_py5(app_dir, build_dir, skip_black=False):
             logger.critical(msg)
             raise RuntimeError(msg)
 
-    core_jar_path = find_jar("library/core")
+    core_jar_path = find_jar("library/core*")
     svg_jar_path = find_jar("svg")
     dxf_jar_path = find_jar("dxf")
     pdf_jar_path = find_jar("pdf")
@@ -301,24 +302,36 @@ def generate_py5(app_dir, build_dir, skip_black=False):
         )
 
     # add the jars
-    def copy_jars(jar_dir, dest):
+    def copy_jars(jar_dir, dest, *, match_regex=None):
+        regex = re.compile(match_regex) if match_regex else None
+        version_regex = re.compile(r"-\d\.\d\.\d")
         dest.mkdir(parents=True, exist_ok=True)
         for jar in jar_dir.glob("*.jar"):
-            shutil.copy(jar, dest)
+            if regex and not regex.match(jar.name):
+                continue
+            shutil.copy(jar, dest / version_regex.sub("", jar.name))
 
-    copy_jars(core_jar_path.parent, build_dir / "py5" / "jars")
+    copy_jars(
+        core_jar_path.parent,
+        build_dir / "py5" / "jars",
+        match_regex=f"(core|gluegen|jogl)(?!.*natives).*$",
+    )
     copy_jars(svg_jar_path.parent, build_dir / "py5" / "jars" / "svg")
     copy_jars(dxf_jar_path.parent, build_dir / "py5" / "jars" / "dxf")
     copy_jars(pdf_jar_path.parent, build_dir / "py5" / "jars" / "pdf")
     shutil.copy(py5_jar_path, build_dir / "py5" / "jars")
 
     # add the native libraries
+    temp_dir = tempfile.TemporaryDirectory()
+    native_lib_temp_dir = Path(temp_dir.name)
+    native_lib_temp_dir.mkdir(parents=True, exist_ok=True)
+    for jar in core_jar_path.parent.glob("*natives*.jar"):
+        os.system(f"cd {native_lib_temp_dir} && jar xf {jar.absolute()}")
     shutil.copytree(
-        core_jar_path.parent,
+        native_lib_temp_dir / "natives",
         build_dir / "py5" / "natives",
-        ignore=lambda _, names: [n for n in names if Path(n).suffix == ".jar"],
-        dirs_exist_ok=True,
     )
+    temp_dir.cleanup()
 
     build_dir.touch()
 
