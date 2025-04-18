@@ -114,7 +114,7 @@ class ProcessingLibraryManager:
         stored_info = self._load_library_info(library_name)
         if stored_info:
             if stored_info["version"] == info["version"]:
-                return
+                return stored_info
             print(f"Library {library_name} is outdated. Updating...")
 
         try:
@@ -152,7 +152,7 @@ def check_library(library_name: str) -> bool:
     return _library_manager.check_library(library_name)
 
 
-def download_library(library_name: str) -> bool:
+def download_library(library_name: str) -> dict:
     """$module_Py5Tools_processing_download_library"""
     global _library_manager
     if _library_manager is None:
