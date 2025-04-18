@@ -102,7 +102,7 @@ class ProcessingLibraryInfo:
 
         response = requests.get(download_url)
         if response.status_code != 200:
-            raise RuntimeError(f"could not download library at {download_url}")
+            raise RuntimeError(f"Could not download library at {download_url}")
 
         with zipfile.ZipFile(io.BytesIO(response.content)) as zf:
             jars = []
