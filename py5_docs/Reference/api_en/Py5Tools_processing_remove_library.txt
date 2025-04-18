@@ -1,0 +1,19 @@
+@@ meta
+name = processing_remove_library()
+type = function
+category = processing
+subcategory = None
+
+@@ signatures
+processing_remove_library(library_name: str) -> None
+
+@@ variables
+library_name: str - name of Processing library
+
+@@ description
+Remove a previously downloaded and stored Processing library. These are the same libraries available to you in the Library Manager when you use the Processing Development Environment (PDE). You download and install Processing libraries with [](py5tools_processing_download_library). After this function removes a Processing library, it will no longer be available for you to use with py5.
+
+@@ example
+import py5_tools
+
+py5_tools.processing.remove_library("PeasyCam")

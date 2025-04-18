@@ -375,7 +375,13 @@ EXTRA_METHOD_SIGNATURES = {
     ("Py5Tools", "processing_download_library"): [
         (
             ["library_name: str"],
-            "bool",
+            "dict",
+        )
+    ],
+    ("Py5Tools", "processing_remove_library"): [
+        (
+            ["library_name: str"],
+            "None",
         )
     ],
 }

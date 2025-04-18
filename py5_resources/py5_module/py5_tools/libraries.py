@@ -38,9 +38,9 @@ class ProcessingLibraryInfo:
     def _load_data(self):
         response = requests.get(PROCESSING_LIBRARY_URL)
         if response.status_code != 200:
-            raise RuntimeError(
-                f"could not download data file at {PROCESSING_LIBRARY_URL}"
-            )
+            # Could not download data file. Perhaps the user is offline.
+            self._data = []
+            return
 
         blocks = [b for b in response.text.split("\n\n") if b.startswith("library")]
         data = [
@@ -102,7 +102,7 @@ class ProcessingLibraryInfo:
 
         response = requests.get(download_url)
         if response.status_code != 200:
-            raise RuntimeError(f"could not download library at {download_url}")
+            raise RuntimeError(f"Could not download library at {download_url}")
 
         with zipfile.ZipFile(io.BytesIO(response.content)) as zf:
             jars = []

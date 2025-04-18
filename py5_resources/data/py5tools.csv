@@ -21,3 +21,4 @@ processing_library_storage_dir,,,function,processing,,PYTHON,processing
 processing_installed_libraries,,,function,processing,,PYTHON,processing
 processing_check_library,,,function,processing,,PYTHON,processing
 processing_download_library,,,function,processing,,PYTHON,processing
+processing_remove_library,,,function,processing,,PYTHON,processing
