@@ -41,6 +41,7 @@ import py5_tools.environ  # noqa
 from jpype import JClass  # noqa
 from jpype.types import JArray, JChar, JFloat, JInt, JString  # noqa
 from PIL import Image  # noqa
+from py5_tools.constants import VERSION as __version__
 
 _environ = py5_tools.environ.Environment()
 
@@ -97,6 +98,8 @@ if not py5_tools.is_jvm_running():
 
     # add py5 jars to the classpath first
     py5_tools.add_jars(str(base_path / "jars"))
+    # add stored processing libraries
+    py5_tools.add_jars(py5_tools.processing.library_storage_dir())
     # if the cwd has a jars subdirectory, add that next
     py5_tools.add_jars(Path("jars"))
     # if the PY5_JARS environment variable exists, add those jars
@@ -162,9 +165,6 @@ try:
 except ImportError:
     # IPython must not be installed
     pass
-
-
-__version__ = "0.10.5.dev0"
 
 _PY5_USE_IMPORTED_MODE = py5_tools.get_imported_mode()
 py5_tools._lock_imported_mode()

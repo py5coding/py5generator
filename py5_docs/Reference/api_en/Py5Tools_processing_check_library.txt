@@ -1,0 +1,16 @@
+@@ meta
+name = processing.check_library()
+type = function
+category = processing
+subcategory = None
+
+@@ signatures
+processing_check_library(library_name: str) -> bool
+
+@@ variables
+library_name: str - name of Processing library
+
+@@ description
+Check if a Processing library has been downloaded and stored by py5. These are the same libraries available to you in the Library Manager when you use the Processing Development Environment (PDE). Downloaded libraries are available for you to import in Python after you import py5.
+
+Downloaded libraries will be saved in the Processing library storage directory. Use [](py5tools_processing_library_storage_dir) to get the specific location of the storage directory on your machine.

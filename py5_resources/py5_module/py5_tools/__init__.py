@@ -18,18 +18,16 @@
 #
 # *****************************************************************************
 """
-Utilities and accessory tools for py5. 
+Utilities and accessory tools for py5.
 """
 from . import live_coding  # noqa
+from . import processing  # noqa
 from . import translators  # noqa
 from .config import *  # noqa
+from .constants import VERSION as __version__
 from .hooks import *  # noqa
 from .imported import _lock_imported_mode, get_imported_mode, set_imported_mode  # noqa
 from .jvm import *  # noqa
-from .libraries import *  # noqa
-
-__version__ = "0.10.5.dev0"
-
 
 __all__ = [
     "__version__",
@@ -43,6 +41,7 @@ __all__ = [
     "is_jvm_running",
     "live_coding",
     "offline_frame_processing",
+    "processing",
     "register_processing_mode_key",
     "save_frames",
     "screenshot",

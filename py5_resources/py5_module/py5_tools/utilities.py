@@ -21,6 +21,8 @@ import os
 import sys
 from pathlib import Path
 
+from .constants import VERSION
+
 PY5_UTILITIES_CLASS = """package py5utils;
 
 import py5.core.Sketch;
@@ -61,21 +63,21 @@ POM_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
     <dependency>
       <groupId>py5</groupId>
       <artifactId>py5-processing4</artifactId>
-      <version>0.10.5.dev0</version>
+      <version>{py5_version}</version>
       <scope>system</scope>
       <systemPath>$${{jarlocation}}/core.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>py5</groupId>
       <artifactId>py5-jogl</artifactId>
-      <version>0.10.5.dev0</version>
+      <version>{py5_version}</version>
       <scope>system</scope>
       <systemPath>$${{jarlocation}}/jogl-all.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>py5</groupId>
       <artifactId>py5</artifactId>
-      <version>0.10.5.dev0</version>
+      <version>{py5_version}</version>
       <scope>system</scope>
       <systemPath>$${{jarlocation}}/py5.jar</systemPath>
     </dependency>
@@ -140,7 +142,7 @@ def generate_utilities_framework(output_dir=None):
         print(f"Skipping {pom_filename}: file already exists", file=sys.stderr)
     else:
         with open(pom_filename, "w") as f:
-            f.write(POM_TEMPLATE.format(classpath=py5_classpath))
+            f.write(POM_TEMPLATE.format(classpath=py5_classpath, py5_version=VERSION))
 
     utils_filename = java_dir / Path("src/main/java/py5utils/Py5Utilities.java")
     if utils_filename.exists():
