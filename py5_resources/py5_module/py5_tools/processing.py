@@ -18,6 +18,7 @@
 #
 # *****************************************************************************
 import datetime as dt
+import shutil
 from pathlib import Path
 
 from .constants import PY5_HOME
@@ -128,6 +129,26 @@ class ProcessingLibraryManager:
             print(f"Failed to download library {library_name}: {e}")
             return
 
+    def remove_library(self, library_name):
+        """Remove a library from the storage directory.
+
+        Args:
+            library_name (str): The name of the library to remove.
+        """
+        info = self._load_library_info(library_name)
+        if info:
+            # Remove the library directory
+            lib_dir = STORAGE_DIR / info["dir"]
+            if lib_dir.exists():
+                shutil.rmtree(lib_dir)
+
+            # Remove the info file
+            info_file = STORAGE_DIR / f"{library_name}.txt"
+            if info_file.exists():
+                info_file.unlink()
+        else:
+            print(f"Library {library_name} not found in storage.")
+
 
 def library_storage_dir() -> Path:
     """$module_Py5Tools_processing_library_storage_dir"""
@@ -161,11 +182,21 @@ def download_library(library_name: str) -> dict:
     return _library_manager.get_library(library_name)
 
 
+def remove_library(library_name: str) -> None:
+    """$module_Py5Tools_processing_remove_library"""
+    global _library_manager
+    if _library_manager is None:
+        _library_manager = ProcessingLibraryManager()
+
+    _library_manager.remove_library(library_name)
+
+
 __all__ = [
     "check_library",
     "download_library",
     "installed_libraries",
     "library_storage_dir",
+    "remove_library",
 ]
 
 

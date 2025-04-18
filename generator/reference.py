@@ -378,6 +378,12 @@ EXTRA_METHOD_SIGNATURES = {
             "dict",
         )
     ],
+    ("Py5Tools", "processing_remove_library"): [
+        (
+            ["library_name: str"],
+            "None",
+        )
+    ],
 }
 
 OPTIONAL_METHOD_SIGNATURES = {
