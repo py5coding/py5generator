@@ -19,4 +19,4 @@ Downloaded libraries will be saved in the Processing library storage directory. 
 import py5_tools
 
 if py5_tools.processing.check_library("PeasyCam"):
-    print("PeasyCam is in stored library")
+    print("PeasyCam is in your stored library")
