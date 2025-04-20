@@ -295,7 +295,7 @@ class DrawingMagics(Magics):
         args = parse_argstring(self.py5draw, line)
 
         if sys.platform == "darwin":
-            if args.renderer in ["P2D", "P3D", "DXF"]:
+            if args.renderer in ["P2D", "P3D", "FX2D", "DXF"]:
                 print(
                     f"Sorry, py5 magics do not support the {args.renderer} renderer on macOS.",
                     file=sys.stderr,
@@ -312,7 +312,7 @@ class DrawingMagics(Magics):
         if args.renderer == "PDF":
             print("please use %%py5drawpdf for PDFs.", file=sys.stderr)
             return
-        if args.renderer not in ["HIDDEN", "JAVA2D", "P2D", "P3D"]:
+        if args.renderer not in ["HIDDEN", "JAVA2D", "P2D", "P3D", "FX2D"]:
             print(f"unknown renderer {args.renderer}", file=sys.stderr)
             return
 
