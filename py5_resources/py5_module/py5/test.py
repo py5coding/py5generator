@@ -56,6 +56,11 @@ def test_java2d():
     test.run_sketch()
 
 
+def test_fx2d():
+    test = RendererTest(Sketch.FX2D, "FX2D")
+    test.run_sketch()
+
+
 def test_p2d():
     test = RendererTest(Sketch.P2D, "P2D")
     test.run_sketch()
@@ -88,6 +93,11 @@ class TestInteractivity(Sketch):
 
 def test_interactivity_java2d():
     test = TestInteractivity(Sketch.JAVA2D, "JAVA2D")
+    test.run_sketch()
+
+
+def test_interactivity_fx2d():
+    test = TestInteractivity(Sketch.FX2D, "FX2D")
     test.run_sketch()
 
 
