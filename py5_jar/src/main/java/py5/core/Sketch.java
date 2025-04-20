@@ -190,12 +190,12 @@ public class Sketch extends SketchBase {
     if (success) {
       PSurface surface = getSurface();
 
-      // request focus for Java2D renderer on Windows and MacOS
-      if (platform == WINDOWS && sketchRenderer().equals(JAVA2D)) {
+      // request focus for Java2D and FX2D renderers on Windows and MacOS
+      if (platform == WINDOWS && (sketchRenderer().equals(JAVA2D) || sketchRenderer().equals(FX2D))) {
         Canvas canvas = (Canvas) surface.getNative();
         canvas.setFocusable(true);
         canvas.requestFocus();
-      } else if (platform == MACOS && (sketchRenderer().equals(JAVA2D) || g.isGL())) {
+      } else if (platform == MACOS && (sketchRenderer().equals(JAVA2D) || sketchRenderer().equals(FX2D) || g.isGL())) {
         ThinkDifferent.activateSketchWindow();
       }
 
@@ -261,7 +261,8 @@ public class Sketch extends SketchBase {
     }
 
     if (frameCount == 1 && platform == LINUX && g.isGL()) {
-      // Linux with KDE Plasma window manager and OpenGL need to capture pixels after the last draw() call
+      // Linux with KDE Plasma window manager and OpenGL need to capture pixels after
+      // the last draw() call
       capturePixels();
     }
   }

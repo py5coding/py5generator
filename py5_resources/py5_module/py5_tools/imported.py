@@ -223,6 +223,10 @@ def _run_code(
             jvm.add_jars(sketch_path.parent / "jars")
 
         set_imported_mode(True)
+        try:
+            import py5javafx
+        except ImportError:
+            pass
         import py5
 
         if py5.is_running() if callable(py5.is_running) else py5.is_running:
