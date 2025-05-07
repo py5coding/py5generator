@@ -20,6 +20,7 @@ Downloaded libraries will be saved in the Processing library storage directory. 
 @@ example
 import py5_tools
 
+# this only needs to be run once
 py5_tools.processing.download_library("PeasyCam")
 
 import py5
