@@ -225,7 +225,7 @@ def _run_code(
         set_imported_mode(True)
         try:
             import py5javafx
-        except ImportError:
+        except Exception:
             pass
         import py5
 
@@ -290,7 +290,7 @@ def _run_code(
             parsing.transform_py5_code(sketch_ast), filename=sketch_path, mode="exec"
         )
 
-        sys.path.extend([str(sketch_path.absolute().parent), os.getcwd()])
+        sys.path.extend([(sketch_path.absolute().parent).as_posix(), os.getcwd()])
         py5_ns = dict()
         py5_ns.update(py5.__dict__)
         py5_ns["__file__"] = str(original_sketch_path)
