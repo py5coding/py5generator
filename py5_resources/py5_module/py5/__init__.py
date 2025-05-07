@@ -97,7 +97,7 @@ if not py5_tools.is_jvm_running():
             pass
 
     # add py5 jars to the classpath first
-    py5_tools.add_jars(str(base_path / "jars"))
+    py5_tools.add_jars(base_path / "jars")
     # add stored processing libraries
     py5_tools.add_jars(py5_tools.processing.library_storage_dir())
     # if the cwd has a jars subdirectory, add that next
