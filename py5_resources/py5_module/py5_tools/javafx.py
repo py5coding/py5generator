@@ -52,12 +52,14 @@ if py5_tools.processing.check_library("JavaFX"):
                 library_dir = "linux-aarch64"
             else:
                 raise RuntimeError(f"Unsupported architecture for Linux: {os_arch}")
-        elif sys.platform == "windows":
+        elif sys.platform in ["windows", "win32"]:
             if os_arch in ("AMD64", "x86_64"):
                 # 64-bit Intel
                 library_dir = "windows-amd64"
             else:
                 raise RuntimeError(f"Unsupported architecture for Windows: {os_arch}")
+        else:
+            raise RuntimeError(f"Unrecognized platform: sys.platform={sys.platform}")
 
         base_path = py5_tools.processing.library_storage_dir()
         py5_tools.add_options(
