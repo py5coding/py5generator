@@ -22,15 +22,11 @@ import sys
 
 import py5_tools
 
-if py5_tools.is_jvm_running():
-    raise RuntimeError(
-        "The JVM is already running. Please import this module before importing py5"
-    )
-
-if py5_tools.processing.check_library("JavaFX"):
+if not py5_tools.is_jvm_running() and py5_tools.processing.check_library("JavaFX"):
     try:
-        os_arch = platform.machine()
+        library_dir = None
 
+        os_arch = platform.machine()
         if sys.platform == "darwin":
             if os_arch in ("arm64", "aarch64"):
                 # 64-bit ARM
@@ -38,8 +34,8 @@ if py5_tools.processing.check_library("JavaFX"):
             elif os_arch == "x86_64":
                 # 64-bit Intel
                 library_dir = "macos-x86_64"
-            else:
-                raise RuntimeError(f"Unsupported architecture for MacOS: {os_arch}")
+            # else:
+            #     raise RuntimeError(f"Unsupported architecture for MacOS: {os_arch}")
         elif sys.platform == "linux":
             if os_arch == "x86_64":
                 # 64-bit Intel
@@ -50,39 +46,40 @@ if py5_tools.processing.check_library("JavaFX"):
             elif os_arch == "aarch64":
                 # 64-bit ARM
                 library_dir = "linux-aarch64"
-            else:
-                raise RuntimeError(f"Unsupported architecture for Linux: {os_arch}")
+            # else:
+            #     raise RuntimeError(f"Unsupported architecture for Linux: {os_arch}")
         elif sys.platform in ["windows", "win32"]:
             if os_arch in ("AMD64", "x86_64"):
                 # 64-bit Intel
                 library_dir = "windows-amd64"
-            else:
-                raise RuntimeError(f"Unsupported architecture for Windows: {os_arch}")
-        else:
-            raise RuntimeError(f"Unrecognized platform: sys.platform={sys.platform}")
+        #     else:
+        #         raise RuntimeError(f"Unsupported architecture for Windows: {os_arch}")
+        # else:
+        #     raise RuntimeError(f"Unrecognized platform: sys.platform={sys.platform}")
 
-        base_path = py5_tools.processing.library_storage_dir()
-        py5_tools.add_options(
-            f"-Djava.library.path={base_path}/javafx/library/{library_dir}/"
-        )
-        py5_tools.add_options(
-            f"--module-path={base_path}/javafx/library/{library_dir}/modules/"
-        )
+        if library_dir is not None:
+            base_path = py5_tools.processing.library_storage_dir()
+            py5_tools.add_options(
+                f"-Djava.library.path={base_path}/javafx/library/{library_dir}/"
+            )
+            py5_tools.add_options(
+                f"--module-path={base_path}/javafx/library/{library_dir}/modules/"
+            )
 
-        py5_tools.add_options(
-            "--add-exports=javafx.graphics/com.sun.javafx.geom=ALL-UNNAMED"
-        )
-        py5_tools.add_options(
-            "--add-exports=javafx.graphics/com.sun.glass.ui=ALL-UNNAMED"
-        )
+            py5_tools.add_options(
+                "--add-exports=javafx.graphics/com.sun.javafx.geom=ALL-UNNAMED"
+            )
+            py5_tools.add_options(
+                "--add-exports=javafx.graphics/com.sun.glass.ui=ALL-UNNAMED"
+            )
 
-        # add all 7 modules
-        py5_tools.add_options(
-            "--add-modules=javafx.base,javafx.graphics,javafx.swing,javafx.controls,javafx.media,javafx.web,javafx.fxml"
-        )
+            # add all 7 modules
+            py5_tools.add_options(
+                "--add-modules=javafx.base,javafx.graphics,javafx.swing,javafx.controls,javafx.media,javafx.web,javafx.fxml"
+            )
     except Exception as e:
         print(
-            f"JavaFX is not properly installed. Please remove JavaFX and try installing it again. Error: {e}",
+            f"JavaFX is not properly installed. Please remove JavaFX and possibly try installing it again. Error: {e}",
             file=sys.stderr,
         )
 

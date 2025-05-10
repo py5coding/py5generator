@@ -38,10 +38,10 @@ import numpy as np  # noqa
 import numpy.typing as npt  # noqa
 import py5_tools
 import py5_tools.environ  # noqa
-import py5_tools.javafx  # noqa
 from jpype import JClass  # noqa
 from jpype.types import JArray, JChar, JFloat, JInt, JString  # noqa
 from PIL import Image  # noqa
+from py5_tools import javafx as _javafx  # noqa
 from py5_tools.constants import VERSION as __version__
 
 _environ = py5_tools.environ.Environment()
