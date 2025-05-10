@@ -24,7 +24,6 @@ import sys
 import zipfile
 from pathlib import Path
 
-import numpy as np
 import stackprinter
 
 from .import_hook import activate_py5_live_coding_import_hook

@@ -41,6 +41,7 @@ import py5_tools.environ  # noqa
 from jpype import JClass  # noqa
 from jpype.types import JArray, JChar, JFloat, JInt, JString  # noqa
 from PIL import Image  # noqa
+from py5_tools import javafx as _javafx  # noqa
 from py5_tools.constants import VERSION as __version__
 
 _environ = py5_tools.environ.Environment()
@@ -97,7 +98,7 @@ if not py5_tools.is_jvm_running():
             pass
 
     # add py5 jars to the classpath first
-    py5_tools.add_jars(str(base_path / "jars"))
+    py5_tools.add_jars(base_path / "jars")
     # add stored processing libraries
     py5_tools.add_jars(py5_tools.processing.library_storage_dir())
     # if the cwd has a jars subdirectory, add that next

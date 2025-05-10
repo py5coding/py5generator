@@ -1,5 +1,5 @@
 @@ meta
-name = processing_remove_library()
+name = processing.remove_library()
 type = function
 category = processing
 subcategory = None
