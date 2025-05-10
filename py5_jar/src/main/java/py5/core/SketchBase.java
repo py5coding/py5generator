@@ -70,8 +70,8 @@ public class SketchBase extends PApplet {
     if (variant.equals("macos")) {
       variant = "macosx-universal";
     } else {
-      // TODO: may need to do something special for Raspberry Pi computers
-      variant += "-" + System.getProperty("os.arch");
+      String osarch = System.getProperty("os.arch");
+      variant += "-" + (osarch.startsWith("arm") ? "armv6hf" : osarch);
     }
     String joglPath = py5Path + File.separator + "natives" + File.separator + variant;
     String javaLibraryPath = System.getProperty("java.library.path");
