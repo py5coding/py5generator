@@ -363,7 +363,7 @@ EXTRA_METHOD_SIGNATURES = {
     ("Py5Tools", "processing_installed_libraries"): [
         (
             [],
-            "list[str]",
+            "set[str]",
         )
     ],
     ("Py5Tools", "processing_check_library"): [
