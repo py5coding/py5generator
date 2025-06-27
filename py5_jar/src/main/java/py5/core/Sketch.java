@@ -23,8 +23,6 @@ import java.io.File;
 
 import com.jogamp.newt.opengl.GLWindow;
 
-import java.awt.Canvas;
-
 import processing.core.PApplet;
 import processing.core.PConstants;
 import processing.core.PMatrix2D;
@@ -190,12 +188,13 @@ public class Sketch extends SketchBase {
     if (success) {
       PSurface surface = getSurface();
 
-      // request focus for Java2D and FX2D renderers on Windows and MacOS
-      if (platform == WINDOWS && (sketchRenderer().equals(JAVA2D) || sketchRenderer().equals(FX2D))) {
-        Canvas canvas = (Canvas) surface.getNative();
+      if (platform == WINDOWS && sketchRenderer().equals(JAVA2D)) {
+        // request focus for JAVA2D renderers on Windows
+        java.awt.Canvas canvas = (java.awt.Canvas) surface.getNative();
         canvas.setFocusable(true);
         canvas.requestFocus();
       } else if (platform == MACOS && (sketchRenderer().equals(JAVA2D) || sketchRenderer().equals(FX2D) || g.isGL())) {
+        // request focus for JAVA2D & FX2D renderers on MacOS
         ThinkDifferent.activateSketchWindow();
       }
 
