@@ -18,7 +18,7 @@
         <mkdir dir="${project.bin}"/>
         <javac release="17" debug="true" includeantruntime="false" srcdir="${project.src}" destdir="${project.bin}">
             <classpath>
-                <fileset dir="${processing_dir}/app/resources">
+                <fileset dir="${processing_dir}">
                         <include name="**/*.jar"/>
                 </fileset>
             </classpath>
