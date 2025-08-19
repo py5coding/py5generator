@@ -32,9 +32,6 @@ $(py5_installed): $(py5_build_dir)
 generate_py5_docs:
 	python $(py5_doc_generator) $(py5_website_dir) py5_docs/Reference/$(py5_api_lang)
 
-sphinx_docs:
-	sphinx-build -M html py5_docs/sphinx $(py5_sphinx_dir)
-
 .PHONY: clean
 clean:
 	rm -f $(py5_installed)
