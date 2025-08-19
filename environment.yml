@@ -3,34 +3,32 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - autopep8=2.2.*
-  - black=24.2.*
+  - autopep8=2.3.*
+  - black=25.1.*
   - cairo=1.18.*
   - cairocffi=1.7.*
-  - cairosvg=2.7.*
+  - cairosvg=2.8.*
   - colour>=0.1.*
   - flake8=7.1.*
-  - hatch=1.12.*
-  - ipython=8.18.*
+  - hatch=1.14.*
+  - ipython=8.37.*
   - jedi=0.19.*
-  - jpype1=1.5.*
-  - jupyter=1.0.*
+  - jpype1=1.6.*
+  - jupyter=1.1.*
   - jupyter-book=1.0.*
-  - jupyterlab=4.2.*
-  - jupytext=1.16.*
-  - line_profiler=4.1.*
-  - matplotlib=3.9.*
-  - numpy=1.26.*
-  - pandas=2.2.*
-  - pillow=10.2.*
+  - jupyterlab=4.4.*
+  - jupytext=1.17.*
+  - line_profiler=4.2.*
+  - matplotlib=3.10.*
+  - numpy=2.2.*
+  - pandas=2.3.*
+  - pillow=11.0.*
   - pip
-  - python=3.9.*
-  - requests=2.31.*
+  - python=3.10.*
+  - requests=2.32.*
   - shapely=2.0.*
-  - trimesh=4.3.*
-  - twine>=5.1.*
-  - yarn>=4.3.*
+  - trimesh=4.6.*
+  - twine>=6.1.*
   - pip:
-    - bump2version==1.0.*
-    - stackprinter==0.2.11
-    - opencv-contrib-python>=4.10
+    - stackprinter==0.2.12
+    - opencv-contrib-python>=4.12
