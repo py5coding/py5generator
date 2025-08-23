@@ -2,7 +2,7 @@
 name = resize()
 type = method
 pclass = PImage
-processing_name = resize  # **REMOVE IF NOT A PART OF PROCESSING**
+processing_name = resize
 
 @@ signatures
 resize(w: int, h: int, /) -> None
