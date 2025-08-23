@@ -201,7 +201,7 @@ init,init,,method,SKIP,
 save,save,,method,PYTHON,implemented in pixels.py mixin
 copy,copy,@_return_py5image,method,JAVA,
 mask,mask,,method,JAVA,
-resize,resize,,method,SKIP,
+resize,resize,,method,JAVA,
 get_image,getImage,,method,SKIP,
 get_native,getNative,,method,SKIP,
 native,native,,unknown,SKIP,
