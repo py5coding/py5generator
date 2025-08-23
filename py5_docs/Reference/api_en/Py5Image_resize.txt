@@ -16,7 +16,7 @@ w: int - width to size image to
 @@ description
 Resize the Py5Image object to a new height and width. This will modify the Py5Image object in place, meaning that rather than returning a resized copy, it will modify your existing Py5Image object. If this isn't what you want, pair this method with [](py5image_copy), as shown in the example.
 
-The default resize interpolation mode is `NEAREST_NEIGHBOR`. This mode is fastest but yields the lowest quality results, particularly for upscaling. Other options are `BILINEAR` and `BICUBIC`, both of which provide higher quality results.
+The default resize interpolation mode is `NEAREST_NEIGHBOR`. This mode is fastest but yields the lowest quality results, particularly for upscaling. Other options are `BILINEAR` and `BICUBIC`, both of which are slower but the resized images look better.
 
 @@ example
 image = Py5Image_resize_0.png
