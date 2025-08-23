@@ -15,3 +15,15 @@ w: int - width to size image to
 
 @@ description
 The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+
+@@ example
+image = Py5Image_resize_0.png
+
+def setup():
+    py5.rect(10, 10, 80, 80)
+    py5.fill(255, 0, 0)
+    py5.rect(15, 15, 10, 60)
+    img = py5.get_pixels()
+    for x in [80, 60, 40]:
+        img.resize(x, x, py5.BICUBIC)
+        py5.image(img, 100 - x, 100 - x)
