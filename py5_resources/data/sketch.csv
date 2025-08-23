@@ -254,7 +254,7 @@ concat,concat,,method,data,array_functions,SKIP,user should use python instead
 split,split,,method,data,string_functions,SKIP,user should use python instead
 join,join,,method,data,string_functions,SKIP,user should use python instead
 trim,trim,,method,data,string_functions,SKIP,user should use python instead
-size,size,@_settings_only('size');@_macos_safety_check,method,environment,,JAVA,
+size,size,@_settings_only('size'),method,environment,,JAVA,
 fill,fill,@_convert_hex_color(),method,color,setting,JAVA,
 apply_filter,filter,,method,image,pixels,JAVA,filter method has name conflict with python builtin function; replaced with apply_filter method
 second,second,,static method,input,time_date,JAVA,
