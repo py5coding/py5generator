@@ -14,7 +14,9 @@ interpolation_mode: int - interpolation method for resize operation
 w: int - width to size image to
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+Resize the Py5Image object to a new height and width. This will modify the Py5Image object in place, meaning that rather than returning a resized copy, it will modify your existing Py5Image object. If this isn't what you want, pair this method with [](py5image_copy), as shown in the example.
+
+The default resize interpolation mode is `NEAREST_NEIGHBOR`. This mode is fastest but yields the lowest quality results, particularly for upscaling. Other options are `BILINEAR` and `BICUBIC`, both of which provide higher quality results.
 
 @@ example
 image = Py5Image_resize_0.png
@@ -25,5 +27,6 @@ def setup():
     py5.rect(15, 15, 10, 60)
     img = py5.get_pixels()
     for x in [80, 60, 40]:
-        img.resize(x, x, py5.BICUBIC)
-        py5.image(img, 100 - x, 100 - x)
+        img_copy = img.copy()
+        img_copy.resize(x, x, py5.BICUBIC)
+        py5.image(img_copy, 100 - x, 100 - x)
