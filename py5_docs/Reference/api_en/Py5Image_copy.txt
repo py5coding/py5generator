@@ -27,7 +27,7 @@ Copies a region of pixels from one image into another. If the source and destina
 
 This function ignores [](sketch_image_mode).
 
-If you want to create a new image with the contents of a rectangular region of a `Py5Image` object, check out the [](py5image_get_pixels) method, where x, y, w, h, are the position and dimensions of the area to be copied. It will return a `Py5Image object`.
+If you want to create a new image with the contents of a rectangular region of a `Py5Image` object, check out the [](py5image_get_pixels) method, where x, y, w, h, are the position and dimensions of the area to be copied. It will return a `Py5Image` object.
 
 @@ example
 image = Py5Image_copy_0.png
