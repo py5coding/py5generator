@@ -1,4 +1,4 @@
-/******************************************************************************
+/* ****************************************************************************
 
   Part of the py5 library
   Copyright (C) 2020-2025 Jim Schmitz
@@ -35,7 +35,6 @@ import processing.core.PGraphics;
  * that would end up being a lot of work and hard to maintain. A better approach
  * is to add functions to Py5GraphicsHelper.
  */
-
 public class Py5Graphics extends PGraphics {
 
   public static final char CODED = PGraphics.CODED;
