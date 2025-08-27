@@ -1,6 +1,6 @@
 package py5.util;
 
-/**
+/*
  * The below code is a copy of K.jpg's OpenSimplex 2 code. It was released into
  * the public domain with the hope that others would use it to "make cool
  * things, rather than to make patents!" Many thanks to K.jpg for their
@@ -11,7 +11,7 @@ package py5.util;
  * 
  */
 
-/**
+/*
  * K.jpg's OpenSimplex 2, smooth variant ("SuperSimplex")
  */
 
