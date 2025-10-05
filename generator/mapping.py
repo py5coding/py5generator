@@ -32,6 +32,7 @@ PY5_API_EN = Path("py5_docs/Reference/api_en/")
 FIRST_SENTENCE_REGEX = re.compile(r"^.*?\.(?=\s)")
 MARKDOWN_DOC_LINK = re.compile(r"\[\]\([\w_]+\)")
 MARKDOWN_LINK = re.compile(r"\[([^\]]+)\]\(.*?\)")
+HTML_LINK = re.compile(r'<a href="[^"]*">(.*?)</a>')
 
 PARAMETERS_TEMPLATE = """
 
@@ -122,6 +123,7 @@ def prepare_mapping(method_signatures_lookup):
         for m in MARKDOWN_DOC_LINK.findall(description):
             description = description.replace(m, title_map[m])
         description = MARKDOWN_LINK.sub(r"\1", description)
+        description = HTML_LINK.sub(r"\1", description)
         m = FIRST_SENTENCE_REGEX.match(description)
         first_sentence = m.group() if m else description
         description = "\n".join(
