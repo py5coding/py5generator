@@ -78,6 +78,8 @@ sketch_class_members_code = None  # DELETE
 _Sketch = jpype.JClass("py5.core.Sketch")
 _SketchBase = jpype.JClass("py5.core.SketchBase")
 
+_py5_object_cache = set()
+
 _PY5_LAST_WINDOW_X = None
 _PY5_LAST_WINDOW_Y = None
 
@@ -159,20 +161,18 @@ def _settings_only(name):
 class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5Base):
     """$classdoc_Sketch"""
 
-    _py5_object_cache = set()
     _cls = _Sketch
 
     def __new__(cls, *args, **kwargs):
         _instance = kwargs.get("_instance")
 
         # remove dead or malformed Sketch instances from the object cache
-        cls._py5_object_cache = set(
-            s
-            for s in cls._py5_object_cache
-            if hasattr(s, "_instance") and not s.is_dead
-        )
+        for s in list(_py5_object_cache):
+            if not hasattr(s, "_instance") or s.is_dead:
+                _py5_object_cache.remove(s)
+
         if _instance:
-            for s in cls._py5_object_cache:
+            for s in _py5_object_cache:
                 if _instance == s._instance:
                     return s
             else:
@@ -181,7 +181,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
                 )
         else:
             s = object.__new__(cls)
-            cls._py5_object_cache.add(s)
+            _py5_object_cache.add(s)
             return s
 
     def __init__(self, *args, **kwargs):
