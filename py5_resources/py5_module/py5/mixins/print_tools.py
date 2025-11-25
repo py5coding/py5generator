@@ -38,11 +38,16 @@ class PrintlnStream:
         self._println_stream = println_stream
 
     def println(
-        self, *args, sep: str = " ", end: str = "\n", stderr: bool = False
+        self,
+        *args,
+        sep: str = " ",
+        end: str = "\n",
+        stderr: bool = False,
+        flush: bool = False
     ) -> None:
         """$class_Sketch_println"""
         msg = sep.join(str(x) for x in args)
         if self._println_stream is None:
-            print(msg, end=end, file=sys.stderr if stderr else sys.stdout)
+            print(msg, end=end, file=sys.stderr if stderr else sys.stdout, flush=flush)
         else:
-            self._println_stream.print(msg, end=end, stderr=stderr)
+            self._println_stream.print(msg, end=end, stderr=stderr, flush=flush)
