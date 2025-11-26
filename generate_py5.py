@@ -304,7 +304,7 @@ def generate_py5(app_dir, build_dir, skip_black=False):
     # add the jars
     def copy_jars(jar_dir, dest, *, match_regex=None):
         regex = re.compile(match_regex) if match_regex else None
-        version_regex = re.compile(r"-\d\.\d\.\d")
+        version_regex = re.compile(r"-\d+\.\d+\.\d+")
         dest.mkdir(parents=True, exist_ok=True)
         for jar in jar_dir.glob("*.jar"):
             if regex and not regex.match(jar.name):
