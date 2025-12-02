@@ -151,6 +151,68 @@ try:
         shapely_to_py5shape_precondition, shapely_to_py5shape_converter
     )
 
+    try:
+        # now try importing matplotlib and svgpathtools to see if they are available
+        from matplotlib import _path
+        from matplotlib.textpath import TextPath
+        from shapely import make_valid
+        from svgpathtools import Line, parse_path
+
+        def textpath_to_py5shape_precondition(obj):
+            return isinstance(obj, TextPath)
+
+        def textpath_to_py5shape_converter(sketch, obj: TextPath, **kwargs):
+            bezier_detail = kwargs.get("bezier_detail", 5)
+
+            svg_path = _path.convert_to_string(
+                obj, None, None, None, None, 6, [b"M", b"L", b"Q", b"C", b"z|"], False
+            ).decode("ascii")
+
+            # split the SVG string into individual svgpathtools Path objects
+            paths = [parse_path(p) for p in svg_path.split("|")]
+
+            # convert each path to shapely polygon by sampling points along each segment
+            # in the path
+            raw_polygons = []
+            for path in paths:
+                coords = []
+                for segment in path:
+                    if not coords:
+                        coords.append(segment.start)
+
+                    if isinstance(segment, Line):
+                        coords.append(segment.end)
+                    else:
+                        coords.extend(
+                            segment.point(t)
+                            for t in np.linspace(0, 1, bezier_detail + 1)
+                        )
+
+                if len(coords) >= 3:
+                    raw_polygons.append(Polygon([(x.real, x.imag) for x in coords]))
+
+            # A MultiPolygon of the raw polygons will be an invalid geometry because of
+            # overlapping Polygons. The make_valid function will magically fix this
+            # using the even/odd rule to create holes where appropriate. Note that in
+            # shapely 2.1.0 a new geometry repair algorithm called "structure" was added
+            # but we want the default "linework" algorithm.
+            # https://shapely.readthedocs.io/en/2.1.1/reference/shapely.make_valid.html
+            text = make_valid(MultiPolygon(raw_polygons))
+
+            # flip the y-axis to match py5's coordinate system
+            text = affinity.scale(text, yfact=-1, origin=(0, 0))
+
+            return shapely_to_py5shape_converter(
+                sketch, text, _first_call=True, **kwargs
+            )
+
+        register_shape_conversion(
+            textpath_to_py5shape_precondition, textpath_to_py5shape_converter
+        )
+
+    except Exception:
+        pass
+
 except Exception:
     pass
 
