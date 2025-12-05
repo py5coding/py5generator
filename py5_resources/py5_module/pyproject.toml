@@ -34,7 +34,8 @@ classifiers = [
 ]
 dependencies = [
     "autopep8>=2.3",
-    "jpype1==1.5.2",
+    "jpype1==1.5.2;sys_platform==\"win32\"",
+    "jpype1>=1.6.0;sys_platform!=\"win32\"",
     "line_profiler>=4.2",
     "numpy>=2.2",
     "pillow>=11.0",
