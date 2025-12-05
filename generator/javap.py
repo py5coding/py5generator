@@ -89,7 +89,7 @@ def process_block(block, is_interface):
 
 
 def process_class(classpath, classname, data):
-    command = f"javap -classpath {classpath} -constants -public -l {classname}"
+    command = f"javap -classpath {classpath} -constants -public -l -c {classname}"
     result = subprocess.run(command.split(), capture_output=True)
 
     if result.returncode > 0:
