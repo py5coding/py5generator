@@ -30,7 +30,7 @@ import jpype
 
 _PY5_REQUIRED_JAVA_VERSION = 17
 
-_options = []
+_options = [""]
 _classpath = []
 
 
@@ -160,6 +160,11 @@ def _start_jvm() -> None:
 
     if jpype_exception is not None:
         raise jpype_exception
+
+    # TODO: remove this when jpype drops support for Java 8
+    # https://github.com/jpype-project/jpype/issues/1310
+    if "--enable-native-access=ALL-UNNAMED" not in _options:
+        _options.append("--enable-native-access=ALL-UNNAMED")
 
     jpype.startJVM(default_jvm_path, *_options, convertStrings=False)
 
