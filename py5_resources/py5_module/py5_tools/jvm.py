@@ -30,7 +30,7 @@ import jpype
 
 _PY5_REQUIRED_JAVA_VERSION = 17
 
-_options = [""]
+_options = []
 _classpath = []
 
 
