@@ -161,7 +161,7 @@ try:
         def textpath_to_py5shape_precondition(obj):
             return isinstance(obj, TextPath)
 
-        def textpath_to_py5shape_converter(sketch, obj: TextPath, **kwargs):
+        def textpath_to_shapely_converter(obj: TextPath, **kwargs) -> MultiPolygon:
             bezier_detail = kwargs.get("bezier_detail", 5)
 
             svg_path = _path.convert_to_string(
@@ -197,13 +197,19 @@ try:
             # shapely 2.1.0 a new geometry repair algorithm called "structure" was added
             # but we want the default "linework" algorithm.
             # https://shapely.readthedocs.io/en/2.1.1/reference/shapely.make_valid.html
-            text = make_valid(MultiPolygon(raw_polygons))
+            s = make_valid(MultiPolygon(raw_polygons))
 
             # flip the y-axis to match py5's coordinate system
-            text = affinity.scale(text, yfact=-1, origin=(0, 0))
+            s = affinity.scale(s, yfact=-1, origin=(0, 0))
 
+            return s
+
+        def textpath_to_py5shape_converter(sketch, obj: TextPath, **kwargs):
             return shapely_to_py5shape_converter(
-                sketch, text, _first_call=True, **kwargs
+                sketch,
+                textpath_to_shapely_converter(obj, **kwargs),
+                _first_call=True,
+                **kwargs,
             )
 
         register_shape_conversion(
