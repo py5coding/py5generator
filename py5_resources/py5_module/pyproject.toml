@@ -54,6 +54,7 @@ extras = [
     "matplotlib>=3.10",
     "py5jupyter>=0.2.0a0",
     "shapely>=2.0",
+    "svgpathtools>=1.7.0",
     "trimesh>=4.6",
 ]
 
