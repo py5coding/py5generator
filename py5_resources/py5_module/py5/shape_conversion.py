@@ -226,6 +226,7 @@ except Exception:
 try:
     from trimesh import PointCloud, Scene, Trimesh
     from trimesh.path import Path2D, Path3D
+    from trimesh.util import pairwise
     from trimesh.visual import ColorVisuals, TextureVisuals
 
     ##### Path2D and Path3D #####
@@ -318,11 +319,146 @@ try:
 
     ##### Trimesh #####
 
+    # Facet support functions
+
+    def _get_facet_boundaries(obj: Trimesh, min_angle: float = 0.0):
+        boundaries = []
+
+        # first, get the boundaries of the facets
+        for facet_boundary in obj.facets_boundary:
+            # each facet_boundary is an (n, 2) array of vertex indices
+            facet_boundary_edges = {tuple(edge) for edge in facet_boundary.tolist()}
+
+            while facet_boundary_edges:
+                # start a new boundary chain
+                edge = facet_boundary_edges.pop()
+                boundary = [edge[0], edge[1]]
+
+                while boundary[0] != boundary[-1]:
+                    # find the next edge to continue the boundary chain, stopping
+                    # if a loop is formed or no connecting edge is found
+                    for next_edge in facet_boundary_edges:
+                        if next_edge[0] == boundary[-1]:
+                            boundary.append(next_edge[1])
+                            facet_boundary_edges.remove(next_edge)
+                            # found it
+                            break
+                        elif next_edge[1] == boundary[-1]:
+                            boundary.append(next_edge[0])
+                            facet_boundary_edges.remove(next_edge)
+                            # found it
+                            break
+                    else:
+                        # didn't find a connecting edge, move on to the next facet
+                        break
+
+                # note that boundary[0] == boundary[-1], forming a closed loop
+                boundaries.append(boundary)
+
+        # faces with no adjacent and coplanar faces are not part of any facet
+        # need to identify the non-facet faces and add their edges as boundaries
+
+        # first, find all faces that are part of facets
+        facet_faces = set()
+        for facet in obj.facets:
+            facet_faces.update(facet.tolist())
+
+        # subtract from the set of all faces to get the non-facet faces
+        all_faces = set(np.arange(len(obj.faces)).tolist())
+        non_facet_faces = all_faces - facet_faces
+
+        # now add the edges of the non-facet faces as boundaries
+        for face in obj.faces[list(non_facet_faces)].tolist():
+            # the face + [face[0]] bit is so that boundary[0] == boundary[-1]
+            boundaries.append(face + [face[0]])
+
+        # now filter the boundaries to remove edges with angles below min_angle
+        exclude_edges = set()
+        for edge in obj.face_adjacency_edges[obj.face_adjacency_angles < min_angle]:
+            exclude_edges.add((int(edge[0]), int(edge[1])))
+            exclude_edges.add((int(edge[1]), int(edge[0])))
+
+        filtered_boundaries = []
+        for boundary in boundaries:
+            filtered_boundary = []
+            boundary_segment = []
+
+            for a, b in pairwise(boundary):
+                if (a, b) in exclude_edges:
+                    if boundary_segment:
+                        # save segment and start a new one
+                        filtered_boundary.append(boundary_segment)
+                        boundary_segment = []
+                else:
+                    if not boundary_segment:
+                        # starting a new segment, add the starting vertex
+                        boundary_segment.append(a)
+                    boundary_segment.append(b)
+
+            if boundary_segment:
+                # save any remaining segment
+                filtered_boundary.append(boundary_segment)
+
+            if len(filtered_boundary) == 1:
+                # if there's only one, none of the edges were filtered out
+                filtered_boundaries.append(filtered_boundary[0])
+            elif filtered_boundary:
+                # len(filtered_boundary) >= 2, need to see if the first and last
+                # can be connected
+                if filtered_boundary[0][0] == filtered_boundary[-1][-1]:
+                    # connect first and last segments to make one continuous segment
+                    merged_segment = filtered_boundary[-1][:-1] + filtered_boundary[0]
+                    filtered_boundaries.append(merged_segment)
+                    filtered_boundaries.extend(filtered_boundary[1:-1])
+                else:
+                    filtered_boundaries.extend(filtered_boundary)
+
+        return filtered_boundaries
+
+    def _trimesh_facet_conversion(sketch, obj: Trimesh, min_angle: float):
+        boundaries = _get_facet_boundaries(obj, min_angle)
+
+        shape = sketch.create_shape(sketch.GROUP)
+
+        # first, the base shape with all the triangles and no lines
+        base_shape = sketch.create_shape()
+        with base_shape.begin_shape(sketch.TRIANGLES):
+            base_shape.no_stroke()
+            base_shape.vertices(obj.vertices[obj.faces.flatten()])
+        shape.add_child(base_shape)
+
+        # now add the boundary lines
+        for boundary in boundaries:
+            # each boundary will be its own child shape
+            boundary_shape = sketch.create_shape()
+
+            if boundary[0] == boundary[-1]:
+                # indicates a closed loop / closed shape
+                with boundary_shape.begin_closed_shape():
+                    boundary_shape.no_fill()
+                    boundary_shape.vertices(obj.vertices[boundary])
+            else:
+                if len(boundary) == 2:
+                    # two vertices means no tesselation, need to draw a line
+                    # see https://github.com/py5coding/py5generator/issues/659
+                    with boundary_shape.begin_shape(sketch.LINES):
+                        boundary_shape.vertices(obj.vertices[boundary])
+                else:
+                    # open shape with more than three or more vertices
+                    with boundary_shape.begin_shape():
+                        boundary_shape.no_fill()
+                        boundary_shape.vertices(obj.vertices[boundary])
+
+            shape.add_child(boundary_shape)
+
+        return shape
+
+    # Main Trimesh conversion functions
+
     def trimesh_trimesh_to_py5shape_precondition(obj):
         return isinstance(obj, Trimesh)
 
     def trimesh_trimesh_to_py5shape_converter(sketch, obj: Trimesh, **kwargs):
-        shape = sketch.create_shape()
         use_texture = False
         vertices_fill_colors = None
         shape_fill_color = None
@@ -377,22 +513,27 @@ try:
                 elif (color := obj.visual.face_colors.squeeze()).shape == (4,):
                     shape_fill_color = color
 
-        with shape.begin_shape(sketch.TRIANGLES):
+        if kwargs.get("draw_facets", False) or "facet_min_angle" in kwargs:
+            min_angle = kwargs.get("facet_min_angle", 0.0)
+            shape = _trimesh_facet_conversion(sketch, obj, min_angle)
+        else:
+            shape = sketch.create_shape()
+            with shape.begin_shape(sketch.TRIANGLES):
+                if vertices_fill_colors is not None:
+                    shape.no_stroke()
+                if use_texture:
+                    shape.no_stroke()
+                    shape.texture_mode(sketch.NORMAL)
+                    if texture is not None:
+                        shape.texture(texture)
+                if shape_fill_color is not None:
+                    shape.no_stroke()
+                    shape.fill(*shape_fill_color)
+
+                shape.vertices(vertices)
+
             if vertices_fill_colors is not None:
-                shape.no_stroke()
-            if use_texture:
-                shape.no_stroke()
-                shape.texture_mode(sketch.NORMAL)
-                if texture is not None:
-                    shape.texture(texture)
-            if shape_fill_color is not None:
-                shape.no_stroke()
-                shape.fill(*shape_fill_color)
-
-            shape.vertices(vertices)
-
-        if vertices_fill_colors is not None:
-            shape.set_fills(vertices_fill_colors)
+                shape.set_fills(vertices_fill_colors)
 
         return shape
 
