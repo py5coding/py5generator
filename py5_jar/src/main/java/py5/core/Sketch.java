@@ -174,6 +174,10 @@ public class Sketch extends SketchBase {
     }
 
     if (success) {
+      if (displayDensity() != 1) {
+        pixelDensity(displayDensity());
+      }
+
       if (py5RegisteredEvents.contains("settings")) {
         success = py5Bridge.run_method("settings");
       } else {
