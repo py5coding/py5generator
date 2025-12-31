@@ -166,6 +166,9 @@ def _start_jvm() -> None:
     if "--enable-native-access=ALL-UNNAMED" not in _options:
         _options.append("--enable-native-access=ALL-UNNAMED")
 
+    if "--enable-native-access=javafx.graphics" not in _options:
+        _options.append("--enable-native-access=javafx.graphics")
+
     jpype.startJVM(default_jvm_path, *_options, convertStrings=False)
 
 
