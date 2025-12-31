@@ -21,7 +21,7 @@ import os
 import platform
 from pathlib import Path
 
-VERSION = "0.10.8a4"
+VERSION = "0.10.9.dev0"
 PROCESSING_BUILD_NUMBER = 1310
 
 if not (PY5_HOME := os.environ.get("PY5_HOME")):
