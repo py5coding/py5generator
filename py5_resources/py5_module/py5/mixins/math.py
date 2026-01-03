@@ -385,7 +385,7 @@ class MathMixin:
             return self._rng.normal()
         elif len(args) == 1:
             loc = args[0]
-            if isinstance(loc, (int, np.integer)):
+            if isinstance(loc, (int, np.integer, float)):
                 return self._rng.normal(loc)
         elif len(args) == 2:
             loc, scale = args
