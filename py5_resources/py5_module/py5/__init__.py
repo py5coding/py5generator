@@ -24,6 +24,7 @@ py5 is a version of Processing for Python. It makes the Processing Java librarie
 """
 from __future__ import annotations
 
+import importlib.metadata
 import inspect
 import os
 import platform
@@ -47,6 +48,26 @@ from py5_tools.constants import VERSION as __version__
 _environ = py5_tools.environ.Environment()
 
 if not py5_tools.is_jvm_running():
+    for entry_point in importlib.metadata.entry_points(group="py5.extension_jars"):
+        try:
+            get_jars_func = entry_point.load()
+
+            jar_paths = get_jars_func()
+            if isinstance(jar_paths, str):
+                jar_paths = [jar_paths]
+
+            for jar_path in jar_paths:
+                py5_tools.add_jars(Path(jar_path))
+
+        except Exception as e:
+            print(
+                "Error loading py5 extension jar from entry point "
+                + entry_point.name
+                + ": "
+                + str(e),
+                file=sys.stderr,
+            )
+
     base_path = (
         Path(getattr(sys, "_MEIPASS")) / "py5"
         if hasattr(sys, "_MEIPASS")
