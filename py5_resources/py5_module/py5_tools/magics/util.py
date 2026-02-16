@@ -49,7 +49,7 @@ def filename_check(filename):
 
 
 def variable_name_check(varname):
-    return re.match("^[a-zA-Z_]\w*" + chr(36), varname)
+    return re.match(r"^[a-zA-Z_]\w*" + chr(36), varname)
 
 
 __all__ = [
