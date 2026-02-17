@@ -23,30 +23,28 @@ This code is no longer used but might be pillaged one day to help convert Java e
 It was written to convert Processing's XML documentation data to py5's.
 """
 import re
-from pathlib import Path
-from io import StringIO
-import string
 import shlex
+import string
 from html.parser import HTMLParser
+from io import StringIO
+from pathlib import Path
 
 import autopep8
-
 import pandas as pd
 
 from generator.docfiles import Documentation
-
 
 NEW_TEMPLATE = """@@ meta
 name = {0}
 type = {1}
 {2}
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5-docs/Reference/api_en/.
 
 """
 
 PROCESSING_API_EN = Path("../processing-docs/content/api_en/")
-PY5_API_EN = Path("py5_docs/Reference/api_en/")
+PY5_API_EN = Path("py5-docs/Reference/api_en/")
 
 PY5_CLASS_LOOKUP = {
     "PApplet": "Sketch",
@@ -239,7 +237,7 @@ def remove_html(html):
 
 # read the class datafiles so I know what methods and fields are relevant
 class_data_info = dict()
-class_resource_data = Path("py5_resources", "data")
+class_resource_data = Path("py5-resources", "data")
 papplet_category_data = None
 for pclass in PY5_CLASS_LOOKUP.keys():
     filename = "py5applet.csv" if pclass == "PApplet" else pclass.lower() + ".csv"

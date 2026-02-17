@@ -29,7 +29,7 @@ import matplotlib as mpl
 import matplotlib.colors as mcolors
 import pandas as pd
 
-from generator import CodeBuilder, CodeCopier, TemplateMapping, find_signatures, javap
+from generator import CodeBuilder, CodeCopier, TemplateMapping, find_signatures
 from generator import reference as ref
 
 logging.basicConfig(
@@ -96,7 +96,7 @@ def generate_py5(app_dir, build_dir, skip_black=False):
     dxf_jar_path = find_jar("dxf")
     pdf_jar_path = find_jar("pdf")
 
-    py5_jar_path = Path("py5_jar", "dist", "py5.jar")
+    py5_jar_path = Path("py5-jar/dist/py5.jar")
     if not py5_jar_path.exists():
         msg = f"py5 jar not found at {str(py5_jar_path)}"
         logger.critical(msg)
@@ -106,7 +106,7 @@ def generate_py5(app_dir, build_dir, skip_black=False):
 
     logger.info("creating Sketch code")
     sketch_data = (
-        pd.read_csv(Path("py5_resources", "data", "sketch.csv"))
+        pd.read_csv(Path("py5-resources/data/sketch.csv"))
         .fillna("")
         .set_index("java_name")
     )
@@ -117,20 +117,20 @@ def generate_py5(app_dir, build_dir, skip_black=False):
     sketch_builder.run_builder()
 
     # add the methods in the mixin classes as functions in the __init__.py module
-    mixin_dir = Path("py5_resources", "py5_module", "py5", "mixins")
+    mixin_dir = Path("py5-resources/py5-module/src/py5/mixins")
     for filename in mixin_dir.glob("*.py"):
         if filename.stem == "__init__":
             continue
         sketch_builder.code_extra_module("Sketch", filename)
     sketch_builder.code_extra_module(
-        "Sketch", Path("py5_resources", "py5_module", "py5", "sketch.py")
+        "Sketch", Path("py5-resources/py5-module/src/py5/sketch.py")
     )
 
     def run_code_builder(name, clsname, class_name=None):
         logger.info(f"creating {name} code")
         class_name = class_name or clsname.split(".")[-1]
         data = (
-            pd.read_csv(Path("py5_resources", "data", f"{class_name.lower()}.csv"))
+            pd.read_csv(f"py5-resources/data/{class_name.lower()}.csv")
             .fillna("")
             .set_index("java_name")
         )
@@ -157,13 +157,13 @@ def generate_py5(app_dir, build_dir, skip_black=False):
 
     logger.info(f"reading Py5Vector code")
     py5vector_method_signatures = find_signatures(
-        "Py5Vector", Path("py5_resources/py5_module/py5/vector.py")
+        "Py5Vector", Path("py5-resources/py5-module/src/py5/vector.py")
     )
     py5graphics_method_signatures = find_signatures(
-        "Py5Graphics", Path("py5_resources/py5_module/py5/graphics.py")
+        "Py5Graphics", Path("py5-resources/py5-module/src/py5/graphics.py")
     )
     py5shape_method_signatures = find_signatures(
-        "Py5Shape", Path("py5_resources/py5_module/py5/shape.py")
+        "Py5Shape", Path("py5-resources/py5-module/src/py5/shape.py")
     )
 
     # this assembles the code fragments from the builders so it can be
@@ -289,7 +289,7 @@ def generate_py5(app_dir, build_dir, skip_black=False):
     copier = CodeCopier(format_params, docstrings, skip_black)
     try:
         shutil.copytree(
-            Path("py5_resources", "py5_module"),
+            Path("py5-resources/py5-module"),
             build_dir,
             copy_function=copier,
             dirs_exist_ok=True,
@@ -313,13 +313,13 @@ def generate_py5(app_dir, build_dir, skip_black=False):
 
     copy_jars(
         core_jar_path.parent,
-        build_dir / "py5" / "jars",
+        build_dir / "src" / "py5" / "jars",
         match_regex=f"(core|gluegen|jogl)(?!.*natives).*$",
     )
-    copy_jars(svg_jar_path.parent, build_dir / "py5" / "jars" / "svg")
-    copy_jars(dxf_jar_path.parent, build_dir / "py5" / "jars" / "dxf")
-    copy_jars(pdf_jar_path.parent, build_dir / "py5" / "jars" / "pdf")
-    shutil.copy(py5_jar_path, build_dir / "py5" / "jars")
+    copy_jars(svg_jar_path.parent, build_dir / "src" / "py5" / "jars" / "svg")
+    copy_jars(dxf_jar_path.parent, build_dir / "src" / "py5" / "jars" / "dxf")
+    copy_jars(pdf_jar_path.parent, build_dir / "src" / "py5" / "jars" / "pdf")
+    shutil.copy(py5_jar_path, build_dir / "src" / "py5" / "jars")
 
     # add the native libraries
     temp_dir = tempfile.TemporaryDirectory()
@@ -329,8 +329,9 @@ def generate_py5(app_dir, build_dir, skip_black=False):
         os.system(f"cd {native_lib_temp_dir} && jar xf {jar.absolute()}")
     shutil.copytree(
         native_lib_temp_dir / "natives",
-        build_dir / "py5" / "natives",
+        build_dir / "src" / "py5" / "natives",
     )
+
     temp_dir.cleanup()
 
     build_dir.touch()

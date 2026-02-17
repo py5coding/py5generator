@@ -26,11 +26,11 @@ name = {0}
 type = {1}
 {2}
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5_docs/Reference/api_en/.
+The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5-docs/Reference/api_en/.
 
 """
 
-PY5_API_EN = Path("py5_docs/Reference/api_en/")
+PY5_API_EN = Path("py5-docs/Reference/api_en/")
 
 PY5_CLASS_LOOKUP = {
     "Sketch": "Sketch",
@@ -50,7 +50,7 @@ PY5_CLASS_LOOKUP = {
 
 # read the class datafiles so I know what methods and fields are relevant
 class_data_info = dict()
-class_resource_data = Path("py5_resources", "data")
+class_resource_data = Path("py5-resources", "data")
 category_lookup_data = dict()
 for pclass in PY5_CLASS_LOOKUP.keys():
     filename = pclass.lower() + ".csv"

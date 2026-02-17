@@ -25,15 +25,15 @@ This code was used once to convert the example code to module mode code.
 """
 import ast
 import shlex
-import autopep8
 from io import StringIO
 from pathlib import Path
 
-from generator.docfiles import Documentation
+import autopep8
 import py5.reference as ref
 
+from generator.docfiles import Documentation
 
-PY5_API_EN = Path("py5_docs/Reference/api_en/")
+PY5_API_EN = Path("py5-docs/Reference/api_en/")
 
 
 def convert_to_module_mode(code):

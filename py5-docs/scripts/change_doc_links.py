@@ -29,8 +29,7 @@ from pathlib import Path
 
 from generator.docfiles import Documentation
 
-
-PY5_API_EN = Path("py5_docs/Reference/api_en/")
+PY5_API_EN = Path("py5-docs/Reference/api_en/")
 
 DOC_REF_REGEX = re.compile(r":doc:`([^`]*)`", flags=re.MULTILINE | re.DOTALL)
 

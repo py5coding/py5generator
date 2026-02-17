@@ -31,8 +31,7 @@ from pathlib import Path
 
 from generator.docfiles import Documentation
 
-
-PY5_API_EN = Path("py5_docs/Reference/api_en/")
+PY5_API_EN = Path("py5-docs/Reference/api_en/")
 PY5_REFERENCE = re.compile(r"``[a-z_]+[\(\)\[\]]*``")
 PY5_ALL_UPPER_CASE = re.compile(r"\s[A-Z_][A-Z_0-9]+[\s,]")
 
