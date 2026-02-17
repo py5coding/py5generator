@@ -1,5 +1,5 @@
-py5_java_src = $(shell find py5_jar/src/ -name "*.java")
-py5_jar_file = py5_jar/dist/py5.jar
+py5_java_src = $(shell find py5-jar/src/ -name "*.java")
+py5_jar_file = py5-jar/dist/py5.jar
 
 py5_py_src = $(shell find py5-resources/ -name "*.py*") $(shell find py5-resources/ -name "*.csv") $(shell find py5_docs/Reference/ -name "*.txt")
 py5_txt_docs = $(shell find py5_docs/Reference/api_en/ -name "*.txt")
@@ -18,7 +18,7 @@ all: install_py5
 
 py5_jar: $(py5_jar_file)
 $(py5_jar_file): $(py5_java_src)
-	ant -f py5_jar/build.xml -Dprocessing_dir=$(shell realpath $(processing_dir))
+	ant -f py5-jar/build.xml -Dprocessing_dir=$(shell realpath $(processing_dir))
 
 generate_py5: $(py5_build_dir)
 $(py5_build_dir): $(py5_jar_file) $(py5_py_src) $(py5_generator) $(generator_src) $(py5_txt_docs)
@@ -35,4 +35,4 @@ generate_py5_docs:
 .PHONY: clean
 clean:
 	rm -f $(py5_installed)
-	ant -f py5_jar/build.xml clean
+	ant -f py5-jar/build.xml clean

@@ -96,7 +96,7 @@ def generate_py5(app_dir, build_dir, skip_black=False):
     dxf_jar_path = find_jar("dxf")
     pdf_jar_path = find_jar("pdf")
 
-    py5_jar_path = Path("py5_jar/dist/py5.jar")
+    py5_jar_path = Path("py5-jar/dist/py5.jar")
     if not py5_jar_path.exists():
         msg = f"py5 jar not found at {str(py5_jar_path)}"
         logger.critical(msg)
@@ -117,13 +117,13 @@ def generate_py5(app_dir, build_dir, skip_black=False):
     sketch_builder.run_builder()
 
     # add the methods in the mixin classes as functions in the __init__.py module
-    mixin_dir = Path("py5-resources/py5_module/src/py5/mixins")
+    mixin_dir = Path("py5-resources/py5-module/src/py5/mixins")
     for filename in mixin_dir.glob("*.py"):
         if filename.stem == "__init__":
             continue
         sketch_builder.code_extra_module("Sketch", filename)
     sketch_builder.code_extra_module(
-        "Sketch", Path("py5-resources/py5_module/src/py5/sketch.py")
+        "Sketch", Path("py5-resources/py5-module/src/py5/sketch.py")
     )
 
     def run_code_builder(name, clsname, class_name=None):
@@ -157,13 +157,13 @@ def generate_py5(app_dir, build_dir, skip_black=False):
 
     logger.info(f"reading Py5Vector code")
     py5vector_method_signatures = find_signatures(
-        "Py5Vector", Path("py5-resources/py5_module/src/py5/vector.py")
+        "Py5Vector", Path("py5-resources/py5-module/src/py5/vector.py")
     )
     py5graphics_method_signatures = find_signatures(
-        "Py5Graphics", Path("py5-resources/py5_module/src/py5/graphics.py")
+        "Py5Graphics", Path("py5-resources/py5-module/src/py5/graphics.py")
     )
     py5shape_method_signatures = find_signatures(
-        "Py5Shape", Path("py5-resources/py5_module/src/py5/shape.py")
+        "Py5Shape", Path("py5-resources/py5-module/src/py5/shape.py")
     )
 
     # this assembles the code fragments from the builders so it can be
@@ -289,7 +289,7 @@ def generate_py5(app_dir, build_dir, skip_black=False):
     copier = CodeCopier(format_params, docstrings, skip_black)
     try:
         shutil.copytree(
-            Path("py5-resources/py5_module"),
+            Path("py5-resources/py5-module"),
             build_dir,
             copy_function=copier,
             dirs_exist_ok=True,
