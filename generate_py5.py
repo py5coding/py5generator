@@ -106,7 +106,7 @@ def generate_py5(app_dir, build_dir, skip_black=False):
 
     logger.info("creating Sketch code")
     sketch_data = (
-        pd.read_csv(Path("py5_resources/data/sketch.csv"))
+        pd.read_csv(Path("py5-resources/data/sketch.csv"))
         .fillna("")
         .set_index("java_name")
     )
@@ -117,20 +117,20 @@ def generate_py5(app_dir, build_dir, skip_black=False):
     sketch_builder.run_builder()
 
     # add the methods in the mixin classes as functions in the __init__.py module
-    mixin_dir = Path("py5_resources/py5_module/src/py5/mixins")
+    mixin_dir = Path("py5-resources/py5_module/src/py5/mixins")
     for filename in mixin_dir.glob("*.py"):
         if filename.stem == "__init__":
             continue
         sketch_builder.code_extra_module("Sketch", filename)
     sketch_builder.code_extra_module(
-        "Sketch", Path("py5_resources/py5_module/src/py5/sketch.py")
+        "Sketch", Path("py5-resources/py5_module/src/py5/sketch.py")
     )
 
     def run_code_builder(name, clsname, class_name=None):
         logger.info(f"creating {name} code")
         class_name = class_name or clsname.split(".")[-1]
         data = (
-            pd.read_csv(f"py5_resources/data/{class_name.lower()}.csv")
+            pd.read_csv(f"py5-resources/data/{class_name.lower()}.csv")
             .fillna("")
             .set_index("java_name")
         )
@@ -157,13 +157,13 @@ def generate_py5(app_dir, build_dir, skip_black=False):
 
     logger.info(f"reading Py5Vector code")
     py5vector_method_signatures = find_signatures(
-        "Py5Vector", Path("py5_resources/py5_module/src/py5/vector.py")
+        "Py5Vector", Path("py5-resources/py5_module/src/py5/vector.py")
     )
     py5graphics_method_signatures = find_signatures(
-        "Py5Graphics", Path("py5_resources/py5_module/src/py5/graphics.py")
+        "Py5Graphics", Path("py5-resources/py5_module/src/py5/graphics.py")
     )
     py5shape_method_signatures = find_signatures(
-        "Py5Shape", Path("py5_resources/py5_module/src/py5/shape.py")
+        "Py5Shape", Path("py5-resources/py5_module/src/py5/shape.py")
     )
 
     # this assembles the code fragments from the builders so it can be
@@ -289,7 +289,7 @@ def generate_py5(app_dir, build_dir, skip_black=False):
     copier = CodeCopier(format_params, docstrings, skip_black)
     try:
         shutil.copytree(
-            Path("py5_resources/py5_module"),
+            Path("py5-resources/py5_module"),
             build_dir,
             copy_function=copier,
             dirs_exist_ok=True,

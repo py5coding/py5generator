@@ -50,7 +50,7 @@ PY5_CLASS_LOOKUP = {
 
 # read the class datafiles so I know what methods and fields are relevant
 class_data_info = dict()
-class_resource_data = Path("py5_resources", "data")
+class_resource_data = Path("py5-resources", "data")
 category_lookup_data = dict()
 for pclass in PY5_CLASS_LOOKUP.keys():
     filename = pclass.lower() + ".csv"
