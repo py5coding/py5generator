@@ -4,8 +4,8 @@ py5_jar_file = py5-jar/dist/py5.jar
 py5_py_src = $(shell find py5-resources/ -name "*.py*") $(shell find py5-resources/ -name "*.csv") $(shell find py5-docs/Reference/ -name "*.txt")
 py5_txt_docs = $(shell find py5-docs/Reference/api_en/ -name "*.txt")
 
-py5_generator = generate_py5.py
-py5_doc_generator = generate_py5-docs.py
+py5_generator = generate-py5.py
+py5_doc_generator = generate-py5-docs.py
 generator_src = $(shell find generator/ -name "*.py*")
 py5_installed = $(py5_build_dir)/.install_py5.nogit
 extra_args := 
