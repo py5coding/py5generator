@@ -14,22 +14,22 @@ ifeq ($(skip_black), true)
 	extra_args += --skip_black
 endif
 
-all: install_py5
+all: install-py5
 
-py5_jar: $(py5_jar_file)
+py5-jar: $(py5_jar_file)
 $(py5_jar_file): $(py5_java_src)
 	ant -f py5-jar/build.xml -Dprocessing_dir=$(shell realpath $(processing_dir))
 
-generate_py5: $(py5_build_dir)
+generate-py5: $(py5_build_dir)
 $(py5_build_dir): $(py5_jar_file) $(py5_py_src) $(py5_generator) $(generator_src) $(py5_txt_docs)
 	python $(py5_generator) $(processing_dir) $(py5_build_dir) $(extra_args)
 
-install_py5: $(py5_installed)
+install-py5: $(py5_installed)
 $(py5_installed): $(py5_build_dir)
 	cd $(py5_build_dir) && hatch build && pip install ./dist/py5*.tar.gz
 	touch $(py5_installed)
 
-generate_py5-docs:
+generate-py5-docs:
 	python $(py5_doc_generator) $(py5_website_dir) py5-docs/Reference/$(py5_api_lang)
 
 .PHONY: clean
