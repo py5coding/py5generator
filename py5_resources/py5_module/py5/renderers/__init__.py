@@ -17,5 +17,25 @@
 #   along with this library. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-# This allows other packages to install themselves into py5.renderers
-__path__ = __import__("pkgutil").extend_path(__path__, __name__)
+import importlib.metadata
+import sys
+
+for entry_point in importlib.metadata.entry_points(group="py5_renderer"):
+    try:
+        # load renderer library
+        renderer_library = entry_point.load()
+
+        # create alias name and inject it into sys.modules
+        alias_name = __name__ + "." + entry_point.name
+        sys.modules[alias_name] = renderer_library
+
+        # add renderer library to this modules's namespace
+        setattr(sys.modules[__name__], entry_point.name, renderer_library)
+    except Exception as e:
+        print(
+            "Error loading py5 renderer from entry point "
+            + entry_point.name
+            + ": "
+            + str(e),
+            file=sys.stderr,
+        )

@@ -48,20 +48,15 @@ from py5_tools.constants import VERSION as __version__
 _environ = py5_tools.environ.Environment()
 
 if not py5_tools.is_jvm_running():
-    for entry_point in importlib.metadata.entry_points(group="py5.extension_jars"):
+    for entry_point in importlib.metadata.entry_points(group="py5_extension_jars"):
         try:
-            get_jars_func = entry_point.load()
+            get_jar_dirs_func = entry_point.load()
 
-            jar_paths = get_jars_func()
-            if isinstance(jar_paths, str):
-                jar_paths = [jar_paths]
-
-            for jar_path in jar_paths:
-                py5_tools.add_jars(Path(jar_path))
-
+            for jars_dir in get_jar_dirs_func():
+                py5_tools.add_jars(jars_dir)
         except Exception as e:
             print(
-                "Error loading py5 extension jar from entry point "
+                "Error loading py5 extension jars from entry point "
                 + entry_point.name
                 + ": "
                 + str(e),
