@@ -77,15 +77,5 @@ Homepage = "https://py5coding.org/"
 [tool.hatch.version]
 path = "src/py5_tools/constants.py"
 
-# [tool.hatch.build]
-# packages = [
-#     "/py5",
-#     "/py5_tools",
-# ]
-
 [tool.hatch.build.targets.wheel]
 packages = ["src/py5", "src/py5_tools"]
-
-[tool.hatch.build.targets.wheel.sources]
-"src/py5" = "py5"
-"src/py5_tools" = "py5_tools"

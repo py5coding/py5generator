@@ -332,10 +332,6 @@ def generate_py5(app_dir, build_dir, skip_black=False):
         build_dir / "src" / "py5" / "natives",
     )
 
-    # (build_dir / "src").mkdir()
-    # shutil.move(build_dir / "py5", build_dir / "src" / "py5")
-    # shutil.move(build_dir / "py5_tools", build_dir / "src" / "py5_tools")
-
     temp_dir.cleanup()
 
     build_dir.touch()
