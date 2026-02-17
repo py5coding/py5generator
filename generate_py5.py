@@ -29,7 +29,7 @@ import matplotlib as mpl
 import matplotlib.colors as mcolors
 import pandas as pd
 
-from generator import CodeBuilder, CodeCopier, TemplateMapping, find_signatures, javap
+from generator import CodeBuilder, CodeCopier, TemplateMapping, find_signatures
 from generator import reference as ref
 
 logging.basicConfig(
