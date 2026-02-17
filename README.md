@@ -1,6 +1,6 @@
 # py5
 
-![py5 logo](py5_docs/images/logo.png)
+![py5 logo](py5-docs/images/logo.png)
 
 [![py5 monthly downloads](https://static.pepy.tech/badge/py5/month)](https://pepy.tech/project/py5)
 
@@ -36,7 +36,7 @@ py5.run_sketch()
 
 Here is an animated GIF to give you an idea of what that Sketch looks like:
 
-![py5 example sketch](py5_docs/images/example.gif)
+![py5 example sketch](py5-docs/images/example.gif)
 
 ## Installation
 

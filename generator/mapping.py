@@ -27,7 +27,7 @@ from .docfiles import Documentation
 
 logger = logging.getLogger(__name__)
 
-PY5_API_EN = Path("py5_docs/Reference/api_en/")
+PY5_API_EN = Path("py5-docs/Reference/api_en/")
 
 FIRST_SENTENCE_REGEX = re.compile(r"^.*?\.(?=\s)")
 MARKDOWN_DOC_LINK = re.compile(r"\[\]\([\w_]+\)")

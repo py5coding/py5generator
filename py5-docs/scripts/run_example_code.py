@@ -29,8 +29,8 @@ from PIL import Image
 
 from generator.docfiles import Documentation
 
-PY5_API_EN = Path("py5_docs/Reference/api_en/").absolute()
-DOC_DATA = Path("py5_docs/Reference/data")
+PY5_API_EN = Path("py5-docs/Reference/api_en/").absolute()
+DOC_DATA = Path("py5-docs/Reference/data")
 DEST_DIR = Path("/tmp/examples/")
 
 ONLY_RUN_EXAMPLES_WITH_IMAGES = False

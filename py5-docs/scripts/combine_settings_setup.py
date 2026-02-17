@@ -26,13 +26,13 @@ example code when the code change was made to allow calls to size() in the
 user's setup() function.
 """
 import re
-import autopep8
 from pathlib import Path
+
+import autopep8
 
 from generator.docfiles import Documentation
 
-
-PY5_API_EN = Path("py5_docs/Reference/api_en/")
+PY5_API_EN = Path("py5-docs/Reference/api_en/")
 
 
 SETUP_CODE_REGEX = re.compile(

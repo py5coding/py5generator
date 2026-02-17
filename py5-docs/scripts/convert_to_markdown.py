@@ -17,14 +17,12 @@
 #   with this program. If not, see <https://www.gnu.org/licenses/>.
 #
 # *****************************************************************************
-from pathlib import Path
 import re
-
+from pathlib import Path
 
 from generator.docfiles import Documentation
 
-
-PY5_API_EN = Path("py5_docs/Reference/api_en/")
+PY5_API_EN = Path("py5-docs/Reference/api_en/")
 
 
 LINK_REGEX = re.compile(r":doc:`(\w+)`")
