@@ -459,8 +459,8 @@ end_raw,endRaw,,method,output,files,JAVA,
 begin_pgl,beginPGL,,method,,,SKIP,methods that are not part of the processing framework
 end_pgl,endPGL,,method,,,SKIP,methods that are not part of the processing framework
 hint,hint,,method,rendering,,JAVA,
-begin_shape,beginShape,@_context_wrapper('end_shape'),method,shape,vertex,JAVA,
-begin_closed_shape,beginShape,"@_context_wrapper('end_shape', exit_attr_args=('CLOSE',))",method,shape,vertex,JAVA,
+begin_shape,beginShape,,method,shape,vertex,PYTHON,
+begin_closed_shape,beginShape,,method,shape,vertex,PYTHON,
 edge,edge,,method,,,SKIP,
 attrib_position,attribPosition,,method,,,SKIP,methods that are not part of the processing framework
 attrib_normal,attribNormal,,method,,,SKIP,methods that are not part of the processing framework

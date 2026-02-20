@@ -7,8 +7,8 @@ pclass = PApplet
 processing_name = beginShape
 
 @@ signatures
-begin_closed_shape() -> None
-begin_closed_shape(kind: int, /) -> None
+begin_closed_shape() -> ContextManager
+begin_closed_shape(kind: int, /) -> ContextManager
 
 @@ variables
 kind: int - Either POINTS, LINES, TRIANGLES, TRIANGLE_FAN, TRIANGLE_STRIP, QUADS, or QUAD_STRIP

@@ -31,7 +31,7 @@ import uuid
 import warnings
 from io import BytesIO
 from pathlib import Path
-from typing import Any, Callable, Sequence, Union, overload  # noqa
+from typing import Any, Callable, ContextManager, Sequence, Union, overload  # noqa
 
 import jpype
 import numpy as np
@@ -472,6 +472,36 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     RAD_TO_DEG = 180 / np.pi  # CODEBUILDER INCLUDE
     DEG_TO_RAD = np.pi / 180  # CODEBUILDER INCLUDE
     CMAP = 6  # CODEBUILDER INCLUDE
+
+    @overload
+    def begin_shape(self) -> ContextManager:
+        """$class_Sketch_begin_shape"""
+        pass
+
+    @overload
+    def begin_shape(self, kind: int, /) -> ContextManager:
+        """$class_Sketch_begin_shape"""
+        pass
+
+    @_context_wrapper("end_shape")
+    def begin_shape(self, *args) -> ContextManager:
+        """$class_Sketch_begin_shape"""
+        return self._instance.beginShape(*args)
+
+    @overload
+    def begin_closed_shape(self) -> ContextManager:
+        """$class_Sketch_begin_closed_shape"""
+        pass
+
+    @overload
+    def begin_closed_shape(self, kind: int, /) -> ContextManager:
+        """$class_Sketch_begin_closed_shape"""
+        pass
+
+    @_context_wrapper("end_shape", exit_attr_args=("CLOSE",))
+    def begin_closed_shape(self, *args) -> ContextManager:
+        """$class_Sketch_begin_closed_shape"""
+        return self._instance.beginShape(*args)
 
     @overload
     def sketch_path(self) -> Path:

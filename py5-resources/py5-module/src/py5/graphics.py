@@ -23,7 +23,7 @@ from __future__ import annotations
 import functools
 import types
 import weakref
-from typing import Sequence, overload  # noqa
+from typing import ContextManager, Sequence, overload  # noqa
 
 import numpy as np  # noqa
 import numpy.typing as npt  # noqa
@@ -137,6 +137,36 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
         self._context_manager_exit_function(*self._context_manager_exit_args)
 
     # *** BEGIN METHODS ***
+
+    @overload
+    def begin_shape(self) -> ContextManager:
+        """$class_Py5Graphics_begin_shape"""
+        pass
+
+    @overload
+    def begin_shape(self, kind: int, /) -> ContextManager:
+        """$class_Py5Graphics_begin_shape"""
+        pass
+
+    @_context_wrapper("end_shape")
+    def begin_shape(self, *args) -> ContextManager:
+        """$class_Py5Graphics_begin_shape"""
+        return self._instance.beginShape(*args)
+
+    @overload
+    def begin_closed_shape(self) -> ContextManager:
+        """$class_Py5Graphics_begin_closed_shape"""
+        pass
+
+    @overload
+    def begin_closed_shape(self, kind: int, /) -> ContextManager:
+        """$class_Py5Graphics_begin_closed_shape"""
+        pass
+
+    @_context_wrapper("end_shape", exit_attr_args=("CLOSE",))
+    def begin_closed_shape(self, *args) -> ContextManager:
+        """$class_Py5Graphics_begin_closed_shape"""
+        return self._instance.beginShape(*args)
 
     def points(self, coordinates: Sequence[Sequence[float]], /) -> None:
         """$class_Py5Graphics_points"""

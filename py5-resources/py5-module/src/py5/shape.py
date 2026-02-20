@@ -24,7 +24,7 @@ import functools
 import types
 import weakref
 from pathlib import Path
-from typing import Sequence, overload  # noqa
+from typing import ContextManager, Sequence, overload  # noqa
 
 import numpy as np
 import numpy.typing as npt  # noqa
@@ -145,6 +145,36 @@ class Py5Shape:
         raise AttributeError(spelling.error_msg("Py5Shape", name, self))
 
     # *** BEGIN METHODS ***
+
+    @overload
+    def begin_shape(self) -> ContextManager:
+        """$class_Py5Shape_begin_shape"""
+        pass
+
+    @overload
+    def begin_shape(self, kind: int, /) -> ContextManager:
+        """$class_Py5Shape_begin_shape"""
+        pass
+
+    @_context_wrapper("end_shape")
+    def begin_shape(self, *args) -> ContextManager:
+        """$class_Py5Shape_begin_shape"""
+        return self._instance.beginShape(*args)
+
+    @overload
+    def begin_closed_shape(self) -> ContextManager:
+        """$class_Py5Shape_begin_closed_shape"""
+        pass
+
+    @overload
+    def begin_closed_shape(self, kind: int, /) -> ContextManager:
+        """$class_Py5Shape_begin_closed_shape"""
+        pass
+
+    @_context_wrapper("end_shape", exit_attr_args=("CLOSE",))
+    def begin_closed_shape(self, *args) -> ContextManager:
+        """$class_Py5Shape_begin_closed_shape"""
+        return self._instance.beginShape(*args)
 
     def _get_width(self) -> float:  # @decorator
         """$class_Py5Shape_width"""
