@@ -48,7 +48,6 @@ from .decorators import (
     _context_wrapper,
     _convert_hex_color,
     _hex_converter,
-    _Py5ContextManager,
     _return_color,
     _text_fix_str,
 )
