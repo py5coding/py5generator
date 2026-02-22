@@ -7,7 +7,7 @@ pclass = PApplet
 processing_name = beginRaw
 
 @@ signatures
-begin_raw(raw_graphics: Py5Graphics, /) -> None
+begin_raw(raw_graphics: Py5Graphics, /) -> ContextManager
 begin_raw(renderer: str, filename: str, /) -> Py5Graphics
 
 @@ variables

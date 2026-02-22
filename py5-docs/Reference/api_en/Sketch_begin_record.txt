@@ -7,7 +7,7 @@ pclass = PApplet
 processing_name = beginRecord
 
 @@ signatures
-begin_record(recorder: Py5Graphics, /) -> None
+begin_record(recorder: Py5Graphics, /) -> ContextManager
 begin_record(renderer: str, filename: str, /) -> Py5Graphics
 
 @@ variables
