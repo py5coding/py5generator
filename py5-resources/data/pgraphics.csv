@@ -341,7 +341,7 @@ create_surface,createSurface,,method,SKIP,
 set_cache,setCache,,method,SKIP,
 get_cache,getCache,,method,SKIP,
 remove_cache,removeCache,,method,SKIP,
-begin_draw,beginDraw,@_context_wrapper('end_draw'),method,JAVA,
+begin_draw,beginDraw,,method,PYTHON,
 end_draw,endDraw,,method,JAVA,
 begin_pgl,beginPGL,,method,SKIP,methods that are not part of the processing framework
 end_pgl,endPGL,,method,SKIP,methods that are not part of the processing framework

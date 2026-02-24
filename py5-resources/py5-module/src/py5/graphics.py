@@ -200,6 +200,11 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
         """$class_Py5Graphics_begin_camera"""
         return self._instance.beginCamera()
 
+    @_context_wrapper("end_draw")
+    def begin_draw(self) -> ContextManager:
+        """$class_Py5Graphics_begin_draw"""
+        return self._instance.beginDraw()
+
     # end context manager overloads
 
     def points(self, coordinates: Sequence[Sequence[float]], /) -> None:
