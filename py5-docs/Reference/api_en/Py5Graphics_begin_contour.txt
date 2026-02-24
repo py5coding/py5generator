@@ -7,7 +7,7 @@ pclass = PGraphics
 processing_name = beginContour
 
 @@ signatures
-begin_contour() -> None
+begin_contour() -> ContextManager
 
 @@ description
 Use the `begin_contour()` and [](py5graphics_end_contour) methods to create negative shapes within shapes such as the center of the letter 'O'. The `begin_contour()` method begins recording vertices for the shape and [](py5graphics_end_contour) stops recording. The vertices that define a negative shape must "wind" in the opposite direction from the exterior shape. First draw vertices for the exterior shape in clockwise order, then for internal shapes, draw vertices counterclockwise.

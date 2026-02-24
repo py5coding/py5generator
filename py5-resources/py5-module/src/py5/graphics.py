@@ -170,6 +170,26 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
         """$class_Py5Graphics_begin_closed_shape"""
         return self._instance.beginShape(*args)
 
+    @_context_wrapper("end_contour")
+    def begin_contour(self) -> ContextManager:
+        """$class_Py5Graphics_begin_contour"""
+        return self._instance.beginContour()
+
+    @_context_wrapper("pop")
+    def push(self) -> ContextManager:
+        """$class_Py5Graphics_push"""
+        return self._instance.push()
+
+    @_context_wrapper("pop_matrix")
+    def push_matrix(self) -> ContextManager:
+        """$class_Py5Graphics_push_matrix"""
+        return self._instance.pushMatrix()
+
+    @_context_wrapper("pop_style")
+    def push_style(self) -> ContextManager:
+        """$class_Py5Graphics_push_style"""
+        return self._instance.pushStyle()
+
     # end context manager overloads
 
     def points(self, coordinates: Sequence[Sequence[float]], /) -> None:
