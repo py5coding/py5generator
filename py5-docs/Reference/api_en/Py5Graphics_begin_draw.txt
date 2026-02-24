@@ -7,7 +7,7 @@ pclass = PGraphics
 processing_name = beginDraw
 
 @@ signatures
-begin_draw() -> None
+begin_draw() -> ContextManager
 
 @@ description
 Sets the default properties for a `Py5Graphics` object. It should be called before anything is drawn into the object. After the drawing commands have concluded, call [](py5graphics_end_draw) to finalize the `Py5Graphics` object.

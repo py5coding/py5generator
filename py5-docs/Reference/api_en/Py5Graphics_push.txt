@@ -7,7 +7,7 @@ pclass = PGraphics
 processing_name = push
 
 @@ signatures
-push() -> None
+push() -> ContextManager
 
 @@ description
 The `push()` function saves the current drawing style settings and transformations, while [](py5graphics_pop) restores these settings. Note that these functions are always used together. They allow you to change the style and transformation settings and later return to what you had. When a new state is started with `push()`, it builds on the current style and transform information.

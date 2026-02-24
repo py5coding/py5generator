@@ -7,7 +7,7 @@ pclass = PGraphics
 processing_name = beginRaw
 
 @@ signatures
-begin_raw(raw_graphics: Py5Graphics, /) -> None
+begin_raw(raw_graphics: Py5Graphics, /) -> ContextManager
 
 @@ variables
 raw_graphics: Py5Graphics - Py5Graphics object to apply draw commands to

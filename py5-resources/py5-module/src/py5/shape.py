@@ -146,6 +146,8 @@ class Py5Shape:
 
     # *** BEGIN METHODS ***
 
+    # context manager overloads
+
     @overload
     def begin_shape(self) -> ContextManager:
         """$class_Py5Shape_begin_shape"""
@@ -175,6 +177,13 @@ class Py5Shape:
     def begin_closed_shape(self, *args) -> ContextManager:
         """$class_Py5Shape_begin_closed_shape"""
         return self._instance.beginShape(*args)
+
+    @_context_wrapper("end_contour")
+    def begin_contour(self) -> ContextManager:
+        """$class_Py5Shape_begin_contour"""
+        return self._instance.beginContour()
+
+    # end context manager overloads
 
     def _get_width(self) -> float:  # @decorator
         """$class_Py5Shape_width"""

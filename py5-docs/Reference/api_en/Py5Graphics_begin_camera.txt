@@ -7,7 +7,7 @@ pclass = PGraphics
 processing_name = beginCamera
 
 @@ signatures
-begin_camera() -> None
+begin_camera() -> ContextManager
 
 @@ description
 The `begin_camera()` and [](py5graphics_end_camera) functions enable advanced customization of the camera space. The functions are useful if you want to more control over camera movement, however for most users, the [](py5graphics_camera) function will be sufficient. The camera functions will replace any transformations (such as [](py5graphics_rotate) or [](py5graphics_translate)) that occur before them, but they will not automatically replace the camera transform itself. For this reason, camera functions should be placed right after the call to [](py5graphics_begin_draw) (so that transformations happen afterwards), and the [](py5graphics_camera) function can be used after `begin_camera()` if you want to reset the camera before applying transformations.

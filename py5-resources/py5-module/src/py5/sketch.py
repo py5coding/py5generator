@@ -473,6 +473,8 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     DEG_TO_RAD = np.pi / 180  # CODEBUILDER INCLUDE
     CMAP = 6  # CODEBUILDER INCLUDE
 
+    # context manager overloads
+
     @overload
     def begin_shape(self) -> ContextManager:
         """$class_Sketch_begin_shape"""
@@ -502,6 +504,69 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     def begin_closed_shape(self, *args) -> ContextManager:
         """$class_Sketch_begin_closed_shape"""
         return self._instance.beginShape(*args)
+
+    @overload
+    def begin_record(self, recorder: Py5Graphics, /) -> ContextManager:
+        """$class_Sketch_begin_record"""
+        pass
+
+    @overload
+    def begin_record(self, renderer: str, filename: str, /) -> Py5Graphics:
+        """$class_Sketch_begin_record"""
+        pass
+
+    def begin_record(self, *args) -> ContextManager | Py5Graphics:
+        """$class_Sketch_begin_record"""
+        out = self._instance.beginRecord(*args)
+        if len(args) == 1:
+            return _context_wrapper("end_record")(out)  # type: ignore
+        else:
+            return _return_py5graphics(out)  # type: ignore
+
+    @overload
+    def begin_raw(self, raw_graphics: Py5Graphics, /) -> ContextManager:
+        """$class_Sketch_begin_raw"""
+        pass
+
+    @overload
+    def begin_raw(self, renderer: str, filename: str, /) -> Py5Graphics:
+        """$class_Sketch_begin_raw"""
+        pass
+
+    def begin_raw(self, *args) -> ContextManager | Py5Graphics:
+        """$class_Sketch_begin_raw"""
+        out = self._instance.beginRaw(*args)
+        if len(args) == 1:
+            return _context_wrapper("end_raw")(out)  # type: ignore
+        else:
+            return _return_py5graphics(out)  # type: ignore
+
+    @_context_wrapper("end_contour")
+    def begin_contour(self) -> ContextManager:
+        """$class_Sketch_begin_contour"""
+        return self._instance.beginContour()
+
+    @_context_wrapper("pop")
+    def push(self) -> ContextManager:
+        """$class_Sketch_push"""
+        return self._instance.push()
+
+    @_context_wrapper("pop_matrix")
+    def push_matrix(self) -> ContextManager:
+        """$class_Sketch_push_matrix"""
+        return self._instance.pushMatrix()
+
+    @_context_wrapper("pop_style")
+    def push_style(self) -> ContextManager:
+        """$class_Sketch_push_style"""
+        return self._instance.pushStyle()
+
+    @_context_wrapper("end_camera")
+    def begin_camera(self) -> ContextManager:
+        """$class_Sketch_begin_camera"""
+        return self._instance.beginCamera()
+
+    # end context manager overloads
 
     @overload
     def sketch_path(self) -> Path:

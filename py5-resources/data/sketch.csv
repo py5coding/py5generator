@@ -452,9 +452,9 @@ frame_moved,frameMoved,,method,,,SKIP,methods that are not part of the processin
 frame_resized,frameResized,,method,,,SKIP,methods that are not part of the processing framework
 run_sketch,runSketch,,static method,structure,,PYTHON,my implementation of run_sketch calls Processing's runSketch method after doing some setup stuff
 hide_menu_bar,hideMenuBar,,static method,,,SKIP,public methods that shouldn't be available to users
-begin_record,beginRecord,@_context_wrapper('end_record');@_return_py5graphics,method,output,files,JAVA,
+begin_record,beginRecord,,method,output,files,PYTHON,
 end_record,endRecord,,method,output,files,JAVA,
-begin_raw,beginRaw,@_context_wrapper('end_raw');@_return_py5graphics,method,output,files,JAVA,
+begin_raw,beginRaw,,method,output,files,PYTHON,
 end_raw,endRaw,,method,output,files,JAVA,
 begin_pgl,beginPGL,,method,,,SKIP,methods that are not part of the processing framework
 end_pgl,endPGL,,method,,,SKIP,methods that are not part of the processing framework
@@ -471,7 +471,7 @@ texture_wrap,textureWrap,,method,image,textures,JAVA,
 texture,texture,@_auto_convert_to_py5image(0),method,image,textures,JAVA,
 no_texture,noTexture,,method,image,textures,SKIP,
 vertex,vertex,,method,shape,vertex,JAVA,
-begin_contour,beginContour,@_context_wrapper('end_contour'),method,shape,vertex,JAVA,
+begin_contour,beginContour,,method,shape,vertex,PYTHON,
 end_contour,endContour,,method,shape,vertex,JAVA,
 end_shape,endShape,,method,shape,vertex,JAVA,
 load_shape,loadShape,@_load_py5shape,method,shape,,JAVA,
@@ -519,7 +519,7 @@ text_leading,textLeading,,method,typography,attributes,JAVA,
 text_mode,textMode,,method,typography,attributes,JAVA,
 text_size,textSize,,method,typography,attributes,JAVA,
 text_width,textWidth,@_text_fix_str,method,typography,attributes,JAVA,
-push_matrix,pushMatrix,@_context_wrapper('pop_matrix'),method,transform,,JAVA,
+push_matrix,pushMatrix,,method,transform,,PYTHON,
 pop_matrix,popMatrix,,method,transform,,JAVA,
 translate,translate,,method,transform,,JAVA,
 rotate_x,rotateX,,method,transform,,JAVA,
@@ -532,7 +532,7 @@ apply_matrix,applyMatrix,,method,transform,,JAVA,this and all of the matrix func
 get_matrix,getMatrix,@ _get_matrix_wrapper,method,transform,,JAVA,this and all of the matrix functions need to be re-implemented using numpy
 set_matrix,setMatrix,,method,transform,,JAVA,this and all of the matrix functions need to be re-implemented using numpy
 print_matrix,printMatrix,,method,transform,,JAVA,
-begin_camera,beginCamera,@_context_wrapper('end_camera'),method,lights_camera,camera,JAVA,
+begin_camera,beginCamera,,method,lights_camera,camera,PYTHON,
 end_camera,endCamera,,method,lights_camera,camera,JAVA,
 camera,camera,,method,lights_camera,camera,JAVA,
 print_camera,printCamera,,method,lights_camera,camera,JAVA,
@@ -546,7 +546,7 @@ screen_z,screenZ,,method,lights_camera,coordinates,JAVA,
 model_x,modelX,,method,lights_camera,coordinates,JAVA,
 model_y,modelY,,method,lights_camera,coordinates,JAVA,
 model_z,modelZ,,method,lights_camera,coordinates,JAVA,
-push_style,pushStyle,@_context_wrapper('pop_style'),method,structure,,JAVA,
+push_style,pushStyle,,method,structure,,PYTHON,
 pop_style,popStyle,,method,structure,,JAVA,
 style,style,,method,,,SKIP,public methods that shouldn't be available to users
 stroke_weight,strokeWeight,,method,shape,attributes,JAVA,
@@ -606,7 +606,7 @@ last_window_x,lastWindowX,,dynamic variable,,,SKIP,used to store the last window
 last_window_y,lastWindowY,,dynamic variable,,,SKIP,used to store the last window location so it can reopen in the same location
 window_moved,windowMoved,,method,,,SKIP,method implemented by user
 window_resized,windowResized,,method,,,SKIP,method implemented by user
-push,push,@_context_wrapper('pop'),method,structure,,JAVA,
+push,push,,method,structure,,PYTHON,
 pop,pop,,method,structure,,JAVA,
 link,link,,method,,,SKIP,public methods that shouldn't be available to users
 build_py5_bridge,buildPy5Bridge,,method,,,SKIP,public methods that shouldn't be available to users
