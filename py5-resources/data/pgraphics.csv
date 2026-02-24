@@ -370,7 +370,7 @@ text_width,textWidth,@_text_fix_str,method,JAVA,
 get_matrix,getMatrix,@ _get_matrix_wrapper,method,JAVA,this and all of the matrix functions need to be re-implemented using numpy
 set_matrix,setMatrix,,method,JAVA,this and all of the matrix functions need to be re-implemented using numpy
 print_matrix,printMatrix,,method,JAVA,
-begin_camera,beginCamera,@_context_wrapper('end_camera'),method,JAVA,
+begin_camera,beginCamera,,method,PYTHON,
 end_camera,endCamera,,method,JAVA,
 camera,camera,,method,JAVA,
 print_camera,printCamera,,method,JAVA,
