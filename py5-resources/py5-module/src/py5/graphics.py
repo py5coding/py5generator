@@ -138,6 +138,8 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
 
     # *** BEGIN METHODS ***
 
+    # context manager overloads
+
     @overload
     def begin_shape(self) -> ContextManager:
         """$class_Py5Graphics_begin_shape"""
@@ -167,6 +169,8 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
     def begin_closed_shape(self, *args) -> ContextManager:
         """$class_Py5Graphics_begin_closed_shape"""
         return self._instance.beginShape(*args)
+
+    # end context manager overloads
 
     def points(self, coordinates: Sequence[Sequence[float]], /) -> None:
         """$class_Py5Graphics_points"""
