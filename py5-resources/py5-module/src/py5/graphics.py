@@ -175,6 +175,11 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
         """$class_Py5Graphics_begin_contour"""
         return self._instance.beginContour()
 
+    @_context_wrapper("end_raw")
+    def begin_raw(self, raw_graphics: Py5Graphics, /) -> ContextManager:
+        """$class_Py5Graphics_begin_raw"""
+        return self._instance.beginRaw(raw_graphics._instance)
+
     @_context_wrapper("pop")
     def push(self) -> ContextManager:
         """$class_Py5Graphics_push"""
