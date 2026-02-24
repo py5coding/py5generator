@@ -541,6 +541,31 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         else:
             return _return_py5graphics(out)  # type: ignore
 
+    @_context_wrapper("end_contour")
+    def begin_contour(self) -> ContextManager:
+        """$class_Sketch_begin_contour"""
+        return self._instance.beginContour()
+
+    @_context_wrapper("pop")
+    def push(self) -> ContextManager:
+        """$class_Sketch_push"""
+        return self._instance.push()
+
+    @_context_wrapper("pop_matrix")
+    def push_matrix(self) -> ContextManager:
+        """$class_Sketch_push_matrix"""
+        return self._instance.pushMatrix()
+
+    @_context_wrapper("pop_style")
+    def push_style(self) -> ContextManager:
+        """$class_Sketch_push_style"""
+        return self._instance.pushStyle()
+
+    @_context_wrapper("end_camera")
+    def begin_camera(self) -> ContextManager:
+        """$class_Sketch_begin_camera"""
+        return self._instance.beginCamera()
+
     # end context manager overloads
 
     @overload

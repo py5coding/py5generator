@@ -7,7 +7,7 @@ pclass = PApplet
 processing_name = beginCamera
 
 @@ signatures
-begin_camera() -> None
+begin_camera() -> ContextManager
 
 @@ description
 The `begin_camera()` and [](sketch_end_camera) functions enable advanced customization of the camera space. The functions are useful if you want to more control over camera movement, however for most users, the [](sketch_camera) function will be sufficient. The camera functions will replace any transformations (such as [](sketch_rotate) or [](sketch_translate)) that occur before them in `draw()`, but they will not automatically replace the camera transform itself. For this reason, camera functions should be placed at the beginning of `draw()` (so that transformations happen afterwards), and the [](sketch_camera) function can be used after `begin_camera()` if you want to reset the camera before applying transformations.
