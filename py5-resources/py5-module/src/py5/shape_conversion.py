@@ -513,7 +513,11 @@ try:
                 elif (color := obj.visual.face_colors.squeeze()).shape == (4,):
                     shape_fill_color = color
 
-        if kwargs.get("facet_edges", True):
+        if (
+            texture is None
+            and vertices_fill_colors is None
+            and shape_fill_color is None
+        ) and kwargs.get("facet_edges", True):
             min_angle = max(kwargs.get("min_edge_angle", 0.0), 0.0)
             shape = _trimesh_facet_conversion(sketch, obj, min_angle)
         else:
