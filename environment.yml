@@ -10,7 +10,6 @@ dependencies:
   - cairosvg=2.8.*
   - colour>=0.1.*
   - flake8=7.1.*
-  - hatch=1.14.*
   - ipython=8.37.*
   - jedi=0.19.*
   - jpype1=1.6.*
@@ -30,5 +29,7 @@ dependencies:
   - trimesh=4.6.*
   - twine>=6.1.*
   - pip:
+    - hatch==1.16.*
     - stackprinter==0.2.12
     - opencv-contrib-python>=4.12
+    - virtualenv<21.0.0
