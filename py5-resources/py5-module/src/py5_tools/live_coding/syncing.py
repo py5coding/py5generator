@@ -18,6 +18,7 @@
 #
 # *****************************************************************************
 import datetime as dt
+import glob
 import inspect
 import os
 import sys
@@ -304,8 +305,8 @@ class SyncDraw:
             self.getmtime = lambda f: max(
                 (
                     os.path.getmtime(ff)
-                    for ff in f.parent.glob("**/*")
-                    if ff.is_file()
+                    for ff_str in glob.iglob(str(f.parent / "**/*"), recursive=True)
+                    if (ff := Path(ff_str)).is_file()
                     and not is_subdirectory(self.archive_dir, ff)
                     and not ff.suffix in [".pyc", ".class", ".lst"]
                 ),
