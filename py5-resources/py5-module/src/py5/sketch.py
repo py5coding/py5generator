@@ -822,7 +822,11 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
     # *** Py5Image methods ***
 
     def create_image_from_numpy(
-        self, array: npt.NDArray[np.uint8], bands: str = "ARGB", *, dst: Py5Image = None
+        self,
+        array: npt.NDArray[np.uint8],
+        bands: str = "ARGB",
+        *,
+        dst: Py5Image | None = None,
     ) -> Py5Image:
         """$class_Sketch_create_image_from_numpy"""
         height, width = array.shape[:2]
@@ -839,7 +843,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         return py5_img
 
     def convert_image(
-        self, obj: Any, *, dst: Py5Image = None, **kwargs: dict[str, Any]
+        self, obj: Any, *, dst: Py5Image | None = None, **kwargs: Any
     ) -> Py5Image:
         """$class_Sketch_convert_image"""
         if isinstance(obj, (Py5Image, Py5Graphics)):
@@ -854,7 +858,7 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
             return result
 
     def convert_cached_image(
-        self, obj: Any, force_conversion: bool = False, **kwargs: dict[str, Any]
+        self, obj: Any, force_conversion: bool = False, **kwargs: Any
     ) -> Py5Image:
         """$class_Sketch_convert_cached_image"""
         try:
@@ -881,14 +885,14 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
 
             return converted_obj
 
-    def convert_shape(self, obj: Any, **kwargs: dict[str, Any]) -> Py5Shape:
+    def convert_shape(self, obj: Any, **kwargs: Any) -> Py5Shape:
         """$class_Sketch_convert_shape"""
         if isinstance(obj, Py5Shape):
             return obj
         return shape_conversion._convert(self, obj, **kwargs)
 
     def convert_cached_shape(
-        self, obj: Any, force_conversion: bool = False, **kwargs: dict[str, Any]
+        self, obj: Any, force_conversion: bool = False, **kwargs: Any
     ) -> Py5Shape:
         """$class_Sketch_convert_cached_shape"""
         try:
