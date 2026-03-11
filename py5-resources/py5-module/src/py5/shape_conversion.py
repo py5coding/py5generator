@@ -470,7 +470,8 @@ try:
         if isinstance(obj.visual, TextureVisuals):
             use_texture = True
             uv = obj.visual.uv[obj_faces_ravel]
-            uv[:, 1] = 1 - uv[:, 1]
+            if kwargs.get("flip_v", False):
+                uv[:, 1] = 1 - uv[:, 1]
             vertices = np.hstack([vertices, uv])
 
             if "texture" in kwargs:
