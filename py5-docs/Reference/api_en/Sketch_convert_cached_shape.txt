@@ -5,11 +5,11 @@ category = shape
 subcategory = None
 
 @@ signatures
-convert_cached_shape(obj: Any, force_conversion: bool = False, **kwargs: dict[str, Any]) -> Py5Shape
+convert_cached_shape(obj: Any, force_conversion: bool = False, **kwargs: Any) -> Py5Shape
 
 @@ variables
 force_conversion: bool = False - force conversion of object if it is already in the cache
-kwargs: dict[str, Any] - keyword arguments for conversion function
+kwargs: Any - keyword arguments for conversion function
 obj: Any - object to convert into a Py5Shape object
 
 @@ description

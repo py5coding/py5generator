@@ -5,11 +5,11 @@ category = image
 subcategory = loading_displaying
 
 @@ signatures
-convert_image(obj: Any, *, dst: Py5Image = None, **kwargs: dict[str, Any]) -> Py5Image
+convert_image(obj: Any, *, dst: Py5Image | None = None, **kwargs: Any) -> Py5Image
 
 @@ variables
-dst: Py5Image = None - existing Py5Image object to put the converted image into
-kwargs: dict[str, Any] - keyword arguments for conversion function
+dst: Py5Image | None = None - existing Py5Image object to put the converted image into
+kwargs: Any - keyword arguments for conversion function
 obj: Any - object to convert into a Py5Image object
 
 @@ description
