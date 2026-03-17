@@ -66,6 +66,7 @@ py5-utils = "py5_tools.tools.py5utils:main"
 run_sketch = "py5_tools.tools.run_sketch:main"
 py5-run-sketch = "py5_tools.tools.run_sketch:main"
 py5-live-coding = "py5_tools.tools.live_coding:main"
+py5-install-jdk = "py5_tools.tools.install_jdk:main"
 
 [project.urls]
 "Bug Tracker" = "https://github.com/py5coding/py5generator/issues"
