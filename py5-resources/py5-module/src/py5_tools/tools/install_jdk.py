@@ -37,13 +37,6 @@ parser.add_argument(
     default=False,
     help="Install Java Runtime Environment (JRE) instead of Java Development Kit (JDK)",
 )
-parser.add_argument(
-    "--vendor",
-    action="store",
-    dest="vendor",
-    default="Adoptium",
-    help="Java Vendor (bust be one of Corretto, Azul, or the default option Adoptium)",
-)
 
 
 def main():
@@ -60,7 +53,6 @@ def main():
 
     java_version = args.java_version
     jre = args.jre
-    vendor = args.vendor.title()
 
     installing = "Java Runtime Environment" if jre else "Java Development Kit"
 
@@ -70,16 +62,10 @@ def main():
         )
         return
 
-    if vendor not in {"Corretto", "Azul", "Adoptium"}:
-        print(
-            f"Java vendor must be one of Corretto, Azul, or the default option Adoptium",
-        )
-        return
-
     try:
         print(f"Installing {installing} version {java_version}...")
         print(
-            f"{installing} version {java_version} installed to {jdk.install(java_version, jre=jre, vendor=vendor)}"
+            f"{installing} version {java_version} installed to {jdk.install(java_version, jre=jre)}"
         )
     except jdk.JdkError as e:
         print(
