@@ -20,7 +20,7 @@
 import argparse
 import sys
 
-parser = argparse.ArgumentParser(description="Install Java Development Environment")
+parser = argparse.ArgumentParser(description="Install Java Development Kit")
 parser.add_argument(
     "-j",
     "--java-version",
@@ -53,7 +53,7 @@ def main():
         return
 
     try:
-        print(f"Installing Java Development Environment version {java_version}...")
+        print(f"Installing Java Development Kit version {java_version}...")
         print(f"Java installed to {jdk.install(java_version)}")
     except jdk.JdkError as e:
         print(f"Failed to install Java: {e}", file=sys.stderr)
