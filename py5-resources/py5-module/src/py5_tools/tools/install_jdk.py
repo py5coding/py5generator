@@ -30,6 +30,13 @@ parser.add_argument(
     type=int,
     help="Java Version (must be 17 or greater, defaults to 21)",
 )
+parser.add_argument(
+    "--jre",
+    action="store_true",
+    dest="jre",
+    default=False,
+    help="Install Java Runtime Environment (JRE) instead of Java Development Kit (JDK)",
+)
 
 
 def main():
@@ -45,6 +52,8 @@ def main():
         return
 
     java_version = args.java_version
+    jre = args.jre
+    installing = "Java Runtime Environment" if jre else "Java Development Kit"
 
     if java_version < 17:
         print(
@@ -53,10 +62,19 @@ def main():
         return
 
     try:
-        print(f"Installing Java Development Kit version {java_version}...")
-        print(f"Java installed to {jdk.install(java_version)}")
+        print(f"Installing {installing} version {java_version}...")
+        print(
+            f"{installing} version {java_version} installed to {jdk.install(java_version, jre=jre)}"
+        )
     except jdk.JdkError as e:
-        print(f"Failed to install Java: {e}", file=sys.stderr)
+        print(
+            f"Failed to install {installing} version {java_version}: {e}",
+            file=sys.stderr,
+        )
+        print(
+            "Make sure you have a working internet and that have not installed this version of Java already.",
+            file=sys.stderr,
+        )
 
 
 if __name__ == "__main__":
