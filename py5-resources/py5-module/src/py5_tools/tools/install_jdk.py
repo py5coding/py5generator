@@ -39,8 +39,8 @@ parser.add_argument(
 )
 
 
-def main():
-    args = parser.parse_args()
+def main(args=None):
+    args = args or parser.parse_args()
 
     try:
         import jdk
