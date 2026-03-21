@@ -49,10 +49,10 @@ def main():
     remaining_args = args[1:]
 
     if command not in TOOLS_MAP:
-        print(f"Error: Unknown command '{command}'\n")
-        print("Available commands:")
+        print(f"Error: Unknown command '{command}'\n", file=sys.stderr)
+        print("Available commands:", file=sys.stderr)
         for cmd in TOOLS_MAP:
-            print(f"  {cmd}")
+            print(f"  {cmd}", file=sys.stderr)
         sys.exit(1)
 
     module_name = TOOLS_MAP[command]
@@ -62,12 +62,15 @@ def main():
         # Dynamically load the requested tool module
         module = importlib.import_module(full_module_name)
     except ImportError as e:
-        print(f"Error loading {full_module_name}: {e}")
+        print(f"Error loading {full_module_name}: {e}", file=sys.stderr)
         sys.exit(1)
 
     # Import the argparse instance from the module
     if not hasattr(module, "parser"):
-        print(f"Error: {full_module_name} does not expose a 'parser' instance.")
+        print(
+            f"Error: {full_module_name} does not expose a 'parser' instance.",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     # Use the instance to parse the remaining command line arguments
@@ -76,7 +79,10 @@ def main():
     if hasattr(module, "main"):
         module.main(parsed_args)
     else:
-        print(f"Error: {full_module_name} does not have a 'main' function.")
+        print(
+            f"Error: {full_module_name} does not have a 'main' function.",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
 
