@@ -29,8 +29,9 @@ parser.add_argument(action="store", dest="src", help="path to imported mode code
 parser.add_argument(action="store", dest="dest", help="path to module mode code")
 
 
-def main():
-    args = parser.parse_args()
+def main(args=None):
+    args = args or parser.parse_args()
+
     src = Path(args.src)
     dest = Path(args.dest)
 

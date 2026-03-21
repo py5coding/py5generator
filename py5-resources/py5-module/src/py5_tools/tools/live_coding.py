@@ -74,8 +74,8 @@ parser.add_argument(
 )
 
 
-def main():
-    args = parser.parse_args()
+def main(args=None):
+    args = args or parser.parse_args()
 
     sketch_path = Path(args.sketch_path).resolve()
     archive_dir = Path(args.archive_dir).resolve()

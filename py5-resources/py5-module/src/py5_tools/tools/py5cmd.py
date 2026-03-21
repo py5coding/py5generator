@@ -169,8 +169,9 @@ class Py5Cmd(cmd.Cmd):
         print()
 
 
-def main():
-    args = parser.parse_args()
+def main(args=None):
+    args = args or parser.parse_args()
+
     py5cmd = Py5Cmd()
     py5cmd.cmdloop()
 
