@@ -31,8 +31,9 @@ parser.add_argument(
 )
 
 
-def main():
-    args = parser.parse_args()
+def main(args=None):
+    args = args or parser.parse_args()
+
     py5_tools.utilities.generate_utilities_framework(args.output_dir)
 
 

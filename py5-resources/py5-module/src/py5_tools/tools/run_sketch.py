@@ -58,8 +58,9 @@ parser.add_argument(
 )
 
 
-def main():
-    args = parser.parse_args()
+def main(args=None):
+    args = args or parser.parse_args()
+
     imported.run_code(
         args.sketch_path,
         classpath=args.classpath,
