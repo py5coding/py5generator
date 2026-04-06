@@ -81,11 +81,15 @@ def get_jvm_debug_info() -> dict[str, Any]:
     out = dict()
     out["JAVA_HOME environment variable"] = os.environ.get("JAVA_HOME", "<not set>")
     out["jvm version"] = jpype.getJVMVersion()
-    out["default jvm path"] = jpype.getDefaultJVMPath()
+    try:
+        out["default jvm path"] = jpype.getDefaultJVMPath()
+    except Exception as e:
+        out["default jvm path"] = str(e)
+
     return out
 
 
-def _evaluate_java_version(path, n=1):
+def _evaluate_java_version(path, n=1) -> int:
     path = Path(path)
     for _ in range(n):
         try:
@@ -99,7 +103,7 @@ def _evaluate_java_version(path, n=1):
                         [str(java_path), "-XshowSettings:properties"],
                         stderr=subprocess.PIPE,
                     )
-                    .stderr.decode("utf-8")
+                    .stderr.decode("utf-8", errors="ignore")
                     .splitlines()
                 )
                 for l in stderr:
