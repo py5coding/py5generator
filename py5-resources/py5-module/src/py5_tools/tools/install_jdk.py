@@ -46,7 +46,7 @@ def main(args=None):
         import jdk
     except ImportError:
         print(
-            "Please first install the python library `install-jdk` using the command `python -m pip install install-jdk`",
+            "Please first install the python library `install-jdk` using the command `python -m pip install install-jdk` or `pip install py5[extras]`",
             file=sys.stderr,
         )
         return
@@ -71,7 +71,7 @@ def main(args=None):
         print(
             f"Failed to install {installing} version {java_version}: {e}",
             "Make sure you have a working internet and have not installed this version of Java already.",
-            "If you get a certificate error, try installing the python library `pip-system-certs` using the command `python -m pip install pip-system-certs`.",
+            "If you get a certificate error, try installing the python library `pip-system-certs` using the command `python -m pip install pip-system-certs` or `pip install py5[extras]`",
             sep="\n",
             file=sys.stderr,
         )
