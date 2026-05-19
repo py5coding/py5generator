@@ -22,6 +22,7 @@
 """
 py5 is a version of Processing for Python. It makes the Processing Java libraries available to the CPython interpreter using JPype.
 """
+
 from __future__ import annotations
 
 import importlib.metadata
@@ -79,6 +80,11 @@ if not py5_tools.is_jvm_running():
                 NSApplicationActivationPolicyRegular,
                 NSImage,
             )
+            from Foundation import (
+                NSProcessInfo,
+                NSActivityUserInitiated,
+                NSActivityLatencyCritical,
+            )
 
             # this adds a white square to the dock
             app = NSApplication.sharedApplication()
@@ -90,9 +96,15 @@ if not py5_tools.is_jvm_running():
             icon_image = NSImage.alloc().initWithContentsOfURL_(icon_url)
             app.setApplicationIconImage_(icon_image)
 
+            NSProcessInfo.processInfo().beginActivityWithOptions_reason_(
+                NSActivityUserInitiated | NSActivityLatencyCritical,
+                "py5 sketch rendering",
+            )
+
             # cleanup
             del app, icon_path, icon_url, icon_image
             del NSURL, NSApplication, NSApplicationActivationPolicyRegular, NSImage
+            del NSProcessInfo, NSActivityUserInitiated, NSActivityLatencyCritical
         except:
             pass
 
