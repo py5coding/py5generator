@@ -490,20 +490,10 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         """$class_Sketch_begin_shape"""
         return self._instance.beginShape(*args)
 
-    @overload
+    @_context_wrapper("end_shape", exit_attr_args=("CLOSE",))
     def begin_closed_shape(self) -> ContextManager:
         """$class_Sketch_begin_closed_shape"""
-        pass
-
-    @overload
-    def begin_closed_shape(self, kind: int, /) -> ContextManager:
-        """$class_Sketch_begin_closed_shape"""
-        pass
-
-    @_context_wrapper("end_shape", exit_attr_args=("CLOSE",))
-    def begin_closed_shape(self, *args) -> ContextManager:
-        """$class_Sketch_begin_closed_shape"""
-        return self._instance.beginShape(*args)
+        return self._instance.beginShape()
 
     @overload
     def begin_record(self, recorder: Py5Graphics, /) -> ContextManager:

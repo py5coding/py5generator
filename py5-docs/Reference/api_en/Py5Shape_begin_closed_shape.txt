@@ -8,10 +8,6 @@ processing_name = beginShape
 
 @@ signatures
 begin_closed_shape() -> ContextManager
-begin_closed_shape(kind: int, /) -> ContextManager
-
-@@ variables
-kind: int - Either POINTS, LINES, TRIANGLES, TRIANGLE_FAN, TRIANGLE_STRIP, QUADS, or QUAD_STRIP
 
 @@ description
 This method is used to start a custom closed shape created with the [](sketch_create_shape) function. It's always and only used with [](sketch_create_shape).
