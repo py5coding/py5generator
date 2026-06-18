@@ -348,6 +348,7 @@ class SyncDraw:
         s.loop = mock_methods.mock_loop
         s.no_loop = mock_methods.mock_no_loop
         s.redraw = mock_methods.mock_redraw
+        s.real_exit_sketch = s.exit_sketch
         s.exit_sketch = mock_methods.mock_exit_sketch
 
     def pre_setup_hook(self, s):
