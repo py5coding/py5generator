@@ -155,20 +155,10 @@ class Py5Graphics(PixelPy5GraphicsMixin, Py5Base):
         """$class_Py5Graphics_begin_shape"""
         return self._instance.beginShape(*args)
 
-    @overload
+    @_context_wrapper("end_shape", exit_attr_args=("CLOSE",))
     def begin_closed_shape(self) -> ContextManager:
         """$class_Py5Graphics_begin_closed_shape"""
-        pass
-
-    @overload
-    def begin_closed_shape(self, kind: int, /) -> ContextManager:
-        """$class_Py5Graphics_begin_closed_shape"""
-        pass
-
-    @_context_wrapper("end_shape", exit_attr_args=("CLOSE",))
-    def begin_closed_shape(self, *args) -> ContextManager:
-        """$class_Py5Graphics_begin_closed_shape"""
-        return self._instance.beginShape(*args)
+        return self._instance.beginShape()
 
     @_context_wrapper("end_contour")
     def begin_contour(self) -> ContextManager:
