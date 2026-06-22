@@ -246,6 +246,7 @@ try:
                         shape.no_fill()
 
                     if color is not None:
+                        color = color.astype(np.uint32)
                         shape.stroke(
                             color[0] * 65536
                             + color[1] * 256
@@ -260,6 +261,7 @@ try:
                         shape.no_fill()
 
                     if color is not None:
+                        color = color.astype(np.uint32)
                         shape.stroke(
                             color[0] * 65536
                             + color[1] * 256
@@ -302,11 +304,12 @@ try:
             shape.vertices(obj.vertices)
 
         if obj.colors.size > 0 and obj.colors.shape == (obj.vertices.shape[0], 4):
+            obj_colors = obj.colors.astype(np.uint32)
             colors = (
-                obj.colors[:, 0] * 65536
-                + obj.colors[:, 1] * 256
-                + obj.colors[:, 2]
-                + obj.colors[:, 3] * 16777216
+                obj_colors[:, 0] * 65536
+                + obj_colors[:, 1] * 256
+                + obj_colors[:, 2]
+                + obj_colors[:, 3] * 16777216
             )
             shape.set_strokes(colors)
 
@@ -496,21 +499,25 @@ try:
         elif isinstance(obj.visual, ColorVisuals) and obj.visual.kind is not None:
             if obj.visual.kind == "vertex":
                 if obj.visual.vertex_colors.shape == (obj.vertices.shape[0], 4):
+                    obj_visual_vertex_colors = obj.visual.vertex_colors.astype(
+                        np.uint32
+                    )
                     vertices_fill_colors = (
-                        obj.visual.vertex_colors[obj_faces_ravel, 0] * 65536
-                        + obj.visual.vertex_colors[obj_faces_ravel, 1] * 256
-                        + obj.visual.vertex_colors[obj_faces_ravel, 2]
-                        + obj.visual.vertex_colors[obj_faces_ravel, 3] * 16777216
+                        obj_visual_vertex_colors[obj_faces_ravel, 0] * 65536
+                        + obj_visual_vertex_colors[obj_faces_ravel, 1] * 256
+                        + obj_visual_vertex_colors[obj_faces_ravel, 2]
+                        + obj_visual_vertex_colors[obj_faces_ravel, 3] * 16777216
                     )
                 elif (color := obj.visual.vertex_colors.squeeze()).shape == (4,):
                     shape_fill_color = color
             elif obj.visual.kind == "face":
                 if obj.visual.face_colors.shape == (obj.faces.shape[0], 4):
+                    obj_visual_face_colors = obj.visual.face_colors.astype(np.uint32)
                     vertices_fill_colors = np.repeat(
-                        obj.visual.face_colors[:, 0] * 65536
-                        + obj.visual.face_colors[:, 1] * 256
-                        + obj.visual.face_colors[:, 2]
-                        + obj.visual.face_colors[:, 3] * 16777216,
+                        obj_visual_face_colors[:, 0] * 65536
+                        + obj_visual_face_colors[:, 1] * 256
+                        + obj_visual_face_colors[:, 2]
+                        + obj_visual_face_colors[:, 3] * 16777216,
                         3,
                     )
                 elif (color := obj.visual.face_colors.squeeze()).shape == (4,):
