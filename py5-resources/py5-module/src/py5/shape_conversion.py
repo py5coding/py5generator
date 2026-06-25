@@ -25,7 +25,7 @@ from PIL.Image import Image as PIL_Image
 pshape_functions = []
 
 
-def _convertable(obj):
+def _convertible(obj):
     return any(pre(obj) for pre, _ in pshape_functions)
 
 
@@ -51,7 +51,7 @@ def register_shape_conversion(
 
 
 ###############################################################################
-# BUILT-IN CONVERSTION FUNCTIONS
+# BUILT-IN CONVERSION FUNCTIONS
 ###############################################################################
 
 
