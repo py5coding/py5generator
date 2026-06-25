@@ -108,7 +108,7 @@ def _auto_convert_to_py5image(argnum):
                     args[argnum] = self_.create_image_from_numpy(img.array, img.bands)
                 elif not isinstance(
                     img, (Py5Image, Py5Graphics)
-                ) and image_conversion._convertable(img):
+                ) and image_conversion._convertible(img):
                     args[argnum] = self_.convert_image(img)
             return f(self_, *args)
 
@@ -123,7 +123,7 @@ def _auto_convert_to_py5shape(f):
         if len(args) >= 1:
             args = list(args)
             shape = args[0]
-            if not isinstance(shape, Py5Shape) and shape_conversion._convertable(shape):
+            if not isinstance(shape, Py5Shape) and shape_conversion._convertible(shape):
                 args[0] = self_.convert_shape(shape)
         return f(self_, *args)
 

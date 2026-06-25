@@ -33,7 +33,7 @@ _TEMP_DIR = Path(tempfile.TemporaryDirectory().name)
 _TEMP_DIR.mkdir(exist_ok=True, parents=True)
 
 
-def _convertable(obj):
+def _convertible(obj):
     return any(pre(obj) for pre, _ in pimage_functions)
 
 
@@ -59,7 +59,7 @@ def register_image_conversion(
 
 
 ###############################################################################
-# BUILT-IN CONVERSTION FUNCTIONS
+# BUILT-IN CONVERSION FUNCTIONS
 ###############################################################################
 
 
