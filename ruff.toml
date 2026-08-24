@@ -1,0 +1,7 @@
+[lint]
+# https://docs.astral.sh/ruff/rules/
+select = [
+    # unused-import
+    # https://docs.astral.sh/ruff/rules/unused-import/
+    "F401",
+]

@@ -23,21 +23,16 @@ from __future__ import annotations
 import functools
 import types
 import weakref
-from pathlib import Path
 from typing import ContextManager, Sequence, overload  # noqa
 
 import numpy as np
 import numpy.typing as npt  # noqa
-from jpype import JClass, JException
+from jpype import JClass
 from jpype.types import JBoolean, JFloat, JInt
 
 from . import spelling
 from .decorators import (
     _context_wrapper,
-    _convert_hex_color,
-    _convert_hex_color2,
-    _ret_str,
-    _return_color,
 )
 from .pmath import _get_pvector_wrapper  # noqa
 
