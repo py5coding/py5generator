@@ -74,7 +74,7 @@ We welcome contributions from folks who appreciate py5 and value the care, stabi
 
 Please be aware of the following guidelines.
 
-* Talk to Us: For bug fixes or new features, please comment on an existing issue or start a GitHub discussion before writing code.
+* Talk to us: For bug fixes or new features, please comment on an existing issue, open a new issue, or start a GitHub discussion before writing any code.
 * Human-authored contributions only: Do not submit AI-generated pull requests or discussion replies. Low-effort or unvetted AI output wastes maintainer and community bandwidth.
 * Quality matters: Please test your code thoroughly. You can find information about [py5's build process](https://py5coding.org/developer/build_process.html) online.
 
