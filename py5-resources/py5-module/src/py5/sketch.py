@@ -605,6 +605,11 @@ class Sketch(MathMixin, DataMixin, ThreadsMixin, PixelMixin, PrintlnStream, Py5B
         fget=_get_is_running, doc="""$class_Sketch_is_running"""
     )
 
+    @property
+    def is_looping(self) -> bool:
+        """$class_Sketch_is_looping"""
+        return self._instance.isLooping()
+
     def _get_is_dead(self) -> bool:  # @decorator
         """$class_Sketch_is_dead"""
         surface = self.get_surface()

@@ -1,0 +1,33 @@
+@@ meta
+name = is_looping
+type = field
+pclass = Sketch
+processing_name = isLooping
+category = structure
+subcategory = None
+
+@@ description
+The `is_looping` property returns whether or not the sketch is currently looping. This will be `True` by default, and `False` after [](sketch_no_loop) has been called. Calling [](sketch_loop) will set it back to `True`.
+
+@@ example
+x = 0.0
+
+
+def setup():
+    py5.size(200, 200)
+
+
+def draw():
+    global x
+    py5.background(204)
+    py5.line(x, 0, x, py5.height)
+    x = x + 1
+    if x > py5.width:
+        x = 0
+
+
+def mouse_pressed():
+    if py5.is_looping:
+        py5.no_loop()
+    else:
+        py5.loop()

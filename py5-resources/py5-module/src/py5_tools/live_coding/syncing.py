@@ -88,6 +88,9 @@ class MockMethods:
         UserFunctionWrapper.looping_state = ANIMATION_NO_LOOPING
         UserFunctionWrapper.freeze_frame_count = self.sketch.frame_count
 
+    def mock_is_looping(self):
+        return UserFunctionWrapper.looping_state in (ANIMATION_LOOPING, ANIMATION_REDRAW)
+
     def mock_redraw(self):
         UserFunctionWrapper.looping_state = ANIMATION_REDRAW
         UserFunctionWrapper.freeze_frame_count += 1
@@ -347,6 +350,7 @@ class SyncDraw:
         mock_methods = MockMethods(s)
         s.loop = mock_methods.mock_loop
         s.no_loop = mock_methods.mock_no_loop
+        s.is_looping = mock_methods.mock_is_looping
         s.redraw = mock_methods.mock_redraw
         s.real_exit_sketch = s.exit_sketch
         s.exit_sketch = mock_methods.mock_exit_sketch
