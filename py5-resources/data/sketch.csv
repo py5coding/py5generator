@@ -347,7 +347,7 @@ create_image,createImage,@_return_py5image,method,image,,JAVA,
 image,image,@_auto_convert_to_py5image(0),method,image,loading_displaying,JAVA,
 handle_draw,handleDraw,,method,,,SKIP,public methods that shouldn't be available to users
 alpha,alpha,@_convert_hex_color(),method,color,creating_reading,JAVA,
-is_looping,isLooping,,method,,,SKIP,methods that are not part of the processing framework
+is_looping,isLooping,,dynamic variable,structure,,PYTHON,property to determine if sketch is looping
 looping,looping,,unknown,,,SKIP,methods that are not part of the processing framework
 post_event,postEvent,,method,,,SKIP,public methods that shouldn't be available to users
 focus_gained,focusGained,,method,,,SKIP,methods that are not part of the processing framework
