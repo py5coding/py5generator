@@ -327,3 +327,6 @@ curve_vertices,,,method,PYTHON,implemented by me in Py5ShapeHelper
 quadratic_vertices,,,method,PYTHON,implemented by me in Py5ShapeHelper
 set_strokes,,,method,PYTHON,implemented by me in Py5ShapeHelper
 set_fills,,,method,PYTHON,implemented by me in Py5ShapeHelper
+set_vertices,,,method,PYTHON,implemented by me in Py5ShapeHelper
+set_normals,,,method,PYTHON,implemented by me in Py5ShapeHelper
+set_texture_uvs,,,method,PYTHON,implemented by me in Py5ShapeHelper
