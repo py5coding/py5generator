@@ -3,7 +3,7 @@ name = set_texture_uvs()
 type = method
 pclass = PShape
 category = material
-subcategory = None
+subcategory = texture
 
 @@ signatures
 set_texture_uvs(uvs: Sequence[Sequence[float]], /) -> None
