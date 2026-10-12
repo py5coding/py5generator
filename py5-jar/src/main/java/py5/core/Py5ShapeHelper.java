@@ -50,6 +50,55 @@ public class Py5ShapeHelper {
     }
   }
 
+  public static void setVertices(PShape s, float[][] coordinates) {
+    if (coordinates.length == 0) {
+      // no vertices
+      return;
+    }
+
+    if (coordinates[0].length == 2) {
+      for (int i = 0; i < coordinates.length; ++i) {
+        s.setVertex(i, coordinates[i][0], coordinates[i][1]);
+      }
+    } else if (coordinates[0].length == 3 && s.is3D()) {
+      for (int i = 0; i < coordinates.length; ++i) {
+        s.setVertex(i, coordinates[i][0], coordinates[i][1], coordinates[i][2]);
+      }
+    } else {
+      throw new RuntimeException("the second axis of parameter coordinates must have a length equal to 2 or (for 3D shapes only) 3");
+    }
+  }
+
+  public static void setNormals(PShape s, float[][] normals) {
+    if (normals.length == 0) {
+      // no normals
+      return;
+    }
+
+    if (normals[0].length == 3) {
+      for (int i = 0; i < normals.length; ++i) {
+        s.setNormal(i, normals[i][0], normals[i][1], normals[i][2]);
+      }
+    } else {
+      throw new RuntimeException("the second axis of parameter normals must have a length equal to 3");
+    }
+  }
+
+  public static void setTextureUVs(PShape s, float[][] UVs) {
+    if (UVs.length == 0) {
+      // no UVs
+      return;
+    }
+
+    if (UVs[0].length == 2) {
+      for (int i = 0; i < UVs.length; ++i) {
+        s.setTextureUV(i, UVs[i][0], UVs[i][1]);
+      }
+    } else {
+      throw new RuntimeException("the second axis of parameter UVs must have a length equal to 2");
+    }
+  }
+
   public static void bezierVertices(PShape s, float[][] coordinates) {
     if (coordinates.length == 0) {
       // no vertices
