@@ -1,6 +1,8 @@
 @@ meta
 name = set_vertices()
 type = method
+pclass = PShape
+category = vertices
 
 @@ signatures
 set_vertices(coordinates: Sequence[Sequence[float]], /) -> None
