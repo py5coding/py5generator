@@ -11,7 +11,7 @@ set_texture_uvs(uvs: Sequence[Sequence[float]], /) -> None
 uvs: Sequence[Sequence[float]] - horizontal and vertical coordinates for the texture mapping
 
 @@ description
-Set all of the uv texture mapping coordinates for a `Py5Shape` object. This method can only be used outside the [](py5shape_begin_shape) and [](py5shape_end_shape) methods.
+Set all of the uv texture mapping coordinates for a `Py5Shape` object. This method can only be used outside the [](py5shape_begin_shape) and [](py5shape_end_shape) methods. This method is similar to but much faster than [](py5shape_set_texture_uv) when used in a `for` loop.
 
 The uv texture coordinates define the mapping of a `Py5Shape` object's texture to the form. By default, the coordinates used for `u` and `v` are specified in relation to the image's size in pixels, but this relation can be changed with the `Py5Shape` object's [](py5shape_set_texture_mode) method.
 

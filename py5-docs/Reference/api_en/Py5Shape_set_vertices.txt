@@ -13,6 +13,8 @@ coordinates: Sequence[Sequence[float]] - 2D array of vertex coordinates
 @@ description
 The `set_vertices()` method sets the vertex coordinates for all vertices in a `Py5Shape` object. This method is similar to but much faster than [](py5shape_set_vertex) when used in a `for` loop.
 
+This method can only be used outside the [](py5shape_begin_shape) and [](py5shape_end_shape) methods.
+
 @@ example
 import numpy as np
 
