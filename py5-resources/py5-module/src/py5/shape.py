@@ -229,5 +229,17 @@ class Py5Shape:
             coordinates = list(coordinates)
         _Py5ShapeHelper.quadraticVertices(self._instance, coordinates)
 
+    def set_vertices(self, coordinates: Sequence[Sequence[float]], /) -> None:
+        """$class_Py5Shape_set_vertices"""
+        if isinstance(coordinates, types.GeneratorType):
+            coordinates = list(coordinates)
+        _Py5ShapeHelper.setVertices(self._instance, coordinates)
+
+    def set_texture_uvs(self, uvs: Sequence[Sequence[float]], /) -> None:
+        """$class_Py5Shape_set_texture_uvs"""
+        if isinstance(uvs, types.GeneratorType):
+            uvs = list(uvs)
+        _Py5ShapeHelper.setTextureUVs(self._instance, uvs)
+
 
 {py5shape_class_members_code}
