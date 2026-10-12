@@ -25,12 +25,11 @@ The `set_vertex()` method defines the coordinates of the vertex point located at
 def setup():
     global s
     s = py5.create_shape()
-    s.begin_shape()
-    s.vertex(0, 0)
-    s.vertex(60, 0)
-    s.vertex(60, 60)
-    s.vertex(0, 60)
-    s.end_shape(py5.CLOSE)
+    with s.begin_closed_shape():
+        s.vertex(0, 0)
+        s.vertex(60, 0)
+        s.vertex(60, 60)
+        s.vertex(0, 60)
 
 
 def draw():
