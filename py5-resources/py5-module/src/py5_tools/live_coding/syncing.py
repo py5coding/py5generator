@@ -89,8 +89,11 @@ class MockMethods:
         UserFunctionWrapper.freeze_frame_count = self.sketch.frame_count
 
     def mock_redraw(self):
-        UserFunctionWrapper.looping_state = ANIMATION_REDRAW
-        UserFunctionWrapper.freeze_frame_count += 1
+        if UserFunctionWrapper.looping_state == ANIMATION_NO_LOOPING and isinstance(
+            UserFunctionWrapper.freeze_frame_count, int
+        ):
+            UserFunctionWrapper.looping_state = ANIMATION_REDRAW
+            UserFunctionWrapper.freeze_frame_count += 1
 
     def mock_exit_sketch(self):
         raise Py5ExitSketchException(
