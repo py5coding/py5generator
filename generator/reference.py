@@ -92,6 +92,7 @@ EXTRA_DIR_NAMES = {
     "register_shape_conversion",
     "NumpyImageArray",
     "__version__",
+    "__processing_version__",
     "utils",
     "render_frame",
     "render_frame_sequence",
