@@ -17,6 +17,7 @@ The uv texture coordinates define the mapping of a `Py5Shape` object's texture t
 
 @@ example
 image = P5Shape_set_texture_uvs_0.png
+
 import numpy as np
 
 def setup():
