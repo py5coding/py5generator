@@ -6,7 +6,27 @@ type = method
 set_vertices(coordinates: Sequence[Sequence[float]], /) -> None
 
 @@ variables
-coordinates: Sequence[Sequence[float]] - missing variable description
+coordinates: Sequence[Sequence[float]] - 2D array of vertex coordinates
 
 @@ description
-The documentation for this field or method has not yet been written. If you know what it does, please help out with a pull request to the relevant file in https://github.com/py5coding/py5generator/tree/master/py5-docs/Reference/api_en/.
+The `set_vertices()` method sets the vertex coordinates for all vertices in a `Py5Shape` object. This method is similar to but much faster than [](py5shape_set_vertex) when used in a `for` loop.
+
+@@ example
+import numpy as np
+
+vertices = np.array([[0, 0], [60, 0], [60, 60], [0, 60]], dtype=np.float64)
+
+def setup():
+    global s
+    s = py5.create_shape()
+    with s.begin_closed_shape():
+        s.vertices(vertices)
+
+
+def draw():
+    global vertices
+    vertices += np.random.rand(4, 2) * 2 - 1
+    s.set_vertices(vertices)
+
+    py5.translate(20, 20)
+    py5.shape(s)
