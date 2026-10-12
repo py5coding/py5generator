@@ -3,6 +3,7 @@ name = set_vertices()
 type = method
 pclass = PShape
 category = vertices
+subcategory = None
 
 @@ signatures
 set_vertices(coordinates: Sequence[Sequence[float]], /) -> None
