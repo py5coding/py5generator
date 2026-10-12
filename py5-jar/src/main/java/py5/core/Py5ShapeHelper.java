@@ -69,21 +69,6 @@ public class Py5ShapeHelper {
     }
   }
 
-  public static void setNormals(PShape s, float[][] normals) {
-    if (normals.length == 0) {
-      // no normals
-      return;
-    }
-
-    if (normals[0].length == 3) {
-      for (int i = 0; i < normals.length; ++i) {
-        s.setNormal(i, normals[i][0], normals[i][1], normals[i][2]);
-      }
-    } else {
-      throw new RuntimeException("the second axis of parameter normals must have a length equal to 3");
-    }
-  }
-
   public static void setTextureUVs(PShape s, float[][] UVs) {
     if (UVs.length == 0) {
       // no UVs

@@ -235,12 +235,6 @@ class Py5Shape:
             coordinates = list(coordinates)
         _Py5ShapeHelper.setVertices(self._instance, coordinates)
 
-    def set_normals(self, normals: Sequence[Sequence[float]], /) -> None:
-        """$class_Py5Shape_set_normals"""
-        if isinstance(normals, types.GeneratorType):
-            normals = list(normals)
-        _Py5ShapeHelper.setNormals(self._instance, normals)
-
     def set_texture_uvs(self, uvs: Sequence[Sequence[float]], /) -> None:
         """$class_Py5Shape_set_texture_uvs"""
         if isinstance(uvs, types.GeneratorType):
