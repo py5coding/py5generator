@@ -17,7 +17,7 @@ Set all of the uv texture mapping coordinates for a `Py5Shape` object. This meth
 The uv texture coordinates define the mapping of a `Py5Shape` object's texture to the form. By default, the coordinates used for `u` and `v` are specified in relation to the image's size in pixels, but this relation can be changed with the `Py5Shape` object's [](py5shape_set_texture_mode) method.
 
 @@ example
-image = P5Shape_set_texture_uvs_0.png
+image = Py5Shape_set_texture_uvs_0.png
 
 import numpy as np
 
