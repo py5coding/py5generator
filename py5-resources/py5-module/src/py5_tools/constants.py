@@ -21,7 +21,7 @@ import os
 import platform
 from pathlib import Path
 
-VERSION = "0.10.12a0"
+VERSION = "0.10.13.dev0"
 PROCESSING_BUILD_NUMBER = 1435
 PROCESSING_VERSION = "4.5.7"
 
