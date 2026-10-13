@@ -34,10 +34,7 @@ from .base import Py5Base
 from .color import Py5Color  # noqa
 from .decorators import (
     _context_wrapper,
-    _convert_hex_color,
     _hex_converter,
-    _return_color,
-    _text_fix_str,
 )
 from .font import Py5Font  # noqa
 from .image import Py5Image, _return_py5image  # noqa

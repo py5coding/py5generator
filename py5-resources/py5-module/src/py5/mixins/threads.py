@@ -23,7 +23,7 @@ import sys
 import threading
 import time
 from collections.abc import Iterable
-from typing import Any, Callable, Union
+from typing import Any, Callable
 
 from .. import bridge
 
