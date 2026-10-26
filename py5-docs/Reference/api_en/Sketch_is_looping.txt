@@ -7,7 +7,7 @@ category = structure
 subcategory = None
 
 @@ description
-The `is_looping` property returns whether or not the sketch is currently looping. This will be `True` by default, and `False` after [](sketch_no_loop) has been called. Calling [](sketch_loop) will set it back to `True`.
+Boolean value reflecting if the Sketch is looping. This will be `True` by default, and `False` after [](sketch_no_loop) has been called. Calling [](sketch_loop) will set it back to `True`.
 
 @@ example
 x = 0.0
